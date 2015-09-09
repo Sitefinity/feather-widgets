@@ -14,25 +14,31 @@
 
 <div class="@Model.CssClass" data-sf-role="checkboxes-field-container">
     <input type="hidden" data-sf-role="violation-messages" value='{ "required": "@Model.RequiredViolationMessage"}' />
-    <label>
-        @Model.MetaField.Title
-        <p>@Model.MetaField.Description</p>
+   
+    <strong>@Model.MetaField.Title</strong>
+    <p>@Model.MetaField.Description</p>
         
-        @foreach (var choice in Model.Choices)
-        {
-            <div>
+    @foreach (var choice in Model.Choices)
+    {
+        <div>
+            <label>
                 <input type="checkbox" name="@fieldName" value="@choice" data-sf-role="checkboxes-field-input" @requiredAttributes />
-                <label>@choice</label>
-            </div>
-        }
+                @choice
+            </label>
+        </div>
+    }
 
-        @if(Model.HasOtherChoice)
-        {
-            <input type="checkbox" name="@fieldName" data-sf-checkboxes-role="other-choice-checkbox" data-sf-role="checkboxes-field-input"/>
-            <label>@Html.Resource("Other")</label>
-            <input type="hidden" data-sf-checkboxes-role="other-choice-text" />
-        }
-    </label>
+    @if(Model.HasOtherChoice)
+    {
+        <div>
+            <label>
+                <input type="checkbox" name="@fieldName" data-sf-checkboxes-role="other-choice-checkbox" data-sf-role="checkboxes-field-input"/>
+                @Html.Resource("Other")
+                <input type="hidden" data-sf-checkboxes-role="other-choice-text" />
+            </label>
+        </div>
+    }
+    
 </div>
 
 @Html.Script(Url.WidgetContent("Mvc/Scripts/CheckboxesField/checkboxes-field.js"), "bottom", false)
