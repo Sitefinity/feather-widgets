@@ -163,6 +163,7 @@
     <Compile Include="Mvc\Helpers\ControllerHelpers.cs" />
     <Compile Include="Mvc\Helpers\SectionHeaderFieldHelpers.cs" />
     <Compile Include="Mvc\Helpers\TextTypeHelpers.cs" />
+    <Compile Include="Mvc\Models\Fields\BackendFieldFallbackConfigurator.cs" />
     <Compile Include="Mvc\Models\Fields\CheckboxesField\ICheckboxesFieldModel.cs" />
     <Compile Include="Mvc\Models\Fields\CheckboxesField\CheckboxesFieldModel.cs" />
     <Compile Include="Mvc\Models\Fields\CheckboxesField\CheckboxesFieldViewModel.cs" />
