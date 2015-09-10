@@ -20,7 +20,7 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Controllers
     /// <summary>
     /// This class represents the controller of the MVC forms checkboxes field.
     /// </summary>
-    [ControllerToolboxItem(Name = "MvcCheckboxesField", Title = "Checkboxes", Toolbox = FormsConstants.FormControlsToolboxName, SectionName = FormsConstants.CommonSectionName)]
+    [ControllerToolboxItem(Name = "MvcCheckboxesField", Title = "Checkboxes", Toolbox = FormsConstants.FormControlsToolboxName, SectionName = FormsConstants.CommonSectionName, CssClass = CheckboxesFieldController.WidgetIconCssClass)]
     [DatabaseMapping(UserFriendlyDataType.ShortText)]
     [Localization(typeof(FieldResources))]
     public class CheckboxesFieldController : Controller, IFormFieldController<ICheckboxesFieldModel>
@@ -153,6 +153,7 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Controllers
 
         #region Private fields and Constants
 
+        internal const string WidgetIconCssClass = "sfCheckboxesIcn sfMvcIcn";
         private string writeTemplateName = "Default";
         private string readTemplateName = "Default";
         private const string WriteTemplateNamePrefix = "Write.";

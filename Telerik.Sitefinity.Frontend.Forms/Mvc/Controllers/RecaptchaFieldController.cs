@@ -15,6 +15,7 @@ using Telerik.Sitefinity.Metadata.Model;
 using Telerik.Sitefinity.Model;
 using Telerik.Sitefinity.Modules.Forms.Web.UI.Fields;
 using Telerik.Sitefinity.Mvc;
+using Telerik.Sitefinity.Web;
 using Telerik.Sitefinity.Web.UI.Fields.Enums;
 
 namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Controllers
@@ -23,10 +24,10 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Controllers
     /// This class represents the controller of the MVC forms reCaptcha field.
     /// </summary>
     [FormControlDisplayMode(FormControlDisplayMode.Write)]
-    [ControllerToolboxItem(Name = "MvcReCaptchaField", Title = "reCAPTCHA", Toolbox = FormsConstants.FormControlsToolboxName, SectionName = FormsConstants.CommonSectionName)]
+    [ControllerToolboxItem(Name = "MvcReCaptchaField", Title = "reCAPTCHA", Toolbox = FormsConstants.FormControlsToolboxName, SectionName = FormsConstants.CommonSectionName, CssClass = RecaptchaFieldController.WidgetIconCssClass)]
     [DatabaseMapping(UserFriendlyDataType.YesNo)]
     [Localization(typeof(FieldResources))]
-    public class RecaptchaFieldController : Controller
+    public class RecaptchaFieldController : Controller, IValidatable
     {
         #region Constructors
 
@@ -128,6 +129,7 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Controllers
 
         #region Private fields and Constants
 
+        internal const string WidgetIconCssClass = "sfCaptchaIcn sfMvcIcn";
         private string templateName = "Default";
         private const string TemplateNamePrefix = "Index.";
         private IRecaptchaFieldModel model;

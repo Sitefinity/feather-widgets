@@ -24,7 +24,7 @@ namespace Telerik.Sitefinity.Frontend.ContentBlock.Mvc.Controllers
     ///     The content block controller
     /// </summary>
     [ControllerToolboxItem(Name = "ContentBlock_MVC", Title = "Content block", SectionName = ToolboxesConfig.ContentToolboxSectionName, CssClass = ContentBlockController.WidgetIconCssClass)]
-    [ControllerToolboxItem(Name = "MvcInstructionalTextField", Title = "Instructional Text", Toolbox = "FormControls", SectionName = "Common")]
+    [ControllerToolboxItem(Name = "MvcInstructionalTextField", Title = "Instructional Text", Toolbox = "FormControls", SectionName = "Common", CssClass = ContentBlockController.FormsWidgetIconCssClass)]
     [Localization(typeof(ContentBlockResources))]
     public class ContentBlockController : Controller, 
                                           IHasContainerType,
@@ -409,6 +409,7 @@ namespace Telerik.Sitefinity.Frontend.ContentBlock.Mvc.Controllers
         #region Private fields and constants
 
         internal const string WidgetIconCssClass = "sfContentBlockIcn sfMvcIcn";
+        internal const string FormsWidgetIconCssClass = "sfInstructionIcn sfMvcIcn";
         private const string DesignerTemplate = "Telerik.Sitefinity.Frontend/Designer/Master/ContentBlock?view={0}";
         private const string IZoneEditorReloaderKeyStringFormat = "ContentBlock_{0}";
         private string content;
