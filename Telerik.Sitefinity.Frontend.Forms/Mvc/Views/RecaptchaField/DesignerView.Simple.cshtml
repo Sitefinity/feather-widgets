@@ -60,6 +60,7 @@
 <div class="Options Options-section">
     
   <label>@Html.Resource("Preview")</label>
+    @Html.Script("//www.google.com/recaptcha/api.js?onload=$.fn.refreshCaptcha&render=explicit", "bottom", false)
   <div data-sf-role="recaptcha-preview" data-sitekey="{{properties.Model.DataSitekey.PropertyValue}}" data-size="{{properties.Model.Size.PropertyValue}}" data-type="{{properties.Model.DataType.PropertyValue}}" data-theme="{{properties.Model.Theme.PropertyValue}}"></div>
 
 </div>
