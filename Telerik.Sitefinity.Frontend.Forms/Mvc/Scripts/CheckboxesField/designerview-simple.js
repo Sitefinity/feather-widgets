@@ -43,7 +43,10 @@
         };
 
         $scope.setDefault = function (item) {
-            $scope.defaultValue = item;
+            if ($scope.defaultValue && $scope.defaultValue.indexOf(item) > -1)
+                $scope.defaultValue = $scope.defaultValue.replace(item + ';', '');
+            else
+                $scope.defaultValue += item + ';';
         };
 
         $scope.removeItem = function (item, index) {
@@ -63,7 +66,7 @@
                 $scope.setDefault($scope.currentItems[0]);
             }
         };
-        
+
         $scope.sortableOptions = {
             hint: function (element) {
                 return $('<div class="sf-backend-wrp"><div class="list-group-item-radio list-group-item list-group-item-draggable-2 list-group-item-hint">' +
