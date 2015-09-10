@@ -25,7 +25,7 @@ namespace FeatherWidgets.TestUI.TestCases.Lists
         TestCategory(FeatherTestCategories.Selectors)]
         public void VerifyPagesListTemplate()
         {
-            BAT.Macros().NavigateTo().Pages();
+            BAT.Macros().NavigateTo().Pages(this.Culture);
             BAT.Wrappers().Backend().Pages().PagesWrapper().OpenPageZoneEditor(PageName);
             BATFeather.Wrappers().Backend().Pages().PageZoneEditorWrapper().EditWidget(WidgetName);
 
@@ -46,7 +46,7 @@ namespace FeatherWidgets.TestUI.TestCases.Lists
 
             BAT.Wrappers().Backend().Pages().PageZoneEditorWrapper().PublishPage();
 
-            BAT.Macros().NavigateTo().CustomPage("~/" + PageName.ToLower());
+            BAT.Macros().NavigateTo().CustomPage("~/" + PageName.ToLower(), true, this.Culture);
             BATFeather.Wrappers().Frontend().Lists().ListsWidgetWrapper().VerifyPagesListTemplate(ListTitle, this.listItems);
         }
 
