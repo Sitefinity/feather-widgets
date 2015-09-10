@@ -115,7 +115,7 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Models.Fields.RecaptchaField
         }
 
         /// <inheritDocs/>
-        public RecaptchaFieldViewModel GetViewModel(object value, IMetaField metaField)
+        public RecaptchaFieldViewModel GetViewModel(object value)
         {
             var viewModel = new RecaptchaFieldViewModel()
             {

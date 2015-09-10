@@ -24,7 +24,7 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Controllers
     [ControllerToolboxItem(Name = "MvcReCaptchaField", Title = "reCAPTCHA", Toolbox = FormsConstants.FormControlsToolboxName, SectionName = FormsConstants.CommonSectionName)]
     [DatabaseMapping(UserFriendlyDataType.YesNo)]
     [Localization(typeof(FieldResources))]
-    public class RecaptchaFieldController : Controller, IFormFieldController<IRecaptchaFieldModel>
+    public class RecaptchaFieldController : Controller
     {
         #region Constructors
 
@@ -54,26 +54,6 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Controllers
                 }
 
                 return this.model;
-            }
-        }
-
-        /// <inheritDocs />
-        [Browsable(false)]
-        public virtual IMetaField MetaField
-        {
-            get
-            {
-                if (this.Model.MetaField == null)
-                {
-                    this.Model.MetaField = this.Model.GetMetaField(this);
-                }
-
-                this.Model.MetaField.FieldName = "g_recaptcha_response";
-                return this.Model.MetaField;
-            }
-            set
-            {
-                this.Model.MetaField = value;
             }
         }
 
@@ -111,7 +91,7 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Controllers
             if (this.DisplayMode == FieldDisplayMode.Write && this.Model.ShouldRenderCaptcha())
             {
                 var viewPath = RecaptchaFieldController.TemplateNamePrefix + this.TemplateName;
-                var viewModel = this.Model.GetViewModel(value, this.MetaField);
+                var viewModel = this.Model.GetViewModel(value);
 
                 return this.View(viewPath, viewModel);
             }

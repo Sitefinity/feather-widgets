@@ -1,18 +1,27 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Telerik.Sitefinity.Metadata.Model;
+﻿using Telerik.Sitefinity.Metadata.Model;
 
 namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Models.Fields.RecaptchaField
 {
     /// <summary>
     /// This interface provides API for form reCaptcha field.
     /// </summary>
-    public interface IRecaptchaFieldModel : IFormFieldModel
+    public interface IRecaptchaFieldModel
     {
+        /// <summary>
+        /// Gets or sets the value of the form field.
+        /// </summary>
+        /// <value>
+        /// The value.
+        /// </value>
+        object Value { get; set; }
+
+        /// <summary>
+        /// Determines whether this instance is valid.
+        /// </summary>
+        /// <param name="value">The value.</param>
+        /// <returns></returns>
+        bool IsValid(object value);
+
         /// <summary>
         /// Gets or sets the  color theme of the widget.
         /// </summary>
@@ -70,19 +79,10 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Models.Fields.RecaptchaField
         bool DisplayOnlyForUnauthenticatedUsers { get; set; }
 
         /// <summary>
-        /// Gets or sets the meta field.
-        /// </summary>
-        /// <value>
-        /// The meta field.
-        /// </value>
-        [TypeConverter(typeof(ExpandableObjectConverter))]
-        IMetaField MetaField { get; set; }
-
-        /// <summary>
         /// Gets the view model.
         /// </summary>
         /// <returns></returns>
-        RecaptchaFieldViewModel GetViewModel(object value, IMetaField metaField);
+        RecaptchaFieldViewModel GetViewModel(object value);
 
         /// <summary>
         /// Should the render captcha.
