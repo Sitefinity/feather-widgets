@@ -20,7 +20,7 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Controllers
     /// <summary>
     /// This class represents the controller of the MVC forms multiple choice field.
     /// </summary>
-    [ControllerToolboxItem(Name = "MvcMultipleChoiceField", Title = "Multiple Choice", Toolbox = FormsConstants.FormControlsToolboxName, SectionName = FormsConstants.CommonSectionName)]
+    [ControllerToolboxItem(Name = "MvcMultipleChoiceField", Title = "Multiple Choice", Toolbox = FormsConstants.FormControlsToolboxName, SectionName = FormsConstants.CommonSectionName, CssClass = MultipleChoiceFieldController.WidgetIconCssClass)]
     [DatabaseMapping(UserFriendlyDataType.ShortText)]
     [Localization(typeof(FieldResources))]
     public class MultipleChoiceFieldController : Controller, IFormFieldController<IMultipleChoiceFieldModel>
@@ -153,6 +153,7 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Controllers
 
         #region Private fields and Constants
 
+        internal const string WidgetIconCssClass = "sfMultipleChoiceIcn sfMvcIcn";
         private string writeTemplateName = "Default";
         private string readTemplateName = "Default";
         private const string WriteTemplateNamePrefix = "Write.";
