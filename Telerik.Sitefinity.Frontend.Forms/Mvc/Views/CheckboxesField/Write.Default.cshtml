@@ -22,7 +22,7 @@
     @foreach (var choice in Model.Choices)
     {
 		var selctedAttributes = !Model.IsRequired && !string.IsNullOrEmpty(Model.MetaField.DefaultValue) && Model.MetaField.DefaultValue.Contains(choice as string) ? "checked" : string.Empty;
-        <div>
+        <div> 
             <label>
                 <input type="checkbox" name="@fieldName" value="@choice" data-sf-role="checkboxes-field-input" @selctedAttributes />
                 @choice
@@ -36,8 +36,8 @@
             <label>
                 <input type="checkbox" name="@fieldName" data-sf-checkboxes-role="other-choice-checkbox" data-sf-role="checkboxes-field-input"/>
                 @Html.Resource("Other")
-                <input type="hidden" data-sf-checkboxes-role="other-choice-text" />
             </label>
+            <input type="hidden" data-sf-checkboxes-role="other-choice-text" />
         </div>
     }
     
