@@ -11,6 +11,8 @@ using Telerik.Sitefinity.Configuration;
 using Newtonsoft.Json;
 using Telerik.Sitefinity.Modules.Forms.Web.UI.Fields;
 using Telerik.Sitefinity.Modules.Forms.Configuration;
+using System.IO;
+using System.Web.Script.Serialization;
 
 namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Models.Fields.RecaptchaField
 {
@@ -115,6 +117,22 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Models.Fields.RecaptchaField
         }
 
         /// <inheritDocs/>
+        public override object Value
+        {
+            get
+            {
+                if (base.Value == null)
+                    base.Value = System.Web.HttpContext.Current.Request["g-recaptcha-response"];
+
+                return base.Value;
+            }
+            set
+            {
+                base.Value = value;
+            }
+        }
+
+        /// <inheritDocs/>
         public RecaptchaFieldViewModel GetViewModel(object value)
         {
             var viewModel = new RecaptchaFieldViewModel()
@@ -145,23 +163,35 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Models.Fields.RecaptchaField
             return isVisible;
         }
 
+        /// <inheritDocs/>
         public override bool IsValid(object value)
         {
-            using (var client = new HttpClient())
+            if (string.IsNullOrEmpty(value as string))
+                return false;
+            
+            try
             {
-                client.Timeout = TimeSpan.FromMilliseconds(this.ValidationTimeoutMiliseconds);
-
-                var values = new Dictionary<string, string>
+                using (var client = new HttpClient())
                 {
-                   { "secret", this.Secret },
-                   { "response", value as string }
-                };
+                    client.Timeout = TimeSpan.FromMilliseconds(this.ValidationTimeoutMiliseconds);
 
-                var response = client.PostAsync("https://www.google.com/recaptcha/api/siteverify", new FormUrlEncodedContent(values)).Result;
-                var responseString = response.Content.ReadAsStringAsync().Result;
-                var responseModel = JsonConvert.DeserializeObject<GRecaptchaValidationResponseModel>(responseString);
+                    var values = new Dictionary<string, string>
+                    {
+                       { "secret", this.Secret },
+                       { "response", value as string }
+                    };
 
-                return responseModel.Success;
+                    var response = client.PostAsync("https://www.google.com/recaptcha/api/siteverify", new FormUrlEncodedContent(values)).Result;
+                    var responseString = response.Content.ReadAsStringAsync().Result;
+                    var responseModel = JsonConvert.DeserializeObject<GRecaptchaValidationResponseModel>(responseString);
+
+                    return responseModel.Success;
+                }
+            }
+            catch (HttpRequestException ex)
+            {
+                Telerik.Sitefinity.Abstractions.Log.Write(ex.Message);
+                return false;
             }
         }
 

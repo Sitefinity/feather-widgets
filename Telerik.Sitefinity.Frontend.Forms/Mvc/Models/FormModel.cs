@@ -191,17 +191,29 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Models
                     controlType = FormsManager.GetControlType(control);
                 else
                     controlType = TypeResolutionService.ResolveType(behaviorResolver.GetBehaviorObjectType(control), true);
-
-                if (!controlType.ImplementsGenericInterface(typeof(IFormFieldController<>)))
+                
+                if (!controlType.ImplementsInterface(typeof(IValidatable)))
                     continue;
 
                 var controlInstance = manager.LoadControl(control);
-                var fieldControl = (IFormFieldController<IFormFieldModel>)behaviorResolver.GetBehaviorObject(controlInstance);
+                var controller = behaviorResolver.GetBehaviorObject(controlInstance);
 
-                var fieldValue = collection[fieldControl.MetaField.FieldName];
+                if (!controlType.ImplementsGenericInterface(typeof(IFormFieldController<>)))
+                {
+                    var fieldControl1 = (IValidatable)controller;
 
-                if (!fieldControl.Model.IsValid(fieldValue))
-                    return false;
+                    if (!fieldControl1.IsValid())
+                        return false;
+                }
+                else
+                {
+                    var fieldControl = (IFormFieldController<IFormFieldModel>)controller;
+
+                    var fieldValue = collection[fieldControl.MetaField.FieldName];
+
+                    if (!fieldControl.Model.IsValid(fieldValue))
+                        return false;
+                }
             }
 
             return true;
