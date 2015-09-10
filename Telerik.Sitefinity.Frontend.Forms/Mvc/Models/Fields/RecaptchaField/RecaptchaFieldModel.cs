@@ -188,7 +188,7 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Models.Fields.RecaptchaField
                     return responseModel.Success;
                 }
             }
-            catch (HttpRequestException ex)
+            catch (Exception ex)
             {
                 Telerik.Sitefinity.Abstractions.Log.Write(ex.Message);
                 return false;
