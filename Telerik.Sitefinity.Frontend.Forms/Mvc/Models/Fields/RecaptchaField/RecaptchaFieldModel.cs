@@ -136,7 +136,8 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Models.Fields.RecaptchaField
             if (SystemManager.CurrentHttpContext.User != null &&
                     SystemManager.CurrentHttpContext.User.Identity != null &&
                     SystemManager.CurrentHttpContext.User.Identity.IsAuthenticated &&
-                    this.DisplayOnlyForUnauthenticatedUsers)
+                    this.DisplayOnlyForUnauthenticatedUsers && 
+                    !SystemManager.IsDesignMode)
             {
                 isVisible = false;
             }
