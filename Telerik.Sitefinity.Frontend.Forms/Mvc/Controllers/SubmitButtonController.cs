@@ -13,7 +13,7 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Controllers
     /// <summary>
     /// This class represents the controller of the MVC forms submit button.
     /// </summary>
-    [ControllerToolboxItem(Name = "MvcSubmitButton", Title = "Submit Button", Toolbox = FormsConstants.FormControlsToolboxName, SectionName = FormsConstants.CommonSectionName)]
+    [ControllerToolboxItem(Name = "MvcSubmitButton", Title = "Submit Button", Toolbox = FormsConstants.FormControlsToolboxName, SectionName = FormsConstants.CommonSectionName, CssClass = SubmitButtonController.WidgetIconCssClass)]
     [Localization(typeof(FieldResources))]
     public class SubmitButtonController : Controller
     {
@@ -84,6 +84,7 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Controllers
 
         private ISubmitButtonModel model;
 
+        internal const string WidgetIconCssClass = "sfSubmitBtnIcn sfMvcIcn";
         private const string TemplateNamePrefix = "Index.";
         private string templateName = "Default";
 
