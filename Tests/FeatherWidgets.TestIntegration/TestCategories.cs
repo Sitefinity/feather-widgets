@@ -18,5 +18,6 @@
         public const string Media = "Media";
         public const string Blogs = "Blogs";
         public const string InlineClientAssets = "InlineClientAssets";
+        public const string Forms = "Forms";
     }
 }

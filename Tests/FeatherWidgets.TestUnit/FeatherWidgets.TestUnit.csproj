@@ -223,20 +223,9 @@
       <SpecificVersion>False</SpecificVersion>
       <Private>True</Private>
     </Reference>
-    <Reference Include="Telerik.Web.Design, Version=2015.2.623.40, Culture=neutral, PublicKeyToken=121fae78165ba3d4, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Telerik.Web.UI.2015.2.623.40\lib\net40\Telerik.Web.Design.dll</HintPath>
+    <Reference Include="Telerik.Web.UI, Version=2015.2.729.40, Culture=neutral, PublicKeyToken=121fae78165ba3d4, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Telerik.Web.UI.2015.2.729.40\lib\net40\Telerik.Web.UI.dll</HintPath>
       <Private>True</Private>
-      <SpecificVersion>False</SpecificVersion>
-    </Reference>
-    <Reference Include="Telerik.Web.UI, Version=2015.2.623.40, Culture=neutral, PublicKeyToken=121fae78165ba3d4, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Telerik.Web.UI.2015.2.623.40\lib\net40\Telerik.Web.UI.dll</HintPath>
-      <Private>True</Private>
-      <SpecificVersion>False</SpecificVersion>
-    </Reference>
-    <Reference Include="Telerik.Web.UI.Skins, Version=2015.2.623.40, Culture=neutral, PublicKeyToken=121fae78165ba3d4, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Telerik.Web.UI.2015.2.623.40\lib\net40\Telerik.Web.UI.Skins.dll</HintPath>
-      <Private>True</Private>
-      <SpecificVersion>False</SpecificVersion>
     </Reference>
   </ItemGroup>
   <Choose>
@@ -427,6 +416,7 @@
   <Target Name="BeforeBuild">
     <Copy SourceFiles="$(SolutionDir)FxCop\CustomDictionary.xml" DestinationFolder="$(CodeAnalysisPath)" OverwriteReadOnlyFiles="true" Retries="10" ContinueOnError="false" />
   </Target>
-  <Target Name="AfterBuild"></Target>
+  <Target Name="AfterBuild">
+  </Target>
   <Import Project="$(SolutionDir)\StyleCop\StyleCop.targets" />
 </Project>
