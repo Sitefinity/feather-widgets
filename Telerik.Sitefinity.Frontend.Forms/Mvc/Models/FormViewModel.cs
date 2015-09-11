@@ -13,14 +13,6 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Models
         public Guid FormId { get; set; }
 
         /// <summary>
-        /// Gets or sets the name of the form.
-        /// </summary>
-        /// <value>
-        /// The name of the form.
-        /// </value>
-        public string FormName { get; set; }
-
-        /// <summary>
         /// Gets or sets the view mode.
         /// </summary>
         public FormViewMode ViewMode { get; set; }
@@ -29,19 +21,6 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Models
         /// Gets or sets the error if any.
         /// </summary>
         public string Error { get; set; }
-
-        /// <summary>
-        /// Gets or sets a value indicating whether the control to use Ajax submit when the form submit button is clicked.
-        /// </summary>
-        public bool UseAjaxSubmit { get; set; }
-
-        /// <summary>
-        /// Gets or sets the submit target URL when using AJAX submit. If empty the default form entry handler is used.
-        /// </summary>
-        /// <value>
-        /// The AJAX submit target URL.
-        /// </value>
-        public string AjaxSubmitTargetUrl { get; set; }
 
         /// <summary>
         /// Gets or sets the CSS class that will be applied on the wrapper div of the widget.

@@ -71,12 +71,6 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Models
         /// <inheritDoc/>
         public string CssClass { get; set; }
 
-        /// <inheritDoc/>
-        public bool UseAjaxSubmit { get; set; }
-
-        /// <inheritDoc/>
-        public string AjaxSubmitTargetUrl { get; set; }
-
         #endregion
 
         #region Public methods
@@ -99,13 +93,6 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Models
             if (!FormsManager.GetManager().GetForms().Any(f => f.Id == this.FormId && f.Status == ContentLifecycleStatus.Live && f.Visible))
             {
                 viewModel.Error = Res.Get<FormsResources>().TheSpecifiedFormNoLongerExists;
-            }
-
-            viewModel.UseAjaxSubmit = this.UseAjaxSubmit;
-            if (this.UseAjaxSubmit)
-            {
-                viewModel.AjaxSubmitTargetUrl = this.AjaxSubmitTargetUrl.IsNullOrEmpty() ? "~/Forms/Submit" : this.AjaxSubmitTargetUrl;
-                viewModel.FormName = FormsManager.GetManager().GetForm(this.FormId).Name;
             }
 
             return viewModel;
@@ -205,8 +192,8 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Models
         
                 if (!controlType.ImplementsGenericInterface(typeof(IFormElementController<>)))
                     continue;
-				
-  				var controlInstance = manager.LoadControl(control);
+                
+                var controlInstance = manager.LoadControl(control);
                 var controlBehaviorObject = behaviorResolver.GetBehaviorObject(controlInstance);
 
                 if (controlBehaviorObject.GetType().ImplementsGenericInterface(typeof(IFormFieldController<>)))

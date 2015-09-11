@@ -60,7 +60,6 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Models.Fields.TextField
         /// <value>The validation.</value>
         public ValidatorDefinition ValidatorDefinition { get; set; }
 
-
         /// <summary>
         /// Gets or sets the meta field.
         /// </summary>

@@ -48,19 +48,6 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Models
         Guid CustomConfirmationPageId { get; set; }
 
         /// <summary>
-        /// Gets or sets a value indicating whether the control to use Ajax submit when the form submit button is clicked.
-        /// </summary>
-        bool UseAjaxSubmit { get; set; }
-
-        /// <summary>
-        /// Gets or sets the submit target URL when using AJAX submit. If empty the default form entry handler is used.
-        /// </summary>
-        /// <value>
-        /// The AJAX submit target URL.
-        /// </value>
-        string AjaxSubmitTargetUrl { get; set; }
-
-        /// <summary>
         /// Gets the information for all of the content types that a model is able to show
         /// </summary>
         IEnumerable<IContentLocationInfo> GetLocations();
