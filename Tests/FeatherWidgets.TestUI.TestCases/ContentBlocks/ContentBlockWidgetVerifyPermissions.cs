@@ -18,7 +18,7 @@ namespace FeatherWidgets.TestUI.TestCases.ContentBlocks
     {
         [TestMethod,
         Owner(FeatherTeams.FeatherTeam),
-        TestCategory(FeatherTestCategories.ContentBlock), Ignore]
+        TestCategory(FeatherTestCategories.ContentBlock)]
         public void AddContentBlockWidgetToPageVerifyViewPermissions()
         {
             RuntimeSettingsModificator.ExecuteWithClientTimeout(800000, () => BAT.Macros().NavigateTo().CustomPage("~/sitefinity/pages", false));

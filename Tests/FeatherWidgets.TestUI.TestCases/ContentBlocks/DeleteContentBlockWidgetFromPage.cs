@@ -7,6 +7,7 @@ using Feather.Widgets.TestUI.Framework;
 using FeatherWidgets.TestUI.TestCases;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Telerik.Sitefinity.Frontend.TestUtilities;
+using Telerik.Sitefinity.TestUI.Framework.Utilities;
 
 namespace FeatherWidgets.TestUI.TestCases.ContentBlocks
 {
@@ -21,10 +22,11 @@ namespace FeatherWidgets.TestUI.TestCases.ContentBlocks
         /// </summary>
         [TestMethod,
         Owner(FeatherTeams.FeatherTeam),
-        TestCategory(FeatherTestCategories.ContentBlock), Ignore]
+        TestCategory(FeatherTestCategories.ContentBlock2)]
         public void DeleteContentBlockWidgetFromPage()
         {
-            BAT.Macros().NavigateTo().CustomPage("~/" + PageName);
+            RuntimeSettingsModificator.ExecuteWithClientTimeout(800000, () => BAT.Macros().NavigateTo().CustomPage("~/" + PageName, false));
+            RuntimeSettingsModificator.ExecuteWithClientTimeout(800000, () => BAT.Macros().User().EnsureAdminLoggedIn());   
             Assert.AreEqual(InitialContentBlocksCount, BATFeather.Wrappers().Frontend().ContentBlock().ContentBlockWrapper().GetCountOfContentBlocksOnFrontend(ContentBlockContent));
 
             BAT.Macros().NavigateTo().Pages();
@@ -40,7 +42,6 @@ namespace FeatherWidgets.TestUI.TestCases.ContentBlocks
         /// </summary>
         protected override void ServerSetup()
         {
-            BAT.Macros().User().EnsureAdminLoggedIn();
             BAT.Arrange(this.TestName).ExecuteSetUp();
         }
 

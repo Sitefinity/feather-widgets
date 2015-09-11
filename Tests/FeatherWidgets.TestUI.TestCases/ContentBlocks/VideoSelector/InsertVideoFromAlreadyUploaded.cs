@@ -21,7 +21,7 @@ namespace FeatherWidgets.TestUI.TestCases.ContentBlocks.VideoSelector
         [TestMethod,
         Owner(FeatherTeams.FeatherTeam),
         TestCategory(FeatherTestCategories.MediaSelector),
-        TestCategory(FeatherTestCategories.ContentBlock)]
+        TestCategory(FeatherTestCategories.ContentBlock3)]
         public void InsertVideoFromAlreadyUploaded()
         {
             BAT.Macros().NavigateTo().Pages();

@@ -20,6 +20,7 @@ namespace FeatherWidgets.TestUI.Arrangements
         [ServerSetUp]
         public void SetUp()
         {
+            AuthenticationHelper.AuthenticateUser(AdminUserName, AdminPass, true);
             Guid page1Id = ServerOperations.Pages().CreatePage(PageName);
             ServerOperationsFeather.Pages().AddContentBlockWidgetToPage(page1Id, Content);
         }
@@ -35,5 +36,7 @@ namespace FeatherWidgets.TestUI.Arrangements
 
         private const string PageName = "ContentBlock";
         private const string Content = "Test content";
+        private const string AdminUserName = "admin";
+        private const string AdminPass = "admin@2";
     }
 }

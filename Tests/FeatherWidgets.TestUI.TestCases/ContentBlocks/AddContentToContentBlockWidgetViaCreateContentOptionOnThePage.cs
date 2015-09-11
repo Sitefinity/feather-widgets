@@ -22,7 +22,7 @@ namespace FeatherWidgets.TestUI.TestCases.ContentBlocks
         /// </summary>
         [TestMethod,
         Owner(FeatherTeams.FeatherTeam),
-        TestCategory(FeatherTestCategories.ContentBlock), Ignore]
+        TestCategory(FeatherTestCategories.ContentBlock)]
         public void AddContentToContentBlockWidgetViaCreateContentOptionOnThePage()
         {
             RuntimeSettingsModificator.ExecuteWithClientTimeout(800000, () => BAT.Macros().NavigateTo().CustomPage("~/sitefinity/pages", false));

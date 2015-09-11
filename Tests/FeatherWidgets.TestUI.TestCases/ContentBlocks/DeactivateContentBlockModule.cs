@@ -24,7 +24,7 @@ namespace FeatherWidgets.TestUI.TestCases.ContentBlocks
         /// </summary>
         [TestMethod,
         Owner(FeatherTeams.FeatherTeam),
-        TestCategory(FeatherTestCategories.ContentBlock), Ignore]
+        TestCategory(FeatherTestCategories.ContentBlock)]
         public void DeactivateContentBlockModule()
         {
             BAT.Arrange(this.TestName).ExecuteArrangement("DeactivateModule");

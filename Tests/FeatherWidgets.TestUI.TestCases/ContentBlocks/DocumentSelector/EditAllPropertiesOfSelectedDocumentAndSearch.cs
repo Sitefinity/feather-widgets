@@ -21,7 +21,7 @@ namespace FeatherWidgets.TestUI.TestCases.ContentBlocks.DocumentSelector
         [TestMethod,
         Owner(FeatherTeams.FeatherTeam),
         TestCategory(FeatherTestCategories.MediaSelector),
-        TestCategory(FeatherTestCategories.ContentBlock)]
+        TestCategory(FeatherTestCategories.ContentBlock3)]
         public void EditAllPropertiesOfSelectedDocumentAndSearch()
         {
             BAT.Macros().NavigateTo().Pages();
