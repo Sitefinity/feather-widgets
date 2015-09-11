@@ -90,20 +90,5 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Models
         /// Tries to submit the form.
         /// </summary>
         bool TrySubmitForm(FormCollection collection, string userHostAddress);
-
-        /// <summary>
-        /// Determines whether a form is valid or not.
-        /// </summary>
-        /// <param name="form">The form.</param>
-        /// <param name="collection">The collection.</param>
-        /// <param name="manager">The manager.</param>
-        /// <returns></returns>
-        bool IsValidForm(FormDescription form, FormCollection collection, FormsManager manager);
-
-        /// <summary>
-        /// Sanitizes the form collection.
-        /// </summary>
-        /// <param name="collection">The collection.</param>
-        void SanitizeFormCollection(FormCollection collection);
     }
 }
