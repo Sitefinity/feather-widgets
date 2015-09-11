@@ -1,7 +1,7 @@
 ﻿(function () {
     var simpleViewModule = angular.module('simpleViewModule', ['designer', 'sfSelectors']);
     angular.module('designer').requires.push('expander', 'simpleViewModule');
-    simpleViewModule.controller('SimpleCtrl', ['$scope', 'propertyService', function ($scope, propertyService) {
+    simpleViewModule.controller('SimpleCtrl', ['$scope', 'propertyService', '$q', function ($scope, propertyService, $q) {
         $scope.feedback.showLoadingIndicator = true;
         $scope.currentItems = [];
         $scope.defaultValue = null;
@@ -22,8 +22,18 @@
             })
             .then(function () {
                 $scope.feedback.savingHandlers.push(function () {
-                    $scope.properties.Model.SerializedChoices.PropertyValue = JSON.stringify($scope.currentItems);
-                    $scope.properties.Model.MetaField.DefaultValue.PropertyValue = $scope.defaultValue;
+                    var deferred = $q.defer();
+
+                    if ($scope.currentItems.indexOf('') === -1) {
+                        $scope.properties.Model.SerializedChoices.PropertyValue = JSON.stringify($scope.currentItems);
+                        $scope.properties.Model.MetaField.DefaultValue.PropertyValue = $scope.defaultValue;
+                        deferred.resolve();
+                    }
+                    else {
+                        deferred.reject("Please, specify values for all of the choices.");
+                    }
+
+                    return deferred.promise;
                 });
             })
             .finally(function () {
