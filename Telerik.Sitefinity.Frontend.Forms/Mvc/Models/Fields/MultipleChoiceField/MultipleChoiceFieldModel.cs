@@ -67,15 +67,6 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Models.Fields.MultipleChoiceFiel
                 metaField.Title = Res.Get<FieldResources>().SelectChoice;
             }
 
-            if (string.IsNullOrEmpty(metaField.DefaultValue))
-            {
-                var choices = this.DeserializeChoices();
-                if (choices.Any())
-                {
-                    metaField.DefaultValue = choices.FirstOrDefault();                        
-                }
-            }
-
             return metaField;
         }
 
