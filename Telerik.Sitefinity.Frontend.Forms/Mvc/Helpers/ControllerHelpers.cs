@@ -69,19 +69,36 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Helpers
             using (var writer = new StringWriter())
             {
                 var context = new HttpContextWrapper(new HttpContext(HttpContext.Current.Request, new HttpResponse(writer)));
-                context.Handler = HttpContext.Current.Handler;
-
-                foreach (var key in HttpContext.Current.Items.Keys)
-                {
-                    context.Items[key] = HttpContext.Current.Items[key];
-                }
+                ControllerHelpers.PopulateHttpContext(context);
 
                 controller.ControllerContext = new ControllerContext(context, routeData, controller);
                 controller.ActionInvoker.InvokeAction(controller.ControllerContext, action);
 
+                ControllerHelpers.RestoreHttpContext(controller);
+
                 var result = writer.ToString();
                 return MvcHtmlString.Create(result);
             }
+        }
+
+        private static void PopulateHttpContext(HttpContextWrapper context)
+        {
+            context.Handler = HttpContext.Current.Handler;
+            context.User = HttpContext.Current.User;
+
+            foreach (var key in HttpContext.Current.Items.Keys)
+            {
+                context.Items[key] = HttpContext.Current.Items[key];
+            }
+        }
+
+        private static void RestoreHttpContext(Controller controller)
+        {
+            foreach (var key in controller.ControllerContext.HttpContext.Items.Keys)
+            {
+                HttpContext.Current.Items[key] = controller.ControllerContext.HttpContext.Items[key];
+            }
+            HttpContext.Current.User = controller.ControllerContext.HttpContext.User;
         }
     }
 }

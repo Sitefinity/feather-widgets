@@ -16,7 +16,7 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Controllers
     /// <summary>
     /// This class represents the controller of the MVC forms paragraph text field.
     /// </summary>
-    [ControllerToolboxItem(Name = "MvcParagraphTextField", Title = "Paragraph Text", Toolbox = FormsConstants.FormControlsToolboxName, SectionName = FormsConstants.CommonSectionName)]
+    [ControllerToolboxItem(Name = "MvcParagraphTextField", Title = "Paragraph Text", Toolbox = FormsConstants.FormControlsToolboxName, SectionName = FormsConstants.CommonSectionName, CssClass = ParagraphTextFieldController.WidgetIconCssClass)]
     [DatabaseMapping(UserFriendlyDataType.ShortText)]
     [Localization(typeof(FieldResources))]
     public class ParagraphTextFieldController : FormFieldControllerBase<IParagraphTextFieldModel>
@@ -40,5 +40,6 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Controllers
         }
 
         private IParagraphTextFieldModel model;
+        internal const string WidgetIconCssClass = "sfParagraphboxIcn sfMvcIcn";
     }
 }

@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Telerik.Sitefinity.Metadata.Model;
+﻿using Telerik.Sitefinity.Metadata.Model;
 
 namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Models.Fields.RecaptchaField
 {
@@ -13,6 +7,8 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Models.Fields.RecaptchaField
     /// </summary>
     public interface IRecaptchaModel : IFormElementdModel
     {
+        /// <summary>
+
         /// <summary>
         /// Gets or sets the  color theme of the widget.
         /// </summary>
@@ -68,7 +64,8 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Models.Fields.RecaptchaField
         /// <c>true</c> if will be visible only for unauthenticated users; otherwise, <c>false</c>.
         /// </value>
         bool DisplayOnlyForUnauthenticatedUsers { get; set; }
-        
+
+
         /// <summary>
         /// Should the render captcha.
         /// </summary>

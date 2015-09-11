@@ -192,12 +192,11 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Models
                     controlType = FormsManager.GetControlType(control);
                 else
                     controlType = TypeResolutionService.ResolveType(behaviorResolver.GetBehaviorObjectType(control), true);
-
+        
                 if (!controlType.ImplementsGenericInterface(typeof(IFormElementController<>)))
                     continue;
-
-                var controlInstance = manager.LoadControl(control);
-
+				
+  				var controlInstance = manager.LoadControl(control);
                 var controlBehaviorObject = behaviorResolver.GetBehaviorObject(controlInstance);
 
                 if (controlBehaviorObject.GetType().ImplementsGenericInterface(typeof(IFormFieldController<>)))

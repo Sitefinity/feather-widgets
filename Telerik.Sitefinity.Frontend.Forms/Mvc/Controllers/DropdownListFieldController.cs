@@ -21,7 +21,7 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Controllers
     /// <summary>
     /// This class represents the controller of the MVC forms dropdown list field.
     /// </summary>
-    [ControllerToolboxItem(Name = "MvcDropdownListField", Title = "Dropdown List", Toolbox = FormsConstants.FormControlsToolboxName, SectionName = FormsConstants.CommonSectionName)]
+    [ControllerToolboxItem(Name = "MvcDropdownListField", Title = "Dropdown List", Toolbox = FormsConstants.FormControlsToolboxName, SectionName = FormsConstants.CommonSectionName, CssClass = DropdownListFieldController.WidgetIconCssClass)]
     [DatabaseMapping(UserFriendlyDataType.ShortText)]
     [Localization(typeof(FieldResources))]
     public class DropdownListFieldController : FormFieldControllerBase<IDropdownListFieldModel>
@@ -43,7 +43,7 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Controllers
                 return this.model;
             }
         }
-
         private IDropdownListFieldModel model;
+        internal const string WidgetIconCssClass = "sfDropdownIcn sfMvcIcn";
     }
 }

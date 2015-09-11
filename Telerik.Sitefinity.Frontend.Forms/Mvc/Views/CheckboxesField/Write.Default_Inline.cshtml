@@ -14,23 +14,29 @@
 
 <div class="@Model.CssClass" data-sf-role="checkboxes-field-container">
     <input type="hidden" data-sf-role="violation-messages" value='{ "required": "@Model.RequiredViolationMessage"}' />
-    <label>
-        @Model.MetaField.Title
-        <p>@Model.MetaField.Description</p>
-        
-        @foreach (var choice in Model.Choices)
-        {
-            <input type="checkbox" name="@fieldName" value="@choice" data-sf-role="checkboxes-field-input" @requiredAttributes />
-            <label>@choice</label>
-        }
+    <input type="hidden" data-sf-role="required-validator" value='@Model.IsRequired' />
 
-        @if(Model.HasOtherChoice)
-        {
-            <input type="checkbox" name="@fieldName" data-sf-multiple-choice-role="other-choice-checkbox" data-sf-role="checkboxes-field-input"/>
-            <label>@Html.Resource("Other")</label>
-            <input type="hidden" data-sf-multiple-choice-role="other-choice-text" />
-        }
-    </label>
+    <strong> @Model.MetaField.Title</strong>
+    <p>@Model.MetaField.Description</p>
+        
+    @foreach (var choice in Model.Choices)
+    {
+        var selctedAttributes = !Model.IsRequired && !string.IsNullOrEmpty(Model.MetaField.DefaultValue) && Model.MetaField.DefaultValue.Contains(choice as string) ? "checked" : string.Empty;
+        <label>
+            <input type="checkbox" name="@fieldName" value="@choice" data-sf-role="checkboxes-field-input" @selctedAttributes />
+            @choice
+        </label>
+    }
+
+    @if(Model.HasOtherChoice)
+    {
+        <label>
+            <input type="checkbox" name="@fieldName" data-sf-checkboxes-role="other-choice-checkbox" data-sf-role="checkboxes-field-input"/>
+            @Html.Resource("Other")
+        </label>
+        <input type="hidden" data-sf-checkboxes-role="other-choice-text" />
+    }
+
 </div>
 
 @Html.Script(Url.WidgetContent("Mvc/Scripts/CheckboxesField/checkboxes-field.js"), "bottom", false)

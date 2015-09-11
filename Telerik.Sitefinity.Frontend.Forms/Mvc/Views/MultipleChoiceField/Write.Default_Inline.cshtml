@@ -14,25 +14,29 @@
 
 <div class="@Model.CssClass" data-sf-role="multiple-choice-field-container">
     <input type="hidden" data-sf-role="violation-messages" value='{ "required": "@Model.RequiredViolationMessage"}' />
-    <label>
-        @Model.MetaField.Title
+        <strong>@Model.MetaField.Title</strong>
         <p>@Model.MetaField.Description</p>
         
         @foreach (var choice in Model.Choices)
         {
-            <input type="radio" name="@fieldName" value="@choice" data-sf-role="multiple-choice-field-input" @requiredAttributes />
-            <label>@choice</label>
+            var selctedAttributes = !Model.IsRequired && choice == Model.MetaField.DefaultValue as string ? "checked" : string.Empty;
+            <label>
+                <input type="radio" name="@fieldName" value="@choice" data-sf-role="multiple-choice-field-input" @selctedAttributes @requiredAttributes />
+                @choice
+            </label>
         }
 
         @if(Model.HasOtherChoice)
         {
-            <input type="radio" name="@fieldName" data-sf-multiple-choice-role="other-choice-radio" data-sf-role="multiple-choice-field-input"/>
-            <label>@Html.Resource("Other")</label>
+           
+            <label>
+                <input type="radio" name="@fieldName" data-sf-multiple-choice-role="other-choice-radio" data-sf-role="multiple-choice-field-input"/>
+                @Html.Resource("Other")
+            </label>
             <input type="hidden" data-sf-multiple-choice-role="other-choice-text" />
+            
         }
 
-        <input type="radio" hidden name="@fieldName" value="" data-sf-role="multiple-choice-field-input" @requiredAttributes />
-    </label>
 </div>
 
 @Html.Script(Url.WidgetContent("Mvc/Scripts/MultipleChoiceField/multiple-choice-field.js"), "bottom", false)

@@ -13,21 +13,21 @@
        
     </div>
     <div class="form-group">
-        <strong class="full-width">@Html.Resource("Choices")</strong>
+        <strong >@Html.Resource("Choices")</strong>
                 
         <div class="list-group list-group-endless" kendo-sortable k-options="sortableOptions" k-on-change="sortItems(kendoEvent)">
             <div ng-repeat="item in currentItems track by $index" class="list-group-item list-group-item-multiselect" ng-class="currentItems.length > 1 ? 'list-group-item-draggable-2' : ''" >
-                <span ng-show="currentItems.length > 1" class="handler list-group-item-drag"></span>
-                <input type="radio" name="default" ng-click="setDefault(item)" />
+				<span ng-show="currentItems.length > 1" class="handler list-group-item-drag"></span>
+                <input type="checkbox" name="default" ng-click="setDefault(item)" ng-checked='(defaultValue && defaultValue.indexOf(currentItems[$index]) > -1)' />
                 <div>
-                    <section class="row">
-                        <div class="col-md-10">
-                            <input ng-click="itemClicked($event)" ng-model="currentItems[$index]" placeholder='@Html.Resource("EnterLabel")' type="text" class="form-control-highlight" />
-                        </div>
-                        <div class="col-md-2 text-right">
-                            <button ng-show="currentItems.length > 2" ng-click="removeItem(item, $index)" type="button" class="close" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                        </div>
-                    </section>
+				    <section class="row">
+					    <div class="col-md-10">
+						    <input ng-click="itemClicked($event)" ng-model="currentItems[$index]" placeholder='@Html.Resource("EnterLabel")' type="text" class="form-control-highlight" />
+					    </div>
+					    <div class="col-md-2 text-right">
+						    <button ng-show="currentItems.length > 2" ng-click="removeItem(item, $index)" type="button" class="close" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+					    </div>
+				    </section>
                 </div>
 
             </div>
@@ -37,7 +37,7 @@
     <div class="form-group">
         <div class="checkbox">
             <label for="multiple-choice-add-other" class="full-width">
-                <input id="multiple-choice-add-other" type="checkbox" ng-model="properties.Model.HasOtherChoice.PropertyValue" 
+                <input id="multiple-choice-add-other" type="checkbox" ng-model="properties.Model.HasOtherChoice.PropertyValue"
                     ng-true-value="'True'" ng-false-value="'False'" ng-checked="properties.Model.HasOtherChoice.PropertyValue === 'True'" >
                     @Html.Resource("AddOtherLastChoice")
                     <span class="text-muted">@Html.Resource("ExpandingTextBox")</span>
@@ -47,7 +47,7 @@
         <div class="checkbox">
             <label for="multiple-choice-required-field" class="full-width">
                 <input id="multiple-choice-required-field" type="checkbox" ng-click="changeRequired()" ng-model="properties.Model.ValidatorDefinition.Required.PropertyValue" 
-                    ng-true-value="'True'" ng-false-value="'False'" ng-checked="properties.Model.ValidatorDefinition.Required.PropertyValue === 'True'" >
+                    ng-true-value="'True'" ng-false-value="'False'" ng-checked="properties.Model.ValidatorDefinition.Required.PropertyValue === 'True'" ng-disabled="defaultValue">
                     @Html.Resource("RequiredField")
                 </input>
             </label>
@@ -55,7 +55,7 @@
     </div>
 
     <div class="form-group" ng-show="properties.Model.ValidatorDefinition.Required.PropertyValue === 'True'">
-        <label for="example" class="full-width" >
+        <label for="example" >
             @Html.Resource("ErrorMessageDisplayedLabel")
         </label>
         <input type="text" id="example" ng-model="properties.Model.ValidatorDefinition.RequiredViolationMessage.PropertyValue" class="form-control" />

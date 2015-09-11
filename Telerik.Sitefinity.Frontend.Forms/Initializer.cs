@@ -1,20 +1,20 @@
-﻿using System.Configuration;
-using System.Web.Mvc;
-using System.Web.UI;
+﻿using System.Web.UI;
 using Telerik.Microsoft.Practices.Unity;
 using Telerik.Sitefinity.Abstractions;
 using Telerik.Sitefinity.Abstractions.VirtualPath;
 using Telerik.Sitefinity.Configuration;
 using Telerik.Sitefinity.Data;
 using Telerik.Sitefinity.Frontend.Forms.Mvc.Controllers;
-using Telerik.Sitefinity.Localization;
+using Telerik.Sitefinity.Frontend.Forms.Mvc.Models.Fields;
+using Telerik.Sitefinity.Frontend.Forms.Mvc.Models.Fields.RecaptchaField;
 using Telerik.Sitefinity.Modules.ControlTemplates;
 using Telerik.Sitefinity.Modules.Forms.Configuration;
 using Telerik.Sitefinity.Modules.Pages;
+using Telerik.Sitefinity.Mvc.Proxy;
 using Telerik.Sitefinity.Services;
 using Telerik.Sitefinity.Web.UI;
 using Telerik.Sitefinity.Web.UI.ContentUI;
-using Telerik.Sitefinity.Frontend.Forms.Mvc.Models.Fields.RecaptchaField;
+using Telerik.Sitefinity.Web.UI.ContentUI.Views.Backend.Detail;
 
 namespace Telerik.Sitefinity.Frontend.Forms
 {
@@ -24,6 +24,8 @@ namespace Telerik.Sitefinity.Frontend.Forms
         {
             VirtualPathManager.AddVirtualFileResolver<FormsVirtualRazorResolver>(FormsVirtualRazorResolver.Path + "*", "MvcFormsResolver");
             ObjectFactory.Container.RegisterInstance<IControlDefinitionExtender>("FormsDefinitionsExtender", new FormsDefinitionsExtender(), new ContainerControlledLifetimeManager());
+
+            ObjectFactory.Container.RegisterType<IFormFieldBackendConfigurator, BackendFieldFallbackConfigurator>(typeof(MvcControllerProxy).FullName);
 
             EventHub.Unsubscribe<IScriptsRegisteringEvent>(Initializer.RegisteringFormScriptsHandler);
             EventHub.Subscribe<IScriptsRegisteringEvent>(Initializer.RegisteringFormScriptsHandler);

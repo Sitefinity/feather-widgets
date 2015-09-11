@@ -21,7 +21,7 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Controllers
     /// <summary>
     /// This class represents the controller of the MVC forms checkboxes field.
     /// </summary>
-    [ControllerToolboxItem(Name = "MvcCheckboxesField", Title = "Checkboxes", Toolbox = FormsConstants.FormControlsToolboxName, SectionName = FormsConstants.CommonSectionName)]
+    [ControllerToolboxItem(Name = "MvcCheckboxesField", Title = "Checkboxes", Toolbox = FormsConstants.FormControlsToolboxName, SectionName = FormsConstants.CommonSectionName, CssClass = CheckboxesFieldController.WidgetIconCssClass)]
     [DatabaseMapping(UserFriendlyDataType.ShortText)]
     [Localization(typeof(FieldResources))]
     public class CheckboxesFieldController : FormFieldControllerBase<ICheckboxesFieldModel>
@@ -45,5 +45,6 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Controllers
         }
 
         private ICheckboxesFieldModel model;
+        internal const string WidgetIconCssClass = "sfCheckboxesIcn sfMvcIcn";
     }
 }

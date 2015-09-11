@@ -1,11 +1,15 @@
 ﻿(function ($) {
     var changeOrInput = function (e) {
-        if (e.srcElement.value === '') {
-            var validationMessages = getValidationMessages(e.srcElement);
-            e.srcElement.setCustomValidity(validationMessages.required);
+        var container = $(e.srcElement).parents('[data-sf-role="checkboxes-field-container"]');
+        var inputs = $(container).find('[data-sf-role="checkboxes-field-input"]');
+        var hasChecked = $(container).find('input[data-sf-role="checkboxes-field-input"]:checked').length > 0;
+
+        if (hasChecked && container.find('[data-sf-role="required-validator"]').val()) {
+            $(inputs[0]).removeAttr('required');
+            inputs[0].setCustomValidity('');
         }
         else {
-            e.srcElement.setCustomValidity('');
+            $(inputs[0]).attr('required', 'required');
         }
     };
 
@@ -31,37 +35,56 @@
         if (!containers || containers.length < 1)
             return;
 
-        for (var i = 0; i < containers.length; i++) {
-            var input = $(containers[i]).find('[data-sf-role="checkboxes-field-other-input"]')[0];
+        var attachHandlers = function (index, input) {
+            input.addEventListener('change', changeOrInput);
+            input.addEventListener('input', changeOrInput);
+            input.addEventListener('invalid', invalid);
+        };
 
-            if (input) {
-                input.addEventListener('change', changeOrInput);
-                input.addEventListener('input', changeOrInput);
-                input.addEventListener('invalid', invalid);
-            }
-        }
+        var checkboxClickHandler = function (e) {
+            var container = $(e.target).parents('[data-sf-role="checkboxes-field-container"]');
+            var checkboxes = container.find('input[data-sf-role="checkboxes-field-input"]');
+            var otherInput = $(containers.find('[data-sf-checkboxes-role="other-choice-text"]').first());
+            var otherCheckbox = $(containers.find('[data-sf-checkboxes-role="other-choice-checkbox"]').first());
+            var otherCheckboxIndex = checkboxes.index(otherCheckbox);
+            var currentIndex = checkboxes.index($(e.target));
+            var isRequired = container.find('[data-sf-role="required-validator"]').val();
 
-        containers.find('label').click(function () {
-            $(this).prev().click();
-        });
+            if (currentIndex == otherCheckboxIndex && otherCheckbox.is(':checked')) {
+                otherInput.attr('type', 'text');
 
-        var otherCheckbox = $(containers.find('[data-sf-checkboxes-role="other-choice-checkbox"]').first());
-        var otherInput = $(containers.find('[data-sf-checkboxes-role="other-choice-text"]').first());
-
-        otherInput.change(function () {
-            otherCheckbox.val($(this).val());
-        });
-
-        var otherSelected = false;
-        otherCheckbox.click(function () {
-            if (otherSelected) {
-                otherInput.attr('type', 'hidden');
+                if (isRequired)
+                    otherInput.attr('required', 'required');
+                else
+                    otherInput.removeAttr('required');
             }
             else {
-                otherInput.attr('type', 'text');
+                otherInput.attr('type', 'hidden');
+                otherInput.removeAttr('required');
             }
+        };
 
-            otherSelected = !otherSelected;
-        });
+        var inputChangeHandler = function (e) {
+            var container = $(e.srcElement).parents('[data-sf-role="checkboxes-field-container"]');
+            var otherCheckbox = $(containers.find('[data-sf-checkboxes-role="other-choice-checkbox"]').first());
+            otherCheckbox.val($(e.srcElement).val());
+        };
+
+        for (var i = 0; i < containers.length; i++) {
+            var container = $(containers[i]);
+            var inputs = container.find('[data-sf-role="checkboxes-field-input"]');
+
+            if (container.find('[data-sf-role="required-validator"]').val())
+                $(inputs[0]).attr('required', 'required');
+
+            inputs.each(attachHandlers);
+
+            var checkboxes = container.find('input[data-sf-role="checkboxes-field-input"]');
+
+            var otherInput = $(containers.find('[data-sf-checkboxes-role="other-choice-text"]').first());
+
+            checkboxes.click(checkboxClickHandler);
+            otherInput.change(inputChangeHandler);
+        }
     });
 }(jQuery));
