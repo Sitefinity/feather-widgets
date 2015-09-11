@@ -38,6 +38,16 @@
            
         </div>
         <a ng-click="addItem()" type="button" class="text-muted list-group-item-add">@Html.Resource("ClickToAddChoice")</a>
+
+         <div ng-show="properties.Model.HasOtherChoice.PropertyValue === 'True'">
+			<section class="row">
+                <input type="radio" name="default" ng-click="setDefault('')" value=""  />
+				@Html.Resource("Other")
+			</section>
+            <section class="row">
+                <input type="text" disabled="disabled" />
+			</section>
+        </div>
     </div>
 
     <div class="form-group">
