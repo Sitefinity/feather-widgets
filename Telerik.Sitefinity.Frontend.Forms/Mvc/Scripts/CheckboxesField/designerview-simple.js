@@ -10,7 +10,7 @@
             'defaultValue',
             function (newDefaultValue, oldDefaultValue) {
                 if (newDefaultValue)
-                    $scope.properties.Model.ValidatorDefinition.Required.PropertyValue = 'False'
+                    $scope.properties.Model.ValidatorDefinition.Required.PropertyValue = 'False';
             },
             true
         );
