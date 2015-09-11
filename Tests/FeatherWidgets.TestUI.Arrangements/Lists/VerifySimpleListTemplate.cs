@@ -9,6 +9,7 @@ using Telerik.Sitefinity.Modules.Lists;
 using Telerik.Sitefinity.TestArrangementService.Attributes;
 using Telerik.Sitefinity.TestUI.Arrangements.Framework;
 using Telerik.Sitefinity.TestUtilities.CommonOperations;
+using Telerik.Sitefinity.TestUtilities.TestConfig;
 using Telerik.Sitefinity.Workflow;
 
 namespace FeatherWidgets.TestUI.Arrangements
@@ -16,7 +17,7 @@ namespace FeatherWidgets.TestUI.Arrangements
     /// <summary>
     /// Arrangement methods for VerifySimpleListTemplate
     /// </summary>
-    public class VerifySimpleListTemplate : ITestArrangement
+    public class VerifySimpleListTemplate : TestArrangementBase
     {
         /// <summary>
         /// Server side set up.
@@ -25,10 +26,9 @@ namespace FeatherWidgets.TestUI.Arrangements
         public void SetUp()
         {
             ServerOperationsFeather.ListsOperations().CreateList(this.listId, ListTitle, ListDescription);
-            Guid listItel1Id = Guid.NewGuid();
-            ServerOperationsFeather.ListsOperations().CreateListItem(listItel1Id, this.listId, ListItem1Title, ListItem1Content);
-            ServerOperationsFeather.ListsOperations().CreateListItem(Guid.NewGuid(), this.listId, ListItem2Title, ListItem2Content);
-            ServerOperationsFeather.ListsOperations().CreateListItem(Guid.NewGuid(), this.listId, ListItem3Title, ListItem3Content);
+            Guid listItel1Id = ServerOperationsFeather.ListsOperations().CreateListItemMultilingual(this.mlconfig, this.listId, ListItem1Title, ListItem1Content, false, this.culture);
+            ServerOperationsFeather.ListsOperations().CreateListItemMultilingual(this.mlconfig, this.listId, ListItem2Title, ListItem2Content, false, this.culture);
+            ServerOperationsFeather.ListsOperations().CreateListItemMultilingual(this.mlconfig, this.listId, ListItem3Title, ListItem3Content, false, this.culture);
 
             DateTime publicationDate = DateTime.UtcNow.AddDays(-10);
             ServerOperationsFeather.ListsOperations().PublishListItemWithSpecificDate(listItel1Id, publicationDate);
@@ -56,6 +56,8 @@ namespace FeatherWidgets.TestUI.Arrangements
         private const string ListItem3Title = "list item 3";
         private const string ListItem3Content = "list content 3";
         private const string PageName = "TestPage";
+        private string culture = ServerOperationsFeather.ListsOperations().GetCurrentCulture();
+        private MultilingualTestConfig mlconfig = MultilingualTestConfig.Get();
 
         private readonly Guid listId = new Guid("0D3937D3-A690-4F19-9DA4-53F0880F5B62");
     }

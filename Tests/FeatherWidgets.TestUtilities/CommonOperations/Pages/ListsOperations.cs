@@ -3,14 +3,21 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
 using System.Text.RegularExpressions;
+using System.Threading;
+using Telerik.Sitefinity;
 using Telerik.Sitefinity.Lists.Model;
 using Telerik.Sitefinity.Modules.Lists;
+using Telerik.Sitefinity.Security;
+using Telerik.Sitefinity.Services;
 using Telerik.Sitefinity.SitefinityExceptions;
 using Telerik.Sitefinity.Taxonomies;
 using Telerik.Sitefinity.Taxonomies.Model;
+using Telerik.Sitefinity.TestUtilities.CommonOperations;
+using Telerik.Sitefinity.TestUtilities.CommonOperations.Multilingual;
+using Telerik.Sitefinity.TestUtilities.TestConfig;
 using Telerik.Sitefinity.Workflow;
 
-namespace FeatherWidgets.TestUtilities.CommonOperations.Pages
+namespace FeatherWidgets.TestUtilities.CommonOperations
 {
     /// <summary>
     /// This class provides access to lists common server operations
@@ -206,6 +213,68 @@ namespace FeatherWidgets.TestUtilities.CommonOperations.Pages
             listItemMaster = listManager.Lifecycle.CheckIn(listItemTemp) as ListItem;
             listManager.Lifecycle.Publish(listItemMaster);
             listManager.SaveChanges();
+        }
+
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1024:UsePropertiesWhereAppropriate")]
+        public string GetCurrentCulture()
+        {
+            var culture = string.Empty;
+
+            if (ServerOperations.Multilingual().IsCurrentSiteInMultilingual)
+            {
+                culture = Thread.CurrentThread.CurrentUICulture.Name;
+            }
+            else
+            {
+                culture = SystemManager.CurrentContext.CurrentSite.DefaultCulture;
+            }
+
+            return culture;
+        }
+
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1026:DefaultParametersShouldNotBeUsed"), System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Globalization", "CA1305:SpecifyIFormatProvider", MessageId = "System.String.Format(System.String,System.Object)")]
+        public Guid CreateListItemMultilingual(MultilingualTestConfig config, Guid listId, string listItemTitle, string listItemContent, bool saveAsDraft = false, string culture = null, string provider = null)
+        {
+            var listItemId = this.CreateListItem(listId, listItemTitle, listItemContent, provider);
+
+            var createdListItem = App.Prepare().SetContentProvider(provider).WorkWith().ListItems().Get().FirstOrDefault(l => l.Id == listItemId);
+            if (createdListItem != null)
+            {
+                Guid currentUserId = SecurityManager.GetCurrentUserId();
+
+                if (string.IsNullOrWhiteSpace(culture) || culture == config.CultureInfo)
+                {
+                    ServerOperations.Multilingual().Lists().CreateLocalizedListItem(listItemId, listId, listItemTitle, listItemContent, currentUserId, config.CultureInfo, saveAsDraft, provider);
+                }
+
+                if (string.IsNullOrWhiteSpace(culture) || culture == config.BgCultureInfo)
+                {
+                    ServerOperations.Multilingual().Lists().CreateLocalizedListItem(listItemId, listId, listItemTitle, listItemContent, currentUserId, config.BgCultureInfo, saveAsDraft, provider);
+                }
+            }
+
+            return listItemId;
+        }
+
+        private Guid CreateListItem(Guid listId, string listItemTitle, string listItemContent, string provider = null)
+        {
+            using (var fluent = App.Prepare().SetContentProvider(provider).WorkWith())
+            {
+                Guid itemId = Guid.Empty;
+                fluent.List(listId).CreateListItem().Do(listItem =>
+                {
+                    itemId = listItem.Id;
+                    listItem.DateCreated = DateTime.UtcNow;
+                    listItem.PublicationDate = DateTime.UtcNow;
+                    listItem.Title = listItemTitle;
+                    listItem.Content = listItemContent;
+                    ////listItem.Urls.Clear(); - Because of bug in Fluent API
+                    listItem.Urls.Clear();
+                    listItem.UrlName = Regex.Replace(listItemTitle.ToLower(), @"[^\w\-\!\$\'\(\)\=\@\d_]+", "-");
+                    listItem.ApprovalWorkflowState = "Draft";
+                }).SaveChanges();
+                return itemId;
+            }
         }
     }
 }
