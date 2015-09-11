@@ -25,11 +25,11 @@ namespace Telerik.Sitefinity.Frontend.Forms
             Bind<IFormRenderer>().To<FormRazorRenderer>();
 
             Bind<IFormModel>().To<FormModel>();
-            Bind<IFormFieldModel>().To<FormFieldModel>();
+            Bind<IFormElementdModel>().To<FormElementModel>();
             Bind<ITextFieldModel>().To<TextFieldModel>();
-            Bind<IRecaptchaFieldModel>().To<RecaptchaFieldModel>();
+            Bind<IRecaptchaModel>().To<RecaptchaModel>();
             Bind<ISubmitButtonModel>().To<SubmitButtonModel>();
-            Bind<ISectionHeaderFieldModel>().To<SectionHeaderFieldModel>();
+            Bind<ISectionHeaderModel>().To<SectionHeaderFieldModel>();
             Bind<IParagraphTextFieldModel>().To<ParagraphTextFieldModel>();
             Bind<IDropdownListFieldModel>().To<DropdownListFieldModel>();
             Bind<IMultipleChoiceFieldModel>().To<MultipleChoiceFieldModel>();

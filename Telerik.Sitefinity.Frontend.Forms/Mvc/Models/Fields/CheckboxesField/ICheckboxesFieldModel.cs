@@ -21,15 +21,7 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Models.Fields.CheckboxesField
         /// The serialized choices.
         /// </value>
         string SerializedChoices { get; set; }
-
-        /// <summary>
-        /// Gets or sets the CSS class.
-        /// </summary>
-        /// <value>
-        /// The CSS class.
-        /// </value>
-        string CssClass { get; set; }
-
+        
         /// <summary>
         /// Gets or sets a value indicating whether this instance has other choice.
         /// </summary>
@@ -37,27 +29,12 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Models.Fields.CheckboxesField
         /// <c>true</c> if this instance has other choice; otherwise, <c>false</c>.
         /// </value>
         bool HasOtherChoice { get; set; }
-
-        /// <summary>
-        /// Gets or sets the meta field.
-        /// </summary>
-        /// <value>
-        /// The meta field.
-        /// </value>
-        [TypeConverter(typeof(ExpandableObjectConverter))]
-        IMetaField MetaField { get; set; }
-
+        
         /// <summary>
         /// Gets or sets a validation mechanism for the field.
         /// </summary>
         /// <value>The validation.</value>
         [TypeConverter(typeof(ExpandableObjectConverter))]
         ValidatorDefinition ValidatorDefinition { get; set; }
-
-        /// <summary>
-        /// Gets the view model.
-        /// </summary>
-        /// <returns></returns>
-        CheckboxesFieldViewModel GetViewModel(object value, IMetaField metaField);
     }
 }

@@ -1,5 +1,6 @@
 ﻿using System.ComponentModel;
 using System.Web.Mvc;
+using Telerik.Sitefinity.Frontend.Forms.Mvc.Controllers.Base;
 using Telerik.Sitefinity.Frontend.Forms.Mvc.Models.Fields.SubmitButton;
 using Telerik.Sitefinity.Frontend.Forms.Mvc.StringResources;
 using Telerik.Sitefinity.Frontend.Mvc.Infrastructure.Controllers;
@@ -15,15 +16,19 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Controllers
     /// </summary>
     [ControllerToolboxItem(Name = "MvcSubmitButton", Title = "Submit Button", Toolbox = FormsConstants.FormControlsToolboxName, SectionName = FormsConstants.CommonSectionName)]
     [Localization(typeof(FieldResources))]
-    public class SubmitButtonController : Controller
+    public class SubmitButtonController : FormElementControllerBase<ISubmitButtonModel>
     {
-        #region Properties
+        public SubmitButtonController()
+        {
+            this.ReadTemplateName = SubmitButtonController.templateName;
+            this.WriteTemplateName = SubmitButtonController.templateName;
+        }
 
         /// <summary>
         /// Gets the Form widget model.
         /// </summary>
         [TypeConverter(typeof(ExpandableObjectConverter))]
-        public ISubmitButtonModel Model
+        public override ISubmitButtonModel Model
         {
             get
             {
@@ -34,59 +39,8 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Controllers
             }
         }
 
-        /// <summary>
-        /// Gets or sets the name of the template that will be displayed
-        /// </summary>
-        public string TemplateName
-        {
-            get
-            {
-                return this.templateName;
-            }
-
-            set
-            {
-                this.templateName = value;
-            }
-        }
-
-        #endregion
-
-        #region Actions
-
-        /// <summary>
-        /// Provides the default view of this field
-        /// </summary>
-        public virtual ActionResult Index()
-        {
-            var viewPath = SubmitButtonController.TemplateNamePrefix + this.TemplateName;
-            var viewModel = this.Model.GetViewModel();
-
-            return this.View(viewPath, viewModel);
-        }
-
-        #endregion
-
-        #region Controller overrides
-
-        /// <summary>
-        /// Called when a request matches this controller, but no method with the specified action name is found in the controller.
-        /// </summary>
-        /// <param name="actionName">The name of the attempted action.</param>
-        protected override void HandleUnknownAction(string actionName)
-        {
-            this.Index().ExecuteResult(this.ControllerContext);
-        }
-
-        #endregion
-
-        #region Private fields and constants
-
         private ISubmitButtonModel model;
-
-        private const string TemplateNamePrefix = "Index.";
-        private string templateName = "Default";
-
-        #endregion
+        private const string templateNamePrefix = "Index.";
+        private const string templateName = "Default";
     }
 }

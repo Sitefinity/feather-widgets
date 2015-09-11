@@ -26,9 +26,9 @@ namespace FeatherWidgets.TestIntegration.Forms.Fields
         [Description("Ensures that when a recaptcha field widget is added to form the default value is presented in the page markup.")]
         public void Recaptcha_MarkupIsCorrect()
         {
-            var controller = new RecaptchaFieldController();
+            var controller = new RecaptchaController();
             var control = new MvcWidgetProxy();
-            control.ControllerName = typeof(RecaptchaFieldController).FullName;
+            control.ControllerName = typeof(RecaptchaController).FullName;
             control.Settings = new ControllerSettings(controller);
 
             var formId = ServerOperationsFeather.Forms().CreateFormWithWidget(control);

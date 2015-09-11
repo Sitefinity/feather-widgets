@@ -21,35 +21,12 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Models.Fields.DropdownListField
         /// The serialized choices.
         /// </value>
         string SerializedChoices { get; set; }
-
-        /// <summary>
-        /// Gets or sets the CSS class.
-        /// </summary>
-        /// <value>
-        /// The CSS class.
-        /// </value>
-        string CssClass { get; set; }
-
-        /// <summary>
-        /// Gets or sets the meta field.
-        /// </summary>
-        /// <value>
-        /// The meta field.
-        /// </value>
-        [TypeConverter(typeof(ExpandableObjectConverter))]
-        IMetaField MetaField { get; set; }
-
+        
         /// <summary>
         /// Gets or sets a validation mechanism for the field.
         /// </summary>
         /// <value>The validation.</value>
         [TypeConverter(typeof(ExpandableObjectConverter))]
         ValidatorDefinition ValidatorDefinition { get; set; }
-
-        /// <summary>
-        /// Gets the view model.
-        /// </summary>
-        /// <returns></returns>
-        DropdownListFieldViewModel GetViewModel(object value, IMetaField metaField);
     }
 }

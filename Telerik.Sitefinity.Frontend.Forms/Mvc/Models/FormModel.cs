@@ -7,6 +7,7 @@ using System.Text.RegularExpressions;
 using System.Web.Mvc;
 using Telerik.Sitefinity.Abstractions;
 using Telerik.Sitefinity.Forms.Model;
+using Telerik.Sitefinity.Frontend.Forms.Mvc.Controllers.Base;
 using Telerik.Sitefinity.Frontend.Forms.Mvc.Models.Fields;
 using Telerik.Sitefinity.Frontend.Forms.Mvc.StringResources;
 using Telerik.Sitefinity.Frontend.Mvc.Helpers;
@@ -192,16 +193,27 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Models
                 else
                     controlType = TypeResolutionService.ResolveType(behaviorResolver.GetBehaviorObjectType(control), true);
 
-                if (!controlType.ImplementsGenericInterface(typeof(IFormFieldController<>)))
+                if (!controlType.ImplementsGenericInterface(typeof(IFormElementController<>)))
                     continue;
 
                 var controlInstance = manager.LoadControl(control);
-                var fieldControl = (IFormFieldController<IFormFieldModel>)behaviorResolver.GetBehaviorObject(controlInstance);
 
-                var fieldValue = collection[fieldControl.MetaField.FieldName];
+                var controlBehaviorObject = behaviorResolver.GetBehaviorObject(controlInstance);
 
-                if (!fieldControl.Model.IsValid(fieldValue))
-                    return false;
+                if (controlBehaviorObject.GetType().ImplementsGenericInterface(typeof(IFormFieldController<>)))
+                {
+                    var formField = (IFormFieldController<IFormFieldModel>)controlBehaviorObject;
+                    var fieldValue = collection[formField.MetaField.FieldName];
+
+                    if (!formField.Model.IsValid(fieldValue))
+                        return false;
+                }
+                else
+                {
+                    var formElement = (IFormElementController<IFormElementdModel>)controlBehaviorObject;
+                    if (!formElement.IsValid())
+                        return false;
+                }
             }
 
             return true;

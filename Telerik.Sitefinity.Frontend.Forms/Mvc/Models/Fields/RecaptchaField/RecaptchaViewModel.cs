@@ -8,7 +8,7 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Models.Fields.RecaptchaField
     /// <summary>
     /// This class represents view model for reCaptcha field.
     /// </summary>
-    public class RecaptchaFieldViewModel
+    public class RecaptchaViewModel
     {
         /// <summary>
         /// Gets or sets the  color theme of the widget.
