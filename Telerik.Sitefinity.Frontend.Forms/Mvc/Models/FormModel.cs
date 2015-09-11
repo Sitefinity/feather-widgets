@@ -135,14 +135,18 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Models
 
             if (this.IsValidForm(form, collection, manager))
             {
-                var formData = new KeyValuePair<string, object>[collection.Count];
+                var formFields = new HashSet<string>(form.Controls.Select(this.FormFieldName).Where((f) => !string.IsNullOrEmpty(f)));
+
+                var formData = new List<KeyValuePair<string, object>>(collection.Count);
                 for (int i = 0; i < collection.Count; i++)
                 {
-                    formData[i] = new KeyValuePair<string, object>(collection.Keys[i], collection[collection.Keys[i]]);
+                    if (formFields.Contains(collection.Keys[i]))
+                    {
+                        formData.Add(new KeyValuePair<string, object>(collection.Keys[i], collection[collection.Keys[i]]));
+                    }
                 }
 
                 var formLanguage = SystemManager.CurrentContext.AppSettings.Multilingual ? CultureInfo.CurrentUICulture.Name : null;
-
                 FormsHelper.SaveFormsEntry(form, formData, null, userHostAddress, ClaimsManager.GetCurrentUserId(), formLanguage);
 
                 success = true;
@@ -177,8 +181,14 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Models
             return Res.Get<FormResources>().UnsuccessfullySubmittedMessage;
         }
 
-        /// <inheritDoc/>
-        public virtual bool IsValidForm(FormDescription form, FormCollection collection, FormsManager manager)
+        /// <summary>
+        /// Determines whether a form is valid or not.
+        /// </summary>
+        /// <param name="form">The form.</param>
+        /// <param name="collection">The collection.</param>
+        /// <param name="manager">The manager.</param>
+        /// <returns>true if form is valid, false otherwise.</returns>
+        protected virtual bool IsValidForm(FormDescription form, FormCollection collection, FormsManager manager)
         {
             this.SanitizeFormCollection(collection);
             var behaviorResolver = ObjectFactory.Resolve<IControlBehaviorResolver>();
@@ -218,8 +228,11 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Models
             return true;
         }
 
-        /// <inheritDoc/>
-        public virtual void SanitizeFormCollection(FormCollection collection)
+        /// <summary>
+        /// Sanitizes the form collection.
+        /// </summary>
+        /// <param name="collection">The collection.</param>
+        protected virtual void SanitizeFormCollection(FormCollection collection)
         {
             const char ReplacementSymbol = '_';
             var forbidenSymbols = new char[] { '-' };
@@ -259,6 +272,26 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Models
         protected override IQueryable<IDataItem> GetItemsQuery()
         {
             return ((FormsManager)this.GetManager()).GetForms().Where(f => f.Framework == FormFramework.Mvc);
+        }
+
+        #endregion
+
+        #region Private methods
+
+        private string FormFieldName(FormControl control)
+        {
+            if (control.IsLayoutControl)
+                return null;
+
+            var behaviorResolver = ObjectFactory.Resolve<IControlBehaviorResolver>();
+            var controlInstance = FormsManager.GetManager().LoadControl(control);
+            var controller = behaviorResolver.GetBehaviorObject(controlInstance);
+            var fieldController = controller as IFormFieldControl;
+
+            if (fieldController != null && fieldController.MetaField != null)
+                return fieldController.MetaField.FieldName;
+            else
+                return null;
         }
 
         #endregion
