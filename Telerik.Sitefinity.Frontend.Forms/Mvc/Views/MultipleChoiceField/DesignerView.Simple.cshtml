@@ -21,7 +21,7 @@
         <div class="list-group list-group-endless" kendo-sortable k-options="sortableOptions" k-on-change="sortItems(kendoEvent)">
             <div ng-repeat="item in currentItems track by $index" class="list-group-item list-group-item-multiselect" ng-class="currentItems.length > 1 ? 'list-group-item-draggable-2' : ''" >
                 <span ng-show="currentItems.length > 1" class="handler list-group-item-drag"></span>
-                <input type="radio" name="default" ng-change="setDefault(item)" ng-model='defaultValue' ng-value="currentItems[$index]" />
+                <input type="radio" name="default" ng-click="setDefault(item)"  ng-checked="currentItems[$index]==defaultValue" ng-value="currentItems[$index]" />
                  <div>
                     <section class="row">
                         <div class="col-md-10">
@@ -55,7 +55,7 @@
         <div class="checkbox">
             <label for="multiple-choice-required-field" class="full-width">
                 <input id="multiple-choice-required-field" type="checkbox" ng-click="changeRequired()" ng-model="properties.Model.ValidatorDefinition.Required.PropertyValue" 
-                    ng-true-value="'True'" ng-false-value="'False'" ng-checked="properties.Model.ValidatorDefinition.Required.PropertyValue === 'True'" >
+                    ng-true-value="'True'" ng-false-value="'False'" ng-checked="properties.Model.ValidatorDefinition.Required.PropertyValue === 'True'" ng-disabled="defaultValue">
                     @Html.Resource("RequiredField")
                 </input>
             </label>
