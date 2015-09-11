@@ -6,6 +6,15 @@
         $scope.currentItems = [];
         $scope.defaultValue = null;
 
+        $scope.$watch(
+            'defaultValue',
+            function (newDefaultValue, oldDefaultValue) {
+                if (newDefaultValue)
+                    $scope.properties.Model.ValidatorDefinition.Required.PropertyValue = 'False';
+            },
+            true
+        );
+
         propertyService.get()
             .then(function (data) {
                 if (data) {
@@ -44,8 +53,6 @@
             var element = $scope.currentItems[e.oldIndex];
             $scope.currentItems.splice(e.oldIndex, 1);
             $scope.currentItems.splice(e.newIndex, 0, element);
-
-            $scope.changeRequired();
         };
 
         $scope.itemClicked = function (ev) {
@@ -69,12 +76,6 @@
 
         $scope.addItem = function () {
             $scope.currentItems.push('');
-        };
-
-        $scope.changeRequired = function () {
-            if ($scope.properties.Model.ValidatorDefinition.Required.PropertyValue === 'True' && $scope.currentItems.length) {
-                $scope.setDefault($scope.currentItems[0]);
-            }
         };
 
         $scope.sortableOptions = {
