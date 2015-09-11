@@ -12,7 +12,7 @@ namespace FeatherWidgets.TestUI.Arrangements
     /// <summary>
     /// SelectAllTagsOptionAndCssClasses arrangement class.
     /// </summary>
-    public class SelectAllTagsOptionAndCssClasses : ITestArrangement
+    public class SelectAllTagsOptionAndCssClasses : TestArrangementBase
     {
         /// <summary>
         /// Server side set up.
