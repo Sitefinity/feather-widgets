@@ -10,9 +10,9 @@ using Telerik.Sitefinity.TestUtilities.CommonOperations;
 namespace FeatherWidgets.TestUI.Arrangements
 {
     /// <summary>
-    /// LinkSelectorInsertLink arrangement class.
+    /// LinkSelectorInsertAnAnchor arrangement class.
     /// </summary>
-    public class LinkSelectorInsertLink : ITestArrangement
+    public class LinkSelectorInsertAnAnchor : TestArrangementBase
     {
         /// <summary>
         /// Server side set up.
@@ -21,7 +21,7 @@ namespace FeatherWidgets.TestUI.Arrangements
         public void SetUp()
         {
             Guid page1Id = ServerOperations.Pages().CreatePage(PageName);
-            ServerOperationsFeather.Pages().AddContentBlockWidgetToPage(page1Id);
+            ServerOperationsFeather.Pages().AddContentBlockWidgetToPage(page1Id, ContentBlockHtml);
         }
 
         /// <summary>
@@ -34,5 +34,6 @@ namespace FeatherWidgets.TestUI.Arrangements
         }
 
         private const string PageName = "ContentBlock";
+        private const string ContentBlockHtml = "<div id=\"test1\">Test1</div ><p><div  id=\"test2\">Test2</div ></p>";
     }
 }

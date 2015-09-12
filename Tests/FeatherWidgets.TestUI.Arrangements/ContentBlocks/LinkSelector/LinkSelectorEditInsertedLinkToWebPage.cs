@@ -10,9 +10,9 @@ using Telerik.Sitefinity.TestUtilities.CommonOperations;
 namespace FeatherWidgets.TestUI.Arrangements
 {
     /// <summary>
-    /// LinkSelectorInsertAnAnchor arrangement class.
+    /// LinkSelectorEditInsertedLinkToWebPage arrangement class.
     /// </summary>
-    public class LinkSelectorInsertAnAnchor : ITestArrangement
+    public class LinkSelectorEditInsertedLinkToWebPage : TestArrangementBase
     {
         /// <summary>
         /// Server side set up.
@@ -34,6 +34,6 @@ namespace FeatherWidgets.TestUI.Arrangements
         }
 
         private const string PageName = "ContentBlock";
-        private const string ContentBlockHtml = "<div id=\"test1\">Test1</div ><p><div  id=\"test2\">Test2</div ></p>";
+        private const string ContentBlockHtml = "<a href=\"http://www.google.bg\">Test content</a>";
     }
 }

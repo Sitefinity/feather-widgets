@@ -11,7 +11,7 @@ namespace FeatherWidgets.TestUI.Arrangements
     /// <summary>
     /// This is a test class with server site methods for Link selector and page from this site option over selected text.
     /// </summary>
-    public class LinkSelectorInsertLinkToPageFromThisSiteOverSelectedText : ITestArrangement
+    public class LinkSelectorInsertLinkToPageFromThisSiteOverSelectedText : TestArrangementBase
     {
         /// <summary>
         /// Server side set up.

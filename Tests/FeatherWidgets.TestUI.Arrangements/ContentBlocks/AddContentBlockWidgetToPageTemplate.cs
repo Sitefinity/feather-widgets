@@ -7,7 +7,7 @@ namespace FeatherWidgets.TestUI.Arrangements
     /// <summary>
     /// AddContentBlockWidgetToPageTemplate arrangement class.
     /// </summary>
-    public class AddContentBlockWidgetToPageTemplate : ITestArrangement
+    public class AddContentBlockWidgetToPageTemplate : TestArrangementBase
     {
         /// <summary>
         /// Tears down.

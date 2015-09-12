@@ -8,7 +8,7 @@ namespace FeatherWidgets.TestUI.Arrangements
     /// <summary>
     /// Arrangement methods for AddContentBlockWidgetToPageVerifyViewPermissions
     /// </summary>
-    public class AddContentBlockWidgetToPageVerifyViewPermissions : ITestArrangement
+    public class AddContentBlockWidgetToPageVerifyViewPermissions : TestArrangementBase
     {
         /// <summary>
         /// Server side set up.

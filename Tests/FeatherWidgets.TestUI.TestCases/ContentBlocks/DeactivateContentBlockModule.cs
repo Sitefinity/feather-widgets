@@ -30,12 +30,12 @@ namespace FeatherWidgets.TestUI.TestCases.ContentBlocks
             BAT.Arrange(this.TestName).ExecuteArrangement("DeactivateModule");
 
             this.VerifyPageBackend(PageName, WidgetName, ContentBlockContent);
-            BAT.Macros().NavigateTo().CustomPage("~/" + PageName.ToLower());
+            BAT.Macros().NavigateTo().CustomPage("~/" + PageName.ToLower(), true, this.Culture);
             BATFeather.Wrappers().Frontend().ContentBlock().ContentBlockWrapper().VerifyContentOfContentBlockOnThePageFrontend(ContentBlockContent);
 
             BAT.Arrange(this.TestName).ExecuteArrangement("ActivateModule");
 
-            BAT.Macros().NavigateTo().CustomPage("~/" + PageName.ToLower());
+            BAT.Macros().NavigateTo().CustomPage("~/" + PageName.ToLower(), true, this.Culture);
             BATFeather.Wrappers().Frontend().ContentBlock().ContentBlockWrapper().VerifyContentOfContentBlockOnThePageFrontend(ContentBlockContent);
         }
 
@@ -64,7 +64,7 @@ namespace FeatherWidgets.TestUI.TestCases.ContentBlocks
         /// <param name="widgetContent">Widget content</param>
         private void VerifyPageBackend(string pageName, string widgetName, string widgetContent)
         {
-            BAT.Macros().NavigateTo().Pages();
+            BAT.Macros().NavigateTo().Pages(this.Culture);
             BAT.Wrappers().Backend().Pages().PagesWrapper().OpenPageZoneEditor(pageName);
             BAT.Wrappers().Backend().Pages().PageZoneEditorWrapper().CheckWidgetContent(widgetName, widgetContent);
             BAT.Wrappers().Backend().Pages().PageZoneEditorWrapper().PublishPage();

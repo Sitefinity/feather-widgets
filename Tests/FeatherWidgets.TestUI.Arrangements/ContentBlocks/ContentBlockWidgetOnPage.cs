@@ -11,7 +11,7 @@ namespace FeatherWidgets.TestUI.Arrangements
     /// <summary>
     /// ContentBlockWidgetOnPage arrangement class.
     /// </summary>
-    public class ContentBlockWidgetOnPage : ITestArrangement
+    public class ContentBlockWidgetOnPage : TestArrangementBase
     {
         /// <summary>
         /// Server side set up.

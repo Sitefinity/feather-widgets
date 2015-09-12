@@ -25,14 +25,14 @@ namespace FeatherWidgets.TestUI.TestCases.ContentBlocks
         TestCategory(FeatherTestCategories.ContentBlock1)]
         public void ShareContentBlockFromPage()
         {
-            BAT.Macros().NavigateTo().Pages();
+            BAT.Macros().NavigateTo().Pages(this.Culture);
             BAT.Wrappers().Backend().Pages().PagesWrapper().OpenPageZoneEditor(PageName);
             BAT.Wrappers().Backend().Pages().PageZoneEditorWrapper().SelectExtraOptionForWidget(OperationName);
             BATFeather.Wrappers().Backend().ContentBlocks().ContentBlocksShareWrapper().FillContentBlockTitle(ContentBlockName);
             BATFeather.Wrappers().Backend().ContentBlocks().ContentBlocksShareWrapper().ShareButton();
             this.VerifyIfSharedLabelExist();
             BAT.Wrappers().Backend().Pages().PageZoneEditorWrapper().PublishPage();
-            BAT.Macros().NavigateTo().Modules().ContentBlocks();
+            BAT.Macros().NavigateTo().Modules().ContentBlocks(this.Culture);
             this.VerifyIfContentBlockExist(ContentBlockName);
             this.VerifyLinkUsedOfContentBlockOnPage();
             this.ClickLinkUsedOfContentBlockOnPage();

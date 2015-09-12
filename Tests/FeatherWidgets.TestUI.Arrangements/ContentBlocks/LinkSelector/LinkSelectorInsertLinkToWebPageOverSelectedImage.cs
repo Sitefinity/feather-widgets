@@ -12,7 +12,7 @@ namespace FeatherWidgets.TestUI.Arrangements
     /// <summary>
     /// LinkSelectorInsertLinkToWebPageOverSelectedImage arrangement class.
     /// </summary>
-    public class LinkSelectorInsertLinkToWebPageOverSelectedImage : ITestArrangement
+    public class LinkSelectorInsertLinkToWebPageOverSelectedImage : TestArrangementBase
     {
         /// <summary>
         /// Server side set up.

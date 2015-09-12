@@ -12,7 +12,7 @@ namespace FeatherWidgets.TestUI.Arrangements
     /// <summary>
     /// OldAndNewContentBlockWidgetOnTheSamePage arrangement class.
     /// </summary>
-    public class OldAndNewContentBlockWidgetOnTheSamePage : ITestArrangement
+    public class OldAndNewContentBlockWidgetOnTheSamePage : TestArrangementBase
     {
         /// <summary>
         /// Server side set up.

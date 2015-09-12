@@ -12,7 +12,7 @@ namespace FeatherWidgets.TestUI.Arrangements
     /// <summary>
     /// ContentBlockWidgetWithShareButtonsOnPageBasedOnBootstrap arrangement class.
     /// </summary>
-    public class ContentBlockWidgetWithShareButtonsOnPageBasedOnBootstrap : ITestArrangement
+    public class ContentBlockWidgetWithShareButtonsOnPageBasedOnBootstrap : TestArrangementBase
     {
         /// <summary>
         /// Server side set up. 

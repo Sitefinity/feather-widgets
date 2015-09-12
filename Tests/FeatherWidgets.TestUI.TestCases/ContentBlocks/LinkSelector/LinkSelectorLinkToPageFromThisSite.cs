@@ -8,7 +8,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Telerik.Sitefinity.Frontend.TestUtilities;
 using Telerik.Sitefinity.TestUI.Framework.Utilities;
 
-namespace FeatherWidgets.TestUI.TestCases.ContentBlocks
+namespace FeatherWidgets.TestUI.TestCases.ContentBlocks.LinkSelector
 {
     /// <summary>
     /// This is a test class with tests related to Link selector Page from this site option.
@@ -26,7 +26,8 @@ namespace FeatherWidgets.TestUI.TestCases.ContentBlocks
         public void LinkSelectorInsertLinkToPageFromThisSite()
         {
             RuntimeSettingsModificator.ExecuteWithClientTimeout(800000, () => BAT.Macros().NavigateTo().CustomPage("~/sitefinity/pages", false));
-            RuntimeSettingsModificator.ExecuteWithClientTimeout(800000, () => BAT.Macros().User().EnsureAdminLoggedIn());   
+            RuntimeSettingsModificator.ExecuteWithClientTimeout(800000, () => BAT.Macros().User().EnsureAdminLoggedIn());
+            BAT.Macros().NavigateTo().Pages(this.Culture);
             BAT.Wrappers().Backend().Pages().PagesWrapper().OpenPageZoneEditor(LinkSelectorPageName);
             BATFeather.Wrappers().Backend().Pages().PageZoneEditorWrapper().EditWidget(WidgetName);
             BATFeather.Wrappers().Backend().ContentBlocks().ContentBlocksWrapper().OpenLinkSelector();
@@ -43,7 +44,7 @@ namespace FeatherWidgets.TestUI.TestCases.ContentBlocks
             BATFeather.Wrappers().Backend().ContentBlocks().ContentBlocksWrapper().VerifyContentInHtmlEditableArea(this.HtmlContent());
             BATFeather.Wrappers().Backend().ContentBlocks().ContentBlocksWrapper().SaveChanges();
             BAT.Wrappers().Backend().Pages().PageZoneEditorWrapper().PublishPage();
-            BAT.Macros().NavigateTo().CustomPage("~/" + LinkSelectorPageName.ToLower());
+            BAT.Macros().NavigateTo().CustomPage("~/" + LinkSelectorPageName.ToLower(), true, this.Culture);
             BATFeather.Wrappers().Frontend().CommonWrapper().VerifySelectedAnchorLink(InsertedPageName, ExpectedUrl, true);
         }
 

@@ -12,7 +12,7 @@ namespace FeatherWidgets.TestUI.Arrangements
     /// <summary>
     /// EditContentBlockFromPage arrangement class.
     /// </summary>
-    public class EditContentBlockFromPage : ITestArrangement
+    public class EditContentBlockFromPage : TestArrangementBase
     {
         /// <summary>
         /// Server side set up.

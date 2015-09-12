@@ -9,7 +9,7 @@ namespace FeatherWidgets.TestUI.Arrangements
     /// <summary>
     /// EditContentBlockWidgetViaInlineEditing arrangement class.
     /// </summary>
-    public class EditContentBlockWidgetViaInlineEditing : ITestArrangement
+    public class EditContentBlockWidgetViaInlineEditing : TestArrangementBase
     {
         /// <summary>
         /// Server side set up.

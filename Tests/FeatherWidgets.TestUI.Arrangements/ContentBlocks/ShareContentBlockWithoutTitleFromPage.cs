@@ -12,7 +12,7 @@ namespace FeatherWidgets.TestUI.Arrangements
     /// <summary>
     /// ShareContentBlockWithoutTitleFromPage arrangement class.
     /// </summary>
-    public class ShareContentBlockWithoutTitleFromPage : ITestArrangement
+    public class ShareContentBlockWithoutTitleFromPage : TestArrangementBase
     {
         /// <summary>
         /// Server side set up.

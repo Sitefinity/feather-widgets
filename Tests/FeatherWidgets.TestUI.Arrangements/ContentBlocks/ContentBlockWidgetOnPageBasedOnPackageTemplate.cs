@@ -9,7 +9,7 @@ namespace FeatherWidgets.TestUI.Arrangements
     /// <summary>
     /// Arrangement methods for ContentBlockWidgetOnPageBasedOnPackageTemplate
     /// </summary>
-    public class ContentBlockWidgetOnPageBasedOnPackageTemplate : ITestArrangement
+    public class ContentBlockWidgetOnPageBasedOnPackageTemplate : TestArrangementBase
     {
         /// <summary>
         /// Server side set up.

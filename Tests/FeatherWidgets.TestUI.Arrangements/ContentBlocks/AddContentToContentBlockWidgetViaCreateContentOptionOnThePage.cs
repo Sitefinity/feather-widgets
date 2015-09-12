@@ -12,7 +12,7 @@ namespace FeatherWidgets.TestUI.Arrangements
     /// <summary>
     /// AddContentToContentBlockWidgetViaCreateContentOptionOnThePage arrangement class.
     /// </summary>
-    public class AddContentToContentBlockWidgetViaCreateContentOptionOnThePage : ITestArrangement
+    public class AddContentToContentBlockWidgetViaCreateContentOptionOnThePage : TestArrangementBase
     {
         /// <summary>
         /// Server side set up.

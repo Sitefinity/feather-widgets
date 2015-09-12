@@ -10,9 +10,9 @@ using Telerik.Sitefinity.TestUtilities.CommonOperations;
 namespace FeatherWidgets.TestUI.Arrangements
 {
     /// <summary>
-    /// LinkSelectorEditInsertedLinkToWebPage arrangement class.
+    /// LinkSelectorInsertLink arrangement class.
     /// </summary>
-    public class LinkSelectorEditInsertedLinkToWebPage : ITestArrangement
+    public class LinkSelectorInsertLink : TestArrangementBase
     {
         /// <summary>
         /// Server side set up.
@@ -21,7 +21,7 @@ namespace FeatherWidgets.TestUI.Arrangements
         public void SetUp()
         {
             Guid page1Id = ServerOperations.Pages().CreatePage(PageName);
-            ServerOperationsFeather.Pages().AddContentBlockWidgetToPage(page1Id, ContentBlockHtml);
+            ServerOperationsFeather.Pages().AddContentBlockWidgetToPage(page1Id);
         }
 
         /// <summary>
@@ -34,6 +34,5 @@ namespace FeatherWidgets.TestUI.Arrangements
         }
 
         private const string PageName = "ContentBlock";
-        private const string ContentBlockHtml = "<a href=\"http://www.google.bg\">Test content</a>";
     }
 }
