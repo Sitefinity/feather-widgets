@@ -1,11 +1,11 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using FeatherWidgets.TestUtilities.CommonOperations;
+using Telerik.Sitefinity.Data;
+using Telerik.Sitefinity.Publishing;
 using Telerik.Sitefinity.TestArrangementService.Attributes;
 using Telerik.Sitefinity.TestUI.Arrangements.Framework;
 using Telerik.Sitefinity.TestUtilities.CommonOperations;
+using Telerik.Sitefinity.Web.Services;
 
 namespace FeatherWidgets.TestUI.Arrangements
 {
@@ -13,7 +13,7 @@ namespace FeatherWidgets.TestUI.Arrangements
     /// DragAndDropFeedWidgetAndSetDefaultRssOnPage arrangement class.
     /// </summary>
     [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Naming", "CA1704:IdentifiersShouldBeSpelledCorrectly", MessageId = "Rss")]
-    public class DragAndDropFeedWidgetAndSetDefaultRssOnPage : ITestArrangement
+    public class DragAndDropFeedWidgetAndSetDefaultRssOnPage : TestArrangementBase
     {
         /// <summary>
         /// Server side set up.
@@ -22,7 +22,7 @@ namespace FeatherWidgets.TestUI.Arrangements
         public void SetUp()
         {
             var templateId = ServerOperations.Templates().GetTemplateIdByTitle(PageTemplateName);
-            ServerOperations.Pages().CreatePage(PageName, templateId);   
+            ServerOperations.Pages().CreatePage(PageName, templateId);
          }
 
         /// <summary>
@@ -32,6 +32,7 @@ namespace FeatherWidgets.TestUI.Arrangements
         public void TearDown()
         {
             ServerOperations.Pages().DeleteAllPages();
+            ServerOperations.Blogs().DeleteAllBlogs();
         }
 
         private const string PageName = "FeedPage";
