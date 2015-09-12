@@ -930,5 +930,24 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.StringResources
         }
 
         #endregion
+
+        #region File field
+
+        /// <summary>
+        /// Gets phrase : Add another
+        /// </summary>
+        [ResourceEntry("AddAnother",
+            Value = "Add another",
+            Description = "phrase: Add another",
+            LastModified = "2015/09/12")]
+        public string AddAnother
+        {
+            get
+            {
+                return this["AddAnother"];
+            }
+        }
+
+        #endregion
     }
 }

@@ -3,6 +3,7 @@ using Telerik.Sitefinity.Frontend.Forms.Mvc.Models;
 using Telerik.Sitefinity.Frontend.Forms.Mvc.Models.Fields;
 using Telerik.Sitefinity.Frontend.Forms.Mvc.Models.Fields.CheckboxesField;
 using Telerik.Sitefinity.Frontend.Forms.Mvc.Models.Fields.DropdownListField;
+using Telerik.Sitefinity.Frontend.Forms.Mvc.Models.Fields.FileField;
 using Telerik.Sitefinity.Frontend.Forms.Mvc.Models.Fields.MultipleChoiceField;
 using Telerik.Sitefinity.Frontend.Forms.Mvc.Models.Fields.ParagraphTextField;
 using Telerik.Sitefinity.Frontend.Forms.Mvc.Models.Fields.RecaptchaField;
@@ -34,6 +35,7 @@ namespace Telerik.Sitefinity.Frontend.Forms
             Bind<IDropdownListFieldModel>().To<DropdownListFieldModel>();
             Bind<IMultipleChoiceFieldModel>().To<MultipleChoiceFieldModel>();
             Bind<ICheckboxesFieldModel>().To<CheckboxesFieldModel>();
+            Bind<IFileFieldModel>().To<FileFieldModel>();
         }
     }
 }

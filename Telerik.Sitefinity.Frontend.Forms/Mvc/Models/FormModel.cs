@@ -2,8 +2,7 @@
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
-using System.Text;
-using System.Text.RegularExpressions;
+using System.Web;
 using System.Web.Mvc;
 using Telerik.Sitefinity.Abstractions;
 using Telerik.Sitefinity.Forms.Model;
@@ -24,7 +23,6 @@ using Telerik.Sitefinity.Services;
 using Telerik.Sitefinity.Utilities.TypeConverters;
 using Telerik.Sitefinity.Web;
 using Telerik.Sitefinity.Web.UI;
-using Telerik.Sitefinity.Web.UI.Fields;
 
 namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Models
 {
@@ -71,12 +69,6 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Models
         /// <inheritDoc/>
         public string CssClass { get; set; }
 
-        /// <inheritDoc/>
-        public bool UseAjaxSubmit { get; set; }
-
-        /// <inheritDoc/>
-        public string AjaxSubmitTargetUrl { get; set; }
-
         #endregion
 
         #region Public methods
@@ -101,13 +93,6 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Models
                 viewModel.Error = Res.Get<FormsResources>().TheSpecifiedFormNoLongerExists;
             }
 
-            viewModel.UseAjaxSubmit = this.UseAjaxSubmit;
-            if (this.UseAjaxSubmit)
-            {
-                viewModel.AjaxSubmitTargetUrl = this.AjaxSubmitTargetUrl.IsNullOrEmpty() ? "~/Forms/Submit" : this.AjaxSubmitTargetUrl;
-                viewModel.FormName = FormsManager.GetManager().GetForm(this.FormId).Name;
-            }
-
             return viewModel;
         }
 
@@ -126,7 +111,7 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Models
         }
 
         /// <inheritDoc/>
-        public virtual bool TrySubmitForm(FormCollection collection, string userHostAddress)
+        public virtual bool TrySubmitForm(FormCollection collection, HttpFileCollectionBase files, string userHostAddress)
         {
             var success = false;
 
@@ -146,8 +131,24 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Models
                     }
                 }
 
+                var postedFiles = new Dictionary<string, List<FormHttpPostedFile>>();
+                for (int i = 0; i < files.AllKeys.Length; i++)
+                {
+                    if (formFields.Contains(files.AllKeys[i]))
+                    {
+                        postedFiles[files.AllKeys[i]] = files.GetMultiple(files.AllKeys[i]).Select(f =>
+                            new FormHttpPostedFile() 
+                            { 
+                                FileName = f.FileName, 
+                                ContentLength = f.ContentLength, 
+                                ContentType = f.ContentType, 
+                                InputStream = f.InputStream 
+                            }).ToList();
+                    }
+                }
+
                 var formLanguage = SystemManager.CurrentContext.AppSettings.Multilingual ? CultureInfo.CurrentUICulture.Name : null;
-                FormsHelper.SaveFormsEntry(form, formData, null, userHostAddress, ClaimsManager.GetCurrentUserId(), formLanguage);
+                FormsHelper.SaveFormsEntry(form, formData, postedFiles, userHostAddress, ClaimsManager.GetCurrentUserId(), formLanguage);
 
                 success = true;
             }
@@ -205,8 +206,8 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Models
         
                 if (!controlType.ImplementsGenericInterface(typeof(IFormElementController<>)))
                     continue;
-				
-  				var controlInstance = manager.LoadControl(control);
+                
+                var controlInstance = manager.LoadControl(control);
                 var controlBehaviorObject = behaviorResolver.GetBehaviorObject(controlInstance);
 
                 if (controlBehaviorObject.GetType().ImplementsGenericInterface(typeof(IFormFieldController<>)))

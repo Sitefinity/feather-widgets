@@ -18,7 +18,11 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Models.Fields
         [TypeConverter(typeof(ExpandableObjectConverter))]
         public IMetaField MetaField { get; set; }
 
-        /// <inheritDocs />
+        /// <summary>
+        /// Gets the default metafield based on the field control.
+        /// </summary>
+        /// <param name="formFieldControl">The field control.</param>
+        /// <returns>The meta field.</returns>
         public virtual IMetaField GetMetaField(IFormFieldControl formFieldControl)
         {
             var metaField = formFieldControl.LoadDefaultMetaField();

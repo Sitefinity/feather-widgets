@@ -5,10 +5,12 @@ using System.Web.Mvc;
 using System.Web.Routing;
 using Telerik.Sitefinity.Abstractions;
 using Telerik.Sitefinity.Forms.Model;
+using Telerik.Sitefinity.Frontend.Forms.Mvc.Controllers.Base;
 using Telerik.Sitefinity.Frontend.Forms.Mvc.Models;
 using Telerik.Sitefinity.Frontend.Forms.Mvc.Models.Fields;
 using Telerik.Sitefinity.Frontend.Mvc.Infrastructure.Controllers;
 using Telerik.Sitefinity.Modules.Forms;
+using Telerik.Sitefinity.Modules.Forms.Web.UI.Fields;
 using Telerik.Sitefinity.Mvc;
 using Telerik.Sitefinity.Mvc.Proxy;
 
@@ -44,7 +46,6 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Helpers
                 throw new InvalidOperationException("Cannot render form controller with the given ID becaouse the control with this ID is not an MVC proxy.");
 
             var actionInvoker = ObjectFactory.Resolve<IControllerActionInvoker>() as Telerik.Sitefinity.Mvc.ControllerActionInvoker;
-
             if(actionInvoker != null)
                 actionInvoker.DeserializeControllerProperties(mvcProxy);
 
@@ -61,9 +62,14 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Helpers
             var controller = mvcProxy.GetController();
 
             var controllerFactory = (ISitefinityControllerFactory)ControllerBuilder.Current.GetControllerFactory();
-            routeData.Values["controller"] = controllerFactory.GetControllerName(controller.GetType());
+            var controllerType = controller.GetType();
+            var explicitMode = ControllerHelpers.ExplicitMode(controllerType);
+            if ((explicitMode == FormControlDisplayMode.Read && viewMode != FormViewMode.Read) || (explicitMode == FormControlDisplayMode.Write && viewMode != FormViewMode.Write))
+                return MvcHtmlString.Empty;
 
-            const string action = "Index";
+            routeData.Values["controller"] = controllerFactory.GetControllerName(controllerType);
+
+            string action = typeof(IFormElementController<IFormElementdModel>).IsAssignableFrom(controllerType) ? action = viewMode.ToString() : action = "Index";
             routeData.Values["action"] = action;
 
             using (var writer = new StringWriter())
@@ -98,7 +104,22 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Helpers
             {
                 HttpContext.Current.Items[key] = controller.ControllerContext.HttpContext.Items[key];
             }
+
             HttpContext.Current.User = controller.ControllerContext.HttpContext.User;
+        }
+
+        private static FormControlDisplayMode ExplicitMode(Type controllerType)
+        {
+            var attributes = controllerType.GetCustomAttributes(typeof(FormControlDisplayModeAttribute), true);
+            if (attributes.Length > 0)
+            {
+                var attr = (FormControlDisplayModeAttribute)attributes[0];
+                return attr.FormControlDisplayMode;
+            }
+            else
+            {
+                return FormControlDisplayMode.ReadAndWrite;
+            }
         }
     }
 }
