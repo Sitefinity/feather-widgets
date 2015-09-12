@@ -1,9 +1,12 @@
-﻿using Newtonsoft.Json;
-using System.Runtime.Serialization;
+﻿using System.Runtime.Serialization;
+using Newtonsoft.Json;
 using Telerik.Sitefinity.Metadata.Model;
 
 namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Models.Fields.FileField
 {
+    /// <summary>
+    /// View model for the file field.
+    /// </summary>
     [DataContract]
     public class FileFieldViewModel
     {
@@ -26,6 +29,10 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Models.Fields.FileField
         [DataMember]
         public bool AllowMultipleFiles { get; set; }
 
+        /// <summary>
+        /// Serializes this instance in JSON format.
+        /// </summary>
+        /// <returns>This instance serialized in JSON format.</returns>
         public string Serialize()
         {
             return JsonConvert.SerializeObject(this);

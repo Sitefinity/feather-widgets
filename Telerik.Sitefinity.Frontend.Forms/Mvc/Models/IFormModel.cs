@@ -3,8 +3,6 @@ using System.Collections.Generic;
 using System.Web;
 using System.Web.Mvc;
 using Telerik.Sitefinity.ContentLocations;
-using Telerik.Sitefinity.Forms.Model;
-using Telerik.Sitefinity.Modules.Forms;
 
 namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Models
 {

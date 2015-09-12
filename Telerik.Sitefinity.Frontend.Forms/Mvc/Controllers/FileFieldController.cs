@@ -11,11 +11,20 @@ using Telerik.Sitefinity.Mvc;
 
 namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Controllers
 {
+    /// <summary>
+    /// This class represents the controller of the MVC forms file field.
+    /// </summary>
     [ControllerToolboxItem(Name = "MvcFileField", Title = "File upload", Toolbox = FormsConstants.FormControlsToolboxName, SectionName = FormsConstants.CommonSectionName, CssClass = FileFieldController.WidgetIconCssClass)]
     [DatabaseMapping(UserFriendlyDataType.FileUpload)]
     [Localization(typeof(FieldResources))]
     public class FileFieldController : FormFieldControllerBase<IFileFieldModel>
     {
+        /// <summary>
+        /// Gets the form field model.
+        /// </summary>
+        /// <value>
+        /// The model.
+        /// </value>
         [TypeConverter(typeof(ExpandableObjectConverter))]
         public override IFileFieldModel Model 
         {
@@ -28,7 +37,12 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Controllers
             }
         }
 
-        /// <inheritDocs />
+        /// <summary>
+        /// Gets or sets the meta field data.
+        /// </summary>
+        /// <value>
+        /// The meta field.
+        /// </value>
         [Browsable(false)]
         public override IMetaField MetaField
         {
