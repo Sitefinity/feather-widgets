@@ -4,6 +4,7 @@ using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
+using System.Web;
 using System.Web.Mvc;
 using Telerik.Sitefinity.Abstractions;
 using Telerik.Sitefinity.Forms.Model;
@@ -113,7 +114,7 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Models
         }
 
         /// <inheritDoc/>
-        public virtual bool TrySubmitForm(FormCollection collection, string userHostAddress)
+        public virtual bool TrySubmitForm(FormCollection collection, HttpFileCollectionBase files, string userHostAddress)
         {
             var success = false;
 
@@ -133,8 +134,27 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Models
                     }
                 }
 
+                var postedFiles = new Dictionary<string, List<FormHttpPostedFile>>();
+                for (int i = 0; i < files.Count; i++)
+                {
+                    if (formFields.Contains(files.Keys[i]))
+                    {
+                        var postedFile = files[i];
+                        postedFiles[files.Keys[i]] = new List<FormHttpPostedFile>() 
+                        { 
+                            new FormHttpPostedFile() 
+                            { 
+                                FileName = postedFile.FileName, 
+                                ContentLength = postedFile.ContentLength, 
+                                ContentType = postedFile.ContentType, 
+                                InputStream = postedFile.InputStream 
+                            }
+                        };
+                    }
+                }
+
                 var formLanguage = SystemManager.CurrentContext.AppSettings.Multilingual ? CultureInfo.CurrentUICulture.Name : null;
-                FormsHelper.SaveFormsEntry(form, formData, null, userHostAddress, ClaimsManager.GetCurrentUserId(), formLanguage);
+                FormsHelper.SaveFormsEntry(form, formData, postedFiles, userHostAddress, ClaimsManager.GetCurrentUserId(), formLanguage);
 
                 success = true;
             }

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Web;
 using System.Web.Mvc;
 using Telerik.Sitefinity.ContentLocations;
 using Telerik.Sitefinity.Forms.Model;
@@ -76,6 +77,6 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Models
         /// <summary>
         /// Tries to submit the form.
         /// </summary>
-        bool TrySubmitForm(FormCollection collection, string userHostAddress);
+        bool TrySubmitForm(FormCollection collection, HttpFileCollectionBase files, string userHostAddress);
     }
 }
