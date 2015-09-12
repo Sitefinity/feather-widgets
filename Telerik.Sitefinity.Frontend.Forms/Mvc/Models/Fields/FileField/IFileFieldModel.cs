@@ -8,5 +8,6 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Models.Fields.FileField
 {
     public interface IFileFieldModel : IFormFieldModel
     {
+        bool AllowMultipleFiles { get; set; }
     }
 }

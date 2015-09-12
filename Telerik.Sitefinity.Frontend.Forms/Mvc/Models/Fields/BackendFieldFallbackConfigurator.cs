@@ -71,13 +71,14 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Models.Fields
             fieldControl.Title = mvcField.MetaField.Title;
 
             if (fieldControl.GetType() == BackendFieldFallbackConfigurator.FormFileUploadType)
-                this.ConfigureFileUpload(fieldControl, formId);
+                this.ConfigureFileUpload(fieldControl, mvcField as FileFieldController, formId);
         }
 
-        private void ConfigureFileUpload(FieldControl fieldControl, Guid formId)
+        private void ConfigureFileUpload(FieldControl fieldControl, FileFieldController mvcField, Guid formId)
         {
             fieldControl.GetType().GetProperty("FormId").SetValue(fieldControl, formId);
             fieldControl.GetType().GetProperty("FormsProviderName").SetValue(fieldControl, FormsManager.GetDefaultProviderName());
+            fieldControl.GetType().GetProperty("AllowMultipleAttachments").SetValue(fieldControl, mvcField.Model.AllowMultipleFiles);
         }
 
         private static readonly Type FormFileUploadType = TypeResolutionService.ResolveType("Telerik.Sitefinity.Modules.Forms.Web.UI.Fields.FormFileUpload");

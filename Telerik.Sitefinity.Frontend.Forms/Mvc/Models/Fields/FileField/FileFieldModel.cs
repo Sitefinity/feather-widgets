@@ -7,6 +7,12 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Models.Fields.FileField
 {
     public class FileFieldModel : FormFieldModel, IFileFieldModel
     {
+        public bool AllowMultipleFiles
+        {
+            get;
+            set;
+        }
+
         /// <inheritDocs />
         public override IMetaField GetMetaField(IFormFieldControl formFieldControl)
         {
@@ -26,7 +32,8 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Models.Fields.FileField
             return new FileFieldViewModel()
                 {
                     CssClass = this.CssClass,
-                    MetaField = this.MetaField
+                    MetaField = this.MetaField,
+                    AllowMultipleFiles = this.AllowMultipleFiles
                 };
         }
     }

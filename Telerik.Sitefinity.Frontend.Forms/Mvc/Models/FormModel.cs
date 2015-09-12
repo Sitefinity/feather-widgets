@@ -135,21 +135,18 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Models
                 }
 
                 var postedFiles = new Dictionary<string, List<FormHttpPostedFile>>();
-                for (int i = 0; i < files.Count; i++)
+                for (int i = 0; i < files.AllKeys.Length; i++)
                 {
-                    if (formFields.Contains(files.Keys[i]))
+                    if (formFields.Contains(files.AllKeys[i]))
                     {
-                        var postedFile = files[i];
-                        postedFiles[files.Keys[i]] = new List<FormHttpPostedFile>() 
-                        { 
+                        postedFiles[files.AllKeys[i]] = files.GetMultiple(files.AllKeys[i]).Select(f =>
                             new FormHttpPostedFile() 
                             { 
-                                FileName = postedFile.FileName, 
-                                ContentLength = postedFile.ContentLength, 
-                                ContentType = postedFile.ContentType, 
-                                InputStream = postedFile.InputStream 
-                            }
-                        };
+                                FileName = f.FileName, 
+                                ContentLength = f.ContentLength, 
+                                ContentType = f.ContentType, 
+                                InputStream = f.InputStream 
+                            }).ToList();
                     }
                 }
 

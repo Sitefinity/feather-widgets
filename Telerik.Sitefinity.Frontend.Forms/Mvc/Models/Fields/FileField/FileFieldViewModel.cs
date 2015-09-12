@@ -1,12 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Newtonsoft.Json;
+using System.Runtime.Serialization;
 using Telerik.Sitefinity.Metadata.Model;
 
 namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Models.Fields.FileField
 {
+    [DataContract]
     public class FileFieldViewModel
     {
         /// <summary>
@@ -24,5 +22,13 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Models.Fields.FileField
         /// The meta field.
         /// </value>
         public IMetaField MetaField { get; set; }
+
+        [DataMember]
+        public bool AllowMultipleFiles { get; set; }
+
+        public string Serialize()
+        {
+            return JsonConvert.SerializeObject(this);
+        }
     }
 }
