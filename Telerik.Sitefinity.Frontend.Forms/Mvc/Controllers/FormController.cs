@@ -79,7 +79,7 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Controllers
         {
             var success = this.Model.TrySubmitForm(collection, this.Request.UserHostAddress);
 
-            if (success && this.Model.CustomConfirmationMode == CustomConfirmationMode.RedirectToAPage)
+            if (success && this.Model.NeedsRedirect)
             {
                 return this.Redirect(this.Model.GetRedirectPageUrl());
             }

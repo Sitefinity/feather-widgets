@@ -4,6 +4,7 @@ using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
+using System.Web;
 using System.Web.Mvc;
 using Telerik.Sitefinity.Abstractions;
 using Telerik.Sitefinity.Forms.Model;
@@ -53,7 +54,7 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Models
             {
                 if (string.IsNullOrEmpty(this.customConfirmationMessage))
                 {
-                    return Res.Get<FormResources>().SuccessfullySubmittedMessage;
+                    return this.FormData.SuccessMessage;
                 }
 
                 return this.customConfirmationMessage;
@@ -75,6 +76,41 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Models
 
         /// <inheritDoc/>
         public string AjaxSubmitTargetUrl { get; set; }
+
+        /// <summary>
+        /// Represents the current form
+        /// </summary>        
+        public FormDescription FormData
+        {
+            get
+            {
+                FormDescription descr = null;
+                if (this.FormId != Guid.Empty)
+                {
+                    var manager = FormsManager.GetManager();
+                    if (this.FormId != Guid.Empty)
+                    {
+                        descr = manager.GetForm(this.FormId);
+                    }
+                }
+
+                return descr;
+            }
+        }
+
+        /// <inheritDoc/>
+        public virtual bool NeedsRedirect
+        {
+            get
+            {
+                if (this.UseCustomConfirmation)
+                    return this.CustomConfirmationMode == CustomConfirmationMode.RedirectToAPage;
+                else
+                    return this.FormData.SubmitAction == SubmitAction.PageRedirect;
+            }
+        }
+
+        public string UnsuccessfulSubmitMessage { get; set; }
 
         #endregion
 
@@ -132,7 +168,7 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Models
             var manager = FormsManager.GetManager();
             var form = manager.GetForm(this.FormId);
 
-            if (this.IsValidForm(form, collection, manager))
+            if (this.IsValidForm(form, collection, manager) && this.ValidateFormSubmissionRestrictions())
             {
                 var formFields = new HashSet<string>(form.Controls.Select(this.FormFieldName).Where((f) => !string.IsNullOrEmpty(f)));
 
@@ -157,7 +193,11 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Models
         /// <inheritDoc/>
         public virtual string GetRedirectPageUrl()
         {
-            if (this.CustomConfirmationPageId == Guid.Empty)
+            if (!this.UseCustomConfirmation && !string.IsNullOrEmpty(this.FormData.RedirectPageUrl))
+            {
+                return this.FormData.RedirectPageUrl;
+            }
+            else if (this.CustomConfirmationPageId == Guid.Empty)
             {
                 var currentNode = SiteMapBase.GetActualCurrentNode();
                 if (currentNode == null)
@@ -177,7 +217,19 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Models
                 return this.CustomConfirmationMessage;
             }
 
-            return Res.Get<FormResources>().UnsuccessfullySubmittedMessage;
+            return string.IsNullOrEmpty(this.UnsuccessfulSubmitMessage) ? Res.Get<FormResources>().UnsuccessfullySubmittedMessage : this.UnsuccessfulSubmitMessage;
+        }
+
+        /// <summary>
+        /// Validates the form against the preset submit restrictions.
+        /// </summary>
+        protected virtual bool ValidateFormSubmissionRestrictions()
+        {
+            string errorMessage;
+            var isValid = FormsHelper.ValidateFormSubmissionRestrictions(this.FormData, ClaimsManager.GetCurrentUserId(), HttpContext.Current.Request.UserHostAddress, out errorMessage);
+            this.UnsuccessfulSubmitMessage = errorMessage;
+
+            return isValid;
         }
 
         /// <summary>

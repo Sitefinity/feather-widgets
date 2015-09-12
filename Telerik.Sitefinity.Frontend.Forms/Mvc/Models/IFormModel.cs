@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Web.Mvc;
 using Telerik.Sitefinity.ContentLocations;
 using Telerik.Sitefinity.Forms.Model;
@@ -59,6 +60,15 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Models
         /// The AJAX submit target URL.
         /// </value>
         string AjaxSubmitTargetUrl { get; set; }
+
+        /// <summary>
+        /// Gets a value indicating whether form needs redirect after success.
+        /// </summary>
+        /// <value>
+        ///   <c>true</c> if form needs redirect; otherwise, <c>false</c>.
+        /// </value>
+        [Browsable(false)]
+        bool NeedsRedirect { get; }
 
         /// <summary>
         /// Gets the information for all of the content types that a model is able to show
