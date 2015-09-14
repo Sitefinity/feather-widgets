@@ -54,7 +54,7 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Models
             {
                 if (string.IsNullOrEmpty(this.customConfirmationMessage))
                 {
-                    return this.FormData.SuccessMessage;
+                    this.customConfirmationMessage = this.FormData == null ? (Lstring)Res.Get<FormResources>().SuccessfullySubmittedMessage : this.FormData.SuccessMessage;
                 }
 
                 return this.customConfirmationMessage;
