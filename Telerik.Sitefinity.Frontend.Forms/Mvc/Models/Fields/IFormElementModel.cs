@@ -15,7 +15,7 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Models.Fields
     /// <summary>
     /// This interface provides API for working with forms fields.
     /// </summary>
-    public interface IFormElementdModel
+    public interface IFormElementModel
     {
         /// <summary>
         /// Gets or sets the value of the form element.

@@ -118,7 +118,7 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Models
             var manager = FormsManager.GetManager();
             var form = manager.GetForm(this.FormId);
 
-            if (this.IsValidForm(form, collection, manager))
+            if (this.IsValidForm(form, collection, files, manager))
             {
                 var formFields = new HashSet<string>(form.Controls.Select(this.FormFieldName).Where((f) => !string.IsNullOrEmpty(f)));
 
@@ -136,7 +136,7 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Models
                 {
                     if (formFields.Contains(files.AllKeys[i]))
                     {
-                        postedFiles[files.AllKeys[i]] = files.GetMultiple(files.AllKeys[i]).Select(f =>
+                        postedFiles[files.AllKeys[i]] = files.GetMultiple(files.AllKeys[i]).Where(f => !f.FileName.IsNullOrEmpty()).Select(f =>
                             new FormHttpPostedFile() 
                             { 
                                 FileName = f.FileName, 
@@ -189,7 +189,7 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Models
         /// <param name="collection">The collection.</param>
         /// <param name="manager">The manager.</param>
         /// <returns>true if form is valid, false otherwise.</returns>
-        protected virtual bool IsValidForm(FormDescription form, FormCollection collection, FormsManager manager)
+        protected virtual bool IsValidForm(FormDescription form, FormCollection collection, HttpFileCollectionBase files, FormsManager manager)
         {
             this.SanitizeFormCollection(collection);
             var behaviorResolver = ObjectFactory.Resolve<IControlBehaviorResolver>();
@@ -210,17 +210,17 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Models
                 var controlInstance = manager.LoadControl(control);
                 var controlBehaviorObject = behaviorResolver.GetBehaviorObject(controlInstance);
 
-                if (controlBehaviorObject.GetType().ImplementsGenericInterface(typeof(IFormFieldController<>)))
+                if (controlBehaviorObject is IFormFieldController<IFormFieldModel>)
                 {
                     var formField = (IFormFieldController<IFormFieldModel>)controlBehaviorObject;
-                    var fieldValue = collection[formField.MetaField.FieldName];
+                    object fieldValue = (object)collection[formField.MetaField.FieldName] ?? (object)files.GetMultiple(formField.MetaField.FieldName);
 
                     if (!formField.Model.IsValid(fieldValue))
                         return false;
                 }
                 else
                 {
-                    var formElement = (IFormElementController<IFormElementdModel>)controlBehaviorObject;
+                    var formElement = (IFormElementController<IFormElementModel>)controlBehaviorObject;
                     if (!formElement.IsValid())
                         return false;
                 }

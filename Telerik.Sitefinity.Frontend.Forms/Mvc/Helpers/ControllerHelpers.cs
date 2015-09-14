@@ -69,7 +69,7 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Helpers
 
             routeData.Values["controller"] = controllerFactory.GetControllerName(controllerType);
 
-            string action = typeof(IFormElementController<IFormElementdModel>).IsAssignableFrom(controllerType) ? action = viewMode.ToString() : action = "Index";
+            string action = typeof(IFormElementController<IFormElementModel>).IsAssignableFrom(controllerType) ? action = viewMode.ToString() : action = "Index";
             routeData.Values["action"] = action;
 
             using (var writer = new StringWriter())

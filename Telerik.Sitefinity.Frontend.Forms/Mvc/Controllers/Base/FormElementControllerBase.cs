@@ -13,7 +13,7 @@ using Telerik.Sitefinity.Web.UI.Fields.Enums;
 namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Controllers.Base
 {
     public abstract class FormElementControllerBase<T> : Controller, IFormElementController<T>
-        where T: IFormElementdModel
+        where T: IFormElementModel
     {
         #region Properties
 

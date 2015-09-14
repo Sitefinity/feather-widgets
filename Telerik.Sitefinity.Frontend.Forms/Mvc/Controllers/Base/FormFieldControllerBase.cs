@@ -10,7 +10,7 @@ using Telerik.Sitefinity.Modules.Forms.Web.UI.Fields;
 
 namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Controllers.Base
 {
-    public abstract class FormFieldControllerBase<T>: FormElementControllerBase<T>, IFormFieldControl
+    public abstract class FormFieldControllerBase<T>: FormElementControllerBase<T>, IFormFieldControl, IFormFieldController<T>
         where T: IFormFieldModel
     {
         /// <inheritDocs />

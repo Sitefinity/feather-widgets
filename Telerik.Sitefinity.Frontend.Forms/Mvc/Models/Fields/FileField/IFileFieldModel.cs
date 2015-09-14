@@ -1,4 +1,7 @@
-﻿
+﻿using System;
+using System.ComponentModel;
+using Telerik.Sitefinity.Utilities.TypeConverters;
+
 namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Models.Fields.FileField
 {
     /// <summary>
@@ -10,5 +13,41 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Models.Fields.FileField
         /// Gets or sets a value indicating whether to allow multiple file attachments.
         /// </summary>
         bool AllowMultipleFiles { get; set; }
+
+        /// <summary>
+        /// Gets or sets the allowed file types.
+        /// </summary>
+        /// <value>
+        /// The allowed file types.
+        /// </value>
+        [TypeConverter(typeof(StringFlagsEnumTypeConverter))]
+        AllowedFileTypes AllowedFileTypes { get; set; }
+
+        /// <summary>
+        /// Gets or sets the other file types.
+        /// </summary>
+        /// <value>
+        /// The other file types.
+        /// </value>
+        [TypeConverter(typeof(StringArrayConverter))]
+        Array OtherFileTypes { get; set; }
+
+        /// <summary>
+        /// Gets or sets a value indicating whether a file selection is required.
+        /// </summary>
+        /// <value>
+        /// <c>true</c> if a file selection is required; otherwise, <c>false</c>.
+        /// </value>
+        bool IsRequired { get; set; }
+
+        /// <summary>
+        /// Gets or sets the min file size in megabytes (MB).
+        /// </summary>
+        int MinFileSizeInMb { get; set; }
+
+        /// <summary>
+        /// Gets or sets the max file size in megabytes (MB).
+        /// </summary>
+        int MaxFileSizeInMb { get; set; }
     }
 }
