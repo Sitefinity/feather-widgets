@@ -51,5 +51,11 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Models.Fields.DropdownListField
         /// </summary>
         /// <returns></returns>
         DropdownListFieldViewModel GetViewModel(object value, IMetaField metaField);
+
+        /// <summary>
+        /// Deserializes the choices.
+        /// </summary>
+        /// <returns></returns>
+        IEnumerable<string> DeserializeChoices();
     }
 }
