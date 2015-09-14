@@ -133,7 +133,7 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Models.Fields.DropdownListField
             }
         }
 
-        private IEnumerable<string> DeserializeChoices()
+        public IEnumerable<string> DeserializeChoices()
         {
             if (string.IsNullOrEmpty(this.SerializedChoices))
             {

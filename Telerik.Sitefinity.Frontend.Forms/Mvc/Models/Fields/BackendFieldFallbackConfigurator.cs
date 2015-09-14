@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Web.UI;
 using Telerik.Sitefinity.Abstractions;
 using Telerik.Sitefinity.Frontend.Forms.Mvc.Controllers;
+using Telerik.Sitefinity.Frontend.Forms.Mvc.Controllers.Base;
+using Telerik.Sitefinity.Frontend.Forms.Mvc.Models.Fields.BackendConfigurators;
 using Telerik.Sitefinity.Modules.Forms;
 using Telerik.Sitefinity.Modules.Forms.Web.UI.Fields;
 using Telerik.Sitefinity.Mvc;
@@ -49,10 +51,24 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Models.Fields
                     {
                         if (pair.Key.IsAssignableFrom(behaviorType))
                         {
-                            var newControl = (IFormFieldControl)Activator.CreateInstance(pair.Value);
+                            var newControl = (IFormFieldControl)Activator.CreateInstance(pair.Value.BackendFieldType);
 
                             newControl.MetaField = formField.MetaField;
-                            this.ConfigureFieldControl(newControl as FieldControl, formField, formId);
+
+                            if (newControl is FieldControl)
+                            {
+                                ((FieldControl)newControl).Title = formField.MetaField.Title;
+                                var fieldController = formField as IFormFieldController<IFormFieldModel>;
+                                if (fieldController != null)
+                                {
+                                    ((FieldControl)newControl).ValidatorDefinition = fieldController.Model.ValidatorDefinition;
+                                    if (pair.Value.FieldConfigurator != null)
+                                    {
+                                        pair.Value.FieldConfigurator.FormId = formId;
+                                        pair.Value.FieldConfigurator.Configure((FieldControl)newControl, fieldController);
+                                    }
+                                }
+                            }
 
                             return (Control)newControl;
                         }
@@ -63,35 +79,17 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Models.Fields
             return formControl;
         }
 
-        private void ConfigureFieldControl(FieldControl fieldControl, IFormFieldControl mvcField, Guid formId)
-        {
-            if (fieldControl == null)
-                return;
-
-            fieldControl.Title = mvcField.MetaField.Title;
-
-            if (fieldControl.GetType() == BackendFieldFallbackConfigurator.FormFileUploadType)
-                this.ConfigureFileUpload(fieldControl, mvcField as FileFieldController, formId);
-        }
-
-        private void ConfigureFileUpload(FieldControl fieldControl, FileFieldController mvcField, Guid formId)
-        {
-            fieldControl.GetType().GetProperty("FormId").SetValue(fieldControl, formId);
-            fieldControl.GetType().GetProperty("FormsProviderName").SetValue(fieldControl, FormsManager.GetDefaultProviderName());
-            fieldControl.GetType().GetProperty("AllowMultipleAttachments").SetValue(fieldControl, mvcField.Model.AllowMultipleFiles);
-        }
-
         private static readonly Type FormFileUploadType = TypeResolutionService.ResolveType("Telerik.Sitefinity.Modules.Forms.Web.UI.Fields.FormFileUpload");
         private static readonly Type[] ignoredTypes = new Type[] { typeof(SubmitButtonController), typeof(RecaptchaController) };
 
-        private static readonly Dictionary<Type, Type> fieldMap = new Dictionary<Type, Type>(6)
+        private static readonly Dictionary<Type, FieldConfiguration> fieldMap = new Dictionary<Type, FieldConfiguration>(5)
         {
-            { typeof(CheckboxesFieldController), typeof(FormCheckboxes) },
-            { typeof(DropdownListFieldController), typeof(FormDropDownList) },
-            { typeof(MultipleChoiceFieldController), typeof(FormMultipleChoice) },
-            { typeof(ParagraphTextFieldController), typeof(FormParagraphTextBox) },
-            { typeof(TextFieldController), typeof(FormTextBox) },
-            { typeof(FileFieldController), BackendFieldFallbackConfigurator.FormFileUploadType }
+            { typeof(CheckboxesFieldController), new FieldConfiguration(typeof(FormCheckboxes), new CheckboxesFieldConfigurator()) },
+            { typeof(DropdownListFieldController), new FieldConfiguration(typeof(FormDropDownList), new DropdownListFieldConfigurator()) },
+            { typeof(MultipleChoiceFieldController), new FieldConfiguration(typeof(FormMultipleChoice), new MultipleChoiceFieldConfigurator()) },
+            { typeof(ParagraphTextFieldController), new FieldConfiguration(typeof(FormParagraphTextBox), null) },
+            { typeof(TextFieldController), new FieldConfiguration(typeof(FormTextBox), null) },           
+            { typeof(FileFieldController), new FieldConfiguration(BackendFieldFallbackConfigurator.FormFileUploadType, new FileFieldConfigurator()) }
         };
     }
 }

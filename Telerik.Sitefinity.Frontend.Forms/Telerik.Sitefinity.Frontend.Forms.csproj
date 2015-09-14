@@ -133,9 +133,8 @@
     <Reference Include="Telerik.Sitefinity.Utilities">
       <HintPath>..\packages\Telerik.Sitefinity.Core.8.1.5800.0\lib\net40\Telerik.Sitefinity.Utilities.dll</HintPath>
     </Reference>
-    <Reference Include="Telerik.Web.UI, Version=2015.2.729.40, Culture=neutral, PublicKeyToken=121fae78165ba3d4, processorArchitecture=MSIL">
-      <HintPath>..\packages\Telerik.Web.UI.2015.2.729.40\lib\net40\Telerik.Web.UI.dll</HintPath>
-      <Private>True</Private>
+    <Reference Include="Telerik.Web.UI">
+      <HintPath>..\packages\Telerik.Web.UI.2015.2.826.40\lib\net40\Telerik.Web.UI.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
@@ -167,6 +166,12 @@
     <Compile Include="Mvc\Helpers\ControllerHelpers.cs" />
     <Compile Include="Mvc\Helpers\SectionHeaderFieldHelpers.cs" />
     <Compile Include="Mvc\Helpers\TextTypeHelpers.cs" />
+    <Compile Include="Mvc\Models\Fields\BackendConfigurators\CheckboxesFieldConfigurator.cs" />
+    <Compile Include="Mvc\Models\Fields\BackendConfigurators\FileFieldConfigurator.cs" />
+    <Compile Include="Mvc\Models\Fields\BackendConfigurators\MultipleChoiceFieldConfigurator.cs" />
+    <Compile Include="Mvc\Models\Fields\BackendConfigurators\DropdownListFieldConfigurator.cs" />
+    <Compile Include="Mvc\Models\Fields\BackendConfigurators\FieldConfiguration.cs" />
+    <Compile Include="Mvc\Models\Fields\BackendConfigurators\IFieldConfigurator.cs" />
     <Compile Include="Mvc\Models\Fields\BackendFieldFallbackConfigurator.cs" />
     <Compile Include="Mvc\Models\Fields\CheckboxesField\ICheckboxesFieldModel.cs" />
     <Compile Include="Mvc\Models\Fields\CheckboxesField\CheckboxesFieldModel.cs" />
