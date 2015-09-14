@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Web.Mvc;
 using Telerik.Sitefinity.ContentLocations;
 using Telerik.Sitefinity.Forms.Model;
@@ -61,6 +62,15 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Models
         string AjaxSubmitTargetUrl { get; set; }
 
         /// <summary>
+        /// Gets a value indicating whether form needs redirect after success.
+        /// </summary>
+        /// <value>
+        ///   <c>true</c> if form needs redirect; otherwise, <c>false</c>.
+        /// </value>
+        [Browsable(false)]
+        bool NeedsRedirect { get; }
+
+        /// <summary>
         /// Gets the information for all of the content types that a model is able to show
         /// </summary>
         IEnumerable<IContentLocationInfo> GetLocations();
@@ -83,12 +93,12 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Models
         /// <summary>
         /// Gets the submit message.
         /// </summary>
-        /// <param name="submitedSuccessfully">Did the form submited successfully</param>
-        string GetSubmitMessage(bool submitedSuccessfully);
+        /// <param name="submitedSuccessfully">Did the form submitted successfully</param>
+        string GetSubmitMessage(SubmitStatus submitedSuccessfully);
 
         /// <summary>
         /// Tries to submit the form.
         /// </summary>
-        bool TrySubmitForm(FormCollection collection, string userHostAddress);
+        SubmitStatus TrySubmitForm(FormCollection collection, string userHostAddress);
     }
 }
