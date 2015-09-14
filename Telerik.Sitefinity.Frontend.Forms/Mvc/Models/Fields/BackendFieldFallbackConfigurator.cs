@@ -74,8 +74,8 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Models.Fields
         private static readonly Dictionary<Type, FieldConfiguration> fieldMap = new Dictionary<Type, FieldConfiguration>(5)
         {
             { typeof(CheckboxesFieldController), new FieldConfiguration(typeof(FormCheckboxes), new CheckboxesFieldConfigurator()) },
-            { typeof(DropdownListFieldController), new FieldConfiguration(typeof(FormDropDownList), null) },
-            { typeof(MultipleChoiceFieldController), new FieldConfiguration(typeof(FormMultipleChoice), null) },
+            { typeof(DropdownListFieldController), new FieldConfiguration(typeof(FormDropDownList), new DropdownListFieldConfigurator()) },
+            { typeof(MultipleChoiceFieldController), new FieldConfiguration(typeof(FormMultipleChoice), new MultipleChoiceFieldConfigurator()) },
             { typeof(ParagraphTextFieldController), new FieldConfiguration(typeof(FormParagraphTextBox), null) },
             { typeof(TextFieldController), new FieldConfiguration(typeof(FormTextBox), null) }
         };

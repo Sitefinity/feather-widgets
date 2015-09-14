@@ -164,6 +164,8 @@
     <Compile Include="Mvc\Helpers\SectionHeaderFieldHelpers.cs" />
     <Compile Include="Mvc\Helpers\TextTypeHelpers.cs" />
     <Compile Include="Mvc\Models\Fields\BackendConfigurators\CheckboxesFieldConfigurator.cs" />
+    <Compile Include="Mvc\Models\Fields\BackendConfigurators\MultipleChoiceFieldConfigurator.cs" />
+    <Compile Include="Mvc\Models\Fields\BackendConfigurators\DropdownListFieldConfigurator.cs" />
     <Compile Include="Mvc\Models\Fields\BackendConfigurators\FieldConfiguration.cs" />
     <Compile Include="Mvc\Models\Fields\BackendConfigurators\IFieldConfigurator.cs" />
     <Compile Include="Mvc\Models\Fields\BackendFieldFallbackConfigurator.cs" />
