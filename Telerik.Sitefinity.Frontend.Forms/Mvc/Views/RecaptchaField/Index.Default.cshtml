@@ -8,13 +8,14 @@
 
 <div data-sf-role="recaptcha-field" data-sitekey="@Model.DataSitekey" data-size="@Model.Size" data-type="@Model.DataType" data-theme="@Model.Theme"></div>
 
-@Html.Script(Url.WidgetContent("Mvc/Scripts/RecaptchaField/recaptcha-field.js"), "bottom", false)
 
 @if (SystemManager.IsDesignMode)
 {
+    <script type="text/javascript" src="@Url.WidgetContent("Mvc/Scripts/RecaptchaField/recaptcha-field.js")"></script>
     <script type="text/javascript" src="//www.google.com/recaptcha/api.js?onload=sf_captchaCallback&render=explicit&t=@(DateTime.UtcNow.Ticks.ToString())" defer async></script>
 }
 else
 {
+    @Html.Script(Url.WidgetContent("Mvc/Scripts/RecaptchaField/recaptcha-field.js"), "bottom", false)
     @Html.Script("//www.google.com/recaptcha/api.js?onload=sf_captchaCallback&render=explicit", "bottom", false)
 }
