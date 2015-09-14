@@ -7,7 +7,7 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Models.Fields.SubmitButton
     /// <summary>
     /// Implements API for working with form submit button.
     /// </summary>
-    public class SubmitButtonModel : ISubmitButtonModel
+    public class SubmitButtonModel : FormElementModel, ISubmitButtonModel
     {
         /// <inheritDocs />
         public string Label
@@ -23,10 +23,7 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Models.Fields.SubmitButton
         }
 
         /// <inheritDocs />
-        public string CssClass { get; set; }
-
-        /// <inheritDocs />
-        public SubmitButtonViewModel GetViewModel()
+        public override object GetViewModel(object value)
         {
             var viewModel = new SubmitButtonViewModel()
             {

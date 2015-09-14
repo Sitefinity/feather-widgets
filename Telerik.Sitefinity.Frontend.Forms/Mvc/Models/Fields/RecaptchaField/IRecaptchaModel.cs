@@ -5,22 +5,9 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Models.Fields.RecaptchaField
     /// <summary>
     /// This interface provides API for form reCaptcha field.
     /// </summary>
-    public interface IRecaptchaFieldModel
+    public interface IRecaptchaModel : IFormElementdModel
     {
         /// <summary>
-        /// Gets or sets the value of the form field.
-        /// </summary>
-        /// <value>
-        /// The value.
-        /// </value>
-        object Value { get; set; }
-
-        /// <summary>
-        /// Determines whether this instance is valid.
-        /// </summary>
-        /// <param name="value">The value.</param>
-        /// <returns></returns>
-        bool IsValid(object value);
 
         /// <summary>
         /// Gets or sets the  color theme of the widget.
@@ -78,11 +65,6 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Models.Fields.RecaptchaField
         /// </value>
         bool DisplayOnlyForUnauthenticatedUsers { get; set; }
 
-        /// <summary>
-        /// Gets the view model.
-        /// </summary>
-        /// <returns></returns>
-        RecaptchaFieldViewModel GetViewModel(object value);
 
         /// <summary>
         /// Should the render captcha.

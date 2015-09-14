@@ -114,7 +114,7 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Models.Fields.TextField
         }
 
         /// <inheritDocs />
-        public TextFieldViewModel GetViewModel(object value, IMetaField metaField)
+        public override object GetViewModel(object value, IMetaField metaField)
         {
             this.Value = value;
             var viewModel = new TextFieldViewModel()

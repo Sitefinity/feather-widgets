@@ -19,7 +19,7 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Models.Fields.RecaptchaField
     /// <summary>
     /// Implements API for working with form reCaptcha fields.
     /// </summary>
-    public class RecaptchaFieldModel : FormFieldModel, IRecaptchaFieldModel
+    public class RecaptchaModel : FormElementModel, IRecaptchaModel
     {
         /// <inheritDocs/>
         public string Theme
@@ -67,7 +67,7 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Models.Fields.RecaptchaField
             {
                 if (string.IsNullOrEmpty(this.dataSitekey))
                 {
-                    this.dataSitekey = ConfigManager.GetManager().GetSection<FormsConfig>().Parameters[RecaptchaFieldModel.GRecaptchaParameterDataSiteKey];
+                    this.dataSitekey = ConfigManager.GetManager().GetSection<FormsConfig>().Parameters[RecaptchaModel.GRecaptchaParameterDataSiteKey];
                 }
 
                 return this.dataSitekey;
@@ -85,7 +85,7 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Models.Fields.RecaptchaField
             {
                 if (string.IsNullOrEmpty(this.secret))
                 {
-                    this.secret = ConfigManager.GetManager().GetSection<FormsConfig>().Parameters[RecaptchaFieldModel.GRecaptchaParameterSecretKey];
+                    this.secret = ConfigManager.GetManager().GetSection<FormsConfig>().Parameters[RecaptchaModel.GRecaptchaParameterSecretKey];
                 }
 
                 return this.secret;
@@ -133,9 +133,9 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Models.Fields.RecaptchaField
         }
 
         /// <inheritDocs/>
-        public RecaptchaFieldViewModel GetViewModel(object value)
+        public override object GetViewModel(object value)
         {
-            var viewModel = new RecaptchaFieldViewModel()
+            var viewModel = new RecaptchaViewModel()
             {
                 DataType = this.DataType,
                 Size = this.Size,

@@ -2,12 +2,11 @@
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
-using System.Text;
-using System.Text.RegularExpressions;
 using System.Web;
 using System.Web.Mvc;
 using Telerik.Sitefinity.Abstractions;
 using Telerik.Sitefinity.Forms.Model;
+using Telerik.Sitefinity.Frontend.Forms.Mvc.Controllers.Base;
 using Telerik.Sitefinity.Frontend.Forms.Mvc.Models.Fields;
 using Telerik.Sitefinity.Frontend.Forms.Mvc.StringResources;
 using Telerik.Sitefinity.Frontend.Mvc.Helpers;
@@ -24,7 +23,6 @@ using Telerik.Sitefinity.Services;
 using Telerik.Sitefinity.Utilities.TypeConverters;
 using Telerik.Sitefinity.Web;
 using Telerik.Sitefinity.Web.UI;
-using Telerik.Sitefinity.Web.UI.Fields;
 
 namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Models
 {
@@ -70,12 +68,6 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Models
 
         /// <inheritDoc/>
         public string CssClass { get; set; }
-
-        /// <inheritDoc/>
-        public bool UseAjaxSubmit { get; set; }
-
-        /// <inheritDoc/>
-        public string AjaxSubmitTargetUrl { get; set; }
 
         /// <summary>
         /// Represents the current form
@@ -134,13 +126,6 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Models
                 viewModel.Error = Res.Get<FormsResources>().TheSpecifiedFormNoLongerExists;
             }
 
-            viewModel.UseAjaxSubmit = this.UseAjaxSubmit;
-            if (this.UseAjaxSubmit)
-            {
-                viewModel.AjaxSubmitTargetUrl = this.AjaxSubmitTargetUrl.IsNullOrEmpty() ? "~/Forms/Submit" : this.AjaxSubmitTargetUrl;
-                viewModel.FormName = FormsManager.GetManager().GetForm(this.FormId).Name;
-            }
-
             return viewModel;
         }
 
@@ -159,7 +144,7 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Models
         }
 
         /// <inheritDoc/>
-        public virtual SubmitStatus TrySubmitForm(FormCollection collection, string userHostAddress)
+        public virtual SubmitStatus TrySubmitForm(FormCollection collection, HttpFileCollectionBase files, string userHostAddress)
         {
             var manager = FormsManager.GetManager();
             var form = manager.GetForm(this.FormId);
@@ -175,14 +160,15 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Models
             var formData = new List<KeyValuePair<string, object>>(collection.Count);
             for (int i = 0; i < collection.Count; i++)
             {
-                if (formFields.Contains(collection.Keys[i]))
-                {
-                    formData.Add(new KeyValuePair<string, object>(collection.Keys[i], collection[collection.Keys[i]]));
-                }
-            }
+            	if (formFields.Contains(collection.Keys[i]))
+            	{
+                	formData.Add(new KeyValuePair<string, object>(collection.Keys[i], collection[collection.Keys[i]]));
+            	}
+			}
 
-            var formLanguage = SystemManager.CurrentContext.AppSettings.Multilingual ? CultureInfo.CurrentUICulture.Name : null;
-            FormsHelper.SaveFormsEntry(form, formData, null, userHostAddress, ClaimsManager.GetCurrentUserId(), formLanguage);
+			var formLanguage = SystemManager.CurrentContext.AppSettings.Multilingual ? CultureInfo.CurrentUICulture.Name : null;
+			FormsHelper.SaveFormsEntry(form, formData, null, userHostAddress, ClaimsManager.GetCurrentUserId(), formLanguage);
+            
 
             return SubmitStatus.Success;
         }
@@ -254,27 +240,25 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Models
                     controlType = FormsManager.GetControlType(control);
                 else
                     controlType = TypeResolutionService.ResolveType(behaviorResolver.GetBehaviorObjectType(control), true);
-                
-                if (!controlType.ImplementsInterface(typeof(IValidatable)))
+        
+                if (!controlType.ImplementsGenericInterface(typeof(IFormElementController<>)))
                     continue;
-
+                
                 var controlInstance = manager.LoadControl(control);
-                var controller = behaviorResolver.GetBehaviorObject(controlInstance);
+                var controlBehaviorObject = behaviorResolver.GetBehaviorObject(controlInstance);
 
-                if (!controlType.ImplementsGenericInterface(typeof(IFormFieldController<>)))
+                if (controlBehaviorObject.GetType().ImplementsGenericInterface(typeof(IFormFieldController<>)))
                 {
-                    var fieldControl1 = (IValidatable)controller;
+                    var formField = (IFormFieldController<IFormFieldModel>)controlBehaviorObject;
+                    var fieldValue = collection[formField.MetaField.FieldName];
 
-                    if (!fieldControl1.IsValid())
+                    if (!formField.Model.IsValid(fieldValue))
                         return false;
                 }
                 else
                 {
-                    var fieldControl = (IFormFieldController<IFormFieldModel>)controller;
-
-                    var fieldValue = collection[fieldControl.MetaField.FieldName];
-
-                    if (!fieldControl.Model.IsValid(fieldValue))
+                    var formElement = (IFormElementController<IFormElementdModel>)controlBehaviorObject;
+                    if (!formElement.IsValid())
                         return false;
                 }
             }

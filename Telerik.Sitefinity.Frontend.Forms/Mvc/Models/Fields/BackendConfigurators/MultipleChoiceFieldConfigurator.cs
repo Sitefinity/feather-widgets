@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Telerik.Sitefinity.Frontend.Forms.Mvc.Controllers.Base;
 using Telerik.Sitefinity.Frontend.Forms.Mvc.Models.Fields.MultipleChoiceField;
 using Telerik.Sitefinity.Modules.Forms.Web.UI.Fields;
 using Telerik.Sitefinity.Web.UI.Fields;
@@ -14,6 +15,13 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Models.Fields.BackendConfigurato
     /// </summary>
     internal class MultipleChoiceFieldConfigurator : IFieldConfigurator
     {
+        /// <inheritDocs/>
+        public Guid FormId
+        {
+            get;
+            set;
+        }
+
         /// <inheritDocs/>
         public void Configure(FieldControl backendControl, IFormFieldController<IFormFieldModel> formFieldController)
         {

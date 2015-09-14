@@ -6,11 +6,8 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Models.Fields.SectionHeaderField
     /// <summary>
     /// Implements API for working with form section header fields.
     /// </summary>
-    public class SectionHeaderFieldModel : FormFieldModel, ISectionHeaderFieldModel, IFormFieldModel
+    public class SectionHeaderFieldModel : FormElementModel, ISectionHeaderModel
     {
-        /// <inheritDocs />
-        public string Text { get; set; }
-
         /// <inheritDocs />
         public string PlaceholderText
         {
@@ -33,13 +30,13 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Models.Fields.SectionHeaderField
         public HeadingType HeadingType { get; set; }
 
         /// <inheritDocs />
-        public SectionHeaderFieldViewModel GetViewModel()
+        public override object GetViewModel(object value)
         {
             return new SectionHeaderFieldViewModel()
             {
                 CssClass = this.CssClass,
                 HeadingType = this.HeadingType,
-                Text = this.Text
+                Text = value.ToString()
             };
         }
 
