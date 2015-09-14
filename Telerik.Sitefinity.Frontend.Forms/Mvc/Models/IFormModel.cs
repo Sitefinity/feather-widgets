@@ -93,12 +93,12 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Models
         /// <summary>
         /// Gets the submit message.
         /// </summary>
-        /// <param name="submitedSuccessfully">Did the form submited successfully</param>
-        string GetSubmitMessage(bool submitedSuccessfully);
+        /// <param name="submitedSuccessfully">Did the form submitted successfully</param>
+        string GetSubmitMessage(SubmitStatus submitedSuccessfully);
 
         /// <summary>
         /// Tries to submit the form.
         /// </summary>
-        bool TrySubmitForm(FormCollection collection, string userHostAddress);
+        SubmitStatus TrySubmitForm(FormCollection collection, string userHostAddress);
     }
 }

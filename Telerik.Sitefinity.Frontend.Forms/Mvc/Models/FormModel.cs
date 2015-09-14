@@ -110,8 +110,6 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Models
             }
         }
 
-        public string UnsuccessfulSubmitMessage { get; set; }
-
         #endregion
 
         #region Public methods
@@ -161,33 +159,32 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Models
         }
 
         /// <inheritDoc/>
-        public virtual bool TrySubmitForm(FormCollection collection, string userHostAddress)
+        public virtual SubmitStatus TrySubmitForm(FormCollection collection, string userHostAddress)
         {
-            var success = false;
-
             var manager = FormsManager.GetManager();
             var form = manager.GetForm(this.FormId);
 
-            if (this.IsValidForm(form, collection, manager) && this.ValidateFormSubmissionRestrictions())
+            if (!this.ValidateFormSubmissionRestrictions())
+                return SubmitStatus.RestrictionViolation;
+
+            if (!this.IsValidForm(form, collection, manager))
+                return SubmitStatus.InvalidEntry;
+
+            var formFields = new HashSet<string>(form.Controls.Select(this.FormFieldName).Where((f) => !string.IsNullOrEmpty(f)));
+
+            var formData = new List<KeyValuePair<string, object>>(collection.Count);
+            for (int i = 0; i < collection.Count; i++)
             {
-                var formFields = new HashSet<string>(form.Controls.Select(this.FormFieldName).Where((f) => !string.IsNullOrEmpty(f)));
-
-                var formData = new List<KeyValuePair<string, object>>(collection.Count);
-                for (int i = 0; i < collection.Count; i++)
+                if (formFields.Contains(collection.Keys[i]))
                 {
-                    if (formFields.Contains(collection.Keys[i]))
-                    {
-                        formData.Add(new KeyValuePair<string, object>(collection.Keys[i], collection[collection.Keys[i]]));
-                    }
+                    formData.Add(new KeyValuePair<string, object>(collection.Keys[i], collection[collection.Keys[i]]));
                 }
-
-                var formLanguage = SystemManager.CurrentContext.AppSettings.Multilingual ? CultureInfo.CurrentUICulture.Name : null;
-                FormsHelper.SaveFormsEntry(form, formData, null, userHostAddress, ClaimsManager.GetCurrentUserId(), formLanguage);
-
-                success = true;
             }
 
-            return success;
+            var formLanguage = SystemManager.CurrentContext.AppSettings.Multilingual ? CultureInfo.CurrentUICulture.Name : null;
+            FormsHelper.SaveFormsEntry(form, formData, null, userHostAddress, ClaimsManager.GetCurrentUserId(), formLanguage);
+
+            return SubmitStatus.Success;
         }
 
         /// <inheritDoc/>
@@ -210,14 +207,19 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Models
         }
 
         /// <inheritDoc/>
-        public virtual string GetSubmitMessage(bool submitedSuccessfully)
+        public virtual string GetSubmitMessage(SubmitStatus submitedSuccessfully)
         {
-            if (submitedSuccessfully)
+            switch (submitedSuccessfully)
             {
-                return this.CustomConfirmationMessage;
+                case SubmitStatus.Success:
+                    return this.CustomConfirmationMessage;
+                case SubmitStatus.InvalidEntry:
+                    return Res.Get<FormResources>().UnsuccessfullySubmittedMessage;
+                case SubmitStatus.RestrictionViolation:
+                    return Res.Get<FormsResources>().YouHaveAlreadySubmittedThisForm;
+                default:
+                    return string.Empty;
             }
-
-            return string.IsNullOrEmpty(this.UnsuccessfulSubmitMessage) ? Res.Get<FormResources>().UnsuccessfullySubmittedMessage : this.UnsuccessfulSubmitMessage;
         }
 
         /// <summary>
@@ -227,7 +229,6 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Models
         {
             string errorMessage;
             var isValid = FormsHelper.ValidateFormSubmissionRestrictions(this.FormData, ClaimsManager.GetCurrentUserId(), HttpContext.Current.Request.UserHostAddress, out errorMessage);
-            this.UnsuccessfulSubmitMessage = errorMessage;
 
             return isValid;
         }

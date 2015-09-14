@@ -61,7 +61,7 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Controllers
             }
             else
             {
-                var successValue = success as bool?;
+                var successValue = success as SubmitStatus?;
                 if (successValue.HasValue)
                 {
                     return this.Content(this.Model.GetSubmitMessage(successValue.Value));
@@ -79,7 +79,7 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Controllers
         {
             var success = this.Model.TrySubmitForm(collection, this.Request.UserHostAddress);
 
-            if (success && this.Model.NeedsRedirect)
+            if (success == SubmitStatus.Success && this.Model.NeedsRedirect)
             {
                 return this.Redirect(this.Model.GetRedirectPageUrl());
             }
