@@ -14,7 +14,7 @@
 
 <div class="@Model.CssClass" data-sf-role="checkboxes-field-container">
     <input type="hidden" data-sf-role="violation-messages" value='{ "required": "@Model.RequiredViolationMessage"}' />
-    <input type="hidden" data-sf-role="required-validator" value='@Model.IsRequired' />
+    <input type="hidden" data-sf-role="required-validator" value='@Model.IsRequired.ToString()' />
 
     <strong> @Model.MetaField.Title</strong>
     <p>@Model.MetaField.Description</p>

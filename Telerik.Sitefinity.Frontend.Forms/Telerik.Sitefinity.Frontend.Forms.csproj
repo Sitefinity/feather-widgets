@@ -206,6 +206,7 @@
     <Compile Include="Mvc\Models\Fields\SubmitButton\SubmitButtonModel.cs" />
     <Compile Include="Mvc\Models\Fields\TextField\TextFieldModel.cs" />
     <Compile Include="Mvc\Models\Fields\TextField\ITextFieldModel.cs" />
+    <Compile Include="Mvc\Models\SubmitStatus.cs" />
     <Compile Include="Mvc\StringResources\FieldResources.cs" />
     <Compile Include="Mvc\StringResources\FormResources.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
