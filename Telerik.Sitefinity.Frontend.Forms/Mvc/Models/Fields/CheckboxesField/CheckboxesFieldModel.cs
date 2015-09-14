@@ -71,7 +71,7 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Models.Fields.CheckboxesField
         }
 
         /// <inheritDocs />
-        public virtual CheckboxesFieldViewModel GetViewModel(object value, IMetaField metaField)
+        public override object GetViewModel(object value, IMetaField metaField)
         {
             this.Value = value;
             var viewModel = new CheckboxesFieldViewModel()

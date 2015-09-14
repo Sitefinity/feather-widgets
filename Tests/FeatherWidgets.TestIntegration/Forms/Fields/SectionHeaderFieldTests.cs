@@ -26,10 +26,10 @@ namespace FeatherWidgets.TestIntegration.Forms.Fields
         [Description("Ensures that when a Section header field widget is added to form the default value is presented in the page markup.")]
         public void SectionHeader_MarkupIsCorrect()
         {
-            var controller = new SectionHeaderFieldController();
-            controller.Model.Text = "Hello";
+            var controller = new SectionHeaderController();
+            controller.Model.Value = "Hello";
             var control = new MvcWidgetProxy();
-            control.ControllerName = typeof(SectionHeaderFieldController).FullName;
+            control.ControllerName = typeof(SectionHeaderController).FullName;
             control.Settings = new ControllerSettings(controller);
 
             var formId = ServerOperationsFeather.Forms().CreateFormWithWidget(control);

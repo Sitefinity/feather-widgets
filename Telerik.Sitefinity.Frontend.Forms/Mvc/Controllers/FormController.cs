@@ -77,7 +77,7 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Controllers
         [HttpPost]
         public ActionResult Index(FormCollection collection)
         {
-            var success = this.Model.TrySubmitForm(collection, this.Request.UserHostAddress);
+            var success = this.Model.TrySubmitForm(collection, this.Request.Files, this.Request.UserHostAddress);
 
             if (success == SubmitStatus.Success && this.Model.NeedsRedirect)
             {

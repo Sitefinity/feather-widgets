@@ -54,14 +54,14 @@ namespace Telerik.Sitefinity.Frontend.Forms
 
             var manager = ConfigManager.GetManager();
             var formsConfigSection = manager.GetSection<FormsConfig>();
-            if (formsConfigSection.Parameters[RecaptchaFieldModel.GRecaptchaParameterDataSiteKey] == null)
+            if (formsConfigSection.Parameters[RecaptchaModel.GRecaptchaParameterDataSiteKey] == null)
             {
-                formsConfigSection.Parameters.Add(RecaptchaFieldModel.GRecaptchaParameterDataSiteKey, TestGRecaptchaDataSitekey);
+                formsConfigSection.Parameters.Add(RecaptchaModel.GRecaptchaParameterDataSiteKey, TestGRecaptchaDataSitekey);
             }
 
-            if (formsConfigSection.Parameters[RecaptchaFieldModel.GRecaptchaParameterSecretKey] == null)
+            if (formsConfigSection.Parameters[RecaptchaModel.GRecaptchaParameterSecretKey] == null)
             {
-                formsConfigSection.Parameters.Add(RecaptchaFieldModel.GRecaptchaParameterSecretKey, TestGRecaptchaSecret);
+                formsConfigSection.Parameters.Add(RecaptchaModel.GRecaptchaParameterSecretKey, TestGRecaptchaSecret);
             }
 
             using (var a = new ElevatedConfigModeRegion())

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Web;
 using System.Web.Mvc;
 using Telerik.Sitefinity.ContentLocations;
 using Telerik.Sitefinity.Forms.Model;
@@ -49,19 +50,6 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Models
         Guid CustomConfirmationPageId { get; set; }
 
         /// <summary>
-        /// Gets or sets a value indicating whether the control to use Ajax submit when the form submit button is clicked.
-        /// </summary>
-        bool UseAjaxSubmit { get; set; }
-
-        /// <summary>
-        /// Gets or sets the submit target URL when using AJAX submit. If empty the default form entry handler is used.
-        /// </summary>
-        /// <value>
-        /// The AJAX submit target URL.
-        /// </value>
-        string AjaxSubmitTargetUrl { get; set; }
-
-        /// <summary>
         /// Gets a value indicating whether form needs redirect after success.
         /// </summary>
         /// <value>
@@ -99,6 +87,6 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Models
         /// <summary>
         /// Tries to submit the form.
         /// </summary>
-        SubmitStatus TrySubmitForm(FormCollection collection, string userHostAddress);
+        SubmitStatus TrySubmitForm(FormCollection collection, HttpFileCollectionBase files, string userHostAddress);
     }
 }
