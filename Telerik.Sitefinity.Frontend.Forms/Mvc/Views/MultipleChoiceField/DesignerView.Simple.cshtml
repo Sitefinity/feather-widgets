@@ -40,13 +40,21 @@
         <a ng-click="addItem()" type="button" class="text-muted list-group-item-add">@Html.Resource("ClickToAddChoice")</a>
 
          <div ng-show="properties.Model.HasOtherChoice.PropertyValue === 'True'">
-			<section class="row">
+             <div class="list-group-item list-group-item-multiselect ng-scope list-group-item-draggable-2 ng-scope  list-group-item-draggable--disabled">
                 <input type="radio" name="default" ng-click="setDefault('')" value=""  />
-				@Html.Resource("Other")
-			</section>
-            <section class="row">
-                <input type="text" disabled="disabled" />
-			</section>
+
+                <div>
+                    <section class="row">
+                        <div class="col-md-10">
+                            <div class="static-choice">
+				                @Html.Resource("Other")
+                            </div>   
+                        </div>
+                    </section>
+                </div>
+                <input type="text" disabled="disabled">
+
+             </div>
         </div>
     </div>
 
