@@ -10,6 +10,9 @@ using Telerik.Sitefinity.Modules.Forms.Web.UI.Fields;
 
 namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Controllers.Base
 {
+    /// <summary>
+    /// This class contains common functionality for all form's fields.
+    /// </summary>
     public abstract class FormFieldControllerBase<T>: FormElementControllerBase<T>, IFormFieldControl
         where T: IFormFieldModel
     {
@@ -32,7 +35,8 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Controllers.Base
             }
         }
 
-        protected override System.Web.Mvc.ActionResult Process(object value, string templateName)
+        /// <inheritDocs />
+        protected override System.Web.Mvc.ViewResult View(object value, string templateName)
         {
             var viewModel = this.Model.GetViewModel(value, this.MetaField);
             return this.View(templateName, viewModel);

@@ -8,7 +8,7 @@ using Telerik.Sitefinity.Web.UI.Fields.Contracts;
 namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Controllers.Base
 {
     /// <summary>
-    /// This interface defines API for working with forms field's controllers.
+    /// This interface defines API for working with forms element's controllers.
     /// </summary>
     public interface IFormElementController<out T> : IValidatable, IHasFieldDisplayMode 
         where T : IFormElementdModel
