@@ -59,5 +59,11 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Models.Fields.CheckboxesField
         /// </summary>
         /// <returns></returns>
         CheckboxesFieldViewModel GetViewModel(object value, IMetaField metaField);
+
+        /// <summary>
+        /// Deserializes the choices.
+        /// </summary>
+        /// <returns></returns>
+        IEnumerable<string> DeserializeChoices();
     }
 }

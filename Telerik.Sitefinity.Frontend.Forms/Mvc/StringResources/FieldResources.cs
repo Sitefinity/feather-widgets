@@ -308,11 +308,11 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.StringResources
         }
 
         /// <summary>
-        /// Gets phrase : First choice
+        /// Gets phrase : First Choice
         /// </summary>
         [ResourceEntry("OptionFirstChoice",
-            Value = "First choice",
-            Description = "phrase : First choice",
+            Value = "First Choice",
+            Description = "phrase : First Choice",
             LastModified = "2015/09/03")]
         public string OptionFirstChoice
         {
@@ -323,11 +323,11 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.StringResources
         }
 
         /// <summary>
-        /// Gets phrase : Second choice
+        /// Gets phrase : Second Choice
         /// </summary>
         [ResourceEntry("OptionSecondChoice",
-            Value = "Second choice",
-            Description = "phrase : Second choice",
+            Value = "Second Choice",
+            Description = "phrase : Second Choice",
             LastModified = "2015/09/03")]
         public string OptionSecondChoice
         {
@@ -338,11 +338,11 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.StringResources
         }
 
         /// <summary>
-        /// Gets phrase : Third choice
+        /// Gets phrase : Third Choice
         /// </summary>
         [ResourceEntry("OptionThirdChoice",
-            Value = "Third choice",
-            Description = "phrase : Third choice",
+            Value = "Third Choice",
+            Description = "phrase : Third Choice",
             LastModified = "2015/09/04")]
         public string OptionThirdChoice
         {

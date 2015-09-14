@@ -128,7 +128,8 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Models.Fields.CheckboxesField
             }
         }
 
-        private IEnumerable<string> DeserializeChoices()
+        /// <inheritDocs />
+        public IEnumerable<string> DeserializeChoices()
         {
             if (string.IsNullOrEmpty(this.SerializedChoices))
             {
