@@ -26,7 +26,7 @@ namespace Telerik.Sitefinity.Frontend.Forms
             Bind<IFormRenderer>().To<FormRazorRenderer>();
 
             Bind<IFormModel>().To<FormModel>();
-            Bind<IFormElementdModel>().To<FormElementModel>();
+            Bind<IFormElementModel>().To<FormElementModel>();
             Bind<ITextFieldModel>().To<TextFieldModel>();
             Bind<IRecaptchaModel>().To<RecaptchaModel>();
             Bind<ISubmitButtonModel>().To<SubmitButtonModel>();

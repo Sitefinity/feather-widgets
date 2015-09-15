@@ -16,7 +16,7 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Controllers.Base
     /// This class contains common functionality for all form's elements.
     /// </summary>
     public abstract class FormElementControllerBase<T> : Controller, IFormElementController<T>
-        where T: IFormElementdModel
+        where T: IFormElementModel
     {
         #region Properties
 

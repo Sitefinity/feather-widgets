@@ -152,24 +152,39 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Models
             if (!this.ValidateFormSubmissionRestrictions())
                 return SubmitStatus.RestrictionViolation;
 
-            if (!this.IsValidForm(form, collection, manager))
+            if (!this.IsValidForm(form, collection, files, manager))
                 return SubmitStatus.InvalidEntry;
 
             var formFields = new HashSet<string>(form.Controls.Select(this.FormFieldName).Where((f) => !string.IsNullOrEmpty(f)));
 
+            var postedFiles = new Dictionary<string, List<FormHttpPostedFile>>();
+            for (int i = 0; i < files.AllKeys.Length; i++)
+            {
+                if (formFields.Contains(files.AllKeys[i]))
+                {
+                    postedFiles[files.AllKeys[i]] = files.GetMultiple(files.AllKeys[i]).Where(f => !f.FileName.IsNullOrEmpty()).Select(f =>
+                        new FormHttpPostedFile()
+                        {
+                            FileName = f.FileName,
+                            ContentLength = f.ContentLength,
+                            ContentType = f.ContentType,
+                            InputStream = f.InputStream
+                        }).ToList();
+                }
+            }
+
             var formData = new List<KeyValuePair<string, object>>(collection.Count);
             for (int i = 0; i < collection.Count; i++)
             {
-            	if (formFields.Contains(collection.Keys[i]))
-            	{
-                	formData.Add(new KeyValuePair<string, object>(collection.Keys[i], collection[collection.Keys[i]]));
-            	}
-			}
+                if (formFields.Contains(collection.Keys[i]))
+                {
+                    formData.Add(new KeyValuePair<string, object>(collection.Keys[i], collection[collection.Keys[i]]));
+                }
+            }
 
-			var formLanguage = SystemManager.CurrentContext.AppSettings.Multilingual ? CultureInfo.CurrentUICulture.Name : null;
-			FormsHelper.SaveFormsEntry(form, formData, null, userHostAddress, ClaimsManager.GetCurrentUserId(), formLanguage);
+            var formLanguage = SystemManager.CurrentContext.AppSettings.Multilingual ? CultureInfo.CurrentUICulture.Name : null;
+            FormsHelper.SaveFormsEntry(form, formData, null, userHostAddress, ClaimsManager.GetCurrentUserId(), formLanguage);
             
-
             return SubmitStatus.Success;
         }
 
@@ -226,7 +241,7 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Models
         /// <param name="collection">The collection.</param>
         /// <param name="manager">The manager.</param>
         /// <returns>true if form is valid, false otherwise.</returns>
-        protected virtual bool IsValidForm(FormDescription form, FormCollection collection, FormsManager manager)
+        protected virtual bool IsValidForm(FormDescription form, FormCollection collection, HttpFileCollectionBase files, FormsManager manager)
         {
             this.SanitizeFormCollection(collection);
             var behaviorResolver = ObjectFactory.Resolve<IControlBehaviorResolver>();
@@ -247,17 +262,17 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Models
                 var controlInstance = manager.LoadControl(control);
                 var controlBehaviorObject = behaviorResolver.GetBehaviorObject(controlInstance);
 
-                if (controlBehaviorObject.GetType().ImplementsGenericInterface(typeof(IFormFieldController<>)))
+                if (controlBehaviorObject is IFormFieldController<IFormFieldModel>)
                 {
                     var formField = (IFormFieldController<IFormFieldModel>)controlBehaviorObject;
-                    var fieldValue = collection[formField.MetaField.FieldName];
+                    object fieldValue = (object)collection[formField.MetaField.FieldName] ?? (object)files.GetMultiple(formField.MetaField.FieldName);
 
                     if (!formField.Model.IsValid(fieldValue))
                         return false;
                 }
                 else
                 {
-                    var formElement = (IFormElementController<IFormElementdModel>)controlBehaviorObject;
+                    var formElement = (IFormElementController<IFormElementModel>)controlBehaviorObject;
                     if (!formElement.IsValid())
                         return false;
                 }

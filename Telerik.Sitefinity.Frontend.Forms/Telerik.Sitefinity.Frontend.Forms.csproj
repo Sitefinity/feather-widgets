@@ -181,6 +181,7 @@
     <Compile Include="Mvc\Models\Fields\DropdownListField\DropdownListFieldModel.cs" />
     <Compile Include="Mvc\Models\Fields\DropdownListField\DropdownListFieldViewModel.cs" />
     <Compile Include="Mvc\Models\Fields\DropdownListField\IDropdownListFieldModel.cs" />
+    <Compile Include="Mvc\Models\Fields\FileField\AllowedFileTypes.cs" />
     <Compile Include="Mvc\Models\Fields\FileField\FileFieldModel.cs" />
     <Compile Include="Mvc\Models\Fields\FileField\FileFieldViewModel.cs" />
     <Compile Include="Mvc\Models\Fields\FileField\IFileFieldModel.cs" />
@@ -192,7 +193,7 @@
     <Compile Include="Mvc\Models\Fields\ParagraphTextField\IParagraphTextFieldModel.cs" />
     <Compile Include="Mvc\Models\Fields\ParagraphTextField\ParagraphTextFieldModel.cs" />
     <Compile Include="Mvc\Models\Fields\ParagraphTextField\ParagraphTextFieldViewModel.cs" />
-    <Compile Include="Mvc\Models\Fields\IFormElementdModel.cs" />
+    <Compile Include="Mvc\Models\Fields\IFormElementModel.cs" />
     <Compile Include="Mvc\Models\Fields\FormElementModel.cs" />
     <Compile Include="Mvc\Models\CustomConfirmationMode.cs" />
     <Compile Include="Mvc\Models\Fields\RecaptchaField\IRecaptchaModel.cs" />

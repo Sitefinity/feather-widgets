@@ -11,7 +11,7 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Controllers.Base
     /// This interface defines API for working with forms element's controllers.
     /// </summary>
     public interface IFormElementController<out T> : IValidatable, IHasFieldDisplayMode 
-        where T : IFormElementdModel
+        where T : IFormElementModel
     {
         /// <summary>
         /// Gets the form field model.

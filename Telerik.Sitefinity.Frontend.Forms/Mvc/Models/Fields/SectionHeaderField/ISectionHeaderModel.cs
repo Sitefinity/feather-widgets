@@ -6,7 +6,7 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Models.Fields.SectionHeaderField
     /// <summary>
     /// This interface provides API for form section header field.
     /// </summary>
-    public interface ISectionHeaderModel : IFormElementdModel
+    public interface ISectionHeaderModel : IFormElementModel
     {
         /// <summary>
         /// Gets or sets the placeholder text.

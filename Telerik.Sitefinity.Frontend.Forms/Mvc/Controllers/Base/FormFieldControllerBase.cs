@@ -13,7 +13,7 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Controllers.Base
     /// <summary>
     /// This class contains common functionality for all form's fields.
     /// </summary>
-    public abstract class FormFieldControllerBase<T>: FormElementControllerBase<T>, IFormFieldControl
+    public abstract class FormFieldControllerBase<T>: FormElementControllerBase<T>, IFormFieldControl, IFormFieldController<T>
         where T: IFormFieldModel
     {
         /// <inheritDocs />

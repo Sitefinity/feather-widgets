@@ -5,7 +5,7 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Models.Fields.RecaptchaField
     /// <summary>
     /// This interface provides API for form reCaptcha field.
     /// </summary>
-    public interface IRecaptchaModel : IFormElementdModel
+    public interface IRecaptchaModel : IFormElementModel
     {
         /// <summary>
 
