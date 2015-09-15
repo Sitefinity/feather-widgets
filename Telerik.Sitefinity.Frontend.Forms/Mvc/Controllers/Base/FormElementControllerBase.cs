@@ -12,6 +12,9 @@ using Telerik.Sitefinity.Web.UI.Fields.Enums;
 
 namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Controllers.Base
 {
+    /// <summary>
+    /// This class contains common functionality for all form's elements.
+    /// </summary>
     public abstract class FormElementControllerBase<T> : Controller, IFormElementController<T>
         where T: IFormElementModel
     {
@@ -95,17 +98,23 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Controllers.Base
         public virtual ActionResult Read(object value)
         {
             string templateName = this.ReadTemplateNamePrefix + this.ReadTemplateName;
-            return this.Process(value, templateName);
+            return this.View(value, templateName);
         }
 
         /// <inheritDocs />
         public virtual ActionResult Write(object value)
         {
             string templateName = this.WriteTemplateNamePrefix + this.WriteTemplateName;
-            return this.Process(value, templateName);
+            return this.View(value, templateName);
         }
 
-        protected virtual ActionResult Process(object value, string templateName)
+        /// <summary>
+        ///  Creates a System.Web.Mvc.ViewResult object that renders the specified IView
+        /// </summary>
+        /// <param name="value">The element's value.</param>
+        /// <param name="templateName">The name of the element's template.</param>
+        /// <returns></returns>
+        protected virtual ViewResult View(object value, string templateName)
         {
             var viewModel = this.Model.GetViewModel(value);
             return this.View(templateName, viewModel);

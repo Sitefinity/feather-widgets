@@ -24,7 +24,7 @@ namespace FeatherWidgets.TestUI.TestCases.ContentBlocks
         /// </summary>
         [TestMethod,
         Owner(FeatherTeams.FeatherTeam),
-        TestCategory(FeatherTestCategories.ContentBlock), Ignore]
+        TestCategory(FeatherTestCategories.ContentBlock)]
         public void ContentBlockWidgetOnPage()
         {
             BAT.Macros().NavigateTo().Pages();

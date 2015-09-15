@@ -19,6 +19,7 @@ namespace FeatherWidgets.TestUI.Arrangements
         [ServerSetUp]
         public void SetUp()
         {
+            AuthenticationHelper.AuthenticateUser(AdminUserName, AdminPass, true);
             Guid page1Id = ServerOperations.Pages().CreatePage(PageName);
             ServerOperationsFeather.Pages().AddContentBlockWidgetToPage(page1Id);
 
@@ -45,6 +46,8 @@ namespace FeatherWidgets.TestUI.Arrangements
             ServerOperations.Libraries().DeleteAllDocumentLibrariesExceptDefaultOne();
         }
 
+        private const string AdminUserName = "admin";
+        private const string AdminPass = "admin@2";
         private const string PageName = "PageWithDocument";
         private const string DocumentLibraryTitle = "TestDocumentLibrary";
         private const string ChildLibraryTitle = "ChildDocumentLibrary";

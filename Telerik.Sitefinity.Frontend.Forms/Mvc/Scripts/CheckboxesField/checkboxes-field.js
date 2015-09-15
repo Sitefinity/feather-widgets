@@ -4,7 +4,7 @@
         var inputs = $(container).find('[data-sf-role="checkboxes-field-input"]');
         var hasChecked = $(container).find('input[data-sf-role="checkboxes-field-input"]:checked').length > 0;
 
-        if (hasChecked && container.find('[data-sf-role="required-validator"]').val()) {
+        if (hasChecked || container.find('[data-sf-role="required-validator"]').val() === 'False') {
             $(inputs[0]).removeAttr('required');
             inputs[0].setCustomValidity('');
         }
@@ -48,7 +48,7 @@
             var otherCheckbox = $(containers.find('[data-sf-checkboxes-role="other-choice-checkbox"]').first());
             var otherCheckboxIndex = checkboxes.index(otherCheckbox);
             var currentIndex = checkboxes.index($(e.target));
-            var isRequired = container.find('[data-sf-role="required-validator"]').val();
+            var isRequired = container.find('[data-sf-role="required-validator"]').val() === 'True';
 
             if (currentIndex == otherCheckboxIndex && otherCheckbox.is(':checked')) {
                 otherInput.attr('type', 'text');
@@ -74,7 +74,7 @@
             var container = $(containers[i]);
             var inputs = container.find('[data-sf-role="checkboxes-field-input"]');
 
-            if (container.find('[data-sf-role="required-validator"]').val())
+            if (container.find('[data-sf-role="required-validator"]').val() === 'True')
                 $(inputs[0]).attr('required', 'required');
 
             inputs.each(attachHandlers);

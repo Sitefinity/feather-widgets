@@ -96,15 +96,17 @@
     <Reference Include="Telerik.Sitefinity">
       <HintPath>..\packages\Telerik.Sitefinity.Core.8.1.5800.0\lib\net40\Telerik.Sitefinity.dll</HintPath>
     </Reference>
-    <Reference Include="Telerik.Sitefinity.Frontend, Version=1.3.340.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\Telerik.Sitefinity.Frontend.1.3.340.0\lib\net45\Telerik.Sitefinity.Frontend.dll</HintPath>
+    <Reference Include="Telerik.Sitefinity.Frontend, Version=1.3.350.0, Culture=neutral, processorArchitecture=MSIL">
+	  <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Telerik.Sitefinity.Frontend.1.3.350.0\lib\net45\Telerik.Sitefinity.Frontend.dll</HintPath>
+      <Private>True</Private>
     </Reference>
     <Reference Include="Telerik.Sitefinity.Model">
       <HintPath>..\packages\Telerik.Sitefinity.Core.8.1.5800.0\lib\net40\Telerik.Sitefinity.Model.dll</HintPath>
     </Reference>
-    <Reference Include="Telerik.Sitefinity.Mvc">
-      <HintPath>..\packages\Telerik.Sitefinity.Mvc.1.3.340.0\lib\net45\Telerik.Sitefinity.Mvc.dll</HintPath>
+    <Reference Include="Telerik.Sitefinity.Mvc, Version=1.3.350.0, Culture=neutral, PublicKeyToken=b28c218413bdf563, processorArchitecture=MSIL">
+      <HintPath>..\packages\Telerik.Sitefinity.Mvc.1.3.350.0\lib\net45\Telerik.Sitefinity.Mvc.dll</HintPath>
+      <Private>True</Private>
     </Reference>
     <Reference Include="Telerik.Sitefinity.Personalization">
       <HintPath>..\packages\Telerik.Sitefinity.Core.8.1.5800.0\lib\net40\Telerik.Sitefinity.Personalization.dll</HintPath>
@@ -133,9 +135,8 @@
     <Reference Include="Telerik.Sitefinity.Utilities">
       <HintPath>..\packages\Telerik.Sitefinity.Core.8.1.5800.0\lib\net40\Telerik.Sitefinity.Utilities.dll</HintPath>
     </Reference>
-    <Reference Include="Telerik.Web.UI, Version=2015.2.729.40, Culture=neutral, PublicKeyToken=121fae78165ba3d4, processorArchitecture=MSIL">
-      <HintPath>..\packages\Telerik.Web.UI.2015.2.729.40\lib\net40\Telerik.Web.UI.dll</HintPath>
-      <Private>True</Private>
+    <Reference Include="Telerik.Web.UI">
+      <HintPath>..\packages\Telerik.Web.UI.2015.2.826.40\lib\net40\Telerik.Web.UI.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
@@ -167,6 +168,12 @@
     <Compile Include="Mvc\Helpers\ControllerHelpers.cs" />
     <Compile Include="Mvc\Helpers\SectionHeaderFieldHelpers.cs" />
     <Compile Include="Mvc\Helpers\TextTypeHelpers.cs" />
+    <Compile Include="Mvc\Models\Fields\BackendConfigurators\CheckboxesFieldConfigurator.cs" />
+    <Compile Include="Mvc\Models\Fields\BackendConfigurators\FileFieldConfigurator.cs" />
+    <Compile Include="Mvc\Models\Fields\BackendConfigurators\MultipleChoiceFieldConfigurator.cs" />
+    <Compile Include="Mvc\Models\Fields\BackendConfigurators\DropdownListFieldConfigurator.cs" />
+    <Compile Include="Mvc\Models\Fields\BackendConfigurators\FieldConfiguration.cs" />
+    <Compile Include="Mvc\Models\Fields\BackendConfigurators\IFieldConfigurator.cs" />
     <Compile Include="Mvc\Models\Fields\BackendFieldFallbackConfigurator.cs" />
     <Compile Include="Mvc\Models\Fields\CheckboxesField\ICheckboxesFieldModel.cs" />
     <Compile Include="Mvc\Models\Fields\CheckboxesField\CheckboxesFieldModel.cs" />
@@ -207,6 +214,7 @@
     <Compile Include="Mvc\Models\Fields\SubmitButton\SubmitButtonModel.cs" />
     <Compile Include="Mvc\Models\Fields\TextField\TextFieldModel.cs" />
     <Compile Include="Mvc\Models\Fields\TextField\ITextFieldModel.cs" />
+    <Compile Include="Mvc\Models\SubmitStatus.cs" />
     <Compile Include="Mvc\StringResources\FieldResources.cs" />
     <Compile Include="Mvc\StringResources\FormResources.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

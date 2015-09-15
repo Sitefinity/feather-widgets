@@ -52,7 +52,7 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Models
             {
                 if (string.IsNullOrEmpty(this.customConfirmationMessage))
                 {
-                    return Res.Get<FormResources>().SuccessfullySubmittedMessage;
+                    this.customConfirmationMessage = this.FormData == null ? (Lstring)Res.Get<FormResources>().SuccessfullySubmittedMessage : this.FormData.SuccessMessage;
                 }
 
                 return this.customConfirmationMessage;
@@ -68,6 +68,39 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Models
 
         /// <inheritDoc/>
         public string CssClass { get; set; }
+
+        /// <summary>
+        /// Represents the current form
+        /// </summary>        
+        public FormDescription FormData
+        {
+            get
+            {
+                FormDescription descr = null;
+                if (this.FormId != Guid.Empty)
+                {
+                    var manager = FormsManager.GetManager();
+                    if (this.FormId != Guid.Empty)
+                    {
+                        descr = manager.GetForm(this.FormId);
+                    }
+                }
+
+                return descr;
+            }
+        }
+
+        /// <inheritDoc/>
+        public virtual bool NeedsRedirect
+        {
+            get
+            {
+                if (this.UseCustomConfirmation)
+                    return this.CustomConfirmationMode == CustomConfirmationMode.RedirectToAPage;
+                else
+                    return this.FormData.SubmitAction == SubmitAction.PageRedirect;
+            }
+        }
 
         #endregion
 
@@ -111,55 +144,58 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Models
         }
 
         /// <inheritDoc/>
-        public virtual bool TrySubmitForm(FormCollection collection, HttpFileCollectionBase files, string userHostAddress)
+        public virtual SubmitStatus TrySubmitForm(FormCollection collection, HttpFileCollectionBase files, string userHostAddress)
         {
-            var success = false;
-
             var manager = FormsManager.GetManager();
             var form = manager.GetForm(this.FormId);
 
-            if (this.IsValidForm(form, collection, files, manager))
+            if (!this.ValidateFormSubmissionRestrictions())
+                return SubmitStatus.RestrictionViolation;
+
+            if (!this.IsValidForm(form, collection, files, manager))
+                return SubmitStatus.InvalidEntry;
+
+            var formFields = new HashSet<string>(form.Controls.Select(this.FormFieldName).Where((f) => !string.IsNullOrEmpty(f)));
+
+            var postedFiles = new Dictionary<string, List<FormHttpPostedFile>>();
+            for (int i = 0; i < files.AllKeys.Length; i++)
             {
-                var formFields = new HashSet<string>(form.Controls.Select(this.FormFieldName).Where((f) => !string.IsNullOrEmpty(f)));
-
-                var formData = new List<KeyValuePair<string, object>>(collection.Count);
-                for (int i = 0; i < collection.Count; i++)
+                if (formFields.Contains(files.AllKeys[i]))
                 {
-                    if (formFields.Contains(collection.Keys[i]))
-                    {
-                        formData.Add(new KeyValuePair<string, object>(collection.Keys[i], collection[collection.Keys[i]]));
-                    }
+                    postedFiles[files.AllKeys[i]] = files.GetMultiple(files.AllKeys[i]).Where(f => !f.FileName.IsNullOrEmpty()).Select(f =>
+                        new FormHttpPostedFile()
+                        {
+                            FileName = f.FileName,
+                            ContentLength = f.ContentLength,
+                            ContentType = f.ContentType,
+                            InputStream = f.InputStream
+                        }).ToList();
                 }
-
-                var postedFiles = new Dictionary<string, List<FormHttpPostedFile>>();
-                for (int i = 0; i < files.AllKeys.Length; i++)
-                {
-                    if (formFields.Contains(files.AllKeys[i]))
-                    {
-                        postedFiles[files.AllKeys[i]] = files.GetMultiple(files.AllKeys[i]).Where(f => !f.FileName.IsNullOrEmpty()).Select(f =>
-                            new FormHttpPostedFile() 
-                            { 
-                                FileName = f.FileName, 
-                                ContentLength = f.ContentLength, 
-                                ContentType = f.ContentType, 
-                                InputStream = f.InputStream 
-                            }).ToList();
-                    }
-                }
-
-                var formLanguage = SystemManager.CurrentContext.AppSettings.Multilingual ? CultureInfo.CurrentUICulture.Name : null;
-                FormsHelper.SaveFormsEntry(form, formData, postedFiles, userHostAddress, ClaimsManager.GetCurrentUserId(), formLanguage);
-
-                success = true;
             }
 
-            return success;
+            var formData = new List<KeyValuePair<string, object>>(collection.Count);
+            for (int i = 0; i < collection.Count; i++)
+            {
+                if (formFields.Contains(collection.Keys[i]))
+                {
+                    formData.Add(new KeyValuePair<string, object>(collection.Keys[i], collection[collection.Keys[i]]));
+                }
+            }
+
+            var formLanguage = SystemManager.CurrentContext.AppSettings.Multilingual ? CultureInfo.CurrentUICulture.Name : null;
+            FormsHelper.SaveFormsEntry(form, formData, null, userHostAddress, ClaimsManager.GetCurrentUserId(), formLanguage);
+            
+            return SubmitStatus.Success;
         }
 
         /// <inheritDoc/>
         public virtual string GetRedirectPageUrl()
         {
-            if (this.CustomConfirmationPageId == Guid.Empty)
+            if (!this.UseCustomConfirmation && !string.IsNullOrEmpty(this.FormData.RedirectPageUrl))
+            {
+                return this.FormData.RedirectPageUrl;
+            }
+            else if (this.CustomConfirmationPageId == Guid.Empty)
             {
                 var currentNode = SiteMapBase.GetActualCurrentNode();
                 if (currentNode == null)
@@ -172,14 +208,30 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Models
         }
 
         /// <inheritDoc/>
-        public virtual string GetSubmitMessage(bool submitedSuccessfully)
+        public virtual string GetSubmitMessage(SubmitStatus submitedSuccessfully)
         {
-            if (submitedSuccessfully)
+            switch (submitedSuccessfully)
             {
-                return this.CustomConfirmationMessage;
+                case SubmitStatus.Success:
+                    return this.CustomConfirmationMessage;
+                case SubmitStatus.InvalidEntry:
+                    return Res.Get<FormResources>().UnsuccessfullySubmittedMessage;
+                case SubmitStatus.RestrictionViolation:
+                    return Res.Get<FormsResources>().YouHaveAlreadySubmittedThisForm;
+                default:
+                    return string.Empty;
             }
+        }
 
-            return Res.Get<FormResources>().UnsuccessfullySubmittedMessage;
+        /// <summary>
+        /// Validates the form against the preset submit restrictions.
+        /// </summary>
+        protected virtual bool ValidateFormSubmissionRestrictions()
+        {
+            string errorMessage;
+            var isValid = FormsHelper.ValidateFormSubmissionRestrictions(this.FormData, ClaimsManager.GetCurrentUserId(), HttpContext.Current.Request.UserHostAddress, out errorMessage);
+
+            return isValid;
         }
 
         /// <summary>

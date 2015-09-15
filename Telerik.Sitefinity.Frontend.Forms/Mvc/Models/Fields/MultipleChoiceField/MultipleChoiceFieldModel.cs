@@ -67,15 +67,6 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Models.Fields.MultipleChoiceFiel
                 metaField.Title = Res.Get<FieldResources>().SelectChoice;
             }
 
-            if (string.IsNullOrEmpty(metaField.DefaultValue))
-            {
-                var choices = this.DeserializeChoices();
-                if (choices.Any())
-                {
-                    metaField.DefaultValue = choices.FirstOrDefault();                        
-                }
-            }
-
             return metaField;
         }
 
@@ -137,7 +128,7 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Models.Fields.MultipleChoiceFiel
             }
         }
 
-        private IEnumerable<string> DeserializeChoices()
+        public IEnumerable<string> DeserializeChoices()
         {
             if (string.IsNullOrEmpty(this.SerializedChoices))
             {

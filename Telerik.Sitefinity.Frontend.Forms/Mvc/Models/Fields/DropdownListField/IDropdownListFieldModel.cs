@@ -28,5 +28,11 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Models.Fields.DropdownListField
         /// <value>The validation.</value>
         [TypeConverter(typeof(ExpandableObjectConverter))]
         ValidatorDefinition ValidatorDefinition { get; set; }
+
+        /// <summary>
+        /// Deserializes the choices.
+        /// </summary>
+        /// <returns></returns>
+        IEnumerable<string> DeserializeChoices();
     }
 }
