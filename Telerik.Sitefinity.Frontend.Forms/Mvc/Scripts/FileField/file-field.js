@@ -32,7 +32,7 @@
                 violationMessage.hide();
                 return true;
             }
-        };
+        }
 
         violationMessage.show();
         return false;
@@ -56,7 +56,7 @@
             }
 
             violationMessage.hide();
-        };
+        }
 
         return !hasViolations;
     };
@@ -79,14 +79,14 @@
             }
 
             violationMessage.hide();
-        };
+        }
 
         return !hasViolations;
     };
 
     var formValidation = function (ev) {
         var requiredValidationResult = !ev.data.config.IsRequired || checkRequired(ev.data.container);
-        var fileTypesValidationResult = ev.data.config.AcceptedFileTypes.length == 0 || checkFileTypes(ev.data.container, ev.data.config.AcceptedFileTypes);
+        var fileTypesValidationResult = ev.data.config.AcceptedFileTypes.length === 0 || checkFileTypes(ev.data.container, ev.data.config.AcceptedFileTypes);
         var fileSizesValidationResult = !(ev.data.config.MinFileSizeInMb || ev.data.config.MaxFileSizeInMb) || checkFileSizes(ev.data.container, ev.data.config.MinFileSizeInMb * 1024 * 1024, ev.data.config.MaxFileSizeInMb * 1024 * 1024);
 
         return requiredValidationResult && fileTypesValidationResult && fileSizesValidationResult;
