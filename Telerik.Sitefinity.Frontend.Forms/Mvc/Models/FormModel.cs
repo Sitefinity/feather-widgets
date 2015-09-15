@@ -67,7 +67,21 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Models
         public Guid CustomConfirmationPageId { get; set; }
 
         /// <inheritDoc/>
-        public string CssClass { get; set; }
+        public string CssClass
+        { 
+            get 
+            {
+                if (this.cssClass == null && this.FormData != null)
+                    this.cssClass = this.FormData.CssClass;
+
+                return this.cssClass;
+            }
+
+            set 
+            {
+                this.cssClass = value;
+            }
+        }
 
         /// <summary>
         /// Represents the current form
@@ -361,6 +375,7 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Models
 
         #region Private fields
 
+        private string cssClass;
         private string customConfirmationMessage;
 
         #endregion
