@@ -52,6 +52,16 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Controllers
             }
         }
 
+        public override ActionResult Write(object value)
+        {
+            return this.Read(value);
+        }
+
+        protected override void HandleUnknownAction(string actionName)
+        {
+            this.Read(null).ExecuteResult(this.ControllerContext);
+        }
+
         internal const string WidgetIconCssClass = "sfSectionHeaderIcn sfMvcIcn";
         private ISectionHeaderModel model;
         private const string templateNamePrefix = "Read.";
