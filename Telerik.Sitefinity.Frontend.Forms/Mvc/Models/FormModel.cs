@@ -269,7 +269,7 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Models
                     object fieldValue;
                     if (multipleFiles != null && multipleFiles.Count() > 0)
                     {
-                        fieldValue = (object)files.GetMultiple(formField.MetaField.FieldName);
+                        fieldValue = (object)multipleFiles;
                     }
                     else 
                     {
