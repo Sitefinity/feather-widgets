@@ -22,7 +22,7 @@ namespace FeatherWidgets.TestUI.TestCases.ContentBlocks
         /// </summary>
         [TestMethod,
         Owner(FeatherTeams.FeatherTeam),
-        TestCategory(FeatherTestCategories.ContentBlock)]
+        TestCategory(FeatherTestCategories.ContentBlock1)]
         public void ShareContentBlockWithoutTitleFromPage()
         {
             BAT.Macros().NavigateTo().Pages();

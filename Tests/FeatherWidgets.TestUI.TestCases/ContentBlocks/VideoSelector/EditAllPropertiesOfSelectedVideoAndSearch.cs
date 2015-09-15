@@ -21,7 +21,7 @@ namespace FeatherWidgets.TestUI.TestCases.ContentBlocks.VideoSelector
         [TestMethod,
         Owner(FeatherTeams.FeatherTeam),
         TestCategory(FeatherTestCategories.MediaSelector),
-        TestCategory(FeatherTestCategories.ContentBlock)]
+        TestCategory(FeatherTestCategories.ContentBlock3)]
         public void EditAllPropertiesOfSelectedVideoAndSearch()
         {
             BAT.Macros().NavigateTo().Pages();
@@ -85,7 +85,7 @@ namespace FeatherWidgets.TestUI.TestCases.ContentBlocks.VideoSelector
         private const string VideoName1 = "big_buck_bunny1";
         private const string VideoNewName = "NewTitle1";
         private const string VideoType = ".mp4";
-        private const string Size = "1117 KB";
+        private const string Size = "375 KB";
         private const string MediaType = "videos";
     }
 }
