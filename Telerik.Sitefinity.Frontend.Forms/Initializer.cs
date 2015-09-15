@@ -6,7 +6,7 @@ using Telerik.Sitefinity.Configuration;
 using Telerik.Sitefinity.Data;
 using Telerik.Sitefinity.Frontend.Forms.Mvc.Controllers;
 using Telerik.Sitefinity.Frontend.Forms.Mvc.Models.Fields;
-using Telerik.Sitefinity.Frontend.Forms.Mvc.Models.Fields.RecaptchaField;
+using Telerik.Sitefinity.Frontend.Forms.Mvc.Models.Fields.Recaptcha;
 using Telerik.Sitefinity.Modules.ControlTemplates;
 using Telerik.Sitefinity.Modules.Forms.Configuration;
 using Telerik.Sitefinity.Modules.Pages;

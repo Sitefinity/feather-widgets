@@ -97,7 +97,7 @@
       <HintPath>..\packages\Telerik.Sitefinity.Core.8.1.5800.0\lib\net40\Telerik.Sitefinity.dll</HintPath>
     </Reference>
     <Reference Include="Telerik.Sitefinity.Frontend, Version=1.3.350.0, Culture=neutral, processorArchitecture=MSIL">
-	  <SpecificVersion>False</SpecificVersion>
+      <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\Telerik.Sitefinity.Frontend.1.3.350.0\lib\net45\Telerik.Sitefinity.Frontend.dll</HintPath>
       <Private>True</Private>
     </Reference>
@@ -196,13 +196,13 @@
     <Compile Include="Mvc\Models\Fields\IFormElementModel.cs" />
     <Compile Include="Mvc\Models\Fields\FormElementModel.cs" />
     <Compile Include="Mvc\Models\CustomConfirmationMode.cs" />
-    <Compile Include="Mvc\Models\Fields\RecaptchaField\IRecaptchaModel.cs" />
-    <Compile Include="Mvc\Models\Fields\RecaptchaField\RecaptchaModel.cs" />
-    <Compile Include="Mvc\Models\Fields\RecaptchaField\RecaptchaViewModel.cs" />
-    <Compile Include="Mvc\Models\Fields\SectionHeaderField\HeadingType.cs" />
-    <Compile Include="Mvc\Models\Fields\SectionHeaderField\SectionHeaderFieldViewModel.cs" />
-    <Compile Include="Mvc\Models\Fields\SectionHeaderField\SectionHeaderFieldModel.cs" />
-    <Compile Include="Mvc\Models\Fields\SectionHeaderField\ISectionHeaderModel.cs" />
+    <Compile Include="Mvc\Models\Fields\Recaptcha\IRecaptchaModel.cs" />
+    <Compile Include="Mvc\Models\Fields\Recaptcha\RecaptchaModel.cs" />
+    <Compile Include="Mvc\Models\Fields\Recaptcha\RecaptchaViewModel.cs" />
+    <Compile Include="Mvc\Models\Fields\SectionHeader\HeadingType.cs" />
+    <Compile Include="Mvc\Models\Fields\SectionHeader\SectionHeaderViewModel.cs" />
+    <Compile Include="Mvc\Models\Fields\SectionHeader\SectionHeaderModel.cs" />
+    <Compile Include="Mvc\Models\Fields\SectionHeader\ISectionHeaderModel.cs" />
     <Compile Include="Mvc\Models\Fields\SubmitButton\ISubmitButtonModel.cs" />
     <Compile Include="Mvc\Models\Fields\SubmitButton\SubmitButtonViewModel.cs" />
     <Compile Include="Mvc\Models\Fields\TextField\TextFieldViewModel.cs" />
@@ -230,12 +230,12 @@
     <EmbeddedResource Include="Mvc\Views\TextField\Read.Default.cshtml" />
     <EmbeddedResource Include="Mvc\Views\SubmitButton\DesignerView.Simple.cshtml" />
     <EmbeddedResource Include="Mvc\Views\SubmitButton\DesignerView.Simple.json" />
-    <EmbeddedResource Include="Mvc\Views\RecaptchaField\Write.Default.cshtml" />
-    <EmbeddedResource Include="Mvc\Views\RecaptchaField\DesignerView.Simple.cshtml" />
-    <EmbeddedResource Include="Mvc\Views\RecaptchaField\DesignerView.Simple.json" />
-    <EmbeddedResource Include="Mvc\Views\SectionHeaderField\Index.Default.cshtml" />
-    <EmbeddedResource Include="Mvc\Views\SectionHeaderField\DesignerView.Simple.cshtml" />
-    <EmbeddedResource Include="Mvc\Views\SectionHeaderField\DesignerView.Simple.json" />
+    <EmbeddedResource Include="Mvc\Views\Recaptcha\Write.Default.cshtml" />
+    <EmbeddedResource Include="Mvc\Views\Recaptcha\DesignerView.Simple.cshtml" />
+    <EmbeddedResource Include="Mvc\Views\Recaptcha\DesignerView.Simple.json" />
+    <EmbeddedResource Include="Mvc\Views\SectionHeader\Read.Default.cshtml" />
+    <EmbeddedResource Include="Mvc\Views\SectionHeader\DesignerView.Simple.cshtml" />
+    <EmbeddedResource Include="Mvc\Views\SectionHeader\DesignerView.Simple.json" />
     <EmbeddedResource Include="Mvc\Views\ParagraphTextField\DesignerView.Simple.cshtml" />
     <EmbeddedResource Include="Mvc\Views\ParagraphTextField\DesignerView.Simple.json" />
     <EmbeddedResource Include="Mvc\Views\ParagraphTextField\Read.Default.cshtml" />

@@ -3,7 +3,7 @@ using System.Web.Mvc;
 using Telerik.Sitefinity.Data.Metadata;
 using Telerik.Sitefinity.Frontend.Forms.Mvc.Controllers.Base;
 using Telerik.Sitefinity.Frontend.Forms.Mvc.Models.Fields;
-using Telerik.Sitefinity.Frontend.Forms.Mvc.Models.Fields.SectionHeaderField;
+using Telerik.Sitefinity.Frontend.Forms.Mvc.Models.Fields.SectionHeader;
 using Telerik.Sitefinity.Frontend.Forms.Mvc.Models.Fields.TextField;
 using Telerik.Sitefinity.Frontend.Forms.Mvc.StringResources;
 using Telerik.Sitefinity.Frontend.Mvc.Infrastructure.Controllers;
@@ -19,16 +19,15 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Controllers
     /// <summary>
     /// This class represents the controller of the MVC forms section header field.
     /// </summary>
-    [ControllerToolboxItem(Name = "MvcSectionHeaderField", Title = "Section Header", Toolbox = FormsConstants.FormControlsToolboxName, SectionName = FormsConstants.CommonSectionName)]
+    [ControllerToolboxItem(Name = "MvcSectionHeaderField", Title = "Section Header", Toolbox = FormsConstants.FormControlsToolboxName, SectionName = FormsConstants.CommonSectionName, CssClass = SectionHeaderController.WidgetIconCssClass)]
     [DatabaseMapping(UserFriendlyDataType.ShortText)]
     [Localization(typeof(FieldResources))]
     public class SectionHeaderController : FormElementControllerBase<ISectionHeaderModel>
     {
         public SectionHeaderController()
         {
-            this.DisplayMode = FieldDisplayMode.Write;
+            this.DisplayMode = FieldDisplayMode.Read;
             this.ReadTemplateName = SectionHeaderController.templateName;
-            this.WriteTemplateName = SectionHeaderController.templateName;
         }
 
         /// <inheritDocs />
@@ -53,17 +52,9 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Controllers
             }
         }
 
-        /// <inheritDocs />
-        protected override string WriteTemplateNamePrefix
-        {
-            get
-            {
-                return SectionHeaderController.templateNamePrefix;
-            }
-        }
-        
+        internal const string WidgetIconCssClass = "sfSectionHeaderIcn sfMvcIcn";
         private ISectionHeaderModel model;
-        private const string templateNamePrefix = "Index.";
+        private const string templateNamePrefix = "Read.";
         private const string templateName = "Default";
     }
 }

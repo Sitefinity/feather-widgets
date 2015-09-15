@@ -1,4 +1,4 @@
-﻿namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Models.Fields.SectionHeaderField
+﻿namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Models.Fields.SectionHeader
 {
     /// <summary>
     /// Enumeration defines possible types for section header types.

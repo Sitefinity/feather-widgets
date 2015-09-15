@@ -1,9 +1,9 @@
-﻿namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Models.Fields.SectionHeaderField
+﻿namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Models.Fields.SectionHeader
 {
     /// <summary>
     /// This class represents view model for section header field.
     /// </summary>
-    public class SectionHeaderFieldViewModel
+    public class SectionHeaderViewModel
     {
         /// <summary>
         /// Gets or sets the text.

@@ -8,7 +8,7 @@ using System.Web.Mvc;
 using Telerik.Sitefinity.Data.Metadata;
 using Telerik.Sitefinity.Frontend.Forms.Mvc.Controllers.Base;
 using Telerik.Sitefinity.Frontend.Forms.Mvc.Models.Fields;
-using Telerik.Sitefinity.Frontend.Forms.Mvc.Models.Fields.RecaptchaField;
+using Telerik.Sitefinity.Frontend.Forms.Mvc.Models.Fields.Recaptcha;
 using Telerik.Sitefinity.Frontend.Forms.Mvc.StringResources;
 using Telerik.Sitefinity.Frontend.Mvc.Infrastructure.Controllers;
 using Telerik.Sitefinity.Frontend.Mvc.Infrastructure.Controllers.Attributes;
@@ -22,7 +22,7 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Controllers
     /// <summary>
     /// This class represents the controller of the MVC forms reCaptcha field.
     /// </summary>
-    [ControllerToolboxItem(Name = "MvcReCaptchaField", Title = "reCAPTCHA", Toolbox = FormsConstants.FormControlsToolboxName, SectionName = FormsConstants.CommonSectionName)]
+    [ControllerToolboxItem(Name = "MvcReCaptchaField", Title = "reCAPTCHA", Toolbox = FormsConstants.FormControlsToolboxName, SectionName = FormsConstants.CommonSectionName, CssClass = RecaptchaController.WidgetIconCssClass)]
     [DatabaseMapping(UserFriendlyDataType.YesNo)]
     [Localization(typeof(FieldResources))]
     public class RecaptchaController : FormElementControllerBase<IRecaptchaModel>
@@ -46,5 +46,6 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Controllers
         }
 
         private IRecaptchaModel model;
+        internal const string WidgetIconCssClass = "sfCaptchaIcn sfMvcIcn";
     }
 }
