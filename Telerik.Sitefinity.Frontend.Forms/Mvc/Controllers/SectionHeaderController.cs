@@ -19,7 +19,7 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Controllers
     /// <summary>
     /// This class represents the controller of the MVC forms section header field.
     /// </summary>
-    [ControllerToolboxItem(Name = "MvcSectionHeaderField", Title = "Section Header", Toolbox = FormsConstants.FormControlsToolboxName, SectionName = FormsConstants.CommonSectionName)]
+    [ControllerToolboxItem(Name = "MvcSectionHeaderField", Title = "Section Header", Toolbox = FormsConstants.FormControlsToolboxName, SectionName = FormsConstants.CommonSectionName, CssClass = SectionHeaderController.WidgetIconCssClass)]
     [DatabaseMapping(UserFriendlyDataType.ShortText)]
     [Localization(typeof(FieldResources))]
     public class SectionHeaderController : FormElementControllerBase<ISectionHeaderModel>
@@ -61,7 +61,8 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Controllers
                 return SectionHeaderController.templateNamePrefix;
             }
         }
-        
+
+        internal const string WidgetIconCssClass = "sfSectionHeaderIcn sfMvcIcn";
         private ISectionHeaderModel model;
         private const string templateNamePrefix = "Index.";
         private const string templateName = "Default";
