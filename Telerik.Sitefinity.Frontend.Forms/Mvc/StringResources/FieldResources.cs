@@ -948,6 +948,36 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.StringResources
             }
         }
 
+        /// <summary>
+        /// Gets phrase : File type is not allowed to upload
+        /// </summary>
+        [ResourceEntry("FileTypeViolationMessage",
+            Value = "File type is not allowed to upload",
+            Description = "phrase: File type is not allowed to upload",
+            LastModified = "2015/09/15")]
+        public string FileTypeViolationMessage
+        {
+            get
+            {
+                return this["FileTypeViolationMessage"];
+            }
+        }
+
+        /// <summary>
+        /// Gets phrase : The selected file size is too large
+        /// </summary>
+        [ResourceEntry("FileSizeViolationMessage",
+            Value = "The selected file size is too large",
+            Description = "phrase: The selected file size is too large",
+            LastModified = "2015/09/15")]
+        public string FileSizeViolationMessage
+        {
+            get
+            {
+                return this["FileSizeViolationMessage"];
+            }
+        }
+
         #endregion
     }
 }

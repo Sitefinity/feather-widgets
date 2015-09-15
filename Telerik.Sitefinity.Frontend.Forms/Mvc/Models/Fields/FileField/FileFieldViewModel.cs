@@ -75,6 +75,30 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Models.Fields.FileField
         public string ValidationAttributes { get; set; }
 
         /// <summary>
+        /// Gets or sets the file size violation message.
+        /// </summary>
+        /// <value>
+        /// The file size violation message.
+        /// </value>
+        public string FileSizeViolationMessage { get; set; }
+
+        /// <summary>
+        /// Gets or sets the required violation message.
+        /// </summary>
+        /// <value>
+        /// The required violation message.
+        /// </value>
+        public string RequiredViolationMessage { get; set; }
+
+        /// <summary>
+        /// Gets or sets the file type violation message.
+        /// </summary>
+        /// <value>
+        /// The file type violation message.
+        /// </value>
+        public string FileTypeViolationMessage { get; set; }
+
+        /// <summary>
         /// Serializes this instance in JSON format.
         /// </summary>
         /// <returns>This instance serialized in JSON format.</returns>

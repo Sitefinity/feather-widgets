@@ -18,6 +18,16 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Models.Fields.FileField
     public class FileFieldModel : FormFieldModel, IFileFieldModel
     {
         /// <summary>
+        /// Initializes a new instance of the <see cref="FileFieldModel"/> class.
+        /// </summary>
+        public FileFieldModel()
+        {
+            this.RequiredViolationMessage = this.RequiredViolationMessage ?? Res.Get<FieldResources>().RequiredErrorMessageValue;
+            this.FileSizeViolationMessage = this.FileSizeViolationMessage ?? Res.Get<FieldResources>().FileSizeViolationMessage;
+            this.FileTypeViolationMessage = this.FileTypeViolationMessage ?? Res.Get<FieldResources>().FileTypeViolationMessage;
+        }
+
+        /// <summary>
         /// Gets or sets a value indicating whether to allow multiple file attachments.
         /// </summary>
         public bool AllowMultipleFiles { get; set; }
@@ -41,12 +51,28 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Models.Fields.FileField
         public Array OtherFileTypes { get; set; }
 
         /// <summary>
+        /// Gets or sets the file type violation message.
+        /// </summary>
+        /// <value>
+        /// The file type violation message.
+        /// </value>
+        public string FileTypeViolationMessage { get; set; }
+
+        /// <summary>
         /// Gets or sets a value indicating whether a file selection is required.
         /// </summary>
         /// <value>
         /// <c>true</c> if a file selection is required; otherwise, <c>false</c>.
         /// </value>
         public bool IsRequired { get; set; }
+
+        /// <summary>
+        /// Gets or sets the required violation message.
+        /// </summary>
+        /// <value>
+        /// The required violation message.
+        /// </value>
+        public string RequiredViolationMessage { get; set; }
 
         /// <summary>
         /// Gets or sets the min file size in megabytes (MB).
@@ -57,6 +83,14 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Models.Fields.FileField
         /// Gets or sets the max file size in megabytes (MB).
         /// </summary>
         public int MaxFileSizeInMb { get; set; }
+
+        /// <summary>
+        /// Gets or sets the file size violation message.
+        /// </summary>
+        /// <value>
+        /// The file size violation message.
+        /// </value>
+        public string FileSizeViolationMessage { get; set; }
 
         /// <summary>
         /// Gets the default metafield based on the field control.
@@ -93,7 +127,10 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Models.Fields.FileField
                     ValidationAttributes = this.GenerateValidationAttributes(acceptedFileTypes),
                     IsRequired = this.IsRequired,
                     MinFileSizeInMb = this.MinFileSizeInMb,
-                    MaxFileSizeInMb = this.MaxFileSizeInMb
+                    MaxFileSizeInMb = this.MaxFileSizeInMb,
+                    FileSizeViolationMessage = this.FileSizeViolationMessage,
+                    FileTypeViolationMessage = this.FileTypeViolationMessage,
+                    RequiredViolationMessage = this.RequiredViolationMessage
                 };
         }
 
