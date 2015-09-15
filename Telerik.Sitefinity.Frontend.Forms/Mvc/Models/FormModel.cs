@@ -273,6 +273,7 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Models
                     }
                     else 
                     {
+                        collection[formField.MetaField.FieldName] = collection[formField.MetaField.FieldName] ?? string.Empty;
                         fieldValue = (object)collection[formField.MetaField.FieldName];
                     }
 
