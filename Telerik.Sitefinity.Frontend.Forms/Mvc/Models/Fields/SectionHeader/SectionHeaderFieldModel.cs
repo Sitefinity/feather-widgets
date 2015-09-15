@@ -1,7 +1,7 @@
 ﻿using Telerik.Sitefinity.Frontend.Forms.Mvc.StringResources;
 using Telerik.Sitefinity.Localization;
 
-namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Models.Fields.SectionHeaderField
+namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Models.Fields.SectionHeader
 {
     /// <summary>
     /// Implements API for working with form section header fields.

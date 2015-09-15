@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel;
 using Telerik.Sitefinity.Metadata.Model;
 
-namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Models.Fields.SectionHeaderField
+namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Models.Fields.SectionHeader
 {
     /// <summary>
     /// This interface provides API for form section header field.

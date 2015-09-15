@@ -14,7 +14,7 @@ using Telerik.Sitefinity.Modules.Forms.Configuration;
 using System.IO;
 using System.Web.Script.Serialization;
 
-namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Models.Fields.RecaptchaField
+namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Models.Fields.Recaptcha
 {
     /// <summary>
     /// Implements API for working with form reCaptcha fields.

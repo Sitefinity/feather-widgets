@@ -2,7 +2,7 @@
 using System.Linq;
 using System.Collections.Generic;
 using System.Web.Mvc;
-using Telerik.Sitefinity.Frontend.Forms.Mvc.Models.Fields.SectionHeaderField;
+using Telerik.Sitefinity.Frontend.Forms.Mvc.Models.Fields.SectionHeader;
 
 namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Helpers
 {

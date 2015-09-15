@@ -3,7 +3,7 @@ using System.Web.Mvc;
 using Telerik.Sitefinity.Data.Metadata;
 using Telerik.Sitefinity.Frontend.Forms.Mvc.Controllers.Base;
 using Telerik.Sitefinity.Frontend.Forms.Mvc.Models.Fields;
-using Telerik.Sitefinity.Frontend.Forms.Mvc.Models.Fields.SectionHeaderField;
+using Telerik.Sitefinity.Frontend.Forms.Mvc.Models.Fields.SectionHeader;
 using Telerik.Sitefinity.Frontend.Forms.Mvc.Models.Fields.TextField;
 using Telerik.Sitefinity.Frontend.Forms.Mvc.StringResources;
 using Telerik.Sitefinity.Frontend.Mvc.Infrastructure.Controllers;

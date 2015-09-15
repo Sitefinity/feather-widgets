@@ -1,6 +1,6 @@
 ﻿using Telerik.Sitefinity.Metadata.Model;
 
-namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Models.Fields.RecaptchaField
+namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Models.Fields.Recaptcha
 {
     /// <summary>
     /// This interface provides API for form reCaptcha field.
