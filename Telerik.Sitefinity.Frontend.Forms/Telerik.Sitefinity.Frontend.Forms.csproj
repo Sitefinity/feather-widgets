@@ -200,8 +200,8 @@
     <Compile Include="Mvc\Models\Fields\Recaptcha\RecaptchaModel.cs" />
     <Compile Include="Mvc\Models\Fields\Recaptcha\RecaptchaViewModel.cs" />
     <Compile Include="Mvc\Models\Fields\SectionHeader\HeadingType.cs" />
-    <Compile Include="Mvc\Models\Fields\SectionHeader\SectionHeaderFieldViewModel.cs" />
-    <Compile Include="Mvc\Models\Fields\SectionHeader\SectionHeaderFieldModel.cs" />
+    <Compile Include="Mvc\Models\Fields\SectionHeader\SectionHeaderViewModel.cs" />
+    <Compile Include="Mvc\Models\Fields\SectionHeader\SectionHeaderModel.cs" />
     <Compile Include="Mvc\Models\Fields\SectionHeader\ISectionHeaderModel.cs" />
     <Compile Include="Mvc\Models\Fields\SubmitButton\ISubmitButtonModel.cs" />
     <Compile Include="Mvc\Models\Fields\SubmitButton\SubmitButtonViewModel.cs" />

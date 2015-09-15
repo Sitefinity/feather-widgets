@@ -30,7 +30,7 @@ namespace Telerik.Sitefinity.Frontend.Forms
             Bind<ITextFieldModel>().To<TextFieldModel>();
             Bind<IRecaptchaModel>().To<RecaptchaModel>();
             Bind<ISubmitButtonModel>().To<SubmitButtonModel>();
-            Bind<ISectionHeaderModel>().To<SectionHeaderFieldModel>();
+            Bind<ISectionHeaderModel>().To<SectionHeaderModel>();
             Bind<IParagraphTextFieldModel>().To<ParagraphTextFieldModel>();
             Bind<IDropdownListFieldModel>().To<DropdownListFieldModel>();
             Bind<IMultipleChoiceFieldModel>().To<MultipleChoiceFieldModel>();
