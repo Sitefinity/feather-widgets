@@ -24,6 +24,9 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Controllers
     [Localization(typeof(FieldResources))]
     public class SectionHeaderController : FormElementControllerBase<ISectionHeaderModel>
     {
+        /// <summary>
+        /// Initializes a new instance of the <see cref="SectionHeaderController"/> class.
+        /// </summary>
         public SectionHeaderController()
         {
             this.DisplayMode = FieldDisplayMode.Read;
@@ -50,6 +53,22 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Controllers
             {
                 return SectionHeaderController.templateNamePrefix;
             }
+        }
+
+        /// <summary>
+        /// This form element doens't support write mode so redirect to read.
+        /// </summary>
+        /// <param name="value">The value.</param>
+        /// <returns></returns>
+        public override ActionResult Write(object value)
+        {
+            return this.Read(value);
+        }
+
+        /// <inheritDocs />
+        protected override void HandleUnknownAction(string actionName)
+        {
+            this.Read(null).ExecuteResult(this.ControllerContext);
         }
 
         internal const string WidgetIconCssClass = "sfSectionHeaderIcn sfMvcIcn";

@@ -27,6 +27,13 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Models.Fields.SectionHeader
         }
 
         /// <inheritDocs />
+        public string Text
+        { 
+            get; 
+            set; 
+        }
+
+        /// <inheritDocs />
         public HeadingType HeadingType { get; set; }
 
         /// <inheritDocs />
@@ -36,7 +43,7 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Models.Fields.SectionHeader
             {
                 CssClass = this.CssClass,
                 HeadingType = this.HeadingType,
-                Text = value == null ? string.Empty: value.ToString()
+                Text = this.Text
             };
         }
 

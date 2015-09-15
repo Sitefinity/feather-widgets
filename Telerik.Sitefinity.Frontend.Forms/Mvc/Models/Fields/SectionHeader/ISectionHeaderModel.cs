@@ -17,6 +17,14 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Models.Fields.SectionHeader
         string PlaceholderText { get; set; }
 
         /// <summary>
+        /// Gets or sets the text.
+        /// </summary>
+        /// <value>
+        /// The text.
+        /// </value>
+        string Text { get; set; }
+
+        /// <summary>
         /// Gets or sets the type of the heading.
         /// </summary>
         /// <value>

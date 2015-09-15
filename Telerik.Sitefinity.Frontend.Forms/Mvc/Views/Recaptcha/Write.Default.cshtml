@@ -11,11 +11,11 @@
 
 @if (SystemManager.IsDesignMode)
 {
-    <script type="text/javascript" src="@Url.WidgetContent("Mvc/Scripts/RecaptchaField/recaptcha-field.js")"></script>
+    <script type="text/javascript" src="@Url.WidgetContent("Mvc/Scripts/Recaptcha/recaptcha.js")"></script>
     <script type="text/javascript" src="//www.google.com/recaptcha/api.js?onload=sf_captchaCallback&render=explicit&t=@(DateTime.UtcNow.Ticks.ToString())" defer async></script>
 }
 else
 {
-    @Html.Script(Url.WidgetContent("Mvc/Scripts/RecaptchaField/recaptcha-field.js"), "bottom", false)
+    @Html.Script(Url.WidgetContent("Mvc/Scripts/Recaptcha/recaptcha.js"), "bottom", false)
     @Html.Script("//www.google.com/recaptcha/api.js?onload=sf_captchaCallback&render=explicit", "bottom", false)
 }

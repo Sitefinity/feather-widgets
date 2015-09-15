@@ -271,11 +271,11 @@
     <EmbeddedResource Include="Mvc\Scripts\Form\form.js" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Mvc\Scripts\RecaptchaField\designerview-simple.js" />
-    <EmbeddedResource Include="Mvc\Scripts\RecaptchaField\recaptcha-field.js" />
+    <EmbeddedResource Include="Mvc\Scripts\Recaptcha\designerview-simple.js" />
+    <EmbeddedResource Include="Mvc\Scripts\Recaptcha\recaptcha.js" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Mvc\Scripts\SectionHeaderField\designerview-simple.js" />
+    <EmbeddedResource Include="Mvc\Scripts\SectionHeader\designerview-simple.js" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Mvc\Scripts\ParagraphTextField\designerview-simple.js" />
