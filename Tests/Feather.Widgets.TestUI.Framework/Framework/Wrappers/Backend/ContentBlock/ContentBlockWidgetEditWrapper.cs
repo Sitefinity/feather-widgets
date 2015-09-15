@@ -315,7 +315,7 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend
             Assert.IsTrue(image.Src.StartsWith(src), "src is not correct");
 
             this.VerifyImageAttribute(image, "sfref", sfref);
-            this.VerifyImageAttribute(image, "title", title);
+            this.VerifyImageAttribute(image, "title", title.ToLower());
             this.VerifyImageAttribute(image, "alt", altText);
         }
 
@@ -332,7 +332,7 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend
             Assert.IsTrue(doc.HRef.StartsWith(href), "href is not correct");
             var attr = doc.Attributes.FirstOrDefault(a => a.Name == "sfref");
             Assert.IsNotNull(attr, "Unable to find attribute: sfref");
-            Assert.AreEqual(sfref, attr.Value, "Attribute sfref value not as expected.");
+            Assert.AreEqual(sfref, attr.Value.ToLower(), "Attribute sfref value not as expected.");
         }
 
         /// <summary>
@@ -420,15 +420,23 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend
         private void VerifyImageAttribute(HtmlImage image, string attName, string attValue)
         {
             var attr = image.Attributes.FirstOrDefault(a => a.Name == attName);
-            Assert.IsNotNull(attr, "Unable to find attribute: " + attName);
-            Assert.AreEqual(attValue, attr.Value, "Attribute " + attName + " value not as expected.");
+            if (attName == "title" || attName == "sfref")
+            {               
+                Assert.IsNotNull(attr, "Unable to find attribute: " + attName);
+                Assert.AreEqual(attValue, attr.Value.ToLower(), "Attribute " + attName + " value not as expected.");
+            }
+            else
+            {
+                Assert.IsNotNull(attr, "Unable to find attribute: " + attName);
+                Assert.AreEqual(attValue, attr.Value, "Attribute " + attName + " value not as expected.");
+            }
         }
 
         private void VerifyVideoAttribute(HtmlVideo video, string attName, string attValue)
         {
             var attr = video.Attributes.FirstOrDefault(a => a.Name == attName);
             Assert.IsNotNull(attr, "Unable to find attribute: " + attName);
-            Assert.AreEqual(attValue, attr.Value, "Attribute " + attName + " value not as expected.");
+            Assert.AreEqual(attValue, attr.Value.ToLower(), "Attribute " + attName + " value not as expected.");
         }
 
         private bool WaitForSaveButton()

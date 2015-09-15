@@ -11,7 +11,7 @@ namespace FeatherWidgets.TestUI.Arrangements
     /// <summary>
     /// InsertVideoFromAlreadyUploaded class
     /// </summary>
-    public class InsertVideoFromAlreadyUploaded : ITestArrangement
+    public class InsertVideoFromAlreadyUploaded : TestArrangementBase
     {
         /// <summary>
         /// Server side set up.
@@ -47,6 +47,16 @@ namespace FeatherWidgets.TestUI.Arrangements
         {
             ServerOperations.Pages().DeleteAllPages();
             ServerOperations.Libraries().DeleteAllVideoLibrariesExceptDefaultOne();
+        }
+
+        /// Gets the current libraries provider Url name.
+        /// </summary>
+        [ServerArrangement]
+        public void GetCurrentProviderUrlName()
+        {
+            string urlName = ServerOperations.Libraries().GetCurrentProviderUrlName;
+
+            ServerArrangementContext.GetCurrent().Values.Add("CurrentProviderUrlName", urlName);
         }
 
         private const string PageName = "PageWithVideo";

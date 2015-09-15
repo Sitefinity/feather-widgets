@@ -14,7 +14,7 @@ namespace FeatherWidgets.TestUI.Arrangements
     /// <summary>
     /// Verify alignment and image thumbnail arrangement class.
     /// </summary>
-    public class VerifyAlignmentAndImageThumbnail : ITestArrangement
+    public class VerifyAlignmentAndImageThumbnail : TestArrangementBase
     {
         /// <summary>
         /// Server side set up.
@@ -39,6 +39,16 @@ namespace FeatherWidgets.TestUI.Arrangements
         {
             ServerOperations.Pages().DeleteAllPages();
             ServerOperations.Libraries().DeleteLibraries(false, "Image");
+        }
+
+        /// Gets the current libraries provider Url name.
+        /// </summary>
+        [ServerArrangement]
+        public void GetCurrentProviderUrlName()
+        {
+            string urlName = ServerOperations.Libraries().GetCurrentProviderUrlName;
+
+            ServerArrangementContext.GetCurrent().Values.Add("CurrentProviderUrlName", urlName);
         }
 
         private const string PageName = "PageWithImage";
