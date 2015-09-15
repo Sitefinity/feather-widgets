@@ -993,6 +993,156 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.StringResources
             }
         }
 
+        /// <summary>
+        /// Gets phrase : Error message displayed if the field is empty
+        /// </summary>
+        [ResourceEntry("FieldRequiredErrorMessageTitle",
+            Value = "Error message displayed if the field is empty",
+            Description = "phrase: Error message displayed if the field is empty",
+            LastModified = "2015/09/15")]
+        public string FieldRequiredErrorMessageTitle
+        {
+            get
+            {
+                return this["FieldRequiredErrorMessageTitle"];
+            }
+        }
+
+        /// <summary>
+        /// Gets phrase : Allow multiple file uploads
+        /// </summary>
+        [ResourceEntry("AllowMultipleFiles",
+            Value = "Allow multiple file uploads",
+            Description = "phrase: Allow multiple file uploads",
+            LastModified = "2015/09/15")]
+        public string AllowMultipleFiles
+        {
+            get
+            {
+                return this["AllowMultipleFiles"];
+            }
+        }
+
+        /// <summary>
+        /// Gets word : MB
+        /// </summary>
+        [ResourceEntry("MB",
+            Value = "MB",
+            Description = "word : MB",
+            LastModified = "2015/09/15")]
+        public string MB
+        {
+            get
+            {
+                return this["MB"];
+            }
+        }
+
+        /// <summary>
+        /// Gets phrase : Error message displayed when the file size is out of range
+        /// </summary>
+        [ResourceEntry("FileTooLargeErrorMessageTitle",
+            Value = "Error message displayed when the file size is out of range",
+            Description = "phrase: Error message displayed when the file size is out of range",
+            LastModified = "2015/09/15")]
+        public string FileTooLargeErrorMessageTitle
+        {
+            get
+            {
+                return this["FileTooLargeErrorMessageTitle"];
+            }
+        }
+
+        /// <summary>
+        /// Gets phrase : Allowed file types
+        /// </summary>
+        [ResourceEntry("AllowedFileTypes",
+            Value = "Allowed file types",
+            Description = "phrase: Allowed file types",
+            LastModified = "2015/09/15")]
+        public string AllowedFileTypes
+        {
+            get
+            {
+                return this["AllowedFileTypes"];
+            }
+        }
+
+        /// <summary>
+        /// Gets phrase : All file types
+        /// </summary>
+        [ResourceEntry("AllFileTypes",
+            Value = "All file types",
+            Description = "phrase: All file types",
+            LastModified = "2015/09/15")]
+        public string AllFileTypes
+        {
+            get
+            {
+                return this["AllFileTypes"];
+            }
+        }
+
+        /// <summary>
+        /// Gets phrase : Selected file types...
+        /// </summary>
+        [ResourceEntry("SelectedFileTypes",
+            Value = "Selected file types...",
+            Description = "phrase: Selected file types...",
+            LastModified = "2015/09/15")]
+        public string SelectedFileTypes
+        {
+            get
+            {
+                return this["SelectedFileTypes"];
+            }
+        }
+
+        /// <summary>
+        /// Gets phrase : File types are comma separated.
+        /// </summary>
+        [ResourceEntry("FileTypesSeparationDescription",
+            Value = "File types are comma separated.",
+            Description = "phrase: File types are comma separated.",
+            LastModified = "2015/09/15")]
+        public string FileTypesSeparationDescription
+        {
+            get
+            {
+                return this["FileTypesSeparationDescription"];
+            }
+        }
+
+        /// <summary>
+        /// Gets phrase : Example: zip, rar
+        /// </summary>
+        [ResourceEntry("FileTypesExample",
+            Value = "Example: zip, rar",
+            Description = "phrase: Example: zip, rar",
+            LastModified = "2015/09/15")]
+        public string FileTypesExample
+        {
+            get
+            {
+                return this["FileTypesExample"];
+            }
+        }
+
+        /// <summary>
+        /// Gets phrase : Error message displayed when the file type is not allowed
+        /// </summary>
+        [ResourceEntry("FileTypeViolationMessageDescription",
+            Value = "Error message displayed when the file type is not allowed",
+            Description = "phrase: Error message displayed when the file type is not allowed",
+            LastModified = "2015/09/15")]
+        public string FileTypeViolationMessageDescription
+        {
+            get
+            {
+                return this["FileTypeViolationMessageDescription"];
+            }
+        }
+
         #endregion
     }
 }

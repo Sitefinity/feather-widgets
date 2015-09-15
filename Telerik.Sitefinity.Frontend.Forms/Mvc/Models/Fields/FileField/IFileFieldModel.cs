@@ -1,5 +1,6 @@
 ﻿using System;
 using System.ComponentModel;
+using Telerik.Sitefinity.Metadata.Model;
 using Telerik.Sitefinity.Utilities.TypeConverters;
 
 namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Models.Fields.FileField
@@ -73,5 +74,14 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Models.Fields.FileField
         /// The file size violation message.
         /// </value>
         string FileSizeViolationMessage { get; set; }
+
+        /// <summary>
+        /// Gets or sets the meta field.
+        /// </summary>
+        /// <value>
+        /// The meta field.
+        /// </value>
+        [TypeConverter(typeof(ExpandableObjectConverter))]
+        IMetaField MetaField { get; set; }
     }
 }

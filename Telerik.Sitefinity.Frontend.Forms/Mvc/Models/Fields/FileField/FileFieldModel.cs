@@ -185,11 +185,14 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Models.Fields.FileField
             {
                 if (fileType != AllowedFileTypes.All && this.AllowedFileTypes.HasFlag(fileType))
                 {
-                    if (fileType == AllowedFileTypes.Other && this.OtherFileTypes != null && this.OtherFileTypes.Length > 0)
+                    if (fileType == AllowedFileTypes.Other)
                     {
-                        acceptValues.AddRange(this.OtherFileTypes.OfType<string>()
-                            .Select(t => t.Trim().ToLowerInvariant())
-                            .Select(t => t.StartsWith(".") ? t : "." + t));
+                        if (this.OtherFileTypes != null && this.OtherFileTypes.Length > 0)
+                        {
+                            acceptValues.AddRange(this.OtherFileTypes.OfType<string>()
+                                .Select(t => t.Trim().ToLowerInvariant())
+                                .Select(t => t.StartsWith(".") ? t : "." + t));
+                        }
                     }
                     else
                     {
