@@ -26,9 +26,8 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Controllers
     {
         public SectionHeaderController()
         {
-            this.DisplayMode = FieldDisplayMode.Write;
+            this.DisplayMode = FieldDisplayMode.Read;
             this.ReadTemplateName = SectionHeaderController.templateName;
-            this.WriteTemplateName = SectionHeaderController.templateName;
         }
 
         /// <inheritDocs />
@@ -53,18 +52,9 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Controllers
             }
         }
 
-        /// <inheritDocs />
-        protected override string WriteTemplateNamePrefix
-        {
-            get
-            {
-                return SectionHeaderController.templateNamePrefix;
-            }
-        }
-
         internal const string WidgetIconCssClass = "sfSectionHeaderIcn sfMvcIcn";
         private ISectionHeaderModel model;
-        private const string templateNamePrefix = "Index.";
+        private const string templateNamePrefix = "Read.";
         private const string templateName = "Default";
     }
 }

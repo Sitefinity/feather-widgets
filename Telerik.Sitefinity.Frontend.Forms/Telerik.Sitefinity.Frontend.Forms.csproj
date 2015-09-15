@@ -233,7 +233,7 @@
     <EmbeddedResource Include="Mvc\Views\Recaptcha\Write.Default.cshtml" />
     <EmbeddedResource Include="Mvc\Views\Recaptcha\DesignerView.Simple.cshtml" />
     <EmbeddedResource Include="Mvc\Views\Recaptcha\DesignerView.Simple.json" />
-    <EmbeddedResource Include="Mvc\Views\SectionHeader\Index.Default.cshtml" />
+    <EmbeddedResource Include="Mvc\Views\SectionHeader\Read.Default.cshtml" />
     <EmbeddedResource Include="Mvc\Views\SectionHeader\DesignerView.Simple.cshtml" />
     <EmbeddedResource Include="Mvc\Views\SectionHeader\DesignerView.Simple.json" />
     <EmbeddedResource Include="Mvc\Views\ParagraphTextField\DesignerView.Simple.cshtml" />
