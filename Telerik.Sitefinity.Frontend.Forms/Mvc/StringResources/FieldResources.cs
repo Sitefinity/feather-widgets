@@ -98,6 +98,21 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.StringResources
         }
 
         /// <summary>
+        /// Gets phrase : Text
+        /// </summary>
+        [ResourceEntry("Text",
+            Value = "Text",
+            Description = "phrase : Text",
+            LastModified = "2015/09/15")]
+        public string Text
+        {
+            get
+            {
+                return this["Text"];
+            }
+        }
+
+        /// <summary>
         /// Gets phrase : Label and text
         /// </summary>
         [ResourceEntry("LabelAndText",
