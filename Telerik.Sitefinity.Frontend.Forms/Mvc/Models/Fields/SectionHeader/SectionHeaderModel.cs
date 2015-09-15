@@ -36,7 +36,7 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Models.Fields.SectionHeader
             {
                 CssClass = this.CssClass,
                 HeadingType = this.HeadingType,
-                Text = value.ToString()
+                Text = value == null ? string.Empty: value.ToString()
             };
         }
 
