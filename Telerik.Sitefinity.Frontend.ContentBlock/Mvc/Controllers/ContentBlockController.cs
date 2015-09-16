@@ -32,7 +32,8 @@ namespace Telerik.Sitefinity.Frontend.ContentBlock.Mvc.Controllers
                                           ICustomWidgetVisualizationExtended, 
                                           ICustomWidgetTitlebar, 
                                           IHasEditCommands, 
-                                          IContentItemControl
+                                          IContentItemControl,
+                                          ISearchIndexBehavior
     {
         #region Explicit Interface Properties
 
@@ -139,6 +140,12 @@ namespace Telerik.Sitefinity.Frontend.ContentBlock.Mvc.Controllers
 
         /// <inheritdoc />
         Type IHasContainerType.ContainerType { get; set; }
+
+        #region ISearchIndexBehavior
+
+        public bool ExcludeFromSearchIndex { get; set; }
+
+        #endregion
 
         #endregion
 

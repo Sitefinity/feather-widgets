@@ -3,6 +3,7 @@ using System.IO;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Routing;
+using System.Web.UI;
 using Telerik.Sitefinity.Abstractions;
 using Telerik.Sitefinity.Forms.Model;
 using Telerik.Sitefinity.Frontend.Forms.Mvc.Controllers.Base;
@@ -13,6 +14,7 @@ using Telerik.Sitefinity.Modules.Forms;
 using Telerik.Sitefinity.Modules.Forms.Web.UI.Fields;
 using Telerik.Sitefinity.Mvc;
 using Telerik.Sitefinity.Mvc.Proxy;
+using Telerik.Sitefinity.Web.UI;
 
 namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Helpers
 {
@@ -40,13 +42,14 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Helpers
             var manager = FormsManager.GetManager();
             var controlData = manager.GetControl<FormControl>(id);
             var control = manager.LoadControl(controlData);
+            control.Page = HttpContext.Current.Handler as Page;
 
             var mvcProxy = control as MvcProxyBase;
             if (mvcProxy == null)
                 throw new InvalidOperationException("Cannot render form controller with the given ID becaouse the control with this ID is not an MVC proxy.");
 
             var actionInvoker = ObjectFactory.Resolve<IControllerActionInvoker>() as Telerik.Sitefinity.Mvc.ControllerActionInvoker;
-            if(actionInvoker != null)
+            if (actionInvoker != null)
                 actionInvoker.DeserializeControllerProperties(mvcProxy);
 
             var routeData = new RouteData();
@@ -60,6 +63,9 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Helpers
             }
 
             var controller = mvcProxy.GetController();
+
+            if (mvcProxy.IsIndexingMode() && controller.GetIndexRenderMode() == IndexRenderModes.NoOutput)
+                return MvcHtmlString.Empty;
 
             var controllerFactory = (ISitefinityControllerFactory)ControllerBuilder.Current.GetControllerFactory();
             var controllerType = controller.GetType();
