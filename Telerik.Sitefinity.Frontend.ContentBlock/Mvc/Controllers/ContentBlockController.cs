@@ -32,7 +32,8 @@ namespace Telerik.Sitefinity.Frontend.ContentBlock.Mvc.Controllers
                                           ICustomWidgetVisualizationExtended, 
                                           ICustomWidgetTitlebar, 
                                           IHasEditCommands, 
-                                          IContentItemControl
+                                          IContentItemControl,
+                                          ISearchIndexBehavior
     {
         #region Explicit Interface Properties
 
@@ -139,6 +140,18 @@ namespace Telerik.Sitefinity.Frontend.ContentBlock.Mvc.Controllers
 
         /// <inheritdoc />
         Type IHasContainerType.ContainerType { get; set; }
+
+        #region ISearchIndexBehavior
+
+        /// <summary>
+        /// Gets or sets a value indicating whether to exclude the content from search index.
+        /// </summary>
+        /// <value>
+        /// <c>true</c> if should exclude content from search index; otherwise, <c>false</c>.
+        /// </value>
+        public bool ExcludeFromSearchIndex { get; set; }
+
+        #endregion
 
         #endregion
 
