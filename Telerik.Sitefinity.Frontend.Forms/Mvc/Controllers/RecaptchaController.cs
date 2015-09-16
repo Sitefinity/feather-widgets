@@ -27,6 +27,9 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Controllers
     [Localization(typeof(FieldResources))]
     public class RecaptchaController : FormElementControllerBase<IRecaptchaModel>
     {
+        /// <summary>
+        /// Initializes a new instance of the <see cref="RecaptchaController"/> class.
+        /// </summary>
         public RecaptchaController()
         {
             this.DisplayMode = FieldDisplayMode.Write;
@@ -43,6 +46,19 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Controllers
 
                 return this.model;
             }
+        }
+
+        /// <summary>
+        /// Write action of the controller.
+        /// </summary>
+        /// <param name="value">The input value.</param>
+        /// <returns>The action result.</returns>
+        public override ActionResult Write(object value)
+        {
+            if (this.Model.ShouldRenderCaptcha())
+                return base.Write(value);
+            else
+                return new EmptyResult();
         }
 
         private IRecaptchaModel model;

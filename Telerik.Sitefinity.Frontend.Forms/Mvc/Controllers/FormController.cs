@@ -85,7 +85,7 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Controllers
             }
 
             this.TempData[sfSubmitSuccessKey] = success;
-            return this.RedirectToAction(string.Empty);
+            return this.Index();
         }
 
         #region IContentLocatableView
