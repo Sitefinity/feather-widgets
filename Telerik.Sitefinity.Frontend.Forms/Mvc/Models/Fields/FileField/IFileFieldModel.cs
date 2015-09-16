@@ -74,14 +74,5 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Models.Fields.FileField
         /// The file size violation message.
         /// </value>
         string FileSizeViolationMessage { get; set; }
-
-        /// <summary>
-        /// Gets or sets the meta field.
-        /// </summary>
-        /// <value>
-        /// The meta field.
-        /// </value>
-        [TypeConverter(typeof(ExpandableObjectConverter))]
-        IMetaField MetaField { get; set; }
     }
 }
