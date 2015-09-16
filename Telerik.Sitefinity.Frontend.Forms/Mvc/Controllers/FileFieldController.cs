@@ -37,31 +37,6 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Controllers
             }
         }
 
-        /// <summary>
-        /// Gets or sets the meta field data.
-        /// </summary>
-        /// <value>
-        /// The meta field.
-        /// </value>
-        [Browsable(false)]
-        public override IMetaField MetaField
-        {
-            get
-            {
-                if (this.Model.MetaField == null)
-                {
-                    this.Model.MetaField = this.Model.GetMetaField(this);
-                }
-
-                return this.Model.MetaField;
-            }
-
-            set
-            {
-                this.Model.MetaField = value;
-            }
-        }
-
         private IFileFieldModel model;
         private const string WidgetIconCssClass = "sfFileUploadIcn sfMvcIcn";
     }
