@@ -1,18 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Net;
 using System.Net.Http;
-using System.Text;
-using System.Threading.Tasks;
-using Telerik.Sitefinity.Metadata.Model;
-using Telerik.Sitefinity.Services;
-using Telerik.Sitefinity.Configuration;
 using Newtonsoft.Json;
-using Telerik.Sitefinity.Modules.Forms.Web.UI.Fields;
+using Telerik.Sitefinity.Abstractions;
+using Telerik.Sitefinity.Configuration;
 using Telerik.Sitefinity.Modules.Forms.Configuration;
-using System.IO;
-using System.Web.Script.Serialization;
+using Telerik.Sitefinity.Services;
 
 namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Models.Fields.Recaptcha
 {
@@ -149,16 +143,11 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Models.Fields.Recaptcha
         /// <inheritDocs/>
         public bool ShouldRenderCaptcha()
         {
-            var isVisible = true;
-
-            if (SystemManager.CurrentHttpContext.User != null &&
+            var isVisible = !(SystemManager.CurrentHttpContext.User != null &&
                     SystemManager.CurrentHttpContext.User.Identity != null &&
                     SystemManager.CurrentHttpContext.User.Identity.IsAuthenticated &&
-                    this.DisplayOnlyForUnauthenticatedUsers && 
-                    !SystemManager.IsDesignMode)
-            {
-                isVisible = false;
-            }
+                    this.DisplayOnlyForUnauthenticatedUsers &&
+                    !SystemManager.IsDesignMode);
 
             return isVisible;
         }
@@ -166,9 +155,12 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Models.Fields.Recaptcha
         /// <inheritDocs/>
         public override bool IsValid(object value)
         {
+            if (!this.ShouldRenderCaptcha())
+                return true;
+
             if (string.IsNullOrEmpty(value as string))
                 return false;
-            
+
             try
             {
                 using (var client = new HttpClient())
@@ -184,6 +176,9 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Models.Fields.Recaptcha
                     var response = client.PostAsync("https://www.google.com/recaptcha/api/siteverify", new FormUrlEncodedContent(values)).Result;
                     var responseString = response.Content.ReadAsStringAsync().Result;
                     var responseModel = JsonConvert.DeserializeObject<GRecaptchaValidationResponseModel>(responseString);
+
+                    if (responseModel.ErrorCodes.Contains("invalid-input-secret"))
+                        Log.Write("Invalid input secret for reCaptcha. Please configure in advanced settings parameters for Forms.");
 
                     return responseModel.Success;
                 }
