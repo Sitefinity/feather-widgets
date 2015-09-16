@@ -8,6 +8,7 @@ using System.Web.Mvc;
 using System.Web.UI;
 using Telerik.Sitefinity.Metadata.Model;
 using Telerik.Sitefinity.Modules.Forms.Web.UI.Fields;
+using Telerik.Sitefinity.Modules.Pages.Web.Services;
 using Telerik.Sitefinity.Web.UI.Validation.Definitions;
 
 namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Models.Fields
@@ -15,6 +16,7 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Models.Fields
     /// <summary>
     /// This interface provides API for working with forms fields.
     /// </summary>
+    [ReflectInheritedProperties]
     public interface IFormElementModel
     {
         /// <summary>
