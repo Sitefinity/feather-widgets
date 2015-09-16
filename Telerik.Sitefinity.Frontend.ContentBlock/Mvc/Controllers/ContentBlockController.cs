@@ -13,6 +13,7 @@ using Telerik.Sitefinity.Modules.GenericContent;
 using Telerik.Sitefinity.Modules.Pages;
 using Telerik.Sitefinity.Modules.Pages.Configuration;
 using Telerik.Sitefinity.Mvc;
+using Telerik.Sitefinity.Personalization;
 using Telerik.Sitefinity.Services;
 using Telerik.Sitefinity.Utilities.TypeConverters;
 using Telerik.Sitefinity.Web;
@@ -31,7 +32,8 @@ namespace Telerik.Sitefinity.Frontend.ContentBlock.Mvc.Controllers
                                           ICustomWidgetVisualizationExtended, 
                                           ICustomWidgetTitlebar, 
                                           IHasEditCommands, 
-                                          IContentItemControl
+                                          IContentItemControl,
+                                          IPersonalizable
     {
         #region Explicit Interface Properties
 
@@ -277,6 +279,22 @@ namespace Telerik.Sitefinity.Frontend.ContentBlock.Mvc.Controllers
             commandsList.Add(
                 new WidgetMenuItem
                 {
+                    Text = Res.Get<PageResources>().ZoneEditorAddPersonalizedVersion,
+                    CommandName = "addPersonalizedVersion",
+                    CssClass = "sfPersonalizeItm"
+                });
+
+            commandsList.Add(
+                new WidgetMenuItem
+                {
+                    Text = Res.Get<PageResources>().ZoneEditorRemovePersonalizedVersion,
+                    CommandName = "removePersonalizedVersion",
+                    CssClass = "sfRemPersonalizedItm sfSeparatorDown"
+                });
+
+            commandsList.Add(
+                new WidgetMenuItem
+                {
                     Text = Res.Get<PageResources>().ZoneEditorEnablePageOverrideDisplayContenxtMenuInfo,
                     CommandName = "displayWidgetOverrideText",
                     CssClass = "sfDisplayText"
@@ -289,6 +307,7 @@ namespace Telerik.Sitefinity.Frontend.ContentBlock.Mvc.Controllers
                         CommandName = "beforedelete", 
                         CssClass = "sfDeleteItm"
                     });
+
             commandsList.Add(
                 new WidgetMenuItem
                     {
