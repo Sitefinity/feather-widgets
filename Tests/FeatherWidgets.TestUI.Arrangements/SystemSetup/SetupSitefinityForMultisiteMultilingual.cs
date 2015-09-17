@@ -1,6 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using Telerik.Sitefinity.Modules.Pages;
+using Telerik.Sitefinity.Modules.Pages.Web.Services;
+using Telerik.Sitefinity.Multisite;
+using Telerik.Sitefinity.Pages.Model;
 using Telerik.Sitefinity.TestArrangementService.Attributes;
 using Telerik.Sitefinity.TestIntegration.Helpers;
 using Telerik.Sitefinity.TestUI.Arrangements.Framework;
@@ -21,6 +25,8 @@ namespace FeatherWidgets.TestUI.Arrangements
         {  
             AuthenticationHelper.AuthenticateUser(Admin, Password);
             MultisiteHelper.CreateSite(SiteName, Url, Cultures, SiteName + "Provider");
+
+            this.SharePageTemplateWithSite(SetupSitefinityForMultisiteMultilingual.SiteName, SetupSitefinityForMultisiteMultilingual.Cultures[1]);
         }
 
         /// <summary>
@@ -30,6 +36,32 @@ namespace FeatherWidgets.TestUI.Arrangements
         public void DeleteSite()
         {
             ServerOperations.MultiSite().DeleteSite(SiteName);
+        }
+
+        /// <summary>
+        /// Shares the page template with site.
+        /// </summary>
+        /// <param name="site">The site.</param>
+        /// <param name="culture">The culture.</param>
+        internal void SharePageTemplateWithSite(string site, string culture)
+        {
+            var pageManager = PageManager.GetManager();
+            var templateInfos = pageManager.GetTemplates().Where(t => t.Framework == PageTemplateFramework.Mvc).Select(t => new KeyValuePair<Guid, string>(t.Id, t.Title));
+
+            var siteManager = MultisiteManager.GetManager();
+            var allSites = siteManager.GetSites().Select(s => s.Id.ToString()).ToArray();
+
+            var pageTemplatesService = new PageTemplatesService();
+
+            foreach (var tInfo in templateInfos)
+            {
+                if (tInfo.Key != Guid.Empty)
+                {
+                    pageTemplatesService.SaveSharedSites(tInfo.Key.ToString(), allSites);
+
+                    ServerOperations.Multilingual().Templates().CreateLocalizedPageTemplate(tInfo.Key, tInfo.Value, culture, site);
+                }
+            }
         }
 
         private const string SiteName = "SecondSite";
