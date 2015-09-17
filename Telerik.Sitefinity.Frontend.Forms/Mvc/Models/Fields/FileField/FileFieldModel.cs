@@ -151,7 +151,7 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Models.Fields.FileField
                 return false;
 
             var acceptedFileTypes = this.GetAcceptedFileTypes();
-            if (acceptedFileTypes.Length > 0)
+            if (acceptedFileTypes != null && acceptedFileTypes.Length > 0)
             {
                 foreach (var file in fileList)
                 {
