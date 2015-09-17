@@ -15,6 +15,7 @@ using Telerik.Sitefinity.Frontend.Mvc.Infrastructure.Controllers.Attributes;
 using Telerik.Sitefinity.Metadata.Model;
 using Telerik.Sitefinity.Model;
 using Telerik.Sitefinity.Mvc;
+using Telerik.Sitefinity.Web.UI;
 using Telerik.Sitefinity.Web.UI.Fields.Enums;
 
 namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Controllers
@@ -25,6 +26,7 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Controllers
     [ControllerToolboxItem(Name = "MvcReCaptchaField", Title = "reCAPTCHA", Toolbox = FormsConstants.FormControlsToolboxName, SectionName = FormsConstants.CommonSectionName, CssClass = RecaptchaController.WidgetIconCssClass)]
     [DatabaseMapping(UserFriendlyDataType.YesNo)]
     [Localization(typeof(FieldResources))]
+    [IndexRenderMode(IndexRenderModes.NoOutput)]
     public class RecaptchaController : FormElementControllerBase<IRecaptchaModel>
     {
         /// <summary>
