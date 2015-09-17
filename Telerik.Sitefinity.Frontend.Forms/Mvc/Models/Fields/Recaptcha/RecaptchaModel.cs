@@ -177,7 +177,7 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Models.Fields.Recaptcha
                     var responseString = response.Content.ReadAsStringAsync().Result;
                     var responseModel = JsonConvert.DeserializeObject<GRecaptchaValidationResponseModel>(responseString);
 
-                    if (responseModel.ErrorCodes.Contains("invalid-input-secret"))
+                    if (responseModel.ErrorCodes != null && responseModel.ErrorCodes.Contains("invalid-input-secret"))
                         Log.Write("Invalid input secret for reCaptcha. Please configure in advanced settings parameters for Forms.");
 
                     return responseModel.Success;
@@ -185,7 +185,7 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Models.Fields.Recaptcha
             }
             catch (Exception ex)
             {
-                Telerik.Sitefinity.Abstractions.Log.Write(ex.Message);
+                Log.Write("Exception while validating reCaptcha field: " + ex.Message);
                 return false;
             }
         }
