@@ -15,12 +15,12 @@
         
 <expander expander-title='@Html.Resource("MoreOptions")'>
     <div class="form-group">
-        <label for="textFieldTemplateName">@Html.Resource("Template")</label>
+        <label for="sectionHeaderTemplateName">@Html.Resource("Template")</label>
 
         <div class="row">
             <div class="col-xs-6">
-                <select id="textFieldTemplateName" ng-model="properties.TemplateName.PropertyValue" class="form-control">
-                    @foreach (var viewName in Html.GetViewNames(((Telerik.Sitefinity.Mvc.Proxy.MvcProxyBase)Model).GetController(), @"^Index\.(?<viewName>[\w\s]*)$"))
+                <select id="sectionHeaderTemplateName" ng-model="properties.ReadTemplateName.PropertyValue" class="form-control">
+                    @foreach (var viewName in Html.GetViewNames(((Telerik.Sitefinity.Mvc.Proxy.MvcProxyBase)Model).GetController(), @"^Read\.(?<viewName>[\w\s]*)$"))
                     {
                         <option value="@viewName">@viewName</option>
                     }

@@ -72,8 +72,8 @@
 
         <div class="row">
             <div class="col-xs-6">
-                <select id="captchaTemplateName" ng-model="properties.TemplateName.PropertyValue" class="form-control">
-                    @foreach (var viewName in Html.GetViewNames(((Telerik.Sitefinity.Mvc.Proxy.MvcProxyBase)Model).GetController(), @"^Index\.(?<viewName>[\w\s]*)$"))
+                <select id="captchaTemplateName" ng-model="properties.WriteTemplateName.PropertyValue" class="form-control">
+                    @foreach (var viewName in Html.GetViewNames(((Telerik.Sitefinity.Mvc.Proxy.MvcProxyBase)Model).GetController(), @"^Write\.(?<viewName>[\w\s]*)$"))
                     {
                         <option value="@viewName">@viewName</option>
                     }
