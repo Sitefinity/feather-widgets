@@ -36,7 +36,7 @@ namespace FeatherWidgets.TestUI.Arrangements
                 Guid pageId2 = Guid.NewGuid();
                 ServerOperations.Multilingual().Pages().CreatePageMultilingual(pageId2, PageTitleLogin, true, "en");
                 ServerOperations.Widgets().AddControlToPage(pageId2, ControlTypes.LoginWidget, "Body", "Login");
-                ServerOperations.MultiSite().AddPublicLoginPageToSite(pageId2, "SecondSite");
+                ServerOperations.MultiSite().AddPublicLoginPageToSite(pageId2);
             }
             else
             {

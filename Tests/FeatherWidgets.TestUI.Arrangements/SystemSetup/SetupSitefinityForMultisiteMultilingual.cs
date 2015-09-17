@@ -6,9 +6,11 @@ using Telerik.Sitefinity.Modules.Pages.Web.Services;
 using Telerik.Sitefinity.Multisite;
 using Telerik.Sitefinity.Pages.Model;
 using Telerik.Sitefinity.TestArrangementService.Attributes;
+using Telerik.Sitefinity.TestArrangementService.Core;
 using Telerik.Sitefinity.TestIntegration.Helpers;
 using Telerik.Sitefinity.TestUI.Arrangements.Framework;
 using Telerik.Sitefinity.TestUtilities.CommonOperations;
+using Telerik.Sitefinity.TestUtilities.Helpers.Models;
 
 namespace FeatherWidgets.TestUI.Arrangements
 {
@@ -24,7 +26,12 @@ namespace FeatherWidgets.TestUI.Arrangements
         public void CreateMultilingualSite()
         {  
             AuthenticationHelper.AuthenticateUser(Admin, Password);
-            MultisiteHelper.CreateSite(SiteName, Url, Cultures, SiteName + "Provider");
+
+            var siteName = ArrangementConfig.GetArrangementSite();
+            var siteUrl = ArrangementConfig.GetArrangementSiteUrl();
+            var siteCultures = ArrangementConfig.GetArrangementSiteCultures();
+            var site = new SiteModel(siteName, siteUrl, siteName + "Provider", true) { Cultures = siteCultures };
+            MultisiteHelper.CreateSite(site);
 
             this.SharePageTemplateWithSite(SetupSitefinityForMultisiteMultilingual.SiteName, SetupSitefinityForMultisiteMultilingual.Cultures[1]);
         }
@@ -59,7 +66,7 @@ namespace FeatherWidgets.TestUI.Arrangements
                 {
                     pageTemplatesService.SaveSharedSites(templateInfo.Key.ToString(), allSites);
 
-                    ServerOperations.Multilingual().Templates().CreateLocalizedPageTemplate(templateInfo.Key, templateInfo.Value, culture, site);
+                    ServerOperations.Multilingual().Templates().CreateLocalizedPageTemplate(templateInfo.Key, templateInfo.Value, culture, site, framework: PageTemplateFramework.Mvc);
                 }
             }
         }
