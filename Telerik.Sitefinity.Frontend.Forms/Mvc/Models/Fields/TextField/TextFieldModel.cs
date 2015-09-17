@@ -119,7 +119,7 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Models.Fields.TextField
             this.Value = value;
             var viewModel = new TextFieldViewModel()
             {
-                Value = value,
+                Value = value as string ?? this.MetaField.DefaultValue ?? string.Empty,
                 MetaField = metaField,
                 ValidationAttributes = this.BuildValidationAttributes(),
                 CssClass = this.CssClass,
