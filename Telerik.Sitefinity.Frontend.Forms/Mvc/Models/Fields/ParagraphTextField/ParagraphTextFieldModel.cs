@@ -57,7 +57,7 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Models.Fields.ParagraphTextField
             this.Value = value;
             var viewModel = new ParagraphTextFieldViewModel()
             {
-                Value = value,
+                Value = value as string ?? this.MetaField.DefaultValue ?? string.Empty,
                 MetaField = this.MetaField,
                 PlaceholderText = this.PlaceholderText,
                 ValidationAttributes = this.BuildValidationAttributesString(),
