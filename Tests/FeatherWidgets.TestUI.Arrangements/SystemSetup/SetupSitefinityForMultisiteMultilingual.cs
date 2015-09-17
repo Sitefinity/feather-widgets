@@ -53,13 +53,13 @@ namespace FeatherWidgets.TestUI.Arrangements
 
             var pageTemplatesService = new PageTemplatesService();
 
-            foreach (var tInfo in templateInfos)
+            foreach (var templateInfo in templateInfos)
             {
-                if (tInfo.Key != Guid.Empty)
+                if (templateInfo.Key != Guid.Empty)
                 {
-                    pageTemplatesService.SaveSharedSites(tInfo.Key.ToString(), allSites);
+                    pageTemplatesService.SaveSharedSites(templateInfo.Key.ToString(), allSites);
 
-                    ServerOperations.Multilingual().Templates().CreateLocalizedPageTemplate(tInfo.Key, tInfo.Value, culture, site);
+                    ServerOperations.Multilingual().Templates().CreateLocalizedPageTemplate(templateInfo.Key, templateInfo.Value, culture, site);
                 }
             }
         }
