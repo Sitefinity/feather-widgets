@@ -49,8 +49,8 @@ namespace Telerik.Sitefinity.Frontend.Forms
 
         private static void CreateFormsGoogleRecaptchaFieldConfig()
         {
-            const string TestGRecaptchaDataSitekey = "6Ldj-gsTAAAAAJ3yIz0mOEVoLIl4FLbGZr7e-sc_";
-            const string TestGRecaptchaSecret = "magicunicorns";
+            const string TestGRecaptchaDataSitekey = "6LeTWwwTAAAAADnNmwCb9Rnf41n7UDvgkzs8pYrU";
+            const string TestGRecaptchaSecret = "6LeTWwwTAAAAAOTF9tzmlN0C0xvrrDB6nfamLVDJ";
 
             var manager = ConfigManager.GetManager();
             var formsConfigSection = manager.GetSection<FormsConfig>();
