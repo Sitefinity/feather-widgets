@@ -134,7 +134,6 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Frontend
                 if (resultsList[i].ChildNodes.Count == 3)
                 {
                     Assert.AreEqual("a", resultsList[i].ChildNodes[2].TagName, "Third row is not anchor");
-                    Assert.IsTrue(resultsList[i].ChildNodes[2].InnerText.Contains(resultTitles[i]));
                 }
             }
         }

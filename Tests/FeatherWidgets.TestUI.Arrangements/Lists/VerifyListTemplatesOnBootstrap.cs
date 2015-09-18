@@ -3,16 +3,17 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using FeatherWidgets.TestUtilities.CommonOperations;
+using Telerik.Sitefinity.TestArrangementService.Attributes;
 using Telerik.Sitefinity.TestUI.Arrangements.Framework;
-using Telerik.Sitefinity.TestUI.Arrangements.Framework.Attributes;
 using Telerik.Sitefinity.TestUtilities.CommonOperations;
+using Telerik.Sitefinity.TestUtilities.TestConfig;
 
 namespace FeatherWidgets.TestUI.Arrangements
 {
     /// <summary>
     /// Arrangement methods for VerifyListTemplatesOnBootstrap
     /// </summary>
-    public class VerifyListTemplatesOnBootstrap : ITestArrangement
+    public class VerifyListTemplatesOnBootstrap : TestArrangementBase
     {
         /// <summary>
         /// Server side set up.
@@ -21,9 +22,9 @@ namespace FeatherWidgets.TestUI.Arrangements
         public void SetUp()
         {
             ServerOperationsFeather.ListsOperations().CreateList(this.listId, ListTitle, ListDescription);
-            ServerOperationsFeather.ListsOperations().CreateListItem(Guid.NewGuid(), this.listId, ListItem1Title, ListItem1Content);
-            ServerOperationsFeather.ListsOperations().CreateListItem(Guid.NewGuid(), this.listId, ListItem2Title, ListItem2Content);
-            ServerOperationsFeather.ListsOperations().CreateListItem(Guid.NewGuid(), this.listId, ListItem3Title, ListItem3Content);
+            ServerOperationsFeather.ListsOperations().CreateListItemMultilingual(this.mlconfig, this.listId, ListItem1Title, ListItem1Content, false, this.culture);
+            ServerOperationsFeather.ListsOperations().CreateListItemMultilingual(this.mlconfig, this.listId, ListItem2Title, ListItem2Content, false, this.culture);
+            ServerOperationsFeather.ListsOperations().CreateListItemMultilingual(this.mlconfig, this.listId, ListItem3Title, ListItem3Content, false, this.culture);
 
             Guid templateId = ServerOperationsFeather.TemplateOperations().GetTemplateIdByTitle(PageTemplateName);
 
@@ -81,6 +82,8 @@ namespace FeatherWidgets.TestUI.Arrangements
         private const string PagesList = "PagesList";
         private const string ExpandedList = "ExpandedList";
         private const string ExpandableList = "ExpandableList";
+        private string culture = ServerOperationsFeather.ListsOperations().GetCurrentCulture();
+        private MultilingualTestConfig mlconfig = MultilingualTestConfig.Get();
 
         private readonly Guid listId = new Guid("74C3D587-44F6-4D45-8CB4-8F41B29EB03F");
     }

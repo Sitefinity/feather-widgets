@@ -25,7 +25,7 @@ namespace FeatherWidgets.TestUI.TestCases.ContentBlocks
         TestCategory(FeatherTestCategories.ContentBlock1)]
         public void UnshareContentBlockFromPage()
         {
-            BAT.Macros().NavigateTo().Pages();
+            BAT.Macros().NavigateTo().Pages(this.Culture);
             BAT.Wrappers().Backend().Pages().PagesWrapper().OpenPageZoneEditor(PageName);
             BAT.Wrappers().Backend().Pages().PageZoneEditorWrapper().SelectExtraOptionForWidget(OperationName);
             BATFeather.Wrappers().Backend().ContentBlocks().ContentBlocksShareWrapper().UnshareButton();

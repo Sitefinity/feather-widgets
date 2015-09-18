@@ -25,7 +25,7 @@ namespace FeatherWidgets.TestUI.TestCases.ContentBlocks
         TestCategory(FeatherTestCategories.ContentBlock1)]
         public void ShareContentBlockWithoutTitleFromPage()
         {
-            BAT.Macros().NavigateTo().Pages();
+            BAT.Macros().NavigateTo().Pages(this.Culture);
             BAT.Wrappers().Backend().Pages().PagesWrapper().OpenPageZoneEditor(PageName);
             BAT.Wrappers().Backend().Pages().PageZoneEditorWrapper().SelectExtraOptionForWidget(OperationName);            
             BATFeather.Wrappers().Backend().ContentBlocks().ContentBlocksShareWrapper().ShareButton();
@@ -33,7 +33,7 @@ namespace FeatherWidgets.TestUI.TestCases.ContentBlocks
             BATFeather.Wrappers().Backend().ContentBlocks().ContentBlocksShareWrapper().CancelButton();
             this.VerifyIfSharedLabelExist();
             BAT.Wrappers().Backend().Pages().PageZoneEditorWrapper().PublishPage();
-            BAT.Macros().NavigateTo().Modules().ContentBlocks();
+            BAT.Macros().NavigateTo().Modules().ContentBlocks(this.Culture);
             this.VerifyIfContentBlockExist();
         }
 

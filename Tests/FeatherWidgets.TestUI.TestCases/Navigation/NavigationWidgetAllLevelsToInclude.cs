@@ -32,7 +32,7 @@ namespace FeatherWidgets.TestUI.TestCases.Navigation
 
             BAT.Macros().User().EnsureAdminLoggedIn();
             BAT.Arrange(this.ArrangementClass).AddParameter("templateName", pageTemplateName).ExecuteArrangement(this.ArrangementMethod);
-            BAT.Macros().NavigateTo().Pages();
+            BAT.Macros().NavigateTo().Pages(this.Culture);
             BAT.Wrappers().Backend().Pages().PagesWrapper().OpenPageZoneEditor(PageName);
             BATFeather.Wrappers().Backend().Pages().PageZoneEditorWrapper().EditWidget(WidgetName);
             BATFeather.Wrappers().Backend().Navigation().NavigationWidgetEditWrapper().SelectLevelsToInclude(LevelsToInclude);
@@ -43,7 +43,7 @@ namespace FeatherWidgets.TestUI.TestCases.Navigation
             string[] parentPages = new string[] { PageName };
             string[] childPages = new string[] { ChildPage1, ChildPage2 };
 
-            BAT.Macros().NavigateTo().CustomPage("~/" + PageName.ToLower(), false);
+            BAT.Macros().NavigateTo().CustomPage("~/" + PageName.ToLower(), false, this.Culture);
 
             BATFeather.Wrappers().Frontend().Navigation().NavigationWrapper().VerifyNavigationOnThePageFrontend(navTemplateClass, parentPages);
             BATFeather.Wrappers().Frontend().Navigation().NavigationWrapper().VerifyChildPagesFrontEndNavigation(navTemplateChildClass, childPages);
@@ -57,6 +57,7 @@ namespace FeatherWidgets.TestUI.TestCases.Navigation
         /// </summary>
         [TestMethod,
         Owner(FeatherTeams.FeatherTeam),
+        TestCategory(FeatherTestCategories.PagesAndContent),
         TestCategory(FeatherTestCategories.Navigation),
         TestCategory(FeatherTestCategories.Foundation)]
         public void NavigationWidgetAllLevelsToIncludeFoundationTemplate()
@@ -66,7 +67,7 @@ namespace FeatherWidgets.TestUI.TestCases.Navigation
 
             BAT.Macros().User().EnsureAdminLoggedIn();
             BAT.Arrange(this.ArrangementClass).AddParameter("templateName", pageTemplateName).ExecuteArrangement(this.ArrangementMethod);
-            BAT.Macros().NavigateTo().Pages();
+            BAT.Macros().NavigateTo().Pages(this.Culture);
             BAT.Wrappers().Backend().Pages().PagesWrapper().OpenPageZoneEditor(PageName);
             BATFeather.Wrappers().Backend().Pages().PageZoneEditorWrapper().EditWidget(WidgetName);
             BATFeather.Wrappers().Backend().Navigation().NavigationWidgetEditWrapper().SelectLevelsToInclude(LevelsToInclude);
@@ -77,7 +78,7 @@ namespace FeatherWidgets.TestUI.TestCases.Navigation
             string[] parentPages = new string[] { PageName };
             string[] childPages = new string[] { ChildPage1, ChildPage2 };
 
-            BAT.Macros().NavigateTo().CustomPage("~/" + PageName.ToLower());
+            BAT.Macros().NavigateTo().CustomPage("~/" + PageName.ToLower(), true, this.Culture);
 
             BATFeather.Wrappers().Frontend().Navigation().NavigationWrapper().VerifyNavigationOnThePageFrontend(navTemplateClass, parentPages, TemplateType.Foundation);
             BATFeather.Wrappers().Frontend().Navigation().NavigationWrapper().VerifyChildPagesFrontEndNavigation(navTemplateClass, childPages, TemplateType.Foundation);
@@ -91,6 +92,7 @@ namespace FeatherWidgets.TestUI.TestCases.Navigation
         /// </summary>
         [TestMethod,
         Owner(FeatherTeams.FeatherTeam),
+        TestCategory(FeatherTestCategories.PagesAndContent),
         TestCategory(FeatherTestCategories.Navigation),
         TestCategory(FeatherTestCategories.SemanticUI)]
         public void NavigationWidgetAllLevelsToIncludeSemanticUITemplate()
@@ -101,7 +103,7 @@ namespace FeatherWidgets.TestUI.TestCases.Navigation
 
             BAT.Macros().User().EnsureAdminLoggedIn();
             BAT.Arrange(this.ArrangementClass).AddParameter("templateName", pageTemplateName).ExecuteArrangement(this.ArrangementMethod);
-            BAT.Macros().NavigateTo().Pages();
+            BAT.Macros().NavigateTo().Pages(this.Culture);
             BAT.Wrappers().Backend().Pages().PagesWrapper().OpenPageZoneEditor(PageName);
             BATFeather.Wrappers().Backend().Pages().PageZoneEditorWrapper().EditWidget(WidgetName);
             BATFeather.Wrappers().Backend().Navigation().NavigationWidgetEditWrapper().SelectLevelsToInclude(LevelsToInclude);
@@ -112,7 +114,7 @@ namespace FeatherWidgets.TestUI.TestCases.Navigation
             string[] parentPages = new string[] { PageName };
             string[] childPages = new string[] { ChildPage1, ChildPage2 };
 
-            BAT.Macros().NavigateTo().CustomPage("~/" + PageName.ToLower());
+            BAT.Macros().NavigateTo().CustomPage("~/" + PageName.ToLower(), true, this.Culture);
 
             BATFeather.Wrappers().Frontend().Navigation().NavigationWrapper().VerifyNavigationOnThePageFrontend(navTemplateClass, parentPages, TemplateType.Semantic);
             BATFeather.Wrappers().Frontend().Navigation().NavigationWrapper().VerifyChildPagesFrontEndNavigation(navTemplateChildClass, childPages, TemplateType.Semantic);

@@ -27,7 +27,7 @@ namespace FeatherWidgets.TestUI.TestCases.Navigation
 
             BAT.Macros().User().EnsureAdminLoggedIn();
             BAT.Arrange(ArrangementClass).AddParameter("templateName", pageTemplateName).ExecuteArrangement(ArrangementMethod);
-            BAT.Macros().NavigateTo().Pages();
+            BAT.Macros().NavigateTo().Pages(this.Culture);
             BAT.Wrappers().Backend().Pages().PagesWrapper().OpenPageZoneEditor(NavigationPage);
             BATFeather.Wrappers().Backend().Pages().PageZoneEditorWrapper().EditWidget(WidgetName);
             BATFeather.Wrappers().Backend().Navigation().NavigationWidgetEditWrapper().SelectNavigationWidgetDisplayMode(NavWidgetDisplayMode);
@@ -43,10 +43,10 @@ namespace FeatherWidgets.TestUI.TestCases.Navigation
 
             BATFeather.Wrappers().Backend().Widgets().WidgetDesignerWrapper().SaveChanges();
             BAT.Wrappers().Backend().Pages().PageZoneEditorWrapper().PublishPage();
-            BAT.Macros().NavigateTo().CustomPage("~/" + NavigationPage.ToLower());
+            BAT.Macros().NavigateTo().CustomPage("~/" + NavigationPage.ToLower(), true, this.Culture);
             BATFeather.Wrappers().Frontend().Navigation().NavigationWrapper().VerifyNavigationOnThePageFrontend(navTemplateClass, this.selectedPages);
 
-            BAT.Macros().NavigateTo().Pages();
+            BAT.Macros().NavigateTo().Pages(this.Culture);
             BAT.Wrappers().Backend().Pages().PagesWrapper().OpenPageZoneEditor(NavigationPage);
             BATFeather.Wrappers().Backend().Pages().PageZoneEditorWrapper().EditWidget(WidgetName);
             BATFeather.Wrappers().Backend().Widgets().WidgetDesignerWrapper().ClickSelectButton();
@@ -60,7 +60,7 @@ namespace FeatherWidgets.TestUI.TestCases.Navigation
             BATFeather.Wrappers().Backend().Widgets().WidgetDesignerWrapper().SaveChanges();
             BAT.Wrappers().Backend().Pages().PageZoneEditorWrapper().PublishPage();
 
-            BAT.Macros().NavigateTo().CustomPage("~/" + NavigationPage.ToLower());
+            BAT.Macros().NavigateTo().CustomPage("~/" + NavigationPage.ToLower(), true, this.Culture);
             BATFeather.Wrappers().Frontend().Navigation().NavigationWrapper().VerifyNavigationOnThePageFrontend(navTemplateClass, new string[] { SecondExternalPageTitle });
             BATFeather.Wrappers().Frontend().Navigation().NavigationWrapper().VerifyCreatedPageWithExternalUrl(SecondExternalPageTitle, SecondExternalPageUrl, true);
         }

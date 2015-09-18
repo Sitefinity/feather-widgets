@@ -25,12 +25,12 @@ namespace FeatherWidgets.TestUI.TestCases.ScriptsAndStyles
         TestCategory(FeatherTestCategories.ScriptsAndStyles)]
         public void DuplicateAndDeleteEmbedCodeWidgetOnPage()
         {
-            BAT.Macros().NavigateTo().Pages();
+            BAT.Macros().NavigateTo().Pages(this.Culture);
             BAT.Wrappers().Backend().Pages().PagesWrapper().OpenPageZoneEditor(PageName);
             //// Switch the focus to the zone editor
             HtmlDiv radDockZone = ActiveBrowser.Find
                                               .ByExpression<HtmlDiv>("placeholderid=" + "Body")
-              .AssertIsPresent<HtmlDiv>("Contentplaceholder1");
+              .AssertIsPresent<HtmlDiv>("Body");
             radDockZone.MouseClick();
             BATFeather.Wrappers().Backend().Pages().PageZoneEditorWrapper().EditWidget(WidgetName);
             BATFeather.Wrappers().Backend().ScriptAndStyles().JavaScriptWidgetEditWrapper().FillCodeInEditableArea(Script);
@@ -40,15 +40,15 @@ namespace FeatherWidgets.TestUI.TestCases.ScriptsAndStyles
             BATFeather.Wrappers().Backend().ScriptAndStyles().JavaScriptWidgetEditWrapper().FillCodeInEditableArea(SecondScript);
             BATFeather.Wrappers().Backend().Widgets().WidgetDesignerWrapper().SaveChanges();
             BAT.Wrappers().Backend().Pages().PageZoneEditorWrapper().PublishPage();
-            BAT.Macros().NavigateTo().CustomPage("~/" + PageName.ToLower());
+            BAT.Macros().NavigateTo().CustomPage("~/" + PageName.ToLower(), true, this.Culture);
             this.VerifyCodeExistOnTheFrontend(Script, true);
             this.VerifyCodeExistOnTheFrontend(SecondScript);
 
-            BAT.Macros().NavigateTo().Pages();
+            BAT.Macros().NavigateTo().Pages(this.Culture);
             BAT.Wrappers().Backend().Pages().PagesWrapper().OpenPageZoneEditor(PageName);
             BAT.Wrappers().Backend().Pages().PageZoneEditorWrapper().SelectExtraOptionForWidget(OperationName1);
             BAT.Wrappers().Backend().Pages().PageZoneEditorWrapper().PublishPage();
-            BAT.Macros().NavigateTo().CustomPage("~/" + PageName.ToLower());
+            BAT.Macros().NavigateTo().CustomPage("~/" + PageName.ToLower(), true, this.Culture);
             this.VerifyCodeExistOnTheFrontend(SecondScript);
             this.VerifyCodeDoesNotExistOnTheFrontend(Script, true);
         }

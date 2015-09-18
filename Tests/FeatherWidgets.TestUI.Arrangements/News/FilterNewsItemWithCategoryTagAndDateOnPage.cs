@@ -4,8 +4,8 @@ using System.Linq;
 using FeatherWidgets.TestUtilities.CommonOperations;
 using Telerik.Sitefinity.Modules.News;
 using Telerik.Sitefinity.News.Model;
+using Telerik.Sitefinity.TestArrangementService.Attributes;
 using Telerik.Sitefinity.TestUI.Arrangements.Framework;
-using Telerik.Sitefinity.TestUI.Arrangements.Framework.Attributes;
 using Telerik.Sitefinity.TestUtilities.CommonOperations;
 
 namespace FeatherWidgets.TestUI.Arrangements
@@ -13,7 +13,7 @@ namespace FeatherWidgets.TestUI.Arrangements
     /// <summary>
     /// FilterNewsItemWithCategoryTagAndDateOnPage arrangement class.
     /// </summary>
-    public class FilterNewsItemWithCategoryTagAndDateOnPage : ITestArrangement
+    public class FilterNewsItemWithCategoryTagAndDateOnPage : TestArrangementBase
     {
         /// <summary>
         /// Server side set up.

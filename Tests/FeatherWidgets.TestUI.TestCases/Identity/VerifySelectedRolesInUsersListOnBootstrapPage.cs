@@ -27,7 +27,7 @@ namespace FeatherWidgets.TestUI.TestCases.Identity
         TestCategory(FeatherTestCategories.Bootstrap)]
         public void VerifySelectedRolesInUsersListOnBootstrapPage()
         {
-            BAT.Macros().NavigateTo().Pages();
+            BAT.Macros().NavigateTo().Pages(this.Culture);
             BAT.Wrappers().Backend().Pages().PagesWrapper().OpenPageZoneEditor(PageName);
             BATFeather.Wrappers().Backend().Pages().PageZoneEditorWrapper().EditWidget(WidgetName);
 
@@ -44,7 +44,7 @@ namespace FeatherWidgets.TestUI.TestCases.Identity
             BATFeather.Wrappers().Backend().Widgets().WidgetDesignerWrapper().SaveChanges();
             BAT.Wrappers().Backend().Pages().PageZoneEditorWrapper().PublishPage();
 
-            BAT.Macros().NavigateTo().CustomPage("~/" + PageName.ToLower(), false);
+            BAT.Macros().NavigateTo().CustomPage("~/" + PageName.ToLower(), false, this.Culture);
             BATFeather.Wrappers().Frontend().Identity().UsersListWrapper().VerifyUsersListOnBootstrapPage(this.users);
             BATFeather.Wrappers().Frontend().Identity().UsersListWrapper().VerifySingleUserOnBootstrapPage(UserFirstLastName, UserEmail, SingleUserPageURLEnding);
         }

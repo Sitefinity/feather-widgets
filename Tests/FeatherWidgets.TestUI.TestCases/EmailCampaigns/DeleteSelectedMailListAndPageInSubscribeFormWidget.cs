@@ -25,7 +25,7 @@ namespace FeatherWidgets.TestUI.TestCases.EmailCampaigns
         TestCategory(FeatherTestCategories.Bootstrap)]
         public void DeleteSelectedMailListAndPageInSubscribeFormWidget()
         {
-            BAT.Macros().NavigateTo().Pages();
+            BAT.Macros().NavigateTo().Pages(this.Culture);
             BAT.Wrappers().Backend().Pages().PagesWrapper().OpenPageZoneEditor(PageName);
             BATFeather.Wrappers().Backend().Pages().PageZoneEditorWrapper().EditWidget(WidgetName);
             BATFeather.Wrappers().Backend().Widgets().WidgetDesignerWrapper().ClickSelectButton();
@@ -52,7 +52,7 @@ namespace FeatherWidgets.TestUI.TestCases.EmailCampaigns
             BATFeather.Wrappers().Backend().Widgets().SelectorsWrapper().DoneSelecting();
             BATFeather.Wrappers().Backend().ContentBlocks().ContentBlocksWrapper().SaveChanges();
             BAT.Wrappers().Backend().Pages().PageZoneEditorWrapper().PublishPage();
-            BAT.Macros().NavigateTo().CustomPage("~/" + PageName.ToLower(), false); 
+            BAT.Macros().NavigateTo().CustomPage("~/" + PageName.ToLower(), false, this.Culture); 
             BATFeather.Wrappers().Frontend().EmailCampaigns().SubscibeFormWrapper().VerifySubscribeMessageOnTheFrontend();
             BATFeather.Wrappers().Frontend().EmailCampaigns().SubscibeFormWrapper().FillEmail(SubscriberEmail);
             BATFeather.Wrappers().Frontend().EmailCampaigns().SubscibeFormWrapper().ClickSubscribeButton();

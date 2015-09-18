@@ -27,18 +27,18 @@ namespace FeatherWidgets.TestUI.TestCases.CommentsAndReviews
         TestCategory(FeatherTestCategories.Bootstrap)]
         public void ChangeCommentsStatusesForPage()
         {
-            BAT.Macros().NavigateTo().CustomPage("~/" + PageName.ToLower(), false);
+            BAT.Macros().NavigateTo().CustomPage("~/" + PageName.ToLower(), false, this.Culture);
             BATFeather.Wrappers().Frontend().CommentsAndReviews().CommentsWrapper().AssertMessageAndCountOnPage(CommentsMessage);
             this.PublishCommentAndVerifyFrontEnd();
             
             BAT.Arrange(this.TestName).ExecuteArrangement("MarkAsSpamComment");
-            BAT.Macros().NavigateTo().CustomPage("~/" + PageName.ToLower(), false);
+            BAT.Macros().NavigateTo().CustomPage("~/" + PageName.ToLower(), false, this.Culture);
             BATFeather.Wrappers().Frontend().CommentsAndReviews().CommentsWrapper().AssertMessageAndCountOnPage(CommentsMessage);
 
             this.PublishCommentAndVerifyFrontEnd();
 
             BAT.Arrange(this.TestName).ExecuteArrangement("HideComment");
-            BAT.Macros().NavigateTo().CustomPage("~/" + PageName.ToLower(), false);
+            BAT.Macros().NavigateTo().CustomPage("~/" + PageName.ToLower(), false, this.Culture);
             BATFeather.Wrappers().Frontend().CommentsAndReviews().CommentsWrapper().AssertMessageAndCountOnPage(CommentsMessage);
 
             this.PublishCommentAndVerifyFrontEnd();
@@ -47,7 +47,7 @@ namespace FeatherWidgets.TestUI.TestCases.CommentsAndReviews
         public void PublishCommentAndVerifyFrontEnd()
         {
             BAT.Arrange(this.TestName).ExecuteArrangement("PublishComment");
-            BAT.Macros().NavigateTo().CustomPage("~/" + PageName.ToLower(), false);
+            BAT.Macros().NavigateTo().CustomPage("~/" + PageName.ToLower(), false, this.Culture);
             BATFeather.Wrappers().Frontend().CommentsAndReviews().CommentsWrapper().AssertMessageAndCountOnPage(CommentsCount);
             BATFeather.Wrappers().Frontend().CommentsAndReviews().CommentsWrapper().VerifyCommentsAuthorAndContent(this.commentAuthor, this.commentToPage);
         }

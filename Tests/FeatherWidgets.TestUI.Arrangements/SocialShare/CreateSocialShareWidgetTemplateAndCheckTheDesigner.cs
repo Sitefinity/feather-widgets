@@ -1,5 +1,5 @@
-﻿using Telerik.Sitefinity.TestUI.Arrangements.Framework;
-using Telerik.Sitefinity.TestUI.Arrangements.Framework.Attributes;
+﻿using Telerik.Sitefinity.TestArrangementService.Attributes;
+using Telerik.Sitefinity.TestUI.Arrangements.Framework;
 using Telerik.Sitefinity.TestUtilities.CommonOperations;
 
 namespace FeatherWidgets.TestUI.Arrangements
@@ -7,7 +7,7 @@ namespace FeatherWidgets.TestUI.Arrangements
     /// <summary>
     /// CreateSocialShareWidgetTemplateAndCheckTheDesigner arragement.
     /// </summary>
-    public class CreateSocialShareWidgetTemplateAndCheckTheDesigner : ITestArrangement
+    public class CreateSocialShareWidgetTemplateAndCheckTheDesigner : TestArrangementBase
     {
         /// <summary>
         /// Server side set up.

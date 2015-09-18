@@ -23,11 +23,11 @@ namespace FeatherWidgets.TestUI.TestCases.Identity
         TestCategory(FeatherTestCategories.Bootstrap), Ignore]
         public void AddAndChangeUserAvatarInProfileWidget()
         {
-            BAT.Macros().NavigateTo().CustomPage("~/" + LoginPage.ToLower());
+            BAT.Macros().NavigateTo().CustomPage("~/" + LoginPage.ToLower(), true, this.Culture);
             BAT.Wrappers().Backend().LoginView().LoginViewWrapper().SetUsername(UserName);
             BAT.Wrappers().Backend().LoginView().LoginViewWrapper().SetPassword(UserPassword);
             BAT.Wrappers().Backend().LoginView().LoginViewWrapper().ExecuteLogin();
-            BAT.Macros().NavigateTo().CustomPage("~/" + PageName.ToLower(), false);
+            BAT.Macros().NavigateTo().CustomPage("~/" + PageName.ToLower(), false, this.Culture);
             BATFeather.Wrappers().Frontend().Identity().ProfileWrapper().VerifyDefaultUserAvatar();
 
             this.UploadUserAvatar();           

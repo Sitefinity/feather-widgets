@@ -25,7 +25,7 @@ namespace FeatherWidgets.TestUI.TestCases.EmailCampaigns
         TestCategory(FeatherTestCategories.Bootstrap)]
         public void SubscribeFormWidgetOnHybridPageAndSetCssClass()
         {
-            BAT.Macros().NavigateTo().Pages();
+            BAT.Macros().NavigateTo().Pages(this.Culture);
             BAT.Wrappers().Backend().Pages().PagesWrapper().OpenPageZoneEditor(PageName);
             BATFeather.Wrappers().Backend().Pages().PageZoneEditorWrapper().EditWidget(WidgetName);
             BATFeather.Wrappers().Backend().Widgets().WidgetDesignerWrapper().ClickSelectButton();
@@ -35,7 +35,7 @@ namespace FeatherWidgets.TestUI.TestCases.EmailCampaigns
             BATFeather.Wrappers().Backend().Navigation().NavigationWidgetEditWrapper().SaveChanges();            
             BAT.Wrappers().Backend().Pages().PageZoneEditorWrapper().PublishPage();
 
-            BAT.Macros().NavigateTo().CustomPage("~/" + PageName.ToLower());
+            BAT.Macros().NavigateTo().CustomPage("~/" + PageName.ToLower(), true, this.Culture);
             BATFeather.Wrappers().Frontend().EmailCampaigns().SubscibeFormWrapper().VerifySubscribeMessageOnTheFrontendNotStyledPage();
             Assert.IsTrue(ActiveBrowser.ContainsText(CssClass), "Css class was not found on the page");
             BATFeather.Wrappers().Frontend().EmailCampaigns().SubscibeFormWrapper().FillEmailNotStyledPage(SubscriberEmail);

@@ -25,7 +25,7 @@ namespace FeatherWidgets.TestUI.TestCases.News
         TestCategory(FeatherTestCategories.News)]
         public void AddNewsWidgetToPageVerifyViewPermissions()
         {
-            BAT.Macros().NavigateTo().Pages();
+            BAT.Macros().NavigateTo().Pages(this.Culture);
             BAT.Wrappers().Backend().Pages().PagesWrapper().OpenPageZoneEditor(PageName);
             BAT.Wrappers().Backend().Pages().PageZoneEditorWrapper().SelectExtraOptionForWidget(OperationName);
             BAT.Wrappers().Backend().Permissions().PermissionsContentWrapper().ClickChangePermissionsButton(PermissionTypes.View);
@@ -36,7 +36,7 @@ namespace FeatherWidgets.TestUI.TestCases.News
 
             BAT.Macros().User().LogOut();
             ActiveBrowser.RefreshDomTree();
-            BAT.Macros().NavigateTo().CustomPage("~/" + PageName.ToLower(), false);
+            BAT.Macros().NavigateTo().CustomPage("~/" + PageName.ToLower(), false, culture: this.Culture);
 
             Assert.IsFalse(ActiveBrowser.ContainsText(NewsTitle), "News title was found but it shouldn't");
         }
