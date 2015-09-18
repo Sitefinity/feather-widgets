@@ -2,11 +2,13 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using Telerik.Sitefinity.Security.Claims;
 using Telerik.Sitefinity.Services;
 using Telerik.Sitefinity.Services.Comments;
 using Telerik.Sitefinity.Services.Comments.Proxies;
 using Telerik.Sitefinity.TestIntegration.Services.Comment;
+using Telerik.Sitefinity.TestUtilities.CommonOperations;
 
 namespace FeatherWidgets.TestUtilities.CommonOperations
 {
@@ -53,7 +55,9 @@ namespace FeatherWidgets.TestUtilities.CommonOperations
             var domainProxy = new GroupProxy("TestDomain", "TestDomainDescription", authorProxy) { Key = domainKey };
             cs.CreateGroup(domainProxy);
 
-            var threadProxy = new ThreadProxy(itemTitle, threadType, domainKey, authorProxy) { Key = itemId.ToString() + "_en_review", Language = "en" };
+            var culture = this.GetCurrentCulture();
+
+            var threadProxy = new ThreadProxy(itemTitle, threadType, domainKey, authorProxy) { Key = itemId.ToString() + "_" + culture + "_review", Language = culture };
             var thread = cs.CreateThread(threadProxy);
 
             DateTime dateCreated = DateTime.UtcNow.AddMinutes(5);
@@ -61,6 +65,23 @@ namespace FeatherWidgets.TestUtilities.CommonOperations
             var commentProxy = new CommentProxy(message, thread.Key, authorProxy, SystemManager.CurrentHttpContext.Request.UserHostAddress, rating) 
                                 { Status = status, DateCreated = dateCreated };
             cs.CreateComment(commentProxy);
+        }
+
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1024:UsePropertiesWhereAppropriate")]
+        public string GetCurrentCulture()
+        {
+            var culture = string.Empty;
+
+            if (ServerOperations.Multilingual().IsCurrentSiteInMultilingual)
+            {
+                culture = Thread.CurrentThread.CurrentUICulture.Name;
+            }
+            else
+            {
+                culture = SystemManager.CurrentContext.CurrentSite.DefaultCulture;
+            }
+
+            return culture;
         }
     }
 }

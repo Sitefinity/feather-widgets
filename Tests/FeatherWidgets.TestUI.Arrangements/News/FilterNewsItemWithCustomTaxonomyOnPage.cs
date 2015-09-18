@@ -2,8 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using FeatherWidgets.TestUtilities.CommonOperations;
+using Telerik.Sitefinity.TestArrangementService.Attributes;
 using Telerik.Sitefinity.TestUI.Arrangements.Framework;
-using Telerik.Sitefinity.TestUI.Arrangements.Framework.Attributes;
 using Telerik.Sitefinity.TestUtilities.CommonOperations;
 
 namespace FeatherWidgets.TestUI.Arrangements
@@ -11,7 +11,7 @@ namespace FeatherWidgets.TestUI.Arrangements
     /// <summary>
     /// FilterNewsItemWithCustomTaxonomyOnPage arrangement class.
     /// </summary>
-    public class FilterNewsItemWithCustomTaxonomyOnPage : ITestArrangement
+    public class FilterNewsItemWithCustomTaxonomyOnPage : TestArrangementBase
     {   
         /// <summary>
         /// Server side set up.
@@ -20,8 +20,6 @@ namespace FeatherWidgets.TestUI.Arrangements
         public void SetUp()
         {
             Guid pageId = ServerOperations.Pages().CreatePage(PageName);
-           /* Guid newsItemId1 = ServerOperations.News().CreatePublishedNewsItem(NewsTitle1, NewsContent1, NewsProvider);
-            Guid newsItemId2 = ServerOperations.News().CreatePublishedNewsItem(NewsTitle2, NewsContent2, NewsProvider);*/
             ServerOperationsFeather.Pages().AddNewsWidgetToPage(pageId);
 
             ServerOperations.Taxonomies().CreateFlatTaxonomy(this.customFlatTaxonomyName);

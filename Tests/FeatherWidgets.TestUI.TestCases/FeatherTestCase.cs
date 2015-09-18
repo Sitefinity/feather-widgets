@@ -56,5 +56,65 @@ namespace FeatherWidgets.TestUI.TestCases
         {
             base.ServerCleanup();
         }
+
+
+        /// <summary>
+        /// Gets a value indicating whether the site is in multisite.
+        /// </summary>
+        /// <value>True if in multisite, false if in single site.</value>
+        protected bool IsMultisite
+        {
+            get
+            {
+                if (this.isMultisite == null)
+                {
+                    this.isMultisite = BAT.Utilities().CheckIsMultisiteMode();
+                }
+
+                return (bool)this.isMultisite;
+            }
+        }
+
+        /// <summary>
+        /// Gets a value indicating whether the current site is in multilingual.
+        /// </summary>
+        /// <value>True if in multilingual, false if in monolingual.</value>
+        protected bool IsMultilingual
+        {
+            get
+            {
+                if (this.isMultilingual == null)
+                {
+                    this.isMultilingual = BAT.Utilities().IsCurrentSiteInMultilingual();
+                }
+
+                return (bool)this.isMultilingual;
+            }
+        }
+
+        /// <summary>
+        /// Gets the culture.
+        /// </summary>
+        /// <value>The culture.</value>
+        protected virtual string Culture
+        {
+            get
+            {
+                if (this.culture == "undefined")
+                {
+                    if (this.IsMultilingual)
+                        this.culture = BAT.Utilities().GetDefaultArrangementCulture();
+                    else
+                        this.culture = null;
+                }
+
+                return this.culture;
+            }
+        }
+
+        private bool? isMultisite = null;
+        private bool? isMultilingual = null;
+        private string culture = "undefined";
+
     }
 }

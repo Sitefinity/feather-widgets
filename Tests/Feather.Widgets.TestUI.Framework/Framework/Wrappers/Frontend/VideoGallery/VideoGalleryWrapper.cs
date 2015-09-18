@@ -78,7 +78,7 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Frontend
         {
             var backLink = EM.MediaGallery.MediaGalleryFrontend.BeckToAllMediaFilesLink
                .AssertIsPresent("back to all videos");
-            Assert.IsTrue(backLink.HRef.StartsWith(href));
+            Assert.IsTrue(backLink.HRef.Contains(href));
         }
 
         /// <summary>

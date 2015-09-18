@@ -1,6 +1,6 @@
 ﻿using System;
+using Telerik.Sitefinity.TestArrangementService.Attributes;
 using Telerik.Sitefinity.TestUI.Arrangements.Framework;
-using Telerik.Sitefinity.TestUI.Arrangements.Framework.Attributes;
 using Telerik.Sitefinity.TestUI.Arrangements.Framework.Server;
 using Telerik.Sitefinity.TestUtilities.CommonOperations;
 
@@ -9,7 +9,7 @@ namespace FeatherWidgets.TestUI.Arrangements
     /// <summary>
     /// Arrangement methods for ContentBlockWidgetOnPageBasedOnPackageTemplate
     /// </summary>
-    public class ContentBlockWidgetOnPageBasedOnPackageTemplate : ITestArrangement
+    public class ContentBlockWidgetOnPageBasedOnPackageTemplate : TestArrangementBase
     {
         /// <summary>
         /// Server side set up.

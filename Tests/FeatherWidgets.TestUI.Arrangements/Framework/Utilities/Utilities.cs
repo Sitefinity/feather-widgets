@@ -3,7 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
-using Telerik.Sitefinity.TestUI.Arrangements.Framework.Attributes;
+using Telerik.Sitefinity.TestArrangementService.Attributes;
+using Telerik.Sitefinity.TestArrangementService.Core;
 using Telerik.Sitefinity.TestUI.Arrangements.Framework.Server;
 using Telerik.Sitefinity.TestUtilities.CommonOperations;
 
@@ -23,6 +24,37 @@ namespace FeatherWidgets.TestUI.Arrangements
             var isMultisiteMode = ServerOperations.MultiSite().CheckIsMultisiteMode();
 
             ServerArrangementContext.GetCurrent().Values.Add("isMultisiteMode", isMultisiteMode.ToString());
+        }
+
+        /// <summary>
+        /// Determines whether the system context is in multilingual mode.
+        /// </summary>
+        [ServerArrangement]
+        public void IsMultilingualMode()
+        {
+            var isMultilingualMode = ServerOperations.Multilingual().IsCurrentSiteInMultilingual;
+
+            ServerArrangementContext.GetCurrent().Values.Add("isMultilingualMode", isMultilingualMode.ToString());
+        }
+
+        /// <summary>
+        /// Gets the default arrangement culture.
+        /// </summary>
+        [ServerArrangement]
+        public void GetDefaultArrangementCulture()
+        {
+            var culture = ArrangementConfig.GetArrangementCulture();
+            ServerArrangementContext.GetCurrent().Values.Add("defaultArrangementCulture", culture);
+        }
+
+        /// <summary>
+        /// Gets the default arrangement site.
+        /// </summary>
+        [ServerArrangement]
+        public void GetDefaultArrangementSite()
+        {
+            var site = ArrangementConfig.GetArrangementSite();
+            ServerArrangementContext.GetCurrent().Values.Add("defaultArrangementSite", site);
         }
     }
 }

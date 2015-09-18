@@ -3,8 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using FeatherWidgets.TestUtilities.CommonOperations;
+using Telerik.Sitefinity.TestArrangementService.Attributes;
 using Telerik.Sitefinity.TestUI.Arrangements.Framework;
-using Telerik.Sitefinity.TestUI.Arrangements.Framework.Attributes;
 using Telerik.Sitefinity.TestUtilities.CommonOperations;
 
 namespace FeatherWidgets.TestUI.Arrangements
@@ -12,7 +12,7 @@ namespace FeatherWidgets.TestUI.Arrangements
     /// <summary>
     /// SubmitWaitingForApprovalReviewForPageNotLoggedUserOnBootstrapPage arrangement class.
     /// </summary>
-    public class SubmitWaitingForApprovalReviewForPageNotLoggedUserOnBootstrapPage : ITestArrangement
+    public class SubmitWaitingForApprovalReviewForPageNotLoggedUserOnBootstrapPage : TestArrangementBase
     {
         /// <summary>
         /// Server side set up.
@@ -38,7 +38,8 @@ namespace FeatherWidgets.TestUI.Arrangements
         public void PublishReview()
         {
             Guid pageId = ServerOperations.Pages().GetPageId(PageName);
-            string threadKey = pageId.ToString() + "_en_review";
+            string culture = ServerOperationsFeather.CommentsAndReviews().GetCurrentCulture();
+            string threadKey = pageId.ToString() + "_" + culture + "_review";
             ServerOperationsFeather.CommentsAndReviews().ChangeCommentsAndReviewsStatus(ReviewsStatusPublish, threadKey);
         }
 

@@ -1,4 +1,5 @@
-﻿using System;
+﻿
+using System;
 using Feather.Widgets.TestUI.Framework;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Telerik.Sitefinity.Frontend.TestUtilities;
@@ -29,7 +30,7 @@ namespace FeatherWidgets.TestUI.TestCases.ImageGallery
             }
 
             BAT.Wrappers().Backend().Pages().PageZoneEditorWrapper().PublishPage();
-            BAT.Macros().NavigateTo().CustomPage("~/" + PageName.ToLower());
+            BAT.Macros().NavigateTo().CustomPage("~/" + PageName.ToLower(), true, this.Culture);
             int i = 3;
             foreach (var image in this.imageTitles)
             {
@@ -70,7 +71,7 @@ namespace FeatherWidgets.TestUI.TestCases.ImageGallery
             }
 
             BAT.Wrappers().Backend().Pages().PageZoneEditorWrapper().PublishPage();
-            BAT.Macros().NavigateTo().CustomPage("~/" + PageName.ToLower());
+            BAT.Macros().NavigateTo().CustomPage("~/" + PageName.ToLower(), true, this.Culture);
 
             BATFeather.Wrappers().Frontend().ImageGallery().ImageGalleryWrapper().VerifyThumbnailStripTemplateInfo("1of 3", this.imageTitles[0]);
             src = this.GetImageSource(false, this.imageTitles[0], ImageOriginalType);
@@ -110,7 +111,7 @@ namespace FeatherWidgets.TestUI.TestCases.ImageGallery
             }
 
             BAT.Wrappers().Backend().Pages().PageZoneEditorWrapper().PublishPage();
-            BAT.Macros().NavigateTo().CustomPage("~/" + PageName.ToLower());
+            BAT.Macros().NavigateTo().CustomPage("~/" + PageName.ToLower(), true, this.Culture);
             int i = 3;
             foreach (var image in this.imageTitles)
             {
@@ -132,8 +133,9 @@ namespace FeatherWidgets.TestUI.TestCases.ImageGallery
         {
             BAT.Macros().User().EnsureAdminLoggedIn();
             BAT.Arrange(ArrangementClassName).AddParameter("templateName", pageTemplate).ExecuteSetUp();
+            currentProviderUrlName = BAT.Arrange(ArrangementClassName).ExecuteArrangement("GetCurrentProviderUrlName").Result.Values["CurrentProviderUrlName"];
 
-            BAT.Macros().NavigateTo().Pages();
+            BAT.Macros().NavigateTo().Pages(this.Culture);
             BAT.Wrappers().Backend().Pages().PagesWrapper().OpenPageZoneEditor(PageName);
             BATFeather.Wrappers().Backend().Pages().PageZoneEditorWrapper().EditWidget(WidgetName);
 
@@ -146,7 +148,7 @@ namespace FeatherWidgets.TestUI.TestCases.ImageGallery
         {
             string libraryUrl = LibraryName.ToLower();
             string imageUrl = imageName.ToLower() + imageType.ToLower();
-            string scr = BATFeather.Wrappers().Frontend().MediaWidgets().MediaWidgetsWrapper().GetMediaSource(isBaseUrlIncluded, libraryUrl, imageUrl, this.BaseUrl);
+            string scr = BATFeather.Wrappers().Frontend().MediaWidgets().MediaWidgetsWrapper().GetMediaSource(isBaseUrlIncluded, libraryUrl, imageUrl, this.BaseUrl, ContentType, currentProviderUrlName, this.Culture);
             return scr;
         }
 
@@ -164,5 +166,7 @@ namespace FeatherWidgets.TestUI.TestCases.ImageGallery
         private const string OverlayGalleryTemplate = "OverlayGallery";
         private const string ThumbnailStripTemplate = "ThumbnailStrip";
         private const string SimpleListTemplate = "SimpleList";
+        private string currentProviderUrlName;
+        private const string ContentType = "images";
     }
 }

@@ -11,6 +11,7 @@ using Telerik.Sitefinity.Security;
 using Telerik.Sitefinity.Services;
 using Telerik.Sitefinity.Taxonomies;
 using Telerik.Sitefinity.Taxonomies.Model;
+using Telerik.Sitefinity.TestUtilities.CommonOperations;
 using Telerik.Sitefinity.Utilities.TypeConverters;
 using Telerik.Sitefinity.Web.UI.Fields;
 
@@ -29,6 +30,11 @@ namespace FeatherWidgets.TestUtilities.CommonOperations
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1054:UriParametersShouldNotBeStrings", MessageId = "1#")]
         public void CreatePressArticle(string title, string url, Guid tag, Guid category, string publishedBy, string providerName)
         {
+            if (ServerOperations.MultiSite().CheckIsMultisiteMode() && providerName == null)
+            {
+                providerName = "dynamicContentProvider";
+            } 
+
             DynamicModuleManager dynamicModuleManager = DynamicModuleManager.GetManager(providerName);
             Type pressArticleType = TypeResolutionService.ResolveType("Telerik.Sitefinity.DynamicTypes.Model.PressRelease.PressArticle");
             Telerik.Sitefinity.DynamicModules.Model.DynamicContent pressArticleItem = dynamicModuleManager.CreateDataItem(pressArticleType);
@@ -129,6 +135,10 @@ namespace FeatherWidgets.TestUtilities.CommonOperations
             // Set the provider name for the DynamicModuleManager here. All available providers are listed in
             // Administration -> Settings -> Advanced -> DynamicModules -> Providers
             var providerName = string.Empty;
+            if (ServerOperations.MultiSite().CheckIsMultisiteMode())
+            {
+                providerName = "dynamicContentProvider";
+            } 
 
             DynamicModuleManager dynamicModuleManager = DynamicModuleManager.GetManager(providerName);
             Type pressArticleType = TypeResolutionService.ResolveType("Telerik.Sitefinity.DynamicTypes.Model.PressRelease.PressArticle");
@@ -161,6 +171,10 @@ namespace FeatherWidgets.TestUtilities.CommonOperations
         public DynamicContent CreatePressArticleItem(string title, string url)
         {
             var providerName = string.Empty;
+            if (ServerOperations.MultiSite().CheckIsMultisiteMode())
+            {
+                providerName = "dynamicContentProvider";
+            } 
 
             DynamicModuleManager dynamicModuleManager = DynamicModuleManager.GetManager(providerName);
             Type pressArticleType = TypeResolutionService.ResolveType("Telerik.Sitefinity.DynamicTypes.Model.PressRelease.PressArticle");
@@ -199,6 +213,11 @@ namespace FeatherWidgets.TestUtilities.CommonOperations
         public void UNPublishPressArticle(ILifecycleDataItem pressArticleItem)
         {
             var providerName = string.Empty;
+            if (ServerOperations.MultiSite().CheckIsMultisiteMode())
+            {
+                providerName = "dynamicContentProvider";
+            } 
+
             DynamicModuleManager dynamicModuleManager = DynamicModuleManager.GetManager(providerName);
             var liveDynamicItem = dynamicModuleManager.Lifecycle.GetLive(pressArticleItem);
             dynamicModuleManager.Lifecycle.Unpublish(liveDynamicItem);
@@ -223,6 +242,11 @@ namespace FeatherWidgets.TestUtilities.CommonOperations
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Telerik.Sitefinity", "SF1001:AvoidToListOnIQueryable"), System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1002:DoNotExposeGenericLists")]
         public List<DynamicContent> RetrieveCollectionOfPressArticles(string providerName)
         {
+            if (ServerOperations.MultiSite().CheckIsMultisiteMode() && providerName == null)
+            {
+                providerName = "dynamicContentProvider";
+            } 
+
             DynamicModuleManager dynamicModuleManager = DynamicModuleManager.GetManager(providerName);
             Type pressArticleType = TypeResolutionService.ResolveType("Telerik.Sitefinity.DynamicTypes.Model.PressRelease.PressArticle");
 
@@ -261,6 +285,18 @@ namespace FeatherWidgets.TestUtilities.CommonOperations
         }
 
         /// <summary>
+        /// Delete All items
+        /// </summary>
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1026:DefaultParametersShouldNotBeUsed")]
+        public void DeleteAllDynamicItemsInProvider(string providerName = "")
+        {
+            DynamicModuleManager dynamicModuleManager = DynamicModuleManager.GetManager(providerName);
+            Type contenttypeType = TypeResolutionService.ResolveType("Telerik.Sitefinity.DynamicTypes.Model.PressRelease.PressArticle");
+            dynamicModuleManager.DeleteDataItems(contenttypeType);
+            dynamicModuleManager.SaveChanges();
+        }
+
+        /// <summary>
         /// Publish a press article with specific date.
         /// </summary>
         /// <param name="pressArticleItem">The press article item.</param>
@@ -271,6 +307,10 @@ namespace FeatherWidgets.TestUtilities.CommonOperations
             // Set the provider name for the DynamicModuleManager here. All available providers are listed in
             // Administration -> Settings -> Advanced -> DynamicModules -> Providers
             var providerName = string.Empty;
+            if (ServerOperations.MultiSite().CheckIsMultisiteMode())
+            {
+                providerName = "dynamicContentProvider";
+            } 
 
             DynamicModuleManager dynamicModuleManager = DynamicModuleManager.GetManager(providerName);
             
@@ -292,6 +332,10 @@ namespace FeatherWidgets.TestUtilities.CommonOperations
             // Set the provider name for the DynamicModuleManager here. All available providers are listed in
             // Administration -> Settings -> Advanced -> DynamicModules -> Providers
             var providerName = string.Empty;
+            if (ServerOperations.MultiSite().CheckIsMultisiteMode())
+            {
+                providerName = "dynamicContentProvider";
+            } 
 
             DynamicModuleManager dynamicModuleManager = DynamicModuleManager.GetManager(providerName);
 

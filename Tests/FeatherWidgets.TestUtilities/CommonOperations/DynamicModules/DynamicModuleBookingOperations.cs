@@ -8,6 +8,7 @@ using Telerik.Sitefinity.DynamicModules.Model;
 using Telerik.Sitefinity.GenericContent.Model;
 using Telerik.Sitefinity.Model;
 using Telerik.Sitefinity.Security;
+using Telerik.Sitefinity.TestUtilities.CommonOperations;
 using Telerik.Sitefinity.Utilities.TypeConverters;
 
 namespace FeatherWidgets.TestUtilities.CommonOperations
@@ -24,6 +25,10 @@ namespace FeatherWidgets.TestUtilities.CommonOperations
         public Guid CreateCountry(string title)
         {
             var providerName = string.Empty;
+            if (ServerOperations.MultiSite().CheckIsMultisiteMode())
+            {
+                providerName = "dynamicContentProvider";
+            } 
 
             DynamicModuleManager dynamicModuleManager = DynamicModuleManager.GetManager(providerName);
             Type countryType = TypeResolutionService.ResolveType("Telerik.Sitefinity.DynamicTypes.Model.Booking.Country");
@@ -50,6 +55,10 @@ namespace FeatherWidgets.TestUtilities.CommonOperations
         public Guid CreateCity(Guid parentId, string title)
         {
             var providerName = string.Empty;
+            if (ServerOperations.MultiSite().CheckIsMultisiteMode())
+            {
+                providerName = "dynamicContentProvider";
+            } 
 
             DynamicModuleManager dynamicModuleManager = DynamicModuleManager.GetManager(providerName);
             Type cityType = TypeResolutionService.ResolveType("Telerik.Sitefinity.DynamicTypes.Model.Booking.City");
@@ -81,6 +90,10 @@ namespace FeatherWidgets.TestUtilities.CommonOperations
         public void CreateHotel(Guid parentId, string title)
         {
             var providerName = string.Empty;
+            if (ServerOperations.MultiSite().CheckIsMultisiteMode())
+            {
+                providerName = "dynamicContentProvider";
+            } 
 
             DynamicModuleManager dynamicModuleManager = DynamicModuleManager.GetManager(providerName);
             Type hotelType = TypeResolutionService.ResolveType("Telerik.Sitefinity.DynamicTypes.Model.Booking.Hotel");
@@ -109,6 +122,11 @@ namespace FeatherWidgets.TestUtilities.CommonOperations
         public void DeleteCountry(string countryName)
         {
             var providerName = string.Empty;
+            if (ServerOperations.MultiSite().CheckIsMultisiteMode())
+            {
+                providerName = "dynamicContentProvider";
+            } 
+
             DynamicModuleManager dynamicModuleManager = DynamicModuleManager.GetManager(providerName);
 
             Type countryType = TypeResolutionService.ResolveType("Telerik.Sitefinity.DynamicTypes.Model.Booking.Country");

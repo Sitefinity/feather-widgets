@@ -66,7 +66,7 @@ namespace FeatherWidgets.TestUI.TestCases.DynamicWidgets
             BAT.Arrange(this.TestName).ExecuteArrangement("VerifyToolboxConfigBeforeDeactivate");
             BAT.Arrange(this.TestName).ExecuteArrangement("DeactivateModule");
 
-            BAT.Macros().NavigateTo().Pages();
+            BAT.Macros().NavigateTo().Pages(this.Culture);
             BAT.Wrappers().Backend().Pages().PagesWrapper().OpenPageZoneEditor(PageName);
             Assert.IsFalse(BATFeather.Wrappers().Backend().Pages().PageZoneEditorWrapper().IsMvcWidgetPresentInToolbox(WidgetName));
             BAT.Wrappers().Backend().Pages().PageZoneEditorWrapper().PublishPage();

@@ -3,8 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using FeatherWidgets.TestUtilities.CommonOperations;
+using Telerik.Sitefinity.TestArrangementService.Attributes;
 using Telerik.Sitefinity.TestUI.Arrangements.Framework;
-using Telerik.Sitefinity.TestUI.Arrangements.Framework.Attributes;
 using Telerik.Sitefinity.TestUtilities.CommonOperations;
 
 namespace FeatherWidgets.TestUI.Arrangements
@@ -12,7 +12,7 @@ namespace FeatherWidgets.TestUI.Arrangements
     /// <summary>
     /// DuplicateAndDeleteUnsubscribeWidget arrangement class.
     /// </summary>
-    public class DuplicateAndDeleteUnsubscribeWidget : ITestArrangement
+    public class DuplicateAndDeleteUnsubscribeWidget : TestArrangementBase
     {
         /// <summary>
         /// Server side set up.

@@ -22,12 +22,13 @@ namespace FeatherWidgets.TestUI.TestCases.Blogs
         public void DragAndDropBlogsWidgetToPage()
         {
             RuntimeSettingsModificator.ExecuteWithClientTimeout(800000, () => BAT.Macros().NavigateTo().CustomPage("~/sitefinity/pages", false));
-            RuntimeSettingsModificator.ExecuteWithClientTimeout(800000, () => BAT.Macros().User().EnsureAdminLoggedIn());              
+            RuntimeSettingsModificator.ExecuteWithClientTimeout(800000, () => BAT.Macros().User().EnsureAdminLoggedIn());
+            BAT.Macros().NavigateTo().Pages(this.Culture);            
             BAT.Wrappers().Backend().Pages().PagesWrapper().OpenPageZoneEditor(PageTitle);
             BATFeather.Wrappers().Backend().Pages().PageZoneEditorWrapper().AddWidgetToPlaceHolderPureMvcMode(WidgetName);
 
             BAT.Wrappers().Backend().Pages().PageZoneEditorWrapper().PublishPage();
-            BAT.Macros().NavigateTo().CustomPage("~/" + PageTitle.ToLower());
+            BAT.Macros().NavigateTo().CustomPage("~/" + PageTitle.ToLower(), true, this.Culture);
 
             BATFeather.Wrappers().Frontend().CommonWrapper().VerifySelectedAnchorLink(BlogTitle, this.blogExpectedUrl);
             BATFeather.Wrappers().Frontend().CommonWrapper().VerifySelectedAnchorLink(PostTitle, this.postExpectedUrl);
@@ -52,9 +53,9 @@ namespace FeatherWidgets.TestUI.TestCases.Blogs
         private const string WidgetName = "Blogs";
         private const string PageTitle = "PageWithBlogsWidget";
         private const string DefaultPageTitle = "BlogsDefaultPage";
-        private const string BlogTitle = "TestBlog";
-        private const string PostTitle = "post1";
-        private readonly string blogExpectedUrl = string.Format("/BlogsDefaultPage/TestBlog");
-        private readonly string postExpectedUrl = string.Format("/BlogsDefaultPage/TestBlog/{0}/{1:00}/{2:00}/post1", DateTime.UtcNow.Year, DateTime.UtcNow.Month, DateTime.UtcNow.Day);
+        private const string BlogTitle = "TestBlog2";
+        private const string PostTitle = "post2";
+        private readonly string blogExpectedUrl = string.Format("/BlogsDefaultPage/TestBlog2");
+        private readonly string postExpectedUrl = string.Format("/BlogsDefaultPage/TestBlog2/{0}/{1:00}/{2:00}/post2", DateTime.UtcNow.Year, DateTime.UtcNow.Month, DateTime.UtcNow.Day);
     }
 }
