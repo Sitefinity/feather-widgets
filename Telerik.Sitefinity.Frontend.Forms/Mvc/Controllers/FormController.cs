@@ -20,7 +20,7 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Controllers
     [ControllerToolboxItem(Name = "Form_MVC", Title = "Form", SectionName = ToolboxesConfig.ContentToolboxSectionName, CssClass = FormController.WidgetIconCssClass)]
     [Localization(typeof(FormResources))]
     [RequiresEmbeddedWebResource("Telerik.Sitefinity.Resources.Themes.LayoutsBasics.css", "Telerik.Sitefinity.Resources.Reference")]
-    public class FormController : Controller, IContentLocatableView, ICustomWidgetVisualizationExtended
+    public class FormController : Controller, ICustomWidgetVisualizationExtended
     {
         /// <summary>
         /// Gets the Form widget model.
@@ -87,24 +87,6 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Controllers
             this.TempData[sfSubmitSuccessKey] = success;
             return this.Index();
         }
-
-        #region IContentLocatableView
-
-        /// <inheritDoc/>
-        public bool? DisableCanonicalUrlMetaTag
-        {
-            get { return this.disableCanonicalUrlMetaTag; }
-
-            set { this.disableCanonicalUrlMetaTag = value; }
-        }
-
-        /// <inheritDoc/>
-        public IEnumerable<IContentLocationInfo> GetLocations()
-        {
-            return this.Model.GetLocations();
-        }
-
-        #endregion
 
         #region ICustomWidgetVisualization
 
