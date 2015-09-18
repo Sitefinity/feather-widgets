@@ -25,12 +25,14 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Models.Fields.BackendConfigurato
         /// <inheritDocs/>
         public void Configure(FieldControl backendControl, IFormFieldController<IFormFieldModel> formFieldController)
         {
-            var multipleChoiceFieldModel = formFieldController.Model as IMultipleChoiceFieldModel;
+            var multipleChoiceFieldModel = (IMultipleChoiceFieldModel)formFieldController.Model;
             var choices = multipleChoiceFieldModel.DeserializeChoices();
-            (backendControl as FormMultipleChoice).Choices.Clear();
+
+            var choiceFieldControl = (FormMultipleChoice)backendControl;
+            choiceFieldControl.Choices.Clear();
             foreach (var choice in choices)
             {
-                (backendControl as FormCheckboxes).Choices.Add(new Web.UI.Fields.ChoiceItem() { Text = choice, Value = choice });
+                choiceFieldControl.Choices.Add(new Web.UI.Fields.ChoiceItem() { Text = choice, Value = choice });
             }
         }
     }
