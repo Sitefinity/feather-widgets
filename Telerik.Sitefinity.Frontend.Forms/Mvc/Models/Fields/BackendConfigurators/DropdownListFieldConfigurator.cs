@@ -27,10 +27,12 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Models.Fields.BackendConfigurato
         {
             var dropdownListFieldModel = formFieldController.Model as IDropdownListFieldModel;
             var choices = dropdownListFieldModel.DeserializeChoices();
-            (backendControl as FormDropDownList).Choices.Clear();
+
+            var dropDownList = (FormDropDownList)backendControl;
+            dropDownList.Choices.Clear();
             foreach (var choice in choices)
             {
-                (backendControl as FormCheckboxes).Choices.Add(new Web.UI.Fields.ChoiceItem() { Text = choice, Value = choice });
+                dropDownList.Choices.Add(new Web.UI.Fields.ChoiceItem() { Text = choice, Value = choice });
             }
         }
     }
