@@ -3,8 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using FeatherWidgets.TestUtilities.CommonOperations;
+using Telerik.Sitefinity.TestArrangementService.Attributes;
 using Telerik.Sitefinity.TestUI.Arrangements.Framework;
-using Telerik.Sitefinity.TestUI.Arrangements.Framework.Attributes;
 using Telerik.Sitefinity.TestUtilities.CommonOperations;
 
 namespace FeatherWidgets.TestUI.Arrangements
@@ -12,7 +12,7 @@ namespace FeatherWidgets.TestUI.Arrangements
     /// <summary>
     /// ActivateAndDeactivateNewsModule arragement.
     /// </summary>
-    public class ZActivateAndDeactivateNewsModule : ITestArrangement
+    public class ZActivateAndDeactivateNewsModule : TestArrangementBase
     {
         /// <summary>
         /// Server side set up.
@@ -21,7 +21,7 @@ namespace FeatherWidgets.TestUI.Arrangements
         public void SetUp()
         {
             Guid pageId = ServerOperations.Pages().CreatePage(PageName);
-            ServerOperations.News().CreatePublishedNewsItem(NewsTitle1, NewsContent1, NewsProvider);
+            ServerOperations.News().CreatePublishedNewsItem(NewsTitle1, NewsContent1, null);
             ServerOperationsFeather.Pages().AddNewsWidgetToPage(pageId);
         }
 
@@ -51,7 +51,6 @@ namespace FeatherWidgets.TestUI.Arrangements
         private const string PageName = "NewsPage";
         private const string NewsContent1 = "News content1";
         private const string NewsTitle1 = "NewsTitle1";
-        private const string NewsProvider = "Default News";
         private const string ModuleName = "News";
     }
 }

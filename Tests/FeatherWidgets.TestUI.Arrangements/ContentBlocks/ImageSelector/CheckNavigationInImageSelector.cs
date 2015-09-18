@@ -1,8 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using FeatherWidgets.TestUtilities.CommonOperations;
+using Telerik.Sitefinity.TestArrangementService.Attributes;
 using Telerik.Sitefinity.TestUI.Arrangements.Framework;
-using Telerik.Sitefinity.TestUI.Arrangements.Framework.Attributes;
+using Telerik.Sitefinity.TestUI.Arrangements.Framework.Server;
 using Telerik.Sitefinity.TestUtilities.CommonOperations;
 
 namespace FeatherWidgets.TestUI.Arrangements
@@ -10,7 +11,7 @@ namespace FeatherWidgets.TestUI.Arrangements
     /// <summary>
     /// Check Navigation in Image Selector arrangement class.
     /// </summary>
-    public class CheckNavigationInImageSelector : ITestArrangement
+    public class CheckNavigationInImageSelector : TestArrangementBase
     {
         /// <summary>
         /// Server side set up.
@@ -43,6 +44,16 @@ namespace FeatherWidgets.TestUI.Arrangements
             ServerOperations.Pages().DeleteAllPages();
             ServerOperations.Users().DeleteUserAndProfile("administrator");
             ServerOperations.Libraries().DeleteLibraries(false, "Image");
+        }
+
+        /// Gets the current libraries provider Url name.
+        /// </summary>
+        [ServerArrangement]
+        public void GetCurrentProviderUrlName()
+        {
+            string urlName = ServerOperations.Libraries().GetCurrentProviderUrlName;
+
+            ServerArrangementContext.GetCurrent().Values.Add("CurrentProviderUrlName", urlName);
         }
 
         private const string PageName = "PageWithImage";

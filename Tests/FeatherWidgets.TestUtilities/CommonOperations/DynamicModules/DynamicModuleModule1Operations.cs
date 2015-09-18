@@ -7,6 +7,7 @@ using Telerik.Sitefinity.DynamicModules;
 using Telerik.Sitefinity.DynamicModules.Model;
 using Telerik.Sitefinity.Model;
 using Telerik.Sitefinity.Security;
+using Telerik.Sitefinity.TestUtilities.CommonOperations;
 using Telerik.Sitefinity.Utilities.TypeConverters;
 
 namespace FeatherWidgets.TestUtilities.CommonOperations
@@ -25,6 +26,10 @@ namespace FeatherWidgets.TestUtilities.CommonOperations
         public void CreateColor(string color)
         {
             var providerName = string.Empty;
+            if (ServerOperations.MultiSite().CheckIsMultisiteMode())
+            {
+                providerName = "dynamicContentProvider";
+            } 
 
             DynamicModuleManager dynamicModuleManager = DynamicModuleManager.GetManager(providerName);
             Type colorType = TypeResolutionService.ResolveType("Telerik.Sitefinity.DynamicTypes.Model.Module1.Color");

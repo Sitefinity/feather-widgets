@@ -28,14 +28,15 @@ namespace FeatherWidgets.TestUI.TestCases.ContentBlocks
         TestCategory(FeatherTestCategories.ContentBlock)]
         public void ContentBlockWidgetMultipleProviders()
         {
-            RuntimeSettingsModificator.ExecuteWithClientTimeout(800000, () => BAT.Macros().NavigateTo().CustomPage("~/sitefinity/pages", false));
-            RuntimeSettingsModificator.ExecuteWithClientTimeout(800000, () => BAT.Macros().User().EnsureAdminLoggedIn());   
+            RuntimeSettingsModificator.ExecuteWithClientTimeout(800000, () => BAT.Macros().NavigateTo().CustomPage("~/sitefinity/pages", false, this.Culture));
+            RuntimeSettingsModificator.ExecuteWithClientTimeout(800000, () => BAT.Macros().User().EnsureAdminLoggedIn());
+            BAT.Macros().NavigateTo().Pages(this.Culture);
             BAT.Wrappers().Backend().Pages().PagesWrapper().OpenPageZoneEditor(PageName);
             BATFeather.Wrappers().Backend().Pages().PageZoneEditorWrapper().SelectExtraOptionForWidget(OperationName);
             BATFeather.Wrappers().Backend().Widgets().WidgetDesignerWrapper().SelectProvider(SecondProviderName);
             BATFeather.Wrappers().Backend().ContentBlocks().ContentBlocksShareWrapper().SelectContentBlock(ContentBlockName);
             BAT.Wrappers().Backend().Pages().PageZoneEditorWrapper().PublishPage();
-            BAT.Macros().NavigateTo().CustomPage("~/" + PageName.ToLower());
+            BAT.Macros().NavigateTo().CustomPage("~/" + PageName.ToLower(), true, this.Culture);
             BATFeather.Wrappers().Frontend().ContentBlock().ContentBlockWrapper().VerifyContentOfContentBlockOnThePageFrontend(ContentBlockContent);
         }
 

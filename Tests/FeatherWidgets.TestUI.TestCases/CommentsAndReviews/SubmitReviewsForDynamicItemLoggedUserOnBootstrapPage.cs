@@ -27,7 +27,7 @@ namespace FeatherWidgets.TestUI.TestCases.CommentsAndReviews
         TestCategory(FeatherTestCategories.Bootstrap)]
         public void SubmitReviewsForDynamicItemLoggedUserOnBootstrapPage()
         {
-            BAT.Macros().NavigateTo().CustomPage("~/" + PageName.ToLower(), false);
+            BAT.Macros().NavigateTo().CustomPage("~/" + PageName.ToLower(), false, this.Culture);
             BATFeather.Wrappers().Frontend().CommentsAndReviews().ReviewsWrapper().AssertExpectedCount(ReviewMessage);
             BATFeather.Wrappers().Frontend().CommentsAndReviews().ReviewsWrapper().ClickCountLink();
             BATFeather.Wrappers().Frontend().CommentsAndReviews().ReviewsWrapper().AssertMessageAndCountOnPage(ReviewMessage);
@@ -43,7 +43,7 @@ namespace FeatherWidgets.TestUI.TestCases.CommentsAndReviews
 
         public void VerifyCommentBackend()
         {
-            BAT.Macros().NavigateTo().Modules().Comments();
+            BAT.Macros().NavigateTo().Modules().Comments(this.Culture);
             ActiveBrowser.WaitForAsyncJQueryRequests();
             ManageCommentsWrapper manageComments = new ManageCommentsWrapper(ActiveBrowser);
             manageComments.VerifyCommentBackend(ReviewsStatus, this.reviewsToDynamicItem[0], this.reviewAuthor[0], DynamicTitle);

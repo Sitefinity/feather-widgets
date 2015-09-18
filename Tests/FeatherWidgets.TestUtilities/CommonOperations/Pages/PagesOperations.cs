@@ -223,6 +223,10 @@ namespace FeatherWidgets.TestUtilities.CommonOperations
                 mvcProxy.ControllerName = typeof(DynamicContentController).FullName;
                 var dynamicController = new DynamicContentController();
                 dynamicController.Model.ContentType = TypeResolutionService.ResolveType(type);
+                if (ServerOperations.MultiSite().CheckIsMultisiteMode())
+                {
+                    dynamicController.Model.ProviderName = "dynamicContentProvider";
+                }                
 
                 mvcProxy.Settings = new ControllerSettings(dynamicController);
                 mvcProxy.WidgetName = widgetName;

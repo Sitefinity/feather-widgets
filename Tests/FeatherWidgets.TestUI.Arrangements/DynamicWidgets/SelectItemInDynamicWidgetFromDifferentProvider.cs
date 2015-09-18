@@ -1,7 +1,7 @@
 ﻿using System;
 using FeatherWidgets.TestUtilities.CommonOperations;
+using Telerik.Sitefinity.TestArrangementService.Attributes;
 using Telerik.Sitefinity.TestUI.Arrangements.Framework;
-using Telerik.Sitefinity.TestUI.Arrangements.Framework.Attributes;
 using Telerik.Sitefinity.TestUtilities.CommonOperations;
 
 namespace FeatherWidgets.TestUI.Arrangements
@@ -9,7 +9,7 @@ namespace FeatherWidgets.TestUI.Arrangements
     /// <summary>
     /// Test arrangements for SelectItemInDynamicWidgetFromDifferentProvider
     /// </summary>
-    public class SelectItemInDynamicWidgetFromDifferentProvider : ITestArrangement
+    public class SelectItemInDynamicWidgetFromDifferentProvider : TestArrangementBase
     {
         /// <summary>
         /// Server side set up.
@@ -35,8 +35,14 @@ namespace FeatherWidgets.TestUI.Arrangements
         [ServerTearDown]
         public void TearDown()
         {
-            ServerOperations.Pages().DeleteAllPages();
-            ServerOperationsFeather.DynamicModulePressArticle().DeleteDynamicItems(ServerOperationsFeather.DynamicModulePressArticle().RetrieveCollectionOfPressArticles(ProviderName), ProviderName);
+            var providerName = string.Empty;
+            if (ServerOperations.MultiSite().CheckIsMultisiteMode())
+            {
+                providerName = "dynamicContentProvider";
+            }
+
+            ServerOperationsFeather.DynamicModulePressArticle().DeleteAllDynamicItemsInProvider(providerName);
+            ServerOperations.Pages().DeleteAllPages();           
             ServerOperations.Configuration().RemoveOpenAccessDynamicModuleProvider(ProviderName);
             ServerOperations.SystemManager().RestartApplication(false);
         }

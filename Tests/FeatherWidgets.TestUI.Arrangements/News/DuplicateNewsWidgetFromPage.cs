@@ -3,8 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using FeatherWidgets.TestUtilities.CommonOperations;
+using Telerik.Sitefinity.TestArrangementService.Attributes;
 using Telerik.Sitefinity.TestUI.Arrangements.Framework;
-using Telerik.Sitefinity.TestUI.Arrangements.Framework.Attributes;
 using Telerik.Sitefinity.TestUtilities.CommonOperations;
 
 namespace FeatherWidgets.TestUI.Arrangements
@@ -12,7 +12,7 @@ namespace FeatherWidgets.TestUI.Arrangements
     /// <summary>
     /// DuplicateNewsWidgetFromPage arrangement class.
     /// </summary>
-    public class DuplicateNewsWidgetFromPage : ITestArrangement
+    public class DuplicateNewsWidgetFromPage : TestArrangementBase
     {
         /// <summary>
         /// Server side set up.
@@ -21,7 +21,7 @@ namespace FeatherWidgets.TestUI.Arrangements
         public void SetUp()
         {
             Guid pageId = ServerOperations.Pages().CreatePage(PageName);
-            ServerOperations.News().CreatePublishedNewsItem(NewsTitle, NewsContent, NewsProvider);
+            ServerOperations.News().CreatePublishedNewsItem(NewsTitle, NewsContent, null);
             ServerOperationsFeather.Pages().AddNewsWidgetToPage(pageId);
         }
 
@@ -38,6 +38,5 @@ namespace FeatherWidgets.TestUI.Arrangements
         private const string PageName = "News";
         private const string NewsContent = "News content";
         private const string NewsTitle = "NewsTitle";
-        private const string NewsProvider = "Default News";
     }
 }

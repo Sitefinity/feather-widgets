@@ -1,8 +1,8 @@
 ﻿using System;
 using FeatherWidgets.TestUtilities.CommonOperations;
 using Telerik.Sitefinity.Services;
+using Telerik.Sitefinity.TestArrangementService.Attributes;
 using Telerik.Sitefinity.TestUI.Arrangements.Framework;
-using Telerik.Sitefinity.TestUI.Arrangements.Framework.Attributes;
 using Telerik.Sitefinity.TestUI.Arrangements.Framework.Server;
 using Telerik.Sitefinity.TestUtilities.CommonOperations;
 
@@ -11,7 +11,7 @@ namespace FeatherWidgets.TestUI.Arrangements
     /// <summary>
     /// This is a test class with server site methods for Link selector and page from this site option over selected text.
     /// </summary>
-    public class LinkSelectorInsertLinkToPageFromThisSiteOverSelectedText : ITestArrangement
+    public class LinkSelectorInsertLinkToPageFromThisSiteOverSelectedText : TestArrangementBase
     {
         /// <summary>
         /// Server side set up.

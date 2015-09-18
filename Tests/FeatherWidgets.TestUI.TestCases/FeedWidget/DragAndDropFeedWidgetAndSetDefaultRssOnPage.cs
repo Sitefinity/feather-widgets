@@ -25,21 +25,23 @@ namespace FeatherWidgets.TestUI.TestCases.FeedWidget
         TestCategory(FeatherTestCategories.Feed)]
         public void DragAndDropFeedWidgetAndSetDefaultRssOnPage()
         {
-            BAT.Macros().NavigateTo().Pages();
+            BAT.Macros().NavigateTo().Modules().Blogs();
+            BATFeather.Wrappers().Backend().FeedWidget().FeedWidgetWrapper().CreateBlog(BlogTitle);
+            BAT.Macros().NavigateTo().Pages(this.Culture);
             BAT.Wrappers().Backend().Pages().PagesWrapper().OpenPageZoneEditor(PageName);
             BATFeather.Wrappers().Backend().Pages().PageZoneEditorWrapper().AddWidgetToPlaceHolderPureMvcMode(WidgetName);
             BATFeather.Wrappers().Backend().Pages().PageZoneEditorWrapper().EditWidget(WidgetName);
             BATFeather.Wrappers().Backend().Widgets().WidgetDesignerWrapper().ClickSelectButton();
-            BATFeather.Wrappers().Backend().Widgets().SelectorsWrapper().SelectItemsInFlatSelector(FeedTitle);
+            BATFeather.Wrappers().Backend().Widgets().SelectorsWrapper().SelectItemsInFlatSelector(BlogTitle);
             BATFeather.Wrappers().Backend().Widgets().SelectorsWrapper().DoneSelecting();
             BATFeather.Wrappers().Backend().Widgets().WidgetDesignerWrapper().SaveChanges();
             BAT.Wrappers().Backend().Pages().PageZoneEditorWrapper().PublishPage();
-            
-            BAT.Macros().NavigateTo().CustomPage("~/" + PageName.ToLower(), false);
+
+            BAT.Macros().NavigateTo().CustomPage("~/" + PageName.ToLower(), false, this.Culture);
             BATFeather.Wrappers().Frontend().FeedWidget().FeedWidget().VerifyFeedLImageIsVisible();
-            Assert.IsTrue(BAT.Wrappers().Frontend().Pages().PagesWrapperFrontend().GetPageContent().InnerText.Contains(FeedTitle));
+            Assert.IsTrue(BAT.Wrappers().Frontend().Pages().PagesWrapperFrontend().GetPageContent().InnerText.Contains(BlogTitle));
             Assert.IsTrue(ActiveBrowser.ContainsText(this.feedLink[0]), "Feed link not present");
-            BATFeather.Wrappers().Frontend().FeedWidget().FeedWidget().VerifyFeedLinkInHeadTag(FeedTitle, this.feedLink[0]);
+            BATFeather.Wrappers().Frontend().FeedWidget().FeedWidget().VerifyFeedLinkInHeadTag(BlogTitle, this.feedLink[0]);
         }
 
         /// <summary>
@@ -61,7 +63,7 @@ namespace FeatherWidgets.TestUI.TestCases.FeedWidget
 
         private const string PageName = "FeedPage";
         private const string WidgetName = "Feed";
-        private const string FeedTitle = "ForumsRSS";
-        private string[] feedLink = { "feeds/forumsRss" };
+        private const string BlogTitle = "BlogTitle";
+        private string[] feedLink = { "feeds/blogtitle" };
     }
 }

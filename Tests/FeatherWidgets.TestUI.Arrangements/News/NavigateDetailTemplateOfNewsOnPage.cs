@@ -2,8 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using Telerik.Sitefinity.TestArrangementService.Attributes;
 using Telerik.Sitefinity.TestUI.Arrangements.Framework;
-using Telerik.Sitefinity.TestUI.Arrangements.Framework.Attributes;
 using Telerik.Sitefinity.TestUI.Arrangements.Framework.Server;
 using Telerik.Sitefinity.TestUtilities.CommonOperations;
 
@@ -12,7 +12,7 @@ namespace FeatherWidgets.TestUI.Arrangements
     /// <summary>
     /// NavigateDetailTemplateOfNewsOnPage arrangement class.
     /// </summary>
-    public class NavigateDetailTemplateOfNewsOnPage : ITestArrangement
+    public class NavigateDetailTemplateOfNewsOnPage : TestArrangementBase
     {
         /// <summary>
         /// Server side set up.
@@ -24,7 +24,7 @@ namespace FeatherWidgets.TestUI.Arrangements
 
             Guid templateId = ServerOperations.Templates().GetTemplateIdByTitle(templateName);
             ServerOperations.Pages().CreatePage(PageName, templateId);
-            ServerOperations.News().CreatePublishedNewsItem(NewsTitle, NewsContent, NewsProvider);
+            ServerOperations.News().CreatePublishedNewsItem(NewsTitle, NewsContent, null);
         }
 
         /// <summary>
@@ -40,6 +40,5 @@ namespace FeatherWidgets.TestUI.Arrangements
         private const string PageName = "News";
         private const string NewsContent = "News content";
         private const string NewsTitle = "NewsTitle";
-        private const string NewsProvider = "Default News";
     }
 }

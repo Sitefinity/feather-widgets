@@ -22,7 +22,7 @@ namespace FeatherWidgets.TestUI.TestCases.DynamicWidgets
         TestCategory(FeatherTestCategories.DynamicWidgets)]
         public void ReorderSelectedDynamicItems()
         {
-            BAT.Macros().NavigateTo().Pages();
+            BAT.Macros().NavigateTo().Pages(this.Culture);
             BAT.Wrappers().Backend().Pages().PagesWrapper().OpenPageZoneEditor(PageName);
             BATFeather.Wrappers().Backend().Pages().PageZoneEditorWrapper().EditWidget(WidgetName);
             BATFeather.Wrappers().Backend().Widgets().WidgetDesignerWrapper().SelectWhichItemsToDisplay(WhichNewsToDisplay);
@@ -61,7 +61,7 @@ namespace FeatherWidgets.TestUI.TestCases.DynamicWidgets
         private const string PageName = "TestPage";
         private const string WidgetName = "Press Articles MVC";
         private const string WhichNewsToDisplay = "Selected PressArticles";
-        private readonly string[] selectedItemsNames = { "Dynamic Item Title1", "Dynamic Item Title5", "Dynamic Item Title6", "Dynamic Item Title9" };     
+        private readonly string[] selectedItemsNames = { "Dynamic Item Title5", "Dynamic Item Title1", "Dynamic Item Title9", "Dynamic Item Title6" };     
         private const string SortingOption = "AsSetManually";
     }
 }

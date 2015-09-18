@@ -4,8 +4,8 @@ using System.Linq;
 using System.Text;
 using Telerik.Sitefinity.Frontend.Navigation.Mvc.Controllers;
 using Telerik.Sitefinity.Frontend.TestUtilities.CommonOperations;
+using Telerik.Sitefinity.TestArrangementService.Attributes;
 using Telerik.Sitefinity.TestUI.Arrangements.Framework;
-using Telerik.Sitefinity.TestUI.Arrangements.Framework.Attributes;
 using Telerik.Sitefinity.TestUI.Arrangements.Framework.Server;
 using Telerik.Sitefinity.TestUtilities.CommonOperations;
 
@@ -14,7 +14,7 @@ namespace FeatherWidgets.TestUI.Arrangements
     /// <summary>
     /// Arrangement class related to tests for navigation widget and "All pages under particular page" option.
     /// </summary>
-    public class NavigationWidgetAllPagesUnderParticularPage : ITestArrangement
+    public class NavigationWidgetAllPagesUnderParticularPage : TestArrangementBase
     {
         /// <summary>
         /// Server side set up.

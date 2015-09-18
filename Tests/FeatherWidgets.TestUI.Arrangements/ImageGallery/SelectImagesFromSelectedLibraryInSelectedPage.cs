@@ -1,8 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
+using System.Web.UI.WebControls;
 using FeatherWidgets.TestUtilities.CommonOperations;
+using Telerik.Sitefinity.Modules.Libraries;
+using Telerik.Sitefinity.Taxonomies;
+using Telerik.Sitefinity.Taxonomies.Model;
+using Telerik.Sitefinity.TestArrangementService.Attributes;
 using Telerik.Sitefinity.TestUI.Arrangements.Framework;
-using Telerik.Sitefinity.TestUI.Arrangements.Framework.Attributes;
+using Telerik.Sitefinity.TestUI.Arrangements.Framework.Server;
 using Telerik.Sitefinity.TestUtilities.CommonOperations;
 
 namespace FeatherWidgets.TestUI.Arrangements
@@ -10,7 +16,7 @@ namespace FeatherWidgets.TestUI.Arrangements
     /// <summary>
     /// Select Images From Selected Library In Selected Page arrangement class.
     /// </summary>
-    public class SelectImagesFromSelectedLibraryInSelectedPage : ITestArrangement
+    public class SelectImagesFromSelectedLibraryInSelectedPage : TestArrangementBase
     {
         /// <summary>
         /// Server side set up.
@@ -31,6 +37,17 @@ namespace FeatherWidgets.TestUI.Arrangements
             ServerSideUpload.UploadImage(ImageLibraryTitle, ImageTitle + 2, ImageResource2);           
             ServerSideUpload.UploadImageInFolder(childId, ImageTitle + 3, ImageResource3);
             ServerSideUpload.UploadImageInFolder(childId, ImageTitle + 4, ImageResource4);
+        }
+
+        /// <summary>
+        /// Gets the current libraries provider Url name.
+        /// </summary>
+        [ServerArrangement]
+        public void GetCurrentProviderUrlName()
+        {
+            string urlName = ServerOperations.Libraries().GetCurrentProviderUrlName;
+
+            ServerArrangementContext.GetCurrent().Values.Add("CurrentProviderUrlName", urlName);
         }
 
         /// <summary>

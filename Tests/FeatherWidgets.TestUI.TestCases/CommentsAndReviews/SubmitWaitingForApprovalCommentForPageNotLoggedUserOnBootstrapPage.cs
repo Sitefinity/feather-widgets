@@ -27,7 +27,7 @@ namespace FeatherWidgets.TestUI.TestCases.CommentsAndReviews
         TestCategory(FeatherTestCategories.Bootstrap)]
         public void SubmitWaitingForApprovalCommentForPageNotLoggedUserOnBootstrapPage()
         {
-            BAT.Macros().NavigateTo().CustomPage("~/" + PageName.ToLower(), false);
+            BAT.Macros().NavigateTo().CustomPage("~/" + PageName.ToLower(), false, this.Culture);
             BATFeather.Wrappers().Frontend().CommentsAndReviews().CommentsWrapper().AssertMessageAndCountOnPage(CommentsMessage);
             BATFeather.Wrappers().Frontend().CommentsAndReviews().CommentsWrapper().TypeAMessage(this.commentToPage[0]);
             BATFeather.Wrappers().Frontend().CommentsAndReviews().CommentsWrapper().TypeYourName(this.commentAuthor[0]);
@@ -37,7 +37,7 @@ namespace FeatherWidgets.TestUI.TestCases.CommentsAndReviews
             BATFeather.Wrappers().Frontend().CommentsAndReviews().CommentsWrapper().AssertMessageAndCountOnPage(CommentsMessage);
             BAT.Macros().User().EnsureAdminLoggedIn();
             BAT.Arrange(this.TestName).ExecuteArrangement("PublishComment");
-            BAT.Macros().NavigateTo().CustomPage("~/" + PageName.ToLower(), false);
+            BAT.Macros().NavigateTo().CustomPage("~/" + PageName.ToLower(), false, this.Culture);
             BATFeather.Wrappers().Frontend().CommentsAndReviews().CommentsWrapper().AssertMessageAndCountOnPage(CommentsCount);
             BATFeather.Wrappers().Frontend().CommentsAndReviews().CommentsWrapper().VerifyCommentsAuthorAndContent(this.commentAuthor, this.commentToPage);
         }

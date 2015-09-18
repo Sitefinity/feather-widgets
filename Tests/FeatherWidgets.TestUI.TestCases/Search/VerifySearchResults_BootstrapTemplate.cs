@@ -27,7 +27,8 @@ namespace FeatherWidgets.TestUI.TestCases.Search
         public void VerifySearchResults_BootstrapTemplate()
         {
             RuntimeSettingsModificator.ExecuteWithClientTimeout(800000, () => BAT.Macros().NavigateTo().CustomPage("~/sitefinity/pages", false));
-            RuntimeSettingsModificator.ExecuteWithClientTimeout(800000, () => BAT.Macros().User().EnsureAdminLoggedIn());    
+            RuntimeSettingsModificator.ExecuteWithClientTimeout(800000, () => BAT.Macros().User().EnsureAdminLoggedIn());
+            BAT.Macros().NavigateTo().Pages(this.Culture);
             BAT.Wrappers().Backend().Pages().PagesWrapper().OpenPageZoneEditor(SearchPage);
             BATFeather.Wrappers().Backend().Pages().PageZoneEditorWrapper().AddWidgetToPlaceHolderPureMvcMode(SearchBoxWidget);
             BATFeather.Wrappers().Backend().Pages().PageZoneEditorWrapper().AddWidgetToPlaceHolderPureMvcMode(SearchResultsWidget);
@@ -42,7 +43,7 @@ namespace FeatherWidgets.TestUI.TestCases.Search
             BATFeather.Wrappers().Backend().Widgets().WidgetDesignerWrapper().SaveChanges();
             BAT.Wrappers().Backend().Pages().PageZoneEditorWrapper().PublishPage();
 
-            BAT.Macros().NavigateTo().CustomPage("~/" + SearchPage.ToLower());
+            BAT.Macros().NavigateTo().CustomPage("~/" + SearchPage.ToLower(), true, this.Culture);
             BATFeather.Wrappers().Frontend().Search().SearchWrapper().EnterSearchInput(NoResultsSearchText);
             BATFeather.Wrappers().Frontend().Search().SearchWrapper().ClickSearchButton(SearchPage.ToLower());
             BATFeather.Wrappers().Frontend().Search().SearchWrapper().VerifySearchResultsLabel(0, NoResultsSearchText);
@@ -52,7 +53,7 @@ namespace FeatherWidgets.TestUI.TestCases.Search
             BATFeather.Wrappers().Frontend().Search().SearchWrapper().VerifySearchResultsList(NewsTitle1);
 
             BAT.Macros().User().LogOut();
-            BAT.Macros().NavigateTo().CustomPage("~/" + SearchPage.ToLower());
+            BAT.Macros().NavigateTo().CustomPage("~/" + SearchPage.ToLower(), true, this.Culture);
             BATFeather.Wrappers().Frontend().Search().SearchWrapper().EnterSearchInput(NoResultsSearchText);
             BATFeather.Wrappers().Frontend().Search().SearchWrapper().ClickSearchButton(SearchPage.ToLower());
             BATFeather.Wrappers().Frontend().Search().SearchWrapper().VerifySearchResultsLabel(0, NoResultsSearchText);

@@ -25,7 +25,7 @@ namespace FeatherWidgets.TestUI.TestCases.CommentsAndReviews
         TestCategory(FeatherTestCategories.Bootstrap)]
         public void UnsubscribeUserForCommentsNotification()
         {
-            BAT.Macros().NavigateTo().CustomPage("~/" + PageName.ToLower(), false);
+            BAT.Macros().NavigateTo().CustomPage("~/" + PageName.ToLower(), false, this.Culture);
             BATFeather.Wrappers().Frontend().CommentsAndReviews().CommentsWrapper().VerifyCommentsAuthorAndContent(this.commentAuthor, this.commentToPage);
             BATFeather.Wrappers().Frontend().CommentsAndReviews().CommentsWrapper().AssertMessageAndCountOnPage(CommentsCount);
             BATFeather.Wrappers().Frontend().CommentsAndReviews().CommentsWrapper().VerifySubscribeToNewCommentLinksIsPresent();
@@ -40,7 +40,7 @@ namespace FeatherWidgets.TestUI.TestCases.CommentsAndReviews
             BATFeather.Wrappers().Frontend().CommentsAndReviews().CommentsWrapper().VerifySubscribeLinkIsPresent();
 
             BAT.Macros().User().LogOut();
-            BAT.Macros().NavigateTo().CustomPage("~/" + PageName.ToLower(), false);
+            BAT.Macros().NavigateTo().CustomPage("~/" + PageName.ToLower(), false, this.Culture);
             BATFeather.Wrappers().Frontend().CommentsAndReviews().CommentsWrapper().TypeAMessage(NewCommentToPage);
             BATFeather.Wrappers().Frontend().CommentsAndReviews().CommentsWrapper().TypeYourName(NewUser);
             BATFeather.Wrappers().Frontend().CommentsAndReviews().CommentsWrapper().ClickSubmitButton();

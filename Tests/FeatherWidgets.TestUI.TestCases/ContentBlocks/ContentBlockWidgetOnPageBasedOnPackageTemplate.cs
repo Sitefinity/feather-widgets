@@ -27,14 +27,14 @@ namespace FeatherWidgets.TestUI.TestCases.ContentBlocks
             BAT.Macros().User().EnsureAdminLoggedIn();
             BAT.Arrange(this.ArrangementClass).AddParameter("templateName", BootstrapTemplate).ExecuteSetUp();
 
-            BAT.Macros().NavigateTo().Pages();
+            BAT.Macros().NavigateTo().Pages(this.Culture);
             BAT.Wrappers().Backend().Pages().PagesWrapper().OpenPageZoneEditor(PageName);
             BATFeather.Wrappers().Backend().Pages().PageZoneEditorWrapper().AddWidgetToPlaceHolderPureMvcMode(WidgetName);
             BATFeather.Wrappers().Backend().Pages().PageZoneEditorWrapper().EditWidget(WidgetName);
             BATFeather.Wrappers().Backend().ContentBlocks().ContentBlocksWrapper().FillContentToContentBlockWidget(ContentBlockContent);
             BATFeather.Wrappers().Backend().ContentBlocks().ContentBlocksWrapper().SaveChanges();
             BAT.Wrappers().Backend().Pages().PageZoneEditorWrapper().PublishPage();
-            BAT.Macros().NavigateTo().CustomPage("~/" + PageName.ToLower(), false);
+            BAT.Macros().NavigateTo().CustomPage("~/" + PageName.ToLower(), false, this.Culture);
             BATFeather.Wrappers().Frontend().ContentBlock().ContentBlockWrapper().VerifyContentOfContentBlockOnThePageFrontend(ContentBlockContent);
         }
 
@@ -43,20 +43,21 @@ namespace FeatherWidgets.TestUI.TestCases.ContentBlocks
         /// </summary>
         [TestMethod,
         Owner(FeatherTeams.FeatherTeam),
+        TestCategory(FeatherTestCategories.ContentBlock),
         TestCategory(FeatherTestCategories.Foundation)]
         public void ContentBlockWidgetOnPageBasedOnFoundationTemplate()
         {
             BAT.Macros().User().EnsureAdminLoggedIn();
             BAT.Arrange(this.ArrangementClass).AddParameter("templateName", FoundationTemplate).ExecuteSetUp();
 
-            BAT.Macros().NavigateTo().Pages();
+            BAT.Macros().NavigateTo().Pages(this.Culture);
             BAT.Wrappers().Backend().Pages().PagesWrapper().OpenPageZoneEditor(PageName);
             BATFeather.Wrappers().Backend().Pages().PageZoneEditorWrapper().AddWidgetToPlaceHolderPureMvcMode(WidgetName);
             BATFeather.Wrappers().Backend().Pages().PageZoneEditorWrapper().EditWidget(WidgetName);
             BATFeather.Wrappers().Backend().ContentBlocks().ContentBlocksWrapper().FillContentToContentBlockWidget(ContentBlockContent);
             BATFeather.Wrappers().Backend().ContentBlocks().ContentBlocksWrapper().SaveChanges();
             BAT.Wrappers().Backend().Pages().PageZoneEditorWrapper().PublishPage();
-            BAT.Macros().NavigateTo().CustomPage("~/" + PageName.ToLower(), false);
+            BAT.Macros().NavigateTo().CustomPage("~/" + PageName.ToLower(), false, this.Culture);
             BATFeather.Wrappers().Frontend().ContentBlock().ContentBlockWrapper().VerifyContentOfContentBlockOnThePageFrontend(ContentBlockContent);
         }
 
@@ -65,20 +66,21 @@ namespace FeatherWidgets.TestUI.TestCases.ContentBlocks
         /// </summary>
         [TestMethod,
         Owner(FeatherTeams.FeatherTeam),
+        TestCategory(FeatherTestCategories.ContentBlock),
         TestCategory(FeatherTestCategories.SemanticUI)]
         public void ContentBlockWidgetOnPageBasedOnSemanticUITemplate()
         {
             BAT.Macros().User().EnsureAdminLoggedIn();
             BAT.Arrange(this.ArrangementClass).AddParameter("templateName", SemanticUITemplate).ExecuteSetUp();
 
-            BAT.Macros().NavigateTo().Pages();
+            BAT.Macros().NavigateTo().Pages(this.Culture);
             BAT.Wrappers().Backend().Pages().PagesWrapper().OpenPageZoneEditor(PageName);
             BATFeather.Wrappers().Backend().Pages().PageZoneEditorWrapper().AddWidgetToPlaceHolderPureMvcMode(WidgetName);
             BATFeather.Wrappers().Backend().Pages().PageZoneEditorWrapper().EditWidget(WidgetName);
             BATFeather.Wrappers().Backend().ContentBlocks().ContentBlocksWrapper().FillContentToContentBlockWidget(ContentBlockContent);
             BATFeather.Wrappers().Backend().ContentBlocks().ContentBlocksWrapper().SaveChanges();
             BAT.Wrappers().Backend().Pages().PageZoneEditorWrapper().PublishPage();
-            BAT.Macros().NavigateTo().CustomPage("~/" + PageName.ToLower(), false);
+            BAT.Macros().NavigateTo().CustomPage("~/" + PageName.ToLower(), false, this.Culture);
             BATFeather.Wrappers().Frontend().ContentBlock().ContentBlockWrapper().VerifyContentOfContentBlockOnThePageFrontend(ContentBlockContent);
         }
 

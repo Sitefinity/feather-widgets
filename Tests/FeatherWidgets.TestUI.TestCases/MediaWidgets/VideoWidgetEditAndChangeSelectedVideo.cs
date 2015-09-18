@@ -25,7 +25,7 @@ namespace FeatherWidgets.TestUI.TestCases.MediaWidgets
         TestCategory(FeatherTestCategories.PagesAndContent)]
         public void VideoWidgetEditAndChangeSelectedVideo()
         {
-            BAT.Macros().NavigateTo().Pages();
+            BAT.Macros().NavigateTo().Pages(this.Culture);
             BAT.Wrappers().Backend().Pages().PagesWrapper().OpenPageZoneEditor(PageName);
             BATFeather.Wrappers().Backend().Pages().PageZoneEditorWrapper().EditWidget(WidgetName, 0, true);
   
@@ -48,7 +48,7 @@ namespace FeatherWidgets.TestUI.TestCases.MediaWidgets
             BATFeather.Wrappers().Backend().Media().VideoPropertiesWrapper().ConfirmMediaPropertiesInWidget();
             BAT.Wrappers().Backend().Pages().PageZoneEditorWrapper().PublishPage();
 
-            BAT.Macros().NavigateTo().CustomPage("~/" + PageName.ToLower(), false);
+            BAT.Macros().NavigateTo().CustomPage("~/" + PageName.ToLower(), false, this.Culture);
             BATFeather.Wrappers().Frontend().MediaWidgets().MediaWidgetsWrapper().VerifyVideo(this.GetVideoSource(false, VideoName2), Width, Height);
         }
 
@@ -59,6 +59,7 @@ namespace FeatherWidgets.TestUI.TestCases.MediaWidgets
         {
             BAT.Macros().User().EnsureAdminLoggedIn();
             BAT.Arrange(this.TestName).ExecuteSetUp();
+            currentProviderUrlName = BAT.Arrange(this.TestName).ExecuteArrangement("GetCurrentProviderUrlName").Result.Values["CurrentProviderUrlName"];
         }
 
         /// <summary>
@@ -73,7 +74,7 @@ namespace FeatherWidgets.TestUI.TestCases.MediaWidgets
         {
             string libraryUrl = LibraryName.ToLower();
             string documentUrl = documentName.ToLower() + VideoType;
-            string href = BATFeather.Wrappers().Frontend().MediaWidgets().MediaWidgetsWrapper().GetMediaSource(isBaseUrlIncluded, libraryUrl, documentUrl, this.BaseUrl, "videos");
+            string href = BATFeather.Wrappers().Frontend().MediaWidgets().MediaWidgetsWrapper().GetMediaSource(isBaseUrlIncluded, libraryUrl, documentUrl, this.BaseUrl, "videos", currentProviderUrlName);
             return href;
         }
 
@@ -87,5 +88,6 @@ namespace FeatherWidgets.TestUI.TestCases.MediaWidgets
         private const int Width = 600;
         private const int Height = 450;
         private const string Ratio = "4x3";
+        private string currentProviderUrlName;
     }
 }

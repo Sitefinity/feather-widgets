@@ -5,8 +5,8 @@ using System.Text;
 using FeatherWidgets.TestUtilities.CommonOperations;
 using Telerik.Sitefinity.Frontend.Navigation.Mvc.Controllers;
 using Telerik.Sitefinity.Frontend.TestUtilities.CommonOperations;
+using Telerik.Sitefinity.TestArrangementService.Attributes;
 using Telerik.Sitefinity.TestUI.Arrangements.Framework;
-using Telerik.Sitefinity.TestUI.Arrangements.Framework.Attributes;
 using Telerik.Sitefinity.TestUI.Arrangements.Framework.Server;
 using Telerik.Sitefinity.TestUtilities.CommonOperations;
 
@@ -15,7 +15,7 @@ namespace FeatherWidgets.TestUI.Arrangements
     /// <summary>
     /// Arrangement methods for NavigationWidgetBootstrapResponsiveDesignTransformations
     /// </summary>
-    public class NavigationWidgetBootstrapResponsiveDesignTransformations : ITestArrangement
+    public class NavigationWidgetBootstrapResponsiveDesignTransformations : TestArrangementBase
     {
         /// <summary>
         /// Server side set up.

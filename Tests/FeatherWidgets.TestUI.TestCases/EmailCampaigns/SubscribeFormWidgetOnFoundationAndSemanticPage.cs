@@ -25,7 +25,7 @@ namespace FeatherWidgets.TestUI.TestCases.EmailCampaigns
         TestCategory(FeatherTestCategories.Bootstrap)]
         public void SubscribeFormWidgetOnFoundationAndSemanticPage()
         {
-            BAT.Macros().NavigateTo().Pages();
+            BAT.Macros().NavigateTo().Pages(this.Culture);
             BAT.Wrappers().Backend().Pages().PagesWrapper().OpenPageZoneEditor(PageNameSemantic);
             BATFeather.Wrappers().Backend().Pages().PageZoneEditorWrapper().AddWidgetToPlaceHolderPureMvcMode(WidgetName);
             BATFeather.Wrappers().Backend().Pages().PageZoneEditorWrapper().EditWidget(WidgetName);
@@ -34,13 +34,13 @@ namespace FeatherWidgets.TestUI.TestCases.EmailCampaigns
             BATFeather.Wrappers().Backend().Widgets().SelectorsWrapper().DoneSelecting();
             BATFeather.Wrappers().Backend().ContentBlocks().ContentBlocksWrapper().SaveChanges();
             BAT.Wrappers().Backend().Pages().PageZoneEditorWrapper().PublishPage();
-            BAT.Macros().NavigateTo().CustomPage("~/" + PageNameSemantic.ToLower(), false);
+            BAT.Macros().NavigateTo().CustomPage("~/" + PageNameSemantic.ToLower(), false, this.Culture);
             BATFeather.Wrappers().Frontend().EmailCampaigns().SubscibeFormWrapper().VerifySubscribeMessageOnTheFrontend();
             BATFeather.Wrappers().Frontend().EmailCampaigns().SubscibeFormWrapper().FillEmailNotStyledPage(SubscriberEmail);
             BATFeather.Wrappers().Frontend().EmailCampaigns().SubscibeFormWrapper().ClickSubscribeButtonNotStyledPage();
             BATFeather.Wrappers().Frontend().EmailCampaigns().SubscibeFormWrapper().VerifySuccessfullySubscribeMessageOnTheFrontend(SubscriberEmail);
 
-            BAT.Macros().NavigateTo().Pages();
+            BAT.Macros().NavigateTo().Pages(this.Culture);
             BAT.Wrappers().Backend().Pages().PagesWrapper().OpenPageZoneEditor(PageNameFoundation);
             BATFeather.Wrappers().Backend().Pages().PageZoneEditorWrapper().AddWidgetToPlaceHolderPureMvcMode(WidgetName);
             BATFeather.Wrappers().Backend().Pages().PageZoneEditorWrapper().EditWidget(WidgetName);
@@ -49,7 +49,7 @@ namespace FeatherWidgets.TestUI.TestCases.EmailCampaigns
             BATFeather.Wrappers().Backend().Widgets().SelectorsWrapper().DoneSelecting();
             BATFeather.Wrappers().Backend().ContentBlocks().ContentBlocksWrapper().SaveChanges();
             BAT.Wrappers().Backend().Pages().PageZoneEditorWrapper().PublishPage();
-            BAT.Macros().NavigateTo().CustomPage("~/" + PageNameFoundation.ToLower(), false);
+            BAT.Macros().NavigateTo().CustomPage("~/" + PageNameFoundation.ToLower(), false, this.Culture);
             BATFeather.Wrappers().Frontend().EmailCampaigns().SubscibeFormWrapper().VerifySubscribeMessageOnTheFrontend();
             BATFeather.Wrappers().Frontend().EmailCampaigns().SubscibeFormWrapper().FillEmailNotStyledPage(SubscriberEmail);
             BATFeather.Wrappers().Frontend().EmailCampaigns().SubscibeFormWrapper().ClickSubscribeButtonNotStyledPage();

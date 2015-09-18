@@ -24,14 +24,14 @@ namespace FeatherWidgets.TestUI.TestCases.ContentBlocks
         TestCategory(FeatherTestCategories.ContentBlock2)]
         public void EditSharedContentBlockFromPage()
         {
-            BAT.Macros().NavigateTo().Pages();
+            BAT.Macros().NavigateTo().Pages(this.Culture);
             BAT.Wrappers().Backend().Pages().PagesWrapper().OpenPageZoneEditor(PageName);
             BATFeather.Wrappers().Backend().Pages().PageZoneEditorWrapper().EditWidget(WidgetName);
             BATFeather.Wrappers().Backend().ContentBlocks().ContentBlocksWrapper().FillContentToContentBlockWidget(EditContent);
             BATFeather.Wrappers().Backend().ContentBlocks().ContentBlocksWrapper().SaveChanges();
             BAT.Wrappers().Backend().Pages().PageZoneEditorWrapper().PublishPage(); 
             this.VerifyIfSharedContentIsModified(ExpectedContent, ContentBlockTitle);
-            BAT.Macros().NavigateTo().CustomPage("~/" + PageName.ToLower());
+            BAT.Macros().NavigateTo().CustomPage("~/" + PageName.ToLower(), true, this.Culture);
             BATFeather.Wrappers().Frontend().ContentBlock().ContentBlockWrapper().VerifyContentOfContentBlockOnThePageFrontend(ExpectedContent);
         }
 
@@ -42,7 +42,7 @@ namespace FeatherWidgets.TestUI.TestCases.ContentBlocks
         /// <param name="contentBlockTitle">Content block title</param>
         public void VerifyIfSharedContentIsModified(string newContentBlockContent, string contentBlockTitle)
         {
-            BAT.Macros().NavigateTo().Modules().ContentBlocks();
+            BAT.Macros().NavigateTo().Modules().ContentBlocks(this.Culture);
             BAT.Wrappers().Backend().ContentBlocks().ContentBlocksWrapper().ClickOnContentBlockTitle(contentBlockTitle);
             string content = BAT.Wrappers().Backend().ContentBlocks().ContentBlocksEditWrapper().GetContent();
             Assert.AreEqual(newContentBlockContent, content, "Content was not modified. ");
