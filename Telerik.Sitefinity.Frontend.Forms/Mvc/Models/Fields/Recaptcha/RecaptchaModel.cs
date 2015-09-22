@@ -68,6 +68,11 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Models.Fields.Recaptcha
             }
             set
             {
+                var configManager = ConfigManager.GetManager();
+                var section = configManager.GetSection<FormsConfig>();
+                section.Parameters[RecaptchaModel.GRecaptchaParameterDataSiteKey] = value;
+                configManager.SaveSection(section);
+
                 this.dataSitekey = value;
             }
         }
