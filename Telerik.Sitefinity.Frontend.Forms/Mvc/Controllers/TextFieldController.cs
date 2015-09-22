@@ -18,7 +18,7 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Controllers
     /// <summary>
     /// This class represents the controller of the MVC forms text field.
     /// </summary>
-    [ControllerToolboxItem(Name = "MvcTextField", Title = "Text box", Toolbox = FormsConstants.FormControlsToolboxName, SectionName = FormsConstants.CommonSectionName, CssClass = TextFieldController.WidgetIconCssClass)]
+    [ControllerToolboxItem(Name = "MvcTextField", Title = "Textbox", Toolbox = FormsConstants.FormControlsToolboxName, SectionName = FormsConstants.CommonSectionName, CssClass = TextFieldController.WidgetIconCssClass)]
     [DatabaseMapping(UserFriendlyDataType.ShortText)]
     [Localization(typeof(FieldResources))]
     public class TextFieldController : FormFieldControllerBase<ITextFieldModel>
