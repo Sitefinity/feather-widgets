@@ -130,37 +130,45 @@
         </div>
 
         <div class="form-group">
-            <p>@Html.Resource("AllowedFileTypes")</p>
-            <label>
-                <input type="radio" ng-model="state.fileTypeRadioSelection" value="All" />
-                @Html.Resource("AllFileTypes")
-            </label>
-            <label>
-                <input type="radio" ng-model="state.fileTypeRadioSelection" value="Selected" />
-                @Html.Resource("SelectedFileTypes")
-            </label>
-
-            <div ng-show="state.fileTypeRadioSelection === 'Selected'">
-                <ul>
-                    <li ng-repeat="typeCategory in fileTypeCategories">
-                        <label>
-                            <input type="checkbox" value="{{typeCategory.value}}" ng-checked="state.selectedFileTypeCategories.indexOf(typeCategory.value) > -1" ng-click="toggleSelection(typeCategory.value)"> {{typeCategory.title}} 
-                            <span ng-if="typeCategory.description">{{typeCategory.description}}</span>
-                        </label>
-                    </li>
-                </ul>
-
-                <div ng-show="state.selectedFileTypeCategories.indexOf('Other') > -1">
-                    <input type="text" class="form-control" ng-model="state.commaSeparatedFileTypes" />
-                    <p>@Html.Resource("FileTypesSeparationDescription")</p>
-                    <p>@Html.Resource("FileTypesExample")</p>
-                </div>
-
+            <strong>@Html.Resource("AllowedFileTypes")</strong>
+            <div class="radio">
                 <label>
-                    @Html.Resource("FileTypeViolationMessageDescription")
-                    <input class="form-control" type="text" ng-model="properties.Model.FileTypeViolationMessage.PropertyValue" />
+                    <input type="radio" ng-model="state.fileTypeRadioSelection" value="All" />
+                    @Html.Resource("AllFileTypes")
                 </label>
             </div>
+            <div class="radio">
+                <label>
+                    <input type="radio" ng-model="state.fileTypeRadioSelection" value="Selected" />
+                    @Html.Resource("SelectedFileTypes")
+
+                    <div ng-show="state.fileTypeRadioSelection === 'Selected'">
+               
+                        <div ng-repeat="typeCategory in fileTypeCategories" class="checkbox">
+                            <label>
+                                <input type="checkbox" value="{{typeCategory.value}}" ng-checked="state.selectedFileTypeCategories.indexOf(typeCategory.value) > -1" ng-click="toggleSelection(typeCategory.value)"> {{typeCategory.title}} 
+                                <span class="text-muted" ng-if="typeCategory.description">{{typeCategory.description}}</span>
+                            </label>
+                        </div>
+
+                        <div ng-show="state.selectedFileTypeCategories.indexOf('Other') > -1" class="label-content">
+                            <input type="text" class="form-control" ng-model="state.commaSeparatedFileTypes" />
+                            <small class="text-muted">@Html.Resource("FileTypesSeparationDescription")</small>
+                            <br />
+                            <small class="text-muted">@Html.Resource("FileTypesExample")</small>
+                        </div>
+
+                    </div>
+                </label>
+            </div>
+
+        </div>
+
+        <div ng-show="state.fileTypeRadioSelection === 'Selected'" class="form-group">
+            <label>
+                @Html.Resource("FileTypeViolationMessageDescription")
+                </label>
+                <input class="form-control" type="text" ng-model="properties.Model.FileTypeViolationMessage.PropertyValue" />
         </div>
     </tab>
 </tabset>

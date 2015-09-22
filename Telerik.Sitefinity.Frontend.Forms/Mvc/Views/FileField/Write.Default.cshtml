@@ -8,7 +8,7 @@
 
 <div class="@Model.CssClass" data-sf-role="file-field-container" data-sf-config="@(Html.AttributeEncode(Model.Serialize()))">
     <label>@Model.MetaField.Title</label>
-    <p class="text-danger" data-sf-role="required-violation-message" style="display: none;">@Model.RequiredViolationMessage</p>
+    <p data-sf-role="required-violation-message" style="display: none;">@Model.RequiredViolationMessage</p>
     <p>@Model.MetaField.Description</p>
 
     <div data-sf-role="file-field-inputs">
@@ -25,8 +25,8 @@
 
                 @if (Model.AcceptedFileTypes.Length > 0)
                 { 
-                    <p class="text-danger" data-sf-role="filetype-violation-message" style="display: none;">@Model.FileTypeViolationMessage</p>
-                    <p class="text-danger" data-sf-role="filesize-violation-message" style="display: none;">@Model.FileSizeViolationMessage</p>
+                    <p data-sf-role="filetype-violation-message" style="display: none;">@Model.FileTypeViolationMessage</p>
+                    <p data-sf-role="filesize-violation-message" style="display: none;">@Model.FileSizeViolationMessage</p>
                 }
             </div>
         @if (!SystemManager.IsDesignMode)
