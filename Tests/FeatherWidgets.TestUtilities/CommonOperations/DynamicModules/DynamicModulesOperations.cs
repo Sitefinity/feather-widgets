@@ -40,7 +40,7 @@ namespace FeatherWidgets.TestUtilities.CommonOperations
 
                         if (!isCreated)
                         {
-                            ServerOperations.MultiSite().CreateDynamicContentProvider("dynamicContentProvider");
+                            //// ServerOperations.MultiSite().CreateDynamicContentProvider("dynamicContentProvider");
                         }
 
                         ServerOperations.SystemManager().RestartApplication(false);
@@ -61,7 +61,7 @@ namespace FeatherWidgets.TestUtilities.CommonOperations
 
                     if (!isCreated)
                     {
-                        ServerOperations.MultiSite().CreateDynamicContentProvider("dynamicContentProvider");
+                        //// ServerOperations.MultiSite().CreateDynamicContentProvider("dynamicContentProvider");
                     }
 
                     ServerOperations.SystemManager().RestartApplication(false);
