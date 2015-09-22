@@ -21,7 +21,7 @@ namespace FeatherWidgets.TestUI.TestCases.ImageGallery
         TestCategory(FeatherTestCategories.ImageGallery)]
         public void SelectSortedImagesWithChangedThumbnails()
         {
-            BAT.Macros().NavigateTo().Pages();
+            BAT.Macros().NavigateTo().Pages(this.Culture);
             BAT.Wrappers().Backend().Pages().PagesWrapper().OpenPageZoneEditor(PageName);
             BATFeather.Wrappers().Backend().Pages().PageZoneEditorWrapper().EditWidget(WidgetName);
 
@@ -48,7 +48,7 @@ namespace FeatherWidgets.TestUI.TestCases.ImageGallery
             }
 
             BAT.Wrappers().Backend().Pages().PageZoneEditorWrapper().PublishPage();
-            BAT.Macros().NavigateTo().CustomPage("~/" + PageName.ToLower());
+            BAT.Macros().NavigateTo().CustomPage("~/" + PageName.ToLower(), true, this.Culture);
             BATFeather.Wrappers().Frontend().ImageGallery().ImageGalleryWrapper().VerifyCorrectOrderOfImages(ImageAltText + 1, ImageAltText + 2, ImageAltText + 3);
 
             for (int i = 0; i <= 2; i++)
@@ -80,7 +80,7 @@ namespace FeatherWidgets.TestUI.TestCases.ImageGallery
             var hrefBack = "/" + PageName.ToLower() + "/" + "Index/";
             BATFeather.Wrappers().Frontend().ImageGallery().ImageGalleryWrapper().VerifyBackToAllImages(hrefBack);
 
-            BAT.Macros().NavigateTo().CustomPage("~/" + PageName.ToLower() + "/" + AnotherImageLibraryTitle.ToLower());
+            BAT.Macros().NavigateTo().CustomPage("~/" + PageName.ToLower() + "/" + AnotherImageLibraryTitle.ToLower(), true, this.Culture);
             for (int j = 1; j <= 3; j++)
             {
                 if (j == 1)
@@ -104,6 +104,7 @@ namespace FeatherWidgets.TestUI.TestCases.ImageGallery
         {
             BAT.Macros().User().EnsureAdminLoggedIn();
             BAT.Arrange(this.TestName).ExecuteSetUp();
+            currentProviderUrlName = BAT.Arrange(this.TestName).ExecuteArrangement("GetCurrentProviderUrlName").Result.Values["CurrentProviderUrlName"];
         }
 
         /// <summary>
@@ -117,14 +118,14 @@ namespace FeatherWidgets.TestUI.TestCases.ImageGallery
         private string GetImageSource(bool isBaseUrlIncluded, string imageName, string imageType, string libraryUrl, string imageThumbnailSize = "")
         {
             string imageUrl = imageName.ToLower() + imageType.ToLower() + imageThumbnailSize;
-            string scr = BATFeather.Wrappers().Frontend().MediaWidgets().MediaWidgetsWrapper().GetMediaSource(isBaseUrlIncluded, libraryUrl.ToLower(), imageUrl, this.BaseUrl);
+            string scr = BATFeather.Wrappers().Frontend().MediaWidgets().MediaWidgetsWrapper().GetMediaSource(isBaseUrlIncluded, libraryUrl.ToLower(), imageUrl, this.BaseUrl, ContentType, currentProviderUrlName, this.Culture);
             return scr;
         }
 
         private string GetImageHref(bool isBaseUrlIncluded, string imageName, string libraryUrl)
         {
             string imageUrl = imageName.ToLower();
-            string href = BATFeather.Wrappers().Frontend().MediaWidgets().MediaWidgetsWrapper().GetMediaSource(isBaseUrlIncluded, libraryUrl.ToLower(), imageUrl, this.BaseUrl, PageName.ToLower() + "/images");
+            string href = BATFeather.Wrappers().Frontend().MediaWidgets().MediaWidgetsWrapper().GetMediaSource(isBaseUrlIncluded, libraryUrl.ToLower(), imageUrl, this.BaseUrl, PageName.ToLower() + "/images", currentProviderUrlName, this.Culture);
             return href;
         }
 
@@ -135,5 +136,7 @@ namespace FeatherWidgets.TestUI.TestCases.ImageGallery
         private const string ImageAltText = "AltText_Image";
         private const string ImageType = ".TMB";
         private const string AnotherImageLibraryTitle = "AnotherImageLibrary";
+        private string currentProviderUrlName;
+        private const string ContentType = "images";
     }
 }

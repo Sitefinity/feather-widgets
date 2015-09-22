@@ -13,6 +13,7 @@ using Telerik.Sitefinity.Modules.GenericContent;
 using Telerik.Sitefinity.Modules.Pages;
 using Telerik.Sitefinity.Modules.Pages.Configuration;
 using Telerik.Sitefinity.Mvc;
+using Telerik.Sitefinity.Personalization;
 using Telerik.Sitefinity.Services;
 using Telerik.Sitefinity.Utilities.TypeConverters;
 using Telerik.Sitefinity.Web;
@@ -24,6 +25,7 @@ namespace Telerik.Sitefinity.Frontend.ContentBlock.Mvc.Controllers
     ///     The content block controller
     /// </summary>
     [ControllerToolboxItem(Name = "ContentBlock_MVC", Title = "Content block", SectionName = ToolboxesConfig.ContentToolboxSectionName, CssClass = ContentBlockController.WidgetIconCssClass)]
+    [ControllerToolboxItem(Name = "MvcInstructionalTextField", Title = "Content block", Toolbox = "FormControls", SectionName = "Common", CssClass = ContentBlockController.FormsWidgetIconCssClass)]
     [Localization(typeof(ContentBlockResources))]
     public class ContentBlockController : Controller, 
                                           IHasContainerType,
@@ -31,7 +33,9 @@ namespace Telerik.Sitefinity.Frontend.ContentBlock.Mvc.Controllers
                                           ICustomWidgetVisualizationExtended, 
                                           ICustomWidgetTitlebar, 
                                           IHasEditCommands, 
-                                          IContentItemControl
+                                          IContentItemControl,
+                                          ISearchIndexBehavior,
+                                          IPersonalizable
     {
         #region Explicit Interface Properties
 
@@ -138,6 +142,18 @@ namespace Telerik.Sitefinity.Frontend.ContentBlock.Mvc.Controllers
 
         /// <inheritdoc />
         Type IHasContainerType.ContainerType { get; set; }
+
+        #region ISearchIndexBehavior
+
+        /// <summary>
+        /// Gets or sets a value indicating whether to exclude the content from search index.
+        /// </summary>
+        /// <value>
+        /// <c>true</c> if should exclude content from search index; otherwise, <c>false</c>.
+        /// </value>
+        public bool ExcludeFromSearchIndex { get; set; }
+
+        #endregion
 
         #endregion
 
@@ -277,6 +293,22 @@ namespace Telerik.Sitefinity.Frontend.ContentBlock.Mvc.Controllers
             commandsList.Add(
                 new WidgetMenuItem
                 {
+                    Text = Res.Get<PageResources>().ZoneEditorAddPersonalizedVersion,
+                    CommandName = "addPersonalizedVersion",
+                    CssClass = "sfPersonalizeItm"
+                });
+
+            commandsList.Add(
+                new WidgetMenuItem
+                {
+                    Text = Res.Get<PageResources>().ZoneEditorRemovePersonalizedVersion,
+                    CommandName = "removePersonalizedVersion",
+                    CssClass = "sfRemPersonalizedItm sfSeparatorDown"
+                });
+
+            commandsList.Add(
+                new WidgetMenuItem
+                {
                     Text = Res.Get<PageResources>().ZoneEditorEnablePageOverrideDisplayContenxtMenuInfo,
                     CommandName = "displayWidgetOverrideText",
                     CssClass = "sfDisplayText"
@@ -289,6 +321,7 @@ namespace Telerik.Sitefinity.Frontend.ContentBlock.Mvc.Controllers
                         CommandName = "beforedelete", 
                         CssClass = "sfDeleteItm"
                     });
+
             commandsList.Add(
                 new WidgetMenuItem
                     {
@@ -408,6 +441,7 @@ namespace Telerik.Sitefinity.Frontend.ContentBlock.Mvc.Controllers
         #region Private fields and constants
 
         internal const string WidgetIconCssClass = "sfContentBlockIcn sfMvcIcn";
+        internal const string FormsWidgetIconCssClass = "sfInstructionIcn sfMvcIcn";
         private const string DesignerTemplate = "Telerik.Sitefinity.Frontend/Designer/Master/ContentBlock?view={0}";
         private const string IZoneEditorReloaderKeyStringFormat = "ContentBlock_{0}";
         private string content;

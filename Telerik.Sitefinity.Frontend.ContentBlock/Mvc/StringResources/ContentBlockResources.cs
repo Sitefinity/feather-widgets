@@ -10,7 +10,6 @@ namespace Telerik.Sitefinity.Frontend.ContentBlock.Mvc.StringResources
     public class ContentBlockResources : Resource
     {
         #region Constructors
-
         /// <summary>
         /// Initializes a new instance of the <see cref="ContentBlockResources"/> class. 
         /// Initializes new instance of <see cref="ContentBlockResources"/> class with the default <see cref="ResourceDataProvider"/>.
@@ -27,15 +26,14 @@ namespace Telerik.Sitefinity.Frontend.ContentBlock.Mvc.StringResources
             : base(dataProvider)
         {
         }
-
         #endregion
 
         /// <summary>
         /// Gets Resources for Comments
         /// </summary>
-        [ResourceEntry("CreateContent", 
-            Value = "Create Content", 
-            Description = "The phrase that will show when the widget has no content.", 
+        [ResourceEntry("CreateContent",
+            Value = "Create Content",
+            Description = "The phrase that will show when the widget has no content.",
             LastModified = "2014/02/06")]
         public string CreateContent
         {
@@ -48,9 +46,9 @@ namespace Telerik.Sitefinity.Frontend.ContentBlock.Mvc.StringResources
         /// <summary>
         /// Gets phrase: You are not allowed to see this content. Contact administrator for more information
         /// </summary>
-        [ResourceEntry("NoViewPermissionsMessage", 
-            Value = "You are not allowed to see this content. Contact administrator for more information", 
-            Description = "phrase: You are not allowed to see this content. Contact administrator for more information", 
+        [ResourceEntry("NoViewPermissionsMessage",
+            Value = "You are not allowed to see this content. Contact administrator for more information",
+            Description = "phrase: You are not allowed to see this content. Contact administrator for more information",
             LastModified = "2014/02/06")]
         public string NoViewPermissionsMessage
         {
@@ -63,9 +61,9 @@ namespace Telerik.Sitefinity.Frontend.ContentBlock.Mvc.StringResources
         /// <summary>
         /// Gets word: Shared
         /// </summary>
-        [ResourceEntry("Shared", 
-            Value = "<span class='sfShared'>Shared</span>", 
-            Description = "word: Shared", 
+        [ResourceEntry("Shared",
+            Value = "<span class='sfShared'>Shared</span>",
+            Description = "word: Shared",
             LastModified = "2014/02/06")]
         public string Shared
         {
@@ -78,9 +76,9 @@ namespace Telerik.Sitefinity.Frontend.ContentBlock.Mvc.StringResources
         /// <summary>
         /// Gets the cancel.
         /// </summary>
-        [ResourceEntry("Cancel", 
-            Value = "Cancel", 
-            Description = "word: Cancel", 
+        [ResourceEntry("Cancel",
+            Value = "Cancel",
+            Description = "word: Cancel",
             LastModified = "2014/03/05")]
         public string Cancel
         {
@@ -93,9 +91,9 @@ namespace Telerik.Sitefinity.Frontend.ContentBlock.Mvc.StringResources
         /// <summary>
         /// Gets the title.
         /// </summary>
-        [ResourceEntry("Title", 
-            Value = "Title", 
-            Description = "word: Title", 
+        [ResourceEntry("Title",
+            Value = "Title",
+            Description = "word: Title",
             LastModified = "2014/03/05")]
         public string Title
         {
@@ -108,9 +106,9 @@ namespace Telerik.Sitefinity.Frontend.ContentBlock.Mvc.StringResources
         /// <summary>
         /// Gets the share content.
         /// </summary>
-        [ResourceEntry("ShareContent", 
-            Value = "Share this content", 
-            Description = "phrase: Share this content", 
+        [ResourceEntry("ShareContent",
+            Value = "Share this content",
+            Description = "phrase: Share this content",
             LastModified = "2014/03/05")]
         public string ShareContent
         {
@@ -123,9 +121,9 @@ namespace Telerik.Sitefinity.Frontend.ContentBlock.Mvc.StringResources
         /// <summary>
         /// Gets phrase: This content will not be shared anymore. The changes you make will not affect other pages. Are you sure you want to Unshare this content?
         /// </summary>
-        [ResourceEntry("AreYouSureYouWantToUnshareThisContent", 
-            Value = "<p>This content will not be shared anymore. The changes you make will not affect other pages.</p><p>Are you sure you want to unshare this content?</p>", 
-            Description = "phrase: This content will not be shared anymore. The changes you make will not affect other pages. Are you sure you want to unshare this content?", 
+        [ResourceEntry("AreYouSureYouWantToUnshareThisContent",
+            Value = "<p>This content will not be shared anymore. The changes you make will not affect other pages.</p><p>Are you sure you want to unshare this content?</p>",
+            Description = "phrase: This content will not be shared anymore. The changes you make will not affect other pages. Are you sure you want to unshare this content?",
             LastModified = "2014/03/07")]
         public string AreYouSureYouWantToUnshareThisContent
         {
@@ -138,9 +136,9 @@ namespace Telerik.Sitefinity.Frontend.ContentBlock.Mvc.StringResources
         /// <summary>
         /// Gets phrase: Yes, Unshare this content
         /// </summary>
-        [ResourceEntry("UnshareThisContent", 
-            Value = "Yes, Unshare this content", 
-            Description = "phrase: Yes, Unshare this content", 
+        [ResourceEntry("UnshareThisContent",
+            Value = "Yes, Unshare this content",
+            Description = "phrase: Yes, Unshare this content",
             LastModified = "2014/03/07")]
         public string UnshareThisContent
         {
@@ -153,9 +151,9 @@ namespace Telerik.Sitefinity.Frontend.ContentBlock.Mvc.StringResources
         /// <summary>
         /// Gets Share
         /// </summary>
-        [ResourceEntry("Share", 
-            Value = "Share", 
-            Description = "word: Share", 
+        [ResourceEntry("Share",
+            Value = "Share",
+            Description = "word: Share",
             LastModified = "2014/03/10")]
         public string Share
         {
@@ -168,9 +166,9 @@ namespace Telerik.Sitefinity.Frontend.ContentBlock.Mvc.StringResources
         /// <summary>
         /// Gets use shared
         /// </summary>
-        [ResourceEntry("UseShared", 
-            Value = "Use shared", 
-            Description = "phrase: Use shared", 
+        [ResourceEntry("UseShared",
+            Value = "Use shared",
+            Description = "phrase: Use shared",
             LastModified = "2014/06/04")]
         public string UseShared
         {
@@ -183,9 +181,9 @@ namespace Telerik.Sitefinity.Frontend.ContentBlock.Mvc.StringResources
         /// <summary>
         /// Gets Unshare
         /// </summary>
-        [ResourceEntry("Unshare", 
-            Value = "Unshare", 
-            Description = "word: Unshare", 
+        [ResourceEntry("Unshare",
+            Value = "Unshare",
+            Description = "word: Unshare",
             LastModified = "2014/03/10")]
         public string Unshare
         {
@@ -198,9 +196,9 @@ namespace Telerik.Sitefinity.Frontend.ContentBlock.Mvc.StringResources
         /// <summary>
         /// Gets This content is shared. Any changes will be reflected everywhere it is shared.
         /// </summary>
-        [ResourceEntry("SharedContentEditWarning", 
-            Value = "This content is shared. Any changes will be reflected everywhere it is shared.", 
-            Description = "This message will pop in the ContentBlock widget when trying to edit shared content.", 
+        [ResourceEntry("SharedContentEditWarning",
+            Value = "This content is shared. Any changes will be reflected everywhere it is shared.",
+            Description = "This message will pop in the ContentBlock widget when trying to edit shared content.",
             LastModified = "2014/03/12")]
         public string SharedContentEditWarning
         {
@@ -213,9 +211,9 @@ namespace Telerik.Sitefinity.Frontend.ContentBlock.Mvc.StringResources
         /// <summary>
         /// Gets Content block widget resources
         /// </summary>
-        [ResourceEntry("ContentBlockResourcesTitle", 
-            Value = "Content block widget resources", 
-            Description = "Title for the content block widget resources class.", 
+        [ResourceEntry("ContentBlockResourcesTitle",
+            Value = "Content block widget resources",
+            Description = "Title for the content block widget resources class.",
             LastModified = "2014/03/17")]
         public string ContentBlockResourcesTitle
         {
@@ -228,9 +226,9 @@ namespace Telerik.Sitefinity.Frontend.ContentBlock.Mvc.StringResources
         /// <summary>
         /// Gets Localizable strings for the Content block widget.
         /// </summary>
-        [ResourceEntry("ContentBlockResourcesDescription", 
-            Value = "Localizable strings for the Content block widget.", 
-            Description = "Description for the content block widget resources class.", 
+        [ResourceEntry("ContentBlockResourcesDescription",
+            Value = "Localizable strings for the Content block widget.",
+            Description = "Description for the content block widget resources class.",
             LastModified = "2014/03/17")]
         public string ContentBlockResourcesDescription
         {
@@ -243,9 +241,9 @@ namespace Telerik.Sitefinity.Frontend.ContentBlock.Mvc.StringResources
         /// <summary>
         /// Gets Error!
         /// </summary>
-        [ResourceEntry("Error", 
-            Value = "Error!", 
-            Description = "Error!", 
+        [ResourceEntry("Error",
+            Value = "Error!",
+            Description = "Error!",
             LastModified = "2014/05/20")]
         public string Error
         {
@@ -258,9 +256,9 @@ namespace Telerik.Sitefinity.Frontend.ContentBlock.Mvc.StringResources
         /// <summary>
         /// Gets Share content block
         /// </summary>
-        [ResourceEntry("ShareContentBlock", 
-            Value = "Share content block", 
-            Description = "Share content block", 
+        [ResourceEntry("ShareContentBlock",
+            Value = "Share content block",
+            Description = "Share content block",
             LastModified = "2014/05/20")]
         public string ShareContentBlock
         {
@@ -273,9 +271,9 @@ namespace Telerik.Sitefinity.Frontend.ContentBlock.Mvc.StringResources
         /// <summary>
         /// Gets Title is required!
         /// </summary>
-        [ResourceEntry("TitleRequired", 
-            Value = "Title is required!", 
-            Description = "Title is required!", 
+        [ResourceEntry("TitleRequired",
+            Value = "Title is required!",
+            Description = "Title is required!",
             LastModified = "2014/05/20")]
         public string TitleRequired
         {
@@ -288,9 +286,9 @@ namespace Telerik.Sitefinity.Frontend.ContentBlock.Mvc.StringResources
         /// <summary>
         /// Gets Simple
         /// </summary>
-        [ResourceEntry("Simple", 
-            Value = "Simple", 
-            Description = "Simple", 
+        [ResourceEntry("Simple",
+            Value = "Simple",
+            Description = "Simple",
             LastModified = "2014/05/20")]
         public string Simple
         {
@@ -303,9 +301,9 @@ namespace Telerik.Sitefinity.Frontend.ContentBlock.Mvc.StringResources
         /// <summary>
         /// Gets Select shared content
         /// </summary>
-        [ResourceEntry("SelectSharedContent", 
-            Value = "Select shared content", 
-            Description = "Select shared content", 
+        [ResourceEntry("SelectSharedContent",
+            Value = "Select shared content",
+            Description = "Select shared content",
             LastModified = "2014/05/21")]
         public string SelectSharedContent
         {
@@ -318,9 +316,9 @@ namespace Telerik.Sitefinity.Frontend.ContentBlock.Mvc.StringResources
         /// <summary>
         /// Gets No items found
         /// </summary>
-        [ResourceEntry("NoItemsFound", 
-            Value = "No items found", 
-            Description = "No items found", 
+        [ResourceEntry("NoItemsFound",
+            Value = "No items found",
+            Description = "No items found",
             LastModified = "2014/05/21")]
         public string NoItemsFound
         {
@@ -333,10 +331,10 @@ namespace Telerik.Sitefinity.Frontend.ContentBlock.Mvc.StringResources
         /// <summary>
         /// Gets No items have been created yet
         /// </summary>
-        [ResourceEntry("NoItemsHaveBeenCreatedYet", 
-            Value = "No items have been created yet", 
-            Description = "No items have been created yet", 
-            LastModified = "2014/8/22")]
+        [ResourceEntry("NoItemsHaveBeenCreatedYet",
+            Value = "No items have been created yet",
+            Description = "No items have been created yet",
+            LastModified = "2014/08/22")]
         public string NoItemsHaveBeenCreatedYet
         {
             get
@@ -348,9 +346,9 @@ namespace Telerik.Sitefinity.Frontend.ContentBlock.Mvc.StringResources
         /// <summary>
         /// Gets Narrow by typing...
         /// </summary>
-        [ResourceEntry("NarrowByTyping", 
-            Value = "Narrow by typing...", 
-            Description = "Narrow by typing...", 
+        [ResourceEntry("NarrowByTyping",
+            Value = "Narrow by typing...",
+            Description = "Narrow by typing...",
             LastModified = "2014/05/21")]
         public string NarrowByTyping
         {
@@ -363,9 +361,9 @@ namespace Telerik.Sitefinity.Frontend.ContentBlock.Mvc.StringResources
         /// <summary>
         /// Gets Done selecting
         /// </summary>
-        [ResourceEntry("DoneSelecting", 
-            Value = "Done selecting", 
-            Description = "Done selecting", 
+        [ResourceEntry("DoneSelecting",
+            Value = "Done selecting",
+            Description = "Done selecting",
             LastModified = "2014/05/21")]
         public string DoneSelecting
         {
@@ -378,9 +376,9 @@ namespace Telerik.Sitefinity.Frontend.ContentBlock.Mvc.StringResources
         /// <summary>
         /// Gets This content is shared.
         /// </summary>
-        [ResourceEntry("ThisContentIsShared", 
-            Value = "This content is shared.", 
-            Description = "This content is shared.", 
+        [ResourceEntry("ThisContentIsShared",
+            Value = "This content is shared.",
+            Description = "This content is shared.",
             LastModified = "2014/05/21")]
         public string ThisContentIsShared
         {
@@ -393,9 +391,9 @@ namespace Telerik.Sitefinity.Frontend.ContentBlock.Mvc.StringResources
         /// <summary>
         /// Gets Any changes will be reflected everywhere it is shared.
         /// </summary>
-        [ResourceEntry("SharedContentWarning", 
-            Value = "Any changes will be reflected everywhere it is shared.", 
-            Description = "Any changes will be reflected everywhere it is shared.", 
+        [ResourceEntry("SharedContentWarning",
+            Value = "Any changes will be reflected everywhere it is shared.",
+            Description = "Any changes will be reflected everywhere it is shared.",
             LastModified = "2014/05/21")]
         public string SharedContentWarning
         {
@@ -408,9 +406,9 @@ namespace Telerik.Sitefinity.Frontend.ContentBlock.Mvc.StringResources
         /// <summary>
         /// Gets Unshared content block
         /// </summary>
-        [ResourceEntry("UnshareContentBlock", 
-            Value = "Unshare content block", 
-            Description = "Unshare content block", 
+        [ResourceEntry("UnshareContentBlock",
+            Value = "Unshare content block",
+            Description = "Unshare content block",
             LastModified = "2014/05/21")]
         public string UnshareContentBlock
         {
@@ -423,15 +421,31 @@ namespace Telerik.Sitefinity.Frontend.ContentBlock.Mvc.StringResources
         /// <summary>
         /// Gets the Provider
         /// </summary>
-        [ResourceEntry("Provider", 
-            Value = "Provider", 
-            Description = "Provider", 
+        [ResourceEntry("Provider",
+            Value = "Provider",
+            Description = "Provider",
             LastModified = "2014/05/29")]
         public string Provider
         {
             get
             {
                 return this["Provider"];
+            }
+        }
+
+        /// <summary>
+        /// word: Add
+        /// </summary>
+        /// <value>Add</value>
+        [ResourceEntry("Add",
+            Value = "Add",
+            Description = "word: Add",
+            LastModified = "2015/08/26")]
+        public string Add
+        {
+            get
+            {
+                return this["Add"];
             }
         }
     }

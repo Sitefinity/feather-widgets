@@ -1,7 +1,8 @@
 ﻿using System;
 using FeatherWidgets.TestUtilities.CommonOperations;
+using Telerik.Sitefinity.Modules.GenericContent;
+using Telerik.Sitefinity.TestArrangementService.Attributes;
 using Telerik.Sitefinity.TestUI.Arrangements.Framework;
-using Telerik.Sitefinity.TestUI.Arrangements.Framework.Attributes;
 using Telerik.Sitefinity.TestUtilities.CommonOperations;
 
 namespace FeatherWidgets.TestUI.Arrangements
@@ -9,7 +10,7 @@ namespace FeatherWidgets.TestUI.Arrangements
     /// <summary>
     /// ContentBlockWidgetMultipleProviders arrangement class.
     /// </summary>
-    public class ContentBlockWidgetMultipleProviders : ITestArrangement
+    public class ContentBlockWidgetMultipleProviders : TestArrangementBase
     {
         /// <summary>
         /// Server side set up.
@@ -20,8 +21,9 @@ namespace FeatherWidgets.TestUI.Arrangements
             AuthenticationHelper.AuthenticateUser(AdminUserName, AdminPass, true);
             ServerOperations.ContentBlocks().CreateSecondDataProvider();
             Guid page1Id = ServerOperations.Pages().CreatePage(PageName);
+            var providerName = ContentManager.GetManager().Provider.Name;
             ServerOperationsFeather.Pages().AddContentBlockWidgetToPage(page1Id, Content);
-            ServerOperationsFeather.ContentBlockOperations().CreateContentBlock("Content Block 1", "Content 1", DefaultProviderName);
+            ServerOperationsFeather.ContentBlockOperations().CreateContentBlock("Content Block 1", "Content 1", providerName);
             ServerOperationsFeather.ContentBlockOperations().CreateContentBlock("Content Block 2", "Content 2", SecondProviderName);
         }
 
@@ -41,7 +43,6 @@ namespace FeatherWidgets.TestUI.Arrangements
         private const string AdminPass = "admin@2";
         private const string PageName = "ContentBlock";
         private const string SecondProviderName = "ContentSecondDataProvider";
-        private const string DefaultProviderName = "OpenAccessDataProvider";
         private const string Content = "";
     }
 }

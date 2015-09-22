@@ -2,8 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using Telerik.Sitefinity.TestArrangementService.Attributes;
 using Telerik.Sitefinity.TestUI.Arrangements.Framework;
-using Telerik.Sitefinity.TestUI.Arrangements.Framework.Attributes;
 using Telerik.Sitefinity.TestUtilities.CommonOperations;
 
 namespace FeatherWidgets.TestUI.Arrangements
@@ -11,7 +11,7 @@ namespace FeatherWidgets.TestUI.Arrangements
     /// <summary>
     /// DragAndDropSubscribeFormWidgetOnPageAndSelectMailingList arrangement class.
     /// </summary>
-    public class DragAndDropSubscribeFormWidgetOnPageAndSelectMailingList : ITestArrangement
+    public class DragAndDropSubscribeFormWidgetOnPageAndSelectMailingList : TestArrangementBase
     {
         /// <summary>
         /// Server side set up.

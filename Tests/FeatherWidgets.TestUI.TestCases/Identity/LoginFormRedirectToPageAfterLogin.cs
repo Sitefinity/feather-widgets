@@ -26,7 +26,7 @@ namespace FeatherWidgets.TestUI.TestCases.Identity
         public void LoginFormAddChangeRemoveRedirectToPageAfterLogin()
         {
             // Edit the page with login form and select page to redirect after login
-            BAT.Macros().NavigateTo().Pages();
+            BAT.Macros().NavigateTo().Pages(this.Culture);
             BAT.Wrappers().Backend().Pages().PagesWrapper().OpenPageZoneEditor(LoginPageName);
             BATFeather.Wrappers().Backend().Pages().PageZoneEditorWrapper().EditWidget(LoginFormWidget);
             BATFeather.Wrappers().Backend().Identity().LoginFormWrapper().ClickSelectButtonForRedirectToPage();
@@ -38,7 +38,7 @@ namespace FeatherWidgets.TestUI.TestCases.Identity
 
             BAT.Macros().User().LogOut();
 
-            BAT.Macros().NavigateTo().CustomPage("~/" + LoginPageName.ToLower(), false);
+            BAT.Macros().NavigateTo().CustomPage("~/" + LoginPageName.ToLower(), false, this.Culture);
 
             BATFeather.Wrappers().Frontend().Identity().LoginFormWrapper().EnterUserName(AdminUserName);
             BATFeather.Wrappers().Frontend().Identity().LoginFormWrapper().EnterPassword(AdminPassword);
@@ -47,7 +47,7 @@ namespace FeatherWidgets.TestUI.TestCases.Identity
             BATFeather.Wrappers().Frontend().CommonWrapper().WaitForNewPageToLoad(this.pageToSelect[0].ToLower(), false);
 
             // Edit the page with login form and CHANGE the page to redirect after login
-            BAT.Macros().NavigateTo().Pages();
+            BAT.Macros().NavigateTo().Pages(this.Culture);
             BAT.Wrappers().Backend().Pages().PagesWrapper().OpenPageZoneEditor(LoginPageName);
             BATFeather.Wrappers().Backend().Pages().PageZoneEditorWrapper().EditWidget(LoginFormWidget);
             BATFeather.Wrappers().Backend().Identity().LoginFormWrapper().ClickSelectButtonForRedirectToPage();
@@ -59,7 +59,7 @@ namespace FeatherWidgets.TestUI.TestCases.Identity
 
             BAT.Macros().User().LogOut();
 
-            BAT.Macros().NavigateTo().CustomPage("~/" + LoginPageName.ToLower(), false);
+            BAT.Macros().NavigateTo().CustomPage("~/" + LoginPageName.ToLower(), false, this.Culture);
 
             BATFeather.Wrappers().Frontend().Identity().LoginFormWrapper().EnterUserName(AdminUserName);
             BATFeather.Wrappers().Frontend().Identity().LoginFormWrapper().EnterPassword(AdminPassword);
@@ -68,7 +68,7 @@ namespace FeatherWidgets.TestUI.TestCases.Identity
             BATFeather.Wrappers().Frontend().CommonWrapper().WaitForNewPageToLoad(this.pageToChange[0].ToLower(), false);
 
             // Edit the page with login form and REMOVE the page to redirect after login
-            BAT.Macros().NavigateTo().Pages();
+            BAT.Macros().NavigateTo().Pages(this.Culture);
             BAT.Wrappers().Backend().Pages().PagesWrapper().OpenPageZoneEditor(LoginPageName);
             BATFeather.Wrappers().Backend().Pages().PageZoneEditorWrapper().EditWidget(LoginFormWidget);
             BATFeather.Wrappers().Backend().Identity().LoginFormWrapper().ClickSelectButtonForRedirectToPage();
@@ -79,7 +79,7 @@ namespace FeatherWidgets.TestUI.TestCases.Identity
 
             BAT.Macros().User().LogOut();
 
-            BAT.Macros().NavigateTo().CustomPage("~/" + LoginPageName.ToLower(), false);
+            BAT.Macros().NavigateTo().CustomPage("~/" + LoginPageName.ToLower(), false, this.Culture);
 
             BATFeather.Wrappers().Frontend().Identity().LoginFormWrapper().EnterUserName(AdminUserName);
             BATFeather.Wrappers().Frontend().Identity().LoginFormWrapper().EnterPassword(AdminPassword);

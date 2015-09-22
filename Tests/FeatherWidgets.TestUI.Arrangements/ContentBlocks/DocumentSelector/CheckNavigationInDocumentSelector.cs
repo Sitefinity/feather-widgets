@@ -2,8 +2,9 @@
 using System.Collections.Generic;
 using FeatherWidgets.TestUtilities.CommonOperations;
 using FeatherWidgets.TestUtilities.CommonOperations.Pages;
+using Telerik.Sitefinity.TestArrangementService.Attributes;
 using Telerik.Sitefinity.TestUI.Arrangements.Framework;
-using Telerik.Sitefinity.TestUI.Arrangements.Framework.Attributes;
+using Telerik.Sitefinity.TestUI.Arrangements.Framework.Server;
 using Telerik.Sitefinity.TestUtilities.CommonOperations;
 
 namespace FeatherWidgets.TestUI.Arrangements
@@ -11,7 +12,7 @@ namespace FeatherWidgets.TestUI.Arrangements
     /// <summary>
     /// Check Navigation in Document Selector arrangement class.
     /// </summary>
-    public class CheckNavigationInDocumentSelector : ITestArrangement
+    public class CheckNavigationInDocumentSelector : TestArrangementBase
     {
         /// <summary>
         /// Server side set up.
@@ -33,6 +34,16 @@ namespace FeatherWidgets.TestUI.Arrangements
 
             AuthenticationHelper.AuthenticateUser("administrator", "password", true);
             ServerOperationsFeather.MediaOperations().UploadDocumentInFolder(nextChildId, DocumentTitle + 3, DocumentResourceNextChild);
+        }
+
+        /// Gets the current libraries provider Url name.
+        /// </summary>
+        [ServerArrangement]
+        public void GetCurrentProviderUrlName()
+        {
+            // string urlName = ServerOperations.Libraries().GetCurrentProviderUrlName;
+
+            // ServerArrangementContext.GetCurrent().Values.Add("CurrentProviderUrlName", urlName);
         }
 
         /// <summary>

@@ -25,7 +25,7 @@ namespace FeatherWidgets.TestUI.TestCases.CommentsAndReviews
         TestCategory(FeatherTestCategories.Bootstrap)]
         public void UnsubscribeUserForReviewsNotification()
         {
-            BAT.Macros().NavigateTo().CustomPage("~/" + PageName.ToLower(), false);
+            BAT.Macros().NavigateTo().CustomPage("~/" + PageName.ToLower(), false, this.Culture);
             BATFeather.Wrappers().Frontend().CommentsAndReviews().ReviewsWrapper().VerifySubscribeToNewReviewLinksIsPresent();
             BATFeather.Wrappers().Frontend().CommentsAndReviews().ReviewsWrapper().ClickSubscribeToNewReviewLinks();
             BATFeather.Wrappers().Frontend().CommentsAndReviews().ReviewsWrapper().VerifySuccessfullySubscribedMessageIsPresent();
@@ -42,7 +42,7 @@ namespace FeatherWidgets.TestUI.TestCases.CommentsAndReviews
             BAT.Arrange(this.TestName).ExecuteArrangement("DeleteReviews");
 
             BAT.Macros().User().LogOut();
-            BAT.Macros().NavigateTo().CustomPage("~/" + PageName.ToLower(), false);
+            BAT.Macros().NavigateTo().CustomPage("~/" + PageName.ToLower(), false, this.Culture);
             BATFeather.Wrappers().Frontend().CommentsAndReviews().ReviewsWrapper().TypeAMessage(this.reviewsToPage[0]);
             BATFeather.Wrappers().Frontend().CommentsAndReviews().ReviewsWrapper().ClickRaitingStar(Raiting);
             BATFeather.Wrappers().Frontend().CommentsAndReviews().ReviewsWrapper().TypeYourName(this.reviewAuthor[0]);

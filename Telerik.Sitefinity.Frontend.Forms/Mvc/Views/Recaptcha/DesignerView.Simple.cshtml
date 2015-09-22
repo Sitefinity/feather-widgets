@@ -1,0 +1,117 @@
+@using Telerik.Sitefinity.Frontend.Forms.Mvc.Helpers;
+@using Telerik.Sitefinity.Frontend.Forms.Mvc.Models.Fields.TextField;
+@using Telerik.Sitefinity.Frontend.Mvc.Helpers;
+@using Telerik.Sitefinity.Mvc;
+
+<div class="form-group">
+    <h4>@Html.Resource("WhatsThis")</h4>
+    <p class="m-bottom-lg">
+        @Html.Resource("WhatsRecaptchaDescription") 
+        <a href="https://www.google.com/recaptcha/intro/index.html" target="_blank">@Html.Resource("LearnMore")</a>
+    </p>
+
+    <div class="checkbox">
+        <label for="requestUnauthenticatedUsers">
+            <input id="requestUnauthenticatedUsers" type="checkbox" ng-model="properties.Model.DisplayOnlyForUnauthenticatedUsers.PropertyValue"
+                   ng-true-value="'True'" ng-false-value="'False'" ng-checked="properties.Model.DisplayOnlyForUnauthenticatedUsers.PropertyValue === 'True'" />
+            @Html.Resource("RequestUnauthenticatedUsersOnly")
+        </label>
+    </div>
+
+    <div class="form-group">
+        <label for="captchaTheme">@Html.Resource("Theme")</label>
+
+        <div class="row">
+            <div class="col-xs-6">
+                <select id="captchaTheme" ng-model="properties.Model.Theme.PropertyValue" class="form-control">
+                    <option value="light">@Html.Resource("Light")</option>
+                    <option value="dark">@Html.Resource("Dark")</option>
+                </select>
+            </div>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label for="captchaType">@Html.Resource("Type")</label>
+
+        <div class="row">
+            <div class="col-xs-6">
+                <select id="captchaType" ng-model="properties.Model.DataType.PropertyValue" class="form-control">
+                    <option value="image">@Html.Resource("Image")</option>
+                    <option value="audio">@Html.Resource("Audio")</option>
+                </select>
+            </div>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label for="captchaSize">@Html.Resource("Size")</label>
+
+        <div class="row">
+            <div class="col-xs-6">
+                <select id="captchaSize" ng-model="properties.Model.Size.PropertyValue" class="form-control">
+                    <option value="normal">@Html.Resource("Normal")</option>
+                    <option value="compact">@Html.Resource("Compact")</option>
+                </select>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="Options Options-section">
+    
+  <label>@Html.Resource("Preview")</label>
+    @Html.Script("//www.google.com/recaptcha/api.js?onload=$.fn.refreshCaptcha&render=explicit", "bottom", false)
+  <div data-sf-role="recaptcha-preview" data-sitekey="{{properties.Model.DataSitekey.PropertyValue}}" data-size="{{properties.Model.Size.PropertyValue}}" data-type="{{properties.Model.DataType.PropertyValue}}" data-theme="{{properties.Model.Theme.PropertyValue}}"></div>
+
+</div>
+
+        
+<expander expander-title='@Html.Resource("MoreOptions")'>
+    <div class="form-group">
+        <label for="captchaTemplateName">@Html.Resource("Template")</label>
+
+        <div class="row">
+            <div class="col-xs-6">
+                <select id="captchaTemplateName" ng-model="properties.WriteTemplateName.PropertyValue" class="form-control">
+                    @foreach (var viewName in Html.GetViewNames(((Telerik.Sitefinity.Mvc.Proxy.MvcProxyBase)Model).GetController(), @"^Write\.(?<viewName>[\w\s]*)$"))
+                    {
+                        <option value="@viewName">@viewName</option>
+                    }
+                </select>
+            </div>
+        </div>
+    </div>
+</expander>
+
+
+
+ <script type="text/javascript">
+
+     (function ($) {
+
+         $.fn.refreshCaptcha = function () {
+             setTimeout(function () { 
+                 $('[data-sf-role="recaptcha-preview"]').html('');
+                 var element = $('[data-sf-role="recaptcha-preview"]')[0];
+                 var options = {};
+                 for (var i = 0; i < element.attributes.length; i++) {
+                     if (element.attributes[i].name.startsWith('data-') && !element.attributes[i].name.startsWith('data-sf-')) {
+                         var name = element.attributes[i].name.substring(5, element.attributes[i].name.length);
+                         options[name] = element.attributes[i].value;
+                     }
+                 }
+
+                 grecaptcha.render(element, options);
+             }, 500);
+         }
+
+         $('#captchaTheme, #captchaType, #captchaSize').on('change', function () {
+             $.fn.refreshCaptcha();          
+         })
+         
+
+         $.fn.refreshCaptcha();
+
+     }(jQuery));
+
+ </script>

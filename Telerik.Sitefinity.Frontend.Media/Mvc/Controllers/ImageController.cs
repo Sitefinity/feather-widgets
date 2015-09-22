@@ -14,6 +14,7 @@ using Telerik.Sitefinity.Frontend.Mvc.Infrastructure.Controllers.Attributes;
 using Telerik.Sitefinity.Localization;
 using Telerik.Sitefinity.Modules.Pages.Configuration;
 using Telerik.Sitefinity.Mvc;
+using Telerik.Sitefinity.Personalization;
 using Telerik.Sitefinity.Services;
 using Telerik.Sitefinity.Web.UI;
 
@@ -24,7 +25,7 @@ namespace Telerik.Sitefinity.Frontend.Media.Mvc.Controllers
     /// </summary>
     [Localization(typeof(ImageResources))]
     [ControllerToolboxItem(Name = "Image_MVC", Title = "Image", SectionName = ToolboxesConfig.ContentToolboxSectionName, ModuleName = "Libraries", CssClass = ImageController.WidgetIconCssClass)]
-    public class ImageController : Controller, ICustomWidgetVisualizationExtended, IContentLocatableView
+    public class ImageController : Controller, ICustomWidgetVisualizationExtended, IContentLocatableView, IPersonalizable
     {
         #region Properties
 

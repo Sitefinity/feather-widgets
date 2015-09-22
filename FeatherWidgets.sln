@@ -58,6 +58,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Telerik.Sitefinity.Frontend
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Telerik.Sitefinity.Frontend.EmailCampaigns", "Telerik.Sitefinity.Frontend.EmailCampaigns\Telerik.Sitefinity.Frontend.EmailCampaigns.csproj", "{C70BD0BD-D081-48A0-AF6D-3FA7E584CB04}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Telerik.Sitefinity.Frontend.Forms", "Telerik.Sitefinity.Frontend.Forms\Telerik.Sitefinity.Frontend.Forms.csproj", "{35E2549F-113B-4B81-BDDE-F06E78F4BDF8}"
+EndProject
 Global
 	GlobalSection(TestCaseManagementSettings) = postSolution
 		CategoryFile = FeatherWidgets.vsmdi
@@ -147,6 +149,10 @@ Global
 		{C70BD0BD-D081-48A0-AF6D-3FA7E584CB04}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C70BD0BD-D081-48A0-AF6D-3FA7E584CB04}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C70BD0BD-D081-48A0-AF6D-3FA7E584CB04}.Release|Any CPU.Build.0 = Release|Any CPU
+		{35E2549F-113B-4B81-BDDE-F06E78F4BDF8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{35E2549F-113B-4B81-BDDE-F06E78F4BDF8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{35E2549F-113B-4B81-BDDE-F06E78F4BDF8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{35E2549F-113B-4B81-BDDE-F06E78F4BDF8}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

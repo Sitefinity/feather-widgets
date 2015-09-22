@@ -4,6 +4,7 @@ using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Text;
+using Telerik.Sitefinity.DynamicModules;
 using Telerik.Sitefinity.DynamicModules.Builder;
 using Telerik.Sitefinity.TestUtilities.CommonOperations;
 
@@ -31,13 +32,45 @@ namespace FeatherWidgets.TestUtilities.CommonOperations
                 {
                     ServerOperations.ModuleBuilder().ImportModule(stream);
                     ServerOperations.ModuleBuilder().ActivateModule(moduleName, providerName, transactionName);
-                    ServerOperations.SystemManager().RestartApplication(false);
+
+                    if (ServerOperations.MultiSite().CheckIsMultisiteMode())
+                    {
+                        var providerNames = DynamicModuleManager.GetManager().AllProviders.Select(p => p.ProviderName);
+                        bool isCreated = providerNames.Contains("dynamicContentProvider");
+
+                        if (!isCreated)
+                        {
+                            //// ServerOperations.MultiSite().CreateDynamicContentProvider("dynamicContentProvider");
+                        }
+
+                        ServerOperations.SystemManager().RestartApplication(false);
+                        ServerOperations.MultiSite().AssignModuleToCurrentSite(moduleName);
+                    }
+                    else
+                    {
+                        ServerOperations.SystemManager().RestartApplication(false);      
+                    }                                     
                 }
             }
             else if (!ServerOperations.ModuleBuilder().IsModuleActive(moduleName))
             {
-                ServerOperations.ModuleBuilder().ActivateModule(moduleName, providerName, transactionName);
-                ServerOperations.SystemManager().RestartApplication(false);
+                if (ServerOperations.MultiSite().CheckIsMultisiteMode())
+                {
+                    var providerNames = DynamicModuleManager.GetManager().AllProviders.Select(p => p.ProviderName);
+                    bool isCreated = providerNames.Contains("dynamicContentProvider");
+
+                    if (!isCreated)
+                    {
+                        //// ServerOperations.MultiSite().CreateDynamicContentProvider("dynamicContentProvider");
+                    }
+
+                    ServerOperations.SystemManager().RestartApplication(false);
+                    ServerOperations.MultiSite().AssignModuleToCurrentSite(moduleName);
+                }
+                else
+                {
+                    ServerOperations.SystemManager().RestartApplication(false);
+                } 
             }
         }
 

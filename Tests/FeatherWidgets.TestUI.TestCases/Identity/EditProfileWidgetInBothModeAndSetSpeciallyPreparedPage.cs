@@ -25,19 +25,19 @@ namespace FeatherWidgets.TestUI.TestCases.Identity
         TestCategory(FeatherTestCategories.Bootstrap)]
         public void EditProfileWidgetInBothModeAndSetSpeciallyPreparedPage()
         {
-            BAT.Macros().NavigateTo().CustomPage("~/" + LoginPage.ToLower());
+            BAT.Macros().NavigateTo().CustomPage("~/" + LoginPage.ToLower(), true);
             BAT.Wrappers().Backend().LoginView().LoginViewWrapper().SetUsername(UserName);
             BAT.Wrappers().Backend().LoginView().LoginViewWrapper().SetPassword(UserPassword);
             BAT.Wrappers().Backend().LoginView().LoginViewWrapper().ExecuteLogin();
 
-            BAT.Macros().NavigateTo().Pages();
+            BAT.Macros().NavigateTo().Pages(this.Culture);
             BAT.Wrappers().Backend().Pages().PagesWrapper().OpenPageZoneEditor(ProfilePage);
             BATFeather.Wrappers().Backend().Pages().PageZoneEditorWrapper().EditWidget(WidgetName);
             BATFeather.Wrappers().Backend().Identity().ProfileWrapper().SwitchToBothMode();
             BATFeather.Wrappers().Backend().Widgets().WidgetDesignerWrapper().SaveChanges();
             BAT.Wrappers().Backend().Pages().PageZoneEditorWrapper().PublishPage();
 
-            BAT.Macros().NavigateTo().CustomPage("~/" + ProfilePage.ToLower(), false);
+            BAT.Macros().NavigateTo().CustomPage("~/" + ProfilePage.ToLower(), false, this.Culture);
 
             BATFeather.Wrappers().Frontend().Identity().ProfileWrapper().VerifyUserFirstAndLastName(NewUserFirstAndLastName);
             BATFeather.Wrappers().Frontend().Identity().ProfileWrapper().VerifyUserEmailAddress(NewUserEmail);
@@ -47,7 +47,7 @@ namespace FeatherWidgets.TestUI.TestCases.Identity
             BATFeather.Wrappers().Frontend().Identity().ProfileWrapper().SaveChangesButton();
             BATFeather.Wrappers().Frontend().Identity().ProfileWrapper().AssertSuccessfullySavedMessage();
 
-            BAT.Macros().NavigateTo().Pages();
+            BAT.Macros().NavigateTo().Pages(this.Culture);
             BAT.Wrappers().Backend().Pages().PagesWrapper().OpenPageZoneEditor(ProfilePage);
             BATFeather.Wrappers().Backend().Pages().PageZoneEditorWrapper().EditWidget(WidgetName);
             BATFeather.Wrappers().Backend().Identity().ProfileWrapper().SelectDisplayModeWhenChangesAreSaved("Open a specially prepared page...");
@@ -57,7 +57,7 @@ namespace FeatherWidgets.TestUI.TestCases.Identity
             BATFeather.Wrappers().Backend().Widgets().WidgetDesignerWrapper().SaveChanges();
             BAT.Wrappers().Backend().Pages().PageZoneEditorWrapper().PublishPage();
 
-            BAT.Macros().NavigateTo().CustomPage("~/" + ProfilePage.ToLower(), false);
+            BAT.Macros().NavigateTo().CustomPage("~/" + ProfilePage.ToLower(), false, this.Culture);
             
             BATFeather.Wrappers().Frontend().Identity().ProfileWrapper().ClickEditProfileLink();
             BATFeather.Wrappers().Frontend().Identity().ProfileWrapper().FillLastName(UserLastNameEdited);

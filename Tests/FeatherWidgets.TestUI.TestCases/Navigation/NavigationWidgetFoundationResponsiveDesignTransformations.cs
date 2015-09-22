@@ -26,7 +26,7 @@ namespace FeatherWidgets.TestUI.TestCases.Navigation
         TestCategory(FeatherTestCategories.Foundation)]
         public void NavigationWidgetFoundationTemplateVerifyDefaultTransformation()
         {
-            BAT.Macros().NavigateTo().CustomPage("~/" + PageName.ToLower(), false);
+            BAT.Macros().NavigateTo().CustomPage("~/" + PageName.ToLower(), false, this.Culture);
             BATFeather.Wrappers().Frontend().Navigation().NavigationWrapper().ResizeBrowserWindow(500);
 
             BATFeather.Wrappers().Frontend().Navigation().NavigationWrapper().OpenToggleMenuForFoundationTemplate();

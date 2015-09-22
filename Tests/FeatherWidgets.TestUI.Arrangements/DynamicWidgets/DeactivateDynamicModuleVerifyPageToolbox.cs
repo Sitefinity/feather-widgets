@@ -1,7 +1,7 @@
 ﻿using FeatherWidgets.TestUtilities.CommonOperations;
 using MbUnit.Framework;
+using Telerik.Sitefinity.TestArrangementService.Attributes;
 using Telerik.Sitefinity.TestUI.Arrangements.Framework;
-using Telerik.Sitefinity.TestUI.Arrangements.Framework.Attributes;
 using Telerik.Sitefinity.TestUtilities.CommonOperations;
 
 namespace FeatherWidgets.TestUI.Arrangements
@@ -9,7 +9,7 @@ namespace FeatherWidgets.TestUI.Arrangements
     /// <summary>
     /// Test arrangement methods for DeactivateAndActivateDynamicModuleVerifyPageToolbox
     /// </summary>
-    public class DeactivateAndActivateDynamicModuleVerifyPageToolbox : ITestArrangement
+    public class DeactivateAndActivateDynamicModuleVerifyPageToolbox : TestArrangementBase
     {
         /// <summary>
         /// Server side set up.
