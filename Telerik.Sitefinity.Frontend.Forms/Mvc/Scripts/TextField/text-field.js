@@ -18,12 +18,20 @@
                 return;
 
             var validationMessages = getValidationMessages(e.srcElement);
+            var validationRestrictions = getValidationRestrictions(e.srcElement);
+            var isValidLength = e.srcElement.value.length >= validationRestrictions.minLength;
+
+            if(validationRestrictions.maxLength > 0)
+                isValidLength &= e.srcElement.value.length <= validationRestrictions.maxLength;
 
             if (e.srcElement.validity.valueMissing) {
                 e.srcElement.setCustomValidity(validationMessages.required);
             }
-            else if (e.srcElement.validity.patternMismatch) {
+            else if (e.srcElement.validity.patternMismatch && !isValidLength) {
                 e.srcElement.setCustomValidity(validationMessages.maxLength);
+            }
+            else if (e.srcElement.validity.patternMismatch && isValidLength) {
+                e.srcElement.setCustomValidity(validationMessages.regularExpression);
             }
             else if (!e.srcElement.validity.valid) {
                 e.srcElement.setCustomValidity(validationMessages.invalid);
@@ -36,6 +44,14 @@
             var validationMessages = JSON.parse(validationMessagesInput.val());
 
             return validationMessages;
+        }
+
+        function getValidationRestrictions(input) {
+            var container = $(input).parents('[data-sf-role="text-field-container"]');
+            var validationRestrictionsInput = $(container).find('[data-sf-role="violation-restrictions"]');
+            var validationRestrictions = JSON.parse(validationRestrictionsInput.val());
+
+            return validationRestrictions;
         }
 
         function init() {
