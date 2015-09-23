@@ -20,7 +20,7 @@
                 <input type="file" name="@(Model.MetaField.FieldName)" @Html.Raw(Model.ValidationAttributes) />
                 @if (Model.AllowMultipleFiles)
                 {
-                    <a style="display: none;" data-sf-role="remove-input">[X]</a>
+                    <a href="javascript:void(0);" style="display: none;" data-sf-role="remove-input">Remove</a>
                 }
 
                 @if (Model.AcceptedFileTypes.Length > 0)
@@ -39,7 +39,7 @@
 
     @if (Model.AllowMultipleFiles)
     {
-        <a data-sf-role="add-input">@Html.Resource("AddAnother")</a>
+        <a href="javascript:void(0);" data-sf-role="add-input">@Html.Resource("AddAnother")</a>
     }
 </div>
 
