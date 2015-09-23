@@ -10,7 +10,8 @@ using Telerik.Sitefinity.TestArrangementService.Core;
 using Telerik.Sitefinity.TestIntegration.Helpers;
 using Telerik.Sitefinity.TestUI.Arrangements.Framework;
 using Telerik.Sitefinity.TestUtilities.CommonOperations;
-using Telerik.Sitefinity.TestUtilities.Helpers.Models;
+
+//// using Telerik.Sitefinity.TestUtilities.Helpers.Models;
 
 namespace FeatherWidgets.TestUI.Arrangements
 {
@@ -25,15 +26,15 @@ namespace FeatherWidgets.TestUI.Arrangements
         [ServerArrangement]
         public void CreateMultilingualSite()
         {  
-            AuthenticationHelper.AuthenticateUser(Admin, Password);
+            // AuthenticationHelper.AuthenticateUser(Admin, Password);
 
-            var siteName = ArrangementConfig.GetArrangementSite();
-            var siteUrl = ArrangementConfig.GetArrangementSiteUrl();
-            var siteCultures = ArrangementConfig.GetArrangementSiteCultures();
-            var site = new SiteModel(siteName, siteUrl, siteName + "Provider", true) { Cultures = siteCultures };
-            MultisiteHelper.CreateSite(site);
+            // var siteName = ArrangementConfig.GetArrangementSite();
+            // var siteUrl = ArrangementConfig.GetArrangementSiteUrl();
+            // var siteCultures = ArrangementConfig.GetArrangementSiteCultures();
+            // var site = new SiteModel(siteName, siteUrl, siteName + "Provider", true) { Cultures = siteCultures };
+            // MultisiteHelper.CreateSite(site);
 
-            this.SharePageTemplateWithSite(SetupSitefinityForMultisiteMultilingual.SiteName, SetupSitefinityForMultisiteMultilingual.Cultures[1]);
+            // this.SharePageTemplateWithSite(SetupSitefinityForMultisiteMultilingual.SiteName, SetupSitefinityForMultisiteMultilingual.Cultures[1]);
         }
 
         /// <summary>
@@ -50,6 +51,7 @@ namespace FeatherWidgets.TestUI.Arrangements
         /// </summary>
         /// <param name="site">The site.</param>
         /// <param name="culture">The culture.</param>
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode"), System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA1801:ReviewUnusedParameters", MessageId = "site"), System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA1801:ReviewUnusedParameters", MessageId = "culture")]
         internal void SharePageTemplateWithSite(string site, string culture)
         {
             var pageManager = PageManager.GetManager();
@@ -66,13 +68,14 @@ namespace FeatherWidgets.TestUI.Arrangements
                 {
                     pageTemplatesService.SaveSharedSites(templateInfo.Key.ToString(), allSites);
 
-                    ServerOperations.Multilingual().Templates().CreateLocalizedPageTemplate(templateInfo.Key, templateInfo.Value, culture, site, framework: PageTemplateFramework.Mvc);
+                    //// ServerOperations.Multilingual().Templates().CreateLocalizedPageTemplate(templateInfo.Key, templateInfo.Value, culture, site, framework: PageTemplateFramework.Mvc);
                 }
             }
         }
 
         private const string SiteName = "SecondSite";
         private const string Url = "http://localhost:83/";
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1823:AvoidUnusedPrivateFields")]
         private static readonly List<string> Cultures = new List<string>() { "en", "bg-bg" };
         private const string Admin = "admin";
         private const string Password = "admin@2";
