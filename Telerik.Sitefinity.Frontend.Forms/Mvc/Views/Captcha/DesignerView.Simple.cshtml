@@ -1,0 +1,42 @@
+@using Telerik.Sitefinity.Frontend.Forms.Mvc.Helpers;
+@using Telerik.Sitefinity.Frontend.Forms.Mvc.Models.Fields.Captcha;
+@using Telerik.Sitefinity.Frontend.Mvc.Helpers;
+@using Telerik.Sitefinity.Mvc;
+
+<div class="form-group">
+    <h4>@Html.Resource("WhatsThis")</h4>
+    <p class="m-bottom-lg">
+        @Html.Resource("WhatsCaptchaDescription") 
+    </p>
+
+    <div class="checkbox">
+        <label for="requestUnauthenticatedUsers">
+            <input id="requestUnauthenticatedUsers" type="checkbox" ng-model="properties.Model.DisplayOnlyForUnauthenticatedUsers.PropertyValue"
+                   ng-true-value="'True'" ng-false-value="'False'" ng-checked="properties.Model.DisplayOnlyForUnauthenticatedUsers.PropertyValue === 'True'" />
+            @Html.Resource("RequestUnauthenticatedUsersOnly")
+        </label>
+    </div>
+
+<expander expander-title='@Html.Resource("MoreOptions")'>
+    <div class="form-group">
+        <label for="captchaTemplateName">@Html.Resource("Template")</label>
+
+        <div class="row">
+            <div class="col-xs-6">
+                <select id="captchaTemplateName" ng-model="properties.WriteTemplateName.PropertyValue" class="form-control">
+                    @foreach (var viewName in Html.GetViewNames(((Telerik.Sitefinity.Mvc.Proxy.MvcProxyBase)Model).GetController(), @"^Write\.(?<viewName>[\w\s]*)$"))
+                    {
+                        <option value="@viewName">@viewName</option>
+                    }
+                </select>
+            </div>
+        </div>
+    </div>
+
+    <style-dropdown selected-class="properties.Model.CssClass.PropertyValue" view-name="properties.WriteTemplateName.PropertyValue"></style-dropdown>
+
+    <div class="form-group">
+        <label for="cssClass">@Html.Resource("CssClasses")</label>
+        <input type="text" id="cssClass" ng-model="properties.Model.CssClass.PropertyValue" class="form-control" />
+    </div>
+</expander>
