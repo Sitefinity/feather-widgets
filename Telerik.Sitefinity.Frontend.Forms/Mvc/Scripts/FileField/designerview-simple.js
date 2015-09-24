@@ -7,6 +7,10 @@
         var onGetPropertiesSuccess = function (data) {
             if (data) {
                 $scope.properties = propertyService.toHierarchyArray(data.Items);
+
+                if ($scope.properties.Model.MaxFileSizeInMb.PropertyValue === '0')
+                    $scope.properties.Model.MaxFileSizeInMb.PropertyValue = '';
+
                 if ($scope.properties.Model.AllowedFileTypes && $scope.properties.Model.AllowedFileTypes.PropertyValue) {
                     $scope.state.selectedFileTypeCategories = $scope.properties.Model.AllowedFileTypes.PropertyValue.split(',');
                     var idx = $scope.state.selectedFileTypeCategories.indexOf('All');
