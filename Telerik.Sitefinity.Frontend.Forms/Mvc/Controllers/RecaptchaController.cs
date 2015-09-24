@@ -24,7 +24,6 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Controllers
     /// This class represents the controller of the MVC forms reCaptcha field.
     /// </summary>
     [ControllerToolboxItem(Name = "MvcReCaptchaField", Title = "reCAPTCHA", Toolbox = FormsConstants.FormControlsToolboxName, SectionName = FormsConstants.CommonSectionName, CssClass = RecaptchaController.WidgetIconCssClass)]
-    [DatabaseMapping(UserFriendlyDataType.YesNo)]
     [Localization(typeof(FieldResources))]
     [IndexRenderMode(IndexRenderModes.NoOutput)]
     public class RecaptchaController : FormElementControllerBase<IRecaptchaModel>
