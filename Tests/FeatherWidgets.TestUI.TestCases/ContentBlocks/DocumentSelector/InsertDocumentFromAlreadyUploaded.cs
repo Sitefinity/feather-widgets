@@ -75,7 +75,13 @@ namespace FeatherWidgets.TestUI.TestCases.ContentBlocks.DocumentSelector
 
         private string GetSfRef(string documentId)
         {
-            return "[documents|" + currentProviderUrlName + "]" + documentId;
+            string provider = currentProviderUrlName;
+            if(this.Culture == null)
+            {
+                provider = "OpenAccessDataProvider";
+            }
+
+            return "[documents|" + provider + "]" + documentId;
         }
 
         private string GetDocumentHref(bool isBaseUrlIncluded)

@@ -314,7 +314,7 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend
             Assert.IsNotNull(image, "Unable to find image.");
             Assert.IsTrue(image.Src.StartsWith(src), "src is not correct");
 
-            this.VerifyImageAttribute(image, "sfref", sfref);
+            this.VerifyImageAttribute(image, "sfref", sfref.ToLower());
             this.VerifyImageAttribute(image, "title", title.ToLower());
             this.VerifyImageAttribute(image, "alt", altText);
         }
@@ -332,7 +332,7 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend
             Assert.IsTrue(doc.HRef.StartsWith(href), "href is not correct");
             var attr = doc.Attributes.FirstOrDefault(a => a.Name == "sfref");
             Assert.IsNotNull(attr, "Unable to find attribute: sfref");
-            Assert.AreEqual(sfref, attr.Value.ToLower(), "Attribute sfref value not as expected.");
+            Assert.AreEqual(sfref.ToLower(), attr.Value.ToLower(), "Attribute sfref value not as expected.");
         }
 
         /// <summary>
@@ -436,7 +436,7 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend
         {
             var attr = video.Attributes.FirstOrDefault(a => a.Name == attName);
             Assert.IsNotNull(attr, "Unable to find attribute: " + attName);
-            Assert.AreEqual(attValue, attr.Value.ToLower(), "Attribute " + attName + " value not as expected.");
+            Assert.AreEqual(attValue.ToLower(), attr.Value.ToLower(), "Attribute " + attName + " value not as expected.");
         }
 
         private bool WaitForSaveButton()

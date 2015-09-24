@@ -77,7 +77,13 @@ namespace FeatherWidgets.TestUI.TestCases.ContentBlocks.ImageSelector
 
         private string GetSfRef(string imageId)
         {
-            return "[images|" + currentProviderUrlName + "]" + imageId;
+            string provider = currentProviderUrlName;
+            if (this.Culture == null)
+            {
+                provider = "OpenAccessDataProvider";
+            }
+
+            return "[images|" + provider + "]" + imageId;
         }
 
         private string GetImageSource(bool isBaseUrlIncluded)

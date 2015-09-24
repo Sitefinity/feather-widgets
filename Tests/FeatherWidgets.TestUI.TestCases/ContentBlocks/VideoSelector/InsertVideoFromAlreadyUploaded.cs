@@ -79,8 +79,14 @@ namespace FeatherWidgets.TestUI.TestCases.ContentBlocks.VideoSelector
         }
 
         private string GetSfRef(string videoId)
-        {            
-            return "[videos|" + currentProviderUrlName + "]" + videoId;
+        {
+            string provider = currentProviderUrlName;
+            if (this.Culture == null)
+            {
+                provider = "OpenAccessDataProvider";
+            }
+
+            return "[videos|" + provider + "]" + videoId;
         }
 
         private string GetVideoSource(bool isBaseUrlIncluded)
