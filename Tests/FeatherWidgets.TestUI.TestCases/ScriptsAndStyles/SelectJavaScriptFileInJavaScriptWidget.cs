@@ -30,6 +30,8 @@ namespace FeatherWidgets.TestUI.TestCases.ScriptsAndStyles
                       .ByExpression<HtmlDiv>("placeholderid=" + "Contentplaceholder1")
             .AssertIsPresent<HtmlDiv>("Contentplaceholder1");
             radDockZone.MouseClick();
+            BATFeather.Wrappers().Backend().Pages().PageZoneEditorWrapper().EditWidget("Profile");
+            BATFeather.Wrappers().Backend().ContentBlocks().ContentBlocksWrapper().SaveChanges();
             BATFeather.Wrappers().Backend().Pages().PageZoneEditorWrapper().EditWidget(WidgetName);
             BATFeather.Wrappers().Backend().ScriptAndStyles().JavaScriptWidgetEditWrapper().FillCodeInEditableArea(JavaScriptValue);
             BATFeather.Wrappers().Backend().ScriptAndStyles().JavaScriptWidgetEditWrapper().MoreOptions();
