@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Linq;
+using System.Threading;
 using ArtOfTest.WebAii.Controls.HtmlControls;
 using ArtOfTest.WebAii.Core;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -14,7 +15,11 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend.FeedWidget
     {
         public void CreateBlog(string blogName)
         {
+            ActiveBrowser.RefreshDomTree();
+            ActiveBrowser.WaitUntilReady();
             BAT.Wrappers().Backend().Blogs().BlogsWrapper().ClickCreateBlogButton();
+            ActiveBrowser.RefreshDomTree();
+            ActiveBrowser.WaitUntilReady();
             var frame = Manager.Current.ActiveBrowser.WaitForFrame(new FrameInfo() { Name = "create" });
             Assert.IsNotNull(frame, "There is no create frame");
             frame.WaitForAsyncOperations();
@@ -23,12 +28,10 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend.FeedWidget
             if (inp != null)
                 inp.SimulateTextTyping(blogName);
 
-            Manager.Current.Log.CaptureBrowser(ActiveBrowser);
-            var createFrame = ActiveBrowser.WaitForFrame(new FrameInfo() { Name = "create" });
-            Assert.IsNotNull(createFrame, "The blogs create frame was not found");
-            var submit = createFrame.Find.ByExpression<HtmlAnchor>("id=?_createThisBlog", "TagName=a");
-            Assert.IsNotNull(submit, "The create blog button was not found");
-            submit.Click();
+            HtmlAnchor publishBtn = frame.Find.ByExpression<HtmlAnchor>("class=sfLinkBtn sfSave").AssertIsPresent("Publish button");
+            publishBtn.Click();
+            ActiveBrowser.WaitForAsyncOperations();
+            ActiveBrowser.RefreshDomTree();
         }
     }
 }
