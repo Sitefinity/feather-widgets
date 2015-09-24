@@ -166,7 +166,7 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Models.Fields.FileField
                 if (this.MinFileSizeInMb > 0 && file.InputStream.Length < (long)this.MinFileSizeInMb << 20)
                     return false;
 
-                if (this.MaxFileSizeInMb > 0 && file.InputStream.Length < (long)this.MaxFileSizeInMb << 20)
+                if (this.MaxFileSizeInMb > 0 && file.InputStream.Length > (long)this.MaxFileSizeInMb << 20)
                     return false;
             }
 
