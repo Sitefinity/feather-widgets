@@ -14,6 +14,7 @@ using Telerik.Sitefinity.Frontend.Mvc.Infrastructure.Controllers;
 using Telerik.Sitefinity.Frontend.Mvc.Infrastructure.Controllers.Attributes;
 using Telerik.Sitefinity.Metadata.Model;
 using Telerik.Sitefinity.Model;
+using Telerik.Sitefinity.Modules.Pages.Web.Services;
 using Telerik.Sitefinity.Mvc;
 using Telerik.Sitefinity.Mvc.ActionFilters;
 using Telerik.Sitefinity.Web.UI;
@@ -39,6 +40,7 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Controllers
 
         /// <inheritDocs />
         [TypeConverter(typeof(ExpandableObjectConverter))]
+        [ReflectInheritedProperties]
         public override ICaptchaModel Model
         {
             get
