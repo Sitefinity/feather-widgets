@@ -699,6 +699,21 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.StringResources
         }
 
         /// <summary>
+        /// Gets word : Site Key
+        /// </summary>
+        [ResourceEntry("SiteKey",
+            Value = "Site Key",
+            Description = "word : Site Key",
+            LastModified = "2015/09/23")]
+        public string SiteKey
+        {
+            get
+            {
+                return this["SiteKey"];
+            }
+        }
+
+        /// <summary>
         /// Gets word : Submit
         /// </summary>
         [ResourceEntry("SubmitButtonLabel",
