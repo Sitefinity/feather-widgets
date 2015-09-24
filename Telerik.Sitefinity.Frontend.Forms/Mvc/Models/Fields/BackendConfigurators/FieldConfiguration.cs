@@ -1,15 +1,11 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Models.Fields.BackendConfigurators
 {
     /// <summary>
     /// This class defines required mapping for fieldConfiguration in the backend.
     /// </summary>
-    internal class FieldConfiguration
+    public class FieldConfiguration
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="FieldConfiguration"/> class.
