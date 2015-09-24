@@ -8,42 +8,43 @@ using System.Web.Mvc;
 using Telerik.Sitefinity.Data.Metadata;
 using Telerik.Sitefinity.Frontend.Forms.Mvc.Controllers.Base;
 using Telerik.Sitefinity.Frontend.Forms.Mvc.Models.Fields;
-using Telerik.Sitefinity.Frontend.Forms.Mvc.Models.Fields.Recaptcha;
+using Telerik.Sitefinity.Frontend.Forms.Mvc.Models.Fields.Captcha;
 using Telerik.Sitefinity.Frontend.Forms.Mvc.StringResources;
 using Telerik.Sitefinity.Frontend.Mvc.Infrastructure.Controllers;
 using Telerik.Sitefinity.Frontend.Mvc.Infrastructure.Controllers.Attributes;
 using Telerik.Sitefinity.Metadata.Model;
 using Telerik.Sitefinity.Model;
 using Telerik.Sitefinity.Mvc;
+using Telerik.Sitefinity.Mvc.ActionFilters;
 using Telerik.Sitefinity.Web.UI;
 using Telerik.Sitefinity.Web.UI.Fields.Enums;
 
 namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Controllers
 {
     /// <summary>
-    /// This class represents the controller of the MVC forms reCaptcha field.
+    /// This class represents the controller of the MVC forms Captcha field.
     /// </summary>
-    [ControllerToolboxItem(Name = "MvcReCaptchaField", Title = "reCAPTCHA", Toolbox = FormsConstants.FormControlsToolboxName, SectionName = FormsConstants.CommonSectionName, CssClass = RecaptchaController.WidgetIconCssClass)]
+    [ControllerToolboxItem(Name = "MvcCaptchaField", Title = "CAPTCHA", Toolbox = FormsConstants.FormControlsToolboxName, SectionName = FormsConstants.CommonSectionName, CssClass = RecaptchaController.WidgetIconCssClass)]
     [Localization(typeof(FieldResources))]
     [IndexRenderMode(IndexRenderModes.NoOutput)]
-    public class RecaptchaController : FormElementControllerBase<IRecaptchaModel>
+    public class CaptchaController : FormElementControllerBase<ICaptchaModel>
     {
         /// <summary>
-        /// Initializes a new instance of the <see cref="RecaptchaController"/> class.
+        /// Initializes a new instance of the <see cref="CaptchaController"/> class.
         /// </summary>
-        public RecaptchaController()
+        public CaptchaController()
         {
             this.DisplayMode = FieldDisplayMode.Write;
         }
 
         /// <inheritDocs />
         [TypeConverter(typeof(ExpandableObjectConverter))]
-        public override IRecaptchaModel Model
+        public override ICaptchaModel Model
         {
             get
             {
                 if (this.model == null)
-                    this.model = ControllerModelFactory.GetModel<IRecaptchaModel>(this.GetType());
+                    this.model = ControllerModelFactory.GetModel<ICaptchaModel>(this.GetType());
 
                 return this.model;
             }
@@ -62,7 +63,7 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Controllers
                 return new EmptyResult();
         }
 
-        private IRecaptchaModel model;
         internal const string WidgetIconCssClass = "sfCaptchaIcn sfMvcIcn";
+        private ICaptchaModel model;
     }
 }
