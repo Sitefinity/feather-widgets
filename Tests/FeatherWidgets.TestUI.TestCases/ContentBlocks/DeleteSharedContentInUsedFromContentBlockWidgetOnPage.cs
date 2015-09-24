@@ -26,10 +26,10 @@ namespace FeatherWidgets.TestUI.TestCases.ContentBlocks
         public void DeleteSharedContentInUsedFromContentBlockWidgetOnPage()
         {
             this.VerifyPageBackend(PageName, WidgetName, ContentBlockContent);
-            BAT.Macros().NavigateTo().Modules().ContentBlocks();
+            BAT.Macros().NavigateTo().Modules().ContentBlocks(this.Culture);
             BAT.Wrappers().Backend().ContentBlocks().ContentBlocksWrapper().DeleteContentByTitle(ContentBlockTitle);
             this.VerifyPageBackend(PageName, WidgetName, CreateContent);
-            BAT.Macros().NavigateTo().CustomPage("~/" + PageName.ToLower());
+            BAT.Macros().NavigateTo().CustomPage("~/" + PageName.ToLower(), true, this.Culture);
             BATFeather.Wrappers().Frontend().ContentBlock().ContentBlockWrapper().VerifyContentOfContentBlockOnThePageFrontend(ExpectedContent);
         }
 
@@ -42,7 +42,8 @@ namespace FeatherWidgets.TestUI.TestCases.ContentBlocks
         public void VerifyPageBackend(string pageName, string widgetName, string widgetContent)
         {
             RuntimeSettingsModificator.ExecuteWithClientTimeout(800000, () => BAT.Macros().NavigateTo().CustomPage("~/sitefinity/pages", false));
-            RuntimeSettingsModificator.ExecuteWithClientTimeout(800000, () => BAT.Macros().User().EnsureAdminLoggedIn());   
+            RuntimeSettingsModificator.ExecuteWithClientTimeout(800000, () => BAT.Macros().User().EnsureAdminLoggedIn());
+            BAT.Macros().NavigateTo().Pages(this.Culture);
             BAT.Wrappers().Backend().Pages().PagesWrapper().OpenPageZoneEditor(pageName);
             BAT.Wrappers().Backend().Pages().PageZoneEditorWrapper().CheckWidgetContent(widgetName, widgetContent);
             BAT.Wrappers().Backend().Pages().PageZoneEditorWrapper().PublishPage();

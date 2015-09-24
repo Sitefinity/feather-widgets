@@ -4,8 +4,8 @@ using System.Linq;
 using System.Text;
 using FeatherWidgets.TestUtilities.CommonOperations;
 using Telerik.Sitefinity.Frontend.TestUtilities.CommonOperations;
+using Telerik.Sitefinity.TestArrangementService.Attributes;
 using Telerik.Sitefinity.TestUI.Arrangements.Framework;
-using Telerik.Sitefinity.TestUI.Arrangements.Framework.Attributes;
 using Telerik.Sitefinity.TestUtilities.CommonOperations;
 
 namespace FeatherWidgets.TestUI.Arrangements
@@ -13,7 +13,7 @@ namespace FeatherWidgets.TestUI.Arrangements
     /// <summary>
     /// VerifySearchResults_NonAuthenticatedUser arragement.
     /// </summary>
-    public class VerifySearchResults_NonAuthenticatedUser : ITestArrangement
+    public class VerifySearchResults_NonAuthenticatedUser : TestArrangementBase
     {
         /// <summary>
         /// Server side set up.
@@ -21,8 +21,8 @@ namespace FeatherWidgets.TestUI.Arrangements
         [ServerSetUp]
         public void SetUp()
         {
-            ServerOperations.News().CreateNewsItem(NewsTitle1);
-            ServerOperations.News().CreateNewsItem(NewsTitle2);
+            ServerOperations.News().CreatePublishedNewsItemLiveId(NewsTitle1, NewsContent, NewsAuthor, NewsSource);
+            ServerOperations.News().CreatePublishedNewsItemLiveId(NewsTitle2, NewsContent, NewsAuthor, NewsSource);
 
             ServerOperations.Pages().CreatePage(SearchPageTitle);
             Guid newsPageId = ServerOperations.Pages().CreatePage(NewsPageTitle);
@@ -48,5 +48,8 @@ namespace FeatherWidgets.TestUI.Arrangements
         private const string NewsTitle2 = "another news";
         private const string SearchPageTitle = "SearchPage";
         private const string NewsPageTitle = "NewsPage";
+        private const string NewsAuthor = "TestNewsAuthor";
+        private const string NewsSource = "TestNewsSource";
+        private const string NewsContent = "News content";
     }
 }

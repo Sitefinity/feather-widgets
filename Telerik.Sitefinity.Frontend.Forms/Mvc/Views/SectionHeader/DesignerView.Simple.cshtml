@@ -1,0 +1,38 @@
+﻿@using Telerik.Sitefinity.Frontend.Forms.Mvc.Helpers;
+@using Telerik.Sitefinity.Frontend.Mvc.Helpers;
+@using Telerik.Sitefinity.Mvc;
+
+<div class="form-group">
+    <select ng-model="properties.HeadingType.PropertyValue" class="form-control">
+        @foreach (var textValue in Html.GetHeadingTypeValues())
+        {
+            <option value="@textValue.Value">@textValue.Key</option>
+        }
+    </select>
+
+    <input type="text" placeholder="{{properties.PlaceholderText.PropertyValue}}" ng-model="properties.Text.PropertyValue" class="form-control"/>
+</div>
+        
+<expander expander-title='@Html.Resource("MoreOptions")'>
+    <div class="form-group">
+        <label for="sectionHeaderTemplateName">@Html.Resource("Template")</label>
+
+        <div class="row">
+            <div class="col-xs-6">
+                <select id="sectionHeaderTemplateName" ng-model="properties.ReadTemplateName.PropertyValue" class="form-control">
+                    @foreach (var viewName in Html.GetViewNames(((Telerik.Sitefinity.Mvc.Proxy.MvcProxyBase)Model).GetController(), @"^Read\.(?<viewName>[\w\s]*)$"))
+                    {
+                        <option value="@viewName">@viewName</option>
+                    }
+                </select>
+            </div>
+        </div>
+    </div>
+
+    <style-dropdown selected-class="properties.CssClass.PropertyValue" view-name="properties.TemplateName.PropertyValue"></style-dropdown>
+
+    <div class="form-group">
+        <label for="cssClass">@Html.Resource("CssClasses")</label>
+        <input type="text" id="cssClass" ng-model="properties.CssClass.PropertyValue" class="form-control" />
+    </div>
+</expander>

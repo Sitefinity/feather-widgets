@@ -3,8 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using FeatherWidgets.TestUtilities.CommonOperations;
+using Telerik.Sitefinity.TestArrangementService.Attributes;
 using Telerik.Sitefinity.TestUI.Arrangements.Framework;
-using Telerik.Sitefinity.TestUI.Arrangements.Framework.Attributes;
 using Telerik.Sitefinity.TestUtilities.CommonOperations;
 
 namespace FeatherWidgets.TestUI.Arrangements
@@ -12,7 +12,7 @@ namespace FeatherWidgets.TestUI.Arrangements
     /// <summary>
     /// SubmitReviewsForDynamicItemLoggedUserOnBootstrapPage arrangement class.
     /// </summary>
-    public class SubmitReviewsForDynamicItemLoggedUserOnBootstrapPage : ITestArrangement
+    public class SubmitReviewsForDynamicItemLoggedUserOnBootstrapPage : TestArrangementBase
     {
         /// <summary>
         /// Server side set up.
@@ -36,9 +36,15 @@ namespace FeatherWidgets.TestUI.Arrangements
         public void TearDown()
         {
             ServerOperations.Configuration().EnableRatings(false);
+            var providerName = string.Empty;
+            if (ServerOperations.MultiSite().CheckIsMultisiteMode())
+            {
+                providerName = "dynamicContentProvider";
+            }
+
+            ServerOperationsFeather.DynamicModulePressArticle().DeleteAllDynamicItemsInProvider(providerName);
+
             ServerOperations.Pages().DeleteAllPages();
-            ServerOperationsFeather.DynamicModulePressArticle().DeleteDynamicItems(ServerOperationsFeather.DynamicModulePressArticle().RetrieveCollectionOfPressArticles());
-            ServerOperations.ModuleBuilder().DeleteAllModules(string.Empty, TransactionName);
         }
 
         private const string PageName = "DynamicPage";

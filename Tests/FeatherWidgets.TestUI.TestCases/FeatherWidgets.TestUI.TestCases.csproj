@@ -38,6 +38,7 @@
     <Reference Include="ArtOfTest.WebAii, Version=2015.2.715.0, Culture=neutral, PublicKeyToken=4fd5f65be123776c, processorArchitecture=MSIL">
       <HintPath>packages\Telerik.Sitefinity.TestStudio.Framework.2.1.3\lib\net40\ArtOfTest.WebAii.dll</HintPath>
       <Private>True</Private>
+      <SpecificVersion>False</SpecificVersion>
     </Reference>
     <Reference Include="Microsoft.Practices.Unity">
       <SpecificVersion>False</SpecificVersion>
@@ -64,14 +65,17 @@
     <Reference Include="Telerik.Sitefinity.MS.TestUI.Framework, Version=1.0.9.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>packages\Telerik.Sitefinity.MS.TestUI.Framework.1.0.9\lib\net45\Telerik.Sitefinity.MS.TestUI.Framework.dll</HintPath>
       <Private>True</Private>
+      <SpecificVersion>False</SpecificVersion>
     </Reference>
     <Reference Include="Telerik.Sitefinity.TestUI.Core, Version=1.0.9.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>packages\Telerik.Sitefinity.TestUI.Core.1.0.9\lib\net45\Telerik.Sitefinity.TestUI.Core.dll</HintPath>
       <Private>True</Private>
+      <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="Telerik.Sitefinity.TestUI.Framework, Version=1.0.9.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>packages\Telerik.Sitefinity.TestUI.Framework.1.0.9\lib\net40\Telerik.Sitefinity.TestUI.Framework.dll</HintPath>
+    <Reference Include="Telerik.Sitefinity.TestUI.Framework, Version=1.0.10.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>packages\Telerik.Sitefinity.TestUI.Framework.1.0.10\lib\net40\Telerik.Sitefinity.TestUI.Framework.dll</HintPath>
       <Private>True</Private>
+      <SpecificVersion>False</SpecificVersion>
     </Reference>
     <Reference Include="Telerik.Sitefinity.TestUI.UIArrangement">
       <HintPath>.\packages\Telerik.Sitefinity.TestUI.UIArrangement.1.0.0\lib\net40\Telerik.Sitefinity.TestUI.UIArrangement.dll</HintPath>
@@ -80,22 +84,27 @@
     <Reference Include="Telerik.TestUI.Core, Version=1.5.4.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>packages\Telerik.TestUI.Core.1.5.4\lib\net40\Telerik.TestUI.Core.dll</HintPath>
       <Private>True</Private>
+      <SpecificVersion>False</SpecificVersion>
     </Reference>
     <Reference Include="Telerik.WebAii.Controls.Html, Version=2015.2.715.0, Culture=neutral, PublicKeyToken=528163f3e645de45, processorArchitecture=MSIL">
       <HintPath>packages\Telerik.Sitefinity.TestStudio.Framework.2.1.3\lib\net40\Telerik.WebAii.Controls.Html.dll</HintPath>
       <Private>True</Private>
+      <SpecificVersion>False</SpecificVersion>
     </Reference>
     <Reference Include="UITests.Configuration, Version=1.6.4.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>packages\UITests.Core.1.6.4\lib\net40\UITests.Configuration.dll</HintPath>
       <Private>True</Private>
+      <SpecificVersion>False</SpecificVersion>
     </Reference>
     <Reference Include="UITests.Core, Version=1.6.4.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>packages\UITests.Core.1.6.4\lib\net40\UITests.Core.dll</HintPath>
       <Private>True</Private>
+      <SpecificVersion>False</SpecificVersion>
     </Reference>
     <Reference Include="UITests.Web, Version=1.6.4.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>packages\UITests.Core.1.6.4\lib\net40\UITests.Web.dll</HintPath>
       <Private>True</Private>
+      <SpecificVersion>False</SpecificVersion>
     </Reference>
   </ItemGroup>
   <ItemGroup>
@@ -152,13 +161,13 @@
     <Compile Include="ContentBlocks\ImageSelector\EditAndChangeSelectedImage.cs" />
     <Compile Include="ContentBlocks\ImageSelector\InsertImageFromAlreadyUploaded.cs" />
     <Compile Include="ContentBlocks\ImageSelector\VerifyAlignmentAndImageThumbnail.cs" />
-    <Compile Include="ContentBlocks\LinkSelectorInsertLinkToWebPageOverSelectedImage.cs" />
-    <Compile Include="ContentBlocks\LinkSelectorInsertAnAnchor.cs" />
-    <Compile Include="ContentBlocks\LinkSelectorInsertLinkToEmailAddress.cs" />
-    <Compile Include="ContentBlocks\LinkSelectorInsertLinkToPageFromThisSiteOverSelectedText.cs" />
-    <Compile Include="ContentBlocks\LinkSelectorInsertLinkToWebPageOverSelectedText.cs" />
-    <Compile Include="ContentBlocks\LinkSelectorEditInsertedLinkToWebPage.cs" />
-    <Compile Include="ContentBlocks\LinkSelectorInsertRemoveLinkToWebPage.cs" />
+    <Compile Include="ContentBlocks\LinkSelector\LinkSelectorInsertLinkToWebPageOverSelectedImage.cs" />
+    <Compile Include="ContentBlocks\LinkSelector\LinkSelectorInsertAnAnchor.cs" />
+    <Compile Include="ContentBlocks\LinkSelector\LinkSelectorInsertLinkToEmailAddress.cs" />
+    <Compile Include="ContentBlocks\LinkSelector\LinkSelectorInsertLinkToPageFromThisSiteOverSelectedText.cs" />
+    <Compile Include="ContentBlocks\LinkSelector\LinkSelectorInsertLinkToWebPageOverSelectedText.cs" />
+    <Compile Include="ContentBlocks\LinkSelector\LinkSelectorEditInsertedLinkToWebPage.cs" />
+    <Compile Include="ContentBlocks\LinkSelector\LinkSelectorInsertRemoveLinkToWebPage.cs" />
     <Compile Include="ContentBlocks\ContentBlockWidgetMultipleProviders.cs" />
     <Compile Include="ContentBlocks\ContentBlockWidgetOnPage.cs" />
     <Compile Include="ContentBlocks\ContentBlockWidgetOnPageBasedOnPackageTemplate.cs" />
@@ -171,7 +180,7 @@
     <Compile Include="ContentBlocks\EditContentBlockFromPage.cs" />
     <Compile Include="ContentBlocks\EditContentBlockWidgetViaInlineEditing.cs" />
     <Compile Include="ContentBlocks\EditSharedContentBlockFromPage.cs" />
-    <Compile Include="ContentBlocks\LinkSelectorLinkToPageFromThisSite.cs" />
+    <Compile Include="ContentBlocks\LinkSelector\LinkSelectorLinkToPageFromThisSite.cs" />
     <Compile Include="ContentBlocks\OldAndNewContentBlockWidgetOnTheSamePage.cs" />
     <Compile Include="ContentBlocks\SeveralContentBlockWidgetsOnTheSamePage.cs" />
     <Compile Include="ContentBlocks\ShareContentBlockFromPage.cs" />

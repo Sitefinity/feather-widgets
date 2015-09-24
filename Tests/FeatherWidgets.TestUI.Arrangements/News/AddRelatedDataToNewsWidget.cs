@@ -2,8 +2,9 @@
 using System.IO;
 using FeatherWidgets.TestUtilities.CommonOperations;
 using Telerik.Sitefinity.Frontend.TestUtilities;
+using Telerik.Sitefinity.Modules.News;
+using Telerik.Sitefinity.TestArrangementService.Attributes;
 using Telerik.Sitefinity.TestUI.Arrangements.Framework;
-using Telerik.Sitefinity.TestUI.Arrangements.Framework.Attributes;
 using Telerik.Sitefinity.TestUtilities.CommonOperations;
 
 namespace FeatherWidgets.TestUI.Arrangements
@@ -11,7 +12,7 @@ namespace FeatherWidgets.TestUI.Arrangements
     /// <summary>
     /// AddRelatedDataToNewsWidget arragement.
     /// </summary>
-    public class AddRelatedDataToNewsWidget : ITestArrangement
+    public class AddRelatedDataToNewsWidget : TestArrangementBase
     {
         /// <summary>
         /// Server side set up. 
@@ -19,10 +20,11 @@ namespace FeatherWidgets.TestUI.Arrangements
         [ServerSetUp]
         public void SetUp()
         {
-            var newsId = ServerOperations.News().CreatePublishedNewsItem(News1, string.Empty);
-            var relatedNewsId = ServerOperations.News().CreatePublishedNewsItem(News2, string.Empty);
+            var newsId = ServerOperations.News().CreatePublishedNewsItem(News1);
+            var relatedNewsId = ServerOperations.News().CreatePublishedNewsItem(News2);
+            var providerName = NewsManager.GetManager().Provider.Name;
 
-            ServerOperations.RelatedData().AddRelatedDataCustomField(ContentTypeFullNames.NewsItem, ContentTypeFullNames.NewsItem, AddRelatedDataToNewsWidget.FieldName);
+            ServerOperations.RelatedData().AddRelatedDataCustomField(ContentTypeFullNames.NewsItem, ContentTypeFullNames.NewsItem, AddRelatedDataToNewsWidget.FieldName, providerName: providerName);
 
             ServerOperations.RelatedData().RelateItem(
                                           ContentTypeFullNames.NewsItem,

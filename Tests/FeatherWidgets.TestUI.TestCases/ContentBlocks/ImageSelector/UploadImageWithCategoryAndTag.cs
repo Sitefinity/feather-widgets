@@ -24,11 +24,15 @@ namespace FeatherWidgets.TestUI.TestCases.ContentBlocks.ImageSelector
         TestCategory(FeatherTestCategories.ContentBlock3)]
         public void UploadImageWithCategoryAndTag()
         {
-            BAT.Macros().NavigateTo().Pages();
+            BAT.Macros().NavigateTo().Pages(this.Culture);
             BAT.Wrappers().Backend().Pages().PagesWrapper().OpenPageZoneEditor(PageName);
             BATFeather.Wrappers().Backend().Pages().PageZoneEditorWrapper().EditWidget(WidgetName);
 
             BATFeather.Wrappers().Backend().ContentBlocks().ContentBlocksWrapper().OpenImageSelector();
+            ////if (this.Culture != null)
+            ////{
+            ////    BATFeather.Wrappers().Backend().Widgets().WidgetDesignerWrapper().SelectProvider(SecondProviderName);
+            ////}
             BATFeather.Wrappers().Backend().Media().MediaSelectorWrapper().SwitchToUploadMode();
             BATFeather.Wrappers().Backend().Media().MediaSelectorWrapper().WaitForContentToBeLoaded(true);
             BATFeather.Wrappers().Backend().Media().MediaSelectorWrapper().SelectMediaFileFromYourComputer();
@@ -94,9 +98,10 @@ namespace FeatherWidgets.TestUI.TestCases.ContentBlocks.ImageSelector
 
         private string GetImageSource(bool isBaseUrlIncluded, string imageName, string imageType)
         {
+            currentProviderUrlName = BAT.Arrange(this.TestName).ExecuteArrangement("GetCurrentProviderUrlName").Result.Values["CurrentProviderUrlName"];
             string libraryUrl = LibraryName.ToLower() + "/" + ChildImageLibrary.ToLower();
             string imageUrl = imageName.ToLower() + imageType.ToLower();
-            string scr = BATFeather.Wrappers().Frontend().MediaWidgets().MediaWidgetsWrapper().GetMediaSource(isBaseUrlIncluded, libraryUrl, imageUrl, this.BaseUrl);
+            string scr = BATFeather.Wrappers().Frontend().MediaWidgets().MediaWidgetsWrapper().GetMediaSource(isBaseUrlIncluded, libraryUrl, imageUrl, this.BaseUrl, "images", currentProviderUrlName);
             return scr;
         }
 
@@ -112,5 +117,7 @@ namespace FeatherWidgets.TestUI.TestCases.ContentBlocks.ImageSelector
         private const string ImageTypeInPropertiesDialog = ".TMB";
         private const string ThumbnailOption = "Original size: 320x214 px";
         private const string TagName = "Tag0";
+        private string currentProviderUrlName;
+        private const string SecondProviderName = "SecondSite Libraries";
     }
 }

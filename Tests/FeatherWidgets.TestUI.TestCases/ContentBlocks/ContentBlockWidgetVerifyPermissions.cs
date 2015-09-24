@@ -22,7 +22,8 @@ namespace FeatherWidgets.TestUI.TestCases.ContentBlocks
         public void AddContentBlockWidgetToPageVerifyViewPermissions()
         {
             RuntimeSettingsModificator.ExecuteWithClientTimeout(800000, () => BAT.Macros().NavigateTo().CustomPage("~/sitefinity/pages", false));
-            RuntimeSettingsModificator.ExecuteWithClientTimeout(800000, () => BAT.Macros().User().EnsureAdminLoggedIn());              
+            RuntimeSettingsModificator.ExecuteWithClientTimeout(800000, () => BAT.Macros().User().EnsureAdminLoggedIn());
+            BAT.Macros().NavigateTo().Pages(this.Culture);
             BAT.Wrappers().Backend().Pages().PagesWrapper().OpenPageZoneEditor(PageTitle);
             BAT.Wrappers().Backend().Pages().PageZoneEditorWrapper().SelectExtraOptionForWidget(OperationName);
             BAT.Wrappers().Backend().Permissions().PermissionsContentWrapper().ClickChangePermissionsButton(PermissionTypes.View);
@@ -33,7 +34,7 @@ namespace FeatherWidgets.TestUI.TestCases.ContentBlocks
 
             BAT.Macros().User().LogOut();
             ActiveBrowser.RefreshDomTree();
-            BAT.Macros().NavigateTo().CustomPage("~/" + PageTitle.ToLower(), false);
+            BAT.Macros().NavigateTo().CustomPage("~/" + PageTitle.ToLower(), false, this.Culture);
 
             Assert.IsFalse(ActiveBrowser.ContainsText(ContentBlockText), "Content block text was found but it shouldn't");
         }

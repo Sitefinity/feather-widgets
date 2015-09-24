@@ -3,8 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using FeatherWidgets.TestUtilities.CommonOperations;
+using Telerik.Sitefinity.TestArrangementService.Attributes;
 using Telerik.Sitefinity.TestUI.Arrangements.Framework;
-using Telerik.Sitefinity.TestUI.Arrangements.Framework.Attributes;
 using Telerik.Sitefinity.TestUtilities.CommonOperations;
 
 namespace FeatherWidgets.TestUI.Arrangements
@@ -13,7 +13,7 @@ namespace FeatherWidgets.TestUI.Arrangements
     /// Arrangement methods for UI test LoginFormAddChangeRemoveRedirectToPageAfterLogin
     /// </summary>
     [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Naming", "CA1726:UsePreferredTerms", MessageId = "Login")]
-    public class LoginFormAddChangeRemoveRedirectToPageAfterLogin : ITestArrangement
+    public class LoginFormAddChangeRemoveRedirectToPageAfterLogin : TestArrangementBase
     {
         /// <summary>
         /// Server side set up.

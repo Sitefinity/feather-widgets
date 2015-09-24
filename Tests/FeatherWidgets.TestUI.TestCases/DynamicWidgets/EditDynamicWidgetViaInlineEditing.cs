@@ -21,7 +21,7 @@ namespace FeatherWidgets.TestUI.TestCases.DynamicWidgets
         TestCategory(FeatherTestCategories.DynamicWidgets)]
         public void EditDynamicWidgetViaInlineEditing()
         {
-            BAT.Macros().NavigateTo().CustomPage("~/" + PageName.ToLower() + "/SomeUrlName");
+            BAT.Macros().NavigateTo().CustomPage("~/" + PageName.ToLower() + "/SomeUrlName", true, this.Culture);
             BAT.Wrappers().Frontend().InlineEditing().InlineEditingWrapper().OpenPageForEdit();
             BAT.Wrappers().Frontend().InlineEditing().InlineEditingWrapper().VerifyEditIsOn(PageName);
 
@@ -33,8 +33,7 @@ namespace FeatherWidgets.TestUI.TestCases.DynamicWidgets
             BATFeather.Wrappers().Frontend().ModuleBuilder().InlineEditingWrapper().EditYesNoControlOfDynamicContentViaInlineEditing(YesNo);
             BATFeather.Wrappers().Frontend().ModuleBuilder().InlineEditingWrapper().EditDateTimeControlOfDynamicContentViaInlineEditing(DateTime, Date);            
             BATFeather.Wrappers().Frontend().ModuleBuilder().InlineEditingWrapper().EditControlOfDynamicContentViaInlineEditing(NewLongText, LongText);
-            BATFeather.Wrappers().Frontend().ModuleBuilder().InlineEditingWrapper().EditCategoryControlOfDynamicContentViaInlineEditing(Category, NewCategory);            
-            BATFeather.Wrappers().Frontend().ModuleBuilder().InlineEditingWrapper().EditTagControlOfDynamicContentViaInlineEditing(Tags, NewTags);
+            BATFeather.Wrappers().Frontend().ModuleBuilder().InlineEditingWrapper().EditCategoryControlOfDynamicContentViaInlineEditing(Category, NewCategory);                        
 
             BAT.Wrappers().Frontend().InlineEditing().InlineEditingWrapper().PublishPage();
             BAT.Wrappers().Frontend().InlineEditing().InlineEditingWrapper().VerifyEditIsOff();
@@ -70,7 +69,7 @@ namespace FeatherWidgets.TestUI.TestCases.DynamicWidgets
         private const string YesNoValue = "No";
         private const string DateTime = "DateTime";
         private const string Date = "1/5/2015 10:00 PM";
-        private const string DateValue = "Jan 5, 2015, 22:00 PM";
+        private const string DateValue = "5, 2015, 22:00";
         private const string ShortText = "ShortText";
         private const string NewShortText = "New short text";
         private const string LongText = "LongText";
@@ -80,6 +79,6 @@ namespace FeatherWidgets.TestUI.TestCases.DynamicWidgets
         private const string NewCategoryName = "New category";
         private const string Tags = "Tags";
         private const string NewTags = "New tag";
-        private string[] dynamicContent = { NewTitle, NewShortText, choices[0], choices[2], choices[0], choices[2], YesNoValue, DateValue, NewLongText, NewCategoryName, NewTags };
+        private string[] dynamicContent = { NewTitle, NewShortText, choices[0], choices[2], choices[0], choices[2], YesNoValue, DateValue, NewLongText, NewCategoryName };
     }
 }

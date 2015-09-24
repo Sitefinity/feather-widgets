@@ -3,8 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using FeatherWidgets.TestUtilities.CommonOperations;
+using Telerik.Sitefinity.TestArrangementService.Attributes;
 using Telerik.Sitefinity.TestUI.Arrangements.Framework;
-using Telerik.Sitefinity.TestUI.Arrangements.Framework.Attributes;
 using Telerik.Sitefinity.TestUtilities.CommonOperations;
 
 namespace FeatherWidgets.TestUI.Arrangements
@@ -12,7 +12,7 @@ namespace FeatherWidgets.TestUI.Arrangements
     /// <summary>
     /// Arrangement methods for VerifySearchResults_FoundationTemplate
     /// </summary>
-    public class VerifySearchResults_FoundationTemplate : ITestArrangement
+    public class VerifySearchResults_FoundationTemplate : TestArrangementBase
     {
         /// <summary>
         /// Server side set up.
@@ -21,8 +21,8 @@ namespace FeatherWidgets.TestUI.Arrangements
         public void SetUp()
         {
             AuthenticationHelper.AuthenticateUser(AdminUserName, AdminPass, true);
-            ServerOperations.News().CreateNewsItem(NewsTitle1);
-            ServerOperations.News().CreateNewsItem(NewsTitle2);
+            ServerOperations.News().CreatePublishedNewsItemLiveId(NewsTitle1, NewsContent, NewsAuthor, NewsSource);
+            ServerOperations.News().CreatePublishedNewsItemLiveId(NewsTitle2, NewsContent, NewsAuthor, NewsSource);
 
             Guid searchIndexId = ServerOperations.Search().CreateSearchIndex(SearchIndexName, new[] { SearchContentType.News });
             ServerOperations.Search().Reindex(searchIndexId);
@@ -52,5 +52,8 @@ namespace FeatherWidgets.TestUI.Arrangements
         private const string SearchPageTitle = "FoundationPage";
         private const string PageTemplateName = "Foundation.default";
         private const string NewsPageTitle = "NewsPage";
+        private const string NewsAuthor = "TestNewsAuthor";
+        private const string NewsSource = "TestNewsSource";
+        private const string NewsContent = "News content";
     }
 }
