@@ -1,6 +1,7 @@
 ﻿using Ninject.Modules;
 using Telerik.Sitefinity.Frontend.Forms.Mvc.Models;
 using Telerik.Sitefinity.Frontend.Forms.Mvc.Models.Fields;
+using Telerik.Sitefinity.Frontend.Forms.Mvc.Models.Fields.Captcha;
 using Telerik.Sitefinity.Frontend.Forms.Mvc.Models.Fields.CheckboxesField;
 using Telerik.Sitefinity.Frontend.Forms.Mvc.Models.Fields.DropdownListField;
 using Telerik.Sitefinity.Frontend.Forms.Mvc.Models.Fields.FileField;
@@ -36,6 +37,7 @@ namespace Telerik.Sitefinity.Frontend.Forms
             Bind<IMultipleChoiceFieldModel>().To<MultipleChoiceFieldModel>();
             Bind<ICheckboxesFieldModel>().To<CheckboxesFieldModel>();
             Bind<IFileFieldModel>().To<FileFieldModel>();
+            Bind<ICaptchaModel>().To<CaptchaModel>();
         }
     }
 }
