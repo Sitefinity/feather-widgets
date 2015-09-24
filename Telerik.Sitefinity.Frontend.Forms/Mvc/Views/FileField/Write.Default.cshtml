@@ -26,8 +26,11 @@
                 @if (Model.AcceptedFileTypes.Length > 0)
                 { 
                     <p data-sf-role="filetype-violation-message" style="display: none;">@Model.FileTypeViolationMessage</p>
-                    <p data-sf-role="filesize-violation-message" style="display: none;">@Model.FileSizeViolationMessage</p>
                 }
+                @if (Model.MinFileSizeInMb > 0 || Model.MaxFileSizeInMb > 0)
+                {
+                    <p data-sf-role="filesize-violation-message" style="display: none;">@Model.FileSizeViolationMessage</p>
+                }    
             </div>
         @if (!SystemManager.IsDesignMode)
         {
