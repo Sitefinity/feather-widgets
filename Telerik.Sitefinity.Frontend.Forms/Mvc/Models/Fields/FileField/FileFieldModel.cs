@@ -215,7 +215,7 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Models.Fields.FileField
         private static readonly Dictionary<AllowedFileTypes, string[]> predifinedAcceptValues = new Dictionary<AllowedFileTypes, string[]>()
         {
             { AllowedFileTypes.All, null },
-            { AllowedFileTypes.Audio, new string[] { ".jpg", ".jpeg", ".png", ".gif", ".bmp" } },
+            { AllowedFileTypes.Audio, new string[] { ".mp3", ".ogg", ".wav", ".wma" } },
             { AllowedFileTypes.Video, new string[] { ".avi", ".mpg", ".mpeg", ".mov", ".mp4", ".wmv" } },
             { AllowedFileTypes.Images, new string[] { ".jpg", ".jpeg", ".png", ".gif", ".bmp" } },
             { AllowedFileTypes.Documents, new string[] { ".pdf", ".doc", ".docx", ".ppt", ".pptx", ".pps", ".ppsx", ".xls", ".xlsx" } },
