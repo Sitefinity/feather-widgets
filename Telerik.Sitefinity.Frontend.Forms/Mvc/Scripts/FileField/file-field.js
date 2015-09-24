@@ -99,7 +99,7 @@
         var inputContainer = jElement.find('[data-sf-role="file-field-inputs"]');
         var inputTemplate = jElement.find('[data-sf-role="file-input-template"]').html();
         var form = jElement.closest('form');
-        initInput(inputTemplate, inputContainer, form, config);
+        initInput(inputTemplate, inputContainer, config);
 
         if (config.AllowMultipleFiles) {
             $(jElement).find('[data-sf-role="add-input"]').click(function () {
