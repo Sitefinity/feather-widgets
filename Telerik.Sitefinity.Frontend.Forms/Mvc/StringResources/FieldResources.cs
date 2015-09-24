@@ -926,6 +926,51 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.StringResources
         }
 
         #endregion
+                   
+        /// <summary>
+        /// Gets phrase : New code
+        /// </summary>
+        [ResourceEntry("NewCode",
+            Value = "New code",
+            Description = "phrase: New code",
+            LastModified = "2015/09/23")]
+        public string NewCode
+        {
+            get
+            {
+                return this["NewCode"];
+            }
+        }
+
+        /// <summary>
+        /// Gets phrase : Please type the code above
+        /// </summary>
+        [ResourceEntry("TypeCodeAbove",
+            Value = "Please type the code above",
+            Description = "phrase: Please type the code above",
+            LastModified = "2015/09/23")]
+        public string TypeCodeAbove
+        {
+            get
+            {
+                return this["TypeCodeAbove"];
+            }
+        }
+
+        /// <summary>
+        /// Gets description for Capthca widget
+        /// </summary>
+        [ResourceEntry("WhatsCaptchaDescription",
+            Value = "CAPTCHA is used to protect your website from spam and abuse.",
+            Description = "Description for Capthca widget",
+            LastModified = "2015/09/23")]
+        public string WhatsCaptchaDescription
+        {
+            get
+            {
+                return this["WhatsCaptchaDescription"];
+            }
+        }
 
         #region Section header
 
