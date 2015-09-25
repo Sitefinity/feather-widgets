@@ -107,6 +107,10 @@
             });
         }
 
+        jElement.find('input[type="file"]').data('sfvalidator', function () {
+            return formValidation({ data: { config: config, container: inputContainer } });
+        });
+
         form.submit({ config: config, container: inputContainer }, formValidation);
     };
 
