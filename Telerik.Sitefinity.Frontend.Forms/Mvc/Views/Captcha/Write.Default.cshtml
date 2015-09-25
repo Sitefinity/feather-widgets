@@ -27,7 +27,11 @@
 
 @if (SystemManager.IsDesignMode)
 {
-    <script type="text/javascript" src='@(Url.WidgetContent("Mvc/Scripts/Captcha/captcha.js") + "?t=" + DateTime.UtcNow.Ticks.ToString())'></script>
+    var scriptUrl = Url.WidgetContent("Mvc/Scripts/Captcha/captcha.js");
+    var queryAddition = scriptUrl.Contains("?") ? "&" : "?"; 
+    var fullScriptUrl = scriptUrl + queryAddition + string.Format("_={0}", DateTime.UtcNow.Ticks.ToString());
+    
+    <script type="text/javascript" src='@fullScriptUrl'></script>
 }
 else
 {
