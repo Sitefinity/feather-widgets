@@ -27,10 +27,8 @@ namespace FeatherWidgets.TestUI.Arrangements
         {
             AuthenticationHelper.AuthenticateUser(Admin, Password);
 
-            var siteName = ArrangementConfig.GetArrangementSite();
-            var siteUrl = ArrangementConfig.GetArrangementSiteUrl();
             var siteCultures = ArrangementConfig.GetArrangementSiteCultures();
-            var site = new SiteModel(siteName, siteUrl, siteName + "Provider", true) { Cultures = siteCultures };
+            var site = new SiteModel(SiteName, Url, SiteName + "Provider", true) { Cultures = siteCultures };
             MultisiteHelper.CreateSite(site);
 
             this.SharePageTemplateWithSite(SetupSitefinityForMultisiteMultilingual.SiteName, SetupSitefinityForMultisiteMultilingual.Cultures[1]);
