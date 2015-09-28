@@ -69,9 +69,9 @@ namespace FeatherWidgets.TestUI.Arrangements
             ServerOperations.Multilingual().Templates().CreateLocalizedPageTemplate(templateIdS, PageTemplateNameS, culture, site, framework: PageTemplateFramework.Mvc);
           
             var cultureInfo = new CultureInfo(culture);
-            this.CreatePureMVCPageTemplate(PageTemplateNameB, templateIdB, cultureInfo);
-            this.CreatePureMVCPageTemplate(PageTemplateNameS, templateIdS, cultureInfo);
-            this.CreatePureMVCPageTemplate(PageTemplateNameF, templateIdF, cultureInfo);
+            this.CreatePureMVCPageTemplate(PageTemplateNameB1, templateIdB, cultureInfo);
+            this.CreatePureMVCPageTemplate(PageTemplateNameS1, templateIdS, cultureInfo);
+            this.CreatePureMVCPageTemplate(PageTemplateNameF1, templateIdF, cultureInfo);
         }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", MessageId = "MVC")]
