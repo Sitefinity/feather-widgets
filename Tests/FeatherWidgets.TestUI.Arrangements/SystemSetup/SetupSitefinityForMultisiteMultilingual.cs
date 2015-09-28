@@ -65,7 +65,9 @@ namespace FeatherWidgets.TestUI.Arrangements
                 {
                     pageTemplatesService.SaveSharedSites(templateInfo.Key.ToString(), allSites);
 
-                    ServerOperations.Multilingual().Templates().CreateLocalizedPageTemplate(templateInfo.Key, templateInfo.Value, culture, site, framework: PageTemplateFramework.Mvc);
+                    var title = templateInfo.Value ?? templateInfo.Key.ToString();
+
+                    ServerOperations.Multilingual().Templates().CreateLocalizedPageTemplate(templateInfo.Key, title, culture, site, framework: PageTemplateFramework.Mvc);
                 }
             }
         }
