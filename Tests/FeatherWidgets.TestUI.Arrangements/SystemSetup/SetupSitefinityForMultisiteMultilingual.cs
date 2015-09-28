@@ -64,14 +64,14 @@ namespace FeatherWidgets.TestUI.Arrangements
             ServerOperations.Templates().SharePageTemplateWithSite(PageTemplateNameS1, site);
             ServerOperations.Templates().SharePageTemplateWithSite(PageTemplateNameF1, site);
 
-            var cultureInfo = new CultureInfo(culture);
-            this.CreatePureMVCPageTemplate(PageTemplateNameB, templateIdB, cultureInfo);
-            this.CreatePureMVCPageTemplate(PageTemplateNameS, templateIdS, cultureInfo);
-            this.CreatePureMVCPageTemplate(PageTemplateNameF, templateIdF, cultureInfo);
+            ////var cultureInfo = new CultureInfo(culture);
+            ////this.CreatePureMVCPageTemplate(PageTemplateNameB, templateIdB, cultureInfo);
+            ////this.CreatePureMVCPageTemplate(PageTemplateNameS, templateIdS, cultureInfo);
+            ////this.CreatePureMVCPageTemplate(PageTemplateNameF, templateIdF, cultureInfo);
 
-            ServerOperations.Templates().SharePageTemplateWithSite(PageTemplateNameB, site);
-            ServerOperations.Templates().SharePageTemplateWithSite(PageTemplateNameS, site);
-            ServerOperations.Templates().SharePageTemplateWithSite(PageTemplateNameF, site);
+            ////ServerOperations.Templates().SharePageTemplateWithSite(PageTemplateNameB, site);
+            ////ServerOperations.Templates().SharePageTemplateWithSite(PageTemplateNameS, site);
+            ////ServerOperations.Templates().SharePageTemplateWithSite(PageTemplateNameF, site);
         }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", MessageId = "MVC")]
@@ -90,7 +90,6 @@ namespace FeatherWidgets.TestUI.Arrangements
                                    t.ParentTemplate = parentTemplate;
                                    t.ShowInNavigation = true;
                                    t.Framework = PageTemplateFramework.Mvc;
-                                   t.Category = SiteInitializer.CustomTemplatesCategoryId;
                                    t.Visible = true;
                                })
                                .SaveAndContinue()
