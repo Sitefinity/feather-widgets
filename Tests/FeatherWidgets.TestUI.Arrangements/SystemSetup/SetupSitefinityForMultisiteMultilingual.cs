@@ -27,11 +27,9 @@ namespace FeatherWidgets.TestUI.Arrangements
         {
             AuthenticationHelper.AuthenticateUser(Admin, Password);
 
-            ////var siteCultures = ArrangementConfig.GetArrangementSiteCultures();
-            ////var site = new SiteModel(SiteName, Url, SiteName + "Provider", true) { Cultures = siteCultures, SourcePagesSiteId = Guid.Empty };
-            ////MultisiteHelper.CreateSite(site);
-
-            MultisiteHelper.CreateSite(SiteName, Url, SiteName + "Provider");
+            var siteCultures = ArrangementConfig.GetArrangementSiteCultures();
+            var site = new SiteModel(SiteName, Url, SiteName + "Provider", true) { Cultures = siteCultures, SourcePagesSiteId = Guid.Empty };
+            MultisiteHelper.CreateSite(site);
 
             this.SharePageTemplateWithSite(SetupSitefinityForMultisiteMultilingual.SiteName, SetupSitefinityForMultisiteMultilingual.Cultures[1]);
         }
@@ -55,21 +53,24 @@ namespace FeatherWidgets.TestUI.Arrangements
         {
             var pageManager = PageManager.GetManager();
             var templateInfos = pageManager.GetTemplates().Where(t => t.Framework == PageTemplateFramework.Mvc).Select(t => new KeyValuePair<Guid, string>(t.Id, t.Title));
+            var templateNames = pageManager.GetTemplates().Where(t => t.Framework == PageTemplateFramework.Mvc).Select(t => t.Name);
 
             var siteManager = MultisiteManager.GetManager();
-            var allSites = siteManager.GetSites().Select(s => s.Id.ToString()).ToArray();
-
-            var pageTemplatesService = new PageTemplatesService();
+            var allSites = siteManager.GetSites().Select(s => s.Name.ToString()).ToArray();
+         
+            foreach (var templateName in templateNames)
+            {
+                if (templateName != null)
+                {
+                    ServerOperations.Templates().SharePageTemplateWithSite(templateName, allSites[1]);                   
+                }
+            }
 
             foreach (var templateInfo in templateInfos)
             {
                 if (templateInfo.Key != Guid.Empty)
                 {
-                    pageTemplatesService.SaveSharedSites(templateInfo.Key.ToString(), allSites);
-
-                    var title = templateInfo.Value ?? templateInfo.Key.ToString();
-
-                    ServerOperations.Multilingual().Templates().CreateLocalizedPageTemplate(templateInfo.Key, title, culture, site, framework: PageTemplateFramework.Mvc);
+                    ServerOperations.Multilingual().Templates().CreateLocalizedPageTemplate(templateInfo.Key, templateInfo.Value, culture, site, framework: PageTemplateFramework.Mvc);
                 }
             }
         }
