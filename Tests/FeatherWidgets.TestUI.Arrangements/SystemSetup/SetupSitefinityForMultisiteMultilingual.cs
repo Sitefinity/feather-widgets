@@ -50,30 +50,19 @@ namespace FeatherWidgets.TestUI.Arrangements
         /// <param name="culture">The culture.</param>
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode"), System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA1801:ReviewUnusedParameters", MessageId = "site"), System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA1801:ReviewUnusedParameters", MessageId = "culture")]
         internal void SharePageTemplateWithSite(string site, string culture)
-        {
-            var pageManager = PageManager.GetManager();
-            var templateInfos = pageManager.GetTemplates().Where(t => t.Framework == PageTemplateFramework.Mvc).Select(t => new KeyValuePair<Guid, string>(t.Id, t.Title));
-            var templateNames = pageManager.GetTemplates().Where(t => t.Framework == PageTemplateFramework.Mvc).Select(t => t.Name);
+        {           
+            ServerOperations.Templates().SharePageTemplateWithSite(PageTemplateNameB, site);
+            ServerOperations.Templates().SharePageTemplateWithSite(PageTemplateNameS, site);
+            ServerOperations.Templates().SharePageTemplateWithSite(PageTemplateNameF, site);
 
-            var siteManager = MultisiteManager.GetManager();
-            var allSites = siteManager.GetSites().Select(s => s.Name.ToString()).ToArray();
-         
-            foreach (var templateName in templateNames)
-            {
-                if (templateName != null)
-                {
-                    ServerOperations.Templates().SharePageTemplateWithSite(templateName, allSites[1]);                   
-                }
-            }
+            Guid templateIdB = ServerOperations.Templates().GetTemplateIdByTitle(PageTemplateNameB);
+            Guid templateIdS = ServerOperations.Templates().GetTemplateIdByTitle(PageTemplateNameS);
+            Guid templateIdF = ServerOperations.Templates().GetTemplateIdByTitle(PageTemplateNameF);
 
-            foreach (var templateInfo in templateInfos)
-            {
-                if (templateInfo.Key != Guid.Empty)
-                {
-                    ServerOperations.Multilingual().Templates().CreateLocalizedPageTemplate(templateInfo.Key, templateInfo.Value, culture, site, framework: PageTemplateFramework.Mvc);
-                }
-            }
-        }
+            ServerOperations.Multilingual().Templates().CreateLocalizedPageTemplate(templateIdB, PageTemplateNameB, culture, site, framework: PageTemplateFramework.Mvc);
+            ServerOperations.Multilingual().Templates().CreateLocalizedPageTemplate(templateIdF, PageTemplateNameF, culture, site, framework: PageTemplateFramework.Mvc);
+            ServerOperations.Multilingual().Templates().CreateLocalizedPageTemplate(templateIdS, PageTemplateNameS, culture, site, framework: PageTemplateFramework.Mvc);
+        }        
 
         private const string SiteName = "SecondSite";
         private const string Url = "http://localhost:83/";
@@ -81,5 +70,8 @@ namespace FeatherWidgets.TestUI.Arrangements
         private static readonly List<string> Cultures = new List<string>() { "en", "bg-bg" };
         private const string Admin = "admin";
         private const string Password = "admin@2";
+        private const string PageTemplateNameB = "Bootstrap.default";
+        private const string PageTemplateNameS = "Foundation.default";
+        private const string PageTemplateNameF = "SemanticUI.default";
     }
 }
