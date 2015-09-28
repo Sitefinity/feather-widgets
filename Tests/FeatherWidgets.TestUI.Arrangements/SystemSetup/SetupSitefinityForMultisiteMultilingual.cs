@@ -55,14 +55,14 @@ namespace FeatherWidgets.TestUI.Arrangements
         /// <param name="site">The site.</param>
         /// <param name="culture">The culture.</param>       
         internal void SharePageTemplateWithSite(string site, string culture)
-        {            
-            this.RenamePageTemplate(PageTemplateNameB, PageTemplateNameB1);
-            this.RenamePageTemplate(PageTemplateNameS, PageTemplateNameS1);
-            this.RenamePageTemplate(PageTemplateNameF, PageTemplateNameF1);
+        {
+            Guid templateIdB = this.RenamePageTemplate(PageTemplateNameB, PageTemplateNameB1);
+            Guid templateIdS = this.RenamePageTemplate(PageTemplateNameS, PageTemplateNameS1);
+            Guid templateIdF = this.RenamePageTemplate(PageTemplateNameF, PageTemplateNameF1);
 
-            Guid templateIdB = ServerOperations.Templates().GetTemplateIdByTitle(PageTemplateNameB1);
-            Guid templateIdS = ServerOperations.Templates().GetTemplateIdByTitle(PageTemplateNameS1);
-            Guid templateIdF = ServerOperations.Templates().GetTemplateIdByTitle(PageTemplateNameF1);
+            ServerOperations.Templates().SharePageTemplateWithSite(PageTemplateNameB1, site);
+            ServerOperations.Templates().SharePageTemplateWithSite(PageTemplateNameS1, site);
+            ServerOperations.Templates().SharePageTemplateWithSite(PageTemplateNameF1, site);
 
             var cultureInfo = new CultureInfo(culture);
             this.CreatePureMVCPageTemplate(PageTemplateNameB, templateIdB, cultureInfo);
@@ -105,7 +105,7 @@ namespace FeatherWidgets.TestUI.Arrangements
             return templateId;
         }
 
-        private void RenamePageTemplate(string templateName, string newName)
+        private Guid RenamePageTemplate(string templateName, string newName)
         {
             var pageManager = PageManager.GetManager();
 
@@ -117,6 +117,8 @@ namespace FeatherWidgets.TestUI.Arrangements
                 }
 
                 pageManager.SaveChanges();
+
+                return template.Id;
         }
 
         private const string SiteName = "SecondSite";
