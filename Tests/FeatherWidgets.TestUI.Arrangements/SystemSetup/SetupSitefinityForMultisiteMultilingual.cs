@@ -2,7 +2,11 @@
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
+using System.Text.RegularExpressions;
 using FeatherWidgets.TestUtilities.CommonOperations;
+using Telerik.Sitefinity;
+using Telerik.Sitefinity.Abstractions;
+using Telerik.Sitefinity.Model;
 using Telerik.Sitefinity.Modules.Pages;
 using Telerik.Sitefinity.Modules.Pages.Web.Services;
 using Telerik.Sitefinity.Multisite;
@@ -61,15 +65,61 @@ namespace FeatherWidgets.TestUI.Arrangements
             Guid templateIdF = ServerOperations.Templates().GetTemplateIdByTitle(PageTemplateNameF);
 
             var cultureInfo = new CultureInfo(culture);
-            ServerOperationsFeather.TemplateOperations().CreatePureMVCPageTemplate(PageTemplateNameB, templateIdB, cultureInfo);
-            ServerOperationsFeather.TemplateOperations().CreatePureMVCPageTemplate(PageTemplateNameS, templateIdS, cultureInfo);
-            ServerOperationsFeather.TemplateOperations().CreatePureMVCPageTemplate(PageTemplateNameF, templateIdF, cultureInfo);
-        }        
+            this.CreatePureMVCPageTemplate(PageTemplateNameB, templateIdB, cultureInfo);
+            this.CreatePureMVCPageTemplate(PageTemplateNameS, templateIdS, cultureInfo);
+            this.CreatePureMVCPageTemplate(PageTemplateNameF, templateIdF, cultureInfo);
+        }
+
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", MessageId = "MVC")]
+        private Guid CreatePureMVCPageTemplate(string templateTitle, Guid parentTemplateId, CultureInfo cultureInfo)
+        {
+            Guid templateId = Guid.Empty;
+            var fluent = App.WorkWith();
+            var parentTemplate = fluent.Page().PageManager.GetTemplate(parentTemplateId);
+            templateId = fluent.PageTemplate()
+                               .CreateNew()
+                               .Do(t =>
+                               {
+                                   t.Title[cultureInfo] = templateTitle;
+                                   t.Name = new Lstring(Regex.Replace(templateTitle, ArrangementConstants.UrlNameCharsToReplace, string.Empty).ToLower());
+                                   t.Description = templateTitle + " MVC";
+                                   t.ParentTemplate = parentTemplate;
+                                   t.ShowInNavigation = true;
+                                   t.Framework = PageTemplateFramework.Mvc;
+                                   t.Category = SiteInitializer.CustomTemplatesCategoryId;
+                                   t.Visible = true;
+                               })
+                               .SaveAndContinue()
+                               .Get()
+                               .Id;
+            var pageManager = PageManager.GetManager();
+            var template = pageManager.GetTemplates().Where(t => t.Id == templateId).SingleOrDefault();
+            var master = pageManager.TemplatesLifecycle.Edit(template);
+            pageManager.TemplatesLifecycle.Publish(master, cultureInfo);
+            pageManager.SaveChanges();
+
+            return templateId;
+        }
+
+        ////private void RenamePageTemplate(string templateName, string newName)
+        ////{
+        ////    var pageManager = PageManager.GetManager();
+        ////    var templateGuid = ServerOperations.Templates().GetTemplateIdByTitle(templateName);
+
+        ////    if (templateGuid != Guid.Empty)
+        ////    {
+        ////        var template = new PageTemplate()
+        ////        {
+        ////            Title = newName
+        ////        };
+        ////        pageManager.SaveChanges();
+        ////    }
+        ////}
 
         private const string SiteName = "SecondSite";
         private const string Url = "http://localhost:83/";
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1823:AvoidUnusedPrivateFields")]
-        private static readonly List<string> Cultures = new List<string>() { "en", "bg-bg" };
+        private static readonly List<string> Cultures = new List<string>() { "en", "bg-BG" };
         private const string Admin = "admin";
         private const string Password = "admin@2";
         private const string PageTemplateNameB = "Bootstrap.default";

@@ -159,38 +159,7 @@ namespace FeatherWidgets.TestUtilities.CommonOperations.Templates
                 PageManager pageManager = PageManager.GetManager();
                 return pageManager.GetTemplates().Count();
             }
-        }
-
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", MessageId = "MVC")]
-        public Guid CreatePureMVCPageTemplate(string templateTitle, Guid parentTemplateId, CultureInfo cultureInfo)
-        {
-            Guid templateId = Guid.Empty;
-            var fluent = App.WorkWith();
-            var parentTemplate = fluent.Page().PageManager.GetTemplate(parentTemplateId);
-            templateId = fluent.PageTemplate()
-                               .CreateNew()
-                               .Do(t =>
-                               {
-                                   t.Title[cultureInfo] = templateTitle;
-                                   t.Name = new Lstring(Regex.Replace(templateTitle, ArrangementConstants.UrlNameCharsToReplace, string.Empty).ToLower());
-                                   t.Description = templateTitle + " MVC";
-                                   t.ParentTemplate = parentTemplate;
-                                   t.ShowInNavigation = true;
-                                   t.Framework = PageTemplateFramework.Mvc;
-                                   t.Category = SiteInitializer.CustomTemplatesCategoryId;
-                                   t.Visible = true;
-                               })
-                               .SaveAndContinue()
-                               .Get()
-                               .Id;
-            var pageManager = PageManager.GetManager();
-            var template = pageManager.GetTemplates().Where(t => t.Id == templateId).SingleOrDefault();
-            var master = pageManager.TemplatesLifecycle.Edit(template);
-            pageManager.TemplatesLifecycle.Publish(master, cultureInfo);
-            pageManager.SaveChanges();
-
-            return templateId;
-        }
+        }        
 
         private Guid GetLastControlInPlaceHolderInTemplateId(TemplateDraft template, string placeHolder)
         {
