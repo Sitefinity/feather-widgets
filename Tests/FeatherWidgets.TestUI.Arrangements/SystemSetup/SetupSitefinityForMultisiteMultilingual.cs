@@ -55,19 +55,23 @@ namespace FeatherWidgets.TestUI.Arrangements
         /// <param name="site">The site.</param>
         /// <param name="culture">The culture.</param>       
         internal void SharePageTemplateWithSite(string site, string culture)
-        {
-            ServerOperations.Templates().SharePageTemplateWithSite(PageTemplateNameB, site);
-            ServerOperations.Templates().SharePageTemplateWithSite(PageTemplateNameS, site);
-            ServerOperations.Templates().SharePageTemplateWithSite(PageTemplateNameF, site);
+        {            
+            this.RenamePageTemplate(PageTemplateNameB, PageTemplateNameB1);
+            this.RenamePageTemplate(PageTemplateNameS, PageTemplateNameS1);
+            this.RenamePageTemplate(PageTemplateNameF, PageTemplateNameF1);
 
-            Guid templateIdB = ServerOperations.Templates().GetTemplateIdByTitle(PageTemplateNameB);
-            Guid templateIdS = ServerOperations.Templates().GetTemplateIdByTitle(PageTemplateNameS);
-            Guid templateIdF = ServerOperations.Templates().GetTemplateIdByTitle(PageTemplateNameF);
+            Guid templateIdB = ServerOperations.Templates().GetTemplateIdByTitle(PageTemplateNameB1);
+            Guid templateIdS = ServerOperations.Templates().GetTemplateIdByTitle(PageTemplateNameS1);
+            Guid templateIdF = ServerOperations.Templates().GetTemplateIdByTitle(PageTemplateNameF1);
 
             var cultureInfo = new CultureInfo(culture);
             this.CreatePureMVCPageTemplate(PageTemplateNameB, templateIdB, cultureInfo);
             this.CreatePureMVCPageTemplate(PageTemplateNameS, templateIdS, cultureInfo);
             this.CreatePureMVCPageTemplate(PageTemplateNameF, templateIdF, cultureInfo);
+
+            ServerOperations.Templates().SharePageTemplateWithSite(PageTemplateNameB, site);
+            ServerOperations.Templates().SharePageTemplateWithSite(PageTemplateNameS, site);
+            ServerOperations.Templates().SharePageTemplateWithSite(PageTemplateNameF, site);
         }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", MessageId = "MVC")]
@@ -101,20 +105,19 @@ namespace FeatherWidgets.TestUI.Arrangements
             return templateId;
         }
 
-        ////private void RenamePageTemplate(string templateName, string newName)
-        ////{
-        ////    var pageManager = PageManager.GetManager();
-        ////    var templateGuid = ServerOperations.Templates().GetTemplateIdByTitle(templateName);
+        private void RenamePageTemplate(string templateName, string newName)
+        {
+            var pageManager = PageManager.GetManager();
 
-        ////    if (templateGuid != Guid.Empty)
-        ////    {
-        ////        var template = new PageTemplate()
-        ////        {
-        ////            Title = newName
-        ////        };
-        ////        pageManager.SaveChanges();
-        ////    }
-        ////}
+                var template = pageManager.GetTemplates().Where(t => t.Title == templateName).SingleOrDefault();
+
+                if (template != null)
+                {
+                    template.Title = newName;
+                }
+
+                pageManager.SaveChanges();
+        }
 
         private const string SiteName = "SecondSite";
         private const string Url = "http://localhost:83/";
@@ -125,5 +128,9 @@ namespace FeatherWidgets.TestUI.Arrangements
         private const string PageTemplateNameB = "Bootstrap.default";
         private const string PageTemplateNameS = "Foundation.default";
         private const string PageTemplateNameF = "SemanticUI.default";
+
+        private const string PageTemplateNameB1 = "Bootstrap1.default";
+        private const string PageTemplateNameS1 = "Foundation1.default";
+        private const string PageTemplateNameF1 = "SemanticUI1.default";
     }
 }
