@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
+using FeatherWidgets.TestUtilities.CommonOperations;
 using Telerik.Sitefinity.Modules.Pages;
 using Telerik.Sitefinity.Modules.Pages.Web.Services;
 using Telerik.Sitefinity.Multisite;
@@ -47,10 +49,9 @@ namespace FeatherWidgets.TestUI.Arrangements
         /// Shares the page template with site.
         /// </summary>
         /// <param name="site">The site.</param>
-        /// <param name="culture">The culture.</param>
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode"), System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA1801:ReviewUnusedParameters", MessageId = "site"), System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA1801:ReviewUnusedParameters", MessageId = "culture")]
+        /// <param name="culture">The culture.</param>       
         internal void SharePageTemplateWithSite(string site, string culture)
-        {           
+        {
             ServerOperations.Templates().SharePageTemplateWithSite(PageTemplateNameB, site);
             ServerOperations.Templates().SharePageTemplateWithSite(PageTemplateNameS, site);
             ServerOperations.Templates().SharePageTemplateWithSite(PageTemplateNameF, site);
@@ -59,9 +60,10 @@ namespace FeatherWidgets.TestUI.Arrangements
             Guid templateIdS = ServerOperations.Templates().GetTemplateIdByTitle(PageTemplateNameS);
             Guid templateIdF = ServerOperations.Templates().GetTemplateIdByTitle(PageTemplateNameF);
 
-            ServerOperations.Multilingual().Templates().CreateLocalizedPageTemplate(templateIdB, PageTemplateNameB, culture, site, framework: PageTemplateFramework.Mvc);
-            ServerOperations.Multilingual().Templates().CreateLocalizedPageTemplate(templateIdF, PageTemplateNameF, culture, site, framework: PageTemplateFramework.Mvc);
-            ServerOperations.Multilingual().Templates().CreateLocalizedPageTemplate(templateIdS, PageTemplateNameS, culture, site, framework: PageTemplateFramework.Mvc);
+            var cultureInfo = new CultureInfo(culture);
+            ServerOperationsFeather.TemplateOperations().CreatePureMVCPageTemplate(PageTemplateNameB, templateIdB, cultureInfo);
+            ServerOperationsFeather.TemplateOperations().CreatePureMVCPageTemplate(PageTemplateNameS, templateIdS, cultureInfo);
+            ServerOperationsFeather.TemplateOperations().CreatePureMVCPageTemplate(PageTemplateNameF, templateIdF, cultureInfo);
         }        
 
         private const string SiteName = "SecondSite";
