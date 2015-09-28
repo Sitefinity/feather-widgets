@@ -56,22 +56,22 @@ namespace FeatherWidgets.TestUI.Arrangements
         /// <param name="culture">The culture.</param>       
         internal void SharePageTemplateWithSite(string site, string culture)
         {
-            Guid templateIdB = this.RenamePageTemplate(PageTemplateNameB, PageTemplateNameB1);
-            Guid templateIdS = this.RenamePageTemplate(PageTemplateNameS, PageTemplateNameS1);
-            Guid templateIdF = this.RenamePageTemplate(PageTemplateNameF, PageTemplateNameF1);
+           ServerOperations.Templates().SharePageTemplateWithSite(PageTemplateNameB, site);
+            ServerOperations.Templates().SharePageTemplateWithSite(PageTemplateNameS, site);
+            ServerOperations.Templates().SharePageTemplateWithSite(PageTemplateNameF, site);
 
-            ServerOperations.Templates().SharePageTemplateWithSite(PageTemplateNameB1, site);
-            ServerOperations.Templates().SharePageTemplateWithSite(PageTemplateNameS1, site);
-            ServerOperations.Templates().SharePageTemplateWithSite(PageTemplateNameF1, site);
+            Guid templateIdB = ServerOperations.Templates().GetTemplateIdByTitle(PageTemplateNameB);
+            Guid templateIdS = ServerOperations.Templates().GetTemplateIdByTitle(PageTemplateNameS);
+            Guid templateIdF = ServerOperations.Templates().GetTemplateIdByTitle(PageTemplateNameF);
 
-            ////var cultureInfo = new CultureInfo(culture);
-            ////this.CreatePureMVCPageTemplate(PageTemplateNameB, templateIdB, cultureInfo);
-            ////this.CreatePureMVCPageTemplate(PageTemplateNameS, templateIdS, cultureInfo);
-            ////this.CreatePureMVCPageTemplate(PageTemplateNameF, templateIdF, cultureInfo);
-
-            ////ServerOperations.Templates().SharePageTemplateWithSite(PageTemplateNameB, site);
-            ////ServerOperations.Templates().SharePageTemplateWithSite(PageTemplateNameS, site);
-            ////ServerOperations.Templates().SharePageTemplateWithSite(PageTemplateNameF, site);
+            ServerOperations.Multilingual().Templates().CreateLocalizedPageTemplate(templateIdB, PageTemplateNameB, culture, site, framework: PageTemplateFramework.Mvc);
+            ServerOperations.Multilingual().Templates().CreateLocalizedPageTemplate(templateIdF, PageTemplateNameF, culture, site, framework: PageTemplateFramework.Mvc);
+            ServerOperations.Multilingual().Templates().CreateLocalizedPageTemplate(templateIdS, PageTemplateNameS, culture, site, framework: PageTemplateFramework.Mvc);
+          
+            var cultureInfo = new CultureInfo(culture);
+            this.CreatePureMVCPageTemplate(PageTemplateNameB, templateIdB, cultureInfo);
+            this.CreatePureMVCPageTemplate(PageTemplateNameS, templateIdS, cultureInfo);
+            this.CreatePureMVCPageTemplate(PageTemplateNameF, templateIdF, cultureInfo);
         }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", MessageId = "MVC")]
@@ -104,21 +104,21 @@ namespace FeatherWidgets.TestUI.Arrangements
             return templateId;
         }
 
-        private Guid RenamePageTemplate(string templateName, string newName)
-        {
-            var pageManager = PageManager.GetManager();
+        ////private Guid RenamePageTemplate(string templateName, string newName)
+        ////{
+        ////    var pageManager = PageManager.GetManager();
 
-                var template = pageManager.GetTemplates().Where(t => t.Title == templateName).SingleOrDefault();
+        ////        var template = pageManager.GetTemplates().Where(t => t.Title == templateName).SingleOrDefault();
 
-                if (template != null)
-                {
-                    template.Title = newName;
-                }
+        ////        if (template != null)
+        ////        {
+        ////            template.Title = newName;
+        ////        }
 
-                pageManager.SaveChanges();
+        ////        pageManager.SaveChanges();
 
-                return template.Id;
-        }
+        ////        return template.Id;
+        ////}
 
         private const string SiteName = "SecondSite";
         private const string Url = "http://localhost:83/";
