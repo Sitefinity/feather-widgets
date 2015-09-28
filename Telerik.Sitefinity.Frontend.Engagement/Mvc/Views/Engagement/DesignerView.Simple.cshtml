@@ -1,0 +1,75 @@
+@using Telerik.Sitefinity.Mvc;
+@using Telerik.Sitefinity.Frontend.Mvc.Helpers;
+
+<form>
+    <div class="form-group">
+        <label>Heading
+            <input type="text" class="form-control" ng-model="properties.Heading.PropertyValue" />
+        </label>
+    </div>
+
+    <div class="form-group">
+        <label>Description</label>
+        <sf-html-field class="kendo-content-block" sf-model="properties.Description.PropertyValue"></sf-html-field>
+    </div>
+
+    <label>Image</label>
+    <div class="form-group">
+        <sf-image-field class="sf-Media--info modal-settings"
+            sf-model="properties.ImageId.PropertyValue"
+            sf-image="selectedImage"
+            sf-provider="properties.ImageProviderName.PropertyValue"></sf-image-field>
+    </div>
+
+    <div class="form-group">
+        <label>Label
+            <input type="text" ng-model="properties.ActionName.PropertyValue" class="form-control" />
+        </label>
+    </div>
+
+    <div class="form-group">
+
+        <div class="label-content">
+            <div class="radio">
+                <label>
+                    <input type="radio" ng-model="isPageSelectMode" ng-value="true" />
+                    Select page
+                </label>
+                <sf-list-selector
+                    class="label-content"
+                    sf-page-selector
+                    sf-selected-item-id="properties.LinkedPageId.PropertyValue"
+                    ng-show="isPageSelectMode"></sf-list-selector>
+            </div>
+            <div class="radio">
+                <label>
+                    <input type="radio" ng-model="isPageSelectMode" ng-value="false" />
+                    External Url
+                </label>
+                <input type="text"  class="form-control" ng-show="!isPageSelectMode" ng-model="properties.LinkedUrl.PropertyValue" />
+            </div>
+        </div>
+    </div>
+
+    <expander expander-title='@Html.Resource("MoreOptions")'>
+        <div class="form-group">
+            <label for="templateName">@Html.Resource("Template")</label>
+            <div class="row">
+                <div class="col-xs-6">
+                    <select id="templateName" ng-model="properties.TemplateName.PropertyValue" class="form-control">
+                        @foreach (var viewName in Html.GetViewNames("Engagement", @"(?<viewName>^Engagement.*)$"))
+                        {
+                            <option value="@viewName">@viewName</option>
+                        }
+                    </select>
+                </div>
+            </div>
+        </div>
+        <style-dropdown selected-class="properties.CssClass.PropertyValue" view-name="properties.TemplateName.PropertyValue"></style-dropdown>
+        <div class="form-group">
+            <label>@Html.Resource("CssClasses")
+                <input type="text" ng-model="properties.CssClass.PropertyValue" class="form-control" />
+            </label>
+        </div>
+    </expander>
+</form>
