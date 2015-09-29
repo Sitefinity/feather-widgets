@@ -3,19 +3,21 @@
 @using Telerik.Sitefinity.Frontend.Mvc.Helpers;
 @using Telerik.Sitefinity.Mvc;
 
-<div class="form-group">
+<div>
     <h4>@Html.Resource("WhatsThis")</h4>
     <p class="m-bottom-lg">
         @Html.Resource("WhatsRecaptchaDescription") 
         <a href="https://www.google.com/recaptcha/intro/index.html" target="_blank">@Html.Resource("LearnMore")</a>
     </p>
 
-    <div class="checkbox">
-        <label for="requestUnauthenticatedUsers">
-            <input id="requestUnauthenticatedUsers" type="checkbox" ng-model="properties.Model.DisplayOnlyForUnauthenticatedUsers.PropertyValue"
-                   ng-true-value="'True'" ng-false-value="'False'" ng-checked="properties.Model.DisplayOnlyForUnauthenticatedUsers.PropertyValue === 'True'" />
-            @Html.Resource("RequestUnauthenticatedUsersOnly")
-        </label>
+    <div class="form-group">
+        <div class="checkbox">
+            <label for="requestUnauthenticatedUsers">
+                <input id="requestUnauthenticatedUsers" type="checkbox" ng-model="properties.Model.DisplayOnlyForUnauthenticatedUsers.PropertyValue"
+                       ng-true-value="'True'" ng-false-value="'False'" ng-checked="properties.Model.DisplayOnlyForUnauthenticatedUsers.PropertyValue === 'True'" />
+                @Html.Resource("RequestUnauthenticatedUsersOnly")
+            </label>
+        </div>
     </div>
     
     <div class="form-group">
@@ -67,18 +69,13 @@
         </div>
     </div>
 </div>
-<div class="Options Options-section">
+<div class="Options Options-simple-section">
     
   <label>@Html.Resource("Preview")</label>
     @Html.Script("//www.google.com/recaptcha/api.js?onload=$.fn.refreshCaptcha&render=explicit", "bottom", false)
   <div data-sf-role="recaptcha-preview" data-sitekey="{{properties.Model.DataSitekey.PropertyValue}}" data-size="{{properties.Model.Size.PropertyValue}}" data-type="{{properties.Model.DataType.PropertyValue}}" data-theme="{{properties.Model.Theme.PropertyValue}}"></div>
 
 </div>
-
-        
-<expander expander-title='@Html.Resource("MoreOptions")'>
-</expander>
-
 
 
  <script type="text/javascript">
