@@ -100,22 +100,6 @@ namespace FeatherWidgets.TestUI.Arrangements
             return templateId;
         }
 
-        ////private Guid RenamePageTemplate(string templateName, string newName)
-        ////{
-        ////    var pageManager = PageManager.GetManager();
-
-        ////        var template = pageManager.GetTemplates().Where(t => t.Title == templateName).SingleOrDefault();
-
-        ////        if (template != null)
-        ////        {
-        ////            template.Title = newName;
-        ////        }
-
-        ////        pageManager.SaveChanges();
-
-        ////        return template.Id;
-        ////}
-
         private const string SiteName = "SecondSite";
         private const string Url = "http://localhost:83/";
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1823:AvoidUnusedPrivateFields")]
