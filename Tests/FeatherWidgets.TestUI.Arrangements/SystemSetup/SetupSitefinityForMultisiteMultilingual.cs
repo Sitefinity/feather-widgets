@@ -64,10 +64,6 @@ namespace FeatherWidgets.TestUI.Arrangements
             Guid templateIdS = ServerOperations.Templates().GetTemplateIdByTitle(PageTemplateNameS);
             Guid templateIdF = ServerOperations.Templates().GetTemplateIdByTitle(PageTemplateNameF);
 
-            ServerOperations.Multilingual().Templates().CreateLocalizedPageTemplate(templateIdB, PageTemplateNameB, culture, site, framework: PageTemplateFramework.Mvc);
-            ServerOperations.Multilingual().Templates().CreateLocalizedPageTemplate(templateIdF, PageTemplateNameF, culture, site, framework: PageTemplateFramework.Mvc);
-            ServerOperations.Multilingual().Templates().CreateLocalizedPageTemplate(templateIdS, PageTemplateNameS, culture, site, framework: PageTemplateFramework.Mvc);
-          
             var cultureInfo = new CultureInfo(culture);
             this.CreatePureMVCPageTemplate(PageTemplateNameB1, templateIdB, cultureInfo);
             this.CreatePureMVCPageTemplate(PageTemplateNameS1, templateIdS, cultureInfo);
