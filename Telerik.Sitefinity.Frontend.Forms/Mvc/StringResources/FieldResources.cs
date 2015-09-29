@@ -579,6 +579,20 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.StringResources
         }
 
         /// <summary>
+        /// Gets phrase : Example: First name
+        /// </summary>
+        [ResourceEntry("ExampleTitleUpload",
+            Value = "Example: Select an image",
+            Description = "phrase : Example: <i>Select an image</i>",
+            LastModified = "2015/09/25")]
+        public string ExampleTitleUpload
+        {
+            get
+            {
+                return this["ExampleTitleUpload"];
+            }
+        }
+        /// <summary>
         /// Gets phrase : Suitable for giving examples and instructions how the entered value will be used
         /// </summary>
         [ResourceEntry("ExampleExplanation",
