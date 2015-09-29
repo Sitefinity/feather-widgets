@@ -19,7 +19,7 @@ namespace Telerik.Sitefinity.Frontend.Forms
             writer.WriteLine("@using Telerik.Sitefinity.Frontend.Forms.Mvc.Helpers;");
             writer.WriteLine("@using Telerik.Sitefinity.Frontend.Forms.Mvc.Models;");
             writer.WriteLine("<div class=\"@Model.CssClass\">");
-            writer.WriteLine("@using (Html.BeginFormSitefinity(\"\", null, null, FormMethod.Post, new { enctype = \"multipart/form-data\" })){");
+            writer.WriteLine("@using (Html.BeginFormSitefinity(\"\", null, (System.Web.Routing.RouteValueDictionary)null, FormMethod.Post, new Dictionary<string, object>{ {\"enctype\" , \"multipart/form-data\" }}, true)){");
 
             writer.Write(this.GetFieldsMarkup("Body", form.Controls.ToArray()));
 
