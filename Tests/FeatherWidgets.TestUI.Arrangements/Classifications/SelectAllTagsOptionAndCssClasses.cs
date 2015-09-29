@@ -30,6 +30,7 @@ namespace FeatherWidgets.TestUI.Arrangements
             ServerOperationsFeather.NewsOperations().CreatePublishedNewsItem(NewsTitle + 1, NewsContent, AuthorName, SourceName, null, new List<string> { TaxonTitle + 1 }, null);
             ServerOperationsFeather.NewsOperations().CreatePublishedNewsItem(NewsTitle + 2, NewsContent, AuthorName, SourceName, null, new List<string> { TaxonTitle + 2 }, null);
             ServerOperationsFeather.Pages().AddNewsWidgetToPage(pageId);
+            ServerOperationsFeather.Pages().AddTagsWidgetToPage(pageId);
         }
 
         /// <summary>

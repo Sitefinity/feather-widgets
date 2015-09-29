@@ -23,7 +23,6 @@ namespace FeatherWidgets.TestUI.TestCases.Classifications
         {
             BAT.Macros().NavigateTo().Pages(this.Culture);  
             BAT.Wrappers().Backend().Pages().PagesWrapper().OpenPageZoneEditor(PageName);
-            BATFeather.Wrappers().Backend().Pages().PageZoneEditorWrapper().AddMvcWidgetHybridModePage(WidgetName);
             BATFeather.Wrappers().Backend().Pages().PageZoneEditorWrapper().EditWidget(WidgetName);
             BATFeather.Wrappers().Backend().Classifications().TagsWrapper().VerifyCheckedRadioButtonOption(TagsRadioButtonIds.allTags);
             BATFeather.Wrappers().Backend().Classifications().TagsWrapper().VerifySelectedSortingOption(SortingOption);

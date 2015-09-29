@@ -20,7 +20,7 @@ namespace FeatherWidgets.TestUI.Arrangements
         [ServerSetUp]
         public void SetUp()
         {
-            Guid templateId = ServerOperationsFeather.TemplateOperations().GetTemplateIdByTitle(PageTemplateName);
+            Guid templateId = ServerOperations.Templates().GetTemplateIdByTitle(PageTemplateName);
             Guid pageId = ServerOperations.Pages().CreatePage(PageName, templateId);
             Guid pageNodeId = ServerOperations.Pages().GetPageNodeId(pageId);
             ServerOperationsFeather.Pages().AddUsersListWidgetToPage(pageNodeId, PlaceHolderId);

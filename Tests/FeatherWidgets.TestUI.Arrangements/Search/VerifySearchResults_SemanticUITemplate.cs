@@ -26,7 +26,7 @@ namespace FeatherWidgets.TestUI.Arrangements
             Guid searchIndexId = ServerOperations.Search().CreateSearchIndex(SearchIndexName, new[] { SearchContentType.News });
             ServerOperations.Search().Reindex(searchIndexId);
 
-            Guid templateId = ServerOperationsFeather.TemplateOperations().GetTemplateIdByTitle(PageTemplateName);
+            Guid templateId = ServerOperations.Templates().GetTemplateIdByTitle(PageTemplateName);
             ServerOperations.Pages().CreatePage(SearchPageTitle, templateId);
             Guid newsPageId = ServerOperations.Pages().CreatePage(NewsPageTitle);
             ServerOperationsFeather.Pages().AddNewsWidgetToPage(newsPageId);
