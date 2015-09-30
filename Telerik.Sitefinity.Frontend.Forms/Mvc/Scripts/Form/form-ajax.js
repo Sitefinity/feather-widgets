@@ -28,8 +28,8 @@
                 }
 
                 var selectFields = formContainer.find('select[name]');
-                for (var i = 0; i < selectFields.length; i++) {
-                    formData.append(selectFields[i].name, $(selectFields[i]).val());
+                for (var j = 0; j < selectFields.length; j++) {
+                    formData.append(selectFields[j].name, $(selectFields[j]).val());
                 }
 
                 var request = new XMLHttpRequest();
