@@ -4,8 +4,6 @@ using System.ComponentModel;
 using System.Web;
 using System.Web.Mvc;
 using Telerik.Sitefinity.ContentLocations;
-using Telerik.Sitefinity.Forms.Model;
-using Telerik.Sitefinity.Modules.Forms;
 
 namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Models
 {
@@ -48,6 +46,19 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Models
         /// Gets or sets the custom confirmation page id to redirect to when the form is submited.
         /// </summary>
         Guid CustomConfirmationPageId { get; set; }
+
+        /// <summary>
+        /// Gets or sets a value indicating whether the control to use Ajax submit when the form submit button is clicked
+        /// </summary>
+        bool UseAjaxSubmit { get; set; }
+
+        /// <summary>
+        /// Gets or sets the submit URL when using AJAX for submitting.
+        /// </summary>
+        /// <value>
+        /// The ajax submit URL.
+        /// </value>
+        string AjaxSubmitUrl { get; set; }
 
         /// <summary>
         /// Gets a value indicating whether form needs redirect after success.
