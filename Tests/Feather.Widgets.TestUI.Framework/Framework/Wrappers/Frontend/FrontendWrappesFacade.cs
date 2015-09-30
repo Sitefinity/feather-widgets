@@ -2,6 +2,7 @@
 using Feather.Widgets.TestUI.Framework.Framework.Wrappers.Frontend.CommentsAndReviews;
 using Feather.Widgets.TestUI.Framework.Framework.Wrappers.Frontend.EmailCampaigns;
 using Feather.Widgets.TestUI.Framework.Framework.Wrappers.Frontend.FeedWidget;
+using Feather.Widgets.TestUI.Framework.Framework.Wrappers.Frontend.Forms;
 using Feather.Widgets.TestUI.Framework.Framework.Wrappers.Frontend.Identity;
 using Feather.Widgets.TestUI.Framework.Framework.Wrappers.Frontend.Lists;
 using Feather.Widgets.TestUI.Framework.Framework.Wrappers.Frontend.ModuleBuilder;
@@ -174,6 +175,15 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Frontend
         public FeedWidgetWrapperFacade FeedWidget()
         {
             return new FeedWidgetWrapperFacade();
+        }
+
+        /// <summary>
+        /// Provides access to forms frontend wrapper. 
+        /// </summary>
+        /// <returns></returns>
+        public FormsWrapperFacade Forms()
+        {
+            return new FormsWrapperFacade();
         }
     }
 }

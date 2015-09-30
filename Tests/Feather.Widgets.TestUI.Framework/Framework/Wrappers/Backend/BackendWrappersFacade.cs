@@ -9,6 +9,7 @@ using Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend.CommentsAndRev
 using Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend.Css;
 using Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend.EmailCampaigns;
 using Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend.FeedWidget;
+using Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend.Forms;
 using Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend.Identity;
 using Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend.Lists;
 using Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend.Media;
@@ -164,6 +165,15 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend
         public FeedWidgetWrapperFacade FeedWidget()
         {
             return new FeedWidgetWrapperFacade();
+        }
+
+        /// <summary>
+        /// Forms widgets.
+        /// </summary>
+        /// <returns></returns>
+        public FormsWrapperFacade Forms()
+        {
+            return new FormsWrapperFacade();
         }
     }
 }

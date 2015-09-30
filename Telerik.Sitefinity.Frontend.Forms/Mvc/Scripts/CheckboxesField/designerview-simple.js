@@ -15,6 +15,12 @@
             true
         );
 
+        $scope.$watch('properties.Model.ValidatorDefinition.Required.PropertyValue', function (newValue, oldValue) {
+            if (newValue === 'True') {
+                setTimeout(function () { $('#err-message-example').focus(); }, 300);
+            }
+        });
+
         propertyService.get()
             .then(function (data) {
                 if (data) {
@@ -33,6 +39,9 @@
                 $scope.feedback.savingHandlers.push(function () {
                     var deferred = $q.defer();
 
+                    while ($scope.currentItems.indexOf('') > -1 && $scope.currentItems.length > 1) {
+                        $scope.currentItems.splice($scope.currentItems.indexOf(''), 1);
+                    }
                     if ($scope.currentItems.indexOf('') === -1) {
                         $scope.properties.Model.SerializedChoices.PropertyValue = JSON.stringify($scope.currentItems);
                         $scope.properties.Model.MetaField.DefaultValue.PropertyValue = $scope.defaultValue;
@@ -75,7 +84,10 @@
         };
 
         $scope.addItem = function () {
-            $scope.currentItems.push('');
+            console.log($scope.currentItems);
+            if ($scope.currentItems.indexOf('') === -1) {
+                $scope.currentItems.push('');
+            }
         };
 
         $scope.sortableOptions = {

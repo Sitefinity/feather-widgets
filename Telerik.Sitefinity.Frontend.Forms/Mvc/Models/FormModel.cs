@@ -200,7 +200,10 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Models
             var manager = FormsManager.GetManager();
             var form = manager.GetForm(this.FormId);
 
-            if (!this.ValidateFormSubmissionRestrictions())
+            var formEntry = new FormEntryDTO(form);
+            var formSubmition = new FormsSubmitionHelper();
+
+            if (!this.ValidateFormSubmissionRestrictions(formSubmition, formEntry))
                 return SubmitStatus.RestrictionViolation;
 
             if (!this.IsValidForm(form, collection, files, manager))
@@ -233,8 +236,9 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Models
                 }
             }
 
-            var formLanguage = SystemManager.CurrentContext.AppSettings.Multilingual ? CultureInfo.CurrentUICulture.Name : null;
-            FormsHelper.SaveFormsEntry(form, formData, postedFiles, userHostAddress, ClaimsManager.GetCurrentUserId(), formLanguage);
+            formEntry.PostedData = formData;
+            formEntry.Files = postedFiles;
+            formSubmition.Save(formEntry);
             
             return SubmitStatus.Success;
         }
@@ -277,10 +281,10 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Models
         /// <summary>
         /// Validates the form against the preset submit restrictions.
         /// </summary>
-        protected virtual bool ValidateFormSubmissionRestrictions()
+        protected virtual bool ValidateFormSubmissionRestrictions(FormsSubmitionHelper formsSubmition, FormEntryDTO formEntry)
         {
             string errorMessage;
-            var isValid = FormsHelper.ValidateFormSubmissionRestrictions(this.FormData, ClaimsManager.GetCurrentUserId(), HttpContext.Current.Request.UserHostAddress, out errorMessage);
+            var isValid = formsSubmition.ValidateRestrictions(formEntry, out errorMessage);
 
             return isValid;
         }
