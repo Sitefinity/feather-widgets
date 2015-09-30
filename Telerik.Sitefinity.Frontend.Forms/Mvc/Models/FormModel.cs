@@ -84,6 +84,19 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Models
         }
 
         /// <summary>
+        /// Gets or sets a value indicating whether the control to use Ajax submit when the form submit button is clicked
+        /// </summary>
+        public bool UseAjaxSubmit { get; set; }
+
+        /// <summary>
+        /// Gets or sets the submit URL when using AJAX for submitting.
+        /// </summary>
+        /// <value>
+        /// The ajax submit URL.
+        /// </value>
+        public string AjaxSubmitUrl { get; set; }
+
+        /// <summary>
         /// Represents the current form
         /// </summary>        
         public FormDescription FormData
@@ -130,12 +143,36 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Models
 
             var viewModel = new FormViewModel()
             {
-                FormId = this.FormId,
                 ViewMode = this.ViewMode,
-                CssClass = this.CssClass
+                CssClass = this.CssClass,
+                UseAjaxSubmit = this.UseAjaxSubmit
             };
 
-            if (!FormsManager.GetManager().GetForms().Any(f => f.Id == this.FormId && f.Status == ContentLifecycleStatus.Live && f.Visible))
+            var form = FormsManager.GetManager().GetForms().FirstOrDefault(f => f.Id == this.FormId && f.Status == ContentLifecycleStatus.Live && f.Visible);
+            if (form != null)
+            {
+                if (viewModel.UseAjaxSubmit)
+                {
+                    string baseUrl = this.AjaxSubmitUrl.IsNullOrEmpty() ? "~/Forms/Submit" : this.AjaxSubmitUrl;
+                    if (baseUrl.StartsWith("~/"))
+                    {
+                        baseUrl = RouteHelper.ResolveUrl(baseUrl, UrlResolveOptions.Rooted);
+                    }
+
+                    var separator = baseUrl.Contains('?') ? '&' : '?';
+                    viewModel.AjaxSubmitUrl = baseUrl + separator + "name={0}&formId={1}&currentMode=create".Arrange(form.Name, this.FormId);
+
+                    viewModel.SuccessMessage = this.GetSubmitMessage(SubmitStatus.Success);
+
+                    if (this.NeedsRedirect)
+                    {
+                        viewModel.RedirectUrl = this.GetRedirectPageUrl();
+                        if (viewModel.RedirectUrl.StartsWith("~/"))
+                            viewModel.RedirectUrl = RouteHelper.ResolveUrl(viewModel.RedirectUrl, UrlResolveOptions.Rooted);
+                    }
+                }
+            }
+            else
             {
                 viewModel.Error = Res.Get<FormsResources>().TheSpecifiedFormNoLongerExists;
             }

@@ -15,16 +15,15 @@ namespace Telerik.Sitefinity.Frontend.Forms
         /// <inheritDoc/>
         public override void Render(StreamWriter writer, FormDescription form)
         {
-            writer.WriteLine("@using Telerik.Sitefinity.UI.MVC;");
-            writer.WriteLine("@using Telerik.Sitefinity.Frontend.Forms.Mvc.Helpers;");
-            writer.WriteLine("@using Telerik.Sitefinity.Frontend.Forms.Mvc.Models;");
-            writer.WriteLine("<div class=\"@Model.CssClass\">");
-            writer.WriteLine("@using (Html.BeginFormSitefinity(\"\", null, (System.Web.Routing.RouteValueDictionary)null, FormMethod.Post, new Dictionary<string, object>{ {\"enctype\" , \"multipart/form-data\" }}, true)){");
+            var fileStream = typeof(FormRazorRenderer).Assembly.GetManifestResourceStream("Telerik.Sitefinity.Frontend.Forms.Mvc.Views.Form.Index.cshtml");
+            string formIndexView;
+            using (var streamReader = new StreamReader(fileStream))
+            {
+                formIndexView = streamReader.ReadToEnd();
+            }
 
-            writer.Write(this.GetFieldsMarkup("Body", form.Controls.ToArray()));
-
-            writer.WriteLine("}");
-            writer.WriteLine("</div>");
+            var result = formIndexView.Replace("## Fields Markup ##", this.GetFieldsMarkup("Body", form.Controls.ToArray()));
+            writer.Write(result);
         }
 
         protected override string GetFieldMarkup(Control controlInstance, Guid controlDataId)
