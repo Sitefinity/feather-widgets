@@ -53,6 +53,31 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend
         }
 
         /// <summary>
+        /// Selects items in form widget selector.
+        /// </summary>
+        /// <param name="itemName">Name of the item.</param>
+        public void SelectItemsInFormWidgetSelector(params string[] itemNames)
+        {
+            HtmlDiv activeTab = this.EM.Selectors.SelectorsScreen.FormSelector.AssertIsPresent("active tab");
+
+            foreach (var itemName in itemNames)
+            {
+                var itemsToSelect = activeTab.Find.AllByCustom<HtmlContainerControl>(a => a.InnerText.Equals(itemName));
+                foreach (var item in itemsToSelect)
+                {
+                    if (item.IsVisible())
+                    {
+                        item.Wait.ForVisible();
+                        item.ScrollToVisible();
+                        item.MouseClick();
+                        ActiveBrowser.RefreshDomTree();
+                        break;
+                    }
+                }
+            }
+        }
+
+        /// <summary>
         /// Selects items in hierarchical selector.
         /// </summary>
         /// <param name="itemName">Name of the item.</param>

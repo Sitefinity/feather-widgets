@@ -104,6 +104,18 @@ namespace Feather.Widgets.TestUI.Framework.Framework.ElementMap.Selectors
         }
 
         /// <summary>
+        /// Gets the form selector.
+        /// </summary>
+        /// <value>The active tab.</value>
+        public HtmlDiv FormSelector
+        {
+            get
+            {
+                return this.Get<HtmlDiv>("class=~list-group list-group-endless ng-isolate-scope");
+            }
+        }
+
+        /// <summary>
         /// Gets the all tab.
         /// </summary>
         /// <value>The all tab.</value>
