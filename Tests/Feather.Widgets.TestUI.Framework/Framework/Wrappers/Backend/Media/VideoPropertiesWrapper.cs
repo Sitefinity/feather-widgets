@@ -61,10 +61,14 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend.Media
         /// Verifies the small video properites.
         /// </summary>
         /// <param name="src">The SRC.</param>
-        public void VerifySmallVideoProperites(string src)
+        public void VerifySmallVideoProperites(string src, string culture)
         {
             HtmlDiv holder = this.EM.Media.VideoPropertiesScreen.SmallVideoHolder.AssertIsPresent("video holder");
-            holder.Find.ByExpression<HtmlVideo>("src=~" + src).AssertIsPresent("video");
+           
+            if(culture == null)
+            {
+                holder.Find.ByExpression<HtmlVideo>("src=~" + src).AssertIsPresent("video");
+            }            
         }
 
         /// <summary>

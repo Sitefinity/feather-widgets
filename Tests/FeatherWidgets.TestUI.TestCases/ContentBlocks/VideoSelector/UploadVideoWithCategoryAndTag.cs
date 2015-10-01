@@ -64,7 +64,7 @@ namespace FeatherWidgets.TestUI.TestCases.ContentBlocks.VideoSelector
             BATFeather.Wrappers().Backend().Media().MediaUploadPropertiesWrapper().UploadMediaFile();
 
             BATFeather.Wrappers().Backend().Media().VideoPropertiesWrapper().VerifyVideoInfo(NewVideoName, VideoType, Size);
-            BATFeather.Wrappers().Backend().Media().VideoPropertiesWrapper().VerifySmallVideoProperites(this.GetVideoSource(true));
+            BATFeather.Wrappers().Backend().Media().VideoPropertiesWrapper().VerifySmallVideoProperites(this.GetVideoSource(true), this.Culture);
             BATFeather.Wrappers().Backend().Media().VideoPropertiesWrapper().VerifySelectedOptionAspectRatioSelector("Auto");
             BATFeather.Wrappers().Backend().Media().VideoPropertiesWrapper().PlayVideo();
             BATFeather.Wrappers().Backend().Media().VideoPropertiesWrapper().VerifyBigVideoProperites(this.GetVideoSource(true));

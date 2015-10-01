@@ -42,7 +42,7 @@ namespace FeatherWidgets.TestUI.TestCases.ContentBlocks.VideoSelector
             BATFeather.Wrappers().Backend().Media().MediaSelectorWrapper().VerifyMediaTooltip(VideoName, LibraryName, VideoType);
             BATFeather.Wrappers().Backend().Media().MediaSelectorWrapper().SelectMediaFile(VideoName);
             BATFeather.Wrappers().Backend().Media().MediaSelectorWrapper().ConfirmMediaFileSelection();
-            BATFeather.Wrappers().Backend().Media().VideoPropertiesWrapper().VerifySmallVideoProperites(this.GetVideoSource(true));
+            BATFeather.Wrappers().Backend().Media().VideoPropertiesWrapper().VerifySmallVideoProperites(this.GetVideoSource(true), this.Culture);
             BATFeather.Wrappers().Backend().Media().VideoPropertiesWrapper().VerifySelectedOptionAspectRatioSelector("Auto");
             BATFeather.Wrappers().Backend().Media().VideoPropertiesWrapper().PlayVideo();
             BATFeather.Wrappers().Backend().Media().VideoPropertiesWrapper().VerifyBigVideoProperites(this.GetVideoSource(true));
@@ -53,7 +53,7 @@ namespace FeatherWidgets.TestUI.TestCases.ContentBlocks.VideoSelector
             BATFeather.Wrappers().Backend().ContentBlocks().ContentBlocksWrapper()
                 .VerifyContentBlockVideoDesignMode(this.GetVideoSource(true), this.GetSfRef(videoId), "600", "450");
             BATFeather.Wrappers().Backend().ContentBlocks().ContentBlocksWrapper().SaveChanges();
-            BATFeather.Wrappers().Backend().Pages().PageZoneEditorMediaWrapper().VerifyVideo(this.GetVideoSource(false), Width, Height);
+            BATFeather.Wrappers().Backend().Pages().PageZoneEditorMediaWrapper().VerifyVideo(this.GetVideoSource(false), this.Culture, Width, Height);
             BAT.Wrappers().Backend().Pages().PageZoneEditorWrapper().PublishPage();
 
             BAT.Macros().NavigateTo().CustomPage("~/" + PageName.ToLower(), true, this.Culture);

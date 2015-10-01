@@ -35,11 +35,11 @@ namespace FeatherWidgets.TestUI.TestCases.DocumentsList
             {
                 if (doc.Equals("Document1"))
                 {
-                    BATFeather.Wrappers().Backend().Pages().PageZoneEditorMediaWrapper().VerifyDocumentInTableView(doc, this.GetDocumentHref(true, doc, PageName + "/" + ContentType, LibraryName.ToLower()));
+                    BATFeather.Wrappers().Backend().Pages().PageZoneEditorMediaWrapper().VerifyDocumentInTableView(doc, this.GetDocumentHref(true, doc, PageName + "/" + ContentType, LibraryName.ToLower()), this.Culture);
                 }
                 else 
                 {
-                    BATFeather.Wrappers().Backend().Pages().PageZoneEditorMediaWrapper().VerifyDocumentInTableView(doc, this.GetDocumentHref(true, doc, PageName + "/" + ContentType, AnotherDocumentLibraryTitle.ToLower()));
+                    BATFeather.Wrappers().Backend().Pages().PageZoneEditorMediaWrapper().VerifyDocumentInTableView(doc, this.GetDocumentHref(true, doc, PageName + "/" + ContentType, AnotherDocumentLibraryTitle.ToLower()), this.Culture);
                 }
             }
 

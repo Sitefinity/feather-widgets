@@ -39,7 +39,7 @@ namespace FeatherWidgets.TestUI.TestCases.ContentBlocks.VideoSelector
             BATFeather.Wrappers().Backend().Media().VideoPropertiesWrapper().EditAllProperties();
             BATFeather.Wrappers().Backend().Media().VideoPropertiesWrapper().EnterNewTitleInPropertiesDialogAndPublish(VideoNewName);
             BATFeather.Wrappers().Backend().Media().VideoPropertiesWrapper().VerifyVideoInfo(VideoNewName, VideoType, Size);
-            BATFeather.Wrappers().Backend().Media().VideoPropertiesWrapper().VerifySmallVideoProperites(this.GetVideoSource(true));
+            BATFeather.Wrappers().Backend().Media().VideoPropertiesWrapper().VerifySmallVideoProperites(this.GetVideoSource(true), this.Culture);
 
             BATFeather.Wrappers().Backend().Media().VideoPropertiesWrapper().ChangeMediaFile();
             BATFeather.Wrappers().Backend().Media().MediaSelectorWrapper().SearchInMediaSelector(VideoName1);

@@ -35,7 +35,7 @@ namespace FeatherWidgets.TestUI.TestCases.DocumentsList
             BATFeather.Wrappers().Backend().Widgets().WidgetDesignerWrapper().SaveChanges();
             foreach (var doc in this.documentTitles)
             {
-                BATFeather.Wrappers().Backend().Pages().PageZoneEditorMediaWrapper().VerifyDocument(doc, this.GetDocumentHref(true, doc, PageName + "/" + ContentType));
+                BATFeather.Wrappers().Backend().Pages().PageZoneEditorMediaWrapper().VerifyDocument(doc, this.GetDocumentHref(true, doc, PageName + "/" + ContentType), this.Culture);
                 BATFeather.Wrappers().Backend().Pages().PageZoneEditorMediaWrapper().VerifyDocumentIconOnTemplate(DocumentType);
             }
 
@@ -45,7 +45,7 @@ namespace FeatherWidgets.TestUI.TestCases.DocumentsList
 
             foreach (var doc in this.documentTitles)
             {
-                BATFeather.Wrappers().Frontend().DocumentsList().DocumentsListWrapper().VerifyDocument(doc, this.GetDocumentHref(true, doc, PageName + "/" + ContentType));
+                BATFeather.Wrappers().Frontend().DocumentsList().DocumentsListWrapper().VerifyDocument(doc, this.GetDocumentHref(true, doc, PageName + "/" + ContentType), this.Culture);
                 BATFeather.Wrappers().Frontend().DocumentsList().DocumentsListWrapper().VerifyDownloadButton(this.GetDownloadHref(true, doc, ContentType));              
             }
 

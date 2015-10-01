@@ -61,7 +61,7 @@ namespace FeatherWidgets.TestUI.TestCases.ImageGallery
             BATFeather.Wrappers().Frontend().ImageGallery().ImageGalleryWrapper().VerifyImage(ImageAltText + 2, scr);
 
             var hrefPrevious = this.GetImageHref(true, this.imageTitles[0]);
-            BATFeather.Wrappers().Frontend().ImageGallery().ImageGalleryWrapper().VerifyPreviousImage(hrefPrevious);
+            BATFeather.Wrappers().Frontend().ImageGallery().ImageGalleryWrapper().VerifyPreviousImage(hrefPrevious, this.Culture);
 
             var hrefNext = this.GetImageHref(true, this.imageTitles[2]);
             BATFeather.Wrappers().Frontend().ImageGallery().ImageGalleryWrapper().VerifyNextImage(hrefNext);

@@ -46,7 +46,7 @@ namespace FeatherWidgets.TestUI.TestCases.DocumentsList
                 }
                 else
                 {
-                    BATFeather.Wrappers().Backend().Pages().PageZoneEditorMediaWrapper().VerifyDocument(DocumentBaseTitle + i, this.GetDocumentHref(true, DocumentBaseTitle + i, SingleItemPage.ToLower() + "/" + ContentType));
+                    BATFeather.Wrappers().Backend().Pages().PageZoneEditorMediaWrapper().VerifyDocument(DocumentBaseTitle + i, this.GetDocumentHref(true, DocumentBaseTitle + i, SingleItemPage.ToLower() + "/" + ContentType), this.Culture);
                 }
             }
 
@@ -61,7 +61,7 @@ namespace FeatherWidgets.TestUI.TestCases.DocumentsList
                 }
                 else
                 {
-                    BATFeather.Wrappers().Frontend().DocumentsList().DocumentsListWrapper().VerifyDocument(DocumentBaseTitle + i, this.GetDocumentHref(true, DocumentBaseTitle + i, SingleItemPage.ToLower() + "/" + ContentType));
+                    BATFeather.Wrappers().Frontend().DocumentsList().DocumentsListWrapper().VerifyDocument(DocumentBaseTitle + i, this.GetDocumentHref(true, DocumentBaseTitle + i, SingleItemPage.ToLower() + "/" + ContentType), this.Culture);
                     BATFeather.Wrappers().Frontend().DocumentsList().DocumentsListWrapper().VerifyDownloadButton(this.GetDownloadHref(true, DocumentBaseTitle + i, ContentType));
                 }
             }
