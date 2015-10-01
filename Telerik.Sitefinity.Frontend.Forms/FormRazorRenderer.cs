@@ -1,6 +1,7 @@
 ﻿using System;
 using System.IO;
 using System.Linq;
+using System.Web.Hosting;
 using System.Web.UI;
 using Telerik.Sitefinity.Forms.Model;
 using Telerik.Sitefinity.Mvc.Proxy;
@@ -15,11 +16,11 @@ namespace Telerik.Sitefinity.Frontend.Forms
         /// <inheritDoc/>
         public override void Render(StreamWriter writer, FormDescription form)
         {
-            var fileStream = typeof(FormRazorRenderer).Assembly.GetManifestResourceStream("Telerik.Sitefinity.Frontend.Forms.Mvc.Views.Form.Index.cshtml");
+            var virtualPath = "~/Frontend-Assembly/Telerik.Sitefinity.Frontend.Forms/Mvc/Views/Form/Index.cshtml";
             string formIndexView;
-            using (var streamReader = new StreamReader(fileStream))
+            using (StreamReader reader = new StreamReader(HostingEnvironment.VirtualPathProvider.GetFile(virtualPath).Open()))
             {
-                formIndexView = streamReader.ReadToEnd();
+                formIndexView = reader.ReadToEnd();
             }
 
             var result = formIndexView.Replace("## Fields Markup ##", this.GetFieldsMarkup("Body", form.Controls.ToArray()));

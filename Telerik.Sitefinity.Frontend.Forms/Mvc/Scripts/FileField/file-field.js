@@ -89,11 +89,7 @@
         var fileTypesValidationResult = ev.data.config.AcceptedFileTypes.length === 0 || checkFileTypes(ev.data.container, ev.data.config.AcceptedFileTypes);
         var fileSizesValidationResult = !(ev.data.config.MinFileSizeInMb || ev.data.config.MaxFileSizeInMb) || checkFileSizes(ev.data.container, ev.data.config.MinFileSizeInMb * 1024 * 1024, ev.data.config.MaxFileSizeInMb * 1024 * 1024);
 
-        var result = requiredValidationResult && fileTypesValidationResult && fileSizesValidationResult;
-        if (!result)
-            ev.stopPropagation();
-
-        return result;
+        return requiredValidationResult && fileTypesValidationResult && fileSizesValidationResult;
     };
 
     var init = function (element) {
