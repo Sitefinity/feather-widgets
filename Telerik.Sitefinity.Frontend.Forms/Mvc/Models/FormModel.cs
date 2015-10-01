@@ -153,15 +153,18 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Models
             {
                 if (viewModel.UseAjaxSubmit)
                 {
-                    string baseUrl = this.AjaxSubmitUrl.IsNullOrEmpty() ? "~/Forms/Submit" : this.AjaxSubmitUrl;
-                    if (baseUrl.StartsWith("~/"))
+                    string baseUrl;
+                    if (this.AjaxSubmitUrl.IsNullOrEmpty())
                     {
-                        baseUrl = RouteHelper.ResolveUrl(baseUrl, UrlResolveOptions.Rooted);
+                        var currentNode = SiteMapBase.GetCurrentNode();
+                        baseUrl = currentNode != null ? currentNode.Url + "/AjaxSubmit" : "";
+                    }
+                    else
+                    {
+                        baseUrl = this.AjaxSubmitUrl;
                     }
 
-                    var separator = baseUrl.Contains('?') ? '&' : '?';
-                    viewModel.AjaxSubmitUrl = baseUrl + separator + "name={0}&formId={1}&currentMode=create".Arrange(form.Name, this.FormId);
-
+                    viewModel.AjaxSubmitUrl = baseUrl.StartsWith("~/") ? RouteHelper.ResolveUrl(baseUrl, UrlResolveOptions.Rooted) : baseUrl;
                     viewModel.SuccessMessage = this.GetSubmitMessage(SubmitStatus.Success);
 
                     if (this.NeedsRedirect)

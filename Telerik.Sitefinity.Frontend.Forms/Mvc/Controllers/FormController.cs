@@ -10,6 +10,7 @@ using Telerik.Sitefinity.Frontend.Mvc.Infrastructure.Controllers.Attributes;
 using Telerik.Sitefinity.Localization;
 using Telerik.Sitefinity.Modules.Pages.Configuration;
 using Telerik.Sitefinity.Mvc;
+using Telerik.Sitefinity.Mvc.ActionFilters;
 using Telerik.Sitefinity.Web.UI;
 
 namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Controllers
@@ -86,6 +87,21 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Controllers
 
             this.TempData[sfSubmitSuccessKey] = success;
             return this.Index();
+        }
+
+        [HttpPost]
+        [StandaloneResponseFilter]
+        public JsonResult AjaxSubmit(FormCollection collection)
+        {
+            var result = this.Model.TrySubmitForm(collection, this.Request.Files, this.Request.UserHostAddress);
+            if (result != SubmitStatus.Success)
+            {
+                return this.Json(new { success = false, error = this.Model.GetSubmitMessage(result) });
+            }
+            else
+            {
+                return this.Json(new { success = true, error = string.Empty });
+            }
         }
 
         #region ICustomWidgetVisualization

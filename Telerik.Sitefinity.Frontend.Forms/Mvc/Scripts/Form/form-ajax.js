@@ -16,7 +16,7 @@
                 if (submitEvent.isPropagationStopped() || submitEvent.isDefaultPrevented())
                     return false;
 
-                var nonFilefields = formContainer.find('*[name][value][type!="file"]');
+                var nonFilefields = formContainer.find('*[name][type!="file"]');
                 var flyingForm = $('<form />');
                 nonFilefields.clone().appendTo(flyingForm);
                 var formData = new FormData(flyingForm[0]);
@@ -36,20 +36,21 @@
                 request.open('POST', submitUrl);
                 request.onload = function (ev) {
                     if (request.status === 200) {
-                        if (redirectUrl) {
-                            document.location.replace(redirectUrl);
+                        var responseJson = JSON.parse(request.response);
+                        if (responseJson.success) {
+                            if (redirectUrl) {
+                                document.location.replace(redirectUrl);
+                            }
+                            else {
+                                successMessage.show();
+                                loadingImg.hide();
+                            }
                         }
                         else {
-                            successMessage.show();
+                            errorMessage.text(responseJson.error);
+                            errorMessage.show();
                             loadingImg.hide();
                         }
-                    } else if (request.status === 409) {
-                        //someone has thrown CancelationException, we shouldn't display anything.
-                    } else {
-                        var responseJson = JSON.parse(request.response);
-                        errorMessage.text(responseJson.error);
-                        errorMessage.show();
-                        loadingImg.hide();
                     }
                 };
 
