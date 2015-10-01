@@ -12,62 +12,75 @@
             var errorMessage = formContainer.find('[data-sf-role="error-message"]');
             var redirectUrl = formContainer.find('input[data-sf-role="redirect-url"]').val();
             var submitUrl = formContainer.find('input[data-sf-role="ajax-submit-url"]').val();
-            var handler = function (submitEvent) {
-                if (submitEvent.isPropagationStopped() || submitEvent.isDefaultPrevented())
-                    return false;
 
-                var nonFilefields = formContainer.find('*[name][type!="file"]');
-                var flyingForm = $('<form />');
-                nonFilefields.clone().appendTo(flyingForm);
-                var formData = new FormData(flyingForm[0]);
+            var submitClickHandler = function () {
+                var parentForm = formContainer.closest('form');
+                var parentFormChildren = parentForm.children();
 
-                var fileFields = formContainer.find('input[name][type="file"]');
-                for (var i = 0; i < fileFields.length; i++) {
-                    if (fileFields[i].files && fileFields[i].files.length > 0)
-                        formData.append(fileFields[i].name, fileFields[i].files[0]);
+                if (parentForm.length > 0)
+                    parentFormChildren.unwrap();
+
+                var newForm = formContainer.find('form');
+                var wrapped = false;
+                if (newForm.length === 0) {
+                    wrapped = true;
+                    formContainer.wrap('<form />');
+                    newForm = formContainer.parent();
                 }
 
-                var selectFields = formContainer.find('select[name]');
-                for (var j = 0; j < selectFields.length; j++) {
-                    formData.append(selectFields[j].name, $(selectFields[j]).val());
-                }
+                newForm.one('submit', function () {
+                    var inputs = formContainer.find('input');
+                    var isValid = true;
+                    for (var i = 0; i < inputs.length; i++) {
+                        var jInput = $(inputs[i]);
+                        if (typeof (jInput.data('sfvalidator')) === 'function')
+                            isValid = jInput.data('sfvalidator')() && isValid;
+                    }
 
-                var request = new XMLHttpRequest();
-                request.open('POST', submitUrl);
-                request.onload = function (ev) {
-                    if (request.status === 200) {
-                        var responseJson = JSON.parse(request.response);
-                        if (responseJson.success) {
-                            if (redirectUrl) {
-                                document.location.replace(redirectUrl);
+                    if (!isValid)
+                        return false;
+
+                    var formData = new FormData(newForm[0]);
+                    var request = new XMLHttpRequest();
+                    request.open('POST', submitUrl);
+                    request.onload = function () {
+                        if (request.status === 200) {
+                            var responseJson = JSON.parse(request.response);
+                            if (responseJson.success) {
+                                if (redirectUrl) {
+                                    document.location.replace(redirectUrl);
+                                }
+                                else {
+                                    successMessage.show();
+                                    loadingImg.hide();
+                                }
                             }
                             else {
-                                successMessage.show();
+                                errorMessage.text(responseJson.error);
+                                errorMessage.show();
+                                fieldsContainer.show();
                                 loadingImg.hide();
                             }
                         }
-                        else {
-                            errorMessage.text(responseJson.error);
-                            errorMessage.show();
-                            loadingImg.hide();
-                        }
-                    }
-                };
+                    };
 
-                loadingImg.show();
-                fieldsContainer.hide();
-                errorMessage.hide();
+                    loadingImg.show();
+                    fieldsContainer.hide();
+                    errorMessage.hide();
 
-                request.send(formData);
+                    request.send(formData);
 
-                return false;
+                    if (wrapped)
+                        formContainer.unwrap();
+
+                    if (parentForm.length > 0)
+                        parentFormChildren.wrapAll(parentForm);
+
+                    return false;
+                });
             };
 
-            var form = formContainer.find('form');
-            if (form.length > 0)
-                form.submit(handler);
-            else
-                formContainer.find('button[type="submit"],input[type="submit"]').click(handler);
+            formContainer.find('button[type="submit"],input[type="submit"]').click(submitClickHandler);
         });
     });
 })(jQuery);
