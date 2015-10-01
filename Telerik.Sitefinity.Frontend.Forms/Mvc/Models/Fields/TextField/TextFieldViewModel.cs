@@ -52,7 +52,7 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Models.Fields.TextField
         /// <value>
         /// The validation attributes.
         /// </value>
-        public MvcHtmlString ValidationAttributes { get; internal set; }
+        public string ValidationAttributes { get; internal set; }
 
         /// <summary>
         /// Gets or sets a validation mechanism for the control.
