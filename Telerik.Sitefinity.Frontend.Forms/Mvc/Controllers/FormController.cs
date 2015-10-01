@@ -7,6 +7,7 @@ using Telerik.Sitefinity.Frontend.Forms.Mvc.Models;
 using Telerik.Sitefinity.Frontend.Forms.Mvc.StringResources;
 using Telerik.Sitefinity.Frontend.Mvc.Infrastructure.Controllers;
 using Telerik.Sitefinity.Frontend.Mvc.Infrastructure.Controllers.Attributes;
+using Telerik.Sitefinity.Frontend.Resources;
 using Telerik.Sitefinity.Localization;
 using Telerik.Sitefinity.Modules.Pages.Configuration;
 using Telerik.Sitefinity.Mvc;
@@ -50,7 +51,7 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Controllers
                 {
                     if (string.IsNullOrEmpty(viewModel.Error))
                     {
-                        var viewPath = this.Model.GetViewPath();
+                        var viewPath = this.GetViewPath(this.Model.FormId);
                         return this.View(viewPath, viewModel);
                     }
                     else
@@ -134,6 +135,19 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Controllers
         private IFormModel InitializeModel()
         {
             return ControllerModelFactory.GetModel<IFormModel>(this.GetType());
+        }
+
+        private string GetViewPath(Guid formId)
+        {
+            var currentPackage = new PackageManager().GetCurrentPackage();
+            if (string.IsNullOrEmpty(currentPackage))
+            {
+                currentPackage = "default";
+            }
+
+            var viewPath = FormsVirtualRazorResolver.Path + currentPackage + "/" + formId.ToString("D") + ".cshtml";
+
+            return viewPath;
         }
 
         #endregion

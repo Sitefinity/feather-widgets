@@ -1,11 +1,5 @@
 ﻿using System;
 using System.ComponentModel;
-using System.Text;
-using System.Web.Mvc;
-using System.Web.UI;
-using Telerik.Sitefinity.Data.Metadata;
-using Telerik.Sitefinity.Metadata.Model;
-using Telerik.Sitefinity.Modules.Forms.Web.UI.Fields;
 using Telerik.Sitefinity.Web.UI.Validation;
 using Telerik.Sitefinity.Web.UI.Validation.Contracts;
 using Telerik.Sitefinity.Web.UI.Validation.Definitions;
@@ -91,14 +85,9 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Models.Fields
         /// Builds the validation attributes.
         /// </summary>
         /// <returns></returns>
-        protected virtual MvcHtmlString BuildValidationAttributes()
+        protected virtual string BuildValidationAttributes()
         {
-            var attributes = string.Empty;
-
-            if (this.ValidatorDefinition.Required.HasValue && this.ValidatorDefinition.Required.Value)
-                attributes = "required='required'";
-
-            return new MvcHtmlString(attributes);
+            return this.ValidatorDefinition.Required.HasValue && this.ValidatorDefinition.Required.Value ? "required='required'" : string.Empty;
         }
 
         /// <inheritDocs />

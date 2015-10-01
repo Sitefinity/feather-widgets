@@ -80,11 +80,6 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Models
         FormViewModel GetViewModel();
 
         /// <summary>
-        /// Gets the view path used to render the Form widget.
-        /// </summary>
-        string GetViewPath();
-
-        /// <summary>
         /// Gets the redirect page url
         /// </summary>
         string GetRedirectPageUrl();
