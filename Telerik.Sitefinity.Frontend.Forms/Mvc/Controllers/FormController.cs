@@ -85,7 +85,11 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Controllers
             }
 
             this.TempData[sfSubmitSuccessKey] = success;
-            return this.Index();
+
+            if (success == SubmitStatus.Success)
+                return this.RedirectToAction("");
+            else
+                return this.Index();
         }
 
         #region ICustomWidgetVisualization
