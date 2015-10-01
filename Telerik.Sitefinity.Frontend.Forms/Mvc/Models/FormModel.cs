@@ -184,20 +184,6 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Models
         }
 
         /// <inheritDoc/>
-        public virtual string GetViewPath()
-        {
-            var currentPackage = new PackageManager().GetCurrentPackage();
-            if (string.IsNullOrEmpty(currentPackage))
-            {
-                currentPackage = "default";
-            }
-
-            var viewPath = FormsVirtualRazorResolver.Path + currentPackage + "/" + this.FormId.ToString("D") + ".cshtml";
-
-            return viewPath;
-        }
-
-        /// <inheritDoc/>
         public virtual SubmitStatus TrySubmitForm(FormCollection collection, HttpFileCollectionBase files, string userHostAddress)
         {
             var manager = FormsManager.GetManager();

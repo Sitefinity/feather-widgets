@@ -132,7 +132,7 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Models.Fields.TextField
         }
 
         /// <inheritDocs />
-        protected override MvcHtmlString BuildValidationAttributes()
+        protected override string BuildValidationAttributes()
         {
             var attributes = new StringBuilder();
 
@@ -164,7 +164,7 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Models.Fields.TextField
                 attributes.Append("' ");
             }
 
-            return new MvcHtmlString(attributes.ToString());
+            return attributes.ToString();
         }
 
         private ValidatorDefinition validatorDefinition;

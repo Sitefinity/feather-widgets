@@ -1,23 +1,16 @@
-﻿using System;
+﻿using Ninject;
+using System;
 using System.Collections;
-using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Web;
-using System.Web.Mvc;
-using System.Web.UI;
-using Ninject;
 using Telerik.Sitefinity.Abstractions.VirtualPath;
 using Telerik.Sitefinity.Forms.Model;
 using Telerik.Sitefinity.Modules.Forms;
-using Telerik.Sitefinity.Mvc;
-using Telerik.Sitefinity.Mvc.Proxy;
-using Telerik.Sitefinity.Pages.Model;
-using Telerik.Sitefinity.Web.UI;
 
 namespace Telerik.Sitefinity.Frontend.Forms
 {
-    public class FormsVirtualRazorResolver : IVirtualFileResolver
+    internal class FormsVirtualRazorResolver : IVirtualFileResolver
     {
         public const string Path = "~/Mvc-Form-View/";
 
