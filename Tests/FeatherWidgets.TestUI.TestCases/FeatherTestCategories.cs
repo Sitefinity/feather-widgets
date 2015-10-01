@@ -169,5 +169,10 @@ namespace FeatherWidgets.TestUI.TestCases
         /// New category for Feed tests
         /// </summary>
         public const string Feed = "Feed";
+
+        /// <summary>
+        /// New category for Forms tests
+        /// </summary>
+        public const string Forms = "Forms";
     }
 }

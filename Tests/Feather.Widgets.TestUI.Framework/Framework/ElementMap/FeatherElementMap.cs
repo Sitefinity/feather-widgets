@@ -17,6 +17,7 @@ using Feather.Widgets.TestUI.Framework.Framework.ElementMap.SocialShare;
 using Feather.Widgets.TestUI.Framework.Framework.ElementMap.Widgets;
 using Feather.Widgets.TestUI.Framework.Framework.ElementMap.WidgetTemplates;
 using Feather.Widgets.TestUI.Framework.Framework.ElementMap.FeedWidget;
+using Feather.Widgets.TestUI.Framework.Framework.ElementMap.Forms;
 
 namespace Feather.Widgets.TestUI.Framework.Framework.ElementMap
 {
@@ -432,6 +433,29 @@ namespace Feather.Widgets.TestUI.Framework.Framework.ElementMap
             }
         }
 
+        /// <summary>
+        /// Gets the FormsMap element map.
+        /// </summary>
+        /// <value>The FormsMap map.</value>
+        public FormsMap Forms
+        {
+            get
+            {
+                if (this.formsMap == null)
+                {
+                    this.EnsureFindIsInitialized();
+                    this.formsMap = new FormsMap(this.find);
+                }
+
+                return this.formsMap;
+            }
+
+            private set
+            {
+                this.formsMap = value;
+            }
+        }
+
         private void EnsureFindIsInitialized()
         {
             if (this.find == null)
@@ -458,5 +482,6 @@ namespace Feather.Widgets.TestUI.Framework.Framework.ElementMap
         private ClassificationsMap classificationsMap;
         private EmailCampaignsMap emailCampaignsMap;
         private FeedWidgetMap feedWidgetMap;
+        private FormsMap formsMap;
     }
 }

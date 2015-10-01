@@ -12,6 +12,7 @@ using Telerik.Sitefinity.Data;
 using Telerik.Sitefinity.Model;
 using Telerik.Sitefinity.Modules.Pages;
 using Telerik.Sitefinity.Pages.Model;
+using Telerik.Sitefinity.TestUtilities.CommonOperations;
 using Telerik.Sitefinity.Workflow;
 
 namespace FeatherWidgets.TestUtilities.CommonOperations.Templates
@@ -158,7 +159,7 @@ namespace FeatherWidgets.TestUtilities.CommonOperations.Templates
                 PageManager pageManager = PageManager.GetManager();
                 return pageManager.GetTemplates().Count();
             }
-        }
+        }        
 
         private Guid GetLastControlInPlaceHolderInTemplateId(TemplateDraft template, string placeHolder)
         {

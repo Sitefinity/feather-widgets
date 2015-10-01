@@ -26,7 +26,7 @@ namespace FeatherWidgets.TestUI.Arrangements
             ServerOperationsFeather.ListsOperations().CreateListItemMultilingual(this.mlconfig, this.listId, ListItem2Title, ListItem2Content, false, this.culture);
             ServerOperationsFeather.ListsOperations().CreateListItemMultilingual(this.mlconfig, this.listId, ListItem3Title, ListItem3Content, false, this.culture);
 
-            Guid templateId = ServerOperationsFeather.TemplateOperations().GetTemplateIdByTitle(PageTemplateName);
+            Guid templateId = ServerOperations.Templates().GetTemplateIdByTitle(PageTemplateName);
 
             Guid pageId1 = ServerOperations.Pages().CreatePage(AnchorListPage, templateId);
             Guid pageNodeId1 = ServerOperations.Pages().GetPageNodeId(pageId1);

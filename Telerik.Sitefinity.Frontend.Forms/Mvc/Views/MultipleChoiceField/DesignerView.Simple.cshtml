@@ -21,14 +21,14 @@
         <div class="list-group list-group-endless" kendo-sortable k-options="sortableOptions" k-on-change="sortItems(kendoEvent)">
             <div ng-repeat="item in currentItems track by $index" class="list-group-item list-group-item-multiselect" ng-class="currentItems.length > 1 ? 'list-group-item-draggable-2' : ''" >
                 <span ng-show="currentItems.length > 1" class="handler list-group-item-drag"></span>
-                <input type="radio" name="default" ng-click="setDefault(item)"  ng-checked="currentItems[$index]==defaultValue" ng-value="currentItems[$index]" />
+                <input type="radio" name="default" ng-click="setDefault(item)"  ng-checked="currentItems[$index]==defaultValue" ng-value="currentItems[$index]" tabindex="-1" />
                  <div>
                     <section class="row">
-                        <div class="col-md-10">
+                        <div class="col-md-11">
                            <input ng-click="itemClicked($event)" ng-model="currentItems[$index]" placeholder='@Html.Resource("EnterLabel")' type="text"  class="form-control-highlight" />
                         </div>
-                        <div class="col-md-2 text-right">
-                             <button ng-show="currentItems.length > 2" ng-click="removeItem(item, $index)" type="button" class="close text-right" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        <div class="col-md-1 text-right">
+                             <button ng-show="currentItems.length > 2" ng-click="removeItem(item, $index)" type="button" class="close text-right" aria-label="Close" tabindex="-1"><span aria-hidden="true">&times;</span></button>
                         </div>
                     </section>
                    
@@ -85,7 +85,7 @@
         <label for="example" >
             @Html.Resource("ErrorMessageDisplayedLabel")
         </label>
-        <input type="text" id="example" ng-model="properties.Model.ValidatorDefinition.RequiredViolationMessage.PropertyValue" class="form-control" />
+        <input type="text" id="err-message-example" ng-model="properties.Model.ValidatorDefinition.RequiredViolationMessage.PropertyValue" class="form-control" />
         
     </div>
 

@@ -1,5 +1,5 @@
 ﻿(function ($) {
-    var htmlDecode = function(html) {
+    var htmlDecode = function (html) {
         var a = document.createElement('a'); a.innerHTML = html;
         return a.textContent;
     };
@@ -89,9 +89,13 @@
         var fileTypesValidationResult = ev.data.config.AcceptedFileTypes.length === 0 || checkFileTypes(ev.data.container, ev.data.config.AcceptedFileTypes);
         var fileSizesValidationResult = !(ev.data.config.MinFileSizeInMb || ev.data.config.MaxFileSizeInMb) || checkFileSizes(ev.data.container, ev.data.config.MinFileSizeInMb * 1024 * 1024, ev.data.config.MaxFileSizeInMb * 1024 * 1024);
 
-        return requiredValidationResult && fileTypesValidationResult && fileSizesValidationResult;
+        var result = requiredValidationResult && fileTypesValidationResult && fileSizesValidationResult;
+        if (!result)
+            ev.stopPropagation();
+
+        return result;
     };
-    
+
     var init = function (element) {
         var jElement = $(element);
         var config = JSON.parse(htmlDecode(jElement.attr('data-sf-config')));
