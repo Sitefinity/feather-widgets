@@ -12,6 +12,7 @@ using Telerik.Sitefinity.Localization;
 using Telerik.Sitefinity.Modules.Pages.Configuration;
 using Telerik.Sitefinity.Mvc;
 using Telerik.Sitefinity.Mvc.ActionFilters;
+using Telerik.Sitefinity.Mvc.Proxy;
 using Telerik.Sitefinity.Web.UI;
 
 namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Controllers
@@ -44,7 +45,8 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Controllers
         /// </summary>
         public ActionResult Index()
         {
-            var success = this.TempData[sfSubmitSuccessKey];
+            var submitSuccesKey = this.sfSubmitSuccessKey + this.ViewData["sf_cntrl_id"];
+            var success = this.TempData[submitSuccesKey];
             if (success == null)
             {
                 var viewModel = this.Model.GetViewModel();
@@ -86,7 +88,8 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Controllers
                 return this.Redirect(this.Model.GetRedirectPageUrl());
             }
 
-            this.TempData[sfSubmitSuccessKey] = success;
+            var submitSuccesKey = this.sfSubmitSuccessKey + this.ViewData["sf_cntrl_id"];
+            this.TempData[submitSuccesKey] = success;
 
             if (success == SubmitStatus.Success)
                 return this.RedirectToAction("");
