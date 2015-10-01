@@ -2,11 +2,9 @@
 using Telerik.Microsoft.Practices.Unity;
 using Telerik.Sitefinity.Abstractions;
 using Telerik.Sitefinity.Abstractions.VirtualPath;
-using Telerik.Sitefinity.Configuration;
 using Telerik.Sitefinity.Data;
 using Telerik.Sitefinity.Frontend.Forms.Mvc.Controllers;
 using Telerik.Sitefinity.Frontend.Forms.Mvc.Models.Fields;
-using Telerik.Sitefinity.Frontend.Forms.Mvc.Models.Fields.Recaptcha;
 using Telerik.Sitefinity.Modules.ControlTemplates;
 using Telerik.Sitefinity.Modules.Forms.Configuration;
 using Telerik.Sitefinity.Modules.Pages;
@@ -38,36 +36,12 @@ namespace Telerik.Sitefinity.Frontend.Forms
             if (e.CommandName == "Bootstrapped")
             {
                 Initializer.UnregisterTemplatableControl();
-                Initializer.CreateFormsGoogleRecaptchaFieldConfig();
             }
         }
 
         private static void UnregisterTemplatableControl()
         {
             ControlTemplates.UnregisterTemplatableControl(new ControlTemplateInfo() { ControlType = typeof(FormController), AreaName = "Form" });
-        }
-
-        private static void CreateFormsGoogleRecaptchaFieldConfig()
-        {
-            const string TestGRecaptchaDataSitekey = "6LeTWwwTAAAAADnNmwCb9Rnf41n7UDvgkzs8pYrU";
-            const string TestGRecaptchaSecret = "6LeTWwwTAAAAAOTF9tzmlN0C0xvrrDB6nfamLVDJ";
-
-            var manager = ConfigManager.GetManager();
-            var formsConfigSection = manager.GetSection<FormsConfig>();
-            if (formsConfigSection.Parameters[RecaptchaModel.GRecaptchaParameterDataSiteKey] == null)
-            {
-                formsConfigSection.Parameters.Add(RecaptchaModel.GRecaptchaParameterDataSiteKey, TestGRecaptchaDataSitekey);
-            }
-
-            if (formsConfigSection.Parameters[RecaptchaModel.GRecaptchaParameterSecretKey] == null)
-            {
-                formsConfigSection.Parameters.Add(RecaptchaModel.GRecaptchaParameterSecretKey, TestGRecaptchaSecret);
-            }
-
-            using (var a = new ElevatedConfigModeRegion())
-            {
-                manager.SaveSection(formsConfigSection);
-            }
         }
 
         private static void RegisteringFormScriptsHandler(IScriptsRegisteringEvent @event)

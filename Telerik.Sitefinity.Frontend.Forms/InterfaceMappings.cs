@@ -7,7 +7,6 @@ using Telerik.Sitefinity.Frontend.Forms.Mvc.Models.Fields.DropdownListField;
 using Telerik.Sitefinity.Frontend.Forms.Mvc.Models.Fields.FileField;
 using Telerik.Sitefinity.Frontend.Forms.Mvc.Models.Fields.MultipleChoiceField;
 using Telerik.Sitefinity.Frontend.Forms.Mvc.Models.Fields.ParagraphTextField;
-using Telerik.Sitefinity.Frontend.Forms.Mvc.Models.Fields.Recaptcha;
 using Telerik.Sitefinity.Frontend.Forms.Mvc.Models.Fields.SectionHeader;
 using Telerik.Sitefinity.Frontend.Forms.Mvc.Models.Fields.SubmitButton;
 using Telerik.Sitefinity.Frontend.Forms.Mvc.Models.Fields.TextField;
@@ -29,7 +28,6 @@ namespace Telerik.Sitefinity.Frontend.Forms
             Bind<IFormModel>().To<FormModel>();
             Bind<IFormElementModel>().To<FormElementModel>();
             Bind<ITextFieldModel>().To<TextFieldModel>();
-            Bind<IRecaptchaModel>().To<RecaptchaModel>();
             Bind<ISubmitButtonModel>().To<SubmitButtonModel>();
             Bind<ISectionHeaderModel>().To<SectionHeaderModel>();
             Bind<IParagraphTextFieldModel>().To<ParagraphTextFieldModel>();
