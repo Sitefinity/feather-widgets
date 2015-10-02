@@ -2,17 +2,12 @@
 using System.Web.Mvc;
 using Telerik.Sitefinity.Data.Metadata;
 using Telerik.Sitefinity.Frontend.Forms.Mvc.Controllers.Base;
-using Telerik.Sitefinity.Frontend.Forms.Mvc.Models.Fields;
 using Telerik.Sitefinity.Frontend.Forms.Mvc.Models.Fields.SectionHeader;
-using Telerik.Sitefinity.Frontend.Forms.Mvc.Models.Fields.TextField;
 using Telerik.Sitefinity.Frontend.Forms.Mvc.StringResources;
 using Telerik.Sitefinity.Frontend.Mvc.Infrastructure.Controllers;
 using Telerik.Sitefinity.Frontend.Mvc.Infrastructure.Controllers.Attributes;
-using Telerik.Sitefinity.Metadata.Model;
 using Telerik.Sitefinity.Model;
-using Telerik.Sitefinity.Modules.Forms.Web.UI.Fields;
 using Telerik.Sitefinity.Modules.Pages.Web.Services;
-using Telerik.Sitefinity.Mvc;
 using Telerik.Sitefinity.Web.UI.Fields.Enums;
 
 namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Controllers
@@ -20,7 +15,6 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Controllers
     /// <summary>
     /// This class represents the controller of the MVC forms section header field.
     /// </summary>
-    [ControllerToolboxItem(Name = "MvcSectionHeaderField", Title = "Section Header", Toolbox = FormsConstants.FormControlsToolboxName, SectionName = FormsConstants.CommonSectionName, CssClass = SectionHeaderController.WidgetIconCssClass)]
     [DatabaseMapping(UserFriendlyDataType.ShortText)]
     [Localization(typeof(FieldResources))]
     public class SectionHeaderController : FormElementControllerBase<ISectionHeaderModel>
@@ -73,7 +67,6 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Controllers
             this.Read(null).ExecuteResult(this.ControllerContext);
         }
 
-        internal const string WidgetIconCssClass = "sfSectionHeaderIcn sfMvcIcn";
         private ISectionHeaderModel model;
         private const string templateNamePrefix = "Read.";
         private const string templateName = "Default";
