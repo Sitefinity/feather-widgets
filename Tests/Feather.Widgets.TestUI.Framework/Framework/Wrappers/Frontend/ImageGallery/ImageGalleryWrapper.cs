@@ -86,22 +86,29 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Frontend
         /// Verifies the previous image.
         /// </summary>
         /// <param name="href">The href.</param>
-        public void VerifyPreviousImage(string href)
+        public void VerifyPreviousImage(string href, string culture)
         {
             var prevImage = EM.MediaGallery.MediaGalleryFrontend.PreviousLink
                .AssertIsPresent("previous image");
-            Assert.IsTrue(prevImage.HRef.StartsWith(href));
+
+            if (culture == null)
+            {
+                Assert.IsTrue(prevImage.HRef.StartsWith(href));
+            }            
         }
 
         /// <summary>
         /// Verifies the next image.
         /// </summary>
         /// <param name="href">The href.</param>
-        public void VerifyNextImage(string href)
+        public void VerifyNextImage(string href, string culture)
         {
             var nextImage = EM.MediaGallery.MediaGalleryFrontend.NextLink
                .AssertIsPresent("next image");
-            Assert.IsTrue(nextImage.HRef.StartsWith(href));
+            if(culture == null)
+            {
+                  Assert.IsTrue(nextImage.HRef.StartsWith(href));
+            }          
         }
 
         /// <summary>

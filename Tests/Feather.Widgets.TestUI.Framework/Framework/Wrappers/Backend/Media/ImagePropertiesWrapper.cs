@@ -110,13 +110,16 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend.Media
         /// <param name="title">The image title.</param>
         /// <param name="altText">The image alt text.</param>
         /// <param name="src">The image src.</param>
-        public void VerifyImageThumbnailInPropertiesDialog(string altText, string src)
+        public void VerifyImageThumbnailInPropertiesDialog(string altText, string src, string culture)
         {
             HtmlImage image = ActiveBrowser.Find
                                            .ByExpression<HtmlImage>("alt=" + altText)
                                            .AssertIsPresent("image");
 
-            Assert.IsTrue(image.Src.StartsWith(src), "src is not correct");
+            if(culture == null)
+            {
+                Assert.IsTrue(image.Src.StartsWith(src), "src is not correct");
+            }            
         }
 
         /// <summary>

@@ -54,7 +54,7 @@ namespace FeatherWidgets.TestUI.TestCases.ContentBlocks.DocumentSelector
 
             BATFeather.Wrappers().Backend().ContentBlocks().ContentBlocksWrapper().OpenDocumentSelector();
             Assert.IsTrue(BATFeather.Wrappers().Backend().Media().DocumentPropertiesWrapper().IsTitlePopulated(NewDocumentName), "Document title is not populated correctly");
-            BATFeather.Wrappers().Backend().Media().DocumentPropertiesWrapper().VerifyDocumentLink(DocumentName1, this.GetDocumentHref(true, DocumentName1, ".jpg"));
+            BATFeather.Wrappers().Backend().Media().DocumentPropertiesWrapper().VerifyDocumentLink(DocumentName1, this.GetDocumentHref(true, DocumentName1, ".jpg"), this.Culture);
             BATFeather.Wrappers().Backend().Media().DocumentPropertiesWrapper().VerifyDocumentIcon("jpg");
             BATFeather.Wrappers().Backend().Media().DocumentPropertiesWrapper().ChangeMediaFile();
             BATFeather.Wrappers().Backend().Media().MediaSelectorWrapper().WaitForContentToBeLoaded(false);
@@ -62,7 +62,7 @@ namespace FeatherWidgets.TestUI.TestCases.ContentBlocks.DocumentSelector
             BATFeather.Wrappers().Backend().Media().MediaSelectorWrapper().ConfirmMediaFileSelection();
 
             Assert.IsTrue(BATFeather.Wrappers().Backend().Media().DocumentPropertiesWrapper().IsTitlePopulated(NewDocumentName), "Document title is not populated correctly");
-            BATFeather.Wrappers().Backend().Media().DocumentPropertiesWrapper().VerifyDocumentLink(DocumentName2, this.GetDocumentHref(true, DocumentName2, ".docx"));
+            BATFeather.Wrappers().Backend().Media().DocumentPropertiesWrapper().VerifyDocumentLink(DocumentName2, this.GetDocumentHref(true, DocumentName2, ".docx"), this.Culture);
             BATFeather.Wrappers().Backend().Media().DocumentPropertiesWrapper().VerifyDocumentIcon("docx");
             BATFeather.Wrappers().Backend().Media().DocumentPropertiesWrapper().ConfirmMediaPropertiesDocsTemporary();
             BATFeather.Wrappers().Backend().ContentBlocks().ContentBlocksWrapper().SaveChanges();

@@ -74,7 +74,7 @@ namespace FeatherWidgets.TestUI.TestCases.VideoGallery
             Assert.IsTrue(BATFeather.Wrappers().Frontend().VideoGallery().VideoGalleryWrapper().IsVideoTitlePresentOnDetailMasterPage(VideoBaseTitle + 3));
 
             scr = this.GetVideodHref(true, VideoBaseTitle);
-            BATFeather.Wrappers().Frontend().VideoGallery().VideoGalleryWrapper().VerifyVideo(scr);          
+            BATFeather.Wrappers().Frontend().VideoGallery().VideoGalleryWrapper().VerifyVideo(scr, this.Culture);          
         }
 
         /// <summary>

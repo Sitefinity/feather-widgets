@@ -35,12 +35,12 @@ namespace FeatherWidgets.TestUI.TestCases.MediaWidgets
             BATFeather.Wrappers().Backend().Media().MediaSelectorWrapper().VerifyMediaTooltip(DocumentName, LibraryName, DocumentType);
             BATFeather.Wrappers().Backend().Media().MediaSelectorWrapper().SelectMediaFile(DocumentName, true);
             BATFeather.Wrappers().Backend().Media().MediaSelectorWrapper().ConfirmMediaFileSelectionInWidget();
-            BATFeather.Wrappers().Backend().Media().DocumentPropertiesWrapper().VerifyDocumentLink(DocumentName, this.GetDocumentHref(true));
+            BATFeather.Wrappers().Backend().Media().DocumentPropertiesWrapper().VerifyDocumentLink(DocumentName, this.GetDocumentHref(true), this.Culture);
             BATFeather.Wrappers().Backend().Media().DocumentPropertiesWrapper().VerifyDocumentIcon(DocumentExtension);
             BATFeather.Wrappers().Backend().Media().DocumentPropertiesWrapper().VerifyTemplateDropdownValueInWidget("DocumentLink");
             BATFeather.Wrappers().Backend().Media().DocumentPropertiesWrapper().ApplyCssClasses(CssClassesToApply);
             BATFeather.Wrappers().Backend().Media().DocumentPropertiesWrapper().ConfirmMediaPropertiesInWidget();
-            BATFeather.Wrappers().Backend().Pages().PageZoneEditorMediaWrapper().VerifyDocument(DocumentName, this.GetDocumentHref(false));
+            BATFeather.Wrappers().Backend().Pages().PageZoneEditorMediaWrapper().VerifyDocument(DocumentName, this.GetDocumentHref(false), this.Culture);
             BATFeather.Wrappers().Backend().Pages().PageZoneEditorMediaWrapper().VerifyDocumentIconOnTemplate(DocumentExtension);
 
             BAT.Wrappers().Backend().Pages().PageZoneEditorWrapper().PublishPage();

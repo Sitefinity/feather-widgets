@@ -57,7 +57,7 @@ namespace FeatherWidgets.TestUI.TestCases.ContentBlocks.ImageSelector
             Assert.IsTrue(BATFeather.Wrappers().Backend().Media().ImagePropertiesWrapper().IsTitlePopulated(NewImageName), "Image title is not populated correctly");
             Assert.IsTrue(BATFeather.Wrappers().Backend().Media().ImagePropertiesWrapper().IsImageAltTextPopulated(NewImageAltText), "Image alt text is not populated correctly");
             string scr = this.GetImageSource(true, ImageName1, ImageTypeInPropertiesDialog);
-            BATFeather.Wrappers().Backend().Media().ImagePropertiesWrapper().VerifyImageThumbnailInPropertiesDialog(ImageName1, scr);
+            BATFeather.Wrappers().Backend().Media().ImagePropertiesWrapper().VerifyImageThumbnailInPropertiesDialog(ImageName1, scr, this.Culture);
             BATFeather.Wrappers().Backend().Media().ImagePropertiesWrapper().ChangeMediaFile();
             BATFeather.Wrappers().Backend().Media().MediaSelectorWrapper().WaitForContentToBeLoaded(false);
             BATFeather.Wrappers().Backend().Media().MediaSelectorWrapper().SelectMediaFile(ImageName2);
@@ -66,7 +66,7 @@ namespace FeatherWidgets.TestUI.TestCases.ContentBlocks.ImageSelector
             Assert.IsTrue(BATFeather.Wrappers().Backend().Media().ImagePropertiesWrapper().IsTitlePopulated(NewImageName), "Image title is not populated correctly");
             Assert.IsTrue(BATFeather.Wrappers().Backend().Media().ImagePropertiesWrapper().IsImageAltTextPopulated(NewImageAltText), "Image alt text is not populated correctly");
             scr = this.GetImageSource(true, ImageName2, ImageTypeInPropertiesDialog);
-            BATFeather.Wrappers().Backend().Media().ImagePropertiesWrapper().VerifyImageThumbnailInPropertiesDialog(ImageName2, scr);
+            BATFeather.Wrappers().Backend().Media().ImagePropertiesWrapper().VerifyImageThumbnailInPropertiesDialog(ImageName2, scr, this.Culture);
             BATFeather.Wrappers().Backend().Media().ImagePropertiesWrapper().ConfirmMediaProperties();
             BATFeather.Wrappers().Backend().ContentBlocks().ContentBlocksWrapper().SaveChanges();
             BAT.Wrappers().Backend().Pages().PageZoneEditorWrapper().PublishPage();

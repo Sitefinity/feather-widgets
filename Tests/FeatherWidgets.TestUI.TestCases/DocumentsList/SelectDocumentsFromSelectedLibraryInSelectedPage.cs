@@ -46,7 +46,7 @@ namespace FeatherWidgets.TestUI.TestCases.DocumentsList
                 }
                 else
                 {
-                    BATFeather.Wrappers().Backend().Pages().PageZoneEditorMediaWrapper().VerifyDocument(DocumentBaseTitle + i, this.GetDocumentHref(true, DocumentBaseTitle + i, SingleItemPage.ToLower() + "/" + ContentType));
+                    BATFeather.Wrappers().Backend().Pages().PageZoneEditorMediaWrapper().VerifyDocument(DocumentBaseTitle + i, this.GetDocumentHref(true, DocumentBaseTitle + i, SingleItemPage.ToLower() + "/" + ContentType), this.Culture);
                 }
             }
 
@@ -61,15 +61,15 @@ namespace FeatherWidgets.TestUI.TestCases.DocumentsList
                 }
                 else
                 {
-                    BATFeather.Wrappers().Frontend().DocumentsList().DocumentsListWrapper().VerifyDocument(DocumentBaseTitle + i, this.GetDocumentHref(true, DocumentBaseTitle + i, SingleItemPage.ToLower() + "/" + ContentType));
-                    BATFeather.Wrappers().Frontend().DocumentsList().DocumentsListWrapper().VerifyDownloadButton(this.GetDownloadHref(true, DocumentBaseTitle + i, ContentType));
+                    BATFeather.Wrappers().Frontend().DocumentsList().DocumentsListWrapper().VerifyDocument(DocumentBaseTitle + i, this.GetDocumentHref(true, DocumentBaseTitle + i, SingleItemPage.ToLower() + "/" + ContentType), this.Culture);
+                    BATFeather.Wrappers().Frontend().DocumentsList().DocumentsListWrapper().VerifyDownloadButton(this.GetDownloadHref(true, DocumentBaseTitle + i, ContentType), this.Culture);
                 }
             }
 
             BATFeather.Wrappers().Frontend().DocumentsList().DocumentsListWrapper().ClickDocument(SelectedDocument);
             ActiveBrowser.WaitForUrl(this.GetDocumentHref(false, SelectedDocument, SingleItemPage.ToLower() + "/" + ContentType), true, 60000);
             BATFeather.Wrappers().Frontend().DocumentsList().DocumentsListWrapper().IsDocumentTitlePresentOnDetailMasterPage(SelectedDocument);
-            BATFeather.Wrappers().Frontend().DocumentsList().DocumentsListWrapper().VerifyDownloadButton(this.GetDownloadHref(true, SelectedDocument, ContentType));
+            BATFeather.Wrappers().Frontend().DocumentsList().DocumentsListWrapper().VerifyDownloadButton(this.GetDownloadHref(true, SelectedDocument, ContentType), this.Culture);
             BATFeather.Wrappers().Frontend().DocumentsList().DocumentsListWrapper().VerifySizeOnHybridPage("5 KB");
         }
 

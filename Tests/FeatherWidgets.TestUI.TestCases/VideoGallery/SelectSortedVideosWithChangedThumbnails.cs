@@ -71,7 +71,7 @@ namespace FeatherWidgets.TestUI.TestCases.VideoGallery
             Assert.IsTrue(BATFeather.Wrappers().Frontend().VideoGallery().VideoGalleryWrapper().IsVideoTitlePresentOnDetailMasterPage(this.videoTitles[1]));
 
             var scr = this.GetVideodHref(true, this.videoTitles[1]);
-            BATFeather.Wrappers().Frontend().VideoGallery().VideoGalleryWrapper().VerifyVideo(scr, Width, Height);
+            BATFeather.Wrappers().Frontend().VideoGallery().VideoGalleryWrapper().VerifyVideo(scr, this.Culture, Width, Height);
 
             var hrefPrevious = this.GetVideoHref(true, this.videoTitles[0], LibraryName);
             BATFeather.Wrappers().Frontend().VideoGallery().VideoGalleryWrapper().VerifyPreviousVideo(hrefPrevious);

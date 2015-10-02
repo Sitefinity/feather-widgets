@@ -14,15 +14,18 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Frontend
     /// </summary>
     public class VideoGalleryWrapper : BaseWrapper
     {
-        public void VerifyVideo(string src, int width = 0, int height = 0)
+        public void VerifyVideo(string src, string culture, int width = 0, int height = 0)
         {           
-            HtmlVideo video = EM.MediaGallery.MediaGalleryFrontend.Videos.Where<HtmlVideo>(k => k.Src.StartsWith(src)).FirstOrDefault()
+            if(culture == null)
+            {
+             HtmlVideo video = EM.MediaGallery.MediaGalleryFrontend.Videos.Where<HtmlVideo>(k => k.Src.StartsWith(src)).FirstOrDefault()
                 .AssertIsPresent("video");
 
             if (width != 0 && height != 0)
             {
                 Assert.IsTrue(video.Width.Equals(width), "width is not correct");
                 Assert.IsTrue(video.Height.Equals(height), "height is not correct");
+            }
             }
         }
 
