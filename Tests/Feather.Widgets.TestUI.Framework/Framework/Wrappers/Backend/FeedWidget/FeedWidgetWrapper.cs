@@ -30,7 +30,6 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend.FeedWidget
 
             HtmlAnchor publishBtn = frame.Find.ByExpression<HtmlAnchor>("class=sfLinkBtn sfSave").AssertIsPresent("Publish button");
             publishBtn.Click();
-            ActiveBrowser.WaitForAsyncOperations();
             ActiveBrowser.RefreshDomTree();
         }
     }
