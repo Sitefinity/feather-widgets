@@ -10,28 +10,28 @@ using Telerik.Sitefinity.Frontend.TestUtilities;
 namespace FeatherWidgets.TestUI.TestCases.Forms
 {
     /// <summary>
-    /// ViewFormWithTextboxFieldOnPageAndVerifyResponseInBackend test class.
+    /// ViewFormWithMultipleChoiceFieldOnPageAndVerifyResponseInBackend test class.
     /// </summary>
     [TestClass]
-    public class ViewFormWithTextboxFieldOnPageAndVerifyResponseInBackend_ : FeatherTestCase
+    public class ViewFormWithMultipleChoiceFieldOnPageAndVerifyResponseInBackend_ : FeatherTestCase
     {
         /// <summary>
-        /// UI test ViewFormWithTextboxFieldOnPageAndVerifyResponseInBackend
+        /// UI test ViewFormWithMultipleChoiceFieldOnPageAndVerifyResponseInBackend
         /// </summary>
         [TestMethod,
         Owner(FeatherTeams.FeatherTeam),
         TestCategory(FeatherTestCategories.PagesAndContent),
         TestCategory(FeatherTestCategories.Bootstrap),
         TestCategory(FeatherTestCategories.Forms)]
-        public void ViewFormWithTextboxFieldOnPageAndVerifyResponseInBackend()
+        public void ViewFormWithMultipleChoiceFieldOnPageAndVerifyResponseInBackend()
         {
             BAT.Macros().NavigateTo().Modules().Forms(this.Culture);
             BAT.Wrappers().Backend().Forms().FormsDashboard().ClickCreateAFormButton();
             BAT.Wrappers().Backend().Forms().FormsCreateScreen().SetFormName(FormName);
             BAT.Wrappers().Backend().Forms().FormsCreateScreen().ClickCreateAndAddContent();
-            BAT.Wrappers().Backend().Forms().FormsContentScreen().AddWidget(Telerik.Sitefinity.TestUI.Framework.Wrappers.Backend.Forms.FormWidgetNames.Textbox);            
+            BAT.Wrappers().Backend().Forms().FormsContentScreen().AddWidget(Telerik.Sitefinity.TestUI.Framework.Wrappers.Backend.Forms.FormWidgetNames.MultipleChoice);
             BAT.Wrappers().Backend().Forms().FormsContentScreen().PublishForm();
-            
+
             BAT.Macros().NavigateTo().Pages(this.Culture);
             BAT.Wrappers().Backend().Pages().PagesWrapper().OpenPageZoneEditor(PageName);
             BATFeather.Wrappers().Backend().Pages().PageZoneEditorWrapper().AddWidgetToPlaceHolderPureMvcMode(WidgetName);
@@ -41,8 +41,8 @@ namespace FeatherWidgets.TestUI.TestCases.Forms
             BAT.Wrappers().Backend().Pages().PageZoneEditorWrapper().PublishPage();
 
             BAT.Macros().NavigateTo().CustomPage("~/" + PageName.ToLower(), true, this.Culture);
-            BATFeather.Wrappers().Frontend().Forms().FormsWrapper().VerifyTextFieldLabelIsVisible(LabelName);
-            BATFeather.Wrappers().Frontend().Forms().FormsWrapper().SetTextboxContent(TextBoxContent);
+            BATFeather.Wrappers().Frontend().Forms().FormsWrapper().VerifyMultipleChoiceFieldLabelIsVisible(LabelName);
+            BATFeather.Wrappers().Frontend().Forms().FormsWrapper().SelectRadioButton(Choice);
             BATFeather.Wrappers().Frontend().Forms().FormsWrapper().SubmitForm();
 
             BAT.Macros().NavigateTo().Modules().Forms(this.Culture);
@@ -52,7 +52,7 @@ namespace FeatherWidgets.TestUI.TestCases.Forms
             BAT.Wrappers().Backend().Forms().FormsResponseScreen().SelectResponse(ResponseNumber);
             BATFeather.Wrappers().Backend().Forms().FormsWrapper().VerifyResponseAuthorUsername(ExpectedAuthorName);
             BATFeather.Wrappers().Backend().Forms().FormsWrapper().VerifyResponseSubmitDate();
-            BATFeather.Wrappers().Backend().Forms().FormsWrapper().VerifyResponseTextboxAnswer(TextBoxContent);
+            BATFeather.Wrappers().Backend().Forms().FormsWrapper().VerifyResponseMultipleChoiceAnswer(Choice);
         }
 
         /// <summary>
@@ -75,8 +75,8 @@ namespace FeatherWidgets.TestUI.TestCases.Forms
         private const string FormName = "MvcForm";
         private const string PageName = "FormPage";
         private const string WidgetName = "Form";
-        private const string LabelName = "Untitled";
-        private const string TextBoxContent = "Textbox Field Text";
+        private const string LabelName = "Select a choice";
+        private const string Choice = "Second Choice";
         private const int ExpectedResponsesCount = 1;
         private const int ResponseNumber = 1;
         private const string ExpectedAuthorName = "admin";
