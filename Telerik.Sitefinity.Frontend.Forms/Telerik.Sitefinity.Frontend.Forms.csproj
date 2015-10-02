@@ -194,7 +194,6 @@
     <Compile Include="Mvc\Controllers\SubmitButtonController.cs" />
     <Compile Include="Mvc\Controllers\TextFieldController.cs" />
     <Compile Include="Mvc\Helpers\ControllerHelpers.cs" />
-    <Compile Include="Mvc\Helpers\SectionHeaderFieldHelpers.cs" />
     <Compile Include="Mvc\Helpers\TextTypeHelpers.cs" />
     <Compile Include="Mvc\Models\Fields\BackendConfigurators\CheckboxesFieldConfigurator.cs" />
     <Compile Include="Mvc\Models\Fields\BackendConfigurators\FileFieldConfigurator.cs" />
@@ -227,7 +226,6 @@
     <Compile Include="Mvc\Models\Fields\IFormElementModel.cs" />
     <Compile Include="Mvc\Models\Fields\FormElementModel.cs" />
     <Compile Include="Mvc\Models\CustomConfirmationMode.cs" />
-    <Compile Include="Mvc\Models\Fields\SectionHeader\HeadingType.cs" />
     <Compile Include="Mvc\Models\Fields\SectionHeader\SectionHeaderViewModel.cs" />
     <Compile Include="Mvc\Models\Fields\SectionHeader\SectionHeaderModel.cs" />
     <Compile Include="Mvc\Models\Fields\SectionHeader\ISectionHeaderModel.cs" />
@@ -286,6 +284,7 @@
     <EmbeddedResource Include="Mvc\Views\Captcha\DesignerView.Simple.json" />
     <EmbeddedResource Include="Mvc\Views\Captcha\Write.Default.cshtml" />
     <EmbeddedResource Include="Mvc\Views\Form\Index.cshtml" />
+    <EmbeddedResource Include="Mvc\Views\SectionHeader\sf-html-field.sf-cshtml" />
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>

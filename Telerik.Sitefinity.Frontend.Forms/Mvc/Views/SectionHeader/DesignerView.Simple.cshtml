@@ -3,14 +3,9 @@
 @using Telerik.Sitefinity.Mvc;
 
 <div class="form-group">
-    <select ng-model="properties.HeadingType.PropertyValue" class="form-control">
-        @foreach (var textValue in Html.GetHeadingTypeValues())
-        {
-            <option value="@textValue.Value">@textValue.Key</option>
-        }
-    </select>
-
-    <input type="text" placeholder="{{properties.PlaceholderText.PropertyValue}}" ng-model="properties.Text.PropertyValue" class="form-control"/>
+    <sf-html-field class="kendo-content-block" sf-model="properties.Text.PropertyValue" 
+        sf-template-url="Mvc/Views/SectionHeader/sf-html-field.sf-cshtml" 
+        sf-template-assembly="Telerik.Sitefinity.Frontend.Forms"></sf-html-field>
 </div>
         
 <expander expander-title='@Html.Resource("MoreOptions")'>
