@@ -95,10 +95,13 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend.Media
         /// Verifies the big video properites.
         /// </summary>
         /// <param name="src">The SRC.</param>
-        public void VerifyBigVideoProperites(string src)
+        public void VerifyBigVideoProperites(string src, string culture)
         {
             HtmlDiv holder = this.EM.Media.VideoPropertiesScreen.BigVideoHolder.AssertIsPresent("video holder");
-            holder.Find.ByExpression<HtmlVideo>("id=sfVideoPlayer", "src=~" + src).AssertIsPresent("video");
+            if(culture == null)
+            {
+                 holder.Find.ByExpression<HtmlVideo>("id=sfVideoPlayer", "src=~" + src).AssertIsPresent("video");
+            }           
         }
 
         /// <summary>

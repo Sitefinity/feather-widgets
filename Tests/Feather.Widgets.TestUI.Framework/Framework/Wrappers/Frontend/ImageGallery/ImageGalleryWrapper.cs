@@ -101,11 +101,14 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Frontend
         /// Verifies the next image.
         /// </summary>
         /// <param name="href">The href.</param>
-        public void VerifyNextImage(string href)
+        public void VerifyNextImage(string href, string culture)
         {
             var nextImage = EM.MediaGallery.MediaGalleryFrontend.NextLink
                .AssertIsPresent("next image");
-            Assert.IsTrue(nextImage.HRef.StartsWith(href));
+            if(culture == null)
+            {
+                  Assert.IsTrue(nextImage.HRef.StartsWith(href));
+            }          
         }
 
         /// <summary>

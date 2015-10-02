@@ -35,7 +35,7 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Frontend
         /// </summary>
         /// <param name="title">The title.</param>
         /// <param name="href">The href.</param>
-        public void VerifyDocumentInTableView(string text, string href)
+        public void VerifyDocumentInTableView(string text, string href, string culture)
         {
             HtmlDiv tableHolder = ActiveBrowser.Find.ByExpression<HtmlDiv>("class=sf-document-list sf-document-list--table")
                 .AssertIsPresent("tableHolder");
@@ -46,7 +46,11 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Frontend
             var parent = doc.Parent<HtmlTableCell>();
             Assert.IsTrue(parent.TagName == "td");
             Assert.IsTrue(parent.Parent<HtmlTableRow>().TagName == "tr");
-            Assert.IsTrue(doc.HRef.StartsWith(href), "href is not correct");
+            
+            if (culture == null)
+            {
+                 Assert.IsTrue(doc.HRef.StartsWith(href), "href is not correct");
+            }           
         }
 
         /// <summary>
@@ -168,9 +172,12 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Frontend
         /// Verifies the download button.
         /// </summary>
         /// <param name="href">The href.</param>
-        public void VerifyDownloadButton(string href)
+        public void VerifyDownloadButton(string href, string culture)
         {
-            ActiveBrowser.Find.ByExpression<HtmlAnchor>("tagname=a", "target=_blank", "href=~" + href, "innertext=Download").AssertIsPresent("download");
+            if(culture == null)
+            {
+                ActiveBrowser.Find.ByExpression<HtmlAnchor>("tagname=a", "target=_blank", "href=~" + href, "innertext=Download").AssertIsPresent("download");
+            }            
         }
     }
 }
