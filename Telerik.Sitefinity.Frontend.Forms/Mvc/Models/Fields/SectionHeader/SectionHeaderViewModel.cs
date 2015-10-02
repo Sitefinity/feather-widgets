@@ -14,14 +14,6 @@
         public string Text { get; set; }
 
         /// <summary>
-        /// Gets or sets the type of the heading.
-        /// </summary>
-        /// <value>
-        /// The type of the heading.
-        /// </value>
-        public HeadingType HeadingType { get; set; }
-
-        /// <summary>
         /// Gets or sets the CSS class.
         /// </summary>
         /// <value>
