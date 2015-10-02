@@ -55,15 +55,15 @@ namespace Telerik.Sitefinity.Frontend.Forms
                 return;
             
             Initializer.RegisterToolboxItem(section, "MvcTextField", "Textbox", "Telerik.Sitefinity.Frontend.Forms.Mvc.Controllers.TextFieldController", "sfTextboxIcn sfMvcIcn");
-            Initializer.RegisterToolboxItem(section, "MvcMultipleChoiceField", "Multiple Choice", "Telerik.Sitefinity.Frontend.Forms.Mvc.Controllers.MultipleChoiceFieldController", "sfMultipleChoiceIcn sfMvcIcn");
+            Initializer.RegisterToolboxItem(section, "MvcMultipleChoiceField", "Multiple choice", "Telerik.Sitefinity.Frontend.Forms.Mvc.Controllers.MultipleChoiceFieldController", "sfMultipleChoiceIcn sfMvcIcn");
             Initializer.RegisterToolboxItem(section, "MvcCheckboxesField", "Checkboxes", "Telerik.Sitefinity.Frontend.Forms.Mvc.Controllers.CheckboxesFieldController", "sfCheckboxesIcn sfMvcIcn");
-            Initializer.RegisterToolboxItem(section, "MvcParagraphTextField", "Paragraph Text", "Telerik.Sitefinity.Frontend.Forms.Mvc.Controllers.ParagraphTextFieldController", "sfParagraphboxIcn sfMvcIcn");
-            Initializer.RegisterToolboxItem(section, "MvcDropdownListField", "Dropdown List", "Telerik.Sitefinity.Frontend.Forms.Mvc.Controllers.DropdownListFieldController", "sfDropdownIcn sfMvcIcn");
-            Initializer.RegisterToolboxItem(section, "MvcSectionHeaderField", "Section Header", "Telerik.Sitefinity.Frontend.Forms.Mvc.Controllers.SectionHeaderController", "sfSectionHeaderIcn sfMvcIcn");
+            Initializer.RegisterToolboxItem(section, "MvcParagraphTextField", "Paragraph text", "Telerik.Sitefinity.Frontend.Forms.Mvc.Controllers.ParagraphTextFieldController", "sfParagraphboxIcn sfMvcIcn");
+            Initializer.RegisterToolboxItem(section, "MvcDropdownListField", "Dropdown list", "Telerik.Sitefinity.Frontend.Forms.Mvc.Controllers.DropdownListFieldController", "sfDropdownIcn sfMvcIcn");
+            Initializer.RegisterToolboxItem(section, "MvcSectionHeaderField", "Section header", "Telerik.Sitefinity.Frontend.Forms.Mvc.Controllers.SectionHeaderController", "sfSectionHeaderIcn sfMvcIcn");
             Initializer.RegisterToolboxItem(section, "MvcInstructionalTextField", "Content block", "Telerik.Sitefinity.Frontend.ContentBlock.Mvc.Controllers.ContentBlockController", "sfInstructionIcn sfMvcIcn");
             Initializer.RegisterToolboxItem(section, "MvcFileField", "File upload", "Telerik.Sitefinity.Frontend.Forms.Mvc.Controllers.FileFieldController", "sfFileUploadIcn sfMvcIcn");
             Initializer.RegisterToolboxItem(section, "MvcCaptchaField", "CAPTCHA", "Telerik.Sitefinity.Frontend.Forms.Mvc.Controllers.CaptchaController", "sfCaptchaIcn sfMvcIcn");
-            Initializer.RegisterToolboxItem(section, "MvcSubmitButton", "Submit Button", "Telerik.Sitefinity.Frontend.Forms.Mvc.Controllers.SubmitButtonController", "sfSubmitBtnIcn sfMvcIcn");
+            Initializer.RegisterToolboxItem(section, "MvcSubmitButton", "Submit button", "Telerik.Sitefinity.Frontend.Forms.Mvc.Controllers.SubmitButtonController", "sfSubmitBtnIcn sfMvcIcn");
 
             configurationManager.SaveSection(toolboxesConfig);
             configurationManager.Provider.SuppressSecurityChecks = false;
