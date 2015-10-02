@@ -85,21 +85,25 @@ namespace Telerik.Sitefinity.Frontend.Forms
 
         private static void RegisterToolboxItem(ToolboxSection section, string name, string title, string controllerType, string cssClass)
         {
-            var toolboxItem = new ToolboxItem(section.Tools)
+            if (!section.Tools.Any<ToolboxItem>(t => t.Name == name))
             {
-                Name = name,
-                Title = title,
-                Description = string.Empty,
-                ControlType = typeof(MvcWidgetProxy).AssemblyQualifiedName,
-                ControllerType = controllerType,
-                CssClass = cssClass,
-                Parameters = new NameValueCollection() 
+
+                var toolboxItem = new ToolboxItem(section.Tools)
+                {
+                    Name = name,
+                    Title = title,
+                    Description = string.Empty,
+                    ControlType = typeof(MvcWidgetProxy).AssemblyQualifiedName,
+                    ControllerType = controllerType,
+                    CssClass = cssClass,
+                    Parameters = new NameValueCollection() 
                     { 
                         { "ControllerName", controllerType }
                     }
-            };
+                };
 
-            section.Tools.Add(toolboxItem);
+                section.Tools.Add(toolboxItem);
+            }
         }
 
         private static ToolboxSection GetFormsToolboxSection(ToolboxesConfig toolboxesConfig)
