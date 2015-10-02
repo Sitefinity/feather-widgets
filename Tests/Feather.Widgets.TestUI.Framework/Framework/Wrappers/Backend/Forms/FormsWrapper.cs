@@ -42,12 +42,41 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend.Forms
         }
 
         /// <summary>
-        /// Verify response submit date in backend
+        /// Verify response text in backend
         /// </summary>
         public void VerifyResponseTextboxAnswer(string textBoxContent)
         {
             var actualTextboxAnswer = BAT.Wrappers().Backend().Forms().FormsResponseScreen().GetResponseTextboxAnswer();
             Assert.AreEqual(textBoxContent, actualTextboxAnswer, "Actual form response differs from the expected one");
+        }
+
+        /// <summary>
+        /// Verify response for checkbox field in backend
+        /// </summary>
+        public void VerifyResponseCheckboxesAnswer(string checkboxContent)
+        {            
+            var checkboxChoiceFieldAnswer = EM.Forms.FormsBackend.GetResponseCheckboxesField;
+            checkboxChoiceFieldAnswer.AssertIsPresent("Checkbox Choice Field Text");
+            Assert.AreEqual<string>(checkboxChoiceFieldAnswer.InnerText, checkboxContent);
+        }
+
+        /// <summary>
+        /// Verify response for multiple choice field in backend
+        /// </summary>
+        public void VerifyResponseMultipleChoiceAnswer(string multipleChoiceContent)
+        {
+            var multipleChoiceFieldAnswer = ActiveBrowser.Find.ByExpression<HtmlDiv>("TagName=div", "id=~frmRspnsesCntView_formsBackendListDetail", "innertext=" + multipleChoiceContent);
+            multipleChoiceFieldAnswer.AssertIsPresent("Multiple Choice Field Text");
+        }
+
+        /// <summary>
+        /// Verify response for dropdown list in backend
+        /// </summary>
+        public void VerifyResponseDropdownListAnswer(string dropdownContent)
+        {
+            var dropdownChoiceFieldAnswer = EM.Forms.FormsBackend.GetResponseDropdownListField;
+            dropdownChoiceFieldAnswer.AssertIsPresent("Dropdown List Choice Field Text");
+            Assert.AreEqual<string>(dropdownChoiceFieldAnswer.InnerText, dropdownContent);
         }
     }
 }

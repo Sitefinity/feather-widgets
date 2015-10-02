@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using ArtOfTest.Common.UnitTesting;
 using ArtOfTest.WebAii.Controls.HtmlControls;
 using ArtOfTest.WebAii.Core;
+using ArtOfTest.WebAii.jQuery;
 
 namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Frontend.Forms
 {
@@ -17,9 +18,33 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Frontend.Forms
         /// <summary>
         /// Verify if text field label is visible
         /// </summary>
-        public void VerifyFieldLabelIsVisible(string fieldLabel)
+        public void VerifyTextFieldLabelIsVisible(string fieldLabel)
         {
-            Assert.IsTrue(EM.Forms.FormsFrontend.TextboxLabel.InnerText.Contains(fieldLabel));
+            Assert.IsTrue(EM.Forms.FormsFrontend.TextboxField.InnerText.Contains(fieldLabel));
+        }
+
+        /// <summary>
+        /// Verify if checkboxes field label is visible
+        /// </summary>
+        public void VerifyCheckboxesFieldLabelIsVisible(string fieldLabel)
+        {
+            Assert.IsTrue(EM.Forms.FormsFrontend.CheckboxesField.InnerText.Contains(fieldLabel));
+        }
+
+        /// <summary>
+        /// Verify if multiple choice field label is visible
+        /// </summary>
+        public void VerifyMultipleChoiceFieldLabelIsVisible(string fieldLabel)
+        {
+            Assert.IsTrue(EM.Forms.FormsFrontend.MultipleChoiceField.InnerText.Contains(fieldLabel));
+        }
+
+        /// <summary>
+        /// Verify if dropdown list field label is visible
+        /// </summary>
+        public void VerifyDropdownListFieldLabelIsVisible(string fieldLabel)
+        {
+            Assert.IsTrue(EM.Forms.FormsFrontend.DropdownListField.InnerText.Contains(fieldLabel));
         }
 
         /// <summary>
@@ -48,6 +73,35 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Frontend.Forms
         public void WaitForSuccessMessage()
         {
             var successMsg = ActiveBrowser.Find.AssociatedBrowser.GetControl<HtmlDiv>("tagname=div", "innertext=Success! Thanks for filling out our form!");
+        }
+
+        /// <summary>
+        /// Selects checkbox from checkboxes field
+        /// </summary>
+        public void SelectCheckbox(string choice)
+        {
+            HtmlInputCheckBox checkbox = ActiveBrowser.Find.ByExpression<HtmlInputCheckBox>("tagname=input", "data-sf-role=checkboxes-field-input", "value=" + choice);
+            checkbox.Click();
+        }
+
+        /// <summary>
+        /// Selects radio button from multiplechoice field
+        /// </summary>
+        public void SelectRadioButton(string choice)
+        {
+            HtmlInputRadioButton checkbox = ActiveBrowser.Find.ByExpression<HtmlInputRadioButton>("tagname=input", "data-sf-role=multiple-choice-field-input", "value=" + choice);
+            checkbox.Click();
+        }
+
+        /// <summary>
+        /// Selects option from dropdown field
+        /// </summary>
+        public void SelectDropdownOption(string choice)
+        {
+            HtmlSelect dropdown = ActiveBrowser.Find.ByExpression<HtmlSelect>("tagname=select", "data-sf-role=dropdown-list-field-select");
+            dropdown.SelectByText(choice);
+            dropdown.AsjQueryControl().InvokejQueryEvent(jQueryControl.jQueryControlEvents.click);
+            dropdown.AsjQueryControl().InvokejQueryEvent(jQueryControl.jQueryControlEvents.change);
         }
     }
 }

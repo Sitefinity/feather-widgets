@@ -24,13 +24,46 @@ namespace Feather.Widgets.TestUI.Framework.Framework.ElementMap.Forms
         }
 
         /// <summary>
-        /// Gets the form on frontend
+        /// Gets the textbox field on frontend
         /// </summary>
-        public HtmlDiv TextboxLabel
+        public HtmlDiv TextboxField
         {
             get
             {
-                return this.Get<HtmlDiv>("TagName=div", "Class=form-group");
+                return this.Get<HtmlDiv>("TagName=div", "Class=form-group", "data-sf-role=text-field-container");
+            }
+        }
+
+        /// <summary>
+        /// Gets the checkboxes field on frontend
+        /// </summary>
+        public HtmlDiv CheckboxesField
+        {
+            get
+            {
+                return this.Get<HtmlDiv>("TagName=div", "Class=from-group", "data-sf-role=checkboxes-field-container");
+            }
+        }
+
+        /// <summary>
+        /// Gets the multiple choice field on frontend
+        /// </summary>
+        public HtmlDiv MultipleChoiceField
+        {
+            get
+            {
+                return this.Get<HtmlDiv>("TagName=div", "Class=from-group", "data-sf-role=multiple-choice-field-container");
+            }
+        }
+
+        /// <summary>
+        /// Gets the dropdown list field on frontend
+        /// </summary>
+        public HtmlDiv DropdownListField
+        {
+            get
+            {
+                return this.Get<HtmlDiv>("TagName=div", "Class=from-group", "data-sf-role=dropdown-list-field-container");
             }
         }
 
