@@ -35,17 +35,6 @@ namespace Feather.Widgets.TestUI.Framework.Framework.ElementMap.Forms
         }
 
         /// <summary>
-        /// Gets the multiple choice response field in backend
-        /// </summary>
-        public HtmlDiv GetResponseMultipleChoiceField
-        {
-            get
-            {
-                return this.ResponseDetailsPane.Find.ByExpression<HtmlDiv>("TagName=div", "id=~frmRspnsesCntView_formsBackendListDetail", "innertext=Second Choice");
-            }
-        }
-
-        /// <summary>
         /// Gets the dropdown list reponse field in backend
         /// </summary>
         public HtmlDiv GetResponseDropdownListField
