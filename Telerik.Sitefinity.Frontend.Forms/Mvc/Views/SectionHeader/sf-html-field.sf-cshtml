@@ -1,0 +1,22 @@
+﻿<textarea id="editor" style="height: 340px;"
+    kendo-editor="editorWidget" ng-model="sfModel"
+	k-scope-field="editorWidget"
+    k-encoded="false"
+    k-stylesheets='["{{htmlFieldCssUrl}}"]',
+    k-tools='[
+    {
+        name: "formatting",
+        items: [
+        { text: "Heading 1", value: "h1" },
+		{ text: "Heading 2", value: "h2" },
+		{ text: "Heading 3", value: "h3" },
+		{ text: "Heading 4", value: "h4" },
+		{ text: "Heading 5", value: "h5" },
+		{ text: "Heading 6", value: "h6" },
+		{ text: "Paragraph", value: "p" },
+      ]
+    }
+    ]'>
+</textarea>
+
+
