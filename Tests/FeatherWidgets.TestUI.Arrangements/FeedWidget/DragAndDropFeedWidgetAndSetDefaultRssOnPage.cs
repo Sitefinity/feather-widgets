@@ -32,7 +32,7 @@ namespace FeatherWidgets.TestUI.Arrangements
         public void TearDown()
         {
             ServerOperations.Pages().DeleteAllPages();
-            ServerOperations.Blogs().DeleteAllBlogs();
+            ServerOperations.Forums().DeleteAllForums();
         }
 
         private const string PageName = "FeedPage";

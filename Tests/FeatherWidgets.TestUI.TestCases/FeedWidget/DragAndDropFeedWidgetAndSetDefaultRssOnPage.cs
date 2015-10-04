@@ -25,23 +25,29 @@ namespace FeatherWidgets.TestUI.TestCases.FeedWidget
         TestCategory(FeatherTestCategories.Feed)]
         public void DragAndDropFeedWidgetAndSetDefaultRssOnPage()
         {
-            BAT.Macros().NavigateTo().Modules().Blogs();
-            BATFeather.Wrappers().Backend().FeedWidget().FeedWidgetWrapper().CreateBlog(BlogTitle);
+            BAT.Macros().NavigateTo().Modules().Forums();
+            var forumsWrapper = BAT.Wrappers().Backend().Forums().ForumsWrapper();
+            forumsWrapper.StartNewForumCreation();
+            var createForumWrapper = BAT.Wrappers().Backend().Forums().CreateForumWrapper();
+            createForumWrapper.SetForumTitle(forumTitle);
+            createForumWrapper.SetForumDefaultPage(PageName);
+            createForumWrapper.ClickCreateForumButton();
+
             BAT.Macros().NavigateTo().Pages(this.Culture);
             BAT.Wrappers().Backend().Pages().PagesWrapper().OpenPageZoneEditor(PageName);
             BATFeather.Wrappers().Backend().Pages().PageZoneEditorWrapper().AddWidgetToPlaceHolderPureMvcMode(WidgetName);
             BATFeather.Wrappers().Backend().Pages().PageZoneEditorWrapper().EditWidget(WidgetName);
             BATFeather.Wrappers().Backend().Widgets().WidgetDesignerWrapper().ClickSelectButton();
-            BATFeather.Wrappers().Backend().Widgets().SelectorsWrapper().SelectItemsInFlatSelector(BlogTitle);
+            BATFeather.Wrappers().Backend().Widgets().SelectorsWrapper().SelectItemsInFlatSelector(forumTitle);
             BATFeather.Wrappers().Backend().Widgets().SelectorsWrapper().DoneSelecting();
             BATFeather.Wrappers().Backend().Widgets().WidgetDesignerWrapper().SaveChanges();
             BAT.Wrappers().Backend().Pages().PageZoneEditorWrapper().PublishPage();
 
             BAT.Macros().NavigateTo().CustomPage("~/" + PageName.ToLower(), false, this.Culture);
             BATFeather.Wrappers().Frontend().FeedWidget().FeedWidget().VerifyFeedLImageIsVisible();
-            Assert.IsTrue(BAT.Wrappers().Frontend().Pages().PagesWrapperFrontend().GetPageContent().InnerText.Contains(BlogTitle));
+            Assert.IsTrue(BAT.Wrappers().Frontend().Pages().PagesWrapperFrontend().GetPageContent().InnerText.Contains(forumTitle));
             Assert.IsTrue(ActiveBrowser.ContainsText(this.feedLink[0]), "Feed link not present");
-            BATFeather.Wrappers().Frontend().FeedWidget().FeedWidget().VerifyFeedLinkInHeadTag(BlogTitle, this.feedLink[0]);
+            BATFeather.Wrappers().Frontend().FeedWidget().FeedWidget().VerifyFeedLinkInHeadTag(forumTitle, this.feedLink[0]);
         }
 
         /// <summary>
@@ -63,7 +69,7 @@ namespace FeatherWidgets.TestUI.TestCases.FeedWidget
 
         private const string PageName = "FeedPage";
         private const string WidgetName = "Feed";
-        private const string BlogTitle = "BlogTitle";
-        private string[] feedLink = { "feeds/blogtitle" };
+        string forumTitle = "ForumTitle";
+        private string[] feedLink = { "feeds/forumtitle" };
     }
 }
