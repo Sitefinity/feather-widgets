@@ -91,11 +91,6 @@ namespace FeatherWidgets.TestUI.TestCases
         public const string MediaSelector = "MediaSelector";
 
         /// <summary>
-        /// MediaSelector category for MediaSelector1 tests
-        /// </summary>
-        public const string MediaSelector1 = "MediaSelector1";
-
-        /// <summary>
         /// ImageGallery category for ImageGallery tests
         /// </summary>
         public const string ImageGallery = "ImageGallery";

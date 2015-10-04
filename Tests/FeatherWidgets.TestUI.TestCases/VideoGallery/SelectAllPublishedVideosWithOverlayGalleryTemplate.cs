@@ -46,7 +46,7 @@ namespace FeatherWidgets.TestUI.TestCases.VideoGallery
 
             BATFeather.Wrappers().Frontend().ImageGallery().ImageGalleryWrapper().ClickImage(ImageAltText + 2);
             var scr = this.GetVideoSource(true, this.videoTitles[1], VideoType);
-            BATFeather.Wrappers().Frontend().VideoGallery().VideoGalleryWrapper().VerifySelectedVideoOverlayTemplate(scr, this.Culture);
+            BATFeather.Wrappers().Frontend().VideoGallery().VideoGalleryWrapper().VerifySelectedVideoOverlayTemplate(scr);
             BATFeather.Wrappers().Frontend().VideoGallery().VideoGalleryWrapper().VerifyPreviousAndNextVideoArrowsOverlayTemplate();
             scr = this.GetVideoSource(false, this.videoTitles[1], string.Empty);
             string url = PageName.ToLower() + scr;
@@ -77,7 +77,18 @@ namespace FeatherWidgets.TestUI.TestCases.VideoGallery
         {
             string libraryUrl = LibraryName.ToLower();
             string imageUrl = imageName.ToLower() + imageType.ToLower();
-            string scr = BATFeather.Wrappers().Frontend().MediaWidgets().MediaWidgetsWrapper().GetMediaSource(isBaseUrlIncluded, libraryUrl, imageUrl, this.BaseUrl, "videos", currentProviderUrlName, this.Culture);
+            string url;
+
+            if (this.Culture == null)
+            {
+                url = this.BaseUrl;
+            }
+            else
+            {
+                url = ActiveBrowser.Url.Substring(0, 20);
+            }
+
+            string scr = BATFeather.Wrappers().Frontend().MediaWidgets().MediaWidgetsWrapper().GetMediaSource(isBaseUrlIncluded, libraryUrl, imageUrl, url, "videos", currentProviderUrlName, this.Culture);
             return scr;
         }
 

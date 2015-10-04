@@ -34,15 +34,12 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend
         /// </summary>
         /// <param name="title">The title.</param>
         /// <param name="href">The href.</param>
-        public void VerifyDocument(string text, string href, string culture)
+        public void VerifyDocument(string text, string href)
         {
             HtmlAnchor doc = ActiveBrowser.Find.ByExpression<HtmlAnchor>("innertext=" + text)
                 .AssertIsPresent("document");
 
-            if (culture == null)
-            {
-                Assert.IsTrue(doc.HRef.StartsWith(href), "href is not correct");
-            }            
+                Assert.IsTrue(doc.HRef.StartsWith(href), "href is not correct");         
         }
 
         /// <summary>

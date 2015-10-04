@@ -61,14 +61,11 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend.Media
         /// Verifies the small video properites.
         /// </summary>
         /// <param name="src">The SRC.</param>
-        public void VerifySmallVideoProperites(string src, string culture)
+        public void VerifySmallVideoProperites(string src)
         {
             HtmlDiv holder = this.EM.Media.VideoPropertiesScreen.SmallVideoHolder.AssertIsPresent("video holder");
            
-            if(culture == null)
-            {
-                holder.Find.ByExpression<HtmlVideo>("src=~" + src).AssertIsPresent("video");
-            }            
+                holder.Find.ByExpression<HtmlVideo>("src=~" + src).AssertIsPresent("video");           
         }
 
         /// <summary>
@@ -95,13 +92,11 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend.Media
         /// Verifies the big video properites.
         /// </summary>
         /// <param name="src">The SRC.</param>
-        public void VerifyBigVideoProperites(string src, string culture)
+        public void VerifyBigVideoProperites(string src)
         {
             HtmlDiv holder = this.EM.Media.VideoPropertiesScreen.BigVideoHolder.AssertIsPresent("video holder");
-            if(culture == null)
-            {
-                 holder.Find.ByExpression<HtmlVideo>("id=sfVideoPlayer", "src=~" + src).AssertIsPresent("video");
-            }           
+
+                 holder.Find.ByExpression<HtmlVideo>("id=sfVideoPlayer", "src=~" + src).AssertIsPresent("video");         
         }
 
         /// <summary>

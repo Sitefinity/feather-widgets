@@ -20,7 +20,7 @@ namespace FeatherWidgets.TestUI.TestCases.MediaWidgets
         /// </summary>
         [TestMethod,
         Owner(FeatherTeams.FeatherTeam),
-        TestCategory(FeatherTestCategories.MediaSelector1),
+        TestCategory(FeatherTestCategories.MediaSelector),
         TestCategory(FeatherTestCategories.ContentBlock),
         TestCategory(FeatherTestCategories.PagesAndContent)]
         public void VideoWidgetEditAndChangeSelectedVideo()
@@ -49,7 +49,7 @@ namespace FeatherWidgets.TestUI.TestCases.MediaWidgets
             BAT.Wrappers().Backend().Pages().PageZoneEditorWrapper().PublishPage();
 
             BAT.Macros().NavigateTo().CustomPage("~/" + PageName.ToLower(), false, this.Culture);
-            BATFeather.Wrappers().Frontend().MediaWidgets().MediaWidgetsWrapper().VerifyVideo1(this.GetVideoSource(false, VideoName2), Width, Height);
+            BATFeather.Wrappers().Frontend().MediaWidgets().MediaWidgetsWrapper().VerifyVideo(this.GetVideoSource(false, VideoName2), Width, Height);
         }
 
         /// <summary>
@@ -83,7 +83,7 @@ namespace FeatherWidgets.TestUI.TestCases.MediaWidgets
             }
             else
             {
-                url = ActiveBrowser.Url.Substring(0, 19);
+                url = ActiveBrowser.Url.Substring(0, 20);
             }
 
             string href = BATFeather.Wrappers().Frontend().MediaWidgets().MediaWidgetsWrapper().GetMediaSource(isBaseUrlIncluded, libraryUrl, documentUrl, url, "videos", currentProviderUrlName);

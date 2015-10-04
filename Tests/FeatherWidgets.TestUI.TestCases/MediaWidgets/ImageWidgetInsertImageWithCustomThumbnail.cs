@@ -20,7 +20,7 @@ namespace FeatherWidgets.TestUI.TestCases.MediaWidgets
         /// </summary>
         [TestMethod,
         Owner(FeatherTeams.FeatherTeam),
-        TestCategory(FeatherTestCategories.MediaSelector1),
+        TestCategory(FeatherTestCategories.MediaSelector),
         TestCategory(FeatherTestCategories.PagesAndContent)]
         public void ImageWidgetInsertImageWithCustomThumbnail()
         {
@@ -36,7 +36,7 @@ namespace FeatherWidgets.TestUI.TestCases.MediaWidgets
             Assert.IsTrue(BATFeather.Wrappers().Backend().Media().ImagePropertiesWrapper().IsTitlePopulated(ImageName), "Image title is not populated correctly");
             Assert.IsTrue(BATFeather.Wrappers().Backend().Media().ImagePropertiesWrapper().IsImageAltTextPopulated(ImageAltText1), "Image alt text is not populated correctly");
             string scr = this.GetImageSource(true, ImageName, ImageTypeInPropertiesDialog);
-            BATFeather.Wrappers().Backend().Media().ImagePropertiesWrapper().VerifyImageThumbnailInPropertiesDialog1(ImageName, scr);
+            BATFeather.Wrappers().Backend().Media().ImagePropertiesWrapper().VerifyImageThumbnailInPropertiesDialog(ImageName, scr);
             BATFeather.Wrappers().Backend().Media().ImagePropertiesWrapper().VerifySelectedOptionThumbnailSelector(ThumbnailOption);
 
             BATFeather.Wrappers().Backend().Media().ImagePropertiesWrapper().EnterTitle(NewImageName);
@@ -48,7 +48,7 @@ namespace FeatherWidgets.TestUI.TestCases.MediaWidgets
             Assert.IsTrue(BATFeather.Wrappers().Backend().Media().ImagePropertiesWrapper().IsTitlePopulated(NewImageName), "Image title is not populated correctly");
             Assert.IsTrue(BATFeather.Wrappers().Backend().Media().ImagePropertiesWrapper().IsImageAltTextPopulated(NewImageAltText), "Image alt text is not populated correctly");
             scr = this.GetImageSource(true, ImageName, ImageTypeInPropertiesDialog);
-            BATFeather.Wrappers().Backend().Media().ImagePropertiesWrapper().VerifyImageThumbnailInPropertiesDialog(ImageName, scr, this.Culture);
+            BATFeather.Wrappers().Backend().Media().ImagePropertiesWrapper().VerifyImageThumbnailInPropertiesDialog(ImageName, scr);
             BATFeather.Wrappers().Backend().Media().ImagePropertiesWrapper().SelectOptionThumbnailSelector("Custom size...");
             BATFeather.Wrappers().Backend().Media().ImagePropertiesWrapper().SelectResizeImageOption("Crop to area");
             BATFeather.Wrappers().Backend().Media().ImagePropertiesWrapper().SelectResizeImageOption("Resize to area");
@@ -105,7 +105,7 @@ namespace FeatherWidgets.TestUI.TestCases.MediaWidgets
             }
             else
             {
-                url = ActiveBrowser.Url.Substring(0, 19);
+                url = ActiveBrowser.Url.Substring(0, 20);
             }
 
            string scr = BATFeather.Wrappers().Frontend().MediaWidgets().MediaWidgetsWrapper().GetMediaSource(isBaseUrlIncluded, libraryUrl, imageUrl, url, "images", currentProviderUrlName);
