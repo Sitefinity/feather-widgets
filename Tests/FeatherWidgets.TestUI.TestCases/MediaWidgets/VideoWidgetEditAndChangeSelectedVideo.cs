@@ -20,7 +20,7 @@ namespace FeatherWidgets.TestUI.TestCases.MediaWidgets
         /// </summary>
         [TestMethod,
         Owner(FeatherTeams.FeatherTeam),
-        TestCategory(FeatherTestCategories.MediaSelector),
+        TestCategory(FeatherTestCategories.MediaSelector1),
         TestCategory(FeatherTestCategories.ContentBlock),
         TestCategory(FeatherTestCategories.PagesAndContent)]
         public void VideoWidgetEditAndChangeSelectedVideo()

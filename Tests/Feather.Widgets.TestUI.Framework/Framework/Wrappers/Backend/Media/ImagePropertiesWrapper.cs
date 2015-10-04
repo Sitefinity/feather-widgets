@@ -123,6 +123,20 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend.Media
         }
 
         /// <summary>
+        /// Verifies image on the frontend.
+        /// </summary>
+        /// <param name="title">The image title.</param>
+        /// <param name="altText">The image alt text.</param>
+        /// <param name="src">The image src.</param>
+        public void VerifyImageThumbnailInPropertiesDialog1(string altText, string src)
+        {
+            HtmlImage image = ActiveBrowser.Find
+                                           .ByExpression<HtmlImage>("alt=" + altText)
+                                           .AssertIsPresent("image");
+            Assert.IsTrue(image.Src.StartsWith(src), "Actual:" + image.Src + "Expected" + src  + "src is not correct");
+        }
+
+        /// <summary>
         /// Enters the width of the max.
         /// </summary>
         /// <param name="number">The number.</param>
