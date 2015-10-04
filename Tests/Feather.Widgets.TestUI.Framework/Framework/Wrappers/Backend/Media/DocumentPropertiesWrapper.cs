@@ -32,6 +32,19 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend.Media
         }
 
         /// <summary>
+        /// Verifies the document link.
+        /// </summary>
+        /// <param name="title">The document.</param>
+        /// <param name="href">The href.</param>
+        public void VerifyDocumentLink1(string title, string href)
+        {
+            HtmlAnchor doc = ActiveBrowser.Find.ByExpression<HtmlAnchor>("title=" + title)
+                .AssertIsPresent("document");
+
+            Assert.IsTrue(doc.HRef.StartsWith(href), "Actual" + doc.HRef + "Expected" + href + "href is not correct");
+        }
+
+        /// <summary>
         /// Verifies the document icon.
         /// </summary>
         /// <param name="type">The type.</param>

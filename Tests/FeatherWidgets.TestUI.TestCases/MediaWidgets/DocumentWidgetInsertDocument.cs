@@ -20,7 +20,7 @@ namespace FeatherWidgets.TestUI.TestCases.MediaWidgets
         /// </summary>
         [TestMethod,
         Owner(FeatherTeams.FeatherTeam),
-        TestCategory(FeatherTestCategories.MediaSelector),
+        TestCategory(FeatherTestCategories.MediaSelector1),
         TestCategory(FeatherTestCategories.PagesAndContent)]
         public void DocumentWidgetInsertDocument()
         {
@@ -35,7 +35,7 @@ namespace FeatherWidgets.TestUI.TestCases.MediaWidgets
             BATFeather.Wrappers().Backend().Media().MediaSelectorWrapper().VerifyMediaTooltip(DocumentName, LibraryName, DocumentType);
             BATFeather.Wrappers().Backend().Media().MediaSelectorWrapper().SelectMediaFile(DocumentName, true);
             BATFeather.Wrappers().Backend().Media().MediaSelectorWrapper().ConfirmMediaFileSelectionInWidget();
-            BATFeather.Wrappers().Backend().Media().DocumentPropertiesWrapper().VerifyDocumentLink(DocumentName, this.GetDocumentHref(true), this.Culture);
+            BATFeather.Wrappers().Backend().Media().DocumentPropertiesWrapper().VerifyDocumentLink1(DocumentName, this.GetDocumentHref(true));
             BATFeather.Wrappers().Backend().Media().DocumentPropertiesWrapper().VerifyDocumentIcon(DocumentExtension);
             BATFeather.Wrappers().Backend().Media().DocumentPropertiesWrapper().VerifyTemplateDropdownValueInWidget("DocumentLink");
             BATFeather.Wrappers().Backend().Media().DocumentPropertiesWrapper().ApplyCssClasses(CssClassesToApply);
