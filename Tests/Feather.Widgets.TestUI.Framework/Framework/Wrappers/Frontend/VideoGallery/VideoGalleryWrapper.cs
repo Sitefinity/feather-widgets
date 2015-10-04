@@ -55,43 +55,59 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Frontend
         /// Verifies the previous video.
         /// </summary>
         /// <param name="href">The href.</param>
-        public void VerifyPreviousVideo(string href)
+        public void VerifyPreviousVideo(string href, string culture)
         {
             var prev = EM.MediaGallery.MediaGalleryFrontend.PreviousLink
                .AssertIsPresent("previous video");
-            Assert.IsTrue(prev.HRef.StartsWith(href));
+
+            if(culture == null)
+            {
+                Assert.IsTrue(prev.HRef.StartsWith(href));
+            }
         }
 
         /// <summary>
         /// Verifies the next video.
         /// </summary>
         /// <param name="href">The href.</param>
-        public void VerifyNextVideo(string href)
+        public void VerifyNextVideo(string href, string culture)
         {
             var next = EM.MediaGallery.MediaGalleryFrontend.NextLink
                .AssertIsPresent("next video");
-            Assert.IsTrue(next.HRef.StartsWith(href));
+            
+            if (culture == null)
+            {
+                Assert.IsTrue(next.HRef.StartsWith(href));
+            }
         }
 
         /// <summary>
         /// Verifies the back to all videos.
         /// </summary>
         /// <param name="href">The href.</param>
-        public void VerifyBackToAllVideos(string href)
+        public void VerifyBackToAllVideos(string href, string culture)
         {
             var backLink = EM.MediaGallery.MediaGalleryFrontend.BeckToAllMediaFilesLink
                .AssertIsPresent("back to all videos");
-            Assert.IsTrue(backLink.HRef.Contains(href));
+
+            if (culture == null)
+            {
+                Assert.IsTrue(backLink.HRef.Contains(href));
+            }
         }
 
         /// <summary>
         /// Verifies the selected Video overlay template.
         /// </summary>
         /// <param name="altText">The alt text.</param>
-        public void VerifySelectedVideoOverlayTemplate(string src)
+        public void VerifySelectedVideoOverlayTemplate(string src, string culture)
         {
             var iframeDiv = ActiveBrowser.Find.ByExpression<HtmlDiv>("class=mfp-iframe-scaler");
-            iframeDiv.ChildNodes[1].GetAttribute("src").Value.Contains(src);
+
+            if (culture == null)
+            {
+                iframeDiv.ChildNodes[1].GetAttribute("src").Value.Contains(src);
+            }
         }
 
         /// <summary>

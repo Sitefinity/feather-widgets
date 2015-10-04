@@ -180,7 +180,7 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend
             Assert.IsNotNull(itemsCount);
             Assert.AreNotEqual(0, itemsCount);
 
-            for (int i = 0; i < itemsCount; i++)
+            for (int i = 0; i < itemsCount-1; i++)
             {
                 Assert.IsTrue(items[i].InnerText.Contains(itemNames[i]), items[i].InnerText + " not contain" + itemNames[i]);
             }

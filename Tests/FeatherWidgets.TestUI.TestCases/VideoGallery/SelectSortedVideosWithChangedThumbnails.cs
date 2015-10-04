@@ -74,13 +74,13 @@ namespace FeatherWidgets.TestUI.TestCases.VideoGallery
             BATFeather.Wrappers().Frontend().VideoGallery().VideoGalleryWrapper().VerifyVideo(scr, this.Culture, Width, Height);
 
             var hrefPrevious = this.GetVideoHref(true, this.videoTitles[0], LibraryName);
-            BATFeather.Wrappers().Frontend().VideoGallery().VideoGalleryWrapper().VerifyPreviousVideo(hrefPrevious);
+            BATFeather.Wrappers().Frontend().VideoGallery().VideoGalleryWrapper().VerifyPreviousVideo(hrefPrevious, this.Culture);
 
             var hrefNext = this.GetVideoHref(true, this.videoTitles[2], AnotherVideoLibraryTitle);
-            BATFeather.Wrappers().Frontend().VideoGallery().VideoGalleryWrapper().VerifyNextVideo(hrefNext);
+            BATFeather.Wrappers().Frontend().VideoGallery().VideoGalleryWrapper().VerifyNextVideo(hrefNext, this.Culture);
 
             var hrefBack = "/" + PageName.ToLower() + "/" + "Index/";
-            BATFeather.Wrappers().Frontend().VideoGallery().VideoGalleryWrapper().VerifyBackToAllVideos(hrefBack);
+            BATFeather.Wrappers().Frontend().VideoGallery().VideoGalleryWrapper().VerifyBackToAllVideos(hrefBack, this.Culture);
 
             BAT.Macros().NavigateTo().CustomPage("~/" + PageName.ToLower() + "/" + AnotherVideoLibraryTitle.ToLower(), true, this.Culture);
             for (int j = 1; j <= 3; j++)

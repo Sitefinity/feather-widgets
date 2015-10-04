@@ -46,7 +46,7 @@ namespace FeatherWidgets.TestUI.TestCases.VideoGallery
 
             BATFeather.Wrappers().Frontend().ImageGallery().ImageGalleryWrapper().ClickImage(ImageAltText + 2);
             var scr = this.GetVideoSource(true, this.videoTitles[1], VideoType);
-            BATFeather.Wrappers().Frontend().VideoGallery().VideoGalleryWrapper().VerifySelectedVideoOverlayTemplate(scr);
+            BATFeather.Wrappers().Frontend().VideoGallery().VideoGalleryWrapper().VerifySelectedVideoOverlayTemplate(scr, this.Culture);
             BATFeather.Wrappers().Frontend().VideoGallery().VideoGalleryWrapper().VerifyPreviousAndNextVideoArrowsOverlayTemplate();
             scr = this.GetVideoSource(false, this.videoTitles[1], string.Empty);
             string url = PageName.ToLower() + scr;
