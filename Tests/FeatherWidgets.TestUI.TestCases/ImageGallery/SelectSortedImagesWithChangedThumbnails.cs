@@ -136,7 +136,18 @@ namespace FeatherWidgets.TestUI.TestCases.ImageGallery
         private string GetImageHref(bool isBaseUrlIncluded, string imageName, string libraryUrl)
         {
             string imageUrl = imageName.ToLower();
-            string href = BATFeather.Wrappers().Frontend().MediaWidgets().MediaWidgetsWrapper().GetMediaSource(isBaseUrlIncluded, libraryUrl.ToLower(), imageUrl, this.BaseUrl, PageName.ToLower() + "/images", currentProviderUrlName, this.Culture);
+            string url;
+
+            if (this.Culture == null)
+            {
+                url = this.BaseUrl;
+            }
+            else
+            {
+                url = ActiveBrowser.Url.Substring(0, 20);
+            }
+
+            string href = BATFeather.Wrappers().Frontend().MediaWidgets().MediaWidgetsWrapper().GetMediaSource(isBaseUrlIncluded, libraryUrl.ToLower(), imageUrl, url, PageName.ToLower() + "/images", currentProviderUrlName, this.Culture);
             return href;
         }
 
