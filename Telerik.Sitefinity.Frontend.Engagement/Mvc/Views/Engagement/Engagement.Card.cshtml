@@ -1,8 +1,8 @@
 @model Telerik.Sitefinity.Frontend.Engagement.Mvc.Models.Engagement.EngagementViewModel
 
 <div class="@Model.CssClass">
-    <h1>@Html.Raw(Model.Heading)</h1>
     <img src="@Model.SelectedSizeUrl" />
+    <h1>@Html.Raw(Model.Heading)</h1>
     <div>@Html.Raw(Model.Description)</div>
     <a href="@Model.ActionUrl">
         <span>@Model.ActionName</span>

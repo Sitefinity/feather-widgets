@@ -183,7 +183,8 @@
     <None Include="app.config" />
     <EmbeddedResource Include="Mvc\Views\Engagement\DesignerView.Simple.cshtml" />
     <EmbeddedResource Include="Mvc\Views\Engagement\DesignerView.Simple.json" />
-    <EmbeddedResource Include="Mvc\Views\Engagement\Engagement.cshtml" />
+    <None Include="Mvc\Views\Engagement\Engagement.Card.cshtml" />
+    <EmbeddedResource Include="Mvc\Views\Engagement\Engagement.Simple.cshtml" />
     <None Include="OpenAccessNuGet.targets" />
     <None Include="packages.config">
       <SubType>Designer</SubType>

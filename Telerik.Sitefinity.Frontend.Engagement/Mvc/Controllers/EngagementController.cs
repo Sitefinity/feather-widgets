@@ -159,7 +159,7 @@ namespace Telerik.Sitefinity.Frontend.Engagement.Mvc.Controllers
 
         #region Private fields and constants
 
-        internal const string WidgetIconCssClass = "sfEngagementListViewIcn sfMvcIcn";
+        internal const string WidgetIconCssClass = "sfCardIcn sfMvcIcn";
         private IEngagementModel model;
 
         private string templateName = "Engagement";

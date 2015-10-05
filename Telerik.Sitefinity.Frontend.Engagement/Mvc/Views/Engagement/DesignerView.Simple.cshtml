@@ -3,51 +3,58 @@
 
 <form>
     <div class="form-group">
-        <label>Heading
-            <input type="text" class="form-control" ng-model="properties.Heading.PropertyValue" />
+        <label for="heading-text">
+            Heading
         </label>
+        <input id="heading-text" type="text" class="form-control" ng-model="properties.Heading.PropertyValue" />
     </div>
 
     <div class="form-group">
-        <label>Description</label>
-        <sf-html-field class="kendo-content-block" sf-model="properties.Description.PropertyValue"></sf-html-field>
+        <label for="description-text">Description</label>
+        <textarea id="description-text" class="form-control" rows="3" ng-model="properties.Description.PropertyValue"></textarea>
+        @*<sf-html-field id="description-text" class="kendo-content-block" sf-model="properties.Description.PropertyValue"></sf-html-field>*@
     </div>
 
-    <label>Image</label>
     <div class="form-group">
-        <sf-image-field class="sf-Media--info modal-settings"
+        <label for="image-field" class="m-top-sm">Image</label>
+        <sf-image-field class="sf-Media--info modal-settings modal-settings-space"
             sf-model="properties.ImageId.PropertyValue"
             sf-image="selectedImage"
-            sf-provider="properties.ImageProviderName.PropertyValue"></sf-image-field>
+            sf-provider="properties.ImageProviderName.PropertyValue"
+            id="image-field"></sf-image-field>
     </div>
 
+    <hr class="side-to-side">
+
     <div class="form-group">
-        <label>Label
-            <input type="text" ng-model="properties.ActionName.PropertyValue" class="form-control" />
+        <label for="label-text">
+            Label
         </label>
+        <input id="label-text" type="text" ng-model="properties.ActionName.PropertyValue" class="form-control" />
+        <p class="text-muted">Example: Learn more</p>
     </div>
 
     <div class="form-group">
 
-        <div class="label-content">
-            <div class="radio">
-                <label>
-                    <input type="radio" ng-model="isPageSelectMode" ng-value="true" />
-                    Select page
-                </label>
-                <sf-list-selector
-                    class="label-content"
-                    sf-page-selector
-                    sf-selected-item-id="properties.LinkedPageId.PropertyValue"
-                    ng-show="isPageSelectMode"></sf-list-selector>
-            </div>
-            <div class="radio">
-                <label>
-                    <input type="radio" ng-model="isPageSelectMode" ng-value="false" />
-                    External Url
-                </label>
-                <input type="text"  class="form-control" ng-show="!isPageSelectMode" ng-model="properties.LinkedUrl.PropertyValue" />
-            </div>
+        <label>Link to...</label> 
+        <div class="radio">
+            <label>
+                <input type="radio" ng-model="isPageSelectMode" ng-value="true" />
+                Page within the site...
+            </label>
+            <sf-list-selector
+                class="label-content"
+                sf-page-selector
+                sf-selected-item-id="properties.LinkedPageId.PropertyValue"
+                ng-show="isPageSelectMode"></sf-list-selector>
+        </div>
+        <div class="radio">
+            <label>
+                <input type="radio" ng-model="isPageSelectMode" ng-value="false" />
+                External URL...
+            </label>
+            <input type="text"  class="form-control" ng-show="!isPageSelectMode" ng-model="properties.LinkedUrl.PropertyValue" />
+            <p class="text-muted" ng-show="!isPageSelectMode">Example: http://sitefinity.com</p>
         </div>
     </div>
 
