@@ -78,5 +78,25 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend.Forms
             dropdownChoiceFieldAnswer.AssertIsPresent("Dropdown List Choice Field Text");
             Assert.AreEqual<string>(dropdownChoiceFieldAnswer.InnerText, dropdownContent);
         }
+
+        /// <summary>
+        /// Verify response for content block field in backend
+        /// </summary>
+        public void VerifyResponseContentBlockAnswer(string contentText)
+        {
+            var dropdownChoiceFieldAnswer = EM.Forms.FormsBackend.ResponseDetailsPane;
+            dropdownChoiceFieldAnswer.Find.ByExpression<HtmlDiv>("TagName=div", "innertext=" + contentText);
+            dropdownChoiceFieldAnswer.AssertIsPresent("Dropdown List Choice Field Text");
+        }
+
+        /// <summary>
+        /// Sets the Section Header content in the field designer
+        /// </summary>
+        public void SetSectionHeaderText(string sectionHeader)
+        {
+            HtmlInputText textbox = this.EM.Forms.FormsBackend.SectionHeaderText.AssertIsPresent("Text field");
+            textbox.MouseClick();
+            Manager.Current.Desktop.KeyBoard.TypeText(sectionHeader);
+        }
     }
 }

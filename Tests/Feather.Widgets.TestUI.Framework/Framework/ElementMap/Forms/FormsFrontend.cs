@@ -68,6 +68,17 @@ namespace Feather.Widgets.TestUI.Framework.Framework.ElementMap.Forms
         }
 
         /// <summary>
+        /// Gets the paragraph text field on frontend
+        /// </summary>
+        public HtmlDiv ParagraphTextField
+        {
+            get
+            {
+                return this.Get<HtmlDiv>("TagName=div", "data-sf-role=paragraph-text-field-container");
+            }
+        }
+
+        /// <summary>
         /// Gets the text field on frontend
         /// </summary>
         public HtmlInputText TextField
@@ -75,6 +86,17 @@ namespace Feather.Widgets.TestUI.Framework.Framework.ElementMap.Forms
             get
             {
                 return this.Get<HtmlInputText>("TagName=input", "Class=form-control");
+            }
+        }
+
+        /// <summary>
+        /// Gets the paragraph text box on frontend
+        /// </summary>
+        public HtmlTextArea ParagraphTextBox
+        {
+            get
+            {
+                return this.Get<HtmlTextArea>("TagName=textarea");
             }
         }
 

@@ -48,12 +48,39 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Frontend.Forms
         }
 
         /// <summary>
+        /// Verify if content block content is visible
+        /// </summary>
+        public void VerifyContentBlockFieldTextIsVisible(string contentText)
+        {
+            HtmlDiv frontendPageMainDiv = BAT.Wrappers().Frontend().Pages().PagesWrapperFrontend().GetPageContent();
+            Assert.IsTrue(frontendPageMainDiv.InnerText.Contains(contentText));
+        }
+
+        /// <summary>
+        /// Verify if Paragraph text field label is visible
+        /// </summary>
+        public void VerifyParagraphTextFieldLabelIsVisible(string fieldLabel)
+        {
+            Assert.IsTrue(EM.Forms.FormsFrontend.ParagraphTextField.InnerText.Contains(fieldLabel));
+        }
+
+        /// <summary>
         /// Sets the TextBox Content in the Frontend of the form
         /// </summary>
         public void SetTextboxContent(string content)
         {
             HtmlInputText textbox = this.EM.Forms.FormsFrontend.TextField.AssertIsPresent("Text field");
             textbox.SimulateTextTyping(content, Telerik.TestUI.Core.WebAii.Tools.UserInput.SimulationType.LastKeyStroke);
+        }
+
+        /// <summary>
+        /// Sets the Paragraph Text Content in the Frontend of the form
+        /// </summary>
+        public void SetParagraphTextContent(string content)
+        {
+            HtmlTextArea textbox = this.EM.Forms.FormsFrontend.ParagraphTextBox.AssertIsPresent("Text field");
+            textbox.MouseClick();
+            Manager.Current.Desktop.KeyBoard.TypeText(content);
         }
 
         /// <summary>

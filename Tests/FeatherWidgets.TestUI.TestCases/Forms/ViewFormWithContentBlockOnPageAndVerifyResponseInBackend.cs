@@ -10,39 +10,40 @@ using Telerik.Sitefinity.Frontend.TestUtilities;
 namespace FeatherWidgets.TestUI.TestCases.Forms
 {
     /// <summary>
-    /// ViewFormWithTextboxFieldOnPageAndVerifyResponseInBackend test class.
+    /// ViewFormWithContentBlockOnPageAndVerifyResponseInBackend test class.
     /// </summary>
     [TestClass]
-    public class ViewFormWithTextboxFieldOnPageAndVerifyResponseInBackend_ : FeatherTestCase
+    public class ViewFormWithContentBlockOnPageAndVerifyResponseInBackend_ : FeatherTestCase
     {
         /// <summary>
-        /// UI test ViewFormWithTextboxFieldOnPageAndVerifyResponseInBackend
+        /// UI test ViewFormWithContentBlockOnPageAndVerifyResponseInBackend
         /// </summary>
         [TestMethod,
         Owner(FeatherTeams.FeatherTeam),
         TestCategory(FeatherTestCategories.PagesAndContent),
-        TestCategory(FeatherTestCategories.Bootstrap),
         TestCategory(FeatherTestCategories.Forms)]
-        public void ViewFormWithTextboxFieldOnPageAndVerifyResponseInBackend()
+        public void ViewFormWithContentBlockOnPageAndVerifyResponseInBackend()
         {
             BAT.Macros().NavigateTo().Modules().Forms(this.Culture);
             BAT.Wrappers().Backend().Forms().FormsDashboard().ClickCreateAFormButton();
             BAT.Wrappers().Backend().Forms().FormsCreateScreen().SetFormName(FormName);
             BAT.Wrappers().Backend().Forms().FormsCreateScreen().ClickCreateAndAddContent();
             BATFeather.Wrappers().Backend().Forms().FormsContentScreenWrapper().AddField(FieldName);
+            BATFeather.Wrappers().Backend().Pages().PageZoneEditorWrapper().EditWidget(FieldName);
+            BATFeather.Wrappers().Backend().ContentBlocks().ContentBlocksWrapper().FillContentToContentBlockWidget(ExpectedContent);
+            BATFeather.Wrappers().Backend().ContentBlocks().ContentBlocksWrapper().SaveChanges();
             BAT.Wrappers().Backend().Forms().FormsContentScreen().PublishForm();
-            
+
             BAT.Macros().NavigateTo().Pages(this.Culture);
             BAT.Wrappers().Backend().Pages().PagesWrapper().OpenPageZoneEditor(PageName);
-            BATFeather.Wrappers().Backend().Pages().PageZoneEditorWrapper().AddWidgetToPlaceHolderPureMvcMode(WidgetName);
+            BATFeather.Wrappers().Backend().Pages().PageZoneEditorWrapper().AddMvcWidgetHybridModePage(WidgetName);
             BATFeather.Wrappers().Backend().Pages().PageZoneEditorWrapper().EditWidget(WidgetName);
             BATFeather.Wrappers().Backend().Widgets().SelectorsWrapper().SelectItemsInFormWidgetSelector(FormName);
             BATFeather.Wrappers().Backend().Widgets().WidgetDesignerWrapper().SaveChanges();
             BAT.Wrappers().Backend().Pages().PageZoneEditorWrapper().PublishPage();
 
             BAT.Macros().NavigateTo().CustomPage("~/" + PageName.ToLower(), true, this.Culture);
-            BATFeather.Wrappers().Frontend().Forms().FormsWrapper().VerifyTextFieldLabelIsVisible(LabelName);
-            BATFeather.Wrappers().Frontend().Forms().FormsWrapper().SetTextboxContent(TextBoxContent);
+            BATFeather.Wrappers().Frontend().Forms().FormsWrapper().VerifyContentBlockFieldTextIsVisible(ExpectedContent);
             BATFeather.Wrappers().Frontend().Forms().FormsWrapper().SubmitForm();
 
             BAT.Macros().NavigateTo().Modules().Forms(this.Culture);
@@ -52,7 +53,7 @@ namespace FeatherWidgets.TestUI.TestCases.Forms
             BAT.Wrappers().Backend().Forms().FormsResponseScreen().SelectResponse(ResponseNumber);
             BATFeather.Wrappers().Backend().Forms().FormsWrapper().VerifyResponseAuthorUsername(ExpectedAuthorName);
             BATFeather.Wrappers().Backend().Forms().FormsWrapper().VerifyResponseSubmitDate();
-            BATFeather.Wrappers().Backend().Forms().FormsWrapper().VerifyResponseTextboxAnswer(TextBoxContent);
+            BATFeather.Wrappers().Backend().Forms().FormsWrapper().VerifyResponseContentBlockAnswer(ExpectedContent);
         }
 
         /// <summary>
@@ -73,11 +74,10 @@ namespace FeatherWidgets.TestUI.TestCases.Forms
         }
 
         private const string FormName = "MvcForm";
+        private const string FieldName = "Content block";
+        private const string ExpectedContent = "Test content";
         private const string PageName = "FormPage";
         private const string WidgetName = "Form";
-        private const string FieldName = "Textbox";
-        private const string LabelName = "Untitled";
-        private const string TextBoxContent = "Textbox Field Text";
         private const int ExpectedResponsesCount = 1;
         private const int ResponseNumber = 1;
         private const string ExpectedAuthorName = "admin";

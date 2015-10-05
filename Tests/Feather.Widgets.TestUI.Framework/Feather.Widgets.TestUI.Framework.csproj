@@ -192,6 +192,7 @@
     <Compile Include="Framework\Wrappers\Backend\EmailCampaigns\UnsubscribeWrapper.cs" />
     <Compile Include="Framework\Wrappers\Backend\FeedWidget\FeedWidgetWrapper.cs" />
     <Compile Include="Framework\Wrappers\Backend\FeedWidget\FeedWidgetWrapperFacade.cs" />
+    <Compile Include="Framework\Wrappers\Backend\Forms\FormsContentScreenWrapper.cs" />
     <Compile Include="Framework\Wrappers\Backend\Forms\FormsWrapper.cs" />
     <Compile Include="Framework\Wrappers\Backend\Forms\FormsWrapperFacade.cs" />
     <Compile Include="Framework\Wrappers\Backend\Pages\PageZoneEditorMediaWrapper.cs" />
