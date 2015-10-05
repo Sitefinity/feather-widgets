@@ -93,7 +93,18 @@ namespace FeatherWidgets.TestUI.TestCases.ContentBlocks.VideoSelector
         {            
             string libraryUrl = LibraryName.ToLower();
             string imageUrl = VideoName.ToLower() + VideoType.ToLower();
-            string scr = BATFeather.Wrappers().Frontend().MediaWidgets().MediaWidgetsWrapper().GetMediaSource(isBaseUrlIncluded, libraryUrl, imageUrl, this.BaseUrl, "videos", currentProviderUrlName);
+            string url;
+
+            if (this.Culture == null)
+            {
+                url = this.BaseUrl;
+            }
+            else
+            {
+                url = ActiveBrowser.Url.Substring(0, 20);
+            }
+
+            string scr = BATFeather.Wrappers().Frontend().MediaWidgets().MediaWidgetsWrapper().GetMediaSource(isBaseUrlIncluded, libraryUrl, imageUrl, url, "videos", currentProviderUrlName);
             return scr;
         }
 

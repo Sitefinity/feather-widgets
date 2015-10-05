@@ -93,7 +93,18 @@ namespace FeatherWidgets.TestUI.TestCases.ContentBlocks.DocumentSelector
         {
             string libraryUrl = LibraryName.ToLower() + "/" + ChildDocumentLibrary.ToLower();
             string documentUrl = NewDocumentName.ToLower() + DocumentType.ToLower();
-            string href = BATFeather.Wrappers().Frontend().MediaWidgets().MediaWidgetsWrapper().GetMediaSource(isBaseUrlIncluded, libraryUrl, documentUrl, this.BaseUrl, "docs", currentProviderUrlName);
+            string url;
+
+            if (this.Culture == null)
+            {
+                url = this.BaseUrl;
+            }
+            else
+            {
+                url = ActiveBrowser.Url.Substring(0, 20);
+            }
+
+            string href = BATFeather.Wrappers().Frontend().MediaWidgets().MediaWidgetsWrapper().GetMediaSource(isBaseUrlIncluded, libraryUrl, documentUrl, url, "docs", currentProviderUrlName);
             return href;
         }
 

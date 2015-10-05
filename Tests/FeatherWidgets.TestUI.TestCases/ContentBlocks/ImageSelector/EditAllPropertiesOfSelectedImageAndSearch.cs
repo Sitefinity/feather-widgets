@@ -78,7 +78,18 @@ namespace FeatherWidgets.TestUI.TestCases.ContentBlocks.ImageSelector
             BAT.Macros().NavigateTo().CustomPage("~/" + PageName.ToLower(), true, this.Culture);
             string libraryUrl = LibraryName.ToLower();
             string imageUrl = ImageName.ToLower() + ImageType.ToLower();
-            string scr = BATFeather.Wrappers().Frontend().MediaWidgets().MediaWidgetsWrapper().GetMediaSource(false, libraryUrl, imageUrl, this.BaseUrl, "images", currentProviderUrlName);
+            string url;
+
+            if (this.Culture == null)
+            {
+                url = this.BaseUrl;
+            }
+            else
+            {
+                url = ActiveBrowser.Url.Substring(0, 20);
+            }
+
+            string scr = BATFeather.Wrappers().Frontend().MediaWidgets().MediaWidgetsWrapper().GetMediaSource(false, libraryUrl, imageUrl, url, "images", currentProviderUrlName);
             BATFeather.Wrappers().Frontend().MediaWidgets().MediaWidgetsWrapper().VerifyImage(ImageNewName, ImageAltText1, scr);
         }
 

@@ -116,7 +116,18 @@ namespace FeatherWidgets.TestUI.TestCases.ContentBlocks.DocumentSelector
             BAT.Macros().NavigateTo().CustomPage("~/" + PageName.ToLower(), true, this.Culture);
             string libraryUrl = LibraryName.ToLower() + "/" + ChildLibrary.ToLower() + "/" + NextChildLibrary.ToLower();
             string imageUrl = DocumentName3.ToLower() + DocumentType.ToLower();
-            string href = BATFeather.Wrappers().Frontend().MediaWidgets().MediaWidgetsWrapper().GetMediaSource(false, libraryUrl, imageUrl, this.BaseUrl, MediaType, currentProviderUrlName);
+            string url;
+
+            if (this.Culture == null)
+            {
+                url = this.BaseUrl;
+            }
+            else
+            {
+                url = ActiveBrowser.Url.Substring(0, 20);
+            }
+
+            string href = BATFeather.Wrappers().Frontend().MediaWidgets().MediaWidgetsWrapper().GetMediaSource(false, libraryUrl, imageUrl, url, MediaType, currentProviderUrlName);
             BATFeather.Wrappers().Frontend().MediaWidgets().MediaWidgetsWrapper().VerifyDocument(DocumentName3, href);
         }
 
