@@ -29,7 +29,7 @@ namespace FeatherWidgets.TestUI.TestCases.Forms
             BAT.Wrappers().Backend().Forms().FormsDashboard().ClickCreateAFormButton();
             BAT.Wrappers().Backend().Forms().FormsCreateScreen().SetFormName(FormName);
             BAT.Wrappers().Backend().Forms().FormsCreateScreen().ClickCreateAndAddContent();
-            BAT.Wrappers().Backend().Forms().FormsContentScreen().AddWidget(Telerik.Sitefinity.TestUI.Framework.Wrappers.Backend.Forms.FormWidgetNames.MultipleChoice);
+            BATFeather.Wrappers().Backend().Forms().FormsContentScreenWrapper().AddField(FieldName);
             BAT.Wrappers().Backend().Forms().FormsContentScreen().PublishForm();
 
             BAT.Macros().NavigateTo().Pages(this.Culture);
@@ -75,6 +75,7 @@ namespace FeatherWidgets.TestUI.TestCases.Forms
         private const string FormName = "MvcForm";
         private const string PageName = "FormPage";
         private const string WidgetName = "Form";
+        private const string FieldName = "MultipleChoice";
         private const string LabelName = "Select a choice";
         private const string Choice = "Second Choice";
         private const int ExpectedResponsesCount = 1;

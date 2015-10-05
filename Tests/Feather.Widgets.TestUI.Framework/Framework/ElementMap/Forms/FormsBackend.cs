@@ -46,6 +46,17 @@ namespace Feather.Widgets.TestUI.Framework.Framework.ElementMap.Forms
         }
 
         /// <summary>
+        /// Gets the text field in designer of section header field
+        /// </summary>
+        public HtmlInputText SectionHeaderText
+        {
+            get
+            {
+                return this.Get<HtmlInputText>("TagName=input", "Class=form-control ng-pristine ng-untouched ng-valid");
+            }
+        }
+
+        /// <summary>
         /// Provides access to the response details pane for the selected response
         /// </summary>
         public HtmlControl ResponseDetailsPane
@@ -53,6 +64,17 @@ namespace Feather.Widgets.TestUI.Framework.Framework.ElementMap.Forms
             get
             {
                 return this.Get<HtmlControl>("tagname=div", "class=sfResponceDetailsWrp");
+            }
+        }
+
+        /// <summary>
+        /// Gets the Body Drop Zone in the Forms Edit Screen.
+        /// </summary>
+        public HtmlDiv BodyDropZone
+        {
+            get
+            {
+                return this.Find.AssociatedBrowser.GetControl<HtmlDiv>("id=PublicWrapper");
             }
         }
     }
