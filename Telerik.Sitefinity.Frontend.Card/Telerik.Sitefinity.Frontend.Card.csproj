@@ -7,8 +7,8 @@
     <ProjectGuid>{BED37404-75BB-4C89-B768-BB458A7E5DC9}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Telerik.Sitefinity.Frontend.Engagement</RootNamespace>
-    <AssemblyName>Telerik.Sitefinity.Frontend.Engagement</AssemblyName>
+    <RootNamespace>Telerik.Sitefinity.Frontend.Card</RootNamespace>
+    <AssemblyName>Telerik.Sitefinity.Frontend.Card</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\</SolutionDir>
@@ -172,26 +172,26 @@
       <Link>Properties\SharedAssemblyInfo.cs</Link>
     </Compile>
     <Compile Include="InterfaceMappings.cs" />
-    <Compile Include="Mvc\Controllers\EngagementController.cs" />
-    <Compile Include="Mvc\Models\Engagement\EngagementViewModel.cs" />
-    <Compile Include="Mvc\Models\Engagement\EngagementModel.cs" />
-    <Compile Include="Mvc\Models\Engagement\IEngagementModel.cs" />
-    <Compile Include="Mvc\StringResources\EngagementResources.cs" />
+    <Compile Include="Mvc\Controllers\CardController.cs" />
+    <Compile Include="Mvc\Models\Card\CardViewModel.cs" />
+    <Compile Include="Mvc\Models\Card\CardModel.cs" />
+    <Compile Include="Mvc\Models\Card\ICardModel.cs" />
+    <Compile Include="Mvc\StringResources\CardResources.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
-    <EmbeddedResource Include="Mvc\Views\Engagement\DesignerView.Simple.cshtml" />
-    <EmbeddedResource Include="Mvc\Views\Engagement\DesignerView.Simple.json" />
-    <None Include="Mvc\Views\Engagement\Engagement.Card.cshtml" />
-    <EmbeddedResource Include="Mvc\Views\Engagement\Engagement.Simple.cshtml" />
+    <EmbeddedResource Include="Mvc\Views\Card\DesignerView.Simple.cshtml" />
+    <EmbeddedResource Include="Mvc\Views\Card\DesignerView.Simple.json" />
+    <EmbeddedResource Include="Mvc\Views\Card\Card.cshtml" />
+    <EmbeddedResource Include="Mvc\Views\Card\Card.Simple.cshtml" />
     <None Include="OpenAccessNuGet.targets" />
     <None Include="packages.config">
       <SubType>Designer</SubType>
     </None>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Mvc\Scripts\Engagement\designerview-simple.js" />
+    <EmbeddedResource Include="Mvc\Scripts\Card\designerview-simple.js" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="OpenAccessNuget.targets" />
