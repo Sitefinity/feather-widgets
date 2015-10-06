@@ -9,7 +9,11 @@
 <div class="@Model.CssClass" data-sf-role="file-field-container" data-sf-config="@(Html.AttributeEncode(Model.Serialize()))">
     <label>@Model.MetaField.Title</label>
     <p data-sf-role="required-violation-message" style="display: none;">@Model.RequiredViolationMessage</p>
-    <p>@Model.MetaField.Description</p>
+    
+    @if (!string.IsNullOrEmpty(Model.MetaField.Description)) 
+    {
+        <p>@Model.MetaField.Description</p>
+    }
 
     <div data-sf-role="file-field-inputs">
         @if (!SystemManager.IsDesignMode)

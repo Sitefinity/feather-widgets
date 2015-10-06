@@ -14,7 +14,11 @@
         @Model.MetaField.Title
         <input data-sf-role="text-field-input" type="@Model.InputType.ToHtmlInputType()" name="@Model.MetaField.FieldName" placeholder="@Model.PlaceholderText" value="@Model.Value" @MvcHtmlString.Create(Model.ValidationAttributes) />
     </label>
-    <p>@Model.MetaField.Description</p>
+     @if (!string.IsNullOrEmpty(Model.MetaField.Description)) 
+     {
+         <p>@Model.MetaField.Description</p>
+     }
+    
 </div>
 
 @Html.Script(Url.WidgetContent("Mvc/Scripts/TextField/text-field.js"), "bottom", false)
