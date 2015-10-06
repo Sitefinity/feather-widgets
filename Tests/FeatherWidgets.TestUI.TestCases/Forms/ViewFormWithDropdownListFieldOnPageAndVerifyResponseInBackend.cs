@@ -74,7 +74,7 @@ namespace FeatherWidgets.TestUI.TestCases.Forms
         private const string FormName = "MvcForm";
         private const string PageName = "FormPage";
         private const string WidgetName = "Form";
-        private const string FieldName = "DropdownList";
+        private const string FieldName = "Dropdown list";
         private const string LabelName = "Select a choice";
         private const string Choice = "First Choice";
         private const int ExpectedResponsesCount = 1;

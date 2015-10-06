@@ -73,7 +73,7 @@ namespace FeatherWidgets.TestUI.TestCases.Forms
         }
 
         private const string FormName = "MvcForm";
-        private const string FieldName = "Section Header";
+        private const string FieldName = "Section header";
         private const string ExpectedContent = "Test Header";
         private const string PageName = "FormPage";
         private const string WidgetName = "Form";

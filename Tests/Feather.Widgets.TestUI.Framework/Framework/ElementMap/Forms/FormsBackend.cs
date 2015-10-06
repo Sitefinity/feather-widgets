@@ -48,11 +48,11 @@ namespace Feather.Widgets.TestUI.Framework.Framework.ElementMap.Forms
         /// <summary>
         /// Gets the text field in designer of section header field
         /// </summary>
-        public HtmlInputText SectionHeaderText
+        public HtmlTableCell SectionHeaderText
         {
             get
             {
-                return this.Get<HtmlInputText>("TagName=input", "Class=form-control ng-pristine ng-untouched ng-valid");
+                return this.Get<HtmlTableCell>("TagName=td", "class=k-editable-area");
             }
         }
 

@@ -94,7 +94,7 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend.Forms
         /// </summary>
         public void SetSectionHeaderText(string sectionHeader)
         {
-            HtmlInputText textbox = this.EM.Forms.FormsBackend.SectionHeaderText.AssertIsPresent("Text field");
+            HtmlTableCell textbox = this.EM.Forms.FormsBackend.SectionHeaderText.AssertIsPresent("Text field");
             textbox.MouseClick();
             Manager.Current.Desktop.KeyBoard.TypeText(sectionHeader);
         }
