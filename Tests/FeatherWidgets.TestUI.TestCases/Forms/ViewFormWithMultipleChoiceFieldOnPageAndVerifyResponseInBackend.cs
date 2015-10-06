@@ -20,7 +20,6 @@ namespace FeatherWidgets.TestUI.TestCases.Forms
         /// </summary>
         [TestMethod,
         Owner(FeatherTeams.FeatherTeam),
-        TestCategory(FeatherTestCategories.PagesAndContent),
         TestCategory(FeatherTestCategories.Bootstrap),
         TestCategory(FeatherTestCategories.Forms)]
         public void ViewFormWithMultipleChoiceFieldOnPageAndVerifyResponseInBackend()
