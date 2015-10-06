@@ -93,7 +93,7 @@ namespace Telerik.Sitefinity.Frontend.Forms
                     Name = name,
                     Title = title,
                     Description = string.Empty,
-                    ControlType = typeof(MvcWidgetProxy).AssemblyQualifiedName,
+                    ControlType = typeof(MvcControllerProxy).FullName,
                     ControllerType = controllerType,
                     CssClass = cssClass,
                     Parameters = new NameValueCollection() 
