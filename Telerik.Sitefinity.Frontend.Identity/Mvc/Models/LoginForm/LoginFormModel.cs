@@ -282,7 +282,10 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.LoginForm
 
                 input.RedirectUrlAfterLogin = redirectUrl;
 
-                SFClaimsAuthenticationManager.ProcessRejectedUser(context, input.RedirectUrlAfterLogin);
+                if (result != UserLoggingReason.Success)
+                {
+                    SFClaimsAuthenticationManager.ProcessRejectedUser(context, input.RedirectUrlAfterLogin);
+                }
             }
 
             return input;
