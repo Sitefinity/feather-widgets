@@ -60,7 +60,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Telerik.Sitefinity.Frontend
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Telerik.Sitefinity.Frontend.Forms", "Telerik.Sitefinity.Frontend.Forms\Telerik.Sitefinity.Frontend.Forms.csproj", "{35E2549F-113B-4B81-BDDE-F06E78F4BDF8}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Telerik.Sitefinity.Frontend.Engagement", "Telerik.Sitefinity.Frontend.Engagement\Telerik.Sitefinity.Frontend.Engagement.csproj", "{BED37404-75BB-4C89-B768-BB458A7E5DC9}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Telerik.Sitefinity.Frontend.Card", "Telerik.Sitefinity.Frontend.Card\Telerik.Sitefinity.Frontend.Card.csproj", "{BED37404-75BB-4C89-B768-BB458A7E5DC9}"
 EndProject
 Global
 	GlobalSection(TestCaseManagementSettings) = postSolution

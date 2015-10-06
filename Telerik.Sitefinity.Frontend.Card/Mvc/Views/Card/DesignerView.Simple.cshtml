@@ -4,19 +4,19 @@
 <form>
     <div class="form-group">
         <label for="heading-text">
-            Heading
+            @Html.Resource("Heading")
         </label>
         <input id="heading-text" type="text" class="form-control" ng-model="properties.Heading.PropertyValue" />
     </div>
 
     <div class="form-group">
-        <label for="description-text">Description</label>
+        <label for="description-text">@Html.Resource("Description")</label>
         <textarea id="description-text" class="form-control" rows="3" ng-model="properties.Description.PropertyValue"></textarea>
         @*<sf-html-field id="description-text" class="kendo-content-block" sf-model="properties.Description.PropertyValue"></sf-html-field>*@
     </div>
 
     <div class="form-group">
-        <label for="image-field" class="m-top-sm">Image</label>
+        <label for="image-field" class="m-top-sm">@Html.Resource("Image")</label>
         <sf-image-field class="sf-Media--info modal-settings modal-settings-space"
             sf-model="properties.ImageId.PropertyValue"
             sf-image="selectedImage"
@@ -31,7 +31,7 @@
             Label
         </label>
         <input id="label-text" type="text" ng-model="properties.ActionName.PropertyValue" class="form-control" />
-        <p class="text-muted">Example: Learn more</p>
+        <p class="text-muted">@Html.Resource("LearnMore")</p>
     </div>
 
     <div class="form-group">
@@ -40,7 +40,7 @@
         <div class="radio">
             <label>
                 <input type="radio" ng-model="isPageSelectMode" ng-value="true" />
-                Page within the site...
+                @Html.Resource("PageWithinLabel")
             </label>
             <sf-list-selector
                 class="label-content"
@@ -51,10 +51,10 @@
         <div class="radio">
             <label>
                 <input type="radio" ng-model="isPageSelectMode" ng-value="false" />
-                External URL...
+                @Html.Resource("ExternalURL")
             </label>
             <input type="text"  class="form-control" ng-show="!isPageSelectMode" ng-model="properties.LinkedUrl.PropertyValue" />
-            <p class="text-muted" ng-show="!isPageSelectMode">Example: http://sitefinity.com</p>
+            <p class="text-muted" ng-show="!isPageSelectMode">@Html.Resource("Example")</p>
         </div>
     </div>
 
@@ -64,7 +64,7 @@
             <div class="row">
                 <div class="col-xs-6">
                     <select id="templateName" ng-model="properties.TemplateName.PropertyValue" class="form-control">
-                        @foreach (var viewName in Html.GetViewNames("Engagement", @"(?<viewName>^Engagement.*)$"))
+                        @foreach (var viewName in Html.GetViewNames("Card", @"(?<viewName>^Card.*)$"))
                         {
                             <option value="@viewName">@viewName</option>
                         }

@@ -4,8 +4,8 @@ using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Web.Mvc;
-using Telerik.Sitefinity.Frontend.Engagement.Mvc.Models.Engagement;
-using Telerik.Sitefinity.Frontend.Engagement.Mvc.StringResources;
+using Telerik.Sitefinity.Frontend.Card.Mvc.Models.Card;
+using Telerik.Sitefinity.Frontend.Card.Mvc.StringResources;
 using Telerik.Sitefinity.Frontend.Mvc.Infrastructure.Controllers;
 using Telerik.Sitefinity.Frontend.Mvc.Infrastructure.Controllers.Attributes;
 using Telerik.Sitefinity.Localization;
@@ -15,30 +15,30 @@ using Telerik.Sitefinity.Personalization;
 using Telerik.Sitefinity.Services;
 using Telerik.Sitefinity.Web.UI;
 
-namespace Telerik.Sitefinity.Frontend.Engagement.Mvc.Controllers
+namespace Telerik.Sitefinity.Frontend.Card.Mvc.Controllers
 {
     /// <summary>
-    /// This class represents the controller of the Engagement widget.
+    /// This class represents the controller of the Card widget.
     /// </summary>
-    [Localization(typeof(EngagementResources))]
-    [ControllerToolboxItem(Name = "Engagement_MVC", Title = "Engagement", SectionName = ToolboxesConfig.ContentToolboxSectionName, CssClass = EngagementController.WidgetIconCssClass)]
-    public class EngagementController : Controller, ICustomWidgetVisualizationExtended, IPersonalizable
+    [Localization(typeof(CardResources))]
+    [ControllerToolboxItem(Name = "Card_MVC", Title = "Card", SectionName = ToolboxesConfig.ContentToolboxSectionName, CssClass = CardController.WidgetIconCssClass)]
+    public class CardController : Controller, ICustomWidgetVisualizationExtended, IPersonalizable
     {
         #region Properties
 
         /// <summary>
-        /// Gets the Engagement widget model.
+        /// Gets the Card widget model.
         /// </summary>
         /// <value>
         /// The model.
         /// </value>
         [TypeConverter(typeof(ExpandableObjectConverter))]
-        public virtual IEngagementModel Model
+        public virtual ICardModel Model
         {
             get
             {
                 if (this.model == null)
-                    this.model = ControllerModelFactory.GetModel<IEngagementModel>(this.GetType());
+                    this.model = ControllerModelFactory.GetModel<ICardModel>(this.GetType());
 
                 return this.model;
             }
@@ -72,15 +72,7 @@ namespace Telerik.Sitefinity.Frontend.Engagement.Mvc.Controllers
         {
             get
             {
-                return (this.Model.ImageId == Guid.Empty &&
-                        this.Model.LinkedPageId == Guid.Empty &&
-                        string.IsNullOrEmpty(this.Model.Description) &&
-                        string.IsNullOrEmpty(this.Model.Description) &&
-                        string.IsNullOrEmpty(this.Model.CssClass) && 
-                        string.IsNullOrEmpty(this.Model.ActionName) &&
-                        string.IsNullOrEmpty(this.Model.Heading) &&
-                        string.IsNullOrEmpty(this.Model.LinkedUrl) &&
-                        string.IsNullOrEmpty(this.Model.ImageProviderName));
+                return this.Model.IsEmpty();
             }
         }
 
@@ -98,7 +90,7 @@ namespace Telerik.Sitefinity.Frontend.Engagement.Mvc.Controllers
         {
             get
             {
-                return "Create content";
+                return Res.Get<CardResources>().CreateContent;
             }
         }
 
@@ -122,7 +114,7 @@ namespace Telerik.Sitefinity.Frontend.Engagement.Mvc.Controllers
         {
             get
             {
-                return Res.Get<EngagementResources>().ImageWasNotSelectedOrHasBeenDeleted;
+                return Res.Get<CardResources>().ImageWasNotSelectedOrHasBeenDeleted;
             }
         }
 
@@ -160,9 +152,9 @@ namespace Telerik.Sitefinity.Frontend.Engagement.Mvc.Controllers
         #region Private fields and constants
 
         internal const string WidgetIconCssClass = "sfCardIcn sfMvcIcn";
-        private IEngagementModel model;
+        private ICardModel model;
 
-        private string templateName = "Engagement";
+        private string templateName = "Card";
 
         #endregion
     }
