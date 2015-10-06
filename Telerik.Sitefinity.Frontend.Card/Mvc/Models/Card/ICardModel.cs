@@ -8,12 +8,12 @@ using Telerik.Sitefinity.Data;
 using Telerik.Sitefinity.Frontend.Mvc.Models;
 using Telerik.Sitefinity.Model;
 
-namespace Telerik.Sitefinity.Frontend.Engagement.Mvc.Models.Engagement
+namespace Telerik.Sitefinity.Frontend.Card.Mvc.Models.Card
 {
     /// <summary>
-    /// This interface defines API for working with <see cref="Telerik.Sitefinity.Engagement.Model.Blog"/> items.
+    /// This interface defines API for working with <see cref="Telerik.Sitefinity.Card.Model.Blog"/> items.
     /// </summary>
-    public interface IEngagementModel
+    public interface ICardModel
     {
         /// <summary>
         /// Gets or sets the image identifier.
@@ -59,6 +59,12 @@ namespace Telerik.Sitefinity.Frontend.Engagement.Mvc.Models.Engagement
         /// Gets the view model.
         /// </summary>
         /// <returns></returns>
-        EngagementViewModel GetViewModel();
+        CardViewModel GetViewModel();
+
+        /// <summary>
+        /// Checks if the model is empty.
+        /// </summary>
+        /// <returns></returns>
+        bool IsEmpty();
     }
 }

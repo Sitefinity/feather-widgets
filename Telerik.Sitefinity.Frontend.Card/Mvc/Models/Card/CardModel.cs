@@ -16,12 +16,12 @@ using Telerik.Sitefinity.Modules.Pages;
 using SfImage = Telerik.Sitefinity.Libraries.Model.Image;
 using Telerik.Sitefinity.Web;
 
-namespace Telerik.Sitefinity.Frontend.Engagement.Mvc.Models.Engagement
+namespace Telerik.Sitefinity.Frontend.Card.Mvc.Models.Card
 {
     /// <summary>
-    /// Provides API for working with <see cref="Telerik.Sitefinity.Engagement.Model.Blog"/> items.
+    /// Provides API for working with card items.
     /// </summary>
-    public class EngagementModel : IEngagementModel
+    public class CardModel : ICardModel
     {
         /// <inheritdoc />
         public Guid ImageId { get; set; }
@@ -49,9 +49,9 @@ namespace Telerik.Sitefinity.Frontend.Engagement.Mvc.Models.Engagement
         public string Heading { get; set; }
 
         /// <inheritdoc />
-        public EngagementViewModel GetViewModel()
+        public CardViewModel GetViewModel()
         {
-            var viewModel = new EngagementViewModel()
+            var viewModel = new CardViewModel()
             {
                 Heading = this.Heading, 
                 Description = this.Description,
@@ -73,6 +73,19 @@ namespace Telerik.Sitefinity.Frontend.Engagement.Mvc.Models.Engagement
             return viewModel;
         }
 
+        /// <inheritdoc />
+        public bool IsEmpty()
+        {
+            return (this.ImageId == Guid.Empty &&
+                            this.LinkedPageId == Guid.Empty &&
+                            string.IsNullOrEmpty(this.Description) &&
+                            string.IsNullOrEmpty(this.Description) &&
+                            string.IsNullOrEmpty(this.CssClass) &&
+                            string.IsNullOrEmpty(this.ActionName) &&
+                            string.IsNullOrEmpty(this.Heading) &&
+                            string.IsNullOrEmpty(this.LinkedUrl) &&
+                            string.IsNullOrEmpty(this.ImageProviderName));
+        }
         /// <summary>
         /// Gets the image.
         /// </summary>
@@ -106,7 +119,7 @@ namespace Telerik.Sitefinity.Frontend.Engagement.Mvc.Models.Engagement
         /// Gets the linked page URL.
         /// </summary>
         /// <returns></returns>
-        private string GetLinkedUrl()
+        protected virtual string GetLinkedUrl()
         {
             string linkedUrl = null;
 
