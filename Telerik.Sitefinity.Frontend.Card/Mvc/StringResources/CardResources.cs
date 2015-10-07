@@ -189,6 +189,22 @@ namespace Telerik.Sitefinity.Frontend.Card.Mvc.StringResources
         }
 
         /// <summary>
+        /// word: Text
+        /// </summary>
+        /// <value>Text</value>
+        [ResourceEntry("Text",
+            Value = "Text",
+            Description = "word: Text",
+            LastModified = "2015/10/07")]
+        public string Text
+        {
+            get
+            {
+                return this["Text"];
+            }
+        }
+
+        /// <summary>
         /// word: Image
         /// </summary>
         /// <value>Image</value>
