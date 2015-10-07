@@ -305,20 +305,25 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Models
                 
                 var controlInstance = manager.LoadControl(control);
                 var controlBehaviorObject = behaviorResolver.GetBehaviorObject(controlInstance);
+                var formField = controlBehaviorObject as IFormFieldController<IFormFieldModel>;
 
-                if (controlBehaviorObject is IFormFieldController<IFormFieldModel>)
+                if (formField != null)
                 {
-                    var formField = (IFormFieldController<IFormFieldModel>)controlBehaviorObject;
                     var multipleFiles = files.GetMultiple(formField.MetaField.FieldName);
                     object fieldValue;
+
                     if (multipleFiles != null && multipleFiles.Count() > 0)
                     {
                         fieldValue = (object)multipleFiles;
                     }
-                    else 
+                    else if (collection.Keys.Contains(formField.MetaField.FieldName))
                     {
                         collection[formField.MetaField.FieldName] = collection[formField.MetaField.FieldName] ?? string.Empty;
                         fieldValue = (object)collection[formField.MetaField.FieldName];
+                    }
+                    else
+                    {
+                        fieldValue = null;
                     }
 
                     if (!formField.Model.IsValid(fieldValue))
