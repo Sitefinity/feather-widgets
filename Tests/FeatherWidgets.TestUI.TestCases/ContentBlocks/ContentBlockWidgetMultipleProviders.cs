@@ -24,8 +24,7 @@ namespace FeatherWidgets.TestUI.TestCases.ContentBlocks
         /// UI test ContentBlockWidgetMultipleProviders
         /// </summary>
         [TestMethod,
-        Owner(FeatherTeams.FeatherTeam),
-        TestCategory(FeatherTestCategories.ContentBlock)]
+        Owner(FeatherTeams.FeatherTeam)]
         public void ContentBlockWidgetMultipleProviders()
         {
             RuntimeSettingsModificator.ExecuteWithClientTimeout(800000, () => BAT.Macros().NavigateTo().CustomPage("~/sitefinity/pages", false, this.Culture));
