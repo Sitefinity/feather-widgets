@@ -16,7 +16,11 @@
     <input type="hidden" data-sf-role="violation-messages" value='{ "required": "@Model.RequiredViolationMessage"}' />
 
         <strong>@Model.MetaField.Title</strong>
-        <p>@Model.MetaField.Description</p>
+        
+        @if (!string.IsNullOrEmpty(Model.MetaField.Description)) 
+        {
+           <p>@Model.MetaField.Description</p>
+        }
         
         @foreach (var choice in Model.Choices)
         {

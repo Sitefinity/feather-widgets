@@ -17,8 +17,11 @@
     <input type="hidden" data-sf-role="required-validator" value='@Model.IsRequired.ToString()' />
    
     <strong>@Model.MetaField.Title</strong>
-    <p>@Model.MetaField.Description</p>
-        
+
+    @if (!string.IsNullOrEmpty(Model.MetaField.Description)) 
+    {
+        <p>@Model.MetaField.Description</p>
+    }
     @foreach (var choice in Model.Choices)
     {
 		var selctedAttributes = !Model.IsRequired && !string.IsNullOrEmpty(Model.MetaField.DefaultValue) && Model.MetaField.DefaultValue.Contains(choice as string) ? "checked" : string.Empty;

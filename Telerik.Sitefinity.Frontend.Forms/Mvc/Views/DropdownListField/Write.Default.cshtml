@@ -11,7 +11,12 @@
     <input type="hidden" data-sf-role="violation-messages" value='{ "required": "@Model.RequiredViolationMessage"}' />
     <label>
         @Model.MetaField.Title
-        <p>@Model.MetaField.Description</p>
+        
+        @if (!string.IsNullOrEmpty(Model.MetaField.Description)) 
+        {
+           <p>@Model.MetaField.Description</p>
+        }
+        
         <select data-sf-role="dropdown-list-field-select" name="@Model.MetaField.FieldName" @MvcHtmlString.Create(Model.ValidationAttributes)>
         @foreach (var choice in Model.Choices)
         {

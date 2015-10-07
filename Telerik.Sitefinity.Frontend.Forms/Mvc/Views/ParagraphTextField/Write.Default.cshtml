@@ -13,7 +13,11 @@
         @Model.MetaField.Title
         <textarea data-sf-role="paragraph-text-field-textarea" name="@Model.MetaField.FieldName" placeholder="@Model.PlaceholderText" @MvcHtmlString.Create(Model.ValidationAttributes)>@Model.Value</textarea>
     </label>
-    <p>@Model.MetaField.Description</p>
+    
+     @if (!string.IsNullOrEmpty(Model.MetaField.Description)) 
+     {
+         <p>@Model.MetaField.Description</p>
+     }
 </div>
 
 @Html.Script(Url.WidgetContent("Mvc/Scripts/ParagraphTextField/paragraph-text-field.js"), "bottom", false)

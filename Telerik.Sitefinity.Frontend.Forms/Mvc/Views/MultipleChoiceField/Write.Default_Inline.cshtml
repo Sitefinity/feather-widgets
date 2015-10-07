@@ -15,8 +15,11 @@
 <div class="@Model.CssClass" data-sf-role="multiple-choice-field-container">
     <input type="hidden" data-sf-role="violation-messages" value='{ "required": "@Model.RequiredViolationMessage"}' />
         <strong>@Model.MetaField.Title</strong>
-        <p>@Model.MetaField.Description</p>
         
+        @if (!string.IsNullOrEmpty(Model.MetaField.Description)) 
+        {
+            <p>@Model.MetaField.Description</p>
+        }
         @foreach (var choice in Model.Choices)
         {
             var selctedAttributes = !Model.IsRequired && choice == Model.MetaField.DefaultValue as string ? "checked" : string.Empty;
