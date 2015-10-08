@@ -14,14 +14,14 @@
         <img data-sf-role="loading-img" src='@Url.EmbeddedResource("Telerik.Sitefinity.Resources.Reference", "Telerik.Sitefinity.Resources.Themes.Default.Images.Loadings.sfLoadingData.gif")' style="display:none;" />
 
         <div data-sf-role="fields-container">
-            ## Fields Markup ##
+            @* Fields Markup *@
         </div>
     }
     else
     {
         using (Html.BeginFormSitefinity("", null, (System.Web.Routing.RouteValueDictionary)null, FormMethod.Post, new Dictionary<string, object>{ {"enctype" , "multipart/form-data" }}, true)) 
         {
-            ## Fields Markup ##
+            @* Fields Markup *@
         }
     }
 

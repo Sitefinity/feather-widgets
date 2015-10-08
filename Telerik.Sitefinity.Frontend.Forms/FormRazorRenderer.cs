@@ -23,7 +23,7 @@ namespace Telerik.Sitefinity.Frontend.Forms
                 formIndexView = reader.ReadToEnd();
             }
 
-            var result = formIndexView.Replace("## Fields Markup ##", this.GetFieldsMarkup("Body", form.Controls.ToArray()));
+            var result = formIndexView.Replace("@* Fields Markup *@", this.GetFieldsMarkup("Body", form.Controls.ToArray()));
             writer.Write(result);
         }
 
