@@ -14,9 +14,8 @@
     <a data-sf-role="captcha-refresh-button">@Html.Resource("NewCode")</a>
 
     <div>
-        <label>@Html.Resource("TypeCodeAbove")
-            <input type="text" data-sf-role="captcha-input" name="@Model.CaptchaAnswerFormKey"/>
-        </label>
+        <label for='@Html.UniqueId("Textbox")'>@Html.Resource("TypeCodeAbove")</label>
+        <input id='@Html.UniqueId("Textbox")' type="text" data-sf-role="captcha-input" name="@Model.CaptchaAnswerFormKey"/>
     </div>
     <input type="hidden" data-sf-role="captcha-ca" name="@Model.CaptchaCorrectAnswerFormKey" />
     <input type="hidden" data-sf-role="captcha-iv" name="@Model.CaptchaInitializationVectorFormKey" />

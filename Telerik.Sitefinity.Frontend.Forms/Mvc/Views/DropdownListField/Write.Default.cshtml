@@ -9,15 +9,14 @@
 
 <div class="@Model.CssClass" data-sf-role="dropdown-list-field-container">
     <input type="hidden" data-sf-role="violation-messages" value='{ "required": "@Model.RequiredViolationMessage"}' />
-    <label>
-        @Model.MetaField.Title
+    <label for='@Html.UniqueId("Dropdown")'>@Model.MetaField.Title</label>
         
         @if (!string.IsNullOrEmpty(Model.MetaField.Description)) 
         {
            <p>@Model.MetaField.Description</p>
         }
         
-        <select data-sf-role="dropdown-list-field-select" name="@Model.MetaField.FieldName" @MvcHtmlString.Create(Model.ValidationAttributes)>
+        <select id='@Html.UniqueId("Dropdown")' data-sf-role="dropdown-list-field-select" name="@Model.MetaField.FieldName" @MvcHtmlString.Create(Model.ValidationAttributes)>
         @foreach (var choice in Model.Choices)
         {
             var optionAttributes = !Model.IsRequired && choice == Model.MetaField.DefaultValue as string ? "selected" : string.Empty;
@@ -26,7 +25,7 @@
             <option @optionAttributes value="@optionValue">@choice</option>
         }
         </select>
-    </label>
+    
 </div>
 
 @Html.Script(Url.WidgetContent("Mvc/Scripts/DropdownListField/dropdown-list-field.js"), "bottom", false)
