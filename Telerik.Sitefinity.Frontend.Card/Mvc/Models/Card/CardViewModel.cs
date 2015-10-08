@@ -31,6 +31,16 @@ namespace Telerik.Sitefinity.Frontend.Card.Mvc.Models.Card
         public string ActionUrl { get; set; }
 
         /// <summary>
+        /// Gets or sets the image title.
+        /// </summary>
+        public string ImageTitle { get; set; }
+
+        /// <summary>
+        /// Gets or sets the image alternative text.
+        /// </summary>
+        public string ImageAlternativeText { get; set; }
+
+        /// <summary>
         /// Gets or sets the selected size image URL.
         /// </summary>
         public string SelectedSizeUrl { get; set; }
