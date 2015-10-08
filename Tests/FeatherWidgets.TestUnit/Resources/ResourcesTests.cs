@@ -7,8 +7,10 @@ using Telerik.Sitefinity.Abstractions;
 using Telerik.Sitefinity.Configuration;
 using Telerik.Sitefinity.Configuration.Data;
 using Telerik.Sitefinity.Frontend.Blogs.Mvc.StringResources;
+using Telerik.Sitefinity.Frontend.Comments.Mvc.StringResources;
 using Telerik.Sitefinity.Frontend.ContentBlock.Mvc.StringResources;
 using Telerik.Sitefinity.Frontend.DynamicContent.Mvc.StringResources;
+using Telerik.Sitefinity.Frontend.Forms.Mvc.StringResources;
 using Telerik.Sitefinity.Frontend.Identity.Mvc.StringResources;
 using Telerik.Sitefinity.Frontend.InlineClientAssets.Mvc.StringResources;
 using Telerik.Sitefinity.Frontend.Lists.Mvc.StringResources;
@@ -304,6 +306,29 @@ namespace FeatherWidgets.TestUnit.Resources
         {
             // Act & Assert: Iterate over each resource property and verify its correctness 
             this.TestResourceType<LoginFormResources>();
+        }
+
+        /// <summary>
+        /// The test ensures that Comments widget resources are correct.
+        /// </summary>
+        [Owner("EGaneva")]
+        [Description("The test ensures that comments widget resources are correct.")]
+        public void CommentsResources_IterateTheResources_AssureResourcesAreCorrect()
+        {
+            // Act & Assert: Iterate over each resource property and verify its correctness 
+            this.TestResourceType<CommentsWidgetResources>();
+        }
+
+        /// <summary>
+        /// The test ensures that Forms widget resources are correct.
+        /// </summary>
+        [Owner("EGaneva")]
+        [Description("The test ensures that form widget resources are correct.")]
+        public void FormsResources_IterateTheResources_AssureResourcesAreCorrect()
+        {
+            // Act & Assert: Iterate over each resource property and verify its correctness 
+            this.TestResourceType<FormResources>();
+            this.TestResourceType<FieldResources>();
         }
 
         /// <summary>
