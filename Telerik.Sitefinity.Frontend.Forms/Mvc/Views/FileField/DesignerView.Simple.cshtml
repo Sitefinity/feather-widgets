@@ -20,7 +20,7 @@
         </div>
 
 
-        <div class="form-group form-group--tall">
+        <div class="form-group">
             <a ng-show="!showInstructionalText" ng-click="showInstructionalText=true;">@Html.Resource("AddInstructionalText")</a>
 
             <div ng-show="showInstructionalText">
@@ -36,25 +36,24 @@
             </div>
         </div>
 
-        <div class="form-group-list">
-            <div class="form-group">
-                <div class="checkbox">
-                    <label>
-                        <input type="checkbox" ng-model="properties.Model.IsRequired.PropertyValue" 
-                            ng-true-value="'True'" ng-false-value="'False'" ng-checked="properties.Model.IsRequired.PropertyValue === 'True'" >
-                            @Html.Resource("RequiredField")
-                        </input>
-                    </label>
-                </div>
-            </div>
-
-            <div class="form-group" ng-show="properties.Model.IsRequired.PropertyValue === 'True'">
-                <label for="example" >
-                    @Html.Resource("FieldRequiredErrorMessageTitle")
+        <div class="form-group">
+            <div class="checkbox">
+                <label>
+                    <input type="checkbox" ng-model="properties.Model.IsRequired.PropertyValue" 
+                        ng-true-value="'True'" ng-false-value="'False'" ng-checked="properties.Model.IsRequired.PropertyValue === 'True'" >
+                        @Html.Resource("RequiredField")
+                    </input>
                 </label>
-                <input type="text" id="example" ng-model="properties.Model.RequiredViolationMessage.PropertyValue" class="form-control" />
             </div>
         </div>
+
+        <div class="form-group" ng-show="properties.Model.IsRequired.PropertyValue === 'True'">
+            <label for="example" >
+                @Html.Resource("FieldRequiredErrorMessageTitle")
+            </label>
+            <input type="text" id="example" ng-model="properties.Model.RequiredViolationMessage.PropertyValue" class="form-control" />
+        </div>
+
 
         <expander expander-title='@Html.Resource("MoreOptions")'>
             <div class="form-group">
