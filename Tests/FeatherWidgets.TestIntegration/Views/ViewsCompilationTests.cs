@@ -169,6 +169,26 @@ namespace FeatherWidgets.TestIntegration.Views
             this.AssertAllViewsInAssemblyCanBeCompiled(assembly);
         }
 
+        [Test]
+        [Author(TestAuthor.Team2)]
+        [Description("Verifies that all .cshtml views in Telerik.Sitefinity.Frontend.Forms can be compiled.")]
+        public void EnsureFormsViewsCanBeCompiled()
+        {
+            var assembly = this.GetAssembly("Telerik.Sitefinity.Frontend.Forms");
+
+            this.AssertAllViewsInAssemblyCanBeCompiled(assembly);
+        }
+
+        [Test]
+        [Author(TestAuthor.Team2)]
+        [Description("Verifies that all .cshtml views in Telerik.Sitefinity.Frontend.Card can be compiled.")]
+        public void EnsureCardViewsCanBeCompiled()
+        {
+            var assembly = this.GetAssembly("Telerik.Sitefinity.Frontend.Card");
+
+            this.AssertAllViewsInAssemblyCanBeCompiled(assembly);
+        }
+
         private Assembly GetAssembly(string shortName)
         {
             var assembly = AppDomain.CurrentDomain.GetAssemblies().FirstOrDefault(a => a.GetName().Name == shortName);
@@ -194,6 +214,7 @@ namespace FeatherWidgets.TestIntegration.Views
                     var content = this.GetEmbeddedViewContent(resource, assembly);
 
                     // The namespace for ChildActionExtensions
+                    processor.AddNamespace("System.Web.Mvc");
                     processor.AddNamespace("System.Web.Mvc.Html");
 
                     processor.AddNamespace("System.Web");

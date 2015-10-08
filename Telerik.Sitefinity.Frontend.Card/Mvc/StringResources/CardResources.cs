@@ -32,7 +32,7 @@ namespace Telerik.Sitefinity.Frontend.Card.Mvc.StringResources
         /// <summary>
         /// Title for the Card widget resources class.
         /// </summary>
-        [ResourceEntry("CardTitle",
+        [ResourceEntry("CardResourcesTitle",
             Value = "Card widget resources",
             Description = "Title for the Card widget resources class.",
             LastModified = "2015/09/22")]
