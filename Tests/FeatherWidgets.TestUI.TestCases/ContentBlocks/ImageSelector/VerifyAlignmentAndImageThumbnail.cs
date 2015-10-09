@@ -30,10 +30,6 @@ namespace FeatherWidgets.TestUI.TestCases.ContentBlocks.ImageSelector
 
             //// image 1
             BATFeather.Wrappers().Backend().ContentBlocks().ContentBlocksWrapper().OpenImageSelector();
-            ////if (this.Culture != null)
-            ////{
-            ////    BATFeather.Wrappers().Backend().Widgets().WidgetDesignerWrapper().SelectProvider(SecondProviderName);
-            ////}
             BATFeather.Wrappers().Backend().Media().MediaSelectorWrapper().SelectMediaFile(ImageName1);
             BATFeather.Wrappers().Backend().Media().MediaSelectorWrapper().ConfirmMediaFileSelection();
             BATFeather.Wrappers().Backend().Media().ImagePropertiesWrapper().SelectLeftAlignmentOption();
