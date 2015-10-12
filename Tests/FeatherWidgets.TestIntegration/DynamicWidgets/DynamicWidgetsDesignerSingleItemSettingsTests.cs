@@ -1,4 +1,5 @@
 ﻿using System.IO;
+using System.Linq;
 using System.Threading;
 using FeatherWidgets.TestUtilities.CommonOperations;
 using MbUnit.Framework;
@@ -59,6 +60,7 @@ namespace FeatherWidgets.TestIntegration.DynamicWidgets
                 mvcProxy.ControllerName = typeof(DynamicContentController).FullName;
                 var dynamicController = new DynamicContentController();
                 dynamicController.Model.ContentType = TypeResolutionService.ResolveType(ResolveType);
+                dynamicController.Model.ProviderName = ((Telerik.Sitefinity.Data.DataProviderBase)dynamicCollection.First().Provider).Name;
                 dynamicController.ListTemplateName = detailTemplate;
                 dynamicController.DetailTemplateName = detailTemplate;
                 mvcProxy.Settings = new ControllerSettings(dynamicController);
@@ -81,7 +83,6 @@ namespace FeatherWidgets.TestIntegration.DynamicWidgets
                 File.Delete(fileList);
                 Directory.Delete(this.folderPath);
                 this.pageOperations.DeletePages();
-                ServerOperationsFeather.DynamicModulePressArticle().DeleteDynamicItems(dynamicCollection);
             }
         }
 
@@ -120,6 +121,7 @@ namespace FeatherWidgets.TestIntegration.DynamicWidgets
                 mvcProxy.ControllerName = typeof(DynamicContentController).FullName;
                 var dynamicController = new DynamicContentController();
                 dynamicController.Model.ContentType = TypeResolutionService.ResolveType(ResolveType);
+                dynamicController.Model.ProviderName = ((Telerik.Sitefinity.Data.DataProviderBase)dynamicCollection.First().Provider).Name;
                 dynamicController.ListTemplateName = detailTemplate;
                 dynamicController.DetailTemplateName = detailTemplate;
                 mvcProxy.Settings = new ControllerSettings(dynamicController);
@@ -143,7 +145,6 @@ namespace FeatherWidgets.TestIntegration.DynamicWidgets
                 File.Delete(fileList);
                 Directory.Delete(this.folderPath);
                 this.pageOperations.DeletePages();
-                ServerOperationsFeather.DynamicModulePressArticle().DeleteDynamicItems(dynamicCollection);
             }
         }
 
