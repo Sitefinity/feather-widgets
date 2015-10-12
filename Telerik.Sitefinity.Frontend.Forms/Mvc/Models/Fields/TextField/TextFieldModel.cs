@@ -147,7 +147,7 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Models.Fields.TextField
 
             if (this.InputType == TextType.Tel)
             {
-                attributes.Append("pattern='");
+                attributes.Append("pattern=");
                 if(!string.IsNullOrEmpty(minMaxLength))
                 {
                     attributes.Append("(?=^");
@@ -155,13 +155,13 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Models.Fields.TextField
                     attributes.Append("$)");
                 }
                 attributes.Append(Telerik.Sitefinity.Web.UI.Validation.Validator.TelRegexPattern);
-                attributes.Append("' ");
+                attributes.Append(" ");
             }
             else if (!string.IsNullOrEmpty(minMaxLength))
             {
-                attributes.Append("pattern='");
+                attributes.Append("pattern=");
                 attributes.Append(minMaxLength);
-                attributes.Append("' ");
+                attributes.Append(" ");
             }
 
             return attributes.ToString();
