@@ -16,6 +16,8 @@
                if (newInputType !== oldInputType) {
                    var inputTypeRegexPatterns = JSON.parse($scope.properties.Model.SerializedInputTypeRegexPatterns.PropertyValue);
                    $scope.properties.Model.ValidatorDefinition.RegularExpression.PropertyValue = inputTypeRegexPatterns[newInputType];
+
+                   $scope.fieldInputType = getInputType(newInputType);
                }
            },
            true
@@ -23,12 +25,23 @@
 
         $scope.feedback.showLoadingIndicator = true;
 
+        var getInputType = function (textType) {
+            if (textType == 'DateTimeLocal')
+                return 'datetime-local';
+            if (textType == 'Hidden')
+                return 'text';
+            else
+                return textType.toLowerCase();
+        };
+
         var onGetPropertiesSuccess = function (data) {
             if (data) {
                 $scope.properties = propertyService.toHierarchyArray(data.Items);
 
                 if ($scope.properties.Model.ValidatorDefinition.MaxLength.PropertyValue === '0')
                     $scope.properties.Model.ValidatorDefinition.MaxLength.PropertyValue = '';
+
+                $scope.fieldInputType = getInputType($scope.properties.Model.InputType.PropertyValue);
             }
         };
 
