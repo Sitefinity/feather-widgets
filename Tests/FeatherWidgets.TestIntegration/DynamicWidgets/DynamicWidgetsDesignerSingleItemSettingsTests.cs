@@ -83,6 +83,7 @@ namespace FeatherWidgets.TestIntegration.DynamicWidgets
                 File.Delete(fileList);
                 Directory.Delete(this.folderPath);
                 this.pageOperations.DeletePages();
+                ServerOperationsFeather.DynamicModulePressArticle().DeleteDynamicItems(dynamicCollection);
             }
         }
 
@@ -145,6 +146,7 @@ namespace FeatherWidgets.TestIntegration.DynamicWidgets
                 File.Delete(fileList);
                 Directory.Delete(this.folderPath);
                 this.pageOperations.DeletePages();
+                ServerOperationsFeather.DynamicModulePressArticle().DeleteDynamicItems(dynamicCollection);
             }
         }
 

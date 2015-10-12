@@ -192,6 +192,7 @@ namespace FeatherWidgets.TestIntegration.DynamicWidgets
             finally
             {
                 this.pageOperations.DeletePages();
+                ServerOperationsFeather.DynamicModulePressArticle().DeleteDynamicItems(dynamicCollection);
             }
         }
 
