@@ -274,11 +274,16 @@ namespace FeatherWidgets.TestUtilities.CommonOperations
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1002:DoNotExposeGenericLists")]
         public void DeleteDynamicItems(List<DynamicContent> itemsToDelete, string providerName)
         {
-            DynamicModuleManager dynamicModuleManager = DynamicModuleManager.GetManager(providerName);
+            if (ServerOperations.MultiSite().CheckIsMultisiteMode() && providerName == null)
+            {
+                providerName = "dynamicContentProvider";
+            }
 
-            for (int i = 0; i < itemsToDelete.Count; i++)
+            DynamicModuleManager dynamicModuleManager = DynamicModuleManager.GetManager(providerName);
+            var currentItems = itemsToDelete.Select(i => dynamicModuleManager.GetDataItem(i.GetType(), i.Id)).ToArray();
+            for (int i = 0; i < currentItems.Length; i++)
             //// This is how you delete the pressArticleItem
-                dynamicModuleManager.DeleteDataItem(itemsToDelete[i]);
+                dynamicModuleManager.DeleteDataItem(currentItems[i]);
 
             // You need to call SaveChanges() in order for the items to be actually persisted to data store
             dynamicModuleManager.SaveChanges();
