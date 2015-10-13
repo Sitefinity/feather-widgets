@@ -18,12 +18,24 @@
                    $scope.properties.Model.ValidatorDefinition.RegularExpression.PropertyValue = inputTypeRegexPatterns[newInputType];
 
                    $scope.fieldInputType = getInputType(newInputType);
+                   $scope.properties.Model.MetaField.DefaultValue.PropertyValue = null;
                }
            },
            true
        );
 
+        $scope.$watch(
+            'defaultValue.value',
+            function (newDefaultValue, oldDefaultValue) {
+                if (newDefaultValue !== oldDefaultValue) {
+                    $scope.properties.Model.MetaField.DefaultValue.PropertyValue = angular.element("#predefinedValue").val();
+                }
+            },
+            true
+        );
+
         $scope.feedback.showLoadingIndicator = true;
+        $scope.defaultValue = { value: "" };
 
         var getInputType = function (textType) {
             if (textType == 'DateTimeLocal')
@@ -32,6 +44,13 @@
                 return 'text';
             else
                 return textType.toLowerCase();
+        };
+
+        var isDateInputType = function (textType) {
+            if (textType == 'DateTimeLocal' || textType == 'Date' || textType == 'Month' || textType == 'Time' || textType == 'Week')
+                return true;
+            else
+                return false;
         };
 
         var onGetPropertiesSuccess = function (data) {
