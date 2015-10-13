@@ -7,6 +7,7 @@
 @using Telerik.Sitefinity.Modules.Pages;
 
 <div data-sf-role="form-container" class="@Model.CssClass">
+    <input type="hidden" data-sf-role="form-id" value="@Model.FormId" />
     @if (Model.UseAjaxSubmit)
     {
         <span data-sf-role="success-message" style="display:none;">@Model.SuccessMessage</span>

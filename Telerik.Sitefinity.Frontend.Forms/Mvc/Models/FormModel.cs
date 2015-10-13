@@ -145,7 +145,8 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Models
             {
                 ViewMode = this.ViewMode,
                 CssClass = this.CssClass,
-                UseAjaxSubmit = this.UseAjaxSubmit
+                UseAjaxSubmit = this.UseAjaxSubmit,
+                FormId = this.FormId.ToString()
             };
 
             var form = FormsManager.GetManager().GetForms().FirstOrDefault(f => f.Id == this.FormId && f.Status == ContentLifecycleStatus.Live && f.Visible);
