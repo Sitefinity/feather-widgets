@@ -36,9 +36,9 @@
 
         <div class="form-group">
 
-            <a ng-show="!showInstructionalText" ng-click="showInstructionalText=true;">@Html.Resource("AddInstructionalText")</a>
+            <a ng-hide="showInstructionalText || properties.Model.MetaField.Description.PropertyValue" ng-click="showInstructionalText=true;">@Html.Resource("AddInstructionalText")</a>
 
-            <div ng-show="showInstructionalText">
+            <div ng-show="showInstructionalText || properties.Model.MetaField.Description.PropertyValue">
                 <label for="example">
                     @Html.Resource("InstructionalText")
                 </label>
@@ -60,7 +60,7 @@
 
             <div class="row">
                 <div class="col-xs-6">
-                        <input id="predefinedValue" type="text" ng-model="properties.Model.MetaField.DefaultValue.PropertyValue" class="form-control" />
+                        <input id="predefinedValue" type="{{fieldInputType}}" ng-model="properties.Model.MetaField.DefaultValue.PropertyValue" class="form-control" />
                 </div>
             </div>
              
