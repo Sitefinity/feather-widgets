@@ -26,6 +26,8 @@
 
     <hr class="side-to-side">
 
+    <h5>Primary action</h5>
+
     <div class="form-group">
         <label for="label-text">
             Label
@@ -37,7 +39,7 @@
     <div class="form-group">
 
         <label>Link to...</label> 
-        <div class="radio">
+        <div class="radio m-top-none">
             <label>
                 <input type="radio" ng-model="isPageSelectMode" ng-value="true" />
                 @Html.Resource("PageWithinLabel")
@@ -53,8 +55,10 @@
                 <input type="radio" ng-model="isPageSelectMode" ng-value="false" />
                 @Html.Resource("ExternalURL")
             </label>
-            <input type="text"  class="form-control" ng-show="!isPageSelectMode" ng-model="properties.LinkedUrl.PropertyValue" />
-            <p class="text-muted" ng-show="!isPageSelectMode">@Html.Resource("Example")</p>
+            <div class="label-content">
+                <input type="text"  class="form-control" ng-show="!isPageSelectMode" ng-model="properties.LinkedUrl.PropertyValue" />
+                <p class="text-muted" ng-show="!isPageSelectMode">@Html.Resource("Example")</p>
+            </div>
         </div>
     </div>
 
@@ -74,9 +78,9 @@
         </div>
         <style-dropdown selected-class="properties.CssClass.PropertyValue" view-name="properties.TemplateName.PropertyValue"></style-dropdown>
         <div class="form-group">
-            <label>@Html.Resource("CssClasses")
-                <input type="text" ng-model="properties.CssClass.PropertyValue" class="form-control" />
+            <label for="cssClass">@Html.Resource("CssClasses")
             </label>
+                <input id="cssClass" type="text" ng-model="properties.CssClass.PropertyValue" class="form-control" />
         </div>
     </expander>
 </form>
