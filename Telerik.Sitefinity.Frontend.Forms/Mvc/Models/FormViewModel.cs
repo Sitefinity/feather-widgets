@@ -50,5 +50,13 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Models
         /// The redirect URL.
         /// </value>
         public string RedirectUrl { get; set; }
+
+        /// <summary>
+        /// Gets or sets the form identifier.
+        /// </summary>
+        /// <value>
+        /// The form identifier.
+        /// </value>
+        public string FormId { get; set; }
     }
 }
