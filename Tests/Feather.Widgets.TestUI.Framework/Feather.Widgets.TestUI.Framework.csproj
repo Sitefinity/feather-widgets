@@ -72,8 +72,7 @@
       <SpecificVersion>False</SpecificVersion>
     </Reference>
     <Reference Include="Telerik.Sitefinity.TestUI.UIArrangement">
-      <HintPath>..\FeatherWidgets.TestUI.TestCases\packages\Telerik.Sitefinity.TestUI.UIArrangement.1.0.0\lib\net40\Telerik.Sitefinity.TestUI.UIArrangement.dll</HintPath>
-      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\FeatherWidgets.TestUI.TestCases\packages\Telerik.Sitefinity.TestUI.UIArrangement.1.0.1\lib\net40\Telerik.Sitefinity.TestUI.UIArrangement.dll</HintPath>
     </Reference>
     <Reference Include="Telerik.TestUI.Core, Version=1.5.4.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\FeatherWidgets.TestUI.TestCases\packages\Telerik.TestUI.Core.1.5.4\lib\net40\Telerik.TestUI.Core.dll</HintPath>
