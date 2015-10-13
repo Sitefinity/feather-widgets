@@ -46,13 +46,6 @@
                 return textType.toLowerCase();
         };
 
-        var isDateInputType = function (textType) {
-            if (textType == 'DateTimeLocal' || textType == 'Date' || textType == 'Month' || textType == 'Time' || textType == 'Week')
-                return true;
-            else
-                return false;
-        };
-
         var onGetPropertiesSuccess = function (data) {
             if (data) {
                 $scope.properties = propertyService.toHierarchyArray(data.Items);
