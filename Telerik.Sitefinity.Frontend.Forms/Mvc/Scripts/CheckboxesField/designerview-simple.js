@@ -6,15 +6,6 @@
         $scope.currentItems = [];
         $scope.defaultValue = null;
 
-        $scope.$watch(
-            'defaultValue',
-            function (newDefaultValue, oldDefaultValue) {
-                if (newDefaultValue)
-                    $scope.properties.Model.ValidatorDefinition.Required.PropertyValue = 'False';
-            },
-            true
-        );
-
         $scope.$watch('properties.Model.ValidatorDefinition.Required.PropertyValue', function (newValue, oldValue) {
             if (newValue === 'True') {
                 setTimeout(function () { $('#err-message-example').focus(); }, 300);
