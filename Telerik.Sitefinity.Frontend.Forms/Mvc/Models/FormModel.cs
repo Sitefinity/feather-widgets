@@ -19,10 +19,10 @@ using Telerik.Sitefinity.Modules.Forms.Web;
 using Telerik.Sitefinity.Modules.Forms.Web.UI.Fields;
 using Telerik.Sitefinity.Services;
 using Telerik.Sitefinity.Services.Events;
+using Telerik.Sitefinity.Utilities;
 using Telerik.Sitefinity.Utilities.TypeConverters;
 using Telerik.Sitefinity.Web;
 using Telerik.Sitefinity.Web.UI;
-using Telerik.Sitefinity.Utilities;
 
 namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Models
 {
@@ -229,17 +229,17 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Models
                 }
             }
 
-            var formData = new List<KeyValuePair<string, object>>(collection.Count);
+            var formData = new Dictionary<string, object>(collection.Count);
             for (int i = 0; i < collection.Count; i++)
             {
                 if (formFields.Contains(collection.Keys[i]))
                 {
-                    formData.Add(new KeyValuePair<string, object>(collection.Keys[i], collection[collection.Keys[i]]));
+                    formData.Add(collection.Keys[i], collection[collection.Keys[i]]);
                 }
             }
 
-            formEntry.PostedData = formData;
-            formEntry.Files = postedFiles;
+            formEntry.PostedData.FormsData = formData;
+            formEntry.PostedData.Files = postedFiles;
 
             if (this.RaiseFormSavingEvent(formEntry))
             {
@@ -265,19 +265,7 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Models
             var formEntry = new FormEntryDTO(form);
             var formEvent = this.eventFactory.GetBeforeFormActionEvent(formEntry);
 
-            try
-            {
-                EventHub.Raise(formEvent);
-            }
-            catch (Exception ex)
-            {
-                if (ex.Lookup<CancelationException>() == null)
-                    throw;
-
-                return false;
-            }
-
-            return true;
+            return this.IsEventCancelled(formEvent);
         }
 
         /// <inheritDoc/>
