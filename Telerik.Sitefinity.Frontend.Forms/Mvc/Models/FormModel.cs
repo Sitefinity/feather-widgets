@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Globalization;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -11,18 +10,19 @@ using Telerik.Sitefinity.Frontend.Forms.Mvc.Models.Fields;
 using Telerik.Sitefinity.Frontend.Forms.Mvc.StringResources;
 using Telerik.Sitefinity.Frontend.Mvc.Helpers;
 using Telerik.Sitefinity.Frontend.Mvc.Models;
-using Telerik.Sitefinity.Frontend.Resources;
 using Telerik.Sitefinity.GenericContent.Model;
 using Telerik.Sitefinity.Localization;
 using Telerik.Sitefinity.Model;
 using Telerik.Sitefinity.Modules.Forms;
+using Telerik.Sitefinity.Modules.Forms.Events;
 using Telerik.Sitefinity.Modules.Forms.Web;
 using Telerik.Sitefinity.Modules.Forms.Web.UI.Fields;
-using Telerik.Sitefinity.Security.Claims;
 using Telerik.Sitefinity.Services;
+using Telerik.Sitefinity.Services.Events;
 using Telerik.Sitefinity.Utilities.TypeConverters;
 using Telerik.Sitefinity.Web;
 using Telerik.Sitefinity.Web.UI;
+using Telerik.Sitefinity.Utilities;
 
 namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Models
 {
@@ -31,6 +31,18 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Models
     /// </summary>
     public class FormModel : ContentModelBase, IFormModel
     {
+        #region Constructors
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="FormModel"/> class.
+        /// </summary>
+        public FormModel()
+        {
+            this.eventFactory = new FormEventsFactory();
+        }
+
+        #endregion
+
         #region Properties
 
         /// <inheritDoc/>
@@ -196,7 +208,7 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Models
             if (!this.ValidateFormSubmissionRestrictions(formSubmition, formEntry))
                 return SubmitStatus.RestrictionViolation;
 
-            if (!this.IsValidForm(form, collection, files, manager))
+            if (!this.RaiseFormValidatingEvent(formEntry) || !this.IsValidForm(form, collection, files, manager))
                 return SubmitStatus.InvalidEntry;
 
             var formFields = new HashSet<string>(form.Controls.Select(this.FormFieldName).Where((f) => !string.IsNullOrEmpty(f)));
@@ -228,9 +240,44 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Models
 
             formEntry.PostedData = formData;
             formEntry.Files = postedFiles;
-            formSubmition.Save(formEntry);
-            
-            return SubmitStatus.Success;
+
+            if (this.RaiseFormSavingEvent(formEntry))
+            {
+                formSubmition.Save(formEntry);
+                this.RaiseFormSavedEvent(formEntry);
+
+                return SubmitStatus.Success;
+            }
+            else
+            {
+                return SubmitStatus.RestrictionViolation;
+            }
+        }
+
+        /// <summary>
+        /// Raises the before form action event.
+        /// </summary>
+        public virtual bool RaiseBeforeFormActionEvent()
+        {
+            var manager = FormsManager.GetManager();
+            var form = manager.GetForm(this.FormId);
+
+            var formEntry = new FormEntryDTO(form);
+            var formEvent = this.eventFactory.GetBeforeFormActionEvent(formEntry);
+
+            try
+            {
+                EventHub.Raise(formEvent);
+            }
+            catch (Exception ex)
+            {
+                if (ex.Lookup<CancelationException>() == null)
+                    throw;
+
+                return false;
+            }
+
+            return true;
         }
 
         /// <inheritDoc/>
@@ -308,6 +355,9 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Models
                 var controlBehaviorObject = behaviorResolver.GetBehaviorObject(controlInstance);
                 var formField = controlBehaviorObject as IFormFieldController<IFormFieldModel>;
 
+                if (formField != null && !this.RaiseFormFieldValidatingEvent(formField))
+                    break;
+
                 if (formField != null)
                 {
                     var multipleFiles = files.GetMultiple(formField.MetaField.FieldName);
@@ -315,12 +365,12 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Models
 
                     if (multipleFiles != null && multipleFiles.Count() > 0)
                     {
-                        fieldValue = (object)multipleFiles;
+                        fieldValue = multipleFiles;
                     }
                     else if (collection.Keys.Contains(formField.MetaField.FieldName))
                     {
                         collection[formField.MetaField.FieldName] = collection[formField.MetaField.FieldName] ?? string.Empty;
-                        fieldValue = (object)collection[formField.MetaField.FieldName];
+                        fieldValue = collection[formField.MetaField.FieldName];
                     }
                     else
                     {
@@ -370,6 +420,34 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Models
             }
         }
 
+        protected virtual void RaiseFormSavedEvent(FormEntryDTO formEntry)
+        {
+            var formEvent = this.eventFactory.GetFormSavedEvent(formEntry);
+            EventHub.Raise(formEvent);
+        }
+
+        protected virtual bool RaiseFormSavingEvent(FormEntryDTO formEntry)
+        {
+            var formEvent = this.eventFactory.GetFormSavingEvent(formEntry);
+            return this.IsEventCancelled(formEvent);
+        }
+
+        protected virtual bool RaiseFormValidatingEvent(FormEntryDTO formEntry)
+        {
+            var formEvent = this.eventFactory.GetFormValidatingEvent(formEntry);
+            return this.IsEventCancelled(formEvent);
+        }
+
+        protected virtual bool RaiseFormFieldValidatingEvent(IFormFieldControl control)
+        {
+            var formEvent = new FormFieldValidatingEvent() 
+            { 
+                FormFieldControl = control 
+            };
+
+            return this.IsEventCancelled(formEvent);
+        }
+
         #endregion
 
         #region ContentModelBase
@@ -407,12 +485,30 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Models
                 return null;
         }
 
+        private bool IsEventCancelled(IEvent formEvent)
+        {
+            try
+            {
+                EventHub.Raise(formEvent);
+            }
+            catch (Exception ex)
+            {
+                if (ex.Lookup<CancelationException>() == null)
+                    throw;
+
+                return false;
+            }
+
+            return true;
+        }
+
         #endregion
 
         #region Private fields
 
         private string cssClass;
         private string customConfirmationMessage;
+        private readonly FormEventsFactory eventFactory;
 
         #endregion
     }

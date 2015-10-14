@@ -94,5 +94,10 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Models
         /// Tries to submit the form.
         /// </summary>
         SubmitStatus TrySubmitForm(FormCollection collection, HttpFileCollectionBase files, string userHostAddress);
+
+        /// <summary>
+        /// Raises the before form action event.
+        /// </summary>
+        bool RaiseBeforeFormActionEvent();
     }
 }
