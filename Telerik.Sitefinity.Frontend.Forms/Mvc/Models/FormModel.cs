@@ -217,17 +217,17 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Models
                 }
             }
 
-            var formData = new List<KeyValuePair<string, object>>(collection.Count);
+            var formData = new Dictionary<string, object>(collection.Count);
             for (int i = 0; i < collection.Count; i++)
             {
                 if (formFields.Contains(collection.Keys[i]))
                 {
-                    formData.Add(new KeyValuePair<string, object>(collection.Keys[i], collection[collection.Keys[i]]));
+                    formData.Add(collection.Keys[i], collection[collection.Keys[i]]);
                 }
             }
 
-            formEntry.PostedData = formData;
-            formEntry.Files = postedFiles;
+            formEntry.PostedData.FormsData = formData;
+            formEntry.PostedData.Files = postedFiles;
             formSubmition.Save(formEntry);
             
             return SubmitStatus.Success;
