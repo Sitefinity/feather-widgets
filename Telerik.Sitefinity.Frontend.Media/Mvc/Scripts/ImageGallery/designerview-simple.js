@@ -2,7 +2,7 @@
     angular.module('designer').requires.push('expander', 'sfSelectors', 'sfThumbnailSizeSelection');
 
     angular.module('designer').controller('SimpleCtrl', ['$scope', 'propertyService', function ($scope, propertyService) {
-        var sortOptions = ['PublicationDate DESC', 'LastModified DESC', 'Title ASC', 'Title DESC'];
+        var sortOptions = ['PublicationDate DESC', 'LastModified DESC', 'Title ASC', 'Title DESC', 'Ordinal ASC'];
 
         var emptyGuid = '00000000-0000-0000-0000-000000000000';
 
