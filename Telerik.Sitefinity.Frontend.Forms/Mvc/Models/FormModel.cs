@@ -268,7 +268,7 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Models
             var formEntry = new FormEntryDTO(form);
             var formEvent = this.eventFactory.GetBeforeFormActionEvent(formEntry);
 
-            return this.IsEventCancelled(formEvent);
+            return !this.IsEventCancelled(formEvent);
         }
 
         /// <inheritDoc/>
@@ -346,7 +346,7 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Models
                 var controlBehaviorObject = behaviorResolver.GetBehaviorObject(controlInstance);
                 var formField = controlBehaviorObject as IFormFieldController<IFormFieldModel>;
 
-                if (formField != null && !this.RaiseFormFieldValidatingEvent(formField))
+                if (formField == null || !this.RaiseFormFieldValidatingEvent(formField))
                     break;
 
                 if (formField != null)
@@ -429,25 +429,25 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Models
         protected virtual bool RaiseFormSavingEvent(FormEntryDTO formEntry)
         {
             var formEvent = this.eventFactory.GetFormSavingEvent(formEntry);
-            return this.IsEventCancelled(formEvent);
+            return !this.IsEventCancelled(formEvent);
         }
 
         /// <summary>
         /// Raises the form validating event.
         /// </summary>
         /// <param name="formEntry">The form entry.</param>
-        /// <returns>Whether processing should continue.</returns>
+        /// <returns>Whether validation succeeded.</returns>
         protected virtual bool RaiseFormValidatingEvent(FormEntryDTO formEntry)
         {
             var formEvent = this.eventFactory.GetFormValidatingEvent(formEntry);
-            return this.IsEventCancelled(formEvent);
+            return !this.ValidationEventFailed(formEvent);
         }
 
         /// <summary>
         /// Raises the form field validating event.
         /// </summary>
         /// <param name="control">The control.</param>
-        /// <returns>Whether processing should continue.</returns>
+        /// <returns>Whether validation succeeded.</returns>
         protected virtual bool RaiseFormFieldValidatingEvent(IFormFieldControl control)
         {
             var formEvent = new FormFieldValidatingEvent() 
@@ -455,7 +455,7 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Models
                 FormFieldControl = control 
             };
 
-            return this.IsEventCancelled(formEvent);
+            return !this.ValidationEventFailed(formEvent);
         }
 
         #endregion
@@ -506,10 +506,27 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Models
                 if (ex.Lookup<CancelationException>() == null)
                     throw;
 
-                return false;
+                return true;
             }
 
-            return true;
+            return false;
+        }
+
+        private bool ValidationEventFailed(IEvent formEvent)
+        {
+            try
+            {
+                EventHub.Raise(formEvent, true);
+            }
+            catch (Exception ex)
+            {
+                if (ex.Lookup<ValidationException>() == null)
+                    throw;
+
+                return true;
+            }
+
+            return false;
         }
 
         #endregion
