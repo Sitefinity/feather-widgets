@@ -87,9 +87,7 @@
         };
 
         $scope.addItem = function () {
-            if ($scope.currentItems.indexOf('') === -1) {
-                $scope.currentItems.push('');
-            }
+            $scope.currentItems.push('');
         };
 
         $scope.sortableOptions = {

@@ -75,10 +75,7 @@
         };
 
         $scope.addItem = function () {
-            console.log($scope.currentItems);
-            if ($scope.currentItems.indexOf('') === -1) {
-                $scope.currentItems.push('');
-            }
+            $scope.currentItems.push('');
         };
 
         $scope.sortableOptions = {
@@ -88,7 +85,7 @@
                         '</div></div>');
             },
             placeholder: function (element) {
-                return $('<div class="list-group-item list-group-item-placeholder list-group-item-placeholder--bt"></div>');
+                return $('<div class="list-group-item list-group-item-placeholder list-group-item-placeholder-2"></div>');
             },
             handler: ".handler",
             axis: "y"
