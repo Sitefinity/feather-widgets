@@ -80,9 +80,16 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Controllers
         {
             var success = this.Model.TrySubmitForm(collection, this.Request.Files, this.Request.UserHostAddress);
 
-            if (success == SubmitStatus.Success && this.Model.NeedsRedirect && this.Model.RaiseBeforeFormActionEvent())
+            if (success == SubmitStatus.Success && this.Model.NeedsRedirect)
             {
-                return this.Redirect(this.Model.GetRedirectPageUrl());
+                if (this.Model.RaiseBeforeFormActionEvent())
+                {
+                    return this.Redirect(this.Model.GetRedirectPageUrl());
+                }
+                else
+                {
+                    return this.Index();
+                }
             }
 
             var submitSuccesKey = this.sfSubmitSuccessKey + this.ViewData["sf_cntrl_id"];
