@@ -30,7 +30,7 @@
                         <div class="col-md-2">
                             <em class="text-muted" ng-show="item == defaultValue">@Html.Resource("Default")</em>
 
-                            <a class="make-default" ng-click="setDefault(item)" ng-hide="item == defaultValue || properties.Model.ValidatorDefinition.Required.PropertyValue === 'True'">@Html.Resource("MakeDefault")</a>
+                            <a class="make-default" ng-click="setDefault(item)" ng-hide="!item || item == defaultValue || properties.Model.ValidatorDefinition.Required.PropertyValue === 'True'">@Html.Resource("MakeDefault")</a>
                         </div>
 
                         <div class="col-md-2 text-right">
