@@ -214,18 +214,21 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Models
             var formFields = new HashSet<string>(form.Controls.Select(this.FormFieldName).Where((f) => !string.IsNullOrEmpty(f)));
 
             var postedFiles = new Dictionary<string, List<FormHttpPostedFile>>();
-            for (int i = 0; i < files.AllKeys.Length; i++)
+            if (files != null)
             {
-                if (formFields.Contains(files.AllKeys[i]))
+                for (int i = 0; i < files.AllKeys.Length; i++)
                 {
-                    postedFiles[files.AllKeys[i]] = files.GetMultiple(files.AllKeys[i]).Where(f => !f.FileName.IsNullOrEmpty()).Select(f =>
-                        new FormHttpPostedFile()
-                        {
-                            FileName = f.FileName,
-                            ContentLength = f.ContentLength,
-                            ContentType = f.ContentType,
-                            InputStream = f.InputStream
-                        }).ToList();
+                    if (formFields.Contains(files.AllKeys[i]))
+                    {
+                        postedFiles[files.AllKeys[i]] = files.GetMultiple(files.AllKeys[i]).Where(f => !f.FileName.IsNullOrEmpty()).Select(f =>
+                            new FormHttpPostedFile()
+                            {
+                                FileName = f.FileName,
+                                ContentLength = f.ContentLength,
+                                ContentType = f.ContentType,
+                                InputStream = f.InputStream
+                            }).ToList();
+                    }
                 }
             }
 
@@ -348,7 +351,7 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Models
 
                 if (formField != null)
                 {
-                    var multipleFiles = files.GetMultiple(formField.MetaField.FieldName);
+                    IList<HttpPostedFileBase> multipleFiles = files != null ? files.GetMultiple(formField.MetaField.FieldName) : null;
                     object fieldValue;
 
                     if (multipleFiles != null && multipleFiles.Count() > 0)
@@ -408,24 +411,43 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Models
             }
         }
 
+        /// <summary>
+        /// Raises the form saved event.
+        /// </summary>
+        /// <param name="formEntry">The form entry.</param>
         protected virtual void RaiseFormSavedEvent(FormEntryDTO formEntry)
         {
             var formEvent = this.eventFactory.GetFormSavedEvent(formEntry);
             EventHub.Raise(formEvent);
         }
 
+        /// <summary>
+        /// Raises the form saving event.
+        /// </summary>
+        /// <param name="formEntry">The form entry.</param>
+        /// <returns>Whether processing should continue.</returns>
         protected virtual bool RaiseFormSavingEvent(FormEntryDTO formEntry)
         {
             var formEvent = this.eventFactory.GetFormSavingEvent(formEntry);
             return this.IsEventCancelled(formEvent);
         }
 
+        /// <summary>
+        /// Raises the form validating event.
+        /// </summary>
+        /// <param name="formEntry">The form entry.</param>
+        /// <returns>Whether processing should continue.</returns>
         protected virtual bool RaiseFormValidatingEvent(FormEntryDTO formEntry)
         {
             var formEvent = this.eventFactory.GetFormValidatingEvent(formEntry);
             return this.IsEventCancelled(formEvent);
         }
 
+        /// <summary>
+        /// Raises the form field validating event.
+        /// </summary>
+        /// <param name="control">The control.</param>
+        /// <returns>Whether processing should continue.</returns>
         protected virtual bool RaiseFormFieldValidatingEvent(IFormFieldControl control)
         {
             var formEvent = new FormFieldValidatingEvent() 

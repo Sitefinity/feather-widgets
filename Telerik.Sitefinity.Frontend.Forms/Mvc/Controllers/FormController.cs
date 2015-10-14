@@ -94,6 +94,11 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Controllers
                 return this.Index();
         }
 
+        /// <summary>
+        /// Action that processes ajax form submit.
+        /// </summary>
+        /// <param name="collection">The collection.</param>
+        /// <returns>The action result in json format.</returns>
         [HttpPost]
         [StandaloneResponseFilter]
         public JsonResult AjaxSubmit(FormCollection collection)

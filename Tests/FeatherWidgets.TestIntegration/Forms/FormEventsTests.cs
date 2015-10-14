@@ -1,20 +1,27 @@
 ﻿using System;
+using System.Collections.Specialized;
 using FeatherWidgets.TestUtilities.CommonOperations;
 using MbUnit.Framework;
 using Telerik.Sitefinity.Frontend.Forms.Mvc.Controllers;
 using Telerik.Sitefinity.Frontend.Forms.Mvc.Models;
-using Telerik.Sitefinity.Mvc.Proxy;
-using Telerik.Sitefinity.TestIntegration.SDK.DevelopersGuide.SitefinityEssentials.Modules.Forms;
-using System.Collections.Specialized;
-using Telerik.Sitefinity.Services;
+using Telerik.Sitefinity.Frontend.TestUtilities;
 using Telerik.Sitefinity.Modules.Forms.Events;
+using Telerik.Sitefinity.Mvc.Proxy;
+using Telerik.Sitefinity.Services;
 using Telerik.Sitefinity.Services.Events;
+using Telerik.Sitefinity.TestIntegration.SDK.DevelopersGuide.SitefinityEssentials.Modules.Forms;
 
 namespace FeatherWidgets.TestIntegration.Forms
 {
+    /// <summary>
+    /// This class contains integration tests of form events.
+    /// </summary>
     [TestFixture]
     public class FormEventsTests
     {
+        /// <summary>
+        /// Sets ups this test fixture.
+        /// </summary>
         [FixtureSetUp]
         public void Setup()
         {
@@ -25,16 +32,25 @@ namespace FeatherWidgets.TestIntegration.Forms
             controller.MetaField.DefaultValue = "My default text";
             control.Settings = new ControllerSettings(controller);
 
-            this.formId = ServerOperationsFeather.Forms().CreateFormWithWidget(control);
+            FormEventsTests.formId = ServerOperationsFeather.Forms().CreateFormWithWidget(control);
         }
 
+        /// <summary>
+        /// Tears down this test fixture.
+        /// </summary>
         [FixtureTearDown]
         public void Teardown()
         {
-            FormsModuleCodeSnippets.DeleteForm(this.formId);
+            FormsModuleCodeSnippets.DeleteForm(FormEventsTests.formId);
         }
 
+        /// <summary>
+        /// Ensures that form events are risen on submittion.
+        /// </summary>
         [Test]
+        [Category(TestCategories.Forms)]
+        [Author(FeatherTeams.FeatherTeam)]
+        [Description("Ensures that form events are risen on submittion.")]
         public void Model_TrySubmitForm_RaisesValidating_Saving_Saved()
         {
             var validatingRisen = false;
@@ -70,7 +86,7 @@ namespace FeatherWidgets.TestIntegration.Forms
             try
             {
                 var model = new FormModel();
-                model.FormId = this.formId;
+                model.FormId = FormEventsTests.formId;
 
                 var values = new NameValueCollection();
                 values.Add(FormEventsTests.FieldName, "text");
@@ -91,7 +107,7 @@ namespace FeatherWidgets.TestIntegration.Forms
             }
         }
 
-        private Guid formId;
+        private static Guid formId;
         private const string FieldName = "TestFieldName";
     }
 }
