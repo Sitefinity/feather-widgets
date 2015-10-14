@@ -22,7 +22,7 @@
                 <div>
 				    <section class="row">
 					    <div class="col-md-11">
-						    <input ng-click="itemClicked($event)" ng-model="currentItems[$index]" placeholder='@Html.Resource("EnterLabel")' type="text" class="form-control-highlight" />
+						    <input ng-click="itemClicked($event)" ng-model="currentItems[$index]" ng-value="currentItems[$index]" placeholder='@Html.Resource("EnterLabel")' type="text" class="form-control-highlight" />
 					    </div>
 					    <div class="col-md-1 text-right">
 						    <button ng-show="currentItems.length > 1" ng-click="removeItem(item, $index)" type="button" class="close" aria-label="Close" tabindex="-1"><span aria-hidden="true">&times;</span></button>
