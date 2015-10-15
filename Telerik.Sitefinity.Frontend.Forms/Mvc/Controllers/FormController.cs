@@ -1,8 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.ComponentModel;
 using System.Web.Mvc;
-using Telerik.Sitefinity.ContentLocations;
 using Telerik.Sitefinity.Frontend.Forms.Mvc.Models;
 using Telerik.Sitefinity.Frontend.Forms.Mvc.StringResources;
 using Telerik.Sitefinity.Frontend.Mvc.Infrastructure.Controllers;
@@ -12,7 +10,6 @@ using Telerik.Sitefinity.Localization;
 using Telerik.Sitefinity.Modules.Pages.Configuration;
 using Telerik.Sitefinity.Mvc;
 using Telerik.Sitefinity.Mvc.ActionFilters;
-using Telerik.Sitefinity.Mvc.Proxy;
 using Telerik.Sitefinity.Web.UI;
 
 namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Controllers
@@ -85,24 +82,36 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Controllers
 
             if (success == SubmitStatus.Success && this.Model.NeedsRedirect)
             {
-                return this.Redirect(this.Model.GetRedirectPageUrl());
+                if (this.Model.RaiseBeforeFormActionEvent())
+                {
+                    return this.Redirect(this.Model.GetRedirectPageUrl());
+                }
+                else
+                {
+                    return this.Index();
+                }
             }
 
             var submitSuccesKey = this.sfSubmitSuccessKey + this.ViewData["sf_cntrl_id"];
             this.TempData[submitSuccesKey] = success;
 
-            if (success == SubmitStatus.Success)
-                return this.RedirectToAction("");
+            if (success == SubmitStatus.Success && this.Model.RaiseBeforeFormActionEvent())
+                return this.RedirectToAction(string.Empty);
             else
                 return this.Index();
         }
 
+        /// <summary>
+        /// Action that processes ajax form submit.
+        /// </summary>
+        /// <param name="collection">The collection.</param>
+        /// <returns>The action result in json format.</returns>
         [HttpPost]
         [StandaloneResponseFilter]
         public JsonResult AjaxSubmit(FormCollection collection)
         {
             var result = this.Model.TrySubmitForm(collection, this.Request.Files, this.Request.UserHostAddress);
-            if (result != SubmitStatus.Success)
+            if (result != SubmitStatus.Success && this.Model.RaiseBeforeFormActionEvent())
             {
                 return this.Json(new { success = false, error = this.Model.GetSubmitMessage(result) });
             }

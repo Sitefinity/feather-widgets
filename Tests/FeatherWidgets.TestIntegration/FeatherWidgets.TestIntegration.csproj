@@ -253,6 +253,7 @@
     <Compile Include="Forms\Fields\ParagraphTextFieldTests.cs" />
     <Compile Include="Forms\Fields\SectionHeaderFieldTests.cs" />
     <Compile Include="Forms\Fields\TextFieldTests.cs" />
+    <Compile Include="Forms\FormEventsTests.cs" />
     <Compile Include="Forms\FormsWidgetTests.cs" />
     <Compile Include="GlobalSuppressions.cs" />
     <Compile Include="Identity\LoginForm\LoginFormTests.cs" />
