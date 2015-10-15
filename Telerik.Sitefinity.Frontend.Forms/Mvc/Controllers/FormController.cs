@@ -35,6 +35,11 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Controllers
 
                 return this.model;
             }
+
+            set
+            {
+                this.model = value;
+            }
         }
 
         /// <summary>
@@ -78,7 +83,7 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Controllers
         [HttpPost]
         public ActionResult Index(FormCollection collection)
         {
-            var success = this.Model.TrySubmitForm(collection, this.Request.Files, this.Request.UserHostAddress);
+            var success = this.Model.TrySubmitForm(collection, this.Request != null ? this.Request.Files : null, this.Request != null ? this.Request.UserHostAddress : null);
 
             if (success == SubmitStatus.Success && this.Model.NeedsRedirect)
             {
