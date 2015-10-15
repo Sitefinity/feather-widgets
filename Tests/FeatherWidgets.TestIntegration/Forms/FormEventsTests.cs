@@ -107,6 +107,81 @@ namespace FeatherWidgets.TestIntegration.Forms
             }
         }
 
+        /// <summary>
+        /// Ensures that before action form event is risen after submittion.
+        /// </summary>
+        [Test]
+        [Category(TestCategories.Forms)]
+        [Author(FeatherTeams.FeatherTeam)]
+        [Description("Ensures that before action form event is risen after submittion.")]
+        public void Controller_PostIndex_RaisesBeforeAction()
+        {
+            bool beforeActionRisen = false;
+            SitefinityEventHandler<BeforeFormActionEvent> beforeActionHandler = (BeforeFormActionEvent @event) =>
+            {
+                beforeActionRisen = true;
+            };
+
+            try
+            {
+                EventHub.Subscribe<BeforeFormActionEvent>(beforeActionHandler);
+
+                var model = new FormModel();
+                model.FormId = FormEventsTests.formId;
+
+                var formController = new FormController();
+                formController.Model = model;
+
+                var values = new NameValueCollection();
+                values.Add(FormEventsTests.FieldName, "text");
+                formController.Index(new System.Web.Mvc.FormCollection(values));
+
+                Assert.IsTrue(beforeActionRisen, "Before Form Action event was not risen.");
+            }
+            finally
+            {
+                EventHub.Unsubscribe<BeforeFormActionEvent>(beforeActionHandler);
+            }
+        }
+
+        /// <summary>
+        /// Ensures that validation event handler can cause invalid submit.
+        /// </summary>
+        [Test]
+        [Category(TestCategories.Forms)]
+        [Author(FeatherTeams.FeatherTeam)]
+        [Description("Ensures that form events are risen on submittion.")]
+        public void Model_TrySubmitForm_ValidatingEventHandlerFails_InvalidResult()
+        {
+            var validatingRisen = false;
+
+            SitefinityEventHandler<IFormValidatingEvent> validatingHandler = (IFormValidatingEvent @event) =>
+            {
+                validatingRisen = true;
+                throw new ValidationException("Not valid");
+            };
+
+            EventHub.Subscribe<IFormValidatingEvent>(validatingHandler);
+
+            try
+            {
+                var model = new FormModel();
+                model.FormId = FormEventsTests.formId;
+
+                var values = new NameValueCollection();
+                values.Add(FormEventsTests.FieldName, "text");
+
+                var result = model.TrySubmitForm(new System.Web.Mvc.FormCollection(values), null, string.Empty);
+
+                Assert.IsTrue(validatingRisen, "Form Validating event was not risen.");
+                Assert.AreEqual(SubmitStatus.InvalidEntry, result, "Form was not invalidated via the validating event handler.");
+            }
+            finally
+            {
+                EventHub.Unsubscribe<IFormValidatingEvent>(validatingHandler);
+            }
+        }
+
         private static Guid formId;
         private const string FieldName = "TestFieldName";
     }
