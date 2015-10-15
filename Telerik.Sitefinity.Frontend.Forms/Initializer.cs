@@ -20,8 +20,14 @@ using Telerik.Sitefinity.Web.UI.ContentUI.Views.Backend.Detail;
 
 namespace Telerik.Sitefinity.Frontend.Forms
 {
+    /// <summary>
+    /// This class is responsible for initialization of the infrastructure related to the Forms MVC functionality.
+    /// </summary>
     public static class Initializer
     {
+        /// <summary>
+        /// Initializes this instance.
+        /// </summary>
         public static void Initialize()
         {
             VirtualPathManager.AddVirtualFileResolver<FormsVirtualRazorResolver>(FormsVirtualRazorResolver.Path + "*", "MvcFormsResolver");
@@ -34,6 +40,8 @@ namespace Telerik.Sitefinity.Frontend.Forms
 
             Bootstrapper.Initialized += Bootstrapper_Initialized;
         }
+
+        #region Private Methods
 
         private static void Bootstrapper_Initialized(object sender, ExecutedEventArgs e)
         {
@@ -53,7 +61,7 @@ namespace Telerik.Sitefinity.Frontend.Forms
             var section = Initializer.GetFormsToolboxSection(toolboxesConfig);
             if (section == null)
                 return;
-            
+
             Initializer.RegisterToolboxItem(section, "MvcTextField", "Textbox", "Telerik.Sitefinity.Frontend.Forms.Mvc.Controllers.TextFieldController", "sfTextboxIcn sfMvcIcn");
             Initializer.RegisterToolboxItem(section, "MvcMultipleChoiceField", "Multiple choice", "Telerik.Sitefinity.Frontend.Forms.Mvc.Controllers.MultipleChoiceFieldController", "sfMultipleChoiceIcn sfMvcIcn");
             Initializer.RegisterToolboxItem(section, "MvcCheckboxesField", "Checkboxes", "Telerik.Sitefinity.Frontend.Forms.Mvc.Controllers.CheckboxesFieldController", "sfCheckboxesIcn sfMvcIcn");
@@ -114,5 +122,7 @@ namespace Telerik.Sitefinity.Frontend.Forms
 
             return section;
         }
+
+        #endregion
     }
 }
