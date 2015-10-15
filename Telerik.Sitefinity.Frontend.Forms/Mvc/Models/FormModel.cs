@@ -119,10 +119,7 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Models
                 if (this.FormId != Guid.Empty)
                 {
                     var manager = FormsManager.GetManager();
-                    if (this.FormId != Guid.Empty)
-                    {
-                        descr = manager.GetForm(this.FormId);
-                    }
+                    descr = manager.GetForms().FirstOrDefault(f => f.Id == this.FormId && f.Visible);
                 }
 
                 return descr;
@@ -161,8 +158,7 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Models
                 FormId = this.FormId.ToString("D")
             };
 
-            var form = FormsManager.GetManager().GetForms().FirstOrDefault(f => f.Id == this.FormId && f.Status == ContentLifecycleStatus.Live && f.Visible);
-            if (form != null)
+            if (this.FormData != null)
             {
                 if (viewModel.UseAjaxSubmit)
                 {
