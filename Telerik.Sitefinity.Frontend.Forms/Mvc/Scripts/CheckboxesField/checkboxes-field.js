@@ -74,7 +74,7 @@
             var container = $(containers[i]);
             var inputs = container.find('[data-sf-role="checkboxes-field-input"]');
 
-            if (container.find('[data-sf-role="required-validator"]').val() === 'True')
+            if (container.find('[data-sf-role="required-validator"]').val() === 'True' && !inputs.is(':checked'))
                 $(inputs[0]).attr('required', 'required');
 
             inputs.each(attachHandlers);
