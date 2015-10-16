@@ -341,12 +341,12 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Models
                 var controlInstance = manager.LoadControl(control);
                 var controlBehaviorObject = behaviorResolver.GetBehaviorObject(controlInstance);
                 var formField = controlBehaviorObject as IFormFieldController<IFormFieldModel>;
-
-                if (formField == null || !this.RaiseFormFieldValidatingEvent(formField))
-                    break;
-
+                
                 if (formField != null)
                 {
+                    if (this.RaiseFormFieldValidatingEvent(formField))
+                        return false;
+
                     IList<HttpPostedFileBase> multipleFiles = files != null ? files.GetMultiple(formField.MetaField.FieldName) : null;
                     object fieldValue;
 
