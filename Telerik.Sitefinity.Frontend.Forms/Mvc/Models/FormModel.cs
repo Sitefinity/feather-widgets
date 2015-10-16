@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -11,6 +12,7 @@ using Telerik.Sitefinity.Frontend.Forms.Mvc.StringResources;
 using Telerik.Sitefinity.Frontend.Mvc.Helpers;
 using Telerik.Sitefinity.Frontend.Mvc.Models;
 using Telerik.Sitefinity.GenericContent.Model;
+using Telerik.Sitefinity.Lifecycle;
 using Telerik.Sitefinity.Localization;
 using Telerik.Sitefinity.Model;
 using Telerik.Sitefinity.Modules.Forms;
@@ -158,7 +160,7 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Models
                 FormId = this.FormId.ToString("D")
             };
 
-            if (this.FormData != null)
+            if (this.FormData != null && this.AllowRenderForm())
             {
                 if (viewModel.UseAjaxSubmit)
                 {
@@ -251,6 +253,25 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Models
             {
                 return SubmitStatus.RestrictionViolation;
             }
+        }
+
+        /// <summary>
+        /// Allows the render form.
+        /// </summary>
+        /// <returns></returns>
+        public bool AllowRenderForm()
+        {
+            bool renderForm = true;
+
+            var currentLanguage = CultureInfo.CurrentUICulture;
+
+            // Do not display form if the form is not translated in the current language
+            if (this.FormData.IsPublished(currentLanguage) == false)
+            {
+                renderForm = false;
+            }
+
+            return renderForm;
         }
 
         /// <summary>
