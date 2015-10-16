@@ -91,6 +91,12 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Models
         string GetSubmitMessage(SubmitStatus submitedSuccessfully);
 
         /// <summary>
+        /// Allows the render form.
+        /// </summary>
+        /// <returns></returns>
+        bool AllowRenderForm();
+
+        /// <summary>
         /// Tries to submit the form.
         /// </summary>
         SubmitStatus TrySubmitForm(FormCollection collection, HttpFileCollectionBase files, string userHostAddress);
