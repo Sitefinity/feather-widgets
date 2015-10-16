@@ -344,7 +344,7 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Models
                 
                 if (formField != null)
                 {
-                    if (this.RaiseFormFieldValidatingEvent(formField))
+                    if (!this.RaiseFormFieldValidatingEvent(formField))
                         return false;
 
                     IList<HttpPostedFileBase> multipleFiles = files != null ? files.GetMultiple(formField.MetaField.FieldName) : null;

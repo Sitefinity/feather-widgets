@@ -47,30 +47,17 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Controllers
         /// </summary>
         public ActionResult Index()
         {
-            var submitSuccesKey = this.sfSubmitSuccessKey + this.ViewData["sf_cntrl_id"];
-            var success = this.TempData[submitSuccesKey];
-            if (success == null)
+            var viewModel = this.Model.GetViewModel();
+            if (viewModel != null)
             {
-                var viewModel = this.Model.GetViewModel();
-                if (viewModel != null)
+                if (string.IsNullOrEmpty(viewModel.Error))
                 {
-                    if (string.IsNullOrEmpty(viewModel.Error))
-                    {
-                        var viewPath = this.GetViewPath(this.Model.FormId);
-                        return this.View(viewPath, viewModel);
-                    }
-                    else
-                    {
-                        return this.Content(viewModel.Error);
-                    }
+                    var viewPath = this.GetViewPath(this.Model.FormId);
+                    return this.View(viewPath, viewModel);
                 }
-            }
-            else
-            {
-                var successValue = success as SubmitStatus?;
-                if (successValue.HasValue)
+                else
                 {
-                    return this.Content(this.Model.GetSubmitMessage(successValue.Value));
+                    return this.Content(viewModel.Error);
                 }
             }
 
@@ -97,11 +84,8 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Controllers
                 }
             }
 
-            var submitSuccesKey = this.sfSubmitSuccessKey + this.ViewData["sf_cntrl_id"];
-            this.TempData[submitSuccesKey] = success;
-
-            if (success == SubmitStatus.Success && this.Model.RaiseBeforeFormActionEvent())
-                return this.RedirectToAction(string.Empty);
+            if (this.Model.RaiseBeforeFormActionEvent())
+                return this.Content(this.Model.GetSubmitMessage(success));
             else
                 return this.Index();
         }
@@ -194,8 +178,6 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Controllers
         internal const string WidgetIconCssClass = "sfFormsIcn sfMvcIcn";
 
         private IFormModel model;
-        private bool? disableCanonicalUrlMetaTag;
-        private string sfSubmitSuccessKey = "sfSubmitSuccess";
 
         #endregion
     }
