@@ -25,7 +25,7 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Controllers
         public SectionHeaderController()
         {
             this.DisplayMode = FieldDisplayMode.Read;
-            this.ReadTemplateName = SectionHeaderController.templateName;
+            this.ReadTemplateName = SectionHeaderController.TemplateName;
         }
 
         /// <inheritDocs />
@@ -47,7 +47,7 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Controllers
         {
             get
             {
-                return SectionHeaderController.templateNamePrefix;
+                return SectionHeaderController.TemplateNamePrefix;
             }
         }
 
@@ -68,7 +68,7 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Controllers
         }
 
         private ISectionHeaderModel model;
-        private const string templateNamePrefix = "Read.";
-        private const string templateName = "Default";
+        private const string TemplateNamePrefix = "Read.";
+        private const string TemplateName = "Default";
     }
 }

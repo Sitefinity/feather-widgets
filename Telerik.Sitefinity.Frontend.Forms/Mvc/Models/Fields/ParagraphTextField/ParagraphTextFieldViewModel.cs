@@ -1,4 +1,5 @@
 ﻿using Telerik.Sitefinity.Metadata.Model;
+
 namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Models.Fields.ParagraphTextField
 {
     /// <summary>

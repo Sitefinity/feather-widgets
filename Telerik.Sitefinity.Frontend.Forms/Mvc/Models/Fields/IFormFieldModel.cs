@@ -4,7 +4,7 @@ using Telerik.Sitefinity.Modules.Forms.Web.UI.Fields;
 
 namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Models.Fields
 {
-    public interface IFormFieldModel: IFormElementModel
+    public interface IFormFieldModel : IFormElementModel
     {
         /// <summary>
         /// Gets or sets the meta field.

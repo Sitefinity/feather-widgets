@@ -1,9 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Web.UI;
 using Telerik.Sitefinity.Frontend.Forms.Mvc.Controllers.Base;
 using Telerik.Sitefinity.Frontend.Forms.Mvc.Models.Fields.CheckboxesField;
 using Telerik.Sitefinity.Modules.Forms.Web.UI.Fields;
@@ -14,7 +9,7 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Models.Fields.BackendConfigurato
     /// <summary>
     /// Configures specifics for checkboxes field in the backend.
     /// </summary>
-    internal class CheckboxesFieldConfigurator: IFieldConfigurator
+    internal class CheckboxesFieldConfigurator : IFieldConfigurator
     {
         /// <inheritDocs/>
         public Guid FormId

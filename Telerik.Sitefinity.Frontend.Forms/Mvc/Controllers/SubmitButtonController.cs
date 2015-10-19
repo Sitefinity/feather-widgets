@@ -20,8 +20,8 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Controllers
     {
         public SubmitButtonController()
         {
-            this.ReadTemplateName = SubmitButtonController.templateName;
-            this.WriteTemplateName = SubmitButtonController.templateName;
+            this.ReadTemplateName = SubmitButtonController.TemplateName;
+            this.WriteTemplateName = SubmitButtonController.TemplateName;
         }
 
         /// <summary>
@@ -41,7 +41,7 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Controllers
         }
 
         private ISubmitButtonModel model;
-        private const string templateNamePrefix = "Index.";
-        private const string templateName = "Default";
+        private const string TemplateNamePrefix = "Index.";
+        private const string TemplateName = "Default";
     }
 }

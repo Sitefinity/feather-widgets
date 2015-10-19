@@ -32,6 +32,7 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Models.Fields.ParagraphTextField
 
                 return this.validatorDefinition;
             }
+
             set
             {
                 this.validatorDefinition = value;

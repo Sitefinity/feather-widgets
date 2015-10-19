@@ -71,6 +71,7 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Models
 
                 return this.customConfirmationMessage;
             }
+
             set
             {
                 this.customConfirmationMessage = value;
@@ -168,7 +169,7 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Models
                     if (this.AjaxSubmitUrl.IsNullOrEmpty())
                     {
                         var currentNode = SiteMapBase.GetCurrentNode();
-                        baseUrl = currentNode != null ? currentNode.Url + "/AjaxSubmit" : "";
+                        baseUrl = currentNode != null ? currentNode.Url + "/AjaxSubmit" : string.Empty;
                     }
                     else
                     {

@@ -81,6 +81,9 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Models.Fields
             return this.Validator.IsValid(value);
         }
 
+        /// <inheritDocs />
+        public abstract object GetViewModel(object value);
+
         /// <summary>
         /// Builds the validation attributes.
         /// </summary>
@@ -89,9 +92,6 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Models.Fields
         {
             return this.ValidatorDefinition.Required.HasValue && this.ValidatorDefinition.Required.Value ? "required='required'" : string.Empty;
         }
-
-        /// <inheritDocs />
-        public abstract object GetViewModel(object value);
 
         private Validator validator;
         private ValidatorDefinition validatorDefinition;

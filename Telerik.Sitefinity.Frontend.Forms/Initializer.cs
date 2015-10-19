@@ -95,7 +95,6 @@ namespace Telerik.Sitefinity.Frontend.Forms
         {
             if (!section.Tools.Any<ToolboxItem>(t => t.Name == name))
             {
-
                 var toolboxItem = new ToolboxItem(section.Tools)
                 {
                     Name = name,

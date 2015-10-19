@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.ComponentModel;
 using Telerik.Sitefinity.Frontend.Forms.Mvc.Models.Fields;
 using Telerik.Sitefinity.Metadata.Model;
 using Telerik.Sitefinity.Modules.Forms.Web.UI.Fields;
@@ -13,8 +8,8 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Controllers.Base
     /// <summary>
     /// This class contains common functionality for all form's fields.
     /// </summary>
-    public abstract class FormFieldControllerBase<T>: FormElementControllerBase<T>, IFormFieldControl, IFormFieldController<T>
-        where T: IFormFieldModel
+    public abstract class FormFieldControllerBase<T> : FormElementControllerBase<T>, IFormFieldControl, IFormFieldController<T>
+        where T : IFormFieldModel
     {
         /// <inheritDocs />
         [Browsable(false)]
@@ -29,6 +24,7 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Controllers.Base
 
                 return this.Model.MetaField;
             }
+
             set
             {
                 this.Model.MetaField = value;
