@@ -1,7 +1,6 @@
 ﻿using Telerik.Sitefinity.Frontend.Forms.Mvc.StringResources;
 using Telerik.Sitefinity.Localization;
-using Telerik.Sitefinity.Metadata.Model;
-using Telerik.Sitefinity.Modules.Forms.Web.UI.Fields;
+
 namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Models.Fields.SubmitButton
 {
     /// <summary>
@@ -16,6 +15,7 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Models.Fields.SubmitButton
             {
                 return this.label;
             }
+
             set
             {
                 this.label = value;

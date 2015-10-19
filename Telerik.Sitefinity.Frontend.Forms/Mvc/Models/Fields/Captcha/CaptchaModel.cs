@@ -1,16 +1,9 @@
 ﻿using System;
-using System.Drawing;
-using System.Drawing.Drawing2D;
-using System.Drawing.Imaging;
-using System.Security.Cryptography;
-using System.Text;
-using Telerik.Sitefinity.Services;
-using Telerik.Sitefinity.Frontend.Forms.Mvc.Controllers;
-using Telerik.Sitefinity.Web;
-using System.Web;
-using Telerik.Sitefinity.Services.Comments.DTO;
 using System.Reflection;
-using Telerik.Sitefinity.Services.Comments;
+using System.Web;
+using Telerik.Sitefinity.Services;
+using Telerik.Sitefinity.Services.Comments.DTO;
+using Telerik.Sitefinity.Web;
 
 namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Models.Fields.Captcha
 {
@@ -36,6 +29,7 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Models.Fields.Captcha
 
                 return base.Value;
             }
+
             set
             {
                 base.Value = value;

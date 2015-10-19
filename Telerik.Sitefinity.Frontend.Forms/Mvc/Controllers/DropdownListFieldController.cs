@@ -36,6 +36,7 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Controllers
                 return this.model;
             }
         }
+
         private IDropdownListFieldModel model;
     }
 }

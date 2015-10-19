@@ -517,7 +517,6 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.StringResources
             }
         }
 
-
         /// <summary>
         /// Gets phrase : Entered text is too long
         /// </summary>
@@ -592,6 +591,7 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.StringResources
                 return this["ExampleTitleUpload"];
             }
         }
+
         /// <summary>
         /// Gets phrase : Suitable for giving examples and instructions how the entered value will be used
         /// </summary>

@@ -196,7 +196,7 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Models.Fields.FileField
                     }
                     else
                     {
-                        acceptValues.AddRange(FileFieldModel.predifinedAcceptValues[fileType]);
+                        acceptValues.AddRange(FileFieldModel.PredifinedAcceptValues[fileType]);
                     }
                 }
             }
@@ -212,7 +212,7 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Models.Fields.FileField
                 return "accept=\"{0}\"".Arrange(string.Join(",", acceptedFileTypes));
         }
 
-        private static readonly Dictionary<AllowedFileTypes, string[]> predifinedAcceptValues = new Dictionary<AllowedFileTypes, string[]>()
+        private static readonly Dictionary<AllowedFileTypes, string[]> PredifinedAcceptValues = new Dictionary<AllowedFileTypes, string[]>()
         {
             { AllowedFileTypes.All, null },
             { AllowedFileTypes.Audio, new string[] { ".mp3", ".ogg", ".wav", ".wma" } },

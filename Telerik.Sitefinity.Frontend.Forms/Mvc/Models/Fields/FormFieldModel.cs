@@ -7,7 +7,7 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Models.Fields
     /// <summary>
     /// This class provides API for working with <see cref="IFormFieldControl"/> objects.
     /// </summary>
-    public abstract class FormFieldModel: FormElementModel, IFormFieldModel
+    public abstract class FormFieldModel : FormElementModel, IFormFieldModel
     {
         /// <inheritDocs />
         [TypeConverter(typeof(ExpandableObjectConverter))]

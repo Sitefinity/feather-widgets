@@ -123,7 +123,7 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Controllers
         [Browsable(false)]
         public bool IsEmpty
         {
-            get { return (this.Model.FormId == Guid.Empty); }
+            get { return this.Model.FormId == Guid.Empty; }
         }
 
         /// <inheritDocs />

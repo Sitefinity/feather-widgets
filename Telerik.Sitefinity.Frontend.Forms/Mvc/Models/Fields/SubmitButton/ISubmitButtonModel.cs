@@ -1,11 +1,9 @@
-﻿using System.ComponentModel;
-using Telerik.Sitefinity.Metadata.Model;
-namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Models.Fields.SubmitButton
+﻿namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Models.Fields.SubmitButton
 {
     /// <summary>
     /// This interface provides API for form submit button.
     /// </summary>
-    public interface ISubmitButtonModel: IFormElementModel
+    public interface ISubmitButtonModel : IFormElementModel
     {
         /// <summary>
         /// Gets or sets the label.

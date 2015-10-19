@@ -26,9 +26,9 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Models.Fields
         /// <param name="configuration">The configuration.</param>
         public static void RegisterFieldConfiguration(Type controllerType, FieldConfiguration configuration)
         {
-            lock (BackendFieldFallbackConfigurator.fieldMap)
+            lock (BackendFieldFallbackConfigurator.FieldMap)
             {
-                BackendFieldFallbackConfigurator.fieldMap[controllerType] = configuration;
+                BackendFieldFallbackConfigurator.FieldMap[controllerType] = configuration;
             }
         }
 
@@ -50,7 +50,7 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Models.Fields
                 var behaviorType = behaviorObject.GetType();
 
                 FieldConfiguration fieldConfiguration = null;
-                foreach (var pair in BackendFieldFallbackConfigurator.fieldMap)
+                foreach (var pair in BackendFieldFallbackConfigurator.FieldMap)
                 {
                     if (pair.Key.IsAssignableFrom(behaviorType))
                     {
@@ -63,7 +63,7 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Models.Fields
                 }
 
                 if (fieldConfiguration == null)
-                    fieldConfiguration = BackendFieldFallbackConfigurator.fieldMap[typeof(TextFieldController)];
+                    fieldConfiguration = BackendFieldFallbackConfigurator.FieldMap[typeof(TextFieldController)];
 
                 var formField = behaviorObject as IFormFieldControl;
                 if (formField != null)
@@ -93,15 +93,15 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Models.Fields
             return formControl;
         }
 
-        private static readonly Type formFileUploadType = TypeResolutionService.ResolveType("Telerik.Sitefinity.Modules.Forms.Web.UI.Fields.FormFileUpload");
-        private static readonly Dictionary<Type, FieldConfiguration> fieldMap = new Dictionary<Type, FieldConfiguration>()
+        private static readonly Type FormFileUploadType = TypeResolutionService.ResolveType("Telerik.Sitefinity.Modules.Forms.Web.UI.Fields.FormFileUpload");
+        private static readonly Dictionary<Type, FieldConfiguration> FieldMap = new Dictionary<Type, FieldConfiguration>()
             {
                 { typeof(CheckboxesFieldController), new FieldConfiguration(typeof(FormCheckboxes), new CheckboxesFieldConfigurator()) },
                 { typeof(DropdownListFieldController), new FieldConfiguration(typeof(FormDropDownList), new DropdownListFieldConfigurator()) },
                 { typeof(MultipleChoiceFieldController), new FieldConfiguration(typeof(FormMultipleChoice), new MultipleChoiceFieldConfigurator()) },
                 { typeof(ParagraphTextFieldController), new FieldConfiguration(typeof(FormParagraphTextBox), null) },
                 { typeof(TextFieldController), new FieldConfiguration(typeof(FormTextBox), null) },
-                { typeof(FileFieldController), new FieldConfiguration(BackendFieldFallbackConfigurator.formFileUploadType, new FileFieldConfigurator()) },
+                { typeof(FileFieldController), new FieldConfiguration(BackendFieldFallbackConfigurator.FormFileUploadType, new FileFieldConfigurator()) },
                 { typeof(SubmitButtonController), null },
                 { typeof(CaptchaController), null }
             };
