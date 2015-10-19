@@ -38,11 +38,17 @@
         </div>
 
         <div class="form-group">
+            <div class="checkbox">
+                <label>
+                    <input type="checkbox" ng-model="properties.Model.ValidatorDefinition.Required.PropertyValue" 
+                        ng-true-value="'True'" ng-false-value="'False'" ng-checked="properties.Model.ValidatorDefinition.Required.PropertyValue === 'True'" >
+                        @Html.Resource("RequiredField")
+                    </input>
+                </label>
+            </div>
+        </div>
 
-            <input type="checkbox" ng-model="properties.Model.ValidatorDefinition.Required.PropertyValue" 
-                ng-true-value="'True'" ng-false-value="'False'" ng-checked="properties.Model.ValidatorDefinition.Required.PropertyValue === 'True'" >
-                @Html.Resource("RequiredField")
-            </input>
+        <div class="form-group">
             <div ng-show="properties.Model.ValidatorDefinition.Required.PropertyValue === 'True'">
                 <label for="required-message-text" class="full-width">
                     @Html.Resource("RequiredErrorMessageTitle")
