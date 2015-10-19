@@ -29,6 +29,40 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.StringResources
 
         #endregion
 
+        #region Class Description
+
+        /// <summary>
+        /// Gets Title for the form widgets resources class.
+        /// </summary>
+        [ResourceEntry("FormResourcesTitle",
+            Value = "Form widgets resources",
+            Description = "MVC Form widgets resources class.",
+            LastModified = "2015/10/19")]
+        public string FormResourcesTitle
+        {
+            get
+            {
+                return this["FormResourcesTitle"];
+            }
+        }
+
+        /// <summary>
+        /// Gets Description for the form widgets resources class.
+        /// </summary>
+        [ResourceEntry("FormResourcesDescription",
+            Value = "Form widgets resources",
+            Description = "Contains resources for the form widgets resources class.",
+            LastModified = "2015/10/19")]
+        public string FormResourcesDescription
+        {
+            get
+            {
+                return this["FormResourcesDescription"];
+            }
+        }
+
+        #endregion
+
         #region Designer Form
 
         /// <summary>
