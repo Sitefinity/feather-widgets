@@ -8,7 +8,6 @@ using Telerik.Sitefinity.Configuration;
 using Telerik.Sitefinity.Data;
 using Telerik.Sitefinity.Frontend.Forms.Mvc.Controllers;
 using Telerik.Sitefinity.Frontend.Forms.Mvc.Models.Fields;
-using Telerik.Sitefinity.Frontend.Mvc.Infrastructure.Controllers;
 using Telerik.Sitefinity.Modules.ControlTemplates;
 using Telerik.Sitefinity.Modules.Pages;
 using Telerik.Sitefinity.Modules.Pages.Configuration;
@@ -30,7 +29,6 @@ namespace Telerik.Sitefinity.Frontend.Forms
         /// </summary>
         public static void Initialize()
         {
-            VirtualPathManager.AddVirtualFileResolver<FormsVirtualRazorResolver>(FormsVirtualRazorResolver.Path + "*", "MvcFormsResolver");
             ObjectFactory.Container.RegisterInstance<IControlDefinitionExtender>("FormsDefinitionsExtender", new FormsDefinitionsExtender(), new ContainerControlledLifetimeManager());
 
             ObjectFactory.Container.RegisterType<IFormFieldBackendConfigurator, BackendFieldFallbackConfigurator>(typeof(MvcControllerProxy).FullName);
@@ -38,7 +36,8 @@ namespace Telerik.Sitefinity.Frontend.Forms
             EventHub.Unsubscribe<IScriptsRegisteringEvent>(Initializer.RegisteringFormScriptsHandler);
             EventHub.Subscribe<IScriptsRegisteringEvent>(Initializer.RegisteringFormScriptsHandler);
 
-            Bootstrapper.Initialized += Bootstrapper_Initialized;
+            Bootstrapper.Initialized -= Initializer.Bootstrapper_Initialized;
+            Bootstrapper.Initialized += Initializer.Bootstrapper_Initialized;
         }
 
         #region Private Methods
@@ -47,6 +46,8 @@ namespace Telerik.Sitefinity.Frontend.Forms
         {
             if (e.CommandName == "Bootstrapped")
             {
+                VirtualPathManager.AddVirtualFileResolver<FormsVirtualRazorResolver>(FormsVirtualRazorResolver.Path + "*", "MvcFormsResolver");
+
                 Initializer.UnregisterTemplatableControl();
                 Initializer.AddFieldsToToolbox();
             }
