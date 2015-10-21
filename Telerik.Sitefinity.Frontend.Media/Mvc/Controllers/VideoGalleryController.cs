@@ -8,6 +8,7 @@ using Telerik.Sitefinity.ContentLocations;
 using Telerik.Sitefinity.Frontend.Media.Mvc.Models;
 using Telerik.Sitefinity.Frontend.Media.Mvc.Models.VideoGallery;
 using Telerik.Sitefinity.Frontend.Media.Mvc.StringResources;
+using Telerik.Sitefinity.Frontend.Mvc.Infrastructure;
 using Telerik.Sitefinity.Frontend.Mvc.Infrastructure.Controllers;
 using Telerik.Sitefinity.Frontend.Mvc.Infrastructure.Controllers.Attributes;
 using Telerik.Sitefinity.Frontend.Mvc.Infrastructure.Routing;
@@ -203,6 +204,9 @@ namespace Telerik.Sitefinity.Frontend.Media.Mvc.Controllers
             var viewModel = this.Model.CreateDetailsViewModel(item, itemIndex);
             if (SystemManager.CurrentHttpContext != null)
                 this.AddCacheDependencies(this.Model.GetKeysOfDependentObjects(viewModel));
+
+            var page = this.HttpContext.CurrentHandler.GetPageHandler();
+            this.AddCanonicalUrlTagIfEnabled(page, item);
 
             var fullTemplateName = this.detailTemplateNamePrefix + this.DetailTemplateName;
             return this.View(fullTemplateName, viewModel);
