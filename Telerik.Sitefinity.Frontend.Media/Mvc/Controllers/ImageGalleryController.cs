@@ -218,8 +218,7 @@ namespace Telerik.Sitefinity.Frontend.Media.Mvc.Controllers
             if (SystemManager.CurrentHttpContext != null)
                 this.AddCacheDependencies(this.Model.GetKeysOfDependentObjects(viewModel));
 
-            var page = this.HttpContext.CurrentHandler.GetPageHandler();
-            this.AddCanonicalUrlTagIfEnabled(page, item);
+            this.AddCanonicalUrlTag(item);
 
             return this.View(fullTemplateName, viewModel);
         }
@@ -275,7 +274,6 @@ namespace Telerik.Sitefinity.Frontend.Media.Mvc.Controllers
             return false;
         }
 
-
         /// <summary>
         /// Gets the item index from the query string.
         /// </summary>
@@ -316,6 +314,16 @@ namespace Telerik.Sitefinity.Frontend.Media.Mvc.Controllers
                 this.TryResolveParentFilterMode(urlParams.Take(urlParams.Length - 1).ToArray(), requestContext, manager);
             }
             return false;
+        }
+
+        /// <summary>
+        /// Adds the canonical tag in the page headers HTML tag, like <link rel="canonical" href="http://www.test.com/item1" />.
+        /// </summary>
+        /// <param name="item">The item.</param>
+        protected virtual void AddCanonicalUrlTag(Telerik.Sitefinity.Model.IDataItem item)
+        {
+            var page = this.HttpContext.CurrentHandler.GetPageHandler();
+            this.AddCanonicalUrlTagIfEnabled(page, item);
         }
 
         #endregion
