@@ -55,6 +55,27 @@ namespace FeatherWidgets.TestUtilities.CommonOperations.Forms
             return formId;
         }
 
+        public Guid CreateFormWithWidgets(IEnumerable<Control> widgets)
+        {
+            var formId = Guid.NewGuid();
+
+            string formSuccessMessage = "Test form success message";
+
+            var formControls = new Dictionary<Control, string>();
+            foreach (var widget in widgets)
+            {
+                formControls.Add(widget, "Body");
+            }
+
+            FormsModuleCodeSnippets.CreateForm(formId, "form_" + formId.ToString("N"), formId.ToString("N"), formSuccessMessage, formControls);
+
+            SystemManager.ClearCurrentTransactions();
+            SystemManager.RestartApplication(false);
+            System.Threading.Thread.Sleep(1000);
+
+            return formId;
+        }
+
         public void AddFormWidget(Guid formId, Control widget)
         {
             var formManager = FormsManager.GetManager();
