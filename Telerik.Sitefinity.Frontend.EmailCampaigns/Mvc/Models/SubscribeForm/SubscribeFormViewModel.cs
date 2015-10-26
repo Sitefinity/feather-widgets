@@ -42,7 +42,8 @@ namespace Telerik.Sitefinity.Frontend.EmailCampaigns.Mvc.Models
         [Required]
         [DataType(DataType.EmailAddress)]
         [EmailAddress(ErrorMessageResourceName = "EmailAddressErrorMessageResourceName",
-                      ErrorMessageResourceType = typeof(StaticSubscribeFormResources))]
+                      ErrorMessageResourceType = typeof(StaticSubscribeFormResources),
+                      ErrorMessage = null)]
         public string Email { get; set; }
     }
 }

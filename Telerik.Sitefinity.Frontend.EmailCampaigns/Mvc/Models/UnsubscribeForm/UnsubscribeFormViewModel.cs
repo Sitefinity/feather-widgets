@@ -45,7 +45,8 @@ namespace Telerik.Sitefinity.Frontend.EmailCampaigns.Mvc.Models.UnsubscribeForm
         [Required]
         [DataType(DataType.EmailAddress)]
         [EmailAddress(ErrorMessageResourceName = "EmailAddressErrorMessageResourceName",
-                      ErrorMessageResourceType = typeof(StaticUnsubscribeFormControllerResources))]
+                      ErrorMessageResourceType = typeof(StaticUnsubscribeFormControllerResources),
+                      ErrorMessage = null)]
         public string Email { get; set; }
     }
 }
