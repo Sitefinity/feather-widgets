@@ -6,6 +6,7 @@ using System.Web.Mvc;
 using Telerik.Sitefinity.ContentLocations;
 using Telerik.Sitefinity.Frontend.Lists.Mvc.Models;
 using Telerik.Sitefinity.Frontend.Lists.Mvc.StringResources;
+using Telerik.Sitefinity.Frontend.Mvc.Infrastructure;
 using Telerik.Sitefinity.Frontend.Mvc.Infrastructure.Controllers;
 using Telerik.Sitefinity.Frontend.Mvc.Infrastructure.Controllers.Attributes;
 using Telerik.Sitefinity.Frontend.Mvc.Infrastructure.Routing;
@@ -186,6 +187,8 @@ namespace Telerik.Sitefinity.Frontend.Lists.Mvc.Controllers
             if (SystemManager.CurrentHttpContext != null)
                 this.AddCacheDependencies(this.Model.GetKeysOfDependentObjects(viewModel));
 
+            this.AddCanonicalUrlTag(item);
+
             return this.View(fullTemplateName, viewModel);
         }
 
@@ -233,6 +236,16 @@ namespace Telerik.Sitefinity.Frontend.Lists.Mvc.Controllers
         }
 
         #endregion
+
+        /// <summary>
+        /// Adds the canonical tag in the page headers HTML tag, like <link rel="canonical" href="http://www.test.com/item1" />.
+        /// </summary>
+        /// <param name="item">The item.</param>
+        protected virtual void AddCanonicalUrlTag(Telerik.Sitefinity.Model.IDataItem item)
+        {
+            var page = this.HttpContext.CurrentHandler.GetPageHandler();
+            this.AddCanonicalUrlTagIfEnabled(page, item);
+        }
 
         #region Private method
 

@@ -14,5 +14,9 @@ namespace FeatherWidgets.TestUnit.DummyClasses.Media.DocumentsList
         {
             return string.Empty;
         }
+
+        protected override void AddCanonicalUrlTag(Telerik.Sitefinity.Model.IDataItem item)
+        {       
+        }
     }
 }
