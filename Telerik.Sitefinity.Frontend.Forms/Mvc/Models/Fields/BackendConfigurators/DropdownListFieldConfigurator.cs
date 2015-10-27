@@ -23,7 +23,7 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Models.Fields.BackendConfigurato
         }
 
         /// <inheritDocs/>
-        public void Configure(FieldControl backendControl, IFormFieldController<IFormFieldModel> formFieldController)
+        public void Configure(ref FieldControl backendControl, IFormFieldController<IFormFieldModel> formFieldController)
         {
             var dropdownListFieldModel = formFieldController.Model as IDropdownListFieldModel;
             var choices = dropdownListFieldModel.DeserializeChoices();
