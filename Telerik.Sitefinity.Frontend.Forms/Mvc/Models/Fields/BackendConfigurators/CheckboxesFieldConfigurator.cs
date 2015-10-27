@@ -19,16 +19,28 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Models.Fields.BackendConfigurato
         }
 
         /// <inheritDocs/>
-        public void Configure(FieldControl backendControl, IFormFieldController<IFormFieldModel> formFieldController)
+        public void Configure(ref FieldControl backendControl, IFormFieldController<IFormFieldModel> formFieldController)
         {
             var checkboxesFieldModel = (ICheckboxesFieldModel)formFieldController.Model;
-            var choices = checkboxesFieldModel.DeserializeChoices();
 
-            var checkboxesControl = (FormCheckboxes)backendControl;
-            checkboxesControl.Choices.Clear();
-            foreach (var choice in choices)
+
+            if (checkboxesFieldModel.HasOtherChoice)
             {
-                checkboxesControl.Choices.Add(new Web.UI.Fields.ChoiceItem() { Text = choice, Value = choice });
+                backendControl = new FormTextBox();
+                backendControl.ValidatorDefinition = checkboxesFieldModel.ValidatorDefinition;
+                backendControl.Title = checkboxesFieldModel.MetaField.Title;
+                ((IFormFieldControl)backendControl).MetaField = checkboxesFieldModel.MetaField;
+            }
+            else
+            {
+                var choices = checkboxesFieldModel.DeserializeChoices();
+
+                var checkboxesControl = (FormCheckboxes)backendControl;
+                checkboxesControl.Choices.Clear();
+                foreach (var choice in choices)
+                {
+                    checkboxesControl.Choices.Add(new Web.UI.Fields.ChoiceItem() { Text = choice, Value = choice });
+                }
             }
         }
     }
