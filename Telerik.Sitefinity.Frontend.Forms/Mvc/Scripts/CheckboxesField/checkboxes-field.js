@@ -77,7 +77,7 @@
             if (container.find('[data-sf-role="required-validator"]').val() === 'True' && !inputs.is(':checked'))
                 $(inputs[0]).attr('required', 'required');
 
-            attachHandlers.inputs();
+            attachHandlers(inputs);
 
             var checkboxes = container.find('input[data-sf-role="checkboxes-field-input"]');
 
