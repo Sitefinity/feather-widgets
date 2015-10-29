@@ -18,9 +18,10 @@ using Telerik.Sitefinity.TestIntegration.SDK.DevelopersGuide.SitefinityEssential
 namespace FeatherWidgets.TestIntegration.Forms.Fields
 {
     /// <summary>
-    /// This class contains ensures dropdown list field functionalities work correctly.
+    /// This class ensures dropdown list field functionalities work correctly.
     /// </summary>
     [TestFixture]
+    [Description("This class ensures dropdown list field functionalities work correctly.")]
     public class DropdownListFieldTests
     {
         /// <summary>

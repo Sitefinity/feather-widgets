@@ -19,9 +19,10 @@ using Telerik.Sitefinity.TestIntegration.SDK.DevelopersGuide.SitefinityEssential
 namespace FeatherWidgets.TestIntegration.Forms.Fields
 {
     /// <summary>
-    /// This class contains ensures ParagraphTextField functionalities work correctly.
+    /// This class ensures ParagraphTextField functionalities work correctly.
     /// </summary>
     [TestFixture]
+    [Description("This class ensures ParagraphTextField functionalities work correctly.")]
     public class ParagraphTextFieldTests
     {
         /// <summary>

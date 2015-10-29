@@ -19,9 +19,10 @@ using Telerik.Sitefinity.TestIntegration.SDK.DevelopersGuide.SitefinityEssential
 namespace FeatherWidgets.TestIntegration.Forms.Fields
 {
     /// <summary>
-    /// This class contains ensures checkboxes field functionalities work correctly.
+    /// This class ensures checkboxes field functionalities work correctly.
     /// </summary>
     [TestFixture]
+    [Description("This class ensures checkboxes field functionalities work correctly.")]
     public class CheckboxesFieldTests
     {
         /// <summary>
