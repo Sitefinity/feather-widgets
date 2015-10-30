@@ -88,7 +88,7 @@ namespace FeatherWidgets.TestIntegration.Forms.Fields
 
             try
             {
-                var template = pageManager.GetTemplates().FirstOrDefault(t => t.Name == "Bootstrap.default" && t.Title == "default");
+                var template = pageManager.GetTemplates().FirstOrDefault(t => t.Name == "SemanticUI.default" && t.Title == "default");
                 Assert.IsNotNull(template, "Template was not found");
 
                 var pageId = FeatherServerOperations.Pages().CreatePageWithTemplate(template, "DropdownListFieldValueTest", "dropdown-list-field-submit-value-test");
