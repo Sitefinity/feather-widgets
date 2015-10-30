@@ -1,5 +1,4 @@
 ﻿using System.Linq;
-using System.Web;
 using System.Web.Mvc;
 using FeatherWidgets.TestUtilities.CommonOperations;
 using MbUnit.Framework;
@@ -89,26 +88,14 @@ namespace FeatherWidgets.TestIntegration.Forms.Fields
 
             try
             {
-                var template = pageManager.GetTemplates().FirstOrDefault(t => t.Name == "SemanticUI.default" && t.Title == "default");
+                var template = pageManager.GetTemplates().FirstOrDefault(t => t.Name == "Bootstrap.default" && t.Title == "default");
                 Assert.IsNotNull(template, "Template was not found");
 
                 var pageId = FeatherServerOperations.Pages().CreatePageWithTemplate(template, "DropdownListFieldValueTest", "dropdown-list-field-submit-value-test");
                 ServerOperationsFeather.Forms().AddFormControlToPage(pageId, formId);
-                var pageDataId = pageManager.GetPageNode(pageId).GetPageData().Id;
-                var dropdownListFieldControlData = form.Controls.Where(c => c.PlaceHolder == "Body" && !c.IsLayoutControl).FirstOrDefault();
-                var mvcFieldProxy = formManager.LoadControl(dropdownListFieldControlData) as MvcWidgetProxy;
-
-                var dropdownListField = mvcFieldProxy.Controller as DropdownListFieldController;
-                Assert.IsNotNull(dropdownListField, "The dropdown list field was not found.");
-
-                var formCollection = new FormCollection();
-                var dropdownListFieldName = dropdownListField.MetaField.FieldName;
-                formCollection.Add(dropdownListFieldName, submitedDropdownValue);
-                var formControllerProxy = pageManager.LoadPageControls<MvcControllerProxy>(pageDataId).Where(contr => contr.Controller.GetType() == typeof(FormController)).FirstOrDefault();
-                var formController = formControllerProxy.Controller as FormController;
-                formController.ControllerContext = new ControllerContext();
-                formController.ControllerContext.HttpContext = new HttpContextWrapper(HttpContext.Current);
-                formController.Index(formCollection);
+                
+                var dropdownListFieldName = ServerOperationsFeather.Forms().GetFirstFieldName(formManager, form);
+                ServerOperationsFeather.Forms().SubmitField(dropdownListFieldName, submitedDropdownValue, pageManager, pageId);
 
                 var formEntry = formManager.GetFormEntries(form).LastOrDefault();
                 Assert.IsNotNull(formEntry, "Form entry has not been submitted.");
@@ -153,24 +140,13 @@ namespace FeatherWidgets.TestIntegration.Forms.Fields
 
                 var pageId = FeatherServerOperations.Pages().CreatePageWithTemplate(template, "DropdownListFieldValidationTest", "dropdown-list-field-validation-test");
                 ServerOperationsFeather.Forms().AddFormControlToPage(pageId, formId);
-                var pageDataId = pageManager.GetPageNode(pageId).GetPageData().Id;
-                var dropdownListFieldControlData = form.Controls.Where(c => c.PlaceHolder == "Body" && !c.IsLayoutControl).FirstOrDefault();
-                var mvcFieldProxy = formManager.LoadControl(dropdownListFieldControlData) as MvcWidgetProxy;
 
-                var dropdownListField = mvcFieldProxy.Controller as DropdownListFieldController;
-                Assert.IsNotNull(dropdownListField, "The dropdown list field was not found.");
+                var dropdownListFieldName = ServerOperationsFeather.Forms().GetFirstFieldName(formManager, form);
+                var result = ServerOperationsFeather.Forms().SubmitField(dropdownListFieldName, string.Empty, pageManager, pageId);
+                var contentResult = result as ContentResult;
+                Assert.IsNotNull(contentResult, "Submit should return content result.");
+                Assert.AreEqual(Res.Get<FormResources>().UnsuccessfullySubmittedMessage, contentResult.Content, "The Submit didn't result in error as expected!");
 
-                var dropdownListFieldName = dropdownListField.MetaField.FieldName;
-                var formCollection = new FormCollection();
-                formCollection.Add(dropdownListFieldName, string.Empty);
-                var formControllerProxy = pageManager.LoadPageControls<MvcControllerProxy>(pageDataId).Where(contr => contr.Controller.GetType() == typeof(FormController)).FirstOrDefault();
-                var formController = formControllerProxy.Controller as FormController;
-                formController.ControllerContext = new ControllerContext();
-                formController.ControllerContext.HttpContext = new HttpContextWrapper(HttpContext.Current);
-
-                formController.Index(formCollection);
-                Assert.IsFalse((bool)formController.TempData["sfSubmitSuccess"], "The Submit result was not correct");
-                
                 var formEntry = formManager.GetFormEntries(form).LastOrDefault();
                 Assert.IsNull(formEntry, "Form entry has been submitted even when the form is not valid.");
             }

@@ -1,14 +1,20 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Globalization;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Web;
+using System.Web.Mvc;
 using System.Web.UI;
 using Telerik.Sitefinity.Forms.Model;
 using Telerik.Sitefinity.Frontend.Forms.Mvc.Controllers;
 using Telerik.Sitefinity.Frontend.Forms.Mvc.Models;
+using Telerik.Sitefinity.Frontend.Mvc.Infrastructure.Controllers;
 using Telerik.Sitefinity.Modules.Forms;
+using Telerik.Sitefinity.Modules.Forms.Web.UI.Fields;
+using Telerik.Sitefinity.Modules.Pages;
 using Telerik.Sitefinity.Mvc.Proxy;
 using Telerik.Sitefinity.Services;
 using Telerik.Sitefinity.TestIntegration.Data.Content;
@@ -43,10 +49,10 @@ namespace FeatherWidgets.TestUtilities.CommonOperations.Forms
 
             string formSuccessMessage = "Test form success message";
 
-            var formControls = new Dictionary<Control, string>();
-            formControls.Add(widget, "Body");
+            var formControls = new List<Control>();
+            formControls.Add(widget);
 
-            FormsModuleCodeSnippets.CreateForm(formId, "form_" + formId.ToString("N"), formId.ToString("N"), formSuccessMessage, formControls);
+            Telerik.Sitefinity.TestUtilities.CommonOperations.ServerOperations.Forms().CreateForm(formId, "form_" + formId.ToString("N"), formId.ToString("N"), formSuccessMessage, formControls, FormFramework.Mvc);
 
             SystemManager.ClearCurrentTransactions();
             SystemManager.RestartApplication(false);
@@ -61,13 +67,13 @@ namespace FeatherWidgets.TestUtilities.CommonOperations.Forms
 
             string formSuccessMessage = "Test form success message";
 
-            var formControls = new Dictionary<Control, string>();
+            var formControls = new List<Control>();
             foreach (var widget in widgets)
             {
-                formControls.Add(widget, "Body");
+                formControls.Add(widget);
             }
 
-            FormsModuleCodeSnippets.CreateForm(formId, "form_" + formId.ToString("N"), formId.ToString("N"), formSuccessMessage, formControls);
+            Telerik.Sitefinity.TestUtilities.CommonOperations.ServerOperations.Forms().CreateForm(formId, "form_" + formId.ToString("N"), formId.ToString("N"), formSuccessMessage, formControls, FormFramework.Mvc);
 
             SystemManager.ClearCurrentTransactions();
             SystemManager.RestartApplication(false);
@@ -96,6 +102,39 @@ namespace FeatherWidgets.TestUtilities.CommonOperations.Forms
             formManager.Lifecycle.Publish(master);
 
             formManager.SaveChanges();
+        }
+
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1011:ConsiderPassingBaseTypesAsParameters")]
+        public string GetFirstFieldName(FormsManager formManager, FormDescription form)
+        {
+            var textFieldControlData = form.Controls.Where(c => c.PlaceHolder == "Body" && c.IsLayoutControl == false).FirstOrDefault();
+            var mvcfieldProxy = formManager.LoadControl(textFieldControlData) as MvcWidgetProxy;
+            var fieldControl = mvcfieldProxy.Controller as IFormFieldControl;
+            var fieldName = fieldControl.MetaField.FieldName;
+
+            return fieldName;
+        }
+
+        public ActionResult SubmitField(string fieldName, string submittedValue, PageManager pageManager, Guid pageId)
+        {
+            var pageNode = pageManager.GetPageNode(pageId);
+            var pageDataId = pageNode.GetPageData().Id;
+            var formCollection = new FormCollection();
+            formCollection.Add(fieldName, submittedValue);
+            var formControllerProxy = pageManager.LoadPageControls<MvcControllerProxy>(pageDataId).Where(contr => contr.Controller.GetType() == typeof(FormController)).FirstOrDefault();
+            var formController = formControllerProxy.Controller as FormController;
+            formController.ControllerContext = new ControllerContext();
+
+            var pageUrl = pageNode.GetFullUrl();
+            var url = Telerik.Sitefinity.Web.UrlPath.ResolveAbsoluteUrl(pageUrl);
+
+            formController.ControllerContext.HttpContext = new HttpContextWrapper(new HttpContext(
+                new HttpRequest(string.Empty, url, string.Empty),
+                new HttpResponse(new StringWriter(CultureInfo.InvariantCulture))));
+
+            var result = formController.Index(formCollection);
+
+            return result;
         }
 
         private static Guid GetLastControlInPlaceHolder(FormDescription form, string placeHolder)

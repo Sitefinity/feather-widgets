@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Linq;
-using System.Web;
 using System.Web.Mvc;
 using FeatherWidgets.TestUtilities.CommonOperations;
 using MbUnit.Framework;
@@ -99,15 +98,9 @@ namespace FeatherWidgets.TestIntegration.Forms.Fields
 
                 var pageId = FeatherServerOperations.Pages().CreatePageWithTemplate(template, "CheckboxesListFieldValueTest", "checkboxes-field-submit-value-test");
                 ServerOperationsFeather.Forms().AddFormControlToPage(pageId, formId);
-                var pageDataId = pageManager.GetPageNode(pageId).GetPageData().Id;
-                var checkboxesFieldControlData = form.Controls.Where(c => c.PlaceHolder == "Body" && !c.IsLayoutControl).FirstOrDefault();
-                var mvcFieldProxy = formManager.LoadControl(checkboxesFieldControlData) as MvcWidgetProxy;
-
-                var checkboxesField = mvcFieldProxy.Controller as CheckboxesFieldController;
-                Assert.IsNotNull(checkboxesField, "The checkboxes field was not found.");
-
-                var checkboxesFieldName = checkboxesField.MetaField.FieldName;
-                this.SubmitField(checkboxesFieldName, submitedCheckboxesValue, pageManager, pageDataId);
+                
+                var checkboxesFieldName = ServerOperationsFeather.Forms().GetFirstFieldName(formManager, form);
+                ServerOperationsFeather.Forms().SubmitField(checkboxesFieldName, submitedCheckboxesValue, pageManager, pageId);
 
                 var formEntry = formManager.GetFormEntries(form).LastOrDefault();
                 Assert.IsNotNull(formEntry, "Form entry has not been submitted.");
@@ -125,10 +118,11 @@ namespace FeatherWidgets.TestIntegration.Forms.Fields
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Maintainability", "CA1506:AvoidExcessiveClassCoupling"), Test]
         [Category(TestCategories.Forms)]
         [Author(FeatherTeams.FeatherTeam)]
-        [Description("Ensures that when a checkboxes field is submitted with not presented value then the validation fails.")]
+        [Description("Ensures that when a checkboxes field is submitted with empty value then the validation fails.")]
         public void CheckboxesFieldTests_SubmitIncorrectValue_ServerValidationFails()
         {
             var controller = new CheckboxesFieldController();
+            controller.Model.ValidatorDefinition.Required = true;
 
             var control = new MvcWidgetProxy();
             control.ControllerName = typeof(CheckboxesFieldController).FullName;
@@ -148,16 +142,12 @@ namespace FeatherWidgets.TestIntegration.Forms.Fields
 
                 var pageId = FeatherServerOperations.Pages().CreatePageWithTemplate(template, "CheckboxesFieldValidationTest", "checkboxes-field-validation-test");
                 ServerOperationsFeather.Forms().AddFormControlToPage(pageId, formId);
-                var pageDataId = pageManager.GetPageNode(pageId).GetPageData().Id;
-                var checkboxesFieldControlData = form.Controls.Where(c => c.PlaceHolder == "Body" && !c.IsLayoutControl).FirstOrDefault();
-                var mvcFieldProxy = formManager.LoadControl(checkboxesFieldControlData) as MvcWidgetProxy;
-
-                var checkboxesField = mvcFieldProxy.Controller as CheckboxesFieldController;
-                Assert.IsNotNull(checkboxesField, "The checkboxes field was not found.");
-
-                var checkboxesFieldName = checkboxesField.MetaField.FieldName;
-                var formController = this.SubmitField(checkboxesFieldName, "not presented value", pageManager, pageDataId);
-                Assert.IsFalse((bool)formController.TempData["sfSubmitSuccess"], "The Submit result was not correct");
+                
+                var checkboxesFieldName = ServerOperationsFeather.Forms().GetFirstFieldName(formManager, form);
+                var result = ServerOperationsFeather.Forms().SubmitField(checkboxesFieldName, string.Empty, pageManager, pageId);
+                var contentResult = result as ContentResult;
+                Assert.IsNotNull(contentResult, "Submit should return content result.");
+                Assert.AreEqual(Res.Get<FormResources>().UnsuccessfullySubmittedMessage, contentResult.Content, "The Submit didn't result in error as expected!");
                 
                 var formEntry = formManager.GetFormEntries(form).LastOrDefault();
                 Assert.IsNull(formEntry, "Form entry has been submitted even when the form is not valid.");
@@ -167,19 +157,6 @@ namespace FeatherWidgets.TestIntegration.Forms.Fields
                 Telerik.Sitefinity.TestUtilities.CommonOperations.ServerOperations.Pages().DeleteAllPages();
                 FormsModuleCodeSnippets.DeleteForm(formId);
             }
-        }
-
-        private FormController SubmitField(string fieldName, string submitedCheckboxesValue, PageManager pageManager, Guid pageDataId)
-        {
-            var formCollection = new FormCollection();
-            formCollection.Add(fieldName, submitedCheckboxesValue);
-            var formControllerProxy = pageManager.LoadPageControls<MvcControllerProxy>(pageDataId).Where(contr => contr.Controller.GetType() == typeof(FormController)).FirstOrDefault();
-            var formController = formControllerProxy.Controller as FormController;
-            formController.ControllerContext = new ControllerContext();
-            formController.ControllerContext.HttpContext = new HttpContextWrapper(HttpContext.Current);
-            formController.Index(formCollection);
-
-            return formController;
         }
     }
 }

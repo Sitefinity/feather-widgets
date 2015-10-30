@@ -1,19 +1,17 @@
-﻿using System;
-using System.Linq;
-using System.Web;
+﻿using System.Linq;
 using System.Web.Mvc;
 using FeatherWidgets.TestUtilities.CommonOperations;
 using MbUnit.Framework;
-using Telerik.Sitefinity.Forms.Model;
 using Telerik.Sitefinity.Frontend.Forms.Mvc.Controllers;
+using Telerik.Sitefinity.Frontend.Forms.Mvc.StringResources;
 using Telerik.Sitefinity.Frontend.Mvc.Infrastructure.Controllers;
 using Telerik.Sitefinity.Frontend.TestUtilities;
 using Telerik.Sitefinity.Frontend.TestUtilities.CommonOperations;
+using Telerik.Sitefinity.Localization;
 using Telerik.Sitefinity.Model;
 using Telerik.Sitefinity.Modules.Forms;
 using Telerik.Sitefinity.Modules.Pages;
 using Telerik.Sitefinity.Mvc.Proxy;
-using Telerik.Sitefinity.Services;
 using Telerik.Sitefinity.TestIntegration.SDK.DevelopersGuide.SitefinityEssentials.Modules.Forms;
 
 namespace FeatherWidgets.TestIntegration.Forms.Fields
@@ -92,10 +90,9 @@ namespace FeatherWidgets.TestIntegration.Forms.Fields
 
                 var pageId = FeatherServerOperations.Pages().CreatePageWithTemplate(template, "TextFieldValueTest", "text-field-value-test");
                 ServerOperationsFeather.Forms().AddFormControlToPage(pageId, formId);
-                var pageDataId = pageManager.GetPageNode(pageId).GetPageData().Id;
 
-                var textFieldName = this.GetTextFieldName(formManager, form);
-                this.FindAndSubmitForm(pageManager, pageDataId, textFieldName);
+                var textFieldName = ServerOperationsFeather.Forms().GetFirstFieldName(formManager, form);
+                ServerOperationsFeather.Forms().SubmitField(textFieldName, "Submitted value", pageManager, pageId);
                 var formEntry = formManager.GetFormEntries(form).LastOrDefault();
 
                 Assert.IsNotNull(formEntry, "Form entry has not been submitted.");
@@ -139,11 +136,12 @@ namespace FeatherWidgets.TestIntegration.Forms.Fields
 
                 var pageId = FeatherServerOperations.Pages().CreatePageWithTemplate(template, "TextFieldValidationTest", "text-field-validation-test");
                 ServerOperationsFeather.Forms().AddFormControlToPage(pageId, formId);
-                var pageDataId = pageManager.GetPageNode(pageId).GetPageData().Id;
 
-                var textFieldName = this.GetTextFieldName(formManager, form);
-                var formController = this.FindAndSubmitForm(pageManager, pageDataId, textFieldName);
-                Assert.IsFalse((bool)formController.TempData["sfSubmitSuccess"], "The Submit result was not correct");
+                var textFieldName = ServerOperationsFeather.Forms().GetFirstFieldName(formManager, form);
+                var result = ServerOperationsFeather.Forms().SubmitField(textFieldName, "Submitted value", pageManager, pageId);
+                var contentResult = result as ContentResult;
+                Assert.IsNotNull(contentResult, "Submit should return content result.");
+                Assert.AreEqual(Res.Get<FormResources>().UnsuccessfullySubmittedMessage, contentResult.Content, "The Submit didn't result in error as expected!");
                 
                 var formEntry = formManager.GetFormEntries(form).LastOrDefault();
                 Assert.IsNull(formEntry, "Form entry has been submitted even when the form is not valid.");
@@ -191,33 +189,6 @@ namespace FeatherWidgets.TestIntegration.Forms.Fields
                 Telerik.Sitefinity.TestUtilities.CommonOperations.ServerOperations.Pages().DeleteAllPages();
                 FormsModuleCodeSnippets.DeleteForm(formId);
             }
-        }
-
-        private Controller FindAndSubmitForm(PageManager pageManager, System.Guid pageDataId, string textFieldName)
-        {
-            var formCollection = new FormCollection();
-            formCollection.Add(textFieldName, "Submitted value");
-
-            var formControllerProxy = pageManager.LoadPageControls<MvcControllerProxy>(pageDataId).Where(contr => contr.Controller.GetType() == typeof(FormController)).FirstOrDefault();
-            var formController = formControllerProxy.Controller as FormController;
-            formController.ControllerContext = new ControllerContext();
-            formController.ControllerContext.HttpContext = new System.Web.HttpContextWrapper(HttpContext.Current);
-
-            formController.Index(formCollection);
-
-            return formController;
-        }
-
-        private string GetTextFieldName(FormsManager formManager, FormDescription form)
-        {
-            var textFieldControlData = form.Controls.Where(c => c.PlaceHolder == "Body" && c.IsLayoutControl == false).FirstOrDefault();
-            var mvcfieldProxy = formManager.LoadControl(textFieldControlData) as MvcWidgetProxy;
-            var textField = mvcfieldProxy.Controller as TextFieldController;
-
-            Assert.IsNotNull(textField, "The text field was not found.");
-
-            var textFieldName = textField.MetaField.FieldName;
-            return textFieldName;
         }
     }
 }
