@@ -175,7 +175,8 @@ namespace FeatherWidgets.TestUtilities.CommonOperations.Forms
         /// <param name="formTitle">Form title</param>
         /// <param name="formSuccessMessage">Success message after the form is submitted</param>
         /// <param name="formControls">Form widgets like text boxes and buttons</param>
-        public void CreateForm(Guid formId, string formName, string formTitle, string formSuccessMessage, List<Control> formControls)
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Maintainability", "CA1506:AvoidExcessiveClassCoupling")]
+        public void CreateForm(Guid formId, string formName, string formTitle, string formSuccessMessage, IList<Control> formControls)
         {
             FormsManager formManager = FormsManager.GetManager();
             var form = formManager.GetForms().SingleOrDefault(f => f.Id == formId);
@@ -200,7 +201,7 @@ namespace FeatherWidgets.TestUtilities.CommonOperations.Forms
                         foreach (var control in formControls)
                         {
                             controlsCounter++;
-                            control.ID = string.Format(formName + "_C" + controlsCounter.ToString().PadLeft(3, '0'));
+                            control.ID = string.Format(CultureInfo.InvariantCulture, formName + "_C" + controlsCounter.ToString(CultureInfo.InvariantCulture).PadLeft(3, '0'));
                             var formControl = formManager.CreateControl<FormDraftControl>(control, "Body");
 
                             formControl.SiblingId = siblingId;
