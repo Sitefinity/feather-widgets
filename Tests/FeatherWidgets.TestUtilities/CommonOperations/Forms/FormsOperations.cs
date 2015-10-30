@@ -8,6 +8,7 @@ using System.Web.UI;
 using Telerik.Sitefinity.Forms.Model;
 using Telerik.Sitefinity.Frontend.Forms.Mvc.Controllers;
 using Telerik.Sitefinity.Frontend.Forms.Mvc.Models;
+using Telerik.Sitefinity.Frontend.Mvc.Infrastructure.Controllers;
 using Telerik.Sitefinity.Modules.Forms;
 using Telerik.Sitefinity.Mvc.Proxy;
 using Telerik.Sitefinity.Services;
@@ -55,7 +56,7 @@ namespace FeatherWidgets.TestUtilities.CommonOperations.Forms
             return formId;
         }
 
-        public Guid CreateFormWithWidgets(IEnumerable<Control> widgets)
+        public Guid CreateFormWithWidgets(IEnumerable<Control> widgets, string formName = null)
         {
             var formId = Guid.NewGuid();
 
@@ -67,13 +68,74 @@ namespace FeatherWidgets.TestUtilities.CommonOperations.Forms
                 formControls.Add(widget, "Body");
             }
 
-            FormsModuleCodeSnippets.CreateForm(formId, "form_" + formId.ToString("N"), formId.ToString("N"), formSuccessMessage, formControls);
+            if (string.IsNullOrEmpty(formName))
+            {
+                formName = "form_" + formId.ToString("N");
+            }
+
+            FormsModuleCodeSnippets.CreateForm(formId, formName, formId.ToString("N"), formSuccessMessage, formControls);
 
             SystemManager.ClearCurrentTransactions();
             SystemManager.RestartApplication(false);
             System.Threading.Thread.Sleep(1000);
 
             return formId;
+        }
+
+        public Guid CreateFormWithWidgets(IEnumerable<FormFieldType> widgets, string formName = null)
+        {
+            var controls = new List<Control>();
+
+            foreach (var widgetType in widgets)
+            {
+                var control = new MvcWidgetProxy();
+
+                switch (widgetType)
+                {
+                    case FormFieldType.Captcha:
+                        control.ControllerName = typeof(CaptchaController).FullName;
+                        control.Settings = new ControllerSettings(new CaptchaController());
+                        break;
+                    case FormFieldType.CheckboxesField:
+                        control.ControllerName = typeof(CheckboxesFieldController).FullName;
+                        control.Settings = new ControllerSettings(new CheckboxesFieldController());
+                        break;
+                    case FormFieldType.DropdownListField:
+                        control.ControllerName = typeof(DropdownListFieldController).FullName;
+                        control.Settings = new ControllerSettings(new DropdownListFieldController());
+                        break;
+                    case FormFieldType.FileField:
+                        control.ControllerName = typeof(FileFieldController).FullName;
+                        control.Settings = new ControllerSettings(new FileFieldController());
+                        break;
+                    case FormFieldType.MultipleChoiceField:
+                        control.ControllerName = typeof(MultipleChoiceFieldController).FullName;
+                        control.Settings = new ControllerSettings(new MultipleChoiceFieldController());
+                        break;
+                    case FormFieldType.ParagraphTextField:
+                        control.ControllerName = typeof(ParagraphTextFieldController).FullName;
+                        control.Settings = new ControllerSettings(new ParagraphTextFieldController());
+                        break;
+                    case FormFieldType.SectionHeader:
+                        control.ControllerName = typeof(SectionHeaderController).FullName;
+                        control.Settings = new ControllerSettings(new SectionHeaderController());
+                        break;
+                    case FormFieldType.SubmitButton:
+                        control.ControllerName = typeof(SubmitButtonController).FullName;
+                        control.Settings = new ControllerSettings(new SubmitButtonController());
+                        break;
+                    case FormFieldType.TextField:
+                        control.ControllerName = typeof(TextFieldController).FullName;
+                        control.Settings = new ControllerSettings(new TextFieldController());
+                        break;
+                    default:
+                        break;
+                }
+
+                controls.Add(control);
+            }
+
+            return this.CreateFormWithWidgets(controls, formName);
         }
 
         public void AddFormWidget(Guid formId, Control widget)
