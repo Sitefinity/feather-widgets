@@ -1,6 +1,7 @@
-﻿using System.IO;
+﻿using System;
 using System.Linq;
 using System.Net;
+using System.Reflection;
 using System.Text;
 using FeatherWidgets.TestUtilities.CommonOperations;
 using MbUnit.Framework;
@@ -15,9 +16,6 @@ using Telerik.Sitefinity.Mvc.Proxy;
 using Telerik.Sitefinity.TestIntegration.Data.Content;
 using Telerik.Sitefinity.TestIntegration.SDK.DevelopersGuide.SitefinityEssentials.Modules.Forms;
 using Telerik.Sitefinity.Web;
-using Telerik.Sitefinity.Pages.Model;
-using System;
-using System.Reflection;
 
 namespace FeatherWidgets.TestIntegration.Forms
 {
