@@ -2,39 +2,39 @@
     $(function () {
 
         function changeOrInput(e) {
-            if (typeof e.srcElement.validity == 'undefined')
+            if (typeof e.target.validity == 'undefined')
                 return;
 
-            if (e.srcElement.required && e.srcElement.validity.valueMissing) {
-                var validationMessages = getValidationMessages(e.srcElement);
-                e.srcElement.setCustomValidity(validationMessages.required);
+            if (e.target.required && e.target.validity.valueMissing) {
+                var validationMessages = getValidationMessages(e.target);
+                e.target.setCustomValidity(validationMessages.required);
             } else {
-                e.srcElement.setCustomValidity('');
+                e.target.setCustomValidity('');
             }
         }
 
         function invalid(e) {
-            if (typeof e.srcElement.validity == 'undefined')
+            if (typeof e.target.validity == 'undefined')
                 return;
 
-            var validationMessages = getValidationMessages(e.srcElement);
-            var validationRestrictions = getValidationRestrictions(e.srcElement);
-            var isValidLength = e.srcElement.value.length >= validationRestrictions.minLength;
+            var validationMessages = getValidationMessages(e.target);
+            var validationRestrictions = getValidationRestrictions(e.target);
+            var isValidLength = e.target.value.length >= validationRestrictions.minLength;
 
             if(validationRestrictions.maxLength > 0)
-                isValidLength &= e.srcElement.value.length <= validationRestrictions.maxLength;
+                isValidLength &= e.target.value.length <= validationRestrictions.maxLength;
 
-            if (e.srcElement.validity.valueMissing) {
-                e.srcElement.setCustomValidity(validationMessages.required);
+            if (e.target.validity.valueMissing) {
+                e.target.setCustomValidity(validationMessages.required);
             }
-            else if (e.srcElement.validity.patternMismatch && !isValidLength) {
-                e.srcElement.setCustomValidity(validationMessages.maxLength);
+            else if (e.target.validity.patternMismatch && !isValidLength) {
+                e.target.setCustomValidity(validationMessages.maxLength);
             }
-            else if (e.srcElement.validity.patternMismatch && isValidLength) {
-                e.srcElement.setCustomValidity(validationMessages.regularExpression);
+            else if (e.target.validity.patternMismatch && isValidLength) {
+                e.target.setCustomValidity(validationMessages.regularExpression);
             }
-            else if (!e.srcElement.validity.valid) {
-                e.srcElement.setCustomValidity(validationMessages.invalid);
+            else if (!e.target.validity.valid) {
+                e.target.setCustomValidity(validationMessages.invalid);
             }
         }
 
@@ -61,12 +61,12 @@
                 return;
 
             for (var i = 0; i < containers.length; i++) {
-                var input = $(containers[i]).find('[data-sf-role="text-field-input"]')[0];
+                var input = $(containers[i]).find('[data-sf-role="text-field-input"]');
 
                 if (input) {
-                    input.addEventListener('change', changeOrInput);
-                    input.addEventListener('input', changeOrInput);
-                    input.addEventListener('invalid', invalid);
+                    input.on('change', changeOrInput);
+                    input.on('input', changeOrInput);
+                    input.on('invalid', invalid);
                 }
             }
         }

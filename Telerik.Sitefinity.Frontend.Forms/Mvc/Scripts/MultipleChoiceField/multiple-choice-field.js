@@ -1,6 +1,6 @@
 ﻿(function ($) {
     var changeOrInput = function (e) {
-        var container = $(e.srcElement).parents('[data-sf-role="multiple-choice-field-container"]');
+        var container = $(e.target).parents('[data-sf-role="multiple-choice-field-container"]');
         var inputs = $(container).find('[data-sf-role="multiple-choice-field-input"]');
         inputs.each(function (index, input) {
             input.validity.valueMissing = false;
@@ -9,10 +9,10 @@
     };
 
     var invalid = function (e) {
-        var validationMessages = getValidationMessages(e.srcElement);
+        var validationMessages = getValidationMessages(e.target);
 
-        if (e.srcElement.validity.valueMissing) {
-            e.srcElement.setCustomValidity(validationMessages.required);
+        if (e.target.validity.valueMissing) {
+            e.target.setCustomValidity(validationMessages.required);
         }
     };
 
@@ -30,10 +30,10 @@
         if (!containers || containers.length < 1)
             return;
 
-        var attachHandlers = function (index, input) {
-            input.addEventListener('change', changeOrInput);
-            input.addEventListener('input', changeOrInput);
-            input.addEventListener('invalid', invalid);
+        var attachHandlers = function (input) {
+            input.on('change', changeOrInput);
+            input.on('input', changeOrInput);
+            input.on('invalid', invalid);
         };
 
         var radioClickHandler = function (e) {
@@ -58,16 +58,16 @@
         };
 
         var inputChangeHandler = function (e) {
-            var container = $(e.srcElement).parents('[data-sf-role="multiple-choice-field-container"]');
+            var container = $(e.target).parents('[data-sf-role="multiple-choice-field-container"]');
             var otherRadio = $(container.find('[data-sf-multiple-choice-role="other-choice-radio"]').first());
-            otherRadio.val($(e.srcElement).val());
+            otherRadio.val($(e.target).val());
         };
 
         for (var i = 0; i < containers.length; i++) {
             var container = $(containers[i]);
             var inputs = container.find('[data-sf-role="multiple-choice-field-input"]');
 
-            inputs.each(attachHandlers);
+            attachHandlers(inputs);
 
             var radios = container.find('input[data-sf-role="multiple-choice-field-input"]');
 
