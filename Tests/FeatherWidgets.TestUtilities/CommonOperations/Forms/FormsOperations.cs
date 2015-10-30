@@ -36,7 +36,7 @@ namespace FeatherWidgets.TestUtilities.CommonOperations.Forms
         /// <param name="pageId">The page identifier.</param>
         /// <param name="formId">The form identifier.</param>
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Globalization", "CA1303:Do not pass literals as localized parameters", MessageId = "Telerik.Sitefinity.TestIntegration.Data.Content.PageContentGenerator.AddControlToPage(System.Guid,System.Web.UI.Control,System.String,System.String,System.Action<Telerik.Sitefinity.Pages.Model.PageDraftControl>)"), System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Naming", "CA2204:Literals should be spelled correctly", MessageId = "TestForm")]
-        public void AddFormControlToPage(Guid pageId, Guid formId)
+        public void AddFormControlToPage(Guid pageId, Guid formId, string formName = "TestForm", string placeholder = "Contentplaceholder1")
         {
             var mvcProxy = new MvcControllerProxy();
             mvcProxy.ControllerName = typeof(FormController).FullName;
@@ -47,7 +47,7 @@ namespace FeatherWidgets.TestUtilities.CommonOperations.Forms
 
             mvcProxy.Settings = new ControllerSettings(controller);
 
-            PageContentGenerator.AddControlToPage(pageId, mvcProxy, "TestForm", "Contentplaceholder1");
+            PageContentGenerator.AddControlToPage(pageId, mvcProxy, formName, placeholder);
         }
 
         /// <summary>
