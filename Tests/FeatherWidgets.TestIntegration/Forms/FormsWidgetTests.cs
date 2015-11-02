@@ -114,6 +114,7 @@ namespace FeatherWidgets.TestIntegration.Forms
         /// Ensures that when a form is submited with a forums widget on the same page, on custom hybrid layout, no exception is thrown.
         /// </summary>
         [Test]
+        [Ignore("Depends on Sitefinity 9.0")]
         [Category(TestCategories.Forms)]
         [Author(FeatherTeams.FeatherTeam)]
         [Description("Ensures that when a form is submited with a forums widget on the same page, on custom hybrid layout, no exception is thrown.")]
