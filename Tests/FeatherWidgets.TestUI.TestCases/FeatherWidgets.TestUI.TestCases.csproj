@@ -202,6 +202,7 @@
     <Compile Include="EmailCampaigns\UnsubscribeWidgetOnFoundationAndSemanticPage.cs" />
     <Compile Include="EmailCampaigns\UnsubscribeWidgetOnHybridPageAndSetCssClass.cs" />
     <Compile Include="FeedWidget\DragAndDropFeedWidgetAndSetDefaultRssOnPage.cs" />
+    <Compile Include="Forms\SetRequiredTextboxField.cs" />
     <Compile Include="Forms\PostFormMultipleTimesWhilePageLoadingAndVerifyOnlyOneResponseInBackend.cs" />
     <Compile Include="Forms\ViewFormWithCheckboxesFieldOnPageAndVerifyResponseInBackend.cs" />
     <Compile Include="Forms\ViewFormWithContentBlockOnPageAndVerifyResponseInBackend.cs" />
