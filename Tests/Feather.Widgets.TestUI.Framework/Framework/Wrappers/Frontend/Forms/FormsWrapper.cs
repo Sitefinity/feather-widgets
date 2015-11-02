@@ -70,7 +70,7 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Frontend.Forms
         public void SetTextboxContent(string content)
         {
             HtmlInputText textbox = this.EM.Forms.FormsFrontend.TextField.AssertIsPresent("Text field");
-            textbox.SimulateTextTyping(content, Telerik.TestUI.Core.WebAii.Tools.UserInput.SimulationType.LastKeyStroke);
+            Manager.Current.Desktop.KeyBoard.TypeText(content);
         }
 
         /// <summary>
@@ -84,7 +84,7 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Frontend.Forms
         }
 
         /// <summary>
-        /// Clicks the submit button in the frontend of the form
+        /// Clicks the submit button in the frontend of the form and checks the succsess message
         /// </summary>
         public void SubmitForm()
         {
@@ -100,6 +100,15 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Frontend.Forms
         public void WaitForSuccessMessage()
         {
             var successMsg = ActiveBrowser.Find.AssociatedBrowser.GetControl<HtmlDiv>("tagname=div", "innertext=Success! Thanks for filling out our form!");
+        }
+
+        /// <summary>
+        /// Clicks the submit button in the frontend of the form
+        /// </summary>
+        public void ClickSubmit()
+        {
+            HtmlButton submitButton = EM.Forms.FormsFrontend.SubmitButton;
+            submitButton.MouseClick();
         }
 
         /// <summary>
@@ -129,6 +138,14 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Frontend.Forms
             dropdown.SelectByText(choice);
             dropdown.AsjQueryControl().InvokejQueryEvent(jQueryControl.jQueryControlEvents.click);
             dropdown.AsjQueryControl().InvokejQueryEvent(jQueryControl.jQueryControlEvents.change);
+        }
+
+        /// <summary>
+        /// Verify details news page URL
+        /// </summary>
+        public void VerifyPageUrl(string pageName)
+        {
+            Assert.IsTrue(ActiveBrowser.Url.EndsWith(pageName.ToLower()));
         }
     }
 }

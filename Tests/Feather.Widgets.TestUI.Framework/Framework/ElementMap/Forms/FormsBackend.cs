@@ -77,5 +77,16 @@ namespace Feather.Widgets.TestUI.Framework.Framework.ElementMap.Forms
                 return this.Find.AssociatedBrowser.GetControl<HtmlDiv>("id=PublicWrapper");
             }
         }
+
+        /// <summary>
+        /// Gets required field checkbox.
+        /// </summary>
+        public HtmlInputCheckBox RequiredFieldCheckBox
+        {
+            get
+            {
+                return this.Get<HtmlInputCheckBox>("type=checkbox", "ng-model=properties.Model.ValidatorDefinition.Required.PropertyValue");
+            }
+        }
     }
 }
