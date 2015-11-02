@@ -12,9 +12,10 @@ using Telerik.Sitefinity.TestIntegration.SDK.DevelopersGuide.SitefinityEssential
 namespace FeatherWidgets.TestIntegration.Forms.Fields
 {
     /// <summary>
-    /// This class contains ensures Section header functionalities work correctly.
+    /// This class ensures Section header functionalities work correctly.
     /// </summary>
     [TestFixture]
+    [Description("This class ensures Section header functionalities work correctly.")]
     public class SectionHeaderFieldTests
     {
         /// <summary>
