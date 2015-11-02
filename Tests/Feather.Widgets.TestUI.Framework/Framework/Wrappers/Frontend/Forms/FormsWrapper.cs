@@ -95,6 +95,21 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Frontend.Forms
         }
 
         /// <summary>
+        /// Clicks the submit button multiple times in the frontend of the form
+        /// </summary>
+        /// <param name="count">The count.</param>
+        public void MultipleSubmitForm(int count)
+        {
+            HtmlButton submitButton = EM.Forms.FormsFrontend.SubmitButton;
+            for (int i = 0; i < count; i++)
+            {
+                submitButton.MouseClick();
+            }
+
+            this.WaitForSuccessMessage();
+        }
+            
+        /// <summary>
         /// Wait for success message after the form is submitted
         /// </summary>
         public void WaitForSuccessMessage()

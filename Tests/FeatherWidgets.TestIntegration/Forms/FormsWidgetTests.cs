@@ -1,11 +1,21 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
+using System.Net;
+using System.Reflection;
+using System.Text;
 using FeatherWidgets.TestUtilities.CommonOperations;
 using MbUnit.Framework;
+using Telerik.Sitefinity.Forums.Web.UI;
+using Telerik.Sitefinity.Frontend.Forms.Mvc.Controllers;
 using Telerik.Sitefinity.Frontend.GridSystem;
+using Telerik.Sitefinity.Frontend.Mvc.Infrastructure.Controllers;
 using Telerik.Sitefinity.Frontend.TestUtilities;
 using Telerik.Sitefinity.Frontend.TestUtilities.CommonOperations;
 using Telerik.Sitefinity.Modules.Pages;
+using Telerik.Sitefinity.Mvc.Proxy;
+using Telerik.Sitefinity.TestIntegration.Data.Content;
 using Telerik.Sitefinity.TestIntegration.SDK.DevelopersGuide.SitefinityEssentials.Modules.Forms;
+using Telerik.Sitefinity.Web;
 
 namespace FeatherWidgets.TestIntegration.Forms
 {
@@ -96,6 +106,58 @@ namespace FeatherWidgets.TestIntegration.Forms
             finally
             {
                 Telerik.Sitefinity.TestUtilities.CommonOperations.ServerOperations.Pages().DeleteAllPages();
+                FormsModuleCodeSnippets.DeleteForm(formId);
+            }
+        }
+
+        /// <summary>
+        /// Ensures that when a form is submited with a forums widget on the same page, on custom hybrid layout, no exception is thrown.
+        /// </summary>
+        [Test]
+        [Category(TestCategories.Forms)]
+        [Author(FeatherTeams.FeatherTeam)]
+        [Description("Ensures that when a form is submited with a forums widget on the same page, on custom hybrid layout, no exception is thrown.")]
+        public void FormsWidget_SubmitFormWithForumWidgetOnPageBasedOnCustomHybridPage_NoExceptionIsThrown()
+        {
+            var testName = MethodInfo.GetCurrentMethod().Name;
+            var templateName = testName + "template";
+            var pageName = testName + "page";
+            
+            var submitButtonControl = new MvcWidgetProxy();
+            submitButtonControl.ControllerName = typeof(SubmitButtonController).FullName;
+            submitButtonControl.Settings = new ControllerSettings(new SubmitButtonController());
+            var formId = ServerOperationsFeather.Forms().CreateFormWithWidget(submitButtonControl);
+
+            var forumControl = new ForumsView();
+
+            var pageManager = PageManager.GetManager();
+            Guid templateId = Guid.Empty;
+            Guid pageId = Guid.Empty;
+            try
+            {
+                templateId = Telerik.Sitefinity.TestUtilities.CommonOperations.ServerOperations.Templates().CreateHybridMVCPageTemplate(templateName);
+                pageId = FeatherServerOperations.Pages().CreatePageWithTemplate(pageManager.GetTemplate(templateId), pageName, pageName);
+                ServerOperationsFeather.Forms().AddFormControlToPage(pageId, formId, "TestForm", "Body");
+                PageContentGenerator.AddControlToPage(pageId, forumControl, "TestForum", "Body");
+
+                var page = pageManager.GetPageNode(pageId);
+                var pageUrl = page.GetFullUrl();
+                pageUrl = RouteHelper.GetAbsoluteUrl(pageUrl);
+
+                var webRequest = (HttpWebRequest)WebRequest.Create(pageUrl);
+                var dataString = "------WebKitFormBoundaryPIB6p73K1Y0L0ha5--";
+                var dataBytes = (new ASCIIEncoding()).GetBytes(dataString);
+                webRequest.Method = "POST";
+                webRequest.ContentLength = dataBytes.Length;
+                webRequest.ContentType = "multipart/form-data";
+                webRequest.Timeout = 120 * 1000;
+                webRequest.GetRequestStream().Write(dataBytes, 0, dataBytes.Length);
+                Assert.DoesNotThrow(() => webRequest.GetResponse(), "Submitting a form on custom hybrid page with a forum widget on it throws error");
+            }
+            finally
+            {
+                Telerik.Sitefinity.TestUtilities.CommonOperations.ServerOperations.Pages().DeletePage(pageId);
+                Telerik.Sitefinity.TestUtilities.CommonOperations.ServerOperations.Templates().DeletePageTemplate(templateId);
                 FormsModuleCodeSnippets.DeleteForm(formId);
             }
         }
