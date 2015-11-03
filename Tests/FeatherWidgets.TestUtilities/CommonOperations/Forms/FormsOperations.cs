@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.UI;
+using Telerik.Sitefinity.Abstractions;
 using Telerik.Sitefinity.Forms.Model;
 using Telerik.Sitefinity.Frontend.Forms.Mvc.Controllers;
 using Telerik.Sitefinity.Frontend.Forms.Mvc.Models;
@@ -73,7 +74,7 @@ namespace FeatherWidgets.TestUtilities.CommonOperations.Forms
             return formId;
         }
 
-        public Guid CreateFormWithWidgets(IEnumerable<Control> widgets, string formName = null)
+        public Guid CreateFormWithWidgets(IEnumerable<Control> widgets, string formTitle = null)
         {
             var formId = Guid.NewGuid();
 
@@ -85,12 +86,9 @@ namespace FeatherWidgets.TestUtilities.CommonOperations.Forms
                 formControls.Add(widget);
             }
 
-            if (string.IsNullOrEmpty(formName))
-            {
-                formName = "form_" + formId.ToString("N");
-            }
+            var formName = "form_" + formId.ToString("N");
 
-            this.CreateForm(formId, "form_" + formId.ToString("N"), formId.ToString("N"), formSuccessMessage, formControls);
+            this.CreateForm(formId, formName, formTitle, formSuccessMessage, formControls);
 
             SystemManager.ClearCurrentTransactions();
             SystemManager.RestartApplication(false);
@@ -99,18 +97,19 @@ namespace FeatherWidgets.TestUtilities.CommonOperations.Forms
             return formId;
         }
 
-        public Guid CreateFormWithWidgets(IEnumerable<FormFieldType> widgets, string formName = null)
+        public Guid CreateFormWithWidgets(IEnumerable<FormFieldType> widgets, string formTitle = null)
         {
             var controls = new List<Control>();
 
             foreach (var widgetType in widgets)
             {
                 var control = new MvcWidgetProxy();
-
+             
                 switch (widgetType)
                 {
                     case FormFieldType.Captcha:
                         control.ControllerName = typeof(CaptchaController).FullName;
+
                         control.Settings = new ControllerSettings(new CaptchaController());
                         break;
                     case FormFieldType.CheckboxesField:
@@ -152,7 +151,7 @@ namespace FeatherWidgets.TestUtilities.CommonOperations.Forms
                 controls.Add(control);
             }
 
-            return this.CreateFormWithWidgets(controls, formName);
+            return this.CreateFormWithWidgets(controls, formTitle);
         }
 
         /// <summary>
@@ -261,7 +260,7 @@ namespace FeatherWidgets.TestUtilities.CommonOperations.Forms
                             var formControl = formManager.CreateControl<FormDraftControl>(control, "Body");
 
                             formControl.SiblingId = siblingId;
-                            formControl.Caption = control.GetType().Name;
+                            formControl.Caption = ObjectFactory.Resolve<IControlBehaviorResolver>().GetBehaviorObject(control).GetType().Name;
                             siblingId = formControl.Id;
 
                             master.Controls.Add(formControl);
