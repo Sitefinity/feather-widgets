@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using System.Web.Mvc;
 using FeatherWidgets.TestUtilities.CommonOperations;
 using MbUnit.Framework;
@@ -17,29 +18,32 @@ using Telerik.Sitefinity.TestIntegration.SDK.DevelopersGuide.SitefinityEssential
 namespace FeatherWidgets.TestIntegration.Forms.Fields
 {
     /// <summary>
-    /// This class ensures ParagraphTextField functionalities work correctly.
+    /// This class ensures checkboxes field functionalities work correctly.
     /// </summary>
     [TestFixture]
-    [Description("This class ensures ParagraphTextField functionalities work correctly.")]
-    public class ParagraphTextFieldTests
+    [Description("This class ensures checkboxes field functionalities work correctly.")]
+    public class CheckboxesFieldTests
     {
         /// <summary>
-        /// Ensures that when a paragraph text field widget is added to form the default value is presented in the page markup.
+        /// Ensures that when a checkboxes field is added to form the choices are presented in the page markup.
         /// </summary>
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Maintainability", "CA1506:AvoidExcessiveClassCoupling"), Test]
         [Category(TestCategories.Forms)]
         [Author(FeatherTeams.FeatherTeam)]
-        [Description("Ensures that when a paragraph text field widget is added to form the default value is presented in the page markup.")]
-        public void ParagraphTextFieldTests_EditDefaultValue_MarkupIsCorrect()
+        [Description("Ensures that when a checkboxes field is added to form the choices are presented in the page markup.")]
+        public void CheckboxesFieldTests_EditDefaultChoices_MarkupIsCorrect()
         {
-            const string DefaultText = "My default text";
+            var choice1 = "Choice1";
+            var choice2 = "Choice2";
+            var choice3 = "Choice3";
 
-            var controller = new ParagraphTextFieldController();
-            controller.MetaField.DefaultValue = DefaultText;
+            var controller = new CheckboxesFieldController();
+            controller.Model.SerializedChoices = "[\"{0}\",\"{1}\",\"{2}\"]".Arrange(choice1, choice2, choice3);
+            controller.Model.HasOtherChoice = true;
 
             var control = new MvcWidgetProxy();
             control.Settings = new ControllerSettings(controller);
-            control.ControllerName = typeof(ParagraphTextFieldController).FullName;
+            control.ControllerName = typeof(CheckboxesFieldController).FullName;
 
             var formId = ServerOperationsFeather.Forms().CreateFormWithWidget(control);
 
@@ -50,11 +54,14 @@ namespace FeatherWidgets.TestIntegration.Forms.Fields
                 var template = pageManager.GetTemplates().FirstOrDefault(t => t.Name == "SemanticUI.default" && t.Title == "default");
                 Assert.IsNotNull(template, "Template was not found");
 
-                var pageId = FeatherServerOperations.Pages().CreatePageWithTemplate(template, "ParagraphTextFieldSubmitValueTest", "paragraph-text-field-value-test");
+                var pageId = FeatherServerOperations.Pages().CreatePageWithTemplate(template, "CheckboxesFieldDefaultValueTest", "checkboxes-field-value-test");
                 ServerOperationsFeather.Forms().AddFormControlToPage(pageId, formId);
 
                 var pageContent = FeatherServerOperations.Pages().GetPageContent(pageId);
-                Assert.IsTrue(pageContent.Contains(DefaultText), "Form did not render the default text in the paragraph text field.");
+                Assert.IsTrue(pageContent.Contains(choice1), "Form did not render the first choice in the checkboxes field.");
+                Assert.IsTrue(pageContent.Contains(choice2), "Form did not render the second choice in the checkboxes field.");
+                Assert.IsTrue(pageContent.Contains(choice3), "Form did not render the third choice in the checkboxes field.");
+                Assert.IsTrue(pageContent.Contains(Res.Get<FieldResources>().Other), "Form did not render the 'Other' choice in the checkboxes field.");
             }
             finally
             {
@@ -63,22 +70,19 @@ namespace FeatherWidgets.TestIntegration.Forms.Fields
             }
         }
 
-        /// <summary>
-        /// Ensures that when a paragraph text field widget is submitted with certain value then the response is correct.
-        /// </summary>
-        [Test]
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Maintainability", "CA1506:AvoidExcessiveClassCoupling"), Test]
         [Category(TestCategories.Forms)]
         [Author(FeatherTeams.FeatherTeam)]
-        [Description("Ensures that when a paragraph text field widget is submitted with certain value then the response is correct.")]
-        public void ParagraphTextField_SubmitValue_ResponseIsCorrect()
+        [Description("Ensures that when a checkboxes field widget is submitted with certain value then the response is correct.")]
+        public void CheckboxesFieldTests_SubmitValue_ResponseIsCorrect()
         {
-            const string SubmitedParagraphValue = "Submitted paragraph value";
+            var submitedCheckboxesValue = Res.Get<FieldResources>().OptionSecondChoice;
 
-            var controller = new ParagraphTextFieldController();
+            var controller = new CheckboxesFieldController();
 
             var control = new MvcWidgetProxy();
             control.Settings = new ControllerSettings(controller);
-            control.ControllerName = typeof(ParagraphTextFieldController).FullName;
+            control.ControllerName = typeof(CheckboxesFieldController).FullName;
 
             var formId = ServerOperationsFeather.Forms().CreateFormWithWidget(control);
 
@@ -92,17 +96,17 @@ namespace FeatherWidgets.TestIntegration.Forms.Fields
                 var template = pageManager.GetTemplates().FirstOrDefault(t => t.Name == "SemanticUI.default" && t.Title == "default");
                 Assert.IsNotNull(template, "Template was not found");
 
-                var pageId = FeatherServerOperations.Pages().CreatePageWithTemplate(template, "ParagraphTextFieldValueTest", "paragraph-text-field-submit-value-test");
+                var pageId = FeatherServerOperations.Pages().CreatePageWithTemplate(template, "CheckboxesListFieldValueTest", "checkboxes-field-submit-value-test");
                 ServerOperationsFeather.Forms().AddFormControlToPage(pageId, formId);
-
-                var paragraphTextFieldName = ServerOperationsFeather.Forms().GetFirstFieldName(formManager, form);
-                ServerOperationsFeather.Forms().SubmitField(paragraphTextFieldName, SubmitedParagraphValue, pageManager, pageId);
+                
+                var checkboxesFieldName = ServerOperationsFeather.Forms().GetFirstFieldName(formManager, form);
+                ServerOperationsFeather.Forms().SubmitField(checkboxesFieldName, submitedCheckboxesValue, pageManager, pageId);
 
                 var formEntry = formManager.GetFormEntries(form).LastOrDefault();
                 Assert.IsNotNull(formEntry, "Form entry has not been submitted.");
 
-                var submittedValue = formEntry.GetValue(paragraphTextFieldName) as string;
-                Assert.AreEqual(SubmitedParagraphValue, submittedValue, "Form did not persisted the submitted paragraph text value correctly.");
+                var submittedValue = formEntry.GetValue(checkboxesFieldName) as string;
+                Assert.AreEqual(submitedCheckboxesValue, submittedValue, "Form did not persisted the submitted checkboxes value correctly.");
             }
             finally
             {
@@ -111,20 +115,17 @@ namespace FeatherWidgets.TestIntegration.Forms.Fields
             }
         }
 
-        /// <summary>
-        /// Ensures that when a paragraph text field widget with URL type is submitted with incorrect value then the validation fails.
-        /// </summary>
-        [Test]
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Maintainability", "CA1506:AvoidExcessiveClassCoupling"), Test]
         [Category(TestCategories.Forms)]
         [Author(FeatherTeams.FeatherTeam)]
-        [Description("Ensures that when a paragraph text field widget with URL type is submitted with incorrect value then the validation fails.")]
-        public void ParagraphTextFieldUrl_SubmitIncorrectValue_ServerValidationFails()
+        [Description("Ensures that when a checkboxes field is submitted with empty value then the validation fails.")]
+        public void CheckboxesFieldTests_SubmitIncorrectValue_ServerValidationFails()
         {
-            var controller = new ParagraphTextFieldController();
+            var controller = new CheckboxesFieldController();
             controller.Model.ValidatorDefinition.Required = true;
 
             var control = new MvcWidgetProxy();
-            control.ControllerName = typeof(ParagraphTextFieldController).FullName;
+            control.ControllerName = typeof(CheckboxesFieldController).FullName;
             control.Settings = new ControllerSettings(controller);
 
             var formId = ServerOperationsFeather.Forms().CreateFormWithWidget(control);
@@ -139,11 +140,11 @@ namespace FeatherWidgets.TestIntegration.Forms.Fields
                 var template = pageManager.GetTemplates().FirstOrDefault(t => t.Name == "SemanticUI.default" && t.Title == "default");
                 Assert.IsNotNull(template, "Template was not found");
 
-                var pageId = FeatherServerOperations.Pages().CreatePageWithTemplate(template, "ParagraphTextFieldValidationTest", "paragraph-text-field-validation-test");
+                var pageId = FeatherServerOperations.Pages().CreatePageWithTemplate(template, "CheckboxesFieldValidationTest", "checkboxes-field-validation-test");
                 ServerOperationsFeather.Forms().AddFormControlToPage(pageId, formId);
                 
-                var paragraphTextFieldName = ServerOperationsFeather.Forms().GetFirstFieldName(formManager, form);
-                var result = ServerOperationsFeather.Forms().SubmitField(paragraphTextFieldName, string.Empty, pageManager, pageId);
+                var checkboxesFieldName = ServerOperationsFeather.Forms().GetFirstFieldName(formManager, form);
+                var result = ServerOperationsFeather.Forms().SubmitField(checkboxesFieldName, string.Empty, pageManager, pageId);
                 var contentResult = result as ContentResult;
                 Assert.IsNotNull(contentResult, "Submit should return content result.");
                 Assert.AreEqual(Res.Get<FormResources>().UnsuccessfullySubmittedMessage, contentResult.Content, "The Submit didn't result in error as expected!");

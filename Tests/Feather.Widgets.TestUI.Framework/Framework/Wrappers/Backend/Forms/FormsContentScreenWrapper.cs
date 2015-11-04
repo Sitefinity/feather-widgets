@@ -53,5 +53,15 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend.Forms
             widgetElement.Refresh();
             widgetElement.DragTo(dropZone);
         }
+
+        /// <summary>
+        /// Check required field checkbox.
+        /// </summary>
+        public void CheckRequiredFieldCheckbox()
+        {
+            HtmlInputCheckBox checkbox = this.EM.Forms.FormsBackend.RequiredFieldCheckBox.AssertIsPresent("Required field");
+            checkbox.Click();
+            checkbox.AssertIsPresent("checked");
+        }
     }
 }

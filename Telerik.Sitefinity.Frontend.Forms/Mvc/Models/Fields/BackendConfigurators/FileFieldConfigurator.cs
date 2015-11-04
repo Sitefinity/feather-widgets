@@ -26,7 +26,7 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Models.Fields.BackendConfigurato
         }
 
         /// <inheritDocs/>
-        public void Configure(FieldControl backendControl, IFormFieldController<IFormFieldModel> formFieldController)
+        public void Configure(ref FieldControl backendControl, IFormFieldController<IFormFieldModel> formFieldController)
         {
             backendControl.GetType().GetProperty("FormId").SetValue(backendControl, this.FormId);
             backendControl.GetType().GetProperty("FormsProviderName").SetValue(backendControl, FormsManager.GetDefaultProviderName());

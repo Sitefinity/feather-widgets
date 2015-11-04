@@ -1,21 +1,20 @@
 ﻿(function ($) {
     $(function () {
-
         function changeOrInput(e) {
-            if (e.srcElement.value === '') {
-                var validationMessages = getValidationMessages(e.srcElement);
-                e.srcElement.setCustomValidity(validationMessages.required);
+            if (e.target.value === '') {
+                var validationMessages = getValidationMessages(e.target);
+                e.target.setCustomValidity(validationMessages.required);
             }
             else {
-                e.srcElement.setCustomValidity('');
+                e.target.setCustomValidity('');
             }
         }
 
         function invalid(e) {
-            var validationMessages = getValidationMessages(e.srcElement);
+            var validationMessages = getValidationMessages(e.target);
 
-            if (e.srcElement.validity.valueMissing) {
-                e.srcElement.setCustomValidity(validationMessages.required);
+            if (e.target.validity.valueMissing) {
+                e.target.setCustomValidity(validationMessages.required);
             }
         }
 
@@ -34,11 +33,11 @@
                 return;
 
             for (var i = 0; i < containers.length; i++) {
-                var select = $(containers[i]).find('[data-sf-role="dropdown-list-field-select"]')[0];
+                var select = $(containers[i]).find('[data-sf-role="dropdown-list-field-select"]');
 
                 if (select) {
-                    select.addEventListener('change', changeOrInput);
-                    select.addEventListener('invalid', invalid);
+                    select.on('change', changeOrInput);
+                    select.on('invalid', invalid);
                 }
             }
         }
