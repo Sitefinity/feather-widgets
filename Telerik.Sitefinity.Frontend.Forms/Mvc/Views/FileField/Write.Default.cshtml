@@ -6,7 +6,7 @@
 
 @Html.Script(ScriptRef.JQuery, "top", false)
 
-<div class="@Model.CssClass" data-sf-role="file-field-container" data-sf-config="@(Html.AttributeEncode(Model.Serialize()))">
+<div class="@Model.CssClass sf-fieldWrp" data-sf-role="file-field-container" data-sf-config="@(Html.AttributeEncode(Model.Serialize()))">
     <strong>@Model.MetaField.Title</strong>
     <p data-sf-role="required-violation-message" style="display: none;">@Model.RequiredViolationMessage</p>
     
