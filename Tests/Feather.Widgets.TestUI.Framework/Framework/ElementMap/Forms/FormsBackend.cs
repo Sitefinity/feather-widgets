@@ -88,5 +88,12 @@ namespace Feather.Widgets.TestUI.Framework.Framework.ElementMap.Forms
                 return this.Get<HtmlInputCheckBox>("type=checkbox", "ng-model=properties.Model.ValidatorDefinition.Required.PropertyValue");
             }
         }
+        /// <summary>
+        ///  EDIT FORms elements
+        /// </summary>
+
+        #region Edit Forms elements
+
+        #endregion Edit Forms elements
     }
 }

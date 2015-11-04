@@ -32,6 +32,14 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Frontend.Forms
         }
 
         /// <summary>
+        /// Verify if checkboxes field label is NOT visible
+        /// </summary>
+        public void VerifyCheckboxesFieldLabelIsNotVisible(string fieldLabel)
+        {
+            Assert.IsFalse(EM.Forms.FormsFrontend.CheckboxesField.InnerText.Contains(fieldLabel));
+        }
+
+        /// <summary>
         /// Verify if multiple choice field label is visible
         /// </summary>
         public void VerifyMultipleChoiceFieldLabelIsVisible(string fieldLabel)
@@ -63,6 +71,26 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Frontend.Forms
         {
             Assert.IsTrue(EM.Forms.FormsFrontend.ParagraphTextField.InnerText.Contains(fieldLabel));
         }
+
+        /// <summary>
+        /// Verify if Submit button is Not visible
+        /// </summary>
+        public void VerifySubmitButtonIsNotVisible()
+        {
+            Assert.IsNull(EM.Forms.FormsFrontend.SubmitButton);
+        }
+
+               
+        /// <summary>
+        /// Verify the delete form in use message is shown on the frontend
+        /// </summary>
+        public void VerifyMessageIsDisplayedAfterFormIsDeleted()
+        {
+            var message = EM.Forms.FormsFrontend.DeleteFormInUseMessage;
+            Assert.AreEqual(message.InnerText, "The specified form no longer exists or is currently unpublished.");
+            Assert.IsTrue(message.IsVisible(), String.Format("Total amount {0} was not found", message.InnerText));
+        }
+
 
         /// <summary>
         /// Sets the TextBox Content in the Frontend of the form
