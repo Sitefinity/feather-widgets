@@ -38,11 +38,17 @@
         </div>
 
         <div class="form-group">
+            <div class="checkbox">
+                <label>
+                    <input type="checkbox" ng-model="properties.Model.ValidatorDefinition.Required.PropertyValue" 
+                        ng-true-value="'True'" ng-false-value="'False'" ng-checked="properties.Model.ValidatorDefinition.Required.PropertyValue === 'True'" >
+                        @Html.Resource("RequiredField")
+                    </input>
+                </label>
+            </div>
+        </div>
 
-            <input type="checkbox" ng-model="properties.Model.ValidatorDefinition.Required.PropertyValue" 
-                ng-true-value="'True'" ng-false-value="'False'" ng-checked="properties.Model.ValidatorDefinition.Required.PropertyValue === 'True'" >
-                @Html.Resource("RequiredField")
-            </input>
+        <div class="form-group">
             <div ng-show="properties.Model.ValidatorDefinition.Required.PropertyValue === 'True'">
                 <label for="required-message-text" class="full-width">
                     @Html.Resource("RequiredErrorMessageTitle")
@@ -81,21 +87,21 @@
             <h4>@Html.Resource("Range")</h4>
 
             <div class="row">
-                <div class="col-md-6">
+                <div class="col-md-2">
                      <label for="minLength">
                         @Html.Resource("Min")
                     </label>
                     <input type="text" id="minLength" ng-model="properties.Model.ValidatorDefinition.MinLength.PropertyValue" class="form-control" />
                 </div>
-                <div class="col-md-6">                    
+                <div class="col-md-2">                    
                     <label for="maxLength">
                         @Html.Resource("Max")
                     </label>
                     <input type="text" id="maxLength" ng-model="properties.Model.ValidatorDefinition.MaxLength.PropertyValue" class="form-control" />
                 </div>
+                <div class="col-md-2"><label>@Html.Resource("Characters")</label></div>
             </div>   
-
-            <label>@Html.Resource("Characters")</label>
+            
         </div>
 
         <div class="form-group">
