@@ -1,13 +1,13 @@
 @model Telerik.Sitefinity.Frontend.Card.Mvc.Models.Card.CardViewModel
 
-<div class="@Model.CssClass">
+<div class="sf-card @Model.CssClass">
     @if (!string.IsNullOrEmpty(Model.SelectedSizeUrl))
     {
         <img src="@Model.SelectedSizeUrl"  title="@Model.ImageTitle" alt="@Model.ImageAlternativeText"/>
     }
     @if (!string.IsNullOrEmpty(Model.Heading))
-    {   
-        <h1>@Html.Raw(Model.Heading)</h1>
+    {
+        <h2>@Html.Raw(Model.Heading)</h2>
     }
     @if (!string.IsNullOrEmpty(Model.Description))
     {
