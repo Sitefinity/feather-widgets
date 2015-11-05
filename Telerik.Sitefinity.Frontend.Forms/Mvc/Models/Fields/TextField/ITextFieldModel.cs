@@ -1,13 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Web.Mvc;
-using System.Web.UI;
-using Telerik.Sitefinity.Metadata.Model;
-using Telerik.Sitefinity.Modules.Forms.Web.UI.Fields;
+﻿using System.ComponentModel;
 using Telerik.Sitefinity.Web.UI.Validation.Definitions;
 
 namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Models.Fields.TextField

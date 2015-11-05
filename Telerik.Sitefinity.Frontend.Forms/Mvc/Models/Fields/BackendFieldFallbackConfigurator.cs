@@ -103,7 +103,8 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Models.Fields
                 { typeof(TextFieldController), new FieldConfiguration(typeof(FormTextBox), null) },
                 { typeof(FileFieldController), new FieldConfiguration(BackendFieldFallbackConfigurator.FormFileUploadType, new FileFieldConfigurator()) },
                 { typeof(SubmitButtonController), null },
-                { typeof(CaptchaController), null }
+                { typeof(CaptchaController), null },
+                { typeof(PageBreakController), null }
             };
     }
 }

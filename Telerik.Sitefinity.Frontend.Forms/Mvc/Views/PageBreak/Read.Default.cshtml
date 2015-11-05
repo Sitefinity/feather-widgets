@@ -1,0 +1,15 @@
+﻿@model Telerik.Sitefinity.Frontend.Forms.Mvc.Models.Fields.PageBreak.PageBreakViewModel
+
+@using Telerik.Sitefinity.Frontend.Mvc.Helpers;
+@using Telerik.Sitefinity.Modules.Pages;
+
+@Html.Script(ScriptRef.JQuery, "top", false)
+
+@if (Model.AllowGoBack)
+{
+    <span class="prev"> @Html.Raw(Model.PreviousStepText) </span>
+}
+<span class="next"> @Html.Raw(Model.NextStepText) </span>
+
+@Html.Script(Url.WidgetContent("Mvc/Scripts/Form/form-multi-step.js"), "bottom", false)
+

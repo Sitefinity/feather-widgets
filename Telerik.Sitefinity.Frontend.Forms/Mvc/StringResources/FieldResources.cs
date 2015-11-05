@@ -34,7 +34,6 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.StringResources
         #endregion
 
         #region Class Description
-
         /// <summary>
         /// Gets Title for the form's field widgets resources class.
         /// </summary>
@@ -64,7 +63,6 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.StringResources
                 return this["FieldResourcesDescription"];
             }
         }
-
         #endregion
 
         /// <summary>
@@ -366,7 +364,7 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.StringResources
                 return this["OptionThirdChoice"];
             }
         }
-        
+
         /// <summary>
         /// Gets phrase : Add "Other" as a last choice
         /// </summary>
@@ -411,7 +409,7 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.StringResources
                 return this["Other"];
             }
         }
-                
+
         /// <summary>
         /// Gets phrase : Predefined value
         /// </summary>
@@ -758,7 +756,6 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.StringResources
         }
 
         #region ReCAPTCHA
-
         /// <summary>
         /// Gets phrase : What's this?
         /// </summary>
@@ -953,9 +950,8 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.StringResources
                 return this["Preview"];
             }
         }
-
         #endregion
-                   
+
         /// <summary>
         /// Gets phrase : New code
         /// </summary>
@@ -1002,7 +998,6 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.StringResources
         }
 
         #region Section header
-
         /// <summary>
         /// Gets phrase : Enter section header here...
         /// </summary>
@@ -1017,11 +1012,9 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.StringResources
                 return this["SectionHeaderPlaceholderText"];
             }
         }
-
         #endregion
 
         #region File field
-
         /// <summary>
         /// Gets phrase : Add another
         /// </summary>
@@ -1216,7 +1209,88 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.StringResources
                 return this["FileTypeViolationMessageDescription"];
             }
         }
+        #endregion
 
+        #region Page Break
+        /// <summary>
+        /// phrase: Button 'Next step'
+        /// </summary>
+        /// <value>Button 'Next step'</value>
+        [ResourceEntry("NextStepLabelText",
+            Value = "Button 'Next step'",
+            Description = "phrase: Button 'Next step'",
+            LastModified = "2015/11/04")]
+        public string NextStepLabelText
+        {
+            get
+            {
+                return this["NextStepLabelText"];
+            }
+        }
+
+        /// <summary>
+        /// phrase: Button 'Previous step'
+        /// </summary>
+        /// <value>Button 'Previous step'</value>
+        [ResourceEntry("PreviousStepLabelText",
+            Value = "Button 'Previous step'",
+            Description = "phrase: Button 'Previous step'",
+            LastModified = "2015/11/04")]
+        public string PreviousStepLabelText
+        {
+            get
+            {
+                return this["PreviousStepLabelText"];
+            }
+        }
+
+        /// <summary>
+        /// phrase: Allow users to step backward
+        /// </summary>
+        /// <value>Allow users to step backward</value>
+        [ResourceEntry("AllowGoBackText",
+            Value = "Allow users to step backward",
+            Description = "phrase: Allow users to step backward",
+            LastModified = "2015/11/04")]
+        public string AllowGoBackText
+        {
+            get
+            {
+                return this["AllowGoBackText"];
+            }
+        }
+
+        /// <summary>
+        /// phrase: Next step
+        /// </summary>
+        /// <value>Next step</value>
+        [ResourceEntry("NextStepText",
+            Value = "Next step",
+            Description = "phrase: Next step",
+            LastModified = "2015/11/04")]
+        public string NextStepText
+        {
+            get
+            {
+                return this["NextStepText"];
+            }
+        }
+
+        /// <summary>
+        /// phrase: Previous step
+        /// </summary>
+        /// <value>Previous step</value>
+        [ResourceEntry("PreviousStepText",
+            Value = "Previous step",
+            Description = "phrase: Previous step",
+            LastModified = "2015/11/04")]
+        public string PreviousStepText
+        {
+            get
+            {
+                return this["PreviousStepText"];
+            }
+        }
         #endregion
     }
 }
