@@ -5,6 +5,7 @@ using Telerik.Sitefinity.Frontend.Forms.Mvc.Models.Fields.PageBreak;
 using Telerik.Sitefinity.Frontend.Forms.Mvc.StringResources;
 using Telerik.Sitefinity.Frontend.Mvc.Infrastructure.Controllers;
 using Telerik.Sitefinity.Frontend.Mvc.Infrastructure.Controllers.Attributes;
+using Telerik.Sitefinity.Modules.Forms.Web.UI.Fields;
 using Telerik.Sitefinity.Modules.Pages.Web.Services;
 using Telerik.Sitefinity.Web.UI.Fields.Enums;
 
@@ -14,7 +15,7 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Controllers
     /// This class represents the controller of the MVC forms PageBreak field.
     /// </summary>
     [Localization(typeof(FieldResources))]
-    public class PageBreakController : FormElementControllerBase<IPageBreakModel>
+    public class PageBreakController : FormElementControllerBase<IPageBreakModel>, IFormPageBreak
     {
         public PageBreakController()
         {
