@@ -5,11 +5,12 @@
 
 @Html.Script(ScriptRef.JQuery, "top", false)
 
-@if (Model.AllowGoBack)
-{
-    <span class="prev"> @Html.Raw(Model.PreviousStepText) </span>
-}
-<span class="next"> @Html.Raw(Model.NextStepText) </span>
-
+<div class="@Model.CssClass">
+    @if (Model.AllowGoBack)
+    {
+        <span class="prev">@Html.Raw(Model.PreviousStepText) </span>
+    }
+    <span class="next">@Html.Raw(Model.NextStepText) </span>
+</div>
 @Html.Script(Url.WidgetContent("Mvc/Scripts/Form/form-multi-step.js"), "bottom", false)
 

@@ -20,5 +20,10 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Models.Fields.PageBreak
         /// Checks if go back is allowed
         /// </summary>
         public bool AllowGoBack { get; set; }
+
+        /// <summary>
+        /// Gets or sets the CSS class.
+        /// </summary>
+        public string CssClass { get; set; }
     }
 }
