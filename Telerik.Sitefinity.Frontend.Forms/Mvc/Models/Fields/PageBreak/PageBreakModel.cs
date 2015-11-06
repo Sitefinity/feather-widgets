@@ -54,7 +54,8 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Models.Fields.PageBreak
             {
                 NextStepText = this.NextStepText,
                 PreviousStepText = this.PreviousStepText,
-                AllowGoBack = this.AllowGoBack
+                AllowGoBack = this.AllowGoBack,
+                CssClass = this.CssClass
             };
         }
 

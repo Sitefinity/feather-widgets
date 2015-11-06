@@ -3,30 +3,34 @@
         return;
 
     $(function () {
-        var formContainers = $('.separator');
-        var formStepIndex = 0;
-        var maxFormStepIndex = formContainers.length - 1;
-
+        var formContainers = $('[data-sf-role="form-container"]');
         formContainers.each(function (i, element) {
-            $(element).hide();
-        });
+            var formElement = $(element);
+            var formStepsContainers = formElement.find('.separator');
+            var formStepIndex = 0;
+            var maxFormStepIndex = formStepsContainers.length - 1;
 
-        formContainers.first().show();
-        formContainers.first().find('span[class="prev"]').hide();
-        formContainers.last().find('span[class="next"]').hide();
+            formStepsContainers.each(function (i, element) {
+                $(element).hide();
+            });
 
-        var separatorsNext = formContainers.find('span[class="next"]');
-        separatorsNext.click(function (e) {
-            $(e.target).parent().hide();
-            formStepIndex++;
-            $(formContainers[formStepIndex]).show();
-        });
+            formStepsContainers.first().show();
+            formStepsContainers.first().find('span[class="prev"]').hide();
+            formStepsContainers.last().find('span[class="next"]').hide();
 
-        var separatorsPrev = formContainers.find('span[class="prev"]');
-        separatorsPrev.click(function (e) {
-            $(e.target).parent().hide();
-            formStepIndex--;
-            $(formContainers[formStepIndex]).show();
+            var separatorsNext = formStepsContainers.find('span[class="next"]');
+            separatorsNext.click(function (e) {
+                $(e.target).closest('.separator').hide();
+                formStepIndex++;
+                $(formStepsContainers[formStepIndex]).show();
+            });
+
+            var separatorsPrev = formStepsContainers.find('span[class="prev"]');
+            separatorsPrev.click(function (e) {
+                $(e.target).closest('.separator').hide();
+                formStepIndex--;
+                $(formStepsContainers[formStepIndex]).show();
+            });
         });
     });
 })(jQuery);
