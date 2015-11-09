@@ -9,6 +9,7 @@ using Telerik.Sitefinity.Configuration;
 using Telerik.Sitefinity.DynamicModules.Web.UI.Frontend;
 using Telerik.Sitefinity.Frontend.Blogs.Mvc.Controllers;
 using Telerik.Sitefinity.Frontend.Blogs.Mvc.Models.BlogPost;
+using Telerik.Sitefinity.Frontend.Card.Mvc.Controllers;
 using Telerik.Sitefinity.Frontend.Comments.Mvc.Controllers;
 using Telerik.Sitefinity.Frontend.ContentBlock.Mvc.Controllers;
 using Telerik.Sitefinity.Frontend.DynamicContent.Mvc.Controllers;
@@ -581,6 +582,26 @@ namespace FeatherWidgets.TestUtilities.CommonOperations
                 mvcWidget.ControllerName = typeof(UnsubscribeFormController).FullName;
 
                 this.CreateControl(pageManager, page, mvcWidget, "Unsubscribe", placeholder);
+            }
+        }
+
+        /// <summary>
+        /// Adds ard widget to existing page
+        /// </summary>
+        /// <param name="pageId">Page id value</param>
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1026:DefaultParametersShouldNotBeUsed")]
+        public void AddCardWidgetToPage(Guid pageId, string placeholder = "Body")
+        {
+            PageManager pageManager = PageManager.GetManager();
+            pageManager.Provider.SuppressSecurityChecks = true;
+            var pageDataId = pageManager.GetPageNode(pageId).PageId;
+            var page = pageManager.EditPage(pageDataId, CultureInfo.CurrentUICulture);
+
+            using (var mvcWidget = new Telerik.Sitefinity.Mvc.Proxy.MvcControllerProxy())
+            {
+                mvcWidget.ControllerName = typeof(CardController).FullName;
+
+                this.CreateControl(pageManager, page, mvcWidget, "Card", placeholder);
             }
         }
 
