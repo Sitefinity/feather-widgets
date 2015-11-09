@@ -14,7 +14,7 @@ namespace Telerik.Sitefinity.Frontend.InlineClientAssets.Mvc.Models.EmbedCode
         public string Description { get; set; }
 
         /// <inheritDocs/>
-        public EmbedCodeViewModel GetViewModel()
+        public virtual EmbedCodeViewModel GetViewModel()
         {
             return new EmbedCodeViewModel
             {

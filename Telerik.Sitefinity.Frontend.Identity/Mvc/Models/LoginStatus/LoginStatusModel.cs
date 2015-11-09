@@ -147,7 +147,7 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.LoginStatus
 
         #region Public Methods
         /// <inheritDoc/>
-        public LoginStatusViewModel GetViewModel()
+        public virtual LoginStatusViewModel GetViewModel()
         {
             return new LoginStatusViewModel()
             {
