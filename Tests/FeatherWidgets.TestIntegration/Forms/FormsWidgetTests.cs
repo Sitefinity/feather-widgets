@@ -43,7 +43,7 @@ namespace FeatherWidgets.TestIntegration.Forms
 
             try
             {
-                var semanticTemplate = pageManager.GetTemplates().FirstOrDefault(t => t.Name == "SemanticUI.default" && t.Title == "default");
+                var semanticTemplate = pageManager.GetTemplates().FirstOrDefault(t => (t.Name == "SemanticUI.default" && t.Title == "default") || t.Title == "SemanticUI.default");
                 Assert.IsNotNull(semanticTemplate, "Template was not found");
 
                 var semanticPageId = FeatherServerOperations.Pages().CreatePageWithTemplate(semanticTemplate, "FormsPageSemantic", "forms-page-semantic");
@@ -53,7 +53,7 @@ namespace FeatherWidgets.TestIntegration.Forms
 
                 Assert.IsTrue(semanticPageContent.Contains("class=\"sf_colsIn four wide column\""), "SemanticUI grid content not found.");
 
-                var bootstrapTemplate = pageManager.GetTemplates().FirstOrDefault(t => t.Name == "Bootstrap.default" && t.Title == "default");
+                var bootstrapTemplate = pageManager.GetTemplates().FirstOrDefault(t => (t.Name == "Bootstrap.default" && t.Title == "default") || t.Title == "Bootstrap.default");
                 Assert.IsNotNull(bootstrapTemplate, "Template was not found");
 
                 var bootstrapPageId = FeatherServerOperations.Pages().CreatePageWithTemplate(bootstrapTemplate, "FormsPageBootstrap", "forms-page-bootstrap");
