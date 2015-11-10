@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 
 namespace FeatherWidgets.TestUtilities.CommonOperations
 {
+    [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Naming", "CA1704:IdentifiersShouldBeSpelledCorrectly", MessageId = "Globals")]
     public static class FeatherGlobals
     {
         #region MVCForms

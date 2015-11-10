@@ -8,6 +8,7 @@ namespace FeatherWidgets.TestUI.Arrangements
     /// <summary>
     /// PublishUnpublishFormInUseVerifyFrontend arrangement class.
     /// </summary>
+    [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Naming", "CA1704:IdentifiersShouldBeSpelledCorrectly", MessageId = "Unpublish")]
     public class PublishUnpublishFormInUseVerifyFrontend : TestArrangementBase
     {
         /// <summary>
