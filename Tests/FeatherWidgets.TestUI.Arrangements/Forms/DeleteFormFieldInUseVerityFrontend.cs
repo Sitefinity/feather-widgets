@@ -13,9 +13,9 @@ using Telerik.Sitefinity.Web.Services;
 namespace FeatherWidgets.TestUI.Arrangements
 {
     /// <summary>
-    /// DeleteFormInUseVerifyFrontend arrangement class.
+    /// DeleteFormFieldInUseVerityFrontend arrangement class.
     /// </summary>
-    public class DeleteFormInUseVerifyFrontend : TestArrangementBase
+    public class DeleteFormFieldInUseVerityFrontend : TestArrangementBase
     {
         /// <summary>
         /// Server side set up.

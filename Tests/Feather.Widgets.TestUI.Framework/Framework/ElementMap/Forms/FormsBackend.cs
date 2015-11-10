@@ -14,7 +14,7 @@ namespace Feather.Widgets.TestUI.Framework.Framework.ElementMap.Forms
     /// </summary>
     public class FormsBackend : HtmlElementContainer
     {
-         /// <summary>
+        /// <summary>
         /// Initializes a new instance of the <see cref="FormsBackend" /> class.
         /// </summary>
         /// <param name="find">The find.</param>
@@ -88,12 +88,48 @@ namespace Feather.Widgets.TestUI.Framework.Framework.ElementMap.Forms
                 return this.Get<HtmlInputCheckBox>("type=checkbox", "ng-model=properties.Model.ValidatorDefinition.Required.PropertyValue");
             }
         }
+
         /// <summary>
-        ///  EDIT FORms elements
+        /// Gets SubmitButtonController div
         /// </summary>
+        public HtmlDiv SubmitButtonControllerDiv
+        {
+            get
+            {
+                return this.BodyDropZone.Find.ByExpression<HtmlDiv>("class=RadDock RadDock_Default zeControlDock", "behaviourobjecttype=~SubmitButtonController");
+            }
+        }
 
-        #region Edit Forms elements
+        /// <summary>
+        /// Gets CheckboxesFieldController div
+        /// </summary>
+        public HtmlDiv CheckboxesFieldControllerDiv
+        {
+            get
+            {
+                return this.BodyDropZone.Find.ByExpression<HtmlDiv>("class=RadDock RadDock_Default zeControlDock", "behaviourobjecttype=~CheckboxesFieldController");
+            }
+        }
 
-        #endregion Edit Forms elements
+        /// <summary>
+        /// Gets CheckboxesFieldController div
+        /// </summary>
+        public HtmlDiv DropdownListFieldControllerDiv
+        {
+            get
+            {
+                return this.BodyDropZone.Find.ByExpression<HtmlDiv>("class=RadDock RadDock_Default zeControlDock", "behaviourobjecttype=~DropdownListFieldController");
+            }
+        }
+        /// <summary>
+        /// Gets All Controller's divs
+        /// </summary>
+        public List<HtmlDiv> FormControlList
+        {
+            get
+            {
+                return this.BodyDropZone.Find.AllByExpression<HtmlDiv>("class=RadDock RadDock_Default zeControlDock").ToList();
+            }
+        }
     }
 }

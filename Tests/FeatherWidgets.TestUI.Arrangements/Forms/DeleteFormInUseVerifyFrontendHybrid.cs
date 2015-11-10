@@ -13,9 +13,9 @@ using Telerik.Sitefinity.Web.Services;
 namespace FeatherWidgets.TestUI.Arrangements
 {
     /// <summary>
-    /// DeleteFormInUseVerifyFrontend arrangement class.
+    /// DeleteFormInUseVerifyFrontendHybrid arrangement class.
     /// </summary>
-    public class DeleteFormInUseVerifyFrontend : TestArrangementBase
+    public class DeleteFormInUseVerifyFrontendHybrid : TestArrangementBase
     {
         /// <summary>
         /// Server side set up.
@@ -23,11 +23,9 @@ namespace FeatherWidgets.TestUI.Arrangements
         [ServerSetUp]
         public void SetUp()
         {
-            var templateId = ServerOperations.Templates().GetTemplateIdByTitle(FeatherGlobals.PageTemplateName);
             var formId = (new FormsOperations()).CreateFormWithWidgets(new FormFieldType[] { FormFieldType.SubmitButton }, FeatherGlobals.FormName);
-            ServerOperations.Pages().CreatePage(FeatherGlobals.BootstrapPageName, templateId);
-            var pageId = ServerOperations.Pages().GetPageId(FeatherGlobals.BootstrapPageName);
-            ServerOperationsFeather.Forms().AddFormControlToPage(pageId, formId);
+            var pageId = ServerOperations.Pages().CreatePage(FeatherGlobals.HybridPageName);
+            ServerOperationsFeather.Forms().AddFormControlToPage(pageId, formId, FeatherGlobals.FormName,  "Body");
         }
 
         /// <summary>

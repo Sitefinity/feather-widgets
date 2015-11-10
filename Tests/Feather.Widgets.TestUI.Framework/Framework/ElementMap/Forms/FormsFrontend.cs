@@ -41,7 +41,7 @@ namespace Feather.Widgets.TestUI.Framework.Framework.ElementMap.Forms
         {
             get
             {
-                return this.Get<HtmlDiv>("TagName=div", "Class=from-group", "data-sf-role=checkboxes-field-container");
+                return this.Find.ByExpression<HtmlDiv>("TagName=div", "Class=form-group", "data-sf-role=checkboxes-field-container");
             }
         }
 
@@ -52,7 +52,7 @@ namespace Feather.Widgets.TestUI.Framework.Framework.ElementMap.Forms
         {
             get
             {
-                return this.Get<HtmlDiv>("TagName=div", "Class=from-group", "data-sf-role=multiple-choice-field-container");
+                return this.Get<HtmlDiv>("TagName=div", "Class=form-group", "data-sf-role=multiple-choice-field-container");
             }
         }
 
@@ -63,7 +63,7 @@ namespace Feather.Widgets.TestUI.Framework.Framework.ElementMap.Forms
         {
             get
             {
-                return this.Get<HtmlDiv>("TagName=div", "Class=from-group", "data-sf-role=dropdown-list-field-container");
+                return this.Get<HtmlDiv>("TagName=div", "Class=form-group", "data-sf-role=dropdown-list-field-container");
             }
         }
 
@@ -132,5 +132,24 @@ namespace Feather.Widgets.TestUI.Framework.Framework.ElementMap.Forms
                     //, "innertext= The specified form no longer exists or is currently unpublished. ");
             }
         }
+
+        /// <summary>
+        /// Gets the fields for form when hybrid page is used 
+        /// </summary>
+        #region HybridPage
+
+        /// <summary>
+        /// Gets the textbox field on frontend
+        /// </summary>
+        public HtmlInputText TextboxFieldHybrid
+        {
+            get
+            {
+                return this.Get<HtmlInputText>("name=TextFieldController", "data-sf-role=text-field-input");
+            }
+        }
+
+
+        #endregion HybridPage
     }
 }

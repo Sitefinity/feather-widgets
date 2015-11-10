@@ -216,6 +216,7 @@
     <Compile Include="CommonOperations\DynamicModules\DynamicModuleModule2Operations.cs" />
     <Compile Include="CommonOperations\DynamicModules\DynamicModulePressArticleOperations.cs" />
     <Compile Include="CommonOperations\DynamicModules\DynamicModulesOperations.cs" />
+    <Compile Include="CommonOperations\Forms\FeatherGlobals.cs" />
     <Compile Include="CommonOperations\Forms\FormFieldType.cs" />
     <Compile Include="CommonOperations\Forms\FormsOperations.cs" />
     <Compile Include="CommonOperations\Pages\CommentsAndReviews.cs" />
@@ -332,6 +333,7 @@
   <Target Name="BeforeBuild">
     <Copy SourceFiles="$(SolutionDir)FxCop\CustomDictionary.xml" DestinationFolder="$(CodeAnalysisPath)" OverwriteReadOnlyFiles="true" Retries="10" ContinueOnError="false" />
   </Target>
-  <Target Name="AfterBuild"></Target>
+  <Target Name="AfterBuild">
+  </Target>
   <Import Project="$(SolutionDir)\StyleCop\StyleCop.targets" />
 </Project>

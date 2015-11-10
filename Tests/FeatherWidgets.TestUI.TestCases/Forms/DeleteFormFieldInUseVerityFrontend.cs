@@ -11,35 +11,41 @@ using Telerik.Sitefinity.Frontend.TestUtilities;
 namespace FeatherWidgets.TestUI.TestCases.Forms
 {
     /// <summary>
-    /// DeleteFormInUseVerifyFrontend_ test class.
+    /// DeleteFormFieldInUseVerityFrontend_ test class.
     /// </summary>
     [TestClass]
-    public class DeleteFormInUseVerifyFrontend_ : FeatherTestCase
+    public class DeleteFormFieldInUseVerityFrontend_ : FeatherTestCase
     {
         /// <summary>
-        /// UI test DeleteFormInUseVerifyFrontend
+        /// UI test DeleteFormFieldInUseVerityFrontend
         /// </summary>
         [TestMethod,
         Owner(FeatherTeams.FeatherTeam),
         TestCategory(FeatherTestCategories.Bootstrap),
         TestCategory(FeatherTestCategories.Forms)]
-        public void DeleteFormInUseVerifyFrontend()
+        public void DeleteFormFieldInUseVerityFrontend()
         {
             BAT.Macros().NavigateTo().Modules().Forms(this.Culture);
             BAT.Wrappers().Backend().Forms().FormsDashboard().OpenFormFromTheGrid(FeatherGlobals.FormName);
             BATFeather.Wrappers().Backend().Forms().FormsContentScreenWrapper().AddField(FeatherGlobals.CheckboxFieldName);
+            BATFeather.Wrappers().Backend().Forms().FormsContentScreenWrapper().AddField(FeatherGlobals.DropdownFieldName);
+            BATFeather.Wrappers().Backend().Forms().FormsContentScreenWrapper().VerifyFormCheckboxWidgetIsVisible();
+            BATFeather.Wrappers().Backend().Forms().FormsContentScreenWrapper().VerifyFormDropdownWidgetIsVisible();
             BAT.Wrappers().Backend().Forms().FormsContentScreen().PublishForm();
 
             BAT.Macros().NavigateTo().CustomPage("~/" + FeatherGlobals.BootstrapPageName.ToLower(), true, this.Culture);
             BATFeather.Wrappers().Frontend().Forms().FormsWrapper().VerifyCheckboxesFieldLabelIsVisible(FeatherGlobals.CheckboxLabelName);
+            BATFeather.Wrappers().Frontend().Forms().FormsWrapper().VerifyDropdownListFieldLabelIsVisible(FeatherGlobals.DropdownLabelName);
+            BATFeather.Wrappers().Frontend().Forms().FormsWrapper().VerifySubmitButtonIsVisible();
 
             BAT.Macros().NavigateTo().Modules().Forms(this.Culture);
-            BAT.Wrappers().Backend().Forms().FormsDashboard().DeleteFormFromActionsMenu(FeatherGlobals.FormName);
-            bool formIsPresent = BAT.Wrappers().Backend().Forms().FormsDashboard().IsFormPresentInGridView(FeatherGlobals.FormName);
-            Assert.IsTrue(!formIsPresent);
+            BAT.Wrappers().Backend().Forms().FormsDashboard().OpenFormFromTheGrid(FeatherGlobals.FormName);
+            BATFeather.Wrappers().Backend().Forms().FormsContentScreenWrapper().ClickOnWidgetMenuItem(FeatherGlobals.CheckboxControlName, FeatherGlobals.DeleteWidgetMenuOption);
+            BATFeather.Wrappers().Backend().Forms().FormsContentScreenWrapper().VerifyFormCheckboxWidgetIsDeleted();
+            BAT.Wrappers().Backend().Forms().FormsContentScreen().PublishForm();
 
             BAT.Macros().NavigateTo().CustomPage("~/" + FeatherGlobals.BootstrapPageName.ToLower(), true, this.Culture);
-            BATFeather.Wrappers().Frontend().Forms().FormsWrapper().VerifyMessageIsDisplayedAfterFormIsDeleted();
+            BATFeather.Wrappers().Frontend().Forms().FormsWrapper().VerifyCheckboxesFieldIsNotVisible();
         }
 
         /// <summary>
@@ -58,5 +64,9 @@ namespace FeatherWidgets.TestUI.TestCases.Forms
         {
             BAT.Arrange(this.TestName).ExecuteTearDown();
         }
+
+        
+        private const int ExpectedWidgetsCount = 0;
+
     }
 }

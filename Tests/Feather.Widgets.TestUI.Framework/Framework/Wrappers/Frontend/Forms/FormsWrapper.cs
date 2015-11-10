@@ -73,14 +73,22 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Frontend.Forms
         }
 
         /// <summary>
-        /// Verify if Submit button is Not visible
+        /// Verify if text field is visible
         /// </summary>
-        public void VerifySubmitButtonIsNotVisible()
+        public void VerifyTextFieldlIsVisibleHybrid()
         {
-            Assert.IsNull(EM.Forms.FormsFrontend.SubmitButton);
+            Assert.IsNotNull(EM.Forms.FormsFrontend.TextboxFieldHybrid, "Text field is not");
+            Assert.IsTrue(EM.Forms.FormsFrontend.TextboxFieldHybrid.IsVisible(), "The text input field is not visible");
         }
 
-               
+        /// <summary>
+        /// Verify if Submit button is Not visible
+        /// </summary>
+        public void VerifySubmitButtonIsVisible()
+        {
+            Assert.IsTrue(EM.Forms.FormsFrontend.SubmitButton.IsVisible(), "The submit button is not visible");
+        }
+              
         /// <summary>
         /// Verify the delete form in use message is shown on the frontend
         /// </summary>
@@ -90,7 +98,6 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Frontend.Forms
             Assert.AreEqual(message.InnerText, "The specified form no longer exists or is currently unpublished.");
             Assert.IsTrue(message.IsVisible(), String.Format("Total amount {0} was not found", message.InnerText));
         }
-
 
         /// <summary>
         /// Sets the TextBox Content in the Frontend of the form
@@ -189,6 +196,14 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Frontend.Forms
         public void VerifyPageUrl(string pageName)
         {
             Assert.IsTrue(ActiveBrowser.Url.EndsWith(pageName.ToLower()));
+        }
+
+        /// <summary>
+        /// Verify Checkboxes widget is deleted or Null
+        /// </summary>
+        public void VerifyCheckboxesFieldIsNotVisible()
+        {
+            Assert.IsNull(EM.Forms.FormsFrontend.CheckboxesField, "Checkboxes field is still visible at the frontend");
         }
     }
 }
