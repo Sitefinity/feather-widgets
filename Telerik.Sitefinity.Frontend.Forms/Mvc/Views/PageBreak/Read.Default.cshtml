@@ -8,9 +8,12 @@
 <div class="@Model.CssClass">
     @if (Model.AllowGoBack)
     {
-        <span class="prev">@Html.Raw(Model.PreviousStepText) </span>
+        <a href="">@Html.Raw(Model.PreviousStepText)</a>
     }
-    <span class="next">@Html.Raw(Model.NextStepText) </span>
+    <button type="button">@Html.Raw(Model.NextStepText)</button>
+
+    <div><span>Page break</span></div>
+
 </div>
 @Html.Script(Url.WidgetContent("Mvc/Scripts/Form/form-multi-step.js"), "bottom", false)
 

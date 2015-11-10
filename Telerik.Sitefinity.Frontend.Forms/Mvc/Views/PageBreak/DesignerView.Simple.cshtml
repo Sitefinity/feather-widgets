@@ -14,10 +14,12 @@
 </div>
 
 <div class="form-group">
-    <input id="allowGoBack" type="checkbox" ng-model="properties.AllowGoBack.PropertyValue" ng-true-value="'True'" ng-false-value="'False'"/>
-    <label for="allowGoBack">
-        @Html.Resource("AllowGoBackText")
-    </label>
+    <div class="checkbox">
+        <label for="allowGoBack">
+            <input id="allowGoBack" type="checkbox" ng-model="properties.AllowGoBack.PropertyValue" ng-true-value="'True'" ng-false-value="'False'"/>
+            @Html.Resource("AllowGoBackText")
+        </label>
+    </div>
 </div>
 
 <div class="form-group" ng-show="properties.AllowGoBack.PropertyValue === 'True'">
