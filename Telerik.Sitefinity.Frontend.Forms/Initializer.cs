@@ -74,6 +74,7 @@ namespace Telerik.Sitefinity.Frontend.Forms
             Initializer.RegisterToolboxItem(section, "MvcFileField", "File upload", "Telerik.Sitefinity.Frontend.Forms.Mvc.Controllers.FileFieldController", "sfFileUploadIcn sfMvcIcn");
             Initializer.RegisterToolboxItem(section, "MvcCaptchaField", "CAPTCHA", "Telerik.Sitefinity.Frontend.Forms.Mvc.Controllers.CaptchaController", "sfCaptchaIcn sfMvcIcn");
             Initializer.RegisterToolboxItem(section, "MvcSubmitButton", "Submit button", "Telerik.Sitefinity.Frontend.Forms.Mvc.Controllers.SubmitButtonController", "sfSubmitBtnIcn sfMvcIcn");
+            Initializer.RegisterToolboxItem(section, "MvcNavigationField", "Form navigation", "Telerik.Sitefinity.Frontend.Forms.Mvc.Controllers.NavigationFieldController", "sfNavigationIcn sfMvcIcn");
 
             configurationManager.SaveSection(toolboxesConfig);
             configurationManager.Provider.SuppressSecurityChecks = false;

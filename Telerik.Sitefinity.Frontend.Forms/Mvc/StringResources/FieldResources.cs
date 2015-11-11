@@ -1292,5 +1292,25 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.StringResources
             }
         }
         #endregion
+
+        #region Navigation field
+
+        /// <summary>
+        /// phrase: Page
+        /// </summary>
+        /// <value>Page</value>
+        [ResourceEntry("PageName",
+            Value = "Page",
+            Description = "phrase: Page",
+            LastModified = "2015/11/11")]
+        public string PageName
+        {
+            get
+            {
+                return this["PageName"];
+            }
+        }
+
+        #endregion
     }
 }
