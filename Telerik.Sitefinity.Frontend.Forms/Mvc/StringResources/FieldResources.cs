@@ -1291,10 +1291,25 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.StringResources
                 return this["PreviousStepText"];
             }
         }
+
+        /// <summary>
+        /// phrase: If it is a multipage form, display a link to the previous step
+        /// </summary>
+        /// <value>If it is a multipage form, display a link to the previous step</value>
+        [ResourceEntry("AllowGoBackIfMultiPageText",
+            Value = "If it is a multipage form, display a link to the previous step",
+            Description = "phrase: If it is a multipage form, display a link to the previous step",
+            LastModified = "2015/11/11")]
+        public string AllowGoBackIfMultiPageText
+        {
+            get
+            {
+                return this["AllowGoBackIfMultiPageText"];
+            }
+        }
         #endregion
 
         #region Navigation field
-
         /// <summary>
         /// phrase: Page
         /// </summary>
@@ -1310,7 +1325,6 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.StringResources
                 return this["PageName"];
             }
         }
-
         #endregion
     }
 }
