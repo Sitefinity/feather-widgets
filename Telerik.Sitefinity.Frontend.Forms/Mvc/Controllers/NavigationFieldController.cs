@@ -46,7 +46,7 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Controllers
         {
             get
             {
-                return "navigation";
+                return "navigation-field";
             }
         }
 
@@ -152,6 +152,8 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Controllers
                     string pageTitle = Res.Get<FieldResources>().PageName + (i + 2);
                     var newPage = new FormPage() { Title = pageTitle, PreviousPageBreakId = pageBreakControlIds[i].ToString() };
                     pages.Add(newPage);
+
+                    // A page has been added
                     changesMade = true;
                 }
                 else
@@ -160,9 +162,25 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Controllers
                 }
             }
 
-            if (pages.Count != deserializedPages.Count)
+            if (!changesMade)
             {
-                changesMade = true;
+                // Check if a page has been deleted
+                if (pages.Count != deserializedPages.Count)
+                {
+                    changesMade = true;
+                }
+                else
+                {
+                    // Check if index of a page has been changed
+                    for (int i = 0; i < pages.Count; i++)
+                    {
+                        if (pages[i] != deserializedPages[i])
+                        {
+                            changesMade = true;
+                            break;
+                        }
+                    }
+                }
             }
 
             this.Model.SerializedPages = JsonSerializer.SerializeToString(pages);
