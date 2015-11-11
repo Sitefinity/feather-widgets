@@ -11,6 +11,7 @@ using Telerik.Sitefinity.Frontend.Forms.Mvc.Models.Fields.SectionHeader;
 using Telerik.Sitefinity.Frontend.Forms.Mvc.Models.Fields.PageBreak;
 using Telerik.Sitefinity.Frontend.Forms.Mvc.Models.Fields.SubmitButton;
 using Telerik.Sitefinity.Frontend.Forms.Mvc.Models.Fields.TextField;
+using Telerik.Sitefinity.Frontend.Forms.Mvc.Models.Fields.NavigationField;
 
 namespace Telerik.Sitefinity.Frontend.Forms
 {
@@ -29,6 +30,7 @@ namespace Telerik.Sitefinity.Frontend.Forms
             Bind<IFormElementModel>().To<FormElementModel>();
             Bind<ITextFieldModel>().To<TextFieldModel>();
             Bind<IPageBreakModel>().To<PageBreakModel>();
+            Bind<INavigationFieldModel>().To<NavigationFieldModel>();
             Bind<ISubmitButtonModel>().To<SubmitButtonModel>();
             Bind<ISectionHeaderModel>().To<SectionHeaderModel>();
             Bind<IParagraphTextFieldModel>().To<ParagraphTextFieldModel>();
