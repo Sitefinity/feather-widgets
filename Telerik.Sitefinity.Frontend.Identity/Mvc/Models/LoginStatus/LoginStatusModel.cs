@@ -155,7 +155,8 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.LoginStatus
                 ProfilePageUrl = this.GetProfilePageUrl(),
                 RegistrationPageUrl = this.GetRegistrationPageUrl(),
                 LoginPageUrl = this.GetLoginPageUrl(),
-                CssClass = this.CssClass
+                CssClass = this.CssClass,
+                StatusServiceUrl = RouteHelper.ResolveUrl("~/rest-api/login-status", UrlResolveOptions.Rooted)
             };
         }
 
