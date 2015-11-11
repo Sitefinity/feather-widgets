@@ -6,14 +6,11 @@
 @Html.Script(ScriptRef.JQuery, "top", false)
 
 <div class="@Model.CssClass">
+    <button type="button">@Html.Raw(Model.NextStepText)</button>
     @if (Model.AllowGoBack)
     {
         <a href="">@Html.Raw(Model.PreviousStepText)</a>
     }
-    <button type="button">@Html.Raw(Model.NextStepText)</button>
-
-    <div><span>Page break</span></div>
-
 </div>
 @Html.Script(Url.WidgetContent("Mvc/Scripts/Form/form-multi-step.js"), "bottom", false)
 

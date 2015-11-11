@@ -5,7 +5,7 @@
 <div class="@Model.CssClass">
     @if (Model.AllowGoBack)
     {
-        <span class="prev">@Html.Raw(Model.PreviousStepText) </span>
+        <a href="">@Html.Raw(Model.PreviousStepText) </a>
     }
     <button type="submit" @Html.SubmitButtonRequiredAttributes() >@Model.Label</button>
 </div>
