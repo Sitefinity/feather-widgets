@@ -16,6 +16,7 @@ using Telerik.Sitefinity.Modules.Forms;
 using Telerik.Sitefinity.Modules.Forms.Web.UI.Fields;
 using Telerik.Sitefinity.Modules.Pages.Web.Services;
 using Telerik.Sitefinity.Modules.Pages.Web.Services.Model;
+using Telerik.Sitefinity.Pages.Model;
 using Telerik.Sitefinity.Services;
 using Telerik.Sitefinity.Utilities.TypeConverters;
 using Telerik.Sitefinity.Web.UI;
@@ -86,17 +87,20 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Controllers
         private void UpdatePages(Guid controlId)
         {
             var manager = FormsManager.GetManager();
-            var controlData = manager.GetControl<FormDraftControl>(controlId);
-            var form = controlData.Form;
-
-            IList<FormDraftControl> pageBreakControls = NavigationFieldController.GetPageBreakControls(form);
-
-            bool modelModified;
-            this.TryUpdateModel(pageBreakControls, out modelModified);
-
-            if (modelModified)
+            var controlData = manager.GetControl<ControlData>(controlId) as FormDraftControl;
+            if (controlData != null)
             {
-                this.SaveProperties(controlData, manager, form);
+                var form = controlData.Form;
+
+                IList<FormDraftControl> pageBreakControls = NavigationFieldController.GetPageBreakControls(form);
+
+                bool modelModified;
+                this.TryUpdateModel(pageBreakControls, out modelModified);
+
+                if (modelModified)
+                {
+                    this.SaveProperties(controlData, manager, form);
+                }
             }
         }
 
