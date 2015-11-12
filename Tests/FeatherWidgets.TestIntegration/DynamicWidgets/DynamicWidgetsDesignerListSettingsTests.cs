@@ -170,6 +170,8 @@ namespace FeatherWidgets.TestIntegration.DynamicWidgets
 
                 dynamicCollection = ServerOperationsFeather.DynamicModulePressArticle().RetrieveCollectionOfPressArticles();
 
+                Assert.IsNotNull(dynamicCollection, "The collection of press articles was NULL.");
+
                 this.pageOperations = new PagesOperations();
 
                 var mvcProxy = new MvcWidgetProxy();
@@ -177,7 +179,7 @@ namespace FeatherWidgets.TestIntegration.DynamicWidgets
                 var dynamicController = new DynamicContentController();
                 dynamicController.Model.ContentType = TypeResolutionService.ResolveType(ResolveType);
                 dynamicController.Model.DisplayMode = ListDisplayMode.All;
-                dynamicController.Model.ProviderName = ((Telerik.Sitefinity.Data.DataProviderBase)dynamicCollection.First().Provider).Name;
+                dynamicController.Model.ProviderName = "dynamicContentProvider";
                 mvcProxy.Settings = new ControllerSettings(dynamicController);
                 mvcProxy.WidgetName = WidgetName;
 
