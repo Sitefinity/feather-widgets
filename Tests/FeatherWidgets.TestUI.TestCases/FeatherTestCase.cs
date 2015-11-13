@@ -117,6 +117,5 @@ namespace FeatherWidgets.TestUI.TestCases
         private bool? isMultisite = null;
         private bool? isMultilingual = null;
         private string culture = "undefined";
-
     }
 }

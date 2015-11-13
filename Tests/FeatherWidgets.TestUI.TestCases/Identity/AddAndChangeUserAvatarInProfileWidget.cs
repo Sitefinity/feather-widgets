@@ -3,7 +3,6 @@ using ArtOfTest.WebAii.Core;
 using ArtOfTest.WebAii.Win32.Dialogs;
 using Feather.Widgets.TestUI.Framework;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Telerik.Sitefinity.Frontend.TestUtilities;
 
 namespace FeatherWidgets.TestUI.TestCases.Identity
 {
