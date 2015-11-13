@@ -1,14 +1,15 @@
-﻿namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Models.Fields.SubmitButton
+﻿
+namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Models.Fields.PageBreak
 {
     /// <summary>
-    /// This class represents the view model used to render the Submit Form field.
+    /// This class represents view model for PageBreak field.
     /// </summary>
-    public class SubmitButtonViewModel
+    public class PageBreakViewModel
     {
         /// <summary>
-        /// Gets or sets the label.
+        /// Gets or sets the text of the next button
         /// </summary>
-        public string Label { get; set; }
+        public string NextStepText { get; set; }
 
         /// <summary>
         /// Gets or sets the text of the previous button

@@ -1,0 +1,11 @@
+﻿@model Telerik.Sitefinity.Frontend.Forms.Mvc.Models.Fields.NavigationField.NavigationFieldViewModel
+
+@using Telerik.Sitefinity.Frontend.Mvc.Helpers;
+@using Telerik.Sitefinity.Modules.Pages;
+
+<div class="@Model.CssClass" data-sf-role="navigation-field-container">
+    @foreach (var page in Model.Pages)
+    {
+        <span class="form-navbar-header" data-sf-navigation-index="@page.Index">@Html.Raw(page.Title)</span>
+    }
+</div>

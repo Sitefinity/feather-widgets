@@ -1,14 +1,15 @@
-﻿namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Models.Fields.SubmitButton
+﻿
+namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Models.Fields.PageBreak
 {
     /// <summary>
-    /// This interface provides API for form submit button.
+    /// This interface provides API for form PageBreak fields.
     /// </summary>
-    public interface ISubmitButtonModel : IFormElementModel
+    public interface IPageBreakModel : IFormElementModel
     {
         /// <summary>
-        /// Gets or sets the label.
+        /// Gets or sets the text of the next button
         /// </summary>
-        string Label { get; set; }
+        string NextStepText { get; set; }
 
         /// <summary>
         /// Gets or sets the text of the previous button

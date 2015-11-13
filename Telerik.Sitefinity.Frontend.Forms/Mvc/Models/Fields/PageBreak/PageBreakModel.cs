@@ -1,24 +1,23 @@
 ﻿using Telerik.Sitefinity.Frontend.Forms.Mvc.StringResources;
 using Telerik.Sitefinity.Localization;
 
-namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Models.Fields.SubmitButton
+namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Models.Fields.PageBreak
 {
     /// <summary>
-    /// Implements API for working with form submit button.
+    /// Implements API for working with form PageBreak fields.
     /// </summary>
-    public class SubmitButtonModel : FormElementModel, ISubmitButtonModel
+    public class PageBreakModel : FormElementModel, IPageBreakModel
     {
         /// <inheritDocs />
-        public string Label
+        public string NextStepText
         {
             get
             {
-                return this.label;
+                return this.nextStepText;
             }
-
             set
             {
-                this.label = value;
+                this.nextStepText = value;
             }
         }
 
@@ -29,14 +28,14 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Models.Fields.SubmitButton
             {
                 return this.previousStepText;
             }
-            set
+            set 
             {
                 this.previousStepText = value;
             }
         }
 
         /// <inheritDocs />
-        public bool AllowGoBack
+        public bool AllowGoBack 
         {
             get
             {
@@ -51,18 +50,16 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Models.Fields.SubmitButton
         /// <inheritDocs />
         public override object GetViewModel(object value)
         {
-            var viewModel = new SubmitButtonViewModel()
+            return new PageBreakViewModel()
             {
-                Label = this.Label,
+                NextStepText = this.NextStepText,
                 PreviousStepText = this.PreviousStepText,
                 AllowGoBack = this.AllowGoBack,
                 CssClass = this.CssClass
             };
-
-            return viewModel;
         }
 
-        private string label = Res.Get<FieldResources>().SubmitButtonLabel;
+        private string nextStepText = Res.Get<FieldResources>().NextStepText;
         private string previousStepText = Res.Get<FieldResources>().PreviousStepText;
         private bool allowGoBack = false;
     }
