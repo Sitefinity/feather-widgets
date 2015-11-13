@@ -154,7 +154,7 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Controllers
                 if (currentPage == null)
                 {
                     string pageTitle = Res.Get<FieldResources>().PageName + (i + 2);
-                    var newPage = new FormPage() { Title = pageTitle, PreviousPageBreakId = pageBreakControlIds[i].ToString() };
+                    var newPage = new FormPage() { Title = pageTitle, PreviousPageBreakId = pageBreakControlIds[i].ToString(), Index = i + 1 };
                     pages.Add(newPage);
 
                     // A page has been added
@@ -162,6 +162,12 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Controllers
                 }
                 else
                 {
+                    if (currentPage.Index != i + 1)
+                    {
+                        currentPage.Index = i + 1;
+                        changesMade = true;
+                    }
+
                     pages.Add(currentPage);
                 }
             }
@@ -172,19 +178,7 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Controllers
                 if (pages.Count != deserializedPages.Count)
                 {
                     changesMade = true;
-                }
-                else
-                {
-                    // Check if index of a page has been changed
-                    for (int i = 0; i < pages.Count; i++)
-                    {
-                        if (pages[i] != deserializedPages[i])
-                        {
-                            changesMade = true;
-                            break;
-                        }
-                    }
-                }
+                }                
             }
 
             this.Model.SerializedPages = JsonSerializer.SerializeToString(pages);

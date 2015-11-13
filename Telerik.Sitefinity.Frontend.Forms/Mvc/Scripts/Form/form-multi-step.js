@@ -21,13 +21,33 @@
             formStepsContainers.first().find('[data-sf-btn-role="prev"]').hide();
             formStepsContainers.last().find('[data-sf-btn-role="next"]').hide();
 
+            var navigationFieldContainers = formElement.find('[data-sf-role="navigation-field-container"]');
+
+            var updateNavigationFields = function (navigationElements, index) {
+
+                navigationElements.each(function (navIndex, navigationElement) {
+                    var pages = $(navigationElement).find('[data-sf-navigation-index]');
+                    pages.each(function (i, page) {
+                        var pageIndex = $(page).data("sfNavigationIndex");
+                        if (pageIndex !== index) {
+                            $(page).removeClass("active");
+                        } else {
+                            $(page).addClass("active");
+                        }
+                    });
+                });
+            };
+
+            // Initialize navigation fields
+            updateNavigationFields(navigationFieldContainers, formStepIndex);
+
             var tryGoToNextStep = function (currentStepContainer, continueFunction) {
                 var formContainer = $(currentStepContainer);
                 stepNewForm = formContainer.parent().is('form') ? formContainer.parent() : formContainer.parent().find('form');
                 if (stepNewForm.length === 0) {
                     formContainer.wrap('<form />');
                     stepNewForm = formContainer.parent();
-                } 
+                }
 
                 stepNewForm.one('submit', function (e) {
                     e.preventDefault();
@@ -55,7 +75,7 @@
                 });
 
                 submitButton = formContainer.find('button[type="submit"],input[type="submit"]');
-                
+
                 if (submitButton.length === 0) {
                     // If we do not have submit button in this step we need to add a hidden submit button in order to click it and trigger the native HTML 5
                     // browser validation
@@ -76,6 +96,7 @@
                     currentStepContainer.hide();
                     formStepIndex++;
                     $(formStepsContainers[formStepIndex]).show();
+                    updateNavigationFields(navigationFieldContainers, formStepIndex);
                 });
             });
 
@@ -86,6 +107,7 @@
                 $(e.target).closest('.separator').hide();
                 formStepIndex--;
                 $(formStepsContainers[formStepIndex]).show();
+                updateNavigationFields(navigationFieldContainers, formStepIndex);
             });
         });
     });
