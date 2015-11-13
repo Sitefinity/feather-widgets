@@ -16,8 +16,8 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Models.Fields.NavigationField
         public string Title { get; set; }
 
         /// <summary>
-        /// Gets or sets value indicating whether this is the currently selected page
+        /// Gets or sets index of current page
         /// </summary>
-        public bool IsCurrent { get; set; }
+        public int Index { get; set; }
     }
 }

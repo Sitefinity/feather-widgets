@@ -6,6 +6,6 @@
 <div class="@Model.CssClass" data-sf-role="navigation-field-container">
     @foreach (var page in Model.Pages)
     {
-        <span>@Html.Raw(page.Title)</span>
+        <span class="form-navbar-header" data-sf-navigation-index="@page.Index">@Html.Raw(page.Title)</span>
     }
 </div>

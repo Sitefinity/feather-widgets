@@ -19,7 +19,7 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Models.Fields.NavigationField
                 if (this.serializedPages == null)
                 {
                     string defaultPageTitle = Res.Get<FieldResources>().PageName + "1";
-                    var defaultPage = new FormPage() { Title = defaultPageTitle, IsCurrent = true };
+                    var defaultPage = new FormPage() { Title = defaultPageTitle, Index = 0 };
                     IEnumerable<FormPage> defaultPages = new FormPage[] { defaultPage };
                     this.serializedPages = JsonSerializer.SerializeToString(defaultPages);
                 }
