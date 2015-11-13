@@ -1,12 +1,16 @@
 ﻿using System;
 using System.IO;
 using System.Linq;
+using System;
 using System.Text;
 using System.Web.Hosting;
 using System.Web.UI;
 using Telerik.Sitefinity.Forms.Model;
 using Telerik.Sitefinity.Frontend.Forms.Mvc.Controllers;
+using Telerik.Sitefinity.Frontend.Forms.Mvc.Helpers;
 using Telerik.Sitefinity.Mvc.Proxy;
+using Telerik.Sitefinity.Modules.Forms.Web.UI.Fields;
+
 
 namespace Telerik.Sitefinity.Frontend.Forms
 {
@@ -26,7 +30,7 @@ namespace Telerik.Sitefinity.Frontend.Forms
             }
 
             var formControlsArray = form.Controls.ToArray();
-            var isMultiPageForm = formControlsArray.Any(c => c.Caption.Equals("Page break"));
+            var isMultiPageForm = formControlsArray.Any(c => (c.GetControlType().ImplementsInterface(typeof(IFormPageBreak))));
             StringBuilder formControlsMarkup = new StringBuilder();
             formControlsMarkup.Append(this.GetFieldsMarkup("Body", formControlsArray));
 
@@ -48,7 +52,10 @@ namespace Telerik.Sitefinity.Frontend.Forms
             if (controlInstance is MvcProxyBase)
             {
                 var controlInstanceString = string.Format("@Html.FormController(new Guid(\"{0}\"), (FormViewMode)Model.ViewMode, null)", controlDataId.ToString("D"));
-                if (((MvcProxyBase)controlInstance).ControllerName.Equals(typeof(PageBreakController).FullName))
+                var controllerName = ((MvcProxyBase)controlInstance).ControllerName;
+                var controlType = Telerik.Sitefinity.Utilities.TypeConverters.TypeResolutionService.ResolveType(controllerName, throwOnError: false);
+
+                if (controlType.ImplementsInterface(typeof(IFormPageBreak)))
                 {
                     controlInstanceString += string.Concat(this.pageBreakSeparatorEnd, this.pageBreakSeparatorBegin);
                 }

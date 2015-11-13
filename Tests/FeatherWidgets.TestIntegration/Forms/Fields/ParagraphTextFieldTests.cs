@@ -1,27 +1,26 @@
-﻿using System;
-using System.Linq;
-using System.Web;
+﻿using System.Linq;
 using System.Web.Mvc;
 using FeatherWidgets.TestUtilities.CommonOperations;
 using MbUnit.Framework;
-using Telerik.Sitefinity.Forms.Model;
 using Telerik.Sitefinity.Frontend.Forms.Mvc.Controllers;
+using Telerik.Sitefinity.Frontend.Forms.Mvc.StringResources;
 using Telerik.Sitefinity.Frontend.Mvc.Infrastructure.Controllers;
 using Telerik.Sitefinity.Frontend.TestUtilities;
 using Telerik.Sitefinity.Frontend.TestUtilities.CommonOperations;
+using Telerik.Sitefinity.Localization;
 using Telerik.Sitefinity.Model;
 using Telerik.Sitefinity.Modules.Forms;
 using Telerik.Sitefinity.Modules.Pages;
 using Telerik.Sitefinity.Mvc.Proxy;
-using Telerik.Sitefinity.Services;
 using Telerik.Sitefinity.TestIntegration.SDK.DevelopersGuide.SitefinityEssentials.Modules.Forms;
 
 namespace FeatherWidgets.TestIntegration.Forms.Fields
 {
     /// <summary>
-    /// This class contains ensures ParagraphTextField functionalities work correctly.
+    /// This class ensures ParagraphTextField functionalities work correctly.
     /// </summary>
     [TestFixture]
+    [Description("This class ensures ParagraphTextField functionalities work correctly.")]
     public class ParagraphTextFieldTests
     {
         /// <summary>
@@ -95,21 +94,9 @@ namespace FeatherWidgets.TestIntegration.Forms.Fields
 
                 var pageId = FeatherServerOperations.Pages().CreatePageWithTemplate(template, "ParagraphTextFieldValueTest", "paragraph-text-field-submit-value-test");
                 ServerOperationsFeather.Forms().AddFormControlToPage(pageId, formId);
-                var pageDataId = pageManager.GetPageNode(pageId).GetPageData().Id;
-                var paragraphTextFieldControlData = form.Controls.Where(c => c.PlaceHolder == "Body" && !c.IsLayoutControl).FirstOrDefault();
-                var mvcFieldProxy = formManager.LoadControl(paragraphTextFieldControlData) as MvcWidgetProxy;
 
-                var paragraphTextField = mvcFieldProxy.Controller as ParagraphTextFieldController;
-                Assert.IsNotNull(paragraphTextField, "The paragraph text field was not found.");
-
-                var paragraphTextFieldName = paragraphTextField.MetaField.FieldName;
-                var formCollection = new FormCollection();
-                formCollection.Add(paragraphTextFieldName, SubmitedParagraphValue);
-                var formControllerProxy = pageManager.LoadPageControls<MvcControllerProxy>(pageDataId).Where(contr => contr.Controller.GetType() == typeof(FormController)).FirstOrDefault();
-                var formController = formControllerProxy.Controller as FormController;
-                formController.ControllerContext = new ControllerContext();
-                formController.ControllerContext.HttpContext = new HttpContextWrapper(HttpContext.Current);
-                formController.Index(formCollection);
+                var paragraphTextFieldName = ServerOperationsFeather.Forms().GetFirstFieldName(formManager, form);
+                ServerOperationsFeather.Forms().SubmitField(paragraphTextFieldName, SubmitedParagraphValue, pageManager, pageId);
 
                 var formEntry = formManager.GetFormEntries(form).LastOrDefault();
                 Assert.IsNotNull(formEntry, "Form entry has not been submitted.");
@@ -154,23 +141,12 @@ namespace FeatherWidgets.TestIntegration.Forms.Fields
 
                 var pageId = FeatherServerOperations.Pages().CreatePageWithTemplate(template, "ParagraphTextFieldValidationTest", "paragraph-text-field-validation-test");
                 ServerOperationsFeather.Forms().AddFormControlToPage(pageId, formId);
-                var pageDataId = pageManager.GetPageNode(pageId).GetPageData().Id;
-                var paragraphTextFieldControlData = form.Controls.Where(c => c.PlaceHolder == "Body" && !c.IsLayoutControl).FirstOrDefault();
-                var mvcFieldProxy = formManager.LoadControl(paragraphTextFieldControlData) as MvcWidgetProxy;
-
-                var paragraphTextField = mvcFieldProxy.Controller as ParagraphTextFieldController;
-                Assert.IsNotNull(paragraphTextField, "The paragraph text field was not found.");
-
-                var paragraphTextFieldName = paragraphTextField.MetaField.FieldName;
-                var formCollection = new FormCollection();
-                formCollection.Add(paragraphTextFieldName, string.Empty);
-                var formControllerProxy = pageManager.LoadPageControls<MvcControllerProxy>(pageDataId).Where(contr => contr.Controller.GetType() == typeof(FormController)).FirstOrDefault();
-                var formController = formControllerProxy.Controller as FormController;
-                formController.ControllerContext = new ControllerContext();
-                formController.ControllerContext.HttpContext = new HttpContextWrapper(HttpContext.Current);
-
-                formController.Index(formCollection);
-                Assert.IsFalse((bool)formController.TempData["sfSubmitSuccess"], "The Submit result was not correct");
+                
+                var paragraphTextFieldName = ServerOperationsFeather.Forms().GetFirstFieldName(formManager, form);
+                var result = ServerOperationsFeather.Forms().SubmitField(paragraphTextFieldName, string.Empty, pageManager, pageId);
+                var contentResult = result as ContentResult;
+                Assert.IsNotNull(contentResult, "Submit should return content result.");
+                Assert.AreEqual(Res.Get<FormResources>().UnsuccessfullySubmittedMessage, contentResult.Content, "The Submit didn't result in error as expected!");
                 
                 var formEntry = formManager.GetFormEntries(form).LastOrDefault();
                 Assert.IsNull(formEntry, "Form entry has been submitted even when the form is not valid.");
