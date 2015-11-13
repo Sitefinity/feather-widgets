@@ -7,7 +7,6 @@ using System.Threading.Tasks;
 using ArtOfTest.WebAii.Core;
 using Feather.Widgets.TestUI.Framework;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Telerik.Sitefinity.Frontend.TestUtilities;
 using Telerik.Sitefinity.TestUI.Framework.Framework.Wrappers.Backend.PageTemplates;
 using Telerik.Sitefinity.TestUI.Framework.Utilities;
 using Telerik.Sitefinity.TestUI.Framework.Wrappers.Backend.PageEditor;
