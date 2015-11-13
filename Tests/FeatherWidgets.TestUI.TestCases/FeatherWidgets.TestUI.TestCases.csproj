@@ -58,10 +58,6 @@
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
-    <Reference Include="Telerik.Sitefinity.Frontend.TestUtilities">
-      <HintPath>packages\Telerik.Sitefinity.Frontend.TestUtilities.1.3.330.1\lib\net45\Telerik.Sitefinity.Frontend.TestUtilities.dll</HintPath>
-      <SpecificVersion>False</SpecificVersion>
-    </Reference>
     <Reference Include="Telerik.Sitefinity.MS.TestUI.Framework, Version=1.1.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>packages\Telerik.Sitefinity.MS.TestUI.Framework.1.1.0\lib\net45\Telerik.Sitefinity.MS.TestUI.Framework.dll</HintPath>
       <Private>True</Private>
@@ -202,6 +198,7 @@
     <Compile Include="EmailCampaigns\TryToUnsubscribeNotExistingSubscriber.cs" />
     <Compile Include="EmailCampaigns\UnsubscribeWidgetOnFoundationAndSemanticPage.cs" />
     <Compile Include="EmailCampaigns\UnsubscribeWidgetOnHybridPageAndSetCssClass.cs" />
+    <Compile Include="FeatherTeams.cs" />
     <Compile Include="FeedWidget\DragAndDropFeedWidgetAndSetDefaultRssOnPage.cs" />
     <Compile Include="Forms\DeleteFormFieldInUseVerityFrontend.cs" />
     <Compile Include="Forms\DeleteFormInUseVerifyFrontendHybrid.cs" />
