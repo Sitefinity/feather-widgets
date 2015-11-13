@@ -22,7 +22,7 @@ namespace FeatherWidgets.TestUI.Arrangements
         {
             ServerOperations.Comments().AllowComments(ThreadType, true);
 
-            NotificationsTestHelper.ResetDummySmtpSenderData(profileName: SubscribeUserForCommentsNotificationAndVerifyReceivedEmail.NotificationsProfileName);
+            Telerik.Sitefinity.TestUtilities.Services.Notifications.NotificationsTestHelper.ResetDummySmtpSenderData(profileName: SubscribeUserForCommentsNotificationAndVerifyReceivedEmail.NotificationsProfileName);
             ServerOperations.Comments().SetCommentsNotificationProfile(SubscribeUserForCommentsNotificationAndVerifyReceivedEmail.NotificationsProfileName);
 
             Guid templateId = Telerik.Sitefinity.TestUtilities.CommonOperations.ServerOperations.Templates().GetTemplateIdByTitle(PageTemplateName);
@@ -62,7 +62,7 @@ namespace FeatherWidgets.TestUI.Arrangements
         {
             AuthenticationHelper.AuthenticateUser("admin", "admin@2", true);
             ServerOperations.Comments().SetCommentsNotificationProfile("Default");
-            NotificationsTestHelper.ResetDummySmtpSenderData(profileName: SubscribeUserForCommentsNotificationAndVerifyReceivedEmail.NotificationsProfileName, cleanOnly: true);
+            Telerik.Sitefinity.TestUtilities.Services.Notifications.NotificationsTestHelper.ResetDummySmtpSenderData(profileName: SubscribeUserForCommentsNotificationAndVerifyReceivedEmail.NotificationsProfileName, cleanOnly: true);
 
             ServerOperations.Pages().DeleteAllPages();
             var siteID = ServerOperations.Comments().GetCurrentSiteId.ToString();
