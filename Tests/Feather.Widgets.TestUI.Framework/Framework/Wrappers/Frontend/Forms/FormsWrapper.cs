@@ -32,6 +32,14 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Frontend.Forms
         }
 
         /// <summary>
+        /// Verify if checkboxes field label is NOT visible
+        /// </summary>
+        public void VerifyCheckboxesFieldLabelIsNotVisible(string fieldLabel)
+        {
+            Assert.IsFalse(EM.Forms.FormsFrontend.CheckboxesField.InnerText.Contains(fieldLabel));
+        }
+
+        /// <summary>
         /// Verify if multiple choice field label is visible
         /// </summary>
         public void VerifyMultipleChoiceFieldLabelIsVisible(string fieldLabel)
@@ -65,12 +73,39 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Frontend.Forms
         }
 
         /// <summary>
+        /// Verify if text field is visible
+        /// </summary>
+        public void VerifyTextFieldlIsVisibleHybrid()
+        {
+            Assert.IsNotNull(EM.Forms.FormsFrontend.TextboxFieldHybrid, "Text field is not");
+            Assert.IsTrue(EM.Forms.FormsFrontend.TextboxFieldHybrid.IsVisible(), "The text input field is not visible");
+        }
+
+        /// <summary>
+        /// Verify if Submit button is Not visible
+        /// </summary>
+        public void VerifySubmitButtonIsVisible()
+        {
+            Assert.IsTrue(EM.Forms.FormsFrontend.SubmitButton.IsVisible(), "The submit button is not visible");
+        }
+              
+        /// <summary>
+        /// Verify the delete form in use message is shown on the frontend
+        /// </summary>
+        public void VerifyMessageIsDisplayedAfterFormIsDeleted()
+        {
+            var message = EM.Forms.FormsFrontend.DeleteFormInUseMessage;
+            Assert.AreEqual(message.InnerText, "The specified form no longer exists or is currently unpublished.");
+            Assert.IsTrue(message.IsVisible(), String.Format("Total amount {0} was not found", message.InnerText));
+        }
+
+        /// <summary>
         /// Sets the TextBox Content in the Frontend of the form
         /// </summary>
         public void SetTextboxContent(string content)
         {
             HtmlInputText textbox = this.EM.Forms.FormsFrontend.TextField.AssertIsPresent("Text field");
-            textbox.SimulateTextTyping(content, Telerik.TestUI.Core.WebAii.Tools.UserInput.SimulationType.LastKeyStroke);
+            Manager.Current.Desktop.KeyBoard.TypeText(content);
         }
 
         /// <summary>
@@ -84,7 +119,7 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Frontend.Forms
         }
 
         /// <summary>
-        /// Clicks the submit button in the frontend of the form
+        /// Clicks the submit button in the frontend of the form and checks the succsess message
         /// </summary>
         public void SubmitForm()
         {
@@ -95,11 +130,35 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Frontend.Forms
         }
 
         /// <summary>
+        /// Clicks the submit button multiple times in the frontend of the form
+        /// </summary>
+        /// <param name="count">The count.</param>
+        public void MultipleSubmitForm(int count)
+        {
+            HtmlButton submitButton = EM.Forms.FormsFrontend.SubmitButton;
+            for (int i = 0; i < count; i++)
+            {
+                submitButton.MouseClick();
+            }
+
+            this.WaitForSuccessMessage();
+        }
+            
+        /// <summary>
         /// Wait for success message after the form is submitted
         /// </summary>
         public void WaitForSuccessMessage()
         {
             var successMsg = ActiveBrowser.Find.AssociatedBrowser.GetControl<HtmlDiv>("tagname=div", "innertext=Success! Thanks for filling out our form!");
+        }
+
+        /// <summary>
+        /// Clicks the submit button in the frontend of the form
+        /// </summary>
+        public void ClickSubmit()
+        {
+            HtmlButton submitButton = EM.Forms.FormsFrontend.SubmitButton;
+            submitButton.MouseClick();
         }
 
         /// <summary>
@@ -129,6 +188,22 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Frontend.Forms
             dropdown.SelectByText(choice);
             dropdown.AsjQueryControl().InvokejQueryEvent(jQueryControl.jQueryControlEvents.click);
             dropdown.AsjQueryControl().InvokejQueryEvent(jQueryControl.jQueryControlEvents.change);
+        }
+
+        /// <summary>
+        /// Verify details news page URL
+        /// </summary>
+        public void VerifyPageUrl(string pageName)
+        {
+            Assert.IsTrue(ActiveBrowser.Url.EndsWith(pageName.ToLower()));
+        }
+
+        /// <summary>
+        /// Verify Checkboxes widget is deleted or Null
+        /// </summary>
+        public void VerifyCheckboxesFieldIsNotVisible()
+        {
+            Assert.IsNull(EM.Forms.FormsFrontend.CheckboxesField, "Checkboxes field is still visible at the frontend");
         }
     }
 }

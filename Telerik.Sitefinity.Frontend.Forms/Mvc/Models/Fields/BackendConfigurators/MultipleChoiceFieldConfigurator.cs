@@ -23,7 +23,7 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Models.Fields.BackendConfigurato
         }
 
         /// <inheritDocs/>
-        public void Configure(FieldControl backendControl, IFormFieldController<IFormFieldModel> formFieldController)
+        public void Configure(ref FieldControl backendControl, IFormFieldController<IFormFieldModel> formFieldController)
         {
             var multipleChoiceFieldModel = (IMultipleChoiceFieldModel)formFieldController.Model;
             var choices = multipleChoiceFieldModel.DeserializeChoices();
@@ -34,6 +34,8 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Models.Fields.BackendConfigurato
             {
                 choiceFieldControl.Choices.Add(new Web.UI.Fields.ChoiceItem() { Text = choice, Value = choice });
             }
+
+            choiceFieldControl.EnableAddOther = multipleChoiceFieldModel.HasOtherChoice;
         }
     }
 }

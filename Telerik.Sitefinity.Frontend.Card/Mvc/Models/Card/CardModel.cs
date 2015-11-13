@@ -49,7 +49,7 @@ namespace Telerik.Sitefinity.Frontend.Card.Mvc.Models.Card
         public string Heading { get; set; }
 
         /// <inheritdoc />
-        public CardViewModel GetViewModel()
+        public virtual CardViewModel GetViewModel()
         {
             var viewModel = new CardViewModel()
             {

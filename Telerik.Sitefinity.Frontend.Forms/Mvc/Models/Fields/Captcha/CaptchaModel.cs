@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Reflection;
 using System.Web;
+using Telerik.Sitefinity.Localization;
 using Telerik.Sitefinity.Services;
 using Telerik.Sitefinity.Services.Comments.DTO;
 using Telerik.Sitefinity.Web;
@@ -94,7 +95,12 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Models.Fields.Captcha
             var validateMethodInfo = commentWebServiceType.GetMethod("Validate", BindingFlags.NonPublic | BindingFlags.Instance, null, new Type[] { typeof(CaptchaInfo) }, null);
 
             var captchaInfo = new CaptchaInfo() { Answer = answer, CorrectAnswer = correctAnswer, InitializationVector = initializationVector, Key = key };
-            var result = validateMethodInfo.Invoke(commentWebServiceInstance, new object[] { captchaInfo }) as bool?;
+            bool? result;
+            // Workaround culture issues in the Captcha validation. Remove this region for Sitefinity 9.0.
+            using (new CultureRegion(System.Globalization.CultureInfo.InvariantCulture))
+            {
+                result = validateMethodInfo.Invoke(commentWebServiceInstance, new object[] { captchaInfo }) as bool?;
+            }
 
             return result.HasValue && result.Value;
         }

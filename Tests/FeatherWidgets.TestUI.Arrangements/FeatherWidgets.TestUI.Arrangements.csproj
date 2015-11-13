@@ -153,22 +153,25 @@
       <Private>True</Private>
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="Telerik.Sitefinity.Frontend.TestUtilities, Version=1.4.360.0, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="Telerik.Sitefinity.Frontend.TestUtilities, Version=1.4.390.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Telerik.Sitefinity.Frontend.TestUtilities.1.4.390.0\lib\net45\Telerik.Sitefinity.Frontend.TestUtilities.dll</HintPath>
+      <Private>True</Private>
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\packages\Telerik.Sitefinity.Frontend.TestUtilities.1.4.360.0\lib\net45\Telerik.Sitefinity.Frontend.TestUtilities.dll</HintPath>
     </Reference>
     <Reference Include="Telerik.Sitefinity.Model, Version=8.2.5900.0, Culture=neutral, PublicKeyToken=b28c218413bdf563, processorArchitecture=MSIL">
       <HintPath>..\..\packages\Telerik.Sitefinity.Core.8.2.5900.0\lib\net40\Telerik.Sitefinity.Model.dll</HintPath>
       <Private>True</Private>
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="Telerik.Sitefinity.Mvc, Version=1.4.360.0, Culture=neutral, PublicKeyToken=b28c218413bdf563, processorArchitecture=MSIL">
+    <Reference Include="Telerik.Sitefinity.Mvc, Version=1.4.390.0, Culture=neutral, PublicKeyToken=b28c218413bdf563, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Telerik.Sitefinity.Mvc.1.4.390.0\lib\net45\Telerik.Sitefinity.Mvc.dll</HintPath>
+      <Private>True</Private>
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\packages\Telerik.Sitefinity.Mvc.1.4.360.0\lib\net45\Telerik.Sitefinity.Mvc.dll</HintPath>
     </Reference>
-    <Reference Include="Telerik.Sitefinity.Mvc.TestUtilities, Version=1.4.360.0, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="Telerik.Sitefinity.Mvc.TestUtilities, Version=1.4.390.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Telerik.Sitefinity.Mvc.TestUtilities.1.4.390.0\lib\net45\Telerik.Sitefinity.Mvc.TestUtilities.dll</HintPath>
+      <Private>True</Private>
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\packages\Telerik.Sitefinity.Mvc.TestUtilities.1.4.360.0\lib\net45\Telerik.Sitefinity.Mvc.TestUtilities.dll</HintPath>
     </Reference>
     <Reference Include="Telerik.Sitefinity.Personalization, Version=8.2.5900.0, Culture=neutral, PublicKeyToken=b28c218413bdf563, processorArchitecture=MSIL">
       <HintPath>..\..\packages\Telerik.Sitefinity.Core.8.2.5900.0\lib\net40\Telerik.Sitefinity.Personalization.dll</HintPath>
@@ -212,6 +215,7 @@
     </Reference>
     <Reference Include="Telerik.Sitefinity.TestArrangementService.Attributes">
       <HintPath>..\..\packages\Telerik.Sitefinity.TestArrangementService.Attributes.1.0.9\lib\net40\Telerik.Sitefinity.TestArrangementService.Attributes.dll</HintPath>
+      <SpecificVersion>False</SpecificVersion>
     </Reference>
     <Reference Include="Telerik.Sitefinity.TestUtilities, Version=8.2.5900.0, Culture=neutral, PublicKeyToken=b28c218413bdf563, processorArchitecture=MSIL">
       <HintPath>..\..\packages\Telerik.Sitefinity.TestUtilities.8.2.5900.0\lib\net45\Telerik.Sitefinity.TestUtilities.dll</HintPath>
@@ -220,6 +224,7 @@
     </Reference>
     <Reference Include="Telerik.Sitefinity.TestArrangementService.Core">
       <HintPath>..\..\packages\Telerik.Sitefinity.TestArrangementService.Core.1.0.9\lib\net40\Telerik.Sitefinity.TestArrangementService.Core.dll</HintPath>
+      <SpecificVersion>False</SpecificVersion>
     </Reference>
     <Reference Include="Telerik.Sitefinity.Utilities, Version=8.2.5900.0, Culture=neutral, PublicKeyToken=b28c218413bdf563, processorArchitecture=MSIL">
       <HintPath>..\..\packages\Telerik.Sitefinity.Core.8.2.5900.0\lib\net40\Telerik.Sitefinity.Utilities.dll</HintPath>
@@ -321,6 +326,13 @@
     <Compile Include="EmailCampaigns\UnsubscribeWidgetOnFoundationAndSemanticPage.cs" />
     <Compile Include="EmailCampaigns\UnsubscribeWidgetOnHybridPageAndSetCssClass.cs" />
     <Compile Include="FeedWidget\DragAndDropFeedWidgetAndSetDefaultRssOnPage.cs" />
+    <Compile Include="Forms\DeleteFormFieldInUseVerityFrontend.cs" />
+    <Compile Include="Forms\PublishUnpublishFormInUseVerifyFrontend.cs" />
+    <Compile Include="Forms\DeleteFormInUseVerifyFrontendHybrid.cs" />
+    <Compile Include="Forms\DeleteFormInUseVerifyFrontend.cs" />
+    <Compile Include="Forms\PublishUnpublishFormInUseVerifyFrontendHybrid.cs" />
+    <Compile Include="Forms\SetRequiredTextboxField.cs" />
+    <Compile Include="Forms\PostFormMultipleTimesWhilePageLoadingAndVerifyOnlyOneResponseInBackend.cs" />
     <Compile Include="Forms\ViewFormWithCheckboxesFieldOnPageAndVerifyResponseInBackend.cs" />
     <Compile Include="Forms\ViewFormWithContentBlockOnPageAndVerifyResponseInBackend.cs" />
     <Compile Include="Forms\ViewFormWithMultipleChoiceFieldOnPageAndVerifyResponseInBackend.cs" />

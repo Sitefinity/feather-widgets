@@ -73,17 +73,20 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Models.Fields
 
                     if (newControl is FieldControl)
                     {
-                        ((FieldControl)newControl).Title = formField.MetaField.Title;
+                        var newFieldControl = (FieldControl)newControl;
+                        newFieldControl.Title = formField.MetaField.Title;
                         var fieldController = formField as IFormFieldController<IFormFieldModel>;
                         if (fieldController != null)
                         {
-                            ((FieldControl)newControl).ValidatorDefinition = fieldController.Model.ValidatorDefinition;
+                            newFieldControl.ValidatorDefinition = fieldController.Model.ValidatorDefinition;
                             if (fieldConfiguration.FieldConfigurator != null)
                             {
                                 fieldConfiguration.FieldConfigurator.FormId = formId;
-                                fieldConfiguration.FieldConfigurator.Configure((FieldControl)newControl, fieldController);
+                                fieldConfiguration.FieldConfigurator.Configure(ref newFieldControl, fieldController);
                             }
                         }
+
+                        return newFieldControl;
                     }
 
                     return (Control)newControl;

@@ -153,6 +153,7 @@ namespace FeatherWidgets.TestIntegration.DynamicWidgets
         [FixtureTearDown]
         public void Teardown()
         {
+            Telerik.Sitefinity.Mvc.TestUtilities.CommonOperations.AuthenticationHelper.AuthenticateUser("admin", "admin@2");
             Telerik.Sitefinity.TestUtilities.CommonOperations.ServerOperations.ModuleBuilder().DeleteAllModules(string.Empty, TransactionName);
         }
 
