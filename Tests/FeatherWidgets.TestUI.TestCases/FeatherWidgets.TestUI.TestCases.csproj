@@ -205,6 +205,7 @@
     <Compile Include="FeedWidget\DragAndDropFeedWidgetAndSetDefaultRssOnPage.cs" />
     <Compile Include="Forms\DeleteFormFieldInUseVerityFrontend.cs" />
     <Compile Include="Forms\DeleteFormInUseVerifyFrontendHybrid.cs" />
+    <Compile Include="Forms\EditFormSaveDraftThenPublishVerifyFrontend.cs" />
     <Compile Include="Forms\PublishUnpublishFormInUseVerifyFrontend.cs" />
     <Compile Include="Forms\PublishUnpublishFormInUseVerifyFrontendHybrid.cs" />
     <Compile Include="Forms\SetRequiredTextboxField.cs" />
