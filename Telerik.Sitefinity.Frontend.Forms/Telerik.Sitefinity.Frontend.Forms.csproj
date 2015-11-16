@@ -376,6 +376,10 @@
   <ItemGroup>
     <EmbeddedResource Include="Mvc\Scripts\PageBreak\page-break.js" />
   </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="assets\dist\css\sf-form-nav.css" />
+    <EmbeddedResource Include="assets\dist\css\sf-form-nav.min.css" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="$(SolutionDir)\.nuget\NuGet.targets" Condition="Exists('$(SolutionDir)\.nuget\NuGet.targets')" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

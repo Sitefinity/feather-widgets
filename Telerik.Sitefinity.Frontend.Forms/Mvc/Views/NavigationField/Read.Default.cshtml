@@ -3,9 +3,17 @@
 @using Telerik.Sitefinity.Frontend.Mvc.Helpers;
 @using Telerik.Sitefinity.Modules.Pages;
 
+@Html.StyleSheet(Url.WidgetContent("assets/dist/css/sf-form-nav.min.css"), "head", false)
+
 <div class="@Model.CssClass" data-sf-role="navigation-field-container">
-    @foreach (var page in Model.Pages)
-    {
-        <span class="form-navbar-header" data-sf-navigation-index="@page.Index">@Html.Raw(page.Title)</span>
+     <ul class="sf-FormNav">
+    @{
+        var pageCounter = 0;
+        foreach (var page in Model.Pages)
+        {
+            pageCounter++; 
+           <li data-sf-navigation-index="@page.Index"><span class="sf-FormNav-page">@pageCounter </span>@Html.Raw(page.Title)</li>
+        }
     }
+    </ul>
 </div>
