@@ -4,7 +4,8 @@
 
     $(function () {
         var formContainers = $('[data-sf-role="form-container"]');
-        formContainers.each(function (i, element) {
+
+        var initializeFormContainer = function (element) {
             var formElement = $(element);
             var formStepsContainers = formElement.find('.separator');
             var formStepIndex = 0;
@@ -43,9 +44,9 @@
 
             var tryGoToNextStep = function (currentStepContainer, continueFunction) {
                 var formContainer = $(currentStepContainer);
-                stepNewForm = formContainer.parent().is('form') ? formContainer.parent() : formContainer.parent().find('form');
+                stepNewForm = $('form#stepNewForm');
                 if (stepNewForm.length === 0) {
-                    formContainer.wrap('<form />');
+                    formContainer.wrap('<form id="stepNewForm"></form>');
                     stepNewForm = formContainer.parent();
                 }
 
@@ -109,6 +110,19 @@
                 $(formStepsContainers[formStepIndex]).show();
                 updateNavigationFields(navigationFieldContainers, formStepIndex);
             });
+        };
+
+        formContainers.each(function (i, element) {
+            initializeFormContainer(element);
         });
+
+        // This implementation is only for the Form preview mode 
+        var isPreviewMode = window.location.href.indexOf("/Preview") !== -1;
+        if (formContainers.length === 0 && isPreviewMode) {
+            var separator = $('.separator');
+            if (separator.length > 0) {
+                initializeFormContainer(separator.parent());
+            }
+        }
     });
 })(jQuery);
