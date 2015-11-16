@@ -58,9 +58,9 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Controllers
         /// <returns></returns>
         public override ActionResult Write(object value)
         {
-            if (SystemManager.HttpContextItems["ControlId"] != null)
+            if (SystemManager.HttpContextItems[FormDraftControl.ControlIdKey] != null)
             {
-                var controlId = (Guid)SystemManager.HttpContextItems["ControlId"];
+                var controlId = (Guid)SystemManager.HttpContextItems[FormDraftControl.ControlIdKey];
                 this.UpdatePages(controlId);
             }
 
@@ -181,7 +181,10 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Controllers
                 }                
             }
 
-            this.Model.SerializedPages = JsonSerializer.SerializeToString(pages);
+            if (changesMade)
+            {
+                this.Model.SerializedPages = JsonSerializer.SerializeToString(pages);
+            }
         }
 
         /// <summary>
