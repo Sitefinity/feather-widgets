@@ -22,26 +22,6 @@
             formStepsContainers.first().find('[data-sf-btn-role="prev"]').hide();
             formStepsContainers.last().find('[data-sf-btn-role="next"]').hide();
 
-            var navigationFieldContainers = formElement.find('[data-sf-role="navigation-field-container"]');
-
-            var updateNavigationFields = function (navigationElements, index) {
-
-                navigationElements.each(function (navIndex, navigationElement) {
-                    var pages = $(navigationElement).find('[data-sf-navigation-index]');
-                    pages.each(function (i, page) {
-                        var pageIndex = $(page).data("sfNavigationIndex");
-                        if (pageIndex !== index) {
-                            $(page).removeClass("active");
-                        } else {
-                            $(page).addClass("active");
-                        }
-                    });
-                });
-            };
-
-            // Initialize navigation fields
-            updateNavigationFields(navigationFieldContainers, formStepIndex);
-
             var tryGoToNextStep = function (currentStepContainer, continueFunction) {
                 var formContainer = $(currentStepContainer);
                 stepNewForm = $('form#stepNewForm');
@@ -94,10 +74,11 @@
 
                 var currentStepContainer = $(e.target).closest('.separator');
                 tryGoToNextStep(currentStepContainer, function () {
+                    var previousIndex = formStepIndex;
                     currentStepContainer.hide();
                     formStepIndex++;
                     $(formStepsContainers[formStepIndex]).show();
-                    updateNavigationFields(navigationFieldContainers, formStepIndex);
+                    formElement.trigger("form-page-changed", [formStepIndex, previousIndex]);
                 });
             });
 
@@ -105,10 +86,11 @@
             separatorsPrev.click(function (e) {
                 e.preventDefault();
 
+                var previousIndex = formStepIndex;
                 $(e.target).closest('.separator').hide();
                 formStepIndex--;
                 $(formStepsContainers[formStepIndex]).show();
-                updateNavigationFields(navigationFieldContainers, formStepIndex);
+                formElement.trigger("form-page-changed", [formStepIndex, previousIndex]);
             });
         };
 
