@@ -134,8 +134,8 @@
       <Private>True</Private>
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="Telerik.Sitefinity.Frontend, Version=1.4.380.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Telerik.Sitefinity.Frontend.1.4.380.0\lib\net45\Telerik.Sitefinity.Frontend.dll</HintPath>
+    <Reference Include="Telerik.Sitefinity.Frontend, Version=1.4.390.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Telerik.Sitefinity.Frontend.1.4.390.0\lib\net45\Telerik.Sitefinity.Frontend.dll</HintPath>
       <Private>True</Private>
       <SpecificVersion>False</SpecificVersion>
     </Reference>
@@ -144,13 +144,13 @@
       <Private>True</Private>
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="Telerik.Sitefinity.Mvc, Version=1.4.380.0, Culture=neutral, PublicKeyToken=b28c218413bdf563, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Telerik.Sitefinity.Mvc.1.4.380.0\lib\net45\Telerik.Sitefinity.Mvc.dll</HintPath>
+    <Reference Include="Telerik.Sitefinity.Mvc, Version=1.4.390.0, Culture=neutral, PublicKeyToken=b28c218413bdf563, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Telerik.Sitefinity.Mvc.1.4.390.0\lib\net45\Telerik.Sitefinity.Mvc.dll</HintPath>
       <Private>True</Private>
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="Telerik.Sitefinity.Mvc.TestUtilities, Version=1.4.380.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Telerik.Sitefinity.Mvc.TestUtilities.1.4.380.0\lib\net45\Telerik.Sitefinity.Mvc.TestUtilities.dll</HintPath>
+    <Reference Include="Telerik.Sitefinity.Mvc.TestUtilities, Version=1.4.390.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Telerik.Sitefinity.Mvc.TestUtilities.1.4.390.0\lib\net45\Telerik.Sitefinity.Mvc.TestUtilities.dll</HintPath>
       <Private>True</Private>
       <SpecificVersion>False</SpecificVersion>
     </Reference>
@@ -216,6 +216,8 @@
     <Compile Include="CommonOperations\DynamicModules\DynamicModuleModule2Operations.cs" />
     <Compile Include="CommonOperations\DynamicModules\DynamicModulePressArticleOperations.cs" />
     <Compile Include="CommonOperations\DynamicModules\DynamicModulesOperations.cs" />
+    <Compile Include="CommonOperations\Forms\FeatherGlobals.cs" />
+    <Compile Include="CommonOperations\Forms\FormFieldType.cs" />
     <Compile Include="CommonOperations\Forms\FormsOperations.cs" />
     <Compile Include="CommonOperations\Pages\CommentsAndReviews.cs" />
     <Compile Include="CommonOperations\Pages\ContentBlockOperations.cs" />

@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.UI;
+using Telerik.Sitefinity.Abstractions;
 using Telerik.Sitefinity.Forms.Model;
 using Telerik.Sitefinity.Frontend.Forms.Mvc.Controllers;
 using Telerik.Sitefinity.Frontend.Forms.Mvc.Models;
@@ -35,7 +36,7 @@ namespace FeatherWidgets.TestUtilities.CommonOperations.Forms
         /// </summary>
         /// <param name="pageId">The page identifier.</param>
         /// <param name="formId">The form identifier.</param>
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Globalization", "CA1303:Do not pass literals as localized parameters", MessageId = "Telerik.Sitefinity.TestIntegration.Data.Content.PageContentGenerator.AddControlToPage(System.Guid,System.Web.UI.Control,System.String,System.String,System.Action<Telerik.Sitefinity.Pages.Model.PageDraftControl>)"), System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Naming", "CA2204:Literals should be spelled correctly", MessageId = "TestForm")]
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1026:DefaultParametersShouldNotBeUsed"), System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Globalization", "CA1303:Do not pass literals as localized parameters", MessageId = "Telerik.Sitefinity.TestIntegration.Data.Content.PageContentGenerator.AddControlToPage(System.Guid,System.Web.UI.Control,System.String,System.String,System.Action<Telerik.Sitefinity.Pages.Model.PageDraftControl>)"), System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Naming", "CA2204:Literals should be spelled correctly", MessageId = "TestForm")]
         public void AddFormControlToPage(Guid pageId, Guid formId, string formName = "TestForm", string placeholder = "Contentplaceholder1")
         {
             var mvcProxy = new MvcControllerProxy();
@@ -73,12 +74,7 @@ namespace FeatherWidgets.TestUtilities.CommonOperations.Forms
             return formId;
         }
 
-        /// <summary>
-        /// Creates the form with widgets.
-        /// </summary>
-        /// <param name="widgets">The widgets.</param>
-        /// <returns></returns>
-        public Guid CreateFormWithWidgets(IEnumerable<Control> widgets)
+        public Guid CreateFormWithWidgets(IEnumerable<Control> widgets, string formTitle = null)
         {
             var formId = Guid.NewGuid();
 
@@ -90,13 +86,72 @@ namespace FeatherWidgets.TestUtilities.CommonOperations.Forms
                 formControls.Add(widget);
             }
 
-            this.CreateForm(formId, "form_" + formId.ToString("N"), formId.ToString("N"), formSuccessMessage, formControls);
+            var formName = "form_" + formId.ToString("N");
+
+            this.CreateForm(formId, formName, formTitle, formSuccessMessage, formControls);
 
             SystemManager.ClearCurrentTransactions();
             SystemManager.RestartApplication(false);
             System.Threading.Thread.Sleep(1000);
 
             return formId;
+        }
+
+        public Guid CreateFormWithWidgets(IEnumerable<FormFieldType> widgets, string formTitle = null)
+        {
+            var controls = new List<Control>();
+
+            foreach (var widgetType in widgets)
+            {
+                var control = new MvcWidgetProxy();
+             
+                switch (widgetType)
+                {
+                    case FormFieldType.Captcha:
+                        control.ControllerName = typeof(CaptchaController).FullName;
+
+                        control.Settings = new ControllerSettings(new CaptchaController());
+                        break;
+                    case FormFieldType.CheckboxesField:
+                        control.ControllerName = typeof(CheckboxesFieldController).FullName;
+                        control.Settings = new ControllerSettings(new CheckboxesFieldController());
+                        break;
+                    case FormFieldType.DropdownListField:
+                        control.ControllerName = typeof(DropdownListFieldController).FullName;
+                        control.Settings = new ControllerSettings(new DropdownListFieldController());
+                        break;
+                    case FormFieldType.FileField:
+                        control.ControllerName = typeof(FileFieldController).FullName;
+                        control.Settings = new ControllerSettings(new FileFieldController());
+                        break;
+                    case FormFieldType.MultipleChoiceField:
+                        control.ControllerName = typeof(MultipleChoiceFieldController).FullName;
+                        control.Settings = new ControllerSettings(new MultipleChoiceFieldController());
+                        break;
+                    case FormFieldType.ParagraphTextField:
+                        control.ControllerName = typeof(ParagraphTextFieldController).FullName;
+                        control.Settings = new ControllerSettings(new ParagraphTextFieldController());
+                        break;
+                    case FormFieldType.SectionHeader:
+                        control.ControllerName = typeof(SectionHeaderController).FullName;
+                        control.Settings = new ControllerSettings(new SectionHeaderController());
+                        break;
+                    case FormFieldType.SubmitButton:
+                        control.ControllerName = typeof(SubmitButtonController).FullName;
+                        control.Settings = new ControllerSettings(new SubmitButtonController());
+                        break;
+                    case FormFieldType.TextField:
+                        control.ControllerName = typeof(TextFieldController).FullName;
+                        control.Settings = new ControllerSettings(new TextFieldController());
+                        break;
+                    default:
+                        break;
+                }
+
+                controls.Add(control);
+            }
+
+            return this.CreateFormWithWidgets(controls, formTitle);
         }
 
         /// <summary>
@@ -205,7 +260,7 @@ namespace FeatherWidgets.TestUtilities.CommonOperations.Forms
                             var formControl = formManager.CreateControl<FormDraftControl>(control, "Body");
 
                             formControl.SiblingId = siblingId;
-                            formControl.Caption = control.GetType().Name;
+                            formControl.Caption = ObjectFactory.Resolve<IControlBehaviorResolver>().GetBehaviorObject(control).GetType().Name;
                             siblingId = formControl.Id;
 
                             master.Controls.Add(formControl);
