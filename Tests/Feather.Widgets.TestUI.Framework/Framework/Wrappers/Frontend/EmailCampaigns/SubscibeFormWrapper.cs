@@ -20,7 +20,7 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Frontend.EmailCamp
         /// </summary>
         public void VerifySubscribeMessageOnTheFrontend()
         {
-            HtmlForm subscribeForm = this.EM.EmailCampaigns.SubscribeFormFrontend.SubscribeForm.AssertIsPresent("Subscribe form");
+            HtmlDiv subscribeForm = this.EM.EmailCampaigns.SubscribeFormFrontend.SubscribeForm.AssertIsPresent("Subscribe form");
             bool isPresentSubscribe = subscribeForm.InnerText.Contains("Subscribe");
             Assert.IsTrue(isPresentSubscribe);
 
@@ -34,7 +34,7 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Frontend.EmailCamp
         /// <param name="email">Email</param>
         public void VerifySuccessfullySubscribeMessageOnTheFrontend(string email)
         {
-            HtmlForm subscribeForm = this.EM.EmailCampaigns.SubscribeFormFrontend.SubscribeForm.AssertIsPresent("Subscribe form");
+            HtmlDiv subscribeForm = this.EM.EmailCampaigns.SubscribeFormFrontend.SubscribeForm.AssertIsPresent("Subscribe form");
             bool isPresentSubscribe = subscribeForm.InnerText.Contains("Thank you. You have successfully subscribed to our newsletter (" + email + ")");
             Assert.IsTrue(isPresentSubscribe);
         }

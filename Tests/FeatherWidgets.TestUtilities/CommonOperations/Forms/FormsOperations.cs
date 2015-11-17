@@ -3,9 +3,8 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
 using System.Linq;
-using System.Text;
+using System.Reflection;
 using System.Text.RegularExpressions;
-using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.UI;
@@ -19,9 +18,9 @@ using Telerik.Sitefinity.Modules.Forms.Web.UI.Fields;
 using Telerik.Sitefinity.Modules.Pages;
 using Telerik.Sitefinity.Mvc.Proxy;
 using Telerik.Sitefinity.Mvc.TestUtilities.CommonOperations;
+using Telerik.Sitefinity.Pages.Model.PropertyLoaders;
 using Telerik.Sitefinity.Services;
 using Telerik.Sitefinity.TestIntegration.Data.Content;
-using Telerik.Sitefinity.TestIntegration.SDK.DevelopersGuide.SitefinityEssentials.Modules.Forms;
 using Telerik.Sitefinity.Web.UI;
 
 namespace FeatherWidgets.TestUtilities.CommonOperations.Forms
@@ -78,7 +77,7 @@ namespace FeatherWidgets.TestUtilities.CommonOperations.Forms
         {
             var formId = Guid.NewGuid();
 
-            string formSuccessMessage = "Test form success message";
+            string formSuccessMessage = "Success! Thanks for filling out our form!";
 
             var formControls = new List<Control>();
             foreach (var widget in widgets)
@@ -104,7 +103,7 @@ namespace FeatherWidgets.TestUtilities.CommonOperations.Forms
             foreach (var widgetType in widgets)
             {
                 var control = new MvcWidgetProxy();
-             
+
                 switch (widgetType)
                 {
                     case FormFieldType.Captcha:
@@ -240,11 +239,12 @@ namespace FeatherWidgets.TestUtilities.CommonOperations.Forms
             if (form == null)
             {
                 form = formManager.CreateForm(formName, formId);
+                
                 form.Framework = FormFramework.Mvc;
                 form.Title = formTitle;
                 form.UrlName = Regex.Replace(form.Name.ToLower(), ArrangementConstants.UrlNameCharsToReplace, ArrangementConstants.UrlNameReplaceString);
                 form.SuccessMessage = formSuccessMessage;
-
+                
                 var draft = formManager.EditForm(form.Id);
                 var master = formManager.Lifecycle.CheckOut(draft);
 
@@ -259,6 +259,9 @@ namespace FeatherWidgets.TestUtilities.CommonOperations.Forms
                             control.ID = string.Format(CultureInfo.InvariantCulture, formName + "_C" + controlsCounter.ToString(CultureInfo.InvariantCulture).PadLeft(3, '0'));
                             var formControl = formManager.CreateControl<FormDraftControl>(control, "Body");
 
+                            // Default value of BackwardCompatible does not translate ControllerName property which leads to unability to create forms in ML
+                            formControl.GetType().GetProperty("Strategy", BindingFlags.Public | BindingFlags.Instance).SetValue(formControl, PropertyPersistenceStrategy.NotTranslatable);
+                            
                             formControl.SiblingId = siblingId;
                             formControl.Caption = ObjectFactory.Resolve<IControlBehaviorResolver>().GetBehaviorObject(control).GetType().Name;
                             siblingId = formControl.Id;
