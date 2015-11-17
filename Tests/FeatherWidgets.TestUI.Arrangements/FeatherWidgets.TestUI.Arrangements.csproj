@@ -174,7 +174,12 @@
       <SpecificVersion>False</SpecificVersion>
     </Reference>
     <Reference Include="Telerik.Sitefinity.Personalization, Version=8.2.5900.0, Culture=neutral, PublicKeyToken=b28c218413bdf563, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Telerik.Sitefinity.Core.8.2.5900.0\lib\net40\Telerik.Sitefinity.Personalization.dll</HintPath>
+      <HintPath>..\..\packages\Telerik.Sitefinity.ServicesImpl.8.2.5900.0\lib\net40\Telerik.Sitefinity.Personalization.dll</HintPath>
+      <Private>True</Private>
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
+    <Reference Include="Telerik.Sitefinity.Personalization.Impl, Version=8.2.5900.0, Culture=neutral, PublicKeyToken=b28c218413bdf563, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Telerik.Sitefinity.ServicesImpl.8.2.5900.0\lib\net40\Telerik.Sitefinity.Personalization.Impl.dll</HintPath>
       <Private>True</Private>
       <SpecificVersion>False</SpecificVersion>
     </Reference>
@@ -184,32 +189,67 @@
       <SpecificVersion>False</SpecificVersion>
     </Reference>
     <Reference Include="Telerik.Sitefinity.Search, Version=8.2.5900.0, Culture=neutral, PublicKeyToken=b28c218413bdf563, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Telerik.Sitefinity.Core.8.2.5900.0\lib\net40\Telerik.Sitefinity.Search.dll</HintPath>
+      <HintPath>..\..\packages\Telerik.Sitefinity.ServicesImpl.8.2.5900.0\lib\net40\Telerik.Sitefinity.Search.dll</HintPath>
+      <Private>True</Private>
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
+    <Reference Include="Telerik.Sitefinity.Search.Impl, Version=8.2.5900.0, Culture=neutral, PublicKeyToken=b28c218413bdf563, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Telerik.Sitefinity.ServicesImpl.8.2.5900.0\lib\net40\Telerik.Sitefinity.Search.Impl.dll</HintPath>
       <Private>True</Private>
       <SpecificVersion>False</SpecificVersion>
     </Reference>
     <Reference Include="Telerik.Sitefinity.Services.Comments, Version=8.2.5900.0, Culture=neutral, PublicKeyToken=b28c218413bdf563, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Telerik.Sitefinity.Core.8.2.5900.0\lib\net40\Telerik.Sitefinity.Services.Comments.dll</HintPath>
+      <HintPath>..\..\packages\Telerik.Sitefinity.ServicesImpl.8.2.5900.0\lib\net40\Telerik.Sitefinity.Services.Comments.dll</HintPath>
+      <Private>True</Private>
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
+    <Reference Include="Telerik.Sitefinity.Services.Comments.Impl, Version=8.2.5900.0, Culture=neutral, PublicKeyToken=b28c218413bdf563, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Telerik.Sitefinity.ServicesImpl.8.2.5900.0\lib\net40\Telerik.Sitefinity.Services.Comments.Impl.dll</HintPath>
       <Private>True</Private>
       <SpecificVersion>False</SpecificVersion>
     </Reference>
     <Reference Include="Telerik.Sitefinity.Services.Documents, Version=8.2.5900.0, Culture=neutral, PublicKeyToken=b28c218413bdf563, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Telerik.Sitefinity.Core.8.2.5900.0\lib\net40\Telerik.Sitefinity.Services.Documents.dll</HintPath>
+      <HintPath>..\..\packages\Telerik.Sitefinity.ServicesImpl.8.2.5900.0\lib\net40\Telerik.Sitefinity.Services.Documents.dll</HintPath>
+      <Private>True</Private>
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
+    <Reference Include="Telerik.Sitefinity.Services.Documents.Impl, Version=8.2.5900.0, Culture=neutral, PublicKeyToken=b28c218413bdf563, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Telerik.Sitefinity.ServicesImpl.8.2.5900.0\lib\net40\Telerik.Sitefinity.Services.Documents.Impl.dll</HintPath>
       <Private>True</Private>
       <SpecificVersion>False</SpecificVersion>
     </Reference>
     <Reference Include="Telerik.Sitefinity.Services.Events, Version=8.2.5900.0, Culture=neutral, PublicKeyToken=b28c218413bdf563, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Telerik.Sitefinity.Core.8.2.5900.0\lib\net40\Telerik.Sitefinity.Services.Events.dll</HintPath>
+      <HintPath>..\..\packages\Telerik.Sitefinity.ServicesImpl.8.2.5900.0\lib\net40\Telerik.Sitefinity.Services.Events.dll</HintPath>
       <Private>True</Private>
       <SpecificVersion>False</SpecificVersion>
     </Reference>
     <Reference Include="Telerik.Sitefinity.Services.Notifications, Version=8.2.5900.0, Culture=neutral, PublicKeyToken=b28c218413bdf563, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Telerik.Sitefinity.Core.8.2.5900.0\lib\net40\Telerik.Sitefinity.Services.Notifications.dll</HintPath>
+      <HintPath>..\..\packages\Telerik.Sitefinity.ServicesImpl.8.2.5900.0\lib\net40\Telerik.Sitefinity.Services.Notifications.dll</HintPath>
+      <Private>True</Private>
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
+    <Reference Include="Telerik.Sitefinity.Services.Notifications.Impl, Version=8.2.5900.0, Culture=neutral, PublicKeyToken=b28c218413bdf563, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Telerik.Sitefinity.ServicesImpl.8.2.5900.0\lib\net40\Telerik.Sitefinity.Services.Notifications.Impl.dll</HintPath>
+      <Private>True</Private>
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
+    <Reference Include="Telerik.Sitefinity.Services.RecycleBin, Version=8.2.5900.0, Culture=neutral, PublicKeyToken=b28c218413bdf563, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Telerik.Sitefinity.ServicesImpl.8.2.5900.0\lib\net40\Telerik.Sitefinity.Services.RecycleBin.dll</HintPath>
+      <Private>True</Private>
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
+    <Reference Include="Telerik.Sitefinity.Services.RecycleBin.Impl, Version=8.2.5900.0, Culture=neutral, PublicKeyToken=b28c218413bdf563, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Telerik.Sitefinity.ServicesImpl.8.2.5900.0\lib\net40\Telerik.Sitefinity.Services.RecycleBin.Impl.dll</HintPath>
       <Private>True</Private>
       <SpecificVersion>False</SpecificVersion>
     </Reference>
     <Reference Include="Telerik.Sitefinity.Services.Statistics, Version=8.2.5900.0, Culture=neutral, PublicKeyToken=b28c218413bdf563, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Telerik.Sitefinity.Core.8.2.5900.0\lib\net40\Telerik.Sitefinity.Services.Statistics.dll</HintPath>
+      <HintPath>..\..\packages\Telerik.Sitefinity.ServicesImpl.8.2.5900.0\lib\net40\Telerik.Sitefinity.Services.Statistics.dll</HintPath>
+      <Private>True</Private>
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
+    <Reference Include="Telerik.Sitefinity.Services.Statistics.Impl, Version=8.2.5900.0, Culture=neutral, PublicKeyToken=b28c218413bdf563, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Telerik.Sitefinity.ServicesImpl.8.2.5900.0\lib\net40\Telerik.Sitefinity.Services.Statistics.Impl.dll</HintPath>
       <Private>True</Private>
       <SpecificVersion>False</SpecificVersion>
     </Reference>
@@ -514,7 +554,6 @@
   <Target Name="BeforeBuild">
     <Copy SourceFiles="$(SolutionDir)FxCop\CustomDictionary.xml" DestinationFolder="$(CodeAnalysisPath)" OverwriteReadOnlyFiles="true" Retries="10" ContinueOnError="false" />
   </Target>
-  <Target Name="AfterBuild">
-  </Target>
+  <Target Name="AfterBuild"></Target>
   <Import Project="$(SolutionDir)\StyleCop\StyleCop.targets" />
 </Project>

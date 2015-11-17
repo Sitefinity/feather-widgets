@@ -3,7 +3,9 @@
 @using Telerik.Sitefinity.Frontend.Mvc.Helpers;
 @using Telerik.Sitefinity.Modules.Pages;
 
+@Html.Script(ScriptRef.JQuery, "top", false)
 @Html.StyleSheet(Url.WidgetContent("assets/dist/css/sf-form-nav.min.css"), "head", false)
+
 
 <div class="@Model.CssClass" data-sf-role="navigation-field-container">
      <ul class="sf-FormNav">
@@ -17,3 +19,5 @@
     }
     </ul>
 </div>
+
+@Html.Script(Url.WidgetContent("Mvc/Scripts/NavigationField/navigation-field.js"), "bottom", false)
