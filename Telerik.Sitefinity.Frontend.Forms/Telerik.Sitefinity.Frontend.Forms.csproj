@@ -377,6 +377,8 @@
     <EmbeddedResource Include="Mvc\Scripts\PageBreak\page-break.js" />
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="assets\dist\css\sf-form-nav.css" />
+    <EmbeddedResource Include="assets\dist\css\sf-form-nav.min.css" />
     <EmbeddedResource Include="Mvc\Scripts\NavigationField\navigation-field.js" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
