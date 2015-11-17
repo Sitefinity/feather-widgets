@@ -20,9 +20,8 @@ namespace FeatherWidgets.TestUI.TestCases.Forms
         /// UI test EditFormSaveDraftThenPublishVerifyFrontend
         /// </summary>
         [TestMethod,
-        Owner(FeatherTeams.FeatherTeam),
-        TestCategory(FeatherTestCategories.Bootstrap),
-        TestCategory(FeatherTestCategories.Forms)]
+        Owner(FeatherTeams.FeatherTeam)]
+        //TestCategory(FeatherTestCategories.Bootstrap)]
         public void EditFormSaveDraftThenPublishVerifyFrontend()
         {
             BAT.Macros().NavigateTo().Modules().Forms(this.Culture);
