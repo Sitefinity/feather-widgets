@@ -3,9 +3,13 @@
 @using Telerik.Sitefinity.Frontend.Mvc.Helpers;
 @using Telerik.Sitefinity.Modules.Pages;
 
+@Html.Script(ScriptRef.JQuery, "top", false)
+
 <div class="@Model.CssClass" data-sf-role="navigation-field-container">
     @foreach (var page in Model.Pages)
     {
         <span class="form-navbar-header" data-sf-navigation-index="@page.Index">@Html.Raw(page.Title)</span>
     }
 </div>
+
+@Html.Script(Url.WidgetContent("Mvc/Scripts/NavigationField/navigation-field.js"), "bottom", false)
