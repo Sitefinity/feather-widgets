@@ -253,7 +253,10 @@
     <Compile Include="DynamicWidgets\DynamicWidgetsRoutingTests.cs" />
     <Compile Include="DynamicWidgets\DynamicWidgetsToolboxTests.cs" />
     <Compile Include="DynamicWidgets\OldDynamicWidgetsWithFeatherTests.cs" />
+    <Compile Include="Forms\BackendConfiguratorTests.cs" />
+    <Compile Include="Forms\Fields\CheckboxesFieldTests.cs" />
     <Compile Include="Forms\Fields\DropdownListFieldTests.cs" />
+    <Compile Include="Forms\Fields\NavigationFieldTests.cs" />
     <Compile Include="Forms\Fields\ParagraphTextFieldTests.cs" />
     <Compile Include="Forms\Fields\SectionHeaderFieldTests.cs" />
     <Compile Include="Forms\Fields\TextFieldTests.cs" />
@@ -375,6 +378,7 @@
   <Target Name="BeforeBuild">
     <Copy SourceFiles="$(SolutionDir)FxCop\CustomDictionary.xml" DestinationFolder="$(CodeAnalysisPath)" OverwriteReadOnlyFiles="true" Retries="10" ContinueOnError="false" />
   </Target>
-  <Target Name="AfterBuild"></Target>
+  <Target Name="AfterBuild">
+  </Target>
   <Import Project="$(SolutionDir)\StyleCop\StyleCop.targets" />
 </Project>
