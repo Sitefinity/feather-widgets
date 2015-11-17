@@ -20,7 +20,6 @@ namespace FeatherWidgets.TestIntegration.Forms
     /// <summary>
     /// This is a class with Forms widget tests.
     /// </summary>
-    [Ignore("Unignore after Release_8_2_Fixes is released")]
     [TestFixture]
     public class FormsResponsesTests
     {
