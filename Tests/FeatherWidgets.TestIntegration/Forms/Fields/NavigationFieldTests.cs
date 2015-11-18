@@ -27,7 +27,7 @@ namespace FeatherWidgets.TestIntegration.Forms.Fields
         /// </summary>
         [Test]
         [Category(TestCategories.Forms)]
-        [Author(FeatherTeams.FeatherTeam)]
+        [Author(FeatherTeams.SitefinityTeam6)]
         [Description("Ensures that when a Navigation field widget is added to form, page titles are presented in the page markup.")]
         public void Navigation_MarkupIsCorrect()
         {
@@ -66,7 +66,7 @@ namespace FeatherWidgets.TestIntegration.Forms.Fields
         /// </summary>
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Maintainability", "CA1506:AvoidExcessiveClassCoupling"), Test]
         [Category(TestCategories.Forms)]
-        [Author(FeatherTeams.FeatherTeam)]
+        [Author(FeatherTeams.SitefinityTeam6)]
         [Description("Ensures that when a Navigation field widget is added to form with page break widget, page titles are presented in the page markup.")]
         public void Navigation_FieldIsCorrectlyInitialized()
         {

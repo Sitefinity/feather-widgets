@@ -14,6 +14,10 @@
             var isSubmitButtonAdded = false;
             var stepNewForm = null;
 
+            formElement.on("form-page-changed", function (e, index, previousIndex) {
+                formStepIndex = index;
+            });
+
             formStepsContainers.each(function (i, element) {
                 $(element).hide();
             });
