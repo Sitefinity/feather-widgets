@@ -36,13 +36,30 @@ namespace Telerik.Sitefinity.Frontend.Forms
             EventHub.Unsubscribe<IScriptsRegisteringEvent>(Initializer.RegisteringFormScriptsHandler);
             EventHub.Subscribe<IScriptsRegisteringEvent>(Initializer.RegisteringFormScriptsHandler);
 
-            VirtualPathManager.AddVirtualFileResolver<FormsVirtualRazorResolver>(FormsVirtualRazorResolver.Path + "*", "MvcFormsResolver");
+            Bootstrapper.Initialized -= Initializer.Bootstrapper_Initialized;
+            Bootstrapper.Initialized += Initializer.Bootstrapper_Initialized;
+        }
 
-            Initializer.UnregisterTemplatableControl();
-            Initializer.AddFieldsToToolbox();
+        /// <summary>
+        /// Uninitializes this instance.
+        /// </summary>
+        public static void Uninitialize()
+        {
+            Bootstrapper.Initialized -= Initializer.Bootstrapper_Initialized;
         }
 
         #region Private Methods
+
+        private static void Bootstrapper_Initialized(object sender, ExecutedEventArgs e)
+        {
+            if (e.CommandName == "Bootstrapped")
+            {
+                VirtualPathManager.AddVirtualFileResolver<FormsVirtualRazorResolver>(FormsVirtualRazorResolver.Path + "*", "MvcFormsResolver");
+
+                Initializer.UnregisterTemplatableControl();
+                Initializer.AddFieldsToToolbox();
+            }
+        }
 
         private static void AddFieldsToToolbox()
         {
