@@ -15,5 +15,10 @@ namespace FeatherWidgets.TestUI.TestCases
         /// Feather team
         /// </summary>
         public const string FeatherTeam = "Feather team";
+
+        /// <summary>
+        /// Sitefinity Team 6
+        /// </summary>
+        public const string SitefinityTeam6 = "Sitefinity Team 6";
     }
 }

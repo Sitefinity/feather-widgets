@@ -19,7 +19,7 @@ namespace FeatherWidgets.TestUI.TestCases.Forms.MultiPageForms
         /// UI test AddPageBreakToForm
         /// </summary>
         [TestMethod,
-        Owner(FeatherTeams.FeatherTeam),
+        Owner(FeatherTeams.SitefinityTeam6),
         TestCategory(FeatherTestCategories.Bootstrap),
         TestCategory(FeatherTestCategories.Forms)]
         public void AddPageBreakToForm()

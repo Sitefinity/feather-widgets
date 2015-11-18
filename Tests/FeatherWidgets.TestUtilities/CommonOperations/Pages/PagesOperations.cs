@@ -6,7 +6,6 @@ using System.Reflection;
 using System.Web.UI;
 using Telerik.Sitefinity;
 using Telerik.Sitefinity.Configuration;
-using Telerik.Sitefinity.DynamicModules.Web.UI.Frontend;
 using Telerik.Sitefinity.Frontend.Blogs.Mvc.Controllers;
 using Telerik.Sitefinity.Frontend.Blogs.Mvc.Models.BlogPost;
 using Telerik.Sitefinity.Frontend.Comments.Mvc.Controllers;
@@ -14,7 +13,6 @@ using Telerik.Sitefinity.Frontend.ContentBlock.Mvc.Controllers;
 using Telerik.Sitefinity.Frontend.DynamicContent.Mvc.Controllers;
 using Telerik.Sitefinity.Frontend.EmailCampaigns.Mvc.Controllers;
 using Telerik.Sitefinity.Frontend.Identity.Mvc.Controllers;
-using Telerik.Sitefinity.Frontend.Identity.Mvc.Models.Profile;
 using Telerik.Sitefinity.Frontend.InlineClientAssets.Mvc.Controllers;
 using Telerik.Sitefinity.Frontend.Lists.Mvc.Controllers;
 using Telerik.Sitefinity.Frontend.Media.Mvc.Controllers;
@@ -30,7 +28,6 @@ using Telerik.Sitefinity.Security;
 using Telerik.Sitefinity.TestIntegration.Data.Content;
 using Telerik.Sitefinity.TestUtilities.CommonOperations;
 using Telerik.Sitefinity.Utilities.TypeConverters;
-using Telerik.Sitefinity.Web.UI.ContentUI;
 
 namespace FeatherWidgets.TestUtilities.CommonOperations
 {
