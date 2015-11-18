@@ -262,6 +262,7 @@ namespace FeatherWidgets.TestUtilities.CommonOperations.Forms
                             // Default value of BackwardCompatible does not translate ControllerName property which leads to unability to create forms in ML
                             formControl.GetType().GetProperty("Strategy", BindingFlags.Public | BindingFlags.Instance).SetValue(formControl, PropertyPersistenceStrategy.NotTranslatable);
                             
+                            formControl.SetPersistanceStrategy();
                             formControl.SiblingId = siblingId;
                             formControl.Caption = ObjectFactory.Resolve<IControlBehaviorResolver>().GetBehaviorObject(control).GetType().Name;
                             siblingId = formControl.Id;
