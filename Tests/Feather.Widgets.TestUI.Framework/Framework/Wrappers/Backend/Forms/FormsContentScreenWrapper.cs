@@ -19,10 +19,13 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend.Forms
         /// to the form dropzone
         /// </summary>
         /// <param name="widgetName">The Field Name</param>
-        public void AddField(string widgetName)
+        public void AddField(string widgetName, string placeHolder = "Body")
         {
             var widget = GetWidgetByNameFromSideBar(widgetName);
-            HtmlDiv dropZone = EM.Forms.FormsBackend.BodyDropZone;
+            HtmlDiv dropZone = ActiveBrowser.Find
+                                               .ByExpression<HtmlDiv>("placeholderid=" + placeHolder)
+               .AssertIsPresent<HtmlDiv>(placeHolder);
+            dropZone.ScrollToVisible();
             AddWidgetToDropZone(widget, dropZone);
 
             ActiveBrowser.WaitForAsyncRequests();

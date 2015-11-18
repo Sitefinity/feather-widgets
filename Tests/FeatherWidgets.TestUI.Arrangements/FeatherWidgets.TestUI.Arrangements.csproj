@@ -367,6 +367,7 @@
     <Compile Include="EmailCampaigns\UnsubscribeWidgetOnHybridPageAndSetCssClass.cs" />
     <Compile Include="FeedWidget\DragAndDropFeedWidgetAndSetDefaultRssOnPage.cs" />
     <Compile Include="Forms\DeleteFormFieldInUseVerityFrontend.cs" />
+    <Compile Include="Forms\MultiPageForms\AddFiledsToHeaderAndFooter.cs" />
     <Compile Include="Forms\MultiPageForms\AddPageBreakToForm.cs" />
     <Compile Include="Forms\PublishUnpublishFormInUseVerifyFrontend.cs" />
     <Compile Include="Forms\DeleteFormInUseVerifyFrontendHybrid.cs" />
