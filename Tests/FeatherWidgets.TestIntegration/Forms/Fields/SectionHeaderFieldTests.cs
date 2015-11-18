@@ -47,7 +47,7 @@ namespace FeatherWidgets.TestIntegration.Forms.Fields
 
                 var pageContent = FeatherServerOperations.Pages().GetPageContent(pageId);
 
-                Assert.IsNotNull(pageContent.Contains("Hello"), "Form did not render section header");
+                Assert.IsTrue(pageContent.Contains("Hello"), "Form did not render section header");
             }
             finally
             {
