@@ -18,6 +18,7 @@ using Telerik.Sitefinity.Modules.Forms.Web.UI.Fields;
 using Telerik.Sitefinity.Modules.Pages;
 using Telerik.Sitefinity.Mvc.Proxy;
 using Telerik.Sitefinity.Mvc.TestUtilities.CommonOperations;
+using Telerik.Sitefinity.Pages.Model;
 using Telerik.Sitefinity.Pages.Model.PropertyLoaders;
 using Telerik.Sitefinity.Services;
 using Telerik.Sitefinity.TestIntegration.Data.Content;
