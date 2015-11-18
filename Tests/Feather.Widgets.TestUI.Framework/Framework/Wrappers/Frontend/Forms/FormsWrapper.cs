@@ -105,7 +105,10 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Frontend.Forms
         public void SetTextboxContent(string content)
         {
             HtmlInputText textbox = this.EM.Forms.FormsFrontend.TextField.AssertIsPresent("Text field");
+            textbox.MouseClick();
+            textbox.Text = "";
             Manager.Current.Desktop.KeyBoard.TypeText(content);
+            Manager.Current.Desktop.KeyBoard.KeyPress(System.Windows.Forms.Keys.Tab);
         }
 
         /// <summary>

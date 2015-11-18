@@ -109,6 +109,10 @@
     </Compile>
     <Compile Include="BlogPosts\BlogPostsWidgetOnPage.cs" />
     <Compile Include="Blogs\BlogsWidgetOnPage.cs" />
+    <Compile Include="CardWidget\AddCardWidgetOnPageBasedOnBootstrapTemplate.cs" />
+    <Compile Include="CardWidget\AddCardWidgetOnPageTemplate.cs" />
+    <Compile Include="CardWidget\AddCssToCardWidget.cs" />
+    <Compile Include="CardWidget\DuplicateAndDeleteCardWidgetFromPage.cs" />
     <Compile Include="Classifications\ContentTagsOptionAndTagCloudTemplate.cs" />
     <Compile Include="Classifications\SelectedTagsOptionAndCloudListTemplate.cs" />
     <Compile Include="Classifications\SelectAllTagsOptionAndCssClasses.cs" />
@@ -202,6 +206,7 @@
     <Compile Include="FeedWidget\DragAndDropFeedWidgetAndSetDefaultRssOnPage.cs" />
     <Compile Include="Forms\DeleteFormFieldInUseVerityFrontend.cs" />
     <Compile Include="Forms\DeleteFormInUseVerifyFrontendHybrid.cs" />
+    <Compile Include="Forms\EditFormSaveDraftThenPublishVerifyFrontend.cs" />
     <Compile Include="Forms\PublishUnpublishFormInUseVerifyFrontend.cs" />
     <Compile Include="Forms\PublishUnpublishFormInUseVerifyFrontendHybrid.cs" />
     <Compile Include="Forms\SetRequiredTextboxField.cs" />

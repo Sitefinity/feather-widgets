@@ -153,10 +153,8 @@
       <Private>True</Private>
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="Telerik.Sitefinity.Frontend.TestUtilities, Version=1.4.390.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Telerik.Sitefinity.Frontend.TestUtilities.1.4.390.0\lib\net45\Telerik.Sitefinity.Frontend.TestUtilities.dll</HintPath>
-      <Private>True</Private>
-      <SpecificVersion>False</SpecificVersion>
+    <Reference Include="Telerik.Sitefinity.Frontend.TestUtilities">
+      <HintPath>..\..\ReferenceAssemblies\Telerik.Sitefinity.Frontend.TestUtilities.dll</HintPath>
     </Reference>
     <Reference Include="Telerik.Sitefinity.Model, Version=8.2.5900.0, Culture=neutral, PublicKeyToken=b28c218413bdf563, processorArchitecture=MSIL">
       <HintPath>..\..\packages\Telerik.Sitefinity.Core.8.2.5900.0\lib\net40\Telerik.Sitefinity.Model.dll</HintPath>
@@ -279,6 +277,10 @@
     <Compile Include="ApplicationPreStart.cs" />
     <Compile Include="BlogPosts\AddBlogPostsWidgetToPageOpenSingleItemInExistingPage.cs" />
     <Compile Include="Blogs\DragAndDropBlogsWidgetToPage.cs" />
+    <Compile Include="CardWidget\AddCardWidgetOnPageBasedOnBootstrapTemplate.cs" />
+    <Compile Include="CardWidget\AddCardWidgetOnPageTemplate.cs" />
+    <Compile Include="CardWidget\AddCssToCardWidget.cs" />
+    <Compile Include="CardWidget\DuplicateAndDeleteCardWidgetFromPage.cs" />
     <Compile Include="Classifications\ContentTagsOptionAndTagCloudTemplate.cs" />
     <Compile Include="Classifications\SelectedTagsOptionAndCloudListTemplate.cs" />
     <Compile Include="Classifications\SelectAllTagsOptionAndCssClasses.cs" />
@@ -367,6 +369,7 @@
     <Compile Include="EmailCampaigns\UnsubscribeWidgetOnHybridPageAndSetCssClass.cs" />
     <Compile Include="FeedWidget\DragAndDropFeedWidgetAndSetDefaultRssOnPage.cs" />
     <Compile Include="Forms\DeleteFormFieldInUseVerityFrontend.cs" />
+    <Compile Include="Forms\EditFormSaveDraftThenPublishVerifyFrontend.cs" />
     <Compile Include="Forms\PublishUnpublishFormInUseVerifyFrontend.cs" />
     <Compile Include="Forms\DeleteFormInUseVerifyFrontendHybrid.cs" />
     <Compile Include="Forms\DeleteFormInUseVerifyFrontend.cs" />
@@ -554,6 +557,7 @@
   <Target Name="BeforeBuild">
     <Copy SourceFiles="$(SolutionDir)FxCop\CustomDictionary.xml" DestinationFolder="$(CodeAnalysisPath)" OverwriteReadOnlyFiles="true" Retries="10" ContinueOnError="false" />
   </Target>
-  <Target Name="AfterBuild"></Target>
+  <Target Name="AfterBuild">
+  </Target>
   <Import Project="$(SolutionDir)\StyleCop\StyleCop.targets" />
 </Project>

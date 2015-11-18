@@ -122,10 +122,8 @@
       <Private>True</Private>
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="Telerik.Sitefinity.Frontend, Version=1.4.390.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Telerik.Sitefinity.Frontend.1.4.390.0\lib\net45\Telerik.Sitefinity.Frontend.dll</HintPath>
-      <Private>True</Private>
-      <SpecificVersion>False</SpecificVersion>
+    <Reference Include="Telerik.Sitefinity.Frontend">
+      <HintPath>..\ReferenceAssemblies\Telerik.Sitefinity.Frontend.dll</HintPath>
     </Reference>
     <Reference Include="Telerik.Sitefinity.Model">
       <HintPath>..\packages\Telerik.Sitefinity.Core.8.2.5900.0\lib\net40\Telerik.Sitefinity.Model.dll</HintPath>
