@@ -150,5 +150,25 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend.Forms
 
             return option;
         }
+
+        /// <summary>
+        /// Verify common header and footer are visible
+        /// </summary>
+        public void VerifyCommonHeaderAndFooterAreVisible()
+        {
+            HtmlDiv commonHeader = EM.Forms.FormsBackend.CommonHeaderDiv
+                 .AssertIsPresent<HtmlDiv>("Common header ");
+
+            Assert.IsTrue(commonHeader.InnerText.Contains("Common header"), "Common header text ");
+
+            Assert.IsNotNull(commonHeader, String.Format("Common header ", commonHeader));
+
+            HtmlDiv commonFooter = EM.Forms.FormsBackend.CommonFooterDiv
+                    .AssertIsPresent<HtmlDiv>("Common footer ");
+
+            Assert.IsTrue(commonFooter.InnerText.Contains("Common footer"), "Common footer text ");
+
+            Assert.IsNotNull(commonFooter, String.Format("Common footer ", commonFooter));
+        }
     }
 }

@@ -134,6 +134,17 @@ namespace Feather.Widgets.TestUI.Framework.Framework.ElementMap.Forms
         }
 
         /// <summary>
+        /// Gets the next button on frontend
+        /// </summary>
+        public HtmlButton NextStepButton
+        {
+            get
+            {
+                return this.Get<HtmlButton>("TagName=button", "data-sf-btn-role=next");
+            }
+        }
+
+        /// <summary>
         /// Gets the fields for form when hybrid page is used 
         /// </summary>
         #region HybridPage

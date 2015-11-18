@@ -215,5 +215,27 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Frontend.Forms
         {
             Assert.IsNull(EM.Forms.FormsFrontend.CheckboxesField, "Checkboxes field is still visible at the frontend");
         }
+
+        /// <summary>
+        /// Clicks the next step button
+        /// </summary>
+        public void ClickNextButton()
+        {
+            HtmlButton nextButton = EM.Forms.FormsFrontend.NextStepButton;
+            nextButton.MouseClick();
+
+            ActiveBrowser.WaitUntilReady();
+        }
+
+        /// <summary>
+        /// Verify next step text
+        /// </summary>
+        public void VerifyNextStepText(string buttonText)
+        {
+            HtmlButton nextButton = EM.Forms.FormsFrontend.NextStepButton;
+            nextButton.MouseClick();
+
+            Assert.IsTrue(nextButton.InnerText.Contains(buttonText), "Button text ");
+        }
     }
 }

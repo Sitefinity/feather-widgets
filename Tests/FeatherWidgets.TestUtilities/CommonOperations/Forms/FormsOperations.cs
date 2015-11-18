@@ -19,6 +19,7 @@ using Telerik.Sitefinity.Modules.Forms.Web.UI.Fields;
 using Telerik.Sitefinity.Modules.Pages;
 using Telerik.Sitefinity.Mvc.Proxy;
 using Telerik.Sitefinity.Mvc.TestUtilities.CommonOperations;
+using Telerik.Sitefinity.Pages.Model;
 using Telerik.Sitefinity.Services;
 using Telerik.Sitefinity.TestIntegration.Data.Content;
 using Telerik.Sitefinity.TestIntegration.SDK.DevelopersGuide.SitefinityEssentials.Modules.Forms;
@@ -29,6 +30,7 @@ namespace FeatherWidgets.TestUtilities.CommonOperations.Forms
     /// <summary>
     /// This class provides access to forms common server operations
     /// </summary>
+    [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Maintainability", "CA1506:AvoidExcessiveClassCoupling")]
     public class FormsOperations
     {
         /// <summary>
@@ -109,7 +111,6 @@ namespace FeatherWidgets.TestUtilities.CommonOperations.Forms
                 {
                     case FormFieldType.Captcha:
                         control.ControllerName = typeof(CaptchaController).FullName;
-
                         control.Settings = new ControllerSettings(new CaptchaController());
                         break;
                     case FormFieldType.CheckboxesField:
@@ -143,6 +144,14 @@ namespace FeatherWidgets.TestUtilities.CommonOperations.Forms
                     case FormFieldType.TextField:
                         control.ControllerName = typeof(TextFieldController).FullName;
                         control.Settings = new ControllerSettings(new TextFieldController());
+                        break;
+                    case FormFieldType.PageBreak:
+                        control.ControllerName = typeof(PageBreakController).FullName;
+                        control.Settings = new ControllerSettings(new PageBreakController());
+                        break;
+                    case FormFieldType.NavigationField:
+                        control.ControllerName = typeof(NavigationFieldController).FullName;
+                        control.Settings = new ControllerSettings(new NavigationFieldController());
                         break;
                     default:
                         break;
@@ -259,10 +268,11 @@ namespace FeatherWidgets.TestUtilities.CommonOperations.Forms
                             control.ID = string.Format(CultureInfo.InvariantCulture, formName + "_C" + controlsCounter.ToString(CultureInfo.InvariantCulture).PadLeft(3, '0'));
                             var formControl = formManager.CreateControl<FormDraftControl>(control, "Body");
 
+                            formControl.SetPersistanceStrategy();
                             formControl.SiblingId = siblingId;
                             formControl.Caption = ObjectFactory.Resolve<IControlBehaviorResolver>().GetBehaviorObject(control).GetType().Name;
                             siblingId = formControl.Id;
-
+                           
                             master.Controls.Add(formControl);
                         }
                     }
