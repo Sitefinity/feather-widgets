@@ -1,17 +1,14 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using System.Web.UI;
 using FeatherWidgets.TestUtilities.CommonOperations;
 using MbUnit.Framework;
 using Telerik.Sitefinity.Frontend.Forms;
 using Telerik.Sitefinity.Frontend.Forms.Mvc.Controllers;
-using Telerik.Sitefinity.Frontend.Forms.Mvc.StringResources;
 using Telerik.Sitefinity.Frontend.Mvc.Infrastructure.Controllers;
 using Telerik.Sitefinity.Frontend.TestUtilities;
 using Telerik.Sitefinity.Frontend.TestUtilities.CommonOperations;
-using Telerik.Sitefinity.Localization;
-using Telerik.Sitefinity.Modules.Forms;
 using Telerik.Sitefinity.Modules.Pages;
-using Telerik.Sitefinity.Modules.Pages.Web.Services;
 using Telerik.Sitefinity.Mvc.Proxy;
 using Telerik.Sitefinity.TestIntegration.SDK.DevelopersGuide.SitefinityEssentials.Modules.Forms;
 
@@ -85,7 +82,7 @@ namespace FeatherWidgets.TestIntegration.Forms.Fields
             controlForFooter.ControllerName = typeof(ParagraphTextFieldController).FullName;
             controlForFooter.Settings = new ControllerSettings(controllerForFooter);
 
-            var formId = ServerOperationsFeather.Forms().CreateFormWithWidget(controlForBody, controlForHeader, controlForFooter);
+            var formId = ServerOperationsFeather.Forms().CreateFormWithWidgets(new List<Control>() { controlForHeader }, new List<Control>() { controlForBody }, new List<Control>() { controlForFooter }, null);
             var pageManager = PageManager.GetManager();
 
             try
