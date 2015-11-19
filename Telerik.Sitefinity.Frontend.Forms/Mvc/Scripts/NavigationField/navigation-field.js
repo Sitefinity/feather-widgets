@@ -41,7 +41,7 @@
         // This implementation is only for the Form preview mode 
         var isPreviewMode = window.location.href.indexOf("/Preview") !== -1;
         if (formContainers.length === 0 && isPreviewMode) {
-            var separator = $('.separator');
+            var separator = $('[data-sf-role="separator"]');
             if (separator.length > 0) {
                 initializeFormContainer(separator.parent());
             }

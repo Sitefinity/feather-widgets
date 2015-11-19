@@ -3,13 +3,18 @@
         return;
 
     $(function () {
-        var formContainers = $('[data-sf-role="form-container"]');
+        var selectors = {
+            separator: '[data-sf-role="separator"]',
+            formContainer: '[data-sf-role="form-container"]',
+            previousButton: '[data-sf-btn-role="prev"]',
+            nextButton: '[data-sf-btn-role="next"]'
+        };
+        var formContainers = $(selectors.formContainer);
 
         var initializeFormContainer = function (element) {
             var formElement = $(element);
-            var formStepsContainers = formElement.find('.separator');
+            var formStepsContainers = formElement.find(selectors.separator);
             var formStepIndex = 0;
-            var maxFormStepIndex = formStepsContainers.length - 1;
             var submitButton = null;
             var isSubmitButtonAdded = false;
             var stepNewForm = null;
@@ -23,8 +28,8 @@
             });
 
             formStepsContainers.first().show();
-            formStepsContainers.first().find('[data-sf-btn-role="prev"]').hide();
-            formStepsContainers.last().find('[data-sf-btn-role="next"]').hide();
+            formStepsContainers.first().find(selectors.previousButton).hide();
+            formStepsContainers.last().find(selectors.nextButton).hide();
 
             var tryGoToNextStep = function (currentStepContainer, continueFunction) {
                 var formContainer = $(currentStepContainer);
@@ -72,11 +77,11 @@
                 submitButton.click();
             };
 
-            var separatorsNext = formStepsContainers.find('[data-sf-btn-role="next"]');
+            var separatorsNext = formStepsContainers.find(selectors.nextButton);
             separatorsNext.click(function (e) {
                 e.preventDefault();
 
-                var currentStepContainer = $(e.target).closest('.separator');
+                var currentStepContainer = $(e.target).closest(selectors.separator);
                 tryGoToNextStep(currentStepContainer, function () {
                     var previousIndex = formStepIndex;
                     currentStepContainer.hide();
@@ -86,12 +91,12 @@
                 });
             });
 
-            var separatorsPrev = formStepsContainers.find('[data-sf-btn-role="prev"]');
+            var separatorsPrev = formStepsContainers.find(selectors.previousButton);
             separatorsPrev.click(function (e) {
                 e.preventDefault();
 
                 var previousIndex = formStepIndex;
-                $(e.target).closest('.separator').hide();
+                $(e.target).closest(selectors.separator).hide();
                 formStepIndex--;
                 $(formStepsContainers[formStepIndex]).show();
                 formElement.trigger("form-page-changed", [formStepIndex, previousIndex]);
@@ -105,7 +110,7 @@
         // This implementation is only for the Form preview mode 
         var isPreviewMode = window.location.href.indexOf("/Preview") !== -1;
         if (formContainers.length === 0 && isPreviewMode) {
-            var separator = $('.separator');
+            var separator = $(selectors.separator);
             if (separator.length > 0) {
                 initializeFormContainer(separator.parent());
             }
