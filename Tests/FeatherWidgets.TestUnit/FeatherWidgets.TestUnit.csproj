@@ -270,6 +270,8 @@
     <Compile Include="DummyClasses\ContentBlock\DummyContentBlockModel.cs" />
     <Compile Include="DummyClasses\ContentBlock\DummyContentItem.cs" />
     <Compile Include="DummyClasses\DummyConfigProvider.cs" />
+    <Compile Include="DummyClasses\Forms\NavigationField\DummyNavigationFieldController.cs" />
+    <Compile Include="DummyClasses\Forms\NavigationField\NavigationDummyHttpContext.cs" />
     <Compile Include="DummyClasses\Identity\DummyAccountActivationController.cs" />
     <Compile Include="DummyClasses\Identity\DummyAccountActivationModel.cs" />
     <Compile Include="DummyClasses\InlineClientAssets\DummyEmbedCodeController.cs" />
@@ -310,6 +312,7 @@
     <Compile Include="DummyClasses\Taxonomies\DummyFlatTaxonomyController.cs" />
     <Compile Include="DummyClasses\Taxonomies\DummyFlatTaxonomyModel.cs" />
     <Compile Include="DummyClasses\Taxonomies\DummyHierarchicalTaxonomyController.cs" />
+    <Compile Include="Forms\NavigationField\NavigationFieldTests.cs" />
     <Compile Include="GlobalSuppressions.cs" />
     <Compile Include="Identity\AccountActivationControllerTests.cs" />
     <Compile Include="InlineClientAssets\EmbedCode\EmbedCodeControllerTests.cs" />
@@ -449,6 +452,7 @@
   <Target Name="BeforeBuild">
     <Copy SourceFiles="$(SolutionDir)FxCop\CustomDictionary.xml" DestinationFolder="$(CodeAnalysisPath)" OverwriteReadOnlyFiles="true" Retries="10" ContinueOnError="false" />
   </Target>
-  <Target Name="AfterBuild"></Target>
+  <Target Name="AfterBuild">
+  </Target>
   <Import Project="$(SolutionDir)\StyleCop\StyleCop.targets" />
 </Project>

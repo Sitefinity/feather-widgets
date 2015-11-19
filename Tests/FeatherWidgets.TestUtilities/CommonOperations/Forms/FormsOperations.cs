@@ -27,6 +27,7 @@ namespace FeatherWidgets.TestUtilities.CommonOperations.Forms
     /// <summary>
     /// This class provides access to forms common server operations
     /// </summary>
+    [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Maintainability", "CA1506:AvoidExcessiveClassCoupling")]
     public class FormsOperations
     {
         /// <summary>
@@ -135,13 +136,12 @@ namespace FeatherWidgets.TestUtilities.CommonOperations.Forms
 
             foreach (var widgetType in widgets)
             {
-                var control = new MvcWidgetProxy();
+                var control = new MvcControllerProxy();
              
                 switch (widgetType)
                 {
                     case FormFieldType.Captcha:
                         control.ControllerName = typeof(CaptchaController).FullName;
-
                         control.Settings = new ControllerSettings(new CaptchaController());
                         break;
                     case FormFieldType.CheckboxesField:
@@ -175,6 +175,14 @@ namespace FeatherWidgets.TestUtilities.CommonOperations.Forms
                     case FormFieldType.TextField:
                         control.ControllerName = typeof(TextFieldController).FullName;
                         control.Settings = new ControllerSettings(new TextFieldController());
+                        break;
+                    case FormFieldType.PageBreak:
+                        control.ControllerName = typeof(PageBreakController).FullName;
+                        control.Settings = new ControllerSettings(new PageBreakController());
+                        break;
+                    case FormFieldType.NavigationField:
+                        control.ControllerName = typeof(NavigationFieldController).FullName;
+                        control.Settings = new ControllerSettings(new NavigationFieldController());
                         break;
                     default:
                         break;

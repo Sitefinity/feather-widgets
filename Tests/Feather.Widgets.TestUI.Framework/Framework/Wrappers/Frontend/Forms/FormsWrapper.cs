@@ -215,5 +215,36 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Frontend.Forms
         {
             Assert.IsNull(EM.Forms.FormsFrontend.CheckboxesField, "Checkboxes field is still visible at the frontend");
         }
+
+        /// <summary>
+        /// Clicks the next step button
+        /// </summary>
+        public void ClickNextButton()
+        {
+            HtmlButton nextButton = EM.Forms.FormsFrontend.NextStepButton;
+            nextButton.MouseClick();
+
+            ActiveBrowser.WaitUntilReady();
+        }
+
+        /// <summary>
+        /// Verify next step text
+        /// </summary>
+        /// <param name="buttonText">The button text.</param>
+        /// <param name="isVisible">if set to <c>true</c> [is visible].</param>
+        public void VerifyNextStepText(string buttonText = "Next step", bool isVisible = true)
+        {
+            HtmlButton nextButton = EM.Forms.FormsFrontend.NextStepButton;
+
+            if (!isVisible)
+            {
+                nextButton.AssertIsNotVisible("Next step button");
+            }
+            else
+            {
+                nextButton.AssertIsVisible("Next step button");
+                Assert.IsTrue(nextButton.InnerText.Contains(buttonText), "Button text ");
+            }
+        }
     }
 }

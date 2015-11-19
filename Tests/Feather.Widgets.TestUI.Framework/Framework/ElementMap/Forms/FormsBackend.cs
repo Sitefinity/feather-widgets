@@ -131,5 +131,38 @@ namespace Feather.Widgets.TestUI.Framework.Framework.ElementMap.Forms
                 return this.BodyDropZone.Find.AllByExpression<HtmlDiv>("class=RadDock RadDock_Default zeControlDock").ToList();
             }
         }
+
+        /// <summary>
+        /// Gets PageBreakController div
+        /// </summary>
+        public HtmlDiv PageBreakControllerDiv
+        {
+            get
+            {
+                return this.BodyDropZone.Find.ByExpression<HtmlDiv>("class=RadDock RadDock_Default zeControlDock", "behaviourobjecttype=~PageBreakController");
+            }
+        }
+
+        /// <summary>
+        /// Gets common header
+        /// </summary>
+        public HtmlDiv CommonHeaderDiv
+        {
+          get
+            {
+                return this.Get<HtmlDiv>("placeholderid=" + "Header");
+            }
+        }
+
+        /// <summary>
+        /// Gets common footer
+        /// </summary>
+        public HtmlDiv CommonFooterDiv
+        {
+            get
+            {
+                return this.Get<HtmlDiv>("placeholderid=" + "Footer");
+            }
+        }
     }
 }

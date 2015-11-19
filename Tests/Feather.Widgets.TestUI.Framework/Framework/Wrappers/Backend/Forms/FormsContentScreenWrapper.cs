@@ -1,8 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using ArtOfTest.Common.UnitTesting;
 using ArtOfTest.WebAii.Controls.HtmlControls;
 using ArtOfTest.WebAii.Core;
@@ -19,10 +16,13 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend.Forms
         /// to the form dropzone
         /// </summary>
         /// <param name="widgetName">The Field Name</param>
-        public void AddField(string widgetName)
+        public void AddField(string widgetName, string placeHolder = "Body")
         {
             var widget = GetWidgetByNameFromSideBar(widgetName);
-            HtmlDiv dropZone = EM.Forms.FormsBackend.BodyDropZone;
+            HtmlDiv dropZone = ActiveBrowser.Find
+                                               .ByExpression<HtmlDiv>("placeholderid=" + placeHolder)
+               .AssertIsPresent<HtmlDiv>(placeHolder);
+            dropZone.ScrollToVisible();
             AddWidgetToDropZone(widget, dropZone);
 
             ActiveBrowser.WaitForAsyncRequests();
@@ -149,6 +149,38 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend.Forms
             option.AssertIsPresent("Menu option: " + menuOption);
 
             return option;
+        }
+
+        /// <summary>
+        /// Verify common header and footer are visible
+        /// </summary>
+        /// <param name="areVisible">if set to <c>true</c> [are visible].</param>
+        public void VerifyCommonHeaderAndFooterAreVisible(bool areVisible = true)
+        {
+            if (!areVisible)
+            {
+                EM.Forms.FormsBackend.CommonHeaderDiv.Find.AllByExpression<HtmlDiv>("class=zeDockZoneLabel")
+                    .First().AssertIsNotVisible("header placeholder");
+
+                EM.Forms.FormsBackend.CommonFooterDiv.Find.AllByExpression<HtmlDiv>("class=zeDockZoneLabel")
+                    .First().AssertIsNotVisible("footer placeholder");
+            }
+            else
+            {
+                HtmlDiv commonHeader = EM.Forms.FormsBackend.CommonHeaderDiv
+                     .AssertIsPresent<HtmlDiv>("Common header ");
+                Assert.IsTrue(commonHeader.InnerText.Contains("Common header"), "Common header text ");
+                Assert.IsNotNull(commonHeader, String.Format("Common header ", commonHeader));
+                commonHeader.Find.AllByExpression<HtmlDiv>("class=zeDockZoneLabel")
+                    .First().AssertIsVisible("header placeholder");
+
+                HtmlDiv commonFooter = EM.Forms.FormsBackend.CommonFooterDiv
+                        .AssertIsPresent<HtmlDiv>("Common footer ");
+                Assert.IsTrue(commonFooter.InnerText.Contains("Common footer"), "Common footer text ");
+                Assert.IsNotNull(commonFooter, String.Format("Common footer ", commonFooter));
+                commonFooter.Find.AllByExpression<HtmlDiv>("class=zeDockZoneLabel")
+                    .First().AssertIsVisible("footer placeholder");
+            }
         }
     }
 }
