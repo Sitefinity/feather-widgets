@@ -75,36 +75,7 @@ namespace FeatherWidgets.TestUtilities.CommonOperations.Forms
 
         public Guid CreateFormWithWidgets(IList<Control> widgets)
         {
-            var formId = Guid.NewGuid();
-
-            string formSuccessMessage = "Test form success message";
-
-            this.CreateForm(formId, "form_" + formId.ToString("N"), formId.ToString("N"), formSuccessMessage, widgets);
-
-            SystemManager.ClearCurrentTransactions();
-            SystemManager.RestartApplication(false);
-            System.Threading.Thread.Sleep(1000);
-
-            return formId;
-        }
-
-        public Guid CreateFormWithWidget(Control widgetInBody, Control widgetInHeader, Control widgetInFooter)
-        {
-            var formId = Guid.NewGuid();
-
-            string formSuccessMessage = "Test form success message";
-
-            var formBodyControls = new List<Control>() { widgetInBody };
-            var formHeaderControls = new List<Control>() { widgetInHeader };
-            var formFooterControls = new List<Control>() { widgetInFooter };
-
-            this.CreateFormWithHeaderAndFooter(formId, "form_" + formId.ToString("N"), formId.ToString("N"), formSuccessMessage, formHeaderControls, formBodyControls, formFooterControls);
-
-            SystemManager.ClearCurrentTransactions();
-            SystemManager.RestartApplication(false);
-            System.Threading.Thread.Sleep(1000);
-
-            return formId;
+            return this.CreateFormWithWidgets(widgets, null);
         }
 
         public Guid CreateFormWithWidgets(IEnumerable<Control> widgets, string formTitle = null)
@@ -121,6 +92,9 @@ namespace FeatherWidgets.TestUtilities.CommonOperations.Forms
 
             var formName = "form_" + formId.ToString("N");
 
+            if (formTitle == null)
+                formTitle = formId.ToString("N");
+
             this.CreateForm(formId, formName, formTitle, formSuccessMessage, formControls);
 
             SystemManager.ClearCurrentTransactions();
@@ -132,12 +106,56 @@ namespace FeatherWidgets.TestUtilities.CommonOperations.Forms
 
         public Guid CreateFormWithWidgets(IEnumerable<FormFieldType> widgets, string formTitle = null)
         {
+            var controls = this.CreateFormFieldsFromFieldTypes(widgets);
+
+            return this.CreateFormWithWidgets(controls, formTitle);
+        }
+
+        public Guid CreateFormWithWidgets(IList<Control> formHeaderControls, IList<Control> formBodyControls, IList<Control> formFooterControls)
+        {
+            return this.CreateFormWithWidgets(formHeaderControls, formBodyControls, formFooterControls, null);
+        }
+
+        public Guid CreateFormWithWidgets(IList<Control> formHeaderControls, IList<Control> formBodyControls, IList<Control> formFooterControls, string formTitle)
+        {
+            var formId = Guid.NewGuid();
+
+            string formSuccessMessage = "Test form success message";
+
+            if (formTitle == null)
+                formTitle = formId.ToString("N");
+
+            this.CreateFormWithHeaderAndFooter(formId, "form_" + formId.ToString("N"), formTitle, formSuccessMessage, formHeaderControls, formBodyControls, formFooterControls);
+
+            SystemManager.ClearCurrentTransactions();
+            SystemManager.RestartApplication(false);
+            System.Threading.Thread.Sleep(1000);
+
+            return formId;
+        }
+
+        public Guid CreateFormWithWidgets(IEnumerable<FormFieldType> headerWidgets, IEnumerable<FormFieldType> bodyWidgets, IEnumerable<FormFieldType> footerWidgets)
+        {
+            return this.CreateFormWithWidgets(headerWidgets, bodyWidgets, footerWidgets, null);
+        }
+
+        public Guid CreateFormWithWidgets(IEnumerable<FormFieldType> headerWidgets, IEnumerable<FormFieldType> bodyWidgets, IEnumerable<FormFieldType> footerWidgets, string formTitle)
+        {
+            var headerControls = this.CreateFormFieldsFromFieldTypes(headerWidgets);
+            var bodyControls = this.CreateFormFieldsFromFieldTypes(bodyWidgets);
+            var footerControls = this.CreateFormFieldsFromFieldTypes(footerWidgets);
+
+            return this.CreateFormWithWidgets(headerControls, bodyControls, footerControls, formTitle);
+        }
+
+        public IList<Control> CreateFormFieldsFromFieldTypes(IEnumerable<FormFieldType> widgets)
+        {
             var controls = new List<Control>();
 
             foreach (var widgetType in widgets)
             {
                 var control = new MvcControllerProxy();
-             
+
                 switch (widgetType)
                 {
                     case FormFieldType.Captcha:
@@ -191,7 +209,7 @@ namespace FeatherWidgets.TestUtilities.CommonOperations.Forms
                 controls.Add(control);
             }
 
-            return this.CreateFormWithWidgets(controls, formTitle);
+            return controls;
         }
 
         /// <summary>
@@ -299,7 +317,7 @@ namespace FeatherWidgets.TestUtilities.CommonOperations.Forms
                             controlsCounter++;
                             control.ID = string.Format(CultureInfo.InvariantCulture, formName + "_C" + controlsCounter.ToString(CultureInfo.InvariantCulture).PadLeft(3, '0'));
                             var formControl = formManager.CreateControl<FormDraftControl>(control, "Body");
-                            
+
                             formControl.SiblingId = siblingId;
                             formControl.Caption = ObjectFactory.Resolve<IControlBehaviorResolver>().GetBehaviorObject(control).GetType().Name;
                             siblingId = formControl.Id;
