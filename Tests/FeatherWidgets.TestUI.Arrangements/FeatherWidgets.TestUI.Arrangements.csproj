@@ -369,6 +369,7 @@
     <Compile Include="Forms\DeleteFormFieldInUseVerityFrontend.cs" />
     <Compile Include="Forms\MultiPageForms\AddFiledsToHeaderAndFooter.cs" />
     <Compile Include="Forms\MultiPageForms\AddPageBreakToForm.cs" />
+    <Compile Include="Forms\MultiPageForms\DeletePageBreak.cs" />
     <Compile Include="Forms\MultiPageForms\VerifyPageBreakInHeaderAndFooter.cs" />
     <Compile Include="Forms\PublishUnpublishFormInUseVerifyFrontend.cs" />
     <Compile Include="Forms\DeleteFormInUseVerifyFrontendHybrid.cs" />

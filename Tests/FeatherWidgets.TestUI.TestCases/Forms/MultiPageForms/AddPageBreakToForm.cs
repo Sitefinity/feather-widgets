@@ -33,7 +33,7 @@ namespace FeatherWidgets.TestUI.TestCases.Forms.MultiPageForms
             BAT.Macros().NavigateTo().CustomPage("~/" + PageName.ToLower(), true, this.Culture);
             BATFeather.Wrappers().Frontend().Forms().FormsWrapper().VerifyTextFieldLabelIsVisible(LabelName);
             BATFeather.Wrappers().Frontend().Forms().FormsWrapper().SetTextboxContent(TextBoxContent);
-            BATFeather.Wrappers().Frontend().Forms().FormsWrapper().VerifyNextStepText(ButtonText);
+            BATFeather.Wrappers().Frontend().Forms().FormsWrapper().VerifyNextStepText();
             BATFeather.Wrappers().Frontend().Forms().FormsWrapper().ClickNextButton();
             BATFeather.Wrappers().Frontend().Forms().FormsWrapper().VerifySubmitButtonIsVisible();
             BATFeather.Wrappers().Frontend().Forms().FormsWrapper().ClickSubmit();
@@ -64,7 +64,6 @@ namespace FeatherWidgets.TestUI.TestCases.Forms.MultiPageForms
         private const string PageName = "FormPage";
         private const string FieldName = "Page break";
         private const string FieldName2 = "Textbox";
-        private const string ButtonText = "Next step";
         private const string LabelName = "Untitled";
         private const string TextBoxContent = "Textbox Field Text";
         private const string WidgetName = "Form";
