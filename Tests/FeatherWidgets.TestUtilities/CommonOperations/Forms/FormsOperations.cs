@@ -105,7 +105,7 @@ namespace FeatherWidgets.TestUtilities.CommonOperations.Forms
 
             foreach (var widgetType in widgets)
             {
-                var control = new MvcWidgetProxy();
+                var control = new MvcControllerProxy();
              
                 switch (widgetType)
                 {
