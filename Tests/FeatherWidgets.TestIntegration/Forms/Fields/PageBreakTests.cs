@@ -1,17 +1,13 @@
-﻿using System.Collections.Generic;
-using System.Linq;
+﻿using System.Linq;
 using FeatherWidgets.TestUtilities.CommonOperations;
 using MbUnit.Framework;
-using Telerik.Sitefinity.Frontend.Forms;
+using Telerik.Sitefinity.Abstractions;
 using Telerik.Sitefinity.Frontend.Forms.Mvc.Controllers;
-using Telerik.Sitefinity.Frontend.Forms.Mvc.StringResources;
 using Telerik.Sitefinity.Frontend.Mvc.Infrastructure.Controllers;
 using Telerik.Sitefinity.Frontend.TestUtilities;
 using Telerik.Sitefinity.Frontend.TestUtilities.CommonOperations;
-using Telerik.Sitefinity.Localization;
 using Telerik.Sitefinity.Modules.Forms;
 using Telerik.Sitefinity.Modules.Pages;
-using Telerik.Sitefinity.Modules.Pages.Web.Services;
 using Telerik.Sitefinity.Mvc.Proxy;
 using Telerik.Sitefinity.TestIntegration.SDK.DevelopersGuide.SitefinityEssentials.Modules.Forms;
 
@@ -51,8 +47,8 @@ namespace FeatherWidgets.TestIntegration.Forms.Fields
                 ServerOperationsFeather.Forms().AddFormControlToPage(pageId, formId);
 
                 var pageContent = FeatherServerOperations.Pages().GetPageContent(pageId);
-
-                Assert.IsTrue(pageContent.Contains(FormRazorRenderer.pageBreakSeparatorBegin), "Form did not render page separators");
+                var formMultipageDecorator = ObjectFactory.Resolve<IFormMultipageDecorator>();
+                Assert.IsTrue(pageContent.Contains(formMultipageDecorator.SeparatorBegin), "Form did not render page separators");
             }
             finally
             {
@@ -68,7 +64,7 @@ namespace FeatherWidgets.TestIntegration.Forms.Fields
         [Category(TestCategories.Forms)]
         [Author(FeatherTeams.SitefinityTeam6)]
         [Description("Ensures that when a Page break widget is added to form, Header and Footer containers are presented.")]
-        public void Navigation_FieldIsCorrectlyInitialized()
+        public void PageBreak_HeaderAndFooterFieldsInitialized()
         {
             var controllerForBody = new PageBreakController();
             var controlForBody = new MvcWidgetProxy();
@@ -97,8 +93,8 @@ namespace FeatherWidgets.TestIntegration.Forms.Fields
                 ServerOperationsFeather.Forms().AddFormControlToPage(pageId, formId);
 
                 var pageContent = FeatherServerOperations.Pages().GetPageContent(pageId);
-
-                Assert.IsTrue(pageContent.Contains(FormRazorRenderer.pageBreakSeparatorBegin), "Form did not render page separators");
+                var formMultipageDecorator = ObjectFactory.Resolve<IFormMultipageDecorator>();
+                Assert.IsTrue(pageContent.Contains(formMultipageDecorator.SeparatorBegin), "Form did not render page separators");
                 Assert.IsTrue(pageContent.Contains("data-sf-role=\"text-field-container\""), "Form did not render page header");
                 Assert.IsTrue(pageContent.Contains("data-sf-role=\"paragraph-text-field-container\""), "Form did not render page footer");
             }

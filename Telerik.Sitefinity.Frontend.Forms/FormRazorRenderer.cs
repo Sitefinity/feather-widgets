@@ -10,6 +10,8 @@ using Telerik.Sitefinity.Frontend.Forms.Mvc.Controllers;
 using Telerik.Sitefinity.Frontend.Forms.Mvc.Helpers;
 using Telerik.Sitefinity.Mvc.Proxy;
 using Telerik.Sitefinity.Modules.Forms.Web.UI.Fields;
+using Telerik.Sitefinity.Abstractions;
+using Telerik.Sitefinity.Modules.Forms;
 
 
 namespace Telerik.Sitefinity.Frontend.Forms
@@ -19,6 +21,22 @@ namespace Telerik.Sitefinity.Frontend.Forms
     /// </summary>
     public class FormRazorRenderer : FormRendererBase, IFormRenderer
     {
+        /// <summary>
+        /// Gets or sets the multipage form decorator
+        /// </summary>
+        public IFormMultipageDecorator FormMultipageDecorator
+        {
+            get
+            {
+                if (this.formMultipageDecorator == null)
+                {
+                    this.formMultipageDecorator = ObjectFactory.Resolve<IFormMultipageDecorator>();
+                }
+
+                return this.formMultipageDecorator;
+            }
+        }
+
         /// <inheritDoc/>
         public override void Render(StreamWriter writer, FormDescription form)
         {
@@ -36,8 +54,7 @@ namespace Telerik.Sitefinity.Frontend.Forms
 
             if (isMultiPageForm)
             {
-                formControlsMarkup.Insert(0, pageBreakSeparatorBegin);
-                formControlsMarkup.Append(pageBreakSeparatorEnd);
+                this.FormMultipageDecorator.WrapFormPage(formControlsMarkup);
             }
 
             formControlsMarkup.Insert(0, this.GetFieldsMarkup("Header", formControlsArray));
@@ -57,7 +74,7 @@ namespace Telerik.Sitefinity.Frontend.Forms
 
                 if (controlType.ImplementsInterface(typeof(IFormPageBreak)))
                 {
-                    controlInstanceString += string.Concat(pageBreakSeparatorEnd, pageBreakSeparatorBegin);
+                    controlInstanceString = this.FormMultipageDecorator.AppendMultipageFormSeparatorsDevider(controlInstanceString);
                 }
 
                 return controlInstanceString;
@@ -68,8 +85,6 @@ namespace Telerik.Sitefinity.Frontend.Forms
             }
         }
 
-
-        public static string pageBreakSeparatorBegin = "<div class='separator'>";
-        public static string pageBreakSeparatorEnd = "</div>";
+        private IFormMultipageDecorator formMultipageDecorator;
     }
 }
