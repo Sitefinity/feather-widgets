@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using System.Web.UI;
 using FeatherWidgets.TestUtilities.CommonOperations;
 using MbUnit.Framework;
 using Telerik.Sitefinity.Frontend.Forms.Mvc.Controllers;
@@ -12,6 +13,7 @@ using Telerik.Sitefinity.Modules.Forms;
 using Telerik.Sitefinity.Modules.Pages;
 using Telerik.Sitefinity.Modules.Pages.Web.Services;
 using Telerik.Sitefinity.Mvc.Proxy;
+using Telerik.Sitefinity.Services;
 using Telerik.Sitefinity.TestIntegration.SDK.DevelopersGuide.SitefinityEssentials.Modules.Forms;
 
 namespace FeatherWidgets.TestIntegration.Forms.Fields
@@ -38,7 +40,6 @@ namespace FeatherWidgets.TestIntegration.Forms.Fields
             control.Settings = new ControllerSettings(controller);
 
             var formId = ServerOperationsFeather.Forms().CreateFormWithWidget(control);
-
             var pageManager = PageManager.GetManager();
 
             try
@@ -52,7 +53,7 @@ namespace FeatherWidgets.TestIntegration.Forms.Fields
                 var pageContent = FeatherServerOperations.Pages().GetPageContent(pageId);
 
                 var pageName = Res.Get<FieldResources>().PageName + "1";
-                Assert.IsNotNull(pageContent.Contains(pageName), "Form did not render navigation field pages");
+                Assert.IsTrue(pageContent.Contains(pageName), "Form did not render navigation field pages");
             }
             finally
             {
@@ -71,19 +72,26 @@ namespace FeatherWidgets.TestIntegration.Forms.Fields
         public void Navigation_FieldIsCorrectlyInitialized()
         {
             var controller = new PageBreakController();
-
             var control = new MvcWidgetProxy();
             control.ControllerName = typeof(PageBreakController).FullName;
             control.Settings = new ControllerSettings(controller);
 
-            var formId = ServerOperationsFeather.Forms().CreateFormWithWidget(control);
+            var navigationController = new NavigationFieldController();
+            var navigationControl = new MvcWidgetProxy();
+            navigationControl.ControllerName = typeof(NavigationFieldController).FullName;
+            navigationControl.Settings = new ControllerSettings(navigationController);
+
+            var controls = new List<Control>() { control, navigationControl };
+
+            var formId = ServerOperationsFeather.Forms().CreateFormWithWidgets(controls);
 
             var pageManager = PageManager.GetManager();
             var formsManager = FormsManager.GetManager();
             try
             {
-                var tempForm = formsManager.EditForm(formId);
-
+                var culture = SystemManager.CurrentContext.AppSettings.DefaultFrontendLanguage;
+                var tempForm = formsManager.EditForm(formId, culture);
+                var controlInForm = tempForm.Controls.FirstOrDefault(c => c.GetType() == typeof(NavigationFieldController));
                 var zoneEditorService = new ZoneEditorService();
                 var parameters = new Dictionary<string, string>();
                 parameters["ControllerName"] = typeof(NavigationFieldController).FullName;
@@ -91,17 +99,18 @@ namespace FeatherWidgets.TestIntegration.Forms.Fields
                 zoneEditorService.UpdateControlState(
                     new Telerik.Sitefinity.Web.UI.ZoneEditorWebServiceArgs()
                     {
+                        Id = controlInForm.Id,
                         ControlType = typeof(MvcControllerProxy).FullName,
                         PageId = tempForm.Id,
-                        DockId = string.Empty,
                         PlaceholderId = "Body",
                         Parameters = parameters,
                         MediaType = DesignMediaType.Form,
-                        Attributes = new Dictionary<string, string>()
+                        Attributes = new Dictionary<string, string>(),
+                        CommandName = "reload"
                     });
 
-                var masterForm = formsManager.Lifecycle.CheckIn(tempForm);
-                formsManager.Lifecycle.Publish(masterForm);
+                var masterForm = formsManager.Lifecycle.CheckIn(tempForm, culture);
+                formsManager.Lifecycle.Publish(masterForm, culture);
 
                 var template = pageManager.GetTemplates().FirstOrDefault(t => t.Name == "SemanticUI.default" && t.Title == "default");
                 Assert.IsNotNull(template, "Template was not found");
@@ -113,8 +122,8 @@ namespace FeatherWidgets.TestIntegration.Forms.Fields
 
                 var pageName1 = Res.Get<FieldResources>().PageName + "1";
                 var pageName2 = Res.Get<FieldResources>().PageName + "2";
-                Assert.IsNotNull(pageContent.Contains(pageName1), "Form did not render navigation field pages");
-                Assert.IsNotNull(pageContent.Contains(pageName2), "Form did not render navigation field pages");
+                Assert.IsTrue(pageContent.Contains(pageName1), "Form did not render navigation field pages");
+                Assert.IsTrue(pageContent.Contains(pageName2), "Form did not render navigation field pages");
             }
             finally
             {

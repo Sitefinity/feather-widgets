@@ -36,8 +36,8 @@ namespace Telerik.Sitefinity.Frontend.Forms
 
             if (isMultiPageForm)
             {
-                formControlsMarkup.Insert(0, this.pageBreakSeparatorBegin);
-                formControlsMarkup.Append(this.pageBreakSeparatorEnd);
+                formControlsMarkup.Insert(0, pageBreakSeparatorBegin);
+                formControlsMarkup.Append(pageBreakSeparatorEnd);
             }
 
             formControlsMarkup.Insert(0, this.GetFieldsMarkup("Header", formControlsArray));
@@ -57,7 +57,7 @@ namespace Telerik.Sitefinity.Frontend.Forms
 
                 if (controlType.ImplementsInterface(typeof(IFormPageBreak)))
                 {
-                    controlInstanceString += string.Concat(this.pageBreakSeparatorEnd, this.pageBreakSeparatorBegin);
+                    controlInstanceString += string.Concat(pageBreakSeparatorEnd, pageBreakSeparatorBegin);
                 }
 
                 return controlInstanceString;
@@ -69,7 +69,7 @@ namespace Telerik.Sitefinity.Frontend.Forms
         }
 
 
-        public string pageBreakSeparatorBegin = "<div class='separator'>";
-        public string pageBreakSeparatorEnd = "</div>";
+        public static string pageBreakSeparatorBegin = "<div class='separator'>";
+        public static string pageBreakSeparatorEnd = "</div>";
     }
 }

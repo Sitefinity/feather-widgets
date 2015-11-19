@@ -255,6 +255,7 @@
     <Compile Include="DynamicWidgets\OldDynamicWidgetsWithFeatherTests.cs" />
     <Compile Include="Forms\BackendConfiguratorTests.cs" />
     <Compile Include="Forms\Fields\CheckboxesFieldTests.cs" />
+    <Compile Include="Forms\Fields\PageBreakTests.cs" />
     <Compile Include="Forms\Fields\DropdownListFieldTests.cs" />
     <Compile Include="Forms\Fields\NavigationFieldTests.cs" />
     <Compile Include="Forms\Fields\ParagraphTextFieldTests.cs" />

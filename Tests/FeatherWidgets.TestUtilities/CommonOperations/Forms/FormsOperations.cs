@@ -3,9 +3,7 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
 using System.Linq;
-using System.Text;
 using System.Text.RegularExpressions;
-using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.UI;
@@ -19,9 +17,9 @@ using Telerik.Sitefinity.Modules.Forms.Web.UI.Fields;
 using Telerik.Sitefinity.Modules.Pages;
 using Telerik.Sitefinity.Mvc.Proxy;
 using Telerik.Sitefinity.Mvc.TestUtilities.CommonOperations;
+using Telerik.Sitefinity.Pages.Model;
 using Telerik.Sitefinity.Services;
 using Telerik.Sitefinity.TestIntegration.Data.Content;
-using Telerik.Sitefinity.TestIntegration.SDK.DevelopersGuide.SitefinityEssentials.Modules.Forms;
 using Telerik.Sitefinity.Web.UI;
 
 namespace FeatherWidgets.TestUtilities.CommonOperations.Forms
@@ -66,6 +64,40 @@ namespace FeatherWidgets.TestUtilities.CommonOperations.Forms
             formControls.Add(widget);
 
             this.CreateForm(formId, "form_" + formId.ToString("N"), formId.ToString("N"), formSuccessMessage, formControls);
+
+            SystemManager.ClearCurrentTransactions();
+            SystemManager.RestartApplication(false);
+            System.Threading.Thread.Sleep(1000);
+
+            return formId;
+        }
+
+        public Guid CreateFormWithWidgets(IList<Control> widgets)
+        {
+            var formId = Guid.NewGuid();
+
+            string formSuccessMessage = "Test form success message";
+
+            this.CreateForm(formId, "form_" + formId.ToString("N"), formId.ToString("N"), formSuccessMessage, widgets);
+
+            SystemManager.ClearCurrentTransactions();
+            SystemManager.RestartApplication(false);
+            System.Threading.Thread.Sleep(1000);
+
+            return formId;
+        }
+
+        public Guid CreateFormWithWidget(Control widgetInBody, Control widgetInHeader, Control widgetInFooter)
+        {
+            var formId = Guid.NewGuid();
+
+            string formSuccessMessage = "Test form success message";
+
+            var formBodyControls = new List<Control>() { widgetInBody };
+            var formHeaderControls = new List<Control>() { widgetInHeader };
+            var formFooterControls = new List<Control>() { widgetInFooter };
+
+            this.CreateFormWithHeaderAndFooter(formId, "form_" + formId.ToString("N"), formId.ToString("N"), formSuccessMessage, formHeaderControls, formBodyControls, formFooterControls);
 
             SystemManager.ClearCurrentTransactions();
             SystemManager.RestartApplication(false);
@@ -245,8 +277,9 @@ namespace FeatherWidgets.TestUtilities.CommonOperations.Forms
                 form.UrlName = Regex.Replace(form.Name.ToLower(), ArrangementConstants.UrlNameCharsToReplace, ArrangementConstants.UrlNameReplaceString);
                 form.SuccessMessage = formSuccessMessage;
 
+                var culture = SystemManager.CurrentContext.AppSettings.DefaultFrontendLanguage;
                 var draft = formManager.EditForm(form.Id);
-                var master = formManager.Lifecycle.CheckOut(draft);
+                var master = formManager.Lifecycle.CheckOut(draft, culture);
 
                 if (master != null)
                 {
@@ -258,17 +291,57 @@ namespace FeatherWidgets.TestUtilities.CommonOperations.Forms
                             controlsCounter++;
                             control.ID = string.Format(CultureInfo.InvariantCulture, formName + "_C" + controlsCounter.ToString(CultureInfo.InvariantCulture).PadLeft(3, '0'));
                             var formControl = formManager.CreateControl<FormDraftControl>(control, "Body");
-
+                            
                             formControl.SiblingId = siblingId;
                             formControl.Caption = ObjectFactory.Resolve<IControlBehaviorResolver>().GetBehaviorObject(control).GetType().Name;
                             siblingId = formControl.Id;
-
                             master.Controls.Add(formControl);
+                            formControl.SetPersistanceStrategy();
                         }
                     }
 
-                    master = formManager.Lifecycle.CheckIn(master);
-                    formManager.Lifecycle.Publish(master);
+                    master = formManager.Lifecycle.CheckIn(master, culture);
+                    formManager.Lifecycle.Publish(master, culture);
+
+                    formManager.SaveChanges(true);
+                }
+            }
+        }
+
+        /// <summary>
+        /// Creates a new form in Content -> Forms
+        /// </summary>
+        /// <param name="formId">Form ID</param>
+        /// <param name="formName">Form name</param>
+        /// <param name="formTitle">Form title</param>
+        /// <param name="formSuccessMessage">Success message after the form is submitted</param>
+        /// <param name="formControls">Form widgets like text boxes and buttons</param>
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Maintainability", "CA1506:AvoidExcessiveClassCoupling")]
+        public void CreateFormWithHeaderAndFooter(Guid formId, string formName, string formTitle, string formSuccessMessage, IList<Control> formHeaderControls, IList<Control> formBodyControls, IList<Control> formFooterControls)
+        {
+            FormsManager formManager = FormsManager.GetManager();
+            var form = formManager.GetForms().SingleOrDefault(f => f.Id == formId);
+
+            if (form == null)
+            {
+                form = formManager.CreateForm(formName, formId);
+                form.Framework = FormFramework.Mvc;
+                form.Title = formTitle;
+                form.UrlName = Regex.Replace(form.Name.ToLower(), ArrangementConstants.UrlNameCharsToReplace, ArrangementConstants.UrlNameReplaceString);
+                form.SuccessMessage = formSuccessMessage;
+
+                var culture = SystemManager.CurrentContext.AppSettings.DefaultFrontendLanguage;
+                var draft = formManager.EditForm(form.Id);
+                var master = formManager.Lifecycle.CheckOut(draft, culture);
+
+                if (master != null)
+                {
+                    this.AppendFormControlsToPlaceholder(formName, formBodyControls, formManager, master, "Body");
+                    this.AppendFormControlsToPlaceholder(formName, formHeaderControls, formManager, master, "Header");
+                    this.AppendFormControlsToPlaceholder(formName, formFooterControls, formManager, master, "Footer");
+
+                    master = formManager.Lifecycle.CheckIn(master, culture);
+                    formManager.Lifecycle.Publish(master, culture);
 
                     formManager.SaveChanges(true);
                 }
@@ -291,6 +364,27 @@ namespace FeatherWidgets.TestUtilities.CommonOperations.Forms
             }
 
             return id;
+        }
+
+        private void AppendFormControlsToPlaceholder(string formName, IList<Control> formControls, FormsManager formManager, FormDraft master, string containerId)
+        {
+            if (formControls != null && formControls.Any())
+            {
+                Guid siblingId = Guid.Empty;
+                int controlsCounter = 0;
+                foreach (var control in formControls)
+                {
+                    controlsCounter++;
+                    control.ID = string.Format(CultureInfo.InvariantCulture, formName + "_C" + controlsCounter.ToString(CultureInfo.InvariantCulture).PadLeft(3, '0'));
+                    var formControl = formManager.CreateControl<FormDraftControl>(control, containerId);
+
+                    formControl.SiblingId = siblingId;
+                    formControl.Caption = ObjectFactory.Resolve<IControlBehaviorResolver>().GetBehaviorObject(control).GetType().Name;
+                    siblingId = formControl.Id;
+                    master.Controls.Add(formControl);
+                    formControl.SetPersistanceStrategy();
+                }
+            }
         }
     }
 }
