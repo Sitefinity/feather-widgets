@@ -14,6 +14,7 @@ using Telerik.Sitefinity.Modules.Forms;
 using Telerik.Sitefinity.Modules.Pages;
 using Telerik.Sitefinity.Mvc.Proxy;
 using Telerik.Sitefinity.TestIntegration.SDK.DevelopersGuide.SitefinityEssentials.Modules.Forms;
+using Telerik.WebTestRunner.Server.Attributes;
 
 namespace FeatherWidgets.TestIntegration.Forms.Fields
 {
@@ -30,6 +31,7 @@ namespace FeatherWidgets.TestIntegration.Forms.Fields
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Maintainability", "CA1506:AvoidExcessiveClassCoupling"), Test]
         [Category(TestCategories.Forms)]
         [Author(FeatherTeams.FeatherTeam)]
+        [Multilingual(MultilingualExecutionMode.MultiAndMonoLingual)]
         [Description("Ensures that when a checkboxes field is added to form the choices are presented in the page markup.")]
         public void CheckboxesFieldTests_EditDefaultChoices_MarkupIsCorrect()
         {
@@ -73,6 +75,7 @@ namespace FeatherWidgets.TestIntegration.Forms.Fields
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Maintainability", "CA1506:AvoidExcessiveClassCoupling"), Test]
         [Category(TestCategories.Forms)]
         [Author(FeatherTeams.FeatherTeam)]
+        [Multilingual(MultilingualExecutionMode.MultiAndMonoLingual)]
         [Description("Ensures that when a checkboxes field widget is submitted with certain value then the response is correct.")]
         public void CheckboxesFieldTests_SubmitValue_ResponseIsCorrect()
         {
@@ -118,6 +121,7 @@ namespace FeatherWidgets.TestIntegration.Forms.Fields
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Maintainability", "CA1506:AvoidExcessiveClassCoupling"), Test]
         [Category(TestCategories.Forms)]
         [Author(FeatherTeams.FeatherTeam)]
+        [Multilingual(MultilingualExecutionMode.MultiAndMonoLingual)]
         [Description("Ensures that when a checkboxes field is submitted with empty value then the validation fails.")]
         public void CheckboxesFieldTests_SubmitIncorrectValue_ServerValidationFails()
         {

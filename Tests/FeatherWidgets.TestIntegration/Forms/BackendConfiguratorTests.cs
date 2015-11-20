@@ -11,6 +11,7 @@ using Telerik.Sitefinity.Frontend.TestUtilities;
 using Telerik.Sitefinity.Metadata.Model;
 using Telerik.Sitefinity.Modules.Forms.Web.UI.Fields;
 using Telerik.Sitefinity.Mvc.Proxy;
+using Telerik.WebTestRunner.Server.Attributes;
 
 namespace FeatherWidgets.TestIntegration.Forms
 {
@@ -26,6 +27,7 @@ namespace FeatherWidgets.TestIntegration.Forms
         [Test]
         [Category(TestCategories.Forms)]
         [Author(FeatherTeams.FeatherTeam)]
+        [Multilingual(MultilingualExecutionMode.MultiAndMonoLingual)]
         [Description("Ensures that checkboxes field backend cofigurator returns textbox when HasOtherChoice is enabled.")]
         public void CheckboxesConfigure_WithOtherChoice_RenderTextBox()
         {
@@ -55,6 +57,7 @@ namespace FeatherWidgets.TestIntegration.Forms
         [Test]
         [Category(TestCategories.Forms)]
         [Author(FeatherTeams.FeatherTeam)]
+        [Multilingual(MultilingualExecutionMode.MultiAndMonoLingual)]
         [Description("Ensures that checkboxes field backend cofigurator returns checkboxes when HasOtherChoice is disabled.")]
         public void CheckboxesConfigure_WithoutOtherChoice_RenderCheckboxes()
         {

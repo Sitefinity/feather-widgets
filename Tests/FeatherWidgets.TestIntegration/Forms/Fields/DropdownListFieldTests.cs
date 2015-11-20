@@ -13,6 +13,7 @@ using Telerik.Sitefinity.Modules.Forms;
 using Telerik.Sitefinity.Modules.Pages;
 using Telerik.Sitefinity.Mvc.Proxy;
 using Telerik.Sitefinity.TestIntegration.SDK.DevelopersGuide.SitefinityEssentials.Modules.Forms;
+using Telerik.WebTestRunner.Server.Attributes;
 
 namespace FeatherWidgets.TestIntegration.Forms.Fields
 {
@@ -26,9 +27,10 @@ namespace FeatherWidgets.TestIntegration.Forms.Fields
         /// <summary>
         /// Ensures that when a dropdown list field widget is added to form the default value is presented in the page markup.
         /// </summary>
-        [Test]
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Maintainability", "CA1506:AvoidExcessiveClassCoupling"), Test]
         [Category(TestCategories.Forms)]
         [Author(FeatherTeams.FeatherTeam)]
+        [Multilingual(MultilingualExecutionMode.MultiAndMonoLingual)]
         [Description("Ensures that when a dropdown list field widget is added to form the default value is presented in the page markup.")]
         public void DropdownListFieldTests_EditDefaultValue_MarkupIsCorrect()
         {
@@ -68,6 +70,7 @@ namespace FeatherWidgets.TestIntegration.Forms.Fields
         [Test]
         [Category(TestCategories.Forms)]
         [Author(FeatherTeams.FeatherTeam)]
+        [Multilingual(MultilingualExecutionMode.MultiAndMonoLingual)]
         [Description("Ensures that when a dropdown list field widget is submitted with certain value then the response is correct.")]
         public void DropdownListFieldTests_SubmitValue_ResponseIsCorrect()
         {
@@ -116,6 +119,7 @@ namespace FeatherWidgets.TestIntegration.Forms.Fields
         [Test]
         [Category(TestCategories.Forms)]
         [Author(FeatherTeams.FeatherTeam)]
+        [Multilingual(MultilingualExecutionMode.MultiAndMonoLingual)]
         [Description("Ensures that when a dropdown list field widget with URL type is submitted with incorrect value then the validation fails.")]
         public void DropdownListFieldTests_SubmitIncorrectValue_ServerValidationFails()
         {

@@ -10,6 +10,7 @@ using Telerik.Sitefinity.Mvc.Proxy;
 using Telerik.Sitefinity.Services;
 using Telerik.Sitefinity.Services.Events;
 using Telerik.Sitefinity.TestIntegration.SDK.DevelopersGuide.SitefinityEssentials.Modules.Forms;
+using Telerik.WebTestRunner.Server.Attributes;
 
 namespace FeatherWidgets.TestIntegration.Forms
 {
@@ -50,6 +51,7 @@ namespace FeatherWidgets.TestIntegration.Forms
         [Test]
         [Category(TestCategories.Forms)]
         [Author(FeatherTeams.FeatherTeam)]
+        [Multilingual(MultilingualExecutionMode.MultiAndMonoLingual)]
         [Description("Ensures that form events are risen on submittion.")]
         public void Model_TrySubmitForm_RaisesValidating_Saving_Saved()
         {
@@ -113,6 +115,7 @@ namespace FeatherWidgets.TestIntegration.Forms
         [Test]
         [Category(TestCategories.Forms)]
         [Author(FeatherTeams.FeatherTeam)]
+        [Multilingual(MultilingualExecutionMode.MultiAndMonoLingual)]
         [Description("Ensures that before action form event is risen after submittion.")]
         public void Controller_PostIndex_RaisesBeforeAction()
         {
@@ -150,6 +153,7 @@ namespace FeatherWidgets.TestIntegration.Forms
         [Test]
         [Category(TestCategories.Forms)]
         [Author(FeatherTeams.FeatherTeam)]
+        [Multilingual(MultilingualExecutionMode.MultiAndMonoLingual)]
         [Description("Ensures that form events are risen on submittion.")]
         public void Model_TrySubmitForm_ValidatingEventHandlerFails_InvalidResult()
         {

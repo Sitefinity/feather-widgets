@@ -15,6 +15,7 @@ using Telerik.Sitefinity.Modules.Pages.Web.Services;
 using Telerik.Sitefinity.Mvc.Proxy;
 using Telerik.Sitefinity.Services;
 using Telerik.Sitefinity.TestIntegration.SDK.DevelopersGuide.SitefinityEssentials.Modules.Forms;
+using Telerik.WebTestRunner.Server.Attributes;
 
 namespace FeatherWidgets.TestIntegration.Forms.Fields
 {
@@ -27,9 +28,10 @@ namespace FeatherWidgets.TestIntegration.Forms.Fields
         /// <summary>
         /// Ensures that when a Navigation field widget is added to form, page titles are presented in the page markup.
         /// </summary>
-        [Test]
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Maintainability", "CA1506:AvoidExcessiveClassCoupling"), Test]
         [Category(TestCategories.Forms)]
         [Author(FeatherTeams.SitefinityTeam6)]
+        [Multilingual(MultilingualExecutionMode.MultiAndMonoLingual)]
         [Description("Ensures that when a Navigation field widget is added to form, page titles are presented in the page markup.")]
         public void Navigation_MarkupIsCorrect()
         {
@@ -68,6 +70,7 @@ namespace FeatherWidgets.TestIntegration.Forms.Fields
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Maintainability", "CA1506:AvoidExcessiveClassCoupling"), Test]
         [Category(TestCategories.Forms)]
         [Author(FeatherTeams.SitefinityTeam6)]
+        [Multilingual(MultilingualExecutionMode.MultiAndMonoLingual)]
         [Description("Ensures that when a Navigation field widget is added to form with page break widget, page titles are presented in the page markup.")]
         public void Navigation_FieldIsCorrectlyInitialized()
         {
@@ -91,7 +94,10 @@ namespace FeatherWidgets.TestIntegration.Forms.Fields
             {
                 var culture = SystemManager.CurrentContext.AppSettings.DefaultFrontendLanguage;
                 var tempForm = formsManager.EditForm(formId, culture);
-                var controlInForm = tempForm.Controls.FirstOrDefault(c => c.GetType() == typeof(NavigationFieldController));
+                formsManager.SaveChanges();
+
+                var controlInForm = tempForm.Controls
+                    .FirstOrDefault(c => c.Properties.FirstOrDefault(pr => pr.Name == "ControllerName").Value == typeof(NavigationFieldController).FullName);
                 var zoneEditorService = new ZoneEditorService();
                 var parameters = new Dictionary<string, string>();
                 parameters["ControllerName"] = typeof(NavigationFieldController).FullName;
@@ -106,11 +112,15 @@ namespace FeatherWidgets.TestIntegration.Forms.Fields
                         Parameters = parameters,
                         MediaType = DesignMediaType.Form,
                         Attributes = new Dictionary<string, string>(),
-                        CommandName = "reload"
+                        CommandName = "reload",
+                        Url = "/Sitefinity/Forms/" + tempForm.Name
                     });
+                
+                formsManager.SaveChanges();
 
                 var masterForm = formsManager.Lifecycle.CheckIn(tempForm, culture);
                 formsManager.Lifecycle.Publish(masterForm, culture);
+                formsManager.SaveChanges();
 
                 var template = pageManager.GetTemplates().FirstOrDefault(t => t.Name == "SemanticUI.default" && t.Title == "default");
                 Assert.IsNotNull(template, "Template was not found");
