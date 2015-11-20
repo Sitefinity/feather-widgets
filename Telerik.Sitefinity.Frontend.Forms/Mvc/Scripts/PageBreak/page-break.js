@@ -64,12 +64,12 @@
                     }
                 });
 
-                submitButton = formContainer.find('button[type="submit"],input[type="submit"]');
+                submitButton = formContainer.find('input#stepNewFormSubmit');
 
                 if (submitButton.length === 0) {
                     // If we do not have submit button in this step we need to add a hidden submit button in order to click it and trigger the native HTML 5
                     // browser validation
-                    submitButton = $('<input style="display:none;" type="submit"/>');
+                    submitButton = $('<input id="stepNewFormSubmit" style="display:none;" type="submit"/>');
                     formContainer.append(submitButton);
                     isSubmitButtonAdded = true;
                 }
