@@ -401,7 +401,7 @@ namespace FeatherWidgets.TestUtilities.CommonOperations.Forms
                 foreach (var control in formControls)
                 {
                     controlsCounter++;
-                    control.ID = string.Format(CultureInfo.InvariantCulture, formName + "_C" + controlsCounter.ToString(CultureInfo.InvariantCulture).PadLeft(3, '0'));
+                    control.ID = string.Format(CultureInfo.InvariantCulture, formName + "_" + containerId + "_C" + controlsCounter.ToString(CultureInfo.InvariantCulture).PadLeft(3, '0'));
                     var formControl = formManager.CreateControl<FormDraftControl>(control, containerId);
 
                     formControl.SiblingId = siblingId;
