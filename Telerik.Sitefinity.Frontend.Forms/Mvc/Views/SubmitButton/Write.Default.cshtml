@@ -10,7 +10,7 @@
     <button  class="sf-SubmitButton btn btn-default" type="submit" @Html.SubmitButtonRequiredAttributes() >@Model.Label</button>
     @if (Model.AllowGoBack)
     {
-        <a href="#" data-sf-btn-role="prev">@Html.Raw(Model.PreviousStepText) </a>
+        <a href="javascript:void(0)" data-sf-btn-role="prev">@Html.Raw(Model.PreviousStepText) </a>
     }
 </div>
 

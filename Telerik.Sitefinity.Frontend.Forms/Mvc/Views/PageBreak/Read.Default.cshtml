@@ -9,7 +9,7 @@
     <button data-sf-btn-role="next" type="button">@Html.Raw(Model.NextStepText)</button>
     @if (Model.AllowGoBack)
     {
-        <a href="#" data-sf-btn-role="prev">@Html.Raw(Model.PreviousStepText)</a>
+        <a href="javascript:void(0)" data-sf-btn-role="prev">@Html.Raw(Model.PreviousStepText)</a>
     }
 </div>
 
