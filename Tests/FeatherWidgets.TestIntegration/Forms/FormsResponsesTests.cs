@@ -14,6 +14,7 @@ using Telerik.Sitefinity.Modules.Forms.Web.UI;
 using Telerik.Sitefinity.Mvc.Proxy;
 using Telerik.Sitefinity.TestIntegration.SDK.DevelopersGuide.SitefinityEssentials.Modules.Forms;
 using Telerik.Sitefinity.Web.UI.ContentUI.Views.Backend.Master.Definitions;
+using Telerik.WebTestRunner.Server.Attributes;
 
 namespace FeatherWidgets.TestIntegration.Forms
 {
@@ -36,6 +37,7 @@ namespace FeatherWidgets.TestIntegration.Forms
         [Test]
         [Category(TestCategories.Forms)]
         [Author(FeatherTeams.FeatherTeam)]
+        [Multilingual(MultilingualExecutionMode.MultiAndMonoLingual)]
         [Description("Ensures that when searching for existing text in single field in one entry one result is returned.")]
         public void FormResponses_SearchingForExistingTextInSingleFieldInSingleEntry_GetsResults()
         {
@@ -49,6 +51,7 @@ namespace FeatherWidgets.TestIntegration.Forms
         [Test]
         [Category(TestCategories.Forms)]
         [Author(FeatherTeams.FeatherTeam)]
+        [Multilingual(MultilingualExecutionMode.MultiAndMonoLingual)]
         [Description("Ensures that when searching for non present text in single field in one entry no results are returned.")]
         public void FormResponses_SearchingForNonExistingTextInSingleFieldInSingleEntry_GetsNoResults()
         {
@@ -66,6 +69,7 @@ namespace FeatherWidgets.TestIntegration.Forms
         [Test]
         [Category(TestCategories.Forms)]
         [Author(FeatherTeams.FeatherTeam)]
+        [Multilingual(MultilingualExecutionMode.MultiAndMonoLingual)]
         [Description("Ensures that when searching for present text all multiple fields in one entry 1 result are returned.")]
         public void FormResponses_SearchingForExistingTextInMultipleFieldsInSingleEntry_GetsAllResults()
         {
@@ -79,6 +83,7 @@ namespace FeatherWidgets.TestIntegration.Forms
         [Test]
         [Category(TestCategories.Forms)]
         [Author(FeatherTeams.FeatherTeam)]
+        [Multilingual(MultilingualExecutionMode.MultiAndMonoLingual)]
         [Description("Ensures that when searching for specific text in multiple fields in one entry only specific results are returned.")]
         public void FormResponses_SearchingForSpecificTextInMultipleFieldsInSingleEntry_GetsSpecificResults()
         {
@@ -92,6 +97,7 @@ namespace FeatherWidgets.TestIntegration.Forms
         [Test]
         [Category(TestCategories.Forms)]
         [Author(FeatherTeams.FeatherTeam)]
+        [Multilingual(MultilingualExecutionMode.MultiAndMonoLingual)]
         [Description("Ensures that when searching for non present text in multiple fields in one entry no results are returned.")]
         public void FormResponses_SearchingForNonExistingTextInMultipleFieldsInSingleEntry_GetsNoResults()
         {
@@ -109,6 +115,7 @@ namespace FeatherWidgets.TestIntegration.Forms
         [Test]
         [Category(TestCategories.Forms)]
         [Author(FeatherTeams.FeatherTeam)]
+        [Multilingual(MultilingualExecutionMode.MultiAndMonoLingual)]
         [Description("Ensures that when searching for existing text in single field in multi entry one result is returned.")]
         public void FormResponses_SearchingForExistingTextInSingleFieldInMultyEntry_GetsResults()
         {
@@ -122,6 +129,7 @@ namespace FeatherWidgets.TestIntegration.Forms
         [Test]
         [Category(TestCategories.Forms)]
         [Author(FeatherTeams.FeatherTeam)]
+        [Multilingual(MultilingualExecutionMode.MultiAndMonoLingual)]
         [Description("Ensures that when searching for non present text in single field in multi entry no results are returned.")]
         public void FormResponses_SearchingForNonExistingTextInSingleFieldInMultyEntry_GetsNoResults()
         {
@@ -139,6 +147,7 @@ namespace FeatherWidgets.TestIntegration.Forms
         [Test]
         [Category(TestCategories.Forms)]
         [Author(FeatherTeams.FeatherTeam)]
+        [Multilingual(MultilingualExecutionMode.MultiAndMonoLingual)]
         [Description("Ensures that when searching for present text all multiple fields in multi entry 1 result are returned.")]
         public void FormResponses_SearchingForExistingTextInMultipleFieldsInMultyEntry_GetsAllResults()
         {
@@ -152,6 +161,7 @@ namespace FeatherWidgets.TestIntegration.Forms
         [Test]
         [Category(TestCategories.Forms)]
         [Author(FeatherTeams.FeatherTeam)]
+        [Multilingual(MultilingualExecutionMode.MultiAndMonoLingual)]
         [Description("Ensures that when searching for specific text in multiple fields in multi entry only specific results are returned.")]
         public void FormResponses_SearchingForSpecificTextInMultipleFieldsInMultyEntry_GetsSpecificResults()
         {
@@ -165,6 +175,7 @@ namespace FeatherWidgets.TestIntegration.Forms
         [Test]
         [Category(TestCategories.Forms)]
         [Author(FeatherTeams.FeatherTeam)]
+        [Multilingual(MultilingualExecutionMode.MultiAndMonoLingual)]
         [Description("Ensures that when searching for non present text in multiple fields in multi entry no results are returned.")]
         public void FormResponses_SearchingForNonExistingTextInMultipleFieldsInMultyEntry_GetsNoResults()
         {

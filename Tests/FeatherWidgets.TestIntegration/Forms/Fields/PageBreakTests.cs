@@ -12,6 +12,7 @@ using Telerik.Sitefinity.Modules.Forms;
 using Telerik.Sitefinity.Modules.Pages;
 using Telerik.Sitefinity.Mvc.Proxy;
 using Telerik.Sitefinity.TestIntegration.SDK.DevelopersGuide.SitefinityEssentials.Modules.Forms;
+using Telerik.WebTestRunner.Server.Attributes;
 
 namespace FeatherWidgets.TestIntegration.Forms.Fields
 {
@@ -24,9 +25,10 @@ namespace FeatherWidgets.TestIntegration.Forms.Fields
         /// <summary>
         /// Ensures that when a Page break widget is added to form, div separators are presented in the page markup
         /// </summary>
-        [Test]
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Maintainability", "CA1506:AvoidExcessiveClassCoupling"), Test]
         [Category(TestCategories.Forms)]
         [Author(FeatherTeams.SitefinityTeam6)]
+        [Multilingual(MultilingualExecutionMode.MultiAndMonoLingual)]
         [Description("Ensures that when a Page break widget is added to form, div separators are presented in the page markup.")]
         public void PageBreak_SeparatorsMarkupIsCorrect()
         {
@@ -65,6 +67,7 @@ namespace FeatherWidgets.TestIntegration.Forms.Fields
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Maintainability", "CA1506:AvoidExcessiveClassCoupling"), Test]
         [Category(TestCategories.Forms)]
         [Author(FeatherTeams.SitefinityTeam6)]
+        [Multilingual(MultilingualExecutionMode.MultiAndMonoLingual)]
         [Description("Ensures that when a Page break widget is added to form, Header and Footer containers are presented.")]
         public void PageBreak_HeaderAndFooterFieldsInitialized()
         {
