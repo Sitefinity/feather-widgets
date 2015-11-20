@@ -15,11 +15,26 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Frontend.CardWidge
         /// Verify card widget content on frontend
         /// </summary>
         /// <param name="cardWidgetContent">Content of the card widget.</param>
-        public void VerifyCardWidgetContentOnFrontend(string cardWidgetContent)
+        public void VerifyCardWidgetContentOnFrontend(string cardWidgetContent, bool isSimple = false)
         {
             HtmlDiv frontendPageMainDiv = BAT.Wrappers().Frontend().Pages().PagesWrapperFrontend().GetPageContent();
+            HtmlDiv divContainer;
+            bool isContained;
 
-            bool isContained = frontendPageMainDiv.InnerText.Contains(cardWidgetContent);
+            if (isSimple)
+            {
+                divContainer = frontendPageMainDiv.Find
+                                                  .ByExpression<HtmlDiv>("tagname=div", "class=row")
+                                                  .AssertIsPresent("Div with this class");
+
+                 isContained = divContainer.InnerText.Contains(cardWidgetContent);
+                Assert.IsTrue(isContained, "Card widget content is not as expected");
+            }
+            else 
+            {
+                isContained = frontendPageMainDiv.InnerText.Contains(cardWidgetContent);               
+            }
+
             Assert.IsTrue(isContained, "Card widget content is not as expected");
         }
 
