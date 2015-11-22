@@ -88,5 +88,38 @@ namespace Feather.Widgets.TestUI.Framework.Framework.ElementMap.CardWidget
                 return this.Get<HtmlInputText>("tagname=input", "ng-model=properties.LinkedUrl.PropertyValue", "class=form-control ng-pristine ng-untouched ng-valid");
             }
         }
+
+        /// <summary>
+        /// Gets heading field in advanced settings
+        /// </summary>
+        public HtmlInputText HeadingTextFieldInAdvancedSettings
+        {
+            get
+            {
+                return this.Get<HtmlInputText>("TagName=input", "id=prop-Heading");
+            }
+        }
+
+        /// <summary>
+        /// Gets template selector.
+        /// </summary>
+        public HtmlSelect TemplateSelector
+        {
+            get
+            {
+                return this.Get<HtmlSelect>("tagname=select", "id=templateName");
+            }
+        }
+
+        /// <summary>
+        /// Gets add button.
+        /// </summary>
+        public HtmlButton AddButton
+        {
+            get
+            {
+                return this.Get<HtmlButton>("tagname=button", "InnerText=ADD");
+            }
+        }
     }
 }

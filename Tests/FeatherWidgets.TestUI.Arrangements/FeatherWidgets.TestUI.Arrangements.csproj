@@ -278,6 +278,10 @@
     <Compile Include="CardWidget\AddCardWidgetOnPageBasedOnBootstrapTemplate.cs" />
     <Compile Include="CardWidget\AddCardWidgetOnPageTemplate.cs" />
     <Compile Include="CardWidget\AddCssToCardWidget.cs" />
+    <Compile Include="CardWidget\AddPersonalizedVersionOfCardWidget.cs" />
+    <Compile Include="CardWidget\ChangeAdvancedSettingsOfCardWidget.cs" />
+    <Compile Include="CardWidget\ChangeCardWidgetTemplate.cs" />
+    <Compile Include="CardWidget\CreateWidgetTemplateAndSetTheTemplate.cs" />
     <Compile Include="CardWidget\DuplicateAndDeleteCardWidgetFromPage.cs" />
     <Compile Include="Classifications\ContentTagsOptionAndTagCloudTemplate.cs" />
     <Compile Include="Classifications\SelectedTagsOptionAndCloudListTemplate.cs" />
