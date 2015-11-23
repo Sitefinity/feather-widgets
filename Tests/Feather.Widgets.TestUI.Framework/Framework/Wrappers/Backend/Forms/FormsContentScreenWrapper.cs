@@ -182,5 +182,27 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend.Forms
                     .First().AssertIsVisible("footer placeholder");
             }
         }
+
+        /// <summary>
+        /// Changes the next step text.
+        /// </summary>
+        /// <param name="newValue">The new value.</param>
+        /// <param name="oldValue">The old value.</param>
+        public void 
+            ChangeNextStepText(string newValue, string oldValue = "Next step")
+        {
+            HtmlInputText nextStep = EM.Forms.FormsBackend.NextStepInput;
+            nextStep.AssertIsVisible("Next step input");
+            Assert.AreEqual(oldValue, nextStep.Text);
+            nextStep.Click();
+
+            Manager.Current.Desktop.KeyBoard.KeyDown(System.Windows.Forms.Keys.Control);
+            Manager.Current.Desktop.KeyBoard.KeyPress(System.Windows.Forms.Keys.A);
+            Manager.Current.Desktop.KeyBoard.KeyUp(System.Windows.Forms.Keys.Control);
+            Manager.Current.Desktop.KeyBoard.KeyPress(System.Windows.Forms.Keys.Delete);
+            Manager.Current.Desktop.KeyBoard.TypeText(newValue);
+
+            Assert.AreEqual(newValue, nextStep.Text);
+        }
     }
 }

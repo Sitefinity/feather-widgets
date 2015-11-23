@@ -9,6 +9,7 @@ using System.Web.Mvc;
 using System.Web.UI;
 using Telerik.Sitefinity.Abstractions;
 using Telerik.Sitefinity.Forms.Model;
+using Telerik.Sitefinity.Frontend.ContentBlock.Mvc.Controllers;
 using Telerik.Sitefinity.Frontend.Forms.Mvc.Controllers;
 using Telerik.Sitefinity.Frontend.Forms.Mvc.Models;
 using Telerik.Sitefinity.Frontend.Mvc.Infrastructure.Controllers;
@@ -356,7 +357,7 @@ namespace FeatherWidgets.TestUtilities.CommonOperations.Forms
                 form.UrlName = Regex.Replace(form.Name.ToLower(), ArrangementConstants.UrlNameCharsToReplace, ArrangementConstants.UrlNameReplaceString);
                 form.SuccessMessage = formSuccessMessage;
 
-                var culture = SystemManager.CurrentContext.AppSettings.DefaultFrontendLanguage;
+                var culture = System.Globalization.CultureInfo.CurrentUICulture;
                 var draft = formManager.EditForm(form.Id);
                 var master = formManager.Lifecycle.CheckOut(draft, culture);
 
