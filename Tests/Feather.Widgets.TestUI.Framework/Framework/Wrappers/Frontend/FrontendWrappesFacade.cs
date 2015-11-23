@@ -1,4 +1,5 @@
-﻿using Feather.Widgets.TestUI.Framework.Framework.Wrappers.Frontend.Classifications;
+﻿using Feather.Widgets.TestUI.Framework.Framework.Wrappers.Frontend.CardWidget;
+using Feather.Widgets.TestUI.Framework.Framework.Wrappers.Frontend.Classifications;
 using Feather.Widgets.TestUI.Framework.Framework.Wrappers.Frontend.CommentsAndReviews;
 using Feather.Widgets.TestUI.Framework.Framework.Wrappers.Frontend.EmailCampaigns;
 using Feather.Widgets.TestUI.Framework.Framework.Wrappers.Frontend.FeedWidget;
@@ -184,6 +185,15 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Frontend
         public FormsWrapperFacade Forms()
         {
             return new FormsWrapperFacade();
+        }
+
+        /// <summary>
+        /// Provides access to card frontend wrapper. 
+        /// </summary>
+        /// <returns></returns>
+        public CardWrapperFacade Card()
+        {
+            return new CardWrapperFacade();
         }
     }
 }
