@@ -90,6 +90,17 @@ namespace Feather.Widgets.TestUI.Framework.Framework.ElementMap.Forms
         }
 
         /// <summary>
+        /// Gets next step input.
+        /// </summary>
+        public HtmlInputText NextStepInput
+        {
+            get
+            {
+                return this.Find.AssociatedBrowser.GetControl<HtmlInputText>("id=nextStep");
+            }
+        }
+
+        /// <summary>
         /// Gets SubmitButtonController div
         /// </summary>
         public HtmlDiv SubmitButtonControllerDiv

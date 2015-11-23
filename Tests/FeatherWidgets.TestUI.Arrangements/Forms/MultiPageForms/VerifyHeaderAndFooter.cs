@@ -1,4 +1,5 @@
-﻿using FeatherWidgets.TestUtilities.CommonOperations;
+﻿using System.Collections.Generic;
+using FeatherWidgets.TestUtilities.CommonOperations;
 using FeatherWidgets.TestUtilities.CommonOperations.Forms;
 using Telerik.Sitefinity.TestArrangementService.Attributes;
 using Telerik.Sitefinity.TestUtilities.CommonOperations;
@@ -6,9 +7,9 @@ using Telerik.Sitefinity.TestUtilities.CommonOperations;
 namespace FeatherWidgets.TestUI.Arrangements
 {
     /// <summary>
-    /// VerifyPageBreakInHeaderAndFooter arrangement class.
+    /// VerifyHeaderAndFooter arrangement class.
     /// </summary>
-    public class VerifyPageBreakInHeaderAndFooter : TestArrangementBase
+    public class VerifyHeaderAndFooter : TestArrangementBase
     {
         /// <summary>
         /// Server side set up.
@@ -16,7 +17,11 @@ namespace FeatherWidgets.TestUI.Arrangements
         [ServerSetUp]
         public void SetUp()
         {
-            var formId = (new FormsOperations()).CreateFormWithWidgets(new FormFieldType[] { FormFieldType.TextField }, FormName);
+            List<FormFieldType> formHeaderControls = new List<FormFieldType>() { };
+            List<FormFieldType> formBodyControls = new List<FormFieldType>() { FormFieldType.TextField, FormFieldType.PageBreak, FormFieldType.MultipleChoiceField, FormFieldType.CheckboxesField, FormFieldType.SubmitButton };
+            List<FormFieldType> formFooterControls = new List<FormFieldType>() { };
+
+            var formId = (new FormsOperations()).CreateFormWithWidgets(formHeaderControls, formBodyControls, formFooterControls, FormName);
 
             var templateId = ServerOperations.Templates().GetTemplateIdByTitle(PageTemplateName);
             ServerOperations.Pages().CreatePage(PageName, templateId);

@@ -58,10 +58,19 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Frontend.Forms
         /// <summary>
         /// Verify if content block content is visible
         /// </summary>
-        public void VerifyContentBlockFieldTextIsVisible(string contentText)
+        /// <param name="contentText">The content text.</param>
+        /// <param name="isVisible">if set to <c>true</c> [is visible].</param>
+        public void VerifyContentBlockFieldTextIsVisible(string contentText, bool isVisible = true)
         {
             HtmlDiv frontendPageMainDiv = BAT.Wrappers().Frontend().Pages().PagesWrapperFrontend().GetPageContent();
-            Assert.IsTrue(frontendPageMainDiv.InnerText.Contains(contentText));
+            if (!isVisible)
+            {
+                Assert.IsFalse(frontendPageMainDiv.InnerText.Contains(contentText));
+            }
+            else
+            {
+                Assert.IsTrue(frontendPageMainDiv.InnerText.Contains(contentText));
+            }
         }
 
         /// <summary>
