@@ -3,6 +3,7 @@ using System.Linq;
 using ArtOfTest.Common.UnitTesting;
 using ArtOfTest.WebAii.Controls.HtmlControls;
 using ArtOfTest.WebAii.Core;
+using ArtOfTest.WebAii.jQuery;
 
 namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend.CardWidget
 {
@@ -117,6 +118,51 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend.CardWidget
             Manager.Current.Desktop.KeyBoard.KeyPress(System.Windows.Forms.Keys.Delete);
 
             Manager.Current.Desktop.KeyBoard.TypeText(externalUrl);
+        }
+
+        /// <summary>
+        /// Fill heading in advanced settings
+        /// </summary>
+        /// <param name="headingText">Heading text</param>
+        public void FillHeadingTextInAdvancedSettings(string headingText)
+        {
+            HtmlInputText headingInput = EM.Card.CardEditScreen.HeadingTextFieldInAdvancedSettings
+                .AssertIsPresent("Heading field");
+
+            headingInput.ScrollToVisible();
+            headingInput.Focus();
+            headingInput.MouseClick();
+
+            Manager.Current.Desktop.KeyBoard.KeyDown(System.Windows.Forms.Keys.Control);
+            Manager.Current.Desktop.KeyBoard.KeyPress(System.Windows.Forms.Keys.A);
+            Manager.Current.Desktop.KeyBoard.KeyUp(System.Windows.Forms.Keys.Control);
+            Manager.Current.Desktop.KeyBoard.KeyPress(System.Windows.Forms.Keys.Delete);
+
+            Manager.Current.Desktop.KeyBoard.TypeText(headingText);
+        }
+
+        /// <summary>
+        /// Selects widget template from the drop-down in the widget designer
+        /// </summary>
+        /// <param name="templateTitle">widget template title</param>
+        public void SelectCardWidetTemplate(string templateTitle)
+        {
+            var templateSelector = EM.Card.CardEditScreen.TemplateSelector
+              .AssertIsPresent("Template selector drop-down");
+            templateSelector.SelectByValue(templateTitle);
+            templateSelector.AsjQueryControl().InvokejQueryEvent(jQueryControl.jQueryControlEvents.click);
+            templateSelector.AsjQueryControl().InvokejQueryEvent(jQueryControl.jQueryControlEvents.change);
+            ActiveBrowser.WaitForAsyncOperations();
+        }
+
+        /// <summary>
+        /// click add button
+        /// </summary>
+        public void ClickAddButton()
+        {
+            HtmlButton addButton = EM.Card.CardEditScreen.AddButton.AssertIsPresent("Add button");
+            addButton.Click();
+            ActiveBrowser.WaitUntilReady();
         }
     }
 }

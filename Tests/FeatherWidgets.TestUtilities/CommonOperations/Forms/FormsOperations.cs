@@ -18,6 +18,7 @@ using Telerik.Sitefinity.Modules.Forms.Web.UI.Fields;
 using Telerik.Sitefinity.Modules.Pages;
 using Telerik.Sitefinity.Mvc.Proxy;
 using Telerik.Sitefinity.Mvc.TestUtilities.CommonOperations;
+using Telerik.Sitefinity.Pages.Model;
 using Telerik.Sitefinity.Pages.Model.PropertyLoaders;
 using Telerik.Sitefinity.Services;
 using Telerik.Sitefinity.TestIntegration.Data.Content;
@@ -262,6 +263,7 @@ namespace FeatherWidgets.TestUtilities.CommonOperations.Forms
                             // Default value of BackwardCompatible does not translate ControllerName property which leads to unability to create forms in ML
                             formControl.GetType().GetProperty("Strategy", BindingFlags.Public | BindingFlags.Instance).SetValue(formControl, PropertyPersistenceStrategy.NotTranslatable);
                             
+                            formControl.SetPersistanceStrategy();
                             formControl.SiblingId = siblingId;
                             formControl.Caption = ObjectFactory.Resolve<IControlBehaviorResolver>().GetBehaviorObject(control).GetType().Name;
                             siblingId = formControl.Id;
