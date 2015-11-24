@@ -68,21 +68,16 @@ namespace FeatherWidgets.TestIntegration.Common
             }
         }
 
-        private void UnlockPage(Guid pageId)
-        {
-            PageManager pageManager = PageManager.GetManager();
-            var page = pageManager.GetPageDataList().Where(pd => pd.NavigationNode.Id == pageId && pd.Status == Telerik.Sitefinity.GenericContent.Model.ContentLifecycleStatus.Live)
-     .FirstOrDefault();
-            page.LockedBy = System.Guid.Empty;
-            pageManager.SaveChanges();
-        }
+        #region Toolboxes
+
+        #region Page edit
 
         /// <summary>
-        /// Checks whether after deactivating Feather the page edit toolbox on hybrid page contains Feather widgets.
+        /// Checks whether after deactivating Feather the page edit toolbox on hybrid page doesn't contain Feather widgets.
         /// </summary>
         [Test]
         [Author(FeatherTeams.FeatherTeam)]
-        [Description("Checks whether after deactivating Feather the page edit toolbox on hybrid page contains Feather widgets.")]
+        [Description("Checks whether after deactivating Feather the page edit toolbox on hybrid page doesn't contain Feather widgets.")]
         public void DeactivateFeather_WidgetsInToolboxHybridPage_VerifyBackend()
         {
             var moduleOperations = Telerik.Sitefinity.Frontend.TestUtilities.CommonOperations.FeatherServerOperations.FeatherModule();
@@ -107,17 +102,18 @@ namespace FeatherWidgets.TestIntegration.Common
             }
             finally
             {
-                Telerik.Sitefinity.TestUtilities.CommonOperations.ServerOperations.Pages().DeletePage(pageId);
                 moduleOperations.ActivateFeatherFromDeactivatedState();
+                Telerik.Sitefinity.TestUtilities.CommonOperations.ServerOperations.Pages().DeletePage(pageId);
+                moduleOperations.EnsureFeatherEnabled();
             }
         }
 
         /// <summary>
-        /// Checks whether after deactivating Feather the page edit toolbox on pure page contains Feather widgets.
+        /// Checks whether after deactivating Feather the page edit toolbox on pure page doesn't contain Feather widgets.
         /// </summary>
         [Test]
         [Author(FeatherTeams.FeatherTeam)]
-        [Description("Checks whether after deactivating Feather the page edit toolbox on pure page contains Feather widgets.")]
+        [Description("Checks whether after deactivating Feather the page edit toolbox on pure page doesn't contain Feather widgets.")]
         public void DeactivateFeather_WidgetsInToolboxPurePage_VerifyBackend()
         {
             var moduleOperations = Telerik.Sitefinity.Frontend.TestUtilities.CommonOperations.FeatherServerOperations.FeatherModule();
@@ -144,17 +140,18 @@ namespace FeatherWidgets.TestIntegration.Common
             }
             finally
             {
-                Telerik.Sitefinity.TestUtilities.CommonOperations.ServerOperations.Pages().DeletePage(pageId);
                 moduleOperations.ActivateFeatherFromDeactivatedState();
+                Telerik.Sitefinity.TestUtilities.CommonOperations.ServerOperations.Pages().DeletePage(pageId);
+                moduleOperations.EnsureFeatherEnabled();
             }
         }
 
         /// <summary>
-        /// Checks whether after uninstalling Feather the page edit toolbox on hybrid page contains Feather widgets.
+        /// Checks whether after uninstalling Feather the page edit toolbox on hybrid page doesn't contain Feather widgets.
         /// </summary>
         [Test]
         [Author(FeatherTeams.FeatherTeam)]
-        [Description("Checks whether after uninstalling Feather the page edit toolbox on hybrid page contains Feather widgets.")]
+        [Description("Checks whether after uninstalling Feather the page edit toolbox on hybrid page doesn't contain Feather widgets.")]
         public void UninstallFeather_WidgetsInToolboxHybridPage_VerifyBackend()
         {
             var moduleOperations = Telerik.Sitefinity.Frontend.TestUtilities.CommonOperations.FeatherServerOperations.FeatherModule();
@@ -180,17 +177,18 @@ namespace FeatherWidgets.TestIntegration.Common
             }
             finally
             {
-                Telerik.Sitefinity.TestUtilities.CommonOperations.ServerOperations.Pages().DeletePage(pageId);
                 moduleOperations.ActivateFeatherFromDeactivatedState();
+                Telerik.Sitefinity.TestUtilities.CommonOperations.ServerOperations.Pages().DeletePage(pageId);
+                moduleOperations.EnsureFeatherEnabled();
             }
         }
 
         /// <summary>
-        /// Checks whether after uninstalling Feather the page edit toolbox on pure page contains Feather widgets.
+        /// Checks whether after uninstalling Feather the page edit toolbox on pure page doesn't contain Feather widgets.
         /// </summary>
         [Test]
         [Author(FeatherTeams.FeatherTeam)]
-        [Description("Checks whether after uninstalling Feather the page edit toolbox on pure page contains Feather widgets.")]
+        [Description("Checks whether after uninstalling Feather the page edit toolbox on pure page doesn't contain Feather widgets.")]
         public void UninstallFeather_WidgetsInToolboxPurePage_VerifyBackend()
         {
             var moduleOperations = Telerik.Sitefinity.Frontend.TestUtilities.CommonOperations.FeatherServerOperations.FeatherModule();
@@ -218,13 +216,174 @@ namespace FeatherWidgets.TestIntegration.Common
             }
             finally
             {
-                Telerik.Sitefinity.TestUtilities.CommonOperations.ServerOperations.Pages().DeletePage(pageId);
                 moduleOperations.ActivateFeatherFromUninstalledState();
+                Telerik.Sitefinity.TestUtilities.CommonOperations.ServerOperations.Pages().DeletePage(pageId);
+                moduleOperations.EnsureFeatherEnabled();
             }
+        }
+
+        #endregion
+
+        #region Template edit
+
+        /// <summary>
+        /// Checks whether after deactivating Feather the page template edit toolbox on hybrid page doesn't contain Feather widgets.
+        /// </summary>
+        [Test]
+        [Author(FeatherTeams.FeatherTeam)]
+        [Description("Checks whether after deactivating Feather the page template edit toolbox on hybrid page doesn't contain Feather widgets.")]
+        public void DeactivateFeather_WidgetsInToolboxHybridPageTemplate_VerifyBackend()
+        {
+            var moduleOperations = Telerik.Sitefinity.Frontend.TestUtilities.CommonOperations.FeatherServerOperations.FeatherModule();
+            var templatesOperations = Telerik.Sitefinity.TestUtilities.CommonOperations.ServerOperations.Templates();
+            Guid templateId = Guid.Empty;
+
+            moduleOperations.EnsureFeatherEnabled();
+
+            try
+            {
+                templateId = templatesOperations.CreateHybridMVCPageTemplate(ModuleUnloadTests.PageTemplateTitle);
+                string templateUrl = UrlPath.ResolveAbsoluteUrl("~/Sitefinity/Template/" + templateId.ToString());
+
+                var templateContentBeforeDeactivate = PageInvoker.ExecuteWebRequest(templateUrl + "?t=" + Guid.NewGuid().ToString());
+                Assert.IsTrue(templateContentBeforeDeactivate.Contains(ModuleUnloadTests.FeatherWidgetToolboxItemMarkup));
+
+                moduleOperations.DeactivateFeather();
+
+                var templateContentAfterDeactivate = PageInvoker.ExecuteWebRequest(templateUrl + "?t=" + Guid.NewGuid().ToString());
+                Assert.IsFalse(templateContentAfterDeactivate.Contains(ModuleUnloadTests.FeatherWidgetToolboxItemMarkup));
+            }
+            finally
+            {
+                moduleOperations.ActivateFeatherFromDeactivatedState();
+                templatesOperations.DeletePageTemplate(templateId);
+                moduleOperations.EnsureFeatherEnabled();
+            }
+        }
+
+        /// <summary>
+        /// Checks whether after deactivating Feather the page template edit toolbox on pure page template doesn't contain Feather widgets.
+        /// </summary>
+        [Test]
+        [Author(FeatherTeams.FeatherTeam)]
+        [Description("Checks whether after deactivating Feather the page template edit toolbox on pure page template doesn't contain Feather widgets.")]
+        public void DeactivateFeather_WidgetsInToolboxPurePageTemplate_VerifyBackend()
+        {
+            var moduleOperations = Telerik.Sitefinity.Frontend.TestUtilities.CommonOperations.FeatherServerOperations.FeatherModule();
+            var templatesOperations = Telerik.Sitefinity.TestUtilities.CommonOperations.ServerOperations.Templates();
+            Guid templateId = Guid.Empty;
+
+            moduleOperations.EnsureFeatherEnabled();
+
+            try
+            {
+                templateId = templatesOperations.CreatePureMVCPageTemplate(ModuleUnloadTests.PageTemplateTitle);
+                string templateUrl = UrlPath.ResolveAbsoluteUrl("~/Sitefinity/Template/" + templateId.ToString());
+
+                var templateContentBeforeDeactivate = PageInvoker.ExecuteWebRequest(templateUrl + "?t=" + Guid.NewGuid().ToString());
+                Assert.IsTrue(templateContentBeforeDeactivate.Contains(ModuleUnloadTests.FeatherWidgetToolboxItemMarkup));
+
+                moduleOperations.DeactivateFeather();
+
+                var templateContentAfterDeactivate = PageInvoker.ExecuteWebRequest(templateUrl + "?t=" + Guid.NewGuid().ToString());
+                Assert.IsFalse(templateContentAfterDeactivate.Contains(ModuleUnloadTests.FeatherWidgetToolboxItemMarkup));
+            }
+            finally
+            {
+                moduleOperations.ActivateFeatherFromDeactivatedState();
+                templatesOperations.DeletePageTemplate(templateId);
+                moduleOperations.EnsureFeatherEnabled();
+            }
+        }
+
+        /// <summary>
+        /// Checks whether after uninstalling Feather the page template edit toolbox on hybrid page doesn't contain Feather widgets.
+        /// </summary>
+        [Test]
+        [Author(FeatherTeams.FeatherTeam)]
+        [Description("Checks whether after uninstalling Feather the page template edit toolbox on hybrid page doesn't contain Feather widgets.")]
+        public void UninstallFeather_WidgetsInToolboxHybridPageTemplate_VerifyBackend()
+        {
+            var moduleOperations = Telerik.Sitefinity.Frontend.TestUtilities.CommonOperations.FeatherServerOperations.FeatherModule();
+            var templatesOperations = Telerik.Sitefinity.TestUtilities.CommonOperations.ServerOperations.Templates();
+            Guid templateId = Guid.Empty;
+
+            moduleOperations.EnsureFeatherEnabled();
+
+            try
+            {
+                templateId = templatesOperations.CreateHybridMVCPageTemplate(ModuleUnloadTests.PageTemplateTitle);
+                string templateUrl = UrlPath.ResolveAbsoluteUrl("~/Sitefinity/Template/" + templateId.ToString());
+
+                var templateContentBeforeDeactivate = PageInvoker.ExecuteWebRequest(templateUrl + "?t=" + Guid.NewGuid().ToString());
+                Assert.IsTrue(templateContentBeforeDeactivate.Contains(ModuleUnloadTests.FeatherWidgetToolboxItemMarkup));
+
+                moduleOperations.DeactivateFeather();
+                moduleOperations.UninstallFeather();
+
+                var templateContentAfterDeactivate = PageInvoker.ExecuteWebRequest(templateUrl + "?t=" + Guid.NewGuid().ToString());
+                Assert.IsFalse(templateContentAfterDeactivate.Contains(ModuleUnloadTests.FeatherWidgetToolboxItemMarkup));
+            }
+            finally
+            {
+                moduleOperations.ActivateFeatherFromUninstalledState();
+                templatesOperations.DeletePageTemplate(templateId);
+                moduleOperations.EnsureFeatherEnabled();
+            }
+        }
+
+        /// <summary>
+        /// Checks whether after uninstalling Feather the page template edit toolbox on pure page template doesn't contain Feather widgets.
+        /// </summary>
+        [Test]
+        [Author(FeatherTeams.FeatherTeam)]
+        [Description("Checks whether after uninstalling Feather the page template edit toolbox on pure page template doesn't contain Feather widgets.")]
+        public void UninstallFeather_WidgetsInToolboxPurePageTemplate_VerifyBackend()
+        {
+            var moduleOperations = Telerik.Sitefinity.Frontend.TestUtilities.CommonOperations.FeatherServerOperations.FeatherModule();
+            var templatesOperations = Telerik.Sitefinity.TestUtilities.CommonOperations.ServerOperations.Templates();
+            Guid templateId = Guid.Empty;
+
+            moduleOperations.EnsureFeatherEnabled();
+
+            try
+            {
+                templateId = templatesOperations.CreatePureMVCPageTemplate(ModuleUnloadTests.PageTemplateTitle);
+                string templateUrl = UrlPath.ResolveAbsoluteUrl("~/Sitefinity/Template/" + templateId.ToString());
+
+                var templateContentBeforeDeactivate = PageInvoker.ExecuteWebRequest(templateUrl + "?t=" + Guid.NewGuid().ToString());
+                Assert.IsTrue(templateContentBeforeDeactivate.Contains(ModuleUnloadTests.FeatherWidgetToolboxItemMarkup));
+
+                moduleOperations.DeactivateFeather();
+                moduleOperations.UninstallFeather();
+
+                var templateContentAfterDeactivate = PageInvoker.ExecuteWebRequest(templateUrl + "?t=" + Guid.NewGuid().ToString());
+                Assert.IsFalse(templateContentAfterDeactivate.Contains(ModuleUnloadTests.FeatherWidgetToolboxItemMarkup));
+            }
+            finally
+            {
+                moduleOperations.ActivateFeatherFromUninstalledState();
+                templatesOperations.DeletePageTemplate(templateId);
+                moduleOperations.EnsureFeatherEnabled();
+            }
+        }
+
+        #endregion
+
+        #endregion
+
+        private void UnlockPage(Guid pageId)
+        {
+            PageManager pageManager = PageManager.GetManager();
+            var page = pageManager.GetPageDataList().Where(pd => pd.NavigationNode.Id == pageId && pd.Status == Telerik.Sitefinity.GenericContent.Model.ContentLifecycleStatus.Live)
+             .FirstOrDefault();
+                    page.LockedBy = System.Guid.Empty;
+                    pageManager.SaveChanges();
         }
 
         private const string CbContent = "Initial CB content";
         private const string FeatherWidgetToolboxItemMarkup = "parameters=\"[{&quot;Key&quot;:&quot;ControllerName&quot;,&quot;Value&quot;:&quot;Telerik.Sitefinity.Frontend.";
+        private const string PageTemplateTitle = "TestPageTemplate";
 
         private string pageNamePrefix = "CBPage";
         private string pageTitlePrefix = "CB";
