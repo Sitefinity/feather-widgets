@@ -18,6 +18,7 @@ using Feather.Widgets.TestUI.Framework.Framework.ElementMap.Widgets;
 using Feather.Widgets.TestUI.Framework.Framework.ElementMap.WidgetTemplates;
 using Feather.Widgets.TestUI.Framework.Framework.ElementMap.FeedWidget;
 using Feather.Widgets.TestUI.Framework.Framework.ElementMap.Forms;
+using Feather.Widgets.TestUI.Framework.Framework.ElementMap.CardWidget;
 
 namespace Feather.Widgets.TestUI.Framework.Framework.ElementMap
 {
@@ -456,6 +457,29 @@ namespace Feather.Widgets.TestUI.Framework.Framework.ElementMap
             }
         }
 
+        /// <summary>
+        /// Gets the CardMap element map.
+        /// </summary>
+        /// <value>The CardMap map.</value>
+        public CardMap Card
+        {
+            get
+            {
+                if (this.cardMap == null)
+                {
+                    this.EnsureFindIsInitialized();
+                    this.cardMap = new CardMap(this.find);
+                }
+
+                return this.cardMap;
+            }
+
+            private set
+            {
+                this.cardMap = value;
+            }
+        }
+
         private void EnsureFindIsInitialized()
         {
             if (this.find == null)
@@ -483,5 +507,6 @@ namespace Feather.Widgets.TestUI.Framework.Framework.ElementMap
         private EmailCampaignsMap emailCampaignsMap;
         private FeedWidgetMap feedWidgetMap;
         private FormsMap formsMap;
+        private CardMap cardMap;
     }
 }

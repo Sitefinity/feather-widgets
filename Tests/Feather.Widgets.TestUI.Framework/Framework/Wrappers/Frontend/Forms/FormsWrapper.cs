@@ -135,6 +135,7 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Frontend.Forms
             Manager.Current.Desktop.KeyBoard.KeyPress(System.Windows.Forms.Keys.Delete);
 
             Manager.Current.Desktop.KeyBoard.TypeText(content);
+            Manager.Current.Desktop.KeyBoard.KeyPress(System.Windows.Forms.Keys.Tab);
         }
 
         /// <summary>

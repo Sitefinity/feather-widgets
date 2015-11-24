@@ -186,5 +186,38 @@ namespace Feather.Widgets.TestUI.Framework.Framework.ElementMap.Forms
                 return this.Get<HtmlAnchor>("tagname=a", "class=btn btn-link pull-left ng-scope");
             }
         }
+
+	    /// <summary>
+        /// Gets Save Draft Button
+        /// </summary>
+        public HtmlAnchor SaveDraftButton
+        {
+            get
+            {
+                return this.Get<HtmlAnchor>("Innertext=Save Draft");
+            }
+        }
+
+        /// <summary>
+        /// Gets "The draft is successfully saved" message
+        /// </summary>
+        public HtmlSpan PositiveMessageDraftIsSaved
+        {
+            get
+            {
+               return this.Get<HtmlSpan>("id=?messageControl", "class=sfMessage sfMsgPositive sfMsgVisible", "Innertext=The draft is successfully saved");
+           }
+        }
+
+        /// <summary>
+        /// Gets "Back to Form" link
+        /// </summary>
+        public HtmlAnchor BackToFormLink
+        {
+            get
+            {
+                return this.Get<HtmlAnchor>("id=?CancelButton", "Innertext=Back to Forms");
+            }
+        }
     }
 }
