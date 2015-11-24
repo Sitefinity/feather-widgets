@@ -15,11 +15,17 @@
                 navigationElements.each(function (navIndex, navigationElement) {
                     var pages = $(navigationElement).find('[data-sf-navigation-index]');
                     pages.each(function (i, page) {
-                        var pageIndex = $(page).data("sfNavigationIndex");
+                        var pageIndex = parseInt($(page).data("sfNavigationIndex"));
                         if (pageIndex !== index) {
                             $(page).removeClass("active");
                         } else {
                             $(page).addClass("active");
+                        }
+
+                        if (pageIndex < index) {
+                            $(page).addClass("past");
+                        } else {
+                            $(page).removeClass("past");
                         }
                     });
                 });
