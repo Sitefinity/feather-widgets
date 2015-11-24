@@ -252,6 +252,7 @@
     <None Include="app.config" />
     <EmbeddedResource Include="Data\MediaFiles\Ogv File.ogv" />
     <EmbeddedResource Include="Data\MediaFiles\WebM File.webm" />
+    <EmbeddedResource Include="Data\Forms\Read.DefaultFile.cshtml" />
     <None Include="packages.config">
       <SubType>Designer</SubType>
     </None>
@@ -338,6 +339,7 @@
   <Target Name="BeforeBuild">
     <Copy SourceFiles="$(SolutionDir)FxCop\CustomDictionary.xml" DestinationFolder="$(CodeAnalysisPath)" OverwriteReadOnlyFiles="true" Retries="10" ContinueOnError="false" />
   </Target>
-  <Target Name="AfterBuild"></Target>
+  <Target Name="AfterBuild">
+  </Target>
   <Import Project="$(SolutionDir)\StyleCop\StyleCop.targets" />
 </Project>
