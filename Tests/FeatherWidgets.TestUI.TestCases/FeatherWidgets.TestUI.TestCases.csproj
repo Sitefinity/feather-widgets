@@ -217,6 +217,7 @@
     <Compile Include="Forms\MultiPageForms\ChangeAdvancedSettingsOfPageBreak.cs" />
     <Compile Include="Forms\MultiPageForms\ChangePageBreakTemplate.cs" />
     <Compile Include="Forms\MultiPageForms\AddSubmitButtonInHeaderAndFooter.cs" />
+    <Compile Include="Forms\MultiPageForms\EditPageWithMultipageFormsViaInlineEditing.cs" />
     <Compile Include="Forms\Navigation\EditNavigationLabelsButCancel.cs" />
     <Compile Include="Forms\Navigation\EditNavigationLabels.cs" />
     <Compile Include="Forms\MultiPageForms\EditNextButtonButCancel.cs" />
