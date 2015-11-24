@@ -1,4 +1,6 @@
-﻿using Telerik.Sitefinity.TestArrangementService.Attributes;
+﻿using FeatherWidgets.TestUtilities.CommonOperations;
+using FeatherWidgets.TestUtilities.CommonOperations.Forms;
+using Telerik.Sitefinity.TestArrangementService.Attributes;
 using Telerik.Sitefinity.TestUtilities.CommonOperations;
 
 namespace FeatherWidgets.TestUI.Arrangements
@@ -14,8 +16,11 @@ namespace FeatherWidgets.TestUI.Arrangements
         [ServerSetUp]
         public void SetUp()
         {
-            var templateId = ServerOperations.Templates().GetTemplateIdByTitle(PageTemplateName);
-            ServerOperations.Pages().CreatePage(PageName, templateId);
+            var templateId = ServerOperations.Templates().GetTemplateIdByTitle(FeatherGlobals.PageTemplateName);
+            var formId = (new FormsOperations()).CreateFormWithWidgets(new FormFieldType[] { FormFieldType.SubmitButton, FormFieldType.TextField }, FeatherGlobals.FormName);
+            ServerOperations.Pages().CreatePage(FeatherGlobals.BootstrapPageName, templateId);
+            var pageId = ServerOperations.Pages().GetPageId(FeatherGlobals.BootstrapPageName);
+            ServerOperationsFeather.Forms().AddFormControlToPage(pageId, formId);
         }
 
         /// <summary>
@@ -27,8 +32,5 @@ namespace FeatherWidgets.TestUI.Arrangements
             ServerOperations.Forms().DeleteAllForms();
             ServerOperations.Pages().DeleteAllPages();
         }
-
-        private const string PageName = "FormPage";
-        private const string PageTemplateName = "Bootstrap.default";
     }
 }

@@ -107,7 +107,7 @@ namespace Feather.Widgets.TestUI.Framework.Framework.ElementMap.Forms
         {
             get
             {
-                return this.Get<HtmlButton>("TagName=button", "innertext=Submit");
+                return this.Get<HtmlButton>("TagName=button", "type=submit");
             }
         }
 
