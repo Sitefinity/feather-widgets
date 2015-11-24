@@ -1,3 +1,4 @@
+﻿using System;
 ﻿using System.IO;
 using System.Linq;
 using System.Net;
@@ -9,7 +10,6 @@ using Telerik.Sitefinity.Frontend.ContentBlock.Mvc.Controllers;
 using Telerik.Sitefinity.Frontend.TestUtilities;
 using Telerik.Sitefinity.Modules.Pages;
 using Telerik.Sitefinity.Mvc.Proxy;
-using Telerik.Sitefinity.Services;
 using Telerik.Sitefinity.Web;
 
 namespace FeatherWidgets.TestIntegration.Common
@@ -27,14 +27,13 @@ namespace FeatherWidgets.TestIntegration.Common
         [Description("Checks whether after deactivating Feather the Sitefinity pages doesn't throw errors on frontend.")]
         public void DeactivatingFeather_WidgetOnPage_VerifyFrontend()
         {
-            var featherWasEnabled = this.IsFeatherEnabled();
+            var moduleOperations = new Telerik.Sitefinity.Frontend.TestUtilities.CommonOperations.FeatherModuleOperations();
             var pageOperations = new PagesOperations();
 
+            moduleOperations.EnsureFeatherEnabled();
+            
             try
             {
-                if (!featherWasEnabled)
-                    this.ActivateFeatherFromDeactivatedState();
-
                 var mvcProxy = new MvcControllerProxy();
                 mvcProxy.ControllerName = typeof(ContentBlockController).FullName;
                 var contentBlockController = new ContentBlockController();
@@ -56,7 +55,7 @@ namespace FeatherWidgets.TestIntegration.Common
                 Assert.IsTrue(responseContent.Contains(ModuleUnloadTests.CbContent), "Content was not found!");
                 Assert.IsTrue(responseContentInEdit.Contains(ModuleUnloadTests.CbContent), "Content was not found!");
 
-                this.DeactivateFeather();
+                moduleOperations.DeactivateFeather();
 
                 responseContent = PageInvoker.ExecuteWebRequest(url);
                 responseContentInEdit = PageInvoker.ExecuteWebRequest(url + "/Action/Edit");
@@ -68,58 +67,159 @@ namespace FeatherWidgets.TestIntegration.Common
             finally
             {
                 pageOperations.DeletePages();
-
-                if (featherWasEnabled)
-                    this.ActivateFeatherFromDeactivatedState();
+                moduleOperations.ActivateFeatherFromDeactivatedState();
             }
         }
 
-        private bool IsFeatherEnabled()
+        /// <summary>
+        /// Checks whether after deactivating Feather the page edit toolbox on hybrid page contains Feather widgets.
+        /// </summary>
+        [Test]
+        [Author(FeatherTeams.FeatherTeam)]
+        [Description("Checks whether after deactivating Feather the page edit toolbox on hybrid page contains Feather widgets.")]
+        public void DeactivateFeather_WidgetsInToolboxHybridPage_VerifyBackend()
         {
-            return SystemManager.GetModule("Feather") != null;
-        }
+            var moduleOperations = Telerik.Sitefinity.Frontend.TestUtilities.CommonOperations.FeatherServerOperations.FeatherModule();
+            var pageOperations = new PagesOperations();
+            Guid pageId = Guid.Empty;
 
-        private void ActivateFeatherFromDeactivatedState()
-        {
-            var installOperationEndpoint = UrlPath.ResolveUrl(ModuleUnloadTests.FeatherActivateFromDeactivatedStateUrl, true);
-            this.MakePutRequest(installOperationEndpoint, JsonRequestPayload);
+            moduleOperations.EnsureFeatherEnabled();
 
-            // Give time for events to fire
-            Thread.Sleep(5000);
-        }
-
-        private void DeactivateFeather()
-        {
-            if (!this.IsFeatherEnabled())
-                return;
-
-            var uninstallOperationEndpoint = UrlPath.ResolveUrl(ModuleUnloadTests.FeatherDeactivateUrl, true);
-            this.MakePutRequest(uninstallOperationEndpoint, JsonRequestPayload);
-
-            // Give time for events to fire
-            Thread.Sleep(5000);
-        }
-
-        private void MakePutRequest(string url, string payload)
-        {
-            var httpWebRequest = (HttpWebRequest)WebRequest.Create(url);
-            httpWebRequest.CookieContainer = new CookieContainer();
-            httpWebRequest.Headers["Authorization"] = HttpContext.Current.Request.Headers["Authorization"];
-            httpWebRequest.ContentType = "text/json";
-            httpWebRequest.Method = "PUT";
-
-            using (var writer = new StreamWriter(httpWebRequest.GetRequestStream()))
+            try
             {
-                writer.Write(payload);
-            }
+                var mvcProxy = new MvcControllerProxy() { ControllerName = typeof(ContentBlockController).FullName, Settings = new ControllerSettings(new ContentBlockController()) };
+                pageId = pageOperations.CreatePageWithControl(mvcProxy, this.pageNamePrefix, this.pageTitlePrefix, this.urlNamePrefix, this.pageIndex);
+                string pageUrl = UrlPath.ResolveAbsoluteUrl("~/" + this.urlNamePrefix + this.pageIndex + "/Action/Edit");
+                
+                var pageContentBeforeDeactivate = PageInvoker.ExecuteWebRequest(pageUrl + "?t=" + Guid.NewGuid().ToString());
+                Assert.IsTrue(pageContentBeforeDeactivate.Contains(ModuleUnloadTests.FeatherWidgetToolboxItemMarkup));
 
-            httpWebRequest.GetResponse();
+                moduleOperations.DeactivateFeather();
+
+                var pageContentAfterDeactivate = PageInvoker.ExecuteWebRequest(pageUrl + "?t=" + Guid.NewGuid().ToString());
+                Assert.IsFalse(pageContentAfterDeactivate.Contains(ModuleUnloadTests.FeatherWidgetToolboxItemMarkup));
+            }
+            finally
+            {
+                Telerik.Sitefinity.TestUtilities.CommonOperations.ServerOperations.Pages().DeletePage(pageId);
+                moduleOperations.ActivateFeatherFromDeactivatedState();
+            }
         }
 
-        private const string JsonRequestPayload = "{\"ClientId\":\"Feather\",\"Description\":\"Modern, intuitive, convention based, mobile-first UI for Telerik Sitefinity\",\"ErrorMessage\":\"\",\"IsModuleLicensed\":true,\"IsSystemModule\":false,\"Key\":\"Feather\",\"ModuleId\":\"00000000-0000-0000-0000-000000000000\",\"ModuleType\":0,\"Name\":\"Feather\",\"ProviderName\":\"\",\"StartupType\":3,\"Status\":1,\"Title\":\"Feather\",\"Type\":\"Telerik.Sitefinity.Frontend.FrontendModule, Telerik.Sitefinity.Frontend\",\"Version\":{\"_Build\":390,\"_Major\":1,\"_Minor\":4,\"_Revision\":0}}";
+        /// <summary>
+        /// Checks whether after deactivating Feather the page edit toolbox on pure page contains Feather widgets.
+        /// </summary>
+        [Test]
+        [Author(FeatherTeams.FeatherTeam)]
+        [Description("Checks whether after deactivating Feather the page edit toolbox on pure page contains Feather widgets.")]
+        public void DeactivateFeather_WidgetsInToolboxPurePage_VerifyBackend()
+        {
+            var moduleOperations = Telerik.Sitefinity.Frontend.TestUtilities.CommonOperations.FeatherServerOperations.FeatherModule();
+            var pagesOperations = Telerik.Sitefinity.Frontend.TestUtilities.CommonOperations.FeatherServerOperations.Pages();
+            var pageManager = PageManager.GetManager();
+            Guid pageId = Guid.Empty;
+
+            moduleOperations.EnsureFeatherEnabled();
+
+            try
+            {
+                var bootstrapTemplate = pageManager.GetTemplates().FirstOrDefault(t => (t.Name == "Bootstrap.default" && t.Title == "default") || t.Title == "Bootstrap.default");
+                Assert.IsNotNull(bootstrapTemplate, "Bootstrap template was not found");
+                pageId = pagesOperations.CreatePageWithTemplate(bootstrapTemplate, "FormsPageBootstrap", "forms-page-bootstrap");
+                var pageUrl = RouteHelper.GetAbsoluteUrl(pageManager.GetPageNode(pageId).GetFullUrl()) + "/Action/Edit";
+
+                var pageContentBeforeDeactivate = PageInvoker.ExecuteWebRequest(pageUrl + "?t=" + Guid.NewGuid().ToString());
+                Assert.IsTrue(pageContentBeforeDeactivate.Contains(ModuleUnloadTests.FeatherWidgetToolboxItemMarkup));
+
+                moduleOperations.DeactivateFeather();
+
+                var pageContentAfterDeactivate = PageInvoker.ExecuteWebRequest(pageUrl + "?t=" + Guid.NewGuid().ToString());
+                Assert.IsFalse(pageContentAfterDeactivate.Contains(ModuleUnloadTests.FeatherWidgetToolboxItemMarkup));
+            }
+            finally
+            {
+                Telerik.Sitefinity.TestUtilities.CommonOperations.ServerOperations.Pages().DeletePage(pageId);
+                moduleOperations.ActivateFeatherFromDeactivatedState();
+            }
+        }
+
+        /// <summary>
+        /// Checks whether after uninstalling Feather the page edit toolbox on hybrid page contains Feather widgets.
+        /// </summary>
+        [Test]
+        [Author(FeatherTeams.FeatherTeam)]
+        [Description("Checks whether after uninstalling Feather the page edit toolbox on hybrid page contains Feather widgets.")]
+        public void UninstallFeather_WidgetsInToolboxHybridPage_VerifyBackend()
+        {
+            var moduleOperations = Telerik.Sitefinity.Frontend.TestUtilities.CommonOperations.FeatherServerOperations.FeatherModule();
+            var pageOperations = new PagesOperations();
+            Guid pageId = Guid.Empty;
+
+            moduleOperations.EnsureFeatherEnabled();
+
+            try
+            {
+                var mvcProxy = new MvcControllerProxy() { ControllerName = typeof(ContentBlockController).FullName, Settings = new ControllerSettings(new ContentBlockController()) };
+                pageId = pageOperations.CreatePageWithControl(mvcProxy, this.pageNamePrefix, this.pageTitlePrefix, this.urlNamePrefix, this.pageIndex);
+                string pageUrl = UrlPath.ResolveAbsoluteUrl("~/" + this.urlNamePrefix + this.pageIndex + "/Action/Edit");
+
+                var pageContentBeforeDeactivate = PageInvoker.ExecuteWebRequest(pageUrl + "?t=" + Guid.NewGuid().ToString());
+                Assert.IsTrue(pageContentBeforeDeactivate.Contains(ModuleUnloadTests.FeatherWidgetToolboxItemMarkup));
+
+                moduleOperations.DeactivateFeather();
+                moduleOperations.UninstallFeather();
+
+                var pageContentAfterDeactivate = PageInvoker.ExecuteWebRequest(pageUrl + "?t=" + Guid.NewGuid().ToString());
+                Assert.IsFalse(pageContentAfterDeactivate.Contains(ModuleUnloadTests.FeatherWidgetToolboxItemMarkup));
+            }
+            finally
+            {
+                Telerik.Sitefinity.TestUtilities.CommonOperations.ServerOperations.Pages().DeletePage(pageId);
+                moduleOperations.ActivateFeatherFromDeactivatedState();
+            }
+        }
+
+        /// <summary>
+        /// Checks whether after uninstalling Feather the page edit toolbox on pure page contains Feather widgets.
+        /// </summary>
+        [Test]
+        [Author(FeatherTeams.FeatherTeam)]
+        [Description("Checks whether after uninstalling Feather the page edit toolbox on pure page contains Feather widgets.")]
+        public void UninstallFeather_WidgetsInToolboxPurePage_VerifyBackend()
+        {
+            var moduleOperations = Telerik.Sitefinity.Frontend.TestUtilities.CommonOperations.FeatherServerOperations.FeatherModule();
+            var pagesOperations = Telerik.Sitefinity.Frontend.TestUtilities.CommonOperations.FeatherServerOperations.Pages();
+            var pageManager = PageManager.GetManager();
+            Guid pageId = Guid.Empty;
+
+            moduleOperations.EnsureFeatherEnabled();
+
+            try
+            {
+                var bootstrapTemplate = pageManager.GetTemplates().FirstOrDefault(t => (t.Name == "Bootstrap.default" && t.Title == "default") || t.Title == "Bootstrap.default");
+                Assert.IsNotNull(bootstrapTemplate, "Bootstrap template was not found");
+                pageId = pagesOperations.CreatePageWithTemplate(bootstrapTemplate, "FormsPageBootstrap", "forms-page-bootstrap");
+                var pageUrl = RouteHelper.GetAbsoluteUrl(pageManager.GetPageNode(pageId).GetFullUrl()) + "/Action/Edit";
+
+                var pageContentBeforeDeactivate = PageInvoker.ExecuteWebRequest(pageUrl + "?t=" + Guid.NewGuid().ToString());
+                Assert.IsTrue(pageContentBeforeDeactivate.Contains(ModuleUnloadTests.FeatherWidgetToolboxItemMarkup));
+
+                moduleOperations.DeactivateFeather();
+                moduleOperations.UninstallFeather();
+
+                var pageContentAfterDeactivate = PageInvoker.ExecuteWebRequest(pageUrl + "?t=" + Guid.NewGuid().ToString());
+                Assert.IsFalse(pageContentAfterDeactivate.Contains(ModuleUnloadTests.FeatherWidgetToolboxItemMarkup));
+            }
+            finally
+            {
+                Telerik.Sitefinity.TestUtilities.CommonOperations.ServerOperations.Pages().DeletePage(pageId);
+                moduleOperations.ActivateFeatherFromUninstalledState();
+            }
+        }
+
         private const string CbContent = "Initial CB content";
-        private const string FeatherDeactivateUrl = "/Sitefinity/Services/ModulesService/modules?operation=3";
-        private const string FeatherActivateFromDeactivatedStateUrl = "/Sitefinity/Services/ModulesService/modules?operation=2";
+        private const string FeatherWidgetToolboxItemMarkup = "parameters=\"[{&quot;Key&quot;:&quot;ControllerName&quot;,&quot;Value&quot;:&quot;Telerik.Sitefinity.Frontend.";
+
         private string pageNamePrefix = "CBPage";
         private string pageTitlePrefix = "CB";
         private string urlNamePrefix = "content-block";
