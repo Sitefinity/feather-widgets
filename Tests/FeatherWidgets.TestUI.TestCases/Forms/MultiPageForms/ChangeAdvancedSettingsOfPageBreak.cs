@@ -4,45 +4,42 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Feather.Widgets.TestUI.Framework;
-using Feather.Widgets.TestUI.Framework.Framework;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace FeatherWidgets.TestUI.TestCases.Forms.MultiPageForms
 {
     /// <summary>
-    /// AddPageBreakToForm_ test class.
+    /// ChangeAdvancedSettingsOfPageBreak test class.
     /// </summary>
     [TestClass]
-    public class AddPageBreakToForm_ : FeatherTestCase
+    public class ChangeAdvancedSettingsOfPageBreak_ : FeatherTestCase
     {
         /// <summary>
-        /// UI test AddPageBreakToForm
+        /// UI test ChangeAdvancedSettingsOfPageBreak
         /// </summary>
         [TestMethod,
         Owner(FeatherTeams.SitefinityTeam6),
         TestCategory(FeatherTestCategories.Bootstrap),
         TestCategory(FeatherTestCategories.Forms)]
-        public void AddPageBreakToForm()
+        public void ChangeAdvancedSettingsOfPageBreak()
         {
             BAT.Macros().NavigateTo().Modules().Forms(this.Culture);
             BAT.Wrappers().Backend().Forms().FormsDashboard().OpenFormFromTheGrid(FormName);
-            BATFeather.Wrappers().Backend().Forms().FormsContentScreenWrapper().AddField(FieldName);
-            BATFeather.Wrappers().Backend().Forms().FormsContentScreenWrapper().VerifyCommonHeaderAndFooterAreVisible();
+            BATFeather.Wrappers().Frontend().Forms().FormsWrapper().VerifyNextStepText(NextStepOld);
+            BATFeather.Wrappers().Backend().Pages().PageZoneEditorWrapper().EditWidget(PageBreak);
+            BATFeather.Wrappers().Backend().ModuleBuilder().DynamicWidgetAdvancedSettingsWrapper().ClickAdvancedSettingsButton();
+            BATFeather.Wrappers().Backend().ModuleBuilder().DynamicWidgetAdvancedSettingsWrapper().ClickModelButton();
+            BATFeather.Wrappers().Backend().Forms().FormsContentScreenWrapper().ChangeNextStepTextInAdvancedSettings(NextStepNew);
+            BATFeather.Wrappers().Backend().ContentBlocks().ContentBlocksWrapper().SaveChanges();
+            BATFeather.Wrappers().Frontend().Forms().FormsWrapper().VerifyNextStepText(NextStepNew);
             BAT.Wrappers().Backend().Forms().FormsContentScreen().PublishForm();
 
             BAT.Macros().NavigateTo().CustomPage("~/" + PageName.ToLower(), true, this.Culture);
-            BATFeather.Wrappers().Frontend().Forms().FormsWrapper().VerifyTextFieldLabelIsVisible(LabelName);
+            BATFeather.Wrappers().Frontend().Forms().FormsWrapper().VerifyNextStepText(NextStepNew);
             BATFeather.Wrappers().Frontend().Forms().FormsWrapper().SetTextboxContent(TextBoxContent);
-            BATFeather.Wrappers().Frontend().Forms().FormsWrapper().VerifyNextStepText();
-            BATFeather.Wrappers().Frontend().Forms().FormsWrapper().VerifySubmitButtonIsNotVisible();
             BATFeather.Wrappers().Frontend().Forms().FormsWrapper().ClickNextButton();
-            BATFeather.Wrappers().Frontend().Forms().FormsWrapper().VerifySubmitButtonIsVisible();
-            BATFeather.Wrappers().Frontend().Forms().FormsWrapper().VerifyNextStepText("Next step", false);
+            BATFeather.Wrappers().Frontend().Forms().FormsWrapper().SelectRadioButton(Choice);
             BATFeather.Wrappers().Frontend().Forms().FormsWrapper().ClickSubmit();
-
-            BAT.Macros().NavigateTo().Modules().Forms(this.Culture);
-            BAT.Wrappers().Backend().Forms().FormsDashboard().ViewFormResponses(FormName);
-            BATFeather.Wrappers().Backend().Forms().FormsWrapper().VerifyNumberOfResponses(ExpectedResponsesCount);
         }
 
         /// <summary>
@@ -63,14 +60,12 @@ namespace FeatherWidgets.TestUI.TestCases.Forms.MultiPageForms
         }
 
         private const string FormName = "MultiPageForm";
+        private const string PageBreak = "PageBreakController";
+        private const string CssClassesToApply = "Css to apply";
         private const string PageName = "FormPage";
-        private const string FieldName = "Page break";
-        private const string FieldName2 = "Textbox";
-        private const string LabelName = "Untitled";
+        private const string NextStepOld = "Next step";
+        private const string NextStepNew = "Next page";
         private const string TextBoxContent = "Textbox Field Text";
-        private const string WidgetName = "Form";
-        private const int ExpectedResponsesCount = 1;
-        private const int ResponseNumber = 1;
-        private const string ExpectedAuthorName = "admin";
+        private const string Choice = "Second Choice";
     }
 }

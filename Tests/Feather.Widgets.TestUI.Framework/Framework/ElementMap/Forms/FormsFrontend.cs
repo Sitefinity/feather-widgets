@@ -140,7 +140,18 @@ namespace Feather.Widgets.TestUI.Framework.Framework.ElementMap.Forms
         {
             get
             {
-                return this.Get<HtmlButton>("TagName=button", "data-sf-btn-role=next");
+                return this.Find.AllByExpression<HtmlButton>("TagName=button", "data-sf-btn-role=next").Where(b => b.IsVisible()).FirstOrDefault();
+            }
+        }
+
+        /// <summary>
+        /// Gets the previous anchor on frontend
+        /// </summary>
+        public HtmlAnchor PreviousStep
+        {
+            get
+            {
+                return this.Get<HtmlAnchor>("TagName=a", "data-sf-btn-role=prev");
             }
         }
 

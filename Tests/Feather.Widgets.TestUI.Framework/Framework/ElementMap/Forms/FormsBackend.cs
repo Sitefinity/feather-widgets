@@ -175,5 +175,49 @@ namespace Feather.Widgets.TestUI.Framework.Framework.ElementMap.Forms
                 return this.Get<HtmlDiv>("placeholderid=" + "Footer");
             }
         }
+
+        /// <summary>
+        /// Gets required field checkbox.
+        /// </summary>
+        public HtmlInputCheckBox AllowUsersToStepBackwardCheckBox
+        {
+            get
+            {
+                return this.Get<HtmlInputCheckBox>("type=checkbox", "ng-model=properties.AllowGoBack.PropertyValue");
+            }
+        }
+
+        /// <summary>
+        /// Gets previous step.
+        /// </summary>
+        public HtmlInputText PreviousStepInput
+        {
+            get
+            {
+                return this.Get<HtmlInputText>("tagname=input", "id=prevStep");
+            }
+        }
+
+        /// <summary>
+        /// Gets next step input.
+        /// </summary>
+        public HtmlInputText NextStepInputInAdvancedSettings
+        {
+            get
+            {
+                return this.Find.AssociatedBrowser.GetControl<HtmlInputText>("id=prop-NextStepText");
+            }
+        }
+
+        /// <summary>
+        /// Gets template selector.
+        /// </summary>
+        public HtmlSelect TemplateSelector
+        {
+            get
+            {
+                return this.Get<HtmlSelect>("tagname=select", "id=textFieldTemplateName");
+            }
+        }
     }
 }

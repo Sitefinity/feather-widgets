@@ -91,11 +91,19 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Frontend.Forms
         }
 
         /// <summary>
-        /// Verify if Submit button is Not visible
+        /// Verify if Submit button is visible
         /// </summary>
         public void VerifySubmitButtonIsVisible()
         {
             Assert.IsTrue(EM.Forms.FormsFrontend.SubmitButton.IsVisible(), "The submit button is not visible");
+        }
+
+        /// <summary>
+        /// Verify if Submit button is not visible
+        /// </summary>
+        public void VerifySubmitButtonIsNotVisible()
+        {
+            Assert.IsFalse(EM.Forms.FormsFrontend.SubmitButton.IsVisible(), "The submit button is visible");
         }
               
         /// <summary>
@@ -195,7 +203,8 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Frontend.Forms
         public void SelectRadioButton(string choice)
         {
             HtmlInputRadioButton checkbox = ActiveBrowser.Find.ByExpression<HtmlInputRadioButton>("tagname=input", "data-sf-role=multiple-choice-field-input", "value=" + choice);
-            checkbox.Click();
+            checkbox.MouseClick();
+            ActiveBrowser.WaitUntilReady();
         }
 
         /// <summary>
@@ -230,11 +239,26 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Frontend.Forms
         /// </summary>
         public void ClickNextButton()
         {
+            ActiveBrowser.RefreshDomTree();
             HtmlButton nextButton = EM.Forms.FormsFrontend.NextStepButton;
+            nextButton.ScrollToVisible();
+            nextButton.Focus();
             nextButton.MouseClick();
 
             ActiveBrowser.WaitUntilReady();
         }
+
+        /// <summary>
+        /// Clicks the previous step button
+        /// </summary>
+        public void ClickPreviousButton()
+        {
+            HtmlAnchor previousButton = EM.Forms.FormsFrontend.PreviousStep;
+            previousButton.MouseClick();
+
+            ActiveBrowser.WaitUntilReady();
+        }
+
 
         /// <summary>
         /// Verify next step text
@@ -253,6 +277,26 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Frontend.Forms
             {
                 nextButton.AssertIsVisible("Next step button");
                 Assert.IsTrue(nextButton.InnerText.Contains(buttonText), "Button text ");
+            }
+        }
+
+        /// <summary>
+        /// Verify previous step text
+        /// </summary>
+        /// <param name="buttonText">The button text.</param>
+        /// <param name="isVisible">if set to <c>true</c> [is visible].</param>
+        public void VerifyPreviousStepText(string buttonText = "Previous step", bool isVisible = true)
+        {           
+            if (!isVisible)
+            {
+                 Assert.IsFalse(ActiveBrowser.ContainsText(buttonText));
+            }
+            else
+            {
+                HtmlAnchor previousButton = EM.Forms.FormsFrontend.PreviousStep;
+
+                previousButton.AssertIsVisible("Previous step button");
+                Assert.IsTrue(previousButton.InnerText.Contains(buttonText), "Button text ");
             }
         }
     }

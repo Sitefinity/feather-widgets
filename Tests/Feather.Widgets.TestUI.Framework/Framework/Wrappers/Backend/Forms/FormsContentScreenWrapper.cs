@@ -3,6 +3,7 @@ using System.Linq;
 using ArtOfTest.Common.UnitTesting;
 using ArtOfTest.WebAii.Controls.HtmlControls;
 using ArtOfTest.WebAii.Core;
+using ArtOfTest.WebAii.jQuery;
 
 namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend.Forms
 {
@@ -188,8 +189,7 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend.Forms
         /// </summary>
         /// <param name="newValue">The new value.</param>
         /// <param name="oldValue">The old value.</param>
-        public void 
-            ChangeNextStepText(string newValue, string oldValue = "Next step")
+        public void ChangeNextStepText(string newValue, string oldValue = "Next step")
         {
             HtmlInputText nextStep = EM.Forms.FormsBackend.NextStepInput;
             nextStep.AssertIsVisible("Next step input");
@@ -203,6 +203,72 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend.Forms
             Manager.Current.Desktop.KeyBoard.TypeText(newValue);
 
             Assert.AreEqual(newValue, nextStep.Text);
+        }
+
+        /// <summary>
+        /// Click option Allow users to step backward.
+        /// </summary>
+        public void ClickAllowUsersToStepBackwardCheckBox()
+        {
+            HtmlInputCheckBox checkbox = this.EM.Forms.FormsBackend.AllowUsersToStepBackwardCheckBox.AssertIsPresent("Next step button");          
+            checkbox.AssertIsPresent("checked");
+            checkbox.Click();
+        }
+
+        /// <summary>
+        /// Changes the previous step text.
+        /// </summary>
+        /// <param name="newValue">The new value.</param>
+        /// <param name="oldValue">The old value.</param>
+        public void ChangePreviousStepText(string newValue, string oldValue = "Previous step")
+        {
+            HtmlInputText previousStep = EM.Forms.FormsBackend.PreviousStepInput;
+            previousStep.AssertIsVisible("Previous step input");
+            Assert.AreEqual(oldValue, previousStep.Text);
+            previousStep.Click();
+
+            Manager.Current.Desktop.KeyBoard.KeyDown(System.Windows.Forms.Keys.Control);
+            Manager.Current.Desktop.KeyBoard.KeyPress(System.Windows.Forms.Keys.A);
+            Manager.Current.Desktop.KeyBoard.KeyUp(System.Windows.Forms.Keys.Control);
+            Manager.Current.Desktop.KeyBoard.KeyPress(System.Windows.Forms.Keys.Delete);
+            Manager.Current.Desktop.KeyBoard.TypeText(newValue);
+
+            Assert.AreEqual(newValue, previousStep.Text);
+        }
+
+        /// <summary>
+        /// Changes the next step text.
+        /// </summary>
+        /// <param name="newValue">The new value.</param>
+        /// <param name="oldValue">The old value.</param>
+        public void ChangeNextStepTextInAdvancedSettings(string newValue, string oldValue = "Next step")
+        {
+            HtmlInputText nextStep = EM.Forms.FormsBackend.NextStepInputInAdvancedSettings;
+            nextStep.AssertIsVisible("Next step input");
+            Assert.AreEqual(oldValue, nextStep.Text);
+            nextStep.Click();
+
+            Manager.Current.Desktop.KeyBoard.KeyDown(System.Windows.Forms.Keys.Control);
+            Manager.Current.Desktop.KeyBoard.KeyPress(System.Windows.Forms.Keys.A);
+            Manager.Current.Desktop.KeyBoard.KeyUp(System.Windows.Forms.Keys.Control);
+            Manager.Current.Desktop.KeyBoard.KeyPress(System.Windows.Forms.Keys.Delete);
+            Manager.Current.Desktop.KeyBoard.TypeText(newValue);
+
+            Assert.AreEqual(newValue, nextStep.Text);
+        }
+
+        /// <summary>
+        /// Selects widget template from the drop-down in the widget designer
+        /// </summary>
+        /// <param name="templateTitle">widget template title</param>
+        public void SelectNewTemplate(string templateTitle)
+        {
+            var templateSelector = EM.Forms.FormsBackend.TemplateSelector
+              .AssertIsPresent("Template selector drop-down");
+            templateSelector.SelectByValue(templateTitle);
+            templateSelector.AsjQueryControl().InvokejQueryEvent(jQueryControl.jQueryControlEvents.click);
+            templateSelector.AsjQueryControl().InvokejQueryEvent(jQueryControl.jQueryControlEvents.change);
+            ActiveBrowser.WaitForAsyncOperations();
         }
     }
 }

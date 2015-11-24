@@ -369,7 +369,11 @@
     <Compile Include="Forms\DeleteFormFieldInUseVerityFrontend.cs" />
     <Compile Include="Forms\MultiPageForms\AddFiledsToHeaderAndFooter.cs" />
     <Compile Include="Forms\MultiPageForms\AddPageBreakToForm.cs" />
+    <Compile Include="Forms\MultiPageForms\AllowUsersToStepBackwardAndChangeButtonTitle.cs" />
+    <Compile Include="Forms\MultiPageForms\ChangeAdvancedSettingsOfPageBreak.cs" />
+    <Compile Include="Forms\MultiPageForms\ChangePageBreakTemplate.cs" />
     <Compile Include="Forms\MultiPageForms\EditNextStepButton.cs" />
+    <Compile Include="Forms\MultiPageForms\SetCssClassToPageBreak.cs" />
     <Compile Include="Forms\MultiPageForms\VerifyRemoveHeaderAndFooter.cs" />
     <Compile Include="Forms\MultiPageForms\VerifyHeaderAndFooter.cs" />
     <Compile Include="Forms\MultiPageForms\DeletePageBreak.cs" />
