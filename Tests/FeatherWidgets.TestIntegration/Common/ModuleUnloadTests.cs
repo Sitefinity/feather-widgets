@@ -40,13 +40,8 @@ namespace FeatherWidgets.TestIntegration.Common
                 contentBlockController.Content = ModuleUnloadTests.CbContent;
                 mvcProxy.Settings = new ControllerSettings(contentBlockController);
 
-                PageManager pageManager = PageManager.GetManager();
                 var pageId = pageOperations.CreatePageWithControl(mvcProxy, this.pageNamePrefix, this.pageTitlePrefix, this.urlNamePrefix, this.pageIndex);
-                var page = pageManager.GetPageDataList()
-         .Where(pd => pd.NavigationNode.Id == pageId && pd.Status == Telerik.Sitefinity.GenericContent.Model.ContentLifecycleStatus.Live)
-         .FirstOrDefault();
-                page.LockedBy = System.Guid.Empty;
-                pageManager.SaveChanges();
+                
 
                 string url = UrlPath.ResolveAbsoluteUrl("~/" + this.urlNamePrefix + this.pageIndex);
                 string responseContent = PageInvoker.ExecuteWebRequest(url);
@@ -54,6 +49,8 @@ namespace FeatherWidgets.TestIntegration.Common
 
                 Assert.IsTrue(responseContent.Contains(ModuleUnloadTests.CbContent), "Content was not found!");
                 Assert.IsTrue(responseContentInEdit.Contains(ModuleUnloadTests.CbContent), "Content was not found!");
+
+                this.UnlockPage(pageId);
 
                 moduleOperations.DeactivateFeather();
 
@@ -69,6 +66,15 @@ namespace FeatherWidgets.TestIntegration.Common
                 pageOperations.DeletePages();
                 moduleOperations.ActivateFeatherFromDeactivatedState();
             }
+        }
+
+        private void UnlockPage(Guid pageId)
+        {
+            PageManager pageManager = PageManager.GetManager();
+            var page = pageManager.GetPageDataList().Where(pd => pd.NavigationNode.Id == pageId && pd.Status == Telerik.Sitefinity.GenericContent.Model.ContentLifecycleStatus.Live)
+     .FirstOrDefault();
+            page.LockedBy = System.Guid.Empty;
+            pageManager.SaveChanges();
         }
 
         /// <summary>
