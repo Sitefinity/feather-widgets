@@ -109,6 +109,14 @@
     </Compile>
     <Compile Include="BlogPosts\BlogPostsWidgetOnPage.cs" />
     <Compile Include="Blogs\BlogsWidgetOnPage.cs" />
+    <Compile Include="CardWidget\AddCardWidgetOnPageBasedOnBootstrapTemplate.cs" />
+    <Compile Include="CardWidget\AddCardWidgetOnPageTemplate.cs" />
+    <Compile Include="CardWidget\AddCssToCardWidget.cs" />
+    <Compile Include="CardWidget\AddPersonalizedVersionOfCardWidget.cs" />
+    <Compile Include="CardWidget\ChangeAdvancedSettingsOfCardWidget.cs" />
+    <Compile Include="CardWidget\ChangeCardWidgetTemplate.cs" />
+    <Compile Include="CardWidget\CreateWidgetTemplateAndSetTheTemplate.cs" />
+    <Compile Include="CardWidget\DuplicateAndDeleteCardWidgetFromPage.cs" />
     <Compile Include="Classifications\ContentTagsOptionAndTagCloudTemplate.cs" />
     <Compile Include="Classifications\SelectedTagsOptionAndCloudListTemplate.cs" />
     <Compile Include="Classifications\SelectAllTagsOptionAndCssClasses.cs" />
@@ -202,11 +210,16 @@
     <Compile Include="FeedWidget\DragAndDropFeedWidgetAndSetDefaultRssOnPage.cs" />
     <Compile Include="Forms\DeleteFormFieldInUseVerityFrontend.cs" />
     <Compile Include="Forms\DeleteFormInUseVerifyFrontendHybrid.cs" />
+    <Compile Include="Forms\EditFormSaveDraftThenPublishVerifyFrontend.cs" />
     <Compile Include="Forms\MultiPageForms\AddFieldsToHeaderAndFooter.cs" />
     <Compile Include="Forms\MultiPageForms\AddPageBreakToForm.cs" />
     <Compile Include="Forms\MultiPageForms\AllowUsersToStepBackwardAndChangeButtonTitle.cs" />
     <Compile Include="Forms\MultiPageForms\ChangeAdvancedSettingsOfPageBreak.cs" />
     <Compile Include="Forms\MultiPageForms\ChangePageBreakTemplate.cs" />
+    <Compile Include="Forms\MultiPageForms\AddSubmitButtonInHeaderAndFooter.cs" />
+    <Compile Include="Forms\Navigation\EditNavigationLabelsButCancel.cs" />
+    <Compile Include="Forms\Navigation\EditNavigationLabels.cs" />
+    <Compile Include="Forms\MultiPageForms\EditNextButtonButCancel.cs" />
     <Compile Include="Forms\MultiPageForms\EditNextStepButton.cs" />
     <Compile Include="Forms\MultiPageForms\SetCssClassToPageBreak.cs" />
     <Compile Include="Forms\MultiPageForms\VerifyRemoveHeaderAndFooter.cs" />
