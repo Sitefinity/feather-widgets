@@ -74,6 +74,16 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Frontend.Forms
         }
 
         /// <summary>
+        /// Verifies the submit buttons count in front end.
+        /// </summary>
+        /// <param name="expectedCount">The expected count.</param>
+        public void VerifySubmitButtonsCountInFrontEnd(int expectedCount)
+        {
+            var submitButtons = ActiveBrowser.Find.AllByExpression("tagName=button", "class=sf-SubmitButton btn btn-primary");
+            Assert.AreEqual(expectedCount, submitButtons.Count);
+        }
+
+        /// <summary>
         /// Verify if Paragraph text field label is visible
         /// </summary>
         public void VerifyParagraphTextFieldLabelIsVisible(string fieldLabel)
@@ -253,6 +263,21 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Frontend.Forms
             {
                 nextButton.AssertIsVisible("Next step button");
                 Assert.IsTrue(nextButton.InnerText.Contains(buttonText), "Button text ");
+            }
+        }
+
+        /// <summary>
+        /// Verifies the navigation pages labels.
+        /// </summary>
+        /// <param name="labels">The labels.</param>
+        public void VerifyNavigationPagesLabels(List<string> labels)
+        {
+            var list = ActiveBrowser.Find.ByExpression<HtmlUnorderedList>("class=sf-FormNav")
+                .AssertIsVisible("Navigation list");
+            var pageLabels = list.Find.AllByTagName("li");
+            for (int i = 0; i < labels.Count; i++)
+            {
+                Assert.AreEqual((i + 1) + labels[i], pageLabels[i].InnerText);
             }
         }
     }

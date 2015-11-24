@@ -175,5 +175,16 @@ namespace Feather.Widgets.TestUI.Framework.Framework.ElementMap.Forms
                 return this.Get<HtmlDiv>("placeholderid=" + "Footer");
             }
         }
+
+        /// <summary>
+        /// Gets cancel button.
+        /// </summary>
+        public HtmlAnchor CancelButton
+        {
+            get
+            {
+                return this.Get<HtmlAnchor>("tagname=a", "class=btn btn-link pull-left ng-scope");
+            }
+        }
     }
 }
