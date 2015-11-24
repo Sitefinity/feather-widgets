@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using ArtOfTest.Common.UnitTesting;
 using ArtOfTest.WebAii.Controls.HtmlControls;
@@ -188,8 +189,7 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend.Forms
         /// </summary>
         /// <param name="newValue">The new value.</param>
         /// <param name="oldValue">The old value.</param>
-        public void 
-            ChangeNextStepText(string newValue, string oldValue = "Next step")
+        public void ChangeNextStepText(string newValue, string oldValue = "Next step")
         {
             HtmlInputText nextStep = EM.Forms.FormsBackend.NextStepInput;
             nextStep.AssertIsVisible("Next step input");
@@ -203,6 +203,39 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend.Forms
             Manager.Current.Desktop.KeyBoard.TypeText(newValue);
 
             Assert.AreEqual(newValue, nextStep.Text);
+        }
+
+        /// <summary>
+        /// Selects the cancel.
+        /// </summary>
+        public void SelectCancel()
+        {
+            HtmlAnchor cancelButton = EM.Forms.FormsBackend.CancelButton
+            .AssertIsPresent("Cancel button");
+            cancelButton.Click();
+        }
+
+        /// <summary>
+        /// Changes the page label.
+        /// </summary>
+        /// <param name="texts">The texts.</param>
+        /// <param name="index">The index.</param>
+        public void ChangePageLabel(List<string> texts)
+        {
+            var inputs = ActiveBrowser.Find.AllByExpression<HtmlInputText>("ng-model=item.Title");
+            for (int i = 0; i < texts.Count; i++)
+            {
+                Assert.AreEqual(inputs.Count, texts.Count);
+                inputs[i].Click();
+
+                Manager.Current.Desktop.KeyBoard.KeyDown(System.Windows.Forms.Keys.Control);
+                Manager.Current.Desktop.KeyBoard.KeyPress(System.Windows.Forms.Keys.A);
+                Manager.Current.Desktop.KeyBoard.KeyUp(System.Windows.Forms.Keys.Control);
+                Manager.Current.Desktop.KeyBoard.KeyPress(System.Windows.Forms.Keys.Delete);
+                Manager.Current.Desktop.KeyBoard.TypeText(texts[i]);
+
+                Assert.AreEqual(texts[i], inputs[i].Text);
+            }
         }
     }
 }

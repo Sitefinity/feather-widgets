@@ -213,6 +213,10 @@
     <Compile Include="Forms\EditFormSaveDraftThenPublishVerifyFrontend.cs" />
     <Compile Include="Forms\MultiPageForms\AddFieldsToHeaderAndFooter.cs" />
     <Compile Include="Forms\MultiPageForms\AddPageBreakToForm.cs" />
+    <Compile Include="Forms\MultiPageForms\AddSubmitButtonInHeaderAndFooter.cs" />
+    <Compile Include="Forms\Navigation\EditNavigationLabelsButCancel.cs" />
+    <Compile Include="Forms\Navigation\EditNavigationLabels.cs" />
+    <Compile Include="Forms\MultiPageForms\EditNextButtonButCancel.cs" />
     <Compile Include="Forms\MultiPageForms\EditNextStepButton.cs" />
     <Compile Include="Forms\MultiPageForms\VerifyRemoveHeaderAndFooter.cs" />
     <Compile Include="Forms\MultiPageForms\VerifyHeaderAndFooter.cs" />

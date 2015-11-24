@@ -176,7 +176,18 @@ namespace Feather.Widgets.TestUI.Framework.Framework.ElementMap.Forms
             }
         }
 
-	/// <summary>
+        /// <summary>
+        /// Gets cancel button.
+        /// </summary>
+        public HtmlAnchor CancelButton
+        {
+            get
+            {
+                return this.Get<HtmlAnchor>("tagname=a", "class=btn btn-link pull-left ng-scope");
+            }
+        }
+
+	    /// <summary>
         /// Gets Save Draft Button
         /// </summary>
         public HtmlAnchor SaveDraftButton
@@ -186,6 +197,7 @@ namespace Feather.Widgets.TestUI.Framework.Framework.ElementMap.Forms
                 return this.Get<HtmlAnchor>("Innertext=Save Draft");
             }
         }
+
         /// <summary>
         /// Gets "The draft is successfully saved" message
         /// </summary>
