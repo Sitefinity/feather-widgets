@@ -272,6 +272,7 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend.Forms
             templateSelector.AsjQueryControl().InvokejQueryEvent(jQueryControl.jQueryControlEvents.change);
             ActiveBrowser.WaitForAsyncOperations();
         }
+
         /// Selects the cancel.
         /// </summary>
         public void SelectCancel()
@@ -356,6 +357,20 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend.Forms
             var duplicate = radMenu.Find.ByExpression<HtmlAnchor>("class=rmLink sfDuplicateItm");
             duplicate.AssertIsPresent("duplicate link");
             duplicate.MouseClick();
+        }
+
+        /// <summary>
+        /// Selects naviagtion widget template from the drop-down in the widget designer
+        /// </summary>
+        /// <param name="templateTitle">widget template title</param>
+        public void SelectNavigationTemplate(string templateTitle)
+        {
+            var templateSelector = EM.Forms.FormsBackend.NavigationTemplateSelector
+              .AssertIsPresent("Template selector drop-down");
+            templateSelector.SelectByValue(templateTitle);
+            templateSelector.AsjQueryControl().InvokejQueryEvent(jQueryControl.jQueryControlEvents.click);
+            templateSelector.AsjQueryControl().InvokejQueryEvent(jQueryControl.jQueryControlEvents.change);
+            ActiveBrowser.WaitForAsyncOperations();
         }
     }
 }

@@ -253,6 +253,7 @@
     <EmbeddedResource Include="Data\MediaFiles\Ogv File.ogv" />
     <EmbeddedResource Include="Data\MediaFiles\WebM File.webm" />
     <EmbeddedResource Include="Data\Forms\Read.DefaultFile.cshtml" />
+    <EmbeddedResource Include="Data\Forms\Read.DefaultFileNavigation.cshtml" />
     <None Include="packages.config">
       <SubType>Designer</SubType>
     </None>
