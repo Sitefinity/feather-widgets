@@ -295,5 +295,27 @@ namespace Feather.Widgets.TestUI.Framework.Framework.ElementMap.Forms
                 return this.Get<HtmlSelect>("tagname=select", "id=navigationFieldTemplateName");
             }
         }
+
+        /// <summary>
+        /// Gets css input.
+        /// </summary>
+        public HtmlInputText CssClassInAdvancedSettings
+        {
+            get
+            {
+                return this.Find.AssociatedBrowser.GetControl<HtmlInputText>("id=prop-CssClass");
+            }
+        }
+
+        /// <summary>
+        /// Gets CSS classes textbox.
+        /// </summary>
+        public HtmlInputText CssClassesTextbox
+        {
+            get
+            {
+                return this.Get<HtmlInputText>("tagname=input", "ng-model=properties.Model.CssClass.PropertyValue");
+            }
+        }
     }
 }

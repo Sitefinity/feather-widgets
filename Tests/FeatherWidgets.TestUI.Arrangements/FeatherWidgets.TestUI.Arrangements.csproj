@@ -383,6 +383,7 @@
     <Compile Include="Forms\MultiPageForms\ChangeAdvancedSettingsOfPageBreak.cs" />
     <Compile Include="Forms\MultiPageForms\ChangePageBreakTemplate.cs" />
     <Compile Include="Forms\Navigation\AddAndRemoveNewPage.cs" />
+    <Compile Include="Forms\Navigation\ChangeAdvancedSettingsOfFormNavigationAndSetCssClass.cs" />
     <Compile Include="Forms\Navigation\ChangeFormNavigationTemplate.cs" />
     <Compile Include="Forms\Navigation\DeleteNavigationFromForm.cs" />
     <Compile Include="Forms\Navigation\DuplicateNavigationForm.cs" />
