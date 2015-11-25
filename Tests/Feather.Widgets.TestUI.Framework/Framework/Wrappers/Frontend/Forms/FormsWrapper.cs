@@ -351,5 +351,23 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Frontend.Forms
                 Assert.IsTrue(activeForm.InnerText.Contains(fieldLabel[i]), "Label of the field is not as expected");
             }
         }
+
+       /// <summary>
+        /// Verify if field exist in preview
+       /// </summary>
+       /// <param name="fieldLabel">Label of the field</param>
+       /// <param name="exist">If the field exist set true</param>
+        public void VerifyIfFieldExistInPreviewMode(string fieldLabel, bool exist)
+        {
+             HtmlDiv activeForm = ActiveBrowser.Find.AllByExpression<HtmlDiv>("TagName=div", "data-sf-role=separator").Where(d => d.IsVisible()).FirstOrDefault();
+             if (exist)
+             {
+                 Assert.IsTrue(activeForm.InnerText.Contains(fieldLabel), "Label of the field is not as expected");
+             }
+             else
+             {
+                 Assert.IsFalse(activeForm.InnerText.Contains(fieldLabel), "Label of the field is not as expected");
+             }            
+        }
     }
 }

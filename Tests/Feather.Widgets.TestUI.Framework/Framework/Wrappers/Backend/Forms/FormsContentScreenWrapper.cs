@@ -272,6 +272,7 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend.Forms
             templateSelector.AsjQueryControl().InvokejQueryEvent(jQueryControl.jQueryControlEvents.change);
             ActiveBrowser.WaitForAsyncOperations();
         }
+
         /// Selects the cancel.
         /// </summary>
         public void SelectCancel()
@@ -356,6 +357,76 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend.Forms
             var duplicate = radMenu.Find.ByExpression<HtmlAnchor>("class=rmLink sfDuplicateItm");
             duplicate.AssertIsPresent("duplicate link");
             duplicate.MouseClick();
+        }
+
+        /// <summary>
+        /// Selects naviagtion widget template from the drop-down in the widget designer
+        /// </summary>
+        /// <param name="templateTitle">widget template title</param>
+        public void SelectNavigationTemplate(string templateTitle)
+        {
+            var templateSelector = EM.Forms.FormsBackend.NavigationTemplateSelector
+              .AssertIsPresent("Template selector drop-down");
+            templateSelector.SelectByValue(templateTitle);
+            templateSelector.AsjQueryControl().InvokejQueryEvent(jQueryControl.jQueryControlEvents.click);
+            templateSelector.AsjQueryControl().InvokejQueryEvent(jQueryControl.jQueryControlEvents.change);
+            ActiveBrowser.WaitForAsyncOperations();
+        }
+
+        /// <summary>
+        /// Change css class in advanced settings
+        /// </summary>
+        /// <param name="text">Text</param>
+        public void ChangeCssClassInAdvancedSettings(string text)
+        {
+            HtmlInputText cssClassInput = EM.Forms.FormsBackend.CssClassInAdvancedSettings
+                .AssertIsPresent("Css class");
+
+            cssClassInput.ScrollToVisible();
+            cssClassInput.Focus();
+            cssClassInput.MouseClick();
+
+            Manager.Current.Desktop.KeyBoard.KeyDown(System.Windows.Forms.Keys.Control);
+            Manager.Current.Desktop.KeyBoard.KeyPress(System.Windows.Forms.Keys.A);
+            Manager.Current.Desktop.KeyBoard.KeyUp(System.Windows.Forms.Keys.Control);
+            Manager.Current.Desktop.KeyBoard.KeyPress(System.Windows.Forms.Keys.Delete);
+            Manager.Current.Desktop.KeyBoard.TypeText(text);
+        }
+
+        /// <summary>
+        /// Apply css class
+        /// </summary>
+        /// <param name="cssClassName">css class name</param>
+        public void ApplyCssClasses(string cssClassName)
+        {
+            HtmlAnchor moreOptions = this.EM.Widgets.WidgetDesignerContentScreen.MoreOptionsDiv.AssertIsPresent("More options span");
+            moreOptions.Click();
+
+            HtmlInputText cssClassesTextbox = EM.Forms.FormsBackend.CssClassesTextbox.AssertIsPresent("Css classes textbox");
+            cssClassesTextbox.ScrollToVisible();
+            cssClassesTextbox.Focus();
+            cssClassesTextbox.MouseClick();
+
+            Manager.Current.Desktop.KeyBoard.KeyDown(System.Windows.Forms.Keys.Control);
+            Manager.Current.Desktop.KeyBoard.KeyPress(System.Windows.Forms.Keys.A);
+            Manager.Current.Desktop.KeyBoard.KeyUp(System.Windows.Forms.Keys.Control);
+            Manager.Current.Desktop.KeyBoard.KeyPress(System.Windows.Forms.Keys.Delete);
+            Manager.Current.Desktop.KeyBoard.TypeText(cssClassName);
+        }
+
+        /// <summary>
+        /// Apply css class
+        /// </summary>
+        public void ClickPreviewButton()
+        {
+            HtmlAnchor previewLink = ActiveBrowser.Find.ByExpression<HtmlAnchor>("tagname=a", "href=~Preview");
+            Manager.Current.SetNewBrowserTracking(true);
+            previewLink.Wait.ForExists();
+            Assert.IsNotNull(previewLink, "The Preview button was not found.");
+            Assert.IsTrue(previewLink.IsVisible(), "The Preview button was not visible.");
+            previewLink.Click();
+            Manager.Current.WaitForNewBrowserConnect("Preview", true, Manager.Current.Settings.ClientReadyTimeout);
+            Manager.Current.SetNewBrowserTracking(false);
         }
     }
 }

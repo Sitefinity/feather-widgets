@@ -219,6 +219,7 @@ namespace Feather.Widgets.TestUI.Framework.Framework.ElementMap.Forms
                 return this.Get<HtmlSelect>("tagname=select", "id=textFieldTemplateName");
             }
         }
+
         /// Gets cancel button.
         /// </summary>
         public HtmlAnchor CancelButton
@@ -281,6 +282,39 @@ namespace Feather.Widgets.TestUI.Framework.Framework.ElementMap.Forms
             get
             {
                 return this.Get<HtmlTextArea>("TagName=textarea", "ng-model=properties.Model.MetaField.Title.PropertyValue");
+            }
+        }
+
+        /// <summary>
+        /// Gets navigation template selector.
+        /// </summary>
+        public HtmlSelect NavigationTemplateSelector
+        {
+            get
+            {
+                return this.Get<HtmlSelect>("tagname=select", "id=navigationFieldTemplateName");
+            }
+        }
+
+        /// <summary>
+        /// Gets css input.
+        /// </summary>
+        public HtmlInputText CssClassInAdvancedSettings
+        {
+            get
+            {
+                return this.Find.AssociatedBrowser.GetControl<HtmlInputText>("id=prop-CssClass");
+            }
+        }
+
+        /// <summary>
+        /// Gets CSS classes textbox.
+        /// </summary>
+        public HtmlInputText CssClassesTextbox
+        {
+            get
+            {
+                return this.Get<HtmlInputText>("tagname=input", "ng-model=properties.Model.CssClass.PropertyValue");
             }
         }
     }
