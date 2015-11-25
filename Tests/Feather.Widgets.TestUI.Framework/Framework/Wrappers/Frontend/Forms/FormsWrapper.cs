@@ -310,6 +310,7 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Frontend.Forms
                 Assert.IsTrue(previousButton.InnerText.Contains(buttonText), "Button text ");
             }
         }
+
         /// <summary>
         /// Verifies the navigation pages labels.
         /// </summary>
@@ -324,6 +325,21 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Frontend.Forms
             for (int i = 0; i < labels.Count; i++)
             {
                 Assert.AreEqual((i + 1) + labels[i], pageLabels[i].InnerText);
+            }
+        }
+
+        /// <summary>
+        /// Verify multipage form on frontend
+        /// </summary>
+        /// <param name="fieldLabel">Field label</param>
+        public void VerifyMultiPageFormFieldOnForntend(string[] fieldLabel)
+        {
+            List<HtmlDiv> formList = ActiveBrowser.Find.AllByExpression<HtmlDiv>("data-sf-role=form-container").ToList<HtmlDiv>();
+
+            for (int i = 0; i < fieldLabel.Length; i++)
+            {
+                HtmlDiv activeForm = formList[i].Find.AllByExpression<HtmlDiv>("TagName=div", "data-sf-role=separator").Where(d => d.IsVisible()).FirstOrDefault();
+                Assert.IsTrue(activeForm.InnerText.Contains(fieldLabel[i]), "Label of the field is not as expected");
             }
         }
     }

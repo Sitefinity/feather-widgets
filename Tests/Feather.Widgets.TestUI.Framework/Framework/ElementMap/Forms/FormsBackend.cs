@@ -261,5 +261,27 @@ namespace Feather.Widgets.TestUI.Framework.Framework.ElementMap.Forms
                 return this.Get<HtmlAnchor>("id=?CancelButton", "Innertext=Back to Forms");
             }
         }
+
+        /// <summary>
+        /// Gets textbox label.
+        /// </summary>
+        public HtmlInputText TextBoxLabel
+        {
+            get
+            {
+                return this.Get<HtmlInputText>("tagname=input", "id=title");
+            }
+        }
+
+        /// <summary>
+        /// Gets the text area
+        /// </summary>
+        public HtmlTextArea TextArea
+        {
+            get
+            {
+                return this.Get<HtmlTextArea>("TagName=textarea", "ng-model=properties.Model.MetaField.Title.PropertyValue");
+            }
+        }
     }
 }

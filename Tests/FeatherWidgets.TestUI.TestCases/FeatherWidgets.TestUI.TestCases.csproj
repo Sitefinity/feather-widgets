@@ -221,6 +221,8 @@
     <Compile Include="Forms\Navigation\DuplicateNavigationForm.cs" />
     <Compile Include="Forms\Navigation\DeleteNavigationFromForm.cs" />
     <Compile Include="Forms\MultiPageForms\EditPageWithMultipageFormsViaInlineEditing.cs" />
+    <Compile Include="Forms\MultiPageForms\EnableDisablePreviousStepOptionToSubmitButtonAndChangeTitle.cs" />
+    <Compile Include="Forms\MultiPageForms\TwoMultiPageFormsOnTheSamePage.cs" />
     <Compile Include="Forms\Navigation\EditNavigationLabelsButCancel.cs" />
     <Compile Include="Forms\Navigation\EditNavigationLabels.cs" />
     <Compile Include="Forms\MultiPageForms\EditNextButtonButCancel.cs" />
