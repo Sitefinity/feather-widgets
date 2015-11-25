@@ -302,5 +302,41 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend.Forms
                 Assert.AreEqual(texts[i], inputs[i].Text);
             }
         }
+
+        /// <summary>
+        /// Change textbox label
+        /// </summary>
+        /// <param name="newValue">The new value.</param>
+        public void ChangeTexboxLabel(string newValue)
+        {
+            HtmlInputText textbobLabel = EM.Forms.FormsBackend.TextBoxLabel.AssertIsPresent("Textbox label ");
+            textbobLabel.Click();
+
+            Manager.Current.Desktop.KeyBoard.KeyDown(System.Windows.Forms.Keys.Control);
+            Manager.Current.Desktop.KeyBoard.KeyPress(System.Windows.Forms.Keys.A);
+            Manager.Current.Desktop.KeyBoard.KeyUp(System.Windows.Forms.Keys.Control);
+            Manager.Current.Desktop.KeyBoard.KeyPress(System.Windows.Forms.Keys.Delete);
+            Manager.Current.Desktop.KeyBoard.TypeText(newValue);
+        }
+
+        /// <summary>
+        /// Change label of multiple choices and checkbox fields
+        /// </summary>
+        /// <param name="text">Text</param>
+        public void ChangeLabel(string text)
+        {
+            HtmlTextArea textArea = EM.Forms.FormsBackend.TextArea
+                .AssertIsPresent("Text area");
+
+            textArea.ScrollToVisible();
+            textArea.Focus();
+            textArea.MouseClick();
+
+            Manager.Current.Desktop.KeyBoard.KeyDown(System.Windows.Forms.Keys.Control);
+            Manager.Current.Desktop.KeyBoard.KeyPress(System.Windows.Forms.Keys.A);
+            Manager.Current.Desktop.KeyBoard.KeyUp(System.Windows.Forms.Keys.Control);
+            Manager.Current.Desktop.KeyBoard.KeyPress(System.Windows.Forms.Keys.Delete);
+            Manager.Current.Desktop.KeyBoard.TypeText(text);
+        }
     }
 }
