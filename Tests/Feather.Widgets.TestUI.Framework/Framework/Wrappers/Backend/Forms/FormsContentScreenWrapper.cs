@@ -413,5 +413,20 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend.Forms
             Manager.Current.Desktop.KeyBoard.KeyPress(System.Windows.Forms.Keys.Delete);
             Manager.Current.Desktop.KeyBoard.TypeText(cssClassName);
         }
+
+        /// <summary>
+        /// Apply css class
+        /// </summary>
+        public void ClickPreviewButton()
+        {
+            HtmlAnchor previewLink = ActiveBrowser.Find.ByExpression<HtmlAnchor>("tagname=a", "href=~Preview");
+            Manager.Current.SetNewBrowserTracking(true);
+            previewLink.Wait.ForExists();
+            Assert.IsNotNull(previewLink, "The Preview button was not found.");
+            Assert.IsTrue(previewLink.IsVisible(), "The Preview button was not visible.");
+            previewLink.Click();
+            Manager.Current.WaitForNewBrowserConnect("Preview", true, Manager.Current.Settings.ClientReadyTimeout);
+            Manager.Current.SetNewBrowserTracking(false);
+        }
     }
 }
