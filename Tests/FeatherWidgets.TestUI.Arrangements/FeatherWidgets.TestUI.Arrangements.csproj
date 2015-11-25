@@ -383,6 +383,7 @@
     <Compile Include="Forms\MultiPageForms\ChangeAdvancedSettingsOfPageBreak.cs" />
     <Compile Include="Forms\MultiPageForms\ChangePageBreakTemplate.cs" />
     <Compile Include="Forms\Navigation\AddAndRemoveNewPage.cs" />
+    <Compile Include="Forms\Navigation\AddFormNavigationField.cs" />
     <Compile Include="Forms\Navigation\DeleteNavigationFromForm.cs" />
     <Compile Include="Forms\Navigation\DuplicateNavigationForm.cs" />
     <Compile Include="Forms\MultiPageForms\EditPageWithMultipageFormsViaInlineEditing.cs" />
@@ -585,6 +586,7 @@
   <Target Name="BeforeBuild">
     <Copy SourceFiles="$(SolutionDir)FxCop\CustomDictionary.xml" DestinationFolder="$(CodeAnalysisPath)" OverwriteReadOnlyFiles="true" Retries="10" ContinueOnError="false" />
   </Target>
-  <Target Name="AfterBuild"></Target>
+  <Target Name="AfterBuild">
+  </Target>
   <Import Project="$(SolutionDir)\StyleCop\StyleCop.targets" />
 </Project>
