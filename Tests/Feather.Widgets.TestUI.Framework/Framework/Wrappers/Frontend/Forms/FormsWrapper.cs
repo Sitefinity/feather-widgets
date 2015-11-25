@@ -311,14 +311,17 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Frontend.Forms
             }
         }
 
+        /// <summary>
         /// Verifies the navigation pages labels.
         /// </summary>
         /// <param name="labels">The labels.</param>
-        public void VerifyNavigationPagesLabels(List<string> labels)
+        /// <param name="navIndex">Index of the nav.</param>
+        public void VerifyNavigationPagesLabels(List<string> labels, int navIndex = 0)
         {
-            var list = ActiveBrowser.Find.ByExpression<HtmlUnorderedList>("class=sf-FormNav")
-                .AssertIsVisible("Navigation list");
-            var pageLabels = list.Find.AllByTagName("li");
+            var lists = ActiveBrowser.Find.AllByExpression<HtmlUnorderedList>("class=sf-FormNav");
+            lists[navIndex].AssertIsVisible("Navigation list");
+
+            var pageLabels = lists[navIndex].Find.AllByTagName("li");
             for (int i = 0; i < labels.Count; i++)
             {
                 Assert.AreEqual((i + 1) + labels[i], pageLabels[i].InnerText);

@@ -5,6 +5,7 @@ using ArtOfTest.Common.UnitTesting;
 using ArtOfTest.WebAii.Controls.HtmlControls;
 using ArtOfTest.WebAii.Core;
 using ArtOfTest.WebAii.jQuery;
+using Telerik.WebAii.Controls.Html;
 
 namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend.Forms
 {
@@ -337,6 +338,24 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend.Forms
             Manager.Current.Desktop.KeyBoard.KeyUp(System.Windows.Forms.Keys.Control);
             Manager.Current.Desktop.KeyBoard.KeyPress(System.Windows.Forms.Keys.Delete);
             Manager.Current.Desktop.KeyBoard.TypeText(text);
+        }
+
+        /// Duplicates the widget in the header.
+        /// </summary>
+        public void DuplicateWidgetInTheHeader()
+        {
+            var header = ActiveBrowser.Find.ById<HtmlDiv>("RadDockZoneHeader")
+                .AssertIsPresent("header");
+            var moreLink = header.Find.ByExpression<HtmlAnchor>("title=More");
+            moreLink.MouseClick();
+
+            var radMenu = Manager.Current.ActiveBrowser.Find.AllByCustom<RadMenu>(c => c.ID == "RadContextMenu1_detached")
+                .FirstOrDefault();
+            radMenu.Refresh();
+
+            var duplicate = radMenu.Find.ByExpression<HtmlAnchor>("class=rmLink sfDuplicateItm");
+            duplicate.AssertIsPresent("duplicate link");
+            duplicate.MouseClick();
         }
     }
 }
