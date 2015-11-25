@@ -254,9 +254,7 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Frontend.Forms
             HtmlButton nextButton = EM.Forms.FormsFrontend.NextStepButton;
             nextButton.ScrollToVisible();
             nextButton.Focus();
-            nextButton.MouseClick();
-
-            ActiveBrowser.WaitUntilReady();
+            nextButton.Click();
         }
 
         /// <summary>
@@ -326,6 +324,17 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Frontend.Forms
             {
                 Assert.AreEqual((i + 1) + labels[i], pageLabels[i].InnerText);
             }
+        }
+
+        /// <summary>
+        /// Verifies the active page in navigation.
+        /// </summary>
+        /// <param name="activePageIndex">Index of the active page.</param>
+        public void VerifyActivePageInNavigation(int activePageIndex = 0)
+        {
+            var activePage = ActiveBrowser.Find.ByExpression<HtmlListItem>("data-sf-navigation-index=" + activePageIndex);
+            activePage.AssertIsVisible("Active page in navigation");
+            Assert.AreEqual(activePage.CssClass, "active");
         }
 
         /// <summary>
