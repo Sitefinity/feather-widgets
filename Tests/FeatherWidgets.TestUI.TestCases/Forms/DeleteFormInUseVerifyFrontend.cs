@@ -24,13 +24,13 @@ namespace FeatherWidgets.TestUI.TestCases.Forms
         TestCategory(FeatherTestCategories.Forms)]
         public void DeleteFormInUseVerifyFrontend()
         {
-            BAT.Macros().NavigateTo().Modules().Forms(this.Culture);
-            BAT.Wrappers().Backend().Forms().FormsDashboard().OpenFormFromTheGrid(FeatherGlobals.FormName);
-            BATFeather.Wrappers().Backend().Forms().FormsContentScreenWrapper().AddField(FeatherGlobals.CheckboxFieldName);
-            BAT.Wrappers().Backend().Forms().FormsContentScreen().PublishForm();
+            //BAT.Macros().NavigateTo().Modules().Forms(this.Culture);
+            //BAT.Wrappers().Backend().Forms().FormsDashboard().OpenFormFromTheGrid(FeatherGlobals.FormName);
+            //BATFeather.Wrappers().Backend().Forms().FormsContentScreenWrapper().AddField(FeatherGlobals.CheckboxFieldName);
+            //BAT.Wrappers().Backend().Forms().FormsContentScreen().PublishForm();
 
             BAT.Macros().NavigateTo().CustomPage("~/" + FeatherGlobals.BootstrapPageName.ToLower(), true, this.Culture);
-            BATFeather.Wrappers().Frontend().Forms().FormsWrapper().VerifyCheckboxesFieldLabelIsVisible(FeatherGlobals.CheckboxLabelName);
+            BATFeather.Wrappers().Frontend().Forms().FormsWrapper().VerifyCheckboxesFieldLabelIsVisible(FeatherGlobals.SelectAChoiceLabelName);
 
             BAT.Macros().NavigateTo().Modules().Forms(this.Culture);
             BAT.Wrappers().Backend().Forms().FormsDashboard().DeleteFormFromActionsMenu(FeatherGlobals.FormName);

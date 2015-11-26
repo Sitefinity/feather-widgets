@@ -10,42 +10,55 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 namespace FeatherWidgets.TestUI.TestCases.Forms
 {
     /// <summary>
-    /// EditFormSaveDraftThenPublishVerifyFrontend_ test class.
+    /// EditFormSaveDraftThenPublishVerifyFrontendHybrid_ test class.
     /// </summary>
     [TestClass]
-    public class EditFormSaveDraftThenPublishVerifyFrontend_ : FeatherTestCase
+    public class EditFormSaveDraftThenPublishVerifyFrontendHybrid_ : FeatherTestCase
     {
         /// <summary>
-        /// UI test EditFormSaveDraftThenPublishVerifyFrontend
+        /// UI test EditFormSaveDraftThenPublishVerifyFrontendHybrid
         /// </summary>
         [TestMethod,
         Owner(FeatherTeams.FeatherTeam),
-        TestCategory(FeatherTestCategories.Bootstrap),
         TestCategory(FeatherTestCategories.Forms)]
-        public void EditFormSaveDraftThenPublishVerifyFrontend()
+        public void EditFormSaveDraftThenPublishVerifyFrontendHybrid()
         {
             BAT.Macros().NavigateTo().Modules().Forms(this.Culture);
             BAT.Wrappers().Backend().Forms().FormsDashboard().OpenFormFromTheGrid(FeatherGlobals.FormName);
-            BATFeather.Wrappers().Backend().Forms().FormsContentScreenWrapper().AddField(FeatherGlobals.CheckboxFieldName);
-            BATFeather.Wrappers().Backend().Forms().FormsContentScreenWrapper().AddField(FeatherGlobals.DropdownFieldName);
+            BATFeather.Wrappers().Backend().Forms().FormsContentScreenWrapper().AddField(FeatherGlobals.CapchtaFieldName);
+            BATFeather.Wrappers().Backend().Forms().FormsContentScreenWrapper().AddField(FeatherGlobals.ParagraphTextboxFieldName);
+            BATFeather.Wrappers().Backend().Forms().FormsContentScreenWrapper().AddField(FeatherGlobals.MultipleChoiceFieldName);
+            BATFeather.Wrappers().Backend().Forms().FormsContentScreenWrapper().VerifyFormMultipleChoiceFieldIsVisible();
+            BATFeather.Wrappers().Backend().Forms().FormsContentScreenWrapper().VerifyFormParagraphTextFieldIsVisible();
             BATFeather.Wrappers().Backend().Forms().FormsContentScreenWrapper().VerifyFormCheckboxWidgetIsVisible();
-            BATFeather.Wrappers().Backend().Forms().FormsContentScreenWrapper().VerifyFormDropdownWidgetIsVisible();
+            BATFeather.Wrappers().Backend().Forms().FormsContentScreenWrapper().VerifyFormCaptchaFieldIsVisible();
             BATFeather.Wrappers().Backend().Forms().FormsContentScreenWrapper().ClickSaveDraft();
             BATFeather.Wrappers().Backend().Forms().FormsContentScreenWrapper().VerifyPositiveMessageDraftIsShown();
             BAT.Wrappers().Backend().Forms().FormsContentScreen().BackToForms();
             BAT.Macros().NavigateTo().Modules().Forms(this.Culture);
             BATFeather.Wrappers().Backend().Forms().FormsContentScreenWrapper().VerifyFormStatus(FeatherGlobals.FormName, FeatherGlobals.draftNewerThanPublished);
-            BAT.Macros().NavigateTo().CustomPage("~/" + FeatherGlobals.BootstrapPageName.ToLower(), true, this.Culture);
-            BATFeather.Wrappers().Frontend().Forms().FormsWrapper().VerifyCheckboxesFieldIsNotVisible();
-            BATFeather.Wrappers().Frontend().Forms().FormsWrapper().VerifyDropdownListFieldIsNotVisible();
+
+
+            BAT.Macros().NavigateTo().CustomPage("~/" + FeatherGlobals.HybridPageName.ToLower(), true, this.Culture);
+            BATFeather.Wrappers().Frontend().Forms().FormsWrapper().VerifyParagraphTextFieldIsNotVisible();
+            BATFeather.Wrappers().Frontend().Forms().FormsWrapper().VerifyMultipleChoiceFieldIsNotVisible();
+            BATFeather.Wrappers().Frontend().Forms().FormsWrapper().VerifyCaptchaFieldIsNotVisible();
+            BATFeather.Wrappers().Frontend().Forms().FormsWrapper().VerifyCheckboxesFieldLabelIsVisible(FeatherGlobals.SelectAChoiceLabelName);
             BATFeather.Wrappers().Frontend().Forms().FormsWrapper().VerifySubmitButtonIsVisible();
+
             BAT.Macros().NavigateTo().Modules().Forms(this.Culture);
             BAT.Wrappers().Backend().Forms().FormsDashboard().PublishFormFromActionsMenu(FeatherGlobals.FormName);
             BATFeather.Wrappers().Backend().Forms().FormsContentScreenWrapper().VerifyFormStatus(FeatherGlobals.FormName, FeatherGlobals.published);
-            BAT.Macros().NavigateTo().CustomPage("~/" + FeatherGlobals.BootstrapPageName.ToLower(), true, this.Culture);
+
+            BAT.Macros().NavigateTo().CustomPage("~/" + FeatherGlobals.HybridPageName.ToLower(), true, this.Culture);
+            BATFeather.Wrappers().Frontend().Forms().FormsWrapper().VerifyParagraphTextFieldLabelIsVisible(FeatherGlobals.UntitledLabelName);
+            BATFeather.Wrappers().Frontend().Forms().FormsWrapper().VerifyParagraphFieldContainerIsVisible();
+            BATFeather.Wrappers().Frontend().Forms().FormsWrapper().VerifyMultipleChoiceFieldLabelIsVisible(FeatherGlobals.SelectAChoiceLabelName);
+            BATFeather.Wrappers().Frontend().Forms().FormsWrapper().VerifyMultipleChoiceFieldContainerIsVisible();
+            BATFeather.Wrappers().Frontend().Forms().FormsWrapper().VerifyCaptchaFieldContainerIsVisible();
             BATFeather.Wrappers().Frontend().Forms().FormsWrapper().VerifyCheckboxesFieldLabelIsVisible(FeatherGlobals.SelectAChoiceLabelName);
-            BATFeather.Wrappers().Frontend().Forms().FormsWrapper().VerifyDropdownListFieldLabelIsVisible(FeatherGlobals.SelectAChoiceLabelName);
             BATFeather.Wrappers().Frontend().Forms().FormsWrapper().VerifySubmitButtonIsVisible();
+
         }
 
         /// <summary>

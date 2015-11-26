@@ -28,7 +28,6 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend.Forms
             ActiveBrowser.WaitForAsyncRequests();
             ActiveBrowser.RefreshDomTree();
         }
-
         /// <summary>
         /// Gets a widget by Name
         /// </summary>
@@ -41,7 +40,6 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend.Forms
 
             return widget;
         }
-
         /// <summary>
         /// Drags the widget to the specified dropzone
         /// </summary>
@@ -53,7 +51,6 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend.Forms
             widgetElement.Refresh();
             widgetElement.DragTo(dropZone);
         }
-
         /// <summary>
         /// Check required field checkbox.
         /// </summary>
@@ -63,7 +60,6 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend.Forms
             checkbox.Click();
             checkbox.AssertIsPresent("checked");
         }
-
         /// <summary>
         /// Verify form widget is deleted
         /// </summary>
@@ -95,6 +91,54 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend.Forms
         {
             var dropdownListFieldControllerDiv = EM.Forms.FormsBackend.DropdownListFieldControllerDiv;
             Assert.IsNull(dropdownListFieldControllerDiv, String.Format("dropdown field is not added", dropdownListFieldControllerDiv));
+        }
+        /// <summary>
+        /// Verify Captcha field is visible
+        /// </summary>
+        public void VerifyFormCaptchaFieldIsVisible()
+        {
+            var captchaControllerDiv = EM.Forms.FormsBackend.CaptchaControllerDiv;
+            Assert.IsNotNull(captchaControllerDiv, String.Format("captcha field is not added", captchaControllerDiv));
+        }
+        /// <summary>
+        /// Verify ParagraphTextField is visible
+        /// </summary>
+        public void VerifyFormParagraphTextFieldIsVisible()
+        {
+            var paragraphTextFieldControllerDiv = EM.Forms.FormsBackend.ParagraphTextFieldControllerDiv;
+            Assert.IsNotNull(paragraphTextFieldControllerDiv, String.Format("paragraphTextField is not added", paragraphTextFieldControllerDiv));
+        }
+        /// <summary>
+        /// Verify MultipleChoiceField is visible
+        /// </summary>
+        public void VerifyFormMultipleChoiceFieldIsVisible()
+        {
+            var multipleChoiceFieldControllerDiv = EM.Forms.FormsBackend.MultipleChoiceFieldControllerDiv;
+            Assert.IsNotNull(multipleChoiceFieldControllerDiv, String.Format("multipleChoiceField is not added", multipleChoiceFieldControllerDiv));
+        }
+        /// <summary>
+        /// Verify Captcha field is NOT visible
+        /// </summary>
+        public void VerifyFormCaptchaFieldIsNotVisible()
+        {
+            var captchaControllerDiv = EM.Forms.FormsBackend.CaptchaControllerDiv;
+            Assert.IsNull(captchaControllerDiv, String.Format("captcha field is still visible", captchaControllerDiv));
+        }
+        /// <summary>
+        /// Verify ParagraphTextField is NOT visible
+        /// </summary>
+        public void VerifyFormParagraphTextFieldIsNotVisible()
+        {
+            var paragraphTextFieldControllerDiv = EM.Forms.FormsBackend.ParagraphTextFieldControllerDiv;
+            Assert.IsNull(paragraphTextFieldControllerDiv, String.Format("paragraphTextField is still visible", paragraphTextFieldControllerDiv));
+        }
+        /// <summary>
+        /// Verify MultipleChoiceField is NOT visible
+        /// </summary>
+        public void VerifyFormMultipleChoiceFieldIsNotVisible()
+        {
+            var multipleChoiceFieldControllerDiv = EM.Forms.FormsBackend.MultipleChoiceFieldControllerDiv;
+            Assert.IsNull(multipleChoiceFieldControllerDiv, String.Format("multipleChoiceField is still visible", multipleChoiceFieldControllerDiv));
         }
         /// <summary>
         /// Clicks on Widget menu item (only click is performed, no waiting)
@@ -150,6 +194,72 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend.Forms
 
             return option;
         }
-     
+
+        /// <summary>
+        /// Clicks on Save draft button
+        public void ClickSaveDraft()
+        {
+            HtmlAnchor saveDraftButton = EM.Forms.FormsBackend.SaveDraftButton;
+            Assert.IsNotNull(saveDraftButton, "Save draft button was not found");
+            saveDraftButton.MouseClick();
+            ActiveBrowser.WaitForAsyncRequests();
+        }
+
+        /// <summary>
+        /// Verify PositiveMessageDraftIs shown
+        public void VerifyPositiveMessageDraftIsShown()
+        {
+            HtmlSpan positiveMessageDraftIsSaved = EM.Forms.FormsBackend.PositiveMessageDraftIsSaved;
+            Assert.IsNotNull(positiveMessageDraftIsSaved, "positiveMessageDraftIsSaved was not found");
+        }
+
+        /// <summary>
+        /// Verify Verify forms status
+        public void VerifyFormStatus(string formName, string status)
+        {
+            var formStatus = BAT.Wrappers().Backend().Forms().FormsDashboard().GetFormStatus(FeatherGlobals.FormName);
+            Assert.AreEqual(status, formStatus, String.Format("Form with tatus {0} is not found", status));
+        }
+
+        /// <summary>
+        /// Clicks on Preview button
+        /// <summary>
+        public void ClickPreviewButtonAndWaitForNewBrowser()
+        {
+            Manager.Current.SetNewBrowserTracking(true);
+            this.WaitForPreviewButtonAndClickIt();
+            Manager.Current.WaitForNewBrowserConnect("Preview", true, Manager.Current.Settings.ClientReadyTimeout);
+            Manager.Current.SetNewBrowserTracking(false);
+        }
+        /// <summary>
+        /// Wait for Preview button and click it
+        /// <summary>
+        private void WaitForPreviewButtonAndClickIt()
+        {
+            HtmlAnchor previewLink = EM.Forms.FormsBackend.PreviewButton;
+            previewLink.Wait.ForExists();
+            Assert.IsNotNull(previewLink, "The Preview button was not found.");
+            Assert.IsTrue(previewLink.IsVisible(), "The Preview button was not visible.");
+            previewLink.Click();
+        }
+        /// <summary>
+        /// Close Browser
+        /// <summary>
+        public void CloseBrowser()
+        {
+            ActiveBrowser.Close();
+
+        }
+        /// <summary>
+        /// Close Browser
+        /// <summary>
+        public void CloseBrowserAndConfirmDialog()
+        {
+            
+            var confirmDialog = BAT.Macros().DialogFacade().ConfirmDialog();
+            ActiveBrowser.Close();
+
+        }
+
     }
 }

@@ -7,16 +7,16 @@ using Telerik.Sitefinity.Data;
 using Telerik.Sitefinity.Publishing;
 using Telerik.Sitefinity.TestArrangementService.Attributes;
 using Telerik.Sitefinity.TestUI.Arrangements.Framework;
+using Telerik.Sitefinity.TestUI.Arrangements.Framework.Server;
 using Telerik.Sitefinity.TestUtilities.CommonOperations;
 using Telerik.Sitefinity.Web.Services;
 
 namespace FeatherWidgets.TestUI.Arrangements
 {
     /// <summary>
-    /// PublishUnpublishFormInUseVerifyFrontendHybrid arrangement class.
+    /// SubmitPreviewFormVerifyResponses arrangement class.
     /// </summary>
-    [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Naming", "CA1704:IdentifiersShouldBeSpelledCorrectly", MessageId = "Unpublish")]
-    public class PublishUnpublishFormInUseVerifyFrontendHybrid : TestArrangementBase
+    public class SubmitPreviewFormVerifyResponses : TestArrangementBase
     {
         /// <summary>
         /// Server side set up.
@@ -24,9 +24,8 @@ namespace FeatherWidgets.TestUI.Arrangements
         [ServerSetUp]
         public void SetUp()
         {
-            var formId = (new FormsOperations()).CreateFormWithWidgets(new FormFieldType[] { FormFieldType.SubmitButton, FormFieldType.Captcha }, FeatherGlobals.FormName);
-            var pageId = ServerOperations.Pages().CreatePage(FeatherGlobals.HybridPageName);
-            ServerOperationsFeather.Forms().AddFormControlToPage(pageId, formId, FeatherGlobals.FormName, "Body");
+           var formId = (new FormsOperations()).CreateFormWithWidgets(new FormFieldType[] { FormFieldType.SubmitButton }, FeatherGlobals.FormName, false);
+           ServerArrangementContext.GetCurrent().Values.Add("formId", formId.ToString("N"));
         }
 
         /// <summary>

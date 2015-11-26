@@ -22,8 +22,8 @@ namespace FeatherWidgets.TestUI.TestCases.Forms
         {
 
             BAT.Macros().NavigateTo().CustomPage("~/" + FeatherGlobals.BootstrapPageName.ToLower(), true, this.Culture);
-            BATFeather.Wrappers().Frontend().Forms().FormsWrapper().VerifyCheckboxesFieldLabelIsVisible(FeatherGlobals.CheckboxLabelName);
-            BATFeather.Wrappers().Frontend().Forms().FormsWrapper().VerifyTextFieldlIsVisibleHybrid();
+            BATFeather.Wrappers().Frontend().Forms().FormsWrapper().VerifyCheckboxesFieldLabelIsVisible(FeatherGlobals.SelectAChoiceLabelName);
+            BATFeather.Wrappers().Frontend().Forms().FormsWrapper().VerifyTextboxFieldContainerIsVisible();
             BATFeather.Wrappers().Frontend().Forms().FormsWrapper().SetTextboxContent(TextBoxContent);
 
             // Simulate multiple clicks

@@ -13,10 +13,9 @@ using Telerik.Sitefinity.Web.Services;
 namespace FeatherWidgets.TestUI.Arrangements
 {
     /// <summary>
-    /// PublishUnpublishFormInUseVerifyFrontendHybrid arrangement class.
+    /// EditFormSaveDraftThenPublishVerifyFrontendHybrid arrangement class.
     /// </summary>
-    [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Naming", "CA1704:IdentifiersShouldBeSpelledCorrectly", MessageId = "Unpublish")]
-    public class PublishUnpublishFormInUseVerifyFrontendHybrid : TestArrangementBase
+    public class EditFormSaveDraftThenPublishVerifyFrontendHybrid : TestArrangementBase
     {
         /// <summary>
         /// Server side set up.
@@ -24,7 +23,7 @@ namespace FeatherWidgets.TestUI.Arrangements
         [ServerSetUp]
         public void SetUp()
         {
-            var formId = (new FormsOperations()).CreateFormWithWidgets(new FormFieldType[] { FormFieldType.SubmitButton, FormFieldType.Captcha }, FeatherGlobals.FormName);
+            var formId = (new FormsOperations()).CreateFormWithWidgets(new FormFieldType[] { FormFieldType.SubmitButton, FormFieldType.CheckboxesField }, FeatherGlobals.FormName);
             var pageId = ServerOperations.Pages().CreatePage(FeatherGlobals.HybridPageName);
             ServerOperationsFeather.Forms().AddFormControlToPage(pageId, formId, FeatherGlobals.FormName, "Body");
         }

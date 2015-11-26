@@ -7,6 +7,8 @@ using ArtOfTest.Common.UnitTesting;
 using ArtOfTest.WebAii.Controls.HtmlControls;
 using ArtOfTest.WebAii.Core;
 using ArtOfTest.WebAii.jQuery;
+using Telerik.TestUI.Core.Asserts;
+using Telerik.TestUI.Core.Navigation;
 
 namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Frontend.Forms
 {
@@ -54,7 +56,7 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Frontend.Forms
         {
             Assert.IsTrue(EM.Forms.FormsFrontend.DropdownListField.InnerText.Contains(fieldLabel));
         }
-
+       
         /// <summary>
         /// Verify if content block content is visible
         /// </summary>
@@ -70,15 +72,6 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Frontend.Forms
         public void VerifyParagraphTextFieldLabelIsVisible(string fieldLabel)
         {
             Assert.IsTrue(EM.Forms.FormsFrontend.ParagraphTextField.InnerText.Contains(fieldLabel));
-        }
-
-        /// <summary>
-        /// Verify if text field is visible
-        /// </summary>
-        public void VerifyTextFieldlIsVisibleHybrid()
-        {
-            Assert.IsNotNull(EM.Forms.FormsFrontend.TextboxFieldHybrid, "Text field is not");
-            Assert.IsTrue(EM.Forms.FormsFrontend.TextboxFieldHybrid.IsVisible(), "The text input field is not visible");
         }
 
         /// <summary>
@@ -207,6 +200,123 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Frontend.Forms
         public void VerifyCheckboxesFieldIsNotVisible()
         {
             Assert.IsNull(EM.Forms.FormsFrontend.CheckboxesField, "Checkboxes field is still visible at the frontend");
+        }
+        /// <summary>
+        /// Verify if dropdown list field  is NOT visible
+        /// </summary>
+        public void VerifyDropdownListFieldIsNotVisible()
+        {
+            Assert.IsNull(EM.Forms.FormsFrontend.DropdownListField);
+        }
+        /// <summary>
+        /// Verify if ParagraphTextField  is NOT visible
+        /// </summary>
+        public void VerifyParagraphTextFieldIsNotVisible()
+        {
+            Assert.IsNull(EM.Forms.FormsFrontend.ParagraphTextField);
+        }
+         /// <summary>
+        /// Verify if MultipleChoiceField is NOT visible
+        /// </summary>
+        public void VerifyMultipleChoiceFieldIsNotVisible()
+        {
+            Assert.IsNull(EM.Forms.FormsFrontend.MultipleChoiceField);
+        }
+        /// <summary>
+        /// Verify if CaptchaFieldContainer is NOT visible
+        /// </summary>
+        public void VerifyCaptchaFieldIsNotVisible()
+        {
+            Assert.IsNull(EM.Forms.FormsFrontend.CaptchaField);
+        }
+
+        /// <summary>
+        /// Verify CaptchaField widget is visble
+        /// </summary>
+        public void VerifyCaptchaFieldContainerIsVisible()
+        {
+            Assert.IsNotNull(EM.Forms.FormsFrontend.CaptchaField, "CaptchaField is not visible at the frontend");
+            Assert.IsTrue(EM.Forms.FormsFrontend.CaptchaField.IsVisible(), "CaptchaField is not visible");
+        }
+        /// <summary>
+        /// Verify TextboxField widget is visble
+        /// </summary>
+        public void VerifyTextboxFieldContainerIsVisible()
+        {
+            Assert.IsNotNull(EM.Forms.FormsFrontend.TextboxField, "TextboxField is not visible at the frontend");
+            Assert.IsTrue(EM.Forms.FormsFrontend.TextboxField.IsVisible(), "TextboxField is not visible");
+        }
+        /// <summary>
+        /// Verify if paragraph widget is visible
+        /// </summary>
+        public void VerifyParagraphFieldContainerIsVisible()
+        {
+            Assert.IsNotNull(EM.Forms.FormsFrontend.ParagraphTextField, "ParagraphTextField is not found");
+            Assert.IsTrue(EM.Forms.FormsFrontend.ParagraphTextField.IsVisible(), "ParagraphTextField is not visible");
+        }
+
+        /// <summary>
+        /// Verify MultipleChoiceFieldContainer widget visble
+        /// </summary>
+        public void VerifyMultipleChoiceFieldContainerIsVisible()
+        {
+            Assert.IsNotNull(EM.Forms.FormsFrontend.MultipleChoiceField, "MultipleChoiceField is not visible at the frontend");
+            Assert.IsTrue(EM.Forms.FormsFrontend.MultipleChoiceField.IsVisible(), "MultipleChoiceField is not visible");
+        }
+        /// <summary>
+        /// Verify FileUploadField widget is visble
+        /// </summary>
+        public void VerifyFileUploadFieldContainerIsVisible()
+        {
+            Assert.IsNotNull(EM.Forms.FormsFrontend.FileUploadField, "FileUploadField is not visible at the frontend");
+            Assert.IsTrue(EM.Forms.FormsFrontend.FileUploadField.IsVisible(), "FileUploadField is not visible");
+        }
+        /// <summary>
+        /// Verify Checkboxes field widget is visble
+        /// </summary>
+        public void VerifyCheckboxesFieldContainerIsVisible()
+        {
+            Assert.IsNotNull(EM.Forms.FormsFrontend.CheckboxesField, "CheckboxesField is not visible at the frontend");
+            Assert.IsTrue(EM.Forms.FormsFrontend.CheckboxesField.IsVisible(), "CheckboxesField is not visible");
+        }
+        /// <summary>
+        /// Verify Dropdown field widget is visble
+        /// </summary>
+        public void VerifyDropdownFieldContainerIsVisible()
+        {
+            Assert.IsNotNull(EM.Forms.FormsFrontend.DropdownListField, "DropdownListField is not visible at the frontend");
+            Assert.IsTrue(EM.Forms.FormsFrontend.DropdownListField.IsVisible(), "DropdownListField is not visible");
+        }
+
+        /// <summary>
+        /// Navigates to preview form 
+        /// </summary>
+        /// <returns>
+        /// An instance of the <see cref="PageAssertFacade"/> facade which provides functionality 
+        /// for verifying the page.
+        /// </returns>
+        public PageAssertFacade PreviewForm(string formName, string culture = null )
+        {
+            string pagesUrl;
+            if (culture != null)
+            {
+                pagesUrl = "~/sitefinity/forms/" + formName + "/" + "Preview" + "/" + culture;
+            }
+            else
+            {
+                pagesUrl = "~/sitefinity/forms/" + formName + "/" + "Preview";
+            }
+
+            Navigator.Navigate(pagesUrl);
+            return new PageAssertFacade();
+        }
+
+        /// <summary>
+        /// Verify success message after the form is submitted is not shown
+        /// </summary>
+        public void VerifySuccessSubmitMessageIsNotShown()
+        {
+            Assert.IsNull(EM.Forms.FormsFrontend.SuccessMessage, "SuccessMessage should not be shown");
         }
     }
 }
