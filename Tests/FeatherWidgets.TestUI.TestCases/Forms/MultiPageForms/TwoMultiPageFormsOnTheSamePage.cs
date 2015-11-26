@@ -52,6 +52,15 @@ namespace FeatherWidgets.TestUI.TestCases.Forms.MultiPageForms
             BAT.Macros().NavigateTo().Modules().Forms(this.Culture);
             BAT.Wrappers().Backend().Forms().FormsDashboard().ViewFormResponses(FormName1);
             BATFeather.Wrappers().Backend().Forms().FormsWrapper().VerifyNumberOfResponses(ExpectedResponsesCountForm1);
+            BAT.Wrappers().Backend().Forms().FormsResponseScreen().SelectResponse(ResponseNumber);
+            BATFeather.Wrappers().Backend().Forms().FormsWrapper().VerifyResponseSubmitDate();
+            BATFeather.Wrappers().Backend().Forms().FormsWrapper().VerifyResponseCheckboxesAnswer(Choice);
+            BATFeather.Wrappers().Frontend().Forms().FormsWrapper().VerifyNavigationPagesLabels(this.pagesDefaultLabels);
+            BATFeather.Wrappers().Frontend().Forms().FormsWrapper().VerifyNextStepText();
+            BAT.Wrappers().Backend().Forms().FormsResponseScreen().EditResponce();
+            BATFeather.Wrappers().Backend().Forms().FormsWrapper().VerifyResponseCheckboxesAnswer(Choice);
+            BATFeather.Wrappers().Frontend().Forms().FormsWrapper().VerifyNavigationPagesLabels(this.pagesDefaultLabels);
+            BATFeather.Wrappers().Frontend().Forms().FormsWrapper().VerifyNextStepText();
             BAT.Macros().NavigateTo().Modules().Forms(this.Culture);
             BAT.Wrappers().Backend().Forms().FormsDashboard().ViewFormResponses(FormName2, "0 responses");
         }
@@ -87,6 +96,8 @@ namespace FeatherWidgets.TestUI.TestCases.Forms.MultiPageForms
         private const string PageName = "FormPage";
         private const int ExpectedResponsesCountForm1 = 1;
         private const int ExpectedResponsesCountForm2 = 2;
+        private const int ResponseNumber = 1;
         private string[] fieldsLabel = { "MultiPageForm1Checkbox", "MultiPageForm2TextBox" };
+        private List<string> pagesDefaultLabels = new List<string>() { "Page1", "Page2" };
     }
 }

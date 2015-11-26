@@ -32,8 +32,7 @@ namespace FeatherWidgets.TestUI.TestCases.Forms.MultiPageForms
             BATFeather.Wrappers().Backend().Forms().FormsContentScreenWrapper().ChangeLabel(FormName1Checkbox);
             BATFeather.Wrappers().Backend().ContentBlocks().ContentBlocksWrapper().SaveChanges();
             BATFeather.Wrappers().Backend().Forms().FormsContentScreenWrapper().ClickPreviewButton();
-            BATFeather.Wrappers().Frontend().Forms().FormsWrapper().VerifyIfFieldExistInPreviewMode(Page1, true);
-            BATFeather.Wrappers().Frontend().Forms().FormsWrapper().VerifyIfFieldExistInPreviewMode(Page2, true);
+            BATFeather.Wrappers().Frontend().Forms().FormsWrapper().VerifyNavigationPagesLabels(this.pagesDefaultLabels);
             BATFeather.Wrappers().Frontend().Forms().FormsWrapper().VerifyIfFieldExistInPreviewMode(FormName1TextBox, true);
             BATFeather.Wrappers().Frontend().Forms().FormsWrapper().VerifyIfFieldExistInPreviewMode(FormName1Checkbox, false);
             BATFeather.Wrappers().Frontend().Forms().FormsWrapper().VerifyIfFieldExistInPreviewMode(NextStep, true);
@@ -44,8 +43,7 @@ namespace FeatherWidgets.TestUI.TestCases.Forms.MultiPageForms
             BAT.Macros().NavigateTo().Pages(this.Culture);
             BAT.Wrappers().Backend().Pages().PagesWrapper().OpenPageZoneEditor(PageName);
             BAT.Wrappers().Backend().Pages().PagesWrapper().PreviewPage(PageName, true);
-            BATFeather.Wrappers().Frontend().Forms().FormsWrapper().VerifyIfFieldExistInPreviewMode(Page1, true);
-            BATFeather.Wrappers().Frontend().Forms().FormsWrapper().VerifyIfFieldExistInPreviewMode(Page2, true);
+            BATFeather.Wrappers().Frontend().Forms().FormsWrapper().VerifyNavigationPagesLabels(this.pagesDefaultLabels);
             BATFeather.Wrappers().Frontend().Forms().FormsWrapper().VerifyIfFieldExistInPreviewMode(FormName1TextBox, true);
             BATFeather.Wrappers().Frontend().Forms().FormsWrapper().VerifyIfFieldExistInPreviewMode(FormName1Checkbox, false);
             BATFeather.Wrappers().Frontend().Forms().FormsWrapper().VerifyIfFieldExistInPreviewMode(NextStep, true);
@@ -79,7 +77,6 @@ namespace FeatherWidgets.TestUI.TestCases.Forms.MultiPageForms
         private const string CheckboxField = "CheckboxesFieldController";
         private const string NextStep = "Next step";
         private const string Submit = "Submit";
-        private const string Page1 = "Page1";
-        private const string Page2 = "Page2";
+        private List<string> pagesDefaultLabels = new List<string>() { "Page1", "Page2" };
     }
 }
