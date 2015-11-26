@@ -121,6 +121,7 @@ namespace Feather.Widgets.TestUI.Framework.Framework.ElementMap.Forms
                 return this.BodyDropZone.Find.ByExpression<HtmlDiv>("class=RadDock RadDock_Default zeControlDock", "behaviourobjecttype=~DropdownListFieldController");
             }
         }
+
         /// <summary>
         /// Gets ParagraphTextFieldController Div 
         /// </summary>
@@ -131,6 +132,7 @@ namespace Feather.Widgets.TestUI.Framework.Framework.ElementMap.Forms
                 return this.BodyDropZone.Find.ByExpression<HtmlDiv>("class=RadDock RadDock_Default zeControlDock", "behaviourobjecttype=~ParagraphTextFieldController");
             }
         }
+
         /// <summary>
         /// Gets CaptchaController div
         /// </summary>
@@ -141,6 +143,7 @@ namespace Feather.Widgets.TestUI.Framework.Framework.ElementMap.Forms
                 return this.BodyDropZone.Find.ByExpression<HtmlDiv>("class=RadDock RadDock_Default zeControlDock", "behaviourobjecttype=~CaptchaController");
             }
         }
+
         /// <summary>
         /// Gets MultipleChoiceFieldController div
         /// </summary>
@@ -151,7 +154,6 @@ namespace Feather.Widgets.TestUI.Framework.Framework.ElementMap.Forms
                 return this.BodyDropZone.Find.ByExpression<HtmlDiv>("class=RadDock RadDock_Default zeControlDock", "behaviourobjecttype=~MultipleChoiceFieldController");
             }
         }
-
 
         /// <summary>
         /// Gets All Controller's divs
@@ -174,6 +176,7 @@ namespace Feather.Widgets.TestUI.Framework.Framework.ElementMap.Forms
                 return this.Get<HtmlAnchor>("onclick=editorToolBar.saveDraft();");
             }
         }
+
         /// <summary>
         /// Gets Preview Button from within Create dialog
         /// </summary>
@@ -184,6 +187,7 @@ namespace Feather.Widgets.TestUI.Framework.Framework.ElementMap.Forms
                 return this.Get<HtmlAnchor>("href=~Preview");
             }
         }
+
         /// <summary>
         /// Gets "The draft is successfully saved" message
         /// </summary>

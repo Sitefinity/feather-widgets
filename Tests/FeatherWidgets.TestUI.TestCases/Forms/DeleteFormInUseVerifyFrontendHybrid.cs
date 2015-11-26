@@ -22,22 +22,15 @@ namespace FeatherWidgets.TestUI.TestCases.Forms
         Owner(FeatherTeams.FeatherTeam),
         TestCategory(FeatherTestCategories.Forms)]
         public void DeleteFormInUseVerifyFrontendHybrid()
+       
         {
-            //BAT.Macros().NavigateTo().Modules().Forms(this.Culture);
-            //BAT.Wrappers().Backend().Forms().FormsDashboard().OpenFormFromTheGrid(FeatherGlobals.FormName);
-            //BATFeather.Wrappers().Backend().Forms().FormsContentScreenWrapper().AddField(FeatherGlobals.TexboxFieldName);
-            //BAT.Wrappers().Backend().Forms().FormsContentScreen().PublishForm();
-
             BAT.Macros().NavigateTo().CustomPage("~/" + FeatherGlobals.HybridPageName.ToLower(), true, this.Culture);
             BATFeather.Wrappers().Frontend().Forms().FormsWrapper().VerifyTextboxFieldContainerIsVisible();
             BATFeather.Wrappers().Frontend().Forms().FormsWrapper().VerifySubmitButtonIsVisible();
-
-
             BAT.Macros().NavigateTo().Modules().Forms(this.Culture);
             BAT.Wrappers().Backend().Forms().FormsDashboard().DeleteFormFromActionsMenu(FeatherGlobals.FormName);
             bool formIsPresent = BAT.Wrappers().Backend().Forms().FormsDashboard().IsFormPresentInGridView(FeatherGlobals.FormName);
             Assert.IsTrue(!formIsPresent);
-
             BAT.Macros().NavigateTo().CustomPage("~/" + FeatherGlobals.HybridPageName.ToLower(), true, this.Culture);
             BATFeather.Wrappers().Frontend().Forms().FormsWrapper().VerifyMessageIsDisplayedAfterFormIsDeleted();
         }

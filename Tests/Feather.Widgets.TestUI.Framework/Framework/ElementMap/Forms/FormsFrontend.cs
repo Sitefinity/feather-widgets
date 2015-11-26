@@ -121,6 +121,7 @@ namespace Feather.Widgets.TestUI.Framework.Framework.ElementMap.Forms
                 return this.Find.ByExpression<HtmlDiv>("TagName=div", "innertext=Success! Thanks for filling out our form!");
             }
         }
+
         /// <summary>
         /// Gets the message after form is deleted "The specified form no longer exists or is currently unpublished. "
         /// </summary>
@@ -129,7 +130,7 @@ namespace Feather.Widgets.TestUI.Framework.Framework.ElementMap.Forms
             get
             {
                 return this.Get<HtmlDiv>("id=PublicWrapper", "class=sfPublicWrapper");
-                    //, "innertext= The specified form no longer exists or is currently unpublished. ");
+               //, "innertext= The specified form no longer exists or is currently unpublished. ");
             }
         }
    
@@ -143,6 +144,7 @@ namespace Feather.Widgets.TestUI.Framework.Framework.ElementMap.Forms
                 return this.Find.ByExpression<HtmlDiv>("data-sf-role=field-captcha-container");
             }
         }
+
         /// <summary>
         /// Gets the fil upload field on frontend
         /// </summary>

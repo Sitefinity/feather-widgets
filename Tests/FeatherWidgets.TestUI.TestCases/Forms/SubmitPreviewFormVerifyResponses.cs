@@ -27,7 +27,7 @@ namespace FeatherWidgets.TestUI.TestCases.Forms
             BATFeather.Wrappers().Frontend().Forms().FormsWrapper().ClickSubmit();
             BATFeather.Wrappers().Frontend().Forms().FormsWrapper().VerifySuccessSubmitMessageIsNotShown();
             BAT.Macros().NavigateTo().Modules().Forms(this.Culture);
-            BAT.Wrappers().Backend().Forms().FormsDashboard().ViewFormResponses(FeatherGlobals.FormName, "0 responses");
+            BAT.Wrappers().Backend().Forms().FormsDashboard().ViewFormResponses(FeatherGlobals.FormName, ResponseNumber);
         }
 
         /// <summary>
@@ -45,7 +45,7 @@ namespace FeatherWidgets.TestUI.TestCases.Forms
         {
             BAT.Arrange(this.TestName).ExecuteTearDown();
         }
-        private const int ExpectedResponsesCount =0;
-        private const int ResponseNumber = 0;
+
+        private const string ResponseNumber = "0 responses";
     }
 }

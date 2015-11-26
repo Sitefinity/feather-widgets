@@ -201,6 +201,7 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Frontend.Forms
         {
             Assert.IsNull(EM.Forms.FormsFrontend.CheckboxesField, "Checkboxes field is still visible at the frontend");
         }
+
         /// <summary>
         /// Verify if dropdown list field  is NOT visible
         /// </summary>
@@ -208,6 +209,7 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Frontend.Forms
         {
             Assert.IsNull(EM.Forms.FormsFrontend.DropdownListField);
         }
+
         /// <summary>
         /// Verify if ParagraphTextField  is NOT visible
         /// </summary>
@@ -215,13 +217,15 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Frontend.Forms
         {
             Assert.IsNull(EM.Forms.FormsFrontend.ParagraphTextField);
         }
-         /// <summary>
+
+        /// <summary>
         /// Verify if MultipleChoiceField is NOT visible
         /// </summary>
         public void VerifyMultipleChoiceFieldIsNotVisible()
         {
             Assert.IsNull(EM.Forms.FormsFrontend.MultipleChoiceField);
         }
+
         /// <summary>
         /// Verify if CaptchaFieldContainer is NOT visible
         /// </summary>
@@ -238,6 +242,7 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Frontend.Forms
             Assert.IsNotNull(EM.Forms.FormsFrontend.CaptchaField, "CaptchaField is not visible at the frontend");
             Assert.IsTrue(EM.Forms.FormsFrontend.CaptchaField.IsVisible(), "CaptchaField is not visible");
         }
+
         /// <summary>
         /// Verify TextboxField widget is visble
         /// </summary>
@@ -246,6 +251,7 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Frontend.Forms
             Assert.IsNotNull(EM.Forms.FormsFrontend.TextboxField, "TextboxField is not visible at the frontend");
             Assert.IsTrue(EM.Forms.FormsFrontend.TextboxField.IsVisible(), "TextboxField is not visible");
         }
+
         /// <summary>
         /// Verify if paragraph widget is visible
         /// </summary>
@@ -263,6 +269,7 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Frontend.Forms
             Assert.IsNotNull(EM.Forms.FormsFrontend.MultipleChoiceField, "MultipleChoiceField is not visible at the frontend");
             Assert.IsTrue(EM.Forms.FormsFrontend.MultipleChoiceField.IsVisible(), "MultipleChoiceField is not visible");
         }
+
         /// <summary>
         /// Verify FileUploadField widget is visble
         /// </summary>
@@ -271,6 +278,7 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Frontend.Forms
             Assert.IsNotNull(EM.Forms.FormsFrontend.FileUploadField, "FileUploadField is not visible at the frontend");
             Assert.IsTrue(EM.Forms.FormsFrontend.FileUploadField.IsVisible(), "FileUploadField is not visible");
         }
+
         /// <summary>
         /// Verify Checkboxes field widget is visble
         /// </summary>
@@ -279,6 +287,7 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Frontend.Forms
             Assert.IsNotNull(EM.Forms.FormsFrontend.CheckboxesField, "CheckboxesField is not visible at the frontend");
             Assert.IsTrue(EM.Forms.FormsFrontend.CheckboxesField.IsVisible(), "CheckboxesField is not visible");
         }
+
         /// <summary>
         /// Verify Dropdown field widget is visble
         /// </summary>

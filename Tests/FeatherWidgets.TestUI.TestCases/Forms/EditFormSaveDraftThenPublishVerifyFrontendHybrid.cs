@@ -37,19 +37,15 @@ namespace FeatherWidgets.TestUI.TestCases.Forms
             BAT.Wrappers().Backend().Forms().FormsContentScreen().BackToForms();
             BAT.Macros().NavigateTo().Modules().Forms(this.Culture);
             BATFeather.Wrappers().Backend().Forms().FormsContentScreenWrapper().VerifyFormStatus(FeatherGlobals.FormName, FeatherGlobals.draftNewerThanPublished);
-
-
             BAT.Macros().NavigateTo().CustomPage("~/" + FeatherGlobals.HybridPageName.ToLower(), true, this.Culture);
             BATFeather.Wrappers().Frontend().Forms().FormsWrapper().VerifyParagraphTextFieldIsNotVisible();
             BATFeather.Wrappers().Frontend().Forms().FormsWrapper().VerifyMultipleChoiceFieldIsNotVisible();
             BATFeather.Wrappers().Frontend().Forms().FormsWrapper().VerifyCaptchaFieldIsNotVisible();
             BATFeather.Wrappers().Frontend().Forms().FormsWrapper().VerifyCheckboxesFieldLabelIsVisible(FeatherGlobals.SelectAChoiceLabelName);
             BATFeather.Wrappers().Frontend().Forms().FormsWrapper().VerifySubmitButtonIsVisible();
-
             BAT.Macros().NavigateTo().Modules().Forms(this.Culture);
             BAT.Wrappers().Backend().Forms().FormsDashboard().PublishFormFromActionsMenu(FeatherGlobals.FormName);
             BATFeather.Wrappers().Backend().Forms().FormsContentScreenWrapper().VerifyFormStatus(FeatherGlobals.FormName, FeatherGlobals.published);
-
             BAT.Macros().NavigateTo().CustomPage("~/" + FeatherGlobals.HybridPageName.ToLower(), true, this.Culture);
             BATFeather.Wrappers().Frontend().Forms().FormsWrapper().VerifyParagraphTextFieldLabelIsVisible(FeatherGlobals.UntitledLabelName);
             BATFeather.Wrappers().Frontend().Forms().FormsWrapper().VerifyParagraphFieldContainerIsVisible();
@@ -58,7 +54,6 @@ namespace FeatherWidgets.TestUI.TestCases.Forms
             BATFeather.Wrappers().Frontend().Forms().FormsWrapper().VerifyCaptchaFieldContainerIsVisible();
             BATFeather.Wrappers().Frontend().Forms().FormsWrapper().VerifyCheckboxesFieldLabelIsVisible(FeatherGlobals.SelectAChoiceLabelName);
             BATFeather.Wrappers().Frontend().Forms().FormsWrapper().VerifySubmitButtonIsVisible();
-
         }
 
         /// <summary>
@@ -77,10 +72,6 @@ namespace FeatherWidgets.TestUI.TestCases.Forms
         {
             BAT.Arrange(this.TestName).ExecuteTearDown();
         }
-
-        
-        private const int ExpectedWidgetsCount = 0;
-
     }
 }   
 

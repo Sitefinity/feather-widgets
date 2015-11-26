@@ -55,9 +55,5 @@ namespace FeatherWidgets.TestUI.TestCases.Forms
         {
             BAT.Arrange(this.TestName).ExecuteTearDown();
         }
-
-        
-        private const int ExpectedWidgetsCount = 0;
-
     }
 }
