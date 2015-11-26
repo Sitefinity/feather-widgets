@@ -382,6 +382,7 @@
     <Compile Include="Forms\MultiPageForms\AllowUsersToStepBackwardAndChangeButtonTitle.cs" />
     <Compile Include="Forms\MultiPageForms\ChangeAdvancedSettingsOfPageBreak.cs" />
     <Compile Include="Forms\MultiPageForms\ChangePageBreakTemplate.cs" />
+    <Compile Include="Forms\MultiPageForms\CreateFormResponseForMultipageForm.cs" />
     <Compile Include="Forms\MultiPageForms\PreviewMultipageForm.cs" />
     <Compile Include="Forms\Navigation\AddAndRemoveNewPage.cs" />
     <Compile Include="Forms\Navigation\ChangeAdvancedSettingsOfFormNavigationAndSetCssClass.cs" />

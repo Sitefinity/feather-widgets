@@ -28,5 +28,14 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend.Forms
         {
             return new FormsContentScreenWrapper();
         }
+
+        /// <summary>
+        /// Provides unified access to the FormResponseWrapper 
+        /// </summary>
+        /// <returns>Returns the FormResponseWrapper</returns>
+        public FormResponseWrapper FormResponseWrapper()
+        {
+            return new FormResponseWrapper();
+        }
     }
 }

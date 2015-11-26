@@ -21,7 +21,7 @@ namespace FeatherWidgets.TestUI.Arrangements
             List<FormFieldType> formBodyControls = new List<FormFieldType>() { FormFieldType.TextField, FormFieldType.PageBreak, FormFieldType.TextField };
             List<FormFieldType> formFooterControls = new List<FormFieldType>() { FormFieldType.SubmitButton };
 
-            var formId = (new FormsOperations()).CreateFormWithWidgets(formHeaderControls, formBodyControls, formFooterControls, FormName);
+            var formId = ServerOperationsFeather.Forms().CreateFormWithWidgets(formHeaderControls, formBodyControls, formFooterControls, FormName);
 
             var templateId = ServerOperations.Templates().GetTemplateIdByTitle(PageTemplateName);
             ServerOperations.Pages().CreatePage(PageName, templateId);
