@@ -16,7 +16,7 @@ namespace FeatherWidgets.TestUI.Arrangements
         [ServerSetUp]
         public void SetUp()
         {
-            var formId = (new FormsOperations()).CreateFormWithWidgets(new FormFieldType[] { FormFieldType.TextField }, FormName);
+            var formId = ServerOperationsFeather.Forms().CreateFormWithWidgets(new FormFieldType[] { FormFieldType.TextField }, FormName);
 
             var templateId = ServerOperations.Templates().GetTemplateIdByTitle(PageTemplateName);
             ServerOperations.Pages().CreatePage(PageName, templateId);
