@@ -30,7 +30,7 @@ namespace Feather.Widgets.TestUI.Framework.Framework.ElementMap.Forms
         {
             get
             {
-                return this.Get<HtmlDiv>("TagName=div", "Class=form-group", "data-sf-role=text-field-container");
+                return this.Get<HtmlDiv>("data-sf-role=text-field-container");
             }
         }
 
@@ -41,7 +41,7 @@ namespace Feather.Widgets.TestUI.Framework.Framework.ElementMap.Forms
         {
             get
             {
-                return this.Find.ByExpression<HtmlDiv>("TagName=div", "Class=form-group", "data-sf-role=checkboxes-field-container");
+                return this.Find.ByExpression<HtmlDiv>("data-sf-role=checkboxes-field-container");
             }
         }
 
@@ -52,7 +52,7 @@ namespace Feather.Widgets.TestUI.Framework.Framework.ElementMap.Forms
         {
             get
             {
-                return this.Get<HtmlDiv>("TagName=div", "Class=form-group", "data-sf-role=multiple-choice-field-container");
+                return this.Find.ByExpression<HtmlDiv>("data-sf-role=multiple-choice-field-container");
             }
         }
 
@@ -63,7 +63,7 @@ namespace Feather.Widgets.TestUI.Framework.Framework.ElementMap.Forms
         {
             get
             {
-                return this.Get<HtmlDiv>("TagName=div", "Class=form-group", "data-sf-role=dropdown-list-field-container");
+                return this.Find.ByExpression<HtmlDiv>("data-sf-role=dropdown-list-field-container");
             }
         }
 
@@ -74,7 +74,7 @@ namespace Feather.Widgets.TestUI.Framework.Framework.ElementMap.Forms
         {
             get
             {
-                return this.Get<HtmlDiv>("TagName=div", "data-sf-role=paragraph-text-field-container");
+                return this.Find.ByExpression<HtmlDiv>("data-sf-role=paragraph-text-field-container");
             }
         }
 
@@ -118,9 +118,10 @@ namespace Feather.Widgets.TestUI.Framework.Framework.ElementMap.Forms
         {
             get
             {
-                return this.Get<HtmlDiv>("TagName=div", "innertext=Success! Thanks for filling out our form!");
+                return this.Find.ByExpression<HtmlDiv>("TagName=div", "innertext=Success! Thanks for filling out our form!");
             }
         }
+
         /// <summary>
         /// Gets the message after form is deleted "The specified form no longer exists or is currently unpublished. "
         /// </summary>
@@ -129,27 +130,30 @@ namespace Feather.Widgets.TestUI.Framework.Framework.ElementMap.Forms
             get
             {
                 return this.Get<HtmlDiv>("id=PublicWrapper", "class=sfPublicWrapper");
-                    //, "innertext= The specified form no longer exists or is currently unpublished. ");
+               //, "innertext= The specified form no longer exists or is currently unpublished. ");
             }
         }
-
+   
         /// <summary>
-        /// Gets the fields for form when hybrid page is used 
+        /// Gets the captcha field on frontend
         /// </summary>
-        #region HybridPage
-
-        /// <summary>
-        /// Gets the textbox field on frontend
-        /// </summary>
-        public HtmlInputText TextboxFieldHybrid
+        public HtmlDiv CaptchaField
         {
             get
             {
-                return this.Get<HtmlInputText>("name=TextFieldController", "data-sf-role=text-field-input");
+                return this.Find.ByExpression<HtmlDiv>("data-sf-role=field-captcha-container");
             }
         }
 
-
-        #endregion HybridPage
+        /// <summary>
+        /// Gets the fil upload field on frontend
+        /// </summary>
+        public HtmlDiv FileUploadField
+        {
+            get
+            {
+                return this.Find.ByExpression<HtmlDiv>("data-sf-role=file-field-inputs");
+            }
+        }
     }
 }
