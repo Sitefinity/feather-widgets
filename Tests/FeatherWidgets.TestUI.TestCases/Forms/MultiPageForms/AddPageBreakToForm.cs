@@ -43,6 +43,14 @@ namespace FeatherWidgets.TestUI.TestCases.Forms.MultiPageForms
             BAT.Macros().NavigateTo().Modules().Forms(this.Culture);
             BAT.Wrappers().Backend().Forms().FormsDashboard().ViewFormResponses(FormName);
             BATFeather.Wrappers().Backend().Forms().FormsWrapper().VerifyNumberOfResponses(ExpectedResponsesCount);
+            BAT.Wrappers().Backend().Forms().FormsResponseScreen().SelectResponse(ResponseNumber);
+            BATFeather.Wrappers().Backend().Forms().FormsWrapper().VerifyResponseAuthorUsername(ExpectedAuthorName);
+            BATFeather.Wrappers().Backend().Forms().FormsWrapper().VerifyResponseSubmitDate();
+            BATFeather.Wrappers().Backend().Forms().FormsWrapper().VerifyResponseTextboxAnswer(TextBoxContent);
+            BATFeather.Wrappers().Frontend().Forms().FormsWrapper().VerifyNextStepText();
+            BAT.Wrappers().Backend().Forms().FormsResponseScreen().EditResponce();
+            BATFeather.Wrappers().Backend().Forms().FormsWrapper().VerifyResponseTextboxAnswer(TextBoxContent);
+            BATFeather.Wrappers().Frontend().Forms().FormsWrapper().VerifyNextStepText();
         }
 
         /// <summary>

@@ -251,7 +251,7 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Frontend.Forms
         public void ClickNextButton()
         {
             ActiveBrowser.RefreshDomTree();
-            HtmlButton nextButton = EM.Forms.FormsFrontend.NextStepButton;
+            HtmlButton nextButton = EM.Forms.FormsFrontend.NextStepVisible;
             nextButton.ScrollToVisible();
             nextButton.Focus();
             nextButton.Click();

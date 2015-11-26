@@ -140,6 +140,17 @@ namespace Feather.Widgets.TestUI.Framework.Framework.ElementMap.Forms
         {
             get
             {
+                return this.Get<HtmlButton>("TagName=button", "data-sf-btn-role=next");
+            }
+        }
+
+        /// <summary>
+        /// Gets the next button on frontend
+        /// </summary>
+        public HtmlButton NextStepVisible
+        {
+            get
+            {
                 return this.Find.AllByExpression<HtmlButton>("TagName=button", "data-sf-btn-role=next").Where(b => b.IsVisible()).FirstOrDefault();
             }
         }
