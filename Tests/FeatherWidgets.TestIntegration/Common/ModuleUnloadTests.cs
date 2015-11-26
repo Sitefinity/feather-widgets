@@ -756,7 +756,7 @@ namespace FeatherWidgets.TestIntegration.Common
             contentBlockController.Content = ModuleUnloadTests.PageControlContent;
             mvcProxy.Settings = new ControllerSettings(contentBlockController);
 
-            PageContentGenerator.AddControlsToPage(pageId, new Control[] { mvcProxy });
+            PageContentGenerator.AddControlsToPage(pageId, new Control[] { mvcProxy }, framework == PageTemplateFramework.Mvc ? "Contentplaceholder1" : "Body");
 
             return pageId;
         }
@@ -779,7 +779,7 @@ namespace FeatherWidgets.TestIntegration.Common
             contentBlockController.Content = ModuleUnloadTests.PageControlContent;
             mvcProxy.Settings = new ControllerSettings(contentBlockController);
 
-            templatesOperations.AddControlToTemplate(pageTemplateId, mvcProxy, "Body", "ContentBlockCaption");
+            templatesOperations.AddControlToTemplate(pageTemplateId, mvcProxy, framework == PageTemplateFramework.Mvc ? "Contentplaceholder1" : "Body", "ContentBlockCaption");
 
             return pageTemplateId;
         }
