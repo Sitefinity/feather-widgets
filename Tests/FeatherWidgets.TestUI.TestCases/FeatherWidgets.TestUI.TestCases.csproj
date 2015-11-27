@@ -217,6 +217,7 @@
     <Compile Include="Forms\MultiPageForms\ChangeAdvancedSettingsOfPageBreak.cs" />
     <Compile Include="Forms\MultiPageForms\ChangePageBreakTemplate.cs" />
     <Compile Include="Forms\MultiPageForms\AddSubmitButtonInHeaderAndFooter.cs" />
+    <Compile Include="Forms\MultiPageForms\VerifyFormPagesNumbers.cs" />
     <Compile Include="Forms\MultiPageForms\CreateFormResponseForMultipageForm.cs" />
     <Compile Include="Forms\MultiPageForms\MovePageBreakToHeaderAndFooter.cs" />
     <Compile Include="Forms\MultiPageForms\PreviewMultipageForm.cs" />
