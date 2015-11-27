@@ -219,6 +219,7 @@
     <Compile Include="Forms\MultiPageForms\AddSubmitButtonInHeaderAndFooter.cs" />
     <Compile Include="Forms\MultiPageForms\VerifyFormPagesNumbers.cs" />
     <Compile Include="Forms\MultiPageForms\CreateFormResponseForMultipageForm.cs" />
+    <Compile Include="Forms\MultiPageForms\MovePageBreakToHeaderAndFooter.cs" />
     <Compile Include="Forms\MultiPageForms\PreviewMultipageForm.cs" />
     <Compile Include="Forms\Navigation\AddAndRemoveNewPage.cs" />
     <Compile Include="Forms\Navigation\ChangeAdvancedSettingsOfFormNavigationAndSetCssClass.cs" />

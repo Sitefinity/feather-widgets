@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Linq;
 using ArtOfTest.Common.UnitTesting;
 using ArtOfTest.WebAii.Controls.HtmlControls;
@@ -43,6 +44,87 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend.Forms
                 .AssertIsPresent("Widget: " + widgetLabelName);
 
             return widget;
+        }
+
+        /// <summary>
+        /// Gets a widget by Name
+        /// </summary>
+        /// <param name="widgetLabelName">The widget label name</param>
+        /// <returns>The Widget</returns>
+        private HtmlDiv GetWidgetByNameFromZoneEditor(string widgetLabelName)
+        {
+            HtmlDiv widget = ActiveBrowser.Find.ByExpression<HtmlDiv>("class=rdTitleBar zeControlTitlebar", "innertext=~" + widgetLabelName)
+                .AssertIsPresent("Widget: " + widgetLabelName);
+
+            return widget;
+        }
+
+        /// <summary>
+        /// Drags a field in zone editor
+        /// to the form dropzone
+        /// </summary>
+        /// <param name="widgetName">The Field Name</param>
+        public void MoveFieldInZoneEditor(string widgetName, string placeHolder = "Body")
+        {
+            var widget = GetWidgetByNameFromZoneEditor(widgetName);
+            HtmlDiv dropZone = ActiveBrowser.Find
+                                               .ByExpression<HtmlDiv>("placeholderid=" + placeHolder)
+               .AssertIsPresent<HtmlDiv>(placeHolder);
+            dropZone.ScrollToVisible();
+
+            AddWidgetToDropZonePoint(widget, dropZone);
+
+            ActiveBrowser.WaitForAsyncRequests();
+            ActiveBrowser.RefreshDomTree();
+        }
+
+        /// <summary>
+        /// Drags a field in zone editor
+        /// to the form dropzone
+        /// </summary>
+        /// <param name="widgetName">The Field Name</param>
+        public void VerifyFieldsInPlaceholder(string widgetName, string placeHolder = "Body", bool isContained = true)
+        {
+            HtmlDiv dropZone = ActiveBrowser.Find
+                                               .ByExpression<HtmlDiv>("placeholderid=" + placeHolder)
+               .AssertIsPresent<HtmlDiv>(placeHolder);
+
+            if (isContained)
+            {
+                Assert.IsTrue(dropZone.InnerText.Contains(widgetName), "Widget is not in placeholder");
+            }
+            else 
+            {
+                Assert.IsFalse(dropZone.InnerText.Contains(widgetName), "Widget is in placeholder");
+            }
+        }
+
+        /// <summary>
+        /// Drags the widget to the specified point in dropzone
+        /// </summary>
+        /// <param name="widgetElement">The Widget</param>
+        /// <param name="dropZone">The Dropzone</param>
+        private void AddWidgetToDropZonePoint(HtmlDiv widgetElement, HtmlDiv dropZone)
+        {
+            ActiveBrowser.RefreshDomTree();
+            widgetElement.Refresh();            
+            widgetElement.DragTo(dropZone);
+        }
+
+        /// <summary>
+        /// Clicks on Widget menu item (only click is performed, no waiting)
+        /// </summary>
+        /// <param name="widgetName">The Widget Name</param>
+        /// <param name="menuOption">The menu option</param>
+        public void ClickOnFieldMenuItem(string widgetName, string menuOption)
+        {
+            HtmlDiv widget = GetWidgetByNameFromZoneEditor(widgetName);
+            widget.ScrollToVisible();
+            widget.Focus();
+            HtmlAnchor moreLink = GetWidgetMoreLink(widget);
+            moreLink.MouseClick();
+            HtmlAnchor option = GetMoreMenuOption(menuOption);
+            option.MouseClick();
         }
 
         /// <summary>
@@ -109,7 +191,7 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend.Forms
             HtmlDiv controleZone = EM.Forms.FormsBackend.BodyDropZone;
             HtmlDiv widget = ActiveBrowser.Find.ByExpression<HtmlDiv>("class=RadDock RadDock_Default zeControlDock", "behaviourobjecttype=~" + controlerName);
             HtmlAnchor moreLink = GetWidgetMoreLink(widget);
-            moreLink.MouseClick();
+            moreLink.Click();
             HtmlAnchor option = GetMoreMenuOption(menuOption);
             option.MouseClick();
         }
@@ -147,6 +229,7 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend.Forms
         private HtmlAnchor GetMoreMenuOption(string menuOption)
         {
             ActiveBrowser.RefreshDomTree();
+            ActiveBrowser.WaitUntilReady();
 
             HtmlAnchor option = ActiveBrowser.Find.ByExpression<HtmlAnchor>("tagname=a", "innertext=" + menuOption);
             option.AssertIsPresent("Menu option: " + menuOption);
