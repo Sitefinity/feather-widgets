@@ -779,7 +779,7 @@ namespace FeatherWidgets.TestIntegration.Common
             contentBlockController.Content = ModuleUnloadTests.PageControlContent;
             mvcProxy.Settings = new ControllerSettings(contentBlockController);
 
-            templatesOperations.AddControlToTemplate(pageTemplateId, mvcProxy, framework == PageTemplateFramework.Mvc ? "Contentplaceholder1" : "Body", "ContentBlockCaption");
+            templatesOperations.AddControlToTemplate(pageTemplateId, mvcProxy, "Body", "ContentBlockCaption");
 
             return pageTemplateId;
         }
