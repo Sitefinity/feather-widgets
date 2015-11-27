@@ -327,6 +327,59 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Frontend.Forms
         }
 
         /// <summary>
+        /// Verifies the pages labels in multipage form.
+        /// </summary>
+        /// <param name="labels">The labels.</param>
+        public void VerifyPagingIndexes(List<string> labels)
+        {
+            var indexes = ActiveBrowser.Find.AllByExpression<HtmlSpan>("data-sf-role=page-label");
+            
+            for (int i = 0; i < labels.Count; i++)
+            {
+                indexes[i].AssertIsVisible("The multi page label");
+                Assert.AreEqual(labels[i], indexes[i].InnerText);
+            }
+        }
+
+        /// <summary>
+        /// Verifies the header and footer page labels.
+        /// </summary>
+        /// <param name="areVisible">if set to <c>true</c> [are visible].</param>
+        /// <param name="isFirstOpenOfTheForm">if set to <c>true</c> [is first open of the form].</param>
+        public void VerifyHeaderAndFooterPageLabels(bool areVisible = true, bool isFirstOpenOfTheForm = false)
+        {
+            if (!areVisible)
+            {
+                if (!isFirstOpenOfTheForm)
+                {
+                    ActiveBrowser.Find.ByExpression<HtmlSpan>("data-sf-role=page-label")
+                        .AssertIsNull("The page indexes are visible but they shouldn't");
+
+                    var headerAndFooter = ActiveBrowser.Find.AllByExpression<HtmlSpan>("data-sf-role=zone-label");
+                    headerAndFooter.First().AssertIsNotVisible("Header");
+                    headerAndFooter.First().AssertIsNotVisible("Footer");
+                }
+                else
+                {
+                    ActiveBrowser.Find.ByExpression<HtmlSpan>("data-sf-role=page-label")
+                        .AssertIsNull("The header and footerlabels are visible but they shouldn't");
+
+                    ActiveBrowser.Find.ByExpression<HtmlSpan>("data-sf-role=zone-label")
+                        .AssertIsNull("The page indexes are visible but they shouldn't");
+                }
+            }
+            else
+            {
+                var headerAndFooter = ActiveBrowser.Find.AllByExpression<HtmlSpan>("data-sf-role=zone-label");
+                headerAndFooter.First().AssertIsVisible("Header");
+                Assert.AreEqual(headerAndFooter.First().InnerText, "Common header");
+
+                headerAndFooter.First().AssertIsVisible("Footer");
+                Assert.AreEqual(headerAndFooter.Last().InnerText, "Common footer");
+            }
+        }
+
+        /// <summary>
         /// Verifies the active page in navigation.
         /// </summary>
         /// <param name="activePageIndex">Index of the active page.</param>
