@@ -280,6 +280,16 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend.Forms
         }
 
         /// <summary>
+        /// Verifies the drop zones count.
+        /// </summary>
+        /// <param name="count">The expected count.</param>
+        public void VerifyDropZonesCount(int expectedCount)
+        {
+            var dropZones = ActiveBrowser.Find.AllByExpression<HtmlDiv>("class=^RadDockZone RadDockZone_Default rdVertical zeDockZoneHasLabel");
+            Assert.AreEqual(expectedCount, dropZones.Count);
+        }
+
+        /// <summary>
         /// Changes the next step text.
         /// </summary>
         /// <param name="newValue">The new value.</param>

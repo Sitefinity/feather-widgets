@@ -28,6 +28,7 @@ namespace FeatherWidgets.TestUI.TestCases.Forms.MultiPageForms
             BAT.Wrappers().Backend().Forms().FormsDashboard().OpenFormFromTheGrid(FormName);
             BATFeather.Wrappers().Backend().Forms().FormsContentScreenWrapper().AddField(FieldName);
             BATFeather.Wrappers().Backend().Forms().FormsContentScreenWrapper().VerifyCommonHeaderAndFooterAreVisible();
+            BATFeather.Wrappers().Backend().Forms().FormsContentScreenWrapper().VerifyDropZonesCount(DropzonesCount);
             BAT.Wrappers().Backend().Forms().FormsContentScreen().PublishForm();
 
             BAT.Macros().NavigateTo().CustomPage("~/" + PageName.ToLower(), true, this.Culture);
@@ -39,7 +40,7 @@ namespace FeatherWidgets.TestUI.TestCases.Forms.MultiPageForms
             BATFeather.Wrappers().Frontend().Forms().FormsWrapper().VerifySubmitButtonIsVisible();
             BATFeather.Wrappers().Frontend().Forms().FormsWrapper().VerifyNextStepText("Next step", false);
             BATFeather.Wrappers().Frontend().Forms().FormsWrapper().ClickSubmit();
-
+            
             BAT.Macros().NavigateTo().Modules().Forms(this.Culture);
             BAT.Wrappers().Backend().Forms().FormsDashboard().ViewFormResponses(FormName);
             BATFeather.Wrappers().Backend().Forms().FormsWrapper().VerifyNumberOfResponses(ExpectedResponsesCount);
@@ -77,6 +78,7 @@ namespace FeatherWidgets.TestUI.TestCases.Forms.MultiPageForms
         private const string LabelName = "Untitled";
         private const string TextBoxContent = "Textbox Field Text";
         private const string WidgetName = "Form";
+        private const int DropzonesCount = 3;
         private const int ExpectedResponsesCount = 1;
         private const int ResponseNumber = 1;
         private const string ExpectedAuthorName = "admin";
