@@ -200,6 +200,17 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Frontend.Forms
         }
 
         /// <summary>
+        /// Clicks the submit in the footer.
+        /// </summary>
+        public void ClickSubmitInTheFooter()
+        {
+            ActiveBrowser.Find.AllByExpression<HtmlButton>("TagName=button", "type=submit")
+                .Last()
+                .AssertIsVisible("Submit button in the footer")
+                .Click();
+        }
+
+        /// <summary>
         /// Selects checkbox from checkboxes field
         /// </summary>
         public void SelectCheckbox(string choice)
@@ -268,7 +279,6 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Frontend.Forms
             ActiveBrowser.WaitUntilReady();
         }
 
-
         /// <summary>
         /// Verify next step text
         /// </summary>
@@ -289,6 +299,17 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Frontend.Forms
             }
         }
 
+        /// <summary>
+        /// Verifies the required message.
+        /// </summary>
+        public void VerifyRequiredMessage()
+        {
+            ActiveBrowser.Find.AllByExpression<HtmlControl>("tagName=p", "data-sf-role=required-violation-message")
+                .First()
+                .AssertIsVisible("Required message")
+                .AssertContainsText("This field is required", "The message is not correct");
+        }
+        
         /// <summary>
         /// Verify previous step text
         /// </summary>

@@ -377,6 +377,9 @@
     <Compile Include="Forms\MultiPageForms\AllowUsersToStepBackwardAndChangeButtonTitle.cs" />
     <Compile Include="Forms\MultiPageForms\ChangeAdvancedSettingsOfPageBreak.cs" />
     <Compile Include="Forms\MultiPageForms\ChangePageBreakTemplate.cs" />
+    <Compile Include="Forms\MultiPageForms\UserIsNotAllowedToSubmit.cs" />
+    <Compile Include="Forms\MultiPageForms\VerifyFileUploadValidation.cs" />
+    <Compile Include="Forms\MultiPageForms\VerifyValidationContentFields.cs" />
     <Compile Include="Forms\MultiPageForms\VerifyFormPagesNumbers.cs" />
     <Compile Include="Forms\MultiPageForms\CreateFormResponseForMultipageForm.cs" />
     <Compile Include="Forms\MultiPageForms\MovePageBreakToHeaderAndFooter.cs" />

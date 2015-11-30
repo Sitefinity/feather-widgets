@@ -150,6 +150,16 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend.Forms
         }
 
         /// <summary>
+        /// Checks the required file upload field checkbox.
+        /// </summary>
+        public void CheckRequiredFileUploadFieldCheckbox()
+        {
+            HtmlInputCheckBox checkbox = this.EM.Forms.FormsBackend.RequiredFileUploadFieldCheckBox.AssertIsPresent("Required field");
+            checkbox.Click();
+            checkbox.AssertIsPresent("checked");
+        }
+
+        /// <summary>
         /// Verify form widget is deleted
         /// </summary>
         public void VerifyFormCheckboxWidgetIsDeleted()
