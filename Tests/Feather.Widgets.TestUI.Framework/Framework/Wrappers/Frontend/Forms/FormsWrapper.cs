@@ -309,6 +309,27 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Frontend.Forms
                 .AssertIsVisible("Required message")
                 .AssertContainsText("This field is required", "The message is not correct");
         }
+
+        /// <summary>
+        /// Verifies the required field.
+        /// </summary>
+        public void VerifyRequiredFields(string controllerType)
+        {
+            if (controllerType.Equals("TextFieldController"))
+            {
+                var section = ActiveBrowser.Find.ByExpression<HtmlControl>("name=" + controllerType)
+                .AssertIsPresent("Controller ");
+                var attr = section.Attributes.FirstOrDefault(a => a.Name == "required");
+                Assert.AreEqual("'required'", attr.Value.ToLower(), "Required field ");
+            }
+            else
+            {
+                var section = ActiveBrowser.Find.ByExpression<HtmlControl>("name=" + controllerType)
+                .AssertIsPresent("Controller ");
+                var attr = section.Attributes.FirstOrDefault(a => a.Name == "required");
+                Assert.AreEqual("required", attr.Value.ToLower(), "Required field ");
+            }
+        }
         
         /// <summary>
         /// Verify previous step text
