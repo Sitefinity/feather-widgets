@@ -41,7 +41,6 @@ namespace Feather.Widgets.TestUI.Framework.Framework.ElementMap.Forms
                 return new FormsBackend(this.find);
             }
         }
-
-        private Find find;
+       private Find find;
     }
 }

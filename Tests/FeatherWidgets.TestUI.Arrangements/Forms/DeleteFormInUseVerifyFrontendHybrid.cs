@@ -23,7 +23,7 @@ namespace FeatherWidgets.TestUI.Arrangements
         [ServerSetUp]
         public void SetUp()
         {
-            var formId = (new FormsOperations()).CreateFormWithWidgets(new FormFieldType[] { FormFieldType.SubmitButton }, FeatherGlobals.FormName);
+            var formId = (new FormsOperations()).CreateFormWithWidgets(new FormFieldType[] { FormFieldType.SubmitButton, FormFieldType.TextField }, FeatherGlobals.FormName);
             var pageId = ServerOperations.Pages().CreatePage(FeatherGlobals.HybridPageName);
             ServerOperationsFeather.Forms().AddFormControlToPage(pageId, formId, FeatherGlobals.FormName,  "Body");
         }
