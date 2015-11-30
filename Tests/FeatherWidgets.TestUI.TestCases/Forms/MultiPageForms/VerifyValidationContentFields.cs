@@ -19,7 +19,7 @@ namespace FeatherWidgets.TestUI.TestCases.Forms.MultiPageForms
         TestCategory(FeatherTestCategories.Bootstrap),
         TestCategory(FeatherTestCategories.Forms)]
         public void VerifyValidationContentFields()
-        {           
+        {
             BAT.Macros().NavigateTo().Modules().Forms(this.Culture);
             BAT.Wrappers().Backend().Forms().FormsDashboard().OpenFormFromTheGrid(FormName);
             foreach (var fieldName in this.fieldNames)
@@ -34,7 +34,10 @@ namespace FeatherWidgets.TestUI.TestCases.Forms.MultiPageForms
             BATFeather.Wrappers().Frontend().Forms().FormsWrapper().VerifyNextStepText();
             BATFeather.Wrappers().Frontend().Forms().FormsWrapper().ClickNextButton();
             BATFeather.Wrappers().Frontend().Forms().FormsWrapper().VerifyNextStepText();
-            // Verify validation messages?
+            foreach (var fieldName in this.fieldNames)
+            {
+                BATFeather.Wrappers().Frontend().Forms().FormsWrapper().VerifyRequiredFields(fieldName);
+            }
         }
 
         /// <summary>
