@@ -102,9 +102,9 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Frontend.EmailCamp
         /// Provides list of all unsubscribe and subscribe widgets
         /// </summary>
         /// <returns>Returns list of all subscribe and unsubscribe widgets</returns>
-        public List<HtmlDiv> ListWithSubscribeAndUnsubscribeWidgets()
+        public List<HtmlForm> ListWithSubscribeAndUnsubscribeWidgets()
         {
-            List<HtmlDiv> list = ActiveBrowser.Find.AllByExpression<HtmlDiv>("id=defaultForm").ToList<HtmlDiv>();
+            List<HtmlForm> list = ActiveBrowser.Find.AllByExpression<HtmlForm>("name=defaultForm").ToList<HtmlForm>();
 
             return list;
         }
