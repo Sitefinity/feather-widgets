@@ -9,6 +9,7 @@
 			font-weight: bold
 
 .sf-FormNav-page
+	position: relative
 	display: inline-block
 	margin-right: 10px
 	width: 28px
@@ -26,4 +27,13 @@
 		color: #333
 		border-color: #333
 
+	.past &
+		&:after
+			content: '\2713'
+			position: absolute
+			left: 7px
+
+.sf-FormNav-page-number
+	.past &
+		display: none
 

@@ -14,7 +14,11 @@
         foreach (var page in Model.Pages)
         {
             pageCounter++; 
-           <li data-sf-navigation-index="@page.Index"><span class="sf-FormNav-page">@pageCounter </span>@Html.Raw(page.Title)</li>
+           <li data-sf-navigation-index="@page.Index">
+               <span class="sf-FormNav-page">
+                    <span class="sf-FormNav-page-number">@pageCounter </span>
+               </span>@Html.Raw(page.Title)
+           </li>
         }
     }
     </ul>
