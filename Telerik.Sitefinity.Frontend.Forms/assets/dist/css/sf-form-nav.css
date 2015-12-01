@@ -7,6 +7,7 @@
       font-weight: bold; }
 
 .sf-FormNav-page {
+  position: relative;
   display: inline-block;
   margin-right: 10px;
   width: 28px;
@@ -22,3 +23,10 @@
   .active .sf-FormNav-page {
     color: #333;
     border-color: #333; }
+  .past .sf-FormNav-page:after {
+    content: '\2713';
+    position: absolute;
+    left: 7px; }
+
+.past .sf-FormNav-page-number {
+  display: none; }
