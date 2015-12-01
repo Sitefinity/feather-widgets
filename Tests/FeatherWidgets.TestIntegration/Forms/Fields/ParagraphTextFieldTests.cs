@@ -30,7 +30,6 @@ namespace FeatherWidgets.TestIntegration.Forms.Fields
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Maintainability", "CA1506:AvoidExcessiveClassCoupling"), Test]
         [Category(TestCategories.Forms)]
         [Author(FeatherTeams.FeatherTeam)]
-        [Multilingual(MultilingualExecutionMode.MultiAndMonoLingual)]
         [Description("Ensures that when a paragraph text field widget is added to form the default value is presented in the page markup.")]
         public void ParagraphTextFieldTests_EditDefaultValue_MarkupIsCorrect()
         {
@@ -71,7 +70,6 @@ namespace FeatherWidgets.TestIntegration.Forms.Fields
         [Test]
         [Category(TestCategories.Forms)]
         [Author(FeatherTeams.FeatherTeam)]
-        [Multilingual(MultilingualExecutionMode.MultiAndMonoLingual)]
         [Description("Ensures that when a paragraph text field widget is submitted with certain value then the response is correct.")]
         public void ParagraphTextField_SubmitValue_ResponseIsCorrect()
         {
@@ -120,7 +118,6 @@ namespace FeatherWidgets.TestIntegration.Forms.Fields
         [Test]
         [Category(TestCategories.Forms)]
         [Author(FeatherTeams.FeatherTeam)]
-        [Multilingual(MultilingualExecutionMode.MultiAndMonoLingual)]
         [Description("Ensures that when a paragraph text field widget with URL type is submitted with incorrect value then the validation fails.")]
         public void ParagraphTextFieldUrl_SubmitIncorrectValue_ServerValidationFails()
         {
