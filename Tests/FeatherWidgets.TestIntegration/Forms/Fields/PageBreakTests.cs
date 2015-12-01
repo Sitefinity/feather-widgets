@@ -49,7 +49,7 @@ namespace FeatherWidgets.TestIntegration.Forms.Fields
                 var pageId = FeatherServerOperations.Pages().CreatePageWithTemplate(template, "PageBreakValueTest", "page-break-value-test");
                 ServerOperationsFeather.Forms().AddFormControlToPage(pageId, formId);
 
-                var pageContent = FeatherServerOperations.Pages().GetPageContent(pageId);
+                var pageContent = ServerOperationsFeather.Pages().GetPageContent(pageId);
                 var formMultipageDecorator = ObjectFactory.Resolve<IFormMultipageDecorator>();
                 Assert.IsTrue(pageContent.Contains(formMultipageDecorator.SeparatorBegin), "Form did not render page separators");
             }
@@ -95,7 +95,7 @@ namespace FeatherWidgets.TestIntegration.Forms.Fields
                 var pageId = FeatherServerOperations.Pages().CreatePageWithTemplate(template, "PageBreakValueTest", "section-header-field-value-test");
                 ServerOperationsFeather.Forms().AddFormControlToPage(pageId, formId);
 
-                var pageContent = FeatherServerOperations.Pages().GetPageContent(pageId);
+                var pageContent = ServerOperationsFeather.Pages().GetPageContent(pageId);
                 var formMultipageDecorator = ObjectFactory.Resolve<IFormMultipageDecorator>();
                 Assert.IsTrue(pageContent.Contains(formMultipageDecorator.SeparatorBegin), "Form did not render page separators");
                 Assert.IsTrue(pageContent.Contains("data-sf-role=\"text-field-container\""), "Form did not render page header");

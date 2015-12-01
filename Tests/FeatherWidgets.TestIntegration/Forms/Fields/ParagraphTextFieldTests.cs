@@ -54,7 +54,7 @@ namespace FeatherWidgets.TestIntegration.Forms.Fields
                 var pageId = FeatherServerOperations.Pages().CreatePageWithTemplate(template, "ParagraphTextFieldSubmitValueTest", "paragraph-text-field-value-test");
                 ServerOperationsFeather.Forms().AddFormControlToPage(pageId, formId);
 
-                var pageContent = FeatherServerOperations.Pages().GetPageContent(pageId);
+                var pageContent = ServerOperationsFeather.Pages().GetPageContent(pageId);
                 Assert.IsTrue(pageContent.Contains(DefaultText), "Form did not render the default text in the paragraph text field.");
             }
             finally

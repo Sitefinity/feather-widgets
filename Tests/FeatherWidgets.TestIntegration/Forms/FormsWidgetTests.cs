@@ -50,7 +50,7 @@ namespace FeatherWidgets.TestIntegration.Forms
                 var semanticPageId = FeatherServerOperations.Pages().CreatePageWithTemplate(semanticTemplate, "FormsPageSemantic", "forms-page-semantic");
                 ServerOperationsFeather.Forms().AddFormControlToPage(semanticPageId, formId);
 
-                string semanticPageContent = FeatherServerOperations.Pages().GetPageContent(semanticPageId);
+                string semanticPageContent = ServerOperationsFeather.Pages().GetPageContent(semanticPageId);
 
                 Assert.IsTrue(semanticPageContent.Contains("class=\"sf_colsIn four wide column\""), "SemanticUI grid content not found.");
 
@@ -60,7 +60,7 @@ namespace FeatherWidgets.TestIntegration.Forms
                 var bootstrapPageId = FeatherServerOperations.Pages().CreatePageWithTemplate(bootstrapTemplate, "FormsPageBootstrap", "forms-page-bootstrap");
                 ServerOperationsFeather.Forms().AddFormControlToPage(bootstrapPageId, formId);
 
-                string bootstrapPageContent = FeatherServerOperations.Pages().GetPageContent(bootstrapPageId);
+                string bootstrapPageContent = ServerOperationsFeather.Pages().GetPageContent(bootstrapPageId);
 
                 Assert.IsTrue(bootstrapPageContent.Contains("class=\"sf_colsIn col-md-3\""), "Bootstrap grid content not found.");
             }
@@ -95,12 +95,12 @@ namespace FeatherWidgets.TestIntegration.Forms
                 var pageId = FeatherServerOperations.Pages().CreatePageWithTemplate(template, "FormsPageCacheTest", "forms-page-cache-test");
                 ServerOperationsFeather.Forms().AddFormControlToPage(pageId, formId);
 
-                string pageContent = FeatherServerOperations.Pages().GetPageContent(pageId);
+                string pageContent = ServerOperationsFeather.Pages().GetPageContent(pageId);
 
                 Assert.IsTrue(pageContent.Contains("class=\"sf_colsIn four wide column\""), "SemanticUI grid content not found.");
 
                 ServerOperationsFeather.Forms().AddFormWidget(formId, new GridControl() { Layout = "<div class=\"sf_colsIn\">Funny widget.</div>" });
-                pageContent = FeatherServerOperations.Pages().GetPageContent(pageId);
+                pageContent = ServerOperationsFeather.Pages().GetPageContent(pageId);
 
                 Assert.IsTrue(pageContent.Contains("Funny widget."), "Form did not render the new control.");
             }

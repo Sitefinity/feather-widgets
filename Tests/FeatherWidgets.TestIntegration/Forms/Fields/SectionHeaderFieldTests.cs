@@ -46,7 +46,7 @@ namespace FeatherWidgets.TestIntegration.Forms.Fields
                 var pageId = FeatherServerOperations.Pages().CreatePageWithTemplate(template, "SectionHeaderFieldValueTest", "section-header-field-value-test");
                 ServerOperationsFeather.Forms().AddFormControlToPage(pageId, formId);
 
-                var pageContent = FeatherServerOperations.Pages().GetPageContent(pageId);
+                var pageContent = ServerOperationsFeather.Pages().GetPageContent(pageId);
 
                 Assert.IsTrue(pageContent.Contains("Hello"), "Form did not render section header");
             }

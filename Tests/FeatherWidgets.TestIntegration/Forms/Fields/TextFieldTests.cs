@@ -51,7 +51,7 @@ namespace FeatherWidgets.TestIntegration.Forms.Fields
                 var pageId = FeatherServerOperations.Pages().CreatePageWithTemplate(template, "TextFieldValueTest", "text-field-value-test");
                 ServerOperationsFeather.Forms().AddFormControlToPage(pageId, formId);
 
-                var pageContent = FeatherServerOperations.Pages().GetPageContent(pageId);
+                var pageContent = ServerOperationsFeather.Pages().GetPageContent(pageId);
 
                 Assert.IsTrue(pageContent.Contains("My default text"), "Form did not render the default text in the text field.");
             }
@@ -181,7 +181,7 @@ namespace FeatherWidgets.TestIntegration.Forms.Fields
                 var pageId = FeatherServerOperations.Pages().CreatePageWithTemplate(template, "TextFieldTypeTest", "text-field-type-test");
                 ServerOperationsFeather.Forms().AddFormControlToPage(pageId, formId);
 
-                var pageContent = FeatherServerOperations.Pages().GetPageContent(pageId);
+                var pageContent = ServerOperationsFeather.Pages().GetPageContent(pageId);
 
                 Assert.IsTrue(pageContent.Contains("type=\"datetime-local\""), "Form did not render the input type in the text field.");
             }
