@@ -51,7 +51,7 @@ namespace FeatherWidgets.TestIntegration.Forms.Fields
                 var pageId = FeatherServerOperations.Pages().CreatePageWithTemplate(template, "DropdownListFieldSubmitValueTest", "dropdown-list-field-value-test");
                 ServerOperationsFeather.Forms().AddFormControlToPage(pageId, formId);
 
-                var pageContent = FeatherServerOperations.Pages().GetPageContent(pageId);
+                var pageContent = ServerOperationsFeather.Pages().GetPageContent(pageId);
                 Assert.IsTrue(pageContent.Contains(Res.Get<FieldResources>().OptionSelect), "Form did not render the select default choice in the dropdown list field.");
                 Assert.IsTrue(pageContent.Contains(Res.Get<FieldResources>().OptionFirstChoice), "Form did not render the first default choice in the dropdown list field.");
                 Assert.IsTrue(pageContent.Contains(Res.Get<FieldResources>().OptionSecondChoice), "Form did not render the second default choice in the dropdown list field.");

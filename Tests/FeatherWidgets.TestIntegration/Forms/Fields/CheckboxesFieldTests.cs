@@ -58,7 +58,7 @@ namespace FeatherWidgets.TestIntegration.Forms.Fields
                 var pageId = FeatherServerOperations.Pages().CreatePageWithTemplate(template, "CheckboxesFieldDefaultValueTest", "checkboxes-field-value-test");
                 ServerOperationsFeather.Forms().AddFormControlToPage(pageId, formId);
 
-                var pageContent = FeatherServerOperations.Pages().GetPageContent(pageId);
+                var pageContent = ServerOperationsFeather.Pages().GetPageContent(pageId);
                 Assert.IsTrue(pageContent.Contains(choice1), "Form did not render the first choice in the checkboxes field.");
                 Assert.IsTrue(pageContent.Contains(choice2), "Form did not render the second choice in the checkboxes field.");
                 Assert.IsTrue(pageContent.Contains(choice3), "Form did not render the third choice in the checkboxes field.");

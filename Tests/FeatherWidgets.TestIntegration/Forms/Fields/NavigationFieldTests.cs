@@ -51,7 +51,7 @@ namespace FeatherWidgets.TestIntegration.Forms.Fields
                 var pageId = FeatherServerOperations.Pages().CreatePageWithTemplate(template, "NavigationFieldValueTest", "section-header-field-value-test");
                 ServerOperationsFeather.Forms().AddFormControlToPage(pageId, formId);
 
-                var pageContent = FeatherServerOperations.Pages().GetPageContent(pageId);
+                var pageContent = ServerOperationsFeather.Pages().GetPageContent(pageId);
 
                 var pageName = Res.Get<FieldResources>().PageName + "1";
                 Assert.IsTrue(pageContent.Contains(pageName), "Form did not render navigation field pages");
@@ -126,7 +126,7 @@ namespace FeatherWidgets.TestIntegration.Forms.Fields
                 var pageId = FeatherServerOperations.Pages().CreatePageWithTemplate(template, "NavigationFieldInitializationTest", "section-header-field-value-test");
                 ServerOperationsFeather.Forms().AddFormControlToPage(pageId, formId);
 
-                var pageContent = FeatherServerOperations.Pages().GetPageContent(pageId);
+                var pageContent = ServerOperationsFeather.Pages().GetPageContent(pageId);
 
                 var pageName1 = Res.Get<FieldResources>().PageName + "1";
                 var pageName2 = Res.Get<FieldResources>().PageName + "2";
@@ -198,7 +198,7 @@ namespace FeatherWidgets.TestIntegration.Forms.Fields
                 var pageId = FeatherServerOperations.Pages().CreatePageWithTemplate(template, "NavigationFieldInitializationTest", "section-header-field-value-test");
                 ServerOperationsFeather.Forms().AddFormControlToPage(pageId, formId);
 
-                var pageContent = FeatherServerOperations.Pages().GetPageContent(pageId);
+                var pageContent = ServerOperationsFeather.Pages().GetPageContent(pageId);
 
                 var pageName1 = Res.Get<FieldResources>().PageName + "1";
                 var pageName2 = Res.Get<FieldResources>().PageName + "2";
