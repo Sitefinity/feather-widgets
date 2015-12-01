@@ -51,7 +51,6 @@ namespace FeatherWidgets.TestIntegration.Forms
         [Test]
         [Category(TestCategories.Forms)]
         [Author(FeatherTeams.FeatherTeam)]
-        [Multilingual(MultilingualExecutionMode.MultiAndMonoLingual)]
         [Description("Ensures that form events are risen on submittion.")]
         public void Model_TrySubmitForm_RaisesValidating_Saving_Saved()
         {
@@ -115,7 +114,6 @@ namespace FeatherWidgets.TestIntegration.Forms
         [Test]
         [Category(TestCategories.Forms)]
         [Author(FeatherTeams.FeatherTeam)]
-        [Multilingual(MultilingualExecutionMode.MultiAndMonoLingual)]
         [Description("Ensures that before action form event is risen after submittion.")]
         public void Controller_PostIndex_RaisesBeforeAction()
         {
@@ -153,7 +151,6 @@ namespace FeatherWidgets.TestIntegration.Forms
         [Test]
         [Category(TestCategories.Forms)]
         [Author(FeatherTeams.FeatherTeam)]
-        [Multilingual(MultilingualExecutionMode.MultiAndMonoLingual)]
         [Description("Ensures that form events are risen on submittion.")]
         public void Model_TrySubmitForm_ValidatingEventHandlerFails_InvalidResult()
         {
