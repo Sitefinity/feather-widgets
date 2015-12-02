@@ -305,6 +305,7 @@
     <EmbeddedResource Include="Mvc\Views\NavigationField\Read.Default.cshtml" />
     <EmbeddedResource Include="Mvc\Views\NavigationField\DesignerView.Simple.cshtml" />
     <EmbeddedResource Include="Mvc\Views\NavigationField\DesignerView.Simple.json" />
+    <EmbeddedResource Include="Mvc\Views\NavigationField\Read.ProgressBar.cshtml" />
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>

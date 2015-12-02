@@ -7,6 +7,7 @@
 
         var initializeFormContainer = function (element) {
             var formElement = $(element);
+            var formStepsContainers = formElement.find('[data-sf-role="separator"]');
 
             var navigationFieldContainers = formElement.find('[data-sf-role="navigation-field-container"]');
 
@@ -14,20 +15,37 @@
 
                 navigationElements.each(function (navIndex, navigationElement) {
                     var pages = $(navigationElement).find('[data-sf-navigation-index]');
-                    pages.each(function (i, page) {
-                        var pageIndex = parseInt($(page).data("sfNavigationIndex"));
-                        if (pageIndex !== index) {
-                            $(page).removeClass("active");
-                        } else {
-                            $(page).addClass("active");
-                        }
+                    var numberOfAllSteps = formStepsContainers.length;
+                    var progressInPercent = Math.round((index / numberOfAllSteps) * 100);
 
-                        if (pageIndex < index) {
-                            $(page).addClass("past");
-                        } else {
-                            $(page).removeClass("past");
-                        }
-                    });
+                    var progressBar = formElement.find('[data-sf-role="progress-bar"]');
+                    var progressPercent = formElement.find('[data-sf-role="progress-percent"]');
+
+                    if (progressBar && progressBar.length > 0) {
+                        progressBar.width(progressInPercent + '%');
+                    }
+
+                    if (progressPercent && progressPercent.length > 0) {
+                        progressPercent.text(progressInPercent + '%');
+                    }
+                    
+                    if (pages && pages.length > 0) {
+                        pages.each(function (i, page) {
+                            var pageIndex = parseInt($(page).data("sfNavigationIndex"));
+                            if (pageIndex !== index) {
+                                $(page).removeClass("active");
+                            } else {
+                                $(page).addClass("active");
+                            }
+
+                            if (pageIndex < index) {
+                                $(page).addClass("past");
+                            } else {
+                                $(page).removeClass("past");
+                            }
+                        });
+                    }
+
                 });
             };
 
