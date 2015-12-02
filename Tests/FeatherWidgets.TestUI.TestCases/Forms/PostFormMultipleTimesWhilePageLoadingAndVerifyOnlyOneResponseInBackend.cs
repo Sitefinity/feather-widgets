@@ -20,9 +20,10 @@ namespace FeatherWidgets.TestUI.TestCases.Forms
         TestCategory(FeatherTestCategories.Forms), Telerik.TestUI.Core.Attributes.KnownIssue()]
         public void PostFormMultipleTimesWhilePageLoadingAndVerifyOnlyOneResponseInBackend()
         {
-
+            BAT.Macros().NavigateTo().Modules().Forms(this.Culture);
+            BAT.Wrappers().Backend().Forms().FormsDashboard().OpenFormFromTheGrid(FormName);
+            BAT.Wrappers().Backend().Forms().FormsContentScreen().PublishForm();
             BAT.Macros().NavigateTo().CustomPage("~/" + FeatherGlobals.BootstrapPageName.ToLower(), true, this.Culture);
-            BATFeather.Wrappers().Frontend().Forms().FormsWrapper().VerifyCheckboxesFieldLabelIsVisible(FeatherGlobals.CheckboxLabelName);
             BATFeather.Wrappers().Frontend().Forms().FormsWrapper().VerifyTextFieldlIsVisibleHybrid();
             BATFeather.Wrappers().Frontend().Forms().FormsWrapper().SetTextboxContent(TextBoxContent);
 
@@ -60,5 +61,6 @@ namespace FeatherWidgets.TestUI.TestCases.Forms
         private const int ExpectedResponsesCount = 1;
         private const int ResponseNumber = 1;
         private const string ExpectedAuthorName = "admin";
+        public const string FormName = "Register";
     }
 }

@@ -23,6 +23,9 @@ namespace FeatherWidgets.TestUI.TestCases.Forms
         TestCategory(FeatherTestCategories.Forms)]
         public void PublishUnpublishFormInUseVerifyFrontendHybrid()
         {
+            BAT.Macros().NavigateTo().Modules().Forms(this.Culture);
+            BAT.Wrappers().Backend().Forms().FormsDashboard().OpenFormFromTheGrid(FeatherGlobals.FormName);
+            BAT.Wrappers().Backend().Forms().FormsContentScreen().PublishForm();
             BAT.Macros().NavigateTo().CustomPage("~/" + FeatherGlobals.HybridPageName.ToLower(), true, this.Culture);
             BATFeather.Wrappers().Frontend().Forms().FormsWrapper().VerifySubmitButtonIsVisible();
             BAT.Macros().NavigateTo().Modules().Forms(this.Culture);

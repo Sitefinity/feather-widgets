@@ -358,6 +358,10 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Frontend.Forms
         /// <param name="navIndex">Index of the nav.</param>
         public void VerifyNavigationPagesLabels(List<string> labels, int navIndex = 0)
         {
+            ActiveBrowser.WaitUntilReady();
+            ActiveBrowser.RefreshDomTree();
+            ActiveBrowser.WaitUntilReady();
+
             var lists = ActiveBrowser.Find.AllByExpression<HtmlUnorderedList>("class=sf-FormNav");
             lists[navIndex].AssertIsVisible("Navigation list");
 

@@ -392,7 +392,8 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend.Forms
         /// <param name="index">The index.</param>
         public void ChangePageLabel(List<string> texts)
         {
-            var inputs = ActiveBrowser.Find.AllByExpression<HtmlInputText>("ng-model=item.Title");
+            List<HtmlInputText> inputs = ActiveBrowser.Find.AllByExpression<HtmlInputText>("tagname=input", "ng-model=item.Title").ToList<HtmlInputText>();
+
             for (int i = 0; i < texts.Count; i++)
             {
                 Assert.AreEqual(inputs.Count, texts.Count);
