@@ -28,7 +28,7 @@ namespace FeatherWidgets.TestUI.TestCases.Forms
             BATFeather.Wrappers().Frontend().Forms().FormsWrapper().SetTextboxContent(TextBoxContent);
 
             // Simulate multiple clicks
-            BATFeather.Wrappers().Frontend().Forms().FormsWrapper().MultipleSubmitForm(1);
+            BATFeather.Wrappers().Frontend().Forms().FormsWrapper().MultipleSubmitForm(5);
 
             BAT.Macros().NavigateTo().Modules().Forms(this.Culture);
             BAT.Wrappers().Backend().Forms().FormsDashboard().ViewFormResponses(FeatherGlobals.FormName);
