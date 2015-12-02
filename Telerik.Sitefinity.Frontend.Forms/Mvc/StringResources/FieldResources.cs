@@ -1315,9 +1315,9 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.StringResources
         /// </summary>
         /// <value>Page</value>
         [ResourceEntry("PageName",
-            Value = "Page",
-            Description = "phrase: Page",
-            LastModified = "2015/11/11")]
+            Value = "Step ",
+            Description = "phrase: Step",
+            LastModified = "2015/12/02")]
         public string PageName
         {
             get

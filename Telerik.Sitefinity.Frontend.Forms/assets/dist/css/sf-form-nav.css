@@ -30,3 +30,35 @@
 
 .past .sf-FormNav-page-number {
   display: none; }
+
+.sf-Progress-wrapper {
+  padding: 2px;
+  padding-right: 0;
+  width: 100%;
+  height: 22px;
+  overflow: hidden;
+  border: 1px solid #d7d7d7;
+  border-radius: 14px; }
+
+.sf-Progress-bar {
+  height: 100%;
+  box-sizing: border-box;
+  background-color: #b0d8ff;
+  border-top-left-radius: 14px;
+  border-bottom-left-radius: 14px;
+  transition: width 1s; }
+
+.sf-Progress-percent,
+.sf-Progress-page-title {
+  font-size: 14px; }
+
+.sf-Progress-percent {
+  font-weight: bold; }
+
+.sf-Progress-page-title {
+  display: inline-block;
+  padding-left: 0; }
+  .sf-Progress-page-title li {
+    display: none; }
+    .sf-Progress-page-title li.active {
+      display: inline-block; }
