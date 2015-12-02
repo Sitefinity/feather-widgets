@@ -19,8 +19,7 @@ namespace FeatherWidgets.TestUI.TestCases.Forms.MultiPageForms
         /// </summary>
         [TestMethod,
         Owner(FeatherTeams.SitefinityTeam6),
-        TestCategory(FeatherTestCategories.Bootstrap),
-        TestCategory(FeatherTestCategories.Forms)]
+        TestCategory(FeatherTestCategories.Bootstrap)]
         public void AddFieldsToHeaderAndFooter()
         {
             BAT.Macros().NavigateTo().Modules().Forms(this.Culture);
