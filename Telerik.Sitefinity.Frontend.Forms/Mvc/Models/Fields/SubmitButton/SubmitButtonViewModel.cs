@@ -11,6 +11,16 @@
         public string Label { get; set; }
 
         /// <summary>
+        /// Gets or sets the text of the previous button
+        /// </summary>
+        public string PreviousStepText { get; set; }
+
+        /// <summary>
+        /// Checks if go back is allowed
+        /// </summary>
+        public bool AllowGoBack { get; set; }
+
+        /// <summary>
         /// Gets or sets the CSS class.
         /// </summary>
         public string CssClass { get; set; }

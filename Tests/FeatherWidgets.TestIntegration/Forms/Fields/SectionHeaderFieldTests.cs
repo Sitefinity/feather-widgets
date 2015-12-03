@@ -8,13 +8,15 @@ using Telerik.Sitefinity.Frontend.TestUtilities.CommonOperations;
 using Telerik.Sitefinity.Modules.Pages;
 using Telerik.Sitefinity.Mvc.Proxy;
 using Telerik.Sitefinity.TestIntegration.SDK.DevelopersGuide.SitefinityEssentials.Modules.Forms;
+using Telerik.WebTestRunner.Server.Attributes;
 
 namespace FeatherWidgets.TestIntegration.Forms.Fields
 {
     /// <summary>
-    /// This class contains ensures Section header functionalities work correctly.
+    /// This class ensures Section header functionalities work correctly.
     /// </summary>
     [TestFixture]
+    [Description("This class ensures Section header functionalities work correctly.")]
     public class SectionHeaderFieldTests
     {
         /// <summary>
@@ -44,9 +46,9 @@ namespace FeatherWidgets.TestIntegration.Forms.Fields
                 var pageId = FeatherServerOperations.Pages().CreatePageWithTemplate(template, "SectionHeaderFieldValueTest", "section-header-field-value-test");
                 ServerOperationsFeather.Forms().AddFormControlToPage(pageId, formId);
 
-                var pageContent = FeatherServerOperations.Pages().GetPageContent(pageId);
+                var pageContent = ServerOperationsFeather.Pages().GetPageContent(pageId);
 
-                Assert.IsNotNull(pageContent.Contains("Hello"), "Form did not render section header");
+                Assert.IsTrue(pageContent.Contains("Hello"), "Form did not render section header");
             }
             finally
             {

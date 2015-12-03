@@ -26,6 +26,6 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Models.Fields.BackendConfigurato
         /// </summary>
         /// <param name="backendControl">The backend control.</param>
         /// <param name="formFieldController">The form field controller.</param>
-        void Configure(FieldControl backendControl, IFormFieldController<IFormFieldModel> formFieldController);
+        void Configure(ref FieldControl backendControl, IFormFieldController<IFormFieldModel> formFieldController);
     }
 }

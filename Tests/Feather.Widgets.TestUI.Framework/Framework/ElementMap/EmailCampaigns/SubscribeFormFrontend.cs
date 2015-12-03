@@ -22,18 +22,7 @@ namespace Feather.Widgets.TestUI.Framework.Framework.ElementMap.EmailCampaigns
             : base(find)
         {
         }
-
-        /// <summary>
-        /// Subscribe form.
-        /// </summary>
-        public HtmlForm SubscribeForm
-        {
-            get
-            {
-                return this.Get<HtmlForm>("tagname=form", "name=defaultForm");
-            }
-        }
-
+     
         /// <summary>
         /// Email field.
         /// </summary>

@@ -134,22 +134,21 @@
       <Private>True</Private>
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="Telerik.Sitefinity.Frontend, Version=1.4.360.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\packages\Telerik.Sitefinity.Frontend.1.4.360.0\lib\net45\Telerik.Sitefinity.Frontend.dll</HintPath>
+    <Reference Include="Telerik.Sitefinity.Frontend">
+      <HintPath>..\..\ReferenceAssemblies\Telerik.Sitefinity.Frontend.dll</HintPath>
     </Reference>
     <Reference Include="Telerik.Sitefinity.Model, Version=8.2.5900.0, Culture=neutral, PublicKeyToken=b28c218413bdf563, processorArchitecture=MSIL">
       <HintPath>..\..\packages\Telerik.Sitefinity.Core.8.2.5900.0\lib\net40\Telerik.Sitefinity.Model.dll</HintPath>
       <Private>True</Private>
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="Telerik.Sitefinity.Mvc, Version=1.4.360.0, Culture=neutral, PublicKeyToken=b28c218413bdf563, processorArchitecture=MSIL">
+    <Reference Include="Telerik.Sitefinity.Mvc, Version=1.4.400.0, Culture=neutral, PublicKeyToken=b28c218413bdf563, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\packages\Telerik.Sitefinity.Mvc.1.4.360.0\lib\net45\Telerik.Sitefinity.Mvc.dll</HintPath>
+      <HintPath>..\..\packages\Telerik.Sitefinity.Mvc.1.4.400.0\lib\net45\Telerik.Sitefinity.Mvc.dll</HintPath>
     </Reference>
-    <Reference Include="Telerik.Sitefinity.Mvc.TestUtilities, Version=1.4.360.0, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="Telerik.Sitefinity.Mvc.TestUtilities, Version=1.4.400.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\packages\Telerik.Sitefinity.Mvc.TestUtilities.1.4.360.0\lib\net45\Telerik.Sitefinity.Mvc.TestUtilities.dll</HintPath>
+      <HintPath>..\..\packages\Telerik.Sitefinity.Mvc.TestUtilities.1.4.400.0\lib\net45\Telerik.Sitefinity.Mvc.TestUtilities.dll</HintPath>
     </Reference>
     <Reference Include="Telerik.Sitefinity.Personalization, Version=8.2.5900.0, Culture=neutral, PublicKeyToken=b28c218413bdf563, processorArchitecture=MSIL">
       <HintPath>..\..\packages\Telerik.Sitefinity.Core.8.2.5900.0\lib\net40\Telerik.Sitefinity.Personalization.dll</HintPath>
@@ -213,6 +212,8 @@
     <Compile Include="CommonOperations\DynamicModules\DynamicModuleModule2Operations.cs" />
     <Compile Include="CommonOperations\DynamicModules\DynamicModulePressArticleOperations.cs" />
     <Compile Include="CommonOperations\DynamicModules\DynamicModulesOperations.cs" />
+    <Compile Include="CommonOperations\Forms\FeatherGlobals.cs" />
+    <Compile Include="CommonOperations\Forms\FormFieldType.cs" />
     <Compile Include="CommonOperations\Forms\FormsOperations.cs" />
     <Compile Include="CommonOperations\Pages\CommentsAndReviews.cs" />
     <Compile Include="CommonOperations\Pages\ContentBlockOperations.cs" />
@@ -246,6 +247,8 @@
     <None Include="app.config" />
     <EmbeddedResource Include="Data\MediaFiles\Ogv File.ogv" />
     <EmbeddedResource Include="Data\MediaFiles\WebM File.webm" />
+    <EmbeddedResource Include="Data\Forms\Read.DefaultFile.cshtml" />
+    <EmbeddedResource Include="Data\Forms\Read.DefaultFileNavigation.cshtml" />
     <None Include="packages.config">
       <SubType>Designer</SubType>
     </None>
@@ -254,6 +257,10 @@
     <ProjectReference Include="..\..\Telerik.Sitefinity.Frontend.Blogs\Telerik.Sitefinity.Frontend.Blogs.csproj">
       <Project>{7fdac868-95ef-4b9d-bcdb-4dd7c93b3a4e}</Project>
       <Name>Telerik.Sitefinity.Frontend.Blogs</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Telerik.Sitefinity.Frontend.Card\Telerik.Sitefinity.Frontend.Card.csproj">
+      <Project>{bed37404-75bb-4c89-b768-bb458a7e5dc9}</Project>
+      <Name>Telerik.Sitefinity.Frontend.Card</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\Telerik.Sitefinity.Frontend.Comments\Telerik.Sitefinity.Frontend.Comments.csproj">
       <Project>{d5c186a5-49ce-4728-abce-4d1d4c33c28b}</Project>

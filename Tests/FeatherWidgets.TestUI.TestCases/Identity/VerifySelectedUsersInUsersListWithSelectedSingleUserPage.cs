@@ -6,7 +6,6 @@ using System.Threading.Tasks;
 using Feather.Widgets.TestUI.Framework;
 using Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend.Widgets;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Telerik.Sitefinity.Frontend.TestUtilities;
 
 namespace FeatherWidgets.TestUI.TestCases.Identity
 {

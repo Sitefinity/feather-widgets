@@ -12,6 +12,7 @@ using Telerik.Sitefinity.DynamicModules.Builder.Web.UI;
 using Telerik.Sitefinity.Frontend.DynamicContent.Mvc.Models;
 using Telerik.Sitefinity.Frontend.DynamicContent.Mvc.StringResources;
 using Telerik.Sitefinity.Frontend.Mvc.Helpers;
+using Telerik.Sitefinity.Frontend.Mvc.Infrastructure;
 using Telerik.Sitefinity.Frontend.Mvc.Infrastructure.Controllers;
 using Telerik.Sitefinity.Frontend.Mvc.Infrastructure.Controllers.Attributes;
 using Telerik.Sitefinity.Frontend.Mvc.Infrastructure.Routing;
@@ -261,6 +262,9 @@ namespace Telerik.Sitefinity.Frontend.DynamicContent.Mvc.Controllers
         /// </returns>
         public ActionResult Details(Telerik.Sitefinity.DynamicModules.Model.DynamicContent item)
         {
+            var page = this.HttpContext.CurrentHandler.GetPageHandler();
+            this.AddCanonicalUrlTagIfEnabled(page, item);
+
             if (!this.Model.ListMode)
             {
                 var viewModel = this.Model.CreateDetailsViewModel(item);

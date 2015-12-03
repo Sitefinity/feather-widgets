@@ -37,9 +37,9 @@
       <HintPath>..\packages\Microsoft.Web.Infrastructure.1.0.0.0\lib\net40\Microsoft.Web.Infrastructure.dll</HintPath>
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="Newtonsoft.Json">
-      <HintPath>..\packages\Newtonsoft.Json.4.5.9\lib\net40\Newtonsoft.Json.dll</HintPath>
+    <Reference Include="Newtonsoft.Json, Version=4.5.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Newtonsoft.Json.6.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="Ninject">
       <HintPath>..\packages\Ninject.3.2.2.0\lib\net45-full\Ninject.dll</HintPath>
@@ -48,6 +48,9 @@
     <Reference Include="RazorEngine">
       <HintPath>..\packages\Sitefinity.RazorEngine.3.0.8.0\lib\net40\RazorEngine.dll</HintPath>
       <SpecificVersion>False</SpecificVersion>
+    </Reference>
+    <Reference Include="ServiceStack.Text">
+      <HintPath>..\packages\ServiceStack.Text.Signed.4.0.44\lib\net40\ServiceStack.Text.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Configuration" />
@@ -107,20 +110,17 @@
       <Private>True</Private>
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="Telerik.Sitefinity.Frontend, Version=1.4.360.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\Telerik.Sitefinity.Frontend.1.4.360.0\lib\net45\Telerik.Sitefinity.Frontend.dll</HintPath>
-      <Private>True</Private>
+    <Reference Include="Telerik.Sitefinity.Frontend">
+      <HintPath>..\ReferenceAssemblies\Telerik.Sitefinity.Frontend.dll</HintPath>
     </Reference>
     <Reference Include="Telerik.Sitefinity.Model, Version=8.2.5900.0, Culture=neutral, PublicKeyToken=b28c218413bdf563, processorArchitecture=MSIL">
       <HintPath>..\packages\Telerik.Sitefinity.Core.8.2.5900.0\lib\net40\Telerik.Sitefinity.Model.dll</HintPath>
       <Private>True</Private>
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="Telerik.Sitefinity.Mvc, Version=1.4.360.0, Culture=neutral, PublicKeyToken=b28c218413bdf563, processorArchitecture=MSIL">
-      <HintPath>..\packages\Telerik.Sitefinity.Mvc.1.4.360.0\lib\net45\Telerik.Sitefinity.Mvc.dll</HintPath>
-      <Private>True</Private>
+    <Reference Include="Telerik.Sitefinity.Mvc, Version=1.4.400.0, Culture=neutral, PublicKeyToken=b28c218413bdf563, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Telerik.Sitefinity.Mvc.1.4.400.0\lib\net45\Telerik.Sitefinity.Mvc.dll</HintPath>
     </Reference>
     <Reference Include="Telerik.Sitefinity.Personalization, Version=8.2.5900.0, Culture=neutral, PublicKeyToken=b28c218413bdf563, processorArchitecture=MSIL">
       <HintPath>..\packages\Telerik.Sitefinity.Core.8.2.5900.0\lib\net40\Telerik.Sitefinity.Personalization.dll</HintPath>
@@ -163,14 +163,13 @@
       <SpecificVersion>False</SpecificVersion>
     </Reference>
     <Reference Include="Telerik.Web.Design">
-      <HintPath>..\packages\Telerik.Web.UI.2015.3.930.40\lib\net40\Telerik.Web.Design.dll</HintPath>
+      <HintPath>..\packages\Telerik.Web.UI.2015.3.1111.40\lib\net40\Telerik.Web.Design.dll</HintPath>
     </Reference>
-    <Reference Include="Telerik.Web.UI, Version=2015.3.930.40, Culture=neutral, PublicKeyToken=121fae78165ba3d4, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\Telerik.Web.UI.2015.3.930.40\lib\net40\Telerik.Web.UI.dll</HintPath>
+    <Reference Include="Telerik.Web.UI">
+      <HintPath>..\packages\Telerik.Web.UI.2015.3.1111.40\lib\net40\Telerik.Web.UI.dll</HintPath>
     </Reference>
     <Reference Include="Telerik.Web.UI.Skins">
-      <HintPath>..\packages\Telerik.Web.UI.2015.3.930.40\lib\net40\Telerik.Web.UI.Skins.dll</HintPath>
+      <HintPath>..\packages\Telerik.Web.UI.2015.3.1111.40\lib\net40\Telerik.Web.UI.Skins.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
@@ -191,6 +190,8 @@
     <Compile Include="Mvc\Controllers\CaptchaController.cs" />
     <Compile Include="Mvc\Controllers\CheckboxesFieldController.cs" />
     <Compile Include="Mvc\Controllers\Base\FormElementControllerBase.cs" />
+    <Compile Include="Mvc\Controllers\NavigationFieldController.cs" />
+    <Compile Include="Mvc\Controllers\PageBreakController.cs" />
     <Compile Include="Mvc\Controllers\FileFieldController.cs" />
     <Compile Include="Mvc\Controllers\MultipleChoiceFieldController.cs" />
     <Compile Include="Mvc\Controllers\DropdownListFieldController.cs" />
@@ -214,6 +215,13 @@
     <Compile Include="Mvc\Models\Fields\CheckboxesField\ICheckboxesFieldModel.cs" />
     <Compile Include="Mvc\Models\Fields\CheckboxesField\CheckboxesFieldModel.cs" />
     <Compile Include="Mvc\Models\Fields\CheckboxesField\CheckboxesFieldViewModel.cs" />
+    <Compile Include="Mvc\Models\Fields\NavigationField\FormPage.cs" />
+    <Compile Include="Mvc\Models\Fields\NavigationField\INavigationFieldModel.cs" />
+    <Compile Include="Mvc\Models\Fields\NavigationField\NavigationFieldModel.cs" />
+    <Compile Include="Mvc\Models\Fields\NavigationField\NavigationFieldViewModel.cs" />
+    <Compile Include="Mvc\Models\Fields\PageBreak\IPageBreakModel.cs" />
+    <Compile Include="Mvc\Models\Fields\PageBreak\PageBreakModel.cs" />
+    <Compile Include="Mvc\Models\Fields\PageBreak\PageBreakViewModel.cs" />
     <Compile Include="Mvc\Models\Fields\DropdownListField\DropdownListFieldModel.cs" />
     <Compile Include="Mvc\Models\Fields\DropdownListField\DropdownListFieldViewModel.cs" />
     <Compile Include="Mvc\Models\Fields\DropdownListField\IDropdownListFieldModel.cs" />
@@ -291,6 +299,13 @@
     <EmbeddedResource Include="Mvc\Views\Captcha\Write.Default.cshtml" />
     <EmbeddedResource Include="Mvc\Views\Form\Index.cshtml" />
     <EmbeddedResource Include="Mvc\Views\SectionHeader\sf-html-field.sf-cshtml" />
+    <EmbeddedResource Include="Mvc\Views\PageBreak\DesignerView.Simple.cshtml" />
+    <EmbeddedResource Include="Mvc\Views\PageBreak\DesignerView.Simple.json" />
+    <EmbeddedResource Include="Mvc\Views\PageBreak\Read.Default.cshtml" />
+    <EmbeddedResource Include="Mvc\Views\NavigationField\Read.Default.cshtml" />
+    <EmbeddedResource Include="Mvc\Views\NavigationField\DesignerView.Simple.cshtml" />
+    <EmbeddedResource Include="Mvc\Views\NavigationField\DesignerView.Simple.json" />
+    <EmbeddedResource Include="Mvc\Views\NavigationField\Read.ProgressBar.cshtml" />
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
@@ -345,6 +360,21 @@
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Mvc\Scripts\Form\form-ajax.js" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Mvc\Scripts\NavigationField\designerview-simple.js" />
+    <EmbeddedResource Include="Mvc\Scripts\PageBreak\designerview-simple.js" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Mvc\Scripts\SubmitButton\submit-button.js" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Mvc\Scripts\PageBreak\page-break.js" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="assets\dist\css\sf-form-nav.css" />
+    <EmbeddedResource Include="assets\dist\css\sf-form-nav.min.css" />
+    <EmbeddedResource Include="Mvc\Scripts\NavigationField\navigation-field.js" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="$(SolutionDir)\.nuget\NuGet.targets" Condition="Exists('$(SolutionDir)\.nuget\NuGet.targets')" />

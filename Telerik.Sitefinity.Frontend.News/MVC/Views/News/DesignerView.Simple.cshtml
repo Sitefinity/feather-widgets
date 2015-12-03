@@ -181,19 +181,15 @@
         </div>
 
         <expander expander-title='@Html.Resource("MoreOptions")'>            
-            
-            <div class="row">
-                <div class="col-xs-6">
 
-                    <style-dropdown selected-class="properties.DetailCssClass.PropertyValue" view-name ="properties.DetailTemplateName.PropertyValue"></style-dropdown>
 
-                    <div class="form-group">
-                        <label for="newsCssClass">@Html.Resource("CssClasses")</label>
-                        <input type="text" id="newsCssClass" ng-model="properties.DetailCssClass.PropertyValue" class="form-control" />
-                    </div>
+            <style-dropdown selected-class="properties.DetailCssClass.PropertyValue" view-name ="properties.DetailTemplateName.PropertyValue"></style-dropdown>
 
-                </div>
+            <div class="form-group">
+                <label for="newsCssClass">@Html.Resource("CssClasses")</label>
+                <input type="text" id="newsCssClass" ng-model="properties.DetailCssClass.PropertyValue" class="form-control" />
             </div>
+
 
         </expander>
     </tab>

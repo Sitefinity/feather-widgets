@@ -11,6 +11,7 @@ using Telerik.Sitefinity.Localization;
 using Telerik.Sitefinity.Mvc;
 using Telerik.Sitefinity.Security;
 using Telerik.Sitefinity.Security.Claims;
+using Telerik.Sitefinity.Security.Claims.SWT;
 using Telerik.Sitefinity.Security.Model;
 using Telerik.Sitefinity.Services;
 
@@ -108,7 +109,12 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Controllers
                     var returnUrlFromQS = System.Web.HttpUtility.ParseQueryString(this.Request.UrlReferrer.Query)["ReturnUrl"];
 
                     if (!string.IsNullOrEmpty(returnUrlFromQS))
+                    {
+                        //validates whether the returnUrl is allowed in the relying parties.
+                        SWTIssuer.GetRelyingPartyKey(returnUrlFromQS);
+                        
                         return this.Redirect(returnUrlFromQS);
+                    }
                 }
             }
 

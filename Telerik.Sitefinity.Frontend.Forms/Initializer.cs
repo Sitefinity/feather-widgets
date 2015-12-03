@@ -64,6 +64,8 @@ namespace Telerik.Sitefinity.Frontend.Forms
                 return;
 
             Initializer.RegisterToolboxItem(section, "MvcTextField", "Textbox", "Telerik.Sitefinity.Frontend.Forms.Mvc.Controllers.TextFieldController", "sfTextboxIcn sfMvcIcn");
+            Initializer.RegisterToolboxItem(section, "MvcPageBreak", "Page break", "Telerik.Sitefinity.Frontend.Forms.Mvc.Controllers.PageBreakController", "sfPageBreakIcn sfMvcIcn");
+            Initializer.RegisterToolboxItem(section, "MvcNavigationField", "Form navigation", "Telerik.Sitefinity.Frontend.Forms.Mvc.Controllers.NavigationFieldController", "sfFormNavIcn sfMvcIcn");
             Initializer.RegisterToolboxItem(section, "MvcMultipleChoiceField", "Multiple choice", "Telerik.Sitefinity.Frontend.Forms.Mvc.Controllers.MultipleChoiceFieldController", "sfMultipleChoiceIcn sfMvcIcn");
             Initializer.RegisterToolboxItem(section, "MvcCheckboxesField", "Checkboxes", "Telerik.Sitefinity.Frontend.Forms.Mvc.Controllers.CheckboxesFieldController", "sfCheckboxesIcn sfMvcIcn");
             Initializer.RegisterToolboxItem(section, "MvcParagraphTextField", "Paragraph textbox", "Telerik.Sitefinity.Frontend.Forms.Mvc.Controllers.ParagraphTextFieldController", "sfParagraphboxIcn sfMvcIcn");

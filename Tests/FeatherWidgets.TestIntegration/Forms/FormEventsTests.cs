@@ -10,6 +10,7 @@ using Telerik.Sitefinity.Mvc.Proxy;
 using Telerik.Sitefinity.Services;
 using Telerik.Sitefinity.Services.Events;
 using Telerik.Sitefinity.TestIntegration.SDK.DevelopersGuide.SitefinityEssentials.Modules.Forms;
+using Telerik.WebTestRunner.Server.Attributes;
 
 namespace FeatherWidgets.TestIntegration.Forms
 {

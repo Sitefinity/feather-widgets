@@ -88,7 +88,9 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend
         /// <param name="dropZoneIndex">The drop zone index</param>
         public void EditWidget(string widgetName, int dropZoneIndex = 0, bool isMediaWidgetEdited = false)
         {
+            ActiveBrowser.WaitUntilReady();
             ActiveBrowser.RefreshDomTree();
+            ActiveBrowser.WaitUntilReady();
             var widgetHeader = ActiveBrowser
                                       .Find
                                       .AllByCustom<HtmlDiv>(d => d.CssClass.StartsWith("rdTitleBar") && d.ChildNodes.First().InnerText.Equals(widgetName))[dropZoneIndex]

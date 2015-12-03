@@ -41,5 +41,13 @@
         /// Gets or sets the css class that will be applied on the wrapping element of the widget.
         /// </summary>
         public string CssClass { get; set; }
+
+        /// <summary>
+        /// Gets or sets the status service URL.
+        /// </summary>
+        /// <value>
+        /// The status service URL.
+        /// </value>
+        public string StatusServiceUrl { get; set; }
     }
 }

@@ -1,7 +1,6 @@
 ﻿using System;
 using Feather.Widgets.TestUI.Framework;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Telerik.Sitefinity.Frontend.TestUtilities;
 using Telerik.Sitefinity.TestUI.Framework.Utilities;
 
 namespace FeatherWidgets.TestUI.TestCases.Blogs

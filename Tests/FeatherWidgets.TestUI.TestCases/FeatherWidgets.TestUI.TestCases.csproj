@@ -35,8 +35,8 @@
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="ArtOfTest.WebAii, Version=2015.2.715.0, Culture=neutral, PublicKeyToken=4fd5f65be123776c, processorArchitecture=MSIL">
-      <HintPath>packages\Telerik.Sitefinity.TestStudio.Framework.2.1.3\lib\net40\ArtOfTest.WebAii.dll</HintPath>
+    <Reference Include="ArtOfTest.WebAii, Version=2015.3.1015.0, Culture=neutral, PublicKeyToken=4fd5f65be123776c, processorArchitecture=MSIL">
+      <HintPath>packages\Telerik.Sitefinity.TestStudio.Framework.2.1.4\lib\net40\ArtOfTest.WebAii.dll</HintPath>
       <Private>True</Private>
       <SpecificVersion>False</SpecificVersion>
     </Reference>
@@ -58,50 +58,47 @@
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
-    <Reference Include="Telerik.Sitefinity.Frontend.TestUtilities">
-      <HintPath>packages\Telerik.Sitefinity.Frontend.TestUtilities.1.3.330.1\lib\net45\Telerik.Sitefinity.Frontend.TestUtilities.dll</HintPath>
-      <SpecificVersion>False</SpecificVersion>
-    </Reference>
-    <Reference Include="Telerik.Sitefinity.MS.TestUI.Framework, Version=1.0.9.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>packages\Telerik.Sitefinity.MS.TestUI.Framework.1.0.9\lib\net45\Telerik.Sitefinity.MS.TestUI.Framework.dll</HintPath>
+    <Reference Include="Telerik.Sitefinity.MS.TestUI.Framework, Version=1.1.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>packages\Telerik.Sitefinity.MS.TestUI.Framework.1.1.0\lib\net45\Telerik.Sitefinity.MS.TestUI.Framework.dll</HintPath>
       <Private>True</Private>
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="Telerik.Sitefinity.TestUI.Core, Version=1.0.9.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>packages\Telerik.Sitefinity.TestUI.Core.1.0.9\lib\net45\Telerik.Sitefinity.TestUI.Core.dll</HintPath>
+    <Reference Include="Telerik.Sitefinity.TestUI.Core, Version=1.1.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>packages\Telerik.Sitefinity.TestUI.Core.1.1.0\lib\net45\Telerik.Sitefinity.TestUI.Core.dll</HintPath>
       <Private>True</Private>
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="Telerik.Sitefinity.TestUI.Framework, Version=1.0.10.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>packages\Telerik.Sitefinity.TestUI.Framework.1.0.10\lib\net40\Telerik.Sitefinity.TestUI.Framework.dll</HintPath>
+    <Reference Include="Telerik.Sitefinity.TestUI.Framework, Version=1.1.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>packages\Telerik.Sitefinity.TestUI.Framework.1.1.0\lib\net40\Telerik.Sitefinity.TestUI.Framework.dll</HintPath>
       <Private>True</Private>
       <SpecificVersion>False</SpecificVersion>
     </Reference>
     <Reference Include="Telerik.Sitefinity.TestUI.UIArrangement">
       <HintPath>packages\Telerik.Sitefinity.TestUI.UIArrangement.1.0.1\lib\net40\Telerik.Sitefinity.TestUI.UIArrangement.dll</HintPath>
+      <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="Telerik.TestUI.Core, Version=1.5.4.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>packages\Telerik.TestUI.Core.1.5.4\lib\net40\Telerik.TestUI.Core.dll</HintPath>
+    <Reference Include="Telerik.TestUI.Core, Version=1.5.5.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>packages\Telerik.TestUI.Core.1.5.5\lib\net40\Telerik.TestUI.Core.dll</HintPath>
       <Private>True</Private>
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="Telerik.WebAii.Controls.Html, Version=2015.2.715.0, Culture=neutral, PublicKeyToken=528163f3e645de45, processorArchitecture=MSIL">
-      <HintPath>packages\Telerik.Sitefinity.TestStudio.Framework.2.1.3\lib\net40\Telerik.WebAii.Controls.Html.dll</HintPath>
+    <Reference Include="Telerik.WebAii.Controls.Html, Version=2015.3.1015.0, Culture=neutral, PublicKeyToken=528163f3e645de45, processorArchitecture=MSIL">
+      <HintPath>packages\Telerik.Sitefinity.TestStudio.Framework.2.1.4\lib\net40\Telerik.WebAii.Controls.Html.dll</HintPath>
       <Private>True</Private>
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="UITests.Configuration, Version=1.6.4.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>packages\UITests.Core.1.6.4\lib\net40\UITests.Configuration.dll</HintPath>
+    <Reference Include="UITests.Configuration, Version=1.6.5.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>packages\UITests.Core.1.6.5\lib\net40\UITests.Configuration.dll</HintPath>
       <Private>True</Private>
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="UITests.Core, Version=1.6.4.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>packages\UITests.Core.1.6.4\lib\net40\UITests.Core.dll</HintPath>
+    <Reference Include="UITests.Core, Version=1.6.5.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>packages\UITests.Core.1.6.5\lib\net40\UITests.Core.dll</HintPath>
       <Private>True</Private>
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="UITests.Web, Version=1.6.4.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>packages\UITests.Core.1.6.4\lib\net40\UITests.Web.dll</HintPath>
+    <Reference Include="UITests.Web, Version=1.6.5.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>packages\UITests.Core.1.6.5\lib\net40\UITests.Web.dll</HintPath>
       <Private>True</Private>
       <SpecificVersion>False</SpecificVersion>
     </Reference>
@@ -112,6 +109,14 @@
     </Compile>
     <Compile Include="BlogPosts\BlogPostsWidgetOnPage.cs" />
     <Compile Include="Blogs\BlogsWidgetOnPage.cs" />
+    <Compile Include="CardWidget\AddCardWidgetOnPageBasedOnBootstrapTemplate.cs" />
+    <Compile Include="CardWidget\AddCardWidgetOnPageTemplate.cs" />
+    <Compile Include="CardWidget\AddCssToCardWidget.cs" />
+    <Compile Include="CardWidget\AddPersonalizedVersionOfCardWidget.cs" />
+    <Compile Include="CardWidget\ChangeAdvancedSettingsOfCardWidget.cs" />
+    <Compile Include="CardWidget\ChangeCardWidgetTemplate.cs" />
+    <Compile Include="CardWidget\CreateWidgetTemplateAndSetTheTemplate.cs" />
+    <Compile Include="CardWidget\DuplicateAndDeleteCardWidgetFromPage.cs" />
     <Compile Include="Classifications\ContentTagsOptionAndTagCloudTemplate.cs" />
     <Compile Include="Classifications\SelectedTagsOptionAndCloudListTemplate.cs" />
     <Compile Include="Classifications\SelectAllTagsOptionAndCssClasses.cs" />
@@ -201,7 +206,47 @@
     <Compile Include="EmailCampaigns\TryToUnsubscribeNotExistingSubscriber.cs" />
     <Compile Include="EmailCampaigns\UnsubscribeWidgetOnFoundationAndSemanticPage.cs" />
     <Compile Include="EmailCampaigns\UnsubscribeWidgetOnHybridPageAndSetCssClass.cs" />
+    <Compile Include="FeatherTeams.cs" />
     <Compile Include="FeedWidget\DragAndDropFeedWidgetAndSetDefaultRssOnPage.cs" />
+    <Compile Include="Forms\DeleteFormFieldInUseVerityFrontend.cs" />
+    <Compile Include="Forms\DeleteFormInUseVerifyFrontendHybrid.cs" />
+    <Compile Include="Forms\EditFormSaveDraftThenPublishVerifyFrontend.cs" />
+    <Compile Include="Forms\MultiPageForms\AddFieldsToHeaderAndFooter.cs" />
+    <Compile Include="Forms\MultiPageForms\AddPageBreakToForm.cs" />
+    <Compile Include="Forms\MultiPageForms\AllowUsersToStepBackwardAndChangeButtonTitle.cs" />
+    <Compile Include="Forms\MultiPageForms\ChangeAdvancedSettingsOfPageBreak.cs" />
+    <Compile Include="Forms\MultiPageForms\ChangePageBreakTemplate.cs" />
+    <Compile Include="Forms\MultiPageForms\AddSubmitButtonInHeaderAndFooter.cs" />
+    <Compile Include="Forms\MultiPageForms\UserIsNotAllowedToSubmit.cs" />
+    <Compile Include="Forms\MultiPageForms\VerifyFileUploadValidation.cs" />
+    <Compile Include="Forms\MultiPageForms\VerifyValidationContentFields.cs" />
+    <Compile Include="Forms\MultiPageForms\VerifyFormPagesNumbers.cs" />
+    <Compile Include="Forms\MultiPageForms\CreateFormResponseForMultipageForm.cs" />
+    <Compile Include="Forms\MultiPageForms\MovePageBreakToHeaderAndFooter.cs" />
+    <Compile Include="Forms\MultiPageForms\PreviewMultipageForm.cs" />
+    <Compile Include="Forms\Navigation\AddAndRemoveNewPage.cs" />
+    <Compile Include="Forms\Navigation\ChangeAdvancedSettingsOfFormNavigationAndSetCssClass.cs" />
+    <Compile Include="Forms\Navigation\ChangeFormNavigationTemplate.cs" />
+    <Compile Include="Forms\Navigation\AddFormNavigationField.cs" />
+    <Compile Include="Forms\Navigation\DuplicateNavigationForm.cs" />
+    <Compile Include="Forms\Navigation\DeleteNavigationFromForm.cs" />
+    <Compile Include="Forms\MultiPageForms\EditPageWithMultipageFormsViaInlineEditing.cs" />
+    <Compile Include="Forms\MultiPageForms\EnableDisablePreviousStepOptionToSubmitButtonAndChangeTitle.cs" />
+    <Compile Include="Forms\MultiPageForms\TwoMultiPageFormsOnTheSamePage.cs" />
+    <Compile Include="Forms\Navigation\EditNavigationLabelsButCancel.cs" />
+    <Compile Include="Forms\Navigation\EditNavigationLabels.cs" />
+    <Compile Include="Forms\MultiPageForms\EditNextButtonButCancel.cs" />
+    <Compile Include="Forms\MultiPageForms\EditNextStepButton.cs" />
+    <Compile Include="Forms\MultiPageForms\SetCssClassToPageBreak.cs" />
+    <Compile Include="Forms\MultiPageForms\VerifyRemoveHeaderAndFooter.cs" />
+    <Compile Include="Forms\MultiPageForms\VerifyHeaderAndFooter.cs" />
+    <Compile Include="Forms\MultiPageForms\DeletePageBreak.cs" />
+    <Compile Include="Forms\MultiPageForms\VerifyPageBreakInHeaderAndFooter.cs" />
+    <Compile Include="Forms\PublishUnpublishFormInUseVerifyFrontend.cs" />
+    <Compile Include="Forms\PublishUnpublishFormInUseVerifyFrontendHybrid.cs" />
+    <Compile Include="Forms\SetRequiredTextboxField.cs" />
+    <Compile Include="Forms\PostFormMultipleTimesWhilePageLoadingAndVerifyOnlyOneResponseInBackend.cs" />
+    <Compile Include="Forms\DeleteFormInUseVerifyFrontend.cs" />
     <Compile Include="Forms\ViewFormWithCheckboxesFieldOnPageAndVerifyResponseInBackend.cs" />
     <Compile Include="Forms\ViewFormWithContentBlockOnPageAndVerifyResponseInBackend.cs" />
     <Compile Include="Forms\ViewFormWithMultipleChoiceFieldOnPageAndVerifyResponseInBackend.cs" />
@@ -210,6 +255,37 @@
     <Compile Include="Forms\ViewFormWithSectionHeaderOnPageAndVerifyResponseInBackend.cs" />
     <Compile Include="Forms\ViewFormWithTextboxFieldOnPageAndVerifyResponseInBackend.cs" />
     <Compile Include="Lists\VerifyListTemplatesOnBootstrap.cs" />
+    <Compile Include="News\AddNewsWidgetToPageVerifyViewPermissions.cs" />
+    <Compile Include="News\AddRelatedDataToNewsWidget.cs" />
+    <Compile Include="News\ChangeSelectedSingleItemPage.cs" />
+    <Compile Include="News\CheckSelectorsAfterUNPublishingNewsItem.cs" />
+    <Compile Include="News\DeleteNewsWidgetFromPage.cs" />
+    <Compile Include="News\DeleteTagAndEditNewsWidget.cs" />
+    <Compile Include="News\DragAndDropNewsWidgetOnPage.cs" />
+    <Compile Include="News\DuplicateNewsWidgetFromPage.cs" />
+    <Compile Include="News\EditNewsWidgetOnPageBasedOnPackageTemplate.cs" />
+    <Compile Include="News\EditSelectedTagInNewsWidget.cs" />
+    <Compile Include="News\ExpandPagesAndSelectChildPageForSingleItemPage.cs" />
+    <Compile Include="News\FilterNewsItemFromDifferentProviderWithCategoryOnPage.cs" />
+    <Compile Include="News\FilterNewsItemWithCategoryOnPage.cs" />
+    <Compile Include="News\FilterNewsItemWithCategoryTagAndDateOnPage.cs" />
+    <Compile Include="News\FilterNewsItemWithCustomTaxonomyOnPage.cs" />
+    <Compile Include="News\Load200TagsAndSearchInNewsWidget.cs" />
+    <Compile Include="News\NavigateDetailTemplateOfNewsOnPage.cs" />
+    <Compile Include="News\NoResultsWhenSearchForSingleItemPage.cs" />
+    <Compile Include="News\OldAndNewNewsWidgetOnTheSamePage.cs" />
+    <Compile Include="News\ReorderSelectedNewsItems.cs" />
+    <Compile Include="News\SearchAndSelectNewsByCategoryAllTab.cs" />
+    <Compile Include="News\SearchAndSelectNewsByCategorySelectedTab.cs" />
+    <Compile Include="News\SearchAndSelectNewsByTag.cs" />
+    <Compile Include="News\SearchForNotExistingTag.cs" />
+    <Compile Include="News\SearchForSingleItemPageAndVerifyBreadcrumb.cs" />
+    <Compile Include="News\SelectAndUnselectMoreThanOneNewsItem.cs" />
+    <Compile Include="News\SelectCustomDateInNewsWidgetOnPageBasedOnBootstrapTemplate.cs" />
+    <Compile Include="News\SelectNewsItemFromDifferentProviderInNewsWidget.cs" />
+    <Compile Include="News\SelectNewsItemInNewsWidgetFromPage.cs" />
+    <Compile Include="News\SelectSingleNewsPageAndVerifyFrontendPage.cs" />
+    <Compile Include="News\ZActivateAndDeactivateNewsModule.cs" />
     <Compile Include="ScriptsAndStyles\AddEmbedCodeWidgetToPageAndWriteAndRemoveJavaScript.cs" />
     <Compile Include="ScriptsAndStyles\EmbedCodeWidgetOnPageTemplateAndAddDescription.cs" />
     <Compile Include="ScriptsAndStyles\DuplicateAndDeleteEmbedCodeWidgetOnPage.cs" />
@@ -299,37 +375,6 @@
     <Compile Include="Navigation\NavigationWidgetTabsTemplateWithOneLevelOnPage.cs" />
     <Compile Include="Navigation\NavigationWidgetVerifyPagePermissions.cs" />
     <Compile Include="Navigation\NavigationWidgetVerticalTemplateWithOneLevelOnPage.cs" />
-    <Compile Include="News\AddNewsWidgetToPageVerifyViewPermissions.cs" />
-    <Compile Include="News\AddRelatedDataToNewsWidget.cs" />
-    <Compile Include="News\CheckSelectorsAfterUNPublishingNewsItem.cs" />
-    <Compile Include="News\ReorderSelectedNewsItems.cs" />
-    <Compile Include="News\ZActivateAndDeactivateNewsModule.cs" />
-    <Compile Include="News\ChangeSelectedSingleItemPage.cs" />
-    <Compile Include="News\FilterNewsItemFromDifferentProviderWithCategoryOnPage.cs" />
-    <Compile Include="News\SelectNewsItemFromDifferentProviderInNewsWidget.cs" />
-    <Compile Include="News\ExpandPagesAndSelectChildPageForSingleItemPage.cs" />
-    <Compile Include="News\FilterNewsItemWithCategoryTagAndDateOnPage.cs" />
-    <Compile Include="News\EditNewsWidgetOnPageBasedOnPackageTemplate.cs" />
-    <Compile Include="News\EditSelectedTagInNewsWidget.cs" />
-    <Compile Include="News\NavigateDetailTemplateOfNewsOnPage.cs" />
-    <Compile Include="News\NoResultsWhenSearchForSingleItemPage.cs" />
-    <Compile Include="News\OldAndNewNewsWidgetOnTheSamePage.cs" />
-    <Compile Include="News\SearchAndSelectNewsByCategorySelectedTab.cs" />
-    <Compile Include="News\SearchAndSelectNewsByCategoryAllTab.cs" />
-    <Compile Include="News\FilterNewsItemWithCategoryOnPage.cs" />
-    <Compile Include="News\SearchAndSelectNewsByTag.cs" />
-    <Compile Include="News\Load200TagsAndSearchInNewsWidget.cs" />
-    <Compile Include="News\DeleteTagAndEditNewsWidget.cs" />
-    <Compile Include="News\SearchForNotExistingTag.cs" />
-    <Compile Include="News\SearchForSingleItemPageAndVerifyBreadcrumb.cs" />
-    <Compile Include="News\SelectCustomDateInNewsWidgetOnPageBasedOnBootstrapTemplate.cs" />
-    <Compile Include="News\SelectAndUnselectMoreThanOneNewsItem.cs" />
-    <Compile Include="News\SelectNewsItemInNewsWidgetFromPage.cs" />
-    <Compile Include="News\DeleteNewsWidgetFromPage.cs" />
-    <Compile Include="News\DragAndDropNewsWidgetOnPage.cs" />
-    <Compile Include="News\DuplicateNewsWidgetFromPage.cs" />
-    <Compile Include="News\FilterNewsItemWithCustomTaxonomyOnPage.cs" />
-    <Compile Include="News\SelectSingleNewsPageAndVerifyFrontendPage.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="FeatherTestCase.cs" />
     <Compile Include="FeatherTestCategories.cs" />

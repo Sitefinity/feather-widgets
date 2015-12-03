@@ -41,7 +41,7 @@ namespace Feather.Widgets.TestUI.Framework.Framework.ElementMap.Forms
         {
             get
             {
-                return this.Get<HtmlDiv>("TagName=div", "Class=from-group", "data-sf-role=checkboxes-field-container");
+                return this.Find.ByExpression<HtmlDiv>("TagName=div", "Class=form-group", "data-sf-role=checkboxes-field-container");
             }
         }
 
@@ -52,7 +52,7 @@ namespace Feather.Widgets.TestUI.Framework.Framework.ElementMap.Forms
         {
             get
             {
-                return this.Get<HtmlDiv>("TagName=div", "Class=from-group", "data-sf-role=multiple-choice-field-container");
+                return this.Get<HtmlDiv>("TagName=div", "Class=form-group", "data-sf-role=multiple-choice-field-container");
             }
         }
 
@@ -63,7 +63,7 @@ namespace Feather.Widgets.TestUI.Framework.Framework.ElementMap.Forms
         {
             get
             {
-                return this.Get<HtmlDiv>("TagName=div", "Class=from-group", "data-sf-role=dropdown-list-field-container");
+                return this.Get<HtmlDiv>("TagName=div", "Class=form-group", "data-sf-role=dropdown-list-field-container");
             }
         }
 
@@ -107,7 +107,7 @@ namespace Feather.Widgets.TestUI.Framework.Framework.ElementMap.Forms
         {
             get
             {
-                return this.Get<HtmlButton>("TagName=button", "innertext=Submit");
+                return this.Get<HtmlButton>("TagName=button", "type=submit");
             }
         }
 
@@ -121,5 +121,68 @@ namespace Feather.Widgets.TestUI.Framework.Framework.ElementMap.Forms
                 return this.Get<HtmlDiv>("TagName=div", "innertext=Success! Thanks for filling out our form!");
             }
         }
+        /// <summary>
+        /// Gets the message after form is deleted "The specified form no longer exists or is currently unpublished. "
+        /// </summary>
+        public HtmlDiv DeleteFormInUseMessage
+        {
+            get
+            {
+                return this.Get<HtmlDiv>("id=PublicWrapper", "class=sfPublicWrapper");
+                    //, "innertext= The specified form no longer exists or is currently unpublished. ");
+            }
+        }
+
+        /// <summary>
+        /// Gets the next button on frontend
+        /// </summary>
+        public HtmlButton NextStepButton
+        {
+            get
+            {
+                return this.Get<HtmlButton>("TagName=button", "data-sf-btn-role=next");
+            }
+        }
+
+        /// <summary>
+        /// Gets the next button on frontend
+        /// </summary>
+        public HtmlButton NextStepVisible
+        {
+            get
+            {
+                return this.Find.AllByExpression<HtmlButton>("TagName=button", "data-sf-btn-role=next").Where(b => b.IsVisible()).FirstOrDefault();
+            }
+        }
+
+        /// <summary>
+        /// Gets the previous anchor on frontend
+        /// </summary>
+        public HtmlAnchor PreviousStep
+        {
+            get
+            {
+                return this.Get<HtmlAnchor>("TagName=a", "data-sf-btn-role=prev");
+            }
+        }
+
+        /// <summary>
+        /// Gets the fields for form when hybrid page is used 
+        /// </summary>
+        #region HybridPage
+
+        /// <summary>
+        /// Gets the textbox field on frontend
+        /// </summary>
+        public HtmlInputText TextboxFieldHybrid
+        {
+            get
+            {
+                return this.Get<HtmlInputText>("name=TextFieldController", "data-sf-role=text-field-input");
+            }
+        }
+
+
+        #endregion HybridPage
     }
 }

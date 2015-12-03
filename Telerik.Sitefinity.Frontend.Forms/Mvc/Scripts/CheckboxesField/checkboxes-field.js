@@ -1,6 +1,6 @@
 ﻿(function ($) {
     var changeOrInput = function (e) {
-        var container = $(e.srcElement).parents('[data-sf-role="checkboxes-field-container"]');
+        var container = $(e.target).parents('[data-sf-role="checkboxes-field-container"]');
         var inputs = $(container).find('[data-sf-role="checkboxes-field-input"]');
         var hasChecked = $(container).find('input[data-sf-role="checkboxes-field-input"]:checked').length > 0;
 
@@ -14,10 +14,10 @@
     };
 
     var invalid = function (e) {
-        var validationMessages = getValidationMessages(e.srcElement);
+        var validationMessages = getValidationMessages(e.target);
 
-        if (e.srcElement.validity.valueMissing) {
-            e.srcElement.setCustomValidity(validationMessages.required);
+        if (e.target.validity.valueMissing) {
+            e.target.setCustomValidity(validationMessages.required);
         }
     };
 
@@ -35,10 +35,10 @@
         if (!containers || containers.length < 1)
             return;
 
-        var attachHandlers = function (index, input) {
-            input.addEventListener('change', changeOrInput);
-            input.addEventListener('input', changeOrInput);
-            input.addEventListener('invalid', invalid);
+        var attachHandlers = function (input) {
+            input.on('change', changeOrInput);
+            input.on('input', changeOrInput);
+            input.on('invalid', invalid);
         };
 
         var checkboxClickHandler = function (e) {
@@ -65,9 +65,9 @@
         };
 
         var inputChangeHandler = function (e) {
-            var container = $(e.srcElement).parents('[data-sf-role="checkboxes-field-container"]');
+            var container = $(e.target).parents('[data-sf-role="checkboxes-field-container"]');
             var otherCheckbox = $(containers.find('[data-sf-checkboxes-role="other-choice-checkbox"]').first());
-            otherCheckbox.val($(e.srcElement).val());
+            otherCheckbox.val($(e.target).val());
         };
 
         for (var i = 0; i < containers.length; i++) {
@@ -77,7 +77,7 @@
             if (container.find('[data-sf-role="required-validator"]').val() === 'True' && !inputs.is(':checked'))
                 $(inputs[0]).attr('required', 'required');
 
-            inputs.each(attachHandlers);
+            attachHandlers(inputs);
 
             var checkboxes = container.find('input[data-sf-role="checkboxes-field-input"]');
 
