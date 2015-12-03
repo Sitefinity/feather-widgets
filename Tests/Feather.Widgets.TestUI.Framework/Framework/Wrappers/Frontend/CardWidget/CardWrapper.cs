@@ -26,16 +26,23 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Frontend.CardWidge
                 divContainer = frontendPageMainDiv.Find
                                                   .ByExpression<HtmlDiv>("tagname=div", "class=row")
                                                   .AssertIsPresent("Div with this class");
-
-                 isContained = divContainer.InnerText.Contains(cardWidgetContent);
-                Assert.IsTrue(isContained, "Card widget content is not as expected");
+                isContained = divContainer.InnerText.Contains(cardWidgetContent);
             }
-            else 
+            else
             {
-                isContained = frontendPageMainDiv.InnerText.Contains(cardWidgetContent);               
+                try
+                {
+                     divContainer = frontendPageMainDiv.Find
+                                                 .ByExpression<HtmlDiv>("tagname=div", "class=thumbnail")
+                                                 .AssertIsPresent("Div with this class");
+                     isContained = divContainer.InnerText.Contains(cardWidgetContent);
+                }
+                catch (Exception)
+                {
+                    isContained = frontendPageMainDiv.InnerText.Contains(cardWidgetContent);
+                }
             }
-
-            Assert.IsTrue(isContained, "Card widget content is not as expected");
+                Assert.IsTrue(isContained, "Card widget content is not as expected");
         }
 
         /// <summary>
@@ -70,7 +77,7 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Frontend.CardWidge
                                                        .ByExpression<HtmlAnchor>("tagname=a", "InnerText=" + labelName)
                                                        .AssertIsPresent("Tag with this title was not found");
             bool isContained = pageAnchor.HRef.Contains(pageName);
-           Assert.IsTrue(isContained, "Page is not as expected");
+            Assert.IsTrue(isContained, "Page is not as expected");
         }
     }
 }
