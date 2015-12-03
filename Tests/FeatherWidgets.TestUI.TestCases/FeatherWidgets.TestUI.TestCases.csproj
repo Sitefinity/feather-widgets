@@ -209,14 +209,20 @@
     <Compile Include="EmailCampaigns\UnsubscribeWidgetOnHybridPageAndSetCssClass.cs" />
     <Compile Include="FeatherTeams.cs" />
     <Compile Include="FeedWidget\DragAndDropFeedWidgetAndSetDefaultRssOnPage.cs" />
+    <Compile Include="Forms\EditDraftFormVerifyPreview.cs" />
+    <Compile Include="Forms\EditFormSaveDraftThenPublishVerifyFrontend.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Forms\EditFormSaveDraftThenPublishVerifyFrontendHybrid.cs" />
     <Compile Include="Forms\DeleteFormFieldInUseVerityFrontend.cs" />
     <Compile Include="Forms\DeleteFormInUseVerifyFrontendHybrid.cs" />
-    <Compile Include="Forms\EditFormSaveDraftThenPublishVerifyFrontend.cs" />
     <Compile Include="Forms\PublishUnpublishFormInUseVerifyFrontend.cs" />
     <Compile Include="Forms\PublishUnpublishFormInUseVerifyFrontendHybrid.cs" />
     <Compile Include="Forms\SetRequiredTextboxField.cs" />
     <Compile Include="Forms\PostFormMultipleTimesWhilePageLoadingAndVerifyOnlyOneResponseInBackend.cs" />
     <Compile Include="Forms\DeleteFormInUseVerifyFrontend.cs" />
+    <Compile Include="Forms\SubmitPreviewFormVerifyResponses.cs" />
+    <Compile Include="Forms\VerifyPreviewWhileCreatingForm.cs" />
     <Compile Include="Forms\ViewFormWithCheckboxesFieldOnPageAndVerifyResponseInBackend.cs" />
     <Compile Include="Forms\ViewFormWithContentBlockOnPageAndVerifyResponseInBackend.cs" />
     <Compile Include="Forms\ViewFormWithMultipleChoiceFieldOnPageAndVerifyResponseInBackend.cs" />
