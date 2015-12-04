@@ -22,9 +22,10 @@ namespace FeatherWidgets.TestIntegration.Forms.Fields
         /// <summary>
         /// Ensures that when a Section header field widget is added to form the default value is presented in the page markup.
         /// </summary>
-        [Test]
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Maintainability", "CA1506:AvoidExcessiveClassCoupling"), Test]
         [Category(TestCategories.Forms)]
         [Author(FeatherTeams.FeatherTeam)]
+        [Ignore("Form creation via Server operations feather does not include passed widget.")] 
         [Description("Ensures that when a Section header field widget is added to form the default value is presented in the page markup.")]
         public void SectionHeader_MarkupIsCorrect()
         {

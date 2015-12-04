@@ -5,6 +5,7 @@ using System.Globalization;
 using System.Web.Mvc;
 using Telerik.Sitefinity.Frontend.ContentBlock.Mvc.Models;
 using Telerik.Sitefinity.Frontend.ContentBlock.Mvc.StringResources;
+using Telerik.Sitefinity.Frontend.Mvc.Helpers;
 using Telerik.Sitefinity.Frontend.Mvc.Infrastructure.Controllers;
 using Telerik.Sitefinity.Frontend.Mvc.Infrastructure.Controllers.Attributes;
 using Telerik.Sitefinity.Frontend.Resources;
@@ -224,7 +225,10 @@ namespace Telerik.Sitefinity.Frontend.ContentBlock.Mvc.Controllers
         /// </returns>
         public ActionResult Index()
         {
-            this.Commands = this.InitializeCommands();
+            if (SitefinityContext.IsBackend)
+            {
+                this.Commands = this.InitializeCommands();
+            }
 
             if (SystemManager.CurrentHttpContext != null)
             {

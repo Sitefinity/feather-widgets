@@ -16,11 +16,12 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Frontend.EmailCamp
     public class SubscibeFormWrapper : BaseWrapper
     {
         /// <summary>
-        /// Verify subscribe message
+        /// Verify subscribe message for mvc pure
         /// </summary>
         public void VerifySubscribeMessageOnTheFrontend()
-        {          
-            bool isPresentSubscribe = BAT.Wrappers().Frontend().Pages().PagesWrapperFrontend().GetPageContent().InnerText.Contains("Subscribe");
+        {
+            HtmlForm subscribeForm = this.EM.EmailCampaigns.SubscribeFormFrontend.SubscribeFormPureMVC.AssertIsPresent("Subscribe form");
+            bool isPresentSubscribe = subscribeForm.InnerText.Contains("Subscribe");
             Assert.IsTrue(isPresentSubscribe);
 
             bool isPresentMessage = BAT.Wrappers().Frontend().Pages().PagesWrapperFrontend().GetPageContent().InnerText.Contains("Subscribe to our email newsletter to receive updates");
@@ -28,12 +29,38 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Frontend.EmailCamp
         }
 
         /// <summary>
-        ///  Verify successfully subscribed message
+        ///  Verify successfully subscribed message for mvc pure
         /// </summary>
         /// <param name="email">Email</param>
         public void VerifySuccessfullySubscribeMessageOnTheFrontend(string email)
-        {            
-            bool isPresentSubscribe = BAT.Wrappers().Frontend().Pages().PagesWrapperFrontend().GetPageContent().InnerText.Contains("Thank you. You have successfully subscribed to our newsletter (" + email + ")");
+        {
+            HtmlForm subscribeForm = this.EM.EmailCampaigns.SubscribeFormFrontend.SubscribeFormPureMVC.AssertIsPresent("Subscribe form");
+            bool isPresentSubscribe = subscribeForm.InnerText.Contains("Thank you. You have successfully subscribed to our newsletter (" + email + ")");
+            Assert.IsTrue(isPresentSubscribe);
+        }
+
+        /// <summary>
+        /// Verify subscribe message for hybrid page
+        /// </summary>
+        public void VerifySubscribeMessageOnTheFrontendHybrid()
+        {
+            HtmlDiv subscribeForm = this.EM.EmailCampaigns.SubscribeFormFrontend.SubscribeForm.AssertIsPresent("Subscribe form");
+            bool isPresentSubscribe = subscribeForm.InnerText.Contains("Subscribe");
+            Assert.IsTrue(isPresentSubscribe);
+
+            bool isPresentMessage = subscribeForm.InnerText.Contains("Subscribe to our email newsletter to receive updates");
+            Assert.IsTrue(isPresentMessage);
+        }
+
+        /// <summary>
+        ///  Verify successfully subscribed message for hybrid page
+        /// </summary>
+        /// <param name="email">Email</param>
+        public void VerifySuccessfullySubscribeMessageOnTheFrontendHybrid(string email)
+        {
+            HtmlDiv subscribeForm = this.EM.EmailCampaigns.SubscribeFormFrontend.SubscribeForm.AssertIsPresent("Subscribe form");
+            bool isPresentSubscribe = subscribeForm.InnerText.Contains("Thank you. You have successfully subscribed to our newsletter (" + email + ")");
+
             Assert.IsTrue(isPresentSubscribe);
         }
 

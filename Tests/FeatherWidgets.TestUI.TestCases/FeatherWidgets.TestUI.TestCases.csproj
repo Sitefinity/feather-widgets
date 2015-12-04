@@ -151,6 +151,7 @@
     <Compile Include="CommentsAndReviews\ValidateAllFieldsInCommentsWidgetOnFrontend.cs" />
     <Compile Include="CommentsAndReviews\ValidateAllFieldsInReviewsWidgetOnFrontend.cs" />
     <Compile Include="CommentsAndReviews\VerifyAnonymousAndLoggedUsersAreAbleToSubmitOnlyOneReview.cs" />
+    <Compile Include="Common\DeactivateFeatherModule.cs" />
     <Compile Include="ContentBlocks\AddContentBlockWidgetToPageTemplate.cs" />
     <Compile Include="ContentBlocks\AddContentBlockToTemplateBasedOnLayoutFile.cs" />
     <Compile Include="ContentBlocks\AddContentToContentBlockWidgetViaCreateContentOptionOnThePage.cs" />
@@ -208,9 +209,13 @@
     <Compile Include="EmailCampaigns\UnsubscribeWidgetOnHybridPageAndSetCssClass.cs" />
     <Compile Include="FeatherTeams.cs" />
     <Compile Include="FeedWidget\DragAndDropFeedWidgetAndSetDefaultRssOnPage.cs" />
+    <Compile Include="Forms\EditDraftFormVerifyPreview.cs" />
+    <Compile Include="Forms\EditFormSaveDraftThenPublishVerifyFrontend.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Forms\EditFormSaveDraftThenPublishVerifyFrontendHybrid.cs" />
     <Compile Include="Forms\DeleteFormFieldInUseVerityFrontend.cs" />
     <Compile Include="Forms\DeleteFormInUseVerifyFrontendHybrid.cs" />
-    <Compile Include="Forms\EditFormSaveDraftThenPublishVerifyFrontend.cs" />
     <Compile Include="Forms\MultiPageForms\AddFieldsToHeaderAndFooter.cs" />
     <Compile Include="Forms\MultiPageForms\AddPageBreakToForm.cs" />
     <Compile Include="Forms\MultiPageForms\AllowUsersToStepBackwardAndChangeButtonTitle.cs" />
@@ -247,6 +252,8 @@
     <Compile Include="Forms\SetRequiredTextboxField.cs" />
     <Compile Include="Forms\PostFormMultipleTimesWhilePageLoadingAndVerifyOnlyOneResponseInBackend.cs" />
     <Compile Include="Forms\DeleteFormInUseVerifyFrontend.cs" />
+    <Compile Include="Forms\SubmitPreviewFormVerifyResponses.cs" />
+    <Compile Include="Forms\VerifyPreviewWhileCreatingForm.cs" />
     <Compile Include="Forms\ViewFormWithCheckboxesFieldOnPageAndVerifyResponseInBackend.cs" />
     <Compile Include="Forms\ViewFormWithContentBlockOnPageAndVerifyResponseInBackend.cs" />
     <Compile Include="Forms\ViewFormWithMultipleChoiceFieldOnPageAndVerifyResponseInBackend.cs" />

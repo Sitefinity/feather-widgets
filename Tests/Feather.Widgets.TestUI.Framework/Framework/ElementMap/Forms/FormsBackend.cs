@@ -146,6 +146,40 @@ namespace Feather.Widgets.TestUI.Framework.Framework.ElementMap.Forms
                 return this.BodyDropZone.Find.ByExpression<HtmlDiv>("class=RadDock RadDock_Default zeControlDock", "behaviourobjecttype=~DropdownListFieldController");
             }
         }
+
+        /// <summary>
+        /// Gets ParagraphTextFieldController Div 
+        /// </summary>
+        public HtmlDiv ParagraphTextFieldControllerDiv
+        {
+            get
+            {
+                return this.BodyDropZone.Find.ByExpression<HtmlDiv>("class=RadDock RadDock_Default zeControlDock", "behaviourobjecttype=~ParagraphTextFieldController");
+            }
+        }
+
+        /// <summary>
+        /// Gets CaptchaController div
+        /// </summary>
+        public HtmlDiv CaptchaControllerDiv
+        {
+            get
+            {
+                return this.BodyDropZone.Find.ByExpression<HtmlDiv>("class=RadDock RadDock_Default zeControlDock", "behaviourobjecttype=~CaptchaController");
+            }
+        }
+
+        /// <summary>
+        /// Gets MultipleChoiceFieldController div
+        /// </summary>
+        public HtmlDiv MultipleChoiceFieldControllerDiv
+        {
+            get
+            {
+                return this.BodyDropZone.Find.ByExpression<HtmlDiv>("class=RadDock RadDock_Default zeControlDock", "behaviourobjecttype=~MultipleChoiceFieldController");
+            }
+        }
+
         /// <summary>
         /// Gets All Controller's divs
         /// </summary>
@@ -251,7 +285,18 @@ namespace Feather.Widgets.TestUI.Framework.Framework.ElementMap.Forms
         {
             get
             {
-                return this.Get<HtmlAnchor>("Innertext=Save Draft");
+                return this.Get<HtmlAnchor>("onclick=editorToolBar.saveDraft();");
+            }
+        }
+
+        /// <summary>
+        /// Gets Preview Button from within Create dialog
+        /// </summary>
+        public HtmlAnchor PreviewButton
+        {
+            get
+            {
+                return this.Get<HtmlAnchor>("href=~Preview");
             }
         }
 
@@ -264,17 +309,6 @@ namespace Feather.Widgets.TestUI.Framework.Framework.ElementMap.Forms
             {
                return this.Get<HtmlSpan>("id=?messageControl", "class=sfMessage sfMsgPositive sfMsgVisible", "Innertext=The draft is successfully saved");
            }
-        }
-
-        /// <summary>
-        /// Gets "Back to Form" link
-        /// </summary>
-        public HtmlAnchor BackToFormLink
-        {
-            get
-            {
-                return this.Get<HtmlAnchor>("id=?CancelButton", "Innertext=Back to Forms");
-            }
         }
 
         /// <summary>

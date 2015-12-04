@@ -40,6 +40,17 @@ namespace Telerik.Sitefinity.Frontend.Forms
             Bootstrapper.Initialized += Initializer.Bootstrapper_Initialized;
         }
 
+        /// <summary>
+        /// Uninitializes this instance.
+        /// </summary>
+        public static void Uninitialize()
+        {
+            EventHub.Unsubscribe<IScriptsRegisteringEvent>(Initializer.RegisteringFormScriptsHandler);
+            Bootstrapper.Initialized -= Initializer.Bootstrapper_Initialized;
+
+            Initializer.UnregisterTemplatableControl();
+        }
+
         #region Private Methods
 
         private static void Bootstrapper_Initialized(object sender, ExecutedEventArgs e)
