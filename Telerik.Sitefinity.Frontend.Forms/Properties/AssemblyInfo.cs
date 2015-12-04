@@ -12,6 +12,6 @@ using Telerik.Sitefinity.Frontend.Mvc.Infrastructure.Controllers.Attributes;
 // The following GUID is for the ID of the typelib if this project is exposed to COM
 [assembly: Guid("65045d37-e495-4e45-8794-1d5f2cf344ca")]
 
-[assembly: ControllerContainer(typeof(Initializer), "Initialize")]
+[assembly: ControllerContainer(typeof(Initializer), "Initialize", typeof(Initializer), "Uninitialize")]
 
 [assembly: InternalsVisibleTo("FeatherWidgets.TestUnit")]

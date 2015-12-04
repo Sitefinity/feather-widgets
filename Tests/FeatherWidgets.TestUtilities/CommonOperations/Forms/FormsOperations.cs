@@ -74,7 +74,8 @@ namespace FeatherWidgets.TestUtilities.CommonOperations.Forms
             return formId;
         }
 
-        public Guid CreateFormWithWidgets(IEnumerable<Control> widgets, string formTitle = null)
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1026:DefaultParametersShouldNotBeUsed")]
+        public Guid CreateFormWithWidgets(IEnumerable<Control> widgets, string formTitle = null, bool publishForm = true)
         {
             var formId = Guid.NewGuid();
 
@@ -88,7 +89,7 @@ namespace FeatherWidgets.TestUtilities.CommonOperations.Forms
 
             var formName = "form_" + formId.ToString("N");
 
-            this.CreateForm(formId, formName, formTitle, formSuccessMessage, formControls);
+            this.CreateForm(formId, formName, formTitle, formSuccessMessage, formControls, publishForm);
 
             SystemManager.ClearCurrentTransactions();
             SystemManager.RestartApplication(false);
@@ -97,7 +98,8 @@ namespace FeatherWidgets.TestUtilities.CommonOperations.Forms
             return formId;
         }
 
-        public Guid CreateFormWithWidgets(IEnumerable<FormFieldType> widgets, string formTitle = null)
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1026:DefaultParametersShouldNotBeUsed")]
+        public Guid CreateFormWithWidgets(IEnumerable<FormFieldType> widgets, string formTitle = null, bool publishForm = true)
         {
             var controls = new List<Control>();
 
@@ -151,7 +153,7 @@ namespace FeatherWidgets.TestUtilities.CommonOperations.Forms
                 controls.Add(control);
             }
 
-            return this.CreateFormWithWidgets(controls, formTitle);
+            return this.CreateFormWithWidgets(controls, formTitle, publishForm);
         }
 
         /// <summary>
@@ -230,8 +232,8 @@ namespace FeatherWidgets.TestUtilities.CommonOperations.Forms
         /// <param name="formTitle">Form title</param>
         /// <param name="formSuccessMessage">Success message after the form is submitted</param>
         /// <param name="formControls">Form widgets like text boxes and buttons</param>
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Maintainability", "CA1506:AvoidExcessiveClassCoupling")]
-        public void CreateForm(Guid formId, string formName, string formTitle, string formSuccessMessage, IList<Control> formControls)
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1026:DefaultParametersShouldNotBeUsed"), System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Maintainability", "CA1506:AvoidExcessiveClassCoupling")]
+        public void CreateForm(Guid formId, string formName, string formTitle, string formSuccessMessage, IList<Control> formControls, bool publishForm = true)
         {
             FormsManager formManager = FormsManager.GetManager();
             var form = formManager.GetForms().SingleOrDefault(f => f.Id == formId);
@@ -273,7 +275,9 @@ namespace FeatherWidgets.TestUtilities.CommonOperations.Forms
                     }
 
                     master = formManager.Lifecycle.CheckIn(master);
-                    formManager.Lifecycle.Publish(master);
+
+                    if (publishForm)
+                        formManager.Lifecycle.Publish(master);
 
                     formManager.SaveChanges(true);
                 }

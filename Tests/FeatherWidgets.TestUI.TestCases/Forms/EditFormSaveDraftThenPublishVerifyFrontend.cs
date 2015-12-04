@@ -19,8 +19,9 @@ namespace FeatherWidgets.TestUI.TestCases.Forms
         /// UI test EditFormSaveDraftThenPublishVerifyFrontend
         /// </summary>
         [TestMethod,
-        Owner(FeatherTeams.FeatherTeam)]
-        //TestCategory(FeatherTestCategories.Bootstrap)]
+        Owner(FeatherTeams.FeatherTeam),
+        TestCategory(FeatherTestCategories.Bootstrap),
+        TestCategory(FeatherTestCategories.Forms)]
         public void EditFormSaveDraftThenPublishVerifyFrontend()
         {
             BAT.Macros().NavigateTo().Modules().Forms(this.Culture);
@@ -29,21 +30,22 @@ namespace FeatherWidgets.TestUI.TestCases.Forms
             BATFeather.Wrappers().Backend().Forms().FormsContentScreenWrapper().AddField(FeatherGlobals.DropdownFieldName);
             BATFeather.Wrappers().Backend().Forms().FormsContentScreenWrapper().VerifyFormCheckboxWidgetIsVisible();
             BATFeather.Wrappers().Backend().Forms().FormsContentScreenWrapper().VerifyFormDropdownWidgetIsVisible();
-            BAT.Wrappers().Backend().Forms().FormsContentScreen().PublishForm();
-
-            BAT.Macros().NavigateTo().CustomPage("~/" + FeatherGlobals.BootstrapPageName.ToLower(), true, this.Culture);
-            BATFeather.Wrappers().Frontend().Forms().FormsWrapper().VerifyCheckboxesFieldLabelIsVisible(FeatherGlobals.CheckboxLabelName);
-            BATFeather.Wrappers().Frontend().Forms().FormsWrapper().VerifyDropdownListFieldLabelIsVisible(FeatherGlobals.DropdownLabelName);
-            BATFeather.Wrappers().Frontend().Forms().FormsWrapper().VerifySubmitButtonIsVisible();
-
+            BATFeather.Wrappers().Backend().Forms().FormsContentScreenWrapper().ClickSaveDraft();
+            BATFeather.Wrappers().Backend().Forms().FormsContentScreenWrapper().VerifyPositiveMessageDraftIsShown();
+            BAT.Wrappers().Backend().Forms().FormsContentScreen().BackToForms();
             BAT.Macros().NavigateTo().Modules().Forms(this.Culture);
-            BAT.Wrappers().Backend().Forms().FormsDashboard().OpenFormFromTheGrid(FeatherGlobals.FormName);
-            BATFeather.Wrappers().Backend().Forms().FormsContentScreenWrapper().ClickOnWidgetMenuItem(FeatherGlobals.CheckboxControlName, FeatherGlobals.DeleteWidgetMenuOption);
-            BATFeather.Wrappers().Backend().Forms().FormsContentScreenWrapper().VerifyFormCheckboxWidgetIsDeleted();
-            BAT.Wrappers().Backend().Forms().FormsContentScreen().PublishForm();
-
+            BATFeather.Wrappers().Backend().Forms().FormsContentScreenWrapper().VerifyFormStatus(FeatherGlobals.FormName, FeatherGlobals.draftNewerThanPublished);
             BAT.Macros().NavigateTo().CustomPage("~/" + FeatherGlobals.BootstrapPageName.ToLower(), true, this.Culture);
             BATFeather.Wrappers().Frontend().Forms().FormsWrapper().VerifyCheckboxesFieldIsNotVisible();
+            BATFeather.Wrappers().Frontend().Forms().FormsWrapper().VerifyDropdownListFieldIsNotVisible();
+            BATFeather.Wrappers().Frontend().Forms().FormsWrapper().VerifySubmitButtonIsVisible();
+            BAT.Macros().NavigateTo().Modules().Forms(this.Culture);
+            BAT.Wrappers().Backend().Forms().FormsDashboard().PublishFormFromActionsMenu(FeatherGlobals.FormName);
+            BATFeather.Wrappers().Backend().Forms().FormsContentScreenWrapper().VerifyFormStatus(FeatherGlobals.FormName, FeatherGlobals.published);
+            BAT.Macros().NavigateTo().CustomPage("~/" + FeatherGlobals.BootstrapPageName.ToLower(), true, this.Culture);
+            BATFeather.Wrappers().Frontend().Forms().FormsWrapper().VerifyCheckboxesFieldLabelIsVisible(FeatherGlobals.SelectAChoiceLabelName);
+            BATFeather.Wrappers().Frontend().Forms().FormsWrapper().VerifyDropdownListFieldLabelIsVisible(FeatherGlobals.SelectAChoiceLabelName);
+            BATFeather.Wrappers().Frontend().Forms().FormsWrapper().VerifySubmitButtonIsVisible();
         }
 
         /// <summary>
@@ -62,10 +64,6 @@ namespace FeatherWidgets.TestUI.TestCases.Forms
         {
             BAT.Arrange(this.TestName).ExecuteTearDown();
         }
-
-        
-        private const int ExpectedWidgetsCount = 0;
-
     }
 }   
 
