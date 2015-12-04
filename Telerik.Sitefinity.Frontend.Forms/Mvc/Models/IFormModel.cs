@@ -105,5 +105,7 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Models
         /// Raises the before form action event.
         /// </summary>
         bool RaiseBeforeFormActionEvent();
+
+        bool IsMultiStep { get; set; }
     }
 }

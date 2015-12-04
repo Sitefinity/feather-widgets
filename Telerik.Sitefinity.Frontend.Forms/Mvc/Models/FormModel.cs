@@ -141,6 +141,8 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Models
             }
         }
 
+        public bool IsMultiStep { get; set; }
+        
         #endregion
 
         #region Public methods
@@ -158,7 +160,8 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Models
                 ViewMode = this.ViewMode,
                 CssClass = this.CssClass,
                 UseAjaxSubmit = this.UseAjaxSubmit,
-                FormId = this.FormId.ToString("D")
+                FormId = this.FormId.ToString("D"),
+                IsMultiStep = this.IsMultiStep
             };
 
             if (this.FormData != null && this.AllowRenderForm())

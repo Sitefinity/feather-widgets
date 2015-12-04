@@ -43,6 +43,7 @@ namespace Feather.Widgets.TestUI.Framework.Framework.ElementMap.EmailCampaigns
                 return this.Get<HtmlDiv>("name=defaultForm");
             }
         }
+
         /// <summary>
         /// Email field.
         /// </summary>

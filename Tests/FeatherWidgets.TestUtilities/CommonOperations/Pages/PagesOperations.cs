@@ -3,10 +3,10 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
 using System.Reflection;
+using System.Web;
 using System.Web.UI;
 using Telerik.Sitefinity;
 using Telerik.Sitefinity.Configuration;
-using Telerik.Sitefinity.DynamicModules.Web.UI.Frontend;
 using Telerik.Sitefinity.Frontend.Blogs.Mvc.Controllers;
 using Telerik.Sitefinity.Frontend.Blogs.Mvc.Models.BlogPost;
 using Telerik.Sitefinity.Frontend.Card.Mvc.Controllers;
@@ -15,7 +15,6 @@ using Telerik.Sitefinity.Frontend.ContentBlock.Mvc.Controllers;
 using Telerik.Sitefinity.Frontend.DynamicContent.Mvc.Controllers;
 using Telerik.Sitefinity.Frontend.EmailCampaigns.Mvc.Controllers;
 using Telerik.Sitefinity.Frontend.Identity.Mvc.Controllers;
-using Telerik.Sitefinity.Frontend.Identity.Mvc.Models.Profile;
 using Telerik.Sitefinity.Frontend.InlineClientAssets.Mvc.Controllers;
 using Telerik.Sitefinity.Frontend.Lists.Mvc.Controllers;
 using Telerik.Sitefinity.Frontend.Media.Mvc.Controllers;
@@ -28,10 +27,12 @@ using Telerik.Sitefinity.Modules.Pages.Configuration;
 using Telerik.Sitefinity.Mvc.Proxy;
 using Telerik.Sitefinity.Pages.Model;
 using Telerik.Sitefinity.Security;
+using Telerik.Sitefinity.Services;
 using Telerik.Sitefinity.TestIntegration.Data.Content;
+using Telerik.Sitefinity.TestIntegration.Helpers;
 using Telerik.Sitefinity.TestUtilities.CommonOperations;
 using Telerik.Sitefinity.Utilities.TypeConverters;
-using Telerik.Sitefinity.Web.UI.ContentUI;
+using Telerik.Sitefinity.Web;
 
 namespace FeatherWidgets.TestUtilities.CommonOperations
 {
@@ -777,6 +778,37 @@ namespace FeatherWidgets.TestUtilities.CommonOperations
         }
 
         /// <summary>
+        /// Gets the public page content.
+        /// </summary>
+        /// <param name="pageId">The id of the page.</param>
+        /// <returns>The page content.</returns>
+        public string GetPageContent(Guid pageId)
+        {
+            PageManager pageManager = PageManager.GetManager();
+
+            var page = pageManager.GetPageNode(pageId);
+            var pageUrl = page.GetFullUrl(SystemManager.CurrentContext.AppSettings.DefaultFrontendLanguage, true);
+            pageUrl = RouteHelper.GetAbsoluteUrl(pageUrl);
+            pageUrl = this.AppendParam(pageUrl, "t", Guid.NewGuid().ToString());
+
+            string pageContent = WebRequestHelper.GetPageWebContent(pageUrl);
+
+            return pageContent;
+        }
+
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1054:UriParametersShouldNotBeStrings", MessageId = "0#")]
+        public string AppendParam(string url, string parameterName, string parameterValue)
+        {
+            if (parameterValue.IsNullOrEmpty())
+                return url;
+
+            if (url.Contains("?"))
+                return string.Format(System.Globalization.CultureInfo.InvariantCulture, "{0}&{1}={2}", url, parameterName, HttpUtility.UrlEncode(parameterValue));
+
+            return string.Format(System.Globalization.CultureInfo.InvariantCulture, "{0}?{1}={2}", url, parameterName, HttpUtility.UrlEncode(parameterValue));
+        }
+
+        /// <summary>
         /// Creates the mvcWidget control.
         /// </summary>
         /// <param name="pageManager">The page manager.</param>
@@ -792,7 +824,7 @@ namespace FeatherWidgets.TestUtilities.CommonOperations
             pageManager.PublishPageDraft(page, CultureInfo.CurrentUICulture);
             pageManager.SaveChanges();
         }
-
+       
         private PageContentGenerator locationGenerator;
     }
 }

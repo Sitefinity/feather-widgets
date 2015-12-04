@@ -24,7 +24,7 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Frontend.EmailCamp
             bool isPresentSubscribe = subscribeForm.InnerText.Contains("Subscribe");
             Assert.IsTrue(isPresentSubscribe);
 
-            bool isPresentMessage = subscribeForm.InnerText.Contains("Subscribe to our email newsletter to receive updates");
+            bool isPresentMessage = BAT.Wrappers().Frontend().Pages().PagesWrapperFrontend().GetPageContent().InnerText.Contains("Subscribe to our email newsletter to receive updates");
             Assert.IsTrue(isPresentMessage);
         }
 
@@ -38,6 +38,7 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Frontend.EmailCamp
             bool isPresentSubscribe = subscribeForm.InnerText.Contains("Thank you. You have successfully subscribed to our newsletter (" + email + ")");
             Assert.IsTrue(isPresentSubscribe);
         }
+
         /// <summary>
         /// Verify subscribe message for hybrid page
         /// </summary>
@@ -59,6 +60,7 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Frontend.EmailCamp
         {
             HtmlDiv subscribeForm = this.EM.EmailCampaigns.SubscribeFormFrontend.SubscribeForm.AssertIsPresent("Subscribe form");
             bool isPresentSubscribe = subscribeForm.InnerText.Contains("Thank you. You have successfully subscribed to our newsletter (" + email + ")");
+
             Assert.IsTrue(isPresentSubscribe);
         }
 
