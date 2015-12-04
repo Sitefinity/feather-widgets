@@ -62,7 +62,7 @@ namespace FeatherWidgets.TestUI.TestCases.Forms.Navigation
         private const string FormName = "MultiPageForm";
         private const string PageName = "FormPage";
         private const string PageBreak = "Page break";
-        private List<string> pagesDefaultLabels = new List<string>() { "Page1", "Page2" };
-        private List<string> pagesNewLabels = new List<string>() { "Page1", "Page2", "Page3" };
+        private List<string> pagesDefaultLabels = new List<string>() { "Step 1", "Step 2" };
+        private List<string> pagesNewLabels = new List<string>() { "Step 1", "Step 2", "Step 3" };
     }
 }
