@@ -55,6 +55,6 @@ namespace FeatherWidgets.TestUI.TestCases.Forms.Navigation
         private const string FormName = "MultiPageForm";
         private const string Navigation = "NavigationFieldController";
         private const string PageName = "FormPage";
-        private List<string> pagesDefaultLabels = new List<string>() { "Page1", "Page2" };
+        private List<string> pagesDefaultLabels = new List<string>() { "Step 1", "Step 2" };
     }
 }
