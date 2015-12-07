@@ -77,6 +77,14 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend
         /// </summary>
         public void ClickSelectButton()
         {
+            ActiveBrowser.WaitUntilReady();
+            ActiveBrowser.WaitForAsyncRequests();
+
+            Manager.Wait.For(() => {
+                ActiveBrowser.RefreshDomTree(); 
+                return EM.Widgets.WidgetDesignerContentScreen.SelectButtons.Any(b => b.IsVisible());
+            }, 10000);
+
             var selectButtons = EM.Widgets.WidgetDesignerContentScreen.SelectButtons;
             foreach (var button in selectButtons)
             {
