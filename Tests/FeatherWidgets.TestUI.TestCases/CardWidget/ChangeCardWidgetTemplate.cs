@@ -30,6 +30,7 @@ namespace FeatherWidgets.TestUI.TestCases.CardWidget
             BATFeather.Wrappers().Backend().Card().CardWrapper().FillHeadingText(HeadingText);
             BATFeather.Wrappers().Backend().Card().CardWrapper().FillTextArea(TextArea);
             BATFeather.Wrappers().Backend().Card().CardWrapper().ClickSelectImageButton();
+            BATFeather.Wrappers().Backend().Media().MediaSelectorWrapper().WaitForContentToBeLoaded(isEmptyScreen: false);
             BATFeather.Wrappers().Backend().Media().MediaSelectorWrapper().SelectMediaFile(ImageTitle);
             BATFeather.Wrappers().Backend().Widgets().SelectorsWrapper().DoneSelecting();
             BATFeather.Wrappers().Backend().Card().CardWrapper().FillLabel(LabelText);
