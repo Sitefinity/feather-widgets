@@ -1,11 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using ArtOfTest.Common.UnitTesting;
 using ArtOfTest.WebAii.Controls.HtmlControls;
 using ArtOfTest.WebAii.Core;
+using ArtOfTest.WebAii.jQuery;
+using Telerik.WebAii.Controls.Html;
 
 namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend.Forms
 {
@@ -19,10 +20,13 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend.Forms
         /// to the form dropzone
         /// </summary>
         /// <param name="widgetName">The Field Name</param>
-        public void AddField(string widgetName)
+        public void AddField(string widgetName, string placeHolder = "Body")
         {
             var widget = GetWidgetByNameFromSideBar(widgetName);
-            HtmlDiv dropZone = EM.Forms.FormsBackend.BodyDropZone;
+            HtmlDiv dropZone = ActiveBrowser.Find
+                                               .ByExpression<HtmlDiv>("placeholderid=" + placeHolder)
+               .AssertIsPresent<HtmlDiv>(placeHolder);
+            dropZone.ScrollToVisible();
             AddWidgetToDropZone(widget, dropZone);
             ActiveBrowser.WaitForAsyncRequests();
             ActiveBrowser.RefreshDomTree();
@@ -163,7 +167,7 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend.Forms
             HtmlDiv controleZone = EM.Forms.FormsBackend.BodyDropZone;
             HtmlDiv widget = ActiveBrowser.Find.ByExpression<HtmlDiv>("class=RadDock RadDock_Default zeControlDock", "behaviourobjecttype=~" + controlerName);
             HtmlAnchor moreLink = GetWidgetMoreLink(widget);
-            moreLink.MouseClick();
+            moreLink.Click();
             HtmlAnchor option = GetMoreMenuOption(menuOption);
             option.MouseClick();
         }
@@ -203,6 +207,8 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend.Forms
         private HtmlAnchor GetMoreMenuOption(string menuOption)
         {
             ActiveBrowser.RefreshDomTree();
+            ActiveBrowser.WaitUntilReady();
+
             HtmlAnchor option = ActiveBrowser.Find.ByExpression<HtmlAnchor>("tagname=a", "innertext=" + menuOption);
             option.AssertIsPresent("Menu option: " + menuOption);
 
@@ -211,6 +217,7 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend.Forms
 
         /// <summary>
         /// Clicks on Save draft button
+        /// <summary>
         public void ClickSaveDraft()
         {
             HtmlAnchor saveDraftButton = EM.Forms.FormsBackend.SaveDraftButton;
@@ -221,6 +228,7 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend.Forms
 
         /// <summary>
         /// Verify PositiveMessageDraftIs shown
+        /// <summary>
         public void VerifyPositiveMessageDraftIsShown()
         {
             HtmlSpan positiveMessageDraftIsSaved = EM.Forms.FormsBackend.PositiveMessageDraftIsSaved;
@@ -229,6 +237,7 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend.Forms
 
         /// <summary>
         /// Verify Verify forms status
+        /// <summary>
         public void VerifyFormStatus(string formName, string status)
         {
             var formStatus = BAT.Wrappers().Backend().Forms().FormsDashboard().GetFormStatus(FeatherGlobals.FormName);

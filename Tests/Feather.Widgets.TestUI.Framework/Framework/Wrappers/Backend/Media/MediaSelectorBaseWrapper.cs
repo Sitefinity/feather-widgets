@@ -60,20 +60,20 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend.Media
         /// <param name="title">The media title.</param>
         public void SelectMediaFile(string title, bool isDocumentFile = false)
         {
+            HtmlControl element;
             if (isDocumentFile)
             {
-                HtmlDiv doc = ActiveBrowser.Find.ByExpression<HtmlDiv>("tagName=div", "class=Media-item-title ng-binding", "innertext=" + title);
-                doc.ScrollToVisible();
-                doc.Focus();
-                doc.MouseClick();
+                element = ActiveBrowser.Find.ByExpression<HtmlDiv>("tagName=div", "class=Media-item-title ng-binding", "innertext=" + title);
             }
             else
             {
-                HtmlImage image = ActiveBrowser.Find.ByExpression<HtmlImage>("tagName=img", "alt=" + title);
-                image.ScrollToVisible();
-                image.Focus();
-                image.MouseClick();
+                element = ActiveBrowser.Find.ByExpression<HtmlImage>("tagName=img", "alt=" + title);
             }
+
+            Assert.IsNotNull(element, "Could not find element for media item \"" + title + "\" to select.");
+            element.ScrollToVisible();
+            element.Focus();
+            element.MouseClick();
         }
 
         /// <summary>
