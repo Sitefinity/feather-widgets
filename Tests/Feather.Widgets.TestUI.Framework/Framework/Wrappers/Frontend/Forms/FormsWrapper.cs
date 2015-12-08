@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using ArtOfTest.Common.UnitTesting;
 using ArtOfTest.WebAii.Controls.HtmlControls;
 using ArtOfTest.WebAii.Core;
@@ -110,14 +106,6 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Frontend.Forms
             Assert.IsTrue(EM.Forms.FormsFrontend.SubmitButton.IsVisible(), "The submit button is not visible");
         }
 
-        /// <summary>
-        /// Verify if Submit button is not visible
-        /// </summary>
-        public void VerifySubmitButtonIsNotVisible()
-        {
-            Assert.IsFalse(EM.Forms.FormsFrontend.SubmitButton.IsVisible(), "The submit button is visible");
-        }
-              
         /// <summary>
         /// Verify the delete form in use message is shown on the frontend
         /// </summary>
