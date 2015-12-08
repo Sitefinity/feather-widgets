@@ -167,17 +167,6 @@ namespace Feather.Widgets.TestUI.Framework.Framework.ElementMap.Forms
         }
 
         /// <summary>
-        /// Gets template selector.
-        /// </summary>
-        public HtmlSelect TemplateSelector
-        {
-            get
-            {
-                return this.Get<HtmlSelect>("tagname=select", "id=textFieldTemplateName");
-            }
-        }
-
-	    /// <summary>
         /// Gets Save Draft Button
         /// </summary>
         public HtmlAnchor SaveDraftButton
@@ -208,61 +197,6 @@ namespace Feather.Widgets.TestUI.Framework.Framework.ElementMap.Forms
             {
                return this.Get<HtmlSpan>("id=?messageControl", "class=sfMessage sfMsgPositive sfMsgVisible", "Innertext=The draft is successfully saved");
            }
-        }
-
-        /// <summary>
-        /// Gets textbox label.
-        /// </summary>
-        public HtmlInputText TextBoxLabel
-        {
-            get
-            {
-                return this.Get<HtmlInputText>("tagname=input", "id=title");
-            }
-        }
-
-        /// <summary>
-        /// Gets the text area
-        /// </summary>
-        public HtmlTextArea TextArea
-        {
-            get
-            {
-                return this.Get<HtmlTextArea>("TagName=textarea", "ng-model=properties.Model.MetaField.Title.PropertyValue");
-            }
-        }
-
-        /// <summary>
-        /// Gets navigation template selector.
-        /// </summary>
-        public HtmlSelect NavigationTemplateSelector
-        {
-            get
-            {
-                return this.Get<HtmlSelect>("tagname=select", "id=navigationFieldTemplateName");
-            }
-        }
-
-        /// <summary>
-        /// Gets css input.
-        /// </summary>
-        public HtmlInputText CssClassInAdvancedSettings
-        {
-            get
-            {
-                return this.Find.AssociatedBrowser.GetControl<HtmlInputText>("id=prop-CssClass");
-            }
-        }
-
-        /// <summary>
-        /// Gets CSS classes textbox.
-        /// </summary>
-        public HtmlInputText CssClassesTextbox
-        {
-            get
-            {
-                return this.Get<HtmlInputText>("tagname=input", "ng-model=properties.Model.CssClass.PropertyValue");
-            }
         }
     }
 }

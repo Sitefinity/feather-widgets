@@ -248,56 +248,6 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Frontend.Forms
         }
 
         /// <summary>
-        /// Verifies the required message.
-        /// </summary>
-        public void VerifyRequiredMessage()
-        {
-            ActiveBrowser.Find.AllByExpression<HtmlControl>("tagName=p", "data-sf-role=required-violation-message")
-                .First()
-                .AssertIsVisible("Required message")
-                .AssertContainsText("This field is required", "The message is not correct");
-        }
-
-        /// <summary>
-        /// Verifies the required field.
-        /// </summary>
-        public void VerifyRequiredFields(string controllerType)
-        {
-            if (controllerType.Equals("TextFieldController"))
-            {
-                var section = ActiveBrowser.Find.ByExpression<HtmlControl>("name=" + controllerType)
-                .AssertIsPresent("Controller ");
-                var attr = section.Attributes.FirstOrDefault(a => a.Name == "required");
-                Assert.AreEqual("'required'", attr.Value.ToLower(), "Required field ");
-            }
-            else
-            {
-                var section = ActiveBrowser.Find.ByExpression<HtmlControl>("name=" + controllerType)
-                .AssertIsPresent("Controller ");
-                var attr = section.Attributes.FirstOrDefault(a => a.Name == "required");
-                Assert.AreEqual("required", attr.Value.ToLower(), "Required field ");
-            }
-        }
-
-        /// <summary>
-        /// Verify if field exist in preview
-        /// </summary>
-        /// <param name="fieldLabel">Label of the field</param>
-        /// <param name="exist">If the field exist set true</param>
-        public void VerifyIfFieldExistInPreviewMode(string fieldLabel, bool exist)
-        {
-            HtmlDiv activeForm = ActiveBrowser.Find.AllByExpression<HtmlDiv>("TagName=div", "data-sf-role=separator").Where(d => d.IsVisible()).FirstOrDefault();
-            if (exist)
-            {
-                Assert.IsTrue(activeForm.InnerText.Contains(fieldLabel), "Label of the field is not as expected");
-            }
-            else
-            {
-                Assert.IsFalse(activeForm.InnerText.Contains(fieldLabel), "Label of the field is not as expected");
-            }
-        }
-
-        /// <summary>
         /// Verify if dropdown list field  is NOT visible
         /// </summary>
         public void VerifyDropdownListFieldIsNotVisible()
