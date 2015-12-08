@@ -116,43 +116,6 @@ namespace FeatherWidgets.TestUtilities.CommonOperations.Forms
             return this.CreateFormWithWidgets(controls, formTitle, publishForm);
         }
 
-        public Guid CreateFormWithWidgets(IList<Control> formHeaderControls, IList<Control> formBodyControls, IList<Control> formFooterControls)
-        {
-            return this.CreateFormWithWidgets(formHeaderControls, formBodyControls, formFooterControls, null);
-        }
-
-        public Guid CreateFormWithWidgets(IList<Control> formHeaderControls, IList<Control> formBodyControls, IList<Control> formFooterControls, string formTitle)
-        {
-            var formId = Guid.NewGuid();
-
-            string formSuccessMessage = "Test form success message";
-
-            if (formTitle == null)
-                formTitle = formId.ToString("N");
-
-            this.CreateFormWithHeaderAndFooter(formId, "form_" + formId.ToString("N"), formTitle, formSuccessMessage, formHeaderControls, formBodyControls, formFooterControls);
-
-            SystemManager.ClearCurrentTransactions();
-            SystemManager.RestartApplication(false);
-            System.Threading.Thread.Sleep(1000);
-
-            return formId;
-        }
-
-        public Guid CreateFormWithWidgets(IEnumerable<FormFieldType> headerWidgets, IEnumerable<FormFieldType> bodyWidgets, IEnumerable<FormFieldType> footerWidgets)
-        {
-            return this.CreateFormWithWidgets(headerWidgets, bodyWidgets, footerWidgets, null);
-        }
-
-        public Guid CreateFormWithWidgets(IEnumerable<FormFieldType> headerWidgets, IEnumerable<FormFieldType> bodyWidgets, IEnumerable<FormFieldType> footerWidgets, string formTitle)
-        {
-            var headerControls = this.CreateFormFieldsFromFieldTypes(headerWidgets);
-            var bodyControls = this.CreateFormFieldsFromFieldTypes(bodyWidgets);
-            var footerControls = this.CreateFormFieldsFromFieldTypes(footerWidgets);
-
-            return this.CreateFormWithWidgets(headerControls, bodyControls, footerControls, formTitle);
-        }
-
         public IList<Control> CreateFormFieldsFromFieldTypes(IEnumerable<FormFieldType> widgets)
         {
             var controls = new List<Control>();
@@ -338,46 +301,6 @@ namespace FeatherWidgets.TestUtilities.CommonOperations.Forms
             }
         }
 
-        /// <summary>
-        /// Creates a new form in Content -> Forms
-        /// </summary>
-        /// <param name="formId">Form ID</param>
-        /// <param name="formName">Form name</param>
-        /// <param name="formTitle">Form title</param>
-        /// <param name="formSuccessMessage">Success message after the form is submitted</param>
-        /// <param name="formControls">Form widgets like text boxes and buttons</param>
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Maintainability", "CA1506:AvoidExcessiveClassCoupling")]
-        public void CreateFormWithHeaderAndFooter(Guid formId, string formName, string formTitle, string formSuccessMessage, IList<Control> formHeaderControls, IList<Control> formBodyControls, IList<Control> formFooterControls)
-        {
-            FormsManager formManager = FormsManager.GetManager();
-            var form = formManager.GetForms().SingleOrDefault(f => f.Id == formId);
-
-            if (form == null)
-            {
-                form = formManager.CreateForm(formName, formId);
-                form.Framework = FormFramework.Mvc;
-                form.Title = formTitle;
-                form.UrlName = Regex.Replace(form.Name.ToLower(), ArrangementConstants.UrlNameCharsToReplace, ArrangementConstants.UrlNameReplaceString);
-                form.SuccessMessage = formSuccessMessage;
-
-                var culture = System.Globalization.CultureInfo.CurrentUICulture;
-                var draft = formManager.EditForm(form.Id);
-                var master = formManager.Lifecycle.CheckOut(draft, culture);
-
-                if (master != null)
-                {
-                    this.AppendFormControlsToPlaceholder(formName, formBodyControls, formManager, master, "Body");
-                    this.AppendFormControlsToPlaceholder(formName, formHeaderControls, formManager, master, "Header");
-                    this.AppendFormControlsToPlaceholder(formName, formFooterControls, formManager, master, "Footer");
-
-                    master = formManager.Lifecycle.CheckIn(master, culture);
-                    formManager.Lifecycle.Publish(master, culture);
-
-                    formManager.SaveChanges(true);
-                }
-            }
-        }
-
         private static Guid GetLastControlInPlaceHolder(FormDescription form, string placeHolder)
         {
             var id = Guid.Empty;
@@ -394,27 +317,6 @@ namespace FeatherWidgets.TestUtilities.CommonOperations.Forms
             }
 
             return id;
-        }
-
-        private void AppendFormControlsToPlaceholder(string formName, IList<Control> formControls, FormsManager formManager, FormDraft master, string containerId)
-        {
-            if (formControls != null && formControls.Any())
-            {
-                Guid siblingId = Guid.Empty;
-                int controlsCounter = 0;
-                foreach (var control in formControls)
-                {
-                    controlsCounter++;
-                    control.ID = string.Format(CultureInfo.InvariantCulture, formName + "_" + containerId + "_C" + controlsCounter.ToString(CultureInfo.InvariantCulture).PadLeft(3, '0'));
-                    var formControl = formManager.CreateControl<FormDraftControl>(control, containerId);
-
-                    formControl.SiblingId = siblingId;
-                    formControl.Caption = ObjectFactory.Resolve<IControlBehaviorResolver>().GetBehaviorObject(control).GetType().Name;
-                    siblingId = formControl.Id;
-                    master.Controls.Add(formControl);
-                    formControl.SetPersistanceStrategy();
-                }
-            }
         }
     }
 }

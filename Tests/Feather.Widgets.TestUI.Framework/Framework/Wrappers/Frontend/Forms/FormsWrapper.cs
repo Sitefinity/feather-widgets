@@ -259,49 +259,6 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Frontend.Forms
         }
 
         /// <summary>
-        /// Clicks the next step button
-        /// </summary>
-        public void ClickNextButton()
-        {
-            ActiveBrowser.RefreshDomTree();
-            HtmlButton nextButton = EM.Forms.FormsFrontend.NextStepVisible;
-            nextButton.ScrollToVisible();
-            nextButton.Focus();
-            nextButton.Click();
-        }
-
-        /// <summary>
-        /// Clicks the previous step button
-        /// </summary>
-        public void ClickPreviousButton()
-        {
-            HtmlAnchor previousButton = EM.Forms.FormsFrontend.PreviousStep;
-            previousButton.MouseClick();
-
-            ActiveBrowser.WaitUntilReady();
-        }
-
-        /// <summary>
-        /// Verify next step text
-        /// </summary>
-        /// <param name="buttonText">The button text.</param>
-        /// <param name="isVisible">if set to <c>true</c> [is visible].</param>
-        public void VerifyNextStepText(string buttonText = "Next step", bool isVisible = true)
-        {
-            HtmlButton nextButton = EM.Forms.FormsFrontend.NextStepButton;
-
-            if (!isVisible)
-            {
-                nextButton.AssertIsNotVisible("Next step button");
-            }
-            else
-            {
-                nextButton.AssertIsVisible("Next step button");
-                Assert.IsTrue(nextButton.InnerText.Contains(buttonText), "Button text ");
-            }
-        }
-
-        /// <summary>
         /// Verifies the required message.
         /// </summary>
         public void VerifyRequiredMessage()
@@ -332,132 +289,12 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Frontend.Forms
                 Assert.AreEqual("required", attr.Value.ToLower(), "Required field ");
             }
         }
-        
-        /// <summary>
-        /// Verify previous step text
-        /// </summary>
-        /// <param name="buttonText">The button text.</param>
-        /// <param name="isVisible">if set to <c>true</c> [is visible].</param>
-        public void VerifyPreviousStepText(string buttonText = "Previous step", bool isVisible = true)
-        {           
-            if (!isVisible)
-            {
-                 Assert.IsFalse(ActiveBrowser.ContainsText(buttonText));
-            }
-            else
-            {
-                HtmlAnchor previousButton = EM.Forms.FormsFrontend.PreviousStep;
-
-                previousButton.AssertIsVisible("Previous step button");
-                Assert.IsTrue(previousButton.InnerText.Contains(buttonText), "Button text ");
-            }
-        }
 
         /// <summary>
-        /// Verifies the navigation pages labels.
-        /// </summary>
-        /// <param name="labels">The labels.</param>
-        /// <param name="navIndex">Index of the nav.</param>
-        public void VerifyNavigationPagesLabels(List<string> labels, int navIndex = 0)
-        {
-            ActiveBrowser.WaitUntilReady();
-            ActiveBrowser.RefreshDomTree();
-            ActiveBrowser.WaitUntilReady();
-
-            var lists = ActiveBrowser.Find.AllByExpression<HtmlUnorderedList>("class=sf-FormNav");
-            lists[navIndex].AssertIsVisible("Navigation list");
-
-            var pageLabels = lists[navIndex].Find.AllByTagName("li");
-            for (int i = 0; i < labels.Count; i++)
-            {
-                Assert.AreEqual((i + 1) + labels[i], pageLabels[i].InnerText);
-            }
-        }
-
-        /// <summary>
-        /// Verifies the pages labels in multipage form.
-        /// </summary>
-        /// <param name="labels">The labels.</param>
-        public void VerifyPagingIndexes(List<string> labels)
-        {
-            var indexes = ActiveBrowser.Find.AllByExpression<HtmlSpan>("data-sf-role=page-label");
-            
-            for (int i = 0; i < labels.Count; i++)
-            {
-                indexes[i].AssertIsVisible("The multi page label");
-                Assert.AreEqual(labels[i], indexes[i].InnerText);
-            }
-        }
-
-        /// <summary>
-        /// Verifies the header and footer page labels.
-        /// </summary>
-        /// <param name="areVisible">if set to <c>true</c> [are visible].</param>
-        /// <param name="isFirstOpenOfTheForm">if set to <c>true</c> [is first open of the form].</param>
-        public void VerifyHeaderAndFooterPageLabels(bool areVisible = true, bool isFirstOpenOfTheForm = false)
-        {
-            if (!areVisible)
-            {
-                if (!isFirstOpenOfTheForm)
-                {
-                    ActiveBrowser.Find.ByExpression<HtmlSpan>("data-sf-role=page-label")
-                        .AssertIsNull("The page indexes are visible but they shouldn't");
-
-                    var headerAndFooter = ActiveBrowser.Find.AllByExpression<HtmlSpan>("data-sf-role=zone-label");
-                    headerAndFooter.First().AssertIsNotVisible("Header");
-                    headerAndFooter.First().AssertIsNotVisible("Footer");
-                }
-                else
-                {
-                    ActiveBrowser.Find.ByExpression<HtmlSpan>("data-sf-role=page-label")
-                        .AssertIsNull("The header and footerlabels are visible but they shouldn't");
-
-                    ActiveBrowser.Find.ByExpression<HtmlSpan>("data-sf-role=zone-label")
-                        .AssertIsNull("The page indexes are visible but they shouldn't");
-                }
-            }
-            else
-            {
-                var headerAndFooter = ActiveBrowser.Find.AllByExpression<HtmlSpan>("data-sf-role=zone-label");
-                headerAndFooter.First().AssertIsVisible("Header");
-                Assert.AreEqual(headerAndFooter.First().InnerText, "Common header");
-
-                headerAndFooter.First().AssertIsVisible("Footer");
-                Assert.AreEqual(headerAndFooter.Last().InnerText, "Common footer");
-            }
-        }
-
-        /// <summary>
-        /// Verifies the active page in navigation.
-        /// </summary>
-        /// <param name="activePageIndex">Index of the active page.</param>
-        public void VerifyActivePageInNavigation(int activePageIndex = 0)
-        {
-            var activePage = ActiveBrowser.Find.ByExpression<HtmlListItem>("data-sf-navigation-index=" + activePageIndex);
-            activePage.AssertIsVisible("Active page in navigation");
-            Assert.AreEqual(activePage.CssClass, "active");
-        }
-
-        /// <summary>
-        /// Verify multipage form on frontend
-        /// </summary>
-        /// <param name="fieldLabel">Field label</param>
-        public void VerifyMultiPageFormFieldOnForntend(string[] fieldLabel)
-        {
-            List<HtmlDiv> formList = ActiveBrowser.Find.AllByExpression<HtmlDiv>("data-sf-role=form-container").ToList<HtmlDiv>();
-
-            for (int i = 0; i < fieldLabel.Length; i++)
-            {
-                HtmlDiv activeForm = formList[i].Find.AllByExpression<HtmlDiv>("TagName=div", "data-sf-role=separator").Where(d => d.IsVisible()).FirstOrDefault();
-                Assert.IsTrue(activeForm.InnerText.Contains(fieldLabel[i]), "Label of the field is not as expected");
-            }
-        }
-
-       /// <summary>
         /// Verify if field exist in preview
-       /// </summary>
-       /// <param name="fieldLabel">Label of the field</param>
-       /// <param name="exist">If the field exist set true</param>
+        /// </summary>
+        /// <param name="fieldLabel">Label of the field</param>
+        /// <param name="exist">If the field exist set true</param>
         public void VerifyIfFieldExistInPreviewMode(string fieldLabel, bool exist)
         {
             HtmlDiv activeForm = ActiveBrowser.Find.AllByExpression<HtmlDiv>("TagName=div", "data-sf-role=separator").Where(d => d.IsVisible()).FirstOrDefault();
