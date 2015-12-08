@@ -72,30 +72,11 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Frontend.Forms
         }
 
         /// <summary>
-        /// Verifies the submit buttons count in front end.
-        /// </summary>
-        /// <param name="expectedCount">The expected count.</param>
-        public void VerifySubmitButtonsCountInFrontEnd(int expectedCount)
-        {
-            var submitButtons = ActiveBrowser.Find.AllByExpression("tagName=button", "class=sf-SubmitButton btn btn-primary");
-            Assert.AreEqual(expectedCount, submitButtons.Count);
-        }
-
-        /// <summary>
         /// Verify if Paragraph text field label is visible
         /// </summary>
         public void VerifyParagraphTextFieldLabelIsVisible(string fieldLabel)
         {
             Assert.IsTrue(EM.Forms.FormsFrontend.ParagraphTextField.InnerText.Contains(fieldLabel));
-        }
-
-        /// <summary>
-        /// Verify if text field is visible
-        /// </summary>
-        public void VerifyTextFieldlIsVisibleHybrid()
-        {
-            Assert.IsNotNull(EM.Forms.FormsFrontend.TextboxFieldHybrid, "Text field is not");
-            Assert.IsTrue(EM.Forms.FormsFrontend.TextboxFieldHybrid.IsVisible(), "The text input field is not visible");
         }
 
         /// <summary>
