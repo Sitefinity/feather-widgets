@@ -90,20 +90,6 @@ namespace Feather.Widgets.TestUI.Framework.Framework.ElementMap.Forms
         }
 
         /// <summary>
-        /// Gets the required file upload field CheckBox.
-        /// </summary>
-        /// <value>
-        /// The required file upload field CheckBox.
-        /// </value>
-        public HtmlInputCheckBox RequiredFileUploadFieldCheckBox
-        {
-            get
-            {
-                return this.Get<HtmlInputCheckBox>("type=checkbox", "ng-model=properties.Model.IsRequired.PropertyValue");
-            }
-        }
-
-        /// <summary>
         /// Gets SubmitButtonController div
         /// </summary>
         public HtmlDiv SubmitButtonControllerDiv

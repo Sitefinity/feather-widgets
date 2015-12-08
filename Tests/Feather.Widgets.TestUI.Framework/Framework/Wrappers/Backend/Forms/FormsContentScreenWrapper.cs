@@ -46,87 +46,6 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend.Forms
         }
 
         /// <summary>
-        /// Gets a widget by Name
-        /// </summary>
-        /// <param name="widgetLabelName">The widget label name</param>
-        /// <returns>The Widget</returns>
-        private HtmlDiv GetWidgetByNameFromZoneEditor(string widgetLabelName)
-        {
-            HtmlDiv widget = ActiveBrowser.Find.ByExpression<HtmlDiv>("class=rdTitleBar zeControlTitlebar", "innertext=~" + widgetLabelName)
-                .AssertIsPresent("Widget: " + widgetLabelName);
-
-            return widget;
-        }
-
-        /// <summary>
-        /// Drags a field in zone editor
-        /// to the form dropzone
-        /// </summary>
-        /// <param name="widgetName">The Field Name</param>
-        public void MoveFieldInZoneEditor(string widgetName, string placeHolder = "Body")
-        {
-            var widget = GetWidgetByNameFromZoneEditor(widgetName);
-            HtmlDiv dropZone = ActiveBrowser.Find
-                                               .ByExpression<HtmlDiv>("placeholderid=" + placeHolder)
-               .AssertIsPresent<HtmlDiv>(placeHolder);
-            dropZone.ScrollToVisible();
-
-            AddWidgetToDropZonePoint(widget, dropZone);
-
-            ActiveBrowser.WaitForAsyncRequests();
-            ActiveBrowser.RefreshDomTree();
-        }
-
-        /// <summary>
-        /// Drags a field in zone editor
-        /// to the form dropzone
-        /// </summary>
-        /// <param name="widgetName">The Field Name</param>
-        public void VerifyFieldsInPlaceholder(string widgetName, string placeHolder = "Body", bool isContained = true)
-        {
-            HtmlDiv dropZone = ActiveBrowser.Find
-                                               .ByExpression<HtmlDiv>("placeholderid=" + placeHolder)
-               .AssertIsPresent<HtmlDiv>(placeHolder);
-
-            if (isContained)
-            {
-                Assert.IsTrue(dropZone.InnerText.Contains(widgetName), "Widget is not in placeholder");
-            }
-            else 
-            {
-                Assert.IsFalse(dropZone.InnerText.Contains(widgetName), "Widget is in placeholder");
-            }
-        }
-
-        /// <summary>
-        /// Drags the widget to the specified point in dropzone
-        /// </summary>
-        /// <param name="widgetElement">The Widget</param>
-        /// <param name="dropZone">The Dropzone</param>
-        private void AddWidgetToDropZonePoint(HtmlDiv widgetElement, HtmlDiv dropZone)
-        {
-            ActiveBrowser.RefreshDomTree();
-            widgetElement.Refresh();            
-            widgetElement.DragTo(dropZone);
-        }
-
-        /// <summary>
-        /// Clicks on Widget menu item (only click is performed, no waiting)
-        /// </summary>
-        /// <param name="widgetName">The Widget Name</param>
-        /// <param name="menuOption">The menu option</param>
-        public void ClickOnFieldMenuItem(string widgetName, string menuOption)
-        {
-            HtmlDiv widget = GetWidgetByNameFromZoneEditor(widgetName);
-            widget.ScrollToVisible();
-            widget.Focus();
-            HtmlAnchor moreLink = GetWidgetMoreLink(widget);
-            moreLink.MouseClick();
-            HtmlAnchor option = GetMoreMenuOption(menuOption);
-            option.MouseClick();
-        }
-
-        /// <summary>
         /// Drags the widget to the specified dropzone
         /// </summary>
         /// <param name="widgetElement">The Widget</param>
@@ -144,16 +63,6 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend.Forms
         public void CheckRequiredFieldCheckbox()
         {
             HtmlInputCheckBox checkbox = this.EM.Forms.FormsBackend.RequiredFieldCheckBox.AssertIsPresent("Required field");
-            checkbox.Click();
-            checkbox.AssertIsPresent("checked");
-        }
-
-        /// <summary>
-        /// Checks the required file upload field checkbox.
-        /// </summary>
-        public void CheckRequiredFileUploadFieldCheckbox()
-        {
-            HtmlInputCheckBox checkbox = this.EM.Forms.FormsBackend.RequiredFileUploadFieldCheckBox.AssertIsPresent("Required field");
             checkbox.Click();
             checkbox.AssertIsPresent("checked");
         }

@@ -202,17 +202,6 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Frontend.Forms
         }
 
         /// <summary>
-        /// Clicks the submit in the footer.
-        /// </summary>
-        public void ClickSubmitInTheFooter()
-        {
-            ActiveBrowser.Find.AllByExpression<HtmlButton>("TagName=button", "type=submit")
-                .Last()
-                .AssertIsVisible("Submit button in the footer")
-                .Click();
-        }
-
-        /// <summary>
         /// Selects checkbox from checkboxes field
         /// </summary>
         public void SelectCheckbox(string choice)
