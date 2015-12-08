@@ -135,6 +135,39 @@ namespace Feather.Widgets.TestUI.Framework.Framework.ElementMap.Forms
         }
    
         /// <summary>
+        /// Gets the next button on frontend
+        /// </summary>
+        public HtmlButton NextStepButton
+        {
+            get
+            {
+                return this.Get<HtmlButton>("TagName=button", "data-sf-btn-role=next");
+            }
+        }
+
+        /// <summary>
+        /// Gets the next button on frontend
+        /// </summary>
+        public HtmlButton NextStepVisible
+        {
+            get
+            {
+                return this.Find.AllByExpression<HtmlButton>("TagName=button", "data-sf-btn-role=next").Where(b => b.IsVisible()).FirstOrDefault();
+            }
+        }
+
+        /// <summary>
+        /// Gets the previous anchor on frontend
+        /// </summary>
+        public HtmlAnchor PreviousStep
+        {
+            get
+            {
+                return this.Get<HtmlAnchor>("TagName=a", "data-sf-btn-role=prev");
+            }
+        }
+
+        /// <summary>
         /// Gets the captcha field on frontend
         /// </summary>
         public HtmlDiv CaptchaField
@@ -146,7 +179,7 @@ namespace Feather.Widgets.TestUI.Framework.Framework.ElementMap.Forms
         }
 
         /// <summary>
-        /// Gets the fil upload field on frontend
+        /// Gets the file upload field on frontend
         /// </summary>
         public HtmlDiv FileUploadField
         {
@@ -155,5 +188,20 @@ namespace Feather.Widgets.TestUI.Framework.Framework.ElementMap.Forms
                 return this.Find.ByExpression<HtmlDiv>("data-sf-role=file-field-inputs");
             }
         }
+
+        #region HybridPage
+
+        /// <summary>
+        /// Gets the textbox field on frontend
+        /// </summary>
+        public HtmlInputText TextboxFieldHybrid
+        {
+            get
+            {
+                return this.Get<HtmlInputText>("name=TextFieldController", "data-sf-role=text-field-input");
+            }
+        }
+
+        #endregion HybridPage
     }
 }

@@ -34,6 +34,19 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend
         }
 
         /// <summary>
+        /// Verifies if any Feather MVC widget is presented in pages toolbox section.
+        /// </summary>
+        /// <returns>true or false depending on the widgets presence in the toolbox.</returns>
+        public bool IsAnyMvcWidgetPersentInToolbox()
+        {
+            ActiveBrowser.RefreshDomTree();
+            RadPanelBar toolbox = Manager.Current.ActiveBrowser.Find.ById<RadPanelBar>("~ControlToolboxContainer");
+            var mvcItems = toolbox.Find.AllByExpression("class=~sfMvcIcn");
+
+            return mvcItems != null && mvcItems.Count > 0;
+        }
+
+        /// <summary>
         /// Gets the feather Mvc widget.
         /// </summary>
         /// <param name="mvcWidgetName">feather mvc widget name</param>
@@ -88,7 +101,9 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend
         /// <param name="dropZoneIndex">The drop zone index</param>
         public void EditWidget(string widgetName, int dropZoneIndex = 0, bool isMediaWidgetEdited = false)
         {
+            ActiveBrowser.WaitUntilReady();
             ActiveBrowser.RefreshDomTree();
+            ActiveBrowser.WaitUntilReady();
             var widgetHeader = ActiveBrowser
                                       .Find
                                       .AllByCustom<HtmlDiv>(d => d.CssClass.StartsWith("rdTitleBar") && d.ChildNodes.First().InnerText.Equals(widgetName))[dropZoneIndex]

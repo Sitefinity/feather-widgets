@@ -8,6 +8,7 @@ using Telerik.Sitefinity.Frontend.TestUtilities.CommonOperations;
 using Telerik.Sitefinity.Modules.Pages;
 using Telerik.Sitefinity.Mvc.Proxy;
 using Telerik.Sitefinity.TestIntegration.SDK.DevelopersGuide.SitefinityEssentials.Modules.Forms;
+using Telerik.WebTestRunner.Server.Attributes;
 
 namespace FeatherWidgets.TestIntegration.Forms.Fields
 {
@@ -21,7 +22,7 @@ namespace FeatherWidgets.TestIntegration.Forms.Fields
         /// <summary>
         /// Ensures that when a Section header field widget is added to form the default value is presented in the page markup.
         /// </summary>
-        [Test]
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Maintainability", "CA1506:AvoidExcessiveClassCoupling"), Test]
         [Category(TestCategories.Forms)]
         [Author(FeatherTeams.FeatherTeam)]
         [Ignore("Form creation via Server operations feather does not include passed widget.")] 
@@ -46,7 +47,7 @@ namespace FeatherWidgets.TestIntegration.Forms.Fields
                 var pageId = FeatherServerOperations.Pages().CreatePageWithTemplate(template, "SectionHeaderFieldValueTest", "section-header-field-value-test");
                 ServerOperationsFeather.Forms().AddFormControlToPage(pageId, formId);
 
-                var pageContent = FeatherServerOperations.Pages().GetPageContent(pageId);
+                var pageContent = ServerOperationsFeather.Pages().GetPageContent(pageId);
 
                 Assert.IsTrue(pageContent.Contains("Hello"), "Form did not render section header");
             }

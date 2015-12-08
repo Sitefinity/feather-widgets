@@ -13,6 +13,7 @@ using Telerik.Sitefinity.Modules.Forms;
 using Telerik.Sitefinity.Modules.Pages;
 using Telerik.Sitefinity.Mvc.Proxy;
 using Telerik.Sitefinity.TestIntegration.SDK.DevelopersGuide.SitefinityEssentials.Modules.Forms;
+using Telerik.WebTestRunner.Server.Attributes;
 
 namespace FeatherWidgets.TestIntegration.Forms.Fields
 {
@@ -26,7 +27,7 @@ namespace FeatherWidgets.TestIntegration.Forms.Fields
         /// <summary>
         /// Ensures that when a dropdown list field widget is added to form the default value is presented in the page markup.
         /// </summary>
-        [Test]
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Maintainability", "CA1506:AvoidExcessiveClassCoupling"), Test]
         [Category(TestCategories.Forms)]
         [Author(FeatherTeams.FeatherTeam)]
         [Description("Ensures that when a dropdown list field widget is added to form the default value is presented in the page markup.")]
@@ -50,7 +51,7 @@ namespace FeatherWidgets.TestIntegration.Forms.Fields
                 var pageId = FeatherServerOperations.Pages().CreatePageWithTemplate(template, "DropdownListFieldSubmitValueTest", "dropdown-list-field-value-test");
                 ServerOperationsFeather.Forms().AddFormControlToPage(pageId, formId);
 
-                var pageContent = FeatherServerOperations.Pages().GetPageContent(pageId);
+                var pageContent = ServerOperationsFeather.Pages().GetPageContent(pageId);
                 Assert.IsTrue(pageContent.Contains(Res.Get<FieldResources>().OptionSelect), "Form did not render the select default choice in the dropdown list field.");
                 Assert.IsTrue(pageContent.Contains(Res.Get<FieldResources>().OptionFirstChoice), "Form did not render the first default choice in the dropdown list field.");
                 Assert.IsTrue(pageContent.Contains(Res.Get<FieldResources>().OptionSecondChoice), "Form did not render the second default choice in the dropdown list field.");
