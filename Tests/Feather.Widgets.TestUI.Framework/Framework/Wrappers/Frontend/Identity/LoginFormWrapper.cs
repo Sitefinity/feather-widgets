@@ -86,6 +86,9 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Frontend.Identity
         {
             HtmlAnchor registerNowLink = this.EM.Identity.LoginFormFrontend.RegisterNow.AssertIsPresent("Register now link");
             registerNowLink.Click();
+
+            ActiveBrowser.WaitUntilReady();
+            ActiveBrowser.RefreshDomTree();
         }
     }
 }
