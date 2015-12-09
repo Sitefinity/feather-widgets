@@ -22,7 +22,10 @@ namespace FeatherWidgets.TestUI.Arrangements
         {
             ServerOperations.Comments().AllowComments(ThreadType, true);
 
-            Telerik.Sitefinity.TestUtilities.Services.Notifications.NotificationsTestHelper.ResetDummySmtpSenderData(profileName: SubscribeUserForCommentsNotificationAndVerifyReceivedEmail.NotificationsProfileName);
+            // Use the following line once the Sitefinity is updated to 9.0.
+            // Telerik.Sitefinity.TestUtilities.Services.Notifications.NotificationsTestHelper.ResetDummySmtpSenderData(profileName: SubscribeUserForCommentsNotificationAndVerifyReceivedEmail.NotificationsProfileName);
+            NotificationsTestHelper.ResetDummySmtpSenderData(profileName: SubscribeUserForCommentsNotificationAndVerifyReceivedEmail.NotificationsProfileName);
+
             ServerOperations.Comments().SetCommentsNotificationProfile(SubscribeUserForCommentsNotificationAndVerifyReceivedEmail.NotificationsProfileName);
 
             Guid templateId = Telerik.Sitefinity.TestUtilities.CommonOperations.ServerOperations.Templates().GetTemplateIdByTitle(PageTemplateName);
@@ -62,7 +65,10 @@ namespace FeatherWidgets.TestUI.Arrangements
         {
             AuthenticationHelper.AuthenticateUser("admin", "admin@2", true);
             ServerOperations.Comments().SetCommentsNotificationProfile("Default");
-            Telerik.Sitefinity.TestUtilities.Services.Notifications.NotificationsTestHelper.ResetDummySmtpSenderData(profileName: SubscribeUserForCommentsNotificationAndVerifyReceivedEmail.NotificationsProfileName, cleanOnly: true);
+
+            // Use the following line once the Sitefinity is updated to 9.0.
+            // Telerik.Sitefinity.TestUtilities.Services.Notifications.NotificationsTestHelper.ResetDummySmtpSenderData(profileName: SubscribeUserForCommentsNotificationAndVerifyReceivedEmail.NotificationsProfileName, cleanOnly: true);
+            NotificationsTestHelper.ResetDummySmtpSenderData(profileName: SubscribeUserForCommentsNotificationAndVerifyReceivedEmail.NotificationsProfileName, cleanOnly: true);
 
             ServerOperations.Pages().DeleteAllPages();
             var siteID = ServerOperations.Comments().GetCurrentSiteId.ToString();
