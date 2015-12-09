@@ -346,6 +346,8 @@
     <Compile Include="Forms\Navigation\ChangeAdvancedSettingsOfFormNavigationAndSetCssClass.cs" />
     <Compile Include="Forms\Navigation\ChangeFormNavigationTemplate.cs" />
     <Compile Include="Forms\Navigation\AddFormNavigationField.cs" />
+    <Compile Include="Forms\Navigation\VerifyProgressBarTemplate.cs" />
+    <Compile Include="Forms\Navigation\VerifyCheckedStatusInNavigation.cs" />
     <Compile Include="Forms\Navigation\DeleteNavigationFromForm.cs" />
     <Compile Include="Forms\Navigation\DuplicateNavigationForm.cs" />
     <Compile Include="Forms\MultiPageForms\EditPageWithMultipageFormsViaInlineEditing.cs" />

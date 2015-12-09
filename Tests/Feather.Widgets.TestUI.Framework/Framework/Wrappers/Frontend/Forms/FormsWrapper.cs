@@ -271,6 +271,29 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Frontend.Forms
         }
 
         /// <summary>
+        /// Verifies the visible numbers in navigation.
+        /// </summary>
+        /// <param name="visibleNumbers">The visible numbers.</param>
+        public void VerifyVisibleNumbersInNavigation(int visibleNumbers)
+        {
+                var actualVisibleNumbers = ActiveBrowser.Find.AllByExpression<HtmlSpan>("class=sf-FormNav-page-number")
+                    .Where(d => d.IsVisible());
+            Assert.AreEqual(visibleNumbers, actualVisibleNumbers.Count());
+        }
+
+
+        /// <summary>
+        /// Verifies the percentage for the progress bar.
+        /// </summary>
+        /// <param name="expectedPercentage">The expected percentage.</param>
+        public void VerifyPercentageForTheProgressBar(string expectedPercentage)
+        {
+            var actualPercentage = ActiveBrowser.Find.ByExpression<HtmlSpan>("class=sf-Progress-percent")
+                .AssertIsVisible("The percentage");
+            Assert.AreEqual(expectedPercentage, actualPercentage.InnerText);
+        }
+
+        /// <summary>
         /// Clicks the previous step button
         /// </summary>
         public void ClickPreviousButton()
