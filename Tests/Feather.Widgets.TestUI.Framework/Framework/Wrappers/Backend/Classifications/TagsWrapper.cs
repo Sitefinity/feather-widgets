@@ -50,6 +50,7 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend.Classifica
         /// <param name="optionId">The option id.</param>
         public void VerifyCheckedRadioButtonOption(TagsRadioButtonIds optionId)
         {
+            ActiveBrowser.WaitForElement("tagname=input", "id=" + optionId);
             HtmlInputRadioButton radioButton = ActiveBrowser.Find.ByExpression<HtmlInputRadioButton>("tagname=input", "id=" + optionId)
                   .AssertIsPresent("radio button");
 
