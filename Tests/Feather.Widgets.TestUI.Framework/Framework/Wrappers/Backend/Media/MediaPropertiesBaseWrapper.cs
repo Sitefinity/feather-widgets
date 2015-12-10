@@ -121,7 +121,9 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend.Media
             HtmlButton saveBtn = this.EM.Media.MediaPropertiesBaseScreen.SaveButtonInMediaWidget.AssertIsPresent("Done button");
 
             saveBtn.Click();
+            ActiveBrowser.WaitUntilReady();
             ActiveBrowser.WaitForAsyncOperations();
+            ActiveBrowser.WaitForAjax(10000);
             ActiveBrowser.RefreshDomTree();
         }
 

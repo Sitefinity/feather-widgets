@@ -23,6 +23,11 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend
         /// <param name="src">The SRC.</param>
         public void VerifyImageThumbnail(string altText, string src)
         {
+            ActiveBrowser.WaitForAjax(10000);
+            ActiveBrowser.WaitUntilReady();
+            ActiveBrowser.RefreshDomTree();
+            ActiveBrowser.WaitForElement("tagname=img", "alt=~" + altText);
+
             HtmlImage image = ActiveBrowser.Find.ByExpression<HtmlImage>("alt=~" + altText)
                 .AssertIsPresent(altText);
 
@@ -126,6 +131,11 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend
         /// <param name="src">The SRC.</param>
         public void VerifyImageResizingProperties(string altText, string srcWidth, string srcHeight, string srcQuality, string srcResizingOption)
         {
+            ActiveBrowser.WaitForAjax(10000);
+            ActiveBrowser.WaitUntilReady();
+            ActiveBrowser.RefreshDomTree();
+            ActiveBrowser.WaitForElement("tagname=img", "alt=~" + altText);
+
             HtmlImage image = ActiveBrowser.Find.ByExpression<HtmlImage>("alt=~" + altText)
                 .AssertIsPresent(altText);
 

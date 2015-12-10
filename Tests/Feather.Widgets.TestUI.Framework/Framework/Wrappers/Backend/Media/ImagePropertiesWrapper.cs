@@ -212,5 +212,17 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend.Media
 
             link.Click();
         }
+
+        /// <summary>
+        /// Waits the until image is loaded.
+        /// </summary>
+        public void WaitUntilImageIsLoaded()
+        {
+            ActiveBrowser.WaitForElement("tagName=button", "InnerText=~Change");
+            Manager.Current.Wait.For(() => {
+                this.ActiveBrowser.RefreshDomTree();
+                return this.EM.Media.ImagePropertiesScreen.ChangeButton.IsVisible();
+            });
+        }
     }
 }
