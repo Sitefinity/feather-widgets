@@ -1,4 +1,6 @@
 ﻿using System;
+
+using ArtOfTest.WebAii.Core;
 using Feather.Widgets.TestUI.Framework;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
@@ -37,12 +39,12 @@ namespace FeatherWidgets.TestUI.TestCases.CardWidget
             BATFeather.Wrappers().Backend().Widgets().WidgetDesignerWrapper().SaveChanges();
             BAT.Wrappers().Backend().Pages().PageZoneEditorWrapper().PublishPage();
 
-            BAT.Macros().NavigateTo().CustomPage("~/" + PageName.ToLower(), false, this.Culture);
+            BAT.Macros().NavigateTo().CustomPage("~/" + PageName.ToLower(), false, this.Culture, new HtmlFindExpression("id=PublicWrapper", "class=sfPublicWrapper"));
             BATFeather.Wrappers().Frontend().Card().CardWrapper().VerifyCardWidgetContentOnFrontend(HeadingText);
             BATFeather.Wrappers().Frontend().Card().CardWrapper().VerifyCardWidgetContentOnFrontend(TextArea);
             BATFeather.Wrappers().Frontend().Card().CardWrapper().VerifyImageIsPresentOnFrontend(ImageTitle);
             BATFeather.Wrappers().Frontend().Card().CardWrapper().VerifyCardWidgetContentOnFrontend(LabelText);
-            BATFeather.Wrappers().Frontend().Card().CardWrapper().VerifyPageIsPresentOnFrontend(LabelText, PageName2.ToLower());           
+            BATFeather.Wrappers().Frontend().Card().CardWrapper().VerifyPageIsPresentOnFrontend(LabelText, PageName2.ToLower());
         }
 
         /// <summary>
