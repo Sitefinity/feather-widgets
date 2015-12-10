@@ -1,9 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using ArtOfTest.WebAii.Controls.HtmlControls;
 using Feather.Widgets.TestUI.Framework;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
@@ -36,7 +31,8 @@ namespace FeatherWidgets.TestUI.TestCases.CardWidget
             BATFeather.Wrappers().Backend().Widgets().SelectorsWrapper().DoneSelecting();
             BATFeather.Wrappers().Backend().Card().CardWrapper().FillLabel(LabelText);
             BATFeather.Wrappers().Backend().Widgets().WidgetDesignerWrapper().ClickSelectButton(0);
-            BATFeather.Wrappers().Backend().Widgets().SelectorsWrapper().SelectItemsInHierarchicalSelector(PageName2);
+            BATFeather.Wrappers().Backend().Widgets().SelectorsWrapper().WaitForItemsToAppear(2);
+            BATFeather.Wrappers().Backend().Widgets().SelectorsWrapper().SelectItemsInPageSelector(PageName2);
             BATFeather.Wrappers().Backend().Widgets().SelectorsWrapper().DoneSelecting();
             BATFeather.Wrappers().Backend().Widgets().WidgetDesignerWrapper().SaveChanges();
             BAT.Wrappers().Backend().Pages().PageZoneEditorWrapper().PublishPage();
