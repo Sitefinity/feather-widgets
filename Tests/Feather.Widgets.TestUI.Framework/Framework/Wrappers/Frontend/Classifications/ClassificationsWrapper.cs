@@ -19,6 +19,7 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Frontend.Classific
         /// <returns>true or false depending on tags titles presence on frontend</returns>
         public bool IsTagsTitlesPresentOnTheFrontendPage(string[] tagsTitles)
         {
+            ActiveBrowser.WaitForElementWithCssClass("sfPublicWrapper");
             HtmlDiv frontendPageMainDiv = BAT.Wrappers().Frontend().Pages().PagesWrapperFrontend().GetPageContent();
 
             for (int i = 0; i < tagsTitles.Length; i++)

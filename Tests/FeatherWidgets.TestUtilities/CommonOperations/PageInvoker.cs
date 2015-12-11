@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Text;
+using System.Web;
 
 namespace FeatherWidgets.TestUtilities.CommonOperations
 {
@@ -40,6 +41,8 @@ namespace FeatherWidgets.TestUtilities.CommonOperations
         {
             var webRequest = (System.Net.HttpWebRequest)System.Net.WebRequest.Create(url);
             webRequest.Timeout = 120 * 1000; // 120 sec
+            webRequest.CookieContainer = new CookieContainer();
+            webRequest.Headers["Authorization"] = HttpContext.Current.Request.Headers["Authorization"];
             webRequest.CachePolicy = new System.Net.Cache.RequestCachePolicy();
             var webResponse = (System.Net.HttpWebResponse)webRequest.GetResponse();
 

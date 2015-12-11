@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 using ArtOfTest.WebAii.Controls.HtmlControls;
 using ArtOfTest.WebAii.Core;
 using ArtOfTest.WebAii.TestTemplates;
@@ -53,6 +49,31 @@ namespace Feather.Widgets.TestUI.Framework.Framework.ElementMap.EmailCampaigns
             get
             {
                 return this.Get<HtmlDiv>("tagname=div", "ng-show=errors.missingSelectedPage");
+            }
+        }
+
+        /// <summary>
+        /// Gets the "No items created yet." message.
+        /// </summary>
+        public HtmlDiv NoItemsCreatedMessage
+        {
+            get
+            {
+                return this.Get<HtmlDiv>("tagname=div", "InnerText=No items have been created yet.");
+            }
+        }
+
+        /// <summary>
+        /// Gets the mailing list items.
+        /// </summary>
+        /// <value>
+        /// The mailing list items.
+        /// </value>
+        public ICollection<HtmlDiv> MailingListItems
+        {
+            get
+            {
+                return this.Find.AllByExpression<HtmlDiv>("tagName=div", "class=~list-group-item");
             }
         }
     }

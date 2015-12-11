@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using ArtOfTest.WebAii.Controls.HtmlControls;
+﻿using ArtOfTest.WebAii.Controls.HtmlControls;
 using ArtOfTest.WebAii.Core;
 using ArtOfTest.WebAii.TestTemplates;
 
@@ -133,7 +128,7 @@ namespace Feather.Widgets.TestUI.Framework.Framework.ElementMap.Forms
                //, "innertext= The specified form no longer exists or is currently unpublished. ");
             }
         }
-   
+
         /// <summary>
         /// Gets the captcha field on frontend
         /// </summary>
@@ -146,7 +141,7 @@ namespace Feather.Widgets.TestUI.Framework.Framework.ElementMap.Forms
         }
 
         /// <summary>
-        /// Gets the fil upload field on frontend
+        /// Gets the file upload field on frontend
         /// </summary>
         public HtmlDiv FileUploadField
         {
@@ -155,5 +150,20 @@ namespace Feather.Widgets.TestUI.Framework.Framework.ElementMap.Forms
                 return this.Find.ByExpression<HtmlDiv>("data-sf-role=file-field-inputs");
             }
         }
+
+        #region HybridPage
+
+        /// <summary>
+        /// Gets the textbox field on frontend
+        /// </summary>
+        public HtmlInputText TextboxFieldHybrid
+        {
+            get
+            {
+                return this.Get<HtmlInputText>("name=TextFieldController", "data-sf-role=text-field-input");
+            }
+        }
+
+        #endregion HybridPage
     }
 }

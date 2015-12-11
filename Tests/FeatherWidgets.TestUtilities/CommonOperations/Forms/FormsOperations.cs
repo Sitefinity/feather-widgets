@@ -10,6 +10,7 @@ using System.Web.Mvc;
 using System.Web.UI;
 using Telerik.Sitefinity.Abstractions;
 using Telerik.Sitefinity.Forms.Model;
+using Telerik.Sitefinity.Frontend.ContentBlock.Mvc.Controllers;
 using Telerik.Sitefinity.Frontend.Forms.Mvc.Controllers;
 using Telerik.Sitefinity.Frontend.Forms.Mvc.Models;
 using Telerik.Sitefinity.Frontend.Mvc.Infrastructure.Controllers;
@@ -29,6 +30,7 @@ namespace FeatherWidgets.TestUtilities.CommonOperations.Forms
     /// <summary>
     /// This class provides access to forms common server operations
     /// </summary>
+    [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Maintainability", "CA1506:AvoidExcessiveClassCoupling")]
     public class FormsOperations
     {
         /// <summary>
@@ -74,6 +76,11 @@ namespace FeatherWidgets.TestUtilities.CommonOperations.Forms
             return formId;
         }
 
+        public Guid CreateFormWithWidgets(IList<Control> widgets)
+        {
+            return this.CreateFormWithWidgets(widgets, null);
+        }
+
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1026:DefaultParametersShouldNotBeUsed")]
         public Guid CreateFormWithWidgets(IEnumerable<Control> widgets, string formTitle = null, bool publishForm = true)
         {
@@ -89,6 +96,9 @@ namespace FeatherWidgets.TestUtilities.CommonOperations.Forms
 
             var formName = "form_" + formId.ToString("N");
 
+            if (formTitle == null)
+                formTitle = formId.ToString("N");
+
             this.CreateForm(formId, formName, formTitle, formSuccessMessage, formControls, publishForm);
 
             SystemManager.ClearCurrentTransactions();
@@ -101,17 +111,23 @@ namespace FeatherWidgets.TestUtilities.CommonOperations.Forms
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1026:DefaultParametersShouldNotBeUsed")]
         public Guid CreateFormWithWidgets(IEnumerable<FormFieldType> widgets, string formTitle = null, bool publishForm = true)
         {
+            var controls = this.CreateFormFieldsFromFieldTypes(widgets);
+
+            return this.CreateFormWithWidgets(controls, formTitle, publishForm);
+        }
+
+        public IList<Control> CreateFormFieldsFromFieldTypes(IEnumerable<FormFieldType> widgets)
+        {
             var controls = new List<Control>();
 
             foreach (var widgetType in widgets)
             {
-                var control = new MvcWidgetProxy();
+                var control = new MvcControllerProxy();
 
                 switch (widgetType)
                 {
                     case FormFieldType.Captcha:
                         control.ControllerName = typeof(CaptchaController).FullName;
-
                         control.Settings = new ControllerSettings(new CaptchaController());
                         break;
                     case FormFieldType.CheckboxesField:
@@ -153,7 +169,7 @@ namespace FeatherWidgets.TestUtilities.CommonOperations.Forms
                 controls.Add(control);
             }
 
-            return this.CreateFormWithWidgets(controls, formTitle, publishForm);
+            return controls;
         }
 
         /// <summary>
@@ -247,9 +263,10 @@ namespace FeatherWidgets.TestUtilities.CommonOperations.Forms
                 form.Title = formTitle;
                 form.UrlName = Regex.Replace(form.Name.ToLower(), ArrangementConstants.UrlNameCharsToReplace, ArrangementConstants.UrlNameReplaceString);
                 form.SuccessMessage = formSuccessMessage;
-                
+
+                var culture = SystemManager.CurrentContext.AppSettings.DefaultFrontendLanguage;
                 var draft = formManager.EditForm(form.Id);
-                var master = formManager.Lifecycle.CheckOut(draft);
+                var master = formManager.Lifecycle.CheckOut(draft, culture);
 
                 if (master != null)
                 {
@@ -269,15 +286,15 @@ namespace FeatherWidgets.TestUtilities.CommonOperations.Forms
                             formControl.SiblingId = siblingId;
                             formControl.Caption = ObjectFactory.Resolve<IControlBehaviorResolver>().GetBehaviorObject(control).GetType().Name;
                             siblingId = formControl.Id;
-
                             master.Controls.Add(formControl);
+                            formControl.SetPersistanceStrategy();
                         }
                     }
 
-                    master = formManager.Lifecycle.CheckIn(master);
+                    master = formManager.Lifecycle.CheckIn(master, culture);
 
                     if (publishForm)
-                        formManager.Lifecycle.Publish(master);
+                        formManager.Lifecycle.Publish(master, culture);
 
                     formManager.SaveChanges(true);
                 }

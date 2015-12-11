@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using ArtOfTest.Common.UnitTesting;
 using ArtOfTest.WebAii.Controls.HtmlControls;
 using ArtOfTest.WebAii.Core;
@@ -60,10 +56,19 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Frontend.Forms
         /// <summary>
         /// Verify if content block content is visible
         /// </summary>
-        public void VerifyContentBlockFieldTextIsVisible(string contentText)
+        /// <param name="contentText">The content text.</param>
+        /// <param name="isVisible">if set to <c>true</c> [is visible].</param>
+        public void VerifyContentBlockFieldTextIsVisible(string contentText, bool isVisible = true)
         {
             HtmlDiv frontendPageMainDiv = BAT.Wrappers().Frontend().Pages().PagesWrapperFrontend().GetPageContent();
-            Assert.IsTrue(frontendPageMainDiv.InnerText.Contains(contentText));
+            if (!isVisible)
+            {
+                Assert.IsFalse(frontendPageMainDiv.InnerText.Contains(contentText));
+            }
+            else
+            {
+                Assert.IsTrue(frontendPageMainDiv.InnerText.Contains(contentText));
+            }
         }
 
         /// <summary>
@@ -75,13 +80,13 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Frontend.Forms
         }
 
         /// <summary>
-        /// Verify if Submit button is Not visible
+        /// Verify if Submit button is visible
         /// </summary>
         public void VerifySubmitButtonIsVisible()
         {
             Assert.IsTrue(EM.Forms.FormsFrontend.SubmitButton.IsVisible(), "The submit button is not visible");
         }
-              
+
         /// <summary>
         /// Verify the delete form in use message is shown on the frontend
         /// </summary>
@@ -98,8 +103,16 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Frontend.Forms
         public void SetTextboxContent(string content)
         {
             HtmlInputText textbox = this.EM.Forms.FormsFrontend.TextField.AssertIsPresent("Text field");
+
+            textbox.ScrollToVisible();
+            textbox.Focus();
             textbox.MouseClick();
-            textbox.Text = "";
+
+            Manager.Current.Desktop.KeyBoard.KeyDown(System.Windows.Forms.Keys.Control);
+            Manager.Current.Desktop.KeyBoard.KeyPress(System.Windows.Forms.Keys.A);
+            Manager.Current.Desktop.KeyBoard.KeyUp(System.Windows.Forms.Keys.Control);
+            Manager.Current.Desktop.KeyBoard.KeyPress(System.Windows.Forms.Keys.Delete);
+
             Manager.Current.Desktop.KeyBoard.TypeText(content);
             Manager.Current.Desktop.KeyBoard.KeyPress(System.Windows.Forms.Keys.Tab);
         }
@@ -172,7 +185,8 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Frontend.Forms
         public void SelectRadioButton(string choice)
         {
             HtmlInputRadioButton checkbox = ActiveBrowser.Find.ByExpression<HtmlInputRadioButton>("tagname=input", "data-sf-role=multiple-choice-field-input", "value=" + choice);
-            checkbox.Click();
+            checkbox.MouseClick();
+            ActiveBrowser.WaitUntilReady();
         }
 
         /// <summary>

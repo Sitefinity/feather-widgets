@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using ArtOfTest.Common.UnitTesting;
 using ArtOfTest.WebAii.Controls.HtmlControls;
+using ArtOfTest.WebAii.Core;
 
 namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend.EmailCampaigns
 {
@@ -65,8 +66,9 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend.EmailCampa
         /// <param name="itemName">Name of the item.</param>
         public void SelectItemsInFlatSelector(params string[] itemNames)
         {
+            this.WaitForContentToBeLoaded(itemNames.Length == 0);
             foreach (var itemName in itemNames)
-            {                
+            {
                 var itemsToSelect = ActiveBrowser.Find.AllByCustom<HtmlContainerControl>(a => a.InnerText.Equals(itemName));
                 foreach (var item in itemsToSelect)
                 {
@@ -80,6 +82,38 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend.EmailCampa
                     }
                 }
             }
+        }
+
+        /// <summary>
+        /// Waits for content to be loaded.
+        /// </summary>
+        /// <param name="isEmptyScreen">The is empty screen.</param>
+        public void WaitForContentToBeLoaded(bool isEmptyScreen)
+        {
+            ArtOfTest.WebAii.Core.Manager.Current.Wait.For(() => this.IsContentLoadedInMediaSelector(isEmptyScreen), 100000);
+        }
+
+        private bool IsContentLoadedInMediaSelector(bool isEmptyScreen)
+        {
+            bool result = false;
+            Manager.Current.ActiveBrowser.RefreshDomTree();
+            if (isEmptyScreen)
+            {
+                var noItemsCreatedMessage = this.EM.EmailCampaigns.SubscribeFormEditScreen.NoItemsCreatedMessage;
+                if (noItemsCreatedMessage != null && noItemsCreatedMessage.IsVisible())
+                {
+                    result = true;
+                }
+            }
+            else
+            {
+                if (this.EM.EmailCampaigns.SubscribeFormEditScreen.MailingListItems.Count > 0)
+                {
+                    result = true;
+                }
+            }
+
+            return result;
         }
     }
 }
