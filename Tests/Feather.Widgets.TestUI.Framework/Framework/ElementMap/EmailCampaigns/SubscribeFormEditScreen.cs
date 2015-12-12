@@ -1,7 +1,7 @@
-﻿using ArtOfTest.WebAii.Controls.HtmlControls;
+﻿using System.Collections.Generic;
+using ArtOfTest.WebAii.Controls.HtmlControls;
 using ArtOfTest.WebAii.Core;
 using ArtOfTest.WebAii.TestTemplates;
-using System.Collections.Generic;
 
 namespace Feather.Widgets.TestUI.Framework.Framework.ElementMap.EmailCampaigns
 {

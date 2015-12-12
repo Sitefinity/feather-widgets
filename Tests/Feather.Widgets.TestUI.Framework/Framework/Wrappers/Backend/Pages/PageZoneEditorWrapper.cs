@@ -116,14 +116,15 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend
             editLink.Click();
             ActiveBrowser.WaitUntilReady();
             ActiveBrowser.WaitForAsyncOperations();
+            ActiveBrowser.WaitForAjax(TimeOut);
             ActiveBrowser.RefreshDomTree();
 
             if (!isMediaWidgetEdited)
             {
-            HtmlFindExpression expression = new HtmlFindExpression("class=modal-title", "InnerText=" + widgetName);
-            ActiveBrowser.WaitForElement(expression, TimeOut, false);
-            Manager.Current.Wait.For(this.WaitForSaveButton, 60000);
-        }
+                HtmlFindExpression expression = new HtmlFindExpression("class=modal-title", "InnerText=" + widgetName);
+                ActiveBrowser.WaitForElement(expression, TimeOut, false);
+                Manager.Current.Wait.For(this.WaitForSaveButton, TimeOut);
+            }
         }
 
         /// <summary>

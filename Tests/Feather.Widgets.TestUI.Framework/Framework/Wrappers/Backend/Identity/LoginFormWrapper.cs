@@ -32,6 +32,12 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend.Identity
         /// </summary>
         public void ClickSelectButtonForRegistrationPage()
         {
+            Manager.Current.Wait.For(() =>
+            {
+                ActiveBrowser.RefreshDomTree();
+                return EM.Identity.LoginFormEditScreen.RegistrationPageSelectButton != null;
+            }, 10000);
+
             var button = EM.Identity.LoginFormEditScreen.RegistrationPageSelectButton.AssertIsPresent("Select button");
 
             button.Click();

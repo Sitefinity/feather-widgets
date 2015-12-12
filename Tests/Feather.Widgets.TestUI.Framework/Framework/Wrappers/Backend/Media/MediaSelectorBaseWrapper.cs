@@ -60,6 +60,8 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend.Media
         /// <param name="title">The media title.</param>
         public void SelectMediaFile(string title, bool isDocumentFile = false)
         {
+            this.WaitForContentToBeLoaded(isEmptyScreen: false);
+
             HtmlControl element;
             if (isDocumentFile)
             {

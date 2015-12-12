@@ -21,8 +21,8 @@ namespace FeatherWidgets.TestUI.Arrangements
         public void SetUp()
         {
             ServerOperations.Comments().AllowComments(ThreadType, true);
-
             Telerik.Sitefinity.TestUtilities.Services.Notifications.NotificationsTestHelper.ResetDummySmtpSenderData(profileName: SubscribeUserForReviewsNotificationAndVerifyReceivedEmail.NotificationsProfileName);
+
             ServerOperations.Comments().SetCommentsNotificationProfile(SubscribeUserForReviewsNotificationAndVerifyReceivedEmail.NotificationsProfileName);
 
             Guid templateId = Telerik.Sitefinity.TestUtilities.CommonOperations.ServerOperations.Templates().GetTemplateIdByTitle(PageTemplateName);
@@ -61,6 +61,7 @@ namespace FeatherWidgets.TestUI.Arrangements
         {
             AuthenticationHelper.AuthenticateUser("admin", "admin@2", true);
             ServerOperations.Comments().SetCommentsNotificationProfile("Default");
+
             Telerik.Sitefinity.TestUtilities.Services.Notifications.NotificationsTestHelper.ResetDummySmtpSenderData(profileName: SubscribeUserForReviewsNotificationAndVerifyReceivedEmail.NotificationsProfileName, cleanOnly: true);
 
             ServerOperations.Pages().DeleteAllPages();
