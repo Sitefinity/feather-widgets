@@ -20,7 +20,7 @@ namespace FeatherWidgets.TestUI.TestCases.DynamicWidgets
         TestCategory(FeatherTestCategories.DynamicWidgets)]
         public void DuplicateAndDeleteDynamicWidgetOnPage()
         {
-            RuntimeSettingsModificator.ExecuteWithClientTimeout(800000, () => BAT.Macros().NavigateTo().CustomPage("~/sitefinity/pages", false));
+            RuntimeSettingsModificator.ExecuteWithClientTimeout(800000, () => BAT.Macros().NavigateTo().CustomPage("~/sitefinity/pages", true, null, new HtmlFindExpression("class=~sfMain")));
             RuntimeSettingsModificator.ExecuteWithClientTimeout(800000, () => BAT.Macros().User().EnsureAdminLoggedIn());
             BAT.Macros().NavigateTo().Pages(this.Culture);   
             BAT.Wrappers().Backend().Pages().PagesWrapper().OpenPageZoneEditor(PageName);
