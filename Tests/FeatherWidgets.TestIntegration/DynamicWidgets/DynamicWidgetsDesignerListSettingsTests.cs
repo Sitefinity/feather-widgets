@@ -179,7 +179,6 @@ namespace FeatherWidgets.TestIntegration.DynamicWidgets
                 var dynamicController = new DynamicContentController();
                 dynamicController.Model.ContentType = TypeResolutionService.ResolveType(ResolveType);
                 dynamicController.Model.DisplayMode = ListDisplayMode.All;
-                dynamicController.Model.ProviderName = "dynamicContentProvider";
                 mvcProxy.Settings = new ControllerSettings(dynamicController);
                 mvcProxy.WidgetName = WidgetName;
 
