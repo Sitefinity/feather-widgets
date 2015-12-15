@@ -12,7 +12,7 @@
 <div class="@Model.CssClass">
     @Html.Action("GetView", new { viewName = "Dropdown", model= Model})
 
-    <ul class="nav nav-sitemap">
+    <ul>
         @foreach (var node in Model.Nodes)
         {
             @RenderRootLevelNode(node);

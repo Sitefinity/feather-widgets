@@ -12,29 +12,21 @@
 
 <div class="@Model.CssClass">
     @Html.Action("GetView", new { viewName = "Dropdown",  model= Model})
-    <nav class="navbar navbar-default" role="navigation">
 
-        <div class="container-fluid">
-            <div class="navbar-header">
-              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
-                <span class="sr-only">Toggle navigation</span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-              </button>
-              <a class="navbar-brand" href="#">Brand</a>
-            </div>
+        <div>
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#@Html.UniqueId("navbar")">
+            @*Toggle navigation button for responsive design*@
+              Toggle navigation
+            </button>
+        </div>
 
-            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-                <ul class="nav navbar-nav">
-                    @foreach (var node in Model.Nodes)
-                    {
-                        @RenderRootLevelNode(node);
-                    }
-              </ul>
-            </div><!-- /.navbar-collapse -->
-        </div><!-- /.container-fluid -->
-    </nav>
+        <ul class="nav navbar-nav" id='@Html.UniqueId("navbar")'>
+            @foreach (var node in Model.Nodes)
+            {
+                @RenderRootLevelNode(node);
+            }
+        </ul>
+
 </div>
 
 @*Here is specified the rendering for the root level*@
@@ -42,11 +34,9 @@
 {
     if (node.ChildNodes.Count > 0)
     {
-        <li class="dropdown">
-            <a href="#" data-toggle="dropdown" class="dropdown-toggle">@node.Title
-                <span class="caret"></span>
-            </a>
-            <ul class="dropdown-menu">
+        <li>
+            <a href="#" data-toggle="dropdown">@node.Title</a>
+            <ul>
                 @RenderSubLevelsRecursive(node)
             </ul>
         </li>
@@ -64,11 +54,9 @@
     {
         if(childNode.ChildNodes.Count > 0)
         {
-             <li class="dropdown-submenu">
-                <a href="@childNode.Url" target="@childNode.LinkTarget">@childNode.Title
-                    <span class="right-caret"></span>
-                </a>
-                <ul class="dropdown-menu">
+             <li>
+                <a href="@childNode.Url" target="@childNode.LinkTarget">@childNode.Title</a>
+                <ul>
                     @RenderSubLevelsRecursive(childNode)
                 </ul>
             </li>
