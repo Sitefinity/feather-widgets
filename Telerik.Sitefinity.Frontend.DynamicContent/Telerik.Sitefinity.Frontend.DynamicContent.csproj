@@ -266,7 +266,10 @@
     <Error Condition="!Exists('$(SolutionDir)\.nuget\NuGet.targets')" Text="$([System.String]::Format('$(ErrorText)', '$(SolutionDir)\.nuget\NuGet.targets'))" />
     <Error Condition="!Exists('..\packages\RazorGenerator.MsBuild.2.2.2\build\RazorGenerator.MsBuild.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\RazorGenerator.MsBuild.2.2.2\build\RazorGenerator.MsBuild.targets'))" />
   </Target>
-  <Import Project="Sitefinity.RazorGenerator.MsBuild.targets" Condition="Exists('..\packages\RazorGenerator.MsBuild.2.2.2\build\RazorGenerator.MsBuild.targets')" />
+  <ItemGroup>
+    <RazorSrcFiles Include="Mvc\Views\**\*.cshtml" />
+  </ItemGroup>
+  <Import Project="..\packages\RazorGenerator.MsBuild.2.2.2\build\RazorGenerator.MsBuild.targets" Condition="Exists('..\packages\RazorGenerator.MsBuild.2.2.2\build\RazorGenerator.MsBuild.targets')" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">
