@@ -9,6 +9,7 @@ using Feather.Widgets.TestUI.Framework;
 using FeatherWidgets.TestUI.TestCases;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Telerik.WebAii.Controls;
+using Telerik.TestUI.Core.Utilities;
 
 namespace FeatherWidgets.TestUI.TestCases.ContentBlocks
 {
@@ -63,7 +64,8 @@ namespace FeatherWidgets.TestUI.TestCases.ContentBlocks
         /// <param name="widgetContent">Widget content</param>
         private void VerifyPageBackend(string pageName, string widgetName, string widgetContent)
         {
-            BAT.Macros().NavigateTo().Pages(this.Culture);
+            var pagesUrl = this.Culture != null ? "~/sitefinity/pages/?lang=" + this.Culture : "~/sitefinity/pages";
+            RuntimeSettingsModificator.ExecuteWithClientTimeout(800000, () => BAT.Macros().NavigateTo().CustomPage(pagesUrl, false, null, new HtmlFindExpression("class=~sfMain"))); 
             BAT.Wrappers().Backend().Pages().PagesWrapper().OpenPageZoneEditor(pageName);
             BAT.Wrappers().Backend().Pages().PageZoneEditorWrapper().CheckWidgetContent(widgetName, widgetContent);
             BAT.Wrappers().Backend().Pages().PageZoneEditorWrapper().PublishPage();
