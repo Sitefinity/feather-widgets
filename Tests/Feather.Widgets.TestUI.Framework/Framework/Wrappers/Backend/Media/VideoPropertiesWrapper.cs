@@ -80,7 +80,7 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend.Media
             var date = dateTime.Date;
             CultureInfo ci = CultureInfo.InvariantCulture;
             var dateString = date.ToString("M/d/yyyy", ci);
-            HtmlFindExpression expression = new HtmlFindExpression("ng-bind=sfMedia.Title.Value");
+            HtmlFindExpression expression = new HtmlFindExpression("ng-bind=sfMedia.Title.Value", "innertext=" + title);
             ActiveBrowser.WaitForElement(expression, 60000, false);
             ActiveBrowser.Find.ByExpression<HtmlSpan>("ng-bind=sfMedia.Title.Value", "innertext=" + title).AssertIsPresent("title");
             ActiveBrowser.Find.ByExpression<HtmlSpan>("ng-bind=sfMedia.Extension", "innertext=" + type).AssertIsPresent("type");
