@@ -414,6 +414,10 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend
         private HtmlVideo GetContentBlockVideoDesignMode()
         {
             Browser frame = this.GetContentBlockFrame();
+
+            HtmlFindExpression expression = new HtmlFindExpression("tagname=video");
+            ActiveBrowser.WaitForElement(expression, TimeOut, false);
+
             return frame.Find.AllByTagName("video").FirstOrDefault().As<HtmlVideo>();
         }
 
