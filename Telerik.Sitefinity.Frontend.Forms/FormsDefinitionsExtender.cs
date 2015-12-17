@@ -10,6 +10,7 @@ using Telerik.Sitefinity.Web.UI.Fields;
 using Telerik.Sitefinity.Web.UI.Fields.Contracts;
 using Telerik.Sitefinity.Web.UI.Fields.Definitions;
 using Telerik.Sitefinity.Web.UI.Fields.Enums;
+using Telerik.Sitefinity.Services;
 
 namespace Telerik.Sitefinity.Frontend.Forms
 {
@@ -17,9 +18,12 @@ namespace Telerik.Sitefinity.Frontend.Forms
     {
         public void ExtendDefinition(IContentViewControlDefinition contentViewControlDefinition)
         {
-            this.ExtendBackendDefinition(contentViewControlDefinition, "FormsBackendInsert", FieldDisplayMode.Write);
-            this.ExtendBackendDefinition(contentViewControlDefinition, "FormsBackendEdit", FieldDisplayMode.Read);
-            this.ExtendBackendDefinition(contentViewControlDefinition, "FormsBackendDuplicate", FieldDisplayMode.Read);
+            if (SystemManager.GetModule("Feather") != null)
+            {
+                this.ExtendBackendDefinition(contentViewControlDefinition, "FormsBackendInsert", FieldDisplayMode.Write);
+                this.ExtendBackendDefinition(contentViewControlDefinition, "FormsBackendEdit", FieldDisplayMode.Read);
+                this.ExtendBackendDefinition(contentViewControlDefinition, "FormsBackendDuplicate", FieldDisplayMode.Read);
+            }
         }
 
         private void ExtendBackendDefinition(IContentViewControlDefinition contentViewControlDefinition, string backendViewName, FieldDisplayMode displayMode)
