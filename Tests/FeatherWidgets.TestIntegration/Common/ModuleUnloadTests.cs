@@ -144,7 +144,7 @@ namespace FeatherWidgets.TestIntegration.Common
 
                 var pageContentAfterDeactivateInEdit = PageInvoker.ExecuteWebRequest(pageUrl + this.AppendEditUrl());
                 Assert.IsFalse(pageContentAfterDeactivateInEdit.Contains(ModuleUnloadTests.PageControlContent), "Content was found after deactivate!");
-                Assert.IsFalse(pageContentAfterDeactivateInEdit.Contains(ModuleUnloadTests.WidgetUnavailableMessage), "Error message is displayed but must be deleted in zone editor!");
+                Assert.IsTrue(pageContentAfterDeactivateInEdit.Contains(ModuleUnloadTests.WidgetUnavailableMessage), "Error message is not displayed but must be in zone editor!");
             }
             finally
             {
@@ -187,7 +187,7 @@ namespace FeatherWidgets.TestIntegration.Common
 
                 var pageContentAfterDeactivateInEdit = PageInvoker.ExecuteWebRequest(pageUrl + this.AppendEditUrl());
                 Assert.IsFalse(pageContentAfterDeactivateInEdit.Contains(ModuleUnloadTests.PageControlContent), "Content was found after deactivate!");
-                Assert.IsFalse(pageContentAfterDeactivateInEdit.Contains(ModuleUnloadTests.WidgetUnavailableMessage), "Error message is displayed but must be deleted in zone editor!");
+                Assert.IsTrue(pageContentAfterDeactivateInEdit.Contains(ModuleUnloadTests.WidgetUnavailableMessage), "Error message is not displayed but must be in zone editor!");
             }
             finally
             {
@@ -352,11 +352,11 @@ namespace FeatherWidgets.TestIntegration.Common
 
                 var pageContentAfterDeactivateInEdit = PageInvoker.ExecuteWebRequest(pageUrl + this.AppendEditUrl());
                 Assert.IsFalse(pageContentAfterDeactivateInEdit.Contains(ModuleUnloadTests.PageControlContent), "Content was found after deactivate!");
-                Assert.IsFalse(pageContentAfterDeactivateInEdit.Contains(ModuleUnloadTests.WidgetUnavailableMessage), "Error message is displayed but must be deleted in zone editor!");
+                Assert.IsTrue(pageContentAfterDeactivateInEdit.Contains(ModuleUnloadTests.WidgetUnavailableMessage), "Error message is not displayed but must be in zone editor!");
 
                 var templateContentAfterDeactivate = PageInvoker.ExecuteWebRequest(templateUrl + this.AppendUncacheUrl());
                 Assert.IsFalse(templateContentAfterDeactivate.Contains(ModuleUnloadTests.PageControlContent), "Content was found after deactivate!");
-                Assert.IsFalse(templateContentAfterDeactivate.Contains(ModuleUnloadTests.WidgetUnavailableMessage), "Error message is displayed but must be deleted in zone editor!");
+                Assert.IsTrue(templateContentAfterDeactivate.Contains(ModuleUnloadTests.WidgetUnavailableMessage), "Error message is not displayed but must be in zone editor!");
             }
             finally
             {
@@ -408,11 +408,11 @@ namespace FeatherWidgets.TestIntegration.Common
 
                 var pageContentAfterDeactivateInEdit = PageInvoker.ExecuteWebRequest(pageUrl + this.AppendEditUrl());
                 Assert.IsFalse(pageContentAfterDeactivateInEdit.Contains(ModuleUnloadTests.PageControlContent), "Content was found after deactivate!");
-                Assert.IsFalse(pageContentAfterDeactivateInEdit.Contains(ModuleUnloadTests.WidgetUnavailableMessage), "Error message is displayed but must be deleted in zone editor!");
+                Assert.IsTrue(pageContentAfterDeactivateInEdit.Contains(ModuleUnloadTests.WidgetUnavailableMessage), "Error message is not displayed but must be deleted in zone editor!");
 
                 var templateContentAfterDeactivate = PageInvoker.ExecuteWebRequest(templateUrl + this.AppendUncacheUrl());
                 Assert.IsFalse(templateContentAfterDeactivate.Contains(ModuleUnloadTests.PageControlContent), "Content was found after deactivate!");
-                Assert.IsFalse(templateContentAfterDeactivate.Contains(ModuleUnloadTests.WidgetUnavailableMessage), "Error message is displayed but must be deleted in zone editor!");
+                Assert.IsTrue(templateContentAfterDeactivate.Contains(ModuleUnloadTests.WidgetUnavailableMessage), "Error message is not displayed but must be deleted in zone editor!");
             }
             finally
             {
