@@ -20,7 +20,7 @@
             </button>
         </div>
 
-        <ul class="nav navbar-nav" id='@Html.UniqueId("navbar")'>
+        <ul id='@Html.UniqueId("navbar")'>
             @foreach (var node in Model.Nodes)
             {
                 @RenderRootLevelNode(node);
