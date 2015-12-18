@@ -258,6 +258,7 @@
     <Compile Include="Mvc\StringResources\FieldResources.cs" />
     <Compile Include="Mvc\StringResources\FormResources.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Startup.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />

@@ -1,6 +1,7 @@
 ﻿using System.Reflection;
 using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
+using System.Web;
 using Telerik.Sitefinity.Frontend.Forms;
 using Telerik.Sitefinity.Frontend.Mvc.Infrastructure.Controllers.Attributes;
 
@@ -13,5 +14,5 @@ using Telerik.Sitefinity.Frontend.Mvc.Infrastructure.Controllers.Attributes;
 [assembly: Guid("65045d37-e495-4e45-8794-1d5f2cf344ca")]
 
 [assembly: ControllerContainer(typeof(Initializer), "Initialize", typeof(Initializer), "Uninitialize")]
-
+[assembly: PreApplicationStartMethod(typeof(Telerik.Sitefinity.Frontend.Forms.Startup), "OnPreApplicationStart")]
 [assembly: InternalsVisibleTo("FeatherWidgets.TestUnit")]
