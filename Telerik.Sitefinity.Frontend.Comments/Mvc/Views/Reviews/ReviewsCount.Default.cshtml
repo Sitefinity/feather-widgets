@@ -19,15 +19,12 @@
        <span data-sf-role="comments-count-anchor-text"></span>
     </a>
 
-
-
     <input type="hidden" data-sf-role="service-url" value="@ViewBag.ServiceUrl" />
     <input type="hidden" data-sf-role="comments-count-resources" value='{"commentsPlural": "@Html.Resource("ReviewsPlural")", "leaveComment":"@Html.Resource("WriteReview")", "comment":"@Html.Resource("Review")" }' />
 </div>
 
 @*Single rating template*@
 <div data-sf-role="rating-template" style="display:none;" ><span>&#9733;</span></div>
-
 
 @Html.Script(Url.WidgetContent("Mvc/Scripts/Reviews/rating.js"), "bottom", false)
 @Html.Script(Url.WidgetContent("Mvc/Scripts/comments-count.js"), "bottom", false)
