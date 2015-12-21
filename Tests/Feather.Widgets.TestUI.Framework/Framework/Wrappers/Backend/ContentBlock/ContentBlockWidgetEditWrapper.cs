@@ -345,7 +345,7 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend
         public void VerifyContentBlockVideoDesignMode(string src, string sfref, string width = "", string height = "")
         {
             var video = this.GetContentBlockVideoDesignMode();
-            Assert.IsNotNull(video, "Unable to find image.");
+            Assert.IsNotNull(video, "Unable to find video.");
             Assert.IsTrue(video.Src.StartsWith(src), "src is not correct");
 
             this.VerifyVideoAttribute(video, "sfref", sfref);
