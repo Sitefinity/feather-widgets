@@ -20,7 +20,8 @@ namespace FeatherWidgets.TestUI.TestCases.Forms
         /// </summary>
         [TestMethod,
         Owner(FeatherTeams.FeatherTeam),
-        TestCategory(FeatherTestCategories.Forms)]
+        TestCategory(FeatherTestCategories.Forms),
+        Telerik.TestUI.Core.Attributes.KnownIssue(BugId = 144860)]
         public void EditFormSaveDraftThenPublishVerifyFrontendHybrid()
         {
             BAT.Macros().NavigateTo().Modules().Forms(this.Culture);
