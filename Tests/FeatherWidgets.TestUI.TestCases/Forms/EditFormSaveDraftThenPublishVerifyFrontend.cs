@@ -22,7 +22,7 @@ namespace FeatherWidgets.TestUI.TestCases.Forms
         Owner(FeatherTeams.FeatherTeam),
         TestCategory(FeatherTestCategories.Bootstrap),
         TestCategory(FeatherTestCategories.Forms),
-        Telerik.TestUI.Core.Attributes.KnownIssue(BugId = 144860)]
+        Telerik.TestUI.Core.Attributes.KnownIssue(BugId = 144860), Ignore]
         public void EditFormSaveDraftThenPublishVerifyFrontend()
         {
             BAT.Macros().NavigateTo().Modules().Forms(this.Culture);
