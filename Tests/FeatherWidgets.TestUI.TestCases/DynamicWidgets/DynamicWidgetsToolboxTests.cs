@@ -23,7 +23,7 @@ namespace FeatherWidgets.TestUI.TestCases.DynamicWidgets
         {
             this.moduleName = "Press Release";
 
-            BAT.Macros().NavigateTo().CustomPage("~/Sitefinity/Administration/Module-builder", true, null, new HtmlFindExpression("class=sfMain"));
+            BAT.Macros().NavigateTo().CustomPage("~/Sitefinity/Administration/Module-builder", true, null, new HtmlFindExpression("class=~sfMain"));
             BAT.Wrappers().Backend().ModuleBuilder().ModuleInitializerWrapper().OpenModuleDashboard(this.moduleName);
             BAT.Wrappers().Backend().ModuleBuilder().ModuleInitializerWrapper().OpenAddNewContentTypeWizardFromModuleDashboard();
             BAT.Wrappers().Backend().ModuleBuilder().ModuleInitializerWrapper().EnterContentTypeName(ContentTypeName, DevName);
@@ -45,7 +45,7 @@ namespace FeatherWidgets.TestUI.TestCases.DynamicWidgets
 
             BAT.Arrange(this.TestName).ExecuteArrangement("VerifyToolboxConfigBeforeDeleteContentType");
 
-            BAT.Macros().NavigateTo().CustomPage("~/Sitefinity/Administration/Module-builder", true, null, new HtmlFindExpression("class=sfMain"));
+            BAT.Macros().NavigateTo().CustomPage("~/Sitefinity/Administration/Module-builder", true, null, new HtmlFindExpression("class=~sfMain"));
             BAT.Wrappers().Backend().ModuleBuilder().ModuleInitializerWrapper().OpenModuleDashboard(this.moduleName);
             BAT.Wrappers().Backend().ModuleBuilder().ModuleInitializerWrapper().OpenFieldsEditor(this.moduleName, ContentTypeToDelete);
             BATFeather.Wrappers().Backend().ModuleBuilder().ModuleBuilderEditContentTypeWrapper().DeleteContentType();
