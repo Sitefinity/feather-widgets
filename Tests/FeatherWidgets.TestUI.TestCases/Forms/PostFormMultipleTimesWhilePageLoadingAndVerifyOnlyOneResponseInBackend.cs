@@ -17,7 +17,7 @@ namespace FeatherWidgets.TestUI.TestCases.Forms
         [TestMethod,
         Owner(FeatherTeams.FeatherTeam),
         TestCategory(FeatherTestCategories.Bootstrap),
-        TestCategory(FeatherTestCategories.Forms), Telerik.TestUI.Core.Attributes.KnownIssue()]
+        TestCategory(FeatherTestCategories.Forms), Telerik.TestUI.Core.Attributes.KnownIssue(), Ignore]
         public void PostFormMultipleTimesWhilePageLoadingAndVerifyOnlyOneResponseInBackend()
         {
             BAT.Macros().NavigateTo().Modules().Forms(this.Culture);
