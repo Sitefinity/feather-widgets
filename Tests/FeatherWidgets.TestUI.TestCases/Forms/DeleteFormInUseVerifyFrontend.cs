@@ -26,6 +26,8 @@ namespace FeatherWidgets.TestUI.TestCases.Forms
         public void DeleteFormInUseVerifyFrontend()
         {
             BAT.Macros().NavigateTo().CustomPage("~/" + FeatherGlobals.BootstrapPageName.ToLower(), true, this.Culture, new HtmlFindExpression("TagName=button"));
+            ActiveBrowser.WaitUntilReady();
+            ActiveBrowser.RefreshDomTree();
             BATFeather.Wrappers().Frontend().Forms().FormsWrapper().VerifyCheckboxesFieldLabelIsVisible(FeatherGlobals.SelectAChoiceLabelName);
             BAT.Macros().NavigateTo().Modules().Forms(this.Culture);
             BAT.Wrappers().Backend().Forms().FormsDashboard().DeleteFormFromActionsMenu(FeatherGlobals.FormName);

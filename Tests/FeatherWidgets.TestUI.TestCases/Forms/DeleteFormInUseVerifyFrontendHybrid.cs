@@ -23,7 +23,6 @@ namespace FeatherWidgets.TestUI.TestCases.Forms
         Owner(FeatherTeams.FeatherTeam),
         TestCategory(FeatherTestCategories.Forms)]
         public void DeleteFormInUseVerifyFrontendHybrid()
-       
         {
             BAT.Macros().NavigateTo().CustomPage("~/" + FeatherGlobals.HybridPageName.ToLower(), true, this.Culture, new HtmlFindExpression("TagName=button"));
             BATFeather.Wrappers().Frontend().Forms().FormsWrapper().VerifyTextboxFieldContainerIsVisible();

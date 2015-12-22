@@ -25,8 +25,7 @@ namespace FeatherWidgets.TestUI.Arrangements
         {
             var templateId = ServerOperations.Templates().GetTemplateIdByTitle(FeatherGlobals.PageTemplateName);
             var formId = (new FormsOperations()).CreateFormWithWidgets(new FormFieldType[] { FormFieldType.SubmitButton, FormFieldType.CheckboxesField }, FeatherGlobals.FormName);
-            ServerOperations.Pages().CreatePage(FeatherGlobals.BootstrapPageName, templateId);
-            var pageId = ServerOperations.Pages().GetPageId(FeatherGlobals.BootstrapPageName);
+            var pageId = ServerOperations.Pages().CreatePage(FeatherGlobals.BootstrapPageName, templateId);
             ServerOperationsFeather.Forms().AddFormControlToPage(pageId, formId);
         }
 
