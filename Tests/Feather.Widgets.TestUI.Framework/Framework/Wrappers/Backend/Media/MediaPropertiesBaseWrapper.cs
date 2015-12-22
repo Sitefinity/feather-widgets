@@ -11,7 +11,7 @@ using ArtOfTest.WebAii.jQuery;
 namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend.Media
 {
     /// <summary>
-    /// This is an netry point for MediaPropertiesBaseWrapper.
+    /// This is an entry point for MediaPropertiesBaseWrapper.
     /// </summary>
     public class MediaPropertiesBaseWrapper : BaseWrapper
     {
@@ -22,6 +22,9 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend.Media
         /// <returns>true or false depending on the document or image  title in the textbox.</returns>
         public bool IsTitlePopulated(string imageTitle)
         {
+            HtmlFindExpression expression = new HtmlFindExpression("tagName=input", "name=title");
+            ActiveBrowser.WaitForElement(expression, 30000, false);
+
             HtmlInputText titleField = this.EM.Media.MediaPropertiesBaseScreen.TitleField
                                            .AssertIsPresent("title field");
 
