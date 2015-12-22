@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Feather.Widgets.TestUI.Framework;
 using Feather.Widgets.TestUI.Framework.Framework;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using ArtOfTest.WebAii.Core;
 
 namespace FeatherWidgets.TestUI.TestCases.Forms
 {
@@ -24,7 +25,7 @@ namespace FeatherWidgets.TestUI.TestCases.Forms
         TestCategory(FeatherTestCategories.Forms)]
         public void DeleteFormInUseVerifyFrontend()
         {
-            BAT.Macros().NavigateTo().CustomPage("~/" + FeatherGlobals.BootstrapPageName.ToLower(), true, this.Culture);
+            BAT.Macros().NavigateTo().CustomPage("~/" + FeatherGlobals.BootstrapPageName.ToLower(), true, this.Culture, new HtmlFindExpression("TagName=button"));
             BATFeather.Wrappers().Frontend().Forms().FormsWrapper().VerifyCheckboxesFieldLabelIsVisible(FeatherGlobals.SelectAChoiceLabelName);
             BAT.Macros().NavigateTo().Modules().Forms(this.Culture);
             BAT.Wrappers().Backend().Forms().FormsDashboard().DeleteFormFromActionsMenu(FeatherGlobals.FormName);
