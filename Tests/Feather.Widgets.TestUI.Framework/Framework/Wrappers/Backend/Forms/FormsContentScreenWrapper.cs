@@ -252,9 +252,9 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend.Forms
             Manager.Current.SetNewBrowserTracking(true);
             this.WaitForPreviewButtonAndClickIt();
             Manager.Current.WaitForNewBrowserConnect("Preview", true, Manager.Current.Settings.ClientReadyTimeout);
+            Manager.Current.SetNewBrowserTracking(false);
             ActiveBrowser.WaitUntilReady();
             ActiveBrowser.RefreshDomTree();
-            Manager.Current.SetNewBrowserTracking(false);
         }
 
         /// <summary>
