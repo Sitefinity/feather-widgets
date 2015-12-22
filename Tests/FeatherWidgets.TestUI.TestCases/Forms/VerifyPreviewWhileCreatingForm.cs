@@ -34,6 +34,8 @@ namespace FeatherWidgets.TestUI.TestCases.Forms
             BATFeather.Wrappers().Backend().Forms().FormsContentScreenWrapper().AddField(FeatherGlobals.DropdownFieldName);
             BATFeather.Wrappers().Backend().Forms().FormsContentScreenWrapper().AddField(FeatherGlobals.FileUploadFieldName);
             BATFeather.Wrappers().Backend().Forms().FormsContentScreenWrapper().ClickPreviewButtonAndWaitForNewBrowser();
+            ActiveBrowser.WaitUntilReady();
+            ActiveBrowser.RefreshDomTree();
             BATFeather.Wrappers().Frontend().Forms().FormsWrapper().VerifyCheckboxesFieldLabelIsVisible(FeatherGlobals.SelectAChoiceLabelName);
             BATFeather.Wrappers().Frontend().Forms().FormsWrapper().VerifyCheckboxesFieldContainerIsVisible();
             BATFeather.Wrappers().Frontend().Forms().FormsWrapper().VerifyCaptchaFieldContainerIsVisible();
