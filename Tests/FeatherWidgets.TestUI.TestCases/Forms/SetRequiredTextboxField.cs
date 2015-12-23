@@ -17,14 +17,10 @@ namespace FeatherWidgets.TestUI.TestCases.Forms
         /// <summary>
         /// UI test SetRequiredTextboxField
         /// </summary>
-        /// <remarks>
-        /// Ignored because all tests after this one are aborted
-        /// </remarks>
         [TestMethod,
         Owner(FeatherTeams.FeatherTeam),
         TestCategory(FeatherTestCategories.Bootstrap),
-        TestCategory(FeatherTestCategories.Forms),
-        Ignore()]
+        TestCategory(FeatherTestCategories.Forms)]
         public void SetRequiredTextboxField()
         {
             BAT.Macros().NavigateTo().Modules().Forms(this.Culture);
