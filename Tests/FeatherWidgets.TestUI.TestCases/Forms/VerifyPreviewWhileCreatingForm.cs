@@ -19,7 +19,8 @@ namespace FeatherWidgets.TestUI.TestCases.Forms
         /// </summary>
         [TestMethod,
         Owner(FeatherTeams.FeatherTeam),
-        TestCategory(FeatherTestCategories.Forms)]
+        TestCategory(FeatherTestCategories.Forms),
+        Ignore]
         public void VerifyPreviewWhileCreatingForm()
         {
             BAT.Macros().NavigateTo().Modules().Forms(this.Culture);

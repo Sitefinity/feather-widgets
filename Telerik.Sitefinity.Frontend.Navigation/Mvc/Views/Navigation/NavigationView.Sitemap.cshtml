@@ -12,7 +12,7 @@
 <div class="@Model.CssClass">
     @Html.Action("GetView", new { viewName = "Dropdown", model= Model})
 
-    <ul class="nav nav-sitemap">
+    <ul>
         @foreach (var node in Model.Nodes)
         {
             @RenderRootLevelNode(node);
@@ -26,7 +26,7 @@
         <a href="@node.Url" target="@node.LinkTarget"><strong>@node.Title</strong></a>
         @if (node.ChildNodes.Count > 0)
         {
-            <ul class="nav nav-stacked">
+            <ul>
                 @foreach (var childNode in node.ChildNodes)
                 {
                     @RenderSubLevelsRecursive(childNode)
@@ -43,7 +43,7 @@
         <a href="@node.Url" target ="@node.LinkTarget">@node.Title</a>
         @if (node.ChildNodes.Count > 0)
         {
-            <ul class="nav">
+            <ul>
                 @foreach (var childNode in node.ChildNodes)
                 {
                     @RenderSubLevelsRecursive(childNode)

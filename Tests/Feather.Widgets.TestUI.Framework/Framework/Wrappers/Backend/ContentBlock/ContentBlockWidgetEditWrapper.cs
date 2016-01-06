@@ -345,7 +345,7 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend
         public void VerifyContentBlockVideoDesignMode(string src, string sfref, string width = "", string height = "")
         {
             var video = this.GetContentBlockVideoDesignMode();
-            Assert.IsNotNull(video, "Unable to find image.");
+            Assert.IsNotNull(video, "Unable to find video.");
             Assert.IsTrue(video.Src.StartsWith(src), "src is not correct");
 
             this.VerifyVideoAttribute(video, "sfref", sfref);
@@ -414,6 +414,10 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend
         private HtmlVideo GetContentBlockVideoDesignMode()
         {
             Browser frame = this.GetContentBlockFrame();
+
+            HtmlFindExpression expression = new HtmlFindExpression("tagname=video");
+            frame.WaitForElement(expression, TimeOut, false);
+
             return frame.Find.AllByTagName("video").FirstOrDefault().As<HtmlVideo>();
         }
 

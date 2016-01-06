@@ -43,6 +43,7 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Frontend
         {
             this.EditField(controlName);
 
+            Manager.Current.Wait.For(this.WaitForEditButton, Manager.Current.Settings.ClientReadyTimeout);
             HtmlAnchor editButton = ActiveBrowser.Find.ByCustom<HtmlAnchor>(e => e.IsVisible() && e.CssClass.Equals("sfShowInlineEditDlgLnk"));
             editButton.Click();
             HtmlDiv choicesArea = ActiveBrowser.Find.ByCustom<HtmlDiv>(e => e.IsVisible() && e.CssClass.Equals("sfWindowBody"));
@@ -70,8 +71,10 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Frontend
         {
             this.EditField(controlName);
 
+            Manager.Current.Wait.For(this.WaitForEditButton, Manager.Current.Settings.ClientReadyTimeout);
             HtmlAnchor editButton = ActiveBrowser.Find.ByCustom<HtmlAnchor>(e => e.IsVisible() && e.CssClass.Equals("sfShowInlineEditDlgLnk"));
             editButton.Click();
+            Manager.Current.Wait.For(this.WaitForChoicesArea, Manager.Current.Settings.ClientReadyTimeout);
             HtmlDiv choicesArea = ActiveBrowser.Find.ByExpression<HtmlDiv>("tagname=div", "data-template=radioButtonsViewTemplate"); 
 
             List<HtmlDiv> listItem = choicesArea.Find.AllByExpression<HtmlDiv>("tagname=div").ToList<HtmlDiv>();
@@ -99,6 +102,7 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Frontend
         {
             this.EditField(controlName);
 
+            Manager.Current.Wait.For(this.WaitForEditButton, Manager.Current.Settings.ClientReadyTimeout);
             HtmlAnchor editButton = ActiveBrowser.Find.ByCustom<HtmlAnchor>(e => e.IsVisible() && e.CssClass.Equals("sfShowInlineEditDlgLnk"));
             editButton.Click();
 
@@ -112,6 +116,7 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Frontend
         {
             this.EditField(controlName);
 
+            Manager.Current.Wait.For(this.WaitForEditButton, Manager.Current.Settings.ClientReadyTimeout);
             HtmlAnchor editButton = ActiveBrowser.Find.ByCustom<HtmlAnchor>(e => e.IsVisible() && e.CssClass.Equals("sfShowInlineEditDlgLnk"));
             editButton.Click();
 
@@ -132,6 +137,7 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Frontend
         {
             this.EditField(controlName);
 
+            Manager.Current.Wait.For(this.WaitForEditButton, Manager.Current.Settings.ClientReadyTimeout);
             HtmlAnchor editButton = ActiveBrowser.Find.ByCustom<HtmlAnchor>(e => e.IsVisible() && e.CssClass.Equals("sfShowInlineEditDlgLnk"));
             editButton.Click();
 
@@ -154,6 +160,7 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Frontend
         {
             this.EditField(controlName);
 
+            Manager.Current.Wait.For(this.WaitForEditButton, Manager.Current.Settings.ClientReadyTimeout);
             HtmlAnchor editButton = ActiveBrowser.Find.ByCustom<HtmlAnchor>(e => e.IsVisible() && e.CssClass.Equals("sfShowInlineEditDlgLnk"));
             editButton.Click();
 
@@ -167,6 +174,26 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Frontend
 
             cats.Click();
             BAT.Wrappers().Frontend().InlineEditing().DynamicTypes().SelectDoneButtongWhenEditingChoices();
+        }
+
+        private bool WaitForEditButton()
+        {
+            Manager.Current.ActiveBrowser.RefreshDomTree();
+            var editButton = ActiveBrowser.Find.ByCustom<HtmlAnchor>(e => e.IsVisible() && e.CssClass.Equals("sfShowInlineEditDlgLnk"));
+
+            bool result = editButton != null && editButton.IsVisible();
+
+            return result;
+        }
+
+        private bool WaitForChoicesArea()
+        {
+            Manager.Current.ActiveBrowser.RefreshDomTree();
+            var choicesArea = ActiveBrowser.Find.ByExpression<HtmlDiv>("tagname=div", "data-template=radioButtonsViewTemplate");
+
+            bool result = choicesArea != null && choicesArea.IsVisible();
+
+            return result;
         }
     }
 }

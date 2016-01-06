@@ -48,15 +48,14 @@ namespace FeatherWidgets.TestUI.Arrangements
         [ServerTearDown]
         public void TearDown()
         {
+            ServerOperations.Pages().DeleteAllPages();       
             var providerName = string.Empty;
             if (ServerOperations.MultiSite().CheckIsMultisiteMode())
             {
                 providerName = "dynamicContentProvider";
             }
 
-            ServerOperationsFeather.DynamicModulePressArticle().DeleteAllDynamicItemsInProvider(providerName);
-
-            ServerOperations.Pages().DeleteAllPages();           
+            ServerOperationsFeather.DynamicModulePressArticle().DeleteAllDynamicItemsInProvider(providerName);    
         }
 
         private const string AdminUserName = "admin";

@@ -1,4 +1,5 @@
 ﻿using System;
+using ArtOfTest.WebAii.Core;
 using Feather.Widgets.TestUI.Framework;
 using FeatherWidgets.TestUI.TestCases;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -20,7 +21,10 @@ namespace FeatherWidgets.TestUI.TestCases.DynamicWidgets
         TestCategory(FeatherTestCategories.DynamicWidgets)]
         public void FilterDynamicItemWithCategoryOnPage()
         {
-            BAT.Macros().NavigateTo().Pages(this.Culture);
+            var pagesUrl = this.Culture != null ? "~/sitefinity/pages/?lang=" + this.Culture : "~/sitefinity/pages";
+            RuntimeSettingsModificator.ExecuteWithClientTimeout(800000, () => BAT.Macros().NavigateTo().CustomPage(pagesUrl, false, null, new HtmlFindExpression("class=~sfMain")));
+            BAT.Macros().User().EnsureAdminLoggedIn();
+
             BAT.Wrappers().Backend().Pages().PagesWrapper().OpenPageZoneEditor(PageName);
             BATFeather.Wrappers().Backend().Pages().PageZoneEditorWrapper().EditWidget(WidgetName);
             BATFeather.Wrappers().Backend().Widgets().WidgetDesignerWrapper().SelectWhichItemsToDisplay(WhichNewsToDisplay);
