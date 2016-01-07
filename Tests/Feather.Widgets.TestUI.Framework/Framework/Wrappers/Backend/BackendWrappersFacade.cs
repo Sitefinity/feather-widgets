@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend;
+using Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend.CardWidget;
 using Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend.Classifications;
 using Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend.CommentsAndReviews;
 using Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend.Css;
@@ -174,6 +175,15 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend
         public FormsWrapperFacade Forms()
         {
             return new FormsWrapperFacade();
+        }
+
+        /// <summary>
+        /// Card widgets.
+        /// </summary>
+        /// <returns></returns>
+        public CardWrapperFacade Card()
+        {
+            return new CardWrapperFacade();
         }
     }
 }

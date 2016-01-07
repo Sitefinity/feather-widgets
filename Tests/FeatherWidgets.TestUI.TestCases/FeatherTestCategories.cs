@@ -174,5 +174,10 @@ namespace FeatherWidgets.TestUI.TestCases
         /// New category for Forms tests
         /// </summary>
         public const string Forms = "Forms";
+
+        /// <summary>
+        /// New category for Card tests
+        /// </summary>
+        public const string Card = "Card";
     }
 }

@@ -5,7 +5,6 @@ using System.Text;
 using System.Threading.Tasks;
 using Feather.Widgets.TestUI.Framework;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Telerik.Sitefinity.Frontend.TestUtilities;
 
 namespace FeatherWidgets.TestUI.TestCases.DynamicWidgets
 {
@@ -14,11 +13,12 @@ namespace FeatherWidgets.TestUI.TestCases.DynamicWidgets
     {
         /// <summary>
         /// UI test EditDynamicWidgetViaInlineEditing
-        /// The test is ignored, because it is unstable.
+        /// The test is ignored because of bug #178102.
         /// </summary>
         [TestMethod,
         Owner(FeatherTeams.FeatherTeam),
-        TestCategory(FeatherTestCategories.DynamicWidgets)]
+        TestCategory(FeatherTestCategories.DynamicWidgets),
+        Ignore]
         public void EditDynamicWidgetViaInlineEditing()
         {
             BAT.Macros().NavigateTo().CustomPage("~/" + PageName.ToLower() + "/SomeUrlName", true, this.Culture);

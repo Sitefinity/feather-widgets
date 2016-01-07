@@ -77,6 +77,14 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend
         /// </summary>
         public void ClickSelectButton()
         {
+            ActiveBrowser.WaitUntilReady();
+            ActiveBrowser.WaitForAsyncRequests();
+
+            Manager.Wait.For(() => {
+                ActiveBrowser.RefreshDomTree(); 
+                return EM.Widgets.WidgetDesignerContentScreen.SelectButtons.Any(b => b.IsVisible());
+            }, 10000);
+
             var selectButtons = EM.Widgets.WidgetDesignerContentScreen.SelectButtons;
             foreach (var button in selectButtons)
             {
@@ -98,6 +106,13 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend
         /// <param name="selectButtonNumber">select button number among all select buttons starting from 0</param>
         public void ClickSelectButton(int selectButtonNumber)
         {
+            Manager.Wait.For(() =>
+            {
+                ActiveBrowser.RefreshDomTree();
+                var buttons = EM.Widgets.WidgetDesignerContentScreen.SelectButtons;
+                return buttons.Count > selectButtonNumber && buttons.ElementAt(selectButtonNumber).IsVisible();
+            }, 10000);
+
             var selectButtons = EM.Widgets.WidgetDesignerContentScreen.SelectButtons;
             Assert.IsNotNull(selectButtons);
             Assert.IsTrue(selectButtons.Count != 0, "no select numbers found");

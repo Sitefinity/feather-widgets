@@ -1,7 +1,6 @@
 ﻿using System;
 using Feather.Widgets.TestUI.Framework;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Telerik.Sitefinity.Frontend.TestUtilities;
 
 namespace FeatherWidgets.TestUI.TestCases.Identity
 {
@@ -34,7 +33,8 @@ namespace FeatherWidgets.TestUI.TestCases.Identity
             BAT.Wrappers().Backend().Pages().PagesWrapper().OpenPageZoneEditor(LoginPage);
             BATFeather.Wrappers().Backend().Pages().PageZoneEditorWrapper().EditWidget(LoginWidgetName);
             BATFeather.Wrappers().Backend().Identity().LoginFormWrapper().ClickSelectButtonForRegistrationPage();
-            BATFeather.Wrappers().Backend().Widgets().SelectorsWrapper().SelectItemsInFlatSelector(this.pageToSelect);
+            BATFeather.Wrappers().Backend().Widgets().SelectorsWrapper().WaitForItemsToAppear(2);
+            BATFeather.Wrappers().Backend().Widgets().SelectorsWrapper().SelectItemsInPageSelector(this.pageToSelect);
             BATFeather.Wrappers().Backend().Widgets().SelectorsWrapper().DoneSelecting();
             BATFeather.Wrappers().Backend().Widgets().WidgetDesignerWrapper().VerifySelectedItemsFromFlatSelector(this.pageToSelect);
             BATFeather.Wrappers().Backend().Widgets().WidgetDesignerWrapper().SaveChanges();

@@ -16,6 +16,7 @@ using Telerik.Sitefinity.Mvc.Proxy;
 using Telerik.Sitefinity.TestIntegration.Data.Content;
 using Telerik.Sitefinity.TestIntegration.SDK.DevelopersGuide.SitefinityEssentials.Modules.Forms;
 using Telerik.Sitefinity.Web;
+using Telerik.WebTestRunner.Server.Attributes;
 
 namespace FeatherWidgets.TestIntegration.Forms
 {
@@ -43,23 +44,23 @@ namespace FeatherWidgets.TestIntegration.Forms
 
             try
             {
-                var semanticTemplate = pageManager.GetTemplates().FirstOrDefault(t => t.Name == "SemanticUI.default" && t.Title == "default");
+                var semanticTemplate = pageManager.GetTemplates().FirstOrDefault(t => (t.Name == "SemanticUI.default" && t.Title == "default") || t.Title == "SemanticUI.default");
                 Assert.IsNotNull(semanticTemplate, "Template was not found");
 
                 var semanticPageId = FeatherServerOperations.Pages().CreatePageWithTemplate(semanticTemplate, "FormsPageSemantic", "forms-page-semantic");
                 ServerOperationsFeather.Forms().AddFormControlToPage(semanticPageId, formId);
 
-                string semanticPageContent = FeatherServerOperations.Pages().GetPageContent(semanticPageId);
+                string semanticPageContent = ServerOperationsFeather.Pages().GetPageContent(semanticPageId);
 
                 Assert.IsTrue(semanticPageContent.Contains("class=\"sf_colsIn four wide column\""), "SemanticUI grid content not found.");
 
-                var bootstrapTemplate = pageManager.GetTemplates().FirstOrDefault(t => t.Name == "Bootstrap.default" && t.Title == "default");
+                var bootstrapTemplate = pageManager.GetTemplates().FirstOrDefault(t => (t.Name == "Bootstrap.default" && t.Title == "default") || t.Title == "Bootstrap.default");
                 Assert.IsNotNull(bootstrapTemplate, "Template was not found");
 
                 var bootstrapPageId = FeatherServerOperations.Pages().CreatePageWithTemplate(bootstrapTemplate, "FormsPageBootstrap", "forms-page-bootstrap");
                 ServerOperationsFeather.Forms().AddFormControlToPage(bootstrapPageId, formId);
 
-                string bootstrapPageContent = FeatherServerOperations.Pages().GetPageContent(bootstrapPageId);
+                string bootstrapPageContent = ServerOperationsFeather.Pages().GetPageContent(bootstrapPageId);
 
                 Assert.IsTrue(bootstrapPageContent.Contains("class=\"sf_colsIn col-md-3\""), "Bootstrap grid content not found.");
             }
@@ -94,12 +95,12 @@ namespace FeatherWidgets.TestIntegration.Forms
                 var pageId = FeatherServerOperations.Pages().CreatePageWithTemplate(template, "FormsPageCacheTest", "forms-page-cache-test");
                 ServerOperationsFeather.Forms().AddFormControlToPage(pageId, formId);
 
-                string pageContent = FeatherServerOperations.Pages().GetPageContent(pageId);
+                string pageContent = ServerOperationsFeather.Pages().GetPageContent(pageId);
 
                 Assert.IsTrue(pageContent.Contains("class=\"sf_colsIn four wide column\""), "SemanticUI grid content not found.");
 
                 ServerOperationsFeather.Forms().AddFormWidget(formId, new GridControl() { Layout = "<div class=\"sf_colsIn\">Funny widget.</div>" });
-                pageContent = FeatherServerOperations.Pages().GetPageContent(pageId);
+                pageContent = ServerOperationsFeather.Pages().GetPageContent(pageId);
 
                 Assert.IsTrue(pageContent.Contains("Funny widget."), "Form did not render the new control.");
             }

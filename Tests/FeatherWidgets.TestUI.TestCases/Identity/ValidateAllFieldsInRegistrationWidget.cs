@@ -6,7 +6,6 @@ using System.Threading.Tasks;
 using ArtOfTest.WebAii.Core;
 using Feather.Widgets.TestUI.Framework;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Telerik.Sitefinity.Frontend.TestUtilities;
 
 namespace FeatherWidgets.TestUI.TestCases.Identity
 {
@@ -28,7 +27,7 @@ namespace FeatherWidgets.TestUI.TestCases.Identity
         {
             ////Verify all required fields message
 
-            BAT.Macros().NavigateTo().CustomPage("~/" + RegistrationPage.ToLower(), true, this.Culture);
+            BAT.Macros().NavigateTo().CustomPage("~/" + RegistrationPage.ToLower(), false, this.Culture, new HtmlFindExpression("tagname=button", "InnerText=Register"));
             BATFeather.Wrappers().Frontend().Identity().RegistrationWrapper().RegisterButton();
             BATFeather.Wrappers().Frontend().Identity().RegistrationWrapper().AssertEmptyEmailFieldMessage();
             BATFeather.Wrappers().Frontend().Identity().RegistrationWrapper().AssertEmptyUsernameFieldMessage();

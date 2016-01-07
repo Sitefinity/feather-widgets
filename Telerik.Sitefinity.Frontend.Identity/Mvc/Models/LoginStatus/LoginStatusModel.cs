@@ -109,6 +109,9 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.LoginStatus
                 }                
             }
 
+            if (HttpContext.Current.Request.Url == null)
+                return string.Empty;
+
             string fullLogoutUrl = RouteHelper.ResolveUrl(ClaimsManager.GetLogoutUrl(logoutRedirectUrl), UrlResolveOptions.Rooted);
 
             // Workaround an issue when the application is hosted under an application path.
@@ -147,7 +150,7 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.LoginStatus
 
         #region Public Methods
         /// <inheritDoc/>
-        public LoginStatusViewModel GetViewModel()
+        public virtual LoginStatusViewModel GetViewModel()
         {
             return new LoginStatusViewModel()
             {
@@ -155,7 +158,8 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.LoginStatus
                 ProfilePageUrl = this.GetProfilePageUrl(),
                 RegistrationPageUrl = this.GetRegistrationPageUrl(),
                 LoginPageUrl = this.GetLoginPageUrl(),
-                CssClass = this.CssClass
+                CssClass = this.CssClass,
+                StatusServiceUrl = RouteHelper.ResolveUrl("~/rest-api/login-status", UrlResolveOptions.Rooted)
             };
         }
 

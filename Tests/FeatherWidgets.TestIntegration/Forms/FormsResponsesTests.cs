@@ -20,7 +20,7 @@ namespace FeatherWidgets.TestIntegration.Forms
     /// <summary>
     /// This is a class with Forms widget tests.
     /// </summary>
-    [Ignore("Unignore after Release_8_2_Fixes is released")]
+    [Ignore("Ignore until Sitefinity 9.0 is released")]
     [TestFixture]
     public class FormsResponsesTests
     {
