@@ -6,6 +6,8 @@ using System.Threading.Tasks;
 using Feather.Widgets.TestUI.Framework;
 using Feather.Widgets.TestUI.Framework.Framework;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using ArtOfTest.WebAii.Core;
+using Telerik.TestUI.Core.Utilities;
 
 namespace FeatherWidgets.TestUI.TestCases.Forms
 {
@@ -22,9 +24,8 @@ namespace FeatherWidgets.TestUI.TestCases.Forms
         Owner(FeatherTeams.FeatherTeam),
         TestCategory(FeatherTestCategories.Forms)]
         public void DeleteFormInUseVerifyFrontendHybrid()
-       
         {
-            BAT.Macros().NavigateTo().CustomPage("~/" + FeatherGlobals.HybridPageName.ToLower(), true, this.Culture);
+            RuntimeSettingsModificator.ExecuteWithClientTimeout(800000, () => BAT.Macros().NavigateTo().CustomPage("~/" + FeatherGlobals.HybridPageName.ToLower(), true, this.Culture, new HtmlFindExpression("TagName=button")));
             BATFeather.Wrappers().Frontend().Forms().FormsWrapper().VerifyTextboxFieldContainerIsVisible();
             BATFeather.Wrappers().Frontend().Forms().FormsWrapper().VerifySubmitButtonIsVisible();
             BAT.Macros().NavigateTo().Modules().Forms(this.Culture);

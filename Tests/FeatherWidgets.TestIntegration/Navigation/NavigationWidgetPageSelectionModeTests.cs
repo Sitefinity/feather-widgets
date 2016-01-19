@@ -85,7 +85,7 @@ namespace FeatherWidgets.TestIntegration.Navigation
         public void NavigationWidget_HorizontalTemplate5LevelsToInclude()
         {
             string url = UrlPath.ResolveAbsoluteUrl("~/" + UrlNamePrefix + Index);
-            string navigationClass = "navbar navbar-default";
+            string navigationId = "navbar";
 
             var mvcProxy = new MvcControllerProxy();
             mvcProxy.ControllerName = typeof(NavigationController).FullName;
@@ -104,7 +104,7 @@ namespace FeatherWidgets.TestIntegration.Navigation
 
             string responseContent = PageInvoker.ExecuteWebRequest(url);
 
-            Assert.IsTrue(responseContent.Contains(navigationClass), "The navigation with this css class was not found!");
+            Assert.IsTrue(responseContent.Contains(navigationId), "The navigation with this id was not found!");
 
             for (int i = 0; i <= 6; i++)
             {
@@ -128,7 +128,6 @@ namespace FeatherWidgets.TestIntegration.Navigation
         public void NavigationWidget_VerticalTemplate5LevelsToInclude()
         {
             string url = UrlPath.ResolveAbsoluteUrl("~/" + UrlNamePrefix + Index);
-            string navigationClass = "nav nav-pills nav-stacked";
 
             var mvcProxy = new MvcControllerProxy();
             mvcProxy.ControllerName = typeof(NavigationController).FullName;
@@ -146,8 +145,6 @@ namespace FeatherWidgets.TestIntegration.Navigation
             }
 
             string responseContent = PageInvoker.ExecuteWebRequest(url);
-
-            Assert.IsTrue(responseContent.Contains(navigationClass), "The navigation with this css class was not found!");
 
             for (int i = 0; i <= 6; i++)
             {
@@ -171,7 +168,6 @@ namespace FeatherWidgets.TestIntegration.Navigation
         public void NavigationWidget_TabsTemplate5LevelsToInclude()
         {
             string url = UrlPath.ResolveAbsoluteUrl("~/" + UrlNamePrefix + Index);
-            string navigationClass = "nav nav-tabs";
 
             var mvcProxy = new MvcControllerProxy();
             mvcProxy.ControllerName = typeof(NavigationController).FullName;
@@ -189,8 +185,6 @@ namespace FeatherWidgets.TestIntegration.Navigation
             }
 
             string responseContent = PageInvoker.ExecuteWebRequest(url);
-
-            Assert.IsTrue(responseContent.Contains(navigationClass), "The navigation with this css class was not found!");
 
             for (int i = 0; i <= 6; i++)
             {
@@ -214,7 +208,6 @@ namespace FeatherWidgets.TestIntegration.Navigation
         public void NavigationWidget_SitemapTemplate5LevelsToInclude()
         {
             string url = UrlPath.ResolveAbsoluteUrl("~/" + UrlNamePrefix + Index);
-            string navigationClass = "nav nav-sitemap";
 
             var mvcProxy = new MvcControllerProxy();
             mvcProxy.ControllerName = typeof(NavigationController).FullName;
@@ -232,8 +225,6 @@ namespace FeatherWidgets.TestIntegration.Navigation
             }
 
             string responseContent = PageInvoker.ExecuteWebRequest(url);
-
-            Assert.IsTrue(responseContent.Contains(navigationClass), "The navigation with this css class was not found!");
 
             for (int i = 0; i <= 6; i++)
             {

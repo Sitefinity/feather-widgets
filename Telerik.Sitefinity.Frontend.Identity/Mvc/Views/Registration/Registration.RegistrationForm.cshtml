@@ -35,7 +35,7 @@
     }
     else
     {
-        using (Html.BeginFormSitefinity())
+        using (Html.BeginFormSitefinity(true))
         {
             @Html.ValidationSummary(true);
             @ViewBag.Error

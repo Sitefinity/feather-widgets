@@ -7,6 +7,7 @@ using Feather.Widgets.TestUI.Framework;
 using Feather.Widgets.TestUI.Framework.Framework;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using ArtOfTest.WebAii.Core;
+using Telerik.TestUI.Core.Utilities;
 
 namespace FeatherWidgets.TestUI.TestCases.Forms
 {
@@ -25,7 +26,11 @@ namespace FeatherWidgets.TestUI.TestCases.Forms
         TestCategory(FeatherTestCategories.Forms)]
         public void DeleteFormFieldInUseVerityFrontend()
         {
-            BAT.Macros().NavigateTo().CustomPage("~/" + FeatherGlobals.BootstrapPageName.ToLower(), true, this.Culture, new HtmlFindExpression("id=PublicWrapper"));
+            RuntimeSettingsModificator.ExecuteWithClientTimeout(800000, () => BAT.Macros().NavigateTo().CustomPage("~/" + FeatherGlobals.BootstrapPageName.ToLower(), true, this.Culture, new HtmlFindExpression("id=PublicWrapper")));
+            
+            ActiveBrowser.WaitUntilReady();
+            ActiveBrowser.RefreshDomTree();
+			
             BATFeather.Wrappers().Frontend().Forms().FormsWrapper().VerifyCheckboxesFieldLabelIsVisible(FeatherGlobals.SelectAChoiceLabelName);
             BATFeather.Wrappers().Frontend().Forms().FormsWrapper().VerifyDropdownListFieldLabelIsVisible(FeatherGlobals.SelectAChoiceLabelName);
             BATFeather.Wrappers().Frontend().Forms().FormsWrapper().VerifySubmitButtonIsVisible();
