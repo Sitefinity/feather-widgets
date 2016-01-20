@@ -36,13 +36,17 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Frontend
         /// <param name="height">The height.</param>
         public void VerifyVideo(string src, int width = 0, int height = 0)
         {
-                HtmlVideo video = ActiveBrowser.Find.ByExpression<HtmlVideo>("src=~" + src)
-                    .AssertIsPresent("video");
-                if (width != 0 && height != 0)
-                {
-                    Assert.IsTrue(video.Width.Equals(width), "width is not correct");
-                    Assert.IsTrue(video.Height.Equals(height), "height is not correct");
-                }
+            HtmlFindExpression expression = new HtmlFindExpression("src=~" + src);
+            ActiveBrowser.WaitForElement(expression, 60000, false);
+
+            HtmlVideo video = ActiveBrowser.Find.ByExpression<HtmlVideo>("src=~" + src)
+                .AssertIsPresent("video");
+
+            if (width != 0 && height != 0)
+            {
+                Assert.IsTrue(video.Width.Equals(width), "width is not correct");
+                Assert.IsTrue(video.Height.Equals(height), "height is not correct");
+            }
         }
 
         /// <summary>

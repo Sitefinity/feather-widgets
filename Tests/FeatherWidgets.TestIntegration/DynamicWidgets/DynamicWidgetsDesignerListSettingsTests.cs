@@ -179,7 +179,6 @@ namespace FeatherWidgets.TestIntegration.DynamicWidgets
                 var dynamicController = new DynamicContentController();
                 dynamicController.Model.ContentType = TypeResolutionService.ResolveType(ResolveType);
                 dynamicController.Model.DisplayMode = ListDisplayMode.All;
-                dynamicController.Model.ProviderName = "dynamicContentProvider";
                 mvcProxy.Settings = new ControllerSettings(dynamicController);
                 mvcProxy.WidgetName = WidgetName;
 
@@ -442,10 +441,10 @@ namespace FeatherWidgets.TestIntegration.DynamicWidgets
             }
             finally
             {
-                File.Delete(file);
-                Directory.Delete(this.folderPath);
                 this.pageOperations.DeletePages();
                 ServerOperationsFeather.DynamicModulePressArticle().DeleteDynamicItems(dynamicCollection);
+                File.Delete(file);
+                Directory.Delete(this.folderPath);
             }
         }
 
@@ -499,9 +498,9 @@ namespace FeatherWidgets.TestIntegration.DynamicWidgets
             }
             finally
             {
-                Directory.Delete(this.folderPath);
                 this.pageOperations.DeletePages();
                 ServerOperationsFeather.DynamicModulePressArticle().DeleteDynamicItems(dynamicCollection);
+                Directory.Delete(this.folderPath);
             }
         }
 
