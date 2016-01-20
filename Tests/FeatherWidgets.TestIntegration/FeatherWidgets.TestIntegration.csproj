@@ -246,9 +246,9 @@
     <Compile Include="BlogPosts\BlogPostsWidgetTests.cs" />
     <Compile Include="BlogsWidget\BlogsWidgetListSettingsTests.cs" />
     <Compile Include="BlogsWidget\BlogsWidgetTests.cs" />
-    <Compile Include="ContentBlock\ContentBlockEditorTests.cs" />
-    <Compile Include="ContentBlock\ContentBlockSearchIndex.cs" />
-    <Compile Include="ContentBlock\ContentBlockWidget.cs" />
+    <Compile Include="Forms\ContentBlock\ContentBlockEditorTests.cs" />
+    <Compile Include="Forms\ContentBlock\ContentBlockSearchIndex.cs" />
+    <Compile Include="Forms\ContentBlock\ContentBlockWidget.cs" />
     <Compile Include="DynamicWidgets\DynamicWidgetsAllTypesTests.cs" />
     <Compile Include="DynamicWidgets\DynamicWidgetsContentLocationServiceTests.cs" />
     <Compile Include="DynamicWidgets\DynamicWidgetsDesignerContentTests.cs" />
@@ -300,6 +300,8 @@
     <Compile Include="Taxonomies\HierarchicalTaxonomyTests.cs" />
     <Compile Include="TestCategories.cs" />
     <Compile Include="Views\MvcTemplateBase.cs" />
+    <Compile Include="Views\PrecompilationFilterAttribute.cs" />
+    <Compile Include="Views\PrecompilationTests.cs" />
     <Compile Include="Views\ViewsCompilationTests.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -317,6 +319,10 @@
       <Project>{bed37404-75bb-4c89-b768-bb458a7e5dc9}</Project>
       <Name>Telerik.Sitefinity.Frontend.Card</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\Telerik.Sitefinity.Frontend.Comments\Telerik.Sitefinity.Frontend.Comments.csproj">
+      <Project>{d5c186a5-49ce-4728-abce-4d1d4c33c28b}</Project>
+      <Name>Telerik.Sitefinity.Frontend.Comments</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\Telerik.Sitefinity.Frontend.ContentBlock\Telerik.Sitefinity.Frontend.ContentBlock.csproj">
       <Project>{827b5c1e-619a-4080-a7f1-10d103c38cfd}</Project>
       <Name>Telerik.Sitefinity.Frontend.ContentBlock</Name>
@@ -324,6 +330,10 @@
     <ProjectReference Include="..\..\Telerik.Sitefinity.Frontend.DynamicContent\Telerik.Sitefinity.Frontend.DynamicContent.csproj">
       <Project>{f4d16a33-feaa-4008-b941-afc1ae95db31}</Project>
       <Name>Telerik.Sitefinity.Frontend.DynamicContent</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Telerik.Sitefinity.Frontend.EmailCampaigns\Telerik.Sitefinity.Frontend.EmailCampaigns.csproj">
+      <Project>{c70bd0bd-d081-48a0-af6d-3fa7e584cb04}</Project>
+      <Name>Telerik.Sitefinity.Frontend.EmailCampaigns</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\Telerik.Sitefinity.Frontend.Forms\Telerik.Sitefinity.Frontend.Forms.csproj">
       <Project>{35e2549f-113b-4b81-bdde-f06e78f4bdf8}</Project>
@@ -337,6 +347,10 @@
       <Project>{d3773581-78b7-44ad-96b8-5168dcf2795c}</Project>
       <Name>Telerik.Sitefinity.Frontend.InlineClientAssets</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\Telerik.Sitefinity.Frontend.Lists\Telerik.Sitefinity.Frontend.Lists.csproj">
+      <Project>{18142e99-a5a2-4f28-94b6-06c36c125fca}</Project>
+      <Name>Telerik.Sitefinity.Frontend.Lists</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\Telerik.Sitefinity.Frontend.Media\Telerik.Sitefinity.Frontend.Media.csproj">
       <Project>{8B6BB322-AE6D-42EF-8667-2E0A2EA65C98}</Project>
       <Name>Telerik.Sitefinity.Frontend.Media</Name>
@@ -348,6 +362,10 @@
     <ProjectReference Include="..\..\Telerik.Sitefinity.Frontend.News\Telerik.Sitefinity.Frontend.News.csproj">
       <Project>{574042a9-61aa-4eac-83d2-79cd19aa8bd4}</Project>
       <Name>Telerik.Sitefinity.Frontend.News</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Telerik.Sitefinity.Frontend.Publishing\Telerik.Sitefinity.Frontend.Publishing.csproj">
+      <Project>{ddfed943-c998-42aa-8ebf-38f1b6108ee7}</Project>
+      <Name>Telerik.Sitefinity.Frontend.Publishing</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\Telerik.Sitefinity.Frontend.Search\Telerik.Sitefinity.Frontend.Search.csproj">
       <Project>{b1e056f8-d6ad-4c0c-a619-053e23f44a60}</Project>
@@ -386,6 +404,7 @@
   <Target Name="BeforeBuild">
     <Copy SourceFiles="$(SolutionDir)FxCop\CustomDictionary.xml" DestinationFolder="$(CodeAnalysisPath)" OverwriteReadOnlyFiles="true" Retries="10" ContinueOnError="false" />
   </Target>
-  <Target Name="AfterBuild"></Target>
+  <Target Name="AfterBuild">
+  </Target>
   <Import Project="$(SolutionDir)\StyleCop\StyleCop.targets" />
 </Project>
