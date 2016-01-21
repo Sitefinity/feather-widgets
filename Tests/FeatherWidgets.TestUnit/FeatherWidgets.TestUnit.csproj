@@ -228,16 +228,19 @@
       <SpecificVersion>False</SpecificVersion>
     </Reference>
     <Reference Include="Telerik.Web.Design">
-      <HintPath>..\..\packages\Telerik.Web.UI.2015.3.1111.40\lib\net40\Telerik.Web.Design.dll</HintPath>
+      <HintPath>..\..\packages\Telerik.Web.UI.2016.1.113.40\lib\net40\Telerik.Web.Design.dll</HintPath>
       <SpecificVersion>False</SpecificVersion>
+      <Private>True</Private>
     </Reference>
     <Reference Include="Telerik.Web.UI">
-      <HintPath>..\..\packages\Telerik.Web.UI.2015.3.1111.40\lib\net40\Telerik.Web.UI.dll</HintPath>
+      <HintPath>..\..\packages\Telerik.Web.UI.2016.1.113.40\lib\net40\Telerik.Web.UI.dll</HintPath>
       <SpecificVersion>False</SpecificVersion>
+      <Private>True</Private>
     </Reference>
     <Reference Include="Telerik.Web.UI.Skins">
-      <HintPath>..\..\packages\Telerik.Web.UI.2015.3.1111.40\lib\net40\Telerik.Web.UI.Skins.dll</HintPath>
+      <HintPath>..\..\packages\Telerik.Web.UI.2016.1.113.40\lib\net40\Telerik.Web.UI.Skins.dll</HintPath>
       <SpecificVersion>False</SpecificVersion>
+      <Private>True</Private>
     </Reference>
   </ItemGroup>
   <Choose>
@@ -444,6 +447,7 @@
   <Target Name="BeforeBuild">
     <Copy SourceFiles="$(SolutionDir)FxCop\CustomDictionary.xml" DestinationFolder="$(CodeAnalysisPath)" OverwriteReadOnlyFiles="true" Retries="10" ContinueOnError="false" />
   </Target>
-  <Target Name="AfterBuild"></Target>
+  <Target Name="AfterBuild">
+  </Target>
   <Import Project="$(SolutionDir)\StyleCop\StyleCop.targets" />
 </Project>
