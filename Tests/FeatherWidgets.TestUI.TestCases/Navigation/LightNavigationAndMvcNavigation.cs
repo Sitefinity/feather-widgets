@@ -31,7 +31,7 @@ namespace FeatherWidgets.TestUI.TestCases.Navigation
             BAT.Macros().NavigateTo().CustomPage("~/" + PageName.ToLower(), true, this.Culture);
 
             Assert.IsFalse(ActiveBrowser.ContainsText(ServerErrorMessage), ServerErrorMessage);
-            BATFeather.Wrappers().Frontend().Navigation().NavigationWrapper().VerifyNavigationOnThePageFrontend(MvcNavClass, pages);
+            BATFeather.Wrappers().Frontend().Navigation().NavigationWrapper().VerifyNavigationOnFrontend(MvcNavClass, pages);
             BAT.Wrappers().Frontend().Navigation().NavigationFrontendWrapper().VerifyPagesFrontEndNavigation(LightNavClass, pages);
         }
 
@@ -57,7 +57,7 @@ namespace FeatherWidgets.TestUI.TestCases.Navigation
         private const string Page2 = "Page2";
         private const string WidgetName = "Navigation";
         private const string ServerErrorMessage = "Server Error";
-        private const string MvcNavClass = "nav navbar-nav";
+        private const string MvcNavClass = "navbar-1";
         private const string LightNavClass = "sfNavHorizontal sfNavList";
     }
 }
