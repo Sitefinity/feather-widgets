@@ -80,7 +80,7 @@ namespace Feather.Widgets.TestUI.Framework.Framework.ElementMap.Forms
         {
             get
             {
-                return this.Get<HtmlInputText>("TagName=input", "Class=form-control");
+                return this.Get<HtmlInputText>("TagName=input", "id=Textbox-1");
             }
         }
 

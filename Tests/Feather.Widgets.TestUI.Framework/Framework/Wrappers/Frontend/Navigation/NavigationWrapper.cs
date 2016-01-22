@@ -58,6 +58,40 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Frontend
         }
 
         /// <summary>
+        /// Verify navigation on the page frontend
+        /// </summary>
+        /// <param name="cssClass">The navigation css class</param>
+        /// <param name="pages">Expected pages</param>
+        public void VerifyNavigationOnFrontend(string cssClass, string[] pages, TemplateType templateType = TemplateType.Bootstrap)
+        {
+            HtmlControl navList = null;
+
+            switch (templateType)
+            {
+                case TemplateType.Bootstrap:
+                    navList = EM.Navigation.NavigationWidgetFrontend.GetNavigation(cssClass);
+                    navList.AssertIsPresent("Navigation List");
+                    Assert.AreEqual(pages.Count(), navList.ChildNodes.Count(), "Unexpected number of pages");
+                    break;
+                case TemplateType.Foundation:
+                    navList = EM.Navigation.NavigationWidgetFrontend.GetFoundationNavigation(cssClass);
+                    navList.AssertIsPresent("Navigation List");
+                    Assert.AreEqual(pages.Count(), navList.ChildNodes.Count(), "Unexpected number of pages");
+                    break;
+                case TemplateType.Semantic:
+                    navList = EM.Navigation.NavigationWidgetFrontend.GetSemanticNavigation(cssClass);
+                    navList.AssertIsPresent("Navigation List");
+                    Assert.AreEqual(pages.Count(), navList.ChildNodes.Where(n => n.TagName.Equals("a")).Count(), "Unexpected number of pages");
+                    break;
+            }
+
+            for (int i = 0; i < pages.Count(); i++)
+            {
+                Assert.IsTrue(navList.ChildNodes[i].InnerText.Contains(pages[i]), "Navigation child node does not contain the expected page: " + pages[i]);
+            }
+        }
+
+        /// <summary>
         /// Verify child pages on the frontend
         /// </summary>
         /// <param name="cssClass">The navigation css class</param>
