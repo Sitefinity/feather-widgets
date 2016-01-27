@@ -7,7 +7,7 @@
 
 @Html.Script(ScriptRef.JQuery, "top", false)
 
-<div class="@Model.CssClass" data-sf-role="dropdown-list-field-container">
+<div class="@Model.CssClass sf-fieldWrp" data-sf-role="dropdown-list-field-container">
     <input type="hidden" data-sf-role="violation-messages" value='{ "required": "@Model.RequiredViolationMessage"}' />
     <label for='@Html.UniqueId("Dropdown")'>@Model.MetaField.Title</label>
         

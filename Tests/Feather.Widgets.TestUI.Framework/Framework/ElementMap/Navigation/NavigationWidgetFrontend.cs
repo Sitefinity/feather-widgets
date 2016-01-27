@@ -44,6 +44,14 @@ namespace Feather.Widgets.TestUI.Framework.Framework.ElementMap.Navigation
         }
 
         /// <summary>
+        /// Gets the Bootstrap Navigation unordered list element on the frontend.
+        /// </summary>
+        public HtmlUnorderedList GetNavigation(string cssClass)
+        {
+            return this.Get<HtmlUnorderedList>("id=" + cssClass);
+        }
+
+        /// <summary>
         /// Gets the Foundation Navigation unordered list element on the frontend.
         /// </summary>
         public HtmlControl GetFoundationNavigation(string cssClass)

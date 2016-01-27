@@ -204,7 +204,7 @@ namespace Telerik.Sitefinity.Frontend.Navigation.Mvc.Controllers
 
                 page.Controls.Add(new LiteralControl()
                     {
-                        Text = string.Format(CultureInfo.InvariantCulture, "<input data-sf-role='{0}' type='hidden' value='{1}'>", item.Culture, link)
+                        Text = string.Format(CultureInfo.InvariantCulture, "<input data-sf-role='{0}' type='hidden' value='{1}'>", item.Culture, HttpUtility.HtmlEncode(link))
                     });
             }
         }

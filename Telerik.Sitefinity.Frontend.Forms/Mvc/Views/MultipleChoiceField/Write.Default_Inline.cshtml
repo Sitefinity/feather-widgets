@@ -12,7 +12,7 @@
     var requiredAttributes = MvcHtmlString.Create(Model.ValidationAttributes);
 }
 
-<div class="@Model.CssClass" data-sf-role="multiple-choice-field-container">
+<div class="@Model.CssClass sf-fieldWrp sf-RadioButtons" data-sf-role="multiple-choice-field-container">
     <input type="hidden" data-sf-role="violation-messages" value='{ "required": "@Model.RequiredViolationMessage"}' />
         <strong>@Model.MetaField.Title</strong>
         
