@@ -1,11 +1,15 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Web.UI;
 using Telerik.Sitefinity.Forms.Model;
+using Telerik.Sitefinity.Localization;
 using Telerik.Sitefinity.Modules.Pages;
+using Telerik.Sitefinity.Services;
 using Telerik.Sitefinity.Web.UI.ContentUI;
 using Telerik.Sitefinity.Web.UI.ContentUI.Contracts;
 using Telerik.Sitefinity.Web.UI.ContentUI.Views.Backend.Detail.Contracts;
+using Telerik.Sitefinity.Web.UI.ContentUI.Views.Backend.Detail.Definitions;
 using Telerik.Sitefinity.Web.UI.Fields;
 using Telerik.Sitefinity.Web.UI.Fields.Contracts;
 using Telerik.Sitefinity.Web.UI.Fields.Definitions;
@@ -24,13 +28,32 @@ namespace Telerik.Sitefinity.Frontend.Forms
 
         private void ExtendBackendDefinition(IContentViewControlDefinition contentViewControlDefinition, string backendViewName, FieldDisplayMode displayMode)
         {
-            var backendEditViewDefinition = contentViewControlDefinition.Views.FirstOrDefault(v => v.ViewName == backendViewName) as IDetailFormViewDefinition;
+            var backendEditViewDefinition = contentViewControlDefinition.Views.FirstOrDefault(v => v.ViewName == backendViewName) as DetailFormViewDefinition;
 
             if (backendEditViewDefinition != null)
             {
-                var advancedSection = backendEditViewDefinition.Sections.FirstOrDefault(s => s.Name == FormsDefinitionsExtender.AdvancedSectionName);
-                if (advancedSection != null)
+                ContentViewSectionDefinition advancedSection = backendEditViewDefinition.Sections.FirstOrDefault(s => s.Name == FormsDefinitionsExtender.AdvancedSectionName) as ContentViewSectionDefinition;
+                if (advancedSection != null && SystemManager.GetApplicationModule(advancedSection.ModuleName) != null)
                 {
+                    var fieldDefinition = this.BuildFrameworkChoiceFieldDefinition(displayMode);
+                    ((IList<IFieldDefinition>)advancedSection.Fields).Add(fieldDefinition);
+                }
+                else 
+                {
+                    advancedSection = new ContentViewSectionDefinition()
+                    {
+                        CssClass = "sfExpandableForm",
+                        DisplayMode = FieldDisplayMode.Write,
+                        IsHiddenInTranslationMode = false,
+                        ModuleName = "Feather",
+                        Name = Guid.NewGuid().ToString(),
+                        ResourceClassId = typeof(Labels).Name,
+                        Title = "Advanced",
+                        WrapperTag = HtmlTextWriterTag.Div 
+                    };
+
+                    backendEditViewDefinition.Sections.Add(advancedSection);
+
                     var fieldDefinition = this.BuildFrameworkChoiceFieldDefinition(displayMode);
                     ((IList<IFieldDefinition>)advancedSection.Fields).Add(fieldDefinition);
                 }
