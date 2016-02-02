@@ -303,13 +303,13 @@ namespace Telerik.Sitefinity.Frontend.Search.Mvc.Models
             switch (this.OrderBy)
             {
                 case OrderByOptions.Relevance:
-                    return new[] { "_score" };
+                    return null;
                 case OrderByOptions.Oldest:
                     return new[] { "PublicationDate" };
                 case OrderByOptions.Newest:
                     return new[] { "PublicationDate desc" };
                 default:
-                    return new[] { "_score" };
+                    return null;
             }
         }
 
