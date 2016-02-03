@@ -17,18 +17,6 @@ namespace FeatherWidgets.TestUI.Arrangements
     /// </summary>
     public class DeactivateAndUninstallMarketoModuleAndCreateAForm : TestArrangementBase
     {
-        [ServerArrangement]
-        public void DeactivateMarketoModule()
-        {
-            ServerOperations.StaticModules().DeactivateModule(ModuleName);
-        }
-
-        [ServerArrangement]
-        public void ActivateMarketoModule()
-        {
-            ServerOperations.StaticModules().ActivateModule(ModuleName);
-        }
-
         /// <summary>
         /// Tears down.
         /// </summary>

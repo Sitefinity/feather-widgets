@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Feather.Widgets.TestUI.Framework;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Telerik.TestUI.Core.Utilities;
 
 namespace FeatherWidgets.TestUI.TestCases.Forms
 {
@@ -22,9 +23,10 @@ namespace FeatherWidgets.TestUI.TestCases.Forms
         TestCategory(FeatherTestCategories.Forms)]
         public void DeactivateAndUninstallMarketoModuleAndCreateAForm()
         {
-            BAT.Macros().User().EnsureAdminLoggedIn();           
-            BAT.Macros().NavigateTo().Modules().Forms(this.Culture);    
-            BAT.Arrange(this.TestName).ExecuteArrangement("DeactivateMarketoModule");
+            BAT.Macros().User().EnsureAdminLoggedIn();
+            BAT.Wrappers().Backend().ModulesAndServices().ModulesAndServicesWrapper().NavigateToModules();
+            BAT.Wrappers().Backend().ModulesAndServices().ModulesAndServicesWrapper().DeactivateModule(moduleName);
+            RuntimeSettingsModificator.ExecuteWithClientTimeout(800000, () => BAT.Macros().NavigateTo().Modules().Forms(this.Culture));            
             BAT.Wrappers().Backend().Forms().FormsDashboard().ClickCreateAFormButton();
             BATFeather.Wrappers().Backend().Forms().FormsContentScreenWrapper().ClickAdvancedButton();
             BATFeather.Wrappers().Backend().Forms().FormsContentScreenWrapper().VerifyWebFrameworkExists();
@@ -32,14 +34,15 @@ namespace FeatherWidgets.TestUI.TestCases.Forms
 
             BAT.Wrappers().Backend().ModulesAndServices().ModulesAndServicesWrapper().NavigateToModules();
             BAT.Wrappers().Backend().ModulesAndServices().ModulesAndServicesWrapper().UninstallModule(moduleName);
-            BAT.Macros().NavigateTo().Modules().Forms(this.Culture);
+            RuntimeSettingsModificator.ExecuteWithClientTimeout(800000, () => BAT.Macros().NavigateTo().Modules().Forms(this.Culture));
             BAT.Wrappers().Backend().Forms().FormsDashboard().ClickCreateAFormButton();
             BATFeather.Wrappers().Backend().Forms().FormsContentScreenWrapper().ClickAdvancedButton();
             BATFeather.Wrappers().Backend().Forms().FormsContentScreenWrapper().VerifyWebFrameworkExists();
             BAT.Wrappers().Backend().Forms().FormsCreateScreen().ClickBackToForms();
 
-            BAT.Arrange(this.TestName).ExecuteArrangement("ActivateMarketoModule");
-            ActiveBrowser.Refresh();
+            BAT.Wrappers().Backend().ModulesAndServices().ModulesAndServicesWrapper().NavigateToModules();
+            BAT.Wrappers().Backend().ModulesAndServices().ModulesAndServicesWrapper().InstallModule(moduleName);
+            RuntimeSettingsModificator.ExecuteWithClientTimeout(800000, () => BAT.Macros().NavigateTo().Modules().Forms(this.Culture));
             BAT.Wrappers().Backend().Forms().FormsDashboard().ClickCreateAFormButton();
             BAT.Wrappers().Backend().Forms().FormsCreateScreen().ExpandAdvancedOptions();
             BATFeather.Wrappers().Backend().Forms().FormsContentScreenWrapper().VerifyWebFrameworkExists();
