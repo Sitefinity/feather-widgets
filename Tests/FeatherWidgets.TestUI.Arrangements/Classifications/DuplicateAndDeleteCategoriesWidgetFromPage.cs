@@ -54,6 +54,7 @@ namespace FeatherWidgets.TestUI.Arrangements
                 ServerOperations.Taxonomies().DeleteCategories(this.taxonTitleNews + i);
             }
 
+            ServerOperations.Taxonomies().DeleteCategories(this.taxonTitleBlogs);
             ServerOperations.Blogs().DeleteBlogPost(BlogPostTitle);
             ServerOperations.Blogs().DeleteAllBlogs();          
         }
