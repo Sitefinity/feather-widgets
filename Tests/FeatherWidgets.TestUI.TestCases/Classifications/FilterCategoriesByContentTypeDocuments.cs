@@ -6,10 +6,10 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 namespace FeatherWidgets.TestUI.TestCases.Classifications
 {
     /// <summary>
-    /// FilterCategoriesByContentType test class.
+    /// FilterCategoriesByContentTypeDocuments test class.
     /// </summary>
     [TestClass]
-    public class FilterCategoriesByContentType_ : FeatherTestCase
+    public class FilterCategoriesByContentTypeDocuments_ : FeatherTestCase
     {
         /// <summary>
         /// UI test verifying the filtering of categories by content type in hybrid page
@@ -18,24 +18,24 @@ namespace FeatherWidgets.TestUI.TestCases.Classifications
         Owner(FeatherTeams.FeatherTeam),
         TestCategory(FeatherTestCategories.PagesAndContent),
         TestCategory(FeatherTestCategories.Classifications)]
-        public void FilterCategoriesByContentType()
+        public void FilterCategoriesByContentTypeDocuments()
         {
             BAT.Macros().NavigateTo().Pages(this.Culture);
             BAT.Wrappers().Backend().Pages().PagesWrapper().OpenPageZoneEditor(PageName);
             BATFeather.Wrappers().Backend().Pages().PageZoneEditorWrapper().EditWidget(WidgetName);
-            BATFeather.Wrappers().Backend().Classifications().CategoriesWrapper().SelectRadioButtonOption(CategoriesRadioButtonIds.contentCategories);
-            BATFeather.Wrappers().Backend().Classifications().CategoriesWrapper().SelectUsedByContentTypeOption(DynamicWidgetOption);
+            BATFeather.Wrappers().Backend().Classifications().CategoriesWrapper().SelectRadioButtonOption(CategoriesRadioButtonIds.ContentCategories);
+            BATFeather.Wrappers().Backend().Classifications().CategoriesWrapper().SelectUsedByContentTypeOption(DocumentsOption);
             BATFeather.Wrappers().Backend().Widgets().WidgetDesignerWrapper().SaveChanges();
-            BAT.Wrappers().Backend().Pages().PageZoneEditorWrapper().CheckWidgetContent(WidgetName, taxonTitleDynamic + 1);
-            BAT.Wrappers().Backend().Pages().PageZoneEditorWrapper().CheckWidgetContent(WidgetName, taxonTitleDynamic + 2);
-            BAT.Wrappers().Backend().Pages().PageZoneEditorWrapper().CheckWidgetContent(WidgetName, taxonTitleDynamic + 3);
+            BAT.Wrappers().Backend().Pages().PageZoneEditorWrapper().CheckWidgetContent(WidgetName, taxonTitleDocuments);
             BAT.Wrappers().Backend().Pages().PageZoneEditorWrapper().PublishPage();
             BAT.Macros().NavigateTo().CustomPage("~/" + PageName.ToLower(), false, this.Culture);
-            Assert.IsTrue(BATFeather.Wrappers().Frontend().Classifications().ClassificationsWrapper().IsCategoriesTitlesPresentOnTheFrontendPage(new string[] { taxonTitleDynamic + 3, taxonTitleDynamic + 2, taxonTitleDynamic + 1 }));
+            Assert.IsTrue(BATFeather.Wrappers().Frontend().Classifications().ClassificationsWrapper().IsCategoriesTitlesPresentOnTheFrontendPage(new string[] { taxonTitleDocuments }));
             Assert.IsFalse(BATFeather.Wrappers().Frontend().Classifications().ClassificationsWrapper().IsCategoriesTitlesPresentOnTheFrontendPage(new string[] { taxonTitleNews + 1, taxonTitleNews + 2, taxonTitleNews + 3 }));
-            BATFeather.Wrappers().Frontend().Classifications().ClassificationsWrapper().ClickCategoryTitle(taxonTitleDynamic + 1);
-            Assert.IsTrue(BATFeather.Wrappers().Frontend().ModuleBuilder().ModuleBuilderWrapper().VerifyDynamicContentPresentOnTheFrontend(new string[] { taxonTitleDynamic + 2, taxonTitleDynamic + 3 }));
-            Assert.IsFalse(BATFeather.Wrappers().Frontend().Classifications().ClassificationsWrapper().IsCategoriesTitlesPresentOnTheFrontendPage(new string[] { taxonTitleNews + 1, taxonTitleNews + 2, taxonTitleNews + 3 }));
+            Assert.IsTrue(BATFeather.Wrappers().Frontend().News().NewsWrapper().IsNewsTitlesPresentOnThePageFrontend(new string[] { NewsTitle + 1, NewsTitle + 2, NewsTitle + 3 }));
+
+            BATFeather.Wrappers().Frontend().Classifications().ClassificationsWrapper().ClickCategoryTitle(taxonTitleDocuments);
+            Assert.IsFalse(BATFeather.Wrappers().Frontend().News().NewsWrapper().IsNewsTitlesPresentOnThePageFrontend(new string[] { NewsTitle + 1, NewsTitle + 2, NewsTitle + 3 }));
+            Assert.IsTrue(BATFeather.Wrappers().Frontend().DocumentsList().DocumentsListWrapper().IsDocumentTitlePresentOnDetailMasterPage(DocumentTitle));
         }
 
         /// <summary>
@@ -58,9 +58,9 @@ namespace FeatherWidgets.TestUI.TestCases.Classifications
         private const string PageName = "CategoriesPage";
         private const string WidgetName = "Categories";
         private string taxonTitleNews = "CategoryNews";
-        private string taxonTitleDynamic = "CategoryDynamic";
+        private string taxonTitleDocuments = "CategoryDocuments";
         private const string NewsTitle = "NewsTitle";
-        private const string CssClass = "Test";
-        private const string DynamicWidgetOption = "Press Article";
+        private const string DocumentsOption = "Documents & files";
+        private const string DocumentTitle = "TestDocument";
     }
 }

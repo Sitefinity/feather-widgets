@@ -23,8 +23,8 @@ namespace FeatherWidgets.TestUI.Arrangements
             Guid templateId = ServerOperations.Templates().GetTemplateIdByTitle(PageTemplateName);
             Guid pageId = ServerOperations.Pages().CreatePage(PageName, templateId);
             Guid pageNodeId = ServerOperations.Pages().GetPageNodeId(pageId);
-            ServerOperationsFeather.Pages().AddTagsWidgetToPage(pageNodeId, PlaceHolderId);
-            ServerOperationsFeather.Pages().AddNewsWidgetToPage(pageNodeId, PlaceHolderId);
+            ServerOperationsFeather.Pages().AddTagsWidgetToPage(pageNodeId, "Contentplaceholder1");
+            ServerOperationsFeather.Pages().AddNewsWidgetToPage(pageNodeId, "Contentplaceholder1");
 
             for (int i = 1; i < 4; i++)
             {
@@ -52,7 +52,6 @@ namespace FeatherWidgets.TestUI.Arrangements
         private const string NewsTitle = "NewsTitle";
         private const string TaxonTitle = "Tag";
         private const string PageTemplateName = "Bootstrap.default";
-        private const string PlaceHolderId = "Contentplaceholder1";
         private const string AuthorName = "AuthorName";
         private const string SourceName = "SourceName";
         private readonly TaxonomiesOperations taxonomies = ServerOperations.Taxonomies();

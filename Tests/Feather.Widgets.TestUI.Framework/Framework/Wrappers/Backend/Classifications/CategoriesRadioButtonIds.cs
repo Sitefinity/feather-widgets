@@ -8,10 +8,10 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend.Classifica
     /// </summary>
     public enum CategoriesRadioButtonIds
     {
-        allCategories,
-        topCategories,
-        underParticular,
-        selectedCategories,
-        contentCategories
+        AllCategories,
+        TopCategories,
+        UnderParticular,
+        SelectedCategories,
+        ContentCategories
     }
 }

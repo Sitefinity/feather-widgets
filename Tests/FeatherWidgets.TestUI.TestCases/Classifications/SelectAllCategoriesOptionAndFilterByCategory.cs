@@ -24,7 +24,7 @@ namespace FeatherWidgets.TestUI.TestCases.Classifications
             BAT.Wrappers().Backend().Pages().PagesWrapper().OpenPageZoneEditor(PageName);
             BATFeather.Wrappers().Backend().Pages().PageZoneEditorWrapper().AddMvcWidgetHybridModePage(WidgetName);
             BATFeather.Wrappers().Backend().Pages().PageZoneEditorWrapper().EditWidget(WidgetName);
-            BATFeather.Wrappers().Backend().Classifications().CategoriesWrapper().VerifyCheckedRadioButtonOption(CategoriesRadioButtonIds.allCategories);
+            BATFeather.Wrappers().Backend().Classifications().CategoriesWrapper().VerifyCheckedRadioButtonOption(CategoriesRadioButtonIds.AllCategories);
             BATFeather.Wrappers().Backend().Widgets().WidgetDesignerWrapper().ApplyCssClasses(CssClass);
             BATFeather.Wrappers().Backend().Classifications().CategoriesWrapper().SwitchToSettingsTab();
             BATFeather.Wrappers().Backend().Classifications().CategoriesWrapper().VerifySelectedSortingOption(SortingOptionAZ);
