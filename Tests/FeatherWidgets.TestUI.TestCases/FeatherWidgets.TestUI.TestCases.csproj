@@ -137,6 +137,7 @@
     <Compile Include="CommentsAndReviews\DisableAndEnableEmailNotificationsForReviewsForPages.cs" />
     <Compile Include="CommentsAndReviews\DisableCommentsForPage.cs" />
     <Compile Include="CommentsAndReviews\DisableReviewsForPage.cs" />
+    <Compile Include="Classifications\DuplicateAndDeleteCategoriesWidgetFromPage.cs" />
     <Compile Include="CommentsAndReviews\EditCommentWidgetAndCloseCommentsForPage.cs" />
     <Compile Include="CommentsAndReviews\DeleteNewsItemWithSubmittedComments.cs" />
     <Compile Include="CommentsAndReviews\EditReviewsWidgetAndCloseReviewsForPage.cs" />
