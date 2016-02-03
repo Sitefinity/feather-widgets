@@ -126,6 +126,7 @@
     <Compile Include="Framework\ElementMap\FeedWidget\FeedWidgetEditScreen.cs" />
     <Compile Include="Framework\ElementMap\FeedWidget\FeedWidgetFrontend.cs" />
     <Compile Include="Framework\ElementMap\FeedWidget\FeedWidgetMap.cs" />
+    <Compile Include="Framework\ElementMap\Forms\FormsPropertiesScreenBaseFeather.cs" />
     <Compile Include="Framework\ElementMap\Forms\FormsBackend.cs" />
     <Compile Include="Framework\ElementMap\Forms\FormsFrontend.cs" />
     <Compile Include="Framework\ElementMap\Forms\FormsMap.cs" />
