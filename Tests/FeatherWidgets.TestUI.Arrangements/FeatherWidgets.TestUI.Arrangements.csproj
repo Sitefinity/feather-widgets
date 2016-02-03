@@ -286,7 +286,7 @@
     <Compile Include="CardWidget\ChangeCardWidgetTemplate.cs" />
     <Compile Include="CardWidget\CreateWidgetTemplateAndSetTheTemplate.cs" />
     <Compile Include="CardWidget\DuplicateAndDeleteCardWidgetFromPage.cs" />
-    <Compile Include="Classifications\Add new UI test FilterCategoriesByContentTypeDocuments.cs" />
+    <Compile Include="Classifications\FilterCategoriesByContentTypeDocuments.cs" />
     <Compile Include="Classifications\ContentTagsOptionAndTagCloudTemplate.cs" />
     <Compile Include="Classifications\DuplicateAndDeleteCategoriesWidgetFromPage.cs" />
     <Compile Include="Classifications\FilterCategoriesByContentTypeBlogPosts.cs" />
