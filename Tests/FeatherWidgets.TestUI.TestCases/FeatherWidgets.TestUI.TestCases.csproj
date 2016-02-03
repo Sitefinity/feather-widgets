@@ -216,6 +216,7 @@
     <Compile Include="EmailCampaigns\UnsubscribeWidgetOnHybridPageAndSetCssClass.cs" />
     <Compile Include="FeatherTeams.cs" />
     <Compile Include="FeedWidget\DragAndDropFeedWidgetAndSetDefaultRssOnPage.cs" />
+    <Compile Include="Forms\DeactivateAndUninstallMarketoModuleAndCreateAForm.cs" />
     <Compile Include="Forms\EditDraftFormVerifyPreview.cs" />
     <Compile Include="Forms\EditFormSaveDraftThenPublishVerifyFrontend.cs">
       <SubType>Code</SubType>
@@ -238,6 +239,7 @@
     <Compile Include="Forms\ViewFormWithSectionHeaderOnPageAndVerifyResponseInBackend.cs" />
     <Compile Include="Forms\ViewFormWithTextboxFieldOnPageAndVerifyResponseInBackend.cs" />
     <Compile Include="Lists\VerifyListTemplatesOnBootstrap.cs" />
+    <Compile Include="Navigation\LanguageSelectorXssAttack.cs" />
     <Compile Include="News\AddNewsWidgetToPageVerifyViewPermissions.cs" />
     <Compile Include="News\AddRelatedDataToNewsWidget.cs" />
     <Compile Include="News\ChangeSelectedSingleItemPage.cs" />

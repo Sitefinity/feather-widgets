@@ -381,6 +381,7 @@
     <Compile Include="EmailCampaigns\UnsubscribeWidgetOnFoundationAndSemanticPage.cs" />
     <Compile Include="EmailCampaigns\UnsubscribeWidgetOnHybridPageAndSetCssClass.cs" />
     <Compile Include="FeedWidget\DragAndDropFeedWidgetAndSetDefaultRssOnPage.cs" />
+    <Compile Include="Forms\DeactivateAndUninstallMarketoModuleAndCreateAForm.cs" />
     <Compile Include="Forms\EditDraftFormVerifyPreview.cs" />
     <Compile Include="Forms\EditFormSaveDraftThenPublishVerifyFrontendHybrid.cs" />
     <Compile Include="Forms\DeleteFormFieldInUseVerityFrontend.cs" />
@@ -402,6 +403,7 @@
     <Compile Include="Forms\ViewFormWithTextboxFieldOnPageAndVerifyResponseInBackend.cs" />
     <Compile Include="Framework\TestArrangementBase.cs" />
     <Compile Include="Lists\VerifyListTemplatesOnBootstrap.cs" />
+    <Compile Include="Navigation\LanguageSelectorXssAttack.cs" />
     <Compile Include="ScriptsAndStyles\AddEmbedCodeWidgetToPageAndWriteAndRemoveJavaScript.cs" />
     <Compile Include="ScriptsAndStyles\WriteAndEditCssInEmbedCodeWidget.cs" />
     <Compile Include="EmailCampaigns\DragAndDropSubscribeFormWidgetOnPageAndSelectMailingList.cs" />
