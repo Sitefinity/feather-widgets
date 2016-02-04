@@ -12,9 +12,9 @@ using Telerik.Sitefinity.TestUtilities.CommonOperations;
 namespace FeatherWidgets.TestUI.Arrangements
 {
     /// <summary>
-    /// FilterCategoriesByContentType arrangement class.
+    /// FilterCategoriesByContentTypeDynamicItem arrangement class.
     /// </summary>
-    public class FilterCategoriesByContentType : TestArrangementBase
+    public class FilterCategoriesByContentTypeDynamicItem : TestArrangementBase
     {
         /// <summary>
         /// Server side set up.
@@ -55,7 +55,12 @@ namespace FeatherWidgets.TestUI.Arrangements
             }
 
             ServerOperationsFeather.DynamicModulePressArticle().DeleteAllDynamicItemsInProvider(providerName);
-            ServerOperations.Taxonomies().DeleteCategories();
+
+            for (int i = 0; i < 4; i++)
+            {
+                ServerOperations.Taxonomies().DeleteCategories(this.taxonTitleDynamic + i, this.taxonTitleNews + i);
+            }
+
             ServerOperations.News().DeleteAllNews();
         }
 

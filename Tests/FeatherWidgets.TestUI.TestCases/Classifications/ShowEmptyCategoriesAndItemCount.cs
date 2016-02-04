@@ -23,7 +23,7 @@ namespace FeatherWidgets.TestUI.TestCases.Classifications
             BAT.Macros().NavigateTo().Pages(this.Culture);
             BAT.Wrappers().Backend().Pages().PagesWrapper().OpenPageZoneEditor(PageName);
             BATFeather.Wrappers().Backend().Pages().PageZoneEditorWrapper().EditWidget(WidgetName);
-            BATFeather.Wrappers().Backend().Classifications().CategoriesWrapper().VerifyCheckedRadioButtonOption(CategoriesRadioButtonIds.allCategories);
+            BATFeather.Wrappers().Backend().Classifications().CategoriesWrapper().VerifyCheckedRadioButtonOption(CategoriesRadioButtonIds.AllCategories);
             BATFeather.Wrappers().Backend().Widgets().WidgetDesignerWrapper().ApplyCssClasses(CssClass);
             BATFeather.Wrappers().Backend().Classifications().CategoriesWrapper().SwitchToSettingsTab();
             BATFeather.Wrappers().Backend().Classifications().CategoriesWrapper().CheckShowEmptyCategories();
@@ -60,7 +60,6 @@ namespace FeatherWidgets.TestUI.TestCases.Classifications
         private const string WidgetName = "Categories";
         private const string Category = "Category";
         private const string NewsTitle = "NewsTitle";
-        private string[] blogPost = { "BlogPostWithCategory" };
         private string count = "(0)" ;
         private const string CssClass = "Test";
         private const string SortingOption = "By Title (A-Z)";

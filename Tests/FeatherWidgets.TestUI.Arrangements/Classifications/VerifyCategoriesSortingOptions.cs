@@ -40,8 +40,12 @@ namespace FeatherWidgets.TestUI.Arrangements
         public void TearDown()
         {
             ServerOperations.Pages().DeleteAllPages();
-            ServerOperations.Taxonomies().DeleteCategories();
             ServerOperations.News().DeleteAllNews();
+            
+            for (int i = 1; i < 4; i++)
+            {
+                ServerOperations.Taxonomies().DeleteCategories(this.taxonTitleNews + i);
+            }
         }
 
         private const string PageName = "CategoriesPage";

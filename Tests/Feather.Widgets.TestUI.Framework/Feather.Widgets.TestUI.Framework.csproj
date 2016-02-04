@@ -126,6 +126,7 @@
     <Compile Include="Framework\ElementMap\FeedWidget\FeedWidgetEditScreen.cs" />
     <Compile Include="Framework\ElementMap\FeedWidget\FeedWidgetFrontend.cs" />
     <Compile Include="Framework\ElementMap\FeedWidget\FeedWidgetMap.cs" />
+    <Compile Include="Framework\ElementMap\Forms\FormsPropertiesScreenBaseFeather.cs" />
     <Compile Include="Framework\ElementMap\Forms\FormsBackend.cs" />
     <Compile Include="Framework\ElementMap\Forms\FormsFrontend.cs" />
     <Compile Include="Framework\ElementMap\Forms\FormsMap.cs" />
@@ -252,6 +253,8 @@
     <Compile Include="Framework\Wrappers\Backend\WidgetTemplates\WidgetTemplatesWrapperFacade.cs" />
     <Compile Include="Framework\Wrappers\BaseWrapper.cs" />
     <Compile Include="Framework\Wrappers\Backend\ContentBlock\ContentBlockLinkSelectorWrapper.cs" />
+    <Compile Include="Framework\Wrappers\Frontend\Blogs\BlogsWrapper.cs" />
+    <Compile Include="Framework\Wrappers\Frontend\Blogs\BlogsWrapperFacade.cs" />
     <Compile Include="Framework\Wrappers\Frontend\CardWidget\CardWrapper.cs" />
     <Compile Include="Framework\Wrappers\Frontend\CardWidget\CardWrapperFacade.cs" />
     <Compile Include="Framework\Wrappers\Frontend\Classifications\ClassificationsWrapper.cs" />

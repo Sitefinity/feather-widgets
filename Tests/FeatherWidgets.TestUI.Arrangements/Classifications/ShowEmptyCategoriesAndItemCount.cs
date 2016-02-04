@@ -42,7 +42,11 @@ namespace FeatherWidgets.TestUI.Arrangements
         {
             ServerOperations.Pages().DeleteAllPages();
             ServerOperations.News().DeleteAllNews();
-            ServerOperations.Taxonomies().DeleteCategories();
+           
+            for (int i = 1; i < 4; i++)
+            {
+                ServerOperations.Taxonomies().DeleteCategories(this.categoryTitle + i);
+            }
         }
 
         private const string PageName = "CategoriesPage";
