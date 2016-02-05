@@ -118,6 +118,7 @@
     <Compile Include="CardWidget\CreateWidgetTemplateAndSetTheTemplate.cs" />
     <Compile Include="CardWidget\DuplicateAndDeleteCardWidgetFromPage.cs" />
     <Compile Include="Classifications\ContentTagsOptionAndTagCloudTemplate.cs" />
+    <Compile Include="Classifications\DuplicateAndDeleteTagsWidgetFromPage.cs" />
     <Compile Include="Classifications\FilterCategoriesByContentTypeBlogPosts.cs" />
     <Compile Include="Classifications\FilterCategoriesByContentTypeDocuments.cs" />
     <Compile Include="Classifications\FilterCategoriesByContentTypeDynamicItem.cs" />
