@@ -16,8 +16,7 @@ namespace FeatherWidgets.TestUI.TestCases.Classifications
         /// </summary>
         [TestMethod,
         Owner(FeatherTeams.FeatherTeam),
-        TestCategory(FeatherTestCategories.PagesAndContent),
-        TestCategory(FeatherTestCategories.Classifications)]
+        TestCategory(FeatherTestCategories.PagesAndContent)]
         public void FilterCategoriesByContentTypeDocuments()
         {
             BAT.Macros().NavigateTo().Pages(this.Culture);
