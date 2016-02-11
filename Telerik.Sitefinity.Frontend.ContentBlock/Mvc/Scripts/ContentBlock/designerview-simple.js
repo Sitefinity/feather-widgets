@@ -81,3 +81,11 @@
         }
     ]);
 })(jQuery);
+
+function saveProperties() {
+    var scope = angular.element('#viewsPlaceholder').scope();
+    scope.$apply(function () {
+        scope.$broadcast('close');
+    });
+    scope.save();
+}

@@ -265,9 +265,18 @@
     <Compile Include="CardWidget\ChangeCardWidgetTemplate.cs" />
     <Compile Include="CardWidget\CreateWidgetTemplateAndSetTheTemplate.cs" />
     <Compile Include="CardWidget\DuplicateAndDeleteCardWidgetFromPage.cs" />
+    <Compile Include="Classifications\DuplicateAndDeleteTagsWidgetFromPage.cs" />
+    <Compile Include="Classifications\FilterCategoriesByContentTypeDocuments.cs" />
     <Compile Include="Classifications\ContentTagsOptionAndTagCloudTemplate.cs" />
+    <Compile Include="Classifications\DuplicateAndDeleteCategoriesWidgetFromPage.cs" />
+    <Compile Include="Classifications\FilterCategoriesByContentTypeBlogPosts.cs" />
+    <Compile Include="Classifications\FilterCategoriesByContentTypeDynamicItem.cs" />
+    <Compile Include="Classifications\FilterCategoriesByContentTypeImages.cs" />
+    <Compile Include="Classifications\SelectAllCategoriesOptionAndFilterByCategory.cs" />
     <Compile Include="Classifications\SelectedTagsOptionAndCloudListTemplate.cs" />
     <Compile Include="Classifications\SelectAllTagsOptionAndCssClasses.cs" />
+    <Compile Include="Classifications\ShowEmptyCategoriesAndItemCount.cs" />
+    <Compile Include="Classifications\VerifyCategoriesSortingOptions.cs" />
     <Compile Include="CommentsAndReviews\AddCommentsWidgetOnPageBasedOnBootstrapTemplate.cs" />
     <Compile Include="CommentsAndReviews\AddReviewsWidgetOnPageBasedOnBootstrapTemplate.cs" />
     <Compile Include="CommentsAndReviews\ChangeCommentsStatusesForPage.cs" />
@@ -353,6 +362,7 @@
     <Compile Include="EmailCampaigns\UnsubscribeWidgetOnFoundationAndSemanticPage.cs" />
     <Compile Include="EmailCampaigns\UnsubscribeWidgetOnHybridPageAndSetCssClass.cs" />
     <Compile Include="FeedWidget\DragAndDropFeedWidgetAndSetDefaultRssOnPage.cs" />
+    <Compile Include="Forms\DeactivateAndUninstallMarketoModuleAndCreateAForm.cs" />
     <Compile Include="Forms\EditDraftFormVerifyPreview.cs" />
     <Compile Include="Forms\EditFormSaveDraftThenPublishVerifyFrontendHybrid.cs" />
     <Compile Include="Forms\DeleteFormFieldInUseVerityFrontend.cs" />
@@ -407,6 +417,7 @@
     <Compile Include="Forms\ViewFormWithTextboxFieldOnPageAndVerifyResponseInBackend.cs" />
     <Compile Include="Framework\TestArrangementBase.cs" />
     <Compile Include="Lists\VerifyListTemplatesOnBootstrap.cs" />
+    <Compile Include="Navigation\LanguageSelectorXssAttack.cs" />
     <Compile Include="ScriptsAndStyles\AddEmbedCodeWidgetToPageAndWriteAndRemoveJavaScript.cs" />
     <Compile Include="ScriptsAndStyles\WriteAndEditCssInEmbedCodeWidget.cs" />
     <Compile Include="EmailCampaigns\DragAndDropSubscribeFormWidgetOnPageAndSelectMailingList.cs" />
@@ -579,6 +590,7 @@
   <Target Name="BeforeBuild">
     <Copy SourceFiles="$(SolutionDir)FxCop\CustomDictionary.xml" DestinationFolder="$(CodeAnalysisPath)" OverwriteReadOnlyFiles="true" Retries="10" ContinueOnError="false" />
   </Target>
-  <Target Name="AfterBuild"></Target>
+  <Target Name="AfterBuild">
+  </Target>
   <Import Project="$(SolutionDir)\StyleCop\StyleCop.targets" />
 </Project>

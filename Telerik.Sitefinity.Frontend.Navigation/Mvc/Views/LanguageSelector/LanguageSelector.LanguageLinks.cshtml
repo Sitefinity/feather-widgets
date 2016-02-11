@@ -2,6 +2,9 @@
 
 @using Telerik.Sitefinity.Services;
 @using Telerik.Sitefinity.Frontend.Mvc.Helpers;
+@using Telerik.Sitefinity.Modules.Pages;
+
+@Html.Script(ScriptRef.JQuery, "top", false)
 
 <div class="@Model.CssClass">
     @foreach (var language in Model.Languages)

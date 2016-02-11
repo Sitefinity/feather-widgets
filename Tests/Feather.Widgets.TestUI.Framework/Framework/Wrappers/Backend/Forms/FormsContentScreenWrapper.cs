@@ -647,6 +647,31 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend.Forms
         }
 
         /// <summary>
+        /// Click advanced button
+        /// <summary>
+        public void ClickAdvancedButton()
+        {
+            HtmlAnchor advancedLink = EM.Forms.FormsPropertiesScreenBaseFeather.AdvancedButton
+                .AssertIsPresent("Advanced Link");
+            advancedLink.Click();
+
+            ActiveBrowser.WaitUntilReady();
+        }
+
+        /// <summary>
+        /// Verify WebFramework exists
+        /// <summary>
+        public void VerifyWebFrameworkExists()
+        {
+            HtmlListItem webFramework = EM.Forms.FormsPropertiesScreenBaseFeather.WebFramework
+                .AssertIsPresent("Web framework");
+
+            Assert.IsTrue(webFramework.InnerText.Contains("Web framework"));
+            Assert.IsTrue(webFramework.InnerText.Contains("MVC only"));
+            Assert.IsTrue(webFramework.InnerText.Contains("Web Forms only"));
+        }
+
+        /// <summary>
         /// Close Browser
         /// <summary>
         public void CloseBrowser()

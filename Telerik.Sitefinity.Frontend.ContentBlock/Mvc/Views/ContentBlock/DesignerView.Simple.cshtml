@@ -4,3 +4,7 @@
     <b>@Html.Resource("ThisContentIsShared")</b> @Html.Resource("SharedContentWarning")
 </div>
 <sf-html-field class="kendo-content-block" sf-model="properties.Content.PropertyValue"></sf-html-field>
+<script type="text/ng-template" section="modal-footer">
+     <button class="btn btn-primary pull-left" onclick="saveProperties()">@Html.Resource("Save")</button>
+     <a class="btn btn-link pull-left" data-dismiss="modal" ng-click="cancel()">@Html.Resource("Cancel")</a>
+ </script>

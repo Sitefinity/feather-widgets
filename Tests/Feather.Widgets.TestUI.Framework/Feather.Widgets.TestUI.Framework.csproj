@@ -109,6 +109,8 @@
     <Compile Include="Framework\ElementMap\CardWidget\CardEditScreen.cs" />
     <Compile Include="Framework\ElementMap\CardWidget\CardFrontend.cs" />
     <Compile Include="Framework\ElementMap\CardWidget\CardMap.cs" />
+    <Compile Include="Framework\ElementMap\Classifications\CategoriesWidgetEditScreen.cs" />
+    <Compile Include="Framework\ElementMap\Classifications\CategoriesWidgetFrontend.cs" />
     <Compile Include="Framework\ElementMap\Classifications\ClassificationsMap.cs" />
     <Compile Include="Framework\ElementMap\Classifications\TagsWidgetEditScreen.cs" />
     <Compile Include="Framework\ElementMap\CommentsAndReviews\CommentsAndReviewsMap.cs" />
@@ -124,6 +126,7 @@
     <Compile Include="Framework\ElementMap\FeedWidget\FeedWidgetEditScreen.cs" />
     <Compile Include="Framework\ElementMap\FeedWidget\FeedWidgetFrontend.cs" />
     <Compile Include="Framework\ElementMap\FeedWidget\FeedWidgetMap.cs" />
+    <Compile Include="Framework\ElementMap\Forms\FormsPropertiesScreenBaseFeather.cs" />
     <Compile Include="Framework\ElementMap\Forms\FormsBackend.cs" />
     <Compile Include="Framework\ElementMap\Forms\FormsFrontend.cs" />
     <Compile Include="Framework\ElementMap\Forms\FormsMap.cs" />
@@ -185,6 +188,8 @@
     <Compile Include="Framework\Wrappers\Backend\BackendWrappersFacade.cs" />
     <Compile Include="Framework\Wrappers\Backend\CardWidget\CardWrapper.cs" />
     <Compile Include="Framework\Wrappers\Backend\CardWidget\CardWrapperFacade.cs" />
+    <Compile Include="Framework\Wrappers\Backend\Classifications\CategoriesRadioButtonIds.cs" />
+    <Compile Include="Framework\Wrappers\Backend\Classifications\CategoriesWrapper.cs" />
     <Compile Include="Framework\Wrappers\Backend\Classifications\ClassificationsWrapperFacade.cs" />
     <Compile Include="Framework\Wrappers\Backend\Classifications\TagsTemplates.cs" />
     <Compile Include="Framework\Wrappers\Backend\Classifications\TagsWrapper.cs" />
@@ -249,6 +254,8 @@
     <Compile Include="Framework\Wrappers\Backend\WidgetTemplates\WidgetTemplatesWrapperFacade.cs" />
     <Compile Include="Framework\Wrappers\BaseWrapper.cs" />
     <Compile Include="Framework\Wrappers\Backend\ContentBlock\ContentBlockLinkSelectorWrapper.cs" />
+    <Compile Include="Framework\Wrappers\Frontend\Blogs\BlogsWrapper.cs" />
+    <Compile Include="Framework\Wrappers\Frontend\Blogs\BlogsWrapperFacade.cs" />
     <Compile Include="Framework\Wrappers\Frontend\CardWidget\CardWrapper.cs" />
     <Compile Include="Framework\Wrappers\Frontend\CardWidget\CardWrapperFacade.cs" />
     <Compile Include="Framework\Wrappers\Frontend\Classifications\ClassificationsWrapper.cs" />

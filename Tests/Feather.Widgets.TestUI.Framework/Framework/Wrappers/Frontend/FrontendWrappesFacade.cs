@@ -195,5 +195,14 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Frontend
         {
             return new CardWrapperFacade();
         }
+
+        /// <summary>
+        /// Provides unified access to the BlogsWrapperFacade 
+        /// </summary>
+        /// <returns>Returns the BlogsWrapperFacade</returns>
+        public BlogsWrapperFacade Blogs()
+        {
+            return new BlogsWrapperFacade();
+        }
     }
 }

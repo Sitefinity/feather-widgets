@@ -41,6 +41,18 @@ namespace Feather.Widgets.TestUI.Framework.Framework.ElementMap.Forms
                 return new FormsBackend(this.find);
             }
         }
+
+        /// <summary>
+        /// Gets the Forms backend properties
+        /// </summary>
+        public FormsPropertiesScreenBaseFeather FormsPropertiesScreenBaseFeather
+        {
+            get
+            {
+                return new FormsPropertiesScreenBaseFeather(this.find);
+            }
+        }
+
        private Find find;
     }
 }

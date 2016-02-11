@@ -118,8 +118,16 @@
     <Compile Include="CardWidget\CreateWidgetTemplateAndSetTheTemplate.cs" />
     <Compile Include="CardWidget\DuplicateAndDeleteCardWidgetFromPage.cs" />
     <Compile Include="Classifications\ContentTagsOptionAndTagCloudTemplate.cs" />
+    <Compile Include="Classifications\DuplicateAndDeleteTagsWidgetFromPage.cs" />
+    <Compile Include="Classifications\FilterCategoriesByContentTypeBlogPosts.cs" />
+    <Compile Include="Classifications\FilterCategoriesByContentTypeDocuments.cs" />
+    <Compile Include="Classifications\FilterCategoriesByContentTypeDynamicItem.cs" />
+    <Compile Include="Classifications\FilterCategoriesByContentTypeImages.cs" />
+    <Compile Include="Classifications\SelectAllCategoriesOptionAndFilterByCategory.cs" />
     <Compile Include="Classifications\SelectedTagsOptionAndCloudListTemplate.cs" />
     <Compile Include="Classifications\SelectAllTagsOptionAndCssClasses.cs" />
+    <Compile Include="Classifications\ShowEmptyCategoriesAndItemCount.cs" />
+    <Compile Include="Classifications\VerifyCategoriesSortingOptions.cs" />
     <Compile Include="CommentsAndReviews\AddCommentsWidgetOnPageBasedOnBootstrapTemplate.cs" />
     <Compile Include="CommentsAndReviews\AddReviewsWidgetOnPageBasedOnBootstrapTemplate.cs" />
     <Compile Include="CommentsAndReviews\ChangeCommentsStatusesForPage.cs" />
@@ -130,6 +138,7 @@
     <Compile Include="CommentsAndReviews\DisableAndEnableEmailNotificationsForReviewsForPages.cs" />
     <Compile Include="CommentsAndReviews\DisableCommentsForPage.cs" />
     <Compile Include="CommentsAndReviews\DisableReviewsForPage.cs" />
+    <Compile Include="Classifications\DuplicateAndDeleteCategoriesWidgetFromPage.cs" />
     <Compile Include="CommentsAndReviews\EditCommentWidgetAndCloseCommentsForPage.cs" />
     <Compile Include="CommentsAndReviews\DeleteNewsItemWithSubmittedComments.cs" />
     <Compile Include="CommentsAndReviews\EditReviewsWidgetAndCloseReviewsForPage.cs" />
@@ -209,6 +218,7 @@
     <Compile Include="EmailCampaigns\UnsubscribeWidgetOnHybridPageAndSetCssClass.cs" />
     <Compile Include="FeatherTeams.cs" />
     <Compile Include="FeedWidget\DragAndDropFeedWidgetAndSetDefaultRssOnPage.cs" />
+    <Compile Include="Forms\DeactivateAndUninstallMarketoModuleAndCreateAForm.cs" />
     <Compile Include="Forms\EditDraftFormVerifyPreview.cs" />
     <Compile Include="Forms\EditFormSaveDraftThenPublishVerifyFrontend.cs">
       <SubType>Code</SubType>
@@ -264,6 +274,7 @@
     <Compile Include="Forms\ViewFormWithSectionHeaderOnPageAndVerifyResponseInBackend.cs" />
     <Compile Include="Forms\ViewFormWithTextboxFieldOnPageAndVerifyResponseInBackend.cs" />
     <Compile Include="Lists\VerifyListTemplatesOnBootstrap.cs" />
+    <Compile Include="Navigation\LanguageSelectorXssAttack.cs" />
     <Compile Include="News\AddNewsWidgetToPageVerifyViewPermissions.cs" />
     <Compile Include="News\AddRelatedDataToNewsWidget.cs" />
     <Compile Include="News\ChangeSelectedSingleItemPage.cs" />
