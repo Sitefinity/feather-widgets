@@ -35,7 +35,7 @@ namespace FeatherWidgets.TestUI.TestCases.ContentBlocks.LinkSelector
             BATFeather.Wrappers().Backend().ContentBlocks().LinkSelectorWrapper().VerifyTestThisLinkVisibility(false);
             BATFeather.Wrappers().Backend().ContentBlocks().LinkSelectorWrapper().InsertLink();
             BATFeather.Wrappers().Backend().ContentBlocks().ContentBlocksWrapper().VerifyContentBlockImageDesignMode(ImageSrc);
-            BATFeather.Wrappers().Backend().ContentBlocks().ContentBlocksWrapper().SwitchToHtmlView();
+            BATFeather.Wrappers().Backend().ContentBlocks().ContentBlocksWrapper().ClickHtmlButton();
             BATFeather.Wrappers().Backend().ContentBlocks().ContentBlocksWrapper().VerifyContentInHtmlEditableArea(HtmlContent);
             BATFeather.Wrappers().Backend().ContentBlocks().ContentBlocksWrapper().SaveChanges();
             BATFeather.Wrappers().Backend().Pages().PageZoneEditorWrapper().VerifyCreatedImageLink(ImageSrc, WebAddress);
@@ -49,13 +49,13 @@ namespace FeatherWidgets.TestUI.TestCases.ContentBlocks.LinkSelector
             BATFeather.Wrappers().Backend().ContentBlocks().LinkSelectorWrapper().InsertLink();
             BATFeather.Wrappers().Backend().ContentBlocks().ContentBlocksWrapper().PressFullScreenButton();
             BATFeather.Wrappers().Backend().ContentBlocks().ContentBlocksWrapper().VerifyFullScreenMode(true);
-            BATFeather.Wrappers().Backend().ContentBlocks().ContentBlocksWrapper().SwitchToHtmlView();
+            BATFeather.Wrappers().Backend().ContentBlocks().ContentBlocksWrapper().ClickHtmlButton();
             BATFeather.Wrappers().Backend().ContentBlocks().ContentBlocksWrapper().VerifyContentInHtmlEditableArea(NewHtmlContent);
             BATFeather.Wrappers().Backend().ContentBlocks().ContentBlocksWrapper().VerifyFullScreenMode(true);
             BATFeather.Wrappers().Backend().ContentBlocks().ContentBlocksWrapper().VerifyCountOfButtonsIsCorrect(2);
             BATFeather.Wrappers().Backend().ContentBlocks().ContentBlocksWrapper().PressFullScreenButton();
             BATFeather.Wrappers().Backend().ContentBlocks().ContentBlocksWrapper().VerifyFullScreenMode(false);
-            BATFeather.Wrappers().Backend().ContentBlocks().ContentBlocksWrapper().SwitchToHtmlView();
+            BATFeather.Wrappers().Backend().ContentBlocks().ContentBlocksWrapper().ClickHtmlButton();
             BATFeather.Wrappers().Backend().ContentBlocks().ContentBlocksWrapper().VerifyCountOfButtonsIsCorrect(39);
             BATFeather.Wrappers().Backend().ContentBlocks().ContentBlocksWrapper().VerifyFullScreenMode(false);
             BATFeather.Wrappers().Backend().ContentBlocks().ContentBlocksWrapper().SaveChanges();
