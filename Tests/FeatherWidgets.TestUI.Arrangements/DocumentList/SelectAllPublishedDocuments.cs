@@ -25,13 +25,13 @@ namespace FeatherWidgets.TestUI.Arrangements
         public void SetUp()
         {
             Guid templateId = Telerik.Sitefinity.TestUtilities.CommonOperations.ServerOperations.Templates().GetTemplateIdByTitle(PageTemplateName);
-           Telerik.Sitefinity.TestUtilities.CommonOperations.ServerOperations.Pages().CreatePage(PageName, templateId);
+            Telerik.Sitefinity.TestUtilities.CommonOperations.ServerOperations.Pages().CreatePage(PageName, templateId);
 
-           ServerOperations.Documents().CreateDocumentLibrary(LibraryTitle);
+            ServerOperations.Documents().CreateLibrary(LibraryTitle);
 
-            ServerSideUpload.UploadDocument(LibraryTitle, DocumentTitle + 1, DocumentResource1);
-            ServerSideUpload.UploadDocument(LibraryTitle, DocumentTitle + 2, DocumentResource2);
-            ServerSideUpload.UploadDocument(LibraryTitle, DocumentTitle + 3, DocumentResource3);
+            ServerOperations.Documents().Upload(LibraryTitle, DocumentTitle + 1, DocumentResource1);
+            ServerOperations.Documents().Upload(LibraryTitle, DocumentTitle + 2, DocumentResource2);
+            ServerOperations.Documents().Upload(LibraryTitle, DocumentTitle + 3, DocumentResource3);
         }
 
         /// <summary>
@@ -40,7 +40,7 @@ namespace FeatherWidgets.TestUI.Arrangements
         [ServerArrangement]
         public void GetCurrentProviderUrlName()
         {
-            string urlName = ServerOperations.Libraries().GetCurrentProviderUrlName;
+            string urlName = ServerOperations.Media().GetCurrentProviderUrlName;
 
             ServerArrangementContext.GetCurrent().Values.Add("CurrentProviderUrlName", urlName);
         }
@@ -52,7 +52,7 @@ namespace FeatherWidgets.TestUI.Arrangements
         public void TearDown()
         {
             ServerOperations.Pages().DeleteAllPages();
-            ServerOperations.Libraries().DeleteAllDocumentLibrariesExceptDefaultOne();
+            ServerOperations.Documents().DeleteAllLibrariesExceptDefaultOne();
         }
 
         private const string PageName = "PageWithDocument";
