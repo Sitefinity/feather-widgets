@@ -26,9 +26,9 @@ namespace FeatherWidgets.TestUI.Arrangements
             ServerOperationsFeather.Pages().AddContentBlockWidgetToPage(page1Id);
 
             ServerOperations.Images().CreateLibrary(ImageLibraryTitle);
-            ServerSideUpload.UploadImage(ImageLibraryTitle, ImageTitle1, ImageResource1);
-            ServerSideUpload.UploadImage(ImageLibraryTitle, ImageTitle2, ImageResource2);
-            ServerSideUpload.UploadImage(ImageLibraryTitle, ImageTitle3, ImageResource3);
+            ServerOperations.Images().Upload(ImageLibraryTitle, ImageTitle1, ImageResource1);
+            ServerOperations.Images().Upload(ImageLibraryTitle, ImageTitle2, ImageResource2);
+            ServerOperations.Images().Upload(ImageLibraryTitle, ImageTitle3, ImageResource3);
         }
 
         /// <summary>
@@ -38,7 +38,7 @@ namespace FeatherWidgets.TestUI.Arrangements
         public void TearDown()
         {
             ServerOperations.Pages().DeleteAllPages();
-            ServerOperations.Libraries().DeleteLibraries(false, "Image");
+            ServerOperations.Images().DeleteAllLibrariesExceptDefaultOne();
         }
 
         /// Gets the current libraries provider Url name.
@@ -46,7 +46,7 @@ namespace FeatherWidgets.TestUI.Arrangements
         [ServerArrangement]
         public void GetCurrentProviderUrlName()
         {
-            string urlName = ServerOperations.Libraries().GetCurrentProviderUrlName;
+            string urlName = ServerOperations.Media().GetCurrentProviderUrlName;
 
             ServerArrangementContext.GetCurrent().Values.Add("CurrentProviderUrlName", urlName);
         }

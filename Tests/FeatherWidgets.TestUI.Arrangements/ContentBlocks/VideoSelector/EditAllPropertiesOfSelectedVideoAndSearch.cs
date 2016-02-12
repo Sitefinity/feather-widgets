@@ -25,8 +25,8 @@ namespace FeatherWidgets.TestUI.Arrangements
 
             ServerOperationsFeather.Pages().AddContentBlockWidgetToPage(pageId, string.Empty, PlaceHolderId);
 
-            ServerSideUpload.CreateVideoLibrary(LibraryTitle);
-            ServerSideUpload.UploadVideo(LibraryTitle, VideoTitle1, VideoResource1);
+            ServerOperations.Videos().CreateLibrary(LibraryTitle);
+            ServerOperations.Videos().Upload(LibraryTitle, VideoTitle1, VideoResource1);
         }
 
         /// <summary>
@@ -36,7 +36,7 @@ namespace FeatherWidgets.TestUI.Arrangements
         public void TearDown()
         {
             ServerOperations.Pages().DeleteAllPages();
-            ServerOperations.Libraries().DeleteAllVideoLibrariesExceptDefaultOne();
+            ServerOperations.Videos().DeleteAllLibrariesExceptDefaultOne();
         }
 
         /// Gets the current libraries provider Url name.
@@ -44,7 +44,7 @@ namespace FeatherWidgets.TestUI.Arrangements
         [ServerArrangement]
         public void GetCurrentProviderUrlName()
         {
-            string urlName = ServerOperations.Libraries().GetCurrentProviderUrlName;
+            string urlName = ServerOperations.Media().GetCurrentProviderUrlName;
 
             ServerArrangementContext.GetCurrent().Values.Add("CurrentProviderUrlName", urlName);
         }

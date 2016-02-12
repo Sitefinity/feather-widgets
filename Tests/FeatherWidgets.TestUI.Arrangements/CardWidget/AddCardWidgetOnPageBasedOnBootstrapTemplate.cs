@@ -26,8 +26,8 @@ namespace FeatherWidgets.TestUI.Arrangements
             Guid page1Id = ServerOperations.Pages().CreatePage(PageName2);
             ServerOperationsFeather.Pages().AddContentBlockWidgetToPage(page1Id, Content);
 
-            Telerik.Sitefinity.TestUtilities.CommonOperations.ServerSideUpload.CreateAlbum(ImageLibraryTitle);
-            Telerik.Sitefinity.TestUtilities.CommonOperations.ServerSideUpload.UploadImage(ImageLibraryTitle, ImageTitle, ImageResource1);
+            Telerik.Sitefinity.TestUtilities.CommonOperations.ServerOperations.Images().CreateLibrary(ImageLibraryTitle);
+            Telerik.Sitefinity.TestUtilities.CommonOperations.ServerOperations.Images().Upload(ImageLibraryTitle, ImageTitle, ImageResource1);
         }
 
         /// <summary>
@@ -37,7 +37,7 @@ namespace FeatherWidgets.TestUI.Arrangements
         public void TearDown()
         {
             ServerOperations.Pages().DeleteAllPages();
-            Telerik.Sitefinity.TestUtilities.CommonOperations.ServerOperations.Libraries().DeleteLibraries(false, "Image");
+            Telerik.Sitefinity.TestUtilities.CommonOperations.ServerOperations.Images().DeleteAllLibrariesExceptDefaultOne();
         }
 
         private const string PageName = "CardPage";

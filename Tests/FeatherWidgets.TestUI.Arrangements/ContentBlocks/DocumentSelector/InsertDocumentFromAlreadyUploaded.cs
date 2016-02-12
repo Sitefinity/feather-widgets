@@ -29,8 +29,8 @@ namespace FeatherWidgets.TestUI.Arrangements
         [ServerArrangement]
         public void UploadDocument()
         {
-            ServerOperations.Documents().CreateDocumentLibrary(LibraryTitle);
-            Guid id = ServerSideUpload.UploadDocument(LibraryTitle, DocumentTitle, DocumentResource);
+            ServerOperations.Documents().CreateLibrary(LibraryTitle);
+            Guid id = ServerOperations.Documents().Upload(LibraryTitle, DocumentTitle, DocumentResource);
 
             var manager = LibrariesManager.GetManager();
             var master = manager.GetDocument(id);
@@ -46,7 +46,7 @@ namespace FeatherWidgets.TestUI.Arrangements
         public void TearDown()
         {
             ServerOperations.Pages().DeleteAllPages();
-            ServerOperations.Libraries().DeleteAllDocumentLibrariesExceptDefaultOne();
+            ServerOperations.Documents().DeleteAllLibrariesExceptDefaultOne();
         }
 
         /// Gets the current libraries provider Url name.
@@ -54,7 +54,7 @@ namespace FeatherWidgets.TestUI.Arrangements
         [ServerArrangement]
         public void GetCurrentProviderUrlName()
         {
-            string urlName = ServerOperations.Libraries().GetCurrentProviderUrlName;
+            string urlName = ServerOperations.Media().GetCurrentProviderUrlName;
 
             ServerArrangementContext.GetCurrent().Values.Add("CurrentProviderUrlName", urlName);
         }
