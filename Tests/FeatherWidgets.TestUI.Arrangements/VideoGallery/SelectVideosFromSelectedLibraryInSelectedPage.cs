@@ -30,11 +30,11 @@ namespace FeatherWidgets.TestUI.Arrangements
             Guid singleItemPageId = ServerOperations.Pages().CreatePage(SingleItemPage);
             ServerOperationsFeather.Pages().AddVideoGalleryWidgetToPage(singleItemPageId);
 
-            var parentId = ServerSideUpload.CreateVideoLibrary(VideoLibraryTitle);
-            var childId = ServerSideUpload.CreateFolder(ChildLibraryTitle, parentId);
+            var parentId = ServerOperations.Videos().CreateLibrary(VideoLibraryTitle);
+            var childId = ServerOperations.Videos().CreateFolder(ChildLibraryTitle, parentId);
 
-            ServerSideUpload.UploadVideo(VideoLibraryTitle, VideoTitle + 1, VideoResource1);
-            ServerSideUpload.UploadVideo(VideoLibraryTitle, VideoTitle + 2, VideoResource2);
+            ServerOperations.Videos().Upload(VideoLibraryTitle, VideoTitle + 1, VideoResource1);
+            ServerOperations.Videos().Upload(VideoLibraryTitle, VideoTitle + 2, VideoResource2);
             ServerOperationsFeather.MediaOperations().UploadVideoInFolder(childId, VideoTitle + 3, VideoResource3);
             ServerOperationsFeather.MediaOperations().UploadVideoInFolder(childId, VideoTitle + 4, VideoResource4);
         }
@@ -45,7 +45,7 @@ namespace FeatherWidgets.TestUI.Arrangements
         [ServerArrangement]
         public void GetCurrentProviderUrlName()
         {
-            string urlName = ServerOperations.Libraries().GetCurrentProviderUrlName;
+            string urlName = ServerOperations.Media().GetCurrentProviderUrlName;
 
             ServerArrangementContext.GetCurrent().Values.Add("CurrentProviderUrlName", urlName);
         }
@@ -57,7 +57,7 @@ namespace FeatherWidgets.TestUI.Arrangements
         public void TearDown()
         {
             ServerOperations.Pages().DeleteAllPages();
-            ServerOperations.Libraries().DeleteAllVideoLibrariesExceptDefaultOne();
+            ServerOperations.Videos().DeleteAllLibrariesExceptDefaultOne();
         }
 
         private const string PageName = "PageWithVideo";

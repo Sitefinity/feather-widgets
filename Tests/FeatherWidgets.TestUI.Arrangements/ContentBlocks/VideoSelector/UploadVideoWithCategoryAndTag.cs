@@ -25,8 +25,8 @@ namespace FeatherWidgets.TestUI.Arrangements
             Guid page1Id = ServerOperations.Pages().CreatePage(PageName);
             ServerOperationsFeather.Pages().AddContentBlockWidgetToPage(page1Id);
 
-            var parentId = ServerSideUpload.CreateVideoLibrary(VideoLibraryTitle);
-            ServerSideUpload.CreateFolder(ChildLibraryTitle, parentId);
+            var parentId = ServerOperations.Videos().CreateLibrary(VideoLibraryTitle);
+            ServerOperations.Videos().CreateFolder(ChildLibraryTitle, parentId);
             ServerOperations.Taxonomies().CreateCategory(TaxonTitle + 0);
             ServerOperations.Taxonomies().CreateCategory(TaxonTitle + 1, TaxonTitle + 0);               
         }
@@ -38,7 +38,7 @@ namespace FeatherWidgets.TestUI.Arrangements
         public void TearDown()
         {
             ServerOperations.Pages().DeleteAllPages();
-            ServerOperations.Libraries().DeleteAllVideoLibrariesExceptDefaultOne();
+            ServerOperations.Videos().DeleteAllLibrariesExceptDefaultOne();
             ServerOperations.Taxonomies().ClearAllCategories(TaxonomiesConstants.CategoriesTaxonomyId);
             ServerOperations.Taxonomies().ClearAllTags(TaxonomiesConstants.TagsTaxonomyId);
         }
@@ -48,7 +48,7 @@ namespace FeatherWidgets.TestUI.Arrangements
         [ServerArrangement]
         public void GetCurrentProviderUrlName()
         {
-            string urlName = ServerOperations.Libraries().GetCurrentProviderUrlName;
+            string urlName = ServerOperations.Media().GetCurrentProviderUrlName;
 
             ServerArrangementContext.GetCurrent().Values.Add("CurrentProviderUrlName", urlName);
         }
