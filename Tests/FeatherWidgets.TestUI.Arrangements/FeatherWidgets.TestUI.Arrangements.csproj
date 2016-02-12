@@ -348,7 +348,7 @@
     <Compile Include="ContentBlocks\LinkSelector\LinkSelectorEditInsertedLinkToWebPage.cs" />
     <Compile Include="ContentBlocks\LinkSelector\LinkSelectorInsertLink.cs" />
     <Compile Include="ContentBlocks\ContentBlockWidgetMultipleProviders.cs" />
-    <Compile Include="ContentBlocks\ContentBlockWidgetOnPage.cs" />
+    <Compile Include="ContentBlocks\ContentBlockWidgetWithInvalidHtmlOnPage.cs" />
     <Compile Include="ContentBlocks\ContentBlockWidgetOnPageBasedOnPackageTemplate.cs" />
     <Compile Include="ContentBlocks\ContentBlockWidgetWithShareButtonsOnPageBasedOnBoostrap.cs" />
     <Compile Include="ContentBlocks\DeactivateContentBlockModule.cs" />

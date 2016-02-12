@@ -1,17 +1,14 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using Telerik.Sitefinity.TestArrangementService.Attributes;
-using Telerik.Sitefinity.TestUI.Arrangements.Framework;
 using Telerik.Sitefinity.TestUtilities.CommonOperations;
 
 namespace FeatherWidgets.TestUI.Arrangements
 {
     /// <summary>
-    /// ContentBlockWidgetOnPage arrangement class.
+    /// ContentBlockWidgetWithInvalidHtmlOnPage arrangement class.
     /// </summary>
-    public class ContentBlockWidgetOnPage : TestArrangementBase
+    public class ContentBlockWidgetWithInvalidHtmlOnPage : TestArrangementBase
     {
         /// <summary>
         /// Server side set up.
