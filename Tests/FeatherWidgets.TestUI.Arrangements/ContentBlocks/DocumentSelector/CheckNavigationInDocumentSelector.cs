@@ -24,10 +24,10 @@ namespace FeatherWidgets.TestUI.Arrangements
             Guid page1Id = ServerOperations.Pages().CreatePage(PageName);
             ServerOperationsFeather.Pages().AddContentBlockWidgetToPage(page1Id);
 
-            var parentId = ServerOperations.Documents().CreateLibrary(DocumentLibraryTitle);
-            var childId = ServerOperations.Documents().CreateFolder(ChildLibraryTitle, parentId);
-            var nextChildId = ServerOperations.Documents().CreateFolder(NextChildLibraryTitle, childId);
-            ServerOperations.Documents().Upload(DocumentLibraryTitle, DocumentTitle + 1, DocumentResource);
+            var parentId = ServerSideUpload.CreateDocumentLibrary(DocumentLibraryTitle);
+            var childId = ServerSideUpload.CreateFolder(ChildLibraryTitle, parentId);
+            var nextChildId = ServerSideUpload.CreateFolder(NextChildLibraryTitle, childId);
+            ServerSideUpload.UploadDocument(DocumentLibraryTitle, DocumentTitle + 1, DocumentResource);
             ServerOperationsFeather.MediaOperations().UploadDocumentInFolder(childId, DocumentTitle + 2, DocumentResourceChild);
 
             ServerOperations.Users().CreateUserWithProfileAndRoles("administrator", "password", "Administrator", "User", "administrator@test.test", new List<string> { "BackendUsers", "Administrators" });
@@ -41,7 +41,7 @@ namespace FeatherWidgets.TestUI.Arrangements
         [ServerArrangement]
         public void GetCurrentProviderUrlName()
         {
-            string urlName = ServerOperations.Media().GetCurrentProviderUrlName;
+            string urlName = ServerOperations.Libraries().GetCurrentProviderUrlName;
 
             ServerArrangementContext.GetCurrent().Values.Add("CurrentProviderUrlName", urlName);
         }
@@ -54,7 +54,7 @@ namespace FeatherWidgets.TestUI.Arrangements
         {
             ServerOperations.Pages().DeleteAllPages();
             ServerOperations.Users().DeleteUserAndProfile("administrator");
-            ServerOperations.Documents().DeleteAllLibrariesExceptDefaultOne();
+            ServerOperations.Libraries().DeleteAllDocumentLibrariesExceptDefaultOne();
         }
 
         private const string AdminUserName = "admin";

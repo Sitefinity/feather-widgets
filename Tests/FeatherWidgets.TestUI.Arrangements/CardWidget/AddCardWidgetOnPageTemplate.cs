@@ -24,8 +24,8 @@ namespace FeatherWidgets.TestUI.Arrangements
             Guid templateId = ServerOperationsFeather.TemplateOperations().GetTemplateIdByTitle(PageTemplateName);
             ServerOperations.Pages().CreatePage(PageName, templateId);
 
-            Telerik.Sitefinity.TestUtilities.CommonOperations.ServerOperations.Images().CreateLibrary(ImageLibraryTitle);
-            Telerik.Sitefinity.TestUtilities.CommonOperations.ServerOperations.Images().Upload(ImageLibraryTitle, ImageTitle, ImageResource1);
+            Telerik.Sitefinity.TestUtilities.CommonOperations.ServerSideUpload.CreateAlbum(ImageLibraryTitle);
+            Telerik.Sitefinity.TestUtilities.CommonOperations.ServerSideUpload.UploadImage(ImageLibraryTitle, ImageTitle, ImageResource1);
         }
 
         /// <summary>
@@ -36,7 +36,7 @@ namespace FeatherWidgets.TestUI.Arrangements
         {
             ServerOperations.Pages().DeleteAllPages();
             ServerOperations.Templates().DeletePageTemplate(PageTemplateName);
-            Telerik.Sitefinity.TestUtilities.CommonOperations.ServerOperations.Images().DeleteAllLibrariesExceptDefaultOne();
+            Telerik.Sitefinity.TestUtilities.CommonOperations.ServerOperations.Libraries().DeleteLibraries(false, "Image");
         }
 
         private const string PageTemplateName = "CardTemplate";

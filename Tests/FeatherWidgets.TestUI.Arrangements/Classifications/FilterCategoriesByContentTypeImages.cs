@@ -25,8 +25,8 @@ namespace FeatherWidgets.TestUI.Arrangements
             Guid templateId = ServerOperations.Templates().GetTemplateIdByTitle(PageTemplateName);
             Guid pageId = ServerOperations.Pages().CreatePage(PageName, templateId);
             Guid pageNodeId = ServerOperations.Pages().GetPageNodeId(pageId);
-            ServerOperations.Images().CreateLibrary(ImageLibraryTitle);
-            Guid imageId = ServerOperations.Images().Upload(ImageLibraryTitle, ImageTitle, ImageResource1);
+            ServerSideUpload.CreateAlbum(ImageLibraryTitle);
+            Guid imageId = ServerSideUpload.UploadImage(ImageLibraryTitle, ImageTitle, ImageResource1);
             ServerOperations.Taxonomies().CreateCategory(this.taxonTitleImages);
             Guid categoryId = TaxonomyManager.GetManager().GetTaxa<HierarchicalTaxon>().SingleOrDefault(t => t.Title == this.taxonTitleImages).Id;
             ServerOperations.Images().AssignTaxonToImage(imageId, "Category", categoryId);
@@ -59,7 +59,8 @@ namespace FeatherWidgets.TestUI.Arrangements
                 ServerOperations.Taxonomies().DeleteCategories(this.taxonTitleNews + i);
             }
 
-            ServerOperations.Images().DeleteAllLibrariesExceptDefaultOne();
+            ServerOperations.Libraries().DeleteLibraries(false, "Image");
+            ServerOperations.Images().DeleteAllImages(ContentLifecycleStatus.Master);
         }
 
         private const string PageName = "CategoriesPage";

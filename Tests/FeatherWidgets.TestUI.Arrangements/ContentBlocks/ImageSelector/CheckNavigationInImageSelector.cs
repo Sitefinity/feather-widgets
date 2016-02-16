@@ -22,17 +22,17 @@ namespace FeatherWidgets.TestUI.Arrangements
             Guid page1Id = ServerOperations.Pages().CreatePage(PageName);
             ServerOperationsFeather.Pages().AddContentBlockWidgetToPage(page1Id);
 
-            var parentId = ServerOperations.Images().CreateLibrary(ImageLibraryTitle);
-            var childId = ServerOperations.Images().CreateFolder(ChildLibraryTitle, parentId);
-            var nextChildId = ServerOperations.Images().CreateFolder(NextChildLibraryTitle, childId);
-            ServerOperations.Images().Upload(ImageLibraryTitle, ImageTitle + 1, ImageResource);
+            var parentId = ServerSideUpload.CreateAlbum(ImageLibraryTitle);
+            var childId = ServerSideUpload.CreateFolder(ChildLibraryTitle, parentId);
+            var nextChildId = ServerSideUpload.CreateFolder(NextChildLibraryTitle, childId);
+            ServerSideUpload.UploadImage(ImageLibraryTitle, ImageTitle + 1, ImageResource);
 
-            ServerOperations.Images().UploadInFolder(childId, ImageTitle + 2, ImageResourceChild);
+            ServerSideUpload.UploadImageInFolder(childId, ImageTitle + 2, ImageResourceChild);
 
             ServerOperations.Users().CreateUserWithProfileAndRoles("administrator", "password", "Administrator", "User", "administrator@test.test", new List<string> { "BackendUsers", "Administrators" });
 
             AuthenticationHelper.AuthenticateUser("administrator", "password", true);
-            ServerOperations.Images().UploadInFolder(nextChildId, ImageTitle + 3, ImageResourceNextChild);
+            ServerSideUpload.UploadImageInFolder(nextChildId, ImageTitle + 3, ImageResourceNextChild);
         }
 
         /// <summary>
@@ -43,7 +43,7 @@ namespace FeatherWidgets.TestUI.Arrangements
         {
             ServerOperations.Pages().DeleteAllPages();
             ServerOperations.Users().DeleteUserAndProfile("administrator");
-            ServerOperations.Images().DeleteAllLibrariesExceptDefaultOne();
+            ServerOperations.Libraries().DeleteLibraries(false, "Image");
         }
 
         /// Gets the current libraries provider Url name.
@@ -51,7 +51,7 @@ namespace FeatherWidgets.TestUI.Arrangements
         [ServerArrangement]
         public void GetCurrentProviderUrlName()
         {
-            string urlName = ServerOperations.Media().GetCurrentProviderUrlName;
+            string urlName = ServerOperations.Libraries().GetCurrentProviderUrlName;
 
             ServerArrangementContext.GetCurrent().Values.Add("CurrentProviderUrlName", urlName);
         }

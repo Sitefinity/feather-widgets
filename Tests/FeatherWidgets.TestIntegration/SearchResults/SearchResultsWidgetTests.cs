@@ -70,7 +70,7 @@ namespace FeatherWidgets.TestIntegration.SearchResults
             Guid searchIndex1Id = Guid.Empty;
             try
             {
-                searchIndex1Id = SitefinityOperations.ServerOperations.Search().CreateIndex(SearchResultsWidgetTests.SearchIndexName, new[] { SitefinityOperations.SearchContentType.News });
+                searchIndex1Id = SitefinityOperations.ServerOperations.Search().CreateSearchIndex(SearchResultsWidgetTests.SearchIndexName, new[] { SitefinityOperations.SearchContentType.News });
                 SitefinityOperations.ServerOperations.Search().Reindex(searchIndex1Id);
 
                 int index = 1;
@@ -113,7 +113,7 @@ namespace FeatherWidgets.TestIntegration.SearchResults
             Guid searchIndex1Id = Guid.Empty;
             try
             {
-                searchIndex1Id = SitefinityOperations.ServerOperations.Search().CreateIndex(SearchResultsWidgetTests.SearchIndexName, new[] { SitefinityOperations.SearchContentType.News });
+                searchIndex1Id = SitefinityOperations.ServerOperations.Search().CreateSearchIndex(SearchResultsWidgetTests.SearchIndexName, new[] { SitefinityOperations.SearchContentType.News });
                 SitefinityOperations.ServerOperations.Search().Reindex(searchIndex1Id);
 
                 int index = 1;
@@ -154,7 +154,7 @@ namespace FeatherWidgets.TestIntegration.SearchResults
             Guid searchIndex1Id = Guid.Empty;
             try
             {
-                searchIndex1Id = SitefinityOperations.ServerOperations.Search().CreateIndex(SearchResultsWidgetTests.SearchIndexName, new[] { SitefinityOperations.SearchContentType.News });
+                searchIndex1Id = SitefinityOperations.ServerOperations.Search().CreateSearchIndex(SearchResultsWidgetTests.SearchIndexName, new[] { SitefinityOperations.SearchContentType.News });
                 SitefinityOperations.ServerOperations.Search().Reindex(searchIndex1Id);
 
                 int index = 1;
@@ -195,7 +195,7 @@ namespace FeatherWidgets.TestIntegration.SearchResults
 
             try
             {
-                searchIndex1Id = SitefinityOperations.ServerOperations.Search().CreateIndex(SearchResultsWidgetTests.SearchIndexName, new[] { SitefinityOperations.SearchContentType.News });
+                searchIndex1Id = SitefinityOperations.ServerOperations.Search().CreateSearchIndex(SearchResultsWidgetTests.SearchIndexName, new[] { SitefinityOperations.SearchContentType.News });
                 SitefinityOperations.ServerOperations.Search().Reindex(searchIndex1Id);
 
                 int index = 1;
@@ -250,7 +250,7 @@ namespace FeatherWidgets.TestIntegration.SearchResults
 
             try
             {
-                searchIndex1Id = SitefinityOperations.ServerOperations.Search().CreateIndex(SearchResultsWidgetTests.SearchIndexName, new[] { SitefinityOperations.SearchContentType.News });
+                searchIndex1Id = SitefinityOperations.ServerOperations.Search().CreateSearchIndex(SearchResultsWidgetTests.SearchIndexName, new[] { SitefinityOperations.SearchContentType.News });
                 SitefinityOperations.ServerOperations.Search().Reindex(searchIndex1Id);
 
                 int index = 1;
@@ -294,7 +294,7 @@ namespace FeatherWidgets.TestIntegration.SearchResults
             Guid searchIndex1Id = Guid.Empty;
             try
             {
-                searchIndex1Id = SitefinityOperations.ServerOperations.Search().CreateIndex(SearchResultsWidgetTests.SearchIndexName, new[] { SitefinityOperations.SearchContentType.News });
+                searchIndex1Id = SitefinityOperations.ServerOperations.Search().CreateSearchIndex(SearchResultsWidgetTests.SearchIndexName, new[] { SitefinityOperations.SearchContentType.News });
                 SitefinityOperations.ServerOperations.Search().Reindex(searchIndex1Id);
 
                 int index = 1;
