@@ -27,16 +27,16 @@ namespace FeatherWidgets.TestUI.Arrangements
             Guid page1Id = ServerOperations.Pages().CreatePage(PageName);
             ServerOperationsFeather.Pages().AddVideoGalleryWidgetToPage(page1Id);
 
-            ServerOperations.Videos().CreateLibrary(VideoLibraryTitle);
+            ServerSideUpload.CreateVideoLibrary(VideoLibraryTitle);
 
             List<Guid> listOfIds = new List<Guid>();
-            var guidVideo1 = ServerOperations.Videos().Upload(VideoLibraryTitle, VideoTitle + 1, VideoResource1);
+            var guidVideo1 = ServerSideUpload.UploadVideo(VideoLibraryTitle, VideoTitle + 1, VideoResource1);
             listOfIds.Add(guidVideo1);
-            var guidVideo2 = ServerOperations.Videos().Upload(VideoLibraryTitle, VideoTitle + 2, VideoResource2);
+            var guidVideo2 = ServerSideUpload.UploadVideo(VideoLibraryTitle, VideoTitle + 2, VideoResource2);
             listOfIds.Add(guidVideo2);
-            var guidVideo3 = ServerOperations.Videos().Upload(VideoLibraryTitle, VideoTitle + 3, VideoResource3);
+            var guidVideo3 = ServerSideUpload.UploadVideo(VideoLibraryTitle, VideoTitle + 3, VideoResource3);
             listOfIds.Add(guidVideo3);
-            var guidVideo4 = ServerOperations.Videos().Upload(VideoLibraryTitle, VideoTitle + 4, VideoResource4);
+            var guidVideo4 = ServerSideUpload.UploadVideo(VideoLibraryTitle, VideoTitle + 4, VideoResource4);
             listOfIds.Add(guidVideo4);
  
             this.AssignTaxonomiesToVideos(listOfIds);     
@@ -50,7 +50,7 @@ namespace FeatherWidgets.TestUI.Arrangements
         [ServerArrangement]
         public void GetCurrentProviderUrlName()
         {
-            string urlName = ServerOperations.Media().GetCurrentProviderUrlName;
+            string urlName = ServerOperations.Libraries().GetCurrentProviderUrlName;
 
             ServerArrangementContext.GetCurrent().Values.Add("CurrentProviderUrlName", urlName);
         }
@@ -62,7 +62,7 @@ namespace FeatherWidgets.TestUI.Arrangements
         public void TearDown()
         {
             ServerOperations.Pages().DeleteAllPages();
-            ServerOperations.Videos().DeleteAllLibrariesExceptDefaultOne();
+            ServerOperations.Libraries().DeleteAllVideoLibrariesExceptDefaultOne();
             ServerOperations.Taxonomies().ClearAllCategories(TaxonomiesConstants.CategoriesTaxonomyId);
             ServerOperations.Taxonomies().ClearAllTags(TaxonomiesConstants.TagsTaxonomyId);
         }

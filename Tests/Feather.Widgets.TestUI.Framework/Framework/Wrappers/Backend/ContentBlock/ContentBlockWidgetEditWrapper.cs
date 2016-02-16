@@ -209,9 +209,9 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend
         }
 
         /// <summary>
-        /// Click html button.
+        /// Switches to HTML view.
         /// </summary>
-        public void ClickHtmlButton()
+        public void SwitchToHtmlView()
         {
             HtmlButton htmlButton = EM.GenericContent
                                       .ContentBlockWidget

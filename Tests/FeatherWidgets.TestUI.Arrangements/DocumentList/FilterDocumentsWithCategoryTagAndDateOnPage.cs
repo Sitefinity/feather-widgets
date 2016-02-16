@@ -27,16 +27,16 @@ namespace FeatherWidgets.TestUI.Arrangements
             Guid page1Id = ServerOperations.Pages().CreatePage(PageName);
             ServerOperationsFeather.Pages().AddDocumentsListWidgetToPage(page1Id);
 
-            ServerOperations.Documents().CreateLibrary(DocumentLibraryTitle);
+            ServerSideUpload.CreateDocumentLibrary(DocumentLibraryTitle);
 
             List<Guid> listOfIds = new List<Guid>();
-            var guidDoc1 = ServerOperations.Documents().Upload(DocumentLibraryTitle, DocumentTitle + 1, ImageResource1);
+            var guidDoc1 = ServerSideUpload.UploadDocument(DocumentLibraryTitle, DocumentTitle + 1, ImageResource1);
             listOfIds.Add(guidDoc1);
-            var guidDoc2 = ServerOperations.Documents().Upload(DocumentLibraryTitle, DocumentTitle + 2, ImageResource2);
+            var guidDoc2 = ServerSideUpload.UploadDocument(DocumentLibraryTitle, DocumentTitle + 2, ImageResource2);
             listOfIds.Add(guidDoc2);
-            var guidDoc3 = ServerOperations.Documents().Upload(DocumentLibraryTitle, DocumentTitle + 3, ImageResource3);
+            var guidDoc3 = ServerSideUpload.UploadDocument(DocumentLibraryTitle, DocumentTitle + 3, ImageResource3);
             listOfIds.Add(guidDoc3);
-            var guidDoc4 = ServerOperations.Documents().Upload(DocumentLibraryTitle, DocumentTitle + 4, ImageResource4);
+            var guidDoc4 = ServerSideUpload.UploadDocument(DocumentLibraryTitle, DocumentTitle + 4, ImageResource4);
             listOfIds.Add(guidDoc4);
  
             this.AssignTaxonomiesToImages(listOfIds);     
@@ -51,7 +51,7 @@ namespace FeatherWidgets.TestUI.Arrangements
         public void TearDown()
         {
             ServerOperations.Pages().DeleteAllPages();
-            ServerOperations.Documents().DeleteAllLibrariesExceptDefaultOne();
+            ServerOperations.Libraries().DeleteAllDocumentLibrariesExceptDefaultOne();
             ServerOperations.Taxonomies().ClearAllCategories(TaxonomiesConstants.CategoriesTaxonomyId);
             ServerOperations.Taxonomies().ClearAllTags(TaxonomiesConstants.TagsTaxonomyId);
         }
@@ -62,7 +62,7 @@ namespace FeatherWidgets.TestUI.Arrangements
         [ServerArrangement]
         public void GetCurrentProviderUrlName()
         {
-            string urlName = ServerOperations.Media().GetCurrentProviderUrlName;
+            string urlName = ServerOperations.Libraries().GetCurrentProviderUrlName;
 
             ServerArrangementContext.GetCurrent().Values.Add("CurrentProviderUrlName", urlName);
         }

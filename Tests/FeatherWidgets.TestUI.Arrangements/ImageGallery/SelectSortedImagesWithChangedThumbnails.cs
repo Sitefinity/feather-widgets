@@ -27,12 +27,12 @@ namespace FeatherWidgets.TestUI.Arrangements
             Guid page1Id = ServerOperations.Pages().CreatePage(PageName);
             ServerOperationsFeather.Pages().AddImageGalleryWidgetToPage(page1Id);
 
-            ServerOperations.Images().CreateLibrary(ImageLibraryTitle);
-            ServerOperations.Images().CreateLibrary(AnotherImageLibraryTitle);
+            ServerSideUpload.CreateAlbum(ImageLibraryTitle);
+            ServerSideUpload.CreateAlbum(AnotherImageLibraryTitle);
 
-            ServerOperations.Images().Upload(ImageLibraryTitle, ImageTitle + 1, ImageResource1);
-            ServerOperations.Images().Upload(AnotherImageLibraryTitle, ImageTitle + 2, ImageResource2);
-            ServerOperations.Images().Upload(AnotherImageLibraryTitle, ImageTitle + 3, ImageResource3);
+            ServerSideUpload.UploadImage(ImageLibraryTitle, ImageTitle + 1, ImageResource1);
+            ServerSideUpload.UploadImage(AnotherImageLibraryTitle, ImageTitle + 2, ImageResource2);
+            ServerSideUpload.UploadImage(AnotherImageLibraryTitle, ImageTitle + 3, ImageResource3);
         }
 
         /// <summary>
@@ -41,7 +41,7 @@ namespace FeatherWidgets.TestUI.Arrangements
         [ServerArrangement]
         public void GetCurrentProviderUrlName()
         {
-            string urlName = ServerOperations.Media().GetCurrentProviderUrlName;
+            string urlName = ServerOperations.Libraries().GetCurrentProviderUrlName;
 
             ServerArrangementContext.GetCurrent().Values.Add("CurrentProviderUrlName", urlName);
         }
@@ -53,7 +53,7 @@ namespace FeatherWidgets.TestUI.Arrangements
         public void TearDown()
         {
             ServerOperations.Pages().DeleteAllPages();
-            ServerOperations.Images().DeleteAllLibrariesExceptDefaultOne();
+            ServerOperations.Libraries().DeleteLibraries(false, "Image");
         }
 
         private const string PageName = "PageWithImage";

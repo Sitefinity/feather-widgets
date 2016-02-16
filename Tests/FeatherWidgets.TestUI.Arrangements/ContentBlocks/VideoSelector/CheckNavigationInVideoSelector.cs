@@ -23,10 +23,10 @@ namespace FeatherWidgets.TestUI.Arrangements
             Guid page1Id = ServerOperations.Pages().CreatePage(PageName);
             ServerOperationsFeather.Pages().AddContentBlockWidgetToPage(page1Id);
 
-            var parentId = ServerOperations.Videos().CreateLibrary(VideoLibraryTitle);
-            var childId = ServerOperations.Videos().CreateFolder(ChildLibraryTitle, parentId);
-            var nextChildId = ServerOperations.Videos().CreateFolder(NextChildLibraryTitle, childId);
-            ServerOperations.Videos().Upload(VideoLibraryTitle, VideoTitle + 1, VideoResource);
+            var parentId = ServerSideUpload.CreateVideoLibrary(VideoLibraryTitle);
+            var childId = ServerSideUpload.CreateFolder(ChildLibraryTitle, parentId);
+            var nextChildId = ServerSideUpload.CreateFolder(NextChildLibraryTitle, childId);
+            ServerSideUpload.UploadVideo(VideoLibraryTitle, VideoTitle + 1, VideoResource);
             ServerOperationsFeather.MediaOperations().UploadVideoInFolder(childId, VideoTitle + 2, VideoResourceChild);
             ServerOperations.Users().CreateUserWithProfileAndRoles("administrator", "password", "Administrator", "User", "administrator@test.test", new List<string> { "BackendUsers", "Administrators" });
 
@@ -43,7 +43,7 @@ namespace FeatherWidgets.TestUI.Arrangements
         {
             ServerOperations.Pages().DeleteAllPages();
             ServerOperations.Users().DeleteUserAndProfile("administrator");
-            ServerOperations.Videos().DeleteAllLibrariesExceptDefaultOne();
+            ServerOperations.Libraries().DeleteAllVideoLibrariesExceptDefaultOne();
         }
 
         /// Gets the current libraries provider Url name.
@@ -51,7 +51,7 @@ namespace FeatherWidgets.TestUI.Arrangements
         [ServerArrangement]
         public void GetCurrentProviderUrlName()
         {
-            string urlName = ServerOperations.Media().GetCurrentProviderUrlName;
+            string urlName = ServerOperations.Libraries().GetCurrentProviderUrlName;
 
             ServerArrangementContext.GetCurrent().Values.Add("CurrentProviderUrlName", urlName);
         }

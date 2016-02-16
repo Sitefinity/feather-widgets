@@ -30,13 +30,13 @@ namespace FeatherWidgets.TestUI.Arrangements
             Guid singleItemPageId = ServerOperations.Pages().CreatePage(SingleItemPage);
             ServerOperationsFeather.Pages().AddImageGalleryWidgetToPage(singleItemPageId);
 
-            var parentId = ServerOperations.Images().CreateLibrary(ImageLibraryTitle);
-            var childId = ServerOperations.Images().CreateFolder(ChildLibraryTitle, parentId);
+            var parentId = ServerSideUpload.CreateAlbum(ImageLibraryTitle);
+            var childId = ServerSideUpload.CreateFolder(ChildLibraryTitle, parentId);
 
-            ServerOperations.Images().Upload(ImageLibraryTitle, ImageTitle + 1, ImageResource1);
-            ServerOperations.Images().Upload(ImageLibraryTitle, ImageTitle + 2, ImageResource2);           
-            ServerOperations.Images().UploadInFolder(childId, ImageTitle + 3, ImageResource3);
-            ServerOperations.Images().UploadInFolder(childId, ImageTitle + 4, ImageResource4);
+            ServerSideUpload.UploadImage(ImageLibraryTitle, ImageTitle + 1, ImageResource1);
+            ServerSideUpload.UploadImage(ImageLibraryTitle, ImageTitle + 2, ImageResource2);           
+            ServerSideUpload.UploadImageInFolder(childId, ImageTitle + 3, ImageResource3);
+            ServerSideUpload.UploadImageInFolder(childId, ImageTitle + 4, ImageResource4);
         }
 
         /// <summary>
@@ -45,7 +45,7 @@ namespace FeatherWidgets.TestUI.Arrangements
         [ServerArrangement]
         public void GetCurrentProviderUrlName()
         {
-            string urlName = ServerOperations.Media().GetCurrentProviderUrlName;
+            string urlName = ServerOperations.Libraries().GetCurrentProviderUrlName;
 
             ServerArrangementContext.GetCurrent().Values.Add("CurrentProviderUrlName", urlName);
         }
@@ -57,7 +57,7 @@ namespace FeatherWidgets.TestUI.Arrangements
         public void TearDown()
         {
             ServerOperations.Pages().DeleteAllPages();
-            ServerOperations.Images().DeleteAllLibrariesExceptDefaultOne();
+            ServerOperations.Libraries().DeleteLibraries(false, "Image");
         }
 
         private const string PageName = "PageWithImage";

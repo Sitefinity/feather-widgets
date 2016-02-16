@@ -35,7 +35,7 @@ namespace FeatherWidgets.TestIntegration.ContentBlock
 
             try
             {
-                searchIndexId = ServerOperations.Search().CreateIndex(searchIndex);
+                searchIndexId = ServerOperations.Search().CreateSearchIndex(searchIndex);
 
                 var templateId = FeatherServerOperations.Pages().CreatePureMvcTemplate(PageTemplate);
                 var pageId = ServerOperations.Pages().CreatePage(PageTitle, templateId);
@@ -65,7 +65,7 @@ namespace FeatherWidgets.TestIntegration.ContentBlock
 
             try
             {
-                searchIndexId = ServerOperations.Search().CreateIndex(searchIndex);
+                searchIndexId = ServerOperations.Search().CreateSearchIndex(searchIndex);
 
                 var pageId = ServerOperations.Pages().CreatePage(PageTitle);
                 ServerOperationsFeather.Pages().AddContentBlockWidgetToPage(pageId, ContentBlockText);

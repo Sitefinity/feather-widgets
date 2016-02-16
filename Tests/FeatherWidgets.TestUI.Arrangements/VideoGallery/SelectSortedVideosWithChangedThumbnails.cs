@@ -27,12 +27,12 @@ namespace FeatherWidgets.TestUI.Arrangements
             Guid page1Id = ServerOperations.Pages().CreatePage(PageName);
             ServerOperationsFeather.Pages().AddVideoGalleryWidgetToPage(page1Id);
 
-            ServerOperations.Videos().CreateLibrary(VideoLibraryTitle);
-            ServerOperations.Videos().CreateLibrary(AnotherVideoLibraryTitle);
+            ServerSideUpload.CreateVideoLibrary(VideoLibraryTitle);
+            ServerSideUpload.CreateVideoLibrary(AnotherVideoLibraryTitle);
 
-            ServerOperations.Videos().Upload(VideoLibraryTitle, VideoTitle + 1, VideoResource1);
-            ServerOperations.Videos().Upload(AnotherVideoLibraryTitle, VideoTitle + 2, VideoResource2);
-            ServerOperations.Videos().Upload(AnotherVideoLibraryTitle, VideoTitle + 3, VideoResource3);
+            ServerSideUpload.UploadVideo(VideoLibraryTitle, VideoTitle + 1, VideoResource1);
+            ServerSideUpload.UploadVideo(AnotherVideoLibraryTitle, VideoTitle + 2, VideoResource2);
+            ServerSideUpload.UploadVideo(AnotherVideoLibraryTitle, VideoTitle + 3, VideoResource3);
         }
 
         /// <summary>
@@ -41,7 +41,7 @@ namespace FeatherWidgets.TestUI.Arrangements
         [ServerArrangement]
         public void GetCurrentProviderUrlName()
         {
-            string urlName = ServerOperations.Media().GetCurrentProviderUrlName;
+            string urlName = ServerOperations.Libraries().GetCurrentProviderUrlName;
 
             ServerArrangementContext.GetCurrent().Values.Add("CurrentProviderUrlName", urlName);
         }
@@ -53,7 +53,7 @@ namespace FeatherWidgets.TestUI.Arrangements
         public void TearDown()
         {
             ServerOperations.Pages().DeleteAllPages();
-            ServerOperations.Videos().DeleteAllLibrariesExceptDefaultOne();
+            ServerOperations.Libraries().DeleteAllVideoLibrariesExceptDefaultOne();
         }
 
         private const string PageName = "PageWithVideo";
