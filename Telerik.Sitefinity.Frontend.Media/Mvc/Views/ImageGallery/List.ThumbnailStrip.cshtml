@@ -60,7 +60,7 @@
 <div class="js-Gallery-thumbs">
 @foreach(var item in Model.Items)
 {
-    <a title="@item.Fields.Title" data-item="@Html.GetSerializedImage(item)" data-detail-url="@HyperLinkHelpers.GetDetailPageUrl(item, ViewBag.DetailsPageId, ViewBag.OpenInSamePage)">
+    <a title="@item.Fields.Title" data-item="@Html.GetSerializedImage(item)" data-detail-url="@HyperLinkHelpers.GetDetailPageUrl(item, ViewBag.DetailsPageId, ViewBag.OpenInSamePage, Model.UrlKeyPrefix)">
         <img src="@(((ThumbnailViewModel)item).ThumbnailUrl)" alt="@item.Fields.AlternativeText"/>
     </a>
 }
