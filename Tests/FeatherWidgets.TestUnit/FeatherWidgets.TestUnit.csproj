@@ -159,7 +159,6 @@
       <SpecificVersion>False</SpecificVersion>
     </Reference>
     <Reference Include="Telerik.Sitefinity.Frontend, Version=1.4.400.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\ReferenceAssemblies\Telerik.Sitefinity.Frontend.dll</HintPath>
       <SpecificVersion>False</SpecificVersion>
     </Reference>
