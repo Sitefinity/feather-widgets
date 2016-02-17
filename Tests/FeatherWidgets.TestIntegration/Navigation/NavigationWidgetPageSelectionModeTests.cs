@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Globalization;
-using System.Linq;
 using FeatherWidgets.TestUtilities.CommonOperations;
 using MbUnit.Framework;
 using Telerik.Sitefinity;
@@ -13,6 +12,7 @@ using Telerik.Sitefinity.Modules.Pages;
 using Telerik.Sitefinity.Mvc.Proxy;
 using Telerik.Sitefinity.Services;
 using Telerik.Sitefinity.TestIntegration.Core.SiteMap;
+using Telerik.Sitefinity.TestIntegration.Helpers;
 using Telerik.Sitefinity.Web;
 
 namespace FeatherWidgets.TestIntegration.Navigation
@@ -334,22 +334,27 @@ namespace FeatherWidgets.TestIntegration.Navigation
             var paretnPageId = this.pageOperations.CreatePageWithControl(mvcProxy, PageNamePrefix, PageTitlePrefix, UrlNamePrefix, Index);
             this.createdPageIDs.Add(paretnPageId);
 
-            var additionalPageId = new Telerik.Sitefinity.TestIntegration.Data.Content.PageContentGenerator().CreatePage(
-                                    string.Format(CultureInfo.InvariantCulture, "{0}{1}", AdditionalPageTitle, Index.ToString(CultureInfo.InvariantCulture)),
-                                    string.Format(CultureInfo.InvariantCulture, "{0}{1}", AdditionalPageTitle, Index.ToString(CultureInfo.InvariantCulture)),
-                                    string.Format(CultureInfo.InvariantCulture, "{0}{1}", AdditionalPageTitle, Index.ToString(CultureInfo.InvariantCulture)));
+            var additionalPageId = new Telerik.Sitefinity.TestIntegration.Data.Content.PageContentGenerator().CreatePage(AdditionalPageTitle, AdditionalPageTitle, AdditionalPageTitle);
             this.createdPageIDs.Add(additionalPageId);
 
-            var responseContent = PageInvoker.ExecuteWebRequest(url);
-            Assert.IsTrue(responseContent.Contains(AdditionalPageTitle), "The page title was not found");
+            using (new AuthenticateUserRegion(null))
+            {
+                var responseContent = PageInvoker.ExecuteWebRequest(url);
+                Assert.IsTrue(responseContent.Contains(AdditionalPageTitle + "<"), "The page title was not found");
+                Assert.IsFalse(responseContent.Contains(AdditionalPageNewTitle + "<"), "The new page title was present on page");
+            }
 
             var pageManager = PageManager.GetManager();
             var additionalPage = pageManager.GetPageNode(additionalPageId);
             additionalPage.Title = AdditionalPageNewTitle;
             pageManager.SaveChanges();
 
-            responseContent = PageInvoker.ExecuteWebRequest(url);
-            Assert.IsTrue(responseContent.Contains(AdditionalPageNewTitle), "The page title was not invalidated");
+            using (new AuthenticateUserRegion(null))
+            {
+                var responseContent = PageInvoker.ExecuteWebRequest(url);
+                Assert.IsTrue(responseContent.Contains(AdditionalPageNewTitle + "<"), "The page title was not invalidated");
+                Assert.IsFalse(responseContent.Contains(AdditionalPageTitle + "<"), "The old page title was present on page");
+            }
         }
 
         #region Fields and constants
