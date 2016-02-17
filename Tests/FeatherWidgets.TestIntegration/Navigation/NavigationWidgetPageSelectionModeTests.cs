@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
+using System.Linq;
 using FeatherWidgets.TestUtilities.CommonOperations;
 using MbUnit.Framework;
 using Telerik.Sitefinity;
@@ -7,6 +9,7 @@ using Telerik.Sitefinity.Fluent.Pages;
 using Telerik.Sitefinity.Frontend.Navigation.Mvc.Controllers;
 using Telerik.Sitefinity.Frontend.Navigation.Mvc.Models;
 using Telerik.Sitefinity.Frontend.TestUtilities;
+using Telerik.Sitefinity.Modules.Pages;
 using Telerik.Sitefinity.Mvc.Proxy;
 using Telerik.Sitefinity.Services;
 using Telerik.Sitefinity.TestIntegration.Core.SiteMap;
@@ -315,6 +318,38 @@ namespace FeatherWidgets.TestIntegration.Navigation
             Assert.AreEqual(expectedCount, actualCount);
             Assert.AreEqual(pageTitle1, navModel.Nodes[0].Title);
             Assert.AreEqual(pageTitle2, navModel.Nodes[1].Title);
+        }
+
+        [Test]
+        [Category(TestCategories.Navigation)]
+        [Author(FeatherTeams.FeatherTeam)]
+        public void NavigationWidget_ValidatePagesCacheDependencies()
+        {
+            const string AdditionalPageTitle = "TempPage";
+            const string AdditionalPageNewTitle = "RenamedPage";
+
+            string url = UrlPath.ResolveAbsoluteUrl("~/" + UrlNamePrefix + Index);
+
+            var mvcProxy = new MvcControllerProxy() { ControllerName = typeof(NavigationController).FullName, Settings = new ControllerSettings(new NavigationController()) };
+            var paretnPageId = this.pageOperations.CreatePageWithControl(mvcProxy, PageNamePrefix, PageTitlePrefix, UrlNamePrefix, Index);
+            this.createdPageIDs.Add(paretnPageId);
+
+            var additionalPageId = new Telerik.Sitefinity.TestIntegration.Data.Content.PageContentGenerator().CreatePage(
+                                    string.Format(CultureInfo.InvariantCulture, "{0}{1}", AdditionalPageTitle, Index.ToString(CultureInfo.InvariantCulture)),
+                                    string.Format(CultureInfo.InvariantCulture, "{0}{1}", AdditionalPageTitle, Index.ToString(CultureInfo.InvariantCulture)),
+                                    string.Format(CultureInfo.InvariantCulture, "{0}{1}", AdditionalPageTitle, Index.ToString(CultureInfo.InvariantCulture)));
+            this.createdPageIDs.Add(additionalPageId);
+
+            var responseContent = PageInvoker.ExecuteWebRequest(url);
+            Assert.IsTrue(responseContent.Contains(AdditionalPageTitle), "The page title was not found");
+
+            var pageManager = PageManager.GetManager();
+            var additionalPage = pageManager.GetPageNode(additionalPageId);
+            additionalPage.Title = AdditionalPageNewTitle;
+            pageManager.SaveChanges();
+
+            responseContent = PageInvoker.ExecuteWebRequest(url);
+            Assert.IsTrue(responseContent.Contains(AdditionalPageNewTitle), "The page title was not invalidated");
         }
 
         #region Fields and constants
