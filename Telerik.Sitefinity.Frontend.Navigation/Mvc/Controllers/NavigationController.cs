@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Web.Mvc;
 using ServiceStack.Text;
 using Telerik.Sitefinity.Frontend.Mvc.Infrastructure.Controllers;
@@ -9,6 +8,7 @@ using Telerik.Sitefinity.Frontend.Navigation.Mvc.Models;
 using Telerik.Sitefinity.Frontend.Navigation.Mvc.StringResources;
 using Telerik.Sitefinity.Modules.Pages.Configuration;
 using Telerik.Sitefinity.Mvc;
+using Telerik.Sitefinity.Services;
 using Telerik.Sitefinity.Web.UI;
 
 namespace Telerik.Sitefinity.Frontend.Navigation.Mvc.Controllers
@@ -145,6 +145,11 @@ namespace Telerik.Sitefinity.Frontend.Navigation.Mvc.Controllers
         /// </returns>
         public ActionResult Index()
         {
+            if (SystemManager.CurrentHttpContext != null)
+            {
+                this.AddCacheDependencies(this.Model.GetCacheDependencyObjects());
+            }
+
             var fullTemplateName = this.templateNamePrefix + this.TemplateName;
             return this.View(fullTemplateName, this.Model);
         }

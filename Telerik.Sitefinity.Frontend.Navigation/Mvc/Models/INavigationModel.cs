@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Web;
+using Telerik.Sitefinity.Data;
 
 namespace Telerik.Sitefinity.Frontend.Navigation.Mvc.Models
 {
@@ -31,5 +32,11 @@ namespace Telerik.Sitefinity.Frontend.Navigation.Mvc.Models
         /// The current site map node.
         /// </value>
         SiteMapNode CurrentSiteMapNode { get; }
+
+        /// <summary>
+        /// Gets the cache dependency objects.
+        /// </summary>
+        /// <returns></returns>
+        IList<CacheDependencyKey> GetCacheDependencyObjects();
     }
 }
