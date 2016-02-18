@@ -164,7 +164,7 @@ namespace Telerik.Sitefinity.Frontend.Navigation.Mvc.Models
         /// the abstract type <see cref="Telerik.Sitefinity.GenericContent.Model.Content"/>.
         /// </summary>
         /// <returns></returns>
-        public IList<CacheDependencyKey> GetCacheDependencyObjects()
+        public virtual IList<CacheDependencyKey> GetCacheDependencyObjects()
         {
             var cacheDependencyNotifiedObjects = new List<CacheDependencyKey>();
 
