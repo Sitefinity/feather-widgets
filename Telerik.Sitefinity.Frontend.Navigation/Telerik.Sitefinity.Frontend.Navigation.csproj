@@ -192,7 +192,6 @@
     <Compile Include="Mvc\Models\Breadcrumb\IBreadcrumbModel.cs" />
     <Compile Include="Mvc\Models\Breadcrumb\BreadcrumbNodeModel.cs" />
     <Compile Include="Mvc\Controllers\LanguageSelectorController.cs" />
-    <Compile Include="Mvc\Models\ICacheDependentNavigationModel.cs" />
     <Compile Include="Mvc\Models\LanguageSelector\ILanguageSelectorModel.cs" />
     <Compile Include="Mvc\Models\INavigationModel.cs" />
     <Compile Include="Mvc\Models\LanguageSelector\LanguageSelectorItem.cs" />

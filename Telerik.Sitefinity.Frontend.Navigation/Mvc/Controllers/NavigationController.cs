@@ -10,6 +10,7 @@ using Telerik.Sitefinity.Modules.Pages.Configuration;
 using Telerik.Sitefinity.Mvc;
 using Telerik.Sitefinity.Services;
 using Telerik.Sitefinity.Web.UI;
+using Telerik.Sitefinity.Web.UI.ContentUI.Contracts;
 
 namespace Telerik.Sitefinity.Frontend.Navigation.Mvc.Controllers
 {
@@ -147,7 +148,7 @@ namespace Telerik.Sitefinity.Frontend.Navigation.Mvc.Controllers
         {
             if (SystemManager.CurrentHttpContext != null)
             {
-                var cacheDependentNavigationModel = this.Model as ICacheDependentNavigationModel;
+                var cacheDependentNavigationModel = this.Model as IHasCacheDependency;
                 if (cacheDependentNavigationModel != null)
                 {
                     this.AddCacheDependencies(cacheDependentNavigationModel.GetCacheDependencyObjects());

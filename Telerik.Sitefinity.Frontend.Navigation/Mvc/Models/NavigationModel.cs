@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
-using System.Linq;
-using System.Reflection;
 using System.Threading;
 using System.Web;
 using Telerik.Sitefinity.Abstractions;
@@ -10,6 +8,7 @@ using Telerik.Sitefinity.Data;
 using Telerik.Sitefinity.Pages.Model;
 using Telerik.Sitefinity.Services;
 using Telerik.Sitefinity.Web;
+using Telerik.Sitefinity.Web.UI.ContentUI.Contracts;
 using Telerik.Sitefinity.Web.UI.NavigationControls;
 
 namespace Telerik.Sitefinity.Frontend.Navigation.Mvc.Models
@@ -17,7 +16,7 @@ namespace Telerik.Sitefinity.Frontend.Navigation.Mvc.Models
     /// <summary>
     ///     This class represents model used for Navigation widget.
     /// </summary>
-    public class NavigationModel : ICacheDependentNavigationModel, INavigationModel
+    public class NavigationModel : IHasCacheDependency, INavigationModel
     {
         #region Constructors and Destructors
 
