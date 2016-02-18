@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Web;
+using Telerik.Sitefinity.Data;
 
 namespace Telerik.Sitefinity.Frontend.Navigation.Mvc.Models
 {

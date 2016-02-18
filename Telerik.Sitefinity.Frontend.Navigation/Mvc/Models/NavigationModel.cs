@@ -1,10 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
+using System.Threading;
 using System.Web;
 using Telerik.Sitefinity.Abstractions;
+using Telerik.Sitefinity.Data;
 using Telerik.Sitefinity.Pages.Model;
+using Telerik.Sitefinity.Services;
 using Telerik.Sitefinity.Web;
+using Telerik.Sitefinity.Web.UI.ContentUI.Contracts;
 using Telerik.Sitefinity.Web.UI.NavigationControls;
 
 namespace Telerik.Sitefinity.Frontend.Navigation.Mvc.Models
@@ -12,12 +16,12 @@ namespace Telerik.Sitefinity.Frontend.Navigation.Mvc.Models
     /// <summary>
     ///     This class represents model used for Navigation widget.
     /// </summary>
-    public class NavigationModel : INavigationModel
+    public class NavigationModel : IHasCacheDependency, INavigationModel
     {
         #region Constructors and Destructors
 
         /// <summary>
-        ///     Initializes a new instance of the <see cref="NavigationModel" /> class.
+        /// Initializes a new instance of the <see cref="NavigationModel" /> class.
         /// </summary>
         public NavigationModel()
         {
@@ -27,10 +31,12 @@ namespace Telerik.Sitefinity.Frontend.Navigation.Mvc.Models
         /// Initializes a new instance of the <see cref="NavigationModel"/> class.
         /// </summary>
         /// <param name="selectionMode">The selection mode.</param>
+        /// <param name="selectedPageId">The selected page identifier.</param>
+        /// <param name="selectedPages">The selected pages.</param>
         /// <param name="levelsToInclude">The levels to include.</param>
         /// <param name="showParentPage">if set to <c>true</c> [show parent page].</param>
         /// <param name="cssClass">The CSS class.</param>
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        /// <param name="openExternalPageInNewTab">if set to <c>true</c> [open external page in new tab].</param>
         public NavigationModel(
             PageSelectionMode selectionMode, 
             Guid selectedPageId,
@@ -152,6 +158,38 @@ namespace Telerik.Sitefinity.Frontend.Navigation.Mvc.Models
         #endregion
 
         #region Methods
+
+        /// <summary>
+        /// Gets a collection of cached and changed items that need to be invalidated for the specific views that display all types inheriting from
+        /// the abstract type <see cref="Telerik.Sitefinity.GenericContent.Model.Content"/>.
+        /// </summary>
+        /// <returns></returns>
+        public virtual IList<CacheDependencyKey> GetCacheDependencyObjects()
+        {
+            var cacheDependencyNotifiedObjects = new List<CacheDependencyKey>();
+
+            foreach (var node in this.displayedNodes)
+            {
+                cacheDependencyNotifiedObjects.Add(this.BuildCacheDependencyKey(node, CacheDependencyPageNodeStateChangeType));
+                cacheDependencyNotifiedObjects.Add(new CacheDependencyKey() { Type = CacheDependencyObjectForAllSitesType, Key = node.Key.ToString() });
+                cacheDependencyNotifiedObjects.Add(this.BuildCacheDependencyKey(node, CacheDependencyPageNodeObjectType));
+
+                var pageSiteNode = node as PageSiteNode;
+                if (pageSiteNode != null && pageSiteNode.NodeType == NodeType.Group)
+                {
+                    var firstDataNode = this.FindFirstChildNode(pageSiteNode);
+                    if (firstDataNode != null)
+                    {
+                        cacheDependencyNotifiedObjects.Add(this.BuildCacheDependencyKey(firstDataNode, CacheDependencyPageNodeStateChangeType));
+                        cacheDependencyNotifiedObjects.Add(new CacheDependencyKey() { Type = CacheDependencyObjectForAllSitesType, Key = firstDataNode.Key.ToString() });
+                    }
+                }
+            }
+
+            this.SubscribeCacheDependency(cacheDependencyNotifiedObjects);
+
+            return cacheDependencyNotifiedObjects;
+        }
 
         /// <summary>
         ///     Gets the sitemap provider.
@@ -305,6 +343,52 @@ namespace Telerik.Sitefinity.Frontend.Navigation.Mvc.Models
         {
             return new NodeViewModel(null, url, target, false, false);
         }
+        
+        private void SubscribeCacheDependency(List<CacheDependencyKey> objects)
+        {
+            if (!SystemManager.CurrentHttpContext.Items.Contains(PageCacheDependencyKeys.PageNodes))
+                SystemManager.CurrentHttpContext.Items.Add(PageCacheDependencyKeys.PageNodes, new List<CacheDependencyKey>());
+
+            ((List<CacheDependencyKey>)SystemManager.CurrentHttpContext.Items[PageCacheDependencyKeys.PageNodes]).AddRange(objects);
+        }    
+
+        private SiteMapNode FindFirstChildNode(SiteMapNode page)
+        {
+            foreach (SiteMapNode node in page.ChildNodes)
+            {
+                var pageSiteNode = node as PageSiteNode;
+                if (pageSiteNode != null)
+                {
+                    if (pageSiteNode.NodeType == NodeType.Group)
+                        continue;
+                    else if (this.provider.IsAccessibleToUser(HttpContext.Current, node))
+                        return node;
+                }
+            }
+
+            foreach (SiteMapNode node in page.ChildNodes)
+            {
+                var pageSiteNode = node as PageSiteNode;
+                if (pageSiteNode != null && pageSiteNode.NodeType == NodeType.Group)
+                {
+                    var result = this.FindFirstChildNode(node);
+                    if (result != null)
+                        return result;
+                }
+            }
+
+            return null;
+        }
+
+        private CacheDependencyKey BuildCacheDependencyKey(SiteMapNode node, Type objectType)
+        {
+            CacheDependencyKey result;
+            if (AppSettings.CurrentSettings.Multilingual)
+                result = new CacheDependencyKey() { Type = objectType, Key = node.Key + Thread.CurrentThread.CurrentUICulture };
+            else
+                result = new CacheDependencyKey() { Type = objectType, Key = node.Key };
+            return result;
+        }
 
         /// <summary>
         /// Creates the <see cref="NodeViewModel"/> from the SiteMapNode and populates recursive their child nodes.
@@ -322,6 +406,8 @@ namespace Telerik.Sitefinity.Frontend.Navigation.Mvc.Models
         {
             if (levelsToInclude != 0 && this.CheckSiteMapNode(node))
             {
+                this.displayedNodes.Add(node);
+
                 var nodeViewModel = this.InstantiateNodeViewModel(node);
                 levelsToInclude--;
 
@@ -423,6 +509,11 @@ namespace Telerik.Sitefinity.Frontend.Navigation.Mvc.Models
 
         #region Private Fields
 
+        private static readonly Type CacheDependencyPageNodeObjectType = Type.GetType("Telerik.Sitefinity.Pages.Model.CacheDependencyPageNodeObject, Telerik.Sitefinity.Model");
+        private static readonly Type CacheDependencyObjectForAllSitesType = Type.GetType("Telerik.Sitefinity.Pages.Model.CacheDependencyObjectForAllSites, Telerik.Sitefinity.Model");
+        private static readonly Type CacheDependencyPageNodeStateChangeType = Type.GetType("Telerik.Sitefinity.Pages.Model.CacheDependencyPageNodeStateChange, Telerik.Sitefinity.Model");
+
+        private List<SiteMapNode> displayedNodes = new List<SiteMapNode>();
         private IList<NodeViewModel> nodes;
 
         /// <summary>
@@ -436,7 +527,7 @@ namespace Telerik.Sitefinity.Frontend.Navigation.Mvc.Models
 
         private Guid selectedPageId;
         private SelectedPageModel[] selectedPages;
-
+              
         #endregion
     }
 }
