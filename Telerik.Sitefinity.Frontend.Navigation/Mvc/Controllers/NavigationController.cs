@@ -147,7 +147,11 @@ namespace Telerik.Sitefinity.Frontend.Navigation.Mvc.Controllers
         {
             if (SystemManager.CurrentHttpContext != null)
             {
-                this.AddCacheDependencies(this.Model.GetCacheDependencyObjects());
+                var cacheDependentNavigationModel = this.Model as ICacheDependentNavigationModel;
+                if (cacheDependentNavigationModel != null)
+                {
+                    this.AddCacheDependencies(cacheDependentNavigationModel.GetCacheDependencyObjects());
+                }
             }
 
             var fullTemplateName = this.templateNamePrefix + this.TemplateName;
