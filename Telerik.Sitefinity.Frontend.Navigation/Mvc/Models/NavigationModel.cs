@@ -168,7 +168,7 @@ namespace Telerik.Sitefinity.Frontend.Navigation.Mvc.Models
         {
             var cacheDependencyNotifiedObjects = new List<CacheDependencyKey>();
 
-            foreach (var node in this.displayedNodes)
+            foreach (var node in this.accessedNodes)
             {
                 cacheDependencyNotifiedObjects.Add(this.BuildCacheDependencyKey(node, CacheDependencyPageNodeStateChangeType));
                 cacheDependencyNotifiedObjects.Add(new CacheDependencyKey() { Type = CacheDependencyObjectForAllSitesType, Key = node.Key.ToString() });
@@ -406,7 +406,7 @@ namespace Telerik.Sitefinity.Frontend.Navigation.Mvc.Models
         {
             if (levelsToInclude != 0 && this.CheckSiteMapNode(node))
             {
-                this.displayedNodes.Add(node);
+                this.accessedNodes.Add(node);
 
                 var nodeViewModel = this.InstantiateNodeViewModel(node);
                 levelsToInclude--;
@@ -452,14 +452,18 @@ namespace Telerik.Sitefinity.Frontend.Navigation.Mvc.Models
             {
                 case PageSelectionMode.TopLevelPages:
                     this.AddChildNodes(siteMapProvider.RootNode, false);
+                    this.accessedNodes.Add(siteMapProvider.RootNode);
                     break;
                 case PageSelectionMode.SelectedPageChildren:
-                    this.AddChildNodes(siteMapProvider.FindSiteMapNodeFromKey(this.selectedPageId.ToString("D")), this.ShowParentPage);
+                    var siteMapNodeFromKey = siteMapProvider.FindSiteMapNodeFromKey(this.selectedPageId.ToString("D"));
+                    this.AddChildNodes(siteMapNodeFromKey, this.ShowParentPage);
+                    this.accessedNodes.Add(siteMapNodeFromKey);
                     break;
                 case PageSelectionMode.CurrentPageChildren:
 
                     if (this.CurrentSiteMapNode != null)
                     {
+                        this.accessedNodes.Add(this.CurrentSiteMapNode);
                         this.AddChildNodes(this.CurrentSiteMapNode, this.ShowParentPage);
                     }
 
@@ -472,6 +476,7 @@ namespace Telerik.Sitefinity.Frontend.Navigation.Mvc.Models
                         if (parentNodeTemp != null)
                         {
                             this.AddChildNodes(parentNodeTemp, this.ShowParentPage);
+                            this.accessedNodes.Add(parentNodeTemp);
                         }
                     }
 
@@ -490,6 +495,7 @@ namespace Telerik.Sitefinity.Frontend.Navigation.Mvc.Models
                                 {
                                     var siteMapHierarchy = this.CreateNodeViewModelRecursive(siteMapNode, this.LevelsToInclude);
                                     this.Nodes.Add(siteMapHierarchy);
+                                    this.accessedNodes.Add(siteMapNode);
                                 }
                             }
                             else
@@ -513,7 +519,8 @@ namespace Telerik.Sitefinity.Frontend.Navigation.Mvc.Models
         private static readonly Type CacheDependencyObjectForAllSitesType = Type.GetType("Telerik.Sitefinity.Pages.Model.CacheDependencyObjectForAllSites, Telerik.Sitefinity.Model");
         private static readonly Type CacheDependencyPageNodeStateChangeType = Type.GetType("Telerik.Sitefinity.Pages.Model.CacheDependencyPageNodeStateChange, Telerik.Sitefinity.Model");
 
-        private List<SiteMapNode> displayedNodes = new List<SiteMapNode>();
+        private List<SiteMapNode> accessedNodes = new List<SiteMapNode>();
+
         private IList<NodeViewModel> nodes;
 
         /// <summary>
