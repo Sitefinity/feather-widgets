@@ -23,9 +23,11 @@ namespace FeatherWidgets.TestUI.Arrangements
             ServerOperations.Comments().AllowComments(ThreadType, true);
 
             // Use the following line once the Sitefinity is updated to 9.0.
-            // Telerik.Sitefinity.TestUtilities.Services.Notifications.NotificationsTestHelper.ResetDummySmtpSenderData(profileName: SubscribeUserForCommentsNotificationAndVerifyReceivedEmail.NotificationsProfileName);
-            NotificationsTestHelper.ResetDummySmtpSenderData(profileName: SubscribeUserForCommentsNotificationAndVerifyReceivedEmail.NotificationsProfileName);
-
+            Telerik.Sitefinity.TestUtilities.Services.Notifications.NotificationsTestHelper.ResetDummySmtpSenderData(profileName: SubscribeUserForCommentsNotificationAndVerifyReceivedEmail.NotificationsProfileName);
+            
+            // Use the following line if Sitefinity is < 9.0.
+            //// NotificationsTestHelper.ResetDummySmtpSenderData(profileName: SubscribeUserForCommentsNotificationAndVerifyReceivedEmail.NotificationsProfileName);
+            
             ServerOperations.Comments().SetCommentsNotificationProfile(SubscribeUserForCommentsNotificationAndVerifyReceivedEmail.NotificationsProfileName);
 
             Guid templateId = Telerik.Sitefinity.TestUtilities.CommonOperations.ServerOperations.Templates().GetTemplateIdByTitle(PageTemplateName);
