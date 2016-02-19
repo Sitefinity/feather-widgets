@@ -211,6 +211,16 @@ namespace Telerik.Sitefinity.Frontend.News.Mvc.Controllers
         }
         #endregion
 
+        #region Overriden methods
+
+        /// <inheritDoc/>
+        protected override void HandleUnknownAction(string actionName)
+        {
+            this.Index(null).ExecuteResult(this.ControllerContext);
+        }
+
+        #endregion
+
         #region Private methods
 
         /// <summary>

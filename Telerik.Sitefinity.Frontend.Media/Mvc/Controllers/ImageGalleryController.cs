@@ -213,6 +213,7 @@ namespace Telerik.Sitefinity.Frontend.Media.Mvc.Controllers
             this.ViewBag.DetailsPageId = this.DetailsPageId;
             this.ViewBag.OpenInSamePage = this.OpenInSamePage;
             this.ViewBag.ItemIndex = itemIndex;
+            this.ViewBag.UrlKeyPrefix = this.Model.UrlKeyPrefix;
 
             var viewModel = this.Model.CreateDetailsViewModel(item, itemIndex);
             if (SystemManager.CurrentHttpContext != null)
