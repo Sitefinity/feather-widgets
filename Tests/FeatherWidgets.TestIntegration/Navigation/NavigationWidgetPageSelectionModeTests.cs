@@ -321,9 +321,13 @@ namespace FeatherWidgets.TestIntegration.Navigation
             Assert.AreEqual(pageTitle2, navModel.Nodes[1].Title);
         }
 
+        /// <summary>
+        /// Checks if the navigation widget properly invalidates the cached page if a page is renamed.
+        /// </summary>
         [Test]
         [Category(TestCategories.Navigation)]
         [Author(FeatherTeams.FeatherTeam)]
+        [Description("Checks if the navigation widget properly invalidates the cached page if a page is renamed")]
         public void NavigationWidget_ValidatePagesCacheDependenciesOnPageRename()
         {
             const string AdditionalPageTitle = "TempPage";
@@ -358,9 +362,13 @@ namespace FeatherWidgets.TestIntegration.Navigation
             }
         }
 
+        /// <summary>
+        /// Checks if the navigation widget properly invalidates the cached page if a page is created.
+        /// </summary>
         [Test]
         [Category(TestCategories.Navigation)]
         [Author(FeatherTeams.FeatherTeam)]
+        [Description("Checks if the navigation widget properly invalidates the cached page if a page is created")]
         public void NavigationWidget_ValidatePagesCacheDependenciesOnPageCreate()
         {
             const string TempPageTitle = "TempPage";
@@ -394,9 +402,13 @@ namespace FeatherWidgets.TestIntegration.Navigation
             }
         }
 
+        /// <summary>
+        /// Checks if the navigation widget properly invalidates the cached page if a child page is republished.
+        /// </summary>
         [Test]
         [Category(TestCategories.Navigation)]
         [Author(FeatherTeams.FeatherTeam)]
+        [Description("Checks if the navigation widget properly invalidates the cached page if a child page is republished")]
         public void NavigationWidget_ValidatePagesCacheDependenciesOnChildPagePublishUnpublish()
         {
             const string ParentPageTitle = "ParentPage";
@@ -451,9 +463,13 @@ namespace FeatherWidgets.TestIntegration.Navigation
             }
         }
 
+        /// <summary>
+        /// Checks if the navigation widget properly invalidates the cached page if a grouped page child is republished.
+        /// </summary>
         [Test]
         [Category(TestCategories.Navigation)]
         [Author(FeatherTeams.FeatherTeam)]
+        [Description("Checks if the navigation widget properly invalidates the cached page if a grouped page child is republished")]
         public void NavigationWidget_ValidatePagesCacheDependenciesOnGroupPagePublishUnpublish()
         {
             const string GroupPageTitle = "GroupPage";
