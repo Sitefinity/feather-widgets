@@ -1,4 +1,5 @@
-﻿using FeatherWidgets.TestUtilities.CommonOperations;
+﻿using System;
+using FeatherWidgets.TestUtilities.CommonOperations;
 using Telerik.Sitefinity.TestArrangementService.Attributes;
 using Telerik.Sitefinity.TestUI.Arrangements.Framework;
 using Telerik.Sitefinity.TestUtilities.CommonOperations;
@@ -20,10 +21,12 @@ namespace FeatherWidgets.TestUI.Arrangements
 
             ServerOperationsFeather.DynamicModules().EnsureModuleIsImported(ModuleName, ModuleResource);
 
-            ServerOperations.Pages().CreatePage(PageName);
+            Guid pageId = ServerOperations.Pages().CreatePage(PageName);
 
             for (int i = 0; i < this.dynamicTitles.Length; i++)
                 ServerOperationsFeather.DynamicModulePressArticle().CreatePressArticleItem(this.dynamicTitles[i], this.dynamicUrls[i]);
+
+            ServerOperationsFeather.Pages().AddDynamicWidgetToPage(pageId, "Telerik.Sitefinity.DynamicTypes.Model.PressRelease.PressArticle", "PressArticle", "Press Articles MVC");
         }
 
         /// <summary>
