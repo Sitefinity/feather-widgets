@@ -79,7 +79,7 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Controllers
         /// <returns>
         /// The <see cref="ActionResult" />.
         /// </returns>
-        [RelativeRoute("")]
+        [RelativeRoute("{*path}")]
         public ActionResult Index()
         {
             var fullTemplateName = this.templateNamePrefix + this.TemplateName;
