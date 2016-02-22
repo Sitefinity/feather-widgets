@@ -1,5 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
+using System.Net;
+using System.Net.Http;
+using System.Web;
 using FeatherWidgets.TestUtilities.CommonOperations;
 using MbUnit.Framework;
 using Telerik.Sitefinity;
@@ -341,10 +345,11 @@ namespace FeatherWidgets.TestIntegration.Navigation
 
             var additionalPageId = new Telerik.Sitefinity.TestIntegration.Data.Content.PageContentGenerator().CreatePage(AdditionalPageTitle, AdditionalPageTitle, AdditionalPageTitle);
             this.createdPageIDs.Add(additionalPageId);
-
+            
+            var cookies = new CookieContainer();
             using (new AuthenticateUserRegion(null))
             {
-                var responseContent = PageInvoker.ExecuteWebRequest(url);
+                var responseContent = this.GetResponse(url, cookies);
                 Assert.IsTrue(responseContent.Contains(AdditionalPageTitle + "<"), "The page title was not found");
                 Assert.IsFalse(responseContent.Contains(AdditionalPageNewTitle + "<"), "The new page title was present on page");
             }
@@ -356,7 +361,7 @@ namespace FeatherWidgets.TestIntegration.Navigation
 
             using (new AuthenticateUserRegion(null))
             {
-                var responseContent = PageInvoker.ExecuteWebRequest(url);
+                var responseContent = this.GetResponse(url, cookies);
                 Assert.IsTrue(responseContent.Contains(AdditionalPageNewTitle + "<"), "The page title was not invalidated");
                 Assert.IsFalse(responseContent.Contains(AdditionalPageTitle + "<"), "The old page title was present on page");
             }
@@ -383,10 +388,11 @@ namespace FeatherWidgets.TestIntegration.Navigation
             var pageGenerator = new Telerik.Sitefinity.TestIntegration.Data.Content.PageContentGenerator();
             var tempPageId = pageGenerator.CreatePage(TempPageTitle, TempPageTitle, TempPageTitle);
             this.createdPageIDs.Add(tempPageId);
-            
+
+            var cookies = new CookieContainer();
             using (new AuthenticateUserRegion(null))
             {
-                var responseContent = PageInvoker.ExecuteWebRequest(url);
+                var responseContent = this.GetResponse(url, cookies);
                 Assert.IsTrue(responseContent.Contains(TempPageTitle + "<"), "The existing page was not found");
                 Assert.IsFalse(responseContent.Contains(CreatedPageNewTitle + "<"), "The created page was found");
             }
@@ -396,7 +402,7 @@ namespace FeatherWidgets.TestIntegration.Navigation
 
             using (new AuthenticateUserRegion(null))
             {
-                var responseContent = PageInvoker.ExecuteWebRequest(url);
+                var responseContent = this.GetResponse(url, cookies);
                 Assert.IsTrue(responseContent.Contains(TempPageTitle + "<"), "The existing page was not found");
                 Assert.IsTrue(responseContent.Contains(CreatedPageNewTitle + "<"), "The created page was not found");
             }
@@ -433,10 +439,11 @@ namespace FeatherWidgets.TestIntegration.Navigation
             var child = pageManager.GetPageNode(childPageId);
             child.Parent = parent;
             pageManager.SaveChanges();
-            
+
+            var cookies = new CookieContainer();
             using (new AuthenticateUserRegion(null))
             {
-                var responseContent = PageInvoker.ExecuteWebRequest(url);
+                var responseContent = this.GetResponse(url, cookies);
                 Assert.IsTrue(responseContent.Contains(ParentPageTitle + "<"), "The parent page was not found");
                 Assert.IsTrue(responseContent.Contains(ChildPageTitle + "<"), "The child page was not found");
             }
@@ -446,7 +453,7 @@ namespace FeatherWidgets.TestIntegration.Navigation
 
             using (new AuthenticateUserRegion(null))
             {
-                var responseContent = PageInvoker.ExecuteWebRequest(url);
+                var responseContent = this.GetResponse(url, cookies);
                 Assert.IsTrue(responseContent.Contains(ParentPageTitle + "<"), "The parent page was not found");
                 Assert.IsFalse(responseContent.Contains(ChildPageTitle + "<"), "The child page was found");
             }
@@ -457,7 +464,7 @@ namespace FeatherWidgets.TestIntegration.Navigation
 
             using (new AuthenticateUserRegion(null))
             {
-                var responseContent = PageInvoker.ExecuteWebRequest(url);
+                var responseContent = this.GetResponse(url, cookies);
                 Assert.IsTrue(responseContent.Contains(ParentPageTitle + "<"), "The parent page was not found");
                 Assert.IsTrue(responseContent.Contains(ChildPageTitle + "<"), "The child page was not found");
             }
@@ -495,9 +502,10 @@ namespace FeatherWidgets.TestIntegration.Navigation
             child.Parent = parent;
             pageManager.SaveChanges();
 
+            var cookies = new CookieContainer();
             using (new AuthenticateUserRegion(null))
             {
-                var responseContent = PageInvoker.ExecuteWebRequest(url);
+                var responseContent = this.GetResponse(url, cookies);
                 Assert.IsTrue(responseContent.Contains(GroupPageTitle + "<"), "The group page was not found");
                 Assert.IsTrue(responseContent.Contains(ChildPageTitle + "<"), "The child page was not found");
             }
@@ -507,7 +515,7 @@ namespace FeatherWidgets.TestIntegration.Navigation
 
             using (new AuthenticateUserRegion(null))
             {
-                var responseContent = PageInvoker.ExecuteWebRequest(url);
+                var responseContent = this.GetResponse(url, cookies);
                 Assert.IsFalse(responseContent.Contains(GroupPageTitle + "<"), "The group page was found");
                 Assert.IsFalse(responseContent.Contains(ChildPageTitle + "<"), "The child page was found");
             }
@@ -518,10 +526,27 @@ namespace FeatherWidgets.TestIntegration.Navigation
 
             using (new AuthenticateUserRegion(null))
             {
-                var responseContent = PageInvoker.ExecuteWebRequest(url);
+                var responseContent = this.GetResponse(url, cookies);
                 Assert.IsTrue(responseContent.Contains(GroupPageTitle + "<"), "The group page was not found");
                 Assert.IsTrue(responseContent.Contains(ChildPageTitle + "<"), "The child page was not found");
             }
+        }
+
+        private string GetResponse(string url, CookieContainer cookies)
+        {
+            var req = HttpWebRequest.CreateHttp(url);
+            req.CookieContainer = cookies;
+            req.Timeout = 120 * 60; 
+
+            var res = req.GetResponse();
+
+            string responseContent;
+            using (var sr = new StreamReader(res.GetResponseStream()))
+            {
+                responseContent = sr.ReadToEnd();
+            }
+
+            return responseContent;
         }
 
         #region Fields and constants
