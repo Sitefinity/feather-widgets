@@ -1,6 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Globalization;
+using System.IO;
+using System.Net;
+using System.Net.Http;
+using System.Web;
 using FeatherWidgets.TestUtilities.CommonOperations;
 using MbUnit.Framework;
 using Telerik.Sitefinity;
@@ -10,10 +13,12 @@ using Telerik.Sitefinity.Frontend.Navigation.Mvc.Models;
 using Telerik.Sitefinity.Frontend.TestUtilities;
 using Telerik.Sitefinity.Modules.Pages;
 using Telerik.Sitefinity.Mvc.Proxy;
+using Telerik.Sitefinity.Pages.Model;
 using Telerik.Sitefinity.Services;
 using Telerik.Sitefinity.TestIntegration.Core.SiteMap;
 using Telerik.Sitefinity.TestIntegration.Helpers;
 using Telerik.Sitefinity.Web;
+using Telerik.Sitefinity.Workflow;
 
 namespace FeatherWidgets.TestIntegration.Navigation
 {
@@ -320,10 +325,14 @@ namespace FeatherWidgets.TestIntegration.Navigation
             Assert.AreEqual(pageTitle2, navModel.Nodes[1].Title);
         }
 
+        /// <summary>
+        /// Checks if the navigation widget properly invalidates the cached page if a page is renamed.
+        /// </summary>
         [Test]
         [Category(TestCategories.Navigation)]
         [Author(FeatherTeams.FeatherTeam)]
-        public void NavigationWidget_ValidatePagesCacheDependencies()
+        [Description("Checks if the navigation widget properly invalidates the cached page if a page is renamed")]
+        public void NavigationWidget_ValidatePagesCacheDependenciesOnPageRename()
         {
             const string AdditionalPageTitle = "TempPage";
             const string AdditionalPageNewTitle = "RenamedPage";
@@ -336,10 +345,11 @@ namespace FeatherWidgets.TestIntegration.Navigation
 
             var additionalPageId = new Telerik.Sitefinity.TestIntegration.Data.Content.PageContentGenerator().CreatePage(AdditionalPageTitle, AdditionalPageTitle, AdditionalPageTitle);
             this.createdPageIDs.Add(additionalPageId);
-
+            
+            var cookies = new CookieContainer();
             using (new AuthenticateUserRegion(null))
             {
-                var responseContent = PageInvoker.ExecuteWebRequest(url);
+                var responseContent = this.GetResponse(url, cookies);
                 Assert.IsTrue(responseContent.Contains(AdditionalPageTitle + "<"), "The page title was not found");
                 Assert.IsFalse(responseContent.Contains(AdditionalPageNewTitle + "<"), "The new page title was present on page");
             }
@@ -351,10 +361,192 @@ namespace FeatherWidgets.TestIntegration.Navigation
 
             using (new AuthenticateUserRegion(null))
             {
-                var responseContent = PageInvoker.ExecuteWebRequest(url);
+                var responseContent = this.GetResponse(url, cookies);
                 Assert.IsTrue(responseContent.Contains(AdditionalPageNewTitle + "<"), "The page title was not invalidated");
                 Assert.IsFalse(responseContent.Contains(AdditionalPageTitle + "<"), "The old page title was present on page");
             }
+        }
+
+        /// <summary>
+        /// Checks if the navigation widget properly invalidates the cached page if a page is created.
+        /// </summary>
+        [Test]
+        [Category(TestCategories.Navigation)]
+        [Author(FeatherTeams.FeatherTeam)]
+        [Description("Checks if the navigation widget properly invalidates the cached page if a page is created")]
+        public void NavigationWidget_ValidatePagesCacheDependenciesOnPageCreate()
+        {
+            const string TempPageTitle = "TempPage";
+            const string CreatedPageNewTitle = "CreatedPage";
+
+            string url = UrlPath.ResolveAbsoluteUrl("~/" + UrlNamePrefix + Index);
+
+            var mvcProxy = new MvcControllerProxy() { ControllerName = typeof(NavigationController).FullName, Settings = new ControllerSettings(new NavigationController()) };
+            var paretnPageId = this.pageOperations.CreatePageWithControl(mvcProxy, PageNamePrefix, PageTitlePrefix, UrlNamePrefix, Index);
+            this.createdPageIDs.Add(paretnPageId);
+
+            var pageGenerator = new Telerik.Sitefinity.TestIntegration.Data.Content.PageContentGenerator();
+            var tempPageId = pageGenerator.CreatePage(TempPageTitle, TempPageTitle, TempPageTitle);
+            this.createdPageIDs.Add(tempPageId);
+
+            var cookies = new CookieContainer();
+            using (new AuthenticateUserRegion(null))
+            {
+                var responseContent = this.GetResponse(url, cookies);
+                Assert.IsTrue(responseContent.Contains(TempPageTitle + "<"), "The existing page was not found");
+                Assert.IsFalse(responseContent.Contains(CreatedPageNewTitle + "<"), "The created page was found");
+            }
+
+            var createdPageId = pageGenerator.CreatePage(CreatedPageNewTitle, CreatedPageNewTitle, CreatedPageNewTitle);
+            this.createdPageIDs.Add(createdPageId);
+
+            using (new AuthenticateUserRegion(null))
+            {
+                var responseContent = this.GetResponse(url, cookies);
+                Assert.IsTrue(responseContent.Contains(TempPageTitle + "<"), "The existing page was not found");
+                Assert.IsTrue(responseContent.Contains(CreatedPageNewTitle + "<"), "The created page was not found");
+            }
+        }
+
+        /// <summary>
+        /// Checks if the navigation widget properly invalidates the cached page if a child page is republished.
+        /// </summary>
+        [Test]
+        [Category(TestCategories.Navigation)]
+        [Author(FeatherTeams.FeatherTeam)]
+        [Description("Checks if the navigation widget properly invalidates the cached page if a child page is republished")]
+        public void NavigationWidget_ValidatePagesCacheDependenciesOnChildPagePublishUnpublish()
+        {
+            const string ParentPageTitle = "ParentPage";
+            const string ChildPageTitle = "ChildPage";
+
+            string url = UrlPath.ResolveAbsoluteUrl("~/" + UrlNamePrefix + Index);
+
+            var mvcProxy = new MvcControllerProxy() { ControllerName = typeof(NavigationController).FullName, Settings = new ControllerSettings(new NavigationController() { LevelsToInclude = 2 }) };
+            var paretnPageId = this.pageOperations.CreatePageWithControl(mvcProxy, PageNamePrefix, PageTitlePrefix, UrlNamePrefix, Index);
+            this.createdPageIDs.Add(paretnPageId);
+
+            var pageGenerator = new Telerik.Sitefinity.TestIntegration.Data.Content.PageContentGenerator();
+            var pageManager = PageManager.GetManager();
+
+            var parentPageId = pageGenerator.CreatePage(ParentPageTitle, ParentPageTitle, ParentPageTitle);
+            this.createdPageIDs.Add(parentPageId);
+
+            var childPageId = pageGenerator.CreatePage(ChildPageTitle, ChildPageTitle, ChildPageTitle);
+            this.createdPageIDs.Add(childPageId);
+
+            var parent = pageManager.GetPageNode(parentPageId);
+            var child = pageManager.GetPageNode(childPageId);
+            child.Parent = parent;
+            pageManager.SaveChanges();
+
+            var cookies = new CookieContainer();
+            using (new AuthenticateUserRegion(null))
+            {
+                var responseContent = this.GetResponse(url, cookies);
+                Assert.IsTrue(responseContent.Contains(ParentPageTitle + "<"), "The parent page was not found");
+                Assert.IsTrue(responseContent.Contains(ChildPageTitle + "<"), "The child page was not found");
+            }
+
+            pageManager.UnpublishPage(child.GetPageData());
+            pageManager.SaveChanges();
+
+            using (new AuthenticateUserRegion(null))
+            {
+                var responseContent = this.GetResponse(url, cookies);
+                Assert.IsTrue(responseContent.Contains(ParentPageTitle + "<"), "The parent page was not found");
+                Assert.IsFalse(responseContent.Contains(ChildPageTitle + "<"), "The child page was found");
+            }
+
+            var bag = new Dictionary<string, string>();
+            bag.Add("ContentType", child.GetType().FullName);
+            WorkflowManager.MessageWorkflow(childPageId, child.GetType(), null, "Publish", false, bag);
+
+            using (new AuthenticateUserRegion(null))
+            {
+                var responseContent = this.GetResponse(url, cookies);
+                Assert.IsTrue(responseContent.Contains(ParentPageTitle + "<"), "The parent page was not found");
+                Assert.IsTrue(responseContent.Contains(ChildPageTitle + "<"), "The child page was not found");
+            }
+        }
+
+        /// <summary>
+        /// Checks if the navigation widget properly invalidates the cached page if a grouped page child is republished.
+        /// </summary>
+        [Test]
+        [Category(TestCategories.Navigation)]
+        [Author(FeatherTeams.FeatherTeam)]
+        [Description("Checks if the navigation widget properly invalidates the cached page if a grouped page child is republished")]
+        public void NavigationWidget_ValidatePagesCacheDependenciesOnGroupPagePublishUnpublish()
+        {
+            const string GroupPageTitle = "GroupPage";
+            const string ChildPageTitle = "ChildPage";
+
+            string url = UrlPath.ResolveAbsoluteUrl("~/" + UrlNamePrefix + Index);
+
+            var mvcProxy = new MvcControllerProxy() { ControllerName = typeof(NavigationController).FullName, Settings = new ControllerSettings(new NavigationController() { LevelsToInclude = 2 }) };
+            var paretnPageId = this.pageOperations.CreatePageWithControl(mvcProxy, PageNamePrefix, PageTitlePrefix, UrlNamePrefix, Index);
+            this.createdPageIDs.Add(paretnPageId);
+
+            var pageGenerator = new Telerik.Sitefinity.TestIntegration.Data.Content.PageContentGenerator();
+            var pageManager = PageManager.GetManager();
+
+            var parentPageId = pageGenerator.CreatePage(GroupPageTitle, GroupPageTitle, GroupPageTitle, action: (n, d) => n.NodeType = NodeType.Group);
+            this.createdPageIDs.Add(parentPageId);
+
+            var childPageId = pageGenerator.CreatePage(ChildPageTitle, ChildPageTitle, ChildPageTitle);
+            this.createdPageIDs.Add(childPageId);
+
+            var parent = pageManager.GetPageNode(parentPageId);
+            var child = pageManager.GetPageNode(childPageId);
+            child.Parent = parent;
+            pageManager.SaveChanges();
+
+            var cookies = new CookieContainer();
+            using (new AuthenticateUserRegion(null))
+            {
+                var responseContent = this.GetResponse(url, cookies);
+                Assert.IsTrue(responseContent.Contains(GroupPageTitle + "<"), "The group page was not found");
+                Assert.IsTrue(responseContent.Contains(ChildPageTitle + "<"), "The child page was not found");
+            }
+
+            pageManager.UnpublishPage(child.GetPageData());
+            pageManager.SaveChanges();
+
+            using (new AuthenticateUserRegion(null))
+            {
+                var responseContent = this.GetResponse(url, cookies);
+                Assert.IsFalse(responseContent.Contains(GroupPageTitle + "<"), "The group page was found");
+                Assert.IsFalse(responseContent.Contains(ChildPageTitle + "<"), "The child page was found");
+            }
+
+            var bag = new Dictionary<string, string>();
+            bag.Add("ContentType", child.GetType().FullName);
+            WorkflowManager.MessageWorkflow(childPageId, child.GetType(), null, "Publish", false, bag);
+
+            using (new AuthenticateUserRegion(null))
+            {
+                var responseContent = this.GetResponse(url, cookies);
+                Assert.IsTrue(responseContent.Contains(GroupPageTitle + "<"), "The group page was not found");
+                Assert.IsTrue(responseContent.Contains(ChildPageTitle + "<"), "The child page was not found");
+            }
+        }
+
+        private string GetResponse(string url, CookieContainer cookies)
+        {
+            var req = HttpWebRequest.CreateHttp(url);
+            req.CookieContainer = cookies;
+            req.Timeout = 120 * 60; 
+
+            var res = req.GetResponse();
+
+            string responseContent;
+            using (var sr = new StreamReader(res.GetResponseStream()))
+            {
+                responseContent = sr.ReadToEnd();
+            }
+
+            return responseContent;
         }
 
         #region Fields and constants
