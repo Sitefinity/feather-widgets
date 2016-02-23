@@ -1,10 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using FeatherWidgets.TestUtilities.CommonOperations;
 using Telerik.Sitefinity.TestArrangementService.Attributes;
-using Telerik.Sitefinity.TestUI.Arrangements.Framework;
 using Telerik.Sitefinity.TestUtilities.CommonOperations;
 
 namespace FeatherWidgets.TestUI.Arrangements
@@ -43,7 +40,7 @@ namespace FeatherWidgets.TestUI.Arrangements
             ServerOperations.News().DeleteAllNews();
         }
 
-        private const string SearchIndexName = "news index";
+        private const string SearchIndexName = "VerifySearchResults_SortingOnFrontend";
         private const string NewsTitle1 = "test news";
         private const string NewsTitle2 = "another news";
         private const string SearchPageTitle = "SearchPage";
