@@ -48,7 +48,7 @@ namespace FeatherWidgets.TestUI.Arrangements
 
         private const string AdminUserName = "admin";
         private const string AdminPass = "admin@2";
-        private const string SearchIndexName = "news index";
+        private const string SearchIndexName = "VerifySearchResults_BootstrapTemplate";
         private const string NewsTitle1 = "test news";
         private const string NewsTitle2 = "another news";
         private const string SearchPageTitle = "BootstrapPage";
