@@ -25,10 +25,10 @@ namespace FeatherWidgets.TestUI.Arrangements
 
             ServerOperationsFeather.Pages().AddVideoWidgetToPage(pageId, PlaceHolderId);
 
-            ServerOperations.Videos().CreateLibrary(LibraryTitle);
-            ServerOperations.Videos().Upload(LibraryTitle, VideoTitle1, VideoResource1);
+            ServerSideUpload.CreateVideoLibrary(LibraryTitle);
+            ServerSideUpload.UploadVideo(LibraryTitle, VideoTitle1, VideoResource1);
 
-            ServerOperations.Videos().Upload(LibraryTitle, VideoTitle2, VideoResource2);
+            ServerSideUpload.UploadVideo(LibraryTitle, VideoTitle2, VideoResource2);
         }
 
         /// <summary>
@@ -38,7 +38,7 @@ namespace FeatherWidgets.TestUI.Arrangements
         public void TearDown()
         {
             ServerOperations.Pages().DeleteAllPages();
-            ServerOperations.Videos().DeleteAllLibrariesExceptDefaultOne();
+            ServerOperations.Libraries().DeleteAllVideoLibrariesExceptDefaultOne();
         }
 
         /// <summary>
@@ -47,7 +47,7 @@ namespace FeatherWidgets.TestUI.Arrangements
         [ServerArrangement]
         public void GetCurrentProviderUrlName()
         {
-            string urlName = ServerOperations.Media().GetCurrentProviderUrlName;
+            string urlName = ServerOperations.Libraries().GetCurrentProviderUrlName;
 
             ServerArrangementContext.GetCurrent().Values.Add("CurrentProviderUrlName", urlName);
         }

@@ -20,10 +20,10 @@ namespace FeatherWidgets.TestUI.Arrangements
         public void SetUp()
         {
             ServerOperations.Pages().CreatePage(PageName);
-            ServerOperations.Images().CreateLibrary(ImageLibraryTitle);
-            ServerOperations.Images().Upload(ImageLibraryTitle, ImageTitle + 1, ImageResource);
+            ServerSideUpload.CreateAlbum(ImageLibraryTitle);
+            ServerSideUpload.UploadImage(ImageLibraryTitle, ImageTitle + 1, ImageResource);
 
-            ServerOperations.Images().Upload(ImageLibraryTitle, ImageTitle + 2, ImageResourceChild);
+            ServerSideUpload.UploadImage(ImageLibraryTitle, ImageTitle + 2, ImageResourceChild);
         }
 
         /// <summary>
@@ -33,7 +33,7 @@ namespace FeatherWidgets.TestUI.Arrangements
         public void TearDown()
         {
             ServerOperations.Pages().DeleteAllPages();
-            ServerOperations.Images().DeleteAllLibrariesExceptDefaultOne();
+            ServerOperations.Libraries().DeleteLibraries(false, "Image");
         }
 
         /// <summary>
@@ -42,7 +42,7 @@ namespace FeatherWidgets.TestUI.Arrangements
         [ServerArrangement]
         public void GetCurrentProviderUrlName()
         {
-            string urlName = ServerOperations.Media().GetCurrentProviderUrlName;
+            string urlName = ServerOperations.Libraries().GetCurrentProviderUrlName;
 
             ServerArrangementContext.GetCurrent().Values.Add("CurrentProviderUrlName", urlName);
         }

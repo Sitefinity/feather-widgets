@@ -22,9 +22,9 @@ namespace FeatherWidgets.TestUI.Arrangements
             Guid templateId = Telerik.Sitefinity.TestUtilities.CommonOperations.ServerOperations.Templates().GetTemplateIdByTitle(PageTemplateName);
             Telerik.Sitefinity.TestUtilities.CommonOperations.ServerOperations.Pages().CreatePage(PageName, templateId);
 
-            ServerOperations.Documents().CreateLibrary(LibraryTitle);
-            ServerOperations.Documents().Upload(LibraryTitle, DocumentTitle1, DocumentResource1);
-            ServerOperations.Documents().Upload(LibraryTitle, DocumentTitle2, DocumentResource2);
+            ServerOperations.Documents().CreateDocumentLibrary(LibraryTitle);
+            ServerSideUpload.UploadDocument(LibraryTitle, DocumentTitle1, DocumentResource1);
+            ServerSideUpload.UploadDocument(LibraryTitle, DocumentTitle2, DocumentResource2);
         }
 
         /// <summary>
@@ -34,7 +34,7 @@ namespace FeatherWidgets.TestUI.Arrangements
         public void TearDown()
         {
             ServerOperations.Pages().DeleteAllPages();
-            ServerOperations.Documents().DeleteAllLibrariesExceptDefaultOne();
+            ServerOperations.Libraries().DeleteAllDocumentLibrariesExceptDefaultOne();
         }
 
         /// <summary>
@@ -43,7 +43,7 @@ namespace FeatherWidgets.TestUI.Arrangements
         [ServerArrangement]
         public void GetCurrentProviderUrlName()
         {
-            string urlName = ServerOperations.Media().GetCurrentProviderUrlName;
+            string urlName = ServerOperations.Libraries().GetCurrentProviderUrlName;
 
             ServerArrangementContext.GetCurrent().Values.Add("CurrentProviderUrlName", urlName);
         }

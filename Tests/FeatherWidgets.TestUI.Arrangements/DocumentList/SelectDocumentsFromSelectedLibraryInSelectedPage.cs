@@ -30,11 +30,11 @@ namespace FeatherWidgets.TestUI.Arrangements
             Guid singleItemPageId = ServerOperations.Pages().CreatePage(SingleItemPage);
             ServerOperationsFeather.Pages().AddDocumentsListWidgetToPage(singleItemPageId);
 
-            var parentId = ServerOperations.Documents().CreateLibrary(DocumentLibraryTitle);
-            var childId = ServerOperations.Documents().CreateFolder(ChildLibraryTitle, parentId);
+            var parentId = ServerSideUpload.CreateDocumentLibrary(DocumentLibraryTitle);
+            var childId = ServerSideUpload.CreateFolder(ChildLibraryTitle, parentId);
 
-            ServerOperations.Documents().Upload(DocumentLibraryTitle, DocumentTitle + 1, ImageResource1);
-            ServerOperations.Documents().Upload(DocumentLibraryTitle, DocumentTitle + 4, ImageResource4);
+            ServerSideUpload.UploadDocument(DocumentLibraryTitle, DocumentTitle + 1, ImageResource1);
+            ServerSideUpload.UploadDocument(DocumentLibraryTitle, DocumentTitle + 4, ImageResource4);
             ServerOperationsFeather.MediaOperations().UploadDocumentInFolder(childId, DocumentTitle + 3, ImageResource3);
             ServerOperationsFeather.MediaOperations().UploadDocumentInFolder(childId, DocumentTitle + 2, ImageResource2);
         }
@@ -45,7 +45,7 @@ namespace FeatherWidgets.TestUI.Arrangements
         [ServerArrangement]
         public void GetCurrentProviderUrlName()
         {
-            string urlName = ServerOperations.Media().GetCurrentProviderUrlName;
+            string urlName = ServerOperations.Libraries().GetCurrentProviderUrlName;
 
             ServerArrangementContext.GetCurrent().Values.Add("CurrentProviderUrlName", urlName);
         }
@@ -57,7 +57,7 @@ namespace FeatherWidgets.TestUI.Arrangements
         public void TearDown()
         {
             ServerOperations.Pages().DeleteAllPages();
-            ServerOperations.Documents().DeleteAllLibrariesExceptDefaultOne();
+            ServerOperations.Libraries().DeleteAllDocumentLibrariesExceptDefaultOne();
         }
 
         private const string PageName = "PageWithDocument";

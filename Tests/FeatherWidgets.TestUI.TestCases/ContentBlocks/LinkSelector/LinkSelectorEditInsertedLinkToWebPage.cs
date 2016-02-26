@@ -34,7 +34,7 @@ namespace FeatherWidgets.TestUI.TestCases.ContentBlocks.LinkSelector
             BATFeather.Wrappers().Backend().ContentBlocks().LinkSelectorWrapper().SelectOpenInNewWindowOption(TabIndex);
             BATFeather.Wrappers().Backend().ContentBlocks().LinkSelectorWrapper().InsertLink();
             BATFeather.Wrappers().Backend().ContentBlocks().ContentBlocksWrapper().VerifyContentBlockTextDesignMode(NewTextToDisplay);
-            BATFeather.Wrappers().Backend().ContentBlocks().ContentBlocksWrapper().ClickHtmlButton();
+            BATFeather.Wrappers().Backend().ContentBlocks().ContentBlocksWrapper().SwitchToHtmlView();
             BATFeather.Wrappers().Backend().ContentBlocks().ContentBlocksWrapper().VerifyContentInHtmlEditableArea(HtmlEditedContent);
             BATFeather.Wrappers().Backend().ContentBlocks().ContentBlocksWrapper().SaveChanges();
             BATFeather.Wrappers().Backend().Pages().PageZoneEditorWrapper().VerifyCreatedLink(NewTextToDisplay, NewWebAddress);

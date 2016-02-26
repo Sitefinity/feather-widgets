@@ -24,7 +24,7 @@ namespace FeatherWidgets.TestUI.Arrangements
             ServerOperations.News().CreatePublishedNewsItemLiveId(NewsTitle1, NewsContent, NewsAuthor, NewsSource);
             ServerOperations.News().CreatePublishedNewsItemLiveId(NewsTitle2, NewsContent, NewsAuthor, NewsSource);
 
-            Guid searchIndexId = ServerOperations.Search().CreateIndex(SearchIndexName, new[] { SearchContentType.News });
+            Guid searchIndexId = ServerOperations.Search().CreateSearchIndex(SearchIndexName, new[] { SearchContentType.News });
             ServerOperations.Search().Reindex(searchIndexId);
 
             Guid templateId = ServerOperations.Templates().GetTemplateIdByTitle(PageTemplateName);

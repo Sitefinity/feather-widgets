@@ -43,16 +43,43 @@ namespace FeatherWidgets.TestUnit.DummyClasses.SearchResults
         }
 
         /// <summary>
+        /// Gets the order list from the model.
+        /// </summary>
+        /// <returns></returns>
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1024:UsePropertiesWhereAppropriate")]
+        public IEnumerable<string> GetModelOrderList()
+        {
+            return this.GetOrderList();
+        }
+
+        /// <summary>
         /// Populates dummy results.
         /// </summary>
         /// <param name="searchQuery">The search query.</param>
         /// <param name="skip">The skip.</param>
         /// <param name="language">The language.</param>
         public override void PopulateResults(string searchQuery, string indexCatalogue, int? skip, string language, string orderBy)
-        { 
+        {
+            this.InitializeOrderByEnum(orderBy);
+
             var totalCount = 3;
             var data = new List<IDocument>();
             this.Results = new ResultModel(data, totalCount);
+        }
+
+        /// <summary>
+        /// Initializes the order by enum.
+        /// </summary>
+        /// <param name="orderBy">The order by.</param>
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA1806:DoNotIgnoreMethodResults", MessageId = "System.Enum.TryParse<Telerik.Sitefinity.Frontend.Search.Mvc.Models.OrderByOptions>(System.String,System.Boolean,Telerik.Sitefinity.Frontend.Search.Mvc.Models.OrderByOptions@)")]
+        private void InitializeOrderByEnum(string orderBy)
+        {
+            if (!orderBy.IsNullOrEmpty())
+            {
+                OrderByOptions orderByOption;
+                Enum.TryParse<OrderByOptions>(orderBy, true, out orderByOption);
+                this.OrderBy = orderByOption;
+            }
         }
     }
 }

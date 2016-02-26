@@ -27,16 +27,16 @@ namespace FeatherWidgets.TestUI.Arrangements
             Guid page1Id = ServerOperations.Pages().CreatePage(PageName);
             ServerOperationsFeather.Pages().AddImageGalleryWidgetToPage(page1Id);
 
-            ServerOperations.Images().CreateLibrary(ImageLibraryTitle);
+            ServerSideUpload.CreateAlbum(ImageLibraryTitle);
 
             List<Guid> listOfIds = new List<Guid>();
-            var guidImage1 = ServerOperations.Images().Upload(ImageLibraryTitle, ImageTitle + 1, ImageResource1);
+            var guidImage1 = ServerSideUpload.UploadImage(ImageLibraryTitle, ImageTitle + 1, ImageResource1);
             listOfIds.Add(guidImage1);
-            var guidImage2 = ServerOperations.Images().Upload(ImageLibraryTitle, ImageTitle + 2, ImageResource2);
+            var guidImage2 = ServerSideUpload.UploadImage(ImageLibraryTitle, ImageTitle + 2, ImageResource2);
             listOfIds.Add(guidImage2);
-            var guidImage3 = ServerOperations.Images().Upload(ImageLibraryTitle, ImageTitle + 3, ImageResource3);
+            var guidImage3 = ServerSideUpload.UploadImage(ImageLibraryTitle, ImageTitle + 3, ImageResource3);
             listOfIds.Add(guidImage3);
-            var guidImage4 = ServerOperations.Images().Upload(ImageLibraryTitle, ImageTitle + 4, ImageResource4);
+            var guidImage4 = ServerSideUpload.UploadImage(ImageLibraryTitle, ImageTitle + 4, ImageResource4);
             listOfIds.Add(guidImage4);
  
             this.AssignTaxonomiesToImages(listOfIds);     
@@ -50,7 +50,7 @@ namespace FeatherWidgets.TestUI.Arrangements
         [ServerArrangement]
         public void GetCurrentProviderUrlName()
         {
-            string urlName = ServerOperations.Media().GetCurrentProviderUrlName;
+            string urlName = ServerOperations.Libraries().GetCurrentProviderUrlName;
 
             ServerArrangementContext.GetCurrent().Values.Add("CurrentProviderUrlName", urlName);
         }
@@ -62,7 +62,7 @@ namespace FeatherWidgets.TestUI.Arrangements
         public void TearDown()
         {
             ServerOperations.Pages().DeleteAllPages();
-            ServerOperations.Images().DeleteAllLibrariesExceptDefaultOne();
+            ServerOperations.Libraries().DeleteLibraries(false, "Image");
             ServerOperations.Taxonomies().ClearAllCategories(TaxonomiesConstants.CategoriesTaxonomyId);
             ServerOperations.Taxonomies().ClearAllTags(TaxonomiesConstants.TagsTaxonomyId);
         }
