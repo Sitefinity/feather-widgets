@@ -183,7 +183,7 @@
     <Compile Include="ContentBlocks\LinkSelector\LinkSelectorEditInsertedLinkToWebPage.cs" />
     <Compile Include="ContentBlocks\LinkSelector\LinkSelectorInsertRemoveLinkToWebPage.cs" />
     <Compile Include="ContentBlocks\ContentBlockWidgetMultipleProviders.cs" />
-    <Compile Include="ContentBlocks\ContentBlockWidgetOnPage.cs" />
+    <Compile Include="ContentBlocks\ContentBlockWidgetWithInvalidHtmlOnPage.cs" />
     <Compile Include="ContentBlocks\ContentBlockWidgetOnPageBasedOnPackageTemplate.cs" />
     <Compile Include="ContentBlocks\ContentBlockWidgetVerifyPermissions.cs" />
     <Compile Include="ContentBlocks\ContentBlockWidgetWithShareButtonsOnPageBasedOnBootstrap.cs" />
