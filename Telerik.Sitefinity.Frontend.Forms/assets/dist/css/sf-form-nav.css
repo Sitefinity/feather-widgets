@@ -1,0 +1,64 @@
+.sf-FormNav {
+  padding: 0; }
+  .sf-FormNav li {
+    display: inline-block;
+    margin-right: 20px; }
+    .sf-FormNav li.active {
+      font-weight: bold; }
+
+.sf-FormNav-page {
+  position: relative;
+  display: inline-block;
+  margin-right: 10px;
+  width: 28px;
+  height: 28px;
+  line-height: 28px;
+  color: #999;
+  font-size: 18px;
+  border: 1px solid #999;
+  font-weight: bold;
+  border-radius: 50%;
+  text-align: center;
+  vertical-align: middle; }
+  .active .sf-FormNav-page {
+    color: #333;
+    border-color: #333; }
+  .past .sf-FormNav-page:after {
+    content: '\2713';
+    position: absolute;
+    left: 7px; }
+
+.past .sf-FormNav-page-number {
+  display: none; }
+
+.sf-Progress-wrapper {
+  padding: 2px;
+  padding-right: 0;
+  width: 100%;
+  height: 22px;
+  overflow: hidden;
+  border: 1px solid #d7d7d7;
+  border-radius: 14px; }
+
+.sf-Progress-bar {
+  height: 100%;
+  box-sizing: border-box;
+  background-color: #b0d8ff;
+  border-top-left-radius: 14px;
+  border-bottom-left-radius: 14px;
+  transition: width 1s; }
+
+.sf-Progress-percent,
+.sf-Progress-page-title {
+  font-size: 14px; }
+
+.sf-Progress-percent {
+  font-weight: bold; }
+
+.sf-Progress-page-title {
+  display: inline-block;
+  padding-left: 0; }
+  .sf-Progress-page-title li {
+    display: none; }
+    .sf-Progress-page-title li.active {
+      display: inline-block; }

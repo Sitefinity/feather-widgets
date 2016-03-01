@@ -29,7 +29,7 @@
 
             @if (Model.PreviousItem != null) 
             {
-                <a class="pull-left" href="@HyperLinkHelpers.GetDetailPageUrl(Model.PreviousItem, ViewBag.DetailsPageId, ViewBag.OpenInSamePage, previousItemIndex)">
+                <a class="pull-left" href="@HyperLinkHelpers.GetDetailPageUrl(Model.PreviousItem, ViewBag.DetailsPageId, ViewBag.OpenInSamePage, ViewBag.UrlKeyPrefix, previousItemIndex)">
                     @Html.Resource("PreviousVideo")
                 </a>
             }
@@ -41,7 +41,7 @@
 
             @if (Model.NextItem != null) 
             {
-                <a class="pull-right" href="@HyperLinkHelpers.GetDetailPageUrl(Model.NextItem, ViewBag.DetailsPageId, ViewBag.OpenInSamePage, nextItemIndex)">
+                <a class="pull-right" href="@HyperLinkHelpers.GetDetailPageUrl(Model.NextItem, ViewBag.DetailsPageId, ViewBag.OpenInSamePage, ViewBag.UrlKeyPrefix, nextItemIndex)">
                     @Html.Resource("NextVideo")
                 </a>
             }

@@ -27,7 +27,7 @@ namespace FeatherWidgets.TestUI.Arrangements
 
             for (int i = 0; i < 20; i++)
             {
-                items[i] = ServerOperationsFeather.DynamicModulePressArticle().CreatePressArticleItem(DynamicItemTitle + i, DynamicItemTitle + i + "Url");               
+                items[i] = ServerOperationsFeather.DynamicModulePressArticle().CreatePressArticleItem(DynamicItemTitle + i, DynamicItemTitle + i + "Url").Id;               
             }
 
             ServerOperationsFeather.Pages().AddDynamicWidgetToPage(pageId, "Telerik.Sitefinity.DynamicTypes.Model.PressRelease.PressArticle", "PressArticle", "Press Articles MVC");
@@ -62,8 +62,8 @@ namespace FeatherWidgets.TestUI.Arrangements
         private const string AdminPass = "admin@2";
         private const string ModuleName = "Press Release";
         private const string ModuleResource = "FeatherWidgets.TestUtilities.Data.DynamicModules.PressReleaseWithCategoriesField.zip";
-        private const string DynamicItemTitle = "Dynamic Item Title";
+        private const string DynamicItemTitle = "DynamicItemTitle";
         private const string PageName = "TestPage";
-        private static DynamicContent[] items = new DynamicContent[20];
+        private static Guid[] items = new Guid[20];
     }
 }

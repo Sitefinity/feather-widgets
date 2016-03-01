@@ -28,7 +28,7 @@ namespace FeatherWidgets.TestUI.Arrangements
             Guid newsPageId = ServerOperations.Pages().CreatePage(NewsPageTitle);
             ServerOperationsFeather.Pages().AddNewsWidgetToPage(newsPageId);
 
-            Guid searchIndexId = ServerOperations.Search().CreateSearchIndex(SearchIndexName, new[] { SearchContentType.News });
+            Guid searchIndexId = ServerOperations.Search().CreateIndex(SearchIndexName, new[] { SearchContentType.News });
             ServerOperations.Search().Reindex(searchIndexId);
         }
 
@@ -43,7 +43,7 @@ namespace FeatherWidgets.TestUI.Arrangements
             ServerOperations.News().DeleteAllNews();
         }
 
-        private const string SearchIndexName = "news index";
+        private const string SearchIndexName = "VerifySearchResults_NonAuthenticatedUser";
         private const string NewsTitle1 = "test news";
         private const string NewsTitle2 = "another news";
         private const string SearchPageTitle = "SearchPage";
