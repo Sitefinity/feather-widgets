@@ -347,24 +347,19 @@ namespace FeatherWidgets.TestIntegration.Navigation
             this.createdPageIDs.Add(additionalPageId);
             
             var cookies = new CookieContainer();
-            using (new AuthenticateUserRegion(null))
-            {
-                var responseContent = this.GetResponse(url, cookies);
-                Assert.IsTrue(responseContent.Contains(AdditionalPageTitle + "<"), "The page title was not found");
-                Assert.IsFalse(responseContent.Contains(AdditionalPageNewTitle + "<"), "The new page title was present on page");
-            }
+
+            var responseContent = this.GetResponse(url, cookies);
+            Assert.IsTrue(responseContent.Contains(AdditionalPageTitle + "<"), "The page title was not found");
+            Assert.IsFalse(responseContent.Contains(AdditionalPageNewTitle + "<"), "The new page title was present on page");
 
             var pageManager = PageManager.GetManager();
             var additionalPage = pageManager.GetPageNode(additionalPageId);
             additionalPage.Title = AdditionalPageNewTitle;
             pageManager.SaveChanges();
 
-            using (new AuthenticateUserRegion(null))
-            {
-                var responseContent = this.GetResponse(url, cookies);
-                Assert.IsTrue(responseContent.Contains(AdditionalPageNewTitle + "<"), "The page title was not invalidated");
-                Assert.IsFalse(responseContent.Contains(AdditionalPageTitle + "<"), "The old page title was present on page");
-            }
+            responseContent = this.GetResponse(url, cookies);
+            Assert.IsTrue(responseContent.Contains(AdditionalPageNewTitle + "<"), "The page title was not invalidated");
+            Assert.IsFalse(responseContent.Contains(AdditionalPageTitle + "<"), "The old page title was present on page");
         }
 
         /// <summary>
@@ -390,22 +385,17 @@ namespace FeatherWidgets.TestIntegration.Navigation
             this.createdPageIDs.Add(tempPageId);
 
             var cookies = new CookieContainer();
-            using (new AuthenticateUserRegion(null))
-            {
-                var responseContent = this.GetResponse(url, cookies);
-                Assert.IsTrue(responseContent.Contains(TempPageTitle + "<"), "The existing page was not found");
-                Assert.IsFalse(responseContent.Contains(CreatedPageNewTitle + "<"), "The created page was found");
-            }
+
+            var responseContent = this.GetResponse(url, cookies);
+            Assert.IsTrue(responseContent.Contains(TempPageTitle + "<"), "The existing page was not found");
+            Assert.IsFalse(responseContent.Contains(CreatedPageNewTitle + "<"), "The created page was found");
 
             var createdPageId = pageGenerator.CreatePage(CreatedPageNewTitle, CreatedPageNewTitle, CreatedPageNewTitle);
             this.createdPageIDs.Add(createdPageId);
 
-            using (new AuthenticateUserRegion(null))
-            {
-                var responseContent = this.GetResponse(url, cookies);
-                Assert.IsTrue(responseContent.Contains(TempPageTitle + "<"), "The existing page was not found");
-                Assert.IsTrue(responseContent.Contains(CreatedPageNewTitle + "<"), "The created page was not found");
-            }
+            responseContent = this.GetResponse(url, cookies);
+            Assert.IsTrue(responseContent.Contains(TempPageTitle + "<"), "The existing page was not found");
+            Assert.IsTrue(responseContent.Contains(CreatedPageNewTitle + "<"), "The created page was not found");
         }
 
         /// <summary>
@@ -441,33 +431,25 @@ namespace FeatherWidgets.TestIntegration.Navigation
             pageManager.SaveChanges();
 
             var cookies = new CookieContainer();
-            using (new AuthenticateUserRegion(null))
-            {
-                var responseContent = this.GetResponse(url, cookies);
-                Assert.IsTrue(responseContent.Contains(ParentPageTitle + "<"), "The parent page was not found");
-                Assert.IsTrue(responseContent.Contains(ChildPageTitle + "<"), "The child page was not found");
-            }
+
+            var responseContent = this.GetResponse(url, cookies);
+            Assert.IsTrue(responseContent.Contains(ParentPageTitle + "<"), "The parent page was not found");
+            Assert.IsTrue(responseContent.Contains(ChildPageTitle + "<"), "The child page was not found");
 
             pageManager.UnpublishPage(child.GetPageData());
             pageManager.SaveChanges();
 
-            using (new AuthenticateUserRegion(null))
-            {
-                var responseContent = this.GetResponse(url, cookies);
-                Assert.IsTrue(responseContent.Contains(ParentPageTitle + "<"), "The parent page was not found");
-                Assert.IsFalse(responseContent.Contains(ChildPageTitle + "<"), "The child page was found");
-            }
+            responseContent = this.GetResponse(url, cookies);
+            Assert.IsTrue(responseContent.Contains(ParentPageTitle + "<"), "The parent page was not found");
+            Assert.IsFalse(responseContent.Contains(ChildPageTitle + "<"), "The child page was found");
 
             var bag = new Dictionary<string, string>();
             bag.Add("ContentType", child.GetType().FullName);
             WorkflowManager.MessageWorkflow(childPageId, child.GetType(), null, "Publish", false, bag);
 
-            using (new AuthenticateUserRegion(null))
-            {
-                var responseContent = this.GetResponse(url, cookies);
-                Assert.IsTrue(responseContent.Contains(ParentPageTitle + "<"), "The parent page was not found");
-                Assert.IsTrue(responseContent.Contains(ChildPageTitle + "<"), "The child page was not found");
-            }
+            responseContent = this.GetResponse(url, cookies);
+            Assert.IsTrue(responseContent.Contains(ParentPageTitle + "<"), "The parent page was not found");
+            Assert.IsTrue(responseContent.Contains(ChildPageTitle + "<"), "The child page was not found");
         }
 
         /// <summary>
@@ -503,33 +485,25 @@ namespace FeatherWidgets.TestIntegration.Navigation
             pageManager.SaveChanges();
 
             var cookies = new CookieContainer();
-            using (new AuthenticateUserRegion(null))
-            {
-                var responseContent = this.GetResponse(url, cookies);
-                Assert.IsTrue(responseContent.Contains(GroupPageTitle + "<"), "The group page was not found");
-                Assert.IsTrue(responseContent.Contains(ChildPageTitle + "<"), "The child page was not found");
-            }
+
+            var responseContent = this.GetResponse(url, cookies);
+            Assert.IsTrue(responseContent.Contains(GroupPageTitle + "<"), "The group page was not found");
+            Assert.IsTrue(responseContent.Contains(ChildPageTitle + "<"), "The child page was not found");
 
             pageManager.UnpublishPage(child.GetPageData());
             pageManager.SaveChanges();
 
-            using (new AuthenticateUserRegion(null))
-            {
-                var responseContent = this.GetResponse(url, cookies);
-                Assert.IsFalse(responseContent.Contains(GroupPageTitle + "<"), "The group page was found");
-                Assert.IsFalse(responseContent.Contains(ChildPageTitle + "<"), "The child page was found");
-            }
+            responseContent = this.GetResponse(url, cookies);
+            Assert.IsFalse(responseContent.Contains(GroupPageTitle + "<"), "The group page was found");
+            Assert.IsFalse(responseContent.Contains(ChildPageTitle + "<"), "The child page was found");
 
             var bag = new Dictionary<string, string>();
             bag.Add("ContentType", child.GetType().FullName);
             WorkflowManager.MessageWorkflow(childPageId, child.GetType(), null, "Publish", false, bag);
 
-            using (new AuthenticateUserRegion(null))
-            {
-                var responseContent = this.GetResponse(url, cookies);
-                Assert.IsTrue(responseContent.Contains(GroupPageTitle + "<"), "The group page was not found");
-                Assert.IsTrue(responseContent.Contains(ChildPageTitle + "<"), "The child page was not found");
-            }
+            responseContent = this.GetResponse(url, cookies);
+            Assert.IsTrue(responseContent.Contains(GroupPageTitle + "<"), "The group page was not found");
+            Assert.IsTrue(responseContent.Contains(ChildPageTitle + "<"), "The child page was not found");
         }
 
         private string GetResponse(string url, CookieContainer cookies)
