@@ -412,6 +412,7 @@ namespace FeatherWidgets.TestIntegration.Navigation
         /// Checks if the navigation widget properly invalidates the cached page if a child page is republished.
         /// </summary>
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Naming", "CA1704:IdentifiersShouldBeSpelledCorrectly", MessageId = "Unpublish"), Test]
+        [Ignore("Unstable")]
         [Category(TestCategories.Navigation)]
         [Author(FeatherTeams.FeatherTeam)]
         [Description("Checks if the navigation widget properly invalidates the cached page if a child page is republished")]
@@ -474,6 +475,7 @@ namespace FeatherWidgets.TestIntegration.Navigation
         /// Checks if the navigation widget properly invalidates the cached page if a grouped page child is republished.
         /// </summary>
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Naming", "CA1704:IdentifiersShouldBeSpelledCorrectly", MessageId = "Unpublish"), Test]
+        [Ignore("Unstable")]
         [Category(TestCategories.Navigation)]
         [Author(FeatherTeams.FeatherTeam)]
         [Description("Checks if the navigation widget properly invalidates the cached page if a grouped page child is republished")]
