@@ -538,7 +538,7 @@ namespace FeatherWidgets.TestIntegration.Navigation
         {
             var req = HttpWebRequest.CreateHttp(url);
             req.CookieContainer = cookies;
-            req.Timeout = 120 * 60 * 1000;
+            req.Timeout = 120 * 60 * 1000; 
 
             var res = req.GetResponse();
 
