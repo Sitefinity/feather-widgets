@@ -536,9 +536,19 @@ namespace FeatherWidgets.TestIntegration.Navigation
 
         private string GetResponse(string url, CookieContainer cookies)
         {
-            var handler = new HttpClientHandler() { CookieContainer = cookies, UseCookies = true };
-            var client = new HttpClient(handler) { Timeout = TimeSpan.FromMilliseconds(1000 * 60 * 120) };
-            return client.GetStringAsync(url).Result;
+            var req = HttpWebRequest.CreateHttp(url);
+            req.CookieContainer = cookies;
+            req.Timeout = 120 * 60 * 1000;
+
+            var res = req.GetResponse();
+
+            string responseContent;
+            using (var sr = new StreamReader(res.GetResponseStream()))
+            {
+                responseContent = sr.ReadToEnd();
+            }
+
+            return responseContent;
         }
 
         #region Fields and constants
