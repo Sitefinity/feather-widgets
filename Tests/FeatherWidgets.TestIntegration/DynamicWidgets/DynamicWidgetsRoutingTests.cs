@@ -319,7 +319,7 @@ namespace FeatherWidgets.TestIntegration.DynamicWidgets
         {
             try
             {
-                var providerName = string.Empty;
+                var providerName = FeatherWidgets.TestUtilities.CommonOperations.DynamicModulesOperations.ProviderName;
                 DynamicModuleManager dynamicModuleManager = DynamicModuleManager.GetManager(providerName);
                 Type countryType = TypeResolutionService.ResolveType(ResolveTypeCountry);
 
@@ -360,7 +360,7 @@ namespace FeatherWidgets.TestIntegration.DynamicWidgets
         {
             try
             {
-                var providerName = string.Empty;
+                var providerName = FeatherWidgets.TestUtilities.CommonOperations.DynamicModulesOperations.ProviderName;
                 DynamicModuleManager dynamicModuleManager = DynamicModuleManager.GetManager(providerName);
                 Type countryType = TypeResolutionService.ResolveType(ResolveTypeCountry);
 
@@ -408,6 +408,7 @@ namespace FeatherWidgets.TestIntegration.DynamicWidgets
             dynamicController.Model.ContentType = TypeResolutionService.ResolveType(resolveType);
             dynamicController.Model.ParentFilterMode = parentFilter;
             dynamicController.Model.CurrentlyOpenParentType = parentType;
+            dynamicController.Model.ProviderName = FeatherWidgets.TestUtilities.CommonOperations.DynamicModulesOperations.ProviderName;
 
             if (parentIds != null)
             {

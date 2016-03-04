@@ -49,6 +49,7 @@ namespace FeatherWidgets.TestIntegration.DynamicWidgets
                 mvcProxy.ControllerName = typeof(DynamicContentController).FullName;
                 var dynamicController = new DynamicContentController();
                 dynamicController.Model.ContentType = TypeResolutionService.ResolveType(ResolveType);
+                dynamicController.Model.ProviderName = FeatherWidgets.TestUtilities.CommonOperations.DynamicModulesOperations.ProviderName;
                 mvcProxy.Settings = new ControllerSettings(dynamicController);
                 mvcProxy.WidgetName = WidgetName;
 
@@ -85,7 +86,7 @@ namespace FeatherWidgets.TestIntegration.DynamicWidgets
         private const string DynamicUrl = "AngelUrl";
         private TemplateOperations templateOperation = new TemplateOperations();
         private PageContentGenerator locationGenerator = new PageContentGenerator();
-        private const string OldTemplateName = "Bootstrap.default";
+        private const string OldTemplateName = "default";
         private const string TemplateName = "NewTemplate";
         private const string DynamicFileFileResource = "FeatherWidgets.TestUtilities.Data.DynamicModules.List.PressArticleNew.cshtml";
         private const string DynamicFileName = "List.PressArticleNew.cshtml";
