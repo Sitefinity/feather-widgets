@@ -56,6 +56,7 @@ namespace FeatherWidgets.TestIntegration.DynamicWidgets
                 dynamicController.Model.ContentType = TypeResolutionService.ResolveType(ResolveType);
                 dynamicController.Model.SelectionMode = SelectionMode.SelectedItems;
                 dynamicController.Model.SortExpression = sortExpession;
+                dynamicController.Model.ProviderName = FeatherWidgets.TestUtilities.CommonOperations.DynamicModulesOperations.ProviderName;
 
                 var selectedDynamicItems = new DynamicContent[3];
 
@@ -139,6 +140,7 @@ namespace FeatherWidgets.TestIntegration.DynamicWidgets
                 mvcProxy.WidgetName = WidgetName;
                 dynamicController.Model.ItemsPerPage = itemsPerPage;
                 dynamicController.Model.SortExpression = AsSetManuallySortingOption;
+                dynamicController.Model.ProviderName = FeatherWidgets.TestUtilities.CommonOperations.DynamicModulesOperations.ProviderName;
 
                 for (int i = 0; i < selectedDynamicTitles.Count(); i++)
                 {
@@ -197,6 +199,7 @@ namespace FeatherWidgets.TestIntegration.DynamicWidgets
                 dynamicController.Model.DisplayMode = ListDisplayMode.Limit;
                 dynamicController.Model.ItemsPerPage = 5;
                 dynamicController.Model.SortExpression = AsSetManuallySortingOption;
+                dynamicController.Model.ProviderName = FeatherWidgets.TestUtilities.CommonOperations.DynamicModulesOperations.ProviderName;
 
                 var mvcProxy = new MvcWidgetProxy();
                 mvcProxy.ControllerName = typeof(DynamicContentController).FullName;
@@ -264,6 +267,7 @@ namespace FeatherWidgets.TestIntegration.DynamicWidgets
                 dynamicController.Model.ContentType = TypeResolutionService.ResolveType(ResolveType);
                 dynamicController.Model.SelectionMode = SelectionMode.SelectedItems;
                 dynamicController.Model.DisplayMode = ListDisplayMode.All;
+                dynamicController.Model.ProviderName = FeatherWidgets.TestUtilities.CommonOperations.DynamicModulesOperations.ProviderName;
 
                 var mvcProxy = new MvcWidgetProxy();
                 mvcProxy.ControllerName = typeof(DynamicContentController).FullName;
@@ -320,6 +324,7 @@ namespace FeatherWidgets.TestIntegration.DynamicWidgets
                 var dynamicController = new DynamicContentController();
                 dynamicController.Model.ContentType = TypeResolutionService.ResolveType(ResolveType);
                 dynamicController.Model.SelectionMode = SelectionMode.FilteredItems;
+                dynamicController.Model.ProviderName = FeatherWidgets.TestUtilities.CommonOperations.DynamicModulesOperations.ProviderName;
 
                 for (int i = 0; i < taxonId.Length; i++)
                 {
@@ -360,6 +365,7 @@ namespace FeatherWidgets.TestIntegration.DynamicWidgets
             var dynamicController = new DynamicContentController();
             dynamicController.Model.ContentType = TypeResolutionService.ResolveType(ResolveType);
             dynamicController.Model.SortExpression = sortExpession;
+            dynamicController.Model.ProviderName = FeatherWidgets.TestUtilities.CommonOperations.DynamicModulesOperations.ProviderName;
 
             try
             {
@@ -419,6 +425,7 @@ namespace FeatherWidgets.TestIntegration.DynamicWidgets
             var dynamicController = new DynamicContentController();
             dynamicController.Model.ContentType = TypeResolutionService.ResolveType(ResolveType);
             dynamicController.Model.DisplayMode = ListDisplayMode.Paging;
+            dynamicController.Model.ProviderName = FeatherWidgets.TestUtilities.CommonOperations.DynamicModulesOperations.ProviderName;
             int itemsPerPage = 3;
             dynamicController.Model.ItemsPerPage = itemsPerPage;
             string categoryTitle = "Category";
@@ -471,6 +478,7 @@ namespace FeatherWidgets.TestIntegration.DynamicWidgets
             var dynamicController = new DynamicContentController();
             dynamicController.Model.ContentType = TypeResolutionService.ResolveType(ResolveType);
             dynamicController.Model.DisplayMode = ListDisplayMode.Limit;
+            dynamicController.Model.ProviderName = FeatherWidgets.TestUtilities.CommonOperations.DynamicModulesOperations.ProviderName;
             int itemsPerPage = 3;
             dynamicController.Model.ItemsPerPage = itemsPerPage;
             string categoryTitle = "Category";
@@ -553,7 +561,8 @@ namespace FeatherWidgets.TestIntegration.DynamicWidgets
                 var taxonId = this.CreatePressArticleAndReturnTagId(this.tagTitles);
               
                 var dynamicController = new DynamicContentController();
-                dynamicController.Model.ContentType = TypeResolutionService.ResolveType(ResolveType);             
+                dynamicController.Model.ContentType = TypeResolutionService.ResolveType(ResolveType);
+                dynamicController.Model.ProviderName = FeatherWidgets.TestUtilities.CommonOperations.DynamicModulesOperations.ProviderName;
 
                 for (int i = 0; i < taxonId.Length; i++)
                 {
@@ -595,6 +604,7 @@ namespace FeatherWidgets.TestIntegration.DynamicWidgets
                 var dynamicController = new DynamicContentController();
                 dynamicController.Model.ContentType = TypeResolutionService.ResolveType(ResolveType);
                 dynamicController.Model.SortExpression = sortExpession;
+                dynamicController.Model.ProviderName = FeatherWidgets.TestUtilities.CommonOperations.DynamicModulesOperations.ProviderName;
 
                 for (int i = 0; i < itemsCount; i++)
                     ServerOperationsFeather.DynamicModulePressArticle().CreatePressArticle("Title" + i, "Title" + i + "Url", publishers[i]);
@@ -631,6 +641,7 @@ namespace FeatherWidgets.TestIntegration.DynamicWidgets
                 var dynamicController = new DynamicContentController();
                 dynamicController.Model.ContentType = TypeResolutionService.ResolveType(ResolveType);
                 dynamicController.Model.SortExpression = sortExpession;
+                dynamicController.Model.ProviderName = FeatherWidgets.TestUtilities.CommonOperations.DynamicModulesOperations.ProviderName;
 
                 for (int i = 0; i < itemsCount; i++)
                     ServerOperationsFeather.DynamicModulePressArticle().CreatePressArticle("Title" + i, "Title" + i + "Url", publishers[i]);

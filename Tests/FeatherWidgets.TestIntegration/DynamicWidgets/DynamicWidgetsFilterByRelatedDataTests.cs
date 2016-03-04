@@ -183,6 +183,8 @@ namespace FeatherWidgets.TestIntegration.DynamicWidgets
             dynamicController.Model.RelatedFieldName = relatedFieldName;
             dynamicController.Model.RelatedItemType = relatedItemType;
             dynamicController.Model.RelationTypeToDisplay = relationTypeToDisplay;
+            dynamicController.Model.RelatedItemProviderName = FeatherWidgets.TestUtilities.CommonOperations.DynamicModulesOperations.ProviderName;
+            dynamicController.Model.ProviderName = FeatherWidgets.TestUtilities.CommonOperations.DynamicModulesOperations.ProviderName;
 
             mvcProxy.Settings = new ControllerSettings(dynamicController);
             mvcProxy.WidgetName = widgetName;

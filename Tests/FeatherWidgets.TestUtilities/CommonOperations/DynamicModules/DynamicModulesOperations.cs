@@ -15,6 +15,19 @@ namespace FeatherWidgets.TestUtilities.CommonOperations
     /// </summary>
     public class DynamicModulesOperations
     {
+        public static string ProviderName
+        {
+            get 
+            {
+                var providerName = string.Empty;
+
+                if (ServerOperations.MultiSite().CheckIsMultisiteMode())
+                    providerName = "dynamicContentProvider";
+
+                return providerName;
+            }
+        }
+
         /// <summary>
         /// Imports a dynamic module.
         /// </summary>

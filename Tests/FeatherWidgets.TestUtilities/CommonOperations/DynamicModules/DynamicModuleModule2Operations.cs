@@ -34,7 +34,7 @@ namespace FeatherWidgets.TestUtilities.CommonOperations
 
             itemItem.SetValue("Title", title);
 
-            DynamicModuleManager relatedColorManager = DynamicModuleManager.GetManager();
+            DynamicModuleManager relatedColorManager = DynamicModuleManager.GetManager(providerName);
             var relatedColorType = TypeResolutionService.ResolveType("Telerik.Sitefinity.DynamicTypes.Model.Module1.Color");
 
             foreach (var relatedColor in relatedColors)

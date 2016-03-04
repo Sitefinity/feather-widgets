@@ -43,7 +43,7 @@ namespace FeatherWidgets.TestIntegration.DynamicWidgets
             try
             {
                 Telerik.Sitefinity.TestUtilities.CommonOperations.ServerOperations.ModuleBuilder()
-                    .AddCustomContentTypeWidgetToPage(ResolveTypeCountry, "Booking - Country", WidgetNameCountries, "Body", this.pageId);
+                    .AddCustomContentTypeWidgetToPage(ResolveTypeCountry, "Booking - Country", WidgetNameCountries, "Body", this.pageId, FeatherWidgets.TestUtilities.CommonOperations.DynamicModulesOperations.ProviderName);
 
                 string url = UrlPath.ResolveAbsoluteUrl("~/" + PageName);
 
