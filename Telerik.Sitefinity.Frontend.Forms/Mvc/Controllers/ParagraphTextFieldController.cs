@@ -14,7 +14,7 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Controllers
     /// <summary>
     /// This class represents the controller of the MVC forms paragraph text field.
     /// </summary>
-    [DatabaseMapping(UserFriendlyDataType.ShortText)]
+    [DatabaseMapping(UserFriendlyDataType.LongText)]
     [Localization(typeof(FieldResources))]
     public class ParagraphTextFieldController : FormFieldControllerBase<IParagraphTextFieldModel>
     {
