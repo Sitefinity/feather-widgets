@@ -54,7 +54,7 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Frontend.Forms
         {
             Assert.IsTrue(EM.Forms.FormsFrontend.DropdownListField.InnerText.Contains(fieldLabel));
         }
-       
+
         /// <summary>
         /// Verify if content block content is visible
         /// </summary>
@@ -181,7 +181,7 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Frontend.Forms
 
             this.WaitForSuccessMessage();
         }
-            
+
         /// <summary>
         /// Wait for success message after the form is submitted
         /// </summary>
@@ -196,7 +196,10 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Frontend.Forms
         public void ClickSubmit()
         {
             HtmlButton submitButton = EM.Forms.FormsFrontend.SubmitButton;
-            submitButton.MouseClick();
+            submitButton.Click();
+            ActiveBrowser.WaitForAsyncJQueryRequests();
+            ActiveBrowser.WaitUntilReady();
+            ActiveBrowser.RefreshDomTree();
         }
 
         /// <summary>
@@ -208,6 +211,9 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Frontend.Forms
                 .Last()
                 .AssertIsVisible("Submit button in the footer")
                 .Click();
+            ActiveBrowser.WaitForAsyncJQueryRequests();
+            ActiveBrowser.WaitUntilReady();
+            ActiveBrowser.RefreshDomTree();
         }
 
         /// <summary>
@@ -274,8 +280,8 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Frontend.Forms
         /// <param name="visibleNumbers">The visible numbers.</param>
         public void VerifyVisibleNumbersInNavigation(int visibleNumbers)
         {
-                var actualVisibleNumbers = ActiveBrowser.Find.AllByExpression<HtmlSpan>("class=sf-FormNav-page-number")
-                    .Where(d => d.IsVisible());
+            var actualVisibleNumbers = ActiveBrowser.Find.AllByExpression<HtmlSpan>("class=sf-FormNav-page-number")
+                .Where(d => d.IsVisible());
             Assert.AreEqual(visibleNumbers, actualVisibleNumbers.Count());
         }
 
@@ -338,32 +344,22 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Frontend.Forms
         /// </summary>
         public void VerifyRequiredFields(string controllerType)
         {
-            if (controllerType.Equals("TextFieldController"))
-            {
-                var section = ActiveBrowser.Find.ByExpression<HtmlControl>("name=" + controllerType)
-                .AssertIsPresent("Controller ");
-                var attr = section.Attributes.FirstOrDefault(a => a.Name == "required");
-                Assert.AreEqual("'required'", attr.Value.ToLower(), "Required field ");
-            }
-            else
-            {
-                var section = ActiveBrowser.Find.ByExpression<HtmlControl>("name=" + controllerType)
-                .AssertIsPresent("Controller ");
-                var attr = section.Attributes.FirstOrDefault(a => a.Name == "required");
-                Assert.AreEqual("required", attr.Value.ToLower(), "Required field ");
-            }
+            var section = ActiveBrowser.Find.ByExpression<HtmlControl>("name=" + controllerType)
+            .AssertIsPresent("Controller ");
+            var attr = section.Attributes.FirstOrDefault(a => a.Name == "required");
+            Assert.AreEqual("required", attr.Value.ToLower(), "Required field ");
         }
-        
+
         /// <summary>
         /// Verify previous step text
         /// </summary>
         /// <param name="buttonText">The button text.</param>
         /// <param name="isVisible">if set to <c>true</c> [is visible].</param>
         public void VerifyPreviousStepText(string buttonText = "Previous step", bool isVisible = true)
-        {           
+        {
             if (!isVisible)
             {
-                 Assert.IsFalse(ActiveBrowser.ContainsText(buttonText));
+                Assert.IsFalse(ActiveBrowser.ContainsText(buttonText));
             }
             else
             {
@@ -402,7 +398,7 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Frontend.Forms
         public void VerifyPagingIndexes(List<string> labels)
         {
             var indexes = ActiveBrowser.Find.AllByExpression<HtmlSpan>("data-sf-role=page-label");
-            
+
             for (int i = 0; i < labels.Count; i++)
             {
                 indexes[i].AssertIsVisible("The multi page label");
@@ -474,11 +470,11 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Frontend.Forms
             }
         }
 
-       /// <summary>
+        /// <summary>
         /// Verify if field exist in preview
-       /// </summary>
-       /// <param name="fieldLabel">Label of the field</param>
-       /// <param name="exist">If the field exist set true</param>
+        /// </summary>
+        /// <param name="fieldLabel">Label of the field</param>
+        /// <param name="exist">If the field exist set true</param>
         public void VerifyIfFieldExistInPreviewMode(string fieldLabel, bool exist)
         {
             HtmlDiv activeForm = ActiveBrowser.Find.AllByExpression<HtmlDiv>("TagName=div", "data-sf-role=separator").Where(d => d.IsVisible()).FirstOrDefault();
@@ -594,7 +590,7 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Frontend.Forms
         /// An instance of the <see cref="PageAssertFacade"/> facade which provides functionality 
         /// for verifying the page.
         /// </returns>
-        public PageAssertFacade PreviewForm(string formName, string culture = null )
+        public PageAssertFacade PreviewForm(string formName, string culture = null)
         {
             string pagesUrl;
             if (culture != null)
