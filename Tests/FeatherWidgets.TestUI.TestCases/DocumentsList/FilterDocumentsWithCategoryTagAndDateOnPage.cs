@@ -108,7 +108,8 @@ namespace FeatherWidgets.TestUI.TestCases.DocumentsList
             }
             else
             {
-                url = ActiveBrowser.Url.Substring(0, 20);
+                Uri uri = new Uri(ActiveBrowser.Url);
+                url = uri.Scheme + Uri.SchemeDelimiter + uri.Host + ":" + uri.Port + "/";
             }
 
             string href = BATFeather.Wrappers().Frontend().MediaWidgets().MediaWidgetsWrapper().GetMediaSource(isBaseUrlIncluded, libraryUrl, documentUrl, url, contentType, currentProviderUrlName, this.Culture);
@@ -117,6 +118,7 @@ namespace FeatherWidgets.TestUI.TestCases.DocumentsList
 
         private string GetDownloadHref(bool isBaseUrlIncluded, string documentName, string contentType)
         {
+
             string libraryUrl = LibraryName.ToLower();
             string documentUrl = documentName.ToLower();
             string url;
@@ -127,7 +129,8 @@ namespace FeatherWidgets.TestUI.TestCases.DocumentsList
             }
             else
             {
-                url = ActiveBrowser.Url.Substring(0, 20);
+                Uri uri = new Uri(ActiveBrowser.Url);
+                url = uri.Scheme + Uri.SchemeDelimiter + uri.Host + ":" + uri.Port + "/";
             }
 
             string href = BATFeather.Wrappers().Frontend().MediaWidgets().MediaWidgetsWrapper().GetDownloadButtonSource(isBaseUrlIncluded, libraryUrl, documentUrl, url, contentType, currentProviderUrlName);
