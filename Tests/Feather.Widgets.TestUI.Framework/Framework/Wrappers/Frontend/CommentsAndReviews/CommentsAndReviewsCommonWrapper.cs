@@ -34,7 +34,9 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Frontend.CommentsA
         /// <param name="message">Message.</param>
         public void TypeAMessage(string message)
         {
+            ActiveBrowser.WaitUntilReady();
             ActiveBrowser.RefreshDomTree();
+            ActiveBrowser.WaitForAjax(10000);
 
             HtmlDiv editable = this.EM.CommentsAndReviews.CommentsFrontend.LeaveACommentArea
                 .AssertIsPresent("Leave area");
