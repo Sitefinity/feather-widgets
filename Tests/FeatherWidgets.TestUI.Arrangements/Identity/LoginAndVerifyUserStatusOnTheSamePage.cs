@@ -30,6 +30,7 @@ namespace FeatherWidgets.TestUI.Arrangements
         {
             AuthenticationHelper.AuthenticateUser(AdminUserName, AdminPass, true);
             ServerOperations.Pages().DeleteAllPages();
+            ServerOperations.Users().DeleteUserAndProfile(TestAdmin);
         }
 
         private const string PageName = "LoginPage";
