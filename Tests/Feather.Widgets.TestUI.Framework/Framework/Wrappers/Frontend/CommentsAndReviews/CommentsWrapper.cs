@@ -21,6 +21,9 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Frontend.CommentsA
         /// <param name="commentsContent">Comments content</param>
         public void VerifyCommentsAuthorAndContent(string[] commentsAuthor, string[] commentsContent)
         {
+            ActiveBrowser.WaitUntilReady();
+            ActiveBrowser.WaitForAjax(10000);
+
             IList<HtmlDiv> allCommentsDivs = this.EM.CommentsAndReviews.CommentsFrontend.ResultsCommentsList;
 
             Assert.IsNotNull(allCommentsDivs, "Comments list is null");
