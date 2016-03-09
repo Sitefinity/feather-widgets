@@ -37,18 +37,18 @@ namespace FeatherWidgets.TestUI.TestCases.Identity
             BATFeather.Wrappers().Frontend().Identity().LoginFormWrapper().AssertEmptyUserNameFieldMessage();
             BATFeather.Wrappers().Frontend().Identity().LoginFormWrapper().AssertEmptyPasswordFieldMessage();
 
-            BATFeather.Wrappers().Frontend().Identity().LoginFormWrapper().EnterUserName(AdminUserName);
+            BATFeather.Wrappers().Frontend().Identity().LoginFormWrapper().EnterUserName(TestAdminUserName);
             BATFeather.Wrappers().Frontend().Identity().LoginFormWrapper().EnterPassword(WrongPassword);
             BATFeather.Wrappers().Frontend().Identity().LoginFormWrapper().PressLoginButton();
             BATFeather.Wrappers().Frontend().Identity().LoginFormWrapper().AssertIncorrectUserNamePasswordMessage();
 
-            BATFeather.Wrappers().Frontend().Identity().LoginFormWrapper().EnterUserName(AdminUserName);
-            BATFeather.Wrappers().Frontend().Identity().LoginFormWrapper().EnterPassword(AdminPassword);
+            BATFeather.Wrappers().Frontend().Identity().LoginFormWrapper().EnterUserName(TestAdminUserName);
+            BATFeather.Wrappers().Frontend().Identity().LoginFormWrapper().EnterPassword(TestAdminPass);
             BATFeather.Wrappers().Frontend().Identity().LoginFormWrapper().PressLoginButton();
 
             BATFeather.Wrappers().Frontend().Identity().LoginFormWrapper().AssertAlreadyLoggedInMessage();
-            BATFeather.Wrappers().Frontend().Identity().LoginStatusWrapper().AssertUserLoggedInName(AdminUserFirstName, AdminUserLastName);
-            BATFeather.Wrappers().Frontend().Identity().LoginStatusWrapper().AssertUserEmail(AdminUserEmail);
+            BATFeather.Wrappers().Frontend().Identity().LoginStatusWrapper().AssertUserLoggedInName(TestAdminFirstName, TestAdminLastName);
+            BATFeather.Wrappers().Frontend().Identity().LoginStatusWrapper().AssertUserEmail(TestAdminEmail);
         }
 
         /// <summary>
@@ -71,11 +71,12 @@ namespace FeatherWidgets.TestUI.TestCases.Identity
         private const string PageName = "LoginPage";
         private const string LoginFormWidget = "Login form";
         private const string LoginStatusWidget = "Login / Logout button";
-        private const string AdminUserFirstName = "admin";
-        private const string AdminUserLastName = "admin";
-        private const string AdminUserEmail = "dadasda@dasd.fdf";
-        private const string AdminUserName = "admin";
+        private const string TestAdmin = "admin2";
+        private const string TestAdminUserName = "admin2";
+        private const string TestAdminPass = "password";
+        private const string TestAdminFirstName = "admin2";
+        private const string TestAdminLastName = "admin2";
+        private const string TestAdminEmail = "admin2@test.com";
         private const string WrongPassword = "password123";
-        private const string AdminPassword = "admin@2"; 
     }
 }
