@@ -38,7 +38,7 @@
         }, true);
 
         $scope.hasErrors = function () {
-            return $scope.properties.Title && !$scope.properties.Title.PropertyValue;
+            return !$scope.properties.Title || !$scope.properties.Title.PropertyValue;
         };
 
         var updateProperties = function () {
