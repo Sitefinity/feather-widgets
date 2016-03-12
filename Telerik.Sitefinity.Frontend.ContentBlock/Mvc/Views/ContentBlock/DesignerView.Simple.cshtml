@@ -1,10 +1,21 @@
 @using Telerik.Sitefinity.Frontend.Mvc.Helpers
+@using Telerik.Sitefinity.Frontend.Mvc.Models
 
 <div ng-show="isShared" class="alert alert-warning">
     <b>@Html.Resource("ThisContentIsShared")</b> @Html.Resource("SharedContentWarning")
 </div>
 <sf-html-field class="kendo-content-block" sf-model="properties.Content.PropertyValue"></sf-html-field>
+
 <script type="text/ng-template" section="modal-footer">
-     <button class="btn btn-primary pull-left" onclick="saveProperties()">@Html.Resource("Save")</button>
-     <a class="btn btn-link pull-left" data-dismiss="modal" ng-click="cancel()">@Html.Resource("Cancel")</a>
- </script>
+	<button class="btn btn-primary pull-left" onclick="saveProperties(false)">@Html.Resource("Save")</button>
+	<button class="btn btn-default pull-left" onclick="saveProperties(true)" ng-hide="hideSaveAllTranslations">@Html.Resource("SaveAllTranslations")</button>
+	<a class="btn btn-link pull-left" data-dismiss="modal" ng-click="cancel()">@Html.Resource("Cancel")</a>
+
+	@if (((IDesignerModel)ViewBag.DesignerModel).Views.Count() > 1)
+	{
+		foreach (var view in ((IDesignerModel)ViewBag.DesignerModel).Views)
+        {
+			<a class="btn btn-default btn-xs m-top-xs designer-btn-@view" ng-hide="isCurrentView('@view')" href="#/@view">@Html.Resource(view, fallbackToKey: true)</a>
+        }
+	}
+</script>

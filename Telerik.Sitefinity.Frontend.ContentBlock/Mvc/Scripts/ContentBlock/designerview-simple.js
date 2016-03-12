@@ -82,10 +82,10 @@
     ]);
 })(jQuery);
 
-function saveProperties() {
+function saveProperties(saveToAllTranslations) {
     var scope = angular.element('#viewsPlaceholder').scope();
     scope.$apply(function () {
         scope.$broadcast('close');
     });
-    scope.save();
+    scope.save(saveToAllTranslations);
 }
