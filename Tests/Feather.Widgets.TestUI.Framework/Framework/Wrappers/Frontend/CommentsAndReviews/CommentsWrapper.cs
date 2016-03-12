@@ -23,6 +23,7 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Frontend.CommentsA
         {
             ActiveBrowser.WaitUntilReady();
             ActiveBrowser.WaitForAjax(10000);
+            ActiveBrowser.WaitForAsyncJQueryRequests();
 
             IList<HtmlDiv> allCommentsDivs = this.EM.CommentsAndReviews.CommentsFrontend.ResultsCommentsList;
 
