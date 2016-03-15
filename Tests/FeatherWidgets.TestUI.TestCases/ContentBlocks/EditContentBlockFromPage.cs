@@ -19,7 +19,8 @@ namespace FeatherWidgets.TestUI.TestCases.ContentBlocks
         /// UI test EditContentBlockFromPage
         /// </summary>
         [TestMethod,
-        Owner(FeatherTeams.FeatherTeam)]
+        Owner(FeatherTeams.FeatherTeam),
+        TestCategory(FeatherTestCategories.ContentBlock1)]
         public void EditContentBlockFromPage()
         {
             BAT.Macros().NavigateTo().Pages(this.Culture);
