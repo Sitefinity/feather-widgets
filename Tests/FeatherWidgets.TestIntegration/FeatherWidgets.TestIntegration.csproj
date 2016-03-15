@@ -291,6 +291,7 @@
     <Compile Include="News\NewsWidgetPageTemplateTests.cs" />
     <Compile Include="News\NewsWidgetPrecompilation.cs" />
     <Compile Include="News\NewsWidgetUrlKeyPrefix.cs" />
+    <Compile Include="Packaging\ImportExportDynamicStructureTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SearchResults\SearchResultsWidgetTests.cs" />
     <Compile Include="Taxonomies\FlatTaxonomyTests.cs" />
