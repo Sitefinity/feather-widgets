@@ -1,30 +1,28 @@
 @model Telerik.Sitefinity.Frontend.Card.Mvc.Models.Card.CardViewModel
 
 <div class="@Model.CssClass">
-    <table border="0">
-        <tr>
-            @if (!string.IsNullOrEmpty(Model.SelectedSizeUrl))
-            {
-                <td>
-                    <img src="@Model.SelectedSizeUrl" title="@Model.ImageTitle" alt="@Model.ImageAlternativeText"/>
-                </td>
-            }
-            <td>
-                @if (!string.IsNullOrEmpty(Model.Heading))
-                {
-                    <h1>@Html.Raw(Model.Heading)</h1>
-                }
-                @if (!string.IsNullOrEmpty(Model.Description))
-                {
-                    <div>@Html.Raw(Model.Description)</div>
-                }
-                @if (!string.IsNullOrEmpty(Model.ActionName))
-                {
-                    <a href="@Model.ActionUrl">
-                        <span>@Model.ActionName</span>
-                    </a>
-                }
-            </td>
-        </tr>
-    </table>
+
+    @if (!string.IsNullOrEmpty(Model.SelectedSizeUrl))
+    {
+       
+       <img src="@Model.SelectedSizeUrl" title="@Model.ImageTitle" alt="@Model.ImageAlternativeText"/>
+        
+    }
+    
+    @if (!string.IsNullOrEmpty(Model.Heading))
+    {
+        <h1>@Html.Raw(Model.Heading)</h1>
+    }
+    @if (!string.IsNullOrEmpty(Model.Description))
+    {
+        <div>@Html.Raw(Model.Description)</div>
+    }
+    @if (!string.IsNullOrEmpty(Model.ActionName))
+    {
+        <a href="@Model.ActionUrl">
+            <span>@Model.ActionName</span>
+        </a>
+    }
+ 
+
 </div>
