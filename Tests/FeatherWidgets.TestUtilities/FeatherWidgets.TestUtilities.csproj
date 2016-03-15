@@ -243,6 +243,9 @@
     <EmbeddedResource Include="Data\MediaFiles\WebM File.webm" />
     <EmbeddedResource Include="Data\Forms\Read.DefaultFile.cshtml" />
     <EmbeddedResource Include="Data\Forms\Read.DefaultFileNavigation.cshtml" />
+    <EmbeddedResource Include="Data\DynamicModules\PackedModule\Structure\configs.sf" />
+    <EmbeddedResource Include="Data\DynamicModules\PackedModule\Structure\PackedModule.sf" />
+    <EmbeddedResource Include="Data\DynamicModules\PackedModule\Structure\widgetTemplates.sf" />
     <None Include="packages.config">
       <SubType>Designer</SubType>
     </None>
