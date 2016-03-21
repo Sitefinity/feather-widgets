@@ -246,6 +246,10 @@
     <EmbeddedResource Include="Data\DynamicModules\PackedModule\Structure\configs.sf" />
     <EmbeddedResource Include="Data\DynamicModules\PackedModule\Structure\PackedModule.sf" />
     <EmbeddedResource Include="Data\DynamicModules\PackedModule\Structure\widgetTemplates.sf" />
+    <EmbeddedResource Include="Data\Packaging\Modules\FlatModuleAllFields.zip" />
+    <EmbeddedResource Include="Data\Packaging\Structure\FlatModuleAllFieldsStructure.zip" />
+    <EmbeddedResource Include="Data\Packaging\Structure\FlatModuleAllFieldsWidgetTemplate.zip" />
+    <EmbeddedResource Include="Data\Packaging\Structure\FlatModuleAllFieldsAddedNewType.zip" />
     <None Include="packages.config">
       <SubType>Designer</SubType>
     </None>
