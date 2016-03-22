@@ -22,8 +22,9 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Frontend.CommentsA
         public void VerifyCommentsAuthorAndContent(string[] commentsAuthor, string[] commentsContent)
         {
             ActiveBrowser.WaitUntilReady();
-            ActiveBrowser.WaitForAjax(10000);
+            ActiveBrowser.RefreshDomTree();
             ActiveBrowser.WaitForAsyncJQueryRequests();
+            ActiveBrowser.WaitForAjax(10000);
 
             IList<HtmlDiv> allCommentsDivs = this.EM.CommentsAndReviews.CommentsFrontend.ResultsCommentsList;
 

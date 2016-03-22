@@ -184,5 +184,10 @@ namespace FeatherWidgets.TestUI.TestCases
         /// New category for Card tests
         /// </summary>
         public const string Card = "Card";
+
+        /// <summary>
+        /// Pages and content category
+        /// </summary>
+        public const string Packaging = "Packaging";
     }
 }
