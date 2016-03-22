@@ -29,12 +29,12 @@ namespace FeatherWidgets.TestUI.Arrangements
             pageId = ServerOperations.Pages().GetPageNodeId(pageId);
             ServerOperationsFeather.Pages().AddDocumentsListWidgetToPage(pageId, "Contentplaceholder1");
 
-            ServerSideUpload.CreateDocumentLibrary(LibraryTitle);
-            ServerSideUpload.CreateDocumentLibrary(AnotherDocumentLibraryTitle);
+            ServerOperations.Documents().CreateLibrary(LibraryTitle);
+            ServerOperations.Documents().CreateLibrary(AnotherDocumentLibraryTitle);
 
-            ServerSideUpload.UploadDocument(LibraryTitle, DocumentTitle + 1, ImageResource1);
-            ServerSideUpload.UploadDocument(AnotherDocumentLibraryTitle, DocumentTitle + 2, ImageResource2);
-            ServerSideUpload.UploadDocument(AnotherDocumentLibraryTitle, DocumentTitle + 3, ImageResource3);
+            ServerOperations.Documents().Upload(LibraryTitle, DocumentTitle + 1, ImageResource1);
+            ServerOperations.Documents().Upload(AnotherDocumentLibraryTitle, DocumentTitle + 2, ImageResource2);
+            ServerOperations.Documents().Upload(AnotherDocumentLibraryTitle, DocumentTitle + 3, ImageResource3);
         }
 
         /// <summary>
@@ -43,7 +43,7 @@ namespace FeatherWidgets.TestUI.Arrangements
         [ServerArrangement]
         public void GetCurrentProviderUrlName()
         {
-            string urlName = ServerOperations.Libraries().GetCurrentProviderUrlName;
+            string urlName = ServerOperations.Media().GetCurrentProviderUrlName;
 
             ServerArrangementContext.GetCurrent().Values.Add("CurrentProviderUrlName", urlName);
         }
@@ -55,7 +55,7 @@ namespace FeatherWidgets.TestUI.Arrangements
         public void TearDown()
         {
             ServerOperations.Pages().DeleteAllPages();
-            ServerOperations.Libraries().DeleteAllDocumentLibrariesExceptDefaultOne();
+            ServerOperations.Documents().DeleteAllLibrariesExceptDefaultOne();
         }
 
         private const string PageName = "PageWithDocument";

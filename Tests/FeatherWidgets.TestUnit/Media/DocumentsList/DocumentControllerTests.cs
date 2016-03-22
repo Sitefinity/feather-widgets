@@ -63,6 +63,7 @@ namespace FeatherWidgets.TestUnit.Media.DocumentsList
             }
         }
 
+        [Ignore]
         [TestMethod]
         [Owner("Manev")]
         public void CreateDocumentsListController_CallTheDetailsAction_EnsuresDefaultModelPropertiesArePresented()

@@ -63,6 +63,7 @@ namespace FeatherWidgets.TestIntegration.DynamicWidgets
                 dynamicController.Model.ProviderName = ((Telerik.Sitefinity.Data.DataProviderBase)dynamicCollection.First().Provider).Name;
                 dynamicController.ListTemplateName = detailTemplate;
                 dynamicController.DetailTemplateName = detailTemplate;
+                dynamicController.Model.ProviderName = FeatherWidgets.TestUtilities.CommonOperations.DynamicModulesOperations.ProviderName;
                 mvcProxy.Settings = new ControllerSettings(dynamicController);
                 mvcProxy.WidgetName = WidgetName;
 
@@ -125,6 +126,7 @@ namespace FeatherWidgets.TestIntegration.DynamicWidgets
                 dynamicController.Model.ProviderName = ((Telerik.Sitefinity.Data.DataProviderBase)dynamicCollection.First().Provider).Name;
                 dynamicController.ListTemplateName = detailTemplate;
                 dynamicController.DetailTemplateName = detailTemplate;
+                dynamicController.Model.ProviderName = FeatherWidgets.TestUtilities.CommonOperations.DynamicModulesOperations.ProviderName;
                 mvcProxy.Settings = new ControllerSettings(dynamicController);
                 mvcProxy.WidgetName = WidgetName;
 

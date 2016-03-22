@@ -14,6 +14,7 @@ using Telerik.Sitefinity.Modules.Forms.Web.UI;
 using Telerik.Sitefinity.Mvc.Proxy;
 using Telerik.Sitefinity.TestIntegration.SDK.DevelopersGuide.SitefinityEssentials.Modules.Forms;
 using Telerik.Sitefinity.Web.UI.ContentUI.Views.Backend.Master.Definitions;
+using Telerik.WebTestRunner.Server.Attributes;
 
 namespace FeatherWidgets.TestIntegration.Forms
 {

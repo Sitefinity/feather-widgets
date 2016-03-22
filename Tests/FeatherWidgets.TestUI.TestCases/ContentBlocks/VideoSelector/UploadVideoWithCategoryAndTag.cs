@@ -93,7 +93,7 @@ namespace FeatherWidgets.TestUI.TestCases.ContentBlocks.VideoSelector
         {
             currentProviderUrlName = BAT.Arrange(this.TestName).ExecuteArrangement("GetCurrentProviderUrlName").Result.Values["CurrentProviderUrlName"];
             string libraryUrl = LibraryName.ToLower() + "/" + ChildVideoLibrary.ToLower();
-            string imageUrl = NewVideoName.ToLower() + VideoType;
+            string imageUrl = VideoNameWithDash.ToLower() + VideoType;
             string url;
 
             if (this.Culture == null)
@@ -116,6 +116,7 @@ namespace FeatherWidgets.TestUI.TestCases.ContentBlocks.VideoSelector
         private const string FileToUpload = "Ogv File.ogv";
         private const string VideoName = "Ogv File";
         private const string NewVideoName = "VideoTitleEdited";
+        private const string VideoNameWithDash = "Ogv-File";
         private const string VideoType = ".ogv";
         private const string TagName = "Tag0";
         private const string Size = "428 KB";

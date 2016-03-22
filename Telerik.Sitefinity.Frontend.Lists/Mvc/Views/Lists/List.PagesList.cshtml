@@ -16,7 +16,7 @@
         <ul>
             @foreach (var listItem in ((ListViewModel)item).ListItemViewModel.Items)
             {
-                var navigateUrl = HyperLinkHelpers.GetDetailPageUrl(listItem, Guid.Empty, true);
+                var navigateUrl = HyperLinkHelpers.GetDetailPageUrl(listItem, Guid.Empty, true, Model.UrlKeyPrefix);
                 
                 <li @Html.InlineEditingAttributes(Model.ProviderName, ((ListViewModel)item).ListItemViewModel.ContentType.FullName, (Guid)listItem.Fields.Id)>
                     <a href="@navigateUrl" @Html.InlineEditingFieldAttributes("Title", "ShortText")>@listItem.Fields.Title</a>

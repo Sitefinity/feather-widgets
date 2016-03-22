@@ -34,6 +34,19 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend
         }
 
         /// <summary>
+        /// Verifies if any Feather MVC widget is presented in pages toolbox section.
+        /// </summary>
+        /// <returns>true or false depending on the widgets presence in the toolbox.</returns>
+        public bool IsAnyMvcWidgetPersentInToolbox()
+        {
+            ActiveBrowser.RefreshDomTree();
+            RadPanelBar toolbox = Manager.Current.ActiveBrowser.Find.ById<RadPanelBar>("~ControlToolboxContainer");
+            var mvcItems = toolbox.Find.AllByExpression("class=~sfMvcIcn");
+
+            return mvcItems != null && mvcItems.Count > 0;
+        }
+
+        /// <summary>
         /// Gets the feather Mvc widget.
         /// </summary>
         /// <param name="mvcWidgetName">feather mvc widget name</param>

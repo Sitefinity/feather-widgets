@@ -10,7 +10,7 @@
     {
         <div>
             <div>
-                <a href="@HyperLinkHelpers.GetDetailPageUrl(item, ViewBag.DetailsPageId, ViewBag.OpenInSamePage)">
+                <a href="@HyperLinkHelpers.GetDetailPageUrl(item, ViewBag.DetailsPageId, ViewBag.OpenInSamePage, Model.UrlKeyPrefix)">
                     @item.Fields.Title
                 </a>
                 (@(((DocumentItemViewModel)item).Extension))

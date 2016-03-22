@@ -21,7 +21,7 @@
             title="@alternativeText">
 
             <img src="@(((VideoThumbnailViewModel)item).ThumbnailUrl)" alt="@alternativeText" 
-                data-detail-url="@HyperLinkHelpers.GetDetailPageUrl(item, ViewBag.DetailsPageId, ViewBag.OpenInSamePage)" />
+                data-detail-url="@HyperLinkHelpers.GetDetailPageUrl(item, ViewBag.DetailsPageId, ViewBag.OpenInSamePage, Model.UrlKeyPrefix)" />
             <p>@title</p>
         </a>
     }

@@ -29,8 +29,6 @@ namespace Telerik.Sitefinity.Frontend.Forms
         /// </summary>
         public static void Initialize()
         {
-            ObjectFactory.Container.RegisterInstance<IControlDefinitionExtender>("FormsDefinitionsExtender", new FormsDefinitionsExtender(), new ContainerControlledLifetimeManager());
-
             ObjectFactory.Container.RegisterType<IFormFieldBackendConfigurator, BackendFieldFallbackConfigurator>(typeof(MvcControllerProxy).FullName);
 
             EventHub.Unsubscribe<IScriptsRegisteringEvent>(Initializer.RegisteringFormScriptsHandler);
@@ -38,6 +36,17 @@ namespace Telerik.Sitefinity.Frontend.Forms
 
             Bootstrapper.Initialized -= Initializer.Bootstrapper_Initialized;
             Bootstrapper.Initialized += Initializer.Bootstrapper_Initialized;
+        }
+
+        /// <summary>
+        /// Uninitializes this instance.
+        /// </summary>
+        public static void Uninitialize()
+        {
+            EventHub.Unsubscribe<IScriptsRegisteringEvent>(Initializer.RegisteringFormScriptsHandler);
+            Bootstrapper.Initialized -= Initializer.Bootstrapper_Initialized;
+
+            Initializer.UnregisterTemplatableControl();
         }
 
         #region Private Methods
@@ -65,6 +74,8 @@ namespace Telerik.Sitefinity.Frontend.Forms
 
             bool needsSaveSection = false;
             Initializer.RegisterToolboxItem(section, "MvcTextField", "Textbox", "Telerik.Sitefinity.Frontend.Forms.Mvc.Controllers.TextFieldController", "sfTextboxIcn sfMvcIcn", ref needsSaveSection);
+            Initializer.RegisterToolboxItem(section, "MvcPageBreak", "Page break", "Telerik.Sitefinity.Frontend.Forms.Mvc.Controllers.PageBreakController", "sfPageBreakIcn sfMvcIcn", ref needsSaveSection);
+            Initializer.RegisterToolboxItem(section, "MvcNavigationField", "Form navigation", "Telerik.Sitefinity.Frontend.Forms.Mvc.Controllers.NavigationFieldController", "sfFormNavIcn sfMvcIcn", ref needsSaveSection);
             Initializer.RegisterToolboxItem(section, "MvcMultipleChoiceField", "Multiple choice", "Telerik.Sitefinity.Frontend.Forms.Mvc.Controllers.MultipleChoiceFieldController", "sfMultipleChoiceIcn sfMvcIcn", ref needsSaveSection);
             Initializer.RegisterToolboxItem(section, "MvcCheckboxesField", "Checkboxes", "Telerik.Sitefinity.Frontend.Forms.Mvc.Controllers.CheckboxesFieldController", "sfCheckboxesIcn sfMvcIcn", ref needsSaveSection);
             Initializer.RegisterToolboxItem(section, "MvcParagraphTextField", "Paragraph textbox", "Telerik.Sitefinity.Frontend.Forms.Mvc.Controllers.ParagraphTextFieldController", "sfParagraphboxIcn sfMvcIcn", ref needsSaveSection);

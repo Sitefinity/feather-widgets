@@ -58,5 +58,7 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Models
         /// The form identifier.
         /// </value>
         public string FormId { get; set; }
+
+        public bool IsMultiStep { get; set; }
     }
 }

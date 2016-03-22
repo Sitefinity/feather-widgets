@@ -30,6 +30,7 @@ namespace FeatherWidgets.TestUI.TestCases.Forms
             
             ActiveBrowser.WaitUntilReady();
             ActiveBrowser.RefreshDomTree();
+			
             BATFeather.Wrappers().Frontend().Forms().FormsWrapper().VerifyCheckboxesFieldLabelIsVisible(FeatherGlobals.SelectAChoiceLabelName);
             BATFeather.Wrappers().Frontend().Forms().FormsWrapper().VerifyDropdownListFieldLabelIsVisible(FeatherGlobals.SelectAChoiceLabelName);
             BATFeather.Wrappers().Frontend().Forms().FormsWrapper().VerifySubmitButtonIsVisible();

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.IO;
+using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Routing;
@@ -14,6 +15,7 @@ using Telerik.Sitefinity.Modules.Forms;
 using Telerik.Sitefinity.Modules.Forms.Web.UI.Fields;
 using Telerik.Sitefinity.Mvc;
 using Telerik.Sitefinity.Mvc.Proxy;
+using Telerik.Sitefinity.Pages.Model;
 using Telerik.Sitefinity.Web.UI;
 
 namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Helpers
@@ -91,6 +93,25 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Helpers
                 var result = writer.ToString();
                 return MvcHtmlString.Create(result);
             }
+        }
+
+        /// <summary>
+        /// Returns the real control type for the control data
+        /// </summary>
+        /// <param name="controlData">The control data for which to return the real control type</param>
+        /// <returns>The real type of the control data</returns>
+        public static Type GetControlType(this ControlData controlData)
+        {
+            Type controlType = typeof(object);
+            var controllerName = controlData.Properties.Where(p => p.Name == "ControllerName" && p.Value != null)
+                        .Select(p => p.Value).FirstOrDefault();
+
+            if (!controllerName.IsNullOrEmpty())
+            {
+                controlType = Telerik.Sitefinity.Utilities.TypeConverters.TypeResolutionService.ResolveType(controllerName, throwOnError: false);
+            }
+
+            return controlType;
         }
 
         private static void PopulateHttpContext(HttpContextWrapper context)

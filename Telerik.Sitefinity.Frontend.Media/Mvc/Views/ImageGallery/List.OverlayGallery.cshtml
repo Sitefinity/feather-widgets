@@ -18,7 +18,7 @@
         <a class="image-link"
             href="@(((ThumbnailViewModel)item).MediaUrl)"
             title="@item.Fields.AlternativeText">
-            <img src="@(((ThumbnailViewModel)item).ThumbnailUrl)" data-detail-url="@HyperLinkHelpers.GetDetailPageUrl(item, ViewBag.DetailsPageId, ViewBag.OpenInSamePage)" alt="@item.Fields.AlternativeText" />
+            <img src="@(((ThumbnailViewModel)item).ThumbnailUrl)" data-detail-url="@HyperLinkHelpers.GetDetailPageUrl(item, ViewBag.DetailsPageId, ViewBag.OpenInSamePage, Model.UrlKeyPrefix)" alt="@item.Fields.AlternativeText" />
         </a>
     }
 </div>

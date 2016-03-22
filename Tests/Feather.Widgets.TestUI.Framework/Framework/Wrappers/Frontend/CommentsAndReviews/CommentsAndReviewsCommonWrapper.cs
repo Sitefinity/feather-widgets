@@ -21,6 +21,8 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Frontend.CommentsA
         {
             ActiveBrowser.WaitUntilReady();
             ActiveBrowser.RefreshDomTree();
+            ActiveBrowser.WaitForAjax(10000);
+            ActiveBrowser.WaitForAsyncJQueryRequests();
 
             HtmlDiv commentLinkOnPage = this.EM.CommentsAndReviews.CommentsFrontend.MessageAndCountOnPage.AssertIsPresent("Comments count on page");
             bool isPresent = commentLinkOnPage.InnerText.Contains(commentCount);
@@ -33,7 +35,10 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Frontend.CommentsA
         /// <param name="message">Message.</param>
         public void TypeAMessage(string message)
         {
+            ActiveBrowser.WaitUntilReady();
             ActiveBrowser.RefreshDomTree();
+            ActiveBrowser.WaitForAjax(10000);
+            ActiveBrowser.WaitForAsyncJQueryRequests();
 
             HtmlDiv editable = this.EM.CommentsAndReviews.CommentsFrontend.LeaveACommentArea
                 .AssertIsPresent("Leave area");
@@ -81,6 +86,7 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Frontend.CommentsA
         {
             ActiveBrowser.WaitUntilReady();
             ActiveBrowser.RefreshDomTree();
+            ActiveBrowser.WaitForAsyncJQueryRequests();
 
             HtmlAnchor commentLink = this.EM.CommentsAndReviews.CommentsFrontend.LeaveAComment.AssertIsPresent("Comments count link");
             bool isPresent = commentLink.InnerText.Contains(expectedCount);

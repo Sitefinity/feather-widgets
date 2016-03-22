@@ -1,0 +1,23 @@
+﻿@model Telerik.Sitefinity.Frontend.Forms.Mvc.Models.Fields.NavigationField.NavigationFieldViewModel
+
+@using Telerik.Sitefinity.Frontend.Mvc.Helpers;
+@using Telerik.Sitefinity.Modules.Pages;
+
+@Html.Script(ScriptRef.JQuery, "top", false)
+
+File system template
+
+<div class="@Model.CssClass form-group" data-sf-role="navigation-field-container">
+     <ul class="sf-FormNav">
+    @{
+        var pageCounter = 0;
+        foreach (var page in Model.Pages)
+        {
+            pageCounter++;
+           <li data-sf-navigation-index="@page.Index"><span class="sf-FormNav-page">@pageCounter </span>@Html.Raw(page.Title)</li>
+        }
+    }
+    </ul>
+</div>
+
+@Html.Script(Url.WidgetContent("Mvc/Scripts/NavigationField/navigation-field.js"), "bottom", false)

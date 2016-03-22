@@ -80,7 +80,7 @@ namespace FeatherWidgets.TestUI.TestCases.Search
         private const string ResultsPage = "ResultsPage";
         private const string SearchBoxWidget = "Search box";
         private const string SearchResultsWidget = "Search results";
-        private const string SearchIndexName = "news index";
+        private const string SearchIndexName = "VerifySearchResults_SortingOnFrontend";
 
         private const string SearchText = "news";
         private const string NewsTitle1 = "test news";

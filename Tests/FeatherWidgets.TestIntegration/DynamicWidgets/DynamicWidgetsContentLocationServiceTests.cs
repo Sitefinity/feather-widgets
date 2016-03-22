@@ -42,8 +42,8 @@ namespace FeatherWidgets.TestIntegration.DynamicWidgets
             {
                 var countryId = ServerOperationsFeather.DynamicModuleBooking().CreateCountry(CountryName);
                 Type countryType = TypeResolutionService.ResolveType(ResolveTypeCountry);
- 
-                DynamicModuleManager dynamicModuleManager = DynamicModuleManager.GetManager();
+
+                DynamicModuleManager dynamicModuleManager = DynamicModuleManager.GetManager(FeatherWidgets.TestUtilities.CommonOperations.DynamicModulesOperations.ProviderName);
 
                 var locationsService = SystemManager.GetContentLocationService();
                 var dynamicItemLocations = locationsService.GetItemLocations(countryType, dynamicModuleManager.Provider.Name, countryId);
@@ -87,7 +87,7 @@ namespace FeatherWidgets.TestIntegration.DynamicWidgets
                 var countryId = ServerOperationsFeather.DynamicModuleBooking().CreateCountry(CountryName);
                 Type countryType = TypeResolutionService.ResolveType(ResolveTypeCountry);
 
-                DynamicModuleManager dynamicModuleManager = DynamicModuleManager.GetManager();                
+                DynamicModuleManager dynamicModuleManager = DynamicModuleManager.GetManager(FeatherWidgets.TestUtilities.CommonOperations.DynamicModulesOperations.ProviderName);                
 
                 var page1Id = ServerOperations.Pages().CreatePage(PageName);
                 var page2Id = ServerOperations.Pages().CreatePage(page2Name);
@@ -130,7 +130,7 @@ namespace FeatherWidgets.TestIntegration.DynamicWidgets
 
                 Type countryType = TypeResolutionService.ResolveType(ResolveTypeCountry);
 
-                DynamicModuleManager dynamicModuleManager = DynamicModuleManager.GetManager();
+                DynamicModuleManager dynamicModuleManager = DynamicModuleManager.GetManager(FeatherWidgets.TestUtilities.CommonOperations.DynamicModulesOperations.ProviderName);
                 var countryItemId = dynamicModuleManager.GetDataItems(countryType).Where("Title = \"" + CountryName + "1\"").First().Id;
 
                 string[] itemIds = new string[] { countryItemId.ToString() };
@@ -178,7 +178,7 @@ namespace FeatherWidgets.TestIntegration.DynamicWidgets
 
                 Type countryType = TypeResolutionService.ResolveType(ResolveTypeCountry);
 
-                DynamicModuleManager dynamicModuleManager = DynamicModuleManager.GetManager();
+                DynamicModuleManager dynamicModuleManager = DynamicModuleManager.GetManager(FeatherWidgets.TestUtilities.CommonOperations.DynamicModulesOperations.ProviderName);
                 var countryItem1Id = dynamicModuleManager.GetDataItems(countryType).Where("Title = \"" + CountryName + "1\"").First().Id;
                 var countryItem2Id = dynamicModuleManager.GetDataItems(countryType).Where("Title = \"" + CountryName + "2\"").First().Id;
 
@@ -230,7 +230,7 @@ namespace FeatherWidgets.TestIntegration.DynamicWidgets
                 var cityId = ServerOperationsFeather.DynamicModuleBooking().CreateCity(countryId, cityName);               
                 Type cityType = TypeResolutionService.ResolveType(ResolveTypeCity);
 
-                DynamicModuleManager dynamicModuleManager = DynamicModuleManager.GetManager();
+                DynamicModuleManager dynamicModuleManager = DynamicModuleManager.GetManager(FeatherWidgets.TestUtilities.CommonOperations.DynamicModulesOperations.ProviderName);
 
                 var pageId = ServerOperations.Pages().CreatePage(PageName);
 
@@ -266,6 +266,7 @@ namespace FeatherWidgets.TestIntegration.DynamicWidgets
             mvcProxy.ControllerName = typeof(DynamicContentController).FullName;
             var dynamicController = new DynamicContentController();
             dynamicController.Model.ContentType = TypeResolutionService.ResolveType(resolveType);
+            dynamicController.Model.ProviderName = FeatherWidgets.TestUtilities.CommonOperations.DynamicModulesOperations.ProviderName;
 
             if (selectedItemsIds != null)
             {

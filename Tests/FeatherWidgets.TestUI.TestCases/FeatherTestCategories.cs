@@ -36,6 +36,11 @@ namespace FeatherWidgets.TestUI.TestCases
         public const string ContentBlock3 = "ContentBlock3";
 
         /// <summary>
+        /// Content block category
+        /// </summary>
+        public const string ContentBlock4 = "ContentBlock4";
+
+        /// <summary>
         /// Navigation category
         /// </summary>
         public const string Navigation = "Navigation";
@@ -179,5 +184,10 @@ namespace FeatherWidgets.TestUI.TestCases
         /// New category for Card tests
         /// </summary>
         public const string Card = "Card";
+
+        /// <summary>
+        /// Pages and content category
+        /// </summary>
+        public const string Packaging = "Packaging";
     }
 }
