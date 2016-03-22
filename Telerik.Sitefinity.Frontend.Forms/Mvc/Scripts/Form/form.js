@@ -26,7 +26,17 @@
     $(function () {
         $(document).on('sf-zone-editor-item-dropped', function (e) {
             if (e && e.sender && e.args && e.args.ControlType === mvcControllerProxyTypeName) {
-                var droppedMvcFields = $('#RadDockZoneBody').find('[behaviourobjecttype]');
+                var zones = ["RadDockZoneBody"];
+                if (e.sender._wrapperDockingZones && e.sender._wrapperDockingZones.length > 0) {
+                    zones = e.sender._wrapperDockingZones;
+                }
+
+                var droppedMvcFields = [];
+                for (var i = 0; i < zones.length; i++) {
+                    var fieldsInZone = $('#' + zones[i]).find('[behaviourobjecttype]').toArray();
+                    droppedMvcFields = droppedMvcFields.concat(fieldsInZone);
+                }
+
                 if (droppedMvcFields && droppedMvcFields.length) {
                     var hasSubmitButton = Array.prototype.some.call(droppedMvcFields, function (el) {
                         return el.attributes.behaviourobjecttype.value === submitButtonControllerTypeName;

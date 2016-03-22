@@ -4,9 +4,13 @@ using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Text;
+using System.Web.Hosting;
 using Telerik.Sitefinity.DynamicModules;
 using Telerik.Sitefinity.DynamicModules.Builder;
+using Telerik.Sitefinity.Services;
 using Telerik.Sitefinity.TestUtilities.CommonOperations;
+using Telerik.Sitefinity.TestUtilities.Utilities;
+using Telerik.Sitefinity.Utilities.Zip;
 
 namespace FeatherWidgets.TestUtilities.CommonOperations
 {
@@ -15,6 +19,19 @@ namespace FeatherWidgets.TestUtilities.CommonOperations
     /// </summary>
     public class DynamicModulesOperations
     {
+        public static string ProviderName
+        {
+            get 
+            {
+                var providerName = string.Empty;
+
+                if (ServerOperations.MultiSite().CheckIsMultisiteMode())
+                    providerName = "dynamicContentProvider";
+
+                return providerName;
+            }
+        }
+
         /// <summary>
         /// Imports a dynamic module.
         /// </summary>
@@ -70,6 +87,7 @@ namespace FeatherWidgets.TestUtilities.CommonOperations
                 else
                 {
                     ServerOperations.SystemManager().RestartApplication(false);
+                    WaitUtils.WaitForSitefinityToStart(SystemManager.CurrentHttpContext.Request.Url.GetLeftPart(UriPartial.Authority) + (HostingEnvironment.ApplicationVirtualPath.TrimEnd('/') ?? string.Empty));
                 } 
             }
         }
@@ -88,6 +106,31 @@ namespace FeatherWidgets.TestUtilities.CommonOperations
             }
 
             return testUtilitiesAssembly;
+        }
+
+        /// <summary>
+        /// Extract structure zip
+        /// </summary>
+        /// <param name="zipResource"></param>
+        /// <param name="targetFolder"></param>
+        public void ExtractStructureZip(string zipResource, string targetFolder)
+        {
+            var path = Path.Combine(System.Web.Hosting.HostingEnvironment.MapPath("~/"), targetFolder);
+
+            var assembly = this.GetTestUtilitiesAssembly();
+            System.IO.Stream structureZip = assembly.GetManifestResourceStream(zipResource);
+
+            byte[] data = new byte[structureZip.Length];
+
+            structureZip.Read(data, 0, (int)structureZip.Length);
+
+            using (var stream = new MemoryStream(data))
+            {
+                using (ZipFile zipFile = ZipFile.Read(stream))
+                {
+                    zipFile.ExtractAll(path, true);
+                }
+            }
         }
 
         /// <summary>

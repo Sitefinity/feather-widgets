@@ -23,11 +23,39 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Models.Fields.SubmitButton
         }
 
         /// <inheritDocs />
+        public string PreviousStepText
+        {
+            get
+            {
+                return this.previousStepText;
+            }
+            set
+            {
+                this.previousStepText = value;
+            }
+        }
+
+        /// <inheritDocs />
+        public bool AllowGoBack
+        {
+            get
+            {
+                return this.allowGoBack;
+            }
+            set
+            {
+                this.allowGoBack = value;
+            }
+        }
+
+        /// <inheritDocs />
         public override object GetViewModel(object value)
         {
             var viewModel = new SubmitButtonViewModel()
             {
                 Label = this.Label,
+                PreviousStepText = this.PreviousStepText,
+                AllowGoBack = this.AllowGoBack,
                 CssClass = this.CssClass
             };
 
@@ -35,5 +63,7 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Models.Fields.SubmitButton
         }
 
         private string label = Res.Get<FieldResources>().SubmitButtonLabel;
+        private string previousStepText = Res.Get<FieldResources>().PreviousStepText;
+        private bool allowGoBack = false;
     }
 }

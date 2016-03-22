@@ -1,0 +1,16 @@
+﻿@model Telerik.Sitefinity.Frontend.Forms.Mvc.Models.Fields.PageBreak.PageBreakViewModel
+
+@using Telerik.Sitefinity.Frontend.Mvc.Helpers;
+@using Telerik.Sitefinity.Modules.Pages;
+
+@Html.Script(ScriptRef.JQuery, "top", false)
+
+<div class="@Model.CssClass">
+    <button data-sf-btn-role="next" type="button">@Html.Raw(Model.NextStepText)</button>
+    @if (Model.AllowGoBack)
+    {
+        <a href="javascript:void(0)" data-sf-btn-role="prev">@Html.Raw(Model.PreviousStepText)</a>
+    }
+</div>
+
+@Html.Script(Url.WidgetContent("Mvc/Scripts/PageBreak/page-break.js"), "bottom", false)

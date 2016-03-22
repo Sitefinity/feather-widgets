@@ -10,6 +10,8 @@
         ParagraphTextField,
         SectionHeader,
         SubmitButton,
-        TextField
+        TextField,
+        PageBreak,
+        NavigationField
     }
 }

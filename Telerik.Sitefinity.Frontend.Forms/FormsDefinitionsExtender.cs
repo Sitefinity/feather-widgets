@@ -14,6 +14,10 @@ using Telerik.Sitefinity.Web.UI.Fields;
 using Telerik.Sitefinity.Web.UI.Fields.Contracts;
 using Telerik.Sitefinity.Web.UI.Fields.Definitions;
 using Telerik.Sitefinity.Web.UI.Fields.Enums;
+using Telerik.Sitefinity.Services;
+using Telerik.Sitefinity.Abstractions;
+using Telerik.Sitefinity.Configuration;
+using Telerik.Sitefinity.Modules.Forms.Configuration;
 
 namespace Telerik.Sitefinity.Frontend.Forms
 {
@@ -21,12 +25,14 @@ namespace Telerik.Sitefinity.Frontend.Forms
     {
         public void ExtendDefinition(IContentViewControlDefinition contentViewControlDefinition)
         {
-            this.ExtendBackendDefinition(contentViewControlDefinition, "FormsBackendInsert", FieldDisplayMode.Write);
-            this.ExtendBackendDefinition(contentViewControlDefinition, "FormsBackendEdit", FieldDisplayMode.Read);
-            this.ExtendBackendDefinition(contentViewControlDefinition, "FormsBackendDuplicate", FieldDisplayMode.Read);
+            var isHidden = SystemManager.GetModule("Feather") == null;
+
+            this.ExtendBackendDefinition(contentViewControlDefinition, FormsBackendInsertViewName, FieldDisplayMode.Write, isHidden);
+            this.ExtendBackendDefinition(contentViewControlDefinition, FormsBackendEditViewName, FieldDisplayMode.Read, isHidden);
+            this.ExtendBackendDefinition(contentViewControlDefinition, FormsBackendDuplicateViewName, FieldDisplayMode.Read, isHidden);
         }
 
-        private void ExtendBackendDefinition(IContentViewControlDefinition contentViewControlDefinition, string backendViewName, FieldDisplayMode displayMode)
+        private void ExtendBackendDefinition(IContentViewControlDefinition contentViewControlDefinition, string backendViewName, FieldDisplayMode displayMode, bool isHidden)
         {
             var backendEditViewDefinition = contentViewControlDefinition.Views.FirstOrDefault(v => v.ViewName == backendViewName) as DetailFormViewDefinition;
 
@@ -35,7 +41,7 @@ namespace Telerik.Sitefinity.Frontend.Forms
                 ContentViewSectionDefinition advancedSection = backendEditViewDefinition.Sections.FirstOrDefault(s => s.Name == FormsDefinitionsExtender.AdvancedSectionName) as ContentViewSectionDefinition;
                 if (advancedSection != null && SystemManager.GetApplicationModule(advancedSection.ModuleName) != null)
                 {
-                    var fieldDefinition = this.BuildFrameworkChoiceFieldDefinition(displayMode);
+                    var fieldDefinition = this.BuildFrameworkChoiceFieldDefinition(displayMode, isHidden);
                     ((IList<IFieldDefinition>)advancedSection.Fields).Add(fieldDefinition);
                 }
                 else 
@@ -54,13 +60,13 @@ namespace Telerik.Sitefinity.Frontend.Forms
 
                     backendEditViewDefinition.Sections.Add(advancedSection);
 
-                    var fieldDefinition = this.BuildFrameworkChoiceFieldDefinition(displayMode);
+                    var fieldDefinition = this.BuildFrameworkChoiceFieldDefinition(displayMode, false);
                     ((IList<IFieldDefinition>)advancedSection.Fields).Add(fieldDefinition);
                 }
             }
         }
 
-        private ChoiceFieldDefinition BuildFrameworkChoiceFieldDefinition(FieldDisplayMode displayMode)
+        private ChoiceFieldDefinition BuildFrameworkChoiceFieldDefinition(FieldDisplayMode displayMode, bool isHidden)
         {
             var frameworkField = new ChoiceFieldDefinition()
             {
@@ -74,7 +80,8 @@ namespace Telerik.Sitefinity.Frontend.Forms
                 ResourceClassId = typeof(PageResources).Name,
                 RenderChoiceAs = RenderChoicesAs.RadioButtons,
                 CssClass = "sfFormSeparator",
-                FieldType = typeof(ChoiceField)
+                FieldType = typeof(ChoiceField),
+                Hidden = isHidden
             };
 
             frameworkField.Choices.Add(new ChoiceDefinition()
@@ -95,5 +102,8 @@ namespace Telerik.Sitefinity.Frontend.Forms
         }
 
         private const string AdvancedSectionName = "MarketoConnectorSection";
+        private const string FormsBackendInsertViewName = "FormsBackendInsert";
+        private const string FormsBackendEditViewName = "FormsBackendEdit";
+        private const string FormsBackendDuplicateViewName = "FormsBackendDuplicate";
     }
 }

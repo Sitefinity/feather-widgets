@@ -128,7 +128,7 @@ namespace FeatherWidgets.TestUI.TestCases.ContentBlocks.ImageSelector
         private const string ImageName1 = "Image1";
         private const string ImageName2 = "Image2";
         private const string ImageName3 = "Image3";
-        private const string ImageAltText = "AltText Image3";
+        private const string ImageAltText = "AltText_Image3";
         private const string ImageType = ".JPG";
         private const string ChildImageLibrary = "ChildImageLibrary";
         private const string NextChildImageLibrary = "NextChildImageLibrary";

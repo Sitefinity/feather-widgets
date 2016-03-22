@@ -210,15 +210,16 @@ namespace FeatherWidgets.TestUtilities.CommonOperations
         /// Demonstrates how pressArticleItem is unpublished
         /// </summary>
         /// <param name="pressArticleItem">The press article item.</param>
-        public void UNPublishPressArticle(ILifecycleDataItem pressArticleItem)
+        public void UNPublishPressArticle(Guid itemId)
         {
             var providerName = string.Empty;
             if (ServerOperations.MultiSite().CheckIsMultisiteMode())
             {
                 providerName = "dynamicContentProvider";
-            } 
+            }
 
             DynamicModuleManager dynamicModuleManager = DynamicModuleManager.GetManager(providerName);
+            var pressArticleItem = dynamicModuleManager.GetDataItem(null, itemId);
             var liveDynamicItem = dynamicModuleManager.Lifecycle.GetLive(pressArticleItem);
             dynamicModuleManager.Lifecycle.Unpublish(liveDynamicItem);
             dynamicModuleManager.SaveChanges();

@@ -99,7 +99,7 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Frontend.Lists
             for (int i = 0; i < listItemsToVerify.Count; i++)
             {
                 Assert.AreEqual(listItemsToVerify.Keys.ElementAt(i), listItemDivs[i].ChildNodes[0].InnerText, "list item title");
-                listItemDivs[i].ChildNodes[0].As<HtmlSpan>().AssertIsPresent("list item title");
+                listItemDivs[i].ChildNodes[0].As<HtmlAnchor>().AssertIsPresent("list item title");
                 listItemDivs[i].ChildNodes[1].As<HtmlDiv>().AssertIsNotVisible("list item content");
             }
 
@@ -113,7 +113,7 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Frontend.Lists
             {
                 Assert.AreEqual(listItemsToVerify.Keys.ElementAt(i), listItemDivs[i].ChildNodes[0].InnerText, "list item title");
                 Assert.AreEqual(listItemsToVerify.Values.ElementAt(i), listItemDivs[i].ChildNodes[1].InnerText, "list item content");
-                listItemDivs[i].ChildNodes[0].As<HtmlSpan>().AssertIsPresent("list item title");
+                listItemDivs[i].ChildNodes[0].As<HtmlAnchor>().AssertIsPresent("list item title");
                 listItemDivs[i].ChildNodes[1].As<HtmlDiv>().AssertIsPresent("list item content");
             }
 
@@ -136,7 +136,7 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Frontend.Lists
             HtmlContainerControl listTitle = this.EM.Lists.ExpandableListFrontend.ListTitleLabel.AssertIsPresent("list title");
             Assert.AreEqual(listTitleToVerify, listTitle.InnerText, "list title");
 
-            List<HtmlDiv> listItemDivs = this.EM.Lists.ExpandableListFrontend.ListItemsDivsOnBootstrap;
+            List<HtmlDiv> listItemDivs = this.EM.Lists.ExpandableListFrontend.ListItemsDivs;
             Assert.IsNotNull(listItemDivs, "List of div elements is null");
             Assert.AreEqual(listItemsToVerify.Count, listItemDivs.Count, "Expected and actual count of list items are not equal");
 

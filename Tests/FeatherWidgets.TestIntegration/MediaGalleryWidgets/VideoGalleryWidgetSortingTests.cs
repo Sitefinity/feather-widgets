@@ -23,10 +23,10 @@ namespace FeatherWidgets.TestIntegration.MediaGalleryWidgets
         [SetUp]
         public void Setup()
         {
-            ServerSideUpload.CreateVideoLibrary(LibraryTitle);
-            ServerSideUpload.UploadVideo(LibraryTitle, VideoTitle + 1, VideoResource1);
-            ServerSideUpload.UploadVideo(LibraryTitle, VideoTitle + 3, VideoResource3);
-            ServerSideUpload.UploadVideo(LibraryTitle, VideoTitle + 2, VideoResource2);
+            ServerOperations.Videos().CreateLibrary(LibraryTitle);
+            ServerOperations.Videos().Upload(LibraryTitle, VideoTitle + 1, VideoResource1);
+            ServerOperations.Videos().Upload(LibraryTitle, VideoTitle + 3, VideoResource3);
+            ServerOperations.Videos().Upload(LibraryTitle, VideoTitle + 2, VideoResource2);
         }
 
         /// <summary>
@@ -35,7 +35,7 @@ namespace FeatherWidgets.TestIntegration.MediaGalleryWidgets
         [TearDown]
         public void TearDown()
         {
-            ServerOperations.Libraries().DeleteLibraries(false, "Video");
+            ServerOperations.Videos().DeleteAllLibrariesExceptDefaultOne();
         }
 
         /// <summary>

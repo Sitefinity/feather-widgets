@@ -91,7 +91,7 @@ namespace FeatherWidgets.TestUI.TestCases.ContentBlocks.DocumentSelector
         private string GetDocumentHref(bool isBaseUrlIncluded)
         {
             string libraryUrl = LibraryName.ToLower() + "/" + ChildDocumentLibrary.ToLower();
-            string documentUrl = NewDocumentName.ToLower() + DocumentType.ToLower();
+            string documentUrl = DocumentName.ToLower() + DocumentType.ToLower();
             string url;
 
             if (this.Culture == null)

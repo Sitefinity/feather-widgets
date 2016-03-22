@@ -124,7 +124,7 @@ namespace FeatherWidgets.TestUI.TestCases.ImageGallery
         private const string ImageBaseTitle = "Image";
         private const string WidgetName = "Image gallery";
         private const string LibraryName = "TestImageLibrary";
-        private const string ImageAltText = "AltTextImage";
+        private const string ImageAltText = "AltText_Image";
         private const string ImageType = ".TMB";
         private const string ImageTypeFrontend = ".JPG";
         private const string ChildImageLibrary = "ChildImageLibrary";

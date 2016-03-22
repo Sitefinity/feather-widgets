@@ -8,6 +8,7 @@
         /// <summary>
         /// Specifies the name of the category of tests related to Feather modules.
         /// </summary>
+        public const string Common = "Common";
         public const string Samples = "Samples";
         public const string Navigation = "Navigation";
         public const string News = "News";
@@ -19,5 +20,6 @@
         public const string Blogs = "Blogs";
         public const string InlineClientAssets = "InlineClientAssets";
         public const string Forms = "Forms";
+        public const string Packaging = "Packaging";
     }
 }
