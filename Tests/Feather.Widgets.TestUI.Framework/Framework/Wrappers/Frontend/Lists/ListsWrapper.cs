@@ -121,7 +121,7 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Frontend.Lists
 
             for (int i = 0; i < listItemsToVerify.Count; i++)
             {
-                listItemDivs[i].ChildNodes[0].As<HtmlSpan>().AssertIsPresent("list item title");
+                listItemDivs[i].ChildNodes[0].As<HtmlAnchor>().AssertIsPresent("list item title");
                 listItemDivs[i].ChildNodes[1].As<HtmlDiv>().AssertIsNotVisible("list item content");
             }
         }
