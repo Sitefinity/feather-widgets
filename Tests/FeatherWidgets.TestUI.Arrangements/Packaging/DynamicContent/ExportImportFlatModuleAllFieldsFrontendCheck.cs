@@ -34,7 +34,7 @@ namespace FeatherWidgets.TestUI.Arrangements
         [ServerArrangement]
         public void DeletePackageFromDB()
         {
-            ServerOperations.Packaging().DeletePackageFromDB(ModuleName);
+            ServerOperations.Packaging().DeleteAllPackagesFromDB();
         }
 
         /// <summary>
@@ -65,7 +65,7 @@ namespace FeatherWidgets.TestUI.Arrangements
         public void ClearUp()
         {
             ServerOperations.ModuleBuilder().DeleteModule(ModuleName, string.Empty, "Module Installations");
-            ServerOperations.Packaging().DeletePackageFromDB(ModuleName);
+            ServerOperations.Packaging().DeleteAllPackagesFromDB();
 
             ServerOperations.Pages().DeleteAllPages();
             ServerOperations.ModuleBuilder().DeleteDirectory(AppDomain.CurrentDomain.BaseDirectory + @"App_Data\Sitefinity\Export");

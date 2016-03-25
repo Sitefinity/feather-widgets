@@ -58,7 +58,7 @@ namespace FeatherWidgets.TestUI.Arrangements
         {
             ServerOperations.ModuleBuilder().DeleteDirectory(this.tempFolderPath);
             ServerOperations.ModuleBuilder().DeleteModule(ModuleName, string.Empty, "Module Installations");
-            ServerOperations.Packaging().DeletePackageFromDB(ModuleName);
+            ServerOperations.Packaging().DeleteAllPackagesFromDB();
             ServerOperations.Pages().DeleteAllPages();
             ServerOperations.Widgets().DeleteWidgetTemplate("NewWidgetTemplate");
         }
