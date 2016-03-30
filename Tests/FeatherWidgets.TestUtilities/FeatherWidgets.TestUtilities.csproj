@@ -267,6 +267,16 @@
     <EmbeddedResource Include="Data\Packaging\Structure\FlatModuleAllFieldsStructure.zip" />
     <EmbeddedResource Include="Data\Packaging\Structure\FlatModuleAllFieldsWidgetTemplate.zip" />
     <EmbeddedResource Include="Data\Packaging\Structure\FlatModuleAllFieldsAddedNewType.zip" />
+    <EmbeddedResource Include="Data\Packaging\Structure\BlogsStructure.zip" />
+    <EmbeddedResource Include="Data\Packaging\Structure\LibrariesStructure.zip" />
+    <EmbeddedResource Include="Data\Packaging\Structure\ListsStructure.zip" />
+    <EmbeddedResource Include="Data\Packaging\Structure\NewsStructure.zip" />
+    <EmbeddedResource Include="Data\Packaging\Structure\PagesStructure.zip" />
+    <EmbeddedResource Include="Data\Packaging\Structure\BlogsEdited.zip" />
+    <EmbeddedResource Include="Data\Packaging\Structure\LibrariesEdited.zip" />
+    <EmbeddedResource Include="Data\Packaging\Structure\ListsEdited.zip" />
+    <EmbeddedResource Include="Data\Packaging\Structure\NewsEditedStructure.zip" />
+    <EmbeddedResource Include="Data\Packaging\Structure\PagesEdited.zip" />
     <None Include="packages.config">
       <SubType>Designer</SubType>
     </None>
@@ -353,6 +363,7 @@
   <Target Name="BeforeBuild">
     <Copy SourceFiles="$(SolutionDir)FxCop\CustomDictionary.xml" DestinationFolder="$(CodeAnalysisPath)" OverwriteReadOnlyFiles="true" Retries="10" ContinueOnError="false" />
   </Target>
-  <Target Name="AfterBuild"></Target>
+  <Target Name="AfterBuild">
+  </Target>
   <Import Project="$(SolutionDir)\StyleCop\StyleCop.targets" />
 </Project>

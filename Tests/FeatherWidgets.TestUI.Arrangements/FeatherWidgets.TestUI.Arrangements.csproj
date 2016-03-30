@@ -451,6 +451,22 @@
     <Compile Include="Packaging\DynamicContent\ImportEditedFlatModuleAllFieldsWithNewType.cs" />
     <Compile Include="Packaging\DynamicContent\ImportFlatModuleAllFields.cs" />
     <Compile Include="Packaging\DynamicContent\ImportModuleWithEditedWidgetTemplate.cs" />
+    <Compile Include="Packaging\StaticContent\BlogPosts\ImportEditedBlogAndBlogPostsStructure.cs" />
+    <Compile Include="Packaging\StaticContent\BlogPosts\ExportEditedBlogAndBlogPostsStructure.cs" />
+    <Compile Include="Packaging\StaticContent\BlogPosts\ImportEditedWidgetTemplateBlogStructure.cs" />
+    <Compile Include="Packaging\StaticContent\Libraries\ExportEditedLibrariesModule.cs" />
+    <Compile Include="Packaging\StaticContent\Libraries\ImportEditedDocumentsStructure.cs" />
+    <Compile Include="Packaging\StaticContent\Libraries\ImportEditedImagesStructure.cs" />
+    <Compile Include="Packaging\StaticContent\Libraries\ImportEditedVideosStructure.cs" />
+    <Compile Include="Packaging\StaticContent\Libraries\ImportEditedWidgetTemplateLibrariesStructure.cs" />
+    <Compile Include="Packaging\StaticContent\ListItems\ImportEditedListsModule.cs" />
+    <Compile Include="Packaging\StaticContent\ListItems\ExportEditedListsModule.cs" />
+    <Compile Include="Packaging\StaticContent\ListItems\ImportEditedWidgetTemplateListsStructure.cs" />
+    <Compile Include="Packaging\StaticContent\News\ImportEditedNewsModule.cs" />
+    <Compile Include="Packaging\StaticContent\News\ExportEditedNewsModule.cs" />
+    <Compile Include="Packaging\StaticContent\News\ImportEditedWidgetTemplateNewsStructure.cs" />
+    <Compile Include="Packaging\StaticContent\Pages\ImportEditedPages.cs" />
+    <Compile Include="Packaging\StaticContent\Pages\ExportEditedPages.cs" />
     <Compile Include="ScriptsAndStyles\AddEmbedCodeWidgetToPageAndWriteAndRemoveJavaScript.cs" />
     <Compile Include="ScriptsAndStyles\WriteAndEditCssInEmbedCodeWidget.cs" />
     <Compile Include="EmailCampaigns\DragAndDropSubscribeFormWidgetOnPageAndSelectMailingList.cs" />
@@ -625,6 +641,7 @@
   <Target Name="BeforeBuild">
     <Copy SourceFiles="$(SolutionDir)FxCop\CustomDictionary.xml" DestinationFolder="$(CodeAnalysisPath)" OverwriteReadOnlyFiles="true" Retries="10" ContinueOnError="false" />
   </Target>
-  <Target Name="AfterBuild"></Target>
+  <Target Name="AfterBuild">
+  </Target>
   <Import Project="$(SolutionDir)\StyleCop\StyleCop.targets" />
 </Project>
