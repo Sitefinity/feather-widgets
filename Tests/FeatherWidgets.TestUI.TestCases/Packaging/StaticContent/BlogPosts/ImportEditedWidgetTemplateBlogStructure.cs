@@ -1,5 +1,8 @@
 ﻿using System;
+using ArtOfTest.WebAii.Controls.HtmlControls;
+using ArtOfTest.WebAii.Core;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Telerik.Sitefinity.TestUI.Framework.Framework.Utilities;
 using Telerik.Sitefinity.TestUI.Framework.Utilities;
 
 namespace FeatherWidgets.TestUI.TestCases.Packaging.StaticContent
@@ -52,8 +55,11 @@ namespace FeatherWidgets.TestUI.TestCases.Packaging.StaticContent
             for (int i = 0; i < widgetTemplatesName.Length; i++)
             {
                 BAT.Wrappers().Backend().ModuleBuilder().ContentTypePageActionsWrapper().OpenWidgetTemplateByAreaAndName(widgetTemplatesName[i], areaName);
+                BAT.Wrappers().Backend().ModuleBuilder().ContentTypePageActionsWrapper().EditFrame.WaitForAsyncOperations();
                 BAT.Wrappers().Backend().ModuleBuilder().ContentTypePageActionsWrapper().VerifyWidgetTemplateContent(content);
                 BAT.Wrappers().Backend().ModuleBuilder().ContentTypePageActionsWrapper().ClickSaveChangesLink();
+                Manager.Current.ActiveBrowser.WaitUntilReady();
+                Manager.Current.ActiveBrowser.WaitForAsyncOperations();
             }
         }
 
