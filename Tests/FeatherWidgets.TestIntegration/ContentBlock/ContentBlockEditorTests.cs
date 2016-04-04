@@ -3,6 +3,7 @@ using MbUnit.Framework;
 using Telerik.Sitefinity.Frontend.ContentBlock.Mvc.Controllers;
 using Telerik.Sitefinity.Frontend.TestUtilities;
 using Telerik.Sitefinity.Mvc.Proxy;
+using Telerik.Sitefinity.TestUtilities.CommonOperations.Media;
 using Telerik.Sitefinity.Web;
 
 namespace FeatherWidgets.TestIntegration.ContentBlock
@@ -34,7 +35,7 @@ namespace FeatherWidgets.TestIntegration.ContentBlock
 
         [Test]
         [Category(TestCategories.ContentBlock)]
-        [Author(FeatherTeams.Team2)]
+        [Author(FeatherTeams.FeatherTeam)]
         public void ContentBlockWidget_AddTableToContentBlock()
         {
             string pageNamePrefix = "ContentBlockPage";
@@ -58,7 +59,7 @@ namespace FeatherWidgets.TestIntegration.ContentBlock
 
         [Test]
         [Category(TestCategories.ContentBlock)]
-        [Author(FeatherTeams.Team2)]
+        [Author(FeatherTeams.FeatherTeam)]
         public void ContentBlockWidget_InsertHyperlinkToContentBlock()
         {
             string pageNamePrefix = "ContentBlockPage";
@@ -82,7 +83,7 @@ namespace FeatherWidgets.TestIntegration.ContentBlock
 
         [Test]
         [Category(TestCategories.ContentBlock)]
-        [Author(FeatherTeams.Team2)]
+        [Author(FeatherTeams.FeatherTeam)]
         public void ContentBlockWidget_FormatContentViaBoldFunctionalityToContentBlock()
         {
             string pageNamePrefix = "ContentBlockPage";
@@ -106,7 +107,7 @@ namespace FeatherWidgets.TestIntegration.ContentBlock
 
         [Test]
         [Category(TestCategories.ContentBlock)]
-        [Author(FeatherTeams.Team2)]
+        [Author(FeatherTeams.FeatherTeam)]
         public void ContentBlockWidget_FormatContentViaItalicFunctionalityToContentBlock()
         {
             string pageNamePrefix = "ContentBlockPage";
@@ -130,7 +131,7 @@ namespace FeatherWidgets.TestIntegration.ContentBlock
 
         [Test]
         [Category(TestCategories.ContentBlock)]
-        [Author(FeatherTeams.Team2)]
+        [Author(FeatherTeams.FeatherTeam)]
         public void ContentBlockWidget_FormatContentViaUnderlineFunctionalityToContentBlock()
         {
             string pageNamePrefix = "ContentBlockPage";
@@ -154,7 +155,7 @@ namespace FeatherWidgets.TestIntegration.ContentBlock
 
         [Test]
         [Category(TestCategories.ContentBlock)]
-        [Author(FeatherTeams.Team2)]
+        [Author(FeatherTeams.FeatherTeam)]
         public void ContentBlockWidget_FormatContentViaAlignTextLeftFunctionalityToContentBlock()
         {
             string pageNamePrefix = "ContentBlockPage";
@@ -178,7 +179,7 @@ namespace FeatherWidgets.TestIntegration.ContentBlock
 
         [Test]
         [Category(TestCategories.ContentBlock)]
-        [Author(FeatherTeams.Team2)]
+        [Author(FeatherTeams.FeatherTeam)]
         public void ContentBlockWidget_FormatContentViaCenterTextFunctionalityToContentBlock()
         {
             string pageNamePrefix = "ContentBlockPage";
@@ -202,7 +203,7 @@ namespace FeatherWidgets.TestIntegration.ContentBlock
 
         [Test]
         [Category(TestCategories.ContentBlock)]
-        [Author(FeatherTeams.Team2)]
+        [Author(FeatherTeams.FeatherTeam)]
         public void ContentBlockWidget_FormatContentViaAlignTextRightFunctionalityToContentBlock()
         {
             string pageNamePrefix = "ContentBlockPage";
@@ -226,7 +227,7 @@ namespace FeatherWidgets.TestIntegration.ContentBlock
 
         [Test]
         [Category(TestCategories.ContentBlock)]
-        [Author(FeatherTeams.Team2)]
+        [Author(FeatherTeams.FeatherTeam)]
         public void ContentBlockWidget_InsertImageToContentBlock()
         {
             string pageNamePrefix = "ContentBlockPage";
@@ -235,14 +236,14 @@ namespace FeatherWidgets.TestIntegration.ContentBlock
             int pageIndex = 1;
             string imageTitle = "One";
             string imageExtension = ".jpg";
-            string imageName = "1.jpg";
+            string imageName = "Telerik.Sitefinity.TestUtilities.Data.Images.1.jpg";
             string contentBlockContentPart1 = "<img alt=\"\" src=\"";
             string contentBlockContentPart2 = "\" />";
             string url = UrlPath.ResolveAbsoluteUrl("~/" + urlNamePrefix + pageIndex);
 
             try
             {
-                var imageId = Telerik.Sitefinity.TestUtilities.CommonOperations.ServerOperations.Images().CreateImage(imageTitle, imageExtension, imageName);
+                var imageId = Telerik.Sitefinity.TestUtilities.CommonOperations.ServerOperations.Images().Upload(MediaOperationsBase.DefaultLibrary, imageTitle, imageName, imageExtension);
                 var imageUrl = Telerik.Sitefinity.TestUtilities.CommonOperations.ServerOperations.Images().GetImageUrl(imageId);
 
                 string contentBlockContent = string.Concat(contentBlockContentPart1, imageUrl, contentBlockContentPart2);
@@ -260,7 +261,7 @@ namespace FeatherWidgets.TestIntegration.ContentBlock
             }
             finally
             {
-                Telerik.Sitefinity.TestUtilities.CommonOperations.ServerOperations.Images().DeleteAllImages(Telerik.Sitefinity.TestUtilities.CommonOperations.ContentLifecycleStatus.Master);
+                Telerik.Sitefinity.TestUtilities.CommonOperations.ServerOperations.Images().DeleteAllImages();
             }
         }
 

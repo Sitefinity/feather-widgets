@@ -27,9 +27,7 @@
                 };
                 reader.readAsDataURL(e.target.files[0]);
             }
-        });
 
-        $('[data-sf-role=profile-submit]').click(function () {
             var form = document.forms.aspnetForm;
             if (form) {
                 form.enctype = 'multipart/form-data';

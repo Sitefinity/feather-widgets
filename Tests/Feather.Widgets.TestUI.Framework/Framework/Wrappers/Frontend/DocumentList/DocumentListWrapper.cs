@@ -24,7 +24,7 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Frontend
             HtmlAnchor doc = ActiveBrowser.Find.ByExpression<HtmlAnchor>("innertext=" + title)
                 .AssertIsPresent("document");
 
-            Assert.IsTrue(doc.HRef.StartsWith(href), "href is not correct");
+                Assert.IsTrue(doc.HRef.StartsWith(href), "href is not correct");     
         }
 
         /// <summary>
@@ -43,7 +43,8 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Frontend
             var parent = doc.Parent<HtmlTableCell>();
             Assert.IsTrue(parent.TagName == "td");
             Assert.IsTrue(parent.Parent<HtmlTableRow>().TagName == "tr");
-            Assert.IsTrue(doc.HRef.StartsWith(href), "href is not correct");
+            
+                 Assert.IsTrue(doc.HRef.StartsWith(href), "href is not correct");          
         }
 
         /// <summary>
@@ -167,7 +168,7 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Frontend
         /// <param name="href">The href.</param>
         public void VerifyDownloadButton(string href)
         {
-            ActiveBrowser.Find.ByExpression<HtmlAnchor>("tagname=a", "target=_blank", "href=~" + href, "innertext=Download").AssertIsPresent("download");
+                ActiveBrowser.Find.ByExpression<HtmlAnchor>("tagname=a", "target=_blank", "href=~" + href, "innertext=Download").AssertIsPresent("download");         
         }
     }
 }

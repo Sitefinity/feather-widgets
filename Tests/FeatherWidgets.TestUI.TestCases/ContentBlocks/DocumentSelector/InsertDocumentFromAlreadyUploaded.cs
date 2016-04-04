@@ -5,7 +5,6 @@ using System.Text;
 using System.Threading.Tasks;
 using Feather.Widgets.TestUI.Framework;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Telerik.Sitefinity.Frontend.TestUtilities;
 
 namespace FeatherWidgets.TestUI.TestCases.ContentBlocks.DocumentSelector
 {
@@ -19,16 +18,15 @@ namespace FeatherWidgets.TestUI.TestCases.ContentBlocks.DocumentSelector
         /// UI test InsertDocumentFromAlreadyUploaded
         /// </summary>
         [TestMethod,
-        Owner(FeatherTeams.Team7),
+        Owner(FeatherTeams.FeatherTeam),
         TestCategory(FeatherTestCategories.MediaSelector),
-        TestCategory(FeatherTestCategories.ContentBlock)]
+        TestCategory(FeatherTestCategories.ContentBlock3)]
         public void InsertDocumentFromAlreadyUploaded()
         {
-            BAT.Macros().NavigateTo().Pages();
+            BAT.Macros().NavigateTo().Pages(this.Culture);
             BAT.Wrappers().Backend().Pages().PagesWrapper().OpenPageZoneEditor(PageName);
             BATFeather.Wrappers().Backend().Pages().PageZoneEditorWrapper().EditWidget(WidgetName);
-            BATFeather.Wrappers().Backend().ContentBlocks().ContentBlocksWrapper().OpenDocumentSelector();
-            BATFeather.Wrappers().Backend().Media().MediaSelectorWrapper().VerifyNoMediaEmptyScreen("No documents");
+            BATFeather.Wrappers().Backend().ContentBlocks().ContentBlocksWrapper().OpenDocumentSelector();          
             BATFeather.Wrappers().Backend().Media().MediaSelectorWrapper().PressCancelButton();
 
             // Uploading document after epmty screen is verified.
@@ -42,8 +40,6 @@ namespace FeatherWidgets.TestUI.TestCases.ContentBlocks.DocumentSelector
             Assert.IsTrue(BATFeather.Wrappers().Backend().Media().DocumentPropertiesWrapper().IsTitlePopulated(DocumentName), "Document title is not populated correctly");
             BATFeather.Wrappers().Backend().Media().DocumentPropertiesWrapper().VerifyDocumentLink(DocumentName, this.GetDocumentHref(true));
             BATFeather.Wrappers().Backend().Media().DocumentPropertiesWrapper().EnterTitle(NewDocumentName);
-            //// BATFeather.Wrappers().Backend().Media().DocumentPropertiesWrapper().ConfirmMediaProperties();
-            //// This is workaround fix for a bug!
             BATFeather.Wrappers().Backend().Media().DocumentPropertiesWrapper().ConfirmMediaPropertiesDocsTemporary();
 
             BATFeather.Wrappers().Backend().ContentBlocks().ContentBlocksWrapper()
@@ -51,7 +47,7 @@ namespace FeatherWidgets.TestUI.TestCases.ContentBlocks.DocumentSelector
             BATFeather.Wrappers().Backend().ContentBlocks().ContentBlocksWrapper().SaveChanges();
             BAT.Wrappers().Backend().Pages().PageZoneEditorWrapper().PublishPage();
 
-            BAT.Macros().NavigateTo().CustomPage("~/" + PageName.ToLower());
+            BAT.Macros().NavigateTo().CustomPage("~/" + PageName.ToLower(), true, this.Culture);
             BATFeather.Wrappers().Frontend().MediaWidgets().MediaWidgetsWrapper().VerifyDocument(NewDocumentName, this.GetDocumentHref(false));
         }
 
@@ -61,7 +57,7 @@ namespace FeatherWidgets.TestUI.TestCases.ContentBlocks.DocumentSelector
         protected override void ServerSetup()
         {
             BAT.Macros().User().EnsureAdminLoggedIn();
-            BAT.Arrange(this.TestName).ExecuteSetUp();
+            BAT.Arrange(this.TestName).ExecuteSetUp();           
         }
 
         /// <summary>
@@ -74,14 +70,32 @@ namespace FeatherWidgets.TestUI.TestCases.ContentBlocks.DocumentSelector
 
         private string GetSfRef(string documentId)
         {
-            return "[documents|OpenAccessDataProvider]" + documentId;
+            string provider = currentProviderUrlName;
+            if(this.Culture == null)
+            {
+                provider = "OpenAccessDataProvider";
+            }
+
+            return "[documents|" + provider + "]" + documentId;
         }
 
         private string GetDocumentHref(bool isBaseUrlIncluded)
         {
+            currentProviderUrlName = BAT.Arrange(this.TestName).ExecuteArrangement("GetCurrentProviderUrlName").Result.Values["CurrentProviderUrlName"];
             string libraryUrl = LibraryName.ToLower();
             string documentUrl = DocumentName.ToLower() + DocumentType.ToLower();
-            string href = BATFeather.Wrappers().Frontend().MediaWidgets().MediaWidgetsWrapper().GetMediaSource(isBaseUrlIncluded, libraryUrl, documentUrl, this.BaseUrl, "docs");
+            string url;
+
+            if (this.Culture == null)
+            {
+                url = this.BaseUrl;
+            }
+            else
+            {
+                url = ActiveBrowser.Url.Substring(0, 20);
+            }
+
+            string href = BATFeather.Wrappers().Frontend().MediaWidgets().MediaWidgetsWrapper().GetMediaSource(isBaseUrlIncluded, libraryUrl, documentUrl, url, "docs", currentProviderUrlName);
             return href;
         }
 
@@ -92,5 +106,7 @@ namespace FeatherWidgets.TestUI.TestCases.ContentBlocks.DocumentSelector
         private const string DocumentType = ".JPG";
         private const string SelectedFilterName = "Recent Documents";
         private const string NewDocumentName = "DocumentTitleEdited";
+        private string currentProviderUrlName;
+        private const string SecondProviderName = "SecondSite Libraries";
     }
 }

@@ -90,7 +90,8 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Frontend
         {
             var prevImage = EM.MediaGallery.MediaGalleryFrontend.PreviousLink
                .AssertIsPresent("previous image");
-            Assert.IsTrue(prevImage.HRef.StartsWith(href));
+
+                Assert.IsTrue(prevImage.HRef.StartsWith(href));          
         }
 
         /// <summary>
@@ -101,7 +102,8 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Frontend
         {
             var nextImage = EM.MediaGallery.MediaGalleryFrontend.NextLink
                .AssertIsPresent("next image");
-            Assert.IsTrue(nextImage.HRef.StartsWith(href));
+
+                  Assert.IsTrue(nextImage.HRef.StartsWith(href));       
         }
 
         /// <summary>
@@ -112,7 +114,7 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Frontend
         {
             var backLink = EM.MediaGallery.MediaGalleryFrontend.BeckToAllMediaFilesLink
                .AssertIsPresent("back to all images");
-            Assert.IsTrue(backLink.HRef.StartsWith(href));
+            Assert.IsTrue(backLink.HRef.Contains(href));
         }
 
         /// <summary>

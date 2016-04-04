@@ -199,7 +199,28 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Frontend.Identity
         /// </summary>
         public void AssertSuccessfullySavedMessage()
         {
-            this.EM.Identity.ProfileFrontend.SuccessfullySavedMessage.AssertIsPresent("Successfully saved changes message.");
+            Manager.Current.Wait.For(this.CheckFieldIsPresent, 480000);
+        }
+
+        /// <summary>
+        /// Checks the field is present.
+        /// </summary>
+        /// <returns>Is success message field contained</returns>
+        private bool CheckFieldIsPresent()
+        {
+            ActiveBrowser.WaitUntilReady();
+            ActiveBrowser.RefreshDomTree();
+
+            HtmlDiv sucessMessage = ActiveBrowser.Find.ByExpression<HtmlDiv>("TagName=div", "InnerText=Your changes are saved");
+
+            bool result = false;
+
+            if (sucessMessage != null)
+            {
+                result = true;
+            }
+
+            return result;
         }
 
         /// <summary>

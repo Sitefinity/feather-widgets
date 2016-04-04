@@ -4,8 +4,8 @@ using System.Linq;
 using System.Text;
 using FeatherWidgets.TestUtilities.CommonOperations;
 using Telerik.Sitefinity.Frontend.Blogs.Mvc.Models.BlogPost;
+using Telerik.Sitefinity.TestArrangementService.Attributes;
 using Telerik.Sitefinity.TestUI.Arrangements.Framework;
-using Telerik.Sitefinity.TestUI.Arrangements.Framework.Attributes;
 using Telerik.Sitefinity.TestUtilities.CommonOperations;
 
 namespace FeatherWidgets.TestUI.Arrangements
@@ -13,7 +13,7 @@ namespace FeatherWidgets.TestUI.Arrangements
     /// <summary>
     /// This is a test class with arrangement methods related to UI test DragAndDropBlogsWidgetToPage
     /// </summary>
-    public class DragAndDropBlogsWidgetToPage : ITestArrangement
+    public class DragAndDropBlogsWidgetToPage : TestArrangementBase
     {
         /// <summary>
         /// Server side set up.
@@ -21,6 +21,7 @@ namespace FeatherWidgets.TestUI.Arrangements
         [ServerSetUp]
         public void SetUp()
         {
+            AuthenticationHelper.AuthenticateUser(AdminUserName, AdminPass, true);
             var templateId = ServerOperations.Templates().GetTemplateIdByTitle(TemplateTitle);
             var pageId = ServerOperations.Pages().CreatePage(DefaultPageTitle, templateId);
             var pageNodeId = ServerOperations.Pages().GetPageNodeId(pageId);
@@ -43,11 +44,13 @@ namespace FeatherWidgets.TestUI.Arrangements
             ServerOperations.Blogs().DeleteAllBlogs();
         }
 
+        private const string AdminUserName = "admin";
+        private const string AdminPass = "admin@2";
         private const string PageTitle = "PageWithBlogsWidget";
         private const string DefaultPageTitle = "BlogsDefaultPage";
         private const string PlaceHolderId = "Contentplaceholder1";
         private const string TemplateTitle = "Bootstrap.default";
-        private const string BlogTitle = "TestBlog";
-        private const string PostTitle = "post1";
+        private const string BlogTitle = "TestBlog2";
+        private const string PostTitle = "post2";
     }
 }

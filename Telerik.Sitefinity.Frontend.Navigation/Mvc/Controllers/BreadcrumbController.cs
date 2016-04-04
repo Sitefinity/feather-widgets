@@ -5,6 +5,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.UI;
+using Telerik.Sitefinity.Frontend.Mvc.Infrastructure;
 using Telerik.Sitefinity.Frontend.Mvc.Infrastructure.Controllers;
 using Telerik.Sitefinity.Frontend.Mvc.Infrastructure.Controllers.Attributes;
 using Telerik.Sitefinity.Frontend.Navigation.Mvc.Models.Breadcrumb;
@@ -13,6 +14,7 @@ using Telerik.Sitefinity.Localization;
 using Telerik.Sitefinity.Modules.Pages.Configuration;
 using Telerik.Sitefinity.Mvc;
 using Telerik.Sitefinity.Web;
+using Telerik.Sitefinity.Web.UI;
 
 namespace Telerik.Sitefinity.Frontend.Navigation.Mvc.Controllers
 {
@@ -24,6 +26,7 @@ namespace Telerik.Sitefinity.Frontend.Navigation.Mvc.Controllers
         SectionName = ToolboxesConfig.NavigationControlsSectionName,
         CssClass = BreadcrumbController.WidgetIconCssClass)]
     [Localization(typeof(BreadcrumbResources))]
+    [IndexRenderMode(IndexRenderModes.NoOutput)]
     public class BreadcrumbController : Controller
     {
         /// <summary>
@@ -94,7 +97,7 @@ namespace Telerik.Sitefinity.Frontend.Navigation.Mvc.Controllers
         {
             get
             {
-                var page = this.GetHttpContext.CurrentHandler as Page;
+                var page = this.GetHttpContext.CurrentHandler.GetPageHandler();
 
                 return page == null ? null : page.GetBreadcrumbExtender();
             }

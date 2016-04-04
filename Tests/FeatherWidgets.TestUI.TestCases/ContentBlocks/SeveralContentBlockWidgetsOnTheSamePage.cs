@@ -6,7 +6,6 @@ using System.Threading.Tasks;
 using Feather.Widgets.TestUI.Framework;
 using FeatherWidgets.TestUI.TestCases;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Telerik.Sitefinity.Frontend.TestUtilities;
 
 namespace FeatherWidgets.TestUI.TestCases.ContentBlocks
 {
@@ -20,18 +19,18 @@ namespace FeatherWidgets.TestUI.TestCases.ContentBlocks
         /// UI test SeveralContentBlockWidgetsOnTheSamePage
         /// </summary>
         [TestMethod,
-        Owner(FeatherTeams.Team2),
-        TestCategory(FeatherTestCategories.ContentBlock)]
+        Owner(FeatherTeams.FeatherTeam),
+        TestCategory(FeatherTestCategories.ContentBlock1)]
         public void SeveralContentBlockWidgetsOnTheSamePage()
         {
-            BAT.Macros().NavigateTo().Pages();
+            BAT.Macros().NavigateTo().Pages(this.Culture);
             BAT.Wrappers().Backend().Pages().PagesWrapper().OpenPageZoneEditor(PageName);
             BATFeather.Wrappers().Backend().Pages().PageZoneEditorWrapper().EditWidget(NewContentBlockWidget);
             BATFeather.Wrappers().Backend().ContentBlocks().ContentBlocksWrapper().FillContentToContentBlockWidget(EditContent);
             BATFeather.Wrappers().Backend().ContentBlocks().ContentBlocksWrapper().SaveChanges();
             BAT.Wrappers().Backend().Pages().PageZoneEditorWrapper().CheckWidgetContent(NewContentBlockWidget, ExpectedContent);
             BAT.Wrappers().Backend().Pages().PageZoneEditorWrapper().PublishPage();
-            BAT.Macros().NavigateTo().CustomPage("~/" + PageName.ToLower());
+            BAT.Macros().NavigateTo().CustomPage("~/" + PageName.ToLower(), true, this.Culture);
             BATFeather.Wrappers().Frontend().ContentBlock().ContentBlockWrapper().VerifyContentOfContentBlockOnThePageFrontend(ExpectedContent);
         }
 

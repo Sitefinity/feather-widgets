@@ -5,7 +5,6 @@ using System.Text;
 using System.Threading.Tasks;
 using Feather.Widgets.TestUI.Framework;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Telerik.Sitefinity.Frontend.TestUtilities;
 
 namespace FeatherWidgets.TestUI.TestCases.ContentBlocks.VideoSelector
 {
@@ -19,12 +18,12 @@ namespace FeatherWidgets.TestUI.TestCases.ContentBlocks.VideoSelector
         /// UI test UploadVideoWithCategoryAndTag
         /// </summary>
         [TestMethod,
-        Owner(FeatherTeams.Team7),
+        Owner(FeatherTeams.FeatherTeam),
         TestCategory(FeatherTestCategories.MediaSelector),
-        TestCategory(FeatherTestCategories.ContentBlock)]
+        TestCategory(FeatherTestCategories.ContentBlock3)]
         public void UploadVideoWithCategoryAndTag()
         {
-            BAT.Macros().NavigateTo().Pages();
+            BAT.Macros().NavigateTo().Pages(this.Culture);
             BAT.Wrappers().Backend().Pages().PagesWrapper().OpenPageZoneEditor(PageName);
             BATFeather.Wrappers().Backend().Pages().PageZoneEditorWrapper().EditWidget(WidgetName);
 
@@ -68,7 +67,7 @@ namespace FeatherWidgets.TestUI.TestCases.ContentBlocks.VideoSelector
             BATFeather.Wrappers().Backend().ContentBlocks().ContentBlocksWrapper().SaveChanges();
             BAT.Wrappers().Backend().Pages().PageZoneEditorWrapper().PublishPage();
 
-            BAT.Macros().NavigateTo().CustomPage("~/" + PageName.ToLower());
+            BAT.Macros().NavigateTo().CustomPage("~/" + PageName.ToLower(), true, this.Culture);
             BATFeather.Wrappers().Frontend().MediaWidgets().MediaWidgetsWrapper().VerifyVideo(this.GetVideoSource(false));
             BAT.Arrange(this.TestName).ExecuteArrangement("VerifyCreatedTag");
         }
@@ -92,9 +91,21 @@ namespace FeatherWidgets.TestUI.TestCases.ContentBlocks.VideoSelector
 
         private string GetVideoSource(bool isBaseUrlIncluded)
         {
+            currentProviderUrlName = BAT.Arrange(this.TestName).ExecuteArrangement("GetCurrentProviderUrlName").Result.Values["CurrentProviderUrlName"];
             string libraryUrl = LibraryName.ToLower() + "/" + ChildVideoLibrary.ToLower();
-            string imageUrl = NewVideoName.ToLower() + VideoType;
-            string scr = BATFeather.Wrappers().Frontend().MediaWidgets().MediaWidgetsWrapper().GetMediaSource(isBaseUrlIncluded, libraryUrl, imageUrl, this.BaseUrl, "videos");
+            string imageUrl = VideoNameWithDash.ToLower() + VideoType;
+            string url;
+
+            if (this.Culture == null)
+            {
+                url = this.BaseUrl;
+            }
+            else
+            {
+                url = ActiveBrowser.Url.Substring(0, 20);
+            }
+
+            string scr = BATFeather.Wrappers().Frontend().MediaWidgets().MediaWidgetsWrapper().GetMediaSource(isBaseUrlIncluded, libraryUrl, imageUrl, url, "videos", currentProviderUrlName);
             return scr;
         }
 
@@ -105,8 +116,11 @@ namespace FeatherWidgets.TestUI.TestCases.ContentBlocks.VideoSelector
         private const string FileToUpload = "Ogv File.ogv";
         private const string VideoName = "Ogv File";
         private const string NewVideoName = "VideoTitleEdited";
+        private const string VideoNameWithDash = "Ogv-File";
         private const string VideoType = ".ogv";
         private const string TagName = "Tag0";
         private const string Size = "428 KB";
+        private string currentProviderUrlName;
+        private const string SecondProviderName = "SecondSite Libraries";
     }
 }

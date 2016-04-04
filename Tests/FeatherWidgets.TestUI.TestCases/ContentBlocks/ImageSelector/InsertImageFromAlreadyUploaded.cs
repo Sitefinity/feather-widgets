@@ -5,7 +5,6 @@ using System.Text;
 using System.Threading.Tasks;
 using Feather.Widgets.TestUI.Framework;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Telerik.Sitefinity.Frontend.TestUtilities;
 
 namespace FeatherWidgets.TestUI.TestCases.ContentBlocks.ImageSelector
 {
@@ -19,16 +18,15 @@ namespace FeatherWidgets.TestUI.TestCases.ContentBlocks.ImageSelector
         /// UI test InsertImageFromAlreadyUploaded
         /// </summary>
         [TestMethod,
-        Owner(FeatherTeams.Team2),
+        Owner(FeatherTeams.FeatherTeam),
         TestCategory(FeatherTestCategories.MediaSelector),
-        TestCategory(FeatherTestCategories.ContentBlock)]
+        TestCategory(FeatherTestCategories.ContentBlock3)]
         public void InsertImageFromAlreadyUploaded()
         {
-            BAT.Macros().NavigateTo().Pages();
+            BAT.Macros().NavigateTo().Pages(this.Culture);
             BAT.Wrappers().Backend().Pages().PagesWrapper().OpenPageZoneEditor(PageName);
             BATFeather.Wrappers().Backend().Pages().PageZoneEditorWrapper().EditWidget(WidgetName);
             BATFeather.Wrappers().Backend().ContentBlocks().ContentBlocksWrapper().OpenImageSelector();
-            BATFeather.Wrappers().Backend().Media().MediaSelectorWrapper().VerifyNoMediaEmptyScreen("No images");
             BATFeather.Wrappers().Backend().Media().MediaSelectorWrapper().PressCancelButton();
 
             // Uploading image after epmty screen is verified.
@@ -51,7 +49,7 @@ namespace FeatherWidgets.TestUI.TestCases.ContentBlocks.ImageSelector
             BATFeather.Wrappers().Backend().ContentBlocks().ContentBlocksWrapper().SaveChanges();
             BAT.Wrappers().Backend().Pages().PageZoneEditorWrapper().PublishPage();
 
-            BAT.Macros().NavigateTo().CustomPage("~/" + PageName.ToLower());
+            BAT.Macros().NavigateTo().CustomPage("~/" + PageName.ToLower(), true, this.Culture);
             BATFeather.Wrappers().Frontend().MediaWidgets().MediaWidgetsWrapper().VerifyImage(NewImageName, NewImageAltText, this.GetImageSource(false));
         }
 
@@ -74,14 +72,32 @@ namespace FeatherWidgets.TestUI.TestCases.ContentBlocks.ImageSelector
 
         private string GetSfRef(string imageId)
         {
-            return "[images|OpenAccessDataProvider]" + imageId;
+            string provider = currentProviderUrlName;
+            if (this.Culture == null)
+            {
+                provider = "OpenAccessDataProvider";
+            }
+
+            return "[images|" + provider + "]" + imageId;
         }
 
         private string GetImageSource(bool isBaseUrlIncluded)
         {
+            currentProviderUrlName = BAT.Arrange(this.TestName).ExecuteArrangement("GetCurrentProviderUrlName").Result.Values["CurrentProviderUrlName"];
             string libraryUrl = LibraryName.ToLower();
             string imageUrl = ImageName.ToLower() + ImageType.ToLower();
-            string scr = BATFeather.Wrappers().Frontend().MediaWidgets().MediaWidgetsWrapper().GetMediaSource(isBaseUrlIncluded, libraryUrl, imageUrl, this.BaseUrl);
+            string url;
+
+            if (this.Culture == null)
+            {
+                url = this.BaseUrl;
+            }
+            else
+            {
+                url = ActiveBrowser.Url.Substring(0, 20);
+            }
+
+            string scr = BATFeather.Wrappers().Frontend().MediaWidgets().MediaWidgetsWrapper().GetMediaSource(isBaseUrlIncluded, libraryUrl, imageUrl, url, "images", currentProviderUrlName);
             return scr;
         }
 
@@ -96,5 +112,7 @@ namespace FeatherWidgets.TestUI.TestCases.ContentBlocks.ImageSelector
         private const string SelectedFilterName = "Recent Images";
         private const string NewImageName = "ImageTitleEdited";
         private const string NewImageAltText = "ImageAltTextEdited";
+        private string currentProviderUrlName;
+        private const string SecondProviderName = "SecondSite Libraries";
     }
 }

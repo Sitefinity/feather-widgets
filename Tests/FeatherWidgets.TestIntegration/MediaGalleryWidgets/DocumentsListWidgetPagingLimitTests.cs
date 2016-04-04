@@ -22,10 +22,10 @@ namespace FeatherWidgets.TestIntegration.MediaGalleryWidgets
         [SetUp]
         public void Setup()
         {
-            ServerOperations.Documents().CreateDocumentLibrary(LibraryTitle);
-            ServerSideUpload.UploadDocument(LibraryTitle, DocumentTitle + 1, DocumentResource1);
-            ServerSideUpload.UploadDocument(LibraryTitle, DocumentTitle + 2, DocumentResource2);
-            ServerSideUpload.UploadDocument(LibraryTitle, DocumentTitle + 3, DocumentResource3);
+            ServerOperations.Documents().CreateLibrary(LibraryTitle);
+            ServerOperations.Documents().Upload(LibraryTitle, DocumentTitle + 1, DocumentResource1);
+            ServerOperations.Documents().Upload(LibraryTitle, DocumentTitle + 2, DocumentResource2);
+            ServerOperations.Documents().Upload(LibraryTitle, DocumentTitle + 3, DocumentResource3);
         }
 
         /// <summary>
@@ -34,7 +34,7 @@ namespace FeatherWidgets.TestIntegration.MediaGalleryWidgets
         [TearDown]
         public void TearDown()
         {
-            ServerOperations.Libraries().DeleteAllDocumentLibrariesExceptDefaultOne();
+            ServerOperations.Documents().DeleteAllLibrariesExceptDefaultOne();
         }
 
         /// <summary>
@@ -42,7 +42,7 @@ namespace FeatherWidgets.TestIntegration.MediaGalleryWidgets
         /// </summary>
         [Test]
         [Category(TestCategories.Media)]
-        [Author(FeatherTeams.Team7)]
+        [Author(FeatherTeams.FeatherTeam)]
         public void DocumentsList_VerifyPaging()
         {
             var mvcProxy = new MvcControllerProxy();
@@ -72,7 +72,7 @@ namespace FeatherWidgets.TestIntegration.MediaGalleryWidgets
         /// </summary>
         [Test]
         [Category(TestCategories.Media)]
-        [Author(FeatherTeams.Team7)]
+        [Author(FeatherTeams.FeatherTeam)]
         public void DocumentsList_VerifyLimit()
         {
             var mvcProxy = new MvcControllerProxy();
@@ -94,7 +94,7 @@ namespace FeatherWidgets.TestIntegration.MediaGalleryWidgets
         /// </summary>
         [Test]
         [Category(TestCategories.Media)]
-        [Author(FeatherTeams.Team7)]
+        [Author(FeatherTeams.FeatherTeam)]
         public void DocumentsList_VerifyNoLimit()
         {
             var mvcProxy = new MvcControllerProxy();

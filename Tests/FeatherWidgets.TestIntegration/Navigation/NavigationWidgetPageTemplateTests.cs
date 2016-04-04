@@ -28,7 +28,7 @@ namespace FeatherWidgets.TestIntegration.Navigation
         /// </summary>
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Globalization", "CA1303:Do not pass literals as localized parameters", MessageId = "FeatherWidgets.TestUtilities.CommonOperations.Templates.TemplateOperations.AddControlToTemplate(System.Guid,System.Web.UI.Control,System.String,System.String)"), Test]
         [Category(TestCategories.Navigation)]
-        [Author(FeatherTeams.Team2)]
+        [Author(FeatherTeams.FeatherTeam)]
         public void NavigationWidgetOnPageTemplate_AllPagesUnderCurrentlyOpenedPage()
         {
             Guid templateId = default(Guid);
@@ -78,7 +78,7 @@ namespace FeatherWidgets.TestIntegration.Navigation
         /// </summary>
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Globalization", "CA1303:Do not pass literals as localized parameters", MessageId = "FeatherWidgets.TestUtilities.CommonOperations.Templates.TemplateOperations.AddControlToTemplate(System.Guid,System.Web.UI.Control,System.String,System.String)"), Test]
         [Category(TestCategories.Navigation)]
-        [Author(FeatherTeams.Team2)]
+        [Author(FeatherTeams.FeatherTeam)]
         public void NavigationWidgetOnPageTemplate_AllSiblingPagesOfCurrentlyOpenedPage()
         {
             Guid templateId = default(Guid);

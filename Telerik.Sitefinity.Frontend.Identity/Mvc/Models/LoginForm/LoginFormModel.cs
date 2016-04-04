@@ -262,7 +262,7 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.LoginForm
             var identity = ClaimsManager.GetCurrentIdentity();
             if (user != null && identity != null && identity.OriginalIdentity is SitefinityIdentity)
             {
-                IClaimsPrincipal cp = new ClaimsPrincipal(new[] { new ClaimsIdentity(identity) });
+                IClaimsPrincipal cp = new ClaimsPrincipal(new[] { new ClaimsIdentity(identity.Claims) });
                 var wifCredentials = new FederatedServiceCredentials(FederatedAuthentication.ServiceConfiguration);
                 cp = wifCredentials.ClaimsAuthenticationManager.Authenticate(context.Request.RequestType, cp);
                 SitefinityClaimsAuthenticationModule.Current.AuthenticatePrincipalWithCurrentToken(cp, input.RememberMe);
@@ -282,7 +282,10 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.LoginForm
 
                 input.RedirectUrlAfterLogin = redirectUrl;
 
-                SFClaimsAuthenticationManager.ProcessRejectedUser(context, input.RedirectUrlAfterLogin);
+                if (result != UserLoggingReason.Success)
+                {
+                    SFClaimsAuthenticationManager.ProcessRejectedUser(context, input.RedirectUrlAfterLogin);
+                }
             }
 
             return input;

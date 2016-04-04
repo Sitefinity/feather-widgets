@@ -3,17 +3,18 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
 using System.Reflection;
+using System.Web;
 using System.Web.UI;
 using Telerik.Sitefinity;
 using Telerik.Sitefinity.Configuration;
-using Telerik.Sitefinity.DynamicModules.Web.UI.Frontend;
 using Telerik.Sitefinity.Frontend.Blogs.Mvc.Controllers;
 using Telerik.Sitefinity.Frontend.Blogs.Mvc.Models.BlogPost;
+using Telerik.Sitefinity.Frontend.Card.Mvc.Controllers;
 using Telerik.Sitefinity.Frontend.Comments.Mvc.Controllers;
 using Telerik.Sitefinity.Frontend.ContentBlock.Mvc.Controllers;
 using Telerik.Sitefinity.Frontend.DynamicContent.Mvc.Controllers;
+using Telerik.Sitefinity.Frontend.EmailCampaigns.Mvc.Controllers;
 using Telerik.Sitefinity.Frontend.Identity.Mvc.Controllers;
-using Telerik.Sitefinity.Frontend.Identity.Mvc.Models.Profile;
 using Telerik.Sitefinity.Frontend.InlineClientAssets.Mvc.Controllers;
 using Telerik.Sitefinity.Frontend.Lists.Mvc.Controllers;
 using Telerik.Sitefinity.Frontend.Media.Mvc.Controllers;
@@ -26,10 +27,12 @@ using Telerik.Sitefinity.Modules.Pages.Configuration;
 using Telerik.Sitefinity.Mvc.Proxy;
 using Telerik.Sitefinity.Pages.Model;
 using Telerik.Sitefinity.Security;
+using Telerik.Sitefinity.Services;
 using Telerik.Sitefinity.TestIntegration.Data.Content;
+using Telerik.Sitefinity.TestIntegration.Helpers;
 using Telerik.Sitefinity.TestUtilities.CommonOperations;
 using Telerik.Sitefinity.Utilities.TypeConverters;
-using Telerik.Sitefinity.Web.UI.ContentUI;
+using Telerik.Sitefinity.Web;
 
 namespace FeatherWidgets.TestUtilities.CommonOperations
 {
@@ -169,6 +172,27 @@ namespace FeatherWidgets.TestUtilities.CommonOperations
             }
         }
 
+        /// <summary>
+        /// Adds the categories widget to page.
+        /// </summary>
+        /// <param name="pageId">The page id.</param>
+        /// <param name="placeholder">The placeholder.</param>
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1026:DefaultParametersShouldNotBeUsed")]
+        public void AddCategoriesWidgetToPage(Guid pageId, string placeholder = "Body")
+        {
+            PageManager pageManager = PageManager.GetManager();
+            pageManager.Provider.SuppressSecurityChecks = true;
+            var pageDataId = pageManager.GetPageNode(pageId).PageId;
+            var page = pageManager.EditPage(pageDataId, CultureInfo.CurrentUICulture);
+
+            using (var mvcWidget = new Telerik.Sitefinity.Mvc.Proxy.MvcControllerProxy())
+            {
+                mvcWidget.ControllerName = typeof(HierarchicalTaxonomyController).FullName;
+
+                this.CreateControl(pageManager, page, mvcWidget, "Categories", placeholder);
+            }
+        }
+
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1026:DefaultParametersShouldNotBeUsed")]
         public void AddNewsWidgetToPage(Guid pageId, string placeholder = "Body")
         {
@@ -222,6 +246,10 @@ namespace FeatherWidgets.TestUtilities.CommonOperations
                 mvcProxy.ControllerName = typeof(DynamicContentController).FullName;
                 var dynamicController = new DynamicContentController();
                 dynamicController.Model.ContentType = TypeResolutionService.ResolveType(type);
+                if (ServerOperations.MultiSite().CheckIsMultisiteMode())
+                {
+                    dynamicController.Model.ProviderName = "dynamicContentProvider";
+                }                
 
                 mvcProxy.Settings = new ControllerSettings(dynamicController);
                 mvcProxy.WidgetName = widgetName;
@@ -540,6 +568,66 @@ namespace FeatherWidgets.TestUtilities.CommonOperations
         }
 
         /// <summary>
+        /// Adds subscribe form widget to existing page
+        /// </summary>
+        /// <param name="pageId">Page id value</param>
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1026:DefaultParametersShouldNotBeUsed")]
+        public void AddSubscribeFormWidgetToPage(Guid pageId, string placeholder = "Body")
+        {
+            PageManager pageManager = PageManager.GetManager();
+            pageManager.Provider.SuppressSecurityChecks = true;
+            var pageDataId = pageManager.GetPageNode(pageId).PageId;
+            var page = pageManager.EditPage(pageDataId, CultureInfo.CurrentUICulture);
+
+            using (var mvcWidget = new Telerik.Sitefinity.Mvc.Proxy.MvcControllerProxy())
+            {
+                mvcWidget.ControllerName = typeof(SubscribeFormController).FullName;
+
+                this.CreateControl(pageManager, page, mvcWidget, "Subscribe form", placeholder);
+            }
+        }
+
+        /// <summary>
+        /// Adds unsubscribe widget to existing page
+        /// </summary>
+        /// <param name="pageId">Page id value</param>
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1026:DefaultParametersShouldNotBeUsed")]
+        public void AddUnsubscribeWidgetToPage(Guid pageId, string placeholder = "Body")
+        {
+            PageManager pageManager = PageManager.GetManager();
+            pageManager.Provider.SuppressSecurityChecks = true;
+            var pageDataId = pageManager.GetPageNode(pageId).PageId;
+            var page = pageManager.EditPage(pageDataId, CultureInfo.CurrentUICulture);
+
+            using (var mvcWidget = new Telerik.Sitefinity.Mvc.Proxy.MvcControllerProxy())
+            {
+                mvcWidget.ControllerName = typeof(UnsubscribeFormController).FullName;
+
+                this.CreateControl(pageManager, page, mvcWidget, "Unsubscribe", placeholder);
+            }
+        }
+
+        /// <summary>
+        /// Adds ard widget to existing page
+        /// </summary>
+        /// <param name="pageId">Page id value</param>
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1026:DefaultParametersShouldNotBeUsed")]
+        public void AddCardWidgetToPage(Guid pageId, string placeholder = "Body")
+        {
+            PageManager pageManager = PageManager.GetManager();
+            pageManager.Provider.SuppressSecurityChecks = true;
+            var pageDataId = pageManager.GetPageNode(pageId).PageId;
+            var page = pageManager.EditPage(pageDataId, CultureInfo.CurrentUICulture);
+
+            using (var mvcWidget = new Telerik.Sitefinity.Mvc.Proxy.MvcControllerProxy())
+            {
+                mvcWidget.ControllerName = typeof(CardController).FullName;
+
+                this.CreateControl(pageManager, page, mvcWidget, "Card", placeholder);
+            }
+        }
+
+        /// <summary>
         /// Deletes the pages.
         /// </summary>
         public void DeletePages()
@@ -711,6 +799,37 @@ namespace FeatherWidgets.TestUtilities.CommonOperations
         }
 
         /// <summary>
+        /// Gets the public page content.
+        /// </summary>
+        /// <param name="pageId">The id of the page.</param>
+        /// <returns>The page content.</returns>
+        public string GetPageContent(Guid pageId)
+        {
+            PageManager pageManager = PageManager.GetManager();
+
+            var page = pageManager.GetPageNode(pageId);
+            var pageUrl = page.GetFullUrl(SystemManager.CurrentContext.AppSettings.DefaultFrontendLanguage, true);
+            pageUrl = RouteHelper.GetAbsoluteUrl(pageUrl);
+            pageUrl = this.AppendParam(pageUrl, "t", Guid.NewGuid().ToString());
+
+            string pageContent = WebRequestHelper.GetPageWebContent(pageUrl);
+
+            return pageContent;
+        }
+
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1054:UriParametersShouldNotBeStrings", MessageId = "0#")]
+        public string AppendParam(string url, string parameterName, string parameterValue)
+        {
+            if (parameterValue.IsNullOrEmpty())
+                return url;
+
+            if (url.Contains("?"))
+                return string.Format(System.Globalization.CultureInfo.InvariantCulture, "{0}&{1}={2}", url, parameterName, HttpUtility.UrlEncode(parameterValue));
+
+            return string.Format(System.Globalization.CultureInfo.InvariantCulture, "{0}?{1}={2}", url, parameterName, HttpUtility.UrlEncode(parameterValue));
+        }
+
+        /// <summary>
         /// Creates the mvcWidget control.
         /// </summary>
         /// <param name="pageManager">The page manager.</param>
@@ -726,7 +845,7 @@ namespace FeatherWidgets.TestUtilities.CommonOperations
             pageManager.PublishPageDraft(page, CultureInfo.CurrentUICulture);
             pageManager.SaveChanges();
         }
-
+       
         private PageContentGenerator locationGenerator;
     }
 }

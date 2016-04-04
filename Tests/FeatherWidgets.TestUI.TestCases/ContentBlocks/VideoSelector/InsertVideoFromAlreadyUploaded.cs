@@ -5,7 +5,6 @@ using System.Text;
 using System.Threading.Tasks;
 using Feather.Widgets.TestUI.Framework;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Telerik.Sitefinity.Frontend.TestUtilities;
 
 namespace FeatherWidgets.TestUI.TestCases.ContentBlocks.VideoSelector
 {
@@ -19,22 +18,22 @@ namespace FeatherWidgets.TestUI.TestCases.ContentBlocks.VideoSelector
         /// UI test InsertVideoFromAlreadyUploaded
         /// </summary>
         [TestMethod,
-        Owner(FeatherTeams.Team7),
+        Owner(FeatherTeams.FeatherTeam),
         TestCategory(FeatherTestCategories.MediaSelector),
-        TestCategory(FeatherTestCategories.ContentBlock)]
+        TestCategory(FeatherTestCategories.ContentBlock3)]
         public void InsertVideoFromAlreadyUploaded()
         {
-            BAT.Macros().NavigateTo().Pages();
+            BAT.Macros().NavigateTo().Pages(this.Culture);
             BAT.Wrappers().Backend().Pages().PagesWrapper().OpenPageZoneEditor(PageName);
             BATFeather.Wrappers().Backend().Pages().PageZoneEditorWrapper().EditWidget(WidgetName);
-            BATFeather.Wrappers().Backend().ContentBlocks().ContentBlocksWrapper().OpenVideoSelector();
-            BATFeather.Wrappers().Backend().Media().MediaSelectorWrapper().VerifyNoMediaEmptyScreen("No videos");
+            BATFeather.Wrappers().Backend().ContentBlocks().ContentBlocksWrapper().OpenVideoSelector();           
             BATFeather.Wrappers().Backend().Media().MediaSelectorWrapper().PressCancelButton();
 
             // Uploading video after epmty screen is verified.
             string videoId = BAT.Arrange(this.TestName).ExecuteArrangement("UploadVideo").Result.Values["videoId"];
 
             BATFeather.Wrappers().Backend().ContentBlocks().ContentBlocksWrapper().OpenVideoSelector();
+
             BATFeather.Wrappers().Backend().Media().MediaSelectorWrapper().VerifySelectedFilter(SelectedFilterName);
             BATFeather.Wrappers().Backend().Media().MediaSelectorWrapper().VerifyMediaTooltip(VideoName, LibraryName, VideoType);
             BATFeather.Wrappers().Backend().Media().MediaSelectorWrapper().SelectMediaFile(VideoName);
@@ -50,10 +49,10 @@ namespace FeatherWidgets.TestUI.TestCases.ContentBlocks.VideoSelector
             BATFeather.Wrappers().Backend().ContentBlocks().ContentBlocksWrapper()
                 .VerifyContentBlockVideoDesignMode(this.GetVideoSource(true), this.GetSfRef(videoId), "600", "450");
             BATFeather.Wrappers().Backend().ContentBlocks().ContentBlocksWrapper().SaveChanges();
-            BATFeather.Wrappers().Backend().Pages().PageZoneEditorMediaWrapper().VerifyVideo(this.GetVideoSource(false), Width, Height);
+            BATFeather.Wrappers().Backend().Pages().PageZoneEditorMediaWrapper().VerifyVideo(this.GetVideoSource(false), this.Culture, Width, Height);
             BAT.Wrappers().Backend().Pages().PageZoneEditorWrapper().PublishPage();
 
-            BAT.Macros().NavigateTo().CustomPage("~/" + PageName.ToLower());
+            BAT.Macros().NavigateTo().CustomPage("~/" + PageName.ToLower(), true, this.Culture);
             BATFeather.Wrappers().Frontend().MediaWidgets().MediaWidgetsWrapper().VerifyVideo(this.GetVideoSource(false), Width, Height);
         }
 
@@ -64,6 +63,7 @@ namespace FeatherWidgets.TestUI.TestCases.ContentBlocks.VideoSelector
         {
             BAT.Macros().User().EnsureAdminLoggedIn();
             BAT.Arrange(this.TestName).ExecuteSetUp();
+            currentProviderUrlName = BAT.Arrange(this.TestName).ExecuteArrangement("GetCurrentProviderUrlName").Result.Values["CurrentProviderUrlName"];
         }
 
         /// <summary>
@@ -76,14 +76,31 @@ namespace FeatherWidgets.TestUI.TestCases.ContentBlocks.VideoSelector
 
         private string GetSfRef(string videoId)
         {
-            return "[videos|OpenAccessDataProvider]" + videoId;
+            string provider = currentProviderUrlName;
+            if (this.Culture == null)
+            {
+                provider = "OpenAccessDataProvider";
+            }
+
+            return "[videos|" + provider + "]" + videoId;
         }
 
         private string GetVideoSource(bool isBaseUrlIncluded)
-        {
+        {            
             string libraryUrl = LibraryName.ToLower();
             string imageUrl = VideoName.ToLower() + VideoType.ToLower();
-            string scr = BATFeather.Wrappers().Frontend().MediaWidgets().MediaWidgetsWrapper().GetMediaSource(isBaseUrlIncluded, libraryUrl, imageUrl, this.BaseUrl, "videos");
+            string url;
+
+            if (this.Culture == null)
+            {
+                url = this.BaseUrl;
+            }
+            else
+            {
+                url = ActiveBrowser.Url.Substring(0, 20);
+            }
+
+            string scr = BATFeather.Wrappers().Frontend().MediaWidgets().MediaWidgetsWrapper().GetMediaSource(isBaseUrlIncluded, libraryUrl, imageUrl, url, "videos", currentProviderUrlName);
             return scr;
         }
 
@@ -95,5 +112,7 @@ namespace FeatherWidgets.TestUI.TestCases.ContentBlocks.VideoSelector
         private const string SelectedFilterName = "Recent Videos";
         private const int Width = 600;
         private const int Height = 450;
+        private string currentProviderUrlName;
+        private const string SecondProviderName = "SecondSite Libraries";
     }
 }

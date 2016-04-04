@@ -1,8 +1,8 @@
 ﻿using System;
 using FeatherWidgets.TestUtilities.CommonOperations;
 using Telerik.Sitefinity.Modules.Libraries;
+using Telerik.Sitefinity.TestArrangementService.Attributes;
 using Telerik.Sitefinity.TestUI.Arrangements.Framework;
-using Telerik.Sitefinity.TestUI.Arrangements.Framework.Attributes;
 using Telerik.Sitefinity.TestUI.Arrangements.Framework.Server;
 using Telerik.Sitefinity.TestUtilities.CommonOperations;
 
@@ -11,7 +11,7 @@ namespace FeatherWidgets.TestUI.Arrangements
     /// <summary>
     /// InsertVideoFromAlreadyUploaded class
     /// </summary>
-    public class InsertVideoFromAlreadyUploaded : ITestArrangement
+    public class InsertVideoFromAlreadyUploaded : TestArrangementBase
     {
         /// <summary>
         /// Server side set up.
@@ -29,8 +29,8 @@ namespace FeatherWidgets.TestUI.Arrangements
         [ServerArrangement]
         public void UploadVideo()
         {
-            ServerSideUpload.CreateVideoLibrary(LibraryTitle);
-            Guid id = ServerSideUpload.UploadVideo(LibraryTitle, VideoTitle, VideoResource);
+            ServerOperations.Videos().CreateLibrary(LibraryTitle);
+            Guid id = ServerOperations.Videos().Upload(LibraryTitle, VideoTitle, VideoResource);
 
             var manager = LibrariesManager.GetManager();
             var master = manager.GetVideo(id);
@@ -46,7 +46,17 @@ namespace FeatherWidgets.TestUI.Arrangements
         public void TearDown()
         {
             ServerOperations.Pages().DeleteAllPages();
-            ServerOperations.Libraries().DeleteAllVideoLibrariesExceptDefaultOne();
+            ServerOperations.Videos().DeleteAllLibrariesExceptDefaultOne();
+        }
+
+        /// Gets the current libraries provider Url name.
+        /// </summary>
+        [ServerArrangement]
+        public void GetCurrentProviderUrlName()
+        {
+            string urlName = ServerOperations.Media().GetCurrentProviderUrlName;
+
+            ServerArrangementContext.GetCurrent().Values.Add("CurrentProviderUrlName", urlName);
         }
 
         private const string PageName = "PageWithVideo";

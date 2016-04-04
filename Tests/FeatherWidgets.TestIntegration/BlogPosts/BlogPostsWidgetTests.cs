@@ -27,7 +27,7 @@ namespace FeatherWidgets.TestIntegration.BlogPosts
     {       
         [Test]
         [Category(TestCategories.Blogs)]
-        [Author(FeatherTeams.Team2)]
+        [Author(FeatherTeams.FeatherTeam)]
         [Description("Add Blog posts widget to a page and display posts from selected blogs only.")]
         public void BlogPostsWidget_DisplayPostsFromSelectedBlogsOnly()
         {
@@ -69,7 +69,7 @@ namespace FeatherWidgets.TestIntegration.BlogPosts
 
         [Test]
         [Category(TestCategories.Blogs)]
-        [Author(FeatherTeams.Team2)]
+        [Author(FeatherTeams.FeatherTeam)]
         [Description("Add Blog posts widget to a page and display posts from currently opened blog.")]
         public void BlogPostsWidget_DisplayPostsFromCurrentlyOpenedBlog()
         {
@@ -111,7 +111,7 @@ namespace FeatherWidgets.TestIntegration.BlogPosts
 
         [Test]
         [Category(TestCategories.Blogs)]
-        [Author(FeatherTeams.Team2)]
+        [Author(FeatherTeams.FeatherTeam)]
         [Description("Add Blog posts widget to a page and display selected posts only")]
         public void BlogPostsWidget_DisplaySelectedBlogPosts()
         {
@@ -149,7 +149,7 @@ namespace FeatherWidgets.TestIntegration.BlogPosts
 
         [Test]
         [Category(TestCategories.Blogs)]
-        [Author(FeatherTeams.Team2)]
+        [Author(FeatherTeams.FeatherTeam)]
         [Description("Add Blog posts widget to a page and create 2 blogs with published and draft posts in order to verify that ")]
         public void BlogPostsWidget_DisplayAllPublishedBlogPostsFromAllBlogs()
         {

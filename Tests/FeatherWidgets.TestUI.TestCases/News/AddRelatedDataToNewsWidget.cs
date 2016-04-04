@@ -2,7 +2,6 @@
 using Feather.Widgets.TestUI.Framework;
 using FeatherWidgets.TestUI.TestCases;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Telerik.Sitefinity.Frontend.TestUtilities;
 using Telerik.Sitefinity.TestUI.Framework.Framework.Wrappers.Frontend.RelatedData;
 
 namespace FeatherWidgets.TestUI.TestCases.News
@@ -17,12 +16,12 @@ namespace FeatherWidgets.TestUI.TestCases.News
         /// UI test AddRelatedDataToNewsWidget
         /// </summary>
         [TestMethod,
-        Owner(FeatherTeams.Team2),
+        Owner(FeatherTeams.FeatherTeam),
         TestCategory(FeatherTestCategories.PagesAndContent),
         TestCategory(FeatherTestCategories.News)]
         public void AddRelatedDataToNewsWidget()
         {
-            BAT.Macros().NavigateTo().Pages();
+            BAT.Macros().NavigateTo().Pages(this.Culture);
             BAT.Wrappers().Backend().Pages().PagesWrapper().OpenPageZoneEditor(PageName);
             BATFeather.Wrappers().Backend().Pages().PageZoneEditorWrapper().EditWidget(WidgetName);
             BATFeather.Wrappers().Backend().Widgets().WidgetDesignerWrapper().SwitchToSingleItemSettingsTab();
@@ -30,7 +29,7 @@ namespace FeatherWidgets.TestUI.TestCases.News
             BATFeather.Wrappers().Backend().Widgets().WidgetDesignerWrapper().SaveChanges();
             BAT.Wrappers().Backend().Pages().PageZoneEditorWrapper().PublishPage();
 
-            BAT.Macros().NavigateTo().CustomPage("~/" + PageName.ToLower());
+            BAT.Macros().NavigateTo().CustomPage("~/" + PageName.ToLower(), true, culture: this.Culture);
             BATFeather.Wrappers().Frontend().News().NewsWrapper().ClickNewsTitle(News1);
             Assert.IsTrue(BATFeather.Wrappers().Frontend().News().NewsWrapper().IsNewsTitlePresentOnDetailMasterPage(News1));
             BATFeather.Wrappers().Frontend().News().NewsWrapper().VerifyRelatedNews(News2);

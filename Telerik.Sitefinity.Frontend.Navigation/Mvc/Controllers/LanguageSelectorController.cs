@@ -5,6 +5,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.UI;
+using Telerik.Sitefinity.Frontend.Mvc.Infrastructure;
 using Telerik.Sitefinity.Frontend.Mvc.Infrastructure.Controllers;
 using Telerik.Sitefinity.Frontend.Mvc.Infrastructure.Controllers.Attributes;
 using Telerik.Sitefinity.Frontend.Navigation.Mvc.Models.LanguageSelector;
@@ -15,6 +16,7 @@ using Telerik.Sitefinity.Localization;
 using Telerik.Sitefinity.Modules.Pages.Configuration;
 using Telerik.Sitefinity.Mvc;
 using Telerik.Sitefinity.Services;
+using Telerik.Sitefinity.Web.UI;
 
 namespace Telerik.Sitefinity.Frontend.Navigation.Mvc.Controllers
 {
@@ -26,6 +28,7 @@ namespace Telerik.Sitefinity.Frontend.Navigation.Mvc.Controllers
         SectionName = ToolboxesConfig.NavigationControlsSectionName,
         CssClass = LanguageSelectorController.WidgetIconCssClass)]
     [Localization(typeof(LanguageSelectorResources))]
+    [IndexRenderMode(IndexRenderModes.NoOutput)]
     public class LanguageSelectorController : Controller
     {
         #region Properties
@@ -127,8 +130,8 @@ namespace Telerik.Sitefinity.Frontend.Navigation.Mvc.Controllers
             }
             
             this.viewModel = this.Model.CreateViewModel();
-            
-            var page = context.CurrentHandler as Page;
+
+            var page = context.CurrentHandler.GetPageHandler();
             
             if (page != null && !this.IsEdit)
             {
@@ -201,7 +204,7 @@ namespace Telerik.Sitefinity.Frontend.Navigation.Mvc.Controllers
 
                 page.Controls.Add(new LiteralControl()
                     {
-                        Text = string.Format(CultureInfo.InvariantCulture, "<input data-sf-role='{0}' type='hidden' value='{1}'>", item.Culture, link)
+                        Text = string.Format(CultureInfo.InvariantCulture, "<input data-sf-role='{0}' type='hidden' value='{1}'>", item.Culture, HttpUtility.HtmlEncode(link))
                     });
             }
         }

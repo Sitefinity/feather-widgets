@@ -6,7 +6,6 @@ using System.Threading.Tasks;
 using ArtOfTest.WebAii.Core;
 using Feather.Widgets.TestUI.Framework;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Telerik.Sitefinity.Frontend.TestUtilities;
 using Telerik.Sitefinity.TestUI.Framework.Wrappers.Backend;
 
 namespace FeatherWidgets.TestUI.TestCases.CommentsAndReviews
@@ -21,13 +20,13 @@ namespace FeatherWidgets.TestUI.TestCases.CommentsAndReviews
         /// UI test SubmitReviewForPageLoggedUserOnBootstrapPage
         /// </summary>
         [TestMethod,
-        Owner(FeatherTeams.Team2),
+        Owner(FeatherTeams.FeatherTeam),
         TestCategory(FeatherTestCategories.PagesAndContent),
         TestCategory(FeatherTestCategories.CommentsAndReviews),
         TestCategory(FeatherTestCategories.Bootstrap)]
         public void SubmitReviewForPageLoggedUserOnBootstrapPage()
         {
-            BAT.Macros().NavigateTo().CustomPage("~/" + PageName.ToLower(), false);
+            BAT.Macros().NavigateTo().CustomPage("~/" + PageName.ToLower(), false, this.Culture);
             BATFeather.Wrappers().Frontend().CommentsAndReviews().ReviewsWrapper().AssertMessageAndCountOnPage(ReviewMessage);
             BATFeather.Wrappers().Frontend().CommentsAndReviews().ReviewsWrapper().TypeAMessage(this.reviewsToPage[0]);
             BATFeather.Wrappers().Frontend().CommentsAndReviews().ReviewsWrapper().ClickRaitingStar(Raiting);
@@ -41,7 +40,7 @@ namespace FeatherWidgets.TestUI.TestCases.CommentsAndReviews
 
         public void VerifyCommentBackend()
         {
-            BAT.Macros().NavigateTo().Modules().Comments();
+            BAT.Macros().NavigateTo().Modules().Comments(this.Culture);
             ActiveBrowser.WaitForAsyncJQueryRequests();
             ManageCommentsWrapper manageComments = new ManageCommentsWrapper(ActiveBrowser);
             manageComments.VerifyCommentBackend(ReviewsStatus, this.reviewsToPage[0], this.reviewAuthor[0], PageName);

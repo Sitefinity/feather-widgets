@@ -7,6 +7,7 @@ using Telerik.Sitefinity.Frontend.Mvc.Infrastructure.Controllers.Attributes;
 using Telerik.Sitefinity.Frontend.Taxonomies.Mvc.Models.HierarchicalTaxonomy;
 using Telerik.Sitefinity.Frontend.Taxonomies.Mvc.StringResources;
 using Telerik.Sitefinity.Mvc;
+using Telerik.Sitefinity.Web.UI;
 
 namespace Telerik.Sitefinity.Frontend.Taxonomies.Mvc.Controllers
 {
@@ -18,6 +19,7 @@ namespace Telerik.Sitefinity.Frontend.Taxonomies.Mvc.Controllers
         SectionName = "Classifications",
         CssClass = HierarchicalTaxonomyController.WidgetIconCssClass)]
     [Localization(typeof(HierarchicalTaxonomyResources))]
+    [IndexRenderMode(IndexRenderModes.NoOutput)]
     public class HierarchicalTaxonomyController : Controller
     {
         #region Properties

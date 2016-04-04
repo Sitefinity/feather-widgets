@@ -115,8 +115,7 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend.Media
             HtmlImage image = ActiveBrowser.Find
                                            .ByExpression<HtmlImage>("alt=" + altText)
                                            .AssertIsPresent("image");
-
-            Assert.IsTrue(image.Src.StartsWith(src), "src is not correct");
+            Assert.IsTrue(image.Src.StartsWith(src), "Actual:" + image.Src + "Expected" + src  + "src is not correct");
         }
 
         /// <summary>
@@ -212,6 +211,18 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend.Media
             HtmlInputCheckBox link = this.EM.Media.ImagePropertiesScreen.ThisImageIsALinkCheckBox.AssertIsPresent("this image is a link");
 
             link.Click();
+        }
+
+        /// <summary>
+        /// Waits the until image is loaded.
+        /// </summary>
+        public void WaitUntilImageIsLoaded()
+        {
+            ActiveBrowser.WaitForElement("tagName=button", "InnerText=~Change");
+            Manager.Current.Wait.For(() => {
+                this.ActiveBrowser.RefreshDomTree();
+                return this.EM.Media.ImagePropertiesScreen.ChangeButton.IsVisible();
+            });
         }
     }
 }

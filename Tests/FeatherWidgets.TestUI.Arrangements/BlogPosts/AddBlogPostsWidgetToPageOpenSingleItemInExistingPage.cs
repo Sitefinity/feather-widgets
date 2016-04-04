@@ -3,8 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using FeatherWidgets.TestUtilities.CommonOperations;
+using Telerik.Sitefinity.TestArrangementService.Attributes;
 using Telerik.Sitefinity.TestUI.Arrangements.Framework;
-using Telerik.Sitefinity.TestUI.Arrangements.Framework.Attributes;
 using Telerik.Sitefinity.TestUtilities.CommonOperations;
 
 namespace FeatherWidgets.TestUI.Arrangements
@@ -12,7 +12,7 @@ namespace FeatherWidgets.TestUI.Arrangements
     /// <summary>
     /// This is a class with arrangement methods related to UI test AddBlogPostsWidgetToPageOpenSingleItemInExistingPage
     /// </summary>
-    public class AddBlogPostsWidgetToPageOpenSingleItemInExistingPage : ITestArrangement
+    public class AddBlogPostsWidgetToPageOpenSingleItemInExistingPage : TestArrangementBase
     {
         /// <summary>
         /// Server side set up.
@@ -20,6 +20,7 @@ namespace FeatherWidgets.TestUI.Arrangements
         [ServerSetUp]
         public void SetUp()
         {
+            AuthenticationHelper.AuthenticateUser(AdminUserName, AdminPass, true);
             var blogId = ServerOperations.Blogs().CreateBlog(BlogTitle);
             ServerOperations.Blogs().CreatePublishedBlogPost(PostTitle, blogId);
 
@@ -41,6 +42,8 @@ namespace FeatherWidgets.TestUI.Arrangements
             ServerOperations.Blogs().DeleteAllBlogs();
         }
 
+        private const string AdminUserName = "admin";
+        private const string AdminPass = "admin@2";
         private const string PageTitle = "TestPageWithBlogPostsWidget";
         private const string DetailPageTitle = "DetailPage";
         private const string PlaceHolderId = "Contentplaceholder1";

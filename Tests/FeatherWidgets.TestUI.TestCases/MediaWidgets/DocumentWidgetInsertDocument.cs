@@ -5,7 +5,6 @@ using System.Text;
 using System.Threading.Tasks;
 using Feather.Widgets.TestUI.Framework;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Telerik.Sitefinity.Frontend.TestUtilities;
 
 namespace FeatherWidgets.TestUI.TestCases.MediaWidgets
 {
@@ -19,14 +18,16 @@ namespace FeatherWidgets.TestUI.TestCases.MediaWidgets
         /// UI test ImageWidgetInsertImageWithCustomThumbnail
         /// </summary>
         [TestMethod,
-        Owner(FeatherTeams.Team7),
+        Owner(FeatherTeams.FeatherTeam),
         TestCategory(FeatherTestCategories.MediaSelector),
         TestCategory(FeatherTestCategories.PagesAndContent)]
         public void DocumentWidgetInsertDocument()
         {
-            BAT.Macros().NavigateTo().Pages();
+            BAT.Macros().NavigateTo().Pages(this.Culture);
             BAT.Wrappers().Backend().Pages().PagesWrapper().OpenPageZoneEditor(PageName);
             BATFeather.Wrappers().Backend().Pages().PageZoneEditorWrapper().AddWidgetToPlaceHolderPureMvcMode(WidgetName);
+            BATFeather.Wrappers().Backend().Pages().PageZoneEditorWrapper().EditWidget(WidgetName, 0, true);
+            BATFeather.Wrappers().Backend().Media().MediaSelectorWrapper().PressCancelButton();
             BATFeather.Wrappers().Backend().Pages().PageZoneEditorWrapper().EditWidget(WidgetName, 0, true);
             BATFeather.Wrappers().Backend().Media().MediaSelectorWrapper().WaitForContentToBeLoaded(false);
             BATFeather.Wrappers().Backend().Media().MediaSelectorWrapper().VerifySelectedFilter(SelectedFilterName);
@@ -43,7 +44,7 @@ namespace FeatherWidgets.TestUI.TestCases.MediaWidgets
 
             BAT.Wrappers().Backend().Pages().PageZoneEditorWrapper().PublishPage();
 
-            BAT.Macros().NavigateTo().CustomPage("~/" + PageName.ToLower());
+            BAT.Macros().NavigateTo().CustomPage("~/" + PageName.ToLower(), false, this.Culture);
             BATFeather.Wrappers().Frontend().MediaWidgets().MediaWidgetsWrapper().VerifyDocumentFromWidget(DocumentName, this.GetDocumentHref(false));
             BATFeather.Wrappers().Frontend().MediaWidgets().MediaWidgetsWrapper().VerifyDocumentCssClass(CssClassesToApply, DocumentName);
             BATFeather.Wrappers().Backend().Pages().PageZoneEditorMediaWrapper().VerifyDocumentIconOnTemplate(DocumentExtension);
@@ -56,6 +57,7 @@ namespace FeatherWidgets.TestUI.TestCases.MediaWidgets
         {
             BAT.Macros().User().EnsureAdminLoggedIn();
             BAT.Arrange(this.TestName).ExecuteSetUp();
+            currentProviderUrlName = BAT.Arrange(this.TestName).ExecuteArrangement("GetCurrentProviderUrlName").Result.Values["CurrentProviderUrlName"];
         }
 
         /// <summary>
@@ -70,7 +72,19 @@ namespace FeatherWidgets.TestUI.TestCases.MediaWidgets
         {
             string libraryUrl = LibraryName.ToLower();
             string documentUrl = DocumentName.ToLower() + DocumentType.ToLower();
-            string href = BATFeather.Wrappers().Frontend().MediaWidgets().MediaWidgetsWrapper().GetMediaSource(isBaseUrlIncluded, libraryUrl, documentUrl, this.BaseUrl, "docs");
+
+            string url;
+
+            if (this.Culture == null)
+            {
+                url = this.BaseUrl;
+            }
+            else
+            {
+                url = ActiveBrowser.Url.Substring(0, 20);
+            }
+
+            string href = BATFeather.Wrappers().Frontend().MediaWidgets().MediaWidgetsWrapper().GetMediaSource(isBaseUrlIncluded, libraryUrl, documentUrl, url, "docs", currentProviderUrlName);
             return href;
         }
 
@@ -82,5 +96,6 @@ namespace FeatherWidgets.TestUI.TestCases.MediaWidgets
         private const string SelectedFilterName = "Recent Documents";
         private const string CssClassesToApply = "testCssClass";
         private const string DocumentExtension = "docx";
+        private string currentProviderUrlName;
     }
 }

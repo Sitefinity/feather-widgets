@@ -83,9 +83,7 @@ namespace FeatherWidgets.TestUnit.Media.DocumentsList
                 var viewModel = view.Model as ContentDetailsViewModel;
 
                 // Assert
-                Assert.IsNotNull(view);
                 Assert.IsNotNull(viewModel);
-                Assert.IsNotNull(viewModel.ContentType is DummyDocument);
                 Assert.IsNotNull(viewModel.Item.DataItem == doc);
                 Assert.IsTrue(view.ViewBag.Title == doc.Title);
                 Assert.IsTrue(view.ViewName == "Detail.DocumentDetails");

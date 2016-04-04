@@ -13,8 +13,12 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend
         /// </summary>
         public void CreateTemplate()
         {
-            HtmlAnchor createButton = this.EM.WidgetTemplates.WidgetTemplatesGrid.CreateTemplateButton
-                                    .AssertIsPresent("create button");
+            HtmlAnchor createButton = this.EM.WidgetTemplates.WidgetTemplatesGrid.CreateTemplateButton;
+
+            if (createButton == null)
+            {
+                createButton = ActiveBrowser.Find.ByExpression<HtmlAnchor>("tagname=a", "id = ctl04_controlTemplatesBackendList_ctl00_ctl00_noItemsExistScreen_ctl00_ctl00_actionsRepeater_actionLink_0");
+            }
 
             createButton.Click();
             ActiveBrowser.WaitForAsyncRequests();

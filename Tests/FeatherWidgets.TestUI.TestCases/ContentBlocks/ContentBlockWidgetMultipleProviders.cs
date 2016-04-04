@@ -8,8 +8,8 @@ using ArtOfTest.WebAii.Core;
 using Feather.Widgets.TestUI.Framework;
 using FeatherWidgets.TestUI.TestCases;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Telerik.Sitefinity.Frontend.TestUtilities;
 using Telerik.WebAii.Controls;
+using Telerik.Sitefinity.TestUI.Framework.Utilities;
 
 namespace FeatherWidgets.TestUI.TestCases.ContentBlocks
 {
@@ -23,17 +23,19 @@ namespace FeatherWidgets.TestUI.TestCases.ContentBlocks
         /// UI test ContentBlockWidgetMultipleProviders
         /// </summary>
         [TestMethod,
-        Owner(FeatherTeams.Team2),
-        TestCategory(FeatherTestCategories.ContentBlock)]
+        Owner(FeatherTeams.FeatherTeam),
+        TestCategory(FeatherTestCategories.ContentBlock1)]
         public void ContentBlockWidgetMultipleProviders()
         {
-            BAT.Macros().NavigateTo().Pages();
+            RuntimeSettingsModificator.ExecuteWithClientTimeout(800000, () => BAT.Macros().NavigateTo().CustomPage("~/sitefinity/pages", false, this.Culture));
+            RuntimeSettingsModificator.ExecuteWithClientTimeout(800000, () => BAT.Macros().User().EnsureAdminLoggedIn());
+            BAT.Macros().NavigateTo().Pages(this.Culture);
             BAT.Wrappers().Backend().Pages().PagesWrapper().OpenPageZoneEditor(PageName);
             BATFeather.Wrappers().Backend().Pages().PageZoneEditorWrapper().SelectExtraOptionForWidget(OperationName);
             BATFeather.Wrappers().Backend().Widgets().WidgetDesignerWrapper().SelectProvider(SecondProviderName);
             BATFeather.Wrappers().Backend().ContentBlocks().ContentBlocksShareWrapper().SelectContentBlock(ContentBlockName);
             BAT.Wrappers().Backend().Pages().PageZoneEditorWrapper().PublishPage();
-            BAT.Macros().NavigateTo().CustomPage("~/" + PageName.ToLower());
+            BAT.Macros().NavigateTo().CustomPage("~/" + PageName.ToLower(), true, this.Culture);
             BATFeather.Wrappers().Frontend().ContentBlock().ContentBlockWrapper().VerifyContentOfContentBlockOnThePageFrontend(ContentBlockContent);
         }
 
@@ -42,7 +44,6 @@ namespace FeatherWidgets.TestUI.TestCases.ContentBlocks
         /// </summary>
         protected override void ServerSetup()
         {
-            BAT.Macros().User().EnsureAdminLoggedIn();
             BAT.Arrange(this.TestName).ExecuteSetUp();
         }
 

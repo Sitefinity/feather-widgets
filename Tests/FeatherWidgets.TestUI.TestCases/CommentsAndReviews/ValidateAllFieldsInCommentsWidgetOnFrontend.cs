@@ -6,7 +6,6 @@ using System.Threading.Tasks;
 using ArtOfTest.WebAii.Core;
 using Feather.Widgets.TestUI.Framework;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Telerik.Sitefinity.Frontend.TestUtilities;
 using Telerik.Sitefinity.TestUI.Framework.Wrappers.Backend;
 
 namespace FeatherWidgets.TestUI.TestCases.CommentsAndReviews
@@ -21,30 +20,30 @@ namespace FeatherWidgets.TestUI.TestCases.CommentsAndReviews
         /// UI test ValidateAllFieldsInCommentsWidgetOnFrontend_
         /// </summary>
         [TestMethod,
-        Owner(FeatherTeams.Team2),
+        Owner(FeatherTeams.FeatherTeam),
         TestCategory(FeatherTestCategories.PagesAndContent),
         TestCategory(FeatherTestCategories.CommentsAndReviews),
         TestCategory(FeatherTestCategories.Bootstrap)]
         public void ValidateAllFieldsInCommentsWidgetOnFrontend()
         {
-            BAT.Macros().NavigateTo().CustomPage("~/" + PageName.ToLower(), false);
+            BAT.Macros().NavigateTo().CustomPage("~/" + PageName.ToLower(), false, this.Culture);
             BATFeather.Wrappers().Frontend().CommentsAndReviews().CommentsWrapper().AssertMessageAndCountOnPage(CommentsMessage);
             BATFeather.Wrappers().Frontend().CommentsAndReviews().CommentsWrapper().ClickSubmitButton();
             BATFeather.Wrappers().Frontend().CommentsAndReviews().CommentsWrapper().VerifyErrorMessageOnTheFrontend(MessageIsRequired);
-            
-            BAT.Macros().NavigateTo().CustomPage("~/" + PageName.ToLower(), false);
+
+            BAT.Macros().NavigateTo().CustomPage("~/" + PageName.ToLower(), false, this.Culture);
             BATFeather.Wrappers().Frontend().CommentsAndReviews().CommentsWrapper().TypeAMessage(this.commentToPage[0]);
             BATFeather.Wrappers().Frontend().CommentsAndReviews().CommentsWrapper().ClickSubmitButton();
             BATFeather.Wrappers().Frontend().CommentsAndReviews().CommentsWrapper().VerifyErrorMessageOnTheFrontend(AuthorIsRequired);
 
-            BAT.Macros().NavigateTo().CustomPage("~/" + PageName.ToLower(), false);
+            BAT.Macros().NavigateTo().CustomPage("~/" + PageName.ToLower(), false, this.Culture);
             BATFeather.Wrappers().Frontend().CommentsAndReviews().CommentsWrapper().TypeAMessage(this.commentToPage[0]);
             BATFeather.Wrappers().Frontend().CommentsAndReviews().CommentsWrapper().TypeYourName(this.commentAuthor[0]);
             BATFeather.Wrappers().Frontend().CommentsAndReviews().CommentsWrapper().TypeEmailAddress(this.commentAuthorInvalidEmail[0]);
             BATFeather.Wrappers().Frontend().CommentsAndReviews().CommentsWrapper().ClickSubmitButton();
             BATFeather.Wrappers().Frontend().CommentsAndReviews().CommentsWrapper().VerifyErrorMessageOnTheFrontend(InvalidEmail);
 
-            BAT.Macros().NavigateTo().CustomPage("~/" + PageName.ToLower(), false);
+            BAT.Macros().NavigateTo().CustomPage("~/" + PageName.ToLower(), false, this.Culture);
             BATFeather.Wrappers().Frontend().CommentsAndReviews().CommentsWrapper().TypeAMessage(this.commentToPage[0]);
             BATFeather.Wrappers().Frontend().CommentsAndReviews().CommentsWrapper().TypeYourName(this.commentAuthor[0]);
             BATFeather.Wrappers().Frontend().CommentsAndReviews().CommentsWrapper().TypeEmailAddress(this.commentAuthorEmail[0]);
@@ -60,7 +59,7 @@ namespace FeatherWidgets.TestUI.TestCases.CommentsAndReviews
         {
             BAT.Macros().User().EnsureAdminLoggedIn();
 
-            BAT.Macros().NavigateTo().Modules().Comments();
+            BAT.Macros().NavigateTo().Modules().Comments(this.Culture);
             ActiveBrowser.WaitForAsyncJQueryRequests();
             ManageCommentsWrapper manageComments = new ManageCommentsWrapper(ActiveBrowser);
             manageComments.VerifyCommentBackend(CommentStatus, this.commentToPage[0], this.commentAuthor[0], PageName);

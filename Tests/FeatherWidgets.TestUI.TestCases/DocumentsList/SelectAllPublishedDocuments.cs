@@ -2,7 +2,6 @@
 using Feather.Widgets.TestUI.Framework;
 using Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend.Widgets;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Telerik.Sitefinity.Frontend.TestUtilities;
 
 namespace FeatherWidgets.TestUI.TestCases.DocumentsList
 {
@@ -16,12 +15,12 @@ namespace FeatherWidgets.TestUI.TestCases.DocumentsList
         /// UI test SelectAllPublishedDocuments
         /// </summary>
         [TestMethod,
-        Owner(FeatherTeams.Team7),
+        Owner(FeatherTeams.FeatherTeam),
         TestCategory(FeatherTestCategories.PagesAndContent),
         TestCategory(FeatherTestCategories.DocumentsList)]
         public void SelectAllPublishedDocuments()
         {
-            BAT.Macros().NavigateTo().Pages();
+            BAT.Macros().NavigateTo().Pages(this.Culture);
             BAT.Wrappers().Backend().Pages().PagesWrapper().OpenPageZoneEditor(PageName);
             BATFeather.Wrappers().Backend().Pages().PageZoneEditorWrapper().AddWidgetToPlaceHolderPureMvcMode(WidgetName);
             BATFeather.Wrappers().Backend().Pages().PageZoneEditorWrapper().EditWidget(WidgetName);
@@ -40,13 +39,13 @@ namespace FeatherWidgets.TestUI.TestCases.DocumentsList
             }
 
             BAT.Wrappers().Backend().Pages().PageZoneEditorWrapper().PublishPage();
-            
-            BAT.Macros().NavigateTo().CustomPage("~/" + PageName.ToLower());
+
+            BAT.Macros().NavigateTo().CustomPage("~/" + PageName.ToLower(), false, this.Culture);
 
             foreach (var doc in this.documentTitles)
             {
                 BATFeather.Wrappers().Frontend().DocumentsList().DocumentsListWrapper().VerifyDocument(doc, this.GetDocumentHref(true, doc, PageName + "/" + ContentType));
-                BATFeather.Wrappers().Frontend().DocumentsList().DocumentsListWrapper().VerifyDownloadButton(this.GetDocumentHref(true, doc, ContentType));              
+                BATFeather.Wrappers().Frontend().DocumentsList().DocumentsListWrapper().VerifyDownloadButton(this.GetDownloadHref(true, doc, ContentType));              
             }
 
             BATFeather.Wrappers().Frontend().DocumentsList().DocumentsListWrapper().VerifyCorrectOrderOfDocuments(this.documentTitles);
@@ -55,7 +54,7 @@ namespace FeatherWidgets.TestUI.TestCases.DocumentsList
             BATFeather.Wrappers().Frontend().DocumentsList().DocumentsListWrapper().ClickDocument(SelectedDocument);
             ActiveBrowser.WaitForUrl(this.GetDocumentHref(false, SelectedDocument, PageName + "/" + ContentType), true, 60000);
             BATFeather.Wrappers().Frontend().DocumentsList().DocumentsListWrapper().IsDocumentTitlePresentOnDetailMasterPage(SelectedDocument);
-            BATFeather.Wrappers().Frontend().DocumentsList().DocumentsListWrapper().VerifyDownloadButton(this.GetDocumentHref(true, SelectedDocument, ContentType));
+            BATFeather.Wrappers().Frontend().DocumentsList().DocumentsListWrapper().VerifyDownloadButton(this.GetDownloadHref(true, SelectedDocument, ContentType));              
             BATFeather.Wrappers().Frontend().DocumentsList().DocumentsListWrapper().VerifySizeAndExtensionOnTemplate("5 KB", "(" + DocumentType + ")");
         }
 
@@ -66,6 +65,7 @@ namespace FeatherWidgets.TestUI.TestCases.DocumentsList
         {
             BAT.Macros().User().EnsureAdminLoggedIn();
             BAT.Arrange(this.TestName).ExecuteSetUp();
+            currentProviderUrlName = BAT.Arrange(this.TestName).ExecuteArrangement("GetCurrentProviderUrlName").Result.Values["CurrentProviderUrlName"];
         }
 
         /// <summary>
@@ -80,7 +80,37 @@ namespace FeatherWidgets.TestUI.TestCases.DocumentsList
         {
             string libraryUrl = LibraryName.ToLower();
             string documentUrl = documentName.ToLower();
-            string href = BATFeather.Wrappers().Frontend().MediaWidgets().MediaWidgetsWrapper().GetMediaSource(isBaseUrlIncluded, libraryUrl, documentUrl, this.BaseUrl, contentType);
+            string url;
+
+            if (this.Culture == null)
+            {
+                url = this.BaseUrl;
+            }
+            else
+            {
+                url = ActiveBrowser.Url.Substring(0, 20);
+            }
+
+            string href = BATFeather.Wrappers().Frontend().MediaWidgets().MediaWidgetsWrapper().GetMediaSource(isBaseUrlIncluded, libraryUrl, documentUrl, url, contentType, currentProviderUrlName, this.Culture);
+            return href;
+        }
+
+        private string GetDownloadHref(bool isBaseUrlIncluded, string documentName, string contentType)
+        {
+            string libraryUrl = LibraryName.ToLower();
+            string documentUrl = documentName.ToLower();
+            string url;
+
+            if (this.Culture == null)
+            {
+                url = this.BaseUrl;
+            }
+            else
+            {
+                url = ActiveBrowser.Url.Substring(0, 20);
+            }
+
+            string href = BATFeather.Wrappers().Frontend().MediaWidgets().MediaWidgetsWrapper().GetDownloadButtonSource(isBaseUrlIncluded, libraryUrl, documentUrl, url, contentType, currentProviderUrlName);
             return href;
         }
 
@@ -91,5 +121,6 @@ namespace FeatherWidgets.TestUI.TestCases.DocumentsList
         private const string DocumentType = "jpg";
         private const string SelectedDocument = "Image3";
         private const string ContentType = "docs";
+        private string currentProviderUrlName;
     }
 }

@@ -1,8 +1,9 @@
 ﻿using System;
+using ArtOfTest.WebAii.Core;
 using Feather.Widgets.TestUI.Framework;
 using FeatherWidgets.TestUI.TestCases;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Telerik.Sitefinity.Frontend.TestUtilities;
+using Telerik.TestUI.Core.Utilities;
 
 namespace FeatherWidgets.TestUI.TestCases.DynamicWidgets
 {
@@ -17,11 +18,12 @@ namespace FeatherWidgets.TestUI.TestCases.DynamicWidgets
         /// UI test EditDeleteTagAndEditDynamicWidget
         /// </summary>
         [TestMethod,
-        Owner(FeatherTeams.Team7),
+        Owner(FeatherTeams.FeatherTeam),
         TestCategory(FeatherTestCategories.DynamicWidgets)]
         public void EditDeleteTagAndEditDynamicWidget()
         {
-            BAT.Macros().NavigateTo().Pages();
+            var pagesUrl = this.Culture != null ? "~/sitefinity/pages/?lang=" + this.Culture : "~/sitefinity/pages";
+            RuntimeSettingsModificator.ExecuteWithClientTimeout(800000, () => BAT.Macros().NavigateTo().CustomPage(pagesUrl, false, null, new HtmlFindExpression("class=~sfMain"))); 
             BAT.Wrappers().Backend().Pages().PagesWrapper().OpenPageZoneEditor(PageName);
             BATFeather.Wrappers().Backend().Pages().PageZoneEditorWrapper().EditWidget(WidgetName);
             BATFeather.Wrappers().Backend().Widgets().WidgetDesignerWrapper().SelectWhichItemsToDisplay(WhichNewsToDisplay);
@@ -54,7 +56,7 @@ namespace FeatherWidgets.TestUI.TestCases.DynamicWidgets
             BAT.Wrappers().Backend().Pages().PageZoneEditorWrapper().CheckWidgetContent(WidgetName, ItemsTitle2);
             BAT.Wrappers().Backend().Pages().PageZoneEditorWrapper().PublishPage();
 
-            BAT.Macros().NavigateTo().CustomPage("~/" + PageName.ToLower());
+            BAT.Macros().NavigateTo().CustomPage("~/" + PageName.ToLower(), true, this.Culture);
             Assert.IsTrue(BATFeather.Wrappers().Frontend().ModuleBuilder().ModuleBuilderWrapper().VerifyDynamicContentPresentOnTheFrontend(this.itemsTitles));
         }
 

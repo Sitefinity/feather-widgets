@@ -1,0 +1,56 @@
+﻿@model Telerik.Sitefinity.Frontend.Forms.Mvc.Models.Fields.FileField.FileFieldViewModel
+
+@using Telerik.Sitefinity.Frontend.Mvc.Helpers;
+@using Telerik.Sitefinity.Modules.Pages;
+@using Telerik.Sitefinity.Services;
+
+@Html.Script(ScriptRef.JQuery, "top", false)
+
+<div class="@Model.CssClass sf-fieldWrp" data-sf-role="file-field-container" data-sf-config="@(Html.AttributeEncode(Model.Serialize()))">
+    <strong>@Model.MetaField.Title</strong>
+    <p data-sf-role="required-violation-message" style="display: none;">@Model.RequiredViolationMessage</p>
+    
+    @if (!string.IsNullOrEmpty(Model.MetaField.Description)) 
+    {
+        <p>@Model.MetaField.Description</p>
+    }
+
+    <div data-sf-role="file-field-inputs">
+        @if (!SystemManager.IsDesignMode)
+        {
+            @:<script type="text/template" data-sf-role="file-input-template">
+        }
+            <div data-sf-role="single-file-input">
+                <input title="file" type="file" name="@(Model.MetaField.FieldName)" @Html.Raw(Model.ValidationAttributes) />
+                @if (Model.AllowMultipleFiles)
+                {
+                    <a href="javascript:void(0);" style="display: none;" data-sf-role="remove-input">Remove</a>
+                }
+
+                @if (Model.AcceptedFileTypes.Length > 0)
+                { 
+                    <p data-sf-role="filetype-violation-message" style="display: none;">@Model.FileTypeViolationMessage</p>
+                }
+                @if (Model.MinFileSizeInMb > 0 || Model.MaxFileSizeInMb > 0)
+                {
+                    <p data-sf-role="filesize-violation-message" style="display: none;">@Model.FileSizeViolationMessage</p>
+                }    
+            </div>
+        @if (!SystemManager.IsDesignMode)
+        {
+            @:</script>
+        }
+        
+        @* File inputs will be generated here *@
+    </div>
+
+    @if (Model.AllowMultipleFiles)
+    {
+        <a href="javascript:void(0);" data-sf-role="add-input">@Html.Resource("AddAnother")</a>
+    }
+</div>
+
+@if (!SystemManager.IsDesignMode)
+{
+    @Html.Script(Url.WidgetContent("Mvc/Scripts/FileField/file-field.js"), "bottom", false)
+}

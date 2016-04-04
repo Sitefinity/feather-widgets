@@ -21,6 +21,26 @@ namespace FeatherWidgets.TestUI.TestCases
         public const string ContentBlock = "ContentBlock";
 
         /// <summary>
+        /// Content block category
+        /// </summary>
+        public const string ContentBlock1 = "ContentBlock1";
+
+        /// <summary>
+        /// Content block category
+        /// </summary>
+        public const string ContentBlock2 = "ContentBlock2";
+
+        /// <summary>
+        /// Content block category
+        /// </summary>
+        public const string ContentBlock3 = "ContentBlock3";
+
+        /// <summary>
+        /// Content block category
+        /// </summary>
+        public const string ContentBlock4 = "ContentBlock4";
+
+        /// <summary>
         /// Navigation category
         /// </summary>
         public const string Navigation = "Navigation";
@@ -144,5 +164,30 @@ namespace FeatherWidgets.TestUI.TestCases
         /// New category for Categories and Tags tests
         /// </summary>
         public const string Classifications = "Classifications";
+
+        /// <summary>
+        /// New category for EmailCampaigns tests
+        /// </summary>
+        public const string EmailCampaigns = "EmailCampaigns";
+        
+        /// <summary>
+        /// New category for Feed tests
+        /// </summary>
+        public const string Feed = "Feed";
+
+        /// <summary>
+        /// New category for Forms tests
+        /// </summary>
+        public const string Forms = "Forms";
+
+        /// <summary>
+        /// New category for Card tests
+        /// </summary>
+        public const string Card = "Card";
+
+        /// <summary>
+        /// Pages and content category
+        /// </summary>
+        public const string Packaging = "Packaging";
     }
 }

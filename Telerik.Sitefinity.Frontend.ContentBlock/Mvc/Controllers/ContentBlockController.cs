@@ -5,13 +5,16 @@ using System.Globalization;
 using System.Web.Mvc;
 using Telerik.Sitefinity.Frontend.ContentBlock.Mvc.Models;
 using Telerik.Sitefinity.Frontend.ContentBlock.Mvc.StringResources;
+using Telerik.Sitefinity.Frontend.Mvc.Helpers;
 using Telerik.Sitefinity.Frontend.Mvc.Infrastructure.Controllers;
 using Telerik.Sitefinity.Frontend.Mvc.Infrastructure.Controllers.Attributes;
 using Telerik.Sitefinity.Frontend.Resources;
 using Telerik.Sitefinity.Localization;
 using Telerik.Sitefinity.Modules.GenericContent;
+using Telerik.Sitefinity.Modules.Pages;
 using Telerik.Sitefinity.Modules.Pages.Configuration;
 using Telerik.Sitefinity.Mvc;
+using Telerik.Sitefinity.Personalization;
 using Telerik.Sitefinity.Services;
 using Telerik.Sitefinity.Utilities.TypeConverters;
 using Telerik.Sitefinity.Web;
@@ -30,7 +33,9 @@ namespace Telerik.Sitefinity.Frontend.ContentBlock.Mvc.Controllers
                                           ICustomWidgetVisualizationExtended, 
                                           ICustomWidgetTitlebar, 
                                           IHasEditCommands, 
-                                          IContentItemControl
+                                          IContentItemControl,
+                                          ISearchIndexBehavior,
+                                          IPersonalizable
     {
         #region Explicit Interface Properties
 
@@ -138,6 +143,18 @@ namespace Telerik.Sitefinity.Frontend.ContentBlock.Mvc.Controllers
         /// <inheritdoc />
         Type IHasContainerType.ContainerType { get; set; }
 
+        #region ISearchIndexBehavior
+
+        /// <summary>
+        /// Gets or sets a value indicating whether to exclude the content from search index.
+        /// </summary>
+        /// <value>
+        /// <c>true</c> if should exclude content from search index; otherwise, <c>false</c>.
+        /// </value>
+        public bool ExcludeFromSearchIndex { get; set; }
+
+        #endregion
+
         #endregion
 
         #region Properties
@@ -208,7 +225,10 @@ namespace Telerik.Sitefinity.Frontend.ContentBlock.Mvc.Controllers
         /// </returns>
         public ActionResult Index()
         {
-            this.Commands = this.InitializeCommands();
+            if (SitefinityContext.IsBackend)
+            {
+                this.Commands = this.InitializeCommands();
+            }
 
             if (SystemManager.CurrentHttpContext != null)
             {
@@ -271,7 +291,31 @@ namespace Telerik.Sitefinity.Frontend.ContentBlock.Mvc.Controllers
         protected virtual IList<WidgetMenuItem> InitializeCommands()
         {
             var packageManager = new PackageManager();
-            var commandsList = new List<WidgetMenuItem>(5);
+            var commandsList = new List<WidgetMenuItem>();
+
+            commandsList.Add(
+                new WidgetMenuItem
+                {
+                    Text = Res.Get<PageResources>().ZoneEditorAddPersonalizedVersion,
+                    CommandName = "addPersonalizedVersion",
+                    CssClass = "sfPersonalizeItm"
+                });
+
+            commandsList.Add(
+                new WidgetMenuItem
+                {
+                    Text = Res.Get<PageResources>().ZoneEditorRemovePersonalizedVersion,
+                    CommandName = "removePersonalizedVersion",
+                    CssClass = "sfRemPersonalizedItm sfSeparatorDown"
+                });
+
+            commandsList.Add(
+                new WidgetMenuItem
+                {
+                    Text = Res.Get<PageResources>().ZoneEditorEnablePageOverrideDisplayContenxtMenuInfo,
+                    CommandName = "displayWidgetOverrideText",
+                    CssClass = "sfDisplayText"
+                });
 
             commandsList.Add(
                 new WidgetMenuItem
@@ -280,6 +324,7 @@ namespace Telerik.Sitefinity.Frontend.ContentBlock.Mvc.Controllers
                         CommandName = "beforedelete", 
                         CssClass = "sfDeleteItm"
                     });
+
             commandsList.Add(
                 new WidgetMenuItem
                     {
@@ -287,6 +332,33 @@ namespace Telerik.Sitefinity.Frontend.ContentBlock.Mvc.Controllers
                         CommandName = "duplicate", 
                         CssClass = "sfDuplicateItm"
                     });
+
+            commandsList.Add(
+                new WidgetMenuItem
+                {
+                    Text = Res.Get<PageResources>().ZoneEditorEnablePageOverride,
+                    CommandName = "widgetOverride",
+                    CssClass = "sfWidgetOverrideItm"
+                });
+
+            commandsList.Add(
+                new WidgetMenuItem
+                {
+                    Text = Res.Get<PageResources>().ZoneEditorDisablePageOverride,
+                    CommandName = "widgetDisableOverride",
+                    CssClass = "sfWidgetOverrideItm"
+                });
+
+            if (this.ResolveCurrentSitemapNode() != null)
+            {
+                commandsList.Add(
+                    new WidgetMenuItem
+                    {
+                        Text = Res.Get<PageResources>().ZoneEditorRollback,
+                        CommandName = "rollback",
+                        CssClass = "sfDisableWidgetOverrideItm"
+                    });
+            }
 
             if (this.SharedContentID == Guid.Empty)
             {
@@ -333,6 +405,15 @@ namespace Telerik.Sitefinity.Frontend.ContentBlock.Mvc.Controllers
                         CssClass = "sfPermItm"
                     });
             return commandsList;
+        }
+
+        /// <summary>
+        /// Resolves the current sitemap node.
+        /// </summary>
+        /// <returns></returns>
+        protected virtual PageSiteNode ResolveCurrentSitemapNode()
+        {
+            return SiteMapBase.GetCurrentNode();
         }
 
         /// <summary>

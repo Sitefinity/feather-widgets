@@ -2,8 +2,8 @@
 using FeatherWidgets.TestUtilities.CommonOperations;
 using Telerik.Sitefinity.DynamicModules.Model;
 using Telerik.Sitefinity.Frontend.TestUtilities.CommonOperations;
+using Telerik.Sitefinity.TestArrangementService.Attributes;
 using Telerik.Sitefinity.TestUI.Arrangements.Framework;
-using Telerik.Sitefinity.TestUI.Arrangements.Framework.Attributes;
 using Telerik.Sitefinity.TestUI.Arrangements.Framework.Server;
 using Telerik.Sitefinity.TestUtilities.CommonOperations;
 
@@ -12,7 +12,7 @@ namespace FeatherWidgets.TestUI.Arrangements
     /// <summary>
     /// CheckSelectorsAfterSelectUnselectAndUNPublishingDynamicItem arragement.
     /// </summary>
-    public class CheckSelectorsAfterSelectUnselectAndUNPublishingDynamicItem : ITestArrangement
+    public class CheckSelectorsAfterSelectUnselectAndUNPublishingDynamicItem : TestArrangementBase
     {
         /// <summary>
         /// Server side set up.
@@ -20,13 +20,14 @@ namespace FeatherWidgets.TestUI.Arrangements
         [ServerSetUp]
         public void SetUp()
         {
+            AuthenticationHelper.AuthenticateUser(AdminUserName, AdminPass, true);
             ServerOperationsFeather.DynamicModules().EnsureModuleIsImported(ModuleName, ModuleResource);
             
             Guid pageId = ServerOperations.Pages().CreatePage(PageName);
 
             for (int i = 0; i < 20; i++)
             {
-                items[i] = ServerOperationsFeather.DynamicModulePressArticle().CreatePressArticleItem(DynamicItemTitle + i, DynamicItemTitle + i + "Url");               
+                items[i] = ServerOperationsFeather.DynamicModulePressArticle().CreatePressArticleItem(DynamicItemTitle + i, DynamicItemTitle + i + "Url").Id;               
             }
 
             ServerOperationsFeather.Pages().AddDynamicWidgetToPage(pageId, "Telerik.Sitefinity.DynamicTypes.Model.PressRelease.PressArticle", "PressArticle", "Press Articles MVC");
@@ -47,14 +48,22 @@ namespace FeatherWidgets.TestUI.Arrangements
         [ServerTearDown]
         public void TearDown()
         {
-            ServerOperations.Pages().DeleteAllPages();
-            ServerOperationsFeather.DynamicModulePressArticle().DeleteDynamicItems(ServerOperationsFeather.DynamicModulePressArticle().RetrieveCollectionOfPressArticles());
+            ServerOperations.Pages().DeleteAllPages();       
+            var providerName = string.Empty;
+            if (ServerOperations.MultiSite().CheckIsMultisiteMode())
+            {
+                providerName = "dynamicContentProvider";
+            }
+
+            ServerOperationsFeather.DynamicModulePressArticle().DeleteAllDynamicItemsInProvider(providerName);    
         }
 
+        private const string AdminUserName = "admin";
+        private const string AdminPass = "admin@2";
         private const string ModuleName = "Press Release";
         private const string ModuleResource = "FeatherWidgets.TestUtilities.Data.DynamicModules.PressReleaseWithCategoriesField.zip";
-        private const string DynamicItemTitle = "Dynamic Item Title";
+        private const string DynamicItemTitle = "DynamicItemTitle";
         private const string PageName = "TestPage";
-        private static DynamicContent[] items = new DynamicContent[20];
+        private static Guid[] items = new Guid[20];
     }
 }

@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Feather.Widgets.TestUI.Framework;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Telerik.Sitefinity.Frontend.TestUtilities;
+using Telerik.Sitefinity.TestUI.Framework.Wrappers.Backend.PageEditor;
 
 namespace FeatherWidgets.TestUI.TestCases.Navigation
 {
@@ -19,7 +19,7 @@ namespace FeatherWidgets.TestUI.TestCases.Navigation
         /// UI test DragAndDropNavigationWidgetOnSemanticTemplate
         /// </summary>
         [TestMethod,
-        Owner(FeatherTeams.Team2),
+        Owner(FeatherTeams.FeatherTeam),
         TestCategory(FeatherTestCategories.PagesAndContent),
         TestCategory(FeatherTestCategories.Navigation),
         TestCategory(FeatherTestCategories.SemanticUI)]
@@ -27,14 +27,19 @@ namespace FeatherWidgets.TestUI.TestCases.Navigation
         {
             string[] parentPages = new string[] { Page1, Page2 };
 
-            BAT.Macros().NavigateTo().Design().PageTemplates();
+            BAT.Macros().NavigateTo().Design().PageTemplates(this.Culture);
             BAT.Wrappers().Backend().PageTemplates().PageTemplateMainScreen().OpenTemplateEditor(PageTemplateName);
+            BAT.Wrappers().Backend().Pages().PageZoneEditorWrapper().SwitchEditorLayoutMode(EditorLayoutMode.Layout);
+            BAT.Wrappers().Backend().Pages().PageLayoutEditorWrapper().SelectAnotherTemplate();
+            BAT.Wrappers().Backend().Pages().SelectTemplateWrapper().SelectATemplate("SemanticUI.default");
+            BAT.Wrappers().Backend().Pages().SelectTemplateWrapper().ClickDoneButton();
+
             BATFeather.Wrappers().Backend().Pages().PageZoneEditorWrapper().AddWidgetToPlaceHolderPureMvcMode(WidgetName);
             BAT.Wrappers().Backend().PageTemplates().PageTemplateModifyScreen().PublishTemplate();
 
             BAT.Arrange(this.ArrangementClass).ExecuteArrangement(this.ArrangementMethod);
 
-            BAT.Macros().NavigateTo().CustomPage("~/" + Page1.ToLower(), false);
+            BAT.Macros().NavigateTo().CustomPage("~/" + Page1.ToLower(), false, this.Culture);
             BATFeather.Wrappers().Frontend().Navigation().NavigationWrapper().VerifyNavigationOnThePageFrontend(NavTemplateClass, parentPages, TemplateType.Semantic);
             BATFeather.Wrappers().Frontend().Navigation().NavigationWrapper().ClickOnPageLinkFromNavigationMenu(Page2, TemplateType.Semantic, NavTemplateClass);
             BATFeather.Wrappers().Frontend().Navigation().NavigationWrapper().VerifyNavigationOnThePageFrontend(NavTemplateClass, parentPages, TemplateType.Semantic);        
@@ -69,7 +74,7 @@ namespace FeatherWidgets.TestUI.TestCases.Navigation
 
         private const string Page1 = "SemanticUIPage1";
         private const string Page2 = "SemanticUIPage2";
-        private const string PageTemplateName = "SemanticUI.defaultNew";
+        private const string PageTemplateName = "defaultNew";
         private const string ArrangementClassName = "NavigationWidgetOnSemanticTemplate";
         private const string ArrangementMethodName = "CreatePages";
         private const string WidgetName = "Navigation";

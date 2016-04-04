@@ -7,6 +7,7 @@ using ArtOfTest.Common.UnitTesting;
 using ArtOfTest.WebAii.Controls.HtmlControls;
 using ArtOfTest.WebAii.Core;
 using ArtOfTest.WebAii.jQuery;
+using System.Globalization;
 
 namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend.Media
 {
@@ -63,7 +64,8 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend.Media
         public void VerifySmallVideoProperites(string src)
         {
             HtmlDiv holder = this.EM.Media.VideoPropertiesScreen.SmallVideoHolder.AssertIsPresent("video holder");
-            holder.Find.ByExpression<HtmlVideo>("src=~" + src).AssertIsPresent("video");
+           
+                holder.Find.ByExpression<HtmlVideo>("src=~" + src).AssertIsPresent("video");           
         }
 
         /// <summary>
@@ -76,8 +78,9 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend.Media
         {
             DateTime dateTime = DateTime.Now;
             var date = dateTime.Date;
-            var dateString = date.ToString("M/d/yyyy");
-            HtmlFindExpression expression = new HtmlFindExpression("ng-bind=sfMedia.Title.Value");
+            CultureInfo ci = CultureInfo.InvariantCulture;
+            var dateString = date.ToString("M/d/yyyy", ci);
+            HtmlFindExpression expression = new HtmlFindExpression("ng-bind=sfMedia.Title.Value", "innertext=" + title);
             ActiveBrowser.WaitForElement(expression, 60000, false);
             ActiveBrowser.Find.ByExpression<HtmlSpan>("ng-bind=sfMedia.Title.Value", "innertext=" + title).AssertIsPresent("title");
             ActiveBrowser.Find.ByExpression<HtmlSpan>("ng-bind=sfMedia.Extension", "innertext=" + type).AssertIsPresent("type");
@@ -92,7 +95,8 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend.Media
         public void VerifyBigVideoProperites(string src)
         {
             HtmlDiv holder = this.EM.Media.VideoPropertiesScreen.BigVideoHolder.AssertIsPresent("video holder");
-            holder.Find.ByExpression<HtmlVideo>("id=sfVideoPlayer", "src=~" + src).AssertIsPresent("video");
+
+                 holder.Find.ByExpression<HtmlVideo>("id=sfVideoPlayer", "src=~" + src).AssertIsPresent("video");         
         }
 
         /// <summary>

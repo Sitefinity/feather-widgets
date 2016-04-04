@@ -9,7 +9,7 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>FeatherWidgets.TestIntegration</RootNamespace>
     <AssemblyName>FeatherWidgets.TestIntegration</AssemblyName>
-    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\</SolutionDir>
     <RestorePackages>true</RestorePackages>
@@ -25,6 +25,7 @@
     <WarningLevel>4</WarningLevel>
     <CodeAnalysisRuleSet>..\..\FxCop\Feather.ruleset</CodeAnalysisRuleSet>
     <RunCodeAnalysis>true</RunCodeAnalysis>
+    <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -33,133 +34,200 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Gallio">
       <HintPath>..\..\packages\Gallio_MbUnit.3.4.14.0\lib\net40\Gallio.dll</HintPath>
+      <SpecificVersion>False</SpecificVersion>
     </Reference>
     <Reference Include="Gallio40">
       <HintPath>..\..\packages\Gallio_MbUnit.3.4.14.0\lib\net40\Gallio40.dll</HintPath>
+      <SpecificVersion>False</SpecificVersion>
     </Reference>
     <Reference Include="MbUnit">
       <HintPath>..\..\packages\Gallio_MbUnit.3.4.14.0\lib\net40\MbUnit.dll</HintPath>
+      <SpecificVersion>False</SpecificVersion>
     </Reference>
     <Reference Include="MbUnit40">
       <HintPath>..\..\packages\Gallio_MbUnit.3.4.14.0\lib\net40\MbUnit40.dll</HintPath>
+      <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="Microsoft.Web.Infrastructure">
+    <Reference Include="Microsoft.Http, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Microsoft.Http.1.0.0.0\lib\Microsoft.Http.dll</HintPath>
       <Private>True</Private>
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
+    <Reference Include="Microsoft.IdentityModel, Version=3.5.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Microsoft.IdentityModel.6.1.7600.16394\lib\net35\Microsoft.IdentityModel.dll</HintPath>
+      <Private>True</Private>
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
+    <Reference Include="Microsoft.Web.Infrastructure, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\..\packages\Microsoft.Web.Infrastructure.1.0.0.0\lib\net40\Microsoft.Web.Infrastructure.dll</HintPath>
+      <Private>True</Private>
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
+    <Reference Include="RazorEngine, Version=3.0.8.0, Culture=neutral, PublicKeyToken=9ee697374c7e744a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\packages\Sitefinity.RazorEngine.3.0.8.0\lib\net40\RazorEngine.dll</HintPath>
+    </Reference>
+    <Reference Include="RazorGenerator.Mvc, Version=2.0.0.0, Culture=neutral, PublicKeyToken=7b26dc2a43f6a0d4, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\RazorGenerator.Mvc.2.3.12\lib\net40\RazorGenerator.Mvc.dll</HintPath>
+      <Private>True</Private>
+      <SpecificVersion>False</SpecificVersion>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.configuration" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Net.Http" />
     <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Web" />
+    <Reference Include="System.Web.ApplicationServices" />
     <Reference Include="System.Web.Extensions" />
-    <Reference Include="System.Web.Helpers">
+    <Reference Include="System.Web.Helpers, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Microsoft.AspNet.WebPages.3.2.3\lib\net45\System.Web.Helpers.dll</HintPath>
       <Private>True</Private>
-      <HintPath>..\..\packages\Microsoft.AspNet.WebPages.2.0.20710.0\lib\net40\System.Web.Helpers.dll</HintPath>
+      <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="System.Web.Mvc">
+    <Reference Include="System.Web.Mvc, Version=5.2.3.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Microsoft.AspNet.Mvc.5.2.3\lib\net45\System.Web.Mvc.dll</HintPath>
       <Private>True</Private>
-      <HintPath>..\..\packages\Microsoft.AspNet.Mvc.4.0.20710.0\lib\net40\System.Web.Mvc.dll</HintPath>
+      <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="System.Web.Razor">
+    <Reference Include="System.Web.Razor, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Microsoft.AspNet.Razor.3.2.3\lib\net45\System.Web.Razor.dll</HintPath>
       <Private>True</Private>
-      <HintPath>..\..\packages\Microsoft.AspNet.Razor.2.0.20710.0\lib\net40\System.Web.Razor.dll</HintPath>
+      <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="System.Web.WebPages">
+    <Reference Include="System.Web.WebPages, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Microsoft.AspNet.WebPages.3.2.3\lib\net45\System.Web.WebPages.dll</HintPath>
       <Private>True</Private>
-      <HintPath>..\..\packages\Microsoft.AspNet.WebPages.2.0.20710.0\lib\net40\System.Web.WebPages.dll</HintPath>
+      <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="System.Web.WebPages.Deployment">
+    <Reference Include="System.Web.WebPages.Deployment, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Microsoft.AspNet.WebPages.3.2.3\lib\net45\System.Web.WebPages.Deployment.dll</HintPath>
       <Private>True</Private>
-      <HintPath>..\..\packages\Microsoft.AspNet.WebPages.2.0.20710.0\lib\net40\System.Web.WebPages.Deployment.dll</HintPath>
+      <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="System.Web.WebPages.Razor">
+    <Reference Include="System.Web.WebPages.Razor, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Microsoft.AspNet.WebPages.3.2.3\lib\net45\System.Web.WebPages.Razor.dll</HintPath>
       <Private>True</Private>
-      <HintPath>..\..\packages\Microsoft.AspNet.WebPages.2.0.20710.0\lib\net40\System.Web.WebPages.Razor.dll</HintPath>
+      <SpecificVersion>False</SpecificVersion>
     </Reference>
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
-    <Reference Include="Telerik.OpenAccess">
+    <Reference Include="Telerik.OpenAccess, Version=2016.1.224.1, Culture=neutral, PublicKeyToken=7ce17eeaf1d59342, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Telerik.DataAccess.Core.2016.1.224.1\lib\net40\Telerik.OpenAccess.dll</HintPath>
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\packages\Telerik.DataAccess.Core.2015.1.225.1\lib\net40\Telerik.OpenAccess.dll</HintPath>
+      <Private>True</Private>
     </Reference>
-    <Reference Include="Telerik.OpenAccess.35.Extensions">
+    <Reference Include="Telerik.OpenAccess.35.Extensions, Version=2016.1.224.1, Culture=neutral, PublicKeyToken=7ce17eeaf1d59342, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Telerik.DataAccess.Core.2016.1.224.1\lib\net40\Telerik.OpenAccess.35.Extensions.dll</HintPath>
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\packages\Telerik.DataAccess.Core.2015.1.225.1\lib\net40\Telerik.OpenAccess.35.Extensions.dll</HintPath>
+      <Private>True</Private>
     </Reference>
-    <Reference Include="Telerik.OpenAccess.40.Extensions">
+    <Reference Include="Telerik.OpenAccess.40.Extensions, Version=2016.1.224.1, Culture=neutral, PublicKeyToken=7ce17eeaf1d59342, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Telerik.DataAccess.Core.2016.1.224.1\lib\net40\Telerik.OpenAccess.40.Extensions.dll</HintPath>
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\packages\Telerik.DataAccess.Core.2015.1.225.1\lib\net40\Telerik.OpenAccess.40.Extensions.dll</HintPath>
+      <Private>True</Private>
     </Reference>
-    <Reference Include="Telerik.OpenAccess.Runtime">
+    <Reference Include="Telerik.OpenAccess.Runtime, Version=2016.1.224.1, Culture=neutral, PublicKeyToken=7ce17eeaf1d59342, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Telerik.DataAccess.Core.2016.1.224.1\lib\net40\Telerik.OpenAccess.Runtime.dll</HintPath>
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\packages\Telerik.DataAccess.Core.2015.1.225.1\lib\net40\Telerik.OpenAccess.Runtime.dll</HintPath>
+      <Private>True</Private>
     </Reference>
     <Reference Include="Telerik.Sitefinity">
+      <HintPath>..\..\packages\Telerik.Sitefinity.Core.9.0.6000.0\lib\net40\Telerik.Sitefinity.dll</HintPath>
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\packages\Telerik.Sitefinity.Core.8.0.5700.0\lib\net40\Telerik.Sitefinity.dll</HintPath>
     </Reference>
     <Reference Include="Telerik.Sitefinity.ContentModules">
-      <HintPath>..\..\packages\Telerik.Sitefinity.Content.8.0.5700.0\lib\net40\Telerik.Sitefinity.ContentModules.dll</HintPath>
+      <HintPath>..\..\packages\Telerik.Sitefinity.Content.9.0.6000.0\lib\net40\Telerik.Sitefinity.ContentModules.dll</HintPath>
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
+    <Reference Include="Telerik.Sitefinity.Ecommerce">
+      <HintPath>..\..\packages\Telerik.Sitefinity.Content.9.0.6000.0\lib\net40\Telerik.Sitefinity.Ecommerce.dll</HintPath>
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
+    <Reference Include="Telerik.Sitefinity.Forums">
+      <HintPath>..\..\packages\Telerik.Sitefinity.Content.9.0.6000.0\lib\net40\Telerik.Sitefinity.Forums.dll</HintPath>
+      <SpecificVersion>False</SpecificVersion>
     </Reference>
     <Reference Include="Telerik.Sitefinity.Frontend">
       <HintPath>..\..\ReferenceAssemblies\Telerik.Sitefinity.Frontend.dll</HintPath>
+      <SpecificVersion>False</SpecificVersion>
     </Reference>
     <Reference Include="Telerik.Sitefinity.Frontend.TestUtilities">
       <HintPath>..\..\ReferenceAssemblies\Telerik.Sitefinity.Frontend.TestUtilities.dll</HintPath>
+      <SpecificVersion>False</SpecificVersion>
     </Reference>
     <Reference Include="Telerik.Sitefinity.Model">
+      <HintPath>..\..\packages\Telerik.Sitefinity.Core.9.0.6000.0\lib\net40\Telerik.Sitefinity.Model.dll</HintPath>
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\packages\Telerik.Sitefinity.Core.8.0.5700.0\lib\net40\Telerik.Sitefinity.Model.dll</HintPath>
+    </Reference>
+    <Reference Include="Telerik.Sitefinity.Mvc, Version=1.5.470.0, Culture=neutral, PublicKeyToken=b28c218413bdf563, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\packages\Telerik.Sitefinity.Mvc.1.5.470.0\lib\net45\Telerik.Sitefinity.Mvc.dll</HintPath>
+    </Reference>
+    <Reference Include="Telerik.Sitefinity.Mvc.TestUtilities, Version=1.5.470.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\packages\Telerik.Sitefinity.Mvc.TestUtilities.1.5.470.0\lib\net45\Telerik.Sitefinity.Mvc.TestUtilities.dll</HintPath>
     </Reference>
     <Reference Include="Telerik.Sitefinity.Personalization">
+      <HintPath>..\..\packages\Telerik.Sitefinity.Core.9.0.6000.0\lib\net40\Telerik.Sitefinity.Personalization.dll</HintPath>
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\packages\Telerik.Sitefinity.Core.8.0.5700.0\lib\net40\Telerik.Sitefinity.Personalization.dll</HintPath>
+    </Reference>
+    <Reference Include="Telerik.Sitefinity.RecurrentRules">
+      <HintPath>..\..\packages\Telerik.Sitefinity.Content.9.0.6000.0\lib\net40\Telerik.Sitefinity.RecurrentRules.dll</HintPath>
+      <SpecificVersion>False</SpecificVersion>
     </Reference>
     <Reference Include="Telerik.Sitefinity.Resources">
-      <HintPath>..\..\packages\Telerik.Sitefinity.Core.8.0.5700.0\lib\net40\Telerik.Sitefinity.Resources.dll</HintPath>
+      <HintPath>..\..\packages\Telerik.Sitefinity.Core.9.0.6000.0\lib\net40\Telerik.Sitefinity.Resources.dll</HintPath>
+      <SpecificVersion>False</SpecificVersion>
     </Reference>
     <Reference Include="Telerik.Sitefinity.Search">
+      <HintPath>..\..\packages\Telerik.Sitefinity.Core.9.0.6000.0\lib\net40\Telerik.Sitefinity.Search.dll</HintPath>
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\packages\Telerik.Sitefinity.Core.8.0.5700.0\lib\net40\Telerik.Sitefinity.Search.dll</HintPath>
     </Reference>
     <Reference Include="Telerik.Sitefinity.Services.Comments">
+      <HintPath>..\..\packages\Telerik.Sitefinity.Core.9.0.6000.0\lib\net40\Telerik.Sitefinity.Services.Comments.dll</HintPath>
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\packages\Telerik.Sitefinity.Core.8.0.5700.0\lib\net40\Telerik.Sitefinity.Services.Comments.dll</HintPath>
     </Reference>
     <Reference Include="Telerik.Sitefinity.Services.Documents">
+      <HintPath>..\..\packages\Telerik.Sitefinity.Core.9.0.6000.0\lib\net40\Telerik.Sitefinity.Services.Documents.dll</HintPath>
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\packages\Telerik.Sitefinity.Core.8.0.5700.0\lib\net40\Telerik.Sitefinity.Services.Documents.dll</HintPath>
     </Reference>
     <Reference Include="Telerik.Sitefinity.Services.Events">
+      <HintPath>..\..\packages\Telerik.Sitefinity.Core.9.0.6000.0\lib\net40\Telerik.Sitefinity.Services.Events.dll</HintPath>
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\packages\Telerik.Sitefinity.Core.8.0.5700.0\lib\net40\Telerik.Sitefinity.Services.Events.dll</HintPath>
     </Reference>
     <Reference Include="Telerik.Sitefinity.Services.Notifications">
+      <HintPath>..\..\packages\Telerik.Sitefinity.Core.9.0.6000.0\lib\net40\Telerik.Sitefinity.Services.Notifications.dll</HintPath>
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\packages\Telerik.Sitefinity.Core.8.0.5700.0\lib\net40\Telerik.Sitefinity.Services.Notifications.dll</HintPath>
     </Reference>
     <Reference Include="Telerik.Sitefinity.Services.Statistics">
+      <HintPath>..\..\packages\Telerik.Sitefinity.Core.9.0.6000.0\lib\net40\Telerik.Sitefinity.Services.Statistics.dll</HintPath>
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\packages\Telerik.Sitefinity.Core.8.0.5700.0\lib\net40\Telerik.Sitefinity.Services.Statistics.dll</HintPath>
     </Reference>
     <Reference Include="Telerik.Sitefinity.TestUtilities">
+      <HintPath>..\..\packages\Telerik.Sitefinity.TestUtilities.9.0.6000.0\lib\net45\Telerik.Sitefinity.TestUtilities.dll</HintPath>
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\packages\Telerik.Sitefinity.TestUtilities.8.0.5700.0\lib\net40\Telerik.Sitefinity.TestUtilities.dll</HintPath>
     </Reference>
     <Reference Include="Telerik.Sitefinity.Utilities">
+      <HintPath>..\..\packages\Telerik.Sitefinity.Core.9.0.6000.0\lib\net40\Telerik.Sitefinity.Utilities.dll</HintPath>
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\packages\Telerik.Sitefinity.Core.8.0.5700.0\lib\net40\Telerik.Sitefinity.Utilities.dll</HintPath>
     </Reference>
     <Reference Include="Telerik.WebTestRunner.Server">
-      <HintPath>..\..\packages\Telerik.WebTestRunner.Server.1.0.0.1\lib\net40\Telerik.WebTestRunner.Server.dll</HintPath>
+      <HintPath>..\..\packages\Telerik.Sitefinity.WebTestRunner.Server.1.0.0.2\lib\net40\Telerik.WebTestRunner.Server.dll</HintPath>
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
+    <Reference Include="WebActivatorEx, Version=2.0.0.0, Culture=neutral, PublicKeyToken=7b26dc2a43f6a0d4, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\WebActivatorEx.2.0.3\lib\net40\WebActivatorEx.dll</HintPath>
+      <Private>True</Private>
+      <SpecificVersion>False</SpecificVersion>
     </Reference>
   </ItemGroup>
   <ItemGroup>
@@ -171,6 +239,7 @@
     <Compile Include="BlogPosts\BlogPostsWidgetTests.cs" />
     <Compile Include="BlogsWidget\BlogsWidgetListSettingsTests.cs" />
     <Compile Include="BlogsWidget\BlogsWidgetTests.cs" />
+    <Compile Include="Common\ModuleUnloadTests.cs" />
     <Compile Include="ContentBlock\ContentBlockEditorTests.cs" />
     <Compile Include="ContentBlock\ContentBlockSearchIndex.cs" />
     <Compile Include="ContentBlock\ContentBlockWidget.cs" />
@@ -186,7 +255,19 @@
     <Compile Include="DynamicWidgets\DynamicWidgetsRoutingTests.cs" />
     <Compile Include="DynamicWidgets\DynamicWidgetsToolboxTests.cs" />
     <Compile Include="DynamicWidgets\OldDynamicWidgetsWithFeatherTests.cs" />
+    <Compile Include="Forms\BackendConfiguratorTests.cs" />
+    <Compile Include="Forms\Fields\CheckboxesFieldTests.cs" />
+    <Compile Include="Forms\Fields\PageBreakTests.cs" />
+    <Compile Include="Forms\Fields\DropdownListFieldTests.cs" />
+    <Compile Include="Forms\Fields\NavigationFieldTests.cs" />
+    <Compile Include="Forms\Fields\ParagraphTextFieldTests.cs" />
+    <Compile Include="Forms\Fields\SectionHeaderFieldTests.cs" />
+    <Compile Include="Forms\Fields\TextFieldTests.cs" />
+    <Compile Include="Forms\FormEventsTests.cs" />
+    <Compile Include="Forms\FormsResponsesTests.cs" />
+    <Compile Include="Forms\FormsWidgetTests.cs" />
     <Compile Include="GlobalSuppressions.cs" />
+    <Compile Include="Identity\LoginForm\LoginFormTests.cs" />
     <Compile Include="Identity\LoginStatus\LoginTests.cs" />
     <Compile Include="Identity\UsersList\UsersListWidgetPagingLimitTests.cs" />
     <Compile Include="Identity\UsersList\UsersListWidgetSortingTests.cs" />
@@ -209,11 +290,18 @@
     <Compile Include="News\NewsWidgetDetailTests.cs" />
     <Compile Include="News\NewsWidgetListSettingsTests.cs" />
     <Compile Include="News\NewsWidgetPageTemplateTests.cs" />
+    <Compile Include="News\NewsWidgetPrecompilation.cs" />
+    <Compile Include="News\NewsWidgetUrlKeyPrefix.cs" />
+    <Compile Include="Packaging\ImportExportDynamicStructureTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SearchResults\SearchResultsWidgetTests.cs" />
     <Compile Include="Taxonomies\FlatTaxonomyTests.cs" />
     <Compile Include="Taxonomies\HierarchicalTaxonomyTests.cs" />
     <Compile Include="TestCategories.cs" />
+    <Compile Include="Views\MvcTemplateBase.cs" />
+    <Compile Include="Views\PrecompilationFilterAttribute.cs" />
+    <Compile Include="Views\PrecompilationTests.cs" />
+    <Compile Include="Views\ViewsCompilationTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
@@ -226,6 +314,14 @@
       <Project>{7fdac868-95ef-4b9d-bcdb-4dd7c93b3a4e}</Project>
       <Name>Telerik.Sitefinity.Frontend.Blogs</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\Telerik.Sitefinity.Frontend.Card\Telerik.Sitefinity.Frontend.Card.csproj">
+      <Project>{bed37404-75bb-4c89-b768-bb458a7e5dc9}</Project>
+      <Name>Telerik.Sitefinity.Frontend.Card</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Telerik.Sitefinity.Frontend.Comments\Telerik.Sitefinity.Frontend.Comments.csproj">
+      <Project>{d5c186a5-49ce-4728-abce-4d1d4c33c28b}</Project>
+      <Name>Telerik.Sitefinity.Frontend.Comments</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\Telerik.Sitefinity.Frontend.ContentBlock\Telerik.Sitefinity.Frontend.ContentBlock.csproj">
       <Project>{827b5c1e-619a-4080-a7f1-10d103c38cfd}</Project>
       <Name>Telerik.Sitefinity.Frontend.ContentBlock</Name>
@@ -234,6 +330,14 @@
       <Project>{f4d16a33-feaa-4008-b941-afc1ae95db31}</Project>
       <Name>Telerik.Sitefinity.Frontend.DynamicContent</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\Telerik.Sitefinity.Frontend.EmailCampaigns\Telerik.Sitefinity.Frontend.EmailCampaigns.csproj">
+      <Project>{c70bd0bd-d081-48a0-af6d-3fa7e584cb04}</Project>
+      <Name>Telerik.Sitefinity.Frontend.EmailCampaigns</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Telerik.Sitefinity.Frontend.Forms\Telerik.Sitefinity.Frontend.Forms.csproj">
+      <Project>{35e2549f-113b-4b81-bdde-f06e78f4bdf8}</Project>
+      <Name>Telerik.Sitefinity.Frontend.Forms</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\Telerik.Sitefinity.Frontend.Identity\Telerik.Sitefinity.Frontend.Identity.csproj">
       <Project>{3b1b1ee2-84ee-4744-a8fb-bed1236da342}</Project>
       <Name>Telerik.Sitefinity.Frontend.Identity</Name>
@@ -241,6 +345,10 @@
     <ProjectReference Include="..\..\Telerik.Sitefinity.Frontend.InlineClientAssets\Telerik.Sitefinity.Frontend.InlineClientAssets.csproj">
       <Project>{d3773581-78b7-44ad-96b8-5168dcf2795c}</Project>
       <Name>Telerik.Sitefinity.Frontend.InlineClientAssets</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Telerik.Sitefinity.Frontend.Lists\Telerik.Sitefinity.Frontend.Lists.csproj">
+      <Project>{18142e99-a5a2-4f28-94b6-06c36c125fca}</Project>
+      <Name>Telerik.Sitefinity.Frontend.Lists</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\Telerik.Sitefinity.Frontend.Media\Telerik.Sitefinity.Frontend.Media.csproj">
       <Project>{8B6BB322-AE6D-42EF-8667-2E0A2EA65C98}</Project>
@@ -253,6 +361,10 @@
     <ProjectReference Include="..\..\Telerik.Sitefinity.Frontend.News\Telerik.Sitefinity.Frontend.News.csproj">
       <Project>{574042a9-61aa-4eac-83d2-79cd19aa8bd4}</Project>
       <Name>Telerik.Sitefinity.Frontend.News</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Telerik.Sitefinity.Frontend.Publishing\Telerik.Sitefinity.Frontend.Publishing.csproj">
+      <Project>{ddfed943-c998-42aa-8ebf-38f1b6108ee7}</Project>
+      <Name>Telerik.Sitefinity.Frontend.Publishing</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\Telerik.Sitefinity.Frontend.Search\Telerik.Sitefinity.Frontend.Search.csproj">
       <Project>{b1e056f8-d6ad-4c0c-a619-053e23f44a60}</Project>

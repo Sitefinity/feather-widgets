@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Feather.Widgets.TestUI.Framework;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Telerik.Sitefinity.Frontend.TestUtilities;
+using ArtOfTest.WebAii.Controls.HtmlControls;
 
 namespace FeatherWidgets.TestUI.TestCases.ScriptsAndStyles
 {
@@ -19,13 +19,17 @@ namespace FeatherWidgets.TestUI.TestCases.ScriptsAndStyles
         /// UI test AddJavaScriptWidgetToPageAndWriteAndRemoveCode
         /// </summary>
         [TestMethod,
-        Owner(FeatherTeams.Team7),
-        TestCategory(FeatherTestCategories.PagesAndContent),
+        Owner(FeatherTeams.FeatherTeam),
         TestCategory(FeatherTestCategories.ScriptsAndStyles)]
         public void AddJavaScriptWidgetToPageAndWriteAndRemoveCode()
         {
-            BAT.Macros().NavigateTo().Pages();
+            BAT.Macros().NavigateTo().Pages(this.Culture);
             BAT.Wrappers().Backend().Pages().PagesWrapper().OpenPageZoneEditor(PageName);
+            //// Switch the focus to the zone editor
+            HtmlDiv radDockZone = ActiveBrowser.Find
+                                              .ByExpression<HtmlDiv>("placeholderid=" + "Contentplaceholder1")
+              .AssertIsPresent<HtmlDiv>("Contentplaceholder1");
+            radDockZone.MouseClick();
             BATFeather.Wrappers().Backend().Pages().PageZoneEditorWrapper().AddWidgetToPlaceHolderPureMvcMode(WidgetName);
             BATFeather.Wrappers().Backend().Pages().PageZoneEditorWrapper().EditWidget(WidgetName);
             BATFeather.Wrappers().Backend().ScriptAndStyles().JavaScriptWidgetEditWrapper().VerifyTips("Start writing your JavaScript");
@@ -39,7 +43,7 @@ namespace FeatherWidgets.TestUI.TestCases.ScriptsAndStyles
             BAT.Wrappers().Backend().Pages().PageZoneEditorWrapper().PublishPage();
             this.VerifyCodeExistOnTheFrontend();
 
-            BAT.Macros().NavigateTo().Pages();
+            BAT.Macros().NavigateTo().Pages(this.Culture);
             BAT.Wrappers().Backend().Pages().PagesWrapper().OpenPageZoneEditor(PageName);
             BATFeather.Wrappers().Backend().Pages().PageZoneEditorWrapper().EditWidget(WidgetName);
             BATFeather.Wrappers().Backend().ScriptAndStyles().JavaScriptWidgetEditWrapper().FillCodeInEditableArea(string.Empty);
@@ -56,7 +60,7 @@ namespace FeatherWidgets.TestUI.TestCases.ScriptsAndStyles
         /// </summary>
         public void VerifyCodeExistOnTheFrontend()
         {
-            BAT.Macros().NavigateTo().CustomPage("~/" + PageName.ToLower());
+            BAT.Macros().NavigateTo().CustomPage("~/" + PageName.ToLower(), false, this.Culture);
             bool isContained = BATFeather.Wrappers().Frontend().ScriptsAndStyles().ScriptsAndStylesWrapper().IsCodePresentOnFrontend(JavaScriptValue);
             Assert.IsTrue(isContained, string.Concat("Expected ", JavaScriptValue, " but the script is not found"));
             BATFeather.Wrappers().Frontend().ScriptsAndStyles().ScriptsAndStylesWrapper().VerifyJavaScriptInHeadTag(JavaScriptValue);
@@ -67,7 +71,7 @@ namespace FeatherWidgets.TestUI.TestCases.ScriptsAndStyles
         /// </summary>
         public void VerifyCssNotExistOnTheFrontend()
         {
-            BAT.Macros().NavigateTo().CustomPage("~/" + PageName.ToLower());
+            BAT.Macros().NavigateTo().CustomPage("~/" + PageName.ToLower(), false);
             bool isContained = BATFeather.Wrappers().Frontend().ScriptsAndStyles().ScriptsAndStylesWrapper().IsCodePresentOnFrontend(JavaScriptValue);
             Assert.IsFalse(isContained, string.Concat("Expected ", JavaScriptValue, " but the script is not found"));
         }

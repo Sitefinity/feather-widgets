@@ -36,7 +36,7 @@ namespace FeatherWidgets.TestIntegration.DynamicWidgets
         /// </summary>
         [Test]
         [Category(TestCategories.DynamicWidgets)]
-        [Author(FeatherTeams.Team7)]
+        [Author(FeatherTeams.FeatherTeam)]
         public void DynamicWidgets_VerifySelectedItemsFunctionalityWithSortDescending()
         {
             string sortExpession = "Title DESC";
@@ -56,6 +56,7 @@ namespace FeatherWidgets.TestIntegration.DynamicWidgets
                 dynamicController.Model.ContentType = TypeResolutionService.ResolveType(ResolveType);
                 dynamicController.Model.SelectionMode = SelectionMode.SelectedItems;
                 dynamicController.Model.SortExpression = sortExpession;
+                dynamicController.Model.ProviderName = FeatherWidgets.TestUtilities.CommonOperations.DynamicModulesOperations.ProviderName;
 
                 var selectedDynamicItems = new DynamicContent[3];
 
@@ -102,7 +103,7 @@ namespace FeatherWidgets.TestIntegration.DynamicWidgets
         /// </summary>
         [Test]
         [Category(TestCategories.DynamicWidgets)]
-        [Author(FeatherTeams.Team7)]
+        [Author(FeatherTeams.FeatherTeam)]
         public void DynamicWidgets_VerifySelectedItemsFunctionalityWithPaging()
         { 
             this.pageOperations = new PagesOperations();
@@ -139,6 +140,7 @@ namespace FeatherWidgets.TestIntegration.DynamicWidgets
                 mvcProxy.WidgetName = WidgetName;
                 dynamicController.Model.ItemsPerPage = itemsPerPage;
                 dynamicController.Model.SortExpression = AsSetManuallySortingOption;
+                dynamicController.Model.ProviderName = FeatherWidgets.TestUtilities.CommonOperations.DynamicModulesOperations.ProviderName;
 
                 for (int i = 0; i < selectedDynamicTitles.Count(); i++)
                 {
@@ -171,7 +173,7 @@ namespace FeatherWidgets.TestIntegration.DynamicWidgets
         /// </summary>
         [Test]
         [Category(TestCategories.DynamicWidgets)]
-        [Author(FeatherTeams.Team7)]
+        [Author(FeatherTeams.FeatherTeam)]
         public void DynamicWidgets_VerifySelectedItemsFunctionalityWithUseLimit()
         {
             this.pageOperations = new PagesOperations();
@@ -197,6 +199,7 @@ namespace FeatherWidgets.TestIntegration.DynamicWidgets
                 dynamicController.Model.DisplayMode = ListDisplayMode.Limit;
                 dynamicController.Model.ItemsPerPage = 5;
                 dynamicController.Model.SortExpression = AsSetManuallySortingOption;
+                dynamicController.Model.ProviderName = FeatherWidgets.TestUtilities.CommonOperations.DynamicModulesOperations.ProviderName;
 
                 var mvcProxy = new MvcWidgetProxy();
                 mvcProxy.ControllerName = typeof(DynamicContentController).FullName;
@@ -237,7 +240,7 @@ namespace FeatherWidgets.TestIntegration.DynamicWidgets
         /// </summary>
         [Test]
         [Category(TestCategories.DynamicWidgets)]
-        [Author(FeatherTeams.Team7)]
+        [Author(FeatherTeams.FeatherTeam)]
         public void DynamicWidgets_VerifySelectedItemsFunctionalityWithNoLimit()
         {
             this.pageOperations = new PagesOperations();
@@ -264,6 +267,7 @@ namespace FeatherWidgets.TestIntegration.DynamicWidgets
                 dynamicController.Model.ContentType = TypeResolutionService.ResolveType(ResolveType);
                 dynamicController.Model.SelectionMode = SelectionMode.SelectedItems;
                 dynamicController.Model.DisplayMode = ListDisplayMode.All;
+                dynamicController.Model.ProviderName = FeatherWidgets.TestUtilities.CommonOperations.DynamicModulesOperations.ProviderName;
 
                 var mvcProxy = new MvcWidgetProxy();
                 mvcProxy.ControllerName = typeof(DynamicContentController).FullName;
@@ -307,7 +311,7 @@ namespace FeatherWidgets.TestIntegration.DynamicWidgets
         /// </summary>
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Telerik.Sitefinity", "SF1002:AvoidToListOnIEnumerable"), System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Maintainability", "CA1506:AvoidExcessiveClassCoupling"), Test]
         [Category(TestCategories.DynamicWidgets)]
-        [Author(FeatherTeams.Team7)]
+        [Author(FeatherTeams.FeatherTeam)]
         [Description("Verifies dynamic items by category.")]
         public void DynamicWidgetsDesignerContent_VerifyDynamicItemsByCategoryFunctionality()
         {
@@ -320,6 +324,7 @@ namespace FeatherWidgets.TestIntegration.DynamicWidgets
                 var dynamicController = new DynamicContentController();
                 dynamicController.Model.ContentType = TypeResolutionService.ResolveType(ResolveType);
                 dynamicController.Model.SelectionMode = SelectionMode.FilteredItems;
+                dynamicController.Model.ProviderName = FeatherWidgets.TestUtilities.CommonOperations.DynamicModulesOperations.ProviderName;
 
                 for (int i = 0; i < taxonId.Length; i++)
                 {
@@ -347,7 +352,7 @@ namespace FeatherWidgets.TestIntegration.DynamicWidgets
         /// </summary>
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Telerik.Sitefinity", "SF1002:AvoidToListOnIEnumerable"), System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Maintainability", "CA1506:AvoidExcessiveClassCoupling"), Test]
         [Category(TestCategories.DynamicWidgets)]
-        [Author(FeatherTeams.Team7)]
+        [Author(FeatherTeams.FeatherTeam)]
         public void DynamicWidgets_SelectByTagAndSortFunctionality()
         {
             int tagsCount = 3;
@@ -360,6 +365,7 @@ namespace FeatherWidgets.TestIntegration.DynamicWidgets
             var dynamicController = new DynamicContentController();
             dynamicController.Model.ContentType = TypeResolutionService.ResolveType(ResolveType);
             dynamicController.Model.SortExpression = sortExpession;
+            dynamicController.Model.ProviderName = FeatherWidgets.TestUtilities.CommonOperations.DynamicModulesOperations.ProviderName;
 
             try
             {
@@ -413,12 +419,13 @@ namespace FeatherWidgets.TestIntegration.DynamicWidgets
         /// </summary>
         [Test]
         [Category(TestCategories.DynamicWidgets)]
-        [Author(FeatherTeams.Team7)]
+        [Author(FeatherTeams.FeatherTeam)]
         public void DynamicWidgets_SelectByCategoryFunctionalityAndPaging()
         {
             var dynamicController = new DynamicContentController();
             dynamicController.Model.ContentType = TypeResolutionService.ResolveType(ResolveType);
             dynamicController.Model.DisplayMode = ListDisplayMode.Paging;
+            dynamicController.Model.ProviderName = FeatherWidgets.TestUtilities.CommonOperations.DynamicModulesOperations.ProviderName;
             int itemsPerPage = 3;
             dynamicController.Model.ItemsPerPage = itemsPerPage;
             string categoryTitle = "Category";
@@ -465,12 +472,13 @@ namespace FeatherWidgets.TestIntegration.DynamicWidgets
         /// </summary>
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Telerik.Sitefinity", "SF1002:AvoidToListOnIEnumerable"), System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Maintainability", "CA1506:AvoidExcessiveClassCoupling"), Test]
         [Category(TestCategories.DynamicWidgets)]
-        [Author(FeatherTeams.Team7)]
+        [Author(FeatherTeams.FeatherTeam)]
         public void DynamicWidgets_SelectByCategoryFunctionalityAndLimits()
         {
             var dynamicController = new DynamicContentController();
             dynamicController.Model.ContentType = TypeResolutionService.ResolveType(ResolveType);
             dynamicController.Model.DisplayMode = ListDisplayMode.Limit;
+            dynamicController.Model.ProviderName = FeatherWidgets.TestUtilities.CommonOperations.DynamicModulesOperations.ProviderName;
             int itemsPerPage = 3;
             dynamicController.Model.ItemsPerPage = itemsPerPage;
             string categoryTitle = "Category";
@@ -543,7 +551,7 @@ namespace FeatherWidgets.TestIntegration.DynamicWidgets
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Telerik.Sitefinity", "SF1002:AvoidToListOnIEnumerable"), System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Maintainability", "CA1506:AvoidExcessiveClassCoupling"), Test]
         [Category(TestCategories.DynamicWidgets)]
-        [Author(FeatherTeams.Team7)]
+        [Author(FeatherTeams.FeatherTeam)]
         [Description("Verifies dynamic items by tag.")]
         public void DynamicWidgetsDesignerContent_VerifyDynamicItemsByTagFunctionality()
         {
@@ -553,7 +561,8 @@ namespace FeatherWidgets.TestIntegration.DynamicWidgets
                 var taxonId = this.CreatePressArticleAndReturnTagId(this.tagTitles);
               
                 var dynamicController = new DynamicContentController();
-                dynamicController.Model.ContentType = TypeResolutionService.ResolveType(ResolveType);             
+                dynamicController.Model.ContentType = TypeResolutionService.ResolveType(ResolveType);
+                dynamicController.Model.ProviderName = FeatherWidgets.TestUtilities.CommonOperations.DynamicModulesOperations.ProviderName;
 
                 for (int i = 0; i < taxonId.Length; i++)
                 {
@@ -581,7 +590,7 @@ namespace FeatherWidgets.TestIntegration.DynamicWidgets
         /// </summary>
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Globalization", "CA1307:SpecifyStringComparison", MessageId = "System.String.IndexOf(System.String)"), Test]
         [Category(TestCategories.DynamicWidgets)]
-        [Author(FeatherTeams.Team7)]
+        [Author(FeatherTeams.FeatherTeam)]
         [Description("Verifies dynamic items sorted by a valid As set in Advanced mode option.")]
         public void DynamicWidgetDesignerContent_VerifyValidSortingOptionAsSetInAdvancedMode()
         {
@@ -595,6 +604,7 @@ namespace FeatherWidgets.TestIntegration.DynamicWidgets
                 var dynamicController = new DynamicContentController();
                 dynamicController.Model.ContentType = TypeResolutionService.ResolveType(ResolveType);
                 dynamicController.Model.SortExpression = sortExpession;
+                dynamicController.Model.ProviderName = FeatherWidgets.TestUtilities.CommonOperations.DynamicModulesOperations.ProviderName;
 
                 for (int i = 0; i < itemsCount; i++)
                     ServerOperationsFeather.DynamicModulePressArticle().CreatePressArticle("Title" + i, "Title" + i + "Url", publishers[i]);
@@ -603,7 +613,7 @@ namespace FeatherWidgets.TestIntegration.DynamicWidgets
 
                 for (int i = 0; i < itemsCount; i++)
                 {
-                    Assert.AreEqual(expectedSortedItemsTitles[i], items[i].Fields.Title, "The dynamic item with this title was not found!");
+                    Assert.AreEqual(expectedSortedItemsTitles[i], items[i].Identifier.ToString(), "The dynamic item with this title was not found!");
                 }
             }
             finally
@@ -617,7 +627,7 @@ namespace FeatherWidgets.TestIntegration.DynamicWidgets
         /// </summary>
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Globalization", "CA1307:SpecifyStringComparison", MessageId = "System.String.IndexOf(System.String)"), Test]
         [Category(TestCategories.DynamicWidgets)]
-        [Author(FeatherTeams.Team7)]
+        [Author(FeatherTeams.FeatherTeam)]
         [Description("Verifies dynamic items sorted by an invalid As set in Advanced mode option.")]
         public void DynamicWidgetDesignerContent_VerifyInvalidSortingOptionAsSetInAdvancedMode()
         {
@@ -631,6 +641,7 @@ namespace FeatherWidgets.TestIntegration.DynamicWidgets
                 var dynamicController = new DynamicContentController();
                 dynamicController.Model.ContentType = TypeResolutionService.ResolveType(ResolveType);
                 dynamicController.Model.SortExpression = sortExpession;
+                dynamicController.Model.ProviderName = FeatherWidgets.TestUtilities.CommonOperations.DynamicModulesOperations.ProviderName;
 
                 for (int i = 0; i < itemsCount; i++)
                     ServerOperationsFeather.DynamicModulePressArticle().CreatePressArticle("Title" + i, "Title" + i + "Url", publishers[i]);
@@ -639,7 +650,7 @@ namespace FeatherWidgets.TestIntegration.DynamicWidgets
 
                 for (int i = 0; i < itemsCount; i++)
                 {
-                    Assert.AreEqual(expectedSortedItemsTitles[i], items[i].Fields.Title, "The dynamic item with this title was not found!");
+                    Assert.AreEqual(expectedSortedItemsTitles[i], items[i].Identifier.ToString(), "The dynamic item with this title was not found!");
                 }
             }
             finally

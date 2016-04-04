@@ -29,7 +29,7 @@ namespace FeatherWidgets.TestIntegration.DynamicWidgets
 
         [Test]
         [Category(TestCategories.DynamicWidgets)]
-        [Author(FeatherTeams.Team2)]
+        [Author(FeatherTeams.FeatherTeam)]
         [Description("Verify paging functionality.")]
         public void DynamicWidgetsDesignerListSettings_VerifyUsePagingFunctionality()
         {
@@ -61,6 +61,7 @@ namespace FeatherWidgets.TestIntegration.DynamicWidgets
                 dynamicController.Model.ContentType = TypeResolutionService.ResolveType(ResolveType);
                 dynamicController.Model.DisplayMode = ListDisplayMode.Paging;
                 dynamicController.Model.ItemsPerPage = itemsPerPage;
+                dynamicController.Model.ProviderName = FeatherWidgets.TestUtilities.CommonOperations.DynamicModulesOperations.ProviderName;
                 mvcProxy.Settings = new ControllerSettings(dynamicController);
                 mvcProxy.WidgetName = WidgetName;
 
@@ -101,7 +102,7 @@ namespace FeatherWidgets.TestIntegration.DynamicWidgets
 
         [Test]
         [Category(TestCategories.DynamicWidgets)]
-        [Author(FeatherTeams.Team2)]
+        [Author(FeatherTeams.FeatherTeam)]
         [Description("Verify use limit functionality.")]
         public void DynamicWidgetsDesignerListSettings_VerifyUseLimitFunctionality()
         {
@@ -130,6 +131,7 @@ namespace FeatherWidgets.TestIntegration.DynamicWidgets
                 dynamicController.Model.ContentType = TypeResolutionService.ResolveType(ResolveType);
                 dynamicController.Model.DisplayMode = ListDisplayMode.Limit;
                 dynamicController.Model.ItemsPerPage = itemsPerPage;
+                dynamicController.Model.ProviderName = FeatherWidgets.TestUtilities.CommonOperations.DynamicModulesOperations.ProviderName;
                 mvcProxy.Settings = new ControllerSettings(dynamicController);
                 mvcProxy.WidgetName = WidgetName;
 
@@ -149,7 +151,7 @@ namespace FeatherWidgets.TestIntegration.DynamicWidgets
 
         [Test]
         [Category(TestCategories.DynamicWidgets)]
-        [Author(FeatherTeams.Team2)]
+        [Author(FeatherTeams.FeatherTeam)]
         [Description("Verify No limit and paging functionality.")]
         public void DynamicWidgetsDesignerListSettings_VerifyNoLimitAndPagingFunctionality()
         {
@@ -170,6 +172,8 @@ namespace FeatherWidgets.TestIntegration.DynamicWidgets
 
                 dynamicCollection = ServerOperationsFeather.DynamicModulePressArticle().RetrieveCollectionOfPressArticles();
 
+                Assert.IsNotNull(dynamicCollection, "The collection of press articles was NULL.");
+
                 this.pageOperations = new PagesOperations();
 
                 var mvcProxy = new MvcWidgetProxy();
@@ -177,6 +181,7 @@ namespace FeatherWidgets.TestIntegration.DynamicWidgets
                 var dynamicController = new DynamicContentController();
                 dynamicController.Model.ContentType = TypeResolutionService.ResolveType(ResolveType);
                 dynamicController.Model.DisplayMode = ListDisplayMode.All;
+                dynamicController.Model.ProviderName = FeatherWidgets.TestUtilities.CommonOperations.DynamicModulesOperations.ProviderName;
                 mvcProxy.Settings = new ControllerSettings(dynamicController);
                 mvcProxy.WidgetName = WidgetName;
 
@@ -197,7 +202,7 @@ namespace FeatherWidgets.TestIntegration.DynamicWidgets
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Telerik.Sitefinity", "SF1002:AvoidToListOnIEnumerable"), Test]
         [Category(TestCategories.DynamicWidgets)]
-        [Author(FeatherTeams.Team2)]
+        [Author(FeatherTeams.FeatherTeam)]
         [Description("Verify sort Descending functionality.")]
         public void DynamicWidgetsDesignerListSettings_VerifySortDescending()
         {
@@ -216,6 +221,7 @@ namespace FeatherWidgets.TestIntegration.DynamicWidgets
                 var dynamicController = new DynamicContentController();
                 dynamicController.Model.ContentType = TypeResolutionService.ResolveType(ResolveType);
                 dynamicController.Model.SortExpression = sortExpession;
+                dynamicController.Model.ProviderName = FeatherWidgets.TestUtilities.CommonOperations.DynamicModulesOperations.ProviderName;
                 mvcProxy.Settings = new ControllerSettings(dynamicController);
                 mvcProxy.WidgetName = WidgetName;
 
@@ -244,7 +250,7 @@ namespace FeatherWidgets.TestIntegration.DynamicWidgets
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Telerik.Sitefinity", "SF1002:AvoidToListOnIEnumerable"), Test]
         [Category(TestCategories.DynamicWidgets)]
-        [Author(FeatherTeams.Team2)]
+        [Author(FeatherTeams.FeatherTeam)]
         [Description("Verify sort Ascending functionality.")]
         public void DynamicWidgetsDesignerListSettings_VerifySortAscending()
         {
@@ -266,6 +272,7 @@ namespace FeatherWidgets.TestIntegration.DynamicWidgets
                 var dynamicController = new DynamicContentController();
                 dynamicController.Model.ContentType = TypeResolutionService.ResolveType(ResolveType);
                 dynamicController.Model.SortExpression = sortExpession;
+                dynamicController.Model.ProviderName = FeatherWidgets.TestUtilities.CommonOperations.DynamicModulesOperations.ProviderName;
                 mvcProxy.Settings = new ControllerSettings(dynamicController);
                 mvcProxy.WidgetName = WidgetName;
 
@@ -294,7 +301,7 @@ namespace FeatherWidgets.TestIntegration.DynamicWidgets
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Telerik.Sitefinity", "SF1002:AvoidToListOnIEnumerable"), Test]
         [Category(TestCategories.DynamicWidgets)]
-        [Author(FeatherTeams.Team2)]
+        [Author(FeatherTeams.FeatherTeam)]
         [Description("Verify sort Last modified functionality.")]
         public void DynamicWidgetsDesignerListSettings_VerifySortLastModified()
         {
@@ -317,6 +324,7 @@ namespace FeatherWidgets.TestIntegration.DynamicWidgets
                 var dynamicController = new DynamicContentController();
                 dynamicController.Model.ContentType = TypeResolutionService.ResolveType(ResolveType);
                 dynamicController.Model.SortExpression = sortExpession;
+                dynamicController.Model.ProviderName = FeatherWidgets.TestUtilities.CommonOperations.DynamicModulesOperations.ProviderName;
                 mvcProxy.Settings = new ControllerSettings(dynamicController);
                 mvcProxy.WidgetName = WidgetName;
 
@@ -343,7 +351,7 @@ namespace FeatherWidgets.TestIntegration.DynamicWidgets
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Telerik.Sitefinity", "SF1002:AvoidToListOnIEnumerable"), Test]
         [Category(TestCategories.DynamicWidgets)]
-        [Author(FeatherTeams.Team2)]
+        [Author(FeatherTeams.FeatherTeam)]
         [Description("Verify sort Publication date descending functionality.")]
         public void DynamicWidgetsDesignerListSettings_VerifyPublicationDateDescending()
         {
@@ -370,6 +378,7 @@ namespace FeatherWidgets.TestIntegration.DynamicWidgets
                 var dynamicController = new DynamicContentController();
                 dynamicController.Model.ContentType = TypeResolutionService.ResolveType(ResolveType);
                 dynamicController.Model.SortExpression = sortExpession;
+                dynamicController.Model.ProviderName = FeatherWidgets.TestUtilities.CommonOperations.DynamicModulesOperations.ProviderName;
                 mvcProxy.Settings = new ControllerSettings(dynamicController);
                 mvcProxy.WidgetName = WidgetName;
                 
@@ -394,7 +403,7 @@ namespace FeatherWidgets.TestIntegration.DynamicWidgets
 
         [Test]
         [Category(TestCategories.DynamicWidgets)]
-        [Author(FeatherTeams.Team2)]
+        [Author(FeatherTeams.FeatherTeam)]
         [Description("Verify select list template functionality.")]
         public void DynamicWidgetsDesignerListSettings_SetListTemplate()
         {          
@@ -426,6 +435,7 @@ namespace FeatherWidgets.TestIntegration.DynamicWidgets
                 var dynamicController = new DynamicContentController();
                 dynamicController.Model.ContentType = TypeResolutionService.ResolveType(ResolveType);
                 dynamicController.ListTemplateName = listTemplate;
+                dynamicController.Model.ProviderName = FeatherWidgets.TestUtilities.CommonOperations.DynamicModulesOperations.ProviderName;
                 mvcProxy.Settings = new ControllerSettings(dynamicController);
                 mvcProxy.WidgetName = WidgetName;
 
@@ -439,16 +449,16 @@ namespace FeatherWidgets.TestIntegration.DynamicWidgets
             }
             finally
             {
-                File.Delete(file);
-                Directory.Delete(this.folderPath);
                 this.pageOperations.DeletePages();
                 ServerOperationsFeather.DynamicModulePressArticle().DeleteDynamicItems(dynamicCollection);
+                File.Delete(file);
+                Directory.Delete(this.folderPath);
             }
         }
 
         [Test]
         [Category(TestCategories.DynamicWidgets)]
-        [Author(FeatherTeams.Team2)]
+        [Author(FeatherTeams.FeatherTeam)]
         [Description("Verify when delete selected list template functionality.")]
         public void DynamicWidgetsDesignerListSettings_DeleteSelectedListTemplate()
         {
@@ -480,6 +490,7 @@ namespace FeatherWidgets.TestIntegration.DynamicWidgets
                 var dynamicController = new DynamicContentController();
                 dynamicController.Model.ContentType = TypeResolutionService.ResolveType(ResolveType);
                 dynamicController.ListTemplateName = listTemplate;
+                dynamicController.Model.ProviderName = FeatherWidgets.TestUtilities.CommonOperations.DynamicModulesOperations.ProviderName;
                 mvcProxy.Settings = new ControllerSettings(dynamicController);
                 mvcProxy.WidgetName = WidgetName;
 
@@ -496,9 +507,9 @@ namespace FeatherWidgets.TestIntegration.DynamicWidgets
             }
             finally
             {
-                Directory.Delete(this.folderPath);
                 this.pageOperations.DeletePages();
                 ServerOperationsFeather.DynamicModulePressArticle().DeleteDynamicItems(dynamicCollection);
+                Directory.Delete(this.folderPath);
             }
         }
 

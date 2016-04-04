@@ -7,7 +7,6 @@ using ArtOfTest.WebAii.Controls.HtmlControls;
 using Feather.Widgets.TestUI.Framework;
 using FeatherWidgets.TestUI.TestCases;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Telerik.Sitefinity.Frontend.TestUtilities;
 
 namespace FeatherWidgets.TestUI.TestCases.ContentBlocks
 {
@@ -21,23 +20,23 @@ namespace FeatherWidgets.TestUI.TestCases.ContentBlocks
         /// UI test UseSharedContentBlockFromPage
         /// </summary>
         [TestMethod,
-        Owner(FeatherTeams.Team2),
-        TestCategory(FeatherTestCategories.ContentBlock)]
+        Owner(FeatherTeams.FeatherTeam),
+        TestCategory(FeatherTestCategories.ContentBlock1)]
         public void UseSharedContentBlockFromPage()
         {
-            BAT.Macros().NavigateTo().Pages();
+            BAT.Macros().NavigateTo().Pages(this.Culture);
             BAT.Wrappers().Backend().Pages().PagesWrapper().OpenPageZoneEditor(PageName);
             BAT.Wrappers().Backend().Pages().PageZoneEditorWrapper().SelectExtraOptionForWidget(OperationName);
             BATFeather.Wrappers().Backend().ContentBlocks().ContentBlocksShareWrapper().SelectContentBlock(ContentBlockTitle);
             this.VerifyIfSharedLabelExist();
             BAT.Wrappers().Backend().Pages().PageZoneEditorWrapper().PublishPage();
-            BAT.Macros().NavigateTo().Modules().ContentBlocks();
+            BAT.Macros().NavigateTo().Modules().ContentBlocks(this.Culture);
             this.VerifyIfContentBlockExist(ContentBlockTitle);
             this.VerifyLinkUsedOfContentBlockOnPage();
             this.ClickLinkUsedOfContentBlockOnPage();
             BAT.Wrappers().Backend().ContentBlocks().ContentBlocksWrapper().VerifyUsedPagesMessage(ExpectedCount);
             this.VerifyPagesThatUseSharedContentBlock();
-            BAT.Macros().NavigateTo().CustomPage("~/" + PageName.ToLower());
+            BAT.Macros().NavigateTo().CustomPage("~/" + PageName.ToLower(), true, this.Culture);
             BATFeather.Wrappers().Frontend().ContentBlock().ContentBlockWrapper().VerifyContentOfContentBlockOnThePageFrontend(ContentBlockContent);
         }
 

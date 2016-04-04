@@ -5,7 +5,8 @@ using System.Text;
 using System.Threading.Tasks;
 using Feather.Widgets.TestUI.Framework;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Telerik.Sitefinity.Frontend.TestUtilities;
+using Telerik.Sitefinity.TestUI.Framework.Utilities;
+using ArtOfTest.WebAii.Controls.HtmlControls;
 
 namespace FeatherWidgets.TestUI.TestCases.ScriptsAndStyles
 {
@@ -19,14 +20,17 @@ namespace FeatherWidgets.TestUI.TestCases.ScriptsAndStyles
         /// UI test AddEmbedCodeWidgetToPageAndWriteAndRemoveJavaScript
         /// </summary>
         [TestMethod,
-        Owner(FeatherTeams.Team7),
-        TestCategory(FeatherTestCategories.PagesAndContent),
+        Owner(FeatherTeams.FeatherTeam),
         TestCategory(FeatherTestCategories.ScriptsAndStyles)]
         public void AddEmbedCodeWidgetToPageAndWriteAndRemoveJavaScript()
         {
-            ActiveBrowser.WaitUntilReady();
-            BAT.Macros().NavigateTo().Pages();
+            BAT.Macros().NavigateTo().Pages(this.Culture);
             BAT.Wrappers().Backend().Pages().PagesWrapper().OpenPageZoneEditor(PageName);
+            //// Switch the focus to the zone editor
+            HtmlDiv radDockZone = ActiveBrowser.Find
+                                              .ByExpression<HtmlDiv>("placeholderid=" + "Contentplaceholder1")
+              .AssertIsPresent<HtmlDiv>("Contentplaceholder1");
+            radDockZone.MouseClick();
             BATFeather.Wrappers().Backend().Pages().PageZoneEditorWrapper().AddWidgetToPlaceHolderPureMvcMode(WidgetName);
             BATFeather.Wrappers().Backend().Pages().PageZoneEditorWrapper().EditWidget(WidgetName);
             BATFeather.Wrappers().Backend().ScriptAndStyles().JavaScriptWidgetEditWrapper().VerifyTips("Write CSS, JavaScript or paste embed code like Google Analytics or YouTube video");
@@ -37,7 +41,7 @@ namespace FeatherWidgets.TestUI.TestCases.ScriptsAndStyles
             BAT.Wrappers().Backend().Pages().PageZoneEditorWrapper().PublishPage();
             this.VerifyCodeExistOnTheFrontend();
 
-            BAT.Macros().NavigateTo().Pages();
+            BAT.Macros().NavigateTo().Pages(this.Culture);
             BAT.Wrappers().Backend().Pages().PagesWrapper().OpenPageZoneEditor(PageName);
             BATFeather.Wrappers().Backend().Pages().PageZoneEditorWrapper().EditWidget(WidgetName);
             BATFeather.Wrappers().Backend().ScriptAndStyles().JavaScriptWidgetEditWrapper().FillCodeInEditableArea(string.Empty);
@@ -53,7 +57,7 @@ namespace FeatherWidgets.TestUI.TestCases.ScriptsAndStyles
         /// </summary>
         public void VerifyCodeExistOnTheFrontend()
         {
-            BAT.Macros().NavigateTo().CustomPage("~/" + PageName.ToLower());
+            BAT.Macros().NavigateTo().CustomPage("~/" + PageName.ToLower(), false, this.Culture);
             bool isContained = BATFeather.Wrappers().Frontend().ScriptsAndStyles().ScriptsAndStylesWrapper().IsCodePresentOnFrontend(Script);
             Assert.IsTrue(isContained, string.Concat("Expected ", Script, " but the script is not found"));
             BATFeather.Wrappers().Frontend().ScriptsAndStyles().ScriptsAndStylesWrapper().VerifyWhereTheWidgetIsDroppedOption(JavaScriptWithoutScriptTag);
@@ -64,7 +68,7 @@ namespace FeatherWidgets.TestUI.TestCases.ScriptsAndStyles
         /// </summary>
         public void VerifyCssNotExistOnTheFrontend()
         {
-            BAT.Macros().NavigateTo().CustomPage("~/" + PageName.ToLower());
+            BAT.Macros().NavigateTo().CustomPage("~/" + PageName.ToLower(), false, this.Culture);
             bool isContained = BATFeather.Wrappers().Frontend().ScriptsAndStyles().ScriptsAndStylesWrapper().IsCodePresentOnFrontend(Script);
             Assert.IsFalse(isContained, string.Concat("Expected ", Script, " but the script is not found"));
         }
@@ -74,7 +78,8 @@ namespace FeatherWidgets.TestUI.TestCases.ScriptsAndStyles
         /// </summary>
         protected override void ServerSetup()
         {
-            BAT.Macros().User().EnsureAdminLoggedIn();
+            RuntimeSettingsModificator.ExecuteWithClientTimeout(800000, () => BAT.Macros().NavigateTo().CustomPage("~/sitefinity/pages", false));
+            RuntimeSettingsModificator.ExecuteWithClientTimeout(800000, () => BAT.Macros().User().EnsureAdminLoggedIn());                          
             BAT.Arrange(this.TestName).ExecuteSetUp();
         }
 

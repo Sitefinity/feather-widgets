@@ -8,6 +8,7 @@ using Telerik.Sitefinity.ContentLocations;
 using Telerik.Sitefinity.Frontend.Media.Mvc.Models;
 using Telerik.Sitefinity.Frontend.Media.Mvc.Models.VideoGallery;
 using Telerik.Sitefinity.Frontend.Media.Mvc.StringResources;
+using Telerik.Sitefinity.Frontend.Mvc.Infrastructure;
 using Telerik.Sitefinity.Frontend.Mvc.Infrastructure.Controllers;
 using Telerik.Sitefinity.Frontend.Mvc.Infrastructure.Controllers.Attributes;
 using Telerik.Sitefinity.Frontend.Mvc.Infrastructure.Routing;
@@ -199,10 +200,13 @@ namespace Telerik.Sitefinity.Frontend.Media.Mvc.Controllers
             this.ViewBag.DetailsPageId = this.DetailsPageId;
             this.ViewBag.OpenInSamePage = this.OpenInSamePage;
             this.ViewBag.ItemIndex = itemIndex;
+            this.ViewBag.UrlKeyPrefix = this.Model.UrlKeyPrefix;
 
             var viewModel = this.Model.CreateDetailsViewModel(item, itemIndex);
             if (SystemManager.CurrentHttpContext != null)
                 this.AddCacheDependencies(this.Model.GetKeysOfDependentObjects(viewModel));
+
+            this.AddCanonicalUrlTag(item);
 
             var fullTemplateName = this.detailTemplateNamePrefix + this.DetailTemplateName;
             return this.View(fullTemplateName, viewModel);
@@ -324,6 +328,16 @@ namespace Telerik.Sitefinity.Frontend.Media.Mvc.Controllers
                 this.TryResolveParentFilterMode(urlParams.Take(urlParams.Length - 1).ToArray(), requestContext, manager);
             }
             return false;
+        }
+
+        /// <summary>
+        /// Adds the canonical tag in the page headers HTML tag, like <link rel="canonical" href="http://www.test.com/item1" />.
+        /// </summary>
+        /// <param name="item">The item.</param>
+        protected virtual void AddCanonicalUrlTag(Telerik.Sitefinity.Model.IDataItem item)
+        {
+            var page = this.HttpContext.CurrentHandler.GetPageHandler();
+            this.AddCanonicalUrlTagIfEnabled(page, item);
         }
 
         #region Private Methods

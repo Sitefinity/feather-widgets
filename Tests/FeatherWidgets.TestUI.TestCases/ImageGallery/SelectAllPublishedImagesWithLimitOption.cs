@@ -2,7 +2,6 @@
 using Feather.Widgets.TestUI.Framework;
 using Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend.Widgets;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Telerik.Sitefinity.Frontend.TestUtilities;
 
 namespace FeatherWidgets.TestUI.TestCases.ImageGallery
 {
@@ -16,12 +15,12 @@ namespace FeatherWidgets.TestUI.TestCases.ImageGallery
         /// UI test SelectAllPublishedImagesWithLimitOption
         /// </summary>
         [TestMethod,
-        Owner(FeatherTeams.Team7),
+        Owner(FeatherTeams.FeatherTeam),
         TestCategory(FeatherTestCategories.PagesAndContent),
         TestCategory(FeatherTestCategories.ImageGallery)]
         public void SelectAllPublishedImagesWithLimitOption()
         {
-            BAT.Macros().NavigateTo().Pages();
+            BAT.Macros().NavigateTo().Pages(this.Culture);
             BAT.Wrappers().Backend().Pages().PagesWrapper().OpenPageZoneEditor(PageName);
             BATFeather.Wrappers().Backend().Pages().PageZoneEditorWrapper().AddMvcWidgetHybridModePage(WidgetName);
             BATFeather.Wrappers().Backend().Pages().PageZoneEditorWrapper().EditWidget(WidgetName);
@@ -45,7 +44,7 @@ namespace FeatherWidgets.TestUI.TestCases.ImageGallery
             }
 
             BAT.Wrappers().Backend().Pages().PageZoneEditorWrapper().PublishPage();
-            BAT.Macros().NavigateTo().CustomPage("~/" + PageName.ToLower());
+            BAT.Macros().NavigateTo().CustomPage("~/" + PageName.ToLower(), true, this.Culture);
             int i = 3;
             foreach (var image in this.imageTitles)
             {
@@ -77,6 +76,7 @@ namespace FeatherWidgets.TestUI.TestCases.ImageGallery
         {
             BAT.Macros().User().EnsureAdminLoggedIn();
             BAT.Arrange(this.TestName).ExecuteSetUp();
+            currentProviderUrlName = BAT.Arrange(this.TestName).ExecuteArrangement("GetCurrentProviderUrlName").Result.Values["CurrentProviderUrlName"];
         }
 
         /// <summary>
@@ -91,7 +91,17 @@ namespace FeatherWidgets.TestUI.TestCases.ImageGallery
         {
             string libraryUrl = LibraryName.ToLower();
             string imageUrl = imageName.ToLower() + imageType.ToLower();
-            string scr = BATFeather.Wrappers().Frontend().MediaWidgets().MediaWidgetsWrapper().GetMediaSource(isBaseUrlIncluded, libraryUrl, imageUrl, this.BaseUrl);
+            string url;
+
+            if (this.Culture == null)
+            {
+                url = this.BaseUrl;
+            }
+            else
+            {
+                url = ActiveBrowser.Url.Substring(0, 20);
+            }
+            string scr = BATFeather.Wrappers().Frontend().MediaWidgets().MediaWidgetsWrapper().GetMediaSource(isBaseUrlIncluded, libraryUrl, imageUrl, url, ContentType, currentProviderUrlName, this.Culture);
             return scr;
         }
 
@@ -99,7 +109,17 @@ namespace FeatherWidgets.TestUI.TestCases.ImageGallery
         {
             string libraryUrl = LibraryName.ToLower();
             string imageUrl = imageName.ToLower();
-            string href = BATFeather.Wrappers().Frontend().MediaWidgets().MediaWidgetsWrapper().GetMediaSource(isBaseUrlIncluded, libraryUrl, imageUrl, this.BaseUrl, PageName.ToLower() + "/images");
+            string url;
+            if (this.Culture == null)
+            {
+                url = this.BaseUrl;
+            }
+            else
+            {
+                url = ActiveBrowser.Url.Substring(0, 20);
+            }
+
+            string href = BATFeather.Wrappers().Frontend().MediaWidgets().MediaWidgetsWrapper().GetMediaSource(isBaseUrlIncluded, libraryUrl, imageUrl, url, PageName.ToLower() + "/images", currentProviderUrlName, this.Culture);
             return href;
         }
 
@@ -110,5 +130,7 @@ namespace FeatherWidgets.TestUI.TestCases.ImageGallery
         private const string ImageAltText = "AltText_Image";
         private const string ImageType = ".TMB";
         private const string ImageTypeFrontend = ".JPG";
+        private string currentProviderUrlName;
+        private const string ContentType = "images";
     }
 }

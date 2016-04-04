@@ -29,7 +29,7 @@ namespace FeatherWidgets.TestIntegration.DynamicWidgets
 
         [Test]
         [Category(TestCategories.DynamicWidgets)]
-        [Author(FeatherTeams.Team2)]
+        [Author(FeatherTeams.FeatherTeam)]
         [Description("Verify all items per page.")]
         public void DynamicWidgetsDesignerContent_VerifyAllFunctionality()
         {
@@ -54,6 +54,7 @@ namespace FeatherWidgets.TestIntegration.DynamicWidgets
                 var dynamicController = new DynamicContentController();
                 dynamicController.Model.ContentType = TypeResolutionService.ResolveType(ResolveType);
                 dynamicController.Model.SelectionMode = SelectionMode.AllItems;
+                dynamicController.Model.ProviderName = FeatherWidgets.TestUtilities.CommonOperations.DynamicModulesOperations.ProviderName;
                 mvcProxy.Settings = new ControllerSettings(dynamicController);
                 mvcProxy.WidgetName = WidgetName;
 
@@ -72,9 +73,9 @@ namespace FeatherWidgets.TestIntegration.DynamicWidgets
             }
         }
 
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Telerik.Sitefinity", "SF1002:AvoidToListOnIEnumerable"), Test]
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Maintainability", "CA1506:AvoidExcessiveClassCoupling"), System.Diagnostics.CodeAnalysis.SuppressMessage("Telerik.Sitefinity", "SF1002:AvoidToListOnIEnumerable"), Test]
         [Category(TestCategories.DynamicWidgets)]
-        [Author(FeatherTeams.Team2)]
+        [Author(FeatherTeams.FeatherTeam)]
         [Description("Verify selected items per page.")]
         public void DynamicWidgetsDesignerContent_VerifySelectedItemsFunctionality()
         {
@@ -93,6 +94,7 @@ namespace FeatherWidgets.TestIntegration.DynamicWidgets
                 dynamicController.Model.ContentType = TypeResolutionService.ResolveType(ResolveType);
                 dynamicController.Model.SelectionMode = SelectionMode.SelectedItems;
                 dynamicController.Model.SerializedSelectedItemsIds = "[\"" + dynamicCollection[3].Id.ToString() + "\"]";
+                dynamicController.Model.ProviderName = FeatherWidgets.TestUtilities.CommonOperations.DynamicModulesOperations.ProviderName;
                 mvcProxy.Settings = new ControllerSettings(dynamicController);
                 mvcProxy.WidgetName = WidgetName;
 
@@ -114,7 +116,7 @@ namespace FeatherWidgets.TestIntegration.DynamicWidgets
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Telerik.Sitefinity", "SF1002:AvoidToListOnIEnumerable"), System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Maintainability", "CA1506:AvoidExcessiveClassCoupling"), Test]
         [Category(TestCategories.DynamicWidgets)]
-        [Author(FeatherTeams.Team2)]
+        [Author(FeatherTeams.FeatherTeam)]
         [Description("Verify dynaimc items by tag.")]
         public void DynamicWidgetsDesignerContent_VerifyDynamicItemsByPublicationDateLastOneDayFunctionality()
         {
@@ -135,6 +137,7 @@ namespace FeatherWidgets.TestIntegration.DynamicWidgets
                 var dynamicController = new DynamicContentController();
                 dynamicController.Model.ContentType = TypeResolutionService.ResolveType(ResolveType);
                 dynamicController.Model.SelectionMode = SelectionMode.FilteredItems;
+                dynamicController.Model.ProviderName = FeatherWidgets.TestUtilities.CommonOperations.DynamicModulesOperations.ProviderName;
                 dynamicController.Model.SerializedAdditionalFilters = @"{
 				""QueryItems"": [
 					{
@@ -191,7 +194,7 @@ namespace FeatherWidgets.TestIntegration.DynamicWidgets
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Telerik.Sitefinity", "SF1002:AvoidToListOnIEnumerable"), System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Maintainability", "CA1506:AvoidExcessiveClassCoupling"), Test]
         [Category(TestCategories.DynamicWidgets)]
-        [Author(FeatherTeams.Team2)]
+        [Author(FeatherTeams.FeatherTeam)]
         [Description("Verify dynaimc items by tag.")]
         public void DynamicWidgetsDesignerContent_VerifyDynamicItemsByPublicationDateCustomRangeFunctionality()
         {
@@ -212,6 +215,7 @@ namespace FeatherWidgets.TestIntegration.DynamicWidgets
                 var dynamicController = new DynamicContentController();
                 dynamicController.Model.ContentType = TypeResolutionService.ResolveType(ResolveType);
                 dynamicController.Model.SelectionMode = SelectionMode.FilteredItems;
+                dynamicController.Model.ProviderName = FeatherWidgets.TestUtilities.CommonOperations.DynamicModulesOperations.ProviderName;
                 dynamicController.Model.SerializedAdditionalFilters = @"{
             ""QueryItems"":[
 	            {

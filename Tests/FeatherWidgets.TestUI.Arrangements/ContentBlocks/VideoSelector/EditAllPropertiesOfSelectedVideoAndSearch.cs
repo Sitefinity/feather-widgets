@@ -1,8 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using FeatherWidgets.TestUtilities.CommonOperations;
+using Telerik.Sitefinity.TestArrangementService.Attributes;
 using Telerik.Sitefinity.TestUI.Arrangements.Framework;
-using Telerik.Sitefinity.TestUI.Arrangements.Framework.Attributes;
+using Telerik.Sitefinity.TestUI.Arrangements.Framework.Server;
 using Telerik.Sitefinity.TestUtilities.CommonOperations;
 
 namespace FeatherWidgets.TestUI.Arrangements
@@ -10,7 +11,7 @@ namespace FeatherWidgets.TestUI.Arrangements
     /// <summary>
     /// EditAllPropertiesOfSelectedVideoAndSearch arrangement class.
     /// </summary>
-    public class EditAllPropertiesOfSelectedVideoAndSearch : ITestArrangement
+    public class EditAllPropertiesOfSelectedVideoAndSearch : TestArrangementBase
     {
         /// <summary>
         /// Server side set up.
@@ -24,8 +25,8 @@ namespace FeatherWidgets.TestUI.Arrangements
 
             ServerOperationsFeather.Pages().AddContentBlockWidgetToPage(pageId, string.Empty, PlaceHolderId);
 
-            ServerSideUpload.CreateVideoLibrary(LibraryTitle);
-            ServerSideUpload.UploadVideo(LibraryTitle, VideoTitle1, VideoResource1);
+            ServerOperations.Videos().CreateLibrary(LibraryTitle);
+            ServerOperations.Videos().Upload(LibraryTitle, VideoTitle1, VideoResource1);
         }
 
         /// <summary>
@@ -35,7 +36,17 @@ namespace FeatherWidgets.TestUI.Arrangements
         public void TearDown()
         {
             ServerOperations.Pages().DeleteAllPages();
-            ServerOperations.Libraries().DeleteAllVideoLibrariesExceptDefaultOne();
+            ServerOperations.Videos().DeleteAllLibrariesExceptDefaultOne();
+        }
+
+        /// Gets the current libraries provider Url name.
+        /// </summary>
+        [ServerArrangement]
+        public void GetCurrentProviderUrlName()
+        {
+            string urlName = ServerOperations.Media().GetCurrentProviderUrlName;
+
+            ServerArrangementContext.GetCurrent().Values.Add("CurrentProviderUrlName", urlName);
         }
 
         private const string PageName = "PageWithVideo";

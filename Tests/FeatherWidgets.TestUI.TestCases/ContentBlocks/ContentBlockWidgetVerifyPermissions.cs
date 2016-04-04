@@ -4,8 +4,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Telerik.Sitefinity.Frontend.TestUtilities;
 using Telerik.Sitefinity.TestUI.Framework.Framework.ElementMap.Permissions;
+using Telerik.Sitefinity.TestUI.Framework.Utilities;
 
 namespace FeatherWidgets.TestUI.TestCases.ContentBlocks
 {
@@ -16,11 +16,13 @@ namespace FeatherWidgets.TestUI.TestCases.ContentBlocks
     public class ContentBlockWidgetVerifyPermissions : FeatherTestCase
     {
         [TestMethod,
-        Owner(FeatherTeams.Team2),
+        Owner(FeatherTeams.FeatherTeam),
         TestCategory(FeatherTestCategories.ContentBlock)]
         public void AddContentBlockWidgetToPageVerifyViewPermissions()
         {
-            BAT.Macros().NavigateTo().Pages();
+            RuntimeSettingsModificator.ExecuteWithClientTimeout(800000, () => BAT.Macros().NavigateTo().CustomPage("~/sitefinity/pages", false));
+            RuntimeSettingsModificator.ExecuteWithClientTimeout(800000, () => BAT.Macros().User().EnsureAdminLoggedIn());
+            BAT.Macros().NavigateTo().Pages(this.Culture);
             BAT.Wrappers().Backend().Pages().PagesWrapper().OpenPageZoneEditor(PageTitle);
             BAT.Wrappers().Backend().Pages().PageZoneEditorWrapper().SelectExtraOptionForWidget(OperationName);
             BAT.Wrappers().Backend().Permissions().PermissionsContentWrapper().ClickChangePermissionsButton(PermissionTypes.View);
@@ -31,7 +33,7 @@ namespace FeatherWidgets.TestUI.TestCases.ContentBlocks
 
             BAT.Macros().User().LogOut();
             ActiveBrowser.RefreshDomTree();
-            BAT.Macros().NavigateTo().CustomPage("~/" + PageTitle.ToLower(), false);
+            BAT.Macros().NavigateTo().CustomPage("~/" + PageTitle.ToLower(), false, this.Culture);
 
             Assert.IsFalse(ActiveBrowser.ContainsText(ContentBlockText), "Content block text was found but it shouldn't");
         }
@@ -41,7 +43,6 @@ namespace FeatherWidgets.TestUI.TestCases.ContentBlocks
         /// </summary>
         protected override void ServerSetup()
         {
-            BAT.Macros().User().EnsureAdminLoggedIn();
             BAT.Arrange(this.TestName).ExecuteSetUp();
         }
 

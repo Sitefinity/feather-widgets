@@ -1,8 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
+using System.Web.UI.WebControls;
 using FeatherWidgets.TestUtilities.CommonOperations;
+using Telerik.Sitefinity.Modules.Libraries;
+using Telerik.Sitefinity.Taxonomies;
+using Telerik.Sitefinity.Taxonomies.Model;
+using Telerik.Sitefinity.TestArrangementService.Attributes;
 using Telerik.Sitefinity.TestUI.Arrangements.Framework;
-using Telerik.Sitefinity.TestUI.Arrangements.Framework.Attributes;
+using Telerik.Sitefinity.TestUI.Arrangements.Framework.Server;
 using Telerik.Sitefinity.TestUtilities.CommonOperations;
 
 namespace FeatherWidgets.TestUI.Arrangements
@@ -10,7 +16,7 @@ namespace FeatherWidgets.TestUI.Arrangements
     /// <summary>
     /// Select All Published Documents arrangement class.
     /// </summary>
-    public class SelectAllPublishedDocuments : ITestArrangement
+    public class SelectAllPublishedDocuments : TestArrangementBase
     {
         /// <summary>
         /// Server side set up.
@@ -19,12 +25,24 @@ namespace FeatherWidgets.TestUI.Arrangements
         public void SetUp()
         {
             Guid templateId = Telerik.Sitefinity.TestUtilities.CommonOperations.ServerOperations.Templates().GetTemplateIdByTitle(PageTemplateName);
-           Telerik.Sitefinity.TestUtilities.CommonOperations.ServerOperations.Pages().CreatePage(PageName, templateId);
+            Telerik.Sitefinity.TestUtilities.CommonOperations.ServerOperations.Pages().CreatePage(PageName, templateId);
 
-            ServerOperations.Documents().CreateDocumentLibrary(LibraryTitle);
-            ServerSideUpload.UploadDocument(LibraryTitle, DocumentTitle + 1, DocumentResource1);
-            ServerSideUpload.UploadDocument(LibraryTitle, DocumentTitle + 2, DocumentResource2);
-            ServerSideUpload.UploadDocument(LibraryTitle, DocumentTitle + 3, DocumentResource3);
+            ServerOperations.Documents().CreateLibrary(LibraryTitle);
+
+            ServerOperations.Documents().Upload(LibraryTitle, DocumentTitle + 1, DocumentResource1);
+            ServerOperations.Documents().Upload(LibraryTitle, DocumentTitle + 2, DocumentResource2);
+            ServerOperations.Documents().Upload(LibraryTitle, DocumentTitle + 3, DocumentResource3);
+        }
+
+        /// <summary>
+        /// Gets the current libraries provider Url name.
+        /// </summary>
+        [ServerArrangement]
+        public void GetCurrentProviderUrlName()
+        {
+            string urlName = ServerOperations.Media().GetCurrentProviderUrlName;
+
+            ServerArrangementContext.GetCurrent().Values.Add("CurrentProviderUrlName", urlName);
         }
 
         /// <summary>
@@ -34,7 +52,7 @@ namespace FeatherWidgets.TestUI.Arrangements
         public void TearDown()
         {
             ServerOperations.Pages().DeleteAllPages();
-            ServerOperations.Libraries().DeleteAllDocumentLibrariesExceptDefaultOne();
+            ServerOperations.Documents().DeleteAllLibrariesExceptDefaultOne();
         }
 
         private const string PageName = "PageWithDocument";

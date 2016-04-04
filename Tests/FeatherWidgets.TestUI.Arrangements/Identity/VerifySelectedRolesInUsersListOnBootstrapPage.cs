@@ -3,8 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using FeatherWidgets.TestUtilities.CommonOperations;
+using Telerik.Sitefinity.TestArrangementService.Attributes;
 using Telerik.Sitefinity.TestUI.Arrangements.Framework;
-using Telerik.Sitefinity.TestUI.Arrangements.Framework.Attributes;
 using Telerik.Sitefinity.TestUtilities.CommonOperations;
 
 namespace FeatherWidgets.TestUI.Arrangements
@@ -12,7 +12,7 @@ namespace FeatherWidgets.TestUI.Arrangements
     /// <summary>
     /// Arrangement methods for VerifySelectedRolesInUsersListOnBootstrapPage
     /// </summary>
-    public class VerifySelectedRolesInUsersListOnBootstrapPage : ITestArrangement
+    public class VerifySelectedRolesInUsersListOnBootstrapPage : TestArrangementBase
     {
         /// <summary>
         /// Server side set up.
@@ -20,7 +20,7 @@ namespace FeatherWidgets.TestUI.Arrangements
         [ServerSetUp]
         public void SetUp()
         {
-            Guid templateId = ServerOperationsFeather.TemplateOperations().GetTemplateIdByTitle(PageTemplateName);
+            Guid templateId = ServerOperations.Templates().GetTemplateIdByTitle(PageTemplateName);
             Guid pageId = ServerOperations.Pages().CreatePage(PageName, templateId);
             Guid pageNodeId = ServerOperations.Pages().GetPageNodeId(pageId);
             ServerOperationsFeather.Pages().AddUsersListWidgetToPage(pageNodeId, PlaceHolderId);

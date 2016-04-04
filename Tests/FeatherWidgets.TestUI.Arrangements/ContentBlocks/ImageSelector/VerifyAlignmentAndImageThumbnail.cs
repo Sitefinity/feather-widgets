@@ -4,8 +4,8 @@ using System.Linq;
 using System.Text;
 using FeatherWidgets.TestUtilities.CommonOperations;
 using Telerik.Sitefinity.Modules.Libraries;
+using Telerik.Sitefinity.TestArrangementService.Attributes;
 using Telerik.Sitefinity.TestUI.Arrangements.Framework;
-using Telerik.Sitefinity.TestUI.Arrangements.Framework.Attributes;
 using Telerik.Sitefinity.TestUI.Arrangements.Framework.Server;
 using Telerik.Sitefinity.TestUtilities.CommonOperations;
 
@@ -14,7 +14,7 @@ namespace FeatherWidgets.TestUI.Arrangements
     /// <summary>
     /// Verify alignment and image thumbnail arrangement class.
     /// </summary>
-    public class VerifyAlignmentAndImageThumbnail : ITestArrangement
+    public class VerifyAlignmentAndImageThumbnail : TestArrangementBase
     {
         /// <summary>
         /// Server side set up.
@@ -26,9 +26,9 @@ namespace FeatherWidgets.TestUI.Arrangements
             ServerOperationsFeather.Pages().AddContentBlockWidgetToPage(page1Id);
 
             ServerOperations.Images().CreateLibrary(ImageLibraryTitle);
-            ServerSideUpload.UploadImage(ImageLibraryTitle, ImageTitle1, ImageResource1);
-            ServerSideUpload.UploadImage(ImageLibraryTitle, ImageTitle2, ImageResource2);
-            ServerSideUpload.UploadImage(ImageLibraryTitle, ImageTitle3, ImageResource3);
+            ServerOperations.Images().Upload(ImageLibraryTitle, ImageTitle1, ImageResource1);
+            ServerOperations.Images().Upload(ImageLibraryTitle, ImageTitle2, ImageResource2);
+            ServerOperations.Images().Upload(ImageLibraryTitle, ImageTitle3, ImageResource3);
         }
 
         /// <summary>
@@ -38,7 +38,17 @@ namespace FeatherWidgets.TestUI.Arrangements
         public void TearDown()
         {
             ServerOperations.Pages().DeleteAllPages();
-            ServerOperations.Libraries().DeleteLibraries(false, "Image");
+            ServerOperations.Images().DeleteAllLibrariesExceptDefaultOne();
+        }
+
+        /// Gets the current libraries provider Url name.
+        /// </summary>
+        [ServerArrangement]
+        public void GetCurrentProviderUrlName()
+        {
+            string urlName = ServerOperations.Media().GetCurrentProviderUrlName;
+
+            ServerArrangementContext.GetCurrent().Values.Add("CurrentProviderUrlName", urlName);
         }
 
         private const string PageName = "PageWithImage";

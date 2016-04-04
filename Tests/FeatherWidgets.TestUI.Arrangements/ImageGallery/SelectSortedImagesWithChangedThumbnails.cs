@@ -1,8 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
+using System.Web.UI.WebControls;
 using FeatherWidgets.TestUtilities.CommonOperations;
+using Telerik.Sitefinity.Modules.Libraries;
+using Telerik.Sitefinity.Taxonomies;
+using Telerik.Sitefinity.Taxonomies.Model;
+using Telerik.Sitefinity.TestArrangementService.Attributes;
 using Telerik.Sitefinity.TestUI.Arrangements.Framework;
-using Telerik.Sitefinity.TestUI.Arrangements.Framework.Attributes;
+using Telerik.Sitefinity.TestUI.Arrangements.Framework.Server;
 using Telerik.Sitefinity.TestUtilities.CommonOperations;
 
 namespace FeatherWidgets.TestUI.Arrangements
@@ -10,7 +16,7 @@ namespace FeatherWidgets.TestUI.Arrangements
     /// <summary>
     /// Select Sorted Images With Changed Thumbnails arrangement class.
     /// </summary>
-    public class SelectSortedImagesWithChangedThumbnails : ITestArrangement
+    public class SelectSortedImagesWithChangedThumbnails : TestArrangementBase
     {
         /// <summary>
         /// Server side set up.
@@ -21,12 +27,23 @@ namespace FeatherWidgets.TestUI.Arrangements
             Guid page1Id = ServerOperations.Pages().CreatePage(PageName);
             ServerOperationsFeather.Pages().AddImageGalleryWidgetToPage(page1Id);
 
-            ServerSideUpload.CreateAlbum(ImageLibraryTitle);
-            ServerSideUpload.CreateAlbum(AnotherImageLibraryTitle);
+            ServerOperations.Images().CreateLibrary(ImageLibraryTitle);
+            ServerOperations.Images().CreateLibrary(AnotherImageLibraryTitle);
 
-            ServerSideUpload.UploadImage(ImageLibraryTitle, ImageTitle + 1, ImageResource1);
-            ServerSideUpload.UploadImage(AnotherImageLibraryTitle, ImageTitle + 2, ImageResource2);
-            ServerSideUpload.UploadImage(AnotherImageLibraryTitle, ImageTitle + 3, ImageResource3);
+            ServerOperations.Images().Upload(ImageLibraryTitle, ImageTitle + 1, ImageResource1);
+            ServerOperations.Images().Upload(AnotherImageLibraryTitle, ImageTitle + 2, ImageResource2);
+            ServerOperations.Images().Upload(AnotherImageLibraryTitle, ImageTitle + 3, ImageResource3);
+        }
+
+        /// <summary>
+        /// Gets the current libraries provider Url name.
+        /// </summary>
+        [ServerArrangement]
+        public void GetCurrentProviderUrlName()
+        {
+            string urlName = ServerOperations.Media().GetCurrentProviderUrlName;
+
+            ServerArrangementContext.GetCurrent().Values.Add("CurrentProviderUrlName", urlName);
         }
 
         /// <summary>
@@ -36,7 +53,7 @@ namespace FeatherWidgets.TestUI.Arrangements
         public void TearDown()
         {
             ServerOperations.Pages().DeleteAllPages();
-            ServerOperations.Libraries().DeleteLibraries(false, "Image");
+            ServerOperations.Images().DeleteAllLibrariesExceptDefaultOne();
         }
 
         private const string PageName = "PageWithImage";

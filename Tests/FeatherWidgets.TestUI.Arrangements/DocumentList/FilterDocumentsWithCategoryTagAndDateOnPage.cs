@@ -6,8 +6,9 @@ using FeatherWidgets.TestUtilities.CommonOperations;
 using Telerik.Sitefinity.Modules.Libraries;
 using Telerik.Sitefinity.Taxonomies;
 using Telerik.Sitefinity.Taxonomies.Model;
+using Telerik.Sitefinity.TestArrangementService.Attributes;
 using Telerik.Sitefinity.TestUI.Arrangements.Framework;
-using Telerik.Sitefinity.TestUI.Arrangements.Framework.Attributes;
+using Telerik.Sitefinity.TestUI.Arrangements.Framework.Server;
 using Telerik.Sitefinity.TestUtilities.CommonOperations;
 
 namespace FeatherWidgets.TestUI.Arrangements
@@ -15,7 +16,7 @@ namespace FeatherWidgets.TestUI.Arrangements
     /// <summary>
     /// FilterDocumentsWithCategoryTagAndDateOnPage arrangement class.
     /// </summary>
-    public class FilterDocumentsWithCategoryTagAndDateOnPage : ITestArrangement
+    public class FilterDocumentsWithCategoryTagAndDateOnPage : TestArrangementBase
     {
         /// <summary>
         /// Server side set up.
@@ -26,16 +27,16 @@ namespace FeatherWidgets.TestUI.Arrangements
             Guid page1Id = ServerOperations.Pages().CreatePage(PageName);
             ServerOperationsFeather.Pages().AddDocumentsListWidgetToPage(page1Id);
 
-            ServerSideUpload.CreateDocumentLibrary(DocumentLibraryTitle);
+            ServerOperations.Documents().CreateLibrary(DocumentLibraryTitle);
 
             List<Guid> listOfIds = new List<Guid>();
-            var guidDoc1 = ServerSideUpload.UploadDocument(DocumentLibraryTitle, DocumentTitle + 1, ImageResource1);
+            var guidDoc1 = ServerOperations.Documents().Upload(DocumentLibraryTitle, DocumentTitle + 1, ImageResource1);
             listOfIds.Add(guidDoc1);
-            var guidDoc2 = ServerSideUpload.UploadDocument(DocumentLibraryTitle, DocumentTitle + 2, ImageResource2);
+            var guidDoc2 = ServerOperations.Documents().Upload(DocumentLibraryTitle, DocumentTitle + 2, ImageResource2);
             listOfIds.Add(guidDoc2);
-            var guidDoc3 = ServerSideUpload.UploadDocument(DocumentLibraryTitle, DocumentTitle + 3, ImageResource3);
+            var guidDoc3 = ServerOperations.Documents().Upload(DocumentLibraryTitle, DocumentTitle + 3, ImageResource3);
             listOfIds.Add(guidDoc3);
-            var guidDoc4 = ServerSideUpload.UploadDocument(DocumentLibraryTitle, DocumentTitle + 4, ImageResource4);
+            var guidDoc4 = ServerOperations.Documents().Upload(DocumentLibraryTitle, DocumentTitle + 4, ImageResource4);
             listOfIds.Add(guidDoc4);
  
             this.AssignTaxonomiesToImages(listOfIds);     
@@ -50,9 +51,20 @@ namespace FeatherWidgets.TestUI.Arrangements
         public void TearDown()
         {
             ServerOperations.Pages().DeleteAllPages();
-            ServerOperations.Libraries().DeleteAllDocumentLibrariesExceptDefaultOne();
+            ServerOperations.Documents().DeleteAllLibrariesExceptDefaultOne();
             ServerOperations.Taxonomies().ClearAllCategories(TaxonomiesConstants.CategoriesTaxonomyId);
             ServerOperations.Taxonomies().ClearAllTags(TaxonomiesConstants.TagsTaxonomyId);
+        }
+
+        /// <summary>
+        /// Gets the current libraries provider Url name.
+        /// </summary>
+        [ServerArrangement]
+        public void GetCurrentProviderUrlName()
+        {
+            string urlName = ServerOperations.Media().GetCurrentProviderUrlName;
+
+            ServerArrangementContext.GetCurrent().Values.Add("CurrentProviderUrlName", urlName);
         }
 
         private void ChangeThePublicationDateOfADocument()

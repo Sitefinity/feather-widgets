@@ -26,9 +26,8 @@ namespace FeatherWidgets.TestIntegration.ContentBlock
     {
         [Test]
         [Category(TestCategories.ContentBlock)]
-        [Author(FeatherTeams.Team2)]
-        [Description("Creates a pure MVC template and page, based on the template, with content block widget, verifies the search result is correct")]
-        [Ignore("Ignored, because it is unstable")]
+        [Author(FeatherTeams.FeatherTeam)]
+        [Description("Creates a pure MVC template and page, based on the template, with content block widget, verifies the search result is correct"), Ignore]
         public void ContentBlock_PureMvcPageWithContentBlockWidget_VerifySearch()
         {
             string searchIndex = "TestSearchIndex";
@@ -36,7 +35,7 @@ namespace FeatherWidgets.TestIntegration.ContentBlock
 
             try
             {
-                searchIndexId = ServerOperations.Search().CreateSearchIndex(searchIndex);
+                searchIndexId = ServerOperations.Search().CreateIndex(searchIndex);
 
                 var templateId = FeatherServerOperations.Pages().CreatePureMvcTemplate(PageTemplate);
                 var pageId = ServerOperations.Pages().CreatePage(PageTitle, templateId);
@@ -57,9 +56,8 @@ namespace FeatherWidgets.TestIntegration.ContentBlock
 
         [Test]
         [Category(TestCategories.ContentBlock)]
-        [Author(FeatherTeams.Team2)]
-        [Description("Creates normal page (hybrid mode - web forms + MVC) with content block widget and verifies the search result is correct ")]
-        [Ignore("Ignored, because it is unstable")]
+        [Author(FeatherTeams.FeatherTeam)]
+        [Description("Creates normal page (hybrid mode - web forms + MVC) with content block widget and verifies the search result is correct "), Ignore]
         public void ContentBlock_PageWithContentBlockWidget_VerifySearch()
         {
             string searchIndex = "TestSearchIndex";
@@ -67,7 +65,7 @@ namespace FeatherWidgets.TestIntegration.ContentBlock
 
             try
             {
-                searchIndexId = ServerOperations.Search().CreateSearchIndex(searchIndex);
+                searchIndexId = ServerOperations.Search().CreateIndex(searchIndex);
 
                 var pageId = ServerOperations.Pages().CreatePage(PageTitle);
                 ServerOperationsFeather.Pages().AddContentBlockWidgetToPage(pageId, ContentBlockText);

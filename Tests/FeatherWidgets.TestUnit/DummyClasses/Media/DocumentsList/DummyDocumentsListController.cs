@@ -9,5 +9,8 @@ namespace FeatherWidgets.TestUnit.DummyClasses.Media.DocumentsList
 {
     public class DummyDocumentsListController : DocumentsListController
     {
+        protected override void AddCanonicalUrlTag(Telerik.Sitefinity.Model.IDataItem item)
+        {         
+        }
     }
 }

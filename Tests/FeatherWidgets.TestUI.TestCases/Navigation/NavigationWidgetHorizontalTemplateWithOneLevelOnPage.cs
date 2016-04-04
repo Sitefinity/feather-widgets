@@ -8,7 +8,6 @@ using ArtOfTest.WebAii.Core;
 using Feather.Widgets.TestUI.Framework;
 using FeatherWidgets.TestUI.TestCases;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Telerik.Sitefinity.Frontend.TestUtilities;
 using Telerik.WebAii.Controls.Html;
 
 namespace FeatherWidgets.TestUI.TestCases.Navigation
@@ -23,14 +22,14 @@ namespace FeatherWidgets.TestUI.TestCases.Navigation
         /// UI test NavigationWidgetHorizontalTemplateWithOneLevelOnPage
         /// </summary>
         [TestMethod,
-        Owner(FeatherTeams.Team2),
+        Owner(FeatherTeams.FeatherTeam),
         TestCategory(FeatherTestCategories.PagesAndContent),
         TestCategory(FeatherTestCategories.Navigation),
         TestCategory(FeatherTestCategories.Bootstrap)]
         public void NavigationWidgetHorizontalTemplateWithOneLevelOnPage()
         {
             BAT.Macros().User().EnsureAdminLoggedIn();
-            BAT.Macros().NavigateTo().Pages();
+            BAT.Macros().NavigateTo().Pages(this.Culture);
             this.CreatePageWithTemplate(PageName, PageTemplateName);
             BATFeather.Wrappers().Backend().Pages().PageZoneEditorWrapper().AddWidgetToPlaceHolderPureMvcMode(WidgetName);
             BAT.Wrappers().Backend().Pages().PageZoneEditorWrapper().PublishPage();
@@ -41,13 +40,14 @@ namespace FeatherWidgets.TestUI.TestCases.Navigation
         /// UI test NavigationWidgetHorizontalTemplateWithOneLevelOnPageFoundation
         /// </summary>
         [TestMethod,
-        Owner(FeatherTeams.Team2),
+        Owner(FeatherTeams.FeatherTeam),
+        TestCategory(FeatherTestCategories.PagesAndContent),
         TestCategory(FeatherTestCategories.Navigation),
         TestCategory(FeatherTestCategories.Foundation)]
         public void NavigationWidgetHorizontalTemplateWithOneLevelOnPageFoundation()
         {
             BAT.Macros().User().EnsureAdminLoggedIn();
-            BAT.Macros().NavigateTo().Pages();
+            BAT.Macros().NavigateTo().Pages(this.Culture);
             this.CreatePageWithTemplate(PageName, FoundationTemplateName);
             BATFeather.Wrappers().Backend().Pages().PageZoneEditorWrapper().AddWidgetToPlaceHolderPureMvcMode(WidgetName);
             BAT.Wrappers().Backend().Pages().PageZoneEditorWrapper().PublishPage();
@@ -58,13 +58,14 @@ namespace FeatherWidgets.TestUI.TestCases.Navigation
         /// UI test NavigationWidgetHorizontalTemplateWithOneLevelOnPageSemanticUI
         /// </summary>
         [TestMethod,
-        Owner(FeatherTeams.Team2),
+        Owner(FeatherTeams.FeatherTeam),
+        TestCategory(FeatherTestCategories.PagesAndContent),
         TestCategory(FeatherTestCategories.Navigation),
         TestCategory(FeatherTestCategories.SemanticUI)]
         public void NavigationWidgetHorizontalTemplateWithOneLevelOnPageSemanticUI()
         {
             BAT.Macros().User().EnsureAdminLoggedIn();
-            BAT.Macros().NavigateTo().Pages();
+            BAT.Macros().NavigateTo().Pages(this.Culture);
             this.CreatePageWithTemplate(PageName, SemanticUITemplateName);
             BATFeather.Wrappers().Backend().Pages().PageZoneEditorWrapper().AddWidgetToPlaceHolderPureMvcMode(WidgetName);
             BAT.Wrappers().Backend().Pages().PageZoneEditorWrapper().PublishPage();
@@ -97,7 +98,7 @@ namespace FeatherWidgets.TestUI.TestCases.Navigation
         {
             string[] selectedPages = new string[] { PageName };
 
-            BAT.Macros().NavigateTo().CustomPage("~/" + PageName.ToLower());
+            BAT.Macros().NavigateTo().CustomPage("~/" + PageName.ToLower(), true, this.Culture);
             BATFeather.Wrappers().Frontend().Navigation().NavigationWrapper().VerifyNavigationOnThePageFrontend(navClass, selectedPages, type);
         }
 

@@ -5,7 +5,6 @@ using System.Text;
 using System.Threading.Tasks;
 using Feather.Widgets.TestUI.Framework;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Telerik.Sitefinity.Frontend.TestUtilities;
 
 namespace FeatherWidgets.TestUI.TestCases.MediaWidgets
 {
@@ -19,13 +18,12 @@ namespace FeatherWidgets.TestUI.TestCases.MediaWidgets
         /// UI test VideoWidgetEditAndChangeSelectedVideo
         /// </summary>
         [TestMethod,
-        Owner(FeatherTeams.Team7),
+        Owner(FeatherTeams.FeatherTeam),
         TestCategory(FeatherTestCategories.MediaSelector),
-        TestCategory(FeatherTestCategories.ContentBlock),
         TestCategory(FeatherTestCategories.PagesAndContent)]
         public void VideoWidgetEditAndChangeSelectedVideo()
         {
-            BAT.Macros().NavigateTo().Pages();
+            BAT.Macros().NavigateTo().Pages(this.Culture);
             BAT.Wrappers().Backend().Pages().PagesWrapper().OpenPageZoneEditor(PageName);
             BATFeather.Wrappers().Backend().Pages().PageZoneEditorWrapper().EditWidget(WidgetName, 0, true);
   
@@ -48,7 +46,7 @@ namespace FeatherWidgets.TestUI.TestCases.MediaWidgets
             BATFeather.Wrappers().Backend().Media().VideoPropertiesWrapper().ConfirmMediaPropertiesInWidget();
             BAT.Wrappers().Backend().Pages().PageZoneEditorWrapper().PublishPage();
 
-            BAT.Macros().NavigateTo().CustomPage("~/" + PageName.ToLower());
+            BAT.Macros().NavigateTo().CustomPage("~/" + PageName.ToLower(), false, this.Culture);
             BATFeather.Wrappers().Frontend().MediaWidgets().MediaWidgetsWrapper().VerifyVideo(this.GetVideoSource(false, VideoName2), Width, Height);
         }
 
@@ -59,6 +57,7 @@ namespace FeatherWidgets.TestUI.TestCases.MediaWidgets
         {
             BAT.Macros().User().EnsureAdminLoggedIn();
             BAT.Arrange(this.TestName).ExecuteSetUp();
+            currentProviderUrlName = BAT.Arrange(this.TestName).ExecuteArrangement("GetCurrentProviderUrlName").Result.Values["CurrentProviderUrlName"];
         }
 
         /// <summary>
@@ -73,7 +72,19 @@ namespace FeatherWidgets.TestUI.TestCases.MediaWidgets
         {
             string libraryUrl = LibraryName.ToLower();
             string documentUrl = documentName.ToLower() + VideoType;
-            string href = BATFeather.Wrappers().Frontend().MediaWidgets().MediaWidgetsWrapper().GetMediaSource(isBaseUrlIncluded, libraryUrl, documentUrl, this.BaseUrl, "videos");
+
+            string url;
+
+            if (this.Culture == null)
+            {
+                url = this.BaseUrl;
+            }
+            else
+            {
+                url = ActiveBrowser.Url.Substring(0, 20);
+            }
+
+            string href = BATFeather.Wrappers().Frontend().MediaWidgets().MediaWidgetsWrapper().GetMediaSource(isBaseUrlIncluded, libraryUrl, documentUrl, url, "videos", currentProviderUrlName);
             return href;
         }
 
@@ -82,10 +93,11 @@ namespace FeatherWidgets.TestUI.TestCases.MediaWidgets
         private const string LibraryName = "TestVideoLibrary";
         private const string VideoName1 = "big_buck_bunny1";
         private const string VideoName2 = "big_buck_bunny2";
-        private const string Size = "1117 KB";
+        private const string Size = "375 KB";
         private const string VideoType = ".mp4";
         private const int Width = 600;
         private const int Height = 450;
         private const string Ratio = "4x3";
+        private string currentProviderUrlName;
     }
 }

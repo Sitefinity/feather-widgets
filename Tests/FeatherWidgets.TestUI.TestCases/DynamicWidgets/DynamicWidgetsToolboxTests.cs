@@ -3,9 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using ArtOfTest.WebAii.Core;
 using Feather.Widgets.TestUI.Framework;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Telerik.Sitefinity.Frontend.TestUtilities;
+using Telerik.Sitefinity.TestUI.Framework.Utilities;
 
 namespace FeatherWidgets.TestUI.TestCases.DynamicWidgets
 {
@@ -16,13 +17,13 @@ namespace FeatherWidgets.TestUI.TestCases.DynamicWidgets
         /// UI test DynamicModuleAddNewContentTypeVerifyPageToolbox
         /// </summary>
         [TestMethod,
-        Owner(FeatherTeams.Team2),
+        Owner(FeatherTeams.FeatherTeam),
         TestCategory(FeatherTestCategories.ModuleBuilder)]
         public void DynamicModuleAddNewContentTypeVerifyPageToolbox()
         {
             this.moduleName = "Press Release";
 
-            BAT.Wrappers().Backend().ModuleBuilder().ModuleInitializerWrapper().NavigateToModuleBuilderPage();
+            BAT.Macros().NavigateTo().CustomPage("~/Sitefinity/Administration/Module-builder", true, null, new HtmlFindExpression("class=~sfMain"));
             BAT.Wrappers().Backend().ModuleBuilder().ModuleInitializerWrapper().OpenModuleDashboard(this.moduleName);
             BAT.Wrappers().Backend().ModuleBuilder().ModuleInitializerWrapper().OpenAddNewContentTypeWizardFromModuleDashboard();
             BAT.Wrappers().Backend().ModuleBuilder().ModuleInitializerWrapper().EnterContentTypeName(ContentTypeName, DevName);
@@ -36,7 +37,7 @@ namespace FeatherWidgets.TestUI.TestCases.DynamicWidgets
         /// UI test DynamicModuleRemoveContentTypeVerifyPageToolbox
         /// </summary>
         [TestMethod,
-        Owner(FeatherTeams.Team2),
+        Owner(FeatherTeams.FeatherTeam),
         TestCategory(FeatherTestCategories.ModuleBuilder)]
         public void DynamicModuleRemoveContentTypeVerifyPageToolbox()
         {
@@ -44,7 +45,7 @@ namespace FeatherWidgets.TestUI.TestCases.DynamicWidgets
 
             BAT.Arrange(this.TestName).ExecuteArrangement("VerifyToolboxConfigBeforeDeleteContentType");
 
-            BAT.Wrappers().Backend().ModuleBuilder().ModuleInitializerWrapper().NavigateToModuleBuilderPage();
+            BAT.Macros().NavigateTo().CustomPage("~/Sitefinity/Administration/Module-builder", true, null, new HtmlFindExpression("class=~sfMain"));
             BAT.Wrappers().Backend().ModuleBuilder().ModuleInitializerWrapper().OpenModuleDashboard(this.moduleName);
             BAT.Wrappers().Backend().ModuleBuilder().ModuleInitializerWrapper().OpenFieldsEditor(this.moduleName, ContentTypeToDelete);
             BATFeather.Wrappers().Backend().ModuleBuilder().ModuleBuilderEditContentTypeWrapper().DeleteContentType();
@@ -57,7 +58,7 @@ namespace FeatherWidgets.TestUI.TestCases.DynamicWidgets
         /// UI test DeactivateAndActivateDynamicModuleVerifyPageToolbox
         /// </summary>
         [TestMethod,
-        Owner(FeatherTeams.Team2),
+        Owner(FeatherTeams.FeatherTeam),
         TestCategory(FeatherTestCategories.ModuleBuilder)]
         public void DeactivateAndActivateDynamicModuleVerifyPageToolbox()
         {
@@ -66,7 +67,7 @@ namespace FeatherWidgets.TestUI.TestCases.DynamicWidgets
             BAT.Arrange(this.TestName).ExecuteArrangement("VerifyToolboxConfigBeforeDeactivate");
             BAT.Arrange(this.TestName).ExecuteArrangement("DeactivateModule");
 
-            BAT.Macros().NavigateTo().Pages();
+            BAT.Macros().NavigateTo().Pages(this.Culture);
             BAT.Wrappers().Backend().Pages().PagesWrapper().OpenPageZoneEditor(PageName);
             Assert.IsFalse(BATFeather.Wrappers().Backend().Pages().PageZoneEditorWrapper().IsMvcWidgetPresentInToolbox(WidgetName));
             BAT.Wrappers().Backend().Pages().PageZoneEditorWrapper().PublishPage();
@@ -79,7 +80,7 @@ namespace FeatherWidgets.TestUI.TestCases.DynamicWidgets
 
         protected override void ServerSetup()
         {
-            BAT.Macros().User().EnsureAdminLoggedIn();
+            RuntimeSettingsModificator.ExecuteWithClientTimeout(200000, () => BAT.Macros().User().EnsureAdminLoggedIn());
             BAT.Arrange(this.TestName).ExecuteSetUp();
         }
 

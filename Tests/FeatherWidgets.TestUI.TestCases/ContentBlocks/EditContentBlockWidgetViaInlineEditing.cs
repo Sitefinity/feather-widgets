@@ -9,7 +9,6 @@ using ArtOfTest.WebAii.Core;
 using Feather.Widgets.TestUI.Framework;
 using FeatherWidgets.TestUI.TestCases;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Telerik.Sitefinity.Frontend.TestUtilities;
 using Telerik.WebAii.Controls;
 
 namespace FeatherWidgets.TestUI.TestCases.ContentBlocks
@@ -24,11 +23,11 @@ namespace FeatherWidgets.TestUI.TestCases.ContentBlocks
         /// UI test EditContentBlockWidgetViaInlineEditing 
         /// </summary>
         [TestMethod,
-        Owner(FeatherTeams.Team2),
-        TestCategory(FeatherTestCategories.ContentBlock)]
+        Owner(FeatherTeams.FeatherTeam),
+        TestCategory(FeatherTestCategories.ContentBlock2)]
         public void EditContentBlockWidgetViaInlineEditing()
         {
-            BAT.Macros().NavigateTo().CustomPage("~/" + PageName.ToLower());
+            BAT.Macros().NavigateTo().CustomPage("~/" + PageName.ToLower(), true, this.Culture);
             BATFeather.Wrappers().Frontend().ContentBlock().ContentBlockWrapper().VerifyContentOfContentBlockOnThePageFrontend(ContentBlockContent);
             BAT.Wrappers().Frontend().InlineEditing().InlineEditingWrapper().OpenPageForEdit();
             BAT.Wrappers().Frontend().InlineEditing().InlineEditingWrapper().VerifyEditIsOn(PageName);

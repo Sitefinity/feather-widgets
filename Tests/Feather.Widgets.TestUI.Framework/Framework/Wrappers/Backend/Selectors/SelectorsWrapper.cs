@@ -18,9 +18,11 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend
         /// </summary>
         public void DoneSelecting()
         {
-            HtmlButton shareButton = this.EM.Selectors.SelectorsScreen.DoneSelectingButton.AssertIsPresent("Done selecting button");
+            ActiveBrowser.RefreshDomTree();
+            ActiveBrowser.WaitUntilReady();
 
-            shareButton.Click();
+            HtmlButton doneButton = this.EM.Selectors.SelectorsScreen.DoneSelectingButton.AssertIsPresent("Done selecting button");
+            doneButton.Click();
             ActiveBrowser.WaitUntilReady();
             ActiveBrowser.WaitForAsyncRequests();
         }
@@ -32,6 +34,52 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend
         public void SelectItemsInFlatSelector(params string[] itemNames)
         {
             HtmlDiv activeTab = this.EM.Selectors.SelectorsScreen.ActiveTab.AssertIsPresent("active tab");
+
+            foreach (var itemName in itemNames)
+            {
+                var itemsToSelect = activeTab.Find.AllByCustom<HtmlContainerControl>(a => a.InnerText.Equals(itemName));
+                foreach (var item in itemsToSelect)
+                {
+                    if (item.IsVisible())
+                    {
+                        item.Wait.ForVisible();
+                        item.ScrollToVisible();
+                        item.MouseClick();
+                        ActiveBrowser.RefreshDomTree();
+                        break;
+                    }
+                }
+            }
+        }
+
+        /// <summary>
+        /// Selects items in page selector.
+        /// </summary>
+        /// <param name="itemNames">Names of the items.</param>
+        public void SelectItemsInPageSelector(params string[] itemNames)
+        {
+            HtmlDiv activeTab = this.EM.Selectors.SelectorsScreen.ActiveTab.AssertIsPresent("active tab");
+
+            foreach (var itemName in itemNames)
+            {
+                var itemsToSelect = activeTab.Find.AllByCustom<HtmlContainerControl>(a => a.InnerText.Equals(itemName));
+                foreach (var item in itemsToSelect)
+                {
+                    item.ScrollToVisible();
+                    item.MouseClick();
+                    ActiveBrowser.RefreshDomTree();
+                    break;
+                }
+            }
+        }
+
+        /// <summary>
+        /// Selects items in form widget selector.
+        /// </summary>
+        /// <param name="itemName">Name of the item.</param>
+        public void SelectItemsInFormWidgetSelector(params string[] itemNames)
+        {
+            HtmlDiv activeTab = this.EM.Selectors.SelectorsScreen.FormSelector.AssertIsPresent("active tab");
 
             foreach (var itemName in itemNames)
             {
@@ -193,7 +241,7 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend
         /// </summary>
         public void OpenSelectedTab()
         {
-            HtmlAnchor selectedTab = this.EM.Selectors.SelectorsScreen.SelectedTab.AssertIsPresent("selected tab");
+            HtmlSpan selectedTab = this.EM.Selectors.SelectorsScreen.SelectedTab.AssertIsPresent("selected tab");
             selectedTab.Click();
             ActiveBrowser.WaitForAsyncRequests();
             ActiveBrowser.RefreshDomTree();
@@ -204,7 +252,7 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend
         /// </summary>
         public void OpenAllTab()
         {
-            HtmlAnchor allTab = this.EM.Selectors.SelectorsScreen.AllTab.AssertIsPresent("all tab");
+            HtmlSpan allTab = this.EM.Selectors.SelectorsScreen.AllTab.AssertIsPresent("all tab");
 
             allTab.Click();
             ActiveBrowser.WaitForAsyncRequests();
@@ -216,7 +264,7 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend
         /// </summary>
         public void OpenExternalUrlsTab()
         {
-            HtmlAnchor externalUrlsTab = this.EM.Selectors.SelectorsScreen.ExternalUrlsTab.AssertIsPresent("external urls tab");
+            HtmlSpan externalUrlsTab = this.EM.Selectors.SelectorsScreen.ExternalUrlsTab.AssertIsPresent("external urls tab");
 
             externalUrlsTab.Click();
             ActiveBrowser.WaitForAsyncRequests();

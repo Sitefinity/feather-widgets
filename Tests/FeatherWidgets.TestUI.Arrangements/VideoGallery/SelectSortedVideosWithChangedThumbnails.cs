@@ -1,8 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
+using System.Web.UI.WebControls;
 using FeatherWidgets.TestUtilities.CommonOperations;
+using Telerik.Sitefinity.Modules.Libraries;
+using Telerik.Sitefinity.Taxonomies;
+using Telerik.Sitefinity.Taxonomies.Model;
+using Telerik.Sitefinity.TestArrangementService.Attributes;
 using Telerik.Sitefinity.TestUI.Arrangements.Framework;
-using Telerik.Sitefinity.TestUI.Arrangements.Framework.Attributes;
+using Telerik.Sitefinity.TestUI.Arrangements.Framework.Server;
 using Telerik.Sitefinity.TestUtilities.CommonOperations;
 
 namespace FeatherWidgets.TestUI.Arrangements
@@ -10,7 +16,7 @@ namespace FeatherWidgets.TestUI.Arrangements
     /// <summary>
     /// Select Sorted Videos With Changed Thumbnails arrangement class.
     /// </summary>
-    public class SelectSortedVideosWithChangedThumbnails : ITestArrangement
+    public class SelectSortedVideosWithChangedThumbnails : TestArrangementBase
     {
         /// <summary>
         /// Server side set up.
@@ -21,12 +27,23 @@ namespace FeatherWidgets.TestUI.Arrangements
             Guid page1Id = ServerOperations.Pages().CreatePage(PageName);
             ServerOperationsFeather.Pages().AddVideoGalleryWidgetToPage(page1Id);
 
-            ServerSideUpload.CreateVideoLibrary(VideoLibraryTitle);
-            ServerSideUpload.CreateVideoLibrary(AnotherVideoLibraryTitle);
+            ServerOperations.Videos().CreateLibrary(VideoLibraryTitle);
+            ServerOperations.Videos().CreateLibrary(AnotherVideoLibraryTitle);
 
-            ServerSideUpload.UploadVideo(VideoLibraryTitle, VideoTitle + 1, VideoResource1);
-            ServerSideUpload.UploadVideo(AnotherVideoLibraryTitle, VideoTitle + 2, VideoResource2);
-            ServerSideUpload.UploadVideo(AnotherVideoLibraryTitle, VideoTitle + 3, VideoResource3);
+            ServerOperations.Videos().Upload(VideoLibraryTitle, VideoTitle + 1, VideoResource1);
+            ServerOperations.Videos().Upload(AnotherVideoLibraryTitle, VideoTitle + 2, VideoResource2);
+            ServerOperations.Videos().Upload(AnotherVideoLibraryTitle, VideoTitle + 3, VideoResource3);
+        }
+
+        /// <summary>
+        /// Gets the current libraries provider Url name.
+        /// </summary>
+        [ServerArrangement]
+        public void GetCurrentProviderUrlName()
+        {
+            string urlName = ServerOperations.Media().GetCurrentProviderUrlName;
+
+            ServerArrangementContext.GetCurrent().Values.Add("CurrentProviderUrlName", urlName);
         }
 
         /// <summary>
@@ -36,7 +53,7 @@ namespace FeatherWidgets.TestUI.Arrangements
         public void TearDown()
         {
             ServerOperations.Pages().DeleteAllPages();
-            ServerOperations.Libraries().DeleteAllVideoLibrariesExceptDefaultOne();
+            ServerOperations.Videos().DeleteAllLibrariesExceptDefaultOne();
         }
 
         private const string PageName = "PageWithVideo";

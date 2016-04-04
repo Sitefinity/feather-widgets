@@ -16,7 +16,7 @@ namespace FeatherWidgets.TestIntegration.InlineClientAssets
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Globalization", "CA1303:Do not pass literals as localized parameters", MessageId = "Telerik.Sitefinity.TestIntegration.Data.Content.PageContentGenerator.AddControlToPage(System.Guid,System.Web.UI.Control,System.String,System.String,System.Action<Telerik.Sitefinity.Pages.Model.PageDraftControl>)"), Test]
         [Category(TestCategories.InlineClientAssets)]
-        [Author(FeatherTeams.Team2)]
+        [Author(FeatherTeams.FeatherTeam)]
         [Description("Verifies that StyleSheet renders CSS markup in the page Head.")]
         public void StyleSheetWidget_RendersInHead()
         {

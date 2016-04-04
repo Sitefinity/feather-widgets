@@ -3,9 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using ArtOfTest.WebAii.Core;
 using Feather.Widgets.TestUI.Framework;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Telerik.Sitefinity.Frontend.TestUtilities;
+using Telerik.Sitefinity.TestUI.Framework.Utilities;
 
 namespace FeatherWidgets.TestUI.TestCases.DynamicWidgets
 {
@@ -16,16 +17,18 @@ namespace FeatherWidgets.TestUI.TestCases.DynamicWidgets
         /// UI test DuplicateAndDeleteDynamicWidgetOnPage
         /// </summary>
         [TestMethod,
-        Owner(FeatherTeams.Team2),
+        Owner(FeatherTeams.FeatherTeam),
         TestCategory(FeatherTestCategories.DynamicWidgets)]
         public void DuplicateAndDeleteDynamicWidgetOnPage()
         {
-            BAT.Macros().NavigateTo().Pages();
+            RuntimeSettingsModificator.ExecuteWithClientTimeout(800000, () => BAT.Macros().NavigateTo().CustomPage("~/sitefinity/pages", true, null, new HtmlFindExpression("class=~sfMain")));
+            RuntimeSettingsModificator.ExecuteWithClientTimeout(800000, () => BAT.Macros().User().EnsureAdminLoggedIn());
+            BAT.Macros().NavigateTo().Pages(this.Culture);   
             BAT.Wrappers().Backend().Pages().PagesWrapper().OpenPageZoneEditor(PageName);
             BAT.Wrappers().Backend().Pages().PageZoneEditorWrapper().SelectExtraOptionForWidget(OperationNameDuplicate);
             BAT.Wrappers().Backend().Pages().PageZoneEditorWrapper().PublishPage();
             this.NavigatePageOnTheFrontend(this.dynamicTitlesDyplicated);
-            BAT.Macros().NavigateTo().Pages();
+            BAT.Macros().NavigateTo().Pages(this.Culture);
             BAT.Wrappers().Backend().Pages().PagesWrapper().OpenPageZoneEditor(PageName);
             BAT.Wrappers().Backend().Pages().PageZoneEditorWrapper().SelectExtraOptionForWidget(OperationNameDelete);
             BAT.Wrappers().Backend().Pages().PageZoneEditorWrapper().PublishPage();
@@ -37,7 +40,7 @@ namespace FeatherWidgets.TestUI.TestCases.DynamicWidgets
         /// </summary>
         public void NavigatePageOnTheFrontend(string[] dynamicTitles)
         {
-            BAT.Macros().NavigateTo().CustomPage("~/" + PageName.ToLower());
+            BAT.Macros().NavigateTo().CustomPage("~/" + PageName.ToLower(), true, this.Culture);
             Assert.IsTrue(BATFeather.Wrappers().Frontend().ModuleBuilder().ModuleBuilderWrapper().VerifyDynamicContentPresentOnTheFrontend(dynamicTitles));            
         }
 
@@ -46,7 +49,7 @@ namespace FeatherWidgets.TestUI.TestCases.DynamicWidgets
         /// </summary>
         protected override void ServerSetup()
         {
-            BAT.Macros().User().EnsureAdminLoggedIn();
+            RuntimeSettingsModificator.ExecuteWithClientTimeout(200000, () => BAT.Macros().User().EnsureAdminLoggedIn());
             BAT.Arrange(this.TestName).ExecuteSetUp();
         }
 

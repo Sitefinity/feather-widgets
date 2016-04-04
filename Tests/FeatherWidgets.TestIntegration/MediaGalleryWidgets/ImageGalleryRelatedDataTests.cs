@@ -23,21 +23,21 @@ namespace FeatherWidgets.TestIntegration.MediaGalleryWidgets
         [FixtureSetUp]
         public void Setup()
         {
-            ServerOperationsFeather.DynamicModules().EnsureModuleIsImported(ModuleName, ModuleResource);
-            ServerOperations.DynamicTypes().CreateDynamicItem(this.GetDynamicType().FullName, "myUrl", null, "MyItemTitle");
-            var manager = DynamicModuleManager.GetManager();
-            var dynamicItem = this.GetDynamicItem();
+            ////ServerOperationsFeather.DynamicModules().EnsureModuleIsImported(ModuleName, ModuleResource);
+            ////ServerOperations.DynamicTypes().CreateDynamicItem(this.GetDynamicType().FullName, "myUrl", null, "MyItemTitle");
+            ////var manager = DynamicModuleManager.GetManager();
+            ////var dynamicItem = this.GetDynamicItem();
 
-            ServerSideUpload.CreateAlbum(LibraryTitle);
-            var imageId1 = ServerSideUpload.UploadImage(LibraryTitle, ImagetTitle + 1, ImageResource1);
-            var imageId2 = ServerSideUpload.UploadImage(LibraryTitle, ImagetTitle + 2, ImageResource2);
-            var imageId3 = ServerSideUpload.UploadImage(LibraryTitle, ImagetTitle + 3, ImageResource3);
+            ////ServerSideUpload.CreateAlbum(LibraryTitle);
+            ////var imageId1 = ServerSideUpload.UploadImage(LibraryTitle, ImagetTitle + 1, ImageResource1);
+            ////var imageId2 = ServerSideUpload.UploadImage(LibraryTitle, ImagetTitle + 2, ImageResource2);
+            ////var imageId3 = ServerSideUpload.UploadImage(LibraryTitle, ImagetTitle + 3, ImageResource3);
 
-            dynamicItem.CreateRelation(imageId1, string.Empty, typeof(Image).FullName, RelatedImagesField);
-            dynamicItem.CreateRelation(imageId2, string.Empty, typeof(Image).FullName, RelatedImagesField);
-            dynamicItem.CreateRelation(imageId3, string.Empty, typeof(Image).FullName, RelatedImagesField);
+            ////dynamicItem.CreateRelation(imageId1, string.Empty, typeof(Image).FullName, RelatedImagesField);
+            ////dynamicItem.CreateRelation(imageId2, string.Empty, typeof(Image).FullName, RelatedImagesField);
+            ////dynamicItem.CreateRelation(imageId3, string.Empty, typeof(Image).FullName, RelatedImagesField);
 
-            manager.SaveChanges();
+            ////manager.SaveChanges();
         }
 
         [FixtureTearDown]
@@ -50,12 +50,12 @@ namespace FeatherWidgets.TestIntegration.MediaGalleryWidgets
 
             ServerOperations.ModuleBuilder().DeleteAllModules(this.providerName, TransactionName);
 
-            ServerOperations.Images().DeleteAllImages(ContentLifecycleStatus.Master);
+            ////ServerOperations.Images().DeleteAllImages(ContentLifecycleStatus.Master);
         }
 
         [Test]
         [Description("Verifies that the params passed to the RelatedData action will be set to the model.")]
-        [Author(FeatherTeams.Team7)]
+        [Author(FeatherTeams.FeatherTeam)]
         [Category(TestCategories.Media)]
         public void RelatedData_Action_EnsureParamsArePassedToModel()
         {
@@ -117,7 +117,7 @@ namespace FeatherWidgets.TestIntegration.MediaGalleryWidgets
         // Ignored because no relation is created between the items in the Set Up.
         [Test]
         [Description("Verifies that the related data is retrieved in the view model.")]
-        [Author(FeatherTeams.Team7)]
+        [Author(FeatherTeams.FeatherTeam)]
         [Category(TestCategories.Media)]
         [Ignore]
         public void RelatedData_Action_EnsureRelatedDataIsRetrieved()

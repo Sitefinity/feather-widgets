@@ -53,7 +53,7 @@ namespace FeatherWidgets.TestIntegration.News
         /// </summary>
         [Test]
         [Category(TestCategories.News)]
-        [Author(FeatherTeams.Team2)]
+        [Author(FeatherTeams.FeatherTeam)]
         [Description("Verifies that open single item in the same page functionality resolves the correct page.")]
         public void NewsWidget_VerifyOpenSingleItemInSamePage()
         {
@@ -88,7 +88,7 @@ namespace FeatherWidgets.TestIntegration.News
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Maintainability", "CA1506:AvoidExcessiveClassCoupling"), Test]
         [Category(TestCategories.News)]
-        [Author(FeatherTeams.Team2)]
+        [Author(FeatherTeams.FeatherTeam)]
         [Description("Verifies that open single item in the existing page functionality resolves the correct page.")]
         public void NewsWidget_VerifyOpenSingleItemInCustomPage()
         {
@@ -128,7 +128,7 @@ namespace FeatherWidgets.TestIntegration.News
 
         [Test]
         [Category(TestCategories.News)]
-        [Author(FeatherTeams.Team2)]
+        [Author(FeatherTeams.FeatherTeam)]
         public void NewsWidget_SelectDetailTemplate()
         {
             string testName = System.Reflection.MethodInfo.GetCurrentMethod().Name;

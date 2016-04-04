@@ -8,8 +8,8 @@ using ArtOfTest.WebAii.Core;
 using Feather.Widgets.TestUI.Framework;
 using FeatherWidgets.TestUI.TestCases;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Telerik.Sitefinity.Frontend.TestUtilities;
 using Telerik.WebAii.Controls;
+using Telerik.TestUI.Core.Utilities;
 
 namespace FeatherWidgets.TestUI.TestCases.ContentBlocks
 {
@@ -23,19 +23,19 @@ namespace FeatherWidgets.TestUI.TestCases.ContentBlocks
         /// UI test DeactivateContentBlockModule
         /// </summary>
         [TestMethod,
-        Owner(FeatherTeams.Team2),
+        Owner(FeatherTeams.FeatherTeam),
         TestCategory(FeatherTestCategories.ContentBlock)]
         public void DeactivateContentBlockModule()
         {
             BAT.Arrange(this.TestName).ExecuteArrangement("DeactivateModule");
 
             this.VerifyPageBackend(PageName, WidgetName, ContentBlockContent);
-            BAT.Macros().NavigateTo().CustomPage("~/" + PageName.ToLower());
+            BAT.Macros().NavigateTo().CustomPage("~/" + PageName.ToLower(), true, this.Culture);
             BATFeather.Wrappers().Frontend().ContentBlock().ContentBlockWrapper().VerifyContentOfContentBlockOnThePageFrontend(ContentBlockContent);
 
             BAT.Arrange(this.TestName).ExecuteArrangement("ActivateModule");
 
-            BAT.Macros().NavigateTo().CustomPage("~/" + PageName.ToLower());
+            BAT.Macros().NavigateTo().CustomPage("~/" + PageName.ToLower(), true, this.Culture);
             BATFeather.Wrappers().Frontend().ContentBlock().ContentBlockWrapper().VerifyContentOfContentBlockOnThePageFrontend(ContentBlockContent);
         }
 
@@ -64,7 +64,8 @@ namespace FeatherWidgets.TestUI.TestCases.ContentBlocks
         /// <param name="widgetContent">Widget content</param>
         private void VerifyPageBackend(string pageName, string widgetName, string widgetContent)
         {
-            BAT.Macros().NavigateTo().Pages();
+            var pagesUrl = this.Culture != null ? "~/sitefinity/pages/?lang=" + this.Culture : "~/sitefinity/pages";
+            RuntimeSettingsModificator.ExecuteWithClientTimeout(800000, () => BAT.Macros().NavigateTo().CustomPage(pagesUrl, false, null, new HtmlFindExpression("class=~sfMain"))); 
             BAT.Wrappers().Backend().Pages().PagesWrapper().OpenPageZoneEditor(pageName);
             BAT.Wrappers().Backend().Pages().PageZoneEditorWrapper().CheckWidgetContent(widgetName, widgetContent);
             BAT.Wrappers().Backend().Pages().PageZoneEditorWrapper().PublishPage();

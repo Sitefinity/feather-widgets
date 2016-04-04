@@ -8,6 +8,7 @@ using Telerik.Sitefinity.Frontend.InlineClientAssets.Mvc.Helpers;
 using Telerik.Sitefinity.Frontend.InlineClientAssets.Mvc.Models;
 using Telerik.Sitefinity.Frontend.InlineClientAssets.Mvc.Models.JavaScript;
 using Telerik.Sitefinity.Frontend.InlineClientAssets.Mvc.StringResources;
+using Telerik.Sitefinity.Frontend.Mvc.Infrastructure;
 using Telerik.Sitefinity.Frontend.Mvc.Infrastructure.Controllers;
 using Telerik.Sitefinity.Frontend.Mvc.Infrastructure.Controllers.Attributes;
 using Telerik.Sitefinity.Localization;
@@ -85,7 +86,7 @@ namespace Telerik.Sitefinity.Frontend.InlineClientAssets.Mvc.Controllers
         {
             var viewModel = this.Model.GetViewModel();
 
-            var page = this.GetHttpContext().CurrentHandler as Page;
+            var page = this.GetHttpContext().CurrentHandler.GetPageHandler();
 
             if (page != null && !this.IsEdit)
             {
@@ -117,7 +118,10 @@ namespace Telerik.Sitefinity.Frontend.InlineClientAssets.Mvc.Controllers
                     result = viewModel.JavaScriptCode;
                 }
 
-                viewModel.DesignModeContent = result;
+                if (!this.IsEmpty)
+                {
+                    viewModel.DesignModeContent = result;
+                }
 
                 if (!string.IsNullOrEmpty(result) && string.IsNullOrEmpty(this.Model.Description))
                 {

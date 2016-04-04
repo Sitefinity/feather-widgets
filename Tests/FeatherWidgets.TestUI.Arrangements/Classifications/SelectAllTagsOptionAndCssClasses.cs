@@ -3,8 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using FeatherWidgets.TestUtilities.CommonOperations;
+using Telerik.Sitefinity.TestArrangementService.Attributes;
 using Telerik.Sitefinity.TestUI.Arrangements.Framework;
-using Telerik.Sitefinity.TestUI.Arrangements.Framework.Attributes;
 using Telerik.Sitefinity.TestUtilities.CommonOperations;
 
 namespace FeatherWidgets.TestUI.Arrangements
@@ -12,7 +12,7 @@ namespace FeatherWidgets.TestUI.Arrangements
     /// <summary>
     /// SelectAllTagsOptionAndCssClasses arrangement class.
     /// </summary>
-    public class SelectAllTagsOptionAndCssClasses : ITestArrangement
+    public class SelectAllTagsOptionAndCssClasses : TestArrangementBase
     {
         /// <summary>
         /// Server side set up.
@@ -30,6 +30,7 @@ namespace FeatherWidgets.TestUI.Arrangements
             ServerOperationsFeather.NewsOperations().CreatePublishedNewsItem(NewsTitle + 1, NewsContent, AuthorName, SourceName, null, new List<string> { TaxonTitle + 1 }, null);
             ServerOperationsFeather.NewsOperations().CreatePublishedNewsItem(NewsTitle + 2, NewsContent, AuthorName, SourceName, null, new List<string> { TaxonTitle + 2 }, null);
             ServerOperationsFeather.Pages().AddNewsWidgetToPage(pageId);
+            ServerOperationsFeather.Pages().AddTagsWidgetToPage(pageId);
         }
 
         /// <summary>

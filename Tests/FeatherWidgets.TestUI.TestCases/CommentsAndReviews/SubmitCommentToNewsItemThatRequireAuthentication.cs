@@ -6,7 +6,6 @@ using System.Threading.Tasks;
 using ArtOfTest.WebAii.Core;
 using Feather.Widgets.TestUI.Framework;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Telerik.Sitefinity.Frontend.TestUtilities;
 using Telerik.Sitefinity.TestUI.Framework.Utilities;
 using Telerik.Sitefinity.TestUI.Framework.Wrappers.Backend;
 
@@ -22,13 +21,13 @@ namespace FeatherWidgets.TestUI.TestCases.CommentsAndReviews
         /// UI test SubmitCommentToNewsItemThatRequireAuthentication
         /// </summary>
         [TestMethod,
-        Owner(FeatherTeams.Team2),
+        Owner(FeatherTeams.FeatherTeam),
         TestCategory(FeatherTestCategories.PagesAndContent),
         TestCategory(FeatherTestCategories.CommentsAndReviews),
         TestCategory(FeatherTestCategories.Bootstrap)]
         public void SubmitCommentToNewsItemThatRequireAuthentication()
         {
-            BAT.Macros().NavigateTo().CustomPage("~/" + PageName.ToLower(), false);
+            BAT.Macros().NavigateTo().CustomPage("~/" + PageName.ToLower(), false, this.Culture);
             BATFeather.Wrappers().Frontend().CommentsAndReviews().CommentsWrapper().AssertExpectedCount(LeaveAComment);
             BATFeather.Wrappers().Frontend().CommentsAndReviews().CommentsWrapper().ClickCountLink();            
             BATFeather.Wrappers().Frontend().CommentsAndReviews().CommentsWrapper().VerifyAlertMessageOnTheFrontend(AllertMessage);
@@ -45,7 +44,7 @@ namespace FeatherWidgets.TestUI.TestCases.CommentsAndReviews
 
         public void VerifyCommentBackend()
         {
-            BAT.Macros().NavigateTo().Modules().Comments();
+            BAT.Macros().NavigateTo().Modules().Comments(this.Culture);
             ActiveBrowser.WaitForAsyncJQueryRequests();
             ManageCommentsWrapper manageComments = new ManageCommentsWrapper(ActiveBrowser);
             manageComments.VerifyCommentBackend(CommentStatus, this.commentToNews[0], this.commentAuthor[0], NewsTitle);

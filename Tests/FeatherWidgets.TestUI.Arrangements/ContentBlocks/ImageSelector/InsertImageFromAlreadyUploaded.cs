@@ -1,14 +1,14 @@
 ﻿using System;
 using FeatherWidgets.TestUtilities.CommonOperations;
 using Telerik.Sitefinity.Modules.Libraries;
+using Telerik.Sitefinity.TestArrangementService.Attributes;
 using Telerik.Sitefinity.TestUI.Arrangements.Framework;
-using Telerik.Sitefinity.TestUI.Arrangements.Framework.Attributes;
 using Telerik.Sitefinity.TestUI.Arrangements.Framework.Server;
 using Telerik.Sitefinity.TestUtilities.CommonOperations;
 
 namespace FeatherWidgets.TestUI.Arrangements
 {
-    public class InsertImageFromAlreadyUploaded : ITestArrangement
+    public class InsertImageFromAlreadyUploaded : TestArrangementBase
     {
         /// <summary>
         /// Server side set up.
@@ -27,7 +27,7 @@ namespace FeatherWidgets.TestUI.Arrangements
         public void UploadImage()
         {
             ServerOperations.Images().CreateLibrary(ImageLibraryTitle);
-            Guid id = ServerSideUpload.UploadImage(ImageLibraryTitle, ImageTitle, ImageResource);
+            Guid id = ServerOperations.Images().Upload(ImageLibraryTitle, ImageTitle, ImageResource);
 
             var manager = LibrariesManager.GetManager();
             var master = manager.GetImage(id);
@@ -43,7 +43,17 @@ namespace FeatherWidgets.TestUI.Arrangements
         public void TearDown()
         {
             ServerOperations.Pages().DeleteAllPages();
-            ServerOperations.Libraries().DeleteLibraries(false, "Image");
+            ServerOperations.Images().DeleteAllLibrariesExceptDefaultOne();
+        }
+
+        /// Gets the current libraries provider Url name.
+        /// </summary>
+        [ServerArrangement]
+        public void GetCurrentProviderUrlName()
+        {
+            string urlName = ServerOperations.Media().GetCurrentProviderUrlName;
+
+            ServerArrangementContext.GetCurrent().Values.Add("CurrentProviderUrlName", urlName);
         }
 
         private const string PageName = "PageWithImage";

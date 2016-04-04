@@ -3,6 +3,7 @@ using ArtOfTest.WebAii.Core;
 using Feather.Widgets.TestUI.Framework.Framework.ElementMap.Classifications;
 using Feather.Widgets.TestUI.Framework.Framework.ElementMap.CommentsAndReviews;
 using Feather.Widgets.TestUI.Framework.Framework.ElementMap.Content;
+using Feather.Widgets.TestUI.Framework.Framework.ElementMap.EmailCampaigns;
 using Feather.Widgets.TestUI.Framework.Framework.ElementMap.Identity;
 using Feather.Widgets.TestUI.Framework.Framework.ElementMap.Lists;
 using Feather.Widgets.TestUI.Framework.Framework.ElementMap.Media;
@@ -15,6 +16,9 @@ using Feather.Widgets.TestUI.Framework.Framework.ElementMap.Selectors;
 using Feather.Widgets.TestUI.Framework.Framework.ElementMap.SocialShare;
 using Feather.Widgets.TestUI.Framework.Framework.ElementMap.Widgets;
 using Feather.Widgets.TestUI.Framework.Framework.ElementMap.WidgetTemplates;
+using Feather.Widgets.TestUI.Framework.Framework.ElementMap.FeedWidget;
+using Feather.Widgets.TestUI.Framework.Framework.ElementMap.Forms;
+using Feather.Widgets.TestUI.Framework.Framework.ElementMap.CardWidget;
 
 namespace Feather.Widgets.TestUI.Framework.Framework.ElementMap
 {
@@ -384,6 +388,98 @@ namespace Feather.Widgets.TestUI.Framework.Framework.ElementMap
             }
         }
 
+        /// <summary>
+        /// Gets the EmailCampaignsMap element map.
+        /// </summary>
+        /// <value>The EmailCampaignsMap map.</value>
+        public EmailCampaignsMap EmailCampaigns
+        {
+            get
+            {
+                if (this.emailCampaignsMap == null)
+                {
+                    this.EnsureFindIsInitialized();
+                    this.emailCampaignsMap = new EmailCampaignsMap(this.find);
+                }
+
+                return this.emailCampaignsMap;
+            }
+
+            private set
+            {
+                this.emailCampaignsMap = value;
+            }
+        }
+
+        /// <summary>
+        /// Gets the FeedWidgetMap element map.
+        /// </summary>
+        /// <value>The FeedWidgetMap map.</value>
+        public FeedWidgetMap FeedWidget
+        {
+            get
+            {
+                if (this.feedWidgetMap == null)
+                {
+                    this.EnsureFindIsInitialized();
+                    this.feedWidgetMap = new FeedWidgetMap(this.find);
+                }
+
+                return this.feedWidgetMap;
+            }
+
+            private set
+            {
+                this.feedWidgetMap = value;
+            }
+        }
+
+        /// <summary>
+        /// Gets the FormsMap element map.
+        /// </summary>
+        /// <value>The FormsMap map.</value>
+        public FormsMap Forms
+        {
+            get
+            {
+                if (this.formsMap == null)
+                {
+                    this.EnsureFindIsInitialized();
+                    this.formsMap = new FormsMap(this.find);
+                }
+
+                return this.formsMap;
+            }
+
+            private set
+            {
+                this.formsMap = value;
+            }
+        }
+
+        /// <summary>
+        /// Gets the CardMap element map.
+        /// </summary>
+        /// <value>The CardMap map.</value>
+        public CardMap Card
+        {
+            get
+            {
+                if (this.cardMap == null)
+                {
+                    this.EnsureFindIsInitialized();
+                    this.cardMap = new CardMap(this.find);
+                }
+
+                return this.cardMap;
+            }
+
+            private set
+            {
+                this.cardMap = value;
+            }
+        }
+
         private void EnsureFindIsInitialized()
         {
             if (this.find == null)
@@ -408,5 +504,9 @@ namespace Feather.Widgets.TestUI.Framework.Framework.ElementMap
         private ScriptsAndStylesMap scriptsAndStylesMap;
         private CommentsAndReviewsMap commentsAndReviewsMap;
         private ClassificationsMap classificationsMap;
+        private EmailCampaignsMap emailCampaignsMap;
+        private FeedWidgetMap feedWidgetMap;
+        private FormsMap formsMap;
+        private CardMap cardMap;
     }
 }

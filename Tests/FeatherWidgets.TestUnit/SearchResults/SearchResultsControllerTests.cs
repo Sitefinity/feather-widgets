@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using FeatherWidgets.TestUnit.DummyClasses;
@@ -153,13 +154,95 @@ namespace FeatherWidgets.TestUnit.SearchResults
                     JsonResult jsonResult = null;
                     SystemManager.RunWithHttpContext(context, () => { jsonResult = controller.Results(searchQuery, indexCatalogue, language, orderBy, null) as JsonResult; });
 
-                    ISearchResultsModel model = controller.Model;
+                    DummySearchResultsModel model = (DummySearchResultsModel)controller.Model;
 
                     // Asserts
                     Assert.IsNotNull(jsonResult, "No results are displayed.");
                     var resultModel = jsonResult.Data as ResultModel;
                     Assert.AreEqual(3, resultModel.TotalCount, "No items are found");
                     Assert.IsNotNull(model, "The model is not created.");
+                    Assert.AreEqual("PublicationDate", model.GetModelOrderList().First());
+                }
+            }
+        }
+
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Maintainability", "CA1506:AvoidExcessiveClassCoupling"), TestMethod]
+        [Owner("GMateev")]
+        [Description("Checks whether Results action sets orderBy list to null when the order param is Relevance.")]
+        public void CallResultsAction_WithParams_EnsureRelevanceOrderingIsNull()
+        {
+            // Arrange
+            var searchQuery = "searchString";
+            var indexCatalogue = "catalogue1";
+            var language = "en";
+            var orderBy = "Relevance";
+
+            using (new ObjectFactoryContainerRegion())
+            {
+                ObjectFactory.Container.RegisterType<ConfigManager, ConfigManager>(typeof(XmlConfigProvider).Name.ToUpperInvariant(), new InjectionConstructor(typeof(XmlConfigProvider).Name));
+                ObjectFactory.Container.RegisterType<XmlConfigProvider, DummyConfigProvider>();
+                ObjectFactory.Container.RegisterType<IRelatedDataResolver, DummyRelatedDataResolver>();
+                ObjectFactory.Container.RegisterType<IModuleBuilderProxy, DummyModuleBuilderProxy>();
+                Config.RegisterSection<ResourcesConfig>();
+                Config.RegisterSection<SearchConfig>();
+                Config.RegisterSection<ProjectConfig>();
+
+                using (var controller = new DummySearchResultsController())
+                {
+                    var context =
+                    new HttpContextWrapper(
+                        new HttpContext(
+                            new HttpRequest(null, "http://tempuri.org", "package=testPackageName"),
+                            new HttpResponse(null)));
+
+                    // Act
+                    JsonResult jsonResult = null;
+                    SystemManager.RunWithHttpContext(context, () => { jsonResult = controller.Results(searchQuery, indexCatalogue, language, orderBy, null) as JsonResult; });
+
+                    DummySearchResultsModel model = (DummySearchResultsModel)controller.Model;
+
+                    // Asserts
+                    Assert.IsNull(model.GetModelOrderList());
+                }
+            }
+        }
+
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Maintainability", "CA1506:AvoidExcessiveClassCoupling"), TestMethod]
+        [Owner("GMateev")]
+        [Description("Checks whether Results action sets orderBy list to null when the order param is not provided.")]
+        public void CallResultsAction_WithParams_EnsureDefaultOrderingIsNull()
+        {
+            // Arrange
+            var searchQuery = "searchString";
+            var indexCatalogue = "catalogue1";
+            var language = "en";
+
+            using (new ObjectFactoryContainerRegion())
+            {
+                ObjectFactory.Container.RegisterType<ConfigManager, ConfigManager>(typeof(XmlConfigProvider).Name.ToUpperInvariant(), new InjectionConstructor(typeof(XmlConfigProvider).Name));
+                ObjectFactory.Container.RegisterType<XmlConfigProvider, DummyConfigProvider>();
+                ObjectFactory.Container.RegisterType<IRelatedDataResolver, DummyRelatedDataResolver>();
+                ObjectFactory.Container.RegisterType<IModuleBuilderProxy, DummyModuleBuilderProxy>();
+                Config.RegisterSection<ResourcesConfig>();
+                Config.RegisterSection<SearchConfig>();
+                Config.RegisterSection<ProjectConfig>();
+
+                using (var controller = new DummySearchResultsController())
+                {
+                    var context =
+                    new HttpContextWrapper(
+                        new HttpContext(
+                            new HttpRequest(null, "http://tempuri.org", "package=testPackageName"),
+                            new HttpResponse(null)));
+
+                    // Act
+                    JsonResult jsonResult = null;
+                    SystemManager.RunWithHttpContext(context, () => { jsonResult = controller.Results(searchQuery, indexCatalogue, language, null, null) as JsonResult; });
+
+                    DummySearchResultsModel model = (DummySearchResultsModel)controller.Model;
+
+                    // Asserts
+                    Assert.IsNull(model.GetModelOrderList());
                 }
             }
         }

@@ -1,0 +1,37 @@
+@model Telerik.Sitefinity.Frontend.Forms.Mvc.Models.FormViewModel
+
+@using Telerik.Sitefinity.UI.MVC;
+@using Telerik.Sitefinity.Frontend.Forms.Mvc.Helpers;
+@using Telerik.Sitefinity.Frontend.Forms.Mvc.Models;
+@using Telerik.Sitefinity.Frontend.Mvc.Helpers;
+@using Telerik.Sitefinity.Modules.Pages;
+
+<div data-sf-role="form-container" class="@Model.CssClass">
+    <input type="hidden" data-sf-role="form-id" value="@Model.FormId" />
+    @{
+        if (Model.UseAjaxSubmit)
+        {
+        <span data-sf-role="success-message" style="display: none;">@Model.SuccessMessage</span>
+        <span data-sf-role="error-message" style="display: none;"></span>
+        <img data-sf-role="loading-img" src='@Url.EmbeddedResource("Telerik.Sitefinity.Resources.Reference", "Telerik.Sitefinity.Resources.Themes.Default.Images.Loadings.sfLoadingData.gif")' style="display:none;" />
+        <div data-sf-role="fields-container">
+            @* Fields Markup *@
+        </div>
+        }
+        else
+        {
+            using (Html.BeginFormSitefinity("", null, (System.Web.Routing.RouteValueDictionary)null, FormMethod.Post, new Dictionary<string, object> { { "enctype", "multipart/form-data" } }, true))
+            {
+            @* Fields Markup *@
+            }
+        }
+
+        if (Model.UseAjaxSubmit)
+        { 
+<input type="hidden" data-sf-role="ajax-submit-url" value="@Model.AjaxSubmitUrl" />
+<input type="hidden" data-sf-role="redirect-url" value="@Model.RedirectUrl" />
+            @Html.Script(ScriptRef.JQuery, "top", false)
+            @Html.Script(Url.WidgetContent("Mvc/Scripts/Form/form-ajax.js"), "bottom", false)
+        }
+    }
+</div>

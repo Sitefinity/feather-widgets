@@ -3,10 +3,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using ArtOfTest.WebAii.Controls.HtmlControls;
+using ArtOfTest.WebAii.Core;
 using Feather.Widgets.TestUI.Framework;
 using FeatherWidgets.TestUI.TestCases;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Telerik.Sitefinity.Frontend.TestUtilities;
+using Telerik.Sitefinity.TestUI.Framework.Utilities;
 
 namespace FeatherWidgets.TestUI.TestCases.DynamicWidgets
 {
@@ -20,11 +22,13 @@ namespace FeatherWidgets.TestUI.TestCases.DynamicWidgets
         /// UI test CheckSelectorsAfterSelectUnselectAndUNPublishingDynamicItem.
         /// </summary>
         [TestMethod,
-        Owner(FeatherTeams.Team7),
+        Owner(FeatherTeams.FeatherTeam),
         TestCategory(FeatherTestCategories.DynamicWidgets)]
         public void CheckSelectorsAfterSelectUnselectAndUNPublishingDynamicItem()
         {
-            BAT.Macros().NavigateTo().Pages();
+            RuntimeSettingsModificator.ExecuteWithClientTimeout(800000, () => BAT.Macros().User().EnsureAdminLoggedIn());
+            var pagesUrl = this.Culture != null ? "~/sitefinity/pages/?lang=" + this.Culture : "~/sitefinity/pages";
+            RuntimeSettingsModificator.ExecuteWithClientTimeout(800000, () => BAT.Macros().NavigateTo().CustomPage(pagesUrl, false, null, new HtmlFindExpression("InnerText=" + PageName)));
             BAT.Wrappers().Backend().Pages().PagesWrapper().OpenPageZoneEditor(PageName);
             BATFeather.Wrappers().Backend().Pages().PageZoneEditorWrapper().EditWidget(WidgetName);
             BATFeather.Wrappers().Backend().Widgets().WidgetDesignerWrapper().SelectWhichItemsToDisplay(WhichNewsToDisplay);
@@ -45,8 +49,8 @@ namespace FeatherWidgets.TestUI.TestCases.DynamicWidgets
 
             BAT.Wrappers().Backend().Pages().PageZoneEditorWrapper().PublishPage();
 
-            this.UnpublishDynamicItem();
-
+            BAT.Arrange(this.TestName).ExecuteArrangement("UNPublishDynamicItem");
+            BAT.Macros().NavigateTo().Pages(this.Culture);
             BAT.Wrappers().Backend().Pages().PagesWrapper().OpenPageZoneEditor(PageName);
             BATFeather.Wrappers().Backend().Pages().PageZoneEditorWrapper().EditWidget(WidgetName);
             BATFeather.Wrappers().Backend().Widgets().WidgetDesignerWrapper().VerifySelectedItemsFromFlatSelector(this.selectedItemsNames);
@@ -63,13 +67,8 @@ namespace FeatherWidgets.TestUI.TestCases.DynamicWidgets
             }
 
             BAT.Wrappers().Backend().Pages().PageZoneEditorWrapper().PublishPage();
-            BAT.Macros().NavigateTo().CustomPage("~/" + PageName.ToLower());
+            BAT.Macros().NavigateTo().CustomPage("~/" + PageName.ToLower(), true, this.Culture);
             Assert.IsTrue(BATFeather.Wrappers().Frontend().ModuleBuilder().ModuleBuilderWrapper().VerifyDynamicContentPresentOnTheFrontend(this.finalItemsNames));
-        }
-
-        protected void UnpublishDynamicItem()
-        {
-            BAT.Arrange(this.TestName).ExecuteArrangement("UNPublishDynamicItem");
         }
 
         /// <summary>
@@ -77,7 +76,6 @@ namespace FeatherWidgets.TestUI.TestCases.DynamicWidgets
         /// </summary>
         protected override void ServerSetup()
         {
-            BAT.Macros().User().EnsureAdminLoggedIn();
             BAT.Arrange(this.TestName).ExecuteSetUp();
         }
 
@@ -93,8 +91,8 @@ namespace FeatherWidgets.TestUI.TestCases.DynamicWidgets
         private const string WidgetName = "Press Articles MVC";
         private const string WhichNewsToDisplay = "Selected PressArticles";
 
-        private readonly string[] selectedItemsNames = { "Dynamic Item Title1", "Dynamic Item Title5", "Dynamic Item Title6", "Dynamic Item Title12" };
-        private const string SelectedItemsName6 = "Dynamic Item Title6";
-        private readonly string[] finalItemsNames = { "Dynamic Item Title1", "Dynamic Item Title12" };
+        private readonly string[] selectedItemsNames = { "DynamicItemTitle1", "DynamicItemTitle5", "DynamicItemTitle6", "DynamicItemTitle12" };
+        private const string SelectedItemsName6 = "DynamicItemTitle6";
+        private readonly string[] finalItemsNames = { "DynamicItemTitle1", "DynamicItemTitle12" };
     }
 }

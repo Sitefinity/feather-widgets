@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using ArtOfTest.WebAii.Core;
 using Feather.Widgets.TestUI.Framework;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Telerik.Sitefinity.Frontend.TestUtilities;
+using Telerik.Sitefinity.TestUI.Framework.Wrappers.Backend.PageEditor;
 
 namespace FeatherWidgets.TestUI.TestCases.ScriptsAndStyles
 {
@@ -20,16 +20,21 @@ namespace FeatherWidgets.TestUI.TestCases.ScriptsAndStyles
         /// UI test EmbedCodeWidgetOnPageTemplateAndAddDescription
         /// </summary>
         [TestMethod,
-        Owner(FeatherTeams.Team2),
-        TestCategory(FeatherTestCategories.PagesAndContent),
+        Owner(FeatherTeams.FeatherTeam),
         TestCategory(FeatherTestCategories.ScriptsAndStyles)]
         public void EmbedCodeWidgetOnPageTemplateAndAddDescription()
         {
-            ActiveBrowser.WaitUntilReady();
-            BAT.Macros().NavigateTo().Design().PageTemplates();
-            this.OpenTemplateEditor();
-
-            BATFeather.Wrappers().Backend().Pages().PageZoneEditorWrapper().AddWidgetToPlaceHolderPureMvcMode(WidgetName, PlaceHolder);
+            BAT.Macros().NavigateTo().Design().PageTemplates(this.Culture);
+            BAT.Wrappers().Backend().PageTemplates().PageTemplateMainScreen().OpenTemplateEditor(TemplateTitle);
+            BAT.Wrappers().Backend().Pages().PageZoneEditorWrapper().SwitchEditorLayoutMode(EditorLayoutMode.Layout);
+            BAT.Wrappers().Backend().Pages().PageLayoutEditorWrapper().SelectAnotherTemplate();
+            BAT.Wrappers().Backend().Pages().SelectTemplateWrapper().SelectATemplate("Bootstrap.default");
+            BAT.Wrappers().Backend().Pages().SelectTemplateWrapper().ClickDoneButton();
+            BATFeather.Wrappers().Backend().Pages().PageZoneEditorWrapper().AddWidgetToPlaceHolderPureMvcMode(WidgetNameContentBlock);
+            BATFeather.Wrappers().Backend().Pages().PageZoneEditorWrapper().EditWidget(WidgetNameContentBlock);
+            BATFeather.Wrappers().Backend().ContentBlocks().ContentBlocksWrapper().FillContentToContentBlockWidget(ContentBlockContent);
+            BATFeather.Wrappers().Backend().ContentBlocks().ContentBlocksWrapper().SaveChanges();
+            BATFeather.Wrappers().Backend().Pages().PageZoneEditorWrapper().AddWidgetToPlaceHolderPureMvcMode(WidgetName);
             BATFeather.Wrappers().Backend().Pages().PageZoneEditorWrapper().EditWidget(WidgetName);
             BATFeather.Wrappers().Backend().ScriptAndStyles().CssWidgetEditWrapper().FillCodeInEditableArea(Script);
             BATFeather.Wrappers().Backend().ScriptAndStyles().CssWidgetEditWrapper().MoreOptions();
@@ -48,7 +53,7 @@ namespace FeatherWidgets.TestUI.TestCases.ScriptsAndStyles
         /// </summary>
         public void VerifyPageOnTheFrontend()
         {
-            BAT.Macros().NavigateTo().CustomPage("~/" + PageName.ToLower(), false);
+            BAT.Macros().NavigateTo().CustomPage("~/" + PageName.ToLower(), false, this.Culture);
             bool isContained = BATFeather.Wrappers().Frontend().ScriptsAndStyles().ScriptsAndStylesWrapper().IsCodePresentOnFrontend(Script);
             Assert.IsTrue(isContained, string.Concat("Expected ", Script, " but the style is not found"));
         }
@@ -70,20 +75,14 @@ namespace FeatherWidgets.TestUI.TestCases.ScriptsAndStyles
             BAT.Arrange(TestArrangement).ExecuteTearDown();
         }
 
-        private void OpenTemplateEditor()
-        {
-            var templateId = BAT.Arrange(TestArrangement).ExecuteArrangement("GetTemplateId").Result.Values["templateId"];
-
-            BAT.Macros().NavigateTo().CustomPage("~/Sitefinity/Template/" + templateId, false);
-            ActiveBrowser.WaitForAsyncOperations();
-        }
-
-        private const string TestArrangement = "CssWidgetOnPageTemplateAndAddDescription";
+        private const string TestArrangement = "CssAndJavaScriptWidgetOnPageTemplateAndAddDescription";
         private const string PageName = "FeatherPage";
         private const string WidgetName = "Embed code";
         private const string Script = "<style type=\"text/css\">div { color: #FF0000; font-size: 20px;}</style>";
-        private const string PlaceHolder = "TestPlaceHolder";
         private const string TestDescription = "Test description";
         private const string CssLocation = "In the head tag";
+        private const string ContentBlockContent = "Test content";
+        private const string TemplateTitle = "TestLayout";
+        private const string WidgetNameContentBlock = "Content block";
     }
 }

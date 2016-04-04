@@ -1,8 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using FeatherWidgets.TestUtilities.CommonOperations;
+using Telerik.Sitefinity.TestArrangementService.Attributes;
 using Telerik.Sitefinity.TestUI.Arrangements.Framework;
-using Telerik.Sitefinity.TestUI.Arrangements.Framework.Attributes;
+using Telerik.Sitefinity.TestUI.Arrangements.Framework.Server;
 using Telerik.Sitefinity.TestUtilities.CommonOperations;
 
 namespace FeatherWidgets.TestUI.Arrangements
@@ -10,7 +11,7 @@ namespace FeatherWidgets.TestUI.Arrangements
     /// <summary>
     /// DocumentWidgetInsertDocument arrangement class.
     /// </summary>
-    public class DocumentWidgetInsertDocument : ITestArrangement
+    public class DocumentWidgetInsertDocument : TestArrangementBase
     {
         /// <summary>
         /// Server side set up.
@@ -21,9 +22,9 @@ namespace FeatherWidgets.TestUI.Arrangements
             Guid templateId = Telerik.Sitefinity.TestUtilities.CommonOperations.ServerOperations.Templates().GetTemplateIdByTitle(PageTemplateName);
             Telerik.Sitefinity.TestUtilities.CommonOperations.ServerOperations.Pages().CreatePage(PageName, templateId);
 
-            ServerOperations.Documents().CreateDocumentLibrary(LibraryTitle);
-            ServerSideUpload.UploadDocument(LibraryTitle, DocumentTitle1, DocumentResource1);
-            ServerSideUpload.UploadDocument(LibraryTitle, DocumentTitle2, DocumentResource2);
+            ServerOperations.Documents().CreateLibrary(LibraryTitle);
+            ServerOperations.Documents().Upload(LibraryTitle, DocumentTitle1, DocumentResource1);
+            ServerOperations.Documents().Upload(LibraryTitle, DocumentTitle2, DocumentResource2);
         }
 
         /// <summary>
@@ -33,7 +34,18 @@ namespace FeatherWidgets.TestUI.Arrangements
         public void TearDown()
         {
             ServerOperations.Pages().DeleteAllPages();
-            ServerOperations.Libraries().DeleteAllDocumentLibrariesExceptDefaultOne();
+            ServerOperations.Documents().DeleteAllLibrariesExceptDefaultOne();
+        }
+
+        /// <summary>
+        /// Gets the current libraries provider Url name.
+        /// </summary>
+        [ServerArrangement]
+        public void GetCurrentProviderUrlName()
+        {
+            string urlName = ServerOperations.Media().GetCurrentProviderUrlName;
+
+            ServerArrangementContext.GetCurrent().Values.Add("CurrentProviderUrlName", urlName);
         }
 
         private const string PageName = "PageWithDocument";

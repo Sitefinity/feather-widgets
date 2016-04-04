@@ -7,8 +7,9 @@ using System.Threading.Tasks;
 using ArtOfTest.WebAii.Core;
 using Feather.Widgets.TestUI.Framework;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Telerik.Sitefinity.Frontend.TestUtilities;
 using Telerik.Sitefinity.TestUI.Framework.Framework.Wrappers.Backend.PageTemplates;
+using Telerik.Sitefinity.TestUI.Framework.Utilities;
+using Telerik.Sitefinity.TestUI.Framework.Wrappers.Backend.PageEditor;
 
 namespace FeatherWidgets.TestUI.TestCases.ContentBlocks
 {
@@ -22,24 +23,29 @@ namespace FeatherWidgets.TestUI.TestCases.ContentBlocks
         /// UI test AddContentBlockWidgetToTemplateBasedOnLayoutFile
         /// </summary>
         [TestMethod,
-        Owner(FeatherTeams.Team2),
-        TestCategory(FeatherTestCategories.PagesAndContent), 
-        TestCategory(FeatherTestCategories.ContentBlock),Ignore]
+        Owner(FeatherTeams.FeatherTeam),
+        TestCategory(FeatherTestCategories.ContentBlock4)]
         public void AddContentBlockWidgetToTemplateBasedOnLayoutFile()
         {
-            BAT.Macros().NavigateTo().Design().PageTemplates();
-            this.OpenTemplateEditor();
-            BATFeather.Wrappers().Backend().Pages().PageZoneEditorWrapper().AddWidgetToPlaceHolderPureMvcMode(WidgetName, PlaceHolder);
+            //// RuntimeSettingsModificator.ExecuteWithClientTimeout(800000, () => BAT.Macros().NavigateTo().CustomPage("~/sitefinity/design/pagetemplates", false, this.Culture));
+            //// RuntimeSettingsModificator.ExecuteWithClientTimeout(800000, () => BAT.Macros().User().EnsureAdminLoggedIn());
+            BAT.Macros().NavigateTo().Design().PageTemplates(this.Culture);
+            BAT.Wrappers().Backend().PageTemplates().PageTemplateMainScreen().OpenTemplateEditor(TemplateTitle);
+            BAT.Wrappers().Backend().Pages().PageZoneEditorWrapper().SwitchEditorLayoutMode(EditorLayoutMode.Layout);
+            BAT.Wrappers().Backend().Pages().PageLayoutEditorWrapper().SelectAnotherTemplate();
+            BAT.Wrappers().Backend().Pages().SelectTemplateWrapper().SelectATemplate("Bootstrap.default");
+            BAT.Wrappers().Backend().Pages().SelectTemplateWrapper().ClickDoneButton();
+
+            BATFeather.Wrappers().Backend().Pages().PageZoneEditorWrapper().AddWidgetToPlaceHolderPureMvcMode(WidgetName);
             BATFeather.Wrappers().Backend().Pages().PageZoneEditorWrapper().EditWidget(WidgetName);
             BATFeather.Wrappers().Backend().ContentBlocks().ContentBlocksWrapper().FillContentToContentBlockWidget(ContentBlockContent);
             BATFeather.Wrappers().Backend().ContentBlocks().ContentBlocksWrapper().SaveChanges();
             BAT.Wrappers().Backend().PageTemplates().PageTemplateModifyScreen().PublishTemplate();
-
-            BAT.Macros().NavigateTo().CustomPage("~/" + PageName.ToLower(), false);
+            BAT.Arrange(this.TestName).ExecuteArrangement("GetTemplateId");
+            BAT.Macros().NavigateTo().CustomPage("~/" + PageName.ToLower(), false, this.Culture);
 
             Assert.IsFalse(ActiveBrowser.ContainsText(ServerErrorMessage), "Server error was found on the page");
             Assert.IsTrue(ActiveBrowser.ContainsText(ContentBlockContent), "Content block content was not found on the page");
-            Assert.IsTrue(ActiveBrowser.ContainsText(LayoutText), "Layout template text was not found");
         }
 
         /// <summary>
@@ -59,20 +65,10 @@ namespace FeatherWidgets.TestUI.TestCases.ContentBlocks
             BAT.Arrange(this.TestName).ExecuteTearDown();
         }
 
-        private void OpenTemplateEditor()
-        {
-            var templateId = BAT.Arrange(this.TestName).ExecuteArrangement("GetTemplateId").Result.Values["templateId"];
-
-            BAT.Macros().NavigateTo().CustomPage("~/Sitefinity/Template/" + templateId, false);
-            ActiveBrowser.WaitForAsyncOperations();
-        }
-
         private const string PageName = "FeatherPage";
         private const string TemplateTitle = "TestLayout";
         private const string ContentBlockContent = "Test content";
         private const string WidgetName = "Content block";
-        private const string PlaceHolder = "TestPlaceHolder";
-        private const string LayoutText = "Test Layout";
         private const string ServerErrorMessage = "Server Error"; 
     }
 }

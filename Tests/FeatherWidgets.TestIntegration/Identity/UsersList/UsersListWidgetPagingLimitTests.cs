@@ -43,7 +43,7 @@ namespace FeatherWidgets.TestIntegration.Identity.UsersList
         /// </summary>
         [Test]
         [Category(TestCategories.Identity)]
-        [Author(FeatherTeams.Team7)]
+        [Author(FeatherTeams.FeatherTeam)]
         public void UsersList_VerifyPaging()
         {
             var mvcProxy = new MvcControllerProxy();
@@ -73,7 +73,7 @@ namespace FeatherWidgets.TestIntegration.Identity.UsersList
         /// </summary>
         [Test]
         [Category(TestCategories.Identity)]
-        [Author(FeatherTeams.Team7)]
+        [Author(FeatherTeams.FeatherTeam)]
         public void UsersList_VerifyLimit()
         {
             var mvcProxy = new MvcControllerProxy();
@@ -95,7 +95,7 @@ namespace FeatherWidgets.TestIntegration.Identity.UsersList
         /// </summary>
         [Test]
         [Category(TestCategories.Identity)]
-        [Author(FeatherTeams.Team7)]
+        [Author(FeatherTeams.FeatherTeam)]
         public void UsersList_VerifyNoLimit()
         {
             var mvcProxy = new MvcControllerProxy();

@@ -9,6 +9,7 @@ using Telerik.Sitefinity.GenericContent.Model;
 using Telerik.Sitefinity.Model;
 using Telerik.Sitefinity.RelatedData;
 using Telerik.Sitefinity.Security;
+using Telerik.Sitefinity.TestUtilities.CommonOperations;
 using Telerik.Sitefinity.Utilities.TypeConverters;
 
 namespace FeatherWidgets.TestUtilities.CommonOperations
@@ -22,6 +23,10 @@ namespace FeatherWidgets.TestUtilities.CommonOperations
         public void CreateItem(string title, string[] relatedColors)
         {
             var providerName = string.Empty;
+            if (ServerOperations.MultiSite().CheckIsMultisiteMode())
+            {
+                providerName = "dynamicContentProvider";
+            } 
 
             DynamicModuleManager dynamicModuleManager = DynamicModuleManager.GetManager(providerName);
             Type itemType = TypeResolutionService.ResolveType("Telerik.Sitefinity.DynamicTypes.Model.Module2.Item");
@@ -29,14 +34,14 @@ namespace FeatherWidgets.TestUtilities.CommonOperations
 
             itemItem.SetValue("Title", title);
 
-            DynamicModuleManager relatedColorManager = DynamicModuleManager.GetManager();
+            DynamicModuleManager relatedColorManager = DynamicModuleManager.GetManager(providerName);
             var relatedColorType = TypeResolutionService.ResolveType("Telerik.Sitefinity.DynamicTypes.Model.Module1.Color");
 
             foreach (var relatedColor in relatedColors)
             {
                 var relatedColorItem = relatedColorManager.GetDataItems(relatedColorType).Where("Title = \"" + relatedColor + "\"").First();
 
-                if (relatedColorItem != null && relatedColorItem.Status == ContentLifecycleStatus.Master)
+                if (relatedColorItem != null && relatedColorItem.Status == Telerik.Sitefinity.GenericContent.Model.ContentLifecycleStatus.Master)
                 {
                     itemItem.CreateRelation(relatedColorItem, "RelatedColor");
                     dynamicModuleManager.SaveChanges();

@@ -47,6 +47,11 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Frontend.Identity
         /// <param name="firstName">Email address</param>
         public void FillEmail(string email)
         {
+            Manager.Current.Wait.For(() => {
+                ActiveBrowser.RefreshDomTree();
+                return EM.Identity.RegistrationFrontend.Email != null;
+            }, 10000);
+
             HtmlInputText emailInput = EM.Identity.RegistrationFrontend.Email
                 .AssertIsPresent("Email field");
 

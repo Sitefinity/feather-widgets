@@ -1,7 +1,7 @@
 ﻿using System;
 using FeatherWidgets.TestUtilities.CommonOperations;
+using Telerik.Sitefinity.TestArrangementService.Attributes;
 using Telerik.Sitefinity.TestUI.Arrangements.Framework;
-using Telerik.Sitefinity.TestUI.Arrangements.Framework.Attributes;
 using Telerik.Sitefinity.TestUI.Arrangements.Framework.Server;
 using Telerik.Sitefinity.TestUtilities.CommonOperations;
 
@@ -10,7 +10,7 @@ namespace FeatherWidgets.TestUI.Arrangements
     /// <summary>
     /// SelectAllPublishedVideosWithOverlayGalleryTemplate arrangement class.
     /// </summary>
-    public class SelectAllPublishedVideosWithOverlayGalleryTemplate : ITestArrangement
+    public class SelectAllPublishedVideosWithOverlayGalleryTemplate : TestArrangementBase
     {
         /// <summary>
         /// Server side set up.
@@ -24,12 +24,23 @@ namespace FeatherWidgets.TestUI.Arrangements
 
             ServerOperationsFeather.Pages().AddVideoGalleryWidgetToPage(pageId, PlaceHolderId);
 
-            ServerSideUpload.CreateVideoLibrary(VideoLibraryTitle);
-            ServerSideUpload.UploadVideo(VideoLibraryTitle, VideoTitle + 1, VideoResource1);
+            ServerOperations.Videos().CreateLibrary(VideoLibraryTitle);
+            ServerOperations.Videos().Upload(VideoLibraryTitle, VideoTitle + 1, VideoResource1);
 
-            ServerSideUpload.UploadVideo(VideoLibraryTitle, VideoTitle + 2, VideoResource2);
+            ServerOperations.Videos().Upload(VideoLibraryTitle, VideoTitle + 2, VideoResource2);
 
-            ServerSideUpload.UploadVideo(VideoLibraryTitle, VideoTitle + 3, VideoResource3);
+            ServerOperations.Videos().Upload(VideoLibraryTitle, VideoTitle + 3, VideoResource3);
+        }
+
+        /// <summary>
+        /// Gets the current libraries provider Url name.
+        /// </summary>
+        [ServerArrangement]
+        public void GetCurrentProviderUrlName()
+        {
+            string urlName = ServerOperations.Media().GetCurrentProviderUrlName;
+
+            ServerArrangementContext.GetCurrent().Values.Add("CurrentProviderUrlName", urlName);
         }
 
         /// <summary>
@@ -39,7 +50,7 @@ namespace FeatherWidgets.TestUI.Arrangements
         public void TearDown()
         {
             ServerOperations.Pages().DeleteAllPages();
-            ServerOperations.Libraries().DeleteAllVideoLibrariesExceptDefaultOne();
+            ServerOperations.Videos().DeleteAllLibrariesExceptDefaultOne();
         }
 
         private const string PageTemplateName = "Bootstrap.default";

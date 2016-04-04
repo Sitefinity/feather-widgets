@@ -6,8 +6,9 @@ using FeatherWidgets.TestUtilities.CommonOperations;
 using Telerik.Sitefinity.Modules.Libraries;
 using Telerik.Sitefinity.Taxonomies;
 using Telerik.Sitefinity.Taxonomies.Model;
+using Telerik.Sitefinity.TestArrangementService.Attributes;
 using Telerik.Sitefinity.TestUI.Arrangements.Framework;
-using Telerik.Sitefinity.TestUI.Arrangements.Framework.Attributes;
+using Telerik.Sitefinity.TestUI.Arrangements.Framework.Server;
 using Telerik.Sitefinity.TestUtilities.CommonOperations;
 
 namespace FeatherWidgets.TestUI.Arrangements
@@ -15,7 +16,7 @@ namespace FeatherWidgets.TestUI.Arrangements
     /// <summary>
     /// FilterImagesWithCategoryTagAndDateOnPage arrangement class.
     /// </summary>
-    public class FilterImagesWithCategoryTagAndDateOnPage : ITestArrangement
+    public class FilterImagesWithCategoryTagAndDateOnPage : TestArrangementBase
     {
         /// <summary>
         /// Server side set up.
@@ -26,21 +27,32 @@ namespace FeatherWidgets.TestUI.Arrangements
             Guid page1Id = ServerOperations.Pages().CreatePage(PageName);
             ServerOperationsFeather.Pages().AddImageGalleryWidgetToPage(page1Id);
 
-            ServerSideUpload.CreateAlbum(ImageLibraryTitle);
+            ServerOperations.Images().CreateLibrary(ImageLibraryTitle);
 
             List<Guid> listOfIds = new List<Guid>();
-            var guidImage1 = ServerSideUpload.UploadImage(ImageLibraryTitle, ImageTitle + 1, ImageResource1);
+            var guidImage1 = ServerOperations.Images().Upload(ImageLibraryTitle, ImageTitle + 1, ImageResource1);
             listOfIds.Add(guidImage1);
-            var guidImage2 = ServerSideUpload.UploadImage(ImageLibraryTitle, ImageTitle + 2, ImageResource2);
+            var guidImage2 = ServerOperations.Images().Upload(ImageLibraryTitle, ImageTitle + 2, ImageResource2);
             listOfIds.Add(guidImage2);
-            var guidImage3 = ServerSideUpload.UploadImage(ImageLibraryTitle, ImageTitle + 3, ImageResource3);
+            var guidImage3 = ServerOperations.Images().Upload(ImageLibraryTitle, ImageTitle + 3, ImageResource3);
             listOfIds.Add(guidImage3);
-            var guidImage4 = ServerSideUpload.UploadImage(ImageLibraryTitle, ImageTitle + 4, ImageResource4);
+            var guidImage4 = ServerOperations.Images().Upload(ImageLibraryTitle, ImageTitle + 4, ImageResource4);
             listOfIds.Add(guidImage4);
  
             this.AssignTaxonomiesToImages(listOfIds);     
 
             this.ChangeThePublicationDateOfAnImage();
+        }
+
+        /// <summary>
+        /// Gets the current libraries provider Url name.
+        /// </summary>
+        [ServerArrangement]
+        public void GetCurrentProviderUrlName()
+        {
+            string urlName = ServerOperations.Media().GetCurrentProviderUrlName;
+
+            ServerArrangementContext.GetCurrent().Values.Add("CurrentProviderUrlName", urlName);
         }
 
         /// <summary>
@@ -50,7 +62,7 @@ namespace FeatherWidgets.TestUI.Arrangements
         public void TearDown()
         {
             ServerOperations.Pages().DeleteAllPages();
-            ServerOperations.Libraries().DeleteLibraries(false, "Image");
+            ServerOperations.Images().DeleteAllLibrariesExceptDefaultOne();
             ServerOperations.Taxonomies().ClearAllCategories(TaxonomiesConstants.CategoriesTaxonomyId);
             ServerOperations.Taxonomies().ClearAllTags(TaxonomiesConstants.TagsTaxonomyId);
         }

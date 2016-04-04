@@ -5,7 +5,6 @@ using System.Text;
 using System.Threading.Tasks;
 using Feather.Widgets.TestUI.Framework;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Telerik.Sitefinity.Frontend.TestUtilities;
 
 namespace FeatherWidgets.TestUI.TestCases.Identity
 {
@@ -19,13 +18,13 @@ namespace FeatherWidgets.TestUI.TestCases.Identity
         /// UI test DragAndDropProfileWidgetAndSetReadMode
         /// </summary>
         [TestMethod,
-        Owner(FeatherTeams.Team2),
+        Owner(FeatherTeams.FeatherTeam),
         TestCategory(FeatherTestCategories.PagesAndContent),
         TestCategory(FeatherTestCategories.Profile),
         TestCategory(FeatherTestCategories.Bootstrap)]
         public void DragAndDropProfileWidgetAndSetReadMode()
         {
-            BAT.Macros().NavigateTo().Pages();
+            BAT.Macros().NavigateTo().Pages(this.Culture);
             BAT.Wrappers().Backend().Pages().PagesWrapper().OpenPageZoneEditor(ProfilePage);
             BATFeather.Wrappers().Backend().Pages().PageZoneEditorWrapper().AddWidgetToPlaceHolderPureMvcMode(WidgetName);
             BATFeather.Wrappers().Backend().Pages().PageZoneEditorWrapper().EditWidget(WidgetName);
@@ -34,11 +33,11 @@ namespace FeatherWidgets.TestUI.TestCases.Identity
             BAT.Wrappers().Backend().Pages().PageZoneEditorWrapper().PublishPage();
 
             BAT.Macros().User().LogOut();
-            BAT.Macros().NavigateTo().CustomPage("~/" + LoginPage.ToLower());
+            BAT.Macros().NavigateTo().CustomPage("~/" + LoginPage.ToLower(), true);
             BAT.Wrappers().Backend().LoginView().LoginViewWrapper().SetUsername(NewUserName);
             BAT.Wrappers().Backend().LoginView().LoginViewWrapper().SetPassword(NewUserPassword);
             BAT.Wrappers().Backend().LoginView().LoginViewWrapper().ExecuteLogin();
-            BAT.Macros().NavigateTo().CustomPage("~/" + ProfilePage.ToLower(), false);
+            BAT.Macros().NavigateTo().CustomPage("~/" + ProfilePage.ToLower(), false, this.Culture);
 
             BATFeather.Wrappers().Frontend().Identity().ProfileWrapper().VerifyUserFirstAndLastName(NewUserFirstAndLastName);
             BATFeather.Wrappers().Frontend().Identity().ProfileWrapper().VerifyUserEmailAddress(NewUserEmail);

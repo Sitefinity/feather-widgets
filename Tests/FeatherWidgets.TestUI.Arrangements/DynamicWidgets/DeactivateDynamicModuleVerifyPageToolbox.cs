@@ -1,15 +1,19 @@
-﻿using FeatherWidgets.TestUtilities.CommonOperations;
+﻿using System;
+using System.Web;
+using System.Web.Hosting;
+using FeatherWidgets.TestUtilities.CommonOperations;
 using MbUnit.Framework;
+using Telerik.Sitefinity.TestArrangementService.Attributes;
 using Telerik.Sitefinity.TestUI.Arrangements.Framework;
-using Telerik.Sitefinity.TestUI.Arrangements.Framework.Attributes;
 using Telerik.Sitefinity.TestUtilities.CommonOperations;
+using Telerik.Sitefinity.TestUtilities.Utilities;
 
 namespace FeatherWidgets.TestUI.Arrangements
 {
     /// <summary>
     /// Test arrangement methods for DeactivateAndActivateDynamicModuleVerifyPageToolbox
     /// </summary>
-    public class DeactivateAndActivateDynamicModuleVerifyPageToolbox : ITestArrangement
+    public class DeactivateAndActivateDynamicModuleVerifyPageToolbox : TestArrangementBase
     {
         /// <summary>
         /// Server side set up.
@@ -28,6 +32,9 @@ namespace FeatherWidgets.TestUI.Arrangements
         public void DeactivateModule()
         {
             ServerOperations.ModuleBuilder().DeactivateModule(ModuleName, string.Empty, TransactionName);
+
+            WaitUtils.WaitForSitefinityToStart(HttpContext.Current.Request.Url
+              .GetLeftPart(UriPartial.Authority) + (HostingEnvironment.ApplicationVirtualPath.TrimEnd('/') ?? string.Empty));
         }
 
         /// <summary>
@@ -37,6 +44,9 @@ namespace FeatherWidgets.TestUI.Arrangements
         public void ActivateModule()
         {
             ServerOperations.ModuleBuilder().ActivateModule(ModuleName, string.Empty, TransactionName);
+
+            WaitUtils.WaitForSitefinityToStart(HttpContext.Current.Request.Url
+              .GetLeftPart(UriPartial.Authority) + (HostingEnvironment.ApplicationVirtualPath.TrimEnd('/') ?? string.Empty));
         }
 
         /// <summary>

@@ -3,8 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using FeatherWidgets.TestUtilities.CommonOperations;
+using Telerik.Sitefinity.Modules.GenericContent;
+using Telerik.Sitefinity.TestArrangementService.Attributes;
 using Telerik.Sitefinity.TestUI.Arrangements.Framework;
-using Telerik.Sitefinity.TestUI.Arrangements.Framework.Attributes;
 using Telerik.Sitefinity.TestUtilities.CommonOperations;
 
 namespace FeatherWidgets.TestUI.Arrangements
@@ -12,7 +13,7 @@ namespace FeatherWidgets.TestUI.Arrangements
     /// <summary>
     /// DeleteSharedContentInUsedFromContentBlockWidgetOnPage arrangement class.
     /// </summary>
-    public class DeleteSharedContentInUsedFromContentBlockWidgetOnPage : ITestArrangement
+    public class DeleteSharedContentInUsedFromContentBlockWidgetOnPage : TestArrangementBase
     {
         /// <summary>
         /// Server side set up.
@@ -20,7 +21,9 @@ namespace FeatherWidgets.TestUI.Arrangements
         [ServerSetUp]
         public void SetUp()
         {
-            ServerOperations.ContentBlocks().CreateContentBlock(ContentBlockTitle, ContentBlockContent);
+            AuthenticationHelper.AuthenticateUser(AdminUserName, AdminPass, true);
+            var providerName = ContentManager.GetManager().Provider.Name;
+            ServerOperationsFeather.ContentBlockOperations().CreateContentBlock(ContentBlockTitle, ContentBlockContent, providerName);
             Guid page1Id = ServerOperations.Pages().CreatePage(PageName);
             ServerOperationsFeather.Pages().AddSharedContentBlockWidgetToPage(page1Id, ContentBlockTitle);
         }
@@ -38,5 +41,7 @@ namespace FeatherWidgets.TestUI.Arrangements
         private const string PageName = "ContentBlock";
         private const string ContentBlockContent = "Test content";
         private const string ContentBlockTitle = "ContentBlockTitle";
+        private const string AdminUserName = "admin";
+        private const string AdminPass = "admin@2";
     }
 }

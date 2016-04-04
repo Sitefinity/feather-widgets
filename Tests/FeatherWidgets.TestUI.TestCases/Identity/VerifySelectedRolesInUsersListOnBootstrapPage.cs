@@ -6,7 +6,6 @@ using System.Threading.Tasks;
 using Feather.Widgets.TestUI.Framework;
 using Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend.Widgets;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Telerik.Sitefinity.Frontend.TestUtilities;
 
 namespace FeatherWidgets.TestUI.TestCases.Identity
 {
@@ -20,14 +19,14 @@ namespace FeatherWidgets.TestUI.TestCases.Identity
         /// UI test VerifySelectedRolesInUsersListOnBootstrapPage
         /// </summary>
         [TestMethod,
-        Owner(FeatherTeams.Team7),
+        Owner(FeatherTeams.FeatherTeam),
         TestCategory(FeatherTestCategories.PagesAndContent),
         TestCategory(FeatherTestCategories.UsersList),
         TestCategory(FeatherTestCategories.Selectors),
         TestCategory(FeatherTestCategories.Bootstrap)]
         public void VerifySelectedRolesInUsersListOnBootstrapPage()
         {
-            BAT.Macros().NavigateTo().Pages();
+            BAT.Macros().NavigateTo().Pages(this.Culture);
             BAT.Wrappers().Backend().Pages().PagesWrapper().OpenPageZoneEditor(PageName);
             BATFeather.Wrappers().Backend().Pages().PageZoneEditorWrapper().EditWidget(WidgetName);
 
@@ -44,7 +43,7 @@ namespace FeatherWidgets.TestUI.TestCases.Identity
             BATFeather.Wrappers().Backend().Widgets().WidgetDesignerWrapper().SaveChanges();
             BAT.Wrappers().Backend().Pages().PageZoneEditorWrapper().PublishPage();
 
-            BAT.Macros().NavigateTo().CustomPage("~/" + PageName.ToLower());
+            BAT.Macros().NavigateTo().CustomPage("~/" + PageName.ToLower(), false, this.Culture);
             BATFeather.Wrappers().Frontend().Identity().UsersListWrapper().VerifyUsersListOnBootstrapPage(this.users);
             BATFeather.Wrappers().Frontend().Identity().UsersListWrapper().VerifySingleUserOnBootstrapPage(UserFirstLastName, UserEmail, SingleUserPageURLEnding);
         }
@@ -71,8 +70,8 @@ namespace FeatherWidgets.TestUI.TestCases.Identity
         private const string WidgetName = "Users list";
         private const string UserProvider = "All Roles";
         private const string RoleToFilter = "Administrators";
-        private const string UserFirstLastName = "Admin Admin";
-        private const string UserEmail = "admin@test.bg";
+        private const string UserFirstLastName = "admin admin";
+        private const string UserEmail = "dadasda@dasd.fdf";
         private const string AdminUserName = "admin";
 
         private readonly string[] users = new string[] { "admin admin", "admin2 admin2" };

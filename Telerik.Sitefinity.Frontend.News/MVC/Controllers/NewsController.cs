@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Web.Mvc;
 using Telerik.Sitefinity.ContentLocations;
+using Telerik.Sitefinity.Frontend.Mvc.Infrastructure;
 using Telerik.Sitefinity.Frontend.Mvc.Infrastructure.Controllers;
 using Telerik.Sitefinity.Frontend.Mvc.Infrastructure.Controllers.Attributes;
 using Telerik.Sitefinity.Frontend.Mvc.Infrastructure.Routing;
@@ -191,6 +192,9 @@ namespace Telerik.Sitefinity.Frontend.News.Mvc.Controllers
             if (SystemManager.CurrentHttpContext != null)
                 this.AddCacheDependencies(this.Model.GetKeysOfDependentObjects(viewModel));
 
+            var page = this.HttpContext.CurrentHandler.GetPageHandler();
+            this.AddCanonicalUrlTagIfEnabled(page, newsItem);
+
             return this.View(fullTemplateName, viewModel);
         }
 
@@ -205,6 +209,16 @@ namespace Telerik.Sitefinity.Frontend.News.Mvc.Controllers
         {
             return this.Model.GetLocations();
         }
+        #endregion
+
+        #region Overriden methods
+
+        /// <inheritDoc/>
+        protected override void HandleUnknownAction(string actionName)
+        {
+            this.Index(null).ExecuteResult(this.ControllerContext);
+        }
+
         #endregion
 
         #region Private methods

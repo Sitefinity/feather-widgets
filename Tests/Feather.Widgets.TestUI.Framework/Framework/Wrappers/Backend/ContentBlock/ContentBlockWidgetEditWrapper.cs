@@ -209,29 +209,15 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend
         }
 
         /// <summary>
-        /// Switches to HTML view.
+        /// Click html button.
         /// </summary>
-        public void SwitchToHtmlView()
+        public void ClickHtmlButton()
         {
             HtmlButton htmlButton = EM.GenericContent
                                       .ContentBlockWidget
                                       .HtmlButton
                                       .AssertIsPresent("html view");
             htmlButton.Click();
-            ActiveBrowser.WaitUntilReady();
-            ActiveBrowser.WaitForAsyncRequests();
-        }
-
-        /// <summary>
-        /// Switches to design view.
-        /// </summary>
-        public void SwitchToDesignView()
-        {
-            HtmlButton designButton = EM.GenericContent
-                                        .ContentBlockWidget
-                                        .DesignButton
-                                        .AssertIsPresent("design view");
-            designButton.Click();
             ActiveBrowser.WaitUntilReady();
             ActiveBrowser.WaitForAsyncRequests();
         }
@@ -328,8 +314,8 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend
             Assert.IsNotNull(image, "Unable to find image.");
             Assert.IsTrue(image.Src.StartsWith(src), "src is not correct");
 
-            this.VerifyImageAttribute(image, "sfref", sfref);
-            this.VerifyImageAttribute(image, "title", title);
+            this.VerifyImageAttribute(image, "sfref", sfref.ToLower());
+            this.VerifyImageAttribute(image, "title", title.ToLower());
             this.VerifyImageAttribute(image, "alt", altText);
         }
 
@@ -346,7 +332,7 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend
             Assert.IsTrue(doc.HRef.StartsWith(href), "href is not correct");
             var attr = doc.Attributes.FirstOrDefault(a => a.Name == "sfref");
             Assert.IsNotNull(attr, "Unable to find attribute: sfref");
-            Assert.AreEqual(sfref, attr.Value, "Attribute sfref value not as expected.");
+            Assert.AreEqual(sfref.ToLower(), attr.Value.ToLower(), "Attribute sfref value not as expected.");
         }
 
         /// <summary>
@@ -359,7 +345,7 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend
         public void VerifyContentBlockVideoDesignMode(string src, string sfref, string width = "", string height = "")
         {
             var video = this.GetContentBlockVideoDesignMode();
-            Assert.IsNotNull(video, "Unable to find image.");
+            Assert.IsNotNull(video, "Unable to find video.");
             Assert.IsTrue(video.Src.StartsWith(src), "src is not correct");
 
             this.VerifyVideoAttribute(video, "sfref", sfref);
@@ -428,21 +414,33 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend
         private HtmlVideo GetContentBlockVideoDesignMode()
         {
             Browser frame = this.GetContentBlockFrame();
+
+            HtmlFindExpression expression = new HtmlFindExpression("tagname=video");
+            frame.WaitForElement(expression, TimeOut, false);
+
             return frame.Find.AllByTagName("video").FirstOrDefault().As<HtmlVideo>();
         }
 
         private void VerifyImageAttribute(HtmlImage image, string attName, string attValue)
         {
             var attr = image.Attributes.FirstOrDefault(a => a.Name == attName);
-            Assert.IsNotNull(attr, "Unable to find attribute: " + attName);
-            Assert.AreEqual(attValue, attr.Value, "Attribute " + attName + " value not as expected.");
+            if (attName == "title" || attName == "sfref")
+            {               
+                Assert.IsNotNull(attr, "Unable to find attribute: " + attName);
+                Assert.AreEqual(attValue, attr.Value.ToLower(), "Attribute " + attName + " value not as expected.");
+            }
+            else
+            {
+                Assert.IsNotNull(attr, "Unable to find attribute: " + attName);
+                Assert.AreEqual(attValue, attr.Value, "Attribute " + attName + " value not as expected.");
+            }
         }
 
         private void VerifyVideoAttribute(HtmlVideo video, string attName, string attValue)
         {
             var attr = video.Attributes.FirstOrDefault(a => a.Name == attName);
             Assert.IsNotNull(attr, "Unable to find attribute: " + attName);
-            Assert.AreEqual(attValue, attr.Value, "Attribute " + attName + " value not as expected.");
+            Assert.AreEqual(attValue.ToLower(), attr.Value.ToLower(), "Attribute " + attName + " value not as expected.");
         }
 
         private bool WaitForSaveButton()

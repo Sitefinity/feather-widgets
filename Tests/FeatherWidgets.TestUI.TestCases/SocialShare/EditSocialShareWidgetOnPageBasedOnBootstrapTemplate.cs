@@ -3,7 +3,6 @@ using Feather.Widgets.TestUI.Framework;
 using Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend;
 using FeatherWidgets.TestUI.TestCases;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Telerik.Sitefinity.Frontend.TestUtilities;
 
 namespace FeatherWidgets.TestUI.TestCases.SocialShare
 {
@@ -17,12 +16,12 @@ namespace FeatherWidgets.TestUI.TestCases.SocialShare
         /// UI test EditSocialShareWidgetOnPageBasedOnBootstrapTemplate
         /// </summary>
         [TestMethod,
-        Owner(FeatherTeams.Team7),
+        Owner(FeatherTeams.FeatherTeam),
         TestCategory(FeatherTestCategories.PagesAndContent),
         TestCategory(FeatherTestCategories.SocialShare)]
         public void EditSocialShareWidgetOnPageBasedOnBootstrapTemplate()
         {
-            BAT.Macros().NavigateTo().Pages();
+            BAT.Macros().NavigateTo().Pages(this.Culture);
             BAT.Wrappers().Backend().Pages().PagesWrapper().OpenPageZoneEditor(PageName);
             BATFeather.Wrappers().Backend().SocialShare().SocialSharePageEditorWrapper().VerifySocialShareOptionsPresentOnBackend(4, SocialShareOptions.Facebook, SocialShareOptions.Tweeter, SocialShareOptions.GooglePlus, SocialShareOptions.LinkedIn);
             BATFeather.Wrappers().Backend().Pages().PageZoneEditorWrapper().EditWidget(WidgetName);
@@ -34,7 +33,7 @@ namespace FeatherWidgets.TestUI.TestCases.SocialShare
             BATFeather.Wrappers().Backend().SocialShare().SocialSharePageEditorWrapper().VerifySocialShareTextPresentOnBackend(this.optionTitlesTextToBeVisible);
             BAT.Wrappers().Backend().Pages().PageZoneEditorWrapper().PublishPage();
 
-            BAT.Macros().NavigateTo().CustomPage("~/" + PageName.ToLower());
+            BAT.Macros().NavigateTo().CustomPage("~/" + PageName.ToLower(), false, this.Culture);
             Assert.AreEqual(5, BATFeather.Wrappers().Frontend().SocialShare().SocialShareWrapper().CountOfSocialShareOptions(), "Count is not correct");
             BATFeather.Wrappers().Frontend().SocialShare().SocialShareWrapper().VerifySocialShareTextPresentOnFrontend(this.optionTitlesTextToBeVisible);
         }

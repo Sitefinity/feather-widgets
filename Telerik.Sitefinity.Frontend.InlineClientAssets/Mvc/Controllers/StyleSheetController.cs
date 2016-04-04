@@ -6,6 +6,7 @@ using System.Web.UI;
 using Telerik.Sitefinity.Frontend.InlineClientAssets.Mvc.Helpers;
 using Telerik.Sitefinity.Frontend.InlineClientAssets.Mvc.Models.StyleSheet;
 using Telerik.Sitefinity.Frontend.InlineClientAssets.Mvc.StringResources;
+using Telerik.Sitefinity.Frontend.Mvc.Infrastructure;
 using Telerik.Sitefinity.Frontend.Mvc.Infrastructure.Controllers;
 using Telerik.Sitefinity.Frontend.Mvc.Infrastructure.Controllers.Attributes;
 using Telerik.Sitefinity.Localization;
@@ -61,7 +62,10 @@ namespace Telerik.Sitefinity.Frontend.InlineClientAssets.Mvc.Controllers
             if (this.ShouldDisplayContent())
             {
                 string markup = null;
-                if (!string.IsNullOrEmpty(this.Model.Description))
+                var hasDescription = !string.IsNullOrEmpty(this.Model.Description);
+                this.ViewBag.HasDescription = hasDescription;
+
+                if (hasDescription)
                 {
                     markup = this.Model.Description;                  
                 }
@@ -133,7 +137,7 @@ namespace Telerik.Sitefinity.Frontend.InlineClientAssets.Mvc.Controllers
         /// <param name="cssMarkup">The CSS markup.</param>
         protected virtual void AddCssInHead(string cssMarkup)
         {
-            var page = this.HttpContext.CurrentHandler as Page;
+            var page = this.HttpContext.CurrentHandler.GetPageHandler();
             if (page != null && page.Header !=null)
             {
                 if (!string.IsNullOrEmpty(cssMarkup))

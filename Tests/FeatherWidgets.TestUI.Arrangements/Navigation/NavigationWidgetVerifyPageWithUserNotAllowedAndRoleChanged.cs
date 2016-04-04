@@ -5,8 +5,8 @@ using System.Text;
 using FeatherWidgets.TestUtilities.CommonOperations;
 using Telerik.Sitefinity.Frontend.Navigation.Mvc.Controllers;
 using Telerik.Sitefinity.Frontend.TestUtilities.CommonOperations;
+using Telerik.Sitefinity.TestArrangementService.Attributes;
 using Telerik.Sitefinity.TestUI.Arrangements.Framework;
-using Telerik.Sitefinity.TestUI.Arrangements.Framework.Attributes;
 using Telerik.Sitefinity.TestUI.Arrangements.Framework.Server;
 using Telerik.Sitefinity.TestUtilities.CommonOperations;
 
@@ -15,7 +15,7 @@ namespace FeatherWidgets.TestUI.Arrangements
     /// <summary>
     /// A class with arrangement methods for NavigationWidgetVerifyPageWithUserNotAllowedAndRoleChanged
     /// </summary>
-    public class NavigationWidgetVerifyPageWithUserNotAllowedAndRoleChanged : ITestArrangement
+    public class NavigationWidgetVerifyPageWithUserNotAllowedAndRoleChanged : TestArrangementBase
     {
         /// <summary>
         /// Server side set up.

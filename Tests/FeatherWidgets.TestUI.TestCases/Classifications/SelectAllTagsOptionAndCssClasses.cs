@@ -2,7 +2,6 @@
 using Feather.Widgets.TestUI.Framework;
 using Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend.Classifications;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Telerik.Sitefinity.Frontend.TestUtilities;
 
 namespace FeatherWidgets.TestUI.TestCases.Classifications
 {
@@ -16,29 +15,23 @@ namespace FeatherWidgets.TestUI.TestCases.Classifications
         /// UI test verifying all tags option with css class applied in hybrid page
         /// </summary>
         [TestMethod,
-        Owner(FeatherTeams.Team7),
+        Owner(FeatherTeams.FeatherTeam),
         TestCategory(FeatherTestCategories.PagesAndContent),
         TestCategory(FeatherTestCategories.Classifications)]
         public void SelectAllTagsOptionAndCssClasses()
-
         {
-            BAT.Macros().NavigateTo().Pages();
+            BAT.Macros().NavigateTo().Pages(this.Culture);  
             BAT.Wrappers().Backend().Pages().PagesWrapper().OpenPageZoneEditor(PageName);
-            BATFeather.Wrappers().Backend().Pages().PageZoneEditorWrapper().AddMvcWidgetHybridModePage(WidgetName);
             BATFeather.Wrappers().Backend().Pages().PageZoneEditorWrapper().EditWidget(WidgetName);
             BATFeather.Wrappers().Backend().Classifications().TagsWrapper().VerifyCheckedRadioButtonOption(TagsRadioButtonIds.allTags);
             BATFeather.Wrappers().Backend().Classifications().TagsWrapper().VerifySelectedSortingOption(SortingOption);
             BATFeather.Wrappers().Backend().Classifications().TagsWrapper().VerifySelectedTagsTemplateOption(TagsTemplates.SimpleList);
             BATFeather.Wrappers().Backend().Widgets().WidgetDesignerWrapper().ApplyCssClasses(CssClass);
             BATFeather.Wrappers().Backend().Widgets().WidgetDesignerWrapper().SaveChanges();
-
             BAT.Wrappers().Backend().Pages().PageZoneEditorWrapper().CheckWidgetContent(WidgetName, TagTitle + 1);
             BAT.Wrappers().Backend().Pages().PageZoneEditorWrapper().CheckWidgetContent(WidgetName, TagTitle + 2);
-            BAT.Wrappers().Backend().Pages().PageZoneEditorWrapper().CheckWidgetContentForNotExistingContent(WidgetName, TagTitle + 3);
             BAT.Wrappers().Backend().Pages().PageZoneEditorWrapper().PublishPage();
-            
-            BAT.Macros().NavigateTo().CustomPage("~/" + PageName.ToLower());
-
+            BAT.Macros().NavigateTo().CustomPage("~/" + PageName.ToLower(), false, this.Culture);
             Assert.IsTrue(BATFeather.Wrappers().Frontend().Classifications().ClassificationsWrapper().IsTagsTitlesPresentOnTheFrontendPage(new string[] { TagTitle + 2, TagTitle + 1 }));
             Assert.IsFalse(BATFeather.Wrappers().Frontend().Classifications().ClassificationsWrapper().IsTagsTitlesPresentOnTheFrontendPage(new string[] { TagTitle + 3 }));
             BATFeather.Wrappers().Frontend().Classifications().ClassificationsWrapper().VerifyCssClass(CssClass);

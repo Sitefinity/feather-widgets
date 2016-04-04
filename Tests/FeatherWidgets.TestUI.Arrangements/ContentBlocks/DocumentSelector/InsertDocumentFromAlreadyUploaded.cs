@@ -1,8 +1,8 @@
 ﻿using System;
 using FeatherWidgets.TestUtilities.CommonOperations;
 using Telerik.Sitefinity.Modules.Libraries;
+using Telerik.Sitefinity.TestArrangementService.Attributes;
 using Telerik.Sitefinity.TestUI.Arrangements.Framework;
-using Telerik.Sitefinity.TestUI.Arrangements.Framework.Attributes;
 using Telerik.Sitefinity.TestUI.Arrangements.Framework.Server;
 using Telerik.Sitefinity.TestUtilities.CommonOperations;
 
@@ -11,7 +11,7 @@ namespace FeatherWidgets.TestUI.Arrangements
     /// <summary>
     /// InsertDocumentFromAlreadyUploaded class
     /// </summary>
-    public class InsertDocumentFromAlreadyUploaded : ITestArrangement
+    public class InsertDocumentFromAlreadyUploaded : TestArrangementBase
     {
         /// <summary>
         /// Server side set up.
@@ -29,8 +29,8 @@ namespace FeatherWidgets.TestUI.Arrangements
         [ServerArrangement]
         public void UploadDocument()
         {
-            ServerOperations.Documents().CreateDocumentLibrary(LibraryTitle);
-            Guid id = ServerSideUpload.UploadDocument(LibraryTitle, DocumentTitle, DocumentResource);
+            ServerOperations.Documents().CreateLibrary(LibraryTitle);
+            Guid id = ServerOperations.Documents().Upload(LibraryTitle, DocumentTitle, DocumentResource);
 
             var manager = LibrariesManager.GetManager();
             var master = manager.GetDocument(id);
@@ -46,9 +46,21 @@ namespace FeatherWidgets.TestUI.Arrangements
         public void TearDown()
         {
             ServerOperations.Pages().DeleteAllPages();
-            ServerOperations.Libraries().DeleteAllDocumentLibrariesExceptDefaultOne();
+            ServerOperations.Documents().DeleteAllLibrariesExceptDefaultOne();
         }
 
+        /// Gets the current libraries provider Url name.
+        /// </summary>
+        [ServerArrangement]
+        public void GetCurrentProviderUrlName()
+        {
+            string urlName = ServerOperations.Media().GetCurrentProviderUrlName;
+
+            ServerArrangementContext.GetCurrent().Values.Add("CurrentProviderUrlName", urlName);
+        }
+
+        private const string AdminUserName = "admin";
+        private const string AdminPass = "admin@2";
         private const string PageName = "PageWithDocument";
         private const string LibraryTitle = "TestDocumentLibrary";
         private const string DocumentTitle = "Image1";

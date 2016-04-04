@@ -19,7 +19,7 @@
         foreach (var listItem in ((ListViewModel)item).ListItemViewModel.Items)
         {
             <div @Html.InlineEditingAttributes(Model.ProviderName, ((ListViewModel)item).ListItemViewModel.ContentType.FullName, (Guid)listItem.Fields.Id)>
-                <span @Html.InlineEditingFieldAttributes("Title", "ShortText") data-sf-role="toggleLink">@listItem.Fields.Title</span>
+                <a href="javascript:void(0)" @Html.InlineEditingFieldAttributes("Title", "ShortText") data-sf-role="toggleLink">@listItem.Fields.Title</a>
                 <div @Html.InlineEditingFieldAttributes("Content", "LongText") style="display:none;">
                     @Html.Raw(@listItem.Fields.Content)
                 </div>

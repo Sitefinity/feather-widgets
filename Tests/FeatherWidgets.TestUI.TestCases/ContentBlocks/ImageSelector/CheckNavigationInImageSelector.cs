@@ -5,7 +5,6 @@ using System.Text;
 using System.Threading.Tasks;
 using Feather.Widgets.TestUI.Framework;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Telerik.Sitefinity.Frontend.TestUtilities;
 
 namespace FeatherWidgets.TestUI.TestCases.ContentBlocks.ImageSelector
 {
@@ -19,12 +18,12 @@ namespace FeatherWidgets.TestUI.TestCases.ContentBlocks.ImageSelector
         /// UI test CheckNavigationInImageSelector
         /// </summary>
         [TestMethod,
-        Owner(FeatherTeams.Team7),
+        Owner(FeatherTeams.FeatherTeam),
         TestCategory(FeatherTestCategories.MediaSelector),
-        TestCategory(FeatherTestCategories.ContentBlock)]
+        TestCategory(FeatherTestCategories.ContentBlock3)]
         public void CheckNavigationInImageSelector()
         {
-            BAT.Macros().NavigateTo().Pages();
+            BAT.Macros().NavigateTo().Pages(this.Culture);
             BAT.Wrappers().Backend().Pages().PagesWrapper().OpenPageZoneEditor(PageName);
             BATFeather.Wrappers().Backend().Pages().PageZoneEditorWrapper().EditWidget(WidgetName);
           
@@ -103,10 +102,22 @@ namespace FeatherWidgets.TestUI.TestCases.ContentBlocks.ImageSelector
 
         private void VerifyFrontend()
         {
-            BAT.Macros().NavigateTo().CustomPage("~/" + PageName.ToLower());
+            currentProviderUrlName = BAT.Arrange(this.TestName).ExecuteArrangement("GetCurrentProviderUrlName").Result.Values["CurrentProviderUrlName"];
+            BAT.Macros().NavigateTo().CustomPage("~/" + PageName.ToLower(), true, this.Culture);
             string libraryUrl = LibraryName.ToLower() + "/" + ChildImageLibrary.ToLower() + "/" + NextChildImageLibrary.ToLower();
             string imageUrl = ImageName3.ToLower() + ImageType.ToLower();
-            string scr = BATFeather.Wrappers().Frontend().MediaWidgets().MediaWidgetsWrapper().GetMediaSource(false, libraryUrl, imageUrl, this.BaseUrl);
+            string url;
+
+            if (this.Culture == null)
+            {
+                url = this.BaseUrl;
+            }
+            else
+            {
+                url = ActiveBrowser.Url.Substring(0, 20);
+            }
+
+            string scr = BATFeather.Wrappers().Frontend().MediaWidgets().MediaWidgetsWrapper().GetMediaSource(false, libraryUrl, imageUrl, url, "images", currentProviderUrlName);
             BATFeather.Wrappers().Frontend().MediaWidgets().MediaWidgetsWrapper().VerifyImage(ImageName3, ImageAltText, scr);
         }
 
@@ -117,12 +128,14 @@ namespace FeatherWidgets.TestUI.TestCases.ContentBlocks.ImageSelector
         private const string ImageName1 = "Image1";
         private const string ImageName2 = "Image2";
         private const string ImageName3 = "Image3";
-        private const string ImageAltText = "AltText Image3";
+        private const string ImageAltText = "AltText_Image3";
         private const string ImageType = ".JPG";
         private const string ChildImageLibrary = "ChildImageLibrary";
         private const string NextChildImageLibrary = "NextChildImageLibrary";
         private const string DefaultLibrary = "Default Library";
         private const string MyImages = "My Images";
         private const string AllLibraries = "All Libraries";
+        private string currentProviderUrlName;
+        private const string SecondProviderName = "SecondSite Libraries";
     }
 }

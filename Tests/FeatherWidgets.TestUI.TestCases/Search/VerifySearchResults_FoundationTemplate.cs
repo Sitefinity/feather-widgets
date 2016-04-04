@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Feather.Widgets.TestUI.Framework;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Telerik.Sitefinity.Frontend.TestUtilities;
+using Telerik.Sitefinity.TestUI.Framework.Utilities;
 
 namespace FeatherWidgets.TestUI.TestCases.Search
 {
@@ -19,13 +19,15 @@ namespace FeatherWidgets.TestUI.TestCases.Search
         /// UI test VerifySearchResults_FoundationTemplate
         /// </summary>
         [TestMethod,
-        Owner(FeatherTeams.Team7),
+        Owner(FeatherTeams.FeatherTeam),
         TestCategory(FeatherTestCategories.PagesAndContent),
         TestCategory(FeatherTestCategories.Search),
         TestCategory(FeatherTestCategories.Foundation)]
         public void VerifySearchResults_FoundationTemplate()
         {
-            BAT.Macros().NavigateTo().Pages();
+            RuntimeSettingsModificator.ExecuteWithClientTimeout(800000, () => BAT.Macros().NavigateTo().CustomPage("~/sitefinity/pages", false));
+            RuntimeSettingsModificator.ExecuteWithClientTimeout(800000, () => BAT.Macros().User().EnsureAdminLoggedIn());
+            BAT.Macros().NavigateTo().Pages(this.Culture);
             BAT.Wrappers().Backend().Pages().PagesWrapper().OpenPageZoneEditor(SearchPage);
             BATFeather.Wrappers().Backend().Pages().PageZoneEditorWrapper().AddWidgetToPlaceHolderPureMvcMode(SearchBoxWidget);
             BATFeather.Wrappers().Backend().Pages().PageZoneEditorWrapper().AddWidgetToPlaceHolderPureMvcMode(SearchResultsWidget);
@@ -40,7 +42,7 @@ namespace FeatherWidgets.TestUI.TestCases.Search
             BATFeather.Wrappers().Backend().Widgets().WidgetDesignerWrapper().SaveChanges();
             BAT.Wrappers().Backend().Pages().PageZoneEditorWrapper().PublishPage();
 
-            BAT.Macros().NavigateTo().CustomPage("~/" + SearchPage.ToLower());
+            BAT.Macros().NavigateTo().CustomPage("~/" + SearchPage.ToLower(), true, this.Culture);
             BATFeather.Wrappers().Frontend().Search().SearchWrapper().EnterSearchInput(NoResultsSearchText);
             BATFeather.Wrappers().Frontend().Search().SearchWrapper().ClickSearchButton(SearchPage.ToLower());
             BATFeather.Wrappers().Frontend().Search().SearchWrapper().VerifySearchResultsLabel(0, NoResultsSearchText);
@@ -50,7 +52,7 @@ namespace FeatherWidgets.TestUI.TestCases.Search
             BATFeather.Wrappers().Frontend().Search().SearchWrapper().VerifySearchResultsList(NewsTitle1);
 
             BAT.Macros().User().LogOut();
-            BAT.Macros().NavigateTo().CustomPage("~/" + SearchPage.ToLower());
+            BAT.Macros().NavigateTo().CustomPage("~/" + SearchPage.ToLower(), true, this.Culture);
             BATFeather.Wrappers().Frontend().Search().SearchWrapper().EnterSearchInput(NoResultsSearchText);
             BATFeather.Wrappers().Frontend().Search().SearchWrapper().ClickSearchButton(SearchPage.ToLower());
             BATFeather.Wrappers().Frontend().Search().SearchWrapper().VerifySearchResultsLabel(0, NoResultsSearchText);
@@ -65,7 +67,6 @@ namespace FeatherWidgets.TestUI.TestCases.Search
         /// </summary>
         protected override void ServerSetup()
         {
-            BAT.Macros().User().EnsureAdminLoggedIn();
             BAT.Arrange(this.TestName).ExecuteSetUp();
         }
 
@@ -81,7 +82,7 @@ namespace FeatherWidgets.TestUI.TestCases.Search
         private const string SearchPage = "FoundationPage";
         private const string SearchBoxWidget = "Search box";
         private const string SearchResultsWidget = "Search results";
-        private const string SearchIndexName = "news index";
+        private const string SearchIndexName = "VerifySearchResults_FoundationTemplate";
 
         private const string NoResultsSearchText = "events";
         private const string SearchText1 = "test";

@@ -3,8 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using FeatherWidgets.TestUtilities.CommonOperations;
+using Telerik.Sitefinity.TestArrangementService.Attributes;
 using Telerik.Sitefinity.TestUI.Arrangements.Framework;
-using Telerik.Sitefinity.TestUI.Arrangements.Framework.Attributes;
 using Telerik.Sitefinity.TestUtilities.CommonOperations;
 
 namespace FeatherWidgets.TestUI.Arrangements
@@ -12,7 +12,7 @@ namespace FeatherWidgets.TestUI.Arrangements
     /// <summary>
     /// SubscribeUserForReviewsNotificationAndVerifyReceivedEmail arrangement class.
     /// </summary>
-    public class SubscribeUserForReviewsNotificationAndVerifyReceivedEmail : ITestArrangement
+    public class SubscribeUserForReviewsNotificationAndVerifyReceivedEmail : TestArrangementBase
     {
         /// <summary>
         /// Server side set up.
@@ -21,8 +21,8 @@ namespace FeatherWidgets.TestUI.Arrangements
         public void SetUp()
         {
             ServerOperations.Comments().AllowComments(ThreadType, true);
+            Telerik.Sitefinity.TestUtilities.Services.Notifications.NotificationsTestHelper.ResetDummySmtpSenderData(profileName: SubscribeUserForReviewsNotificationAndVerifyReceivedEmail.NotificationsProfileName);
 
-            NotificationsTestHelper.ResetDummySmtpSenderData(profileName: SubscribeUserForReviewsNotificationAndVerifyReceivedEmail.NotificationsProfileName);
             ServerOperations.Comments().SetCommentsNotificationProfile(SubscribeUserForReviewsNotificationAndVerifyReceivedEmail.NotificationsProfileName);
 
             Guid templateId = Telerik.Sitefinity.TestUtilities.CommonOperations.ServerOperations.Templates().GetTemplateIdByTitle(PageTemplateName);
@@ -61,7 +61,8 @@ namespace FeatherWidgets.TestUI.Arrangements
         {
             AuthenticationHelper.AuthenticateUser("admin", "admin@2", true);
             ServerOperations.Comments().SetCommentsNotificationProfile("Default");
-            NotificationsTestHelper.ResetDummySmtpSenderData(profileName: SubscribeUserForReviewsNotificationAndVerifyReceivedEmail.NotificationsProfileName, cleanOnly: true);
+
+            Telerik.Sitefinity.TestUtilities.Services.Notifications.NotificationsTestHelper.ResetDummySmtpSenderData(profileName: SubscribeUserForReviewsNotificationAndVerifyReceivedEmail.NotificationsProfileName, cleanOnly: true);
 
             ServerOperations.Pages().DeleteAllPages();
             var siteID = ServerOperations.Comments().GetCurrentSiteId.ToString();

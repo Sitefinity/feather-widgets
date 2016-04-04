@@ -2,7 +2,6 @@
 using Feather.Widgets.TestUI.Framework;
 using Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend.Widgets;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Telerik.Sitefinity.Frontend.TestUtilities;
 
 namespace FeatherWidgets.TestUI.TestCases.VideoGallery
 {
@@ -16,12 +15,12 @@ namespace FeatherWidgets.TestUI.TestCases.VideoGallery
         /// UI test FilterVideosWithCategoryTagAndDateOnPage
         /// </summary>
         [TestMethod,
-        Owner(FeatherTeams.Team7),
+        Owner(FeatherTeams.FeatherTeam),
         TestCategory(FeatherTestCategories.PagesAndContent),
         TestCategory(FeatherTestCategories.VideoGallery)]
         public void FilterVideosWithCategoryTagAndDateOnPage()
         {
-            BAT.Macros().NavigateTo().Pages();
+            BAT.Macros().NavigateTo().Pages(this.Culture);
             BAT.Wrappers().Backend().Pages().PagesWrapper().OpenPageZoneEditor(PageName);
             BATFeather.Wrappers().Backend().Pages().PageZoneEditorWrapper().EditWidget(WidgetName);
             BATFeather.Wrappers().Backend().Widgets().WidgetDesignerWrapper().ExpandNarrowSelectionByArrow();
@@ -64,7 +63,7 @@ namespace FeatherWidgets.TestUI.TestCases.VideoGallery
             }
 
             BAT.Wrappers().Backend().Pages().PageZoneEditorWrapper().PublishPage();
-            BAT.Macros().NavigateTo().CustomPage("~/" + PageName.ToLower());
+            BAT.Macros().NavigateTo().CustomPage("~/" + PageName.ToLower(), true, this.Culture);
 
             for (int i = 1; i <= 4; i++)
             {
@@ -87,6 +86,7 @@ namespace FeatherWidgets.TestUI.TestCases.VideoGallery
         {
             BAT.Macros().User().EnsureAdminLoggedIn();
             BAT.Arrange(this.TestName).ExecuteSetUp();
+            currentProviderUrlName = BAT.Arrange(this.TestName).ExecuteArrangement("GetCurrentProviderUrlName").Result.Values["CurrentProviderUrlName"];
         }
 
         /// <summary>
@@ -101,7 +101,17 @@ namespace FeatherWidgets.TestUI.TestCases.VideoGallery
         {
             string libraryUrl = LibraryName.ToLower();
             string videoUrl = videoName.ToLower() + videoType.ToLower();
-            string scr = BATFeather.Wrappers().Frontend().MediaWidgets().MediaWidgetsWrapper().GetMediaSource(isBaseUrlIncluded, libraryUrl, videoUrl, this.BaseUrl, "videos");
+            string url;
+
+            if (this.Culture == null)
+            {
+                url = this.BaseUrl;
+            }
+            else
+            {
+                url = ActiveBrowser.Url.Substring(0, 20);
+            }
+            string scr = BATFeather.Wrappers().Frontend().MediaWidgets().MediaWidgetsWrapper().GetMediaSource(isBaseUrlIncluded, libraryUrl, videoUrl, url, "videos", currentProviderUrlName, this.Culture);
             return scr;
         }
 
@@ -120,5 +130,6 @@ namespace FeatherWidgets.TestUI.TestCases.VideoGallery
         private const string TaxonomyCategory = "Category";
         private const string TaxonomyTags = "Tags";
         private const string ImageType = ".TMB";
+        private string currentProviderUrlName;
     }
 }

@@ -1,0 +1,115 @@
+@using Telerik.Sitefinity.Frontend.Forms.Mvc.Helpers;
+@using Telerik.Sitefinity.Frontend.Mvc.Helpers;
+@using Telerik.Sitefinity.Mvc;
+
+<tabset class="nav-tabs-wrapper">
+    <tab heading="@Html.Resource("LabelAndText")">
+        <div class="form-group">
+            <label for="title" class="full-width">
+                @Html.Resource("Label")
+            </label>
+            <input id="title" type="text" ng-model="properties.Model.MetaField.Title.PropertyValue" class="form-control" />
+            <p class="text-muted">@Html.Resource("ExampleTitle")</p>
+        </div>
+
+        <div class="form-group">
+            <label for="placeholderText" class="full-width">
+                @Html.Resource("PlaceholderText")
+            </label>
+            <input id="placeholderText" type="text" ng-model="properties.Model.PlaceholderText.PropertyValue" class="form-control" />
+        </div>
+
+        <div class="form-group">
+            <a ng-hide="showInstructionalText || properties.Model.MetaField.Description.PropertyValue" ng-click="showInstructionalText=true;">@Html.Resource("AddInstructionalText")</a>
+            <div ng-show="showInstructionalText || properties.Model.MetaField.Description.PropertyValue">
+                <label for="example" class="full-width">
+                    @Html.Resource("InstructionalText")
+                </label>
+                <textarea id="example" ng-model="properties.Model.MetaField.Description.PropertyValue" class="form-control" />
+                <div class="text-muted">@Html.Resource("ExampleExplanation")</div>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="predefinedValue" class="full-width">
+                @Html.Resource("PredefinedValue")
+            </label>
+            <input id="predefinedValue" type="text" ng-model="properties.Model.MetaField.DefaultValue.PropertyValue" class="form-control" />            
+        </div>
+
+        <div class="form-group">
+            <div class="checkbox">
+                <label>
+                    <input type="checkbox" ng-model="properties.Model.ValidatorDefinition.Required.PropertyValue" 
+                        ng-true-value="'True'" ng-false-value="'False'" ng-checked="properties.Model.ValidatorDefinition.Required.PropertyValue === 'True'" >
+                        @Html.Resource("RequiredField")
+                    </input>
+                </label>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div ng-show="properties.Model.ValidatorDefinition.Required.PropertyValue === 'True'">
+                <label for="required-message-text" class="full-width">
+                    @Html.Resource("RequiredErrorMessageTitle")
+                </label>
+                <input type="text" id="required-message-text" ng-model="properties.Model.ValidatorDefinition.RequiredViolationMessage.PropertyValue" class="form-control" />
+            </div>
+        </div>
+        
+        <expander expander-title='@Html.Resource("MoreOptions")'>
+            <div class="form-group">
+                <label for="textFieldTemplateName">@Html.Resource("Template")</label>
+
+                <div class="row">
+                    <div class="col-xs-6">
+                        <select id="textFieldTemplateName" ng-model="properties.WriteTemplateName.PropertyValue" class="form-control">
+                            @foreach (var viewName in Html.GetViewNames(((Telerik.Sitefinity.Mvc.Proxy.MvcProxyBase)Model).GetController(), @"^Write\.(?<viewName>[\w\s]*)$"))
+                            {
+                                <option value="@viewName">@viewName</option>
+                            }
+                        </select>
+                    </div>
+                </div>
+            </div>
+
+            <style-dropdown selected-class="properties.Model.CssClass.PropertyValue" view-name="properties.WriteTemplateName.PropertyValue"></style-dropdown>
+
+            <div class="form-group">
+                <label for="cssClass">@Html.Resource("CssClasses")</label>
+                <input type="text" id="cssClass" ng-model="properties.Model.CssClass.PropertyValue" class="form-control" />
+            </div>
+        </expander>
+    </tab>
+
+    <tab heading="@Html.Resource("Limitations")">
+        <div class="form-group">		
+            <h4>@Html.Resource("Range")</h4>
+
+            <div class="row">
+                <div class="col-md-2">
+                     <label for="minLength">
+                        @Html.Resource("Min")
+                    </label>
+                    <input type="text" id="minLength" ng-model="properties.Model.ValidatorDefinition.MinLength.PropertyValue" class="form-control" />
+                </div>
+                <div class="col-md-2">                    
+                    <label for="maxLength">
+                        @Html.Resource("Max")
+                    </label>
+                    <input type="text" id="maxLength" ng-model="properties.Model.ValidatorDefinition.MaxLength.PropertyValue" class="form-control" />
+                </div>
+                <div class="col-md-2"><label>@Html.Resource("Characters")</label></div>
+            </div>   
+            
+        </div>
+
+        <div class="form-group">
+            <label for="tooLarge">
+                @Html.Resource("TooLargeErrorMessageTitle")
+            </label>
+            <input type="text" id="tooLarge" ng-model="properties.Model.ValidatorDefinition.MaxLengthViolationMessage.PropertyValue" class="form-control" />
+        </div>
+    </tab>
+</tabset>
+

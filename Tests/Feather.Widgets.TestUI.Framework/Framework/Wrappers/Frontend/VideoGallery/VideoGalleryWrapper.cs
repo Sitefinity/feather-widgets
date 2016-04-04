@@ -16,7 +16,7 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Frontend
     {
         public void VerifyVideo(string src, int width = 0, int height = 0)
         {           
-            HtmlVideo video = EM.MediaGallery.MediaGalleryFrontend.Videos.Where<HtmlVideo>(k => k.Src.StartsWith(src)).FirstOrDefault()
+             HtmlVideo video = EM.MediaGallery.MediaGalleryFrontend.Videos.Where<HtmlVideo>(k => k.Src.StartsWith(src)).FirstOrDefault()
                 .AssertIsPresent("video");
 
             if (width != 0 && height != 0)
@@ -56,7 +56,8 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Frontend
         {
             var prev = EM.MediaGallery.MediaGalleryFrontend.PreviousLink
                .AssertIsPresent("previous video");
-            Assert.IsTrue(prev.HRef.StartsWith(href));
+
+                Assert.IsTrue(prev.HRef.StartsWith(href));
         }
 
         /// <summary>
@@ -67,7 +68,8 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Frontend
         {
             var next = EM.MediaGallery.MediaGalleryFrontend.NextLink
                .AssertIsPresent("next video");
-            Assert.IsTrue(next.HRef.StartsWith(href));
+
+                Assert.IsTrue(next.HRef.StartsWith(href));
         }
 
         /// <summary>
@@ -78,7 +80,8 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Frontend
         {
             var backLink = EM.MediaGallery.MediaGalleryFrontend.BeckToAllMediaFilesLink
                .AssertIsPresent("back to all videos");
-            Assert.IsTrue(backLink.HRef.StartsWith(href));
+
+                Assert.IsTrue(backLink.HRef.Contains(href));
         }
 
         /// <summary>
@@ -88,7 +91,8 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Frontend
         public void VerifySelectedVideoOverlayTemplate(string src)
         {
             var iframeDiv = ActiveBrowser.Find.ByExpression<HtmlDiv>("class=mfp-iframe-scaler");
-            iframeDiv.ChildNodes[1].GetAttribute("src").Value.Contains(src);
+
+                iframeDiv.ChildNodes[1].GetAttribute("src").Value.Contains(src);
         }
 
         /// <summary>

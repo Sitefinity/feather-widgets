@@ -6,8 +6,9 @@ using FeatherWidgets.TestUtilities.CommonOperations;
 using Telerik.Sitefinity.Modules.Libraries;
 using Telerik.Sitefinity.Taxonomies;
 using Telerik.Sitefinity.Taxonomies.Model;
+using Telerik.Sitefinity.TestArrangementService.Attributes;
 using Telerik.Sitefinity.TestUI.Arrangements.Framework;
-using Telerik.Sitefinity.TestUI.Arrangements.Framework.Attributes;
+using Telerik.Sitefinity.TestUI.Arrangements.Framework.Server;
 using Telerik.Sitefinity.TestUtilities.CommonOperations;
 
 namespace FeatherWidgets.TestUI.Arrangements
@@ -15,7 +16,7 @@ namespace FeatherWidgets.TestUI.Arrangements
     /// <summary>
     /// FilterVideosWithCategoryTagAndDateOnPage arrangement class.
     /// </summary>
-    public class FilterVideosWithCategoryTagAndDateOnPage : ITestArrangement
+    public class FilterVideosWithCategoryTagAndDateOnPage : TestArrangementBase
     {
         /// <summary>
         /// Server side set up.
@@ -26,21 +27,32 @@ namespace FeatherWidgets.TestUI.Arrangements
             Guid page1Id = ServerOperations.Pages().CreatePage(PageName);
             ServerOperationsFeather.Pages().AddVideoGalleryWidgetToPage(page1Id);
 
-            ServerSideUpload.CreateVideoLibrary(VideoLibraryTitle);
+            ServerOperations.Videos().CreateLibrary(VideoLibraryTitle);
 
             List<Guid> listOfIds = new List<Guid>();
-            var guidVideo1 = ServerSideUpload.UploadVideo(VideoLibraryTitle, VideoTitle + 1, VideoResource1);
+            var guidVideo1 = ServerOperations.Videos().Upload(VideoLibraryTitle, VideoTitle + 1, VideoResource1);
             listOfIds.Add(guidVideo1);
-            var guidVideo2 = ServerSideUpload.UploadVideo(VideoLibraryTitle, VideoTitle + 2, VideoResource2);
+            var guidVideo2 = ServerOperations.Videos().Upload(VideoLibraryTitle, VideoTitle + 2, VideoResource2);
             listOfIds.Add(guidVideo2);
-            var guidVideo3 = ServerSideUpload.UploadVideo(VideoLibraryTitle, VideoTitle + 3, VideoResource3);
+            var guidVideo3 = ServerOperations.Videos().Upload(VideoLibraryTitle, VideoTitle + 3, VideoResource3);
             listOfIds.Add(guidVideo3);
-            var guidVideo4 = ServerSideUpload.UploadVideo(VideoLibraryTitle, VideoTitle + 4, VideoResource4);
+            var guidVideo4 = ServerOperations.Videos().Upload(VideoLibraryTitle, VideoTitle + 4, VideoResource4);
             listOfIds.Add(guidVideo4);
  
             this.AssignTaxonomiesToVideos(listOfIds);     
 
             this.ChangeThePublicationDateOfAnVideo();
+        }
+
+        /// <summary>
+        /// Gets the current libraries provider Url name.
+        /// </summary>
+        [ServerArrangement]
+        public void GetCurrentProviderUrlName()
+        {
+            string urlName = ServerOperations.Media().GetCurrentProviderUrlName;
+
+            ServerArrangementContext.GetCurrent().Values.Add("CurrentProviderUrlName", urlName);
         }
 
         /// <summary>
@@ -50,7 +62,7 @@ namespace FeatherWidgets.TestUI.Arrangements
         public void TearDown()
         {
             ServerOperations.Pages().DeleteAllPages();
-            ServerOperations.Libraries().DeleteAllVideoLibrariesExceptDefaultOne();
+            ServerOperations.Videos().DeleteAllLibrariesExceptDefaultOne();
             ServerOperations.Taxonomies().ClearAllCategories(TaxonomiesConstants.CategoriesTaxonomyId);
             ServerOperations.Taxonomies().ClearAllTags(TaxonomiesConstants.TagsTaxonomyId);
         }

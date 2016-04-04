@@ -56,7 +56,7 @@ namespace FeatherWidgets.TestIntegration.Navigation
         [Test]
         [Multilingual]
         [Category(TestCategories.Navigation)]
-        [Author(FeatherTeams.Team7)]
+        [Author(FeatherTeams.FeatherTeam)]
         [Description("Verifies language selector current language included")]
         public void LanguageSelectorWidget_CurrentLanguageIncluded()
         {
@@ -102,7 +102,7 @@ namespace FeatherWidgets.TestIntegration.Navigation
         [Test]
         [Multilingual]
         [Category(TestCategories.Navigation)]
-        [Author(FeatherTeams.Team7)]
+        [Author(FeatherTeams.FeatherTeam)]
         [Description("Verifies language selector current language not included")]
         public void LanguageSelectorWidget_CurrentLanguageNotIncluded()
         {
@@ -145,7 +145,7 @@ namespace FeatherWidgets.TestIntegration.Navigation
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Maintainability", "CA1506:AvoidExcessiveClassCoupling"), Test]
         [Multilingual]
         [Category(TestCategories.Navigation)]
-        [Author(FeatherTeams.Team7)]
+        [Author(FeatherTeams.FeatherTeam)]
         [Description("Verifies language selector, with current language included, is included in detail view of content items")]
         public void LanguageSelectorWidget_DetailsViewOfNewsItemWithENTranslationOnly()
         {
@@ -200,7 +200,7 @@ namespace FeatherWidgets.TestIntegration.Navigation
         [Test]
         [Multilingual]
         [Category(TestCategories.Navigation)]
-        [Author(FeatherTeams.Team7)]
+        [Author(FeatherTeams.FeatherTeam)]
         [Description("Verifies language selector with redirect option")]
         public void LanguageSelectorWidget_RedirectToHomePageOfTheMissingTranslations()
         {
@@ -399,7 +399,7 @@ namespace FeatherWidgets.TestIntegration.Navigation
                                 linkText,
                                 string.Format(CultureInfo.InvariantCulture, "The link display name {0} is found, but is not expected.", linkText));
                         }
-                        
+
                         var foundlanguageCulture = new CultureInfo(string.Empty);
 
                         foreach (var link in links)
@@ -420,7 +420,7 @@ namespace FeatherWidgets.TestIntegration.Navigation
                         Assert.IsFalse(
                             string.IsNullOrEmpty(foundlanguageCulture.Name),
                             string.Format(CultureInfo.InvariantCulture, "The anchor tag for culture {0} is not expected.", linkOnClickAttribute));
-                        
+
                         links.Remove(foundlanguageCulture);
                     }
                     else if (chunk.TagName.Equals("input") && chunk.GetParamValue("type") == "hidden" && chunk.GetParamValue("value") != null && chunk.GetParamValue("value").StartsWith("http://", StringComparison.Ordinal))
@@ -472,7 +472,7 @@ namespace FeatherWidgets.TestIntegration.Navigation
         private const string PageName = "TestPage";
         private readonly Dictionary<string, CultureInfo> sitefinityLanguages = new Dictionary<string, CultureInfo>();
         private readonly NewsOperations serverOperationsNews = ServerOperations.News();
-        
+
         #endregion
     }
 }

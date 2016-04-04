@@ -6,17 +6,11 @@ using FeatherWidgets.TestUtilities.CommonOperations;
 using MbUnit.Framework;
 using Telerik.Sitefinity;
 using Telerik.Sitefinity.Abstractions;
-using Telerik.Sitefinity.Data;
 using Telerik.Sitefinity.Frontend.News.Mvc.Controllers;
 using Telerik.Sitefinity.Frontend.Search.Mvc.Controllers;
 using Telerik.Sitefinity.Frontend.TestUtilities;
-using Telerik.Sitefinity.Model;
 using Telerik.Sitefinity.Mvc.Proxy;
 using Telerik.Sitefinity.News.Model;
-using Telerik.Sitefinity.Publishing;
-using Telerik.Sitefinity.Publishing.Configuration;
-using Telerik.Sitefinity.Services;
-using Telerik.Sitefinity.Services.Search;
 using Telerik.WebTestRunner.Server.Attributes;
 using SitefinityOperations = Telerik.Sitefinity.TestUtilities.CommonOperations;
 
@@ -36,13 +30,20 @@ namespace FeatherWidgets.TestIntegration.SearchResults
         public void Setup()
         {
             this.pageOperations = new PagesOperations();
+            this.frontEndLanguages = AppSettings.CurrentSettings.DefinedFrontendLanguages;
 
-            for (int i = 1; i <= SearchResultsWidgetTests.NewsCount; i++)
-            {
-                Telerik.Sitefinity.TestUtilities.CommonOperations.ServerOperations.News().CreateNewsItem(SearchResultsWidgetTests.NewsTitle + i);
-            }
+            var firstLanguage = this.frontEndLanguages[0].Name;
+            var secondLanguage = this.frontEndLanguages[2].Name;
 
-            this.CreateNewsInSecondLanguage();
+            this.CreateNewsInLanguage(firstLanguage, SearchResultsWidgetTests.NewsTitle + "1", "Content1");
+            this.CreateNewsInLanguage(firstLanguage, SearchResultsWidgetTests.NewsTitle + "2", "Content2");
+            this.CreateNewsInLanguage(firstLanguage, SearchResultsWidgetTests.NewsTitle + "3", "Content3");
+            this.CreateNewsInLanguage(firstLanguage, SearchResultsWidgetTests.NewsTitle + "4", "Content4");
+            this.CreateNewsInLanguage(firstLanguage, SearchResultsWidgetTests.NewsTitle + "5", "Content5");
+
+            this.CreateNewsInLanguage(secondLanguage, SearchResultsWidgetTests.NewsTitle + "20", "Content20");
+
+            this.searchIndexName = "Search" + Guid.NewGuid();
         }
 
         /// <summary>
@@ -58,14 +59,14 @@ namespace FeatherWidgets.TestIntegration.SearchResults
         [Test]
         [Multilingual]
         [Category(TestCategories.SearchResults)]
-        [Author(FeatherTeams.Team2)]
+        [Author(FeatherTeams.FeatherTeam)]
         [Description("Verifies that all search results are returned correctly for default language.")]
         public void SearchResultsWidget_DefaultLanguage_ResultsFound_OldestOrder()
         {
             Guid searchIndex1Id = Guid.Empty;
             try
             {
-                searchIndex1Id = SitefinityOperations.ServerOperations.Search().CreateSearchIndex(SearchResultsWidgetTests.SearchIndexName, new[] { SitefinityOperations.SearchContentType.Pages, SitefinityOperations.SearchContentType.News });
+                searchIndex1Id = SitefinityOperations.ServerOperations.Search().CreateIndex(this.searchIndexName, new[] { SitefinityOperations.SearchContentType.News });
                 SitefinityOperations.ServerOperations.Search().Reindex(searchIndex1Id);
 
                 int index = 1;
@@ -84,7 +85,7 @@ namespace FeatherWidgets.TestIntegration.SearchResults
 
                 this.pageOperations.CreatePageWithControl(mvcProxy, pageNamePrefix, pageTitlePrefix, urlNamePrefix, index);
 
-                searchResultsController.Index(null, SearchResultsWidgetTests.NewsTitle, SearchResultsWidgetTests.SearchIndexName, null, null, orderBy);
+                searchResultsController.Index(null, SearchResultsWidgetTests.NewsTitle, this.searchIndexName, null, this.frontEndLanguages[0].Name, orderBy);
 
                 Assert.AreEqual(SearchResultsWidgetTests.NewsCount, searchResultsController.Model.Results.TotalCount);
                 for (int i = 1; i <= SearchResultsWidgetTests.NewsCount; i++)
@@ -94,21 +95,24 @@ namespace FeatherWidgets.TestIntegration.SearchResults
             }
             finally
             {
-                Telerik.Sitefinity.TestUtilities.CommonOperations.ServerOperations.Search().DeleteAllIndexes();
+                if (searchIndex1Id != Guid.Empty)
+                {
+                    Telerik.Sitefinity.TestUtilities.CommonOperations.ServerOperations.Search().DeleteSearchIndex(this.searchIndexName, searchIndex1Id);
+                }
             }
         }
 
         [Test]
         [Multilingual]
         [Category(TestCategories.SearchResults)]
-        [Author(FeatherTeams.Team7)]
+        [Author(FeatherTeams.FeatherTeam)]
         [Description("Verifies that no search results are found for default language.")]
         public void SearchResultsWidget_DefaultLanguage_NoResultsFound()
         {
             Guid searchIndex1Id = Guid.Empty;
             try
             {
-                searchIndex1Id = SitefinityOperations.ServerOperations.Search().CreateSearchIndex(SearchResultsWidgetTests.SearchIndexName, new[] { SitefinityOperations.SearchContentType.Pages, SitefinityOperations.SearchContentType.News });
+                searchIndex1Id = SitefinityOperations.ServerOperations.Search().CreateIndex(this.searchIndexName, new[] { SitefinityOperations.SearchContentType.News });
                 SitefinityOperations.ServerOperations.Search().Reindex(searchIndex1Id);
 
                 int index = 1;
@@ -129,27 +133,30 @@ namespace FeatherWidgets.TestIntegration.SearchResults
 
                 this.pageOperations.CreatePageWithControl(mvcProxy, pageNamePrefix, pageTitlePrefix, urlNamePrefix, index);
 
-                searchResultsController.Index(null, searchString, SearchResultsWidgetTests.SearchIndexName, null, null, orderBy);
+                searchResultsController.Index(null, searchString, this.searchIndexName, null, this.frontEndLanguages[0].Name, orderBy);
 
                 Assert.AreEqual(expectedCount, searchResultsController.Model.Results.TotalCount);
             }
             finally
             {
-                Telerik.Sitefinity.TestUtilities.CommonOperations.ServerOperations.Search().DeleteAllIndexes();
+                if (searchIndex1Id != Guid.Empty)
+                {
+                    Telerik.Sitefinity.TestUtilities.CommonOperations.ServerOperations.Search().DeleteSearchIndex(this.searchIndexName, searchIndex1Id);
+                }
             }
         }
 
         [Test]
         [Multilingual]
         [Category(TestCategories.SearchResults)]
-        [Author(FeatherTeams.Team2)]
+        [Author(FeatherTeams.FeatherTeam)]
         [Description("Verifies that all search results are returned correctly for particular languages.")]
         public void SearchResultsWidget_NonDefaultLanguage_ResultsFound_OldestOrder()
         {
             Guid searchIndex1Id = Guid.Empty;
             try
             {
-                searchIndex1Id = SitefinityOperations.ServerOperations.Search().CreateSearchIndex(SearchResultsWidgetTests.SearchIndexName, new[] { SitefinityOperations.SearchContentType.Pages, SitefinityOperations.SearchContentType.News });
+                searchIndex1Id = SitefinityOperations.ServerOperations.Search().CreateIndex(this.searchIndexName, new[] { SitefinityOperations.SearchContentType.News });
                 SitefinityOperations.ServerOperations.Search().Reindex(searchIndex1Id);
 
                 int index = 1;
@@ -158,8 +165,6 @@ namespace FeatherWidgets.TestIntegration.SearchResults
                 string pageTitlePrefix = testName + "NewsPage" + index;
                 string urlNamePrefix = testName + "news-page" + index;
 
-                var frontEndLanguages = AppSettings.CurrentSettings.DefinedFrontendLanguages;
-                var language = frontEndLanguages[2].Name;
                 string orderBy = "Oldest";
                 var searchResultsController = new SearchResultsController();
 
@@ -170,21 +175,24 @@ namespace FeatherWidgets.TestIntegration.SearchResults
 
                 this.pageOperations.CreatePageWithControl(mvcProxy, pageNamePrefix, pageTitlePrefix, urlNamePrefix, index);
 
-                searchResultsController.Index(null, SearchResultsWidgetTests.NewsTitle, SearchResultsWidgetTests.SearchIndexName, null, language, orderBy);
+                searchResultsController.Index(null, SearchResultsWidgetTests.NewsTitle, this.searchIndexName, null, this.frontEndLanguages[2].Name, orderBy);
 
                 Assert.AreEqual(1, searchResultsController.Model.Results.TotalCount);
                 Assert.AreEqual(SearchResultsWidgetTests.NewsTitle + "20", searchResultsController.Model.Results.Data[0].GetValue("Title"));
             }
             finally
             {
-                Telerik.Sitefinity.TestUtilities.CommonOperations.ServerOperations.Search().DeleteAllIndexes();
+                if (searchIndex1Id != Guid.Empty)
+                {
+                    Telerik.Sitefinity.TestUtilities.CommonOperations.ServerOperations.Search().DeleteSearchIndex(this.searchIndexName, searchIndex1Id);
+                }
             }
         }
 
         [Test]
         [Multilingual]
         [Category(TestCategories.SearchResults)]
-        [Author(FeatherTeams.Team7)]
+        [Author(FeatherTeams.FeatherTeam)]
         [Description("Verifies paging of search results are returned correctly for default language.")]
         public void SearchResultsWidget_DefaultLanguage_Paging_OldestOrder()
         {
@@ -192,7 +200,7 @@ namespace FeatherWidgets.TestIntegration.SearchResults
 
             try
             {
-                searchIndex1Id = SitefinityOperations.ServerOperations.Search().CreateSearchIndex(SearchResultsWidgetTests.SearchIndexName, new[] { SitefinityOperations.SearchContentType.Pages, SitefinityOperations.SearchContentType.News });
+                searchIndex1Id = SitefinityOperations.ServerOperations.Search().CreateIndex(this.searchIndexName, new[] { SitefinityOperations.SearchContentType.News });
                 SitefinityOperations.ServerOperations.Search().Reindex(searchIndex1Id);
 
                 int index = 1;
@@ -214,32 +222,35 @@ namespace FeatherWidgets.TestIntegration.SearchResults
 
                 this.pageOperations.CreatePageWithControl(mvcProxy, pageNamePrefix, pageTitlePrefix, urlNamePrefix, index);
 
-                searchResultsController.Index(null, SearchResultsWidgetTests.NewsTitle, SearchResultsWidgetTests.SearchIndexName, null, null, orderBy);
+                searchResultsController.Index(null, SearchResultsWidgetTests.NewsTitle, this.searchIndexName, null, this.frontEndLanguages[0].Name, orderBy);
 
                 Assert.AreEqual(expectedPagesCount, searchResultsController.Model.TotalPagesCount);
                 Assert.AreEqual(SearchResultsWidgetTests.NewsCount, searchResultsController.Model.Results.TotalCount);
 
-                searchResultsController.Index(1, SearchResultsWidgetTests.NewsTitle, SearchResultsWidgetTests.SearchIndexName, null, null, orderBy);
+                searchResultsController.Index(1, SearchResultsWidgetTests.NewsTitle, this.searchIndexName, null, this.frontEndLanguages[0].Name, orderBy);
                 Assert.AreEqual(SearchResultsWidgetTests.NewsTitle + "1", searchResultsController.Model.Results.Data[0].GetValue("Title"));
                 Assert.AreEqual(SearchResultsWidgetTests.NewsTitle + "2", searchResultsController.Model.Results.Data[1].GetValue("Title"));
 
-                searchResultsController.Index(2, SearchResultsWidgetTests.NewsTitle, SearchResultsWidgetTests.SearchIndexName, null, null, orderBy);
+                searchResultsController.Index(2, SearchResultsWidgetTests.NewsTitle, this.searchIndexName, null, this.frontEndLanguages[0].Name, orderBy);
                 Assert.AreEqual(SearchResultsWidgetTests.NewsTitle + "3", searchResultsController.Model.Results.Data[0].GetValue("Title"));
                 Assert.AreEqual(SearchResultsWidgetTests.NewsTitle + "4", searchResultsController.Model.Results.Data[1].GetValue("Title"));
 
-                searchResultsController.Index(3, SearchResultsWidgetTests.NewsTitle, SearchResultsWidgetTests.SearchIndexName, null, null, orderBy);
+                searchResultsController.Index(3, SearchResultsWidgetTests.NewsTitle, this.searchIndexName, null, this.frontEndLanguages[0].Name, orderBy);
                 Assert.AreEqual(SearchResultsWidgetTests.NewsTitle + "5", searchResultsController.Model.Results.Data[0].GetValue("Title"));
             }
             finally
             {
-                Telerik.Sitefinity.TestUtilities.CommonOperations.ServerOperations.Search().DeleteAllIndexes();
+                if (searchIndex1Id != Guid.Empty)
+                {
+                    Telerik.Sitefinity.TestUtilities.CommonOperations.ServerOperations.Search().DeleteSearchIndex(this.searchIndexName, searchIndex1Id);
+                }
             }
         }
 
         [Test]
         [Multilingual]
-        [Category(TestCategories.SearchResults), Ignore]
-        [Author(FeatherTeams.Team7)]
+        [Category(TestCategories.SearchResults)]
+        [Author(FeatherTeams.FeatherTeam)]
         [Description("Verifies limit of all search results are returned correctly for all languages.")]
         public void SearchResultsWidget_DefaultLanguage_Limit_OldestOrder()
         {
@@ -247,7 +258,7 @@ namespace FeatherWidgets.TestIntegration.SearchResults
 
             try
             {
-                searchIndex1Id = SitefinityOperations.ServerOperations.Search().CreateSearchIndex(SearchResultsWidgetTests.SearchIndexName, new[] { SitefinityOperations.SearchContentType.Pages, SitefinityOperations.SearchContentType.News });
+                searchIndex1Id = SitefinityOperations.ServerOperations.Search().CreateIndex(this.searchIndexName, new[] { SitefinityOperations.SearchContentType.News });
                 SitefinityOperations.ServerOperations.Search().Reindex(searchIndex1Id);
 
                 int index = 1;
@@ -269,30 +280,32 @@ namespace FeatherWidgets.TestIntegration.SearchResults
 
                 this.pageOperations.CreatePageWithControl(mvcProxy, pageNamePrefix, pageTitlePrefix, urlNamePrefix, index);
 
-                searchResultsController.Index(null, SearchResultsWidgetTests.NewsTitle, SearchResultsWidgetTests.SearchIndexName, null, null, orderBy);
+                searchResultsController.Index(null, SearchResultsWidgetTests.NewsTitle, this.searchIndexName, null, this.frontEndLanguages[0].Name, orderBy);
 
-                //// ignored because total count of returned results is 5 instead of 2
-                Assert.AreEqual(expectedResultsCount, searchResultsController.Model.Results.TotalCount);
+                Assert.AreEqual(expectedResultsCount, searchResultsController.Model.Results.Data.Count);
                 Assert.AreEqual(SearchResultsWidgetTests.NewsTitle + "1", searchResultsController.Model.Results.Data[0].GetValue("Title"));
                 Assert.AreEqual(SearchResultsWidgetTests.NewsTitle + "2", searchResultsController.Model.Results.Data[1].GetValue("Title"));
             }
             finally
             {
-                Telerik.Sitefinity.TestUtilities.CommonOperations.ServerOperations.Search().DeleteAllIndexes();
+                if (searchIndex1Id != Guid.Empty)
+                {
+                    Telerik.Sitefinity.TestUtilities.CommonOperations.ServerOperations.Search().DeleteSearchIndex(this.searchIndexName, searchIndex1Id);
+                }
             }
         }
 
         [Test]
         [Multilingual]
         [Category(TestCategories.SearchResults)]
-        [Author(FeatherTeams.Team7)]
+        [Author(FeatherTeams.FeatherTeam)]
         [Description("Verifies no limit of all search results are returned correctly for all languages.")]
         public void SearchResultsWidget_DefaultLanguage_NoLimit_NewestOrder()
         {
             Guid searchIndex1Id = Guid.Empty;
             try
             {
-                searchIndex1Id = SitefinityOperations.ServerOperations.Search().CreateSearchIndex(SearchResultsWidgetTests.SearchIndexName, new[] { SitefinityOperations.SearchContentType.Pages, SitefinityOperations.SearchContentType.News });
+                searchIndex1Id = SitefinityOperations.ServerOperations.Search().CreateIndex(this.searchIndexName, new[] { SitefinityOperations.SearchContentType.News });
                 SitefinityOperations.ServerOperations.Search().Reindex(searchIndex1Id);
 
                 int index = 1;
@@ -313,7 +326,7 @@ namespace FeatherWidgets.TestIntegration.SearchResults
 
                 this.pageOperations.CreatePageWithControl(mvcProxy, pageNamePrefix, pageTitlePrefix, urlNamePrefix, index);
 
-                searchResultsController.Index(null, SearchResultsWidgetTests.NewsTitle, SearchResultsWidgetTests.SearchIndexName, null, null, orderBy);
+                searchResultsController.Index(null, SearchResultsWidgetTests.NewsTitle, this.searchIndexName, null, this.frontEndLanguages[0].Name, orderBy);
 
                 Assert.AreEqual(SearchResultsWidgetTests.NewsCount, searchResultsController.Model.Results.TotalCount);
                 for (int i = 0; i < SearchResultsWidgetTests.NewsCount; i++)
@@ -323,23 +336,24 @@ namespace FeatherWidgets.TestIntegration.SearchResults
             }
             finally
             {
-                Telerik.Sitefinity.TestUtilities.CommonOperations.ServerOperations.Search().DeleteAllIndexes();
+                if (searchIndex1Id != Guid.Empty)
+                {
+                    Telerik.Sitefinity.TestUtilities.CommonOperations.ServerOperations.Search().DeleteSearchIndex(this.searchIndexName, searchIndex1Id);
+                }
             }
         }
 
         #region Helper methods
 
-        private void CreateNewsInSecondLanguage()
+        private void CreateNewsInLanguage(string language, string title, string content)
         {
             this.AssertIsMultilingual();
 
-            var frontEndLanguages = AppSettings.CurrentSettings.DefinedFrontendLanguages;
-            var secondLanguage = frontEndLanguages[2].Name;
-
             var currentCulture = Thread.CurrentThread.CurrentUICulture;
+
             try
             {
-                System.Threading.Thread.CurrentThread.CurrentUICulture = new CultureInfo(secondLanguage);
+                System.Threading.Thread.CurrentThread.CurrentUICulture = new CultureInfo(language);
 
                 App.Prepare()
                    .SetRunPublishingSystemAsynchronous(false)
@@ -348,8 +362,8 @@ namespace FeatherWidgets.TestIntegration.SearchResults
                    .CreateNew()
                    .Do(item =>
                    {
-                       item.Title[secondLanguage] = SearchResultsWidgetTests.NewsTitle + "20";
-                       ((NewsItem)item).GetString("Content")[secondLanguage] = "TestContent20";
+                       item.Title = title;
+                       ((NewsItem)item).Content = content;
                    })
                    .Publish()
                    .Done()
@@ -371,8 +385,9 @@ namespace FeatherWidgets.TestIntegration.SearchResults
         #region Fields and constants
 
         private PagesOperations pageOperations;
+        private CultureInfo[] frontEndLanguages;
         private const string NewsTitle = "TestNews";
-        private const string SearchIndexName = "catalogue1";
+        private string searchIndexName;
         private const int NewsCount = 5;
 
         #endregion

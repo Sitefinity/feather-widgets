@@ -6,6 +6,10 @@ namespace FeatherWidgets.TestUnit.DummyClasses.Media.DocumentsList
 {
     public class DummyDocument : Telerik.Sitefinity.Libraries.Model.Document
     {
+        public DummyDocument() 
+        { 
+        }
+
         public DummyDocument(string appName, Guid id)
             : base(appName, id)
         {

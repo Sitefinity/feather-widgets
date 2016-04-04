@@ -2,7 +2,6 @@
 using Feather.Widgets.TestUI.Framework;
 using Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend.Widgets;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Telerik.Sitefinity.Frontend.TestUtilities;
 
 namespace FeatherWidgets.TestUI.TestCases.VideoGallery
 {
@@ -16,12 +15,12 @@ namespace FeatherWidgets.TestUI.TestCases.VideoGallery
         /// UI test SelectVideosFromSelectedLibraryInSelectedPage
         /// </summary>
         [TestMethod,
-        Owner(FeatherTeams.Team7),
+        Owner(FeatherTeams.FeatherTeam),
         TestCategory(FeatherTestCategories.PagesAndContent),
         TestCategory(FeatherTestCategories.VideoGallery)]
         public void SelectVideosFromSelectedLibraryInSelectedPage()
         {
-            BAT.Macros().NavigateTo().Pages();
+            BAT.Macros().NavigateTo().Pages(this.Culture);
             BAT.Wrappers().Backend().Pages().PagesWrapper().OpenPageZoneEditor(PageName);
             BATFeather.Wrappers().Backend().Pages().PageZoneEditorWrapper().EditWidget(WidgetName);
 
@@ -52,7 +51,7 @@ namespace FeatherWidgets.TestUI.TestCases.VideoGallery
             }
      
             BAT.Wrappers().Backend().Pages().PageZoneEditorWrapper().PublishPage();
-            BAT.Macros().NavigateTo().CustomPage("~/" + PageName.ToLower());
+            BAT.Macros().NavigateTo().CustomPage("~/" + PageName.ToLower(), true, this.Culture);
 
             for (int i = 1; i <= 4; i++)
             {
@@ -73,7 +72,7 @@ namespace FeatherWidgets.TestUI.TestCases.VideoGallery
             ActiveBrowser.WaitForUrl("/" + url, true, 60000);
             Assert.IsTrue(BATFeather.Wrappers().Frontend().VideoGallery().VideoGalleryWrapper().IsVideoTitlePresentOnDetailMasterPage(VideoBaseTitle + 3));
 
-            scr = this.GetVideoSource(true, VideoBaseTitle + 3, VideoType);
+            scr = this.GetVideodHref(true, VideoBaseTitle);
             BATFeather.Wrappers().Frontend().VideoGallery().VideoGalleryWrapper().VerifyVideo(scr);          
         }
 
@@ -84,6 +83,7 @@ namespace FeatherWidgets.TestUI.TestCases.VideoGallery
         {
             BAT.Macros().User().EnsureAdminLoggedIn();
             BAT.Arrange(this.TestName).ExecuteSetUp();
+            currentProviderUrlName = BAT.Arrange(this.TestName).ExecuteArrangement("GetCurrentProviderUrlName").Result.Values["CurrentProviderUrlName"];
         }
 
         /// <summary>
@@ -98,8 +98,38 @@ namespace FeatherWidgets.TestUI.TestCases.VideoGallery
         {
             string libraryUrl = LibraryName.ToLower() + "/" + ChildVideoLibrary.ToLower();
             string imageUrl = videoName.ToLower() + videoType.ToLower();
-            string scr = BATFeather.Wrappers().Frontend().MediaWidgets().MediaWidgetsWrapper().GetMediaSource(isBaseUrlIncluded, libraryUrl, imageUrl, this.BaseUrl, "videos");
+            string url;
+
+            if (this.Culture == null)
+            {
+                url = this.BaseUrl;
+            }
+            else
+            {
+                url = ActiveBrowser.Url.Substring(0, 20);
+            }
+
+            string scr = BATFeather.Wrappers().Frontend().MediaWidgets().MediaWidgetsWrapper().GetMediaSource(isBaseUrlIncluded, libraryUrl, imageUrl, url, "videos", currentProviderUrlName, this.Culture);
             return scr;
+        }
+
+        private string GetVideodHref(bool isBaseUrlIncluded, string videoName)
+        {
+            string documentUrl = videoName.ToLower();
+            string libraryUrl = LibraryName.ToLower() + "/" + ChildVideoLibrary.ToLower();
+            string url;
+
+            if (this.Culture == null)
+            {
+                url = this.BaseUrl;
+            }
+            else
+            {
+                url = ActiveBrowser.Url.Substring(0, 20);
+            }
+
+            string href = BATFeather.Wrappers().Frontend().MediaWidgets().MediaWidgetsWrapper().GetDownloadButtonSource(isBaseUrlIncluded, libraryUrl, documentUrl, url, "videos", currentProviderUrlName);
+            return href;
         }
 
         private const string PageName = "PageWithVideo";
@@ -111,5 +141,6 @@ namespace FeatherWidgets.TestUI.TestCases.VideoGallery
         private const string VideoType = ".webm";
         private const string ChildVideoLibrary = "ChildVideoLibrary";
         private const string SingleItemPage = "TestPage";
+        private string currentProviderUrlName;
     }
 }

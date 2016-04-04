@@ -52,7 +52,7 @@ namespace Feather.Widgets.TestUI.Framework.Framework.ElementMap.Identity
         {
             get
             {
-                return this.Get<HtmlInputEmail>("tagname=input", "name=Email");
+                return this.Get<HtmlInputEmail>("tagname=input", "id=Email");
             }
         }
 

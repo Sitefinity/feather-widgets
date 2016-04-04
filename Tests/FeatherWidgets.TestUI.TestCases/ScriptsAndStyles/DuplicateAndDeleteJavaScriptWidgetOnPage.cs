@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Feather.Widgets.TestUI.Framework;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Telerik.Sitefinity.Frontend.TestUtilities;
+using ArtOfTest.WebAii.Controls.HtmlControls;
 
 namespace FeatherWidgets.TestUI.TestCases.ScriptsAndStyles
 {
@@ -19,31 +19,35 @@ namespace FeatherWidgets.TestUI.TestCases.ScriptsAndStyles
         /// UI test DuplicateAndDeleteJavaScriptWidgetOnPage
         /// </summary>
         [TestMethod,
-        Owner(FeatherTeams.Team7),
-        TestCategory(FeatherTestCategories.PagesAndContent),
+        Owner(FeatherTeams.FeatherTeam),
         TestCategory(FeatherTestCategories.ScriptsAndStyles)]
         public void DuplicateAndDeleteJavaScriptWidgetOnPage()
         {
-            BAT.Macros().NavigateTo().Pages();
+            BAT.Macros().NavigateTo().Pages(this.Culture);
             BAT.Wrappers().Backend().Pages().PagesWrapper().OpenPageZoneEditor(PageName);
+            //// Switch the focus to the zone editor
+            HtmlDiv radDockZone = ActiveBrowser.Find
+                                              .ByExpression<HtmlDiv>("placeholderid=" + "Body")
+              .AssertIsPresent<HtmlDiv>("Body");
+            radDockZone.MouseClick();
             BATFeather.Wrappers().Backend().Pages().PageZoneEditorWrapper().EditWidget(WidgetName);
             BATFeather.Wrappers().Backend().ScriptAndStyles().JavaScriptWidgetEditWrapper().FillCodeInEditableArea(JavaScriptValue);
             BATFeather.Wrappers().Backend().Widgets().WidgetDesignerWrapper().SaveChanges();
             BAT.Wrappers().Backend().Pages().PageZoneEditorWrapper().SelectExtraOptionForWidget(OperationName);
-            BATFeather.Wrappers().Backend().Pages().PageZoneEditorWrapper().EditWidget(WidgetName);
+            BATFeather.Wrappers().Backend().Pages().PageZoneEditorWrapper().EditWidget(WidgetName, dropZoneIndex: 1);
             BATFeather.Wrappers().Backend().ScriptAndStyles().JavaScriptWidgetEditWrapper().VerifyCodeInEditableArea("vara=5");
             BATFeather.Wrappers().Backend().ScriptAndStyles().JavaScriptWidgetEditWrapper().FillCodeInEditableArea(SecondJavaScriptValue);
             BATFeather.Wrappers().Backend().Widgets().WidgetDesignerWrapper().SaveChanges();
             BAT.Wrappers().Backend().Pages().PageZoneEditorWrapper().PublishPage();
-            BAT.Macros().NavigateTo().CustomPage("~/" + PageName.ToLower());
+            BAT.Macros().NavigateTo().CustomPage("~/" + PageName.ToLower(), true, this.Culture);
             this.VerifyCodeExistOnTheFrontend(JavaScriptValue);
             this.VerifyCodeExistOnTheFrontend(SecondJavaScriptValue);
 
-            BAT.Macros().NavigateTo().Pages();
+            BAT.Macros().NavigateTo().Pages(this.Culture);
             BAT.Wrappers().Backend().Pages().PagesWrapper().OpenPageZoneEditor(PageName);
             BAT.Wrappers().Backend().Pages().PageZoneEditorWrapper().SelectExtraOptionForWidget(OperationName1);
             BAT.Wrappers().Backend().Pages().PageZoneEditorWrapper().PublishPage();
-            BAT.Macros().NavigateTo().CustomPage("~/" + PageName.ToLower());
+            BAT.Macros().NavigateTo().CustomPage("~/" + PageName.ToLower(), true, this.Culture);
             this.VerifyCodeExistOnTheFrontend(SecondJavaScriptValue);
             this.VerifyCodeDoesNotExistOnTheFrontend(JavaScriptValue);
         }

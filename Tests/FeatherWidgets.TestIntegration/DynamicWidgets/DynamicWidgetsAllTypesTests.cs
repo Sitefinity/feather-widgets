@@ -25,7 +25,7 @@ namespace FeatherWidgets.TestIntegration.DynamicWidgets
 
         [Test]
         [Category(TestCategories.DynamicWidgets)]
-        [Author(FeatherTeams.Team2)]
+        [Author(FeatherTeams.FeatherTeam)]
         [Description("Verify all fields on page.")]
         public void DynamicWidgetsAllTypes_VerifyAllFieldsOnTheFrontendWhereSomeFieldsAreEmpty()
         {
@@ -49,6 +49,7 @@ namespace FeatherWidgets.TestIntegration.DynamicWidgets
                 var dynamicController = new DynamicContentController();
                 dynamicController.Model.ContentType = TypeResolutionService.ResolveType(ResolveType);
                 dynamicController.Model.SelectionMode = SelectionMode.AllItems;
+                dynamicController.Model.ProviderName = FeatherWidgets.TestUtilities.CommonOperations.DynamicModulesOperations.ProviderName;
                 mvcProxy.Settings = new ControllerSettings(dynamicController);
                 mvcProxy.WidgetName = WidgetName;
 

@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.UI;
+using Telerik.Sitefinity.Frontend.Mvc.Infrastructure;
 using Telerik.Sitefinity.Frontend.Mvc.Infrastructure.Controllers;
 using Telerik.Sitefinity.Frontend.Mvc.Infrastructure.Controllers.Attributes;
 using Telerik.Sitefinity.Frontend.Publishing.Helpers;
@@ -106,7 +107,7 @@ namespace Telerik.Sitefinity.Frontend.Publishing.Mvc.Controllers
 
             var viewModel = this.Model.GetViewModel();
 
-            var page = this.GetHttpContext().CurrentHandler as Page;
+            var page = this.GetHttpContext().CurrentHandler.GetPageHandler();
 
             if (page != null)
             {

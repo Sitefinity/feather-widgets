@@ -23,10 +23,10 @@ namespace FeatherWidgets.TestIntegration.MediaGalleryWidgets
         [SetUp]
         public void Setup()
         {
-            ServerSideUpload.CreateAlbum(LibraryTitle);
-            ServerSideUpload.UploadImage(LibraryTitle, ImageTitle + 1, ImageResource1);
-            ServerSideUpload.UploadImage(LibraryTitle, ImageTitle + 3, ImageResource3);
-            ServerSideUpload.UploadImage(LibraryTitle, ImageTitle + 2, ImageResource2);
+            ServerOperations.Images().CreateLibrary(LibraryTitle);
+            ServerOperations.Images().Upload(LibraryTitle, ImageTitle + 1, ImageResource1);
+            ServerOperations.Images().Upload(LibraryTitle, ImageTitle + 3, ImageResource3);
+            ServerOperations.Images().Upload(LibraryTitle, ImageTitle + 2, ImageResource2);
         }
 
         /// <summary>
@@ -35,7 +35,7 @@ namespace FeatherWidgets.TestIntegration.MediaGalleryWidgets
         [TearDown]
         public void TearDown()
         {
-            ServerOperations.Libraries().DeleteLibraries(false, "Image");
+            ServerOperations.Images().DeleteAllLibrariesExceptDefaultOne();
         }
 
         /// <summary>
@@ -43,7 +43,7 @@ namespace FeatherWidgets.TestIntegration.MediaGalleryWidgets
         /// </summary>
         [Test]
         [Category(TestCategories.Media)]
-        [Author(FeatherTeams.Team7)]
+        [Author(FeatherTeams.FeatherTeam)]
         public void ImageGallery_VerifySortingLastPublished()
         {
             var mvcProxy = new MvcControllerProxy();
@@ -67,7 +67,7 @@ namespace FeatherWidgets.TestIntegration.MediaGalleryWidgets
         /// </summary>
         [Test]
         [Category(TestCategories.Media)]
-        [Author(FeatherTeams.Team7)]
+        [Author(FeatherTeams.FeatherTeam)]
         public void ImageGallery_VerifySortingTitleAZ()
         {
             var mvcProxy = new MvcControllerProxy();
@@ -91,7 +91,7 @@ namespace FeatherWidgets.TestIntegration.MediaGalleryWidgets
         /// </summary>
         [Test]
         [Category(TestCategories.Media)]
-        [Author(FeatherTeams.Team7)]
+        [Author(FeatherTeams.FeatherTeam)]
         public void ImageGallery_VerifySortingTitleZA()
         {
             var mvcProxy = new MvcControllerProxy();
@@ -115,7 +115,7 @@ namespace FeatherWidgets.TestIntegration.MediaGalleryWidgets
         /// </summary>
         [Test]
         [Category(TestCategories.Media)]
-        [Author(FeatherTeams.Team7)]
+        [Author(FeatherTeams.FeatherTeam)]
         public void ImageGallery_VerifySortingLastModified()
         {
             var mvcProxy = new MvcControllerProxy();

@@ -34,6 +34,19 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend
         }
 
         /// <summary>
+        /// Verifies if any Feather MVC widget is presented in pages toolbox section.
+        /// </summary>
+        /// <returns>true or false depending on the widgets presence in the toolbox.</returns>
+        public bool IsAnyMvcWidgetPersentInToolbox()
+        {
+            ActiveBrowser.RefreshDomTree();
+            RadPanelBar toolbox = Manager.Current.ActiveBrowser.Find.ById<RadPanelBar>("~ControlToolboxContainer");
+            var mvcItems = toolbox.Find.AllByExpression("class=~sfMvcIcn");
+
+            return mvcItems != null && mvcItems.Count > 0;
+        }
+
+        /// <summary>
         /// Gets the feather Mvc widget.
         /// </summary>
         /// <param name="mvcWidgetName">feather mvc widget name</param>
@@ -66,7 +79,6 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend
         public void AddWidgetToPlaceHolderPureMvcMode(string widgetName, string placeHolder = "Contentplaceholder1")
         {            
             HtmlDiv widget = this.GetMvcWidget(widgetName);
-
             HtmlDiv radDockZone = ActiveBrowser.Find
                                                .ByExpression<HtmlDiv>("placeholderid=" + placeHolder)
                .AssertIsPresent<HtmlDiv>(placeHolder);
@@ -89,7 +101,9 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend
         /// <param name="dropZoneIndex">The drop zone index</param>
         public void EditWidget(string widgetName, int dropZoneIndex = 0, bool isMediaWidgetEdited = false)
         {
+            ActiveBrowser.WaitUntilReady();
             ActiveBrowser.RefreshDomTree();
+            ActiveBrowser.WaitUntilReady();
             var widgetHeader = ActiveBrowser
                                       .Find
                                       .AllByCustom<HtmlDiv>(d => d.CssClass.StartsWith("rdTitleBar") && d.ChildNodes.First().InnerText.Equals(widgetName))[dropZoneIndex]
@@ -102,14 +116,15 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend
             editLink.Click();
             ActiveBrowser.WaitUntilReady();
             ActiveBrowser.WaitForAsyncOperations();
+            ActiveBrowser.WaitForAjax(TimeOut);
             ActiveBrowser.RefreshDomTree();
 
             if (!isMediaWidgetEdited)
             {
-            HtmlFindExpression expression = new HtmlFindExpression("class=modal-title", "InnerText=" + widgetName);
-            ActiveBrowser.WaitForElement(expression, TimeOut, false);
-            Manager.Current.Wait.For(this.WaitForSaveButton, 60000);
-        }
+                HtmlFindExpression expression = new HtmlFindExpression("class=modal-title", "InnerText=" + widgetName);
+                ActiveBrowser.WaitForElement(expression, TimeOut, false);
+                Manager.Current.Wait.For(this.WaitForSaveButton, TimeOut);
+            }
         }
 
         /// <summary>
@@ -181,7 +196,7 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend
             Assert.IsNotNull(itemsCount);
             Assert.AreNotEqual(0, itemsCount);
 
-            for (int i = 0; i < itemsCount; i++)
+            for (int i = 0; i < itemsCount-1; i++)
             {
                 Assert.IsTrue(items[i].InnerText.Contains(itemNames[i]), items[i].InnerText + " not contain" + itemNames[i]);
             }

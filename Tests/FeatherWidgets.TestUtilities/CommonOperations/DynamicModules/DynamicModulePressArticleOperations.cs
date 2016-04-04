@@ -11,6 +11,7 @@ using Telerik.Sitefinity.Security;
 using Telerik.Sitefinity.Services;
 using Telerik.Sitefinity.Taxonomies;
 using Telerik.Sitefinity.Taxonomies.Model;
+using Telerik.Sitefinity.TestUtilities.CommonOperations;
 using Telerik.Sitefinity.Utilities.TypeConverters;
 using Telerik.Sitefinity.Web.UI.Fields;
 
@@ -29,6 +30,11 @@ namespace FeatherWidgets.TestUtilities.CommonOperations
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1054:UriParametersShouldNotBeStrings", MessageId = "1#")]
         public void CreatePressArticle(string title, string url, Guid tag, Guid category, string publishedBy, string providerName)
         {
+            if (ServerOperations.MultiSite().CheckIsMultisiteMode() && providerName == null)
+            {
+                providerName = "dynamicContentProvider";
+            } 
+
             DynamicModuleManager dynamicModuleManager = DynamicModuleManager.GetManager(providerName);
             Type pressArticleType = TypeResolutionService.ResolveType("Telerik.Sitefinity.DynamicTypes.Model.PressRelease.PressArticle");
             Telerik.Sitefinity.DynamicModules.Model.DynamicContent pressArticleItem = dynamicModuleManager.CreateDataItem(pressArticleType);
@@ -129,6 +135,10 @@ namespace FeatherWidgets.TestUtilities.CommonOperations
             // Set the provider name for the DynamicModuleManager here. All available providers are listed in
             // Administration -> Settings -> Advanced -> DynamicModules -> Providers
             var providerName = string.Empty;
+            if (ServerOperations.MultiSite().CheckIsMultisiteMode())
+            {
+                providerName = "dynamicContentProvider";
+            } 
 
             DynamicModuleManager dynamicModuleManager = DynamicModuleManager.GetManager(providerName);
             Type pressArticleType = TypeResolutionService.ResolveType("Telerik.Sitefinity.DynamicTypes.Model.PressRelease.PressArticle");
@@ -161,6 +171,10 @@ namespace FeatherWidgets.TestUtilities.CommonOperations
         public DynamicContent CreatePressArticleItem(string title, string url)
         {
             var providerName = string.Empty;
+            if (ServerOperations.MultiSite().CheckIsMultisiteMode())
+            {
+                providerName = "dynamicContentProvider";
+            } 
 
             DynamicModuleManager dynamicModuleManager = DynamicModuleManager.GetManager(providerName);
             Type pressArticleType = TypeResolutionService.ResolveType("Telerik.Sitefinity.DynamicTypes.Model.PressRelease.PressArticle");
@@ -196,10 +210,16 @@ namespace FeatherWidgets.TestUtilities.CommonOperations
         /// Demonstrates how pressArticleItem is unpublished
         /// </summary>
         /// <param name="pressArticleItem">The press article item.</param>
-        public void UNPublishPressArticle(ILifecycleDataItem pressArticleItem)
+        public void UNPublishPressArticle(Guid itemId)
         {
             var providerName = string.Empty;
+            if (ServerOperations.MultiSite().CheckIsMultisiteMode())
+            {
+                providerName = "dynamicContentProvider";
+            }
+
             DynamicModuleManager dynamicModuleManager = DynamicModuleManager.GetManager(providerName);
+            var pressArticleItem = dynamicModuleManager.GetDataItem(null, itemId);
             var liveDynamicItem = dynamicModuleManager.Lifecycle.GetLive(pressArticleItem);
             dynamicModuleManager.Lifecycle.Unpublish(liveDynamicItem);
             dynamicModuleManager.SaveChanges();
@@ -223,6 +243,11 @@ namespace FeatherWidgets.TestUtilities.CommonOperations
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Telerik.Sitefinity", "SF1001:AvoidToListOnIQueryable"), System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1002:DoNotExposeGenericLists")]
         public List<DynamicContent> RetrieveCollectionOfPressArticles(string providerName)
         {
+            if (ServerOperations.MultiSite().CheckIsMultisiteMode() && providerName == null)
+            {
+                providerName = "dynamicContentProvider";
+            } 
+
             DynamicModuleManager dynamicModuleManager = DynamicModuleManager.GetManager(providerName);
             Type pressArticleType = TypeResolutionService.ResolveType("Telerik.Sitefinity.DynamicTypes.Model.PressRelease.PressArticle");
 
@@ -250,13 +275,30 @@ namespace FeatherWidgets.TestUtilities.CommonOperations
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1002:DoNotExposeGenericLists")]
         public void DeleteDynamicItems(List<DynamicContent> itemsToDelete, string providerName)
         {
-            DynamicModuleManager dynamicModuleManager = DynamicModuleManager.GetManager(providerName);
+            if (ServerOperations.MultiSite().CheckIsMultisiteMode() && providerName == null)
+            {
+                providerName = "dynamicContentProvider";
+            }
 
-            for (int i = 0; i < itemsToDelete.Count; i++)
+            DynamicModuleManager dynamicModuleManager = DynamicModuleManager.GetManager(providerName);
+            var currentItems = itemsToDelete.Select(i => dynamicModuleManager.GetDataItem(i.GetType(), i.Id)).ToArray();
+            for (int i = 0; i < currentItems.Length; i++)
             //// This is how you delete the pressArticleItem
-                dynamicModuleManager.DeleteDataItem(itemsToDelete[i]);
+                dynamicModuleManager.DeleteDataItem(currentItems[i]);
 
             // You need to call SaveChanges() in order for the items to be actually persisted to data store
+            dynamicModuleManager.SaveChanges();
+        }
+
+        /// <summary>
+        /// Delete All items
+        /// </summary>
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1026:DefaultParametersShouldNotBeUsed")]
+        public void DeleteAllDynamicItemsInProvider(string providerName = "")
+        {
+            DynamicModuleManager dynamicModuleManager = DynamicModuleManager.GetManager(providerName);
+            Type contenttypeType = TypeResolutionService.ResolveType("Telerik.Sitefinity.DynamicTypes.Model.PressRelease.PressArticle");
+            dynamicModuleManager.DeleteDataItems(contenttypeType);
             dynamicModuleManager.SaveChanges();
         }
 
@@ -271,6 +313,10 @@ namespace FeatherWidgets.TestUtilities.CommonOperations
             // Set the provider name for the DynamicModuleManager here. All available providers are listed in
             // Administration -> Settings -> Advanced -> DynamicModules -> Providers
             var providerName = string.Empty;
+            if (ServerOperations.MultiSite().CheckIsMultisiteMode())
+            {
+                providerName = "dynamicContentProvider";
+            } 
 
             DynamicModuleManager dynamicModuleManager = DynamicModuleManager.GetManager(providerName);
             
@@ -292,6 +338,10 @@ namespace FeatherWidgets.TestUtilities.CommonOperations
             // Set the provider name for the DynamicModuleManager here. All available providers are listed in
             // Administration -> Settings -> Advanced -> DynamicModules -> Providers
             var providerName = string.Empty;
+            if (ServerOperations.MultiSite().CheckIsMultisiteMode())
+            {
+                providerName = "dynamicContentProvider";
+            } 
 
             DynamicModuleManager dynamicModuleManager = DynamicModuleManager.GetManager(providerName);
 

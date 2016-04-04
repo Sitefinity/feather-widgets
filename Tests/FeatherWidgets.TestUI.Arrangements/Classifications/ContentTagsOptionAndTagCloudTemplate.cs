@@ -2,16 +2,17 @@
 using System.Collections.Generic;
 using FeatherWidgets.TestUtilities.CommonOperations;
 using FeatherWidgets.TestUtilities.CommonOperations.Pages;
+using Telerik.Sitefinity.TestArrangementService.Attributes;
 using Telerik.Sitefinity.TestUI.Arrangements.Framework;
-using Telerik.Sitefinity.TestUI.Arrangements.Framework.Attributes;
 using Telerik.Sitefinity.TestUtilities.CommonOperations;
+using Telerik.Sitefinity.TestUtilities.TestConfig;
 
 namespace FeatherWidgets.TestUI.Arrangements
 {
     /// <summary>
     /// ContentTagsOptionAndTagCloudTemplate arrangement class.
     /// </summary>
-    public class ContentTagsOptionAndTagCloudTemplate : ITestArrangement
+    public class ContentTagsOptionAndTagCloudTemplate : TestArrangementBase
     {
         /// <summary>
         /// Server side set up.
@@ -19,6 +20,7 @@ namespace FeatherWidgets.TestUI.Arrangements
         [ServerSetUp]
         public void SetUp()
         {
+            AuthenticationHelper.AuthenticateUser(AdminUserName, AdminPass, true);
             Guid templateId = ServerOperations.Templates().GetTemplateIdByTitle(PageTemplateName);
             Guid pageId = ServerOperations.Pages().CreatePage(PageName, templateId);
             Guid pageNodeId = ServerOperations.Pages().GetPageNodeId(pageId);
@@ -52,11 +54,12 @@ namespace FeatherWidgets.TestUI.Arrangements
 
         private void CreateListItemWithTags(string title, string content, IEnumerable<string> tags)
         {
-            Guid listItemId = Guid.NewGuid();
-            this.listOperations.CreateListItem(listItemId, this.listId, title, content);
+            Guid listItemId = ServerOperationsFeather.ListsOperations().CreateListItemMultilingual(this.mlconfig, this.listId, title, content, false, this.culture);
             this.listOperations.AddTaxonomiesToListItem(listItemId, null, tags); 
         }
 
+        private const string AdminUserName = "admin";
+        private const string AdminPass = "admin@2";
         private const string PageName = "TagsPage";
         private const string TaxonTitle = "Tag";
         private const string PageTemplateName = "Bootstrap.default";
@@ -70,7 +73,8 @@ namespace FeatherWidgets.TestUI.Arrangements
         private const string NewsTitle = "NewsTitle";
         private const string AuthorName = "AuthorName";
         private const string SourceName = "SourceName";
-
+        private string culture = ServerOperationsFeather.ListsOperations().GetCurrentCulture();
+        private MultilingualTestConfig mlconfig = MultilingualTestConfig.Get();
         private readonly Guid listId = new Guid("0D3937D3-A690-4F19-9DA4-53F0880F5B62");
         private readonly TaxonomiesOperations taxonomies = ServerOperations.Taxonomies();
         private readonly ListsOperations listOperations = ServerOperationsFeather.ListsOperations();

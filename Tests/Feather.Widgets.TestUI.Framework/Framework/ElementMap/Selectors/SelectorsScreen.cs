@@ -104,14 +104,26 @@ namespace Feather.Widgets.TestUI.Framework.Framework.ElementMap.Selectors
         }
 
         /// <summary>
-        /// Gets the all tab.
+        /// Gets the form selector.
         /// </summary>
-        /// <value>The all tab.</value>
-        public HtmlAnchor AllTab
+        /// <value>The active tab.</value>
+        public HtmlDiv FormSelector
         {
             get
             {
-                return this.Get<HtmlAnchor>("class=k-link", "innertext=~All");
+                return this.Get<HtmlDiv>("class=~list-group list-group-endless ng-isolate-scope");
+            }
+        }
+
+        /// <summary>
+        /// Gets the all tab.
+        /// </summary>
+        /// <value>The all tab.</value>
+        public HtmlSpan AllTab
+        {
+            get
+            {
+                return this.Get<HtmlSpan>("class=k-link", "innertext=~All");
             }
         }
 
@@ -119,11 +131,11 @@ namespace Feather.Widgets.TestUI.Framework.Framework.ElementMap.Selectors
         /// Gets the selected tab.
         /// </summary>
         /// <value>The selected tab.</value>
-        public HtmlAnchor SelectedTab
+        public HtmlSpan SelectedTab
         {
             get
             {
-                return this.Get<HtmlAnchor>("class=k-link", "innertext=~Selected");
+                return this.Get<HtmlSpan>("class=k-link", "innertext=~Selected");
             }
         }
 
@@ -151,11 +163,11 @@ namespace Feather.Widgets.TestUI.Framework.Framework.ElementMap.Selectors
         /// Gets the external urls tab.
         /// </summary>
         /// <value>The external urls tab.</value>
-        public HtmlAnchor ExternalUrlsTab
+        public HtmlSpan ExternalUrlsTab
         {
             get
             {
-                return this.Get<HtmlAnchor>("class=k-link", "innertext=~External URLs");
+                return this.Get<HtmlSpan>("class=k-link", "innertext=~External URLs");
             }
         }
 
@@ -203,7 +215,7 @@ namespace Feather.Widgets.TestUI.Framework.Framework.ElementMap.Selectors
         {
             get
             {
-                return this.Get<HtmlAnchor>("class=pull-right", "ng-click=removeItem($index, item)");
+                return this.Get<HtmlAnchor>("class=text-danger", "ng-click=removeItem($index, item)");
             }
         }
 

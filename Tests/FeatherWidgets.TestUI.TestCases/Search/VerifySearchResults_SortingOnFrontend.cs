@@ -6,7 +6,6 @@ using System.Threading.Tasks;
 using Feather.Widgets.TestUI.Framework;
 using FeatherWidgets.TestUI.TestCases;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Telerik.Sitefinity.Frontend.TestUtilities;
 
 namespace FeatherWidgets.TestUI.TestCases.Search
 {
@@ -20,12 +19,12 @@ namespace FeatherWidgets.TestUI.TestCases.Search
         /// UI test VerifySearchResults_SortingOnFrontend
         /// </summary>
         [TestMethod,
-        Owner(FeatherTeams.Team7),
+        Owner(FeatherTeams.FeatherTeam),
         TestCategory(FeatherTestCategories.PagesAndContent),
         TestCategory(FeatherTestCategories.Search)]
         public void VerifySearchResults_SortingOnFrontend()
         {
-            BAT.Macros().NavigateTo().Pages();
+            BAT.Macros().NavigateTo().Pages(this.Culture);
             BAT.Wrappers().Backend().Pages().PagesWrapper().OpenPageZoneEditor(SearchPage);
             BATFeather.Wrappers().Backend().Pages().PageZoneEditorWrapper().AddMvcWidgetHybridModePage(SearchBoxWidget);
 
@@ -48,7 +47,7 @@ namespace FeatherWidgets.TestUI.TestCases.Search
             BATFeather.Wrappers().Backend().Widgets().WidgetDesignerWrapper().SaveChanges();
             BAT.Wrappers().Backend().Pages().PageZoneEditorWrapper().PublishPage();
 
-            BAT.Macros().NavigateTo().CustomPage("~/" + SearchPage.ToLower());
+            BAT.Macros().NavigateTo().CustomPage("~/" + SearchPage.ToLower(), true, this.Culture);
             BATFeather.Wrappers().Frontend().Search().SearchWrapper().EnterSearchText(SearchText);
             BATFeather.Wrappers().Frontend().Search().SearchWrapper().ClickSearchButton(ResultsPage.ToLower());
             BATFeather.Wrappers().Frontend().Search().SearchWrapper().VerifySearchResultsLabel(2, SearchText);
@@ -81,7 +80,7 @@ namespace FeatherWidgets.TestUI.TestCases.Search
         private const string ResultsPage = "ResultsPage";
         private const string SearchBoxWidget = "Search box";
         private const string SearchResultsWidget = "Search results";
-        private const string SearchIndexName = "news index";
+        private const string SearchIndexName = "VerifySearchResults_SortingOnFrontend";
 
         private const string SearchText = "news";
         private const string NewsTitle1 = "test news";

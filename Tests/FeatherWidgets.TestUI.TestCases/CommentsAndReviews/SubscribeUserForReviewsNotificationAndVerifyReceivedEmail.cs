@@ -5,7 +5,6 @@ using System.Text;
 using System.Threading.Tasks;
 using Feather.Widgets.TestUI.Framework;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Telerik.Sitefinity.Frontend.TestUtilities;
 
 namespace FeatherWidgets.TestUI.TestCases.CommentsAndReviews
 {
@@ -19,20 +18,20 @@ namespace FeatherWidgets.TestUI.TestCases.CommentsAndReviews
         /// UI test SubscribeUserForReviewsNotificationAndVerifyReceivedEmail
         /// </summary>
         [TestMethod,
-        Owner(FeatherTeams.Team2),
+        Owner(FeatherTeams.FeatherTeam),
         TestCategory(FeatherTestCategories.PagesAndContent),
         TestCategory(FeatherTestCategories.CommentsAndReviews),
         TestCategory(FeatherTestCategories.Bootstrap)]
         public void SubscribeUserForReviewsNotificationAndVerifyReceivedEmail()
         {
-            BAT.Macros().NavigateTo().CustomPage("~/" + PageName.ToLower(), false);
+            BAT.Macros().NavigateTo().CustomPage("~/" + PageName.ToLower(), false, this.Culture);
             BATFeather.Wrappers().Frontend().CommentsAndReviews().ReviewsWrapper().VerifySubscribeToNewReviewLinksIsPresent();
             BATFeather.Wrappers().Frontend().CommentsAndReviews().ReviewsWrapper().ClickSubscribeToNewReviewLinks();
             BATFeather.Wrappers().Frontend().CommentsAndReviews().ReviewsWrapper().VerifySuccessfullySubscribedMessageIsPresent();
             BATFeather.Wrappers().Frontend().CommentsAndReviews().ReviewsWrapper().VerifyUnsubscribeLinksIsPresent();
 
             BAT.Macros().User().LogOut();
-            BAT.Macros().NavigateTo().CustomPage("~/" + PageName.ToLower(), false);
+            BAT.Macros().NavigateTo().CustomPage("~/" + PageName.ToLower(), false, this.Culture);
             BATFeather.Wrappers().Frontend().CommentsAndReviews().ReviewsWrapper().TypeAMessage(this.reviewsToPage[0]);
             BATFeather.Wrappers().Frontend().CommentsAndReviews().ReviewsWrapper().ClickRaitingStar(Raiting);
             BATFeather.Wrappers().Frontend().CommentsAndReviews().ReviewsWrapper().TypeYourName(this.reviewAuthor[0]);            

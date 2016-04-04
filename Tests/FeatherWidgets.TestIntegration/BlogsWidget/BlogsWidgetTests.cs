@@ -24,7 +24,7 @@ namespace FeatherWidgets.TestIntegration.BlogsWidget
     {       
         [Test]
         [Category(TestCategories.Blogs)]
-        [Author(FeatherTeams.Team2)]
+        [Author(FeatherTeams.FeatherTeam)]
         [Description("Add Blogs widget to a page and display only selected blogs.")]
         public void BlogsWidget_DisplaySelectedBlogs()
         {
@@ -62,7 +62,7 @@ namespace FeatherWidgets.TestIntegration.BlogsWidget
 
         [Test]
         [Category(TestCategories.Blogs)]
-        [Author(FeatherTeams.Team2)]
+        [Author(FeatherTeams.FeatherTeam)]
         [Description("Add Blogs widget to a page and display only blogs with more than 0 posts.")]
         public void BlogsWidget_DisplayBlogsWithMoreThan_0_Posts()
         {
@@ -102,7 +102,7 @@ namespace FeatherWidgets.TestIntegration.BlogsWidget
 
         [Test]
         [Category(TestCategories.Blogs)]
-        [Author(FeatherTeams.Team2)]
+        [Author(FeatherTeams.FeatherTeam)]
         [Description("Add Blogs widget to a page and display only blogs with more than 1 post.")]
         public void BlogsWidget_DisplayBlogsWithMoreThan_1_Post()
         {
@@ -146,7 +146,7 @@ namespace FeatherWidgets.TestIntegration.BlogsWidget
 
         [Test]
         [Category(TestCategories.Blogs)]
-        [Author(FeatherTeams.Team2)]
+        [Author(FeatherTeams.FeatherTeam)]
         [Description("Add Blogs widget to a page and display only blogs that have posts not older than 1 month.")]
         public void BlogsWidget_DisplayBlogsThatHavePostsNotOlderThan_1_Month()
         {
@@ -190,7 +190,7 @@ namespace FeatherWidgets.TestIntegration.BlogsWidget
 
         [Test]
         [Category(TestCategories.Blogs)]
-        [Author(FeatherTeams.Team2)]
+        [Author(FeatherTeams.FeatherTeam)]
         [Description("Add Blogs widget to a page and display only blogs that have posts not older than 12 months.")]
         public void BlogsWidget_DisplayBlogsThatHavePostsNotOlderThan_1_Year()
         {

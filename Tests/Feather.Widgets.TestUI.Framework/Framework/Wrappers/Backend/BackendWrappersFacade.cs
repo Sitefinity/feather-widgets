@@ -4,9 +4,13 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend;
+using Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend.CardWidget;
 using Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend.Classifications;
 using Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend.CommentsAndReviews;
 using Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend.Css;
+using Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend.EmailCampaigns;
+using Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend.FeedWidget;
+using Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend.Forms;
 using Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend.Identity;
 using Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend.Lists;
 using Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend.Media;
@@ -144,6 +148,42 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend
         public CommentsAndReviewsWrapperFacade CommentsAndReviews()
         {
             return new CommentsAndReviewsWrapperFacade();
+        }
+
+        /// <summary>
+        /// EmailCampaigns widgets.
+        /// </summary>
+        /// <returns></returns>
+        public EmailCampaignsWrapperFacade EmailCampaigns()
+        {
+            return new EmailCampaignsWrapperFacade();
+        }
+
+        /// <summary>
+        /// Feed widgets.
+        /// </summary>
+        /// <returns></returns>
+        public FeedWidgetWrapperFacade FeedWidget()
+        {
+            return new FeedWidgetWrapperFacade();
+        }
+
+        /// <summary>
+        /// Forms widgets.
+        /// </summary>
+        /// <returns></returns>
+        public FormsWrapperFacade Forms()
+        {
+            return new FormsWrapperFacade();
+        }
+
+        /// <summary>
+        /// Card widgets.
+        /// </summary>
+        /// <returns></returns>
+        public CardWrapperFacade Card()
+        {
+            return new CardWrapperFacade();
         }
     }
 }

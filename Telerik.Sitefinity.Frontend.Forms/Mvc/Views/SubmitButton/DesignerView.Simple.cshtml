@@ -1,0 +1,57 @@
+﻿@using Telerik.Sitefinity.Frontend.Mvc.Helpers;
+@using Telerik.Sitefinity.Mvc;
+
+<div class="form-group">
+    <label for="title">
+        @Html.Resource("Label")
+    </label>
+    <div class="row">
+        <div class="col-xs-6">
+            <input id="title" type="text" ng-model="properties.Label.PropertyValue" class="form-control" />
+        </div>
+    </div>
+</div>
+
+<div class="form-group">
+    <div class="checkbox">
+        <label for="allowGoBack">
+            <input id="allowGoBack" type="checkbox" ng-model="properties.AllowGoBack.PropertyValue" ng-true-value="'True'" ng-false-value="'False'"/>
+            @Html.Resource("AllowGoBackIfMultiPageText")
+        </label>
+    </div>
+</div>
+
+<div class="form-group" ng-show="properties.AllowGoBack.PropertyValue === 'True'">
+    <label for="prevStep">
+        @Html.Resource("PreviousStepLabelText")
+    </label>
+    <div class="row">
+        <div class="col-xs-6">
+            <input id="prevStep" type="text" ng-model="properties.PreviousStepText.PropertyValue" class="form-control" />
+        </div>
+    </div>
+</div>
+
+<expander expander-title='@Html.Resource("MoreOptions")'>
+    <div class="form-group">
+        <label for="submitButtonTemplateName">@Html.Resource("Template")</label>
+
+        <div class="row">
+            <div class="col-xs-6">
+                <select id="submitButtonTemplateName" ng-model="properties.WriteTemplateName.PropertyValue" class="form-control">
+                    @foreach (var viewName in Html.GetViewNames(((Telerik.Sitefinity.Mvc.Proxy.MvcProxyBase)Model).GetController(), @"^Write\.(?<viewName>[\w\s]*)$"))
+                    {
+                        <option value="@viewName">@viewName</option>
+                    }
+                </select>
+            </div>
+        </div>
+    </div>
+
+    <style-dropdown selected-class="properties.CssClass.PropertyValue" view-name="properties.WriteTemplateName.PropertyValue"></style-dropdown>
+
+    <div class="form-group">
+        <label for="cssClass">@Html.Resource("CssClasses")</label>
+        <input type="text" id="cssClass" ng-model="properties.CssClass.PropertyValue" class="form-control" />
+    </div>
+</expander>

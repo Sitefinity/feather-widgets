@@ -5,7 +5,6 @@ using System.Text;
 using System.Threading.Tasks;
 using Feather.Widgets.TestUI.Framework;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Telerik.Sitefinity.Frontend.TestUtilities;
 
 namespace FeatherWidgets.TestUI.TestCases.Lists
 {
@@ -19,14 +18,14 @@ namespace FeatherWidgets.TestUI.TestCases.Lists
         /// UI test verifying list templates on Bootstrap pages
         /// </summary>
         [TestMethod,
-        Owner(FeatherTeams.Team7),
+        Owner(FeatherTeams.FeatherTeam),
         TestCategory(FeatherTestCategories.PagesAndContent),
         TestCategory(FeatherTestCategories.Lists),
         TestCategory(FeatherTestCategories.Bootstrap)]
         public void VerifyListTemplatesOnBootstrap()
         {
             //// verify List widget designer on Bootstrap
-            BAT.Macros().NavigateTo().Pages();
+            BAT.Macros().NavigateTo().Pages(this.Culture);
             BAT.Wrappers().Backend().Pages().PagesWrapper().OpenPageZoneEditor(AnchorListPage);
             BATFeather.Wrappers().Backend().Pages().PageZoneEditorWrapper().EditWidget(WidgetName);
 
@@ -44,19 +43,19 @@ namespace FeatherWidgets.TestUI.TestCases.Lists
             BAT.Wrappers().Backend().Pages().PageZoneEditorWrapper().PublishPage();
 
             //// verify List templates on frontend
-            BAT.Macros().NavigateTo().CustomPage("~/" + AnchorListPage.ToLower());
+            BAT.Macros().NavigateTo().CustomPage("~/" + AnchorListPage.ToLower(), false, this.Culture);
             BATFeather.Wrappers().Frontend().Lists().ListsWidgetWrapper().VerifyAnchorListTemplate(ListTitle, this.listItems);
 
-            BAT.Macros().NavigateTo().CustomPage("~/" + SimpleListPage.ToLower());
+            BAT.Macros().NavigateTo().CustomPage("~/" + SimpleListPage.ToLower(), false, this.Culture);
             BATFeather.Wrappers().Frontend().Lists().ListsWidgetWrapper().VerifySimpleListTemplate(ListTitle, this.listItemTitles);
 
-            BAT.Macros().NavigateTo().CustomPage("~/" + PagesListPage.ToLower());
+            BAT.Macros().NavigateTo().CustomPage("~/" + PagesListPage.ToLower(), false, this.Culture);
             BATFeather.Wrappers().Frontend().Lists().ListsWidgetWrapper().VerifyPagesListTemplateOnBootstrap(ListTitle, this.listItems);
-            
-            BAT.Macros().NavigateTo().CustomPage("~/" + ExpandedListPage.ToLower());
+
+            BAT.Macros().NavigateTo().CustomPage("~/" + ExpandedListPage.ToLower(), false, this.Culture);
             BATFeather.Wrappers().Frontend().Lists().ListsWidgetWrapper().VerifyExpandedListTemplateOnBootstrap(ListTitle, this.listItems);
 
-            BAT.Macros().NavigateTo().CustomPage("~/" + ExpandableListPage.ToLower());
+            BAT.Macros().NavigateTo().CustomPage("~/" + ExpandableListPage.ToLower(), false, this.Culture);
             BATFeather.Wrappers().Frontend().Lists().ListsWidgetWrapper().VerifyExpandableListTemplateOnBootstrap(ListTitle, this.listItems);
         }
 

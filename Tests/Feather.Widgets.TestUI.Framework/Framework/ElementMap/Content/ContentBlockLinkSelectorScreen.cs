@@ -66,7 +66,7 @@ namespace Feather.Widgets.TestUI.Framework.Framework.ElementMap.Content
         {
             get
             {
-                return this.Get<HtmlButton>("InnerText=Insert link");
+                return this.Get<HtmlButton>("InnerText=Insert this link");
             }
         }
 

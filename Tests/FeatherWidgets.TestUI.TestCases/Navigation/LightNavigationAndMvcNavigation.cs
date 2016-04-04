@@ -5,7 +5,6 @@ using System.Text;
 using System.Threading.Tasks;
 using Feather.Widgets.TestUI.Framework;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Telerik.Sitefinity.Frontend.TestUtilities;
 
 namespace FeatherWidgets.TestUI.TestCases.Navigation
 {
@@ -16,12 +15,12 @@ namespace FeatherWidgets.TestUI.TestCases.Navigation
     public class LightNavigationAndMvcNavigation : FeatherTestCase
     {
         [TestMethod,
-        Owner(FeatherTeams.Team2),
+        Owner(FeatherTeams.FeatherTeam),
         TestCategory(FeatherTestCategories.PagesAndContent),
         TestCategory(FeatherTestCategories.Navigation)]
         public void AddLightNavigationAndMvcNavigationOnTheSamePage()
         {
-            BAT.Macros().NavigateTo().Pages();
+            BAT.Macros().NavigateTo().Pages(this.Culture);
             BAT.Wrappers().Backend().Pages().PagesWrapper().OpenPageZoneEditor(PageName);
             BAT.Wrappers().Backend().Pages().PageZoneEditorWrapper().AddWidgetToDropZone(WidgetName);
             BATFeather.Wrappers().Backend().Pages().PageZoneEditorWrapper().AddMvcWidgetHybridModePage(WidgetName);
@@ -29,10 +28,10 @@ namespace FeatherWidgets.TestUI.TestCases.Navigation
 
             string[] pages = new string[] { PageName, Page1, Page2 };
 
-            BAT.Macros().NavigateTo().CustomPage("~/" + PageName.ToLower());
+            BAT.Macros().NavigateTo().CustomPage("~/" + PageName.ToLower(), true, this.Culture);
 
             Assert.IsFalse(ActiveBrowser.ContainsText(ServerErrorMessage), ServerErrorMessage);
-            BATFeather.Wrappers().Frontend().Navigation().NavigationWrapper().VerifyNavigationOnThePageFrontend(MvcNavClass, pages);
+            BATFeather.Wrappers().Frontend().Navigation().NavigationWrapper().VerifyNavigationOnFrontend(MvcNavClass, pages);
             BAT.Wrappers().Frontend().Navigation().NavigationFrontendWrapper().VerifyPagesFrontEndNavigation(LightNavClass, pages);
         }
 
@@ -58,7 +57,7 @@ namespace FeatherWidgets.TestUI.TestCases.Navigation
         private const string Page2 = "Page2";
         private const string WidgetName = "Navigation";
         private const string ServerErrorMessage = "Server Error";
-        private const string MvcNavClass = "nav navbar-nav";
+        private const string MvcNavClass = "navbar-1";
         private const string LightNavClass = "sfNavHorizontal sfNavList";
     }
 }

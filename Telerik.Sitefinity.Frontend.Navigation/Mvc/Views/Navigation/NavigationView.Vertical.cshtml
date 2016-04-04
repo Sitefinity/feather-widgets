@@ -12,7 +12,7 @@
 <div class="@Model.CssClass">
     @Html.Action("GetView", new { viewName = "Dropdown", model= Model})
 
-      <ul class="nav nav-pills nav-stacked">
+      <ul>
         @foreach (var node in Model.Nodes)
         {
             @RenderSubLevelsRecursive(node);
@@ -28,7 +28,7 @@
 
         @if (node.ChildNodes.Count > 0)
         {
-            <ul class="group nav nav-pills nav-stacked" >
+            <ul>
                 @foreach (var childNode in node.ChildNodes)
                 {
                     @RenderSubLevelsRecursive(childNode)

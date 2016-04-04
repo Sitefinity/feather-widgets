@@ -5,8 +5,6 @@ using System.Text;
 using System.Threading.Tasks;
 using Feather.Widgets.TestUI.Framework;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Telerik.Sitefinity.Frontend.TestUtilities;
-
 namespace FeatherWidgets.TestUI.TestCases.ContentBlocks.ImageSelector
 {
     /// <summary>
@@ -19,12 +17,12 @@ namespace FeatherWidgets.TestUI.TestCases.ContentBlocks.ImageSelector
         /// UI test VerifyAlignmentAndImageThumbnail
         /// </summary>
         [TestMethod,
-        Owner(FeatherTeams.Team7),
+        Owner(FeatherTeams.FeatherTeam),
         TestCategory(FeatherTestCategories.MediaSelector),
-        TestCategory(FeatherTestCategories.ContentBlock)]
+        TestCategory(FeatherTestCategories.ContentBlock3)]
         public void VerifyAlignmentAndImageThumbnail()
         {
-            BAT.Macros().NavigateTo().Pages();
+            BAT.Macros().NavigateTo().Pages(this.Culture);
             BAT.Wrappers().Backend().Pages().PagesWrapper().OpenPageZoneEditor(PageName);
             BATFeather.Wrappers().Backend().Pages().PageZoneEditorWrapper().EditWidget(WidgetName);
 
@@ -58,7 +56,7 @@ namespace FeatherWidgets.TestUI.TestCases.ContentBlocks.ImageSelector
             BATFeather.Wrappers().Backend().ContentBlocks().ContentBlocksWrapper().SaveChanges();
             BAT.Wrappers().Backend().Pages().PageZoneEditorWrapper().PublishPage();
 
-            BAT.Macros().NavigateTo().CustomPage("~/" + PageName.ToLower());
+            BAT.Macros().NavigateTo().CustomPage("~/" + PageName.ToLower(), true, this.Culture);
             BATFeather.Wrappers().Frontend().MediaWidgets().MediaWidgetsWrapper().VerifyImageStyle(ImageStyle1, ImageName1, ImageAltText1);
             BATFeather.Wrappers().Frontend().MediaWidgets().MediaWidgetsWrapper().VerifyImageStyle(ImageStyle2, ImageName2, ImageAltText2);
             BATFeather.Wrappers().Frontend().MediaWidgets().MediaWidgetsWrapper().VerifyImageStyle(ImageStyle3, ImageName3, ImageAltText3);
@@ -103,5 +101,6 @@ namespace FeatherWidgets.TestUI.TestCases.ContentBlocks.ImageSelector
         private const string ImageThumbnailExtension3 = "-thumbnail.jpg";
         private const string LibraryName = "TestImageLibrary";
         private const string ImageType = ".tmb";
+        private const string SecondProviderName = "SecondSite Libraries";
     }
 }

@@ -5,7 +5,6 @@ using System.Text;
 using System.Threading.Tasks;
 using Feather.Widgets.TestUI.Framework;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Telerik.Sitefinity.Frontend.TestUtilities;
 
 namespace FeatherWidgets.TestUI.TestCases.Identity
 {
@@ -19,24 +18,24 @@ namespace FeatherWidgets.TestUI.TestCases.Identity
         /// UI test RegisterNewBackendUserWithAdministratorRole
         /// </summary>
         [TestMethod,
-        Owner(FeatherTeams.Team2),
+        Owner(FeatherTeams.FeatherTeam),
         TestCategory(FeatherTestCategories.PagesAndContent),
         TestCategory(FeatherTestCategories.Registration),
         TestCategory(FeatherTestCategories.Bootstrap)]
         public void RegisterNewBackendUserWithAdministratorRole()
         {
-            BAT.Macros().NavigateTo().Pages();
+            BAT.Macros().NavigateTo().Pages(this.Culture);
             BAT.Wrappers().Backend().Pages().PagesWrapper().OpenPageZoneEditor(RegistrationPage);
             BATFeather.Wrappers().Backend().Pages().PageZoneEditorWrapper().AddWidgetToPlaceHolderPureMvcMode(WidgetName);
             BATFeather.Wrappers().Backend().Pages().PageZoneEditorWrapper().EditWidget(WidgetName);
             BATFeather.Wrappers().Backend().Widgets().WidgetDesignerWrapper().ClickSelectButton();
-            BATFeather.Wrappers().Backend().Widgets().SelectorsWrapper().SelectItemsInFlatSelector(SelectedRoles);
+            BATFeather.Wrappers().Backend().EmailCampaigns().SubscribeFormWrapper().SelectItemsInFlatSelector(SelectedRoles);
             BATFeather.Wrappers().Backend().Widgets().SelectorsWrapper().DoneSelecting();
             BATFeather.Wrappers().Backend().Widgets().WidgetDesignerWrapper().SaveChanges();
             BAT.Wrappers().Backend().Pages().PageZoneEditorWrapper().PublishPage();
             BAT.Macros().User().LogOut();
 
-            BAT.Macros().NavigateTo().CustomPage("~/" + RegistrationPage.ToLower());
+            BAT.Macros().NavigateTo().CustomPage("~/" + RegistrationPage.ToLower(), true, this.Culture);
             BATFeather.Wrappers().Frontend().Identity().RegistrationWrapper().FillFirstName(FirstName);
             BATFeather.Wrappers().Frontend().Identity().RegistrationWrapper().FillLastName(LastName);
             BATFeather.Wrappers().Frontend().Identity().RegistrationWrapper().FillEmail(Email);

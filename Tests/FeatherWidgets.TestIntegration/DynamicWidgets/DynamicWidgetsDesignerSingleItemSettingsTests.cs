@@ -1,4 +1,5 @@
 ﻿using System.IO;
+using System.Linq;
 using System.Threading;
 using FeatherWidgets.TestUtilities.CommonOperations;
 using MbUnit.Framework;
@@ -26,7 +27,7 @@ namespace FeatherWidgets.TestIntegration.DynamicWidgets
 
         [Test]
         [Category(TestCategories.DynamicWidgets)]
-        [Author(FeatherTeams.Team2)]
+        [Author(FeatherTeams.FeatherTeam)]
         [Description("Verify set detail template functionality.")]
         public void DynamicWidgetsDesignerSingleItemSettingsTests_SetDetailTemplate()
         {
@@ -59,8 +60,10 @@ namespace FeatherWidgets.TestIntegration.DynamicWidgets
                 mvcProxy.ControllerName = typeof(DynamicContentController).FullName;
                 var dynamicController = new DynamicContentController();
                 dynamicController.Model.ContentType = TypeResolutionService.ResolveType(ResolveType);
+                dynamicController.Model.ProviderName = ((Telerik.Sitefinity.Data.DataProviderBase)dynamicCollection.First().Provider).Name;
                 dynamicController.ListTemplateName = detailTemplate;
                 dynamicController.DetailTemplateName = detailTemplate;
+                dynamicController.Model.ProviderName = FeatherWidgets.TestUtilities.CommonOperations.DynamicModulesOperations.ProviderName;
                 mvcProxy.Settings = new ControllerSettings(dynamicController);
                 mvcProxy.WidgetName = WidgetName;
 
@@ -87,7 +90,7 @@ namespace FeatherWidgets.TestIntegration.DynamicWidgets
 
         [Test]
         [Category(TestCategories.DynamicWidgets)]
-        [Author(FeatherTeams.Team2)]
+        [Author(FeatherTeams.FeatherTeam)]
         [Description("Verify when delete selected detail template functionality.")]
         public void DynamicWidgetsDesignerSingleItemSettingsTests_DeleteSelectedDetailTemplate()
         {
@@ -120,8 +123,10 @@ namespace FeatherWidgets.TestIntegration.DynamicWidgets
                 mvcProxy.ControllerName = typeof(DynamicContentController).FullName;
                 var dynamicController = new DynamicContentController();
                 dynamicController.Model.ContentType = TypeResolutionService.ResolveType(ResolveType);
+                dynamicController.Model.ProviderName = ((Telerik.Sitefinity.Data.DataProviderBase)dynamicCollection.First().Provider).Name;
                 dynamicController.ListTemplateName = detailTemplate;
                 dynamicController.DetailTemplateName = detailTemplate;
+                dynamicController.Model.ProviderName = FeatherWidgets.TestUtilities.CommonOperations.DynamicModulesOperations.ProviderName;
                 mvcProxy.Settings = new ControllerSettings(dynamicController);
                 mvcProxy.WidgetName = WidgetName;
 
@@ -150,6 +155,7 @@ namespace FeatherWidgets.TestIntegration.DynamicWidgets
         [FixtureTearDown]
         public void Teardown()
         {
+            Telerik.Sitefinity.Mvc.TestUtilities.CommonOperations.AuthenticationHelper.AuthenticateUser("admin", "admin@2");
             Telerik.Sitefinity.TestUtilities.CommonOperations.ServerOperations.ModuleBuilder().DeleteAllModules(string.Empty, TransactionName);
         }
 

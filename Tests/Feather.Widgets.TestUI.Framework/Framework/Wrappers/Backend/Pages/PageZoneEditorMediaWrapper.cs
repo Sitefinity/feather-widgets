@@ -23,6 +23,11 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend
         /// <param name="src">The SRC.</param>
         public void VerifyImageThumbnail(string altText, string src)
         {
+            ActiveBrowser.WaitForAjax(10000);
+            ActiveBrowser.WaitUntilReady();
+            ActiveBrowser.RefreshDomTree();
+            ActiveBrowser.WaitForElement("tagname=img", "alt=~" + altText);
+
             HtmlImage image = ActiveBrowser.Find.ByExpression<HtmlImage>("alt=~" + altText)
                 .AssertIsPresent(altText);
 
@@ -39,7 +44,7 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend
             HtmlAnchor doc = ActiveBrowser.Find.ByExpression<HtmlAnchor>("innertext=" + text)
                 .AssertIsPresent("document");
 
-            Assert.IsTrue(doc.HRef.StartsWith(href), "href is not correct");
+                Assert.IsTrue(doc.HRef.StartsWith(href), "href is not correct");         
         }
 
         /// <summary>
@@ -48,14 +53,17 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend
         /// <param name="src">The SRC.</param>
         /// <param name="width">The width.</param>
         /// <param name="height">The height.</param>
-        public void VerifyVideo(string src, int width = 0, int height = 0)
+        public void VerifyVideo(string src, string culture, int width = 0, int height = 0)
         {
-            HtmlVideo video = ActiveBrowser.Find.ByExpression<HtmlVideo>("src=~" + src)
-                .AssertIsPresent("video");
-            if (width != 0 && height != 0)
+            if(culture == null)
             {
-                Assert.IsTrue(video.Width.Equals(width), "width is not correct");
-                Assert.IsTrue(video.Height.Equals(height), "height is not correct");
+                HtmlVideo video = ActiveBrowser.Find.ByExpression<HtmlVideo>("src=~" + src)
+                    .AssertIsPresent("video");
+                if (width != 0 && height != 0)
+                {
+                    Assert.IsTrue(video.Width.Equals(width), "width is not correct");
+                    Assert.IsTrue(video.Height.Equals(height), "height is not correct");
+                }
             }
         }
 
@@ -64,7 +72,7 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend
         /// </summary>
         /// <param name="title">The title.</param>
         /// <param name="href">The href.</param>
-        public void VerifyDocumentInTableView(string text, string href)
+        public void VerifyDocumentInTableView(string text, string href, string culture)
         {
             HtmlTable table = ActiveBrowser.Find.ByExpression<HtmlTable>("class=rdTable")
                 .AssertIsPresent("table");
@@ -73,7 +81,11 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend
             var parent = doc.Parent<HtmlTableCell>();
             Assert.IsTrue(parent.TagName == "td");
             Assert.IsTrue(parent.Parent<HtmlTableRow>().TagName == "tr");
-            Assert.IsTrue(doc.HRef.StartsWith(href), "href is not correct");
+
+            if(culture == null)
+            {
+                 Assert.IsTrue(doc.HRef.StartsWith(href), "href is not correct");
+            }           
         }
 
         /// <summary>
@@ -119,6 +131,11 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend
         /// <param name="src">The SRC.</param>
         public void VerifyImageResizingProperties(string altText, string srcWidth, string srcHeight, string srcQuality, string srcResizingOption)
         {
+            ActiveBrowser.WaitForAjax(10000);
+            ActiveBrowser.WaitUntilReady();
+            ActiveBrowser.RefreshDomTree();
+            ActiveBrowser.WaitForElement("tagname=img", "alt=~" + altText);
+
             HtmlImage image = ActiveBrowser.Find.ByExpression<HtmlImage>("alt=~" + altText)
                 .AssertIsPresent(altText);
 

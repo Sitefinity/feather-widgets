@@ -5,7 +5,6 @@ using System.Text;
 using System.Threading.Tasks;
 using Feather.Widgets.TestUI.Framework;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Telerik.Sitefinity.Frontend.TestUtilities;
 
 namespace FeatherWidgets.TestUI.TestCases.Search
 {
@@ -19,13 +18,13 @@ namespace FeatherWidgets.TestUI.TestCases.Search
         /// UI test VerifySearchResults_SemanticUITemplate
         /// </summary>
         [TestMethod,
-        Owner(FeatherTeams.Team7),
+        Owner(FeatherTeams.FeatherTeam),
         TestCategory(FeatherTestCategories.PagesAndContent),
         TestCategory(FeatherTestCategories.Search),
         TestCategory(FeatherTestCategories.SemanticUI)]
         public void VerifySearchResults_SemanticUITemplate()
         {
-            BAT.Macros().NavigateTo().Pages();
+            BAT.Macros().NavigateTo().Pages(this.Culture);
             BAT.Wrappers().Backend().Pages().PagesWrapper().OpenPageZoneEditor(SearchPage);
             BATFeather.Wrappers().Backend().Pages().PageZoneEditorWrapper().AddWidgetToPlaceHolderPureMvcMode(SearchBoxWidget);
             BATFeather.Wrappers().Backend().Pages().PageZoneEditorWrapper().AddWidgetToPlaceHolderPureMvcMode(SearchResultsWidget);
@@ -40,7 +39,7 @@ namespace FeatherWidgets.TestUI.TestCases.Search
             BATFeather.Wrappers().Backend().Widgets().WidgetDesignerWrapper().SaveChanges();
             BAT.Wrappers().Backend().Pages().PageZoneEditorWrapper().PublishPage();
 
-            BAT.Macros().NavigateTo().CustomPage("~/" + SearchPage.ToLower());
+            BAT.Macros().NavigateTo().CustomPage("~/" + SearchPage.ToLower(), true, this.Culture);
             BATFeather.Wrappers().Frontend().Search().SearchWrapper().EnterSearchText(NoResultsSearchText);
             BATFeather.Wrappers().Frontend().Search().SearchWrapper().ClickSearchLink(SearchPage.ToLower());
             BATFeather.Wrappers().Frontend().Search().SearchWrapper().VerifySearchResultsLabel(0, NoResultsSearchText);
@@ -50,7 +49,7 @@ namespace FeatherWidgets.TestUI.TestCases.Search
             BATFeather.Wrappers().Frontend().Search().SearchWrapper().VerifySearchResultsList(NewsTitle1);
 
             BAT.Macros().User().LogOut();
-            BAT.Macros().NavigateTo().CustomPage("~/" + SearchPage.ToLower());
+            BAT.Macros().NavigateTo().CustomPage("~/" + SearchPage.ToLower(), true, this.Culture);
             BATFeather.Wrappers().Frontend().Search().SearchWrapper().EnterSearchText(NoResultsSearchText);
             BATFeather.Wrappers().Frontend().Search().SearchWrapper().ClickSearchLink(SearchPage.ToLower());
             BATFeather.Wrappers().Frontend().Search().SearchWrapper().VerifySearchResultsLabel(0, NoResultsSearchText);
@@ -81,7 +80,7 @@ namespace FeatherWidgets.TestUI.TestCases.Search
         private const string SearchPage = "SemanticUIPage";
         private const string SearchBoxWidget = "Search box";
         private const string SearchResultsWidget = "Search results";
-        private const string SearchIndexName = "news index";
+        private const string SearchIndexName = "VerifySearchResults_SemanticUITemplate";
 
         private const string NoResultsSearchText = "events";
         private const string SearchText1 = "test";

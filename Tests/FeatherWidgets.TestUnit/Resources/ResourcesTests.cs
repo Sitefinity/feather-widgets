@@ -1,13 +1,17 @@
 ﻿using System.Linq;
 using FeatherWidgets.TestUnit.DummyClasses;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Telerik.Microsoft.Practices.EnterpriseLibrary.Caching;
 using Telerik.Microsoft.Practices.Unity;
 using Telerik.Sitefinity.Abstractions;
 using Telerik.Sitefinity.Configuration;
 using Telerik.Sitefinity.Configuration.Data;
 using Telerik.Sitefinity.Frontend.Blogs.Mvc.StringResources;
+using Telerik.Sitefinity.Frontend.Card.Mvc.StringResources;
+using Telerik.Sitefinity.Frontend.Comments.Mvc.StringResources;
 using Telerik.Sitefinity.Frontend.ContentBlock.Mvc.StringResources;
 using Telerik.Sitefinity.Frontend.DynamicContent.Mvc.StringResources;
+using Telerik.Sitefinity.Frontend.Forms.Mvc.StringResources;
 using Telerik.Sitefinity.Frontend.Identity.Mvc.StringResources;
 using Telerik.Sitefinity.Frontend.InlineClientAssets.Mvc.StringResources;
 using Telerik.Sitefinity.Frontend.Lists.Mvc.StringResources;
@@ -19,6 +23,7 @@ using Telerik.Sitefinity.Frontend.SocialShare.Mvc.StringResources;
 using Telerik.Sitefinity.Localization;
 using Telerik.Sitefinity.Localization.Configuration;
 using Telerik.Sitefinity.Project.Configuration;
+using Telerik.Sitefinity.Services;
 
 namespace FeatherWidgets.TestUnit.Resources
 {
@@ -305,6 +310,40 @@ namespace FeatherWidgets.TestUnit.Resources
         }
 
         /// <summary>
+        /// The test ensures that Comments widget resources are correct.
+        /// </summary>
+        [Owner("EGaneva")]
+        [Description("The test ensures that comments widget resources are correct.")]
+        public void CommentsResources_IterateTheResources_AssureResourcesAreCorrect()
+        {
+            // Act & Assert: Iterate over each resource property and verify its correctness 
+            this.TestResourceType<CommentsWidgetResources>();
+        }
+
+        /// <summary>
+        /// The test ensures that Card widget resources are correct.
+        /// </summary>
+        [Owner("EGaneva")]
+        [Description("The test ensures that card widget resources are correct.")]
+        public void CardResources_IterateTheResources_AssureResourcesAreCorrect()
+        {
+            // Act & Assert: Iterate over each resource property and verify its correctness 
+            this.TestResourceType<CardResources>();
+        }
+
+        /// <summary>
+        /// The test ensures that Forms widget resources are correct.
+        /// </summary>
+        [Owner("EGaneva")]
+        [Description("The test ensures that form widget resources are correct.")]
+        public void FormsResources_IterateTheResources_AssureResourcesAreCorrect()
+        {
+            // Act & Assert: Iterate over each resource property and verify its correctness 
+            this.TestResourceType<FormResources>();
+            this.TestResourceType<FieldResources>();
+        }
+
+        /// <summary>
         /// The test ensures that CSS widget resources are correct.
         /// </summary>
         [TestMethod]
@@ -327,8 +366,10 @@ namespace FeatherWidgets.TestUnit.Resources
             {
                 ObjectFactory.Container.RegisterType<ConfigManager, ConfigManager>(typeof(XmlConfigProvider).Name.ToUpperInvariant(), new InjectionConstructor(typeof(XmlConfigProvider).Name));
                 ObjectFactory.Container.RegisterType<XmlConfigProvider, DummyConfigProvider>();
+                ObjectFactory.Container.RegisterType<ICacheManager, NoCacheManager>(CacheManagerInstance.LocalizationResources.ToString());
                 Config.RegisterSection<ResourcesConfig>();
                 Config.RegisterSection<ProjectConfig>();
+                Config.RegisterSection<SystemConfig>();
 
                 var resourceClassType = typeof(TRes);
                     Res.RegisterResource(resourceClassType);

@@ -16,5 +16,14 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend.Classifica
         {
             return new TagsWrapper();
         }
+
+        /// <summary>
+        /// Provides unified access to the CategoriesWrapper 
+        /// </summary>
+        /// <returns>Returns the CategoriesWrapper</returns>
+        public CategoriesWrapper CategoriesWrapper()
+        {
+            return new CategoriesWrapper();
+        }
     }
 }

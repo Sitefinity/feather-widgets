@@ -19,6 +19,7 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Frontend.Classific
         /// <returns>true or false depending on tags titles presence on frontend</returns>
         public bool IsTagsTitlesPresentOnTheFrontendPage(string[] tagsTitles)
         {
+            ActiveBrowser.WaitForElementWithCssClass("sfPublicWrapper");
             HtmlDiv frontendPageMainDiv = BAT.Wrappers().Frontend().Pages().PagesWrapperFrontend().GetPageContent();
 
             for (int i = 0; i < tagsTitles.Length; i++)
@@ -51,6 +52,45 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Frontend.Classific
         }
 
         /// <summary>
+        /// Verifies the categories titles on the frontend page.
+        /// </summary>
+        /// <param name="categoriesTitles">The categories titles.</param>
+        /// <returns>true or false depending on categories titles presence on frontend</returns>
+        public bool IsCategoriesTitlesPresentOnTheFrontendPage(string[] categoriesTitles)
+        {
+            ActiveBrowser.WaitForElementWithCssClass("sfPublicWrapper");
+            HtmlDiv frontendPageMainDiv = BAT.Wrappers().Frontend().Pages().PagesWrapperFrontend().GetPageContent();
+
+            for (int i = 0; i < categoriesTitles.Length; i++)
+            {
+                HtmlAnchor categoriesAnchor = frontendPageMainDiv.Find.ByExpression<HtmlAnchor>("tagname=a", "InnerText=" + categoriesTitles[i]);
+                if (categoriesAnchor == null || !categoriesAnchor.IsVisible())
+                {
+                    return false;
+                }
+            }
+
+            return true;
+        }
+
+        /// <summary>
+        /// Click category title on the frontend
+        /// </summary>
+        /// <param name="categoryTitle">The category title</param>
+        public void ClickCategoryTitle(string categoryTitle)
+        {
+            HtmlDiv frontendPageMainDiv = BAT.Wrappers().Frontend().Pages().PagesWrapperFrontend().GetPageContent();
+
+            HtmlAnchor categoriesAnchor = frontendPageMainDiv.Find
+                                                       .ByExpression<HtmlAnchor>("tagname=a", "InnerText=" + categoryTitle)
+                                                       .AssertIsPresent("Tag with this title was not found");
+
+            categoriesAnchor.MouseClick();
+            ActiveBrowser.WaitUntilReady();
+            ActiveBrowser.WaitForUrl(categoryTitle.ToLower().Replace(" ", "%20"));
+        }
+
+        /// <summary>
         /// Verify css class 
         /// </summary>
         /// <param name="cssClass">css class</param>
@@ -79,6 +119,43 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Frontend.Classific
 
             var allLinks = list.Find.AllByExpression<HtmlAnchor>("class=~sf-Tags");
             Assert.AreEqual(styledTags.Count, allLinks.Count, "Expected and actual count of tag links are not equal"); 
+        }
+
+
+        /// <summary>
+        /// Check Show Empty Categories checkbox.
+        /// </summary>
+        public void CheckCategoriesItemCount(string count, string categoryName, int index)
+        {
+            HtmlUnorderedList categoriesList = this.EM.Classifications.CategoriesWidgetFrontend.CategoryList;
+
+            Assert.IsTrue(categoriesList.ChildNodes[2].InnerText.Contains(categoryName + index));
+            Assert.IsTrue(categoriesList.ChildNodes[2].InnerText.Contains(count));
+        }
+
+        /// <summary>
+        /// Check Show Empty Categories checkbox.
+        /// </summary>
+        public void CheckCategoriesSorting(string categoryName, string sorting)
+        {
+            HtmlUnorderedList categoriesList = this.EM.Classifications.CategoriesWidgetFrontend.CategoryList;
+
+            var itemsCount = categoriesList.ChildNodes.Count;
+                
+            if (sorting == "By Title (A-Z)")
+            {
+                for (int i = 0; i < itemsCount; i++)
+                {
+                    Assert.IsTrue(categoriesList.ChildNodes[i].InnerText.Contains((i + 1) + categoryName));
+                }
+            } else 
+            {
+                for (int i = 0; i < itemsCount; i++)
+                {
+                    Assert.IsTrue(categoriesList.ChildNodes[i].InnerText.Contains((itemsCount - i) + categoryName));
+                }
+            }
+            
         }
     }
 }

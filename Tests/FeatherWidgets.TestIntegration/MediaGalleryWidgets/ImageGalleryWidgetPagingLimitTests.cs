@@ -23,10 +23,10 @@ namespace FeatherWidgets.TestIntegration.MediaGalleryWidgets
         [SetUp]
         public void Setup()
         {     
-            ServerSideUpload.CreateAlbum(LibraryTitle);
-            ServerSideUpload.UploadImage(LibraryTitle, ImagetTitle + 1, ImageResource1);
-            ServerSideUpload.UploadImage(LibraryTitle, ImagetTitle + 2, ImageResource2);
-            ServerSideUpload.UploadImage(LibraryTitle, ImagetTitle + 3, ImageResource3);
+            ServerOperations.Images().CreateLibrary(LibraryTitle);
+            ServerOperations.Images().Upload(LibraryTitle, ImagetTitle + 1, ImageResource1);
+            ServerOperations.Images().Upload(LibraryTitle, ImagetTitle + 2, ImageResource2);
+            ServerOperations.Images().Upload(LibraryTitle, ImagetTitle + 3, ImageResource3);
         }
 
         /// <summary>
@@ -35,7 +35,7 @@ namespace FeatherWidgets.TestIntegration.MediaGalleryWidgets
         [TearDown]
         public void TearDown()
         {
-            ServerOperations.Libraries().DeleteLibraries(false, "Image");
+            ServerOperations.Images().DeleteAllLibrariesExceptDefaultOne();
         }
 
         /// <summary>
@@ -43,7 +43,7 @@ namespace FeatherWidgets.TestIntegration.MediaGalleryWidgets
         /// </summary>
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Maintainability", "CA1506:AvoidExcessiveClassCoupling"), Test]
         [Category(TestCategories.Media)]
-        [Author(FeatherTeams.Team7)]
+        [Author(FeatherTeams.FeatherTeam)]
         public void ImageGallery_VerifyPaging()
         {
             var mvcProxy = new MvcControllerProxy();
@@ -73,7 +73,7 @@ namespace FeatherWidgets.TestIntegration.MediaGalleryWidgets
         /// </summary>
         [Test]
         [Category(TestCategories.Media)]
-        [Author(FeatherTeams.Team7)]
+        [Author(FeatherTeams.FeatherTeam)]
         public void ImageGallery_VerifyLimit()
         {
             var mvcProxy = new MvcControllerProxy();
@@ -95,7 +95,7 @@ namespace FeatherWidgets.TestIntegration.MediaGalleryWidgets
         /// </summary>
         [Test]
         [Category(TestCategories.Media)]
-        [Author(FeatherTeams.Team7)]
+        [Author(FeatherTeams.FeatherTeam)]
         public void ImageGallery_VerifyNoLimit()
         {
             var mvcProxy = new MvcControllerProxy();

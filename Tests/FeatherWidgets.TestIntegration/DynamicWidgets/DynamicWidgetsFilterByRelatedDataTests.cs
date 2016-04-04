@@ -30,7 +30,7 @@ namespace FeatherWidgets.TestIntegration.DynamicWidgets
 
         [Test]
         [Category(TestCategories.DynamicWidgets)]
-        [Author(FeatherTeams.Team2)]
+        [Author(FeatherTeams.FeatherTeam)]
         [Description("Adds 2 MVC dynamic widgets on page and add child relation to one of the widgets, then verify the filtering on the frontend")]
         public void DynamicWidgets_ChildRelationType_DisplayRelatedItemsOnFrontend()
         {
@@ -106,7 +106,7 @@ namespace FeatherWidgets.TestIntegration.DynamicWidgets
 
         [Test]
         [Category(TestCategories.DynamicWidgets)]
-        [Author(FeatherTeams.Team2)]
+        [Author(FeatherTeams.FeatherTeam)]
         [Description("Adds 2 MVC dynamic widgets on page and add parent relation to one of the widgets, then verify the filtering on the frontend")]
         public void DynamicWidgets_ParentRelationType_DisplayRelatedItemsOnFrontend()
         {
@@ -183,6 +183,8 @@ namespace FeatherWidgets.TestIntegration.DynamicWidgets
             dynamicController.Model.RelatedFieldName = relatedFieldName;
             dynamicController.Model.RelatedItemType = relatedItemType;
             dynamicController.Model.RelationTypeToDisplay = relationTypeToDisplay;
+            dynamicController.Model.RelatedItemProviderName = FeatherWidgets.TestUtilities.CommonOperations.DynamicModulesOperations.ProviderName;
+            dynamicController.Model.ProviderName = FeatherWidgets.TestUtilities.CommonOperations.DynamicModulesOperations.ProviderName;
 
             mvcProxy.Settings = new ControllerSettings(dynamicController);
             mvcProxy.WidgetName = widgetName;

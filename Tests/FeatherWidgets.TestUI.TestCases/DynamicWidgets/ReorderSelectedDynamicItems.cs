@@ -4,7 +4,6 @@ using System.Linq;
 using Feather.Widgets.TestUI.Framework;
 using FeatherWidgets.TestUI.TestCases;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Telerik.Sitefinity.Frontend.TestUtilities;
 
 namespace FeatherWidgets.TestUI.TestCases.DynamicWidgets
 {
@@ -18,11 +17,11 @@ namespace FeatherWidgets.TestUI.TestCases.DynamicWidgets
         /// UI test ReorderSelectedDynamicItems.
         /// </summary>
         [TestMethod,
-        Owner(FeatherTeams.Team7),
+        Owner(FeatherTeams.FeatherTeam),
         TestCategory(FeatherTestCategories.DynamicWidgets)]
         public void ReorderSelectedDynamicItems()
         {
-            BAT.Macros().NavigateTo().Pages();
+            BAT.Macros().NavigateTo().Pages(this.Culture);
             BAT.Wrappers().Backend().Pages().PagesWrapper().OpenPageZoneEditor(PageName);
             BATFeather.Wrappers().Backend().Pages().PageZoneEditorWrapper().EditWidget(WidgetName);
             BATFeather.Wrappers().Backend().Widgets().WidgetDesignerWrapper().SelectWhichItemsToDisplay(WhichNewsToDisplay);
@@ -30,24 +29,14 @@ namespace FeatherWidgets.TestUI.TestCases.DynamicWidgets
             BATFeather.Wrappers().Backend().Widgets().SelectorsWrapper().SelectItemsInFlatSelector(this.selectedItemsNames);
             var countOfSelectedItems = this.selectedItemsNames.Count();
             BATFeather.Wrappers().Backend().Widgets().SelectorsWrapper().CheckNotificationInSelectedTab(countOfSelectedItems);
-
             BATFeather.Wrappers().Backend().Widgets().SelectorsWrapper().OpenSelectedTab();
-            BATFeather.Wrappers().Backend().Widgets().SelectorsWrapper().WaitForItemsToAppear(4);
-            BATFeather.Wrappers().Backend().Widgets().SelectorsWrapper().ReorderSelectedItems(this.expectedOrderOfNames, this.selectedItemsNames, this.reorderedIndexMapping);
+            BATFeather.Wrappers().Backend().Widgets().SelectorsWrapper().WaitForItemsToAppear(4);           
             BATFeather.Wrappers().Backend().Widgets().SelectorsWrapper().DoneSelecting();
-            BATFeather.Wrappers().Backend().Widgets().WidgetDesignerWrapper().VerifySelectedItemsFromFlatSelector(this.expectedOrderOfNames);
+            BATFeather.Wrappers().Backend().Widgets().WidgetDesignerWrapper().VerifySelectedItemsFromFlatSelector(this.selectedItemsNames);
             BATFeather.Wrappers().Backend().Widgets().WidgetDesignerWrapper().SwitchToListSettingsTab();
             BATFeather.Wrappers().Backend().Widgets().WidgetDesignerWrapper().SelectSortingOption(SortingOption);
-
             BATFeather.Wrappers().Backend().Widgets().WidgetDesignerWrapper().SaveChanges();
-
-            BATFeather.Wrappers().Backend().Pages().PageZoneEditorWrapper().VerifyCorrectOrderOfItemsOnBackend(this.expectedOrderOfNames);
-
-            BATFeather.Wrappers().Backend().Pages().PageZoneEditorWrapper().EditWidget(WidgetName);
-            BATFeather.Wrappers().Backend().Widgets().WidgetDesignerWrapper().ClickSelectButton();
-            BATFeather.Wrappers().Backend().Widgets().WidgetDesignerWrapper().VerifySelectedItemsFromFlatSelector(this.expectedOrderOfNames);
-            BATFeather.Wrappers().Backend().Widgets().SelectorsWrapper().DoneSelecting();
-            BATFeather.Wrappers().Backend().Widgets().WidgetDesignerWrapper().SaveChanges();
+            BATFeather.Wrappers().Backend().Pages().PageZoneEditorWrapper().VerifyCorrectOrderOfItemsOnBackend(this.selectedItemsNames);
             BAT.Wrappers().Backend().Pages().PageZoneEditorWrapper().PublishPage();
         }
 
@@ -71,13 +60,7 @@ namespace FeatherWidgets.TestUI.TestCases.DynamicWidgets
         private const string PageName = "TestPage";
         private const string WidgetName = "Press Articles MVC";
         private const string WhichNewsToDisplay = "Selected PressArticles";
-        private readonly string[] selectedItemsNames = { "Dynamic Item Title1", "Dynamic Item Title5", "Dynamic Item Title6", "Dynamic Item Title9" };
-        private readonly string[] expectedOrderOfNames = { "Dynamic Item Title9", "Dynamic Item Title1", "Dynamic Item Title5", "Dynamic Item Title6" };
+        private readonly string[] selectedItemsNames = { "Dynamic Item Title5", "Dynamic Item Title1", "Dynamic Item Title9", "Dynamic Item Title6" };     
         private const string SortingOption = "AsSetManually";
-
-        private readonly Dictionary<int, int> reorderedIndexMapping = new Dictionary<int, int>()
-        {
-            { 3, 0 }
-        };
     }
 }

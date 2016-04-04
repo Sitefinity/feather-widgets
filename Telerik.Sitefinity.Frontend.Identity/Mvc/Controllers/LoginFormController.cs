@@ -11,6 +11,7 @@ using Telerik.Sitefinity.Localization;
 using Telerik.Sitefinity.Mvc;
 using Telerik.Sitefinity.Security;
 using Telerik.Sitefinity.Security.Claims;
+using Telerik.Sitefinity.Security.Claims.SWT;
 using Telerik.Sitefinity.Security.Model;
 using Telerik.Sitefinity.Services;
 
@@ -100,7 +101,21 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Controllers
                 model = this.Model.Authenticate(model, this.ControllerContext.HttpContext);
 
                 if (!model.IncorrectCredentials && !string.IsNullOrWhiteSpace(model.RedirectUrlAfterLogin))
+                {
                     return this.Redirect(model.RedirectUrlAfterLogin);
+                }
+                else if (!model.IncorrectCredentials && this.Request.UrlReferrer != null)
+                {
+                    var returnUrlFromQS = System.Web.HttpUtility.ParseQueryString(this.Request.UrlReferrer.Query)["ReturnUrl"];
+
+                    if (!string.IsNullOrEmpty(returnUrlFromQS))
+                    {
+                        //validates whether the returnUrl is allowed in the relying parties.
+                        SWTIssuer.GetRelyingPartyKey(returnUrlFromQS);
+                        
+                        return this.Redirect(returnUrlFromQS);
+                    }
+                }
             }
 
             this.Model.InitializeLoginViewModel(model);
@@ -196,6 +211,12 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Controllers
             var pageUrl = this.Model.GetPageUrl(null);
             var queryString = string.Format("{0}&resetComplete={1}&error={2}",model.SecurityToken, resetComplete, error);
             return this.Redirect(string.Format("{0}/ResetPassword?{1}", pageUrl, queryString));
+        }
+
+        /// <inheritDocs/>
+        protected override void HandleUnknownAction(string actionName)
+        {
+            this.Index().ExecuteResult(this.ControllerContext);
         }
 
         #endregion

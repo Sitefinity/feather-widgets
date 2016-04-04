@@ -1,0 +1,33 @@
+﻿@using Telerik.Sitefinity.Frontend.Forms.Mvc.Helpers;
+@using Telerik.Sitefinity.Frontend.Mvc.Helpers;
+@using Telerik.Sitefinity.Mvc;
+
+<div class="form-group">
+    <sf-html-field class="kendo-content-block kendo-content-block--sh" sf-model="properties.Text.PropertyValue" 
+        sf-template-url="Mvc/Views/SectionHeader/sf-html-field.sf-cshtml" 
+        sf-template-assembly="Telerik.Sitefinity.Frontend.Forms"></sf-html-field>
+</div>
+        
+<expander expander-title='@Html.Resource("MoreOptions")'>
+    <div class="form-group">
+        <label for="sectionHeaderTemplateName">@Html.Resource("Template")</label>
+
+        <div class="row">
+            <div class="col-xs-6">
+                <select id="sectionHeaderTemplateName" ng-model="properties.ReadTemplateName.PropertyValue" class="form-control">
+                    @foreach (var viewName in Html.GetViewNames(((Telerik.Sitefinity.Mvc.Proxy.MvcProxyBase)Model).GetController(), @"^Read\.(?<viewName>[\w\s]*)$"))
+                    {
+                        <option value="@viewName">@viewName</option>
+                    }
+                </select>
+            </div>
+        </div>
+    </div>
+
+    <style-dropdown selected-class="properties.CssClass.PropertyValue" view-name="properties.ReadTemplateName.PropertyValue"></style-dropdown>
+
+    <div class="form-group">
+        <label for="cssClass">@Html.Resource("CssClasses")</label>
+        <input type="text" id="cssClass" ng-model="properties.CssClass.PropertyValue" class="form-control" />
+    </div>
+</expander>

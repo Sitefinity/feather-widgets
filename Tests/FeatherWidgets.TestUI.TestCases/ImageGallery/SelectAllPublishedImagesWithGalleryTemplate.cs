@@ -1,7 +1,7 @@
-﻿using System;
+﻿
+using System;
 using Feather.Widgets.TestUI.Framework;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Telerik.Sitefinity.Frontend.TestUtilities;
 
 namespace FeatherWidgets.TestUI.TestCases.ImageGallery
 {
@@ -15,7 +15,7 @@ namespace FeatherWidgets.TestUI.TestCases.ImageGallery
         /// UI test SelectAllPublishedImagesWithOverlayGalleryTemplate_Bootstrap
         /// </summary>
         [TestMethod,
-        Owner(FeatherTeams.Team7),
+        Owner(FeatherTeams.FeatherTeam),
         TestCategory(FeatherTestCategories.PagesAndContent),
         TestCategory(FeatherTestCategories.ImageGallery)]
         public void SelectAllPublishedImagesWithOverlayGalleryTemplate_Bootstrap()
@@ -29,7 +29,7 @@ namespace FeatherWidgets.TestUI.TestCases.ImageGallery
             }
 
             BAT.Wrappers().Backend().Pages().PageZoneEditorWrapper().PublishPage();
-            BAT.Macros().NavigateTo().CustomPage("~/" + PageName.ToLower());
+            BAT.Macros().NavigateTo().CustomPage("~/" + PageName.ToLower(), true, this.Culture);
             int i = 3;
             foreach (var image in this.imageTitles)
             {
@@ -52,14 +52,14 @@ namespace FeatherWidgets.TestUI.TestCases.ImageGallery
         /// UI test SelectAllPublishedImagesWithThumbnailStripTemplate_Foundation
         /// </summary>
         [TestMethod,
-        Owner(FeatherTeams.Team7),
+        Owner(FeatherTeams.FeatherTeam),
         TestCategory(FeatherTestCategories.PagesAndContent),
         TestCategory(FeatherTestCategories.ImageGallery)]
         public void SelectAllPublishedImagesWithThumbnailStripTemplate_Foundation()
         {
             this.SelectListTemplateInImageGalleryDesigner(FoundationTemplate, ThumbnailStripTemplate);
 
-            string src = this.GetImageSource(true, this.imageTitles[0], ImageOriginalType);
+            string src = this.GetImageSource(false, this.imageTitles[0], ImageOriginalType);
             BATFeather.Wrappers().Backend().Pages().PageZoneEditorMediaWrapper().VerifyImageThumbnail(this.imageTitles[0], src);
             BATFeather.Wrappers().Backend().Pages().PageZoneEditorMediaWrapper().VerifyThumbnailStripTemplateInfo("1of 3", this.imageTitles[0]);
 
@@ -70,10 +70,10 @@ namespace FeatherWidgets.TestUI.TestCases.ImageGallery
             }
 
             BAT.Wrappers().Backend().Pages().PageZoneEditorWrapper().PublishPage();
-            BAT.Macros().NavigateTo().CustomPage("~/" + PageName.ToLower());
+            BAT.Macros().NavigateTo().CustomPage("~/" + PageName.ToLower(), true, this.Culture);
 
             BATFeather.Wrappers().Frontend().ImageGallery().ImageGalleryWrapper().VerifyThumbnailStripTemplateInfo("1of 3", this.imageTitles[0]);
-            src = this.GetImageSource(true, this.imageTitles[0], ImageOriginalType);
+            src = this.GetImageSource(false, this.imageTitles[0], ImageOriginalType);
             BATFeather.Wrappers().Frontend().ImageGallery().ImageGalleryWrapper().VerifyImage(ImageAltText + 3, src);
 
             for (int i = 1; i <= 2; i++)
@@ -84,7 +84,7 @@ namespace FeatherWidgets.TestUI.TestCases.ImageGallery
 
             BATFeather.Wrappers().Frontend().ImageGallery().ImageGalleryWrapper().ClickImage(ImageAltText + 2);
 
-            src = this.GetImageSource(true, this.imageTitles[1], ImageOriginalType);
+            src = this.GetImageSource(false, this.imageTitles[1], ImageOriginalType);
             BATFeather.Wrappers().Frontend().ImageGallery().ImageGalleryWrapper().VerifyImage(ImageAltText + 2, src);
             BATFeather.Wrappers().Frontend().ImageGallery().ImageGalleryWrapper().VerifyThumbnailStripTemplateInfo("2of 3", this.imageTitles[1]);
             var scr = this.GetImageSource(false, this.imageTitles[1], string.Empty);
@@ -96,7 +96,7 @@ namespace FeatherWidgets.TestUI.TestCases.ImageGallery
         /// UI test SelectAllPublishedImagesWithSimpleListTemplateSemantics
         /// </summary>
         [TestMethod,
-        Owner(FeatherTeams.Team7),
+        Owner(FeatherTeams.FeatherTeam),
         TestCategory(FeatherTestCategories.PagesAndContent),
         TestCategory(FeatherTestCategories.ImageGallery)]
         public void SelectAllPublishedImagesWithSimpleListTemplate_Semantics()
@@ -110,7 +110,7 @@ namespace FeatherWidgets.TestUI.TestCases.ImageGallery
             }
 
             BAT.Wrappers().Backend().Pages().PageZoneEditorWrapper().PublishPage();
-            BAT.Macros().NavigateTo().CustomPage("~/" + PageName.ToLower());
+            BAT.Macros().NavigateTo().CustomPage("~/" + PageName.ToLower(), true, this.Culture);
             int i = 3;
             foreach (var image in this.imageTitles)
             {
@@ -132,8 +132,9 @@ namespace FeatherWidgets.TestUI.TestCases.ImageGallery
         {
             BAT.Macros().User().EnsureAdminLoggedIn();
             BAT.Arrange(ArrangementClassName).AddParameter("templateName", pageTemplate).ExecuteSetUp();
+            currentProviderUrlName = BAT.Arrange(ArrangementClassName).ExecuteArrangement("GetCurrentProviderUrlName").Result.Values["CurrentProviderUrlName"];
 
-            BAT.Macros().NavigateTo().Pages();
+            BAT.Macros().NavigateTo().Pages(this.Culture);
             BAT.Wrappers().Backend().Pages().PagesWrapper().OpenPageZoneEditor(PageName);
             BATFeather.Wrappers().Backend().Pages().PageZoneEditorWrapper().EditWidget(WidgetName);
 
@@ -146,7 +147,18 @@ namespace FeatherWidgets.TestUI.TestCases.ImageGallery
         {
             string libraryUrl = LibraryName.ToLower();
             string imageUrl = imageName.ToLower() + imageType.ToLower();
-            string scr = BATFeather.Wrappers().Frontend().MediaWidgets().MediaWidgetsWrapper().GetMediaSource(isBaseUrlIncluded, libraryUrl, imageUrl, this.BaseUrl);
+            string url;
+
+            if (this.Culture == null)
+            {
+                url = this.BaseUrl;
+            }
+            else
+            {
+                url = ActiveBrowser.Url.Substring(0, 20);
+            }
+
+            string scr = BATFeather.Wrappers().Frontend().MediaWidgets().MediaWidgetsWrapper().GetMediaSource(isBaseUrlIncluded, libraryUrl, imageUrl, url, ContentType, currentProviderUrlName, this.Culture);
             return scr;
         }
 
@@ -164,5 +176,7 @@ namespace FeatherWidgets.TestUI.TestCases.ImageGallery
         private const string OverlayGalleryTemplate = "OverlayGallery";
         private const string ThumbnailStripTemplate = "ThumbnailStrip";
         private const string SimpleListTemplate = "SimpleList";
+        private string currentProviderUrlName;
+        private const string ContentType = "images";
     }
 }

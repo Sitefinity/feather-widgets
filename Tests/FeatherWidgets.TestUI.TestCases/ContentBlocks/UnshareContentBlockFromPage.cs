@@ -7,7 +7,6 @@ using ArtOfTest.WebAii.Controls.HtmlControls;
 using Feather.Widgets.TestUI.Framework;
 using FeatherWidgets.TestUI.TestCases;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Telerik.Sitefinity.Frontend.TestUtilities;
 
 namespace FeatherWidgets.TestUI.TestCases.ContentBlocks
 {
@@ -21,11 +20,11 @@ namespace FeatherWidgets.TestUI.TestCases.ContentBlocks
         /// UI test UnshareContentBlockFromPage
         /// </summary>
         [TestMethod,
-        Owner(FeatherTeams.Team2),
-        TestCategory(FeatherTestCategories.ContentBlock)]
+        Owner(FeatherTeams.FeatherTeam),
+        TestCategory(FeatherTestCategories.ContentBlock1)]
         public void UnshareContentBlockFromPage()
         {
-            BAT.Macros().NavigateTo().Pages();
+            BAT.Macros().NavigateTo().Pages(this.Culture);
             BAT.Wrappers().Backend().Pages().PagesWrapper().OpenPageZoneEditor(PageName);
             BAT.Wrappers().Backend().Pages().PageZoneEditorWrapper().SelectExtraOptionForWidget(OperationName);
             BATFeather.Wrappers().Backend().ContentBlocks().ContentBlocksShareWrapper().UnshareButton();

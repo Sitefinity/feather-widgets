@@ -6,7 +6,6 @@ using System.Threading.Tasks;
 using Feather.Widgets.TestUI.Framework;
 using Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend.Widgets;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Telerik.Sitefinity.Frontend.TestUtilities;
 
 namespace FeatherWidgets.TestUI.TestCases.Identity
 {
@@ -20,13 +19,13 @@ namespace FeatherWidgets.TestUI.TestCases.Identity
         /// UI test that verifies user list with selected users and set page for single user
         /// </summary>
         [TestMethod,
-        Owner(FeatherTeams.Team7),
+        Owner(FeatherTeams.FeatherTeam),
         TestCategory(FeatherTestCategories.PagesAndContent),
         TestCategory(FeatherTestCategories.UsersList),
         TestCategory(FeatherTestCategories.Selectors)]
         public void VerifySelectedUsersInUsersListWithSelectedSingleUserPage()
         {
-            BAT.Macros().NavigateTo().Pages();
+            BAT.Macros().NavigateTo().Pages(this.Culture);
             BAT.Wrappers().Backend().Pages().PagesWrapper().OpenPageZoneEditor(PageName);
             BATFeather.Wrappers().Backend().Pages().PageZoneEditorWrapper().EditWidget(WidgetName);
 
@@ -61,8 +60,8 @@ namespace FeatherWidgets.TestUI.TestCases.Identity
 
             BATFeather.Wrappers().Backend().Widgets().WidgetDesignerWrapper().SaveChanges();
             BAT.Wrappers().Backend().Pages().PageZoneEditorWrapper().PublishPage();
-            
-            BAT.Macros().NavigateTo().CustomPage("~/" + PageName.ToLower());
+
+            BAT.Macros().NavigateTo().CustomPage("~/" + PageName.ToLower(), true, this.Culture);
             BATFeather.Wrappers().Frontend().Identity().UsersListWrapper().VerifyUsersListOnHybridPage(this.users);
             BATFeather.Wrappers().Frontend().Identity().UsersListWrapper().VerifySingleUserOnHybridPage(UserFirstLastName, UserEmail, SingleUserPageURLEnding);
         }
@@ -93,8 +92,8 @@ namespace FeatherWidgets.TestUI.TestCases.Identity
         private const string SortingOption = "FirstName ASC";
         private const string ListTemplateName = "UsersList";
         private const string DetailTemplateName = "UserDetails";
-        private const string UserFirstLastName = "Admin Admin";
-        private const string UserEmail = "admin@test.bg";
+        private const string UserFirstLastName = "admin admin";
+        private const string UserEmail = "dadasda@dasd.fdf";
         private const string AdminUserName = "admin";
         private const string AuthorUserName = "author";
 

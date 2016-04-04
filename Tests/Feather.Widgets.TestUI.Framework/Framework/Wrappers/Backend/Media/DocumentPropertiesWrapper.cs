@@ -25,7 +25,7 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend.Media
             HtmlAnchor doc = ActiveBrowser.Find.ByExpression<HtmlAnchor>("title=" + title)
                 .AssertIsPresent("document");
 
-            Assert.IsTrue(doc.HRef.StartsWith(href), "href is not correct");
+            Assert.IsTrue(doc.HRef.StartsWith(href), "Actual" + doc.HRef + "Expected" + href + "href is not correct");
         }
 
         /// <summary>

@@ -28,5 +28,10 @@ namespace FeatherWidgets.TestUnit.DummyClasses.Media
         {
             return new List<SfDocument>().AsQueryable();
         }
+
+        protected override string GetExtension(SfDocument document)
+        {
+            return string.Empty;
+        }
     }
 }

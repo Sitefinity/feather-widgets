@@ -79,6 +79,7 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Controllers
         /// <returns>
         /// The <see cref="ActionResult" />.
         /// </returns>
+        [RelativeRoute("")]
         public ActionResult Index()
         {
             var fullTemplateName = this.templateNamePrefix + this.TemplateName;
@@ -92,12 +93,18 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Controllers
         /// <summary>
         /// Returns JSON with the status of the user and his email, first and last names
         /// </summary>
-        [JsonResultFilter]
-        public ActionResult Status()
+        [Route("rest-api/login-status")]
+        public JsonResult Status()
         {
             var response = this.Model.GetStatusViewModel();
             
             return this.Json(response, JsonRequestBehavior.AllowGet);
+        }
+
+        /// <inheritDocs/>
+        protected override void HandleUnknownAction(string actionName)
+        {
+            this.Index().ExecuteResult(this.ControllerContext);
         }
 
         #endregion

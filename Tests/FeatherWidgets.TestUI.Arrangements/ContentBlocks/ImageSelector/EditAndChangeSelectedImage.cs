@@ -1,8 +1,12 @@
 ﻿using System;
-using System.Collections.Generic;
+using System.Linq;
 using FeatherWidgets.TestUtilities.CommonOperations;
+using MbUnit.Framework;
+using Telerik.Sitefinity.Taxonomies;
+using Telerik.Sitefinity.Taxonomies.Model;
+using Telerik.Sitefinity.TestArrangementService.Attributes;
 using Telerik.Sitefinity.TestUI.Arrangements.Framework;
-using Telerik.Sitefinity.TestUI.Arrangements.Framework.Attributes;
+using Telerik.Sitefinity.TestUI.Arrangements.Framework.Server;
 using Telerik.Sitefinity.TestUtilities.CommonOperations;
 
 namespace FeatherWidgets.TestUI.Arrangements
@@ -10,7 +14,7 @@ namespace FeatherWidgets.TestUI.Arrangements
     /// <summary>
     /// Edit And Change Selected Image arrangement class.
     /// </summary>
-    public class EditAndChangeSelectedImage : ITestArrangement
+    public class EditAndChangeSelectedImage : TestArrangementBase
     {
         /// <summary>
         /// Server side set up.
@@ -24,10 +28,10 @@ namespace FeatherWidgets.TestUI.Arrangements
 
             ServerOperationsFeather.Pages().AddContentBlockWidgetToPage(pageId, string.Empty, PlaceHolderId);
 
-            ServerSideUpload.CreateAlbum(ImageLibraryTitle);
-            ServerSideUpload.UploadImage(ImageLibraryTitle, ImageTitle + 1, ImageResource);
+            ServerOperations.Images().CreateLibrary(ImageLibraryTitle);
+            ServerOperations.Images().Upload(ImageLibraryTitle, ImageTitle + 1, ImageResource);
 
-            ServerSideUpload.UploadImage(ImageLibraryTitle, ImageTitle + 2, ImageResourceChild);
+            ServerOperations.Images().Upload(ImageLibraryTitle, ImageTitle + 2, ImageResourceChild);
         }
 
         /// <summary>
@@ -37,7 +41,17 @@ namespace FeatherWidgets.TestUI.Arrangements
         public void TearDown()
         {
             ServerOperations.Pages().DeleteAllPages();
-            ServerOperations.Libraries().DeleteLibraries(false, "Image");
+            ServerOperations.Images().DeleteAllLibrariesExceptDefaultOne();
+        }
+
+        /// Gets the current libraries provider Url name.
+        /// </summary>
+        [ServerArrangement]
+        public void GetCurrentProviderUrlName()
+        {
+            string urlName = ServerOperations.Media().GetCurrentProviderUrlName;
+
+            ServerArrangementContext.GetCurrent().Values.Add("CurrentProviderUrlName", urlName);
         }
 
         private const string PageName = "PageWithImage";

@@ -5,7 +5,6 @@ using System.Text;
 using System.Threading.Tasks;
 using Feather.Widgets.TestUI.Framework;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Telerik.Sitefinity.Frontend.TestUtilities;
 
 namespace FeatherWidgets.TestUI.TestCases.Identity
 {
@@ -19,7 +18,7 @@ namespace FeatherWidgets.TestUI.TestCases.Identity
         /// UI test ValidateAllFieldsAndChangeUserInfoInProfileWidget
         /// </summary>
         [TestMethod,
-        Owner(FeatherTeams.Team2),
+        Owner(FeatherTeams.FeatherTeam),
         TestCategory(FeatherTestCategories.PagesAndContent),
         TestCategory(FeatherTestCategories.Profile),
         TestCategory(FeatherTestCategories.Bootstrap)]
@@ -29,7 +28,7 @@ namespace FeatherWidgets.TestUI.TestCases.Identity
 
             ////Verify first and last name empty fields message
 
-            BAT.Macros().NavigateTo().CustomPage("~/" + PageName.ToLower());
+            BAT.Macros().NavigateTo().CustomPage("~/" + PageName.ToLower(), true, this.Culture);
             BATFeather.Wrappers().Frontend().Identity().ProfileWrapper().FillFirstName(string.Empty);
             BATFeather.Wrappers().Frontend().Identity().ProfileWrapper().FillLastName(string.Empty);
             BATFeather.Wrappers().Frontend().Identity().ProfileWrapper().SaveChangesButton();
