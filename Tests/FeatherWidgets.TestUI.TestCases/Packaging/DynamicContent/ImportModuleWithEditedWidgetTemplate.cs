@@ -1,11 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using ArtOfTest.WebAii.Controls.HtmlControls;
+using ArtOfTest.WebAii.Core;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Telerik.Sitefinity.TestUI.Framework.Framework.Utilities;
 using Telerik.Sitefinity.TestUI.Framework.Utilities;
-using Telerik.Sitefinity.TestUI.ModuleBuilder.Framework;
 
 namespace FeatherWidgets.TestUI.TestCases.Packaging.DynamicContent
 {
@@ -22,24 +20,20 @@ namespace FeatherWidgets.TestUI.TestCases.Packaging.DynamicContent
         Owner(FeatherTeams.SitefinityTeam6),
         TestCategory(FeatherTestCategories.Packaging)]
         public void ImportModuleWithEditedWidgetTemplate()
-        {
-            BAT.Macros().NavigateTo().Dashboard();
-            BAT.Arrange(this.TestName).ExecuteArrangement("ImportNewPackage");
-            BAT.Wrappers().Backend().ModuleBuilder().ModuleInitializerWrapper().NavigateToModuleBuilderPage();
-            BAT.Wrappers().Backend().ModuleBuilder().ModuleInitializerWrapper().OpenModuleDashboard(ModuleName);
-            BAT.Wrappers().Backend().ModuleBuilder().ModuleInitializerWrapper().OpenFieldsEditor(ModuleName, ContentTypeName);
-            BAT.Wrappers().Backend().ModuleBuilder().FieldActionsWrapper().VerifyIfFieldExists(this.fieldNames);
-            BAT.Wrappers().Backend().ModuleBuilder().ModuleInitializerWrapper().ClickCancelButton();           
+        {        
             BAT.Macros().NavigateTo().Design().WidgetTemplates();
             BAT.Wrappers().Backend().ModuleBuilder().ContentTypePageActionsWrapper().OpenWidgetTemplate(MVCWidgetTemplate);
+            BAT.Wrappers().Backend().ModuleBuilder().ContentTypePageActionsWrapper().EditFrame.WaitForAsyncOperations();
             BAT.Wrappers().Backend().ModuleBuilder().ContentTypePageActionsWrapper().VerifyWidgetTemplateContent(EditedWidgetTemplate);
             BAT.Wrappers().Backend().ModuleBuilder().ContentTypePageActionsWrapper().ClickSaveChangesLink();
+            Manager.Current.ActiveBrowser.WaitUntilReady();
+            Manager.Current.ActiveBrowser.WaitForAsyncOperations();
             BAT.Wrappers().Backend().ModuleBuilder().ContentTypePageActionsWrapper().OpenWidgetTemplate(MVCWidgetTemplate2);
+            BAT.Wrappers().Backend().ModuleBuilder().ContentTypePageActionsWrapper().EditFrame.WaitForAsyncOperations();
             BAT.Wrappers().Backend().ModuleBuilder().ContentTypePageActionsWrapper().VerifyWidgetTemplateContent(EditedWidgetTemplate);
             BAT.Wrappers().Backend().ModuleBuilder().ContentTypePageActionsWrapper().ClickSaveChangesLink();
-            BAT.Wrappers().Backend().ModuleBuilder().ContentTypePageActionsWrapper().OpenWidgetTemplate(MVCWidgetTemplate3);
-            BAT.Wrappers().Backend().ModuleBuilder().ContentTypePageActionsWrapper().VerifyWidgetTemplateContent(EditedWidgetTemplate);
-            BAT.Wrappers().Backend().ModuleBuilder().ContentTypePageActionsWrapper().ClickSaveChangesLink();  
+            Manager.Current.ActiveBrowser.WaitUntilReady();
+            Manager.Current.ActiveBrowser.WaitForAsyncOperations();
         }
 
         /// <summary>
@@ -66,13 +60,7 @@ namespace FeatherWidgets.TestUI.TestCases.Packaging.DynamicContent
         private const string ContentTypeName = "AllTypes";
         private const string MVCWidgetTemplate = "Detail.AllTypes";
         private const string MVCWidgetTemplate2 = "List.AllTypes";
-        private const string MVCWidgetTemplate3 = "NewWidgetTemplate";
         private const string PageTitle = "myTestPage";
         private const string EditedWidgetTemplate = "EDITED";
-        private string[] fieldNames = new string[] 
-                                                   { 
-                                                        "Title", "LongText", "ShortTextLimitation", "Choices", "YesNo",
-                                                        "DateTime", "NumberRequired", "Address", "Images", "Video", "Document"
-                                                    };
     }
 }
