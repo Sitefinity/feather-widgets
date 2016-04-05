@@ -91,6 +91,18 @@
       <HintPath>..\packages\Telerik.Sitefinity.Core.9.1.6100.0\lib\net40\Telerik.Sitefinity.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="Telerik.Sitefinity.ContentModules, Version=9.1.6100.0, Culture=neutral, PublicKeyToken=b28c218413bdf563, processorArchitecture=MSIL">
+      <HintPath>..\packages\Telerik.Sitefinity.Content.9.1.6100.0\lib\net40\Telerik.Sitefinity.ContentModules.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Telerik.Sitefinity.Ecommerce, Version=9.1.6100.0, Culture=neutral, PublicKeyToken=b28c218413bdf563, processorArchitecture=MSIL">
+      <HintPath>..\packages\Telerik.Sitefinity.Content.9.1.6100.0\lib\net40\Telerik.Sitefinity.Ecommerce.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Telerik.Sitefinity.Forums, Version=9.1.6100.0, Culture=neutral, PublicKeyToken=b28c218413bdf563, processorArchitecture=MSIL">
+      <HintPath>..\packages\Telerik.Sitefinity.Content.9.1.6100.0\lib\net40\Telerik.Sitefinity.Forums.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="Telerik.Sitefinity.Frontend">
       <HintPath>..\ReferenceAssemblies\Telerik.Sitefinity.Frontend.dll</HintPath>
     </Reference>
@@ -104,6 +116,10 @@
     </Reference>
     <Reference Include="Telerik.Sitefinity.Personalization, Version=9.1.6100.0, Culture=neutral, PublicKeyToken=b28c218413bdf563, processorArchitecture=MSIL">
       <HintPath>..\packages\Telerik.Sitefinity.Core.9.1.6100.0\lib\net40\Telerik.Sitefinity.Personalization.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Telerik.Sitefinity.RecurrentRules, Version=9.1.6100.0, Culture=neutral, PublicKeyToken=b28c218413bdf563, processorArchitecture=MSIL">
+      <HintPath>..\packages\Telerik.Sitefinity.Content.9.1.6100.0\lib\net40\Telerik.Sitefinity.RecurrentRules.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Telerik.Sitefinity.Resources">
