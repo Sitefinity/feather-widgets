@@ -8,6 +8,17 @@
             selectedItemsIds: [],
             narrowSelectionMode: 'All'
         };
+        $scope.additionalFilters = {};
+
+        $scope.$watch(
+            'additionalFilters.value',
+            function (newAdditionalFilters, oldAdditionalFilters) {
+                if (newAdditionalFilters !== oldAdditionalFilters) {
+                    $scope.properties.SerializedAdditionalFilters.PropertyValue = JSON.stringify(newAdditionalFilters);
+                }
+            },
+            true
+        );
 
         $scope.feedback.showLoadingIndicator = true;
 
@@ -27,6 +38,9 @@
             .then(function (data) {
                 if (data) {
                     $scope.properties = propertyService.toAssociativeArray(data.Items);
+
+                    var additionalFilters = $.parseJSON($scope.properties.SerializedAdditionalFilters.PropertyValue || null);
+                    $scope.additionalFilters.value = additionalFilters;
 
                     var selectedItemsIds = $.parseJSON($scope.properties.SerializedSelectedItemsIds.PropertyValue || null);
                     if (selectedItemsIds) {
