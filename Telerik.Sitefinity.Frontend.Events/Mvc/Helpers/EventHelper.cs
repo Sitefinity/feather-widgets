@@ -12,7 +12,7 @@ namespace Telerik.Sitefinity.Frontend.Events.Mvc.Helpers
     {
         public static MvcHtmlString EventDates(this HtmlHelper helper, ItemViewModel eventItem)
         {
-            return MvcHtmlString.Create("i am helper");
+            return MvcHtmlString.Create("i am helper for dates");
         }
     }
 }
