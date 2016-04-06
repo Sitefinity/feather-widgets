@@ -29,6 +29,14 @@ namespace Telerik.Sitefinity.Frontend.Events.Mvc.Models
         }
 
         /// <summary>
+        /// Gets or sets the sort expression.
+        /// </summary>
+        /// <value>
+        /// The sort expression.
+        /// </value>
+        public override string SortExpression { get; set; }
+
+        /// <summary>
         /// Creates a view model for use in list views.
         /// </summary>
         /// <param name="page">The page.</param>
