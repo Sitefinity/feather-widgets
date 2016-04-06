@@ -69,7 +69,13 @@
                         @Html.Resource("FilteredEventsBy")
                     </label>
                     <div class="label-content" ng-show="eventSelector.narrowSelectionMode=='Filtered'">
-                        TODO
+                        <sf-filter-selector sf-query-data="additionalFilters.value"
+                            sf-taxonomy-fields="@CustomFieldsHelpers.GetTaxonomyFields(typeof(Telerik.Sitefinity.Events.Model.Event))"
+                            sf-provider="properties.ProviderName.PropertyValue"
+                            sf-template-assembly="Telerik.Sitefinity.Frontend.Events"
+                            sf-template-url="Mvc/Views/Event/sf-filter-selector.html"
+                            class="sf-filter-selector"
+                        ></sf-filter-selector>
                     </div>
                 </div>
             </div>
