@@ -3,8 +3,8 @@
 @using Telerik.Sitefinity.Security;
 @using Telerik.Sitefinity.Security.Web.UI;
 
-<tabset class="nav-tabs-wrapper">
-    <tab heading="@Html.Resource("General")">
+<uib-tabset class="nav-tabs-wrapper">
+    <uib-tab heading="@Html.Resource("General")">
         <div class="form-group">
             <label>@Html.Resource("Provider")</label>
             <p class="description-note">@Html.Resource("ProviderDescription")</p>
@@ -79,8 +79,8 @@
                 <input type="text" id="registrationCssClass" ng-model="properties.CssClass.PropertyValue" class="form-control" />
             </div>
         </expander>
-    </tab>
-    <tab heading="@Html.Resource("AccountActivation")">
+    </uib-tab>
+    <uib-tab heading="@Html.Resource("AccountActivation")">
         <div class="form-group">
             <strong>@Html.Resource("ActivateAccounts")</strong>
             <div class="radio">
@@ -146,5 +146,5 @@
 
             </div>
         </div>
-    </tab>
-</tabset>
+    </uib-tab>
+</uib-tabset>

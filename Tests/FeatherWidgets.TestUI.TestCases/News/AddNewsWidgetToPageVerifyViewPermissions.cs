@@ -1,9 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using FeatherWidgets.TestUI.TestCases;
+using ArtOfTest.WebAii.Core;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Telerik.Sitefinity.TestUI.Framework.Framework.ElementMap.Permissions;
 
@@ -27,6 +23,7 @@ namespace FeatherWidgets.TestUI.TestCases.News
             BAT.Macros().NavigateTo().Pages(this.Culture);
             BAT.Wrappers().Backend().Pages().PagesWrapper().OpenPageZoneEditor(PageName);
             BAT.Wrappers().Backend().Pages().PageZoneEditorWrapper().SelectExtraOptionForWidget(OperationName);
+            this.WaitForPermissionsFrameToBeLoaded();
             BAT.Wrappers().Backend().Permissions().PermissionsContentWrapper().ClickChangePermissionsButton(PermissionTypes.View);
             BAT.Wrappers().Backend().Permissions().PermissionsContentWrapper().SelectAndAddRole("Authenticated");
             BAT.Wrappers().Backend().Permissions().PermissionsContentWrapper().ClickBackButton();
@@ -39,7 +36,7 @@ namespace FeatherWidgets.TestUI.TestCases.News
 
             Assert.IsFalse(ActiveBrowser.ContainsText(NewsTitle), "News title was found but it shouldn't");
         }
-
+        
         /// <summary>
         /// Performs Server Setup and prepare the system with needed data.
         /// </summary>
@@ -55,6 +52,13 @@ namespace FeatherWidgets.TestUI.TestCases.News
         protected override void ServerCleanup()
         {
             BAT.Arrange(this.TestName).ExecuteTearDown();
+        }
+        
+        private void WaitForPermissionsFrameToBeLoaded()
+        {
+            var frame = Manager.Current.ActiveBrowser.WaitForFrame(new FrameInfo() { Name = "permissions" });
+            frame.WaitUntilReady();
+            frame.WaitForAsyncOperations();
         }
 
         private const string PageName = "NewsPage";

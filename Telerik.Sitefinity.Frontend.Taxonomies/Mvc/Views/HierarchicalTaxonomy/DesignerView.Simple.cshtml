@@ -9,8 +9,8 @@
 @{
     string classificationPluralTitle = CustomFieldsHelpers.GetClassificationPluralTitle(Model.GetTaxonomyId(), Model.GetTaxonomyProviderName()).ToLower();
 }
-<tabset class="nav-tabs-wrapper">
-    <tab heading="@Html.Resource("Content")">
+<uib-tabset class="nav-tabs-wrapper">
+    <uib-tab heading="@Html.Resource("Content")">
         <div class="form-group">
 
             <strong>@Html.Resource("WhichHierarchicalTaxonomiesLabel").Arrange(classificationPluralTitle)</strong>
@@ -95,8 +95,8 @@
             </div>
         </expander>
 
-    </tab>
-    <tab heading="@Html.Resource("Settings")">
+    </uib-tab>
+    <uib-tab heading="@Html.Resource("Settings")">
 
         <div class="form-group">
 
@@ -157,5 +157,5 @@
         </expander>
 
 
-    </tab>
-</tabset>
+    </uib-tab>
+</uib-tabset>
