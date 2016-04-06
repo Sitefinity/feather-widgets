@@ -3,8 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-
 using Telerik.Sitefinity.Data;
+using Telerik.Sitefinity.Events.Model;
 using Telerik.Sitefinity.Frontend.Mvc.Models;
 using Telerik.Sitefinity.Model;
 using Telerik.Sitefinity.Modules.Events;
@@ -16,6 +16,18 @@ namespace Telerik.Sitefinity.Frontend.Events.Mvc.Models
     /// </summary>
     public class EventModel : ContentModelBase, IEventModel
     {
+        public override Type ContentType
+        {
+            get
+            {
+                return typeof(Event);
+            }
+
+            set
+            {
+            }
+        }
+
         /// <summary>
         /// Creates a view model for use in list views.
         /// </summary>
