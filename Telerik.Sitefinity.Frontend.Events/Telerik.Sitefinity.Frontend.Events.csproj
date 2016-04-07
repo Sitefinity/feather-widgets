@@ -177,6 +177,7 @@
     <EmbeddedResource Include="Mvc\Views\Event\List.Default.cshtml" />
     <EmbeddedResource Include="Mvc\Views\Event\DesignerView.Simple.cshtml" />
     <EmbeddedResource Include="Mvc\Views\Event\DesignerView.Simple.json" />
+    <EmbeddedResource Include="Mvc\Views\Event\Detail.Default.cshtml" />
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
