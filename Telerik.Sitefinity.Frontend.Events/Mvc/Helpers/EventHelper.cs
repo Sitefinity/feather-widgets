@@ -15,6 +15,18 @@ namespace Telerik.Sitefinity.Frontend.Events.Mvc.Helpers
 {
     public static class EventHelper
     {
+        public static MvcHtmlString EventCalendar(this HtmlHelper helper, ItemViewModel item)
+        {
+            var ev = item.DataItem as Event;
+            if (ev == null)
+                return MvcHtmlString.Empty;
+
+            var result = new TagBuilder("span");
+            result.Attributes.Add("data-calendar-color", ev.Parent.Color);
+
+            return MvcHtmlString.Create(result.ToString(TagRenderMode.Normal));
+        }
+
         public static MvcHtmlString EventDates(this HtmlHelper helper, ItemViewModel item)
         {
             var ev = item.DataItem as Event;
