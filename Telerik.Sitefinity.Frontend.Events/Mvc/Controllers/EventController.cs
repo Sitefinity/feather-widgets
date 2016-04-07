@@ -1,6 +1,7 @@
 ﻿using System;
 using System.ComponentModel;
 using System.Web.Mvc;
+using Telerik.Sitefinity.Events.Model;
 using Telerik.Sitefinity.Frontend.Events.Mvc.Models;
 using Telerik.Sitefinity.Frontend.Events.Mvc.StringResources;
 using Telerik.Sitefinity.Frontend.Mvc.Infrastructure.Controllers;
@@ -122,6 +123,28 @@ namespace Telerik.Sitefinity.Frontend.Events.Mvc.Controllers
                 this.AddCacheDependencies(this.Model.GetKeysOfDependentObjects(viewModel));
 
             var fullTemplateName = EventController.ListTemplateNamePrefix + this.ListTemplateName;
+            return this.View(fullTemplateName, viewModel);
+        }
+
+        /// <summary>
+        /// Renders appropriate details view depending on the <see cref="DetailTemplateName"/>
+        /// </summary>
+        /// <param name="item">The item which details will be displayed.</param>
+        /// <returns>
+        /// The <see cref="ActionResult"/>.
+        /// </returns>
+        public ActionResult Details(Event item)
+        {
+            var fullTemplateName = EventController.DetailTemplateNamePrefix + this.DetailTemplateName;
+
+            if (item != null)
+                this.ViewBag.Title = item.Title;
+
+            var viewModel = this.Model.CreateDetailsViewModel(item);
+
+            if (SystemManager.CurrentHttpContext != null)
+                this.AddCacheDependencies(this.Model.GetKeysOfDependentObjects(viewModel));
+
             return this.View(fullTemplateName, viewModel);
         }
 
