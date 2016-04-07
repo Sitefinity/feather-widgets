@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using ArtOfTest.Common.UnitTesting;
 using ArtOfTest.WebAii.Controls.HtmlControls;
@@ -111,10 +112,11 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Frontend
             ActiveBrowser.WaitForAsyncJQueryRequests();
             ActiveBrowser.RefreshDomTree();
             cb.MouseClick();
+            cb.InvokeClick();
+            ActiveBrowser.WaitUntilReady();
             ActiveBrowser.RefreshDomTree();
             ActiveBrowser.WaitForAsyncJQueryRequests();
-            ActiveBrowser.Find.ByCustom<HtmlUnorderedList>(e => e.CssClass.Contains("k-editor-toolbar") && e.IsVisible() == true)
-             .AssertIsPresent("toolbar");
+            ActiveBrowser.WaitForElementWithCssClass("k-editor-toolbar");
 
             Manager.Desktop.KeyBoard.KeyDown(System.Windows.Forms.Keys.LControlKey);
             Manager.Desktop.KeyBoard.KeyPress(System.Windows.Forms.Keys.A);
