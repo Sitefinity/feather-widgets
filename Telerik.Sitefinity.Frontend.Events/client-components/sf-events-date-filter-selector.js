@@ -18,7 +18,7 @@
                             var groupItem = scope.sfQueryData.getItemByName(groupName);
 
                             if (!groupItem)
-                                groupItem = scope.sfQueryData.addGroup(groupName, scope.sfGroupLogicalOperator);
+                                groupItem = scope.sfQueryData.addGroup(groupName, 'OR');
 
                             //event has already started
                             scope.sfQueryData.addChildToGroup(groupItem, null, 'AND', 'EventStart', 'System.DateTime', '<=', 'DateTime.UtcNow');
