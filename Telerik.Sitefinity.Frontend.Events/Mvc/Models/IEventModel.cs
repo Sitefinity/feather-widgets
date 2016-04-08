@@ -1,4 +1,6 @@
 ﻿using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
+using Telerik.Sitefinity.ContentLocations;
 using Telerik.Sitefinity.Data;
 using Telerik.Sitefinity.Frontend.Mvc.Models;
 using Telerik.Sitefinity.Model;
@@ -118,5 +120,11 @@ namespace Telerik.Sitefinity.Frontend.Events.Mvc.Models
         /// The <see cref="IList"/>.
         /// </returns>
         IList<CacheDependencyKey> GetKeysOfDependentObjects(ContentDetailsViewModel viewModel);
+
+        /// <summary>
+        /// Gets the information for all of the content types that a control is able to show.
+        /// </summary>
+        [SuppressMessage("Microsoft.Design", "CA1024:UsePropertiesWhereAppropriate")]
+        IEnumerable<IContentLocationInfo> GetLocations();
     }
 }
