@@ -61,7 +61,7 @@
                         else
                             scope.sfQueryData = new Telerik.Sitefinity.Web.UI.QueryData();
 
-                        scope.today = new Date();
+                        scope.today = Date.now();
                         populateSelectedDateFilters();
                     }
                 }

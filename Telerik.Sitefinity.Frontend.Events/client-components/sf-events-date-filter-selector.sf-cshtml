@@ -4,6 +4,7 @@
     sf-query-field-name="EventStart"
     sf-group-name="Upcoming"
     sf-filter-label="@(Res.Get<EventResources>().UpcomingEvents)"
+    sf-is-upcoming-period = "true"
     sf-custom-range-min-date="today"
     class="sf-date-filter"></sf-date-filter>
 
