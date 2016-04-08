@@ -120,6 +120,9 @@ namespace Telerik.Sitefinity.Frontend.ContentBlock.Mvc.Models
         /// <inheritdoc />
         public Guid SharedContentID { get; set; }
 
+        /// <inheritdoc />
+        public string WrapperCssClass { get; set; }
+
         #endregion
 
         #region Public Methods and Operators
