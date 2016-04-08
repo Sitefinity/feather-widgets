@@ -35,6 +35,14 @@ namespace Telerik.Sitefinity.Frontend.Events.Mvc.Models
         ListDisplayMode DisplayMode { get; set; }
 
         /// <summary>
+        /// Gets or sets a value indicating whether social sharing is enabled.
+        /// </summary>
+        /// <value>
+        ///   <c>true</c> if [enable social sharing]; otherwise, <c>false</c>.
+        /// </value>
+        bool EnableSocialSharing { get; set; }
+
+        /// <summary>
         /// Gets or sets the items count per page or items total dependeing on the selected <see cref="ListDisplayMode"/>
         /// </summary>
         /// <value>
