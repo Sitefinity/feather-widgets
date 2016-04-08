@@ -261,7 +261,18 @@ namespace Feather.Widgets.TestUI.Framework.Framework.ElementMap.Forms
         {
             get
             {
-                return this.Get<HtmlSelect>("tagname=select", "id=textFieldTemplateName");
+                return this.Get<HtmlSelect>("tagname=select", "ng-model=properties.WriteTemplateName.PropertyValue");
+            }
+        }
+
+        /// <summary>
+        /// Gets read template selector.
+        /// </summary>
+        public HtmlSelect ReadTemplateSelector
+        {
+            get
+            {
+                return this.Get<HtmlSelect>("tagname=select", "ng-model=properties.ReadTemplateName.PropertyValue");
             }
         }
 

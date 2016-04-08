@@ -277,6 +277,15 @@
     <EmbeddedResource Include="Data\Packaging\Structure\ListsEdited.zip" />
     <EmbeddedResource Include="Data\Packaging\Structure\NewsEditedStructure.zip" />
     <EmbeddedResource Include="Data\Packaging\Structure\PagesEdited.zip" />
+    <EmbeddedResource Include="Data\Forms\Read.DefaultSectionHeaderFile.cshtml" />
+    <EmbeddedResource Include="Data\Forms\Write.DefaultCaptchaFile.cshtml" />
+    <EmbeddedResource Include="Data\Forms\Write.DefaultCheckboxesFile.cshtml" />
+    <EmbeddedResource Include="Data\Forms\Write.DefaultDropdownListFile.cshtml" />
+    <EmbeddedResource Include="Data\Forms\Write.DefaultFileUploadFile.cshtml" />
+    <EmbeddedResource Include="Data\Forms\Write.DefaultMultipleChoiceFile.cshtml" />
+    <EmbeddedResource Include="Data\Forms\Write.DefaultParagraphTextFile.cshtml" />
+    <EmbeddedResource Include="Data\Forms\Write.DefaultSubmitButtonFile.cshtml" />
+    <EmbeddedResource Include="Data\Forms\Write.DefaultTextboxFile.cshtml" />
     <None Include="packages.config">
       <SubType>Designer</SubType>
     </None>
