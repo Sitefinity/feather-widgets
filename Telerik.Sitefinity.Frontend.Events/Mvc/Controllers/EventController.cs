@@ -1,6 +1,9 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.Web.Mvc;
+using Telerik.Sitefinity.ContentLocations;
+using Telerik.Sitefinity.Events.Model;
 using Telerik.Sitefinity.Frontend.Events.Mvc.Models;
 using Telerik.Sitefinity.Frontend.Events.Mvc.StringResources;
 using Telerik.Sitefinity.Frontend.Mvc.Infrastructure.Controllers;
@@ -16,7 +19,7 @@ namespace Telerik.Sitefinity.Frontend.Events.Mvc.Controllers
     /// </summary>
     [ControllerToolboxItem(Name = "Events_MVC", Title = "Events", SectionName = ToolboxesConfig.ContentToolboxSectionName, ModuleName = "Events", CssClass = EventController.WidgetIconCssClass)]
     [Localization(typeof(EventResources))]
-    public class EventController : Controller
+    public class EventController : Controller, IContentLocatableView
     {
         #region Properties
 
@@ -103,6 +106,24 @@ namespace Telerik.Sitefinity.Frontend.Events.Mvc.Controllers
         /// </value>
         public Guid DetailsPageId { get; set; }
 
+        /// <summary>
+        /// Gets or sets a value indicating whether the canonical URL tag should be added to the page when the canonical meta tag should be added to the page.
+        /// If the value is not set, the settings from SystemConfig -> ContentLocationsSettings -> DisableCanonicalURLs will be used. 
+        /// </summary>
+        /// <value>The disable canonical URLs.</value>
+        public bool? DisableCanonicalUrlMetaTag
+        {
+            get
+            {
+                return this.disableCanonicalUrlMetaTag;
+            }
+
+            set
+            {
+                this.disableCanonicalUrlMetaTag = value;
+            }
+        }
+
         #endregion
 
         /// <summary>
@@ -126,6 +147,47 @@ namespace Telerik.Sitefinity.Frontend.Events.Mvc.Controllers
         }
 
         /// <summary>
+        /// Renders appropriate details view depending on the <see cref="DetailTemplateName"/>
+        /// </summary>
+        /// <param name="item">The item which details will be displayed.</param>
+        /// <returns>
+        /// The <see cref="ActionResult"/>.
+        /// </returns>
+        public ActionResult Details(Event item)
+        {
+            var viewModel = this.Model.CreateDetailsViewModel(item);
+
+            this.InitializeDetailsViewBag(item);
+            
+            if (SystemManager.CurrentHttpContext != null)
+                this.AddCacheDependencies(this.Model.GetKeysOfDependentObjects(viewModel));
+
+            var fullTemplateName = EventController.DetailTemplateNamePrefix + this.DetailTemplateName;
+            return this.View(fullTemplateName, viewModel);
+        }
+
+        /// <summary>
+        /// Gets the information for all of the content types that a control is able to show.
+        /// </summary>
+        /// <returns>
+        /// List of location info of the content that this control is able to show.
+        /// </returns>
+        [NonAction]
+        public virtual IEnumerable<IContentLocationInfo> GetLocations()
+        {
+            return this.Model.GetLocations();
+        }
+
+        /// <summary>
+        /// Called when a request matches this controller, but no method with the specified action name is found in the controller.
+        /// </summary>
+        /// <param name="actionName">The name of the attempted action.</param>
+        protected override void HandleUnknownAction(string actionName)
+        {
+            this.Index(null).ExecuteResult(this.ControllerContext);
+        }
+
+        /// <summary>
         /// Initializes the ListView bag.
         /// </summary>
         /// <param name="redirectPageUrl">The redirect page URL.</param>
@@ -134,8 +196,21 @@ namespace Telerik.Sitefinity.Frontend.Events.Mvc.Controllers
             this.ViewBag.CurrentPageUrl = SystemManager.CurrentHttpContext != null ? this.GetCurrentPageUrl() : string.Empty;
             this.ViewBag.RedirectPageUrlTemplate = this.ViewBag.CurrentPageUrl + redirectPageUrl;
             this.ViewBag.ItemsPerPage = this.Model.ItemsPerPage;
+            this.ViewBag.AllowCalendarExport = this.Model.AllowCalendarExport;
             this.ViewBag.OpenInSamePage = this.OpenInSamePage;
             this.ViewBag.DetailsPageId = this.DetailsPageId;
+        }
+
+        /// <summary>
+        /// Initializes the DetailsView bag.
+        /// </summary>
+        /// <param name="item">The event.</param>
+        private void InitializeDetailsViewBag(Event item)
+        {
+            if (item != null)
+                this.ViewBag.Title = item.Title;
+
+            this.ViewBag.AllowCalendarExport = this.Model.AllowCalendarExport;
         }
 
         private const string WidgetIconCssClass = "sfEventsViewIcn sfMvcIcn";
@@ -147,5 +222,6 @@ namespace Telerik.Sitefinity.Frontend.Events.Mvc.Controllers
 
         private string listTemplateName = "Default";
         private string detailTemplateName = "Default";
+        private bool? disableCanonicalUrlMetaTag;
     }
 }

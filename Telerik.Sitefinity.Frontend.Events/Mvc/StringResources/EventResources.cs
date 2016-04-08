@@ -81,6 +81,69 @@ namespace Telerik.Sitefinity.Frontend.Events.Mvc.StringResources
             }
         }
 
+        /// <summary>
+        /// Gets word : "Add to:"
+        /// </summary>
+        [ResourceEntry("AddTo",
+            Value = "Add to:",
+            Description = "word: Add to:",
+            LastModified = "2016/04/08")]
+        public string AddTo
+        {
+            get
+            {
+                return this["AddTo"];
+            }
+        }
+        
+        /// <summary>
+        /// The title for the outlook export widget.
+        /// </summary>
+        /// <value>Outlook</value>
+        [ResourceEntry("OutlookEventExporterTitle",
+            Value = "Outlook",
+            Description = "The title for the outlook export widget.",
+            LastModified = "2016/04/08")]
+        public string OutlookEventExporterTitle
+        {
+            get
+            {
+                return this["OutlookEventExporterTitle"];
+            }
+        }
+
+        /// <summary>
+        /// The title for the ICal export widget.
+        /// </summary>
+        /// <value>ICal</value>
+        [ResourceEntry("ICalEventExporterTitle",
+            Value = "ICal",
+            Description = "The title for the ICal export widget.",
+            LastModified = "2016/04/08")]
+        public string ICalEventExporterTitle
+        {
+            get
+            {
+                return this["ICalEventExporterTitle"];
+            }
+        }
+
+        /// <summary>
+        /// The title for the Google Calendar export widget.
+        /// </summary>
+        /// <value>Google Calendar</value>
+        [ResourceEntry("GoogleEventExporterTitle",
+            Value = "Google Calendar",
+            Description = "The title for the Google Calendar export widget.",
+            LastModified = "2016/04/08")]
+        public string GoogleEventExporterTitle
+        {
+            get
+            {
+                return this["GoogleEventExporterTitle"];
+            }
+        }
+
         #endregion
         
         #region Designer resources
