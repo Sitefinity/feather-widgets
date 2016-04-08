@@ -435,6 +435,23 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend.Forms
             ActiveBrowser.WaitForAsyncOperations();
         }
 
+        /// <summary>
+        /// Selects the read template.
+        /// </summary>
+        /// <param name="templateTitle">The template title.</param>
+        public void SelectReadTemplate(string templateTitle)
+        {
+            HtmlAnchor moreOptions = this.EM.Widgets.WidgetDesignerContentScreen.MoreOptionsDiv.AssertIsPresent("More options span");
+            moreOptions.Click();
+
+            var templateSelector = EM.Forms.FormsBackend.ReadTemplateSelector
+              .AssertIsPresent("Template selector drop-down");
+            templateSelector.SelectByValue(templateTitle);
+            templateSelector.AsjQueryControl().InvokejQueryEvent(jQueryControl.jQueryControlEvents.click);
+            templateSelector.AsjQueryControl().InvokejQueryEvent(jQueryControl.jQueryControlEvents.change);
+            ActiveBrowser.WaitForAsyncOperations();
+        }
+
         /// Selects the cancel.
         /// </summary>
         public void SelectCancel()
@@ -686,6 +703,39 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend.Forms
         {          
             var confirmDialog = BAT.Macros().DialogFacade().ConfirmDialog();
             ActiveBrowser.Close();
+        }
+
+        /// <summary>
+        /// Exports the structure.
+        /// </summary>
+        public void WaitForFieldContent(string fieldContent, string widgetName)
+        {
+            Manager.Current.Wait.For(() => this.CheckFieldIsPresent(fieldContent, widgetName), 480000);
+        }
+
+        /// <summary>
+        /// Checks the field is present.
+        /// </summary>
+        /// <returns>Is success message field contained</returns>
+        private bool CheckFieldIsPresent(string fieldContent, string widgetName)
+        {
+            ActiveBrowser.WaitUntilReady();
+            ActiveBrowser.RefreshDomTree();
+
+            Manager.Current.ActiveBrowser.RefreshDomTree();
+            var widgetHeader = Manager.Current
+                                      .ActiveBrowser
+                                      .Find
+                                      .ByCustom<HtmlDiv>(d => d.CssClass.StartsWith("rdTitleBar") && d.ChildNodes.First().InnerText.Equals(widgetName))
+                                      .AssertIsPresent(widgetName);
+            widgetHeader.ScrollToVisible();
+            HtmlTable elementTable = widgetHeader.Parent<HtmlTableRow>().Parent<HtmlTable>();
+            HtmlDiv content = elementTable.Find.ByExpression<HtmlDiv>("class=rdContent");
+            string innerText = content.InnerText;
+
+            bool result = innerText.Contains(fieldContent);
+
+            return result;
         }
     }
 }

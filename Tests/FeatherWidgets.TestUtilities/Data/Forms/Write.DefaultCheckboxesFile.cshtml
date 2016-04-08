@@ -1,0 +1,51 @@
+﻿@model Telerik.Sitefinity.Frontend.Forms.Mvc.Models.Fields.CheckboxesField.CheckboxesFieldViewModel
+
+@using Telerik.Sitefinity.UI.MVC;
+@using Telerik.Sitefinity.Frontend.Forms.Mvc.Helpers;
+@using Telerik.Sitefinity.Frontend.Mvc.Helpers;
+@using Telerik.Sitefinity.Modules.Pages;
+
+@Html.Script(ScriptRef.JQuery, "top", false)
+
+@{
+    var fieldName = Model.MetaField.FieldName;
+    var requiredAttributes = MvcHtmlString.Create(Model.ValidationAttributes);
+}
+
+File system template
+
+<div class="@Model.CssClass sf-fieldWrp sf-Checkboxes" data-sf-role="checkboxes-field-container">
+    <input type="hidden" data-sf-role="violation-messages" value='{ "required": "@Model.RequiredViolationMessage"}' />
+    <input type="hidden" data-sf-role="required-validator" value='@Model.IsRequired.ToString()' />
+   
+    <strong>@Model.MetaField.Title</strong>
+
+    @if (!string.IsNullOrEmpty(Model.MetaField.Description)) 
+    {
+        <p>@Model.MetaField.Description</p>
+    }
+    @foreach (var choice in Model.Choices)
+    {
+		var selctedAttributes = !string.IsNullOrEmpty(Model.MetaField.DefaultValue) && Model.MetaField.DefaultValue.Contains(choice as string) ? "checked" : string.Empty;
+        <div> 
+            <label>
+                <input type="checkbox" name="@fieldName" value="@choice" data-sf-role="checkboxes-field-input" @selctedAttributes />
+                @choice
+            </label>
+        </div>
+    }
+
+    @if(Model.HasOtherChoice)
+    {
+        <div>
+            <label>
+                <input type="checkbox" name="@fieldName" data-sf-checkboxes-role="other-choice-checkbox" data-sf-role="checkboxes-field-input"/>
+                @Html.Resource("Other")
+            </label>
+            <input type="hidden" data-sf-checkboxes-role="other-choice-text" />
+        </div>
+    }
+    
+</div>
+
+@Html.Script(Url.WidgetContent("Mvc/Scripts/CheckboxesField/checkboxes-field.js"), "bottom", false)
