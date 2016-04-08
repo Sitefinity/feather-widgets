@@ -639,6 +639,36 @@ namespace Telerik.Sitefinity.Frontend.Events.Mvc.StringResources
             }
         }
 
+        /// <summary>
+        /// Gets phrase : Display upcoming events start in...
+        /// </summary>
+        [ResourceEntry("DisplayUpcomingStartsIn",
+            Value = "Display upcoming events start in...",
+            Description = "phrase : Display upcoming events start in...",
+            LastModified = "2016/04/07")]
+        public string DisplayUpcomingStartsIn
+        {
+            get
+            {
+                return this["DisplayUpcomingStartsIn"];
+            }
+        }
+
+        /// <summary>
+        /// Gets phrase : Display past events start in...
+        /// </summary>
+        [ResourceEntry("DisplayPastStartsIn",
+            Value = "Display past events start in...",
+            Description = "phrase : Display past events start in...",
+            LastModified = "2016/04/07")]
+        public string DisplayPastStartsIn
+        {
+            get
+            {
+                return this["DisplayPastStartsIn"];
+            }
+        }
+
         #endregion
     }
 }

@@ -4,6 +4,7 @@
     sf-query-field-name="EventStart"
     sf-group-name="Upcoming"
     sf-filter-label="@(Res.Get<EventResources>().UpcomingEvents)"
+    sf-filter-title-label="@(Res.Get<EventResources>().DisplayUpcomingStartsIn)"
     sf-is-upcoming-period = "true"
     sf-custom-range-min-date="today"
     sf-filter-changed = "upcomingChanged"
@@ -24,6 +25,7 @@
     sf-query-field-name="EventStart"
     sf-group-name="Past"
     sf-filter-label="@(Res.Get<EventResources>().PastEvents)"
+    sf-filter-title-label="@(Res.Get<EventResources>().DisplayPastStartsIn)"
     sf-custom-range-max-date="today"
     sf-filter-changed = "pastChanged"
     class="sf-date-filter"></sf-date-filter>
