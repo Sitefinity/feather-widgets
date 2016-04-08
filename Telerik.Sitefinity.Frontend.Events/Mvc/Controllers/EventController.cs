@@ -155,18 +155,14 @@ namespace Telerik.Sitefinity.Frontend.Events.Mvc.Controllers
         /// </returns>
         public ActionResult Details(Event item)
         {
-            var fullTemplateName = EventController.DetailTemplateNamePrefix + this.DetailTemplateName;
-
-            if (item != null)
-                this.ViewBag.Title = item.Title;
-
             var viewModel = this.Model.CreateDetailsViewModel(item);
 
-            this.ViewBag.AllowCalendarExport = this.Model.AllowCalendarExport;
-
+            this.InitializeDetailsViewBag(item);
+            
             if (SystemManager.CurrentHttpContext != null)
                 this.AddCacheDependencies(this.Model.GetKeysOfDependentObjects(viewModel));
 
+            var fullTemplateName = EventController.DetailTemplateNamePrefix + this.DetailTemplateName;
             return this.View(fullTemplateName, viewModel);
         }
 
@@ -203,6 +199,18 @@ namespace Telerik.Sitefinity.Frontend.Events.Mvc.Controllers
             this.ViewBag.AllowCalendarExport = this.Model.AllowCalendarExport;
             this.ViewBag.OpenInSamePage = this.OpenInSamePage;
             this.ViewBag.DetailsPageId = this.DetailsPageId;
+        }
+
+        /// <summary>
+        /// Initializes the DetailsView bag.
+        /// </summary>
+        /// <param name="item">The event.</param>
+        private void InitializeDetailsViewBag(Event item)
+        {
+            if (item != null)
+                this.ViewBag.Title = item.Title;
+
+            this.ViewBag.AllowCalendarExport = this.Model.AllowCalendarExport;
         }
 
         private const string WidgetIconCssClass = "sfEventsViewIcn sfMvcIcn";
