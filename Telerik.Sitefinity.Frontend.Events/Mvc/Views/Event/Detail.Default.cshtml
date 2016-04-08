@@ -1,19 +1,50 @@
 @model Telerik.Sitefinity.Frontend.Mvc.Models.ContentDetailsViewModel
 
+@using Telerik.Sitefinity.Frontend.Events.Mvc.Helpers;
 @using Telerik.Sitefinity.Frontend.Mvc.Helpers;
 @using Telerik.Sitefinity.Web.DataResolving;
 
 <div class="@Model.CssClass" @Html.InlineEditingAttributes(Model.ProviderName, Model.ContentType.FullName, (Guid)Model.Item.Fields.Id)>
     <h3>
         <span @Html.InlineEditingFieldAttributes("Title", "ShortText")>@Model.Item.Fields.Title</span>
-        
     </h3>
 
     <div>
-        @Model.Item.GetDateTime("PublicationDate", "MMM d, yyyy, HH:mm tt")
-        @Html.Resource("By")
-        @DataResolver.Resolve(@Model.Item.DataItem, "Author", null)
+        <p>@Html.EventDates(Model.Item)</p>
+    </div>
 
+    @if (!string.IsNullOrEmpty(Model.Item.Fields.City) && !string.IsNullOrEmpty(Model.Item.Fields.Country))
+    {
+    <div>
+        <p>@Model.Item.Fields.City, @Model.Item.Fields.Country</p>
+        @if (!string.IsNullOrEmpty(Model.Item.Fields.Street))
+        {
+        <p>@Model.Item.Fields.Street</p>
+        }
+    </div>
+    }
+
+    <div>
+        <p>@Model.Item.Fields.ContactName</p>
+        <p>@Model.Item.Fields.ContactPhone</p>
+        <p>@Model.Item.Fields.ContactCell</p>
+        
+        @if (!string.IsNullOrEmpty(Model.Item.Fields.ContactEmail))
+        {
+        <p><a href="mailto:@(Model.Item.Fields.ContactEmail)" target="_blank">@Model.Item.Fields.ContactEmail</a></p>
+        }
+
+        @if (!string.IsNullOrEmpty(Model.Item.Fields.ContactWeb))
+        {
+        <p><a href="@(Model.Item.Fields.ContactWeb)" target="_blank">@Model.Item.Fields.ContactWeb</a></p>
+        }
+    </div>
+
+    <div>
+        <p>@Model.Item.Fields.Description</p>
+    </div>
+
+    <div>
         @Html.CommentsCount(string.Empty, @Model.Item.DataItem)
     </div>
     
