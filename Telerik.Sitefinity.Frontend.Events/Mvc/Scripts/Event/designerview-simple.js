@@ -99,9 +99,7 @@
                             $scope.properties.SortExpression.PropertyValue = "PublicationDate DESC";
                         }
                     }
-
-
-                    if ($scope.properties.SelectionMode.PropertyValue !== 'FilteredItems' || $scope.eventSelector.narrowSelectionMode === 'All') {
+                    else {
                         $scope.properties.SerializedAdditionalFilters.PropertyValue = null;
                     }
 

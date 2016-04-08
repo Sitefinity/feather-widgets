@@ -35,7 +35,11 @@
                     @Html.Resource("EventsByDate")
                 </label>
                 <div class="label-content" ng-show="properties.SelectionMode.PropertyValue=='FilteredItems'">
-                    TODO
+                    <sf-events-date-filter-selector sf-query-data="additionalFilters.value"
+                            sf-template-assembly="Telerik.Sitefinity.Frontend.Events"
+                            sf-template-url="client-components/sf-events-date-filter-selector.sf-cshtml"
+                            class="sf-filter-selector"
+                        ></sf-events-date-filter-selector>
                 </div>
             </div>
             
@@ -73,7 +77,7 @@
                             sf-taxonomy-fields="@CustomFieldsHelpers.GetTaxonomyFields(typeof(Telerik.Sitefinity.Events.Model.Event))"
                             sf-provider="properties.ProviderName.PropertyValue"
                             sf-template-assembly="Telerik.Sitefinity.Frontend.Events"
-                            sf-template-url="Mvc/Views/Event/sf-filter-selector.html"
+                            sf-template-url="client-components/sf-filter-selector.html"
                             class="sf-filter-selector"
                         ></sf-filter-selector>
                     </div>

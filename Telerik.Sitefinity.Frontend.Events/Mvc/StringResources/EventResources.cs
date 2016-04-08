@@ -594,6 +594,51 @@ namespace Telerik.Sitefinity.Frontend.Events.Mvc.StringResources
             }
         }
 
+        /// <summary>
+        /// Gets phrase : current events
+        /// </summary>
+        [ResourceEntry("CurrentEvents",
+            Value = "current events",
+            Description = "phrase : current events",
+            LastModified = "2016/04/07")]
+        public string CurrentEvents
+        {
+            get
+            {
+                return this["CurrentEvents"];
+            }
+        }
+
+        /// <summary>
+        /// Gets phrase : past events...
+        /// </summary>
+        [ResourceEntry("PastEvents",
+            Value = "past events...",
+            Description = "phrase : past events...",
+            LastModified = "2016/04/07")]
+        public string PastEvents
+        {
+            get
+            {
+                return this["PastEvents"];
+            }
+        }
+
+        /// <summary>
+        /// Gets phrase : upcoming events...
+        /// </summary>
+        [ResourceEntry("UpcomingEvents",
+            Value = "upcoming events...",
+            Description = "phrase : upcoming events...",
+            LastModified = "2016/04/07")]
+        public string UpcomingEvents
+        {
+            get
+            {
+                return this["UpcomingEvents"];
+            }
+        }
+
         #endregion
     }
 }
