@@ -12,3 +12,4 @@ using Telerik.Sitefinity.Frontend.Mvc.Infrastructure.Controllers.Attributes;
 [assembly: Guid("e45ceed6-4586-4130-abeb-024347901792")]
 
 [assembly: ControllerContainer]
+[assembly: InternalsVisibleTo("FeatherWidgets.TestIntegration")]

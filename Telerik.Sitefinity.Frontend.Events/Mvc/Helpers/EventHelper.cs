@@ -15,6 +15,8 @@ namespace Telerik.Sitefinity.Frontend.Events.Mvc.Helpers
     /// </summary>
     public static class EventHelper
     {
+        #region Public methods
+
         /// <summary>
         /// The calendar color depending on the event calendar.
         /// </summary>
@@ -57,7 +59,7 @@ namespace Telerik.Sitefinity.Frontend.Events.Mvc.Helpers
             }
 
             var timeTag = new TagBuilder("span");
-            timeTag.SetInnerText(SetEventDatesFormat(ev));
+            timeTag.SetInnerText(BuildEventDates(ev));
             result.InnerHtml += timeTag.ToString(TagRenderMode.Normal);
 
             var cityTag = new TagBuilder("span");
@@ -112,9 +114,32 @@ namespace Telerik.Sitefinity.Frontend.Events.Mvc.Helpers
             return url as string;
         }
 
-        #region Period
+        #endregion
 
-        private static string SetEventDatesFormat(Event ev)
+        #region Internal methods
+
+        internal static string BuildRecurrency(IRecurrenceDescriptor recurrenceDescriptor)
+        {
+            string result = null;
+
+            switch (recurrenceDescriptor.Frequency)
+            {
+                case RecurrenceFrequency.Daily: result = BuildFromDaily(recurrenceDescriptor);
+                    break;
+                case RecurrenceFrequency.Weekly: result = BuildFromWeekly(recurrenceDescriptor);
+                    break;
+                case RecurrenceFrequency.Monthly: result = BuildFromMonthly(recurrenceDescriptor);
+                    break;
+                case RecurrenceFrequency.Yearly: result = BuildFromYearly(recurrenceDescriptor);
+                    break;
+                default:
+                    break;
+            }
+
+            return result;
+        }
+
+        internal static string BuildEventDates(Event ev)
         {
             const string DateTimeFormat = "MMM dd, yyyy";
             const string Dash = " - ";
@@ -162,26 +187,30 @@ namespace Telerik.Sitefinity.Frontend.Events.Mvc.Helpers
                     {
                         if (ev.EventStart.Month == ev.EventEnd.Value.Month)
                         {
-                            result = ev.EventStart.ToLocal().ToString("dd") + Dash + GetEventEndLocal(ev, DateTimeFormat);
+                            result = ev.EventStart.ToSitefinityUITime().ToString("dd") + Dash + GetEventEndLocal(ev, DateTimeFormat);
                         }
                         else
                         {
-                            result = ev.EventStart.ToLocal().ToString("MMM dd") + Dash + GetEventEndLocal(ev, DateTimeFormat);
+                            result = ev.EventStart.ToSitefinityUITime().ToString("MMM dd") + Dash + GetEventEndLocal(ev, DateTimeFormat);
                         }
                     }
                     else
                     {
-                        result = ev.EventStart.ToLocal().ToString(DateTimeFormat) + Dash + GetEventEndLocal(ev, DateTimeFormat);
+                        result = ev.EventStart.ToSitefinityUITime().ToString(DateTimeFormat) + Dash + GetEventEndLocal(ev, DateTimeFormat);
                     }
                 }
                 else
                 {
-                    result = ev.EventStart.ToLocal().ToString(DateTimeFormat);
+                    result = ev.EventStart.ToSitefinityUITime().ToString(DateTimeFormat);
                 }
             }
 
             return result;
         }
+
+        #endregion
+
+        #region Private methods
 
         private static string GetAllDayEventEndString(Event ev, string format)
         {
@@ -194,40 +223,15 @@ namespace Telerik.Sitefinity.Frontend.Events.Mvc.Helpers
         private static string GetEventEndLocal(Event ev, string format)
         {
             if (ev.EventEnd.HasValue)
-                return ev.EventEnd.Value.ToLocal().ToString(format);
+                return ev.EventEnd.Value.ToSitefinityUITime().ToString(format);
 
             return string.Empty;
         }
-
-        #endregion
-
-        #region Recurrence
 
         private static IRecurrenceDescriptor GetRecurrenceDescriptor(string recurrenceExpression)
         {
             var descriptor = ICalRecurrenceSerializerDeserializeMethodInfo.Value.Invoke(ICalRecurrenceSerializerInstance.Value, new object[] { recurrenceExpression });
             return descriptor as IRecurrenceDescriptor;
-        }
-
-        private static string BuildRecurrency(IRecurrenceDescriptor recurrenceDescriptor)
-        {
-            string result = null;
-
-            switch (recurrenceDescriptor.Frequency)
-            {
-                case RecurrenceFrequency.Daily: result = BuildFromDaily(recurrenceDescriptor);
-                    break;
-                case RecurrenceFrequency.Weekly: result = BuildFromWeekly(recurrenceDescriptor);
-                    break;
-                case RecurrenceFrequency.Monthly: result = BuildFromMonthly(recurrenceDescriptor);
-                    break;
-                case RecurrenceFrequency.Yearly: result = BuildFromYearly(recurrenceDescriptor);
-                    break;
-                default:
-                    break;
-            }
-
-            return result;
         }
 
         private static string BuildFromDaily(IRecurrenceDescriptor recurrenceDescriptor)
