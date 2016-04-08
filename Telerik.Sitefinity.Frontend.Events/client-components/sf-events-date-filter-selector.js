@@ -23,7 +23,7 @@
                             //event has already started
                             scope.sfQueryData.addChildToGroup(groupItem, null, 'AND', 'EventStart', 'System.DateTime', '<=', 'DateTime.UtcNow');
                             
-                            //eventend is after now
+                            //event end is after now
                             scope.sfQueryData.addChildToGroup(groupItem, null, 'AND', 'EventEnd', 'System.DateTime', '>=', 'DateTime.UtcNow');                            
                         };
 
@@ -38,6 +38,22 @@
                             }
                         };
 
+                        scope.upcomingChanged = function () {
+                            var upcomingQueryGroup = scope.sfQueryData.getItemByName('Upcoming');
+                            if (!upcomingQueryGroup)
+                                upcomingQueryGroup = scope.sfQueryData.addGroup('Upcoming', 'OR');
+
+                            scope.sfQueryData.addChildToGroup(upcomingQueryGroup, null, 'AND', 'EventStart', 'System.DateTime', '>=', 'DateTime.UtcNow');
+                        };
+
+                        scope.pastChanged = function (toggleArgs) {
+                                var pastQueryGroup = scope.sfQueryData.getItemByName('Past');
+                                if (!pastQueryGroup)
+                                    pastQueryGroup = scope.sfQueryData.addGroup('Past', 'OR');
+
+                                scope.sfQueryData.addChildToGroup(pastQueryGroup, null, 'AND', 'EventEnd', 'System.DateTime', '<=', 'DateTime.UtcNow');
+                        };
+
                         scope.toggleEventFilterSelection = function (filterName) {
                             // is currently selected
                             if (scope.isCurrentSelected) {
@@ -47,12 +63,12 @@
                                     scope.sfQueryData.removeGroup(groupToRemove);
                             }
 
-                                // is newly selected
+                            // is newly selected
                             else {
                                 addCurrentDateQueryItem(filterName);
                             }
 
-                            scope.isCurrentSelected == !scope.isCurrentSelected;
+                            scope.isCurrentSelected = !scope.isCurrentSelected;
                         };
 
 
