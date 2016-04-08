@@ -21,16 +21,6 @@
                 <div>@Html.EventDates(item)</div>
                 <div @Html.InlineEditingFieldAttributes("Content", "ShortText")>@Html.Raw(item.Fields.Content)</div>
                 <div>@Html.CommentsCount((string)navigateUrl, item.DataItem)</div>
-                
-                @if (ViewBag.AllowCalendarExport)
-                {
-                    <div>
-                        <span>@Html.Resource("AddTo")</span>
-                        <span><a href="@item.GenerateOutlookUrl()" target="_blank">@Html.Resource("OutlookEventExporterTitle")</a></span>
-                        <span><a href="@item.GenerateICalUrl()" target="_blank">@Html.Resource("ICalEventExporterTitle")</a></span>
-                        <span><a href="@item.GenerateGoogleUrl()" target="_blank">@Html.Resource("GoogleEventExporterTitle")</a></span>
-                    </div>
-                }
             </li>
         }
     </ul>
