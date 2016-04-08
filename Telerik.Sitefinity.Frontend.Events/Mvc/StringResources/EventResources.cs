@@ -82,6 +82,21 @@ namespace Telerik.Sitefinity.Frontend.Events.Mvc.StringResources
         }
 
         /// <summary>
+        /// Gets word : "Add to:"
+        /// </summary>
+        [ResourceEntry("AddTo",
+            Value = "Add to:",
+            Description = "word: Add to:",
+            LastModified = "2016/04/08")]
+        public string AddTo
+        {
+            get
+            {
+                return this["AddTo"];
+            }
+        }
+        
+        /// <summary>
         /// The title for the outlook export widget.
         /// </summary>
         /// <value>Outlook</value>

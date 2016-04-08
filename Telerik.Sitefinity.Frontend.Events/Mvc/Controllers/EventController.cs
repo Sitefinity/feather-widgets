@@ -162,6 +162,8 @@ namespace Telerik.Sitefinity.Frontend.Events.Mvc.Controllers
 
             var viewModel = this.Model.CreateDetailsViewModel(item);
 
+            this.ViewBag.AllowCalendarExport = this.Model.AllowCalendarExport;
+
             if (SystemManager.CurrentHttpContext != null)
                 this.AddCacheDependencies(this.Model.GetKeysOfDependentObjects(viewModel));
 
@@ -198,6 +200,7 @@ namespace Telerik.Sitefinity.Frontend.Events.Mvc.Controllers
             this.ViewBag.CurrentPageUrl = SystemManager.CurrentHttpContext != null ? this.GetCurrentPageUrl() : string.Empty;
             this.ViewBag.RedirectPageUrlTemplate = this.ViewBag.CurrentPageUrl + redirectPageUrl;
             this.ViewBag.ItemsPerPage = this.Model.ItemsPerPage;
+            this.ViewBag.AllowCalendarExport = this.Model.AllowCalendarExport;
             this.ViewBag.OpenInSamePage = this.OpenInSamePage;
             this.ViewBag.DetailsPageId = this.DetailsPageId;
         }

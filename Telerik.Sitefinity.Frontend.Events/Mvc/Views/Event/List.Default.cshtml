@@ -21,14 +21,14 @@
                 <div>@Html.EventDates(item)</div>
                 <div @Html.InlineEditingFieldAttributes("Content", "ShortText")>@Html.Raw(item.Fields.Content)</div>
                 <div>@Html.CommentsCount((string)navigateUrl, item.DataItem)</div>
-
-                @*Widget setting for "Allow users to add events to their calendar" ?*@
-                @if (true)
+                
+                @if (ViewBag.AllowCalendarExport)
                 {
                     <div>
-                        <a href="@item.GenerateOutlookUrl()" target="_blank">@Html.Resource("OutlookEventExporterTitle")</a>
-                        <a href="@item.GenerateICalUrl()" target="_blank">@Html.Resource("ICalEventExporterTitle")</a>
-                        <a href="@item.GenerateGoogleUrl()" target="_blank">@Html.Resource("GoogleEventExporterTitle")</a>
+                        <span>@Html.Resource("AddTo")</span>
+                        <span><a href="@item.GenerateOutlookUrl()" target="_blank">@Html.Resource("OutlookEventExporterTitle")</a></span>
+                        <span><a href="@item.GenerateICalUrl()" target="_blank">@Html.Resource("ICalEventExporterTitle")</a></span>
+                        <span><a href="@item.GenerateGoogleUrl()" target="_blank">@Html.Resource("GoogleEventExporterTitle")</a></span>
                     </div>
                 }
             </li>

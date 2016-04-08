@@ -83,6 +83,14 @@ namespace Telerik.Sitefinity.Frontend.Events.Mvc.Models
         string DetailCssClass { get; set; }
 
         /// <summary>
+        /// Gets or sets a value indicating whether the widget allows calendar export.
+        /// </summary>
+        /// <value>
+        ///   <c>true</c> if [allow calendar export]; otherwise, <c>false</c>.
+        /// </value>
+        bool AllowCalendarExport { get; set; }
+
+        /// <summary>
         /// Creates a view model for use in list views.
         /// </summary>
         /// <param name="page">The page.</param>

@@ -37,6 +37,18 @@ namespace Telerik.Sitefinity.Frontend.Events.Mvc.Models
         public override string SortExpression { get; set; }
 
         /// <summary>
+        /// Gets or sets a value indicating whether the widget allows calendar export.
+        /// </summary>
+        /// <value>
+        ///   <c>true</c> if [allow calendar export]; otherwise, <c>false</c>.
+        /// </value>
+        public bool AllowCalendarExport
+        {
+            get { return this.allowCalendarExport; }
+            set { this.allowCalendarExport = value; }
+        }
+
+        /// <summary>
         /// Creates a view model for use in list views.
         /// </summary>
         /// <param name="page">The page.</param>
@@ -65,5 +77,7 @@ namespace Telerik.Sitefinity.Frontend.Events.Mvc.Models
             var manager = (EventsManager)this.GetManager();
             return manager.GetEvents();
         }
+
+        private bool allowCalendarExport = true;
     }
 }
