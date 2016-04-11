@@ -71,13 +71,19 @@ namespace FeatherWidgets.TestIntegration.Events
 
             for (int i = 1; i <= EventWidgetListSettingsTests.EventsCount; i++)
             {
+                if (i <= 2)
+                {
+                    Assert.IsTrue(responseContent.Contains(EventWidgetListSettingsTests.BaseEventTitle + i), "The event with this title was not found!");
+                    Assert.IsFalse(responseContent2.Contains(EventWidgetListSettingsTests.BaseEventTitle + i), "The event with this title was found!");
+                }
+                else if (i > 2 && i <= 4)
                 {
                     Assert.IsFalse(responseContent.Contains(EventWidgetListSettingsTests.BaseEventTitle + i), "The event with this title was found!");
                     Assert.IsTrue(responseContent2.Contains(EventWidgetListSettingsTests.BaseEventTitle + i), "The event with this title was not found!");
                 }
                 else
                 {
-                    Assert.IsTrue(responseContent.Contains(EventWidgetListSettingsTests.BaseEventTitle + i), "The event with this title was not found!");
+                    Assert.IsFalse(responseContent.Contains(EventWidgetListSettingsTests.BaseEventTitle + i), "The event with this title was found!");
                     Assert.IsFalse(responseContent2.Contains(EventWidgetListSettingsTests.BaseEventTitle + i), "The event with this title was found!");
                 }
             }
@@ -113,6 +119,7 @@ namespace FeatherWidgets.TestIntegration.Events
 
             for (int i = 1; i <= EventWidgetListSettingsTests.EventsCount; i++)
             {
+                if (i > 2)
                 {
                     Assert.IsFalse(responseContent.Contains(EventWidgetListSettingsTests.BaseEventTitle + i), "The event with this title was found!");
                 }
