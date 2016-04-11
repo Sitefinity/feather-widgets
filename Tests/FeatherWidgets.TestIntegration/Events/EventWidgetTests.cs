@@ -24,10 +24,5 @@ namespace FeatherWidgets.TestIntegration.Events
         public void EventWidget_DisplayAllPublishedEvents()
         {
         }
-
-        public void EventWidget_DisplaysCurrentEvents()
-        {
-            // ServerOperations.Events().CreateAllDayEvent("")
-        }
     }
 }

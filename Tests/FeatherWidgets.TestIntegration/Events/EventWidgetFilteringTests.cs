@@ -1,5 +1,12 @@
-﻿using MbUnit.Framework;
+﻿using System.Reflection;
+using MbUnit.Framework;
+using Telerik.Sitefinity.Frontend.Events.Mvc.Controllers;
 using Telerik.Sitefinity.Frontend.TestUtilities;
+using Telerik.Sitefinity.Mvc.Proxy;
+using Telerik.Sitefinity.TestIntegration.Data.Content;
+using Telerik.Sitefinity.TestIntegration.Helpers;
+using Telerik.Sitefinity.TestUtilities.CommonOperations;
+using Telerik.Sitefinity.Web;
 
 namespace FeatherWidgets.TestIntegration.Events
 {
@@ -14,7 +21,38 @@ namespace FeatherWidgets.TestIntegration.Events
         [Author(FeatherTeams.FeatherTeam)]
         [Description("Verifies that events widget is filtering events by tags.")]
         public void EventWidget_AllEvents_FilterByTags()
-        {           
+        {
+            var methodName = MethodInfo.GetCurrentMethod().Name;
+            ServerOperations.Events().CreateEvent(methodName + "_nottagged");
+            var eventId = ServerOperations.Events().CreateEvent(methodName + "_tagged");
+            var tagId = ServerOperations.Taxonomies().CreateTag(methodName, methodName);
+            ServerOperations.Events().AssignTaxonToEventItem(eventId, "Tags", tagId);
+
+            try
+            {
+                var mvcProxy = new MvcControllerProxy();
+                mvcProxy.ControllerName = typeof(EventController).FullName;
+                var eventController = new EventController();
+
+                // TODO: Set correct filter
+                eventController.Model.SelectionMode = Telerik.Sitefinity.Frontend.Mvc.Models.SelectionMode.FilteredItems;
+
+                mvcProxy.Settings = new ControllerSettings(eventController);
+
+                using (var generator = new PageContentGenerator())
+                {
+                    generator.CreatePageWithWidget(mvcProxy, null, methodName, methodName, methodName, 0);
+                    var pageContent = WebRequestHelper.GetPageWebContent(RouteHelper.GetAbsoluteUrl("~/" + methodName + "0"));
+
+                    Assert.Contains(pageContent, methodName + "_tagged", System.StringComparison.Ordinal);
+                    Assert.DoesNotContain(pageContent, methodName + "_nottagged", System.StringComparison.Ordinal);
+                }
+            }
+            finally
+            {
+                ServerOperations.Events().DeleteAllEvents();
+                ServerOperations.Taxonomies().DeleteTags(methodName);
+            }
         }
 
         [Test]
