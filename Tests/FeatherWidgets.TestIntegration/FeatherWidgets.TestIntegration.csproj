@@ -272,9 +272,11 @@
     <Compile Include="DynamicWidgets\DynamicWidgetsRoutingTests.cs" />
     <Compile Include="DynamicWidgets\DynamicWidgetsToolboxTests.cs" />
     <Compile Include="DynamicWidgets\OldDynamicWidgetsWithFeatherTests.cs" />
+    <Compile Include="Events\EventWidgetListSettingsTests.cs" />
     <Compile Include="Events\EventWidgetFilteringTests.cs" />
     <Compile Include="Events\EventDatesFormatTests.cs" />
     <Compile Include="Events\EventWidgetTests.cs" />
+    <Compile Include="Events\EventWidgetDetailSettingsTests.cs" />
     <Compile Include="Forms\BackendConfiguratorTests.cs" />
     <Compile Include="Forms\Fields\CheckboxesFieldTests.cs" />
     <Compile Include="Forms\Fields\PageBreakTests.cs" />
