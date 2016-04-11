@@ -276,6 +276,7 @@
     <Compile Include="Events\EventWidgetFilteringTests.cs" />
     <Compile Include="Events\EventDatesFormatTests.cs" />
     <Compile Include="Events\EventWidgetTests.cs" />
+    <Compile Include="Events\EventWidgetDetailTests.cs" />
     <Compile Include="Forms\BackendConfiguratorTests.cs" />
     <Compile Include="Forms\Fields\CheckboxesFieldTests.cs" />
     <Compile Include="Forms\Fields\PageBreakTests.cs" />
