@@ -8,7 +8,7 @@ namespace FeatherWidgets.TestIntegration.Events
     /// </summary>
     [TestFixture]
     [Description("This is class contains test for event widget details functionality.")]
-    public class EventWidgetDetailTests
+    public class EventWidgetDetailSettingsTests
     {
         /// <summary>
         /// Event widget - test whether single item view is displayed in the same page.
