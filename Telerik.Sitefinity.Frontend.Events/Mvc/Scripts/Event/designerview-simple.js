@@ -23,6 +23,16 @@
             }
         }, true);
 
+        $scope.$watch(
+            'additionalFilters.value',
+            function (newAdditionalFilters, oldAdditionalFilters) {
+                if (newAdditionalFilters !== oldAdditionalFilters) {
+                    $scope.properties.SerializedAdditionalFilters.PropertyValue = JSON.stringify(newAdditionalFilters);
+                }
+            },
+            true
+        );
+
         propertyService.get()
             .then(function (data) {
                 if (data) {
