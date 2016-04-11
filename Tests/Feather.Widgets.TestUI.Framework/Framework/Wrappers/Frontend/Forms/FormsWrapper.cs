@@ -347,7 +347,7 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Frontend.Forms
             var section = ActiveBrowser.Find.ByExpression<HtmlControl>("name=" + controllerType)
             .AssertIsPresent("Controller ");
             var attr = section.Attributes.FirstOrDefault(a => a.Name == "required");
-            Assert.AreEqual("required", attr.Value.ToLower(), "Required field ");
+            Assert.IsTrue(attr.Value.ToLower().Contains("required"), "Required field ");
         }
 
         /// <summary>
