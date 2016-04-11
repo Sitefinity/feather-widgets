@@ -7,11 +7,11 @@
 <div class="@Model.CssClass" @Html.InlineEditingAttributes(Model.ProviderName, Model.ContentType.FullName, (Guid)Model.Item.Fields.Id)>
     <h3>
         <span @Html.InlineEditingFieldAttributes("Title", "ShortText")>@Model.Item.Fields.Title</span>
-        @Html.EventCalendarColour(Model.Item)
+        <span data-calendar-color="@Model.Item.EventCalendarColour()"></span>
     </h3>
 
     <div>
-        <p>@Html.EventDates(Model.Item)</p>
+        <p>@Model.Item.EventDates()</p>
     </div>
 
     @if (!string.IsNullOrEmpty(Model.Item.Fields.City) && !string.IsNullOrEmpty(Model.Item.Fields.Country))

@@ -18,62 +18,66 @@ namespace Telerik.Sitefinity.Frontend.Events.Mvc.Helpers
         #region Public methods
 
         /// <summary>
-        /// The calendar color depending on the event calendar.
+        /// The calendar color in hex format depending on the event calendar.
         /// </summary>
-        /// <param name="helper">The helper.</param>
         /// <param name="item">The item.</param>
-        /// <returns>Span with data attribute for the color of the calendar.</returns>
-        public static MvcHtmlString EventCalendarColour(this HtmlHelper helper, ItemViewModel item)
+        /// <returns>The calendar color in hex format depending on the event calendar.</returns>
+        public static string EventCalendarColour(this ItemViewModel item)
         {
             var ev = item.DataItem as Event;
-            if (ev == null)
-                return MvcHtmlString.Empty;
+            if (ev == null || ev.Parent == null)
+                return string.Empty;
 
-            var result = new TagBuilder("span");
-            result.Attributes.Add("data-calendar-color", ev.Parent.Color);
-
-            return MvcHtmlString.Create(result.ToString(TagRenderMode.Normal));
+            return ev.Parent.Color;
         }
 
         /// <summary>
-        /// The event dates depending on the type, ocurrance and recurrance of the event.
+        /// The event dates text.
         /// </summary>
-        /// <param name="helper">The helper.</param>
         /// <param name="item">The item.</param>
-        /// <returns>Span with the dates.</returns>
-        public static MvcHtmlString EventDates(this HtmlHelper helper, ItemViewModel item)
+        /// <returns>The event dates text.</returns>
+        public static string EventDates(this ItemViewModel item)
         {
             var ev = item.DataItem as Event;
             if (ev == null)
-                return MvcHtmlString.Empty;
+                return string.Empty;
 
-            var result = new TagBuilder("span");
+            return BuildEventDates(ev);
+        }
 
-            if (ev.IsRecurrent)
-            {
-                var descriptor = GetRecurrenceDescriptor(ev.RecurrenceExpression);
+        /// <summary>
+        /// The event full dates text.
+        /// </summary>
+        /// <param name="item">The item.</param>
+        /// <returns>The event full dates text.</returns>
+        public static string EventFullDates(this HtmlHelper helper, ItemViewModel item)
+        {
+            var ev = item.DataItem as Event;
+            if (ev == null)
+                return string.Empty;
 
-                var recurrenceTag = new TagBuilder("span");
-                recurrenceTag.SetInnerText(BuildRecurrency(descriptor));
-                result.InnerHtml += recurrenceTag.ToString(TagRenderMode.Normal);
-            }
+            return BuildFullEventDates(ev);
+        }
 
-            var timeTag = new TagBuilder("span");
-            timeTag.SetInnerText(BuildEventDates(ev));
-            result.InnerHtml += timeTag.ToString(TagRenderMode.Normal);
+        /// <summary>
+        /// The event next occurrence.
+        /// </summary>
+        /// <param name="item">The item.</param>
+        /// <returns>The event next occurrence text.</returns>
+        public static string EventNextOccurrence(this ItemViewModel item)
+        {
+            var ev = item.DataItem as Event;
+            if (ev == null)
+                return string.Empty;
 
-            var cityTag = new TagBuilder("span");
-            cityTag.SetInnerText(ev.City);
-            result.InnerHtml += cityTag.ToString(TagRenderMode.Normal);
-
-            return MvcHtmlString.Create(result.ToString(TagRenderMode.Normal));
+            return BuildNextOccurrence(ev);
         }
 
         /// <summary>
         /// Generates the google URL.
         /// </summary>
         /// <param name="item">The item.</param>
-        /// <returns></returns>
+        /// <returns>The google URL.</returns>
         public static string GenerateGoogleUrl(this ItemViewModel item)
         {
             var ev = item.DataItem as Event;
@@ -88,7 +92,7 @@ namespace Telerik.Sitefinity.Frontend.Events.Mvc.Helpers
         /// Generates the outlook URL.
         /// </summary>
         /// <param name="item">The item.</param>
-        /// <returns></returns>
+        /// <returns>The outlook URL.</returns>
         public static string GenerateOutlookUrl(this ItemViewModel item)
         {
             var ev = item.DataItem as Event;
@@ -100,10 +104,10 @@ namespace Telerik.Sitefinity.Frontend.Events.Mvc.Helpers
         }
 
         /// <summary>
-        /// Generates the i cal URL.
+        /// Generates the iCal URL.
         /// </summary>
         /// <param name="item">The item.</param>
-        /// <returns></returns>
+        /// <returns>The iCal URL.</returns>
         public static string GenerateICalUrl(this ItemViewModel item)
         {
             var ev = item.DataItem as Event;
@@ -114,32 +118,11 @@ namespace Telerik.Sitefinity.Frontend.Events.Mvc.Helpers
             return url as string;
         }
 
-        #endregion
+        #endregion       
 
-        #region Internal methods
+        #region EventDates
 
-        internal static string BuildRecurrency(IRecurrenceDescriptor recurrenceDescriptor)
-        {
-            string result = null;
-
-            switch (recurrenceDescriptor.Frequency)
-            {
-                case RecurrenceFrequency.Daily: result = BuildFromDaily(recurrenceDescriptor);
-                    break;
-                case RecurrenceFrequency.Weekly: result = BuildFromWeekly(recurrenceDescriptor);
-                    break;
-                case RecurrenceFrequency.Monthly: result = BuildFromMonthly(recurrenceDescriptor);
-                    break;
-                case RecurrenceFrequency.Yearly: result = BuildFromYearly(recurrenceDescriptor);
-                    break;
-                default:
-                    break;
-            }
-
-            return result;
-        }
-
-        internal static string BuildEventDates(Event ev)
+        private static string BuildEventDates(Event ev)
         {
             const string DateTimeFormat = "MMM dd, yyyy";
             const string Dash = " - ";
@@ -208,10 +191,6 @@ namespace Telerik.Sitefinity.Frontend.Events.Mvc.Helpers
             return result;
         }
 
-        #endregion
-
-        #region Private methods
-
         private static string GetAllDayEventEndString(Event ev, string format)
         {
             if (ev.AllDayEventEnd.HasValue)
@@ -226,6 +205,38 @@ namespace Telerik.Sitefinity.Frontend.Events.Mvc.Helpers
                 return ev.EventEnd.Value.ToSitefinityUITime().ToString(format);
 
             return string.Empty;
+        }
+        
+        private static string BuildFullEventDates(Event ev)
+        {
+            return string.Empty;
+        }
+
+        #endregion
+
+        #region Occurrence
+
+        private static string BuildNextOccurrence(Event ev)
+        {
+            var descriptor = GetRecurrenceDescriptor(ev.RecurrenceExpression);
+
+            string result = null;
+
+            switch (descriptor.Frequency)
+            {
+                case RecurrenceFrequency.Daily: result = BuildFromDaily(descriptor);
+                    break;
+                case RecurrenceFrequency.Weekly: result = BuildFromWeekly(descriptor);
+                    break;
+                case RecurrenceFrequency.Monthly: result = BuildFromMonthly(descriptor);
+                    break;
+                case RecurrenceFrequency.Yearly: result = BuildFromYearly(descriptor);
+                    break;
+                default:
+                    break;
+            }
+
+            return result;
         }
 
         private static IRecurrenceDescriptor GetRecurrenceDescriptor(string recurrenceExpression)
