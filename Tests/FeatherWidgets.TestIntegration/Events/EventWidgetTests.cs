@@ -1,12 +1,5 @@
 ﻿using MbUnit.Framework;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Telerik.Sitefinity.Frontend.TestUtilities;
-using Telerik.Sitefinity.Modules.Events;
-using Telerik.Sitefinity.TestUtilities.CommonOperations;
 
 namespace FeatherWidgets.TestIntegration.Events
 {
