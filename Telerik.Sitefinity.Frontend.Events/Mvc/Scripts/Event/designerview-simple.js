@@ -40,7 +40,7 @@
                 }
             },
         true
-        );		
+        );
   
 
         $scope.additionalFilters = {};
@@ -54,13 +54,27 @@
             true
         );
 
+        $scope.narrowFilters = {};
+        $scope.$watch(
+            'narrowFilters.value',
+            function (newNarrowFilters, oldNarrowFilters) {
+                if (newNarrowFilters !== oldNarrowFilters) {
+                    $scope.properties.SerializedNarrowSelectionFilters.PropertyValue = JSON.stringify(newNarrowFilters);
+                }
+            },
+            true
+        );
+
         propertyService.get()
             .then(function (data) {
                 if (data) {
                     $scope.properties = propertyService.toAssociativeArray(data.Items);
 
-                    var additionalFilters = $.parseJSON($scope.properties.SerializedAdditionalFilters.PropertyValue || null);		
+                    var additionalFilters = $.parseJSON($scope.properties.SerializedAdditionalFilters.PropertyValue || null);
                     $scope.additionalFilters.value = additionalFilters;
+
+                    var narrowFilters = $.parseJSON($scope.properties.SerializedNarrowSelectionFilters.PropertyValue || null);
+                    $scope.narrowFilters.value = narrowFilters;
 
                     var selectedItemsIds = $.parseJSON($scope.properties.SerializedSelectedItemsIds.PropertyValue || null);
                     if (selectedItemsIds) {
@@ -71,7 +85,7 @@
                         $scope.selectedSortOption = $scope.properties.SortExpression.PropertyValue;
                     }
                     else {
-                        $scope.selectedSortOption = "Custom";
+                        $scope.selectedSortOption = 'Custom';
                     }
                 }
             },
@@ -100,6 +114,7 @@
                     }
                     else {
                         $scope.properties.SerializedAdditionalFilters.PropertyValue = null;
+                        $scope.properties.SerializedNarrowSelectionFilters.PropertyValue = null;
                     }
 
                 });

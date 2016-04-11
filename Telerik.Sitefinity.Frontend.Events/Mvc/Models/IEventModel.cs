@@ -67,6 +67,14 @@ namespace Telerik.Sitefinity.Frontend.Events.Mvc.Models
         string SerializedAdditionalFilters { get; set; }
 
         /// <summary>
+        /// Gets or sets the serialized narrow selection filters. Contains information about taxonomies and calendar filters as serialized QueryData.
+        /// </summary>
+        /// <value>
+        /// The serialized narrow selection filters.
+        /// </value>
+        string SerializedNarrowSelectionFilters { get; set; }
+
+        /// <summary>
         /// Gets or sets which events to be displayed in the list view.
         /// </summary>
         /// <value>The page display mode.</value>
