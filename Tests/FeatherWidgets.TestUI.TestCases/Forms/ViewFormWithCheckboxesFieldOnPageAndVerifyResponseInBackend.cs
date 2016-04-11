@@ -17,7 +17,7 @@ namespace FeatherWidgets.TestUI.TestCases.Forms
         /// UI test ViewFormWithCheckboxesFieldOnPageAndVerifyResponseInBackend
         /// </summary>
         [TestMethod,
-        Owner(FeatherTeams.FeatherTeam),
+        Owner(FeatherTeams.SitefinityTeam6),
         TestCategory(FeatherTestCategories.Bootstrap),
         TestCategory(FeatherTestCategories.Forms)]
         public void ViewFormWithCheckboxesFieldOnPageAndVerifyResponseInBackend()

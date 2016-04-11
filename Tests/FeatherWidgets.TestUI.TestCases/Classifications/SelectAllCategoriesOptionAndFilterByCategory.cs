@@ -15,7 +15,7 @@ namespace FeatherWidgets.TestUI.TestCases.Classifications
         /// UI test verifying all categories option with css class applied in hybrid page
         /// </summary>
         [TestMethod,
-        Owner(FeatherTeams.FeatherTeam),
+        Owner(FeatherTeams.SitefinityTeam2),
         TestCategory(FeatherTestCategories.PagesAndContent),
         TestCategory(FeatherTestCategories.Classifications)]
         public void SelectAllCategoriesOptionAndFilterByCategory()

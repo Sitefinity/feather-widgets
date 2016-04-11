@@ -15,7 +15,7 @@ namespace FeatherWidgets.TestUI.TestCases.ImageGallery
         /// UI test FilterImagesWithCategoryTagAndDateOnPage
         /// </summary>
         [TestMethod,
-        Owner(FeatherTeams.FeatherTeam),
+        Owner(FeatherTeams.SitefinityTeam1),
         TestCategory(FeatherTestCategories.PagesAndContent),
         TestCategory(FeatherTestCategories.ImageGallery)]
         public void FilterImagesWithCategoryTagAndDateOnPage()

@@ -15,7 +15,7 @@ namespace FeatherWidgets.TestUI.TestCases.ImageGallery
         /// UI test SelectImagesFromSelectedLibraryInSelectedPage
         /// </summary>
         [TestMethod,
-        Owner(FeatherTeams.FeatherTeam),
+        Owner(FeatherTeams.SitefinityTeam1),
         TestCategory(FeatherTestCategories.PagesAndContent),
         TestCategory(FeatherTestCategories.ImageGallery)]
         public void SelectImagesFromSelectedLibraryInSelectedPage()

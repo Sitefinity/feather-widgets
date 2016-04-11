@@ -16,7 +16,7 @@ namespace FeatherWidgets.TestUI.TestCases.Classifications
         /// UI test verifying selected tags option with CloudList template in bootstrap
         /// </summary>
         [TestMethod,
-        Owner(FeatherTeams.FeatherTeam),
+        Owner(FeatherTeams.SitefinityTeam2),
         TestCategory(FeatherTestCategories.PagesAndContent),
         TestCategory(FeatherTestCategories.Classifications)]
         public void SelectedTagsOptionAndCloudListTemplate()

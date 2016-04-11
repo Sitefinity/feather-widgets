@@ -15,7 +15,7 @@ namespace FeatherWidgets.TestUI.TestCases.Forms
         /// UI test ViewFormWithTextboxFieldOnPageAndVerifyResponseInBackend
         /// </summary>
         [TestMethod,
-        Owner(FeatherTeams.FeatherTeam),
+        Owner(FeatherTeams.SitefinityTeam6),
         TestCategory(FeatherTestCategories.Bootstrap),
         TestCategory(FeatherTestCategories.Forms), Telerik.TestUI.Core.Attributes.KnownIssue(), Ignore]
         public void PostFormMultipleTimesWhilePageLoadingAndVerifyOnlyOneResponseInBackend()

@@ -16,7 +16,7 @@ namespace FeatherWidgets.TestUI.TestCases.SocialShare
         /// UI test CheckAllOptionsInSocialShareWidget
         /// </summary>
         [TestMethod,
-        Owner(FeatherTeams.FeatherTeam),
+        Owner(FeatherTeams.SitefinityTeam7),
         TestCategory(FeatherTestCategories.PagesAndContent),
         TestCategory(FeatherTestCategories.SocialShare)]
         public void CheckAllOptionsInSocialShareWidget()

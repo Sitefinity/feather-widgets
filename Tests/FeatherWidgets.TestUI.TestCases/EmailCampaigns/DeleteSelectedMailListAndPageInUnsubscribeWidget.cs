@@ -18,7 +18,7 @@ namespace FeatherWidgets.TestUI.TestCases.EmailCampaigns
         /// UI test DeleteSelectedMailListAndPageInUnsubscribeWidget
         /// </summary>
         [TestMethod,
-        Owner(FeatherTeams.FeatherTeam),
+        Owner(FeatherTeams.SitefinityTeam2),
         TestCategory(FeatherTestCategories.PagesAndContent),
         TestCategory(FeatherTestCategories.EmailCampaigns),
         TestCategory(FeatherTestCategories.Bootstrap)]

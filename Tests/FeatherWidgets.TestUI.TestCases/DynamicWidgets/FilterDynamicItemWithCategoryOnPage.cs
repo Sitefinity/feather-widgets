@@ -17,7 +17,7 @@ namespace FeatherWidgets.TestUI.TestCases.DynamicWidgets
         /// UI test FilterDynamicItemWithCategoryOnPage
         /// </summary>
         [TestMethod,
-        Owner(FeatherTeams.FeatherTeam),
+        Owner(FeatherTeams.SitefinityTeam6),
         TestCategory(FeatherTestCategories.DynamicWidgets)]
         public void FilterDynamicItemWithCategoryOnPage()
         {

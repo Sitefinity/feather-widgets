@@ -19,7 +19,7 @@ namespace FeatherWidgets.TestUI.TestCases.Identity
         /// UI test VerifySelectedRolesInUsersListOnBootstrapPage
         /// </summary>
         [TestMethod,
-        Owner(FeatherTeams.FeatherTeam),
+        Owner(FeatherTeams.SitefinityTeam1),
         TestCategory(FeatherTestCategories.PagesAndContent),
         TestCategory(FeatherTestCategories.UsersList),
         TestCategory(FeatherTestCategories.Selectors),

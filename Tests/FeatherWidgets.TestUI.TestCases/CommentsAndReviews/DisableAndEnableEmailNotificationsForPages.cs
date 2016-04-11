@@ -18,7 +18,7 @@ namespace FeatherWidgets.TestUI.TestCases.CommentsAndReviews
         /// UI test DisableAndEnableEmailNotificationsForPages
         /// </summary>
         [TestMethod,
-        Owner(FeatherTeams.FeatherTeam),
+        Owner(FeatherTeams.SitefinityTeam2),
         TestCategory(FeatherTestCategories.PagesAndContent),
         TestCategory(FeatherTestCategories.CommentsAndReviews),
         TestCategory(FeatherTestCategories.Bootstrap)]

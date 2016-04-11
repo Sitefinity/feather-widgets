@@ -29,7 +29,7 @@ namespace FeatherWidgets.TestIntegration.Forms.Fields
         /// </summary>
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Maintainability", "CA1506:AvoidExcessiveClassCoupling"), Test]
         [Category(TestCategories.Forms)]
-        [Author(FeatherTeams.FeatherTeam)]
+        [Author(FeatherTeams.SitefinityTeam6)]
         [Description("Ensures that when a text field widget is added to form the default value is presented in the page markup.")]
         public void TextField_EditDefaultValue_MarkupIsCorrect()
         {
@@ -67,7 +67,7 @@ namespace FeatherWidgets.TestIntegration.Forms.Fields
         /// </summary>
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Globalization", "CA1305:SpecifyIFormatProvider", MessageId = "System.String.Format(System.String,System.Object,System.Object)"), Test]
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Maintainability", "CA1506:AvoidExcessiveClassCoupling"), Category(TestCategories.Forms)]
-        [Author(FeatherTeams.FeatherTeam)]
+        [Author(FeatherTeams.SitefinityTeam6)]
         [Description("Ensures that when a text field widget is submitted with certain value then the response is correct.")]
         public void TextField_SubmitValue_ResponseIsCorrect()
         {
@@ -113,7 +113,7 @@ namespace FeatherWidgets.TestIntegration.Forms.Fields
         /// </summary>
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Maintainability", "CA1506:AvoidExcessiveClassCoupling"), System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Globalization", "CA1305:SpecifyIFormatProvider", MessageId = "System.String.Format(System.String,System.Object,System.Object)"), Test]
         [Category(TestCategories.Forms)]
-        [Author(FeatherTeams.FeatherTeam)]
+        [Author(FeatherTeams.SitefinityTeam6)]
         [Description("Ensures that when a text field widget with URL type is submitted with incorrect value then the validation fails.")]
         public void TextFieldUrl_SubmitIncorrectValue_ServerValidationFails()
         {
@@ -159,7 +159,7 @@ namespace FeatherWidgets.TestIntegration.Forms.Fields
         /// </summary>
         [Test]
         [Category(TestCategories.Forms)]
-        [Author(FeatherTeams.FeatherTeam)]
+        [Author(FeatherTeams.SitefinityTeam6)]
         [Description("Ensures that when a text field widget is added to form the input type is presented in the page markup.")]
         public void TextField_EditInputType_MarkupIsCorrect()
         {

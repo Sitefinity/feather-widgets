@@ -20,7 +20,7 @@ namespace FeatherWidgets.TestUI.TestCases.DynamicWidgets
         /// UI test InvalidateCacheWhenAddNewItem
         /// </summary>
         [TestMethod,
-        Owner(FeatherTeams.FeatherTeam),
+        Owner(FeatherTeams.SitefinityTeam6),
         TestCategory(FeatherTestCategories.DynamicWidgets)]
         public void InvalidateCacheWhenAddNewItem()
         {

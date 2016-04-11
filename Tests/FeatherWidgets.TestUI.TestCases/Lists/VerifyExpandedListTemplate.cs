@@ -18,7 +18,7 @@ namespace FeatherWidgets.TestUI.TestCases.Lists
         /// UI test verifying Expanded list template, sort A-Z, filter by tag
         /// </summary>
         [TestMethod,
-        Owner(FeatherTeams.FeatherTeam),
+        Owner(FeatherTeams.SitefinityTeam7),
         TestCategory(FeatherTestCategories.PagesAndContent),
         TestCategory(FeatherTestCategories.Lists),
         TestCategory(FeatherTestCategories.Selectors)]

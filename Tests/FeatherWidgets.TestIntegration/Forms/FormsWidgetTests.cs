@@ -31,7 +31,7 @@ namespace FeatherWidgets.TestIntegration.Forms
         /// </summary>
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Globalization", "CA1303:Do not pass literals as localized parameters", MessageId = "FeatherWidgets.TestIntegration.Forms.FormsWidgetTests.AddGridControlToPage(System.Guid,System.String,System.String,System.String)"), Test]
         [Category(TestCategories.Forms)]
-        [Author(FeatherTeams.FeatherTeam)]
+        [Author(FeatherTeams.SitefinityTeam6)]
         [Description("Same grid widget on a form placed on different packages yelds different output.")]
         public void FormsWidget_WithGridWidget_AdaptsToPackage()
         {
@@ -76,7 +76,7 @@ namespace FeatherWidgets.TestIntegration.Forms
         /// </summary>
         [Test]
         [Category(TestCategories.Forms)]
-        [Author(FeatherTeams.FeatherTeam)]
+        [Author(FeatherTeams.SitefinityTeam6)]
         [Description("Ensures that the form markup is updated when a new widget is added to it.")]
         public void FormsWidget_AddWidgetToFormDescription_FormIsUpdated()
         {
@@ -117,7 +117,7 @@ namespace FeatherWidgets.TestIntegration.Forms
         [Test]
         [Ignore("Depends on Sitefinity 9.0")]
         [Category(TestCategories.Forms)]
-        [Author(FeatherTeams.FeatherTeam)]
+        [Author(FeatherTeams.SitefinityTeam6)]
         [Description("Ensures that when a form is submited with a forums widget on the same page, on custom hybrid layout, no exception is thrown.")]
         public void FormsWidget_SubmitFormWithForumWidgetOnPageBasedOnCustomHybridPage_NoExceptionIsThrown()
         {

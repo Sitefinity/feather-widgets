@@ -18,7 +18,7 @@ namespace FeatherWidgets.TestUI.TestCases.FeedWidget
         /// UI test DragAndDropFeedWidgetAndSetDefaultRssOnPage
         /// </summary>
         [TestMethod,
-        Owner(FeatherTeams.FeatherTeam),
+        Owner(FeatherTeams.SitefinityTeam4),
         TestCategory(FeatherTestCategories.Bootstrap),
         TestCategory(FeatherTestCategories.PagesAndContent),
         TestCategory(FeatherTestCategories.Feed)]

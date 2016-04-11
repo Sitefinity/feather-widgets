@@ -22,7 +22,7 @@ namespace FeatherWidgets.TestUI.TestCases.DynamicWidgets
         /// UI test CheckSelectorsAfterSelectUnselectAndUNPublishingDynamicItem.
         /// </summary>
         [TestMethod,
-        Owner(FeatherTeams.FeatherTeam),
+        Owner(FeatherTeams.SitefinityTeam6),
         TestCategory(FeatherTestCategories.DynamicWidgets)]
         public void CheckSelectorsAfterSelectUnselectAndUNPublishingDynamicItem()
         {
