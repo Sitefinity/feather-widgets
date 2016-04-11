@@ -6,8 +6,7 @@
         var sortOptions = ['PublicationDate DESC', 'LastModified DESC', 'Title ASC', 'Title DESC', 'EventStart ASC', 'EventStart DESC', 'AsSetManually'];
 
         $scope.eventSelector = {
-            selectedItemsIds: [],
-            narrowSelectionMode: 'All'
+            selectedItemsIds: []
         };
 
         $scope.feedback.showLoadingIndicator = true;

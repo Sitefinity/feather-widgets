@@ -16,6 +16,12 @@ namespace Telerik.Sitefinity.Frontend.Events.Mvc.Models
     /// </summary>
     public class EventModel : ContentModelBase, IEventModel
     {
+        /// <summary>
+        /// Gets or sets the type of the content.
+        /// </summary>
+        /// <value>
+        /// The type of the content.
+        /// </value>
         public override Type ContentType
         {
             get
@@ -35,6 +41,14 @@ namespace Telerik.Sitefinity.Frontend.Events.Mvc.Models
         /// The sort expression.
         /// </value>
         public override string SortExpression { get; set; }
+
+        /// <summary>
+        /// Gets or sets the selected mode for Narrow selection. That is the filtering by taxonomies and calendars.
+        /// </summary>
+        /// <value>
+        /// The narrow selection mode.
+        /// </value>
+        public virtual SelectionMode NarrowSelectionMode { get; set; }
 
         /// <summary>
         /// Gets or sets a value indicating whether the widget allows calendar export.

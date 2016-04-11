@@ -13,12 +13,20 @@
                 },
                 link: {
                     pre: function (scope, element, attrs, ctrl) {
+                        var getParentGroup = function () {
+                            var parentGroup = scope.sfQueryData.getItemByName('Dates');
+                            if (!parentGroup) {
+                                scope.sfQueryData.addGroup(scope.sfParentGroupName, 'AND');
+                                parentGroup = scope.sfQueryData.getItemByName('Dates');
+                            }
+
+                            return parentGroup;
+                        };
 
                         var addCurrentDateQueryItem = function (groupName) {
                             var groupItem = scope.sfQueryData.getItemByName(groupName);
-
                             if (!groupItem)
-                                groupItem = scope.sfQueryData.addGroup(groupName, 'OR');
+                                groupItem = scope.sfQueryData.addGroup(groupName, 'OR', getParentGroup());
 
                             //event has already started
                             scope.sfQueryData.addChildToGroup(groupItem, null, 'AND', 'EventStart', 'System.DateTime', '<=', 'DateTime.UtcNow');
@@ -41,7 +49,7 @@
                         scope.upcomingChanged = function () {
                             var upcomingQueryGroup = scope.sfQueryData.getItemByName('Upcoming');
                             if (!upcomingQueryGroup)
-                                upcomingQueryGroup = scope.sfQueryData.addGroup('Upcoming', 'OR');
+                                upcomingQueryGroup = scope.sfQueryData.addGroup('Upcoming', 'OR', getParentGroup());
 
                             scope.sfQueryData.addChildToGroup(upcomingQueryGroup, null, 'AND', 'EventStart', 'System.DateTime', '>=', 'DateTime.UtcNow');
                         };
@@ -49,7 +57,7 @@
                         scope.pastChanged = function (toggleArgs) {
                                 var pastQueryGroup = scope.sfQueryData.getItemByName('Past');
                                 if (!pastQueryGroup)
-                                    pastQueryGroup = scope.sfQueryData.addGroup('Past', 'OR');
+                                    pastQueryGroup = scope.sfQueryData.addGroup('Past', 'OR', getParentGroup());
 
                                 scope.sfQueryData.addChildToGroup(pastQueryGroup, null, 'AND', 'EventEnd', 'System.DateTime', '<=', 'DateTime.UtcNow');
                         };

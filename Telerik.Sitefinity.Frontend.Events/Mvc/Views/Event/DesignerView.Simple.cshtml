@@ -62,17 +62,17 @@
             <div class="form-group">
                 <div class="radio">
                     <label class="full-width">
-                        <input type="radio" ng-model="eventSelector.narrowSelectionMode" value="All" />
+                        <input type="radio" ng-model="properties.NarrowSelectionMode.PropertyValue" value="AllItems" />
                         @Html.Resource("AllPublishedEvents")
                     </label>
                 </div>
 
                 <div class="radio">
                     <label class="full-width">
-                        <input type="radio" ng-model="eventSelector.narrowSelectionMode" value="Filtered" />
+                        <input type="radio" ng-model="properties.NarrowSelectionMode.PropertyValue" value="FilteredItems" />
                         @Html.Resource("FilteredEventsBy")
                     </label>
-                    <div class="label-content" ng-show="eventSelector.narrowSelectionMode=='Filtered'">
+                    <div class="label-content" ng-show="properties.NarrowSelectionMode.PropertyValue=='FilteredItems'">
                         <sf-filter-selector sf-query-data="additionalFilters.value"
                             sf-taxonomy-fields="@CustomFieldsHelpers.GetTaxonomyFields(typeof(Telerik.Sitefinity.Events.Model.Event))"
                             sf-provider="properties.ProviderName.PropertyValue"
