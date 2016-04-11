@@ -14,8 +14,7 @@ namespace FeatherWidgets.TestIntegration.Events
         [Author(FeatherTeams.FeatherTeam)]
         [Description("Verifies that events widget is filtering events by tags.")]
         public void EventWidget_AllEvents_FilterByTags()
-        {
-            
+        {           
         }
 
         [Test]
@@ -23,8 +22,7 @@ namespace FeatherWidgets.TestIntegration.Events
         [Author(FeatherTeams.FeatherTeam)]
         [Description("Verifies that event widget is filtering events by categories.")]
         public void EventWidget_AllEvents_FilterByCategories()
-        {
-            
+        {            
         }
 
         [Test]
@@ -33,7 +31,6 @@ namespace FeatherWidgets.TestIntegration.Events
         [Description("Verifies that event widget is filtering events by calendar.")]
         public void EventWidget_AllEvents_FilterByCalendar()
         {
-
         }
 
         [Test]
@@ -42,7 +39,6 @@ namespace FeatherWidgets.TestIntegration.Events
         [Description("Verifies that event widget is displaying only past events.")]
         public void EventWidget_FilterByDate_DisplayPastOnly()
         {
-
         }
 
         [Test]
@@ -51,7 +47,6 @@ namespace FeatherWidgets.TestIntegration.Events
         [Description("Verifies that event widget is displaying only current events.")]
         public void EventWidget_FilterByDate_DisplayCurrentOnly()
         {
-
         }
 
         [Test]
@@ -60,7 +55,6 @@ namespace FeatherWidgets.TestIntegration.Events
         [Description("Verifies that event widget is displaying only upcoming events.")]
         public void EventWidget_FilterByDate_DisplayUpcomingOnly()
         {
-
         }
     }
 }

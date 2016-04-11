@@ -1,13 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using FeatherWidgets.TestUtilities.CommonOperations;
+﻿using FeatherWidgets.TestUtilities.CommonOperations;
 using MbUnit.Framework;
-using Telerik.Sitefinity.Frontend.TestUtilities;
-using Telerik.Sitefinity.Web;
-using Telerik.Sitefinity.Mvc.Proxy;
 using Telerik.Sitefinity.Frontend.Events.Mvc.Controllers;
+using Telerik.Sitefinity.Frontend.TestUtilities;
+using Telerik.Sitefinity.Mvc.Proxy;
+using Telerik.Sitefinity.Web;
 
 namespace FeatherWidgets.TestIntegration.Events
 {
@@ -26,7 +22,7 @@ namespace FeatherWidgets.TestIntegration.Events
         {
             this.pageOperations = new PagesOperations();
 
-            for (int i = 1; i <= EventWidgetListSettingsTests.eventsCount; i++)
+            for (int i = 1; i <= EventWidgetListSettingsTests.EventsCount; i++)
                 Telerik.Sitefinity.TestUtilities.CommonOperations.ServerOperations.Events().CreateEvent(EventWidgetListSettingsTests.BaseEventTitle);
         }
 
@@ -71,7 +67,7 @@ namespace FeatherWidgets.TestIntegration.Events
             string responseContent = PageInvoker.ExecuteWebRequest(url);
             string responseContent2 = PageInvoker.ExecuteWebRequest(url2);
 
-            for (int i = 1; i <= EventWidgetListSettingsTests.eventsCount; i++)
+            for (int i = 1; i <= EventWidgetListSettingsTests.EventsCount; i++)
             {
                 if (i <= 2)
                 {
@@ -114,7 +110,7 @@ namespace FeatherWidgets.TestIntegration.Events
 
             string responseContent = PageInvoker.ExecuteWebRequest(url);
 
-            for (int i = 1; i <= EventWidgetListSettingsTests.eventsCount; i++)
+            for (int i = 1; i <= EventWidgetListSettingsTests.EventsCount; i++)
             {
                 if (i <= 2)
                 {
@@ -155,7 +151,7 @@ namespace FeatherWidgets.TestIntegration.Events
 
             string responseContent = PageInvoker.ExecuteWebRequest(url);
 
-            for (int i = 1; i <= EventWidgetListSettingsTests.eventsCount; i++)
+            for (int i = 1; i <= EventWidgetListSettingsTests.EventsCount; i++)
             {
                 Assert.IsTrue(responseContent.Contains(EventWidgetListSettingsTests.BaseEventTitle + i), "The event with this title was not found!");
             }
@@ -170,11 +166,10 @@ namespace FeatherWidgets.TestIntegration.Events
         [Description("Add Event widget to a page and display sorted events.")]
         public void EventWidget_ItemsAreSorted()
         {
-
         }
 
         private PagesOperations pageOperations;
-        private const int eventsCount = 5;
+        private const int EventsCount = 5;
         private const string BaseEventTitle = "TestEvent";
     }
 }

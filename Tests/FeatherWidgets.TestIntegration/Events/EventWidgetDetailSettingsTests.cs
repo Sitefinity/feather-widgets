@@ -18,8 +18,7 @@ namespace FeatherWidgets.TestIntegration.Events
         [Author(FeatherTeams.FeatherTeam)]
         [Description("Verifies that open single item in the same page functionality resolves the correct page.")]
         public void EventWidget_VerifyOpenSingleItemInSamePage()
-        {
-            
+        {           
         }
 
         /// <summary>
@@ -30,8 +29,7 @@ namespace FeatherWidgets.TestIntegration.Events
         [Author(FeatherTeams.FeatherTeam)]
         [Description("Verifies that open single item in the existing page functionality resolves the correct page.")]
         public void EventWidget_VerifyOpenSingleItemInCustomPage()
-        {
-            
+        {           
         }
 
         /// <summary>
@@ -42,8 +40,7 @@ namespace FeatherWidgets.TestIntegration.Events
         [Author(FeatherTeams.FeatherTeam)]
         [Description("Verifies that selected templates is used in Details mode.")]
         public void EventWidget_SelectDetailTemplate()
-        {
-            
+        {            
         }
 
         /// <summary>
@@ -55,7 +52,6 @@ namespace FeatherWidgets.TestIntegration.Events
         [Description("Verifies that links for exporting events are available when export is enabled.")]
         public void EventWidget_AllowCalendarExport()
         {
-
         }
     }
 }
