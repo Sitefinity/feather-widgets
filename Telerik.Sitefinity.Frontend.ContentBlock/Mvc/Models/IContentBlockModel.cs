@@ -67,5 +67,13 @@ namespace Telerik.Sitefinity.Frontend.ContentBlock.Mvc.Models
         /// The <see cref="object"/>.
         /// </returns>
         object CreateBlankDataItem();
+
+        /// <summary>
+        /// Gets or sets the CSS class that will be applied on the wrapper tag of the widget view.
+        /// </summary>
+        /// <value>
+        /// The CSS class.
+        /// </value>
+        string WrapperCssClass { get; set; }
     }
 }

@@ -86,10 +86,10 @@ namespace Telerik.Sitefinity.Frontend.ContentBlock.Mvc.Controllers
         }
 
         /// <summary>
-        /// Gets the widget CSS class.
+        /// Gets the widget CSS class that will be used in the page toolbox.
         /// </summary>
         /// <value>
-        /// The widget CSS class.
+        /// The widget CSS class that will be used in the page toolbox.
         /// </value>
         [Browsable(false)]
         public string WidgetCssClass
@@ -191,6 +191,25 @@ namespace Telerik.Sitefinity.Frontend.ContentBlock.Mvc.Controllers
         ///   <c>true</c> if social sharing buttons should be displayed; otherwise, <c>false</c>.
         /// </value>
         public bool EnableSocialSharing { get; set; }
+
+        /// <summary>
+        /// Gets or sets the CSS class that will be applied on the wrapper tag of the widget view.
+        /// </summary>
+        /// <value>
+        /// The CSS class.
+        /// </value>
+        public string WrapperCssClass
+        {
+            get
+            {
+                return this.Model.WrapperCssClass;
+            }
+
+            set
+            {
+                this.Model.WrapperCssClass = value;
+            }
+        }
 
         /// <summary>
         /// Gets the model.
