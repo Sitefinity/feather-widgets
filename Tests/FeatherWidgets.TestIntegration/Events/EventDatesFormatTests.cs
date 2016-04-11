@@ -26,7 +26,7 @@ namespace FeatherWidgets.TestIntegration.Events
             const string ExpectedResult = "November 2, 2015 at 8 PM";
             var start = new DateTime(2015, 11, 2, 20, 0, 0);
             var ev = new Event() { EventStart = start };
-            var result = EventHelper.BuildEventDates(ev);
+            //var result = EventHelper.BuildEventDates(ev);
             Assert.AreEqual(ExpectedResult, result);
         }
 
