@@ -1,4 +1,5 @@
-﻿using FeatherWidgets.TestUtilities.CommonOperations;
+﻿using System.Linq;
+using FeatherWidgets.TestUtilities.CommonOperations;
 using MbUnit.Framework;
 using Telerik.Sitefinity.Frontend.Events.Mvc.Controllers;
 using Telerik.Sitefinity.Frontend.TestUtilities;
@@ -15,21 +16,21 @@ namespace FeatherWidgets.TestIntegration.Events
     public class EventWidgetListSettingsTests
     {
         /// <summary>
-        /// Fixture setup.
+        /// The setup.
         /// </summary>
-        [FixtureSetUp]
+        [SetUp]
         public void Setup()
         {
             this.pageOperations = new PagesOperations();
 
             for (int i = 1; i <= EventWidgetListSettingsTests.EventsCount; i++)
-                Telerik.Sitefinity.TestUtilities.CommonOperations.ServerOperations.Events().CreateEvent(EventWidgetListSettingsTests.BaseEventTitle);
+                Telerik.Sitefinity.TestUtilities.CommonOperations.ServerOperations.Events().CreateEvent(EventWidgetListSettingsTests.BaseEventTitle + i);
         }
 
         /// <summary>
-        /// Fixture tear down.
+        /// The tear down.
         /// </summary>
-        [FixtureTearDown]
+        [TearDown]
         public void FixtureTearDown()
         {
             Telerik.Sitefinity.TestUtilities.CommonOperations.ServerOperations.Pages().DeleteAllPages();
@@ -37,13 +38,13 @@ namespace FeatherWidgets.TestIntegration.Events
         }
 
         /// <summary>
-        /// Add Event widget to a page and display events in paging - two item per page
+        /// Add Event widget to a page and display events in paging - two items per page
         /// </summary>
         [Test]
         [Category(TestCategories.Events)]
         [Author(FeatherTeams.FeatherTeam)]
-        [Description("Add Event widget to a page and display events in paging - two item per page")]
-        public void EventWidget_UsePaging_TwoItemPerPage()
+        [Description("Add Event widget to a page and display events in paging - two items per page")]
+        public void EventWidget_UsePaging_TwoItemsPerPage()
         {
             string testName = System.Reflection.MethodInfo.GetCurrentMethod().Name;
             string pageNamePrefix = testName + "EventPage";
@@ -59,6 +60,7 @@ namespace FeatherWidgets.TestIntegration.Events
             mvcProxy.ControllerName = typeof(EventController).FullName;
             var eventController = new EventController();
             eventController.Model.ItemsPerPage = itemsPerPage;
+            eventController.Model.SortExpression = "Title";
             eventController.Model.DisplayMode = Telerik.Sitefinity.Frontend.Mvc.Models.ListDisplayMode.Paging;
             mvcProxy.Settings = new Telerik.Sitefinity.Mvc.Proxy.ControllerSettings(eventController);
 
@@ -69,7 +71,6 @@ namespace FeatherWidgets.TestIntegration.Events
 
             for (int i = 1; i <= EventWidgetListSettingsTests.EventsCount; i++)
             {
-                if (i <= 2)
                 {
                     Assert.IsFalse(responseContent.Contains(EventWidgetListSettingsTests.BaseEventTitle + i), "The event with this title was found!");
                     Assert.IsTrue(responseContent2.Contains(EventWidgetListSettingsTests.BaseEventTitle + i), "The event with this title was not found!");
@@ -89,7 +90,7 @@ namespace FeatherWidgets.TestIntegration.Events
         [Category(TestCategories.Events)]
         [Author(FeatherTeams.FeatherTeam)]
         [Description("Add Event widget to a page and display limited events.")]
-        public void EventWidget_UseLimit_TwoItem()
+        public void EventWidget_UseLimit_TwoItems()
         {
             string testName = System.Reflection.MethodInfo.GetCurrentMethod().Name;
             string pageNamePrefix = testName + "EventPage";
@@ -112,7 +113,6 @@ namespace FeatherWidgets.TestIntegration.Events
 
             for (int i = 1; i <= EventWidgetListSettingsTests.EventsCount; i++)
             {
-                if (i <= 2)
                 {
                     Assert.IsFalse(responseContent.Contains(EventWidgetListSettingsTests.BaseEventTitle + i), "The event with this title was found!");
                 }
@@ -166,6 +166,16 @@ namespace FeatherWidgets.TestIntegration.Events
         [Description("Add Event widget to a page and display sorted events.")]
         public void EventWidget_ItemsAreSorted()
         {
+            var eventController = new EventController();
+            eventController.Model.SortExpression = "Title DESC";
+            eventController.Model.DisplayMode = Telerik.Sitefinity.Frontend.Mvc.Models.ListDisplayMode.All;
+
+            var items = eventController.Model.CreateListViewModel(1).Items.ToArray();
+
+            for (int i = 1; i <= EventWidgetListSettingsTests.EventsCount; i++)
+            {
+                Assert.AreEqual(EventWidgetListSettingsTests.BaseEventTitle + i, (string)items[EventWidgetListSettingsTests.EventsCount - i].Fields.Title, "The event with this title was not found!");
+            }
         }
 
         private PagesOperations pageOperations;
