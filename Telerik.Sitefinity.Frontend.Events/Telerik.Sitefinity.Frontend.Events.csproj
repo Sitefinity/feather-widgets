@@ -178,7 +178,9 @@
     <EmbeddedResource Include="Mvc\Views\Event\DesignerView.Simple.cshtml" />
     <EmbeddedResource Include="Mvc\Views\Event\DesignerView.Simple.json" />
     <EmbeddedResource Include="Mvc\Views\Event\Detail.Default.cshtml" />
-    <None Include="packages.config" />
+    <None Include="packages.config">
+      <SubType>Designer</SubType>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Mvc\Scripts\Event\designerview-simple.js" />

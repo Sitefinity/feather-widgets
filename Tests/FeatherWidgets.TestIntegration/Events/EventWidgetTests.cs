@@ -31,19 +31,5 @@ namespace FeatherWidgets.TestIntegration.Events
         public void EventWidget_DisplayAllPublishedEvents()
         {
         }
-
-        public void EventWidget_DisplaysCurrentEvents()
-        {
-            // ServerOperations.Events().CreateAllDayEvent("")
-        }
-
-        private class AllKindsOfEventsSetup : IDisposable
-        {
-            public void Dispose()
-            {
-                throw new NotImplementedException();
-            }
-        }
-
     }
 }
