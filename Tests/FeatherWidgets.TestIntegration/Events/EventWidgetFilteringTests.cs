@@ -7,6 +7,8 @@ using Telerik.Sitefinity.TestIntegration.Data.Content;
 using Telerik.Sitefinity.TestIntegration.Helpers;
 using Telerik.Sitefinity.TestUtilities.CommonOperations;
 using Telerik.Sitefinity.Web;
+using Telerik.Sitefinity.Web.Model;
+using ServiceStack.Text;
 
 namespace FeatherWidgets.TestIntegration.Events
 {
@@ -34,8 +36,34 @@ namespace FeatherWidgets.TestIntegration.Events
                 mvcProxy.ControllerName = typeof(EventController).FullName;
                 var eventController = new EventController();
 
-                // TODO: Set correct filter
-                eventController.Model.SelectionMode = Telerik.Sitefinity.Frontend.Mvc.Models.SelectionMode.FilteredItems;
+                eventController.Model.NarrowSelectionMode = Telerik.Sitefinity.Frontend.Mvc.Models.SelectionMode.FilteredItems;
+
+                var queryData = new QueryData();
+                queryData.QueryItems = new QueryItem[2] {
+                    new QueryItem()
+                    {
+                        IsGroup = true,
+                        Join = "AND",
+                        ItemPath = "_0",
+                        Name = "Tags"
+                    },
+                    new QueryItem()
+                    {
+                        IsGroup = false,
+                        Join = "OR",
+                        ItemPath = "_0_0",
+                        Value = tagId.ToString("D"),
+                        Condition = new Condition()
+                        {
+                            FieldName = "Tags",
+                            FieldType = "System.Guid",
+                            Operator = "Contains"
+                        },
+                        Name = methodName
+                    }
+                };
+
+                eventController.Model.SerializedNarrowSelectionFilters = JsonSerializer.SerializeToString(queryData, typeof(QueryData));
 
                 mvcProxy.Settings = new ControllerSettings(eventController);
 
