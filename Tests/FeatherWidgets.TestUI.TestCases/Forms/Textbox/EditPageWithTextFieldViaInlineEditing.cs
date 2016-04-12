@@ -29,6 +29,7 @@ namespace FeatherWidgets.TestUI.TestCases.Forms.Textbox
             BAT.Macros().NavigateTo().CustomPage("~/" + PageName.ToLower(), true, this.Culture);
             BAT.Wrappers().Frontend().InlineEditing().InlineEditingWrapper().OpenPageForEdit();
             BAT.Wrappers().Frontend().InlineEditing().InlineEditingWrapper().VerifyEditIsOn(PageName);
+            BATFeather.Wrappers().Frontend().ContentBlock().ContentBlockWrapper().WaitForContentBlockForEdit();
             BATFeather.Wrappers().Frontend().ContentBlock().ContentBlockWrapper().EditContentBlock();
             BAT.Wrappers().Frontend().InlineEditing().InlineEditingWrapper().PublishPage();
             BAT.Wrappers().Frontend().InlineEditing().InlineEditingWrapper().VerifyEditIsOff();

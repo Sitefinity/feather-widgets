@@ -160,5 +160,36 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Frontend
                 anchor.Find.ByExpression<HtmlImage>("src=" + src).AssertIsPresent(src + " was not present.");
             }
         }
+
+        /// <summary>
+        /// Waits for content block for edit.
+        /// </summary>
+        public void WaitForContentBlockForEdit()
+        {
+            Manager.Current.Wait.For(() => this.CheckFieldIsPresent(), 480000);
+        }
+
+        /// <summary>
+        /// Checks the field is present.
+        /// </summary>
+        /// <returns></returns>
+        private bool CheckFieldIsPresent()
+        {
+            ActiveBrowser.WaitUntilReady();
+            ActiveBrowser.RefreshDomTree();
+
+            Manager.Current.ActiveBrowser.RefreshDomTree();
+
+            HtmlDiv cb = ActiveBrowser.Find.ByCustom<HtmlDiv>(x => x.CssClass.Contains("sfFieldEditable"));
+
+            bool result = false;
+
+            if (cb != null)
+            {
+                result = true;
+            }
+
+            return result;
+        }
     }
 }

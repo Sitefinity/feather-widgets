@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using ArtOfTest.WebAii.Core;
 using Feather.Widgets.TestUI.Framework;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
@@ -25,6 +26,9 @@ namespace FeatherWidgets.TestUI.TestCases.Forms.SectionHeader
         {
             BAT.Macros().NavigateTo().Modules().Forms(this.Culture);
             BAT.Wrappers().Backend().Forms().FormsDashboard().OpenFormFromTheGrid(FormName);
+            ActiveBrowser.WaitUntilReady();
+            ActiveBrowser.WaitForAsyncOperations();
+            ActiveBrowser.RefreshDomTree();
             BATFeather.Wrappers().Backend().Pages().PageZoneEditorWrapper().EditWidget(SectionHeaderController);
             BATFeather.Wrappers().Backend().Forms().FormsContentScreenWrapper().SelectReadTemplate(TemplateNameFile);
             BATFeather.Wrappers().Backend().ContentBlocks().ContentBlocksWrapper().SaveChanges();
@@ -42,6 +46,9 @@ namespace FeatherWidgets.TestUI.TestCases.Forms.SectionHeader
             BATFeather.Wrappers().Backend().WidgetTemplates().WidgetTemplatesCreateScreenFrameWrapper().CreateThisTemplate();
             BAT.Macros().NavigateTo().Modules().Forms(this.Culture);
             BAT.Wrappers().Backend().Forms().FormsDashboard().OpenFormFromTheGrid(FormName);
+            ActiveBrowser.WaitUntilReady();
+            ActiveBrowser.WaitForAsyncOperations();
+            ActiveBrowser.RefreshDomTree();
             BATFeather.Wrappers().Backend().Pages().PageZoneEditorWrapper().EditWidget(SectionHeaderController);
             BATFeather.Wrappers().Backend().Forms().FormsContentScreenWrapper().SelectReadTemplate(TemplateNameNew);
             BATFeather.Wrappers().Backend().ContentBlocks().ContentBlocksWrapper().SaveChanges();
