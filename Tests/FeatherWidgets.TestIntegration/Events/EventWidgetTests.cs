@@ -1,13 +1,12 @@
 ﻿using System;
 using System.Linq;
-using FeatherWidgets.TestUtilities.CommonOperations;
 using MbUnit.Framework;
 using Telerik.Sitefinity.Frontend.Events.Mvc.Controllers;
 using Telerik.Sitefinity.Frontend.Mvc.Models;
 using Telerik.Sitefinity.Frontend.TestUtilities;
 using Telerik.Sitefinity.Modules.Events;
 using Telerik.Sitefinity.Mvc.Proxy;
-using Telerik.Sitefinity.Web;
+using Telerik.Sitefinity.TestUtilities.CommonOperations;
 
 namespace FeatherWidgets.TestIntegration.Events
 {
@@ -23,10 +22,14 @@ namespace FeatherWidgets.TestIntegration.Events
         [SetUp]
         public void Setup()
         {
-            this.pageOperations = new PagesOperations();
+            this.pageOperations = new FeatherWidgets.TestUtilities.CommonOperations.PagesOperations();
 
-            for (int i = 1; i <= EventWidgetTests.EventsCount; i++)
-                Telerik.Sitefinity.TestUtilities.CommonOperations.ServerOperations.Events().CreateEvent(EventWidgetTests.BaseEventTitle + i);
+            ServerOperations.Events().CreateEvent(EventWidgetTests.BaseEventTitle);
+            ServerOperations.Events().CreateEvent(EventWidgetTests.BasePastEventTitle, string.Empty, false, DateTime.Now.AddDays(-2), DateTime.Now.AddDays(-1));
+            ServerOperations.Events().CreateEvent(EventWidgetTests.BaseUpcomingEventTitle, string.Empty, false, DateTime.Now.AddDays(1), DateTime.Now.AddDays(2));
+            ServerOperations.Events().CreateEvent(EventWidgetTests.BaseAllDayEventTitle, string.Empty, true, DateTime.Now, DateTime.Now.AddHours(1));
+            ServerOperations.Events().CreateDailyRecurrentEvent(EventWidgetTests.BaseRepeatEventTitle, string.Empty, DateTime.Now, DateTime.Now.AddHours(1), 60, 5, 1, TimeZoneInfo.Local.StandardName);
+            ServerOperations.Events().CreateDraftEvent(EventWidgetTests.BaseDraftEventTitle, string.Empty, false, DateTime.Now, DateTime.Now.AddHours(1));
         }
 
         /// <summary>
@@ -45,7 +48,7 @@ namespace FeatherWidgets.TestIntegration.Events
         [Description("Add Event widget to a page and display selected events only.")]
         public void EventWidget_DisplaySelectedEventsOnly()
         {
-           var selectedEventTitle = EventWidgetTests.BaseEventTitle + 1;
+            var selectedEventTitle = EventWidgetTests.BaseEventTitle;
 
             var mvcProxy = new MvcControllerProxy();
             mvcProxy.ControllerName = typeof(EventController).FullName;
@@ -57,15 +60,15 @@ namespace FeatherWidgets.TestIntegration.Events
             eventController.Model.SerializedSelectedItemsIds = "[\"" + selectedEvent.Id.ToString() + "\"]";
 
             mvcProxy.Settings = new Telerik.Sitefinity.Mvc.Proxy.ControllerSettings(eventController);
-            
+
             string responseContent = this.pageOperations.AddWidgetToPageAndRequest(mvcProxy);
 
             Assert.IsTrue(responseContent.Contains(selectedEventTitle), "The event with this title was not found!");
-
-            for (var i = 2; i <= EventsCount; i++) 
-            {
-                Assert.IsFalse(responseContent.Contains(EventWidgetTests.BaseEventTitle + i), "The event with this title was not found!");
-            }
+            Assert.IsFalse(responseContent.Contains(EventWidgetTests.BaseAllDayEventTitle), "The event with this title was found!");
+            Assert.IsFalse(responseContent.Contains(EventWidgetTests.BaseDraftEventTitle), "The event with this title was found!");
+            Assert.IsFalse(responseContent.Contains(EventWidgetTests.BaseRepeatEventTitle), "The event with this title was found!");
+            Assert.IsFalse(responseContent.Contains(EventWidgetTests.BaseUpcomingEventTitle), "The event with this title was found!");
+            Assert.IsFalse(responseContent.Contains(EventWidgetTests.BasePastEventTitle), "The event with this title was found!");
         }
 
         [Test]
@@ -74,10 +77,28 @@ namespace FeatherWidgets.TestIntegration.Events
         [Description("Add Event widget to a page and create events(past, current, upcoming, all day, repeat) with published and draft posts in order to verify that ")]
         public void EventWidget_DisplayAllPublishedEvents()
         {
+            var mvcProxy = new MvcControllerProxy();
+            mvcProxy.ControllerName = typeof(EventController).FullName;
+            var eventController = new EventController();
+            eventController.Model.SelectionMode = SelectionMode.AllItems;
+            mvcProxy.Settings = new Telerik.Sitefinity.Mvc.Proxy.ControllerSettings(eventController);
+
+            string responseContent = this.pageOperations.AddWidgetToPageAndRequest(mvcProxy);
+
+            Assert.IsTrue(responseContent.Contains(EventWidgetTests.BaseEventTitle), "The event with this title was not found!");
+            Assert.IsTrue(responseContent.Contains(EventWidgetTests.BaseAllDayEventTitle), "Add day event with this title was not found!");
+            Assert.IsFalse(responseContent.Contains(EventWidgetTests.BaseDraftEventTitle), "Draft event with this title was found!");
+            Assert.IsTrue(responseContent.Contains(EventWidgetTests.BaseRepeatEventTitle), "Repeat event with this title was not found!");
+            Assert.IsTrue(responseContent.Contains(EventWidgetTests.BasePastEventTitle), "Past event with this title was not found!");
+            Assert.IsTrue(responseContent.Contains(EventWidgetTests.BaseUpcomingEventTitle), "Upcoming event with this title was not found!");
         }
 
-        private PagesOperations pageOperations;
-        private const int EventsCount = 3;
+        private FeatherWidgets.TestUtilities.CommonOperations.PagesOperations pageOperations;
         private const string BaseEventTitle = "TestEvent";
+        private const string BasePastEventTitle = "PastTestEvent";
+        private const string BaseUpcomingEventTitle = "UpcomingTestEvent";
+        private const string BaseDraftEventTitle = "DraftTestEvent";
+        private const string BaseAllDayEventTitle = "AllDayTestEvent";
+        private const string BaseRepeatEventTitle = "RepeatTestEvent";
     }
 }
