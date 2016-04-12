@@ -454,6 +454,50 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend
             return result;
         }
 
+        /// <summary>
+        /// Verifies the visible buttons in editor toolbar.
+        /// </summary>
+        /// <param name="title">The title.</param>
+        public void VerifyVisibleButtonsInEditorToolbar(string title)
+        {
+            var buttonVisibleInContainer = EM.GenericContent.ContentBlockWidget.ButtonsInToolbarEditor(title);
+            buttonVisibleInContainer.AssertIsPresent(title);
+            buttonVisibleInContainer.AssertAttribute().Value("title", ArtOfTest.Common.StringCompareType.Exact, title);
+        }
+
+        /// <summary>
+        /// Verifies the hidden buttons in editor toolbar.
+        /// </summary>
+        /// <param name="title">The title.</param>
+        public void VerifyHiddenButtonsInEditorToolbar(string title)
+        {
+            var buttonIsNotVisibleInContainer = EM.GenericContent.ContentBlockWidget.ButtonsInToolbarEditor(title);
+            buttonIsNotVisibleInContainer.AssertIsNotVisible(title);
+            buttonIsNotVisibleInContainer.AssertAttribute().Value("title", ArtOfTest.Common.StringCompareType.Exact, title);
+        }
+
+        /// <summary>
+        /// Verifies the hidden drop down in editor toolbar.
+        /// </summary>
+        /// <param name="title">The title.</param>
+        public void VerifyHiddenDropDownInEditorToolbar(string title)
+        {
+            var buttonHidden = EM.GenericContent.ContentBlockWidget.DropdownInToolbarEditor(title);
+            buttonHidden.AssertIsNotVisible(title);
+            buttonHidden.AssertAttribute().Value("title", ArtOfTest.Common.StringCompareType.Exact, title);
+        }
+
+        /// <summary>
+        /// Verifies the select menu in editor toolbar.
+        /// </summary>
+        /// <param name="title">The title.</param>
+        public void VerifyHiddenSelectMenuInEditorToolbar(string title)
+        {
+            var buttonHidden = EM.GenericContent.ContentBlockWidget.SelectMenuInToolbarEditor(title);
+            buttonHidden.AssertIsNotVisible(title);
+            buttonHidden.AssertAttribute().Value("title", ArtOfTest.Common.StringCompareType.Exact, title);
+        }
+
         private const int TimeOut = 60000;
     }
 }
