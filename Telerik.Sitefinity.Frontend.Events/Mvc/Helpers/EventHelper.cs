@@ -45,7 +45,18 @@ namespace Telerik.Sitefinity.Frontend.Events.Mvc.Helpers
             if (ev == null)
                 return string.Empty;
 
-            return BuildEventDates(ev);
+            var result = string.Empty;
+
+            if (ev.IsRecurrent && !string.IsNullOrEmpty(ev.RecurrenceExpression))
+                result = BuildRecurringEvent(ev);
+            else if (ev.EventEnd.HasValue)
+                result = BuildPeriodEvent(ev);
+            else
+                result = BuildNonPeriodEvent(ev);
+
+            result = RemoveTrailingZeros(result);
+
+            return result;
         }
 
         /// <summary>
@@ -58,24 +69,19 @@ namespace Telerik.Sitefinity.Frontend.Events.Mvc.Helpers
             var ev = item.DataItem as Event;
             if (ev == null)
                 return string.Empty;
+            
+            var result = string.Empty;
 
-            return BuildFullEventDates(ev);
+            if (ev.IsRecurrent && !string.IsNullOrEmpty(ev.RecurrenceExpression))
+                result = BuildNextOccurrence(ev);
+            else
+                result = BuildFullEventDates(ev);
+
+            result = RemoveTrailingZeros(result);
+
+            return result;
         }
-
-        /// <summary>
-        /// The event next occurrence.
-        /// </summary>
-        /// <param name="item">The item.</param>
-        /// <returns>The event next occurrence text.</returns>
-        public static string EventNextOccurrence(this ItemViewModel item)
-        {
-            var ev = item.DataItem as Event;
-            if (ev == null)
-                return string.Empty;
-
-            return BuildNextOccurrence(ev);
-        }
-
+        
         /// <summary>
         /// Generates the google URL.
         /// </summary>
@@ -124,33 +130,6 @@ namespace Telerik.Sitefinity.Frontend.Events.Mvc.Helpers
         #endregion       
 
         #region EventDates
-        
-        private static string BuildEventDates(Event ev)
-        {
-            var result = string.Empty;
-
-            if (ev.IsRecurrent && !string.IsNullOrEmpty(ev.RecurrenceExpression))
-                result = BuildRecurringEvent(ev);
-            else if (ev.EventEnd.HasValue)
-                result = BuildPeriodEvent(ev);
-            else
-                result = BuildNonPeriodEvent(ev);
-
-            // Removing trailing 0s -> November 02 at 08 PM => November 2 at 8 PM
-            result = Regex.Replace(result, @"([ -])0(\d+)", "$1$2");
-
-            return result;
-        }
-
-        private static string BuildFullEventDates(Event ev)
-        {
-            return string.Empty;
-        }
-
-        private static string BuildNextOccurrence(Event ev)
-        {
-            return string.Empty;
-        }
         
         private static string BuildNonPeriodEvent(Event ev)
         {
@@ -222,7 +201,17 @@ namespace Telerik.Sitefinity.Frontend.Events.Mvc.Helpers
             
             return result.ToString();
         }
-        
+
+        private static string BuildFullEventDates(Event ev)
+        {
+            return string.Empty;
+        }
+
+        private static string BuildNextOccurrence(Event ev)
+        {
+            return string.Empty;
+        }
+
         private static string GetEventPrefix(Event ev)
         {
             var result = string.Empty;
@@ -273,7 +262,13 @@ namespace Telerik.Sitefinity.Frontend.Events.Mvc.Helpers
                 result = date.ToString(DayFormat);
 
             return result;
-        }          
+        }
+
+        private static string RemoveTrailingZeros(string str)
+        {
+            // Removing trailing 0s -> November 02 at 08 PM => November 2 at 8 PM
+            return Regex.Replace(str, @"([ -])0(\d+)", "$1$2");
+        }
 
         #endregion
 
@@ -320,7 +315,7 @@ namespace Telerik.Sitefinity.Frontend.Events.Mvc.Helpers
             {
                 if (recurrenceDescriptor.Interval == 1)
                 {
-                    result = Res.Get<Labels>("Every") + " " + Res.Get<Labels>("Day").ToLower();
+                    result = Res.Get<Labels>("Every") + Res.Get<Labels>("Day").ToLower();
                 }
                 else
                 {

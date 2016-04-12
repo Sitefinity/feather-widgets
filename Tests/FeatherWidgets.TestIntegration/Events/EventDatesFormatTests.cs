@@ -235,6 +235,9 @@ namespace FeatherWidgets.TestIntegration.Events
         {
             const string ExpectedResult = "Everyday";
             const string RecurrenceExpression = "DTSTART;TZID=\"FLE Standard Time\":20160422T080000\r\nDTEND;TZID=\"FLE Standard Time\":20160422T120000\r\nRRULE:FREQ=DAILY;INTERVAL=1";
+
+            var start = DateTime.UtcNow.AddDays(-1);
+            this.TestDateFormat(ExpectedResult, start, null, RecurrenceExpression);
         }
 
         /// <summary>
@@ -248,6 +251,9 @@ namespace FeatherWidgets.TestIntegration.Events
         {
             const string ExpectedResult = "Every 2 days";
             const string RecurrenceExpression = "DTSTART;TZID=\"FLE Standard Time\":20160407T080000\r\nDTEND;TZID=\"FLE Standard Time\":20160407T120000\r\nRRULE:FREQ=DAILY;INTERVAL=2";
+
+            var start = DateTime.UtcNow.AddDays(-1);
+            this.TestDateFormat(ExpectedResult, start, null, RecurrenceExpression);
         }
 
         /// <summary>
@@ -261,6 +267,9 @@ namespace FeatherWidgets.TestIntegration.Events
         {
             const string ExpectedResult = "Every weekday";
             const string RecurrenceExpression = "DTSTART;TZID=\"FLE Standard Time\":20160407T080000\r\nDTEND;TZID=\"FLE Standard Time\":20160407T120000\r\nRRULE:FREQ=DAILY;BYDAY=MO,TU,WE,TH,FR";
+
+            var start = DateTime.UtcNow.AddDays(-1);
+            this.TestDateFormat(ExpectedResult, start, null, RecurrenceExpression);
         }
 
         /// <summary>
@@ -274,6 +283,9 @@ namespace FeatherWidgets.TestIntegration.Events
         {
             const string ExpectedResult = "Every week on Monday";
             const string RecurrenceExpression = "DTSTART;TZID=\"FLE Standard Time\":20160407T080000\r\nDTEND;TZID=\"FLE Standard Time\":20160407T120000\r\nRRULE:FREQ=WEEKLY;INTERVAL=1;BYDAY=MO";
+
+            var start = DateTime.UtcNow.AddDays(-1);
+            this.TestDateFormat(ExpectedResult, start, null, RecurrenceExpression);
         }
 
         /// <summary>
@@ -363,13 +375,12 @@ namespace FeatherWidgets.TestIntegration.Events
             const string ExpectedResult = "March 22 at 8 PM";
             const string RecurrenceExpression = "DTSTART;TZID=\"FLE Standard Time\":20160407T080000\r\nDTEND;TZID=\"FLE Standard Time\":20160407T120000\r\nRRULE:FREQ=WEEKLY;INTERVAL=1;BYDAY=MO";
             this.TestFullDateFormat(ExpectedResult, DateTime.UtcNow, DateTime.UtcNow);
-            this.TestNextOccurranceFormat(ExpectedResult, DateTime.UtcNow, DateTime.UtcNow, string.Empty);
         }
 
-        private void TestDateFormat(string expectedResult, DateTime start, DateTime? end = null)
+        private void TestDateFormat(string expectedResult, DateTime start, DateTime? end = null, string recurrenceExpression = null)
         {
             expectedResult = this.RemoveTrailingZeros(expectedResult);
-            var viewModel = this.BuildItemViewModel(start, end);
+            var viewModel = this.BuildItemViewModel(start, end, recurrenceExpression);
             var result = viewModel.EventDates();
             Assert.AreEqual(expectedResult, result);
         }
@@ -382,21 +393,14 @@ namespace FeatherWidgets.TestIntegration.Events
             Assert.AreEqual(expectedResult, result);
         }
 
-        private void TestNextOccurranceFormat(string expectedResult, DateTime start, DateTime end, string recurrenceExpression)
-        {
-            expectedResult = this.RemoveTrailingZeros(expectedResult);
-            var viewModel = this.BuildItemViewModel(start, end, recurrenceExpression);
-            var result = viewModel.EventNextOccurrence();
-            Assert.AreEqual(expectedResult, result);
-        }
-
         private ItemViewModel BuildItemViewModel(DateTime start, DateTime? end, string recurrenceExpression = null)
         {
             return new ItemViewModel(new Event()
             {
                 EventStart = start,
                 EventEnd = end,
-                RecurrenceExpression = recurrenceExpression 
+                RecurrenceExpression = recurrenceExpression,
+                IsRecurrent = !string.IsNullOrEmpty(recurrenceExpression)
             });
         }
 
