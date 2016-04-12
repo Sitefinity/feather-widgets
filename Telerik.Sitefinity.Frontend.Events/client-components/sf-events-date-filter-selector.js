@@ -13,10 +13,8 @@
                 },
                 link: {
                     pre: function (scope, element, attrs, ctrl) {
-
                         var addCurrentDateQueryItem = function (groupName) {
                             var groupItem = scope.sfQueryData.getItemByName(groupName);
-
                             if (!groupItem)
                                 groupItem = scope.sfQueryData.addGroup(groupName, 'OR');
 
