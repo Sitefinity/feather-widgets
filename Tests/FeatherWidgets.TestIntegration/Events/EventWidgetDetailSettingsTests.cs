@@ -89,9 +89,7 @@ namespace FeatherWidgets.TestIntegration.Events
             string pageNamePrefix = testName + "EventsPage";
             string pageTitlePrefix = testName + "Events Page";
             string urlNamePrefix = testName + "events-page";
-            int firstPageIndex = 1;
             int secondPageIndex = 2;
-            string firstPageUrl = UrlPath.ResolveAbsoluteUrl("~/" + urlNamePrefix + firstPageIndex);
             string secondPageUrl = UrlPath.ResolveAbsoluteUrl("~/" + urlNamePrefix + secondPageIndex);
 
             var secondPageMvcProxy = new MvcControllerProxy();
@@ -104,7 +102,6 @@ namespace FeatherWidgets.TestIntegration.Events
             eventController.OpenInSamePage = false;
             eventController.DetailsPageId = secondPageId;
             firstPageMvcProxy.Settings = new ControllerSettings(eventController);
-            this.pageOperations.CreatePageWithControl(firstPageMvcProxy, pageNamePrefix, pageTitlePrefix, urlNamePrefix, firstPageIndex);
 
             var items = eventController.Model.CreateListViewModel(1).Items.ToArray();
             Assert.AreEqual(EventWidgetDetailSettingsTests.EventsCount, items.Length, "The count of the events is not as expected");
@@ -112,7 +109,7 @@ namespace FeatherWidgets.TestIntegration.Events
             var expectedDetailEvent = (Event)items[0].DataItem;
             string expectedDetailEventUrl = secondPageUrl + expectedDetailEvent.ItemDefaultUrl;
 
-            string responseContent = PageInvoker.ExecuteWebRequest(firstPageUrl);
+            string responseContent = this.pageOperations.AddWidgetToPageAndRequest(firstPageMvcProxy);
             Assert.IsTrue(responseContent.Contains(expectedDetailEventUrl), "The expected details event url was not found!");
         }
 
