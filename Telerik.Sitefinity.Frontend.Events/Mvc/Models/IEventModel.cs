@@ -16,7 +16,7 @@ namespace Telerik.Sitefinity.Frontend.Events.Mvc.Models
         /// Gets the list of events to be displayed inside the widget when option "Selected events" is enabled.
         /// </summary>
         /// <value>
-        /// The selected blog items.
+        /// The selected event items.
         /// </value>
         string SerializedSelectedItemsIds { get; set; }
 
@@ -67,13 +67,29 @@ namespace Telerik.Sitefinity.Frontend.Events.Mvc.Models
         string SerializedAdditionalFilters { get; set; }
 
         /// <summary>
-        /// Gets or sets which blogs to be displayed in the list view.
+        /// Gets or sets the serialized narrow selection filters. Contains information about taxonomies and calendar filters as serialized QueryData.
+        /// </summary>
+        /// <value>
+        /// The serialized narrow selection filters.
+        /// </value>
+        string SerializedNarrowSelectionFilters { get; set; }
+
+        /// <summary>
+        /// Gets or sets which events to be displayed in the list view.
         /// </summary>
         /// <value>The page display mode.</value>
         /// <remarks>
         /// All = all events, Filtered = events by date, Selected = Selected events
         /// </remarks>
         SelectionMode SelectionMode { get; set; }
+
+        /// <summary>
+        /// Gets or sets the selected mode for Narrow selection. That is the filtering by taxonomies and calendars.
+        /// </summary>
+        /// <value>
+        /// The narrow selection mode.
+        /// </value>
+        SelectionMode NarrowSelectionMode { get; set; }
 
         /// Gets or sets the CSS class that will be applied on the wrapper div of the widget when it is in List view.
         /// </summary>
