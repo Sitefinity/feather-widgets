@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using ArtOfTest.WebAii.Core;
 using Feather.Widgets.TestUI.Framework;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
@@ -26,7 +27,13 @@ namespace FeatherWidgets.TestUI.TestCases.Forms.ContentBlock
             BAT.Wrappers().Backend().Forms().FormsDashboard().ClickCreateAFormButton();
             BAT.Wrappers().Backend().Forms().FormsCreateScreen().SetFormName(FormName);
             BAT.Wrappers().Backend().Forms().FormsCreateScreen().ClickCreateAndAddContent();
+            ActiveBrowser.WaitUntilReady();
+            ActiveBrowser.WaitForAsyncOperations();
+            ActiveBrowser.RefreshDomTree();
             BATFeather.Wrappers().Backend().Forms().FormsContentScreenWrapper().AddField(FieldName);
+            ActiveBrowser.WaitUntilReady();
+            ActiveBrowser.WaitForAsyncOperations();
+            ActiveBrowser.RefreshDomTree();
             BATFeather.Wrappers().Backend().Pages().PageZoneEditorWrapper().EditWidget(FieldName);
             BATFeather.Wrappers().Backend().ContentBlocks().ContentBlocksWrapper().FillContentToContentBlockWidget(ExpectedContent);
             BATFeather.Wrappers().Backend().ContentBlocks().ContentBlocksWrapper().SaveChanges();
