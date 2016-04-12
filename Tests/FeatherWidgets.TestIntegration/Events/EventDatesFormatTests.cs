@@ -250,7 +250,7 @@ namespace FeatherWidgets.TestIntegration.Events
         public void RecurringEvents2DateFormatTest()
         {
             const string ExpectedResult = "Every 2 days";
-            const string RecurrenceExpression = "DTSTART;TZID=\"FLE Standard Time\":20160407T080000\r\nDTEND;TZID=\"FLE Standard Time\":20160407T120000\r\nRRULE:FREQ=DAILY;INTERVAL=2";
+            const string RecurrenceExpression = "DTSTART;TZID=\"FLE Standard Time\":20160407T080000\r\nDTEND;TZID=\"FLE Standard Time\":22160407T120000\r\nRRULE:FREQ=DAILY;INTERVAL=2";
 
             var start = DateTime.UtcNow.AddDays(-1);
             this.TestDateFormat(ExpectedResult, start, null, RecurrenceExpression);
@@ -266,7 +266,7 @@ namespace FeatherWidgets.TestIntegration.Events
         public void RecurringEvents3DateFormatTest()
         {
             const string ExpectedResult = "Every weekday";
-            const string RecurrenceExpression = "DTSTART;TZID=\"FLE Standard Time\":20160407T080000\r\nDTEND;TZID=\"FLE Standard Time\":20160407T120000\r\nRRULE:FREQ=DAILY;BYDAY=MO,TU,WE,TH,FR";
+            const string RecurrenceExpression = "DTSTART;TZID=\"FLE Standard Time\":20160407T080000\r\nDTEND;TZID=\"FLE Standard Time\":22160407T120000\r\nRRULE:FREQ=DAILY;BYDAY=MO,TU,WE,TH,FR";
 
             var start = DateTime.UtcNow.AddDays(-1);
             this.TestDateFormat(ExpectedResult, start, null, RecurrenceExpression);
@@ -282,7 +282,7 @@ namespace FeatherWidgets.TestIntegration.Events
         public void RecurringEvents4DateFormatTest()
         {
             const string ExpectedResult = "Every week on Monday";
-            const string RecurrenceExpression = "DTSTART;TZID=\"FLE Standard Time\":20160407T080000\r\nDTEND;TZID=\"FLE Standard Time\":20160407T120000\r\nRRULE:FREQ=WEEKLY;INTERVAL=1;BYDAY=MO";
+            const string RecurrenceExpression = "DTSTART;TZID=\"FLE Standard Time\":20160407T080000\r\nDTEND;TZID=\"FLE Standard Time\":22160407T120000\r\nRRULE:FREQ=WEEKLY;INTERVAL=1;BYDAY=MO";
 
             var start = DateTime.UtcNow.AddDays(-1);
             this.TestDateFormat(ExpectedResult, start, null, RecurrenceExpression);
@@ -298,30 +298,45 @@ namespace FeatherWidgets.TestIntegration.Events
         public void PeriodEvents1FullDateFormatTest()
         {
             const string ExpectedResult = "March 12 at 8 PM to March 19 at 5 AM";
+
+            var start = new DateTime(DateTime.Now.Year, 3, 12, 20, 0, 0);
+            var end = new DateTime(DateTime.Now.Year, 3, 19, 5, 0, 0);
+
+            this.TestFullDateFormat(ExpectedResult, start, end);
         }
 
         /// <summary>
-        /// Ensures that the past event has correct format for date 'March 12-April 19 March 12 at 8 PM to March 19 at 5 AM'.
+        /// Ensures that the past event has correct format for date 'March 12-April 19 March 12 at 8 PM to April 19 at 5 AM'.
         /// </summary>
         [Test]
         [Category(TestCategories.Forms)]
         [Author(FeatherTeams.FeatherTeam)]
-        [Description("Ensures that the past event has correct format for date 'March 12-April 19 March 12 at 8 PM to March 19 at 5 AM'.")]
+        [Description("Ensures that the past event has correct format for date 'March 12-April 19 March 12 at 8 PM to April 19 at 5 AM'.")]
         public void PeriodEvents2FullDateFormatTest()
         {
-            const string ExpectedResult = "March 12 at 8 PM to March 19 at 5 AM";
+            const string ExpectedResult = "March 12 at 8 PM to April 19 at 5 AM";
+
+            var start = new DateTime(DateTime.Now.Year, 3, 12, 20, 0, 0);
+            var end = new DateTime(DateTime.Now.Year, 4, 19, 5, 0, 0);
+
+            this.TestFullDateFormat(ExpectedResult, start, end);
         }
 
         /// <summary>
-        /// Ensures that the past event has correct format for date 'March 12-19, 2022 March 12, 2022 at 8 PM to March 19, 2022 at 5 AM'.
+        /// Ensures that the past event has correct format for date 'March 12-19, 2022 March 12, 2222 at 8 PM to March 19, 2222 at 5 AM'.
         /// </summary>
         [Test]
         [Category(TestCategories.Forms)]
         [Author(FeatherTeams.FeatherTeam)]
-        [Description("Ensures that the past event has correct format for date 'March 12-19, 2022 March 12, 2022 at 8 PM to March 19, 2022 at 5 AM'.")]
+        [Description("Ensures that the past event has correct format for date 'March 12-19, 2222 March 12, 2022 at 8 PM to March 19, 2222 at 5 AM'.")]
         public void PeriodEvents3FullDateFormatTest()
         {
-            const string ExpectedResult = "March 12, 2022 at 8 PM to March 19, 2022 at 5 AM";
+            const string ExpectedResult = "March 12, 2222 at 8 PM to March 19, 2222 at 5 AM";
+
+            var start = new DateTime(2222, 3, 12, 20, 0, 0);
+            var end = new DateTime(2222, 3, 19, 5, 0, 0);
+
+            this.TestFullDateFormat(ExpectedResult, start, end);
         }
 
         /// <summary>
@@ -333,8 +348,17 @@ namespace FeatherWidgets.TestIntegration.Events
         [Description("Ensures that the past event has correct format for date 'Everyday March 22 at 8 PM'.")]
         public void RecurringEvents1NextOccurrenceFormatTest()
         {
-            const string ExpectedResult = "March 22 at 8 PM";
-            const string RecurrenceExpression = "DTSTART;TZID=\"FLE Standard Time\":20160422T080000\r\nDTEND;TZID=\"FLE Standard Time\":20160422T120000\r\nRRULE:FREQ=DAILY;INTERVAL=1";
+            const string RecurrenceExpression = "DTSTART;TZID=\"FLE Standard Time\":20160422T080000\r\nDTEND;TZID=\"FLE Standard Time\":22160422T120000\r\nRRULE:FREQ=DAILY;INTERVAL=1";
+
+            var now = DateTime.Now;
+            var start = new DateTime(2016, 04, 22, 5, 0, 0);
+            var expected = new DateTime(2016, 04, 22, 5, 0, 0);
+            while (expected < now)
+            {
+                expected = expected.AddDays(1);
+            }
+
+            this.TestFullDateFormat(expected.ToString(DateMonthHourDateFormat, CultureInfo.InvariantCulture), start, null, RecurrenceExpression);
         }
 
         /// <summary>
@@ -346,8 +370,17 @@ namespace FeatherWidgets.TestIntegration.Events
         [Description("Ensures that the past event has correct format for date 'Every 2 days March 22 at 8 PM'.")]
         public void RecurringEvents2NextOccurrenceFormatTest()
         {
-            const string ExpectedResult = "March 22 at 8 PM";
-            const string RecurrenceExpression = "DTSTART;TZID=\"FLE Standard Time\":20160407T080000\r\nDTEND;TZID=\"FLE Standard Time\":20160407T120000\r\nRRULE:FREQ=DAILY;INTERVAL=2";
+            const string RecurrenceExpression = "DTSTART;TZID=\"FLE Standard Time\":20160407T080000\r\nDTEND;TZID=\"FLE Standard Time\":22160407T120000\r\nRRULE:FREQ=DAILY;INTERVAL=2";
+
+            var now = DateTime.Now;
+            var start = new DateTime(2016, 04, 7, 5, 0, 0);
+            var expected = new DateTime(2016, 04, 7, 5, 0, 0);
+            while (expected < now)
+            {
+                expected = expected.AddDays(2);
+            }
+
+            this.TestFullDateFormat(expected.ToString(DateMonthHourDateFormat, CultureInfo.InvariantCulture), start, null, RecurrenceExpression);
         }
 
         /// <summary>
@@ -359,8 +392,17 @@ namespace FeatherWidgets.TestIntegration.Events
         [Description("Ensures that the past event has correct format for date 'Every weekday March 22 at 8 PM'.")]
         public void RecurringEvents3NextOccurrenceFormatTest()
         {
-            const string ExpectedResult = "March 22 at 8 PM";
-            const string RecurrenceExpression = "DTSTART;TZID=\"FLE Standard Time\":20160407T080000\r\nDTEND;TZID=\"FLE Standard Time\":20160407T120000\r\nRRULE:FREQ=DAILY;BYDAY=MO,TU,WE,TH,FR";
+            const string RecurrenceExpression = "DTSTART;TZID=\"FLE Standard Time\":20160407T080000\r\nDTEND;TZID=\"FLE Standard Time\":22160407T120000\r\nRRULE:FREQ=DAILY;BYDAY=MO,TU,WE,TH,FR";
+
+            var now = DateTime.Now;
+            var start = new DateTime(2016, 04, 7, 5, 0, 0);
+            var expected = new DateTime(2016, 04, 7, 5, 0, 0);
+            while (expected < now || expected.DayOfWeek == DayOfWeek.Saturday || expected.DayOfWeek == DayOfWeek.Sunday)
+            {
+                expected = expected.AddDays(1);
+            }
+
+            this.TestFullDateFormat(expected.ToString(DateMonthHourDateFormat, CultureInfo.InvariantCulture), start, null, RecurrenceExpression);
         }
 
         /// <summary>
@@ -372,9 +414,17 @@ namespace FeatherWidgets.TestIntegration.Events
         [Description("Ensures that the past event has correct format for date 'Every week on Monday March 22 at 8 PM'.")]
         public void RecurringEvents4NextOccurrenceFormatTest()
         {
-            const string ExpectedResult = "March 22 at 8 PM";
-            const string RecurrenceExpression = "DTSTART;TZID=\"FLE Standard Time\":20160407T080000\r\nDTEND;TZID=\"FLE Standard Time\":20160407T120000\r\nRRULE:FREQ=WEEKLY;INTERVAL=1;BYDAY=MO";
-            this.TestFullDateFormat(ExpectedResult, DateTime.UtcNow, DateTime.UtcNow);
+            const string RecurrenceExpression = "DTSTART;TZID=\"FLE Standard Time\":20160407T080000\r\nDTEND;TZID=\"FLE Standard Time\":22160407T120000\r\nRRULE:FREQ=WEEKLY;INTERVAL=1;BYDAY=MO";
+
+            var now = DateTime.Now;
+            var start = new DateTime(2016, 04, 7, 5, 0, 0);
+            var expected = new DateTime(2016, 04, 7, 5, 0, 0);
+            while (expected < now || expected.DayOfWeek != DayOfWeek.Monday)
+            {
+                expected = expected.AddDays(1);
+            }
+
+            this.TestFullDateFormat(expected.ToString(DateMonthHourDateFormat, CultureInfo.InvariantCulture), start, null, RecurrenceExpression);
         }
 
         private void TestDateFormat(string expectedResult, DateTime start, DateTime? end = null, string recurrenceExpression = null)
@@ -385,10 +435,10 @@ namespace FeatherWidgets.TestIntegration.Events
             Assert.AreEqual(expectedResult, result);
         }
 
-        private void TestFullDateFormat(string expectedResult, DateTime start, DateTime end)
+        private void TestFullDateFormat(string expectedResult, DateTime start, DateTime? end = null, string recurrenceExpression = null)
         {
             expectedResult = this.RemoveTrailingZeros(expectedResult);
-            var viewModel = this.BuildItemViewModel(start, end);
+            var viewModel = this.BuildItemViewModel(start, end, recurrenceExpression);
             var result = viewModel.EventFullDates();
             Assert.AreEqual(expectedResult, result);
         }
@@ -409,6 +459,7 @@ namespace FeatherWidgets.TestIntegration.Events
             return Regex.Replace(str, @"([ -])0(\d+)", "$1$2");
         }
 
-        private const string DateMonthDateFormat = "MMMM dd";
+        private const string DateMonthDateFormat = @"MMMM dd";
+        private const string DateMonthHourDateFormat = @"MMMM dd a\t hh tt";
     }
 }

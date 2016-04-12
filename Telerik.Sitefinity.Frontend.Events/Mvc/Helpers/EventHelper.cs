@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Reflection;
 using System.Text;
 using System.Text.RegularExpressions;
@@ -74,7 +75,7 @@ namespace Telerik.Sitefinity.Frontend.Events.Mvc.Helpers
 
             if (ev.IsRecurrent && !string.IsNullOrEmpty(ev.RecurrenceExpression))
                 result = BuildNextOccurrence(ev);
-            else
+            else if (ev.EventEnd.HasValue)
                 result = BuildFullEventDates(ev);
 
             result = RemoveTrailingZeros(result);
@@ -143,8 +144,10 @@ namespace Telerik.Sitefinity.Frontend.Events.Mvc.Helpers
             }
 
             result.Append(GetEventStartDate(ev));
-                        
-            result.Append(AtSeparator);
+
+            result.Append(SpaceSeparator);
+            result.Append(Res.Get<EventResources>().At);
+            result.Append(SpaceSeparator);
             result.Append(ev.EventStart.ToString(HourFormat));
 
             return result.ToString();
@@ -204,14 +207,38 @@ namespace Telerik.Sitefinity.Frontend.Events.Mvc.Helpers
 
         private static string BuildFullEventDates(Event ev)
         {
-            return string.Empty;
-        }
+            var result = new StringBuilder();
 
-        private static string BuildNextOccurrence(Event ev)
-        {
-            return string.Empty;
-        }
+            var start = ev.AllDayEvent ? ev.EventStart : ev.EventStart.ToSitefinityUITime();
+            var end = ev.AllDayEvent ? ev.EventEnd.Value : ev.EventEnd.Value.ToSitefinityUITime();
 
+            if (start.Year == DateTime.UtcNow.Year)
+                result.Append(start.ToString(MonthDayFormat));
+            else
+                result.Append(start.ToString(MonthDayYearFormat));
+
+            result.Append(SpaceSeparator);
+            result.Append(Res.Get<EventResources>().At);
+            result.Append(SpaceSeparator);
+            result.Append(start.ToString(HourFormat));
+
+            result.Append(SpaceSeparator);
+            result.Append(Res.Get<EventResources>().To);
+            result.Append(SpaceSeparator);
+
+            if (end.Year == DateTime.UtcNow.Year)
+                result.Append(end.ToString(MonthDayFormat));
+            else
+                result.Append(end.ToString(MonthDayYearFormat));
+
+            result.Append(SpaceSeparator);
+            result.Append(Res.Get<EventResources>().At);
+            result.Append(SpaceSeparator);
+            result.Append(end.ToString(HourFormat));
+
+            return result.ToString();
+        }
+        
         private static string GetEventPrefix(Event ev)
         {
             var result = string.Empty;
@@ -295,6 +322,26 @@ namespace Telerik.Sitefinity.Frontend.Events.Mvc.Helpers
             }
 
             return result;
+        }
+
+        private static string BuildNextOccurrence(Event ev)
+        {
+            var descriptor = GetRecurrenceDescriptor(ev.RecurrenceExpression);
+            var nextOccurrence = descriptor.Occurrences.OrderBy(o => o).FirstOrDefault(o => o >= DateTime.UtcNow);
+
+            var result = new StringBuilder();
+
+            if (nextOccurrence.Year == DateTime.UtcNow.Year)
+                result.Append(nextOccurrence.ToString(MonthDayFormat));
+            else
+                result.Append(nextOccurrence.ToString(MonthDayYearFormat));
+
+            result.Append(SpaceSeparator);
+            result.Append(Res.Get<EventResources>().At);
+            result.Append(SpaceSeparator);
+            result.Append(nextOccurrence.ToString(HourFormat));
+
+            return result.ToString();
         }
 
         private static IRecurrenceDescriptor GetRecurrenceDescriptor(string recurrenceExpression)
@@ -467,7 +514,7 @@ namespace Telerik.Sitefinity.Frontend.Events.Mvc.Helpers
 
         private const string PartsSeparator = ", ";
         private const string DashSeparator = "-";
-        private const string AtSeparator = " at ";
+        private const string SpaceSeparator = " ";
         private const string HourFormat = "hh tt";
         private const string DayFormat = "dd";
         private const string MonthDayFormat = "MMMM dd";

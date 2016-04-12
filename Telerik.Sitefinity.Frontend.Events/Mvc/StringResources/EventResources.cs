@@ -126,6 +126,36 @@ namespace Telerik.Sitefinity.Frontend.Events.Mvc.StringResources
             }
         }
 
+        /// <summary>
+        /// Gets word : at
+        /// </summary>
+        [ResourceEntry("At",
+            Value = "at",
+            Description = "word: at",
+            LastModified = "2016/04/12")]
+        public string At
+        {
+            get
+            {
+                return this["At"];
+            }
+        }
+
+        /// <summary>
+        /// Gets word : to
+        /// </summary>
+        [ResourceEntry("To",
+            Value = "to",
+            Description = "word: to",
+            LastModified = "2016/04/12")]
+        public string To
+        {
+            get
+            {
+                return this["To"];
+            }
+        }
+
         #endregion
 
         #region Frontend resources
