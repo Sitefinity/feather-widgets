@@ -59,6 +59,7 @@ namespace FeatherWidgets.TestIntegration.ContentBlock
             mvcProxy.ControllerName = typeof(ContentBlockController).FullName;
             var contentBlockController = new ContentBlockController();
             contentBlockController.SharedContentID = content.Id;
+            contentBlockController.WrapperCssClass = "testCSSclass";
             mvcProxy.Settings = new ControllerSettings(contentBlockController);
 
             this.pageOperations.CreatePageWithControl(mvcProxy, pageNamePrefix, pageTitlePrefix, urlNamePrefix, pageIndex);
@@ -66,6 +67,7 @@ namespace FeatherWidgets.TestIntegration.ContentBlock
             string responseContent = PageInvoker.ExecuteWebRequest(url);
 
             Assert.IsTrue(responseContent.Contains(ContentBlockContent), "The content block with this title was not found!");
+            Assert.IsTrue(responseContent.Contains(ContentBlockWrapperCssClass), "WrapperCssClass with name 'testCSSclass' was not found");
         }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Maintainability", "CA1506:AvoidExcessiveClassCoupling"), Test]
@@ -136,6 +138,7 @@ namespace FeatherWidgets.TestIntegration.ContentBlock
         private const string ContentBlockTitle = "This is content block title";
         private const string ContentBlockContent = "This is content block content";
         private const string ContentBlockContentEdited = "This is content block content edited";
+        private const string ContentBlockWrapperCssClass = "testCSSclass";
 
         #endregion
     }
