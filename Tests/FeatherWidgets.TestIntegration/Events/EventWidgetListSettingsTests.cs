@@ -31,7 +31,7 @@ namespace FeatherWidgets.TestIntegration.Events
         /// The tear down.
         /// </summary>
         [TearDown]
-        public void FixtureTearDown()
+        public void TearDown()
         {
             Telerik.Sitefinity.TestUtilities.CommonOperations.ServerOperations.Pages().DeleteAllPages();
             Telerik.Sitefinity.TestUtilities.CommonOperations.ServerOperations.Events().DeleteAllEvents();
