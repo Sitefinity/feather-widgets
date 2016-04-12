@@ -167,17 +167,6 @@ namespace FeatherWidgets.TestIntegration.Events
             }
         }
 
-        /// <summary>
-        /// Verifies that links for exporting events are available when export is enabled.
-        /// </summary>
-        [Test]
-        [Category(TestCategories.Events)]
-        [Author(FeatherTeams.FeatherTeam)]
-        [Description("Verifies that links for exporting events are available when export is enabled.")]
-        public void EventWidget_AllowCalendarExport()
-        {
-        }
-
         #region Helper methods
 
         private void EditFile(string newDetailTemplatePath, string textEdited)

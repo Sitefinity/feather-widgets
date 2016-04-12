@@ -1,5 +1,6 @@
 ﻿using System.Reflection;
 using MbUnit.Framework;
+using ServiceStack.Text;
 using Telerik.Sitefinity.Frontend.Events.Mvc.Controllers;
 using Telerik.Sitefinity.Frontend.TestUtilities;
 using Telerik.Sitefinity.Mvc.Proxy;
@@ -8,7 +9,6 @@ using Telerik.Sitefinity.TestIntegration.Helpers;
 using Telerik.Sitefinity.TestUtilities.CommonOperations;
 using Telerik.Sitefinity.Web;
 using Telerik.Sitefinity.Web.Model;
-using ServiceStack.Text;
 
 namespace FeatherWidgets.TestIntegration.Events
 {
@@ -39,7 +39,8 @@ namespace FeatherWidgets.TestIntegration.Events
                 eventController.Model.NarrowSelectionMode = Telerik.Sitefinity.Frontend.Mvc.Models.SelectionMode.FilteredItems;
 
                 var queryData = new QueryData();
-                queryData.QueryItems = new QueryItem[2] {
+                queryData.QueryItems = new QueryItem[2] 
+                {
                     new QueryItem()
                     {
                         IsGroup = true,
