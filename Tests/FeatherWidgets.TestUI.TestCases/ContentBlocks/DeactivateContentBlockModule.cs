@@ -23,7 +23,7 @@ namespace FeatherWidgets.TestUI.TestCases.ContentBlocks
         /// UI test DeactivateContentBlockModule
         /// </summary>
         [TestMethod,
-        Owner(FeatherTeams.FeatherTeam),
+        Owner(FeatherTeams.SitefinityTeam7),
         TestCategory(FeatherTestCategories.ContentBlock)]
         public void DeactivateContentBlockModule()
         {

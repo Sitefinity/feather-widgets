@@ -20,7 +20,7 @@ namespace FeatherWidgets.TestUI.TestCases.Forms
         /// UI test PublishUnpublishFormInUseVerifyFrontend
         /// </summary>
         [TestMethod,
-        Owner(FeatherTeams.FeatherTeam),
+        Owner(FeatherTeams.SitefinityTeam6),
         TestCategory(FeatherTestCategories.Bootstrap),
         TestCategory(FeatherTestCategories.Forms)]
         public void PublishUnpublishFormInUseVerifyFrontend()

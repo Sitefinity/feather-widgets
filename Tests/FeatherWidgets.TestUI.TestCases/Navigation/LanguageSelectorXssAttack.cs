@@ -17,7 +17,7 @@ namespace FeatherWidgets.TestUI.TestCases.Navigation
         /// UI test LanguageSelectorXssAttack
         /// </summary>
         [TestMethod,
-        Owner(FeatherTeams.FeatherTeam),
+        Owner(FeatherTeams.SitefinityTeam7),
         TestCategory(FeatherTestCategories.PagesAndContent)]
         public void LanguageSelectorXssAttack()
         {

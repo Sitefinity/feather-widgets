@@ -18,7 +18,7 @@ namespace FeatherWidgets.TestUI.TestCases.Forms
         /// UI test SubmitPreviewFormVerifyResponses
         /// </summary>
         [TestMethod,
-        Owner(FeatherTeams.FeatherTeam),
+        Owner(FeatherTeams.SitefinityTeam6),
         TestCategory(FeatherTestCategories.Forms)]
         public void SubmitPreviewFormVerifyResponses()
         {

@@ -23,7 +23,7 @@ namespace FeatherWidgets.TestUI.TestCases.ContentBlocks
         /// UI test EditContentBlockWidgetViaInlineEditing 
         /// </summary>
         [TestMethod,
-        Owner(FeatherTeams.FeatherTeam),
+        Owner(FeatherTeams.SitefinityTeam7),
         TestCategory(FeatherTestCategories.ContentBlock2)]
         public void EditContentBlockWidgetViaInlineEditing()
         {

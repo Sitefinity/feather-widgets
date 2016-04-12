@@ -19,7 +19,7 @@ namespace FeatherWidgets.TestUI.TestCases.News
         /// UI test DeleteNewsWidgetFromPage
         /// </summary>
         [TestMethod,
-        Owner(FeatherTeams.FeatherTeam),
+        Owner(FeatherTeams.SitefinityTeam7),
         TestCategory(FeatherTestCategories.PagesAndContent),
         TestCategory(FeatherTestCategories.News)]
         public void DeleteNewsWidgetFromPage()
