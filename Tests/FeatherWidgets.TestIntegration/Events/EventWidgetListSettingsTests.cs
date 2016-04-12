@@ -98,13 +98,7 @@ namespace FeatherWidgets.TestIntegration.Events
         [Description("Add Event widget to a page and display limited events.")]
         public void EventWidget_UseLimit_TwoItems()
         {
-            string testName = System.Reflection.MethodInfo.GetCurrentMethod().Name;
-            string pageNamePrefix = testName + "EventPage";
-            string pageTitlePrefix = testName + "Event Page";
-            string urlNamePrefix = testName + "Event-page";
-            int index = 1;
             int itemsPerPage = 2;
-            string url = UrlPath.ResolveAbsoluteUrl("~/" + urlNamePrefix + index);
 
             var mvcProxy = new MvcControllerProxy();
             mvcProxy.ControllerName = typeof(EventController).FullName;
@@ -113,9 +107,7 @@ namespace FeatherWidgets.TestIntegration.Events
             eventController.Model.DisplayMode = Telerik.Sitefinity.Frontend.Mvc.Models.ListDisplayMode.Limit;
             mvcProxy.Settings = new Telerik.Sitefinity.Mvc.Proxy.ControllerSettings(eventController);
 
-            this.pageOperations.CreatePageWithControl(mvcProxy, pageNamePrefix, pageTitlePrefix, urlNamePrefix, index);
-
-            string responseContent = PageInvoker.ExecuteWebRequest(url);
+            string responseContent = this.pageOperations.AddWidgetToPageAndRequest(mvcProxy);
 
             for (int i = 1; i <= EventWidgetListSettingsTests.EventsCount; i++)
             {
@@ -139,13 +131,7 @@ namespace FeatherWidgets.TestIntegration.Events
         [Description("Add Event widget to a page and display events with no limit and paging.")]
         public void EventWidget_NoLimitAndPaging()
         {
-            string testName = System.Reflection.MethodInfo.GetCurrentMethod().Name;
-            string pageNamePrefix = testName + "EventPage";
-            string pageTitlePrefix = testName + "Event Page";
-            string urlNamePrefix = testName + "Event-page";
-            int index = 1;
             int itemsPerPage = 2;
-            string url = UrlPath.ResolveAbsoluteUrl("~/" + urlNamePrefix + index);
 
             var mvcProxy = new MvcControllerProxy();
             mvcProxy.ControllerName = typeof(EventController).FullName;
@@ -154,9 +140,7 @@ namespace FeatherWidgets.TestIntegration.Events
             eventController.Model.DisplayMode = Telerik.Sitefinity.Frontend.Mvc.Models.ListDisplayMode.All;
             mvcProxy.Settings = new Telerik.Sitefinity.Mvc.Proxy.ControllerSettings(eventController);
 
-            this.pageOperations.CreatePageWithControl(mvcProxy, pageNamePrefix, pageTitlePrefix, urlNamePrefix, index);
-
-            string responseContent = PageInvoker.ExecuteWebRequest(url);
+            string responseContent = this.pageOperations.AddWidgetToPageAndRequest(mvcProxy);
 
             for (int i = 1; i <= EventWidgetListSettingsTests.EventsCount; i++)
             {

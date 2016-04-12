@@ -60,6 +60,26 @@ namespace FeatherWidgets.TestUtilities.CommonOperations
         }
 
         /// <summary>
+        /// Adds the widget to page and request.
+        /// </summary>
+        /// <param name="control">The control.</param>
+        /// <returns>The response content</returns>
+        public string AddWidgetToPageAndRequest(Control control)
+        {
+            string pageNamePrefix = "TestPage";
+            string pageTitlePrefix = "Test Page";
+            string urlNamePrefix = "test-page";
+            int index = 1;
+            string url = UrlPath.ResolveAbsoluteUrl("~/" + urlNamePrefix + index);
+
+            this.CreatePageWithControl(control, pageNamePrefix, pageTitlePrefix, urlNamePrefix, index);
+
+            string responseContent = PageInvoker.ExecuteWebRequest(url);
+
+            return responseContent;
+        }
+
+        /// <summary>
         /// Adds content block widget to existing page
         /// </summary>
         /// <param name="pageId">Page id value</param>
