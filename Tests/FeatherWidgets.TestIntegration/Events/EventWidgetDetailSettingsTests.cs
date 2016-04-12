@@ -1,9 +1,12 @@
-﻿using System.Linq;
+﻿using System.IO;
+using System.Linq;
 using FeatherWidgets.TestUtilities.CommonOperations;
+using FeatherWidgets.TestUtilities.CommonOperations.Templates;
 using MbUnit.Framework;
 using Telerik.Sitefinity.Events.Model;
 using Telerik.Sitefinity.Frontend.Events.Mvc.Controllers;
 using Telerik.Sitefinity.Frontend.TestUtilities;
+using Telerik.Sitefinity.Modules.Events;
 using Telerik.Sitefinity.Mvc.Proxy;
 using Telerik.Sitefinity.Web;
 
@@ -121,7 +124,47 @@ namespace FeatherWidgets.TestIntegration.Events
         [Author(FeatherTeams.FeatherTeam)]
         [Description("Verifies that selected templates is used in Details mode.")]
         public void EventWidget_SelectDetailTemplate()
-        {            
+        {
+            string testName = System.Reflection.MethodInfo.GetCurrentMethod().Name;
+            string pageNamePrefix = testName + "EventsPage";
+            string pageTitlePrefix = testName + "Events Page";
+            string urlNamePrefix = testName + "events-page";
+            int pageIndex = 1;
+            string textEdited = "<p> Test paragraph </p>";
+            string paragraphText = "Test paragraph";
+            var eventsManager = EventsManager.GetManager();
+            string url = UrlPath.ResolveAbsoluteUrl("~/" + urlNamePrefix + pageIndex);
+
+            string detailTemplate = "DetailPageNew";
+            var templateOperation = new TemplateOperations();
+            var detailTemplatePath = Path.Combine(templateOperation.SfPath, "ResourcePackages", "Bootstrap", "MVC", "Views", "Event", "Detail.Default.cshtml");
+            var newDetailTemplatePath = Path.Combine(templateOperation.SfPath, "MVC", "Views", "Shared", "Detail.DetailPageNew.cshtml");
+
+            try
+            {
+                File.Copy(detailTemplatePath, newDetailTemplatePath);
+                this.EditFile(newDetailTemplatePath, textEdited);
+
+                var mvcProxy = new MvcControllerProxy();
+                mvcProxy.ControllerName = typeof(EventController).FullName;
+                var eventController = new EventController();
+                eventController.DetailTemplateName = detailTemplate;
+                mvcProxy.Settings = new ControllerSettings(eventController);
+
+                this.pageOperations.CreatePageWithControl(mvcProxy, pageNamePrefix, pageTitlePrefix, urlNamePrefix, pageIndex);
+                
+                var eventItem = eventsManager.GetEvents().Where<Event>(e => e.Status == Telerik.Sitefinity.GenericContent.Model.ContentLifecycleStatus.Master && e.Title == BaseEventTitle + 1).FirstOrDefault();
+                string detailEventUrl = url + eventItem.ItemDefaultUrl;
+
+                string responseContent = PageInvoker.ExecuteWebRequest(detailEventUrl);
+
+                Assert.IsTrue(responseContent.Contains(BaseEventTitle + 1), "The event with this title was not found!");
+                Assert.IsTrue(responseContent.Contains(paragraphText), "The event with this template was not found!");
+            }
+            finally
+            {
+                File.Delete(newDetailTemplatePath);
+            }
         }
 
         /// <summary>
@@ -135,8 +178,24 @@ namespace FeatherWidgets.TestIntegration.Events
         {
         }
 
+        #region Helper methods
+
+        private void EditFile(string newDetailTemplatePath, string textEdited)
+        {
+            using (StreamWriter output = File.AppendText(newDetailTemplatePath))
+            {
+                output.WriteLine(textEdited);
+            }
+        }
+
+        #endregion
+
+        #region Private fields and Constants
+
         private PagesOperations pageOperations;
         private const int EventsCount = 3;
         private const string BaseEventTitle = "TestEvent";
+
+        #endregion
     }
 }
