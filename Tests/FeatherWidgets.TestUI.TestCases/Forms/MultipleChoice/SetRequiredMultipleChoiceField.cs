@@ -7,54 +7,39 @@ using ArtOfTest.WebAii.Core;
 using Feather.Widgets.TestUI.Framework;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace FeatherWidgets.TestUI.TestCases.Forms.Textbox
+namespace FeatherWidgets.TestUI.TestCases.Forms.MultipleChoice
 {
     /// <summary>
-    /// SetRequiredTextboxField test class.
+    /// SetRequiredMultipleChoiceField test class.
     /// </summary>
     [TestClass]
-    public class SetRequiredTextboxField_ : FeatherTestCase
+    public class SetRequiredMultipleChoiceField_ : FeatherTestCase
     {
         /// <summary>
-        /// UI test SetRequiredTextboxField
+        /// UI test SetRequiredMultipleChoiceField
         /// </summary>
         [TestMethod,
         Owner(FeatherTeams.FeatherTeam),
         TestCategory(FeatherTestCategories.Bootstrap),
         TestCategory(FeatherTestCategories.Forms)]
-        public void SetRequiredTextboxField()
+        public void SetRequiredMultipleChoiceField()
         {
             BAT.Macros().NavigateTo().Modules().Forms(this.Culture);
-            BAT.Wrappers().Backend().Forms().FormsDashboard().ClickCreateAFormButton();
-            BAT.Wrappers().Backend().Forms().FormsCreateScreen().SetFormName(FormName);
-            BAT.Wrappers().Backend().Forms().FormsCreateScreen().ClickCreateAndAddContent();
+            BAT.Wrappers().Backend().Forms().FormsDashboard().OpenFormFromTheGrid(FormName);
             ActiveBrowser.WaitUntilReady();
             ActiveBrowser.WaitForAsyncOperations();
             ActiveBrowser.RefreshDomTree();
-            BATFeather.Wrappers().Backend().Forms().FormsContentScreenWrapper().AddField(FieldName);
-            BATFeather.Wrappers().Backend().Pages().PageZoneEditorWrapper().EditWidget(FieldName);
+            BATFeather.Wrappers().Backend().Pages().PageZoneEditorWrapper().EditWidget(MultipleChoiceField);
             BATFeather.Wrappers().Backend().Forms().FormsContentScreenWrapper().CheckRequiredFieldCheckbox();
             BATFeather.Wrappers().Backend().Forms().FormsContentScreenWrapper().ChangeRequiredMessage(NewRequiredMessage);
             BATFeather.Wrappers().Backend().Widgets().WidgetDesignerWrapper().SaveChanges();
             BAT.Wrappers().Backend().Forms().FormsContentScreen().PublishForm();
 
-            BAT.Macros().NavigateTo().Pages(this.Culture);
-
-            BAT.Wrappers().Backend().Pages().PagesWrapper().OpenPageZoneEditor(PageName);
-            ActiveBrowser.WaitUntilReady();
-            ActiveBrowser.WaitForAsyncOperations();
-            ActiveBrowser.RefreshDomTree();
-            BATFeather.Wrappers().Backend().Pages().PageZoneEditorWrapper().AddWidgetToPlaceHolderPureMvcMode(WidgetName);
-            BATFeather.Wrappers().Backend().Pages().PageZoneEditorWrapper().EditWidget(WidgetName);
-            BATFeather.Wrappers().Backend().Widgets().SelectorsWrapper().SelectItemsInFormWidgetSelector(FormName);
-            BATFeather.Wrappers().Backend().Widgets().WidgetDesignerWrapper().SaveChanges();
-            BAT.Wrappers().Backend().Pages().PageZoneEditorWrapper().PublishPage();
-
             BAT.Macros().NavigateTo().CustomPage("~/" + PageName.ToLower(), true, this.Culture);
             BATFeather.Wrappers().Frontend().Forms().FormsWrapper().ClickSubmit();
             Assert.IsTrue(ActiveBrowser.ContainsText(NewRequiredMessage), "Text was not found on the page");
             BATFeather.Wrappers().Frontend().Forms().FormsWrapper().VerifyPageUrl(PageName);
-            BATFeather.Wrappers().Frontend().Forms().FormsWrapper().SetTextboxContent(TextBoxContent);
+            BATFeather.Wrappers().Frontend().Forms().FormsWrapper().SelectRadioButton(Choice);
             BATFeather.Wrappers().Frontend().Forms().FormsWrapper().SubmitForm();
 
             BAT.Macros().NavigateTo().Modules().Forms(this.Culture);
@@ -64,7 +49,7 @@ namespace FeatherWidgets.TestUI.TestCases.Forms.Textbox
             BAT.Wrappers().Backend().Forms().FormsResponseScreen().SelectResponse(ResponseNumber);
             BATFeather.Wrappers().Backend().Forms().FormsWrapper().VerifyResponseAuthorUsername(ExpectedAuthorName);
             BATFeather.Wrappers().Backend().Forms().FormsWrapper().VerifyResponseSubmitDate();
-            BATFeather.Wrappers().Backend().Forms().FormsWrapper().VerifyResponseTextboxAnswer(TextBoxContent);
+            BATFeather.Wrappers().Backend().Forms().FormsWrapper().VerifyResponseMultipleChoiceAnswer(Choice);
         }
 
         /// <summary>
@@ -84,15 +69,13 @@ namespace FeatherWidgets.TestUI.TestCases.Forms.Textbox
             BAT.Arrange(this.TestName).ExecuteTearDown();
         }
 
-        private const string FormName = "MvcForm";
+        private const string FormName = "NewForm";
         private const string PageName = "FormPage";
-        private const string WidgetName = "Form";
-        private const string FieldName = "Textbox";
-        private const string LabelName = "Untitled";
-        private const string TextBoxContent = "Textbox Field Text";
+        private const string MultipleChoiceField = "MultipleChoiceFieldController";
+        private const string NewRequiredMessage = "This is required field";
+        private const string Choice = "First Choice";
         private const int ExpectedResponsesCount = 1;
         private const int ResponseNumber = 1;
         private const string ExpectedAuthorName = "admin";
-        private const string NewRequiredMessage = "This is required field";
     }
 }

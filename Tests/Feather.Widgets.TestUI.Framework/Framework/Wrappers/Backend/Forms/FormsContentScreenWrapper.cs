@@ -502,6 +502,38 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend.Forms
         }
 
         /// <summary>
+        /// Changes the required message.
+        /// </summary>
+        /// <param name="newValue">The new value.</param>
+        public void ChangeRequiredMessage(string newValue)
+        {
+            HtmlInputText requiredMessage = EM.Forms.FormsBackend.RequiredMessage.AssertIsPresent("Required label ");
+            requiredMessage.Click();
+
+            Manager.Current.Desktop.KeyBoard.KeyDown(System.Windows.Forms.Keys.Control);
+            Manager.Current.Desktop.KeyBoard.KeyPress(System.Windows.Forms.Keys.A);
+            Manager.Current.Desktop.KeyBoard.KeyUp(System.Windows.Forms.Keys.Control);
+            Manager.Current.Desktop.KeyBoard.KeyPress(System.Windows.Forms.Keys.Delete);
+            Manager.Current.Desktop.KeyBoard.TypeText(newValue);
+        }
+
+        /// <summary>
+        /// Changes the required message of file upload.
+        /// </summary>
+        /// <param name="newValue">The new value.</param>
+        public void ChangeRequiredMessageFileUpload(string newValue)
+        {
+            HtmlInputText requiredMessage = EM.Forms.FormsBackend.RequiredMessageFileUpload.AssertIsPresent("Required label ");
+            requiredMessage.Click();
+
+            Manager.Current.Desktop.KeyBoard.KeyDown(System.Windows.Forms.Keys.Control);
+            Manager.Current.Desktop.KeyBoard.KeyPress(System.Windows.Forms.Keys.A);
+            Manager.Current.Desktop.KeyBoard.KeyUp(System.Windows.Forms.Keys.Control);
+            Manager.Current.Desktop.KeyBoard.KeyPress(System.Windows.Forms.Keys.Delete);
+            Manager.Current.Desktop.KeyBoard.TypeText(newValue);
+        }
+
+        /// <summary>
         /// Change label of multiple choices and checkbox fields
         /// </summary>
         /// <param name="text">Text</param>

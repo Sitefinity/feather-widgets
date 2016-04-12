@@ -331,6 +331,28 @@ namespace Feather.Widgets.TestUI.Framework.Framework.ElementMap.Forms
         }
 
         /// <summary>
+        /// Gets the required message.
+        /// </summary>
+        public HtmlInputText RequiredMessage
+        {
+            get
+            {
+                return this.Get<HtmlInputText>("tagname=input", "ng-model=properties.Model.ValidatorDefinition.RequiredViolationMessage.PropertyValue");
+            }
+        }
+
+        /// <summary>
+        /// Gets the required message file upload.
+        /// </summary>
+        public HtmlInputText RequiredMessageFileUpload
+        {
+            get
+            {
+                return this.Get<HtmlInputText>("tagname=input", "ng-model=properties.Model.RequiredViolationMessage.PropertyValue");
+            }
+        }
+
+        /// <summary>
         /// Gets the text area
         /// </summary>
         public HtmlTextArea TextArea
