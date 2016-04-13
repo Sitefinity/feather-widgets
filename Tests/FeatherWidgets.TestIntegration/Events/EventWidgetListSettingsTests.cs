@@ -1,5 +1,6 @@
 ﻿using System.IO;
 using System.Linq;
+using System.Reflection;
 using FeatherWidgets.TestUtilities.CommonOperations;
 using FeatherWidgets.TestUtilities.CommonOperations.Templates;
 using MbUnit.Framework;
@@ -7,7 +8,6 @@ using Telerik.Sitefinity.Frontend.Events.Mvc.Controllers;
 using Telerik.Sitefinity.Frontend.TestUtilities;
 using Telerik.Sitefinity.Mvc.Proxy;
 using Telerik.Sitefinity.Web;
-using System.Reflection;
 
 namespace FeatherWidgets.TestIntegration.Events
 {
@@ -227,7 +227,7 @@ namespace FeatherWidgets.TestIntegration.Events
 
             var mvcProxy = new MvcControllerProxy() { Settings = new ControllerSettings(eventController), ControllerName = typeof(EventController).FullName };
             var responseContent = this.pageOperations.AddWidgetToPageAndRequest(mvcProxy);
-            Assert.Contains(responseContent, cssClass);
+            Assert.Contains(responseContent, cssClass, System.StringComparison.Ordinal);
         }
 
         #region Helper methods

@@ -1,5 +1,6 @@
 ﻿using System.IO;
 using System.Linq;
+using System.Reflection;
 using FeatherWidgets.TestUtilities.CommonOperations;
 using FeatherWidgets.TestUtilities.CommonOperations.Templates;
 using MbUnit.Framework;
@@ -10,7 +11,6 @@ using Telerik.Sitefinity.GenericContent.Model;
 using Telerik.Sitefinity.Modules.Events;
 using Telerik.Sitefinity.Mvc.Proxy;
 using Telerik.Sitefinity.Web;
-using System.Reflection;
 
 namespace FeatherWidgets.TestIntegration.Events
 {
@@ -205,13 +205,24 @@ namespace FeatherWidgets.TestIntegration.Events
         public void EventWidget_CssClassesDetailsTemplate()
         {
             var methodName = MethodInfo.GetCurrentMethod().Name;
-            var cssClass = methodName + "_css-class";
-            var eventController = new EventController();
-            eventController.Model.ListCssClass = cssClass;
+            string pageNamePrefix = methodName + "EventsPage";
+            string pageTitlePrefix = methodName + "Events Page";
+            string urlNamePrefix = methodName + "events-page";
+            int pageIndex = 1;
+            var url = UrlPath.ResolveAbsoluteUrl("~/" + urlNamePrefix + pageIndex);
 
+            var cssClass = methodName + "_css-class";
+
+            var eventController = new EventController();
+            eventController.Model.DetailCssClass = cssClass;
             var mvcProxy = new MvcControllerProxy() { Settings = new ControllerSettings(eventController), ControllerName = typeof(EventController).FullName };
-            var responseContent = this.pageOperations.AddWidgetToPageAndRequest(mvcProxy);
-            Assert.Contains(responseContent, cssClass);
+            
+            this.pageOperations.CreatePageWithControl(mvcProxy, pageNamePrefix, pageTitlePrefix, urlNamePrefix, pageIndex);
+            var eventItem = EventsManager.GetManager().GetEvents().Where<Event>(ni => ni.Status == ContentLifecycleStatus.Master && ni.Title == BaseEventTitle + 1).FirstOrDefault();
+            var detailEventUrl = url + eventItem.ItemDefaultUrl;
+            var responseContent = PageInvoker.ExecuteWebRequest(detailEventUrl);
+
+            Assert.Contains(responseContent, cssClass, System.StringComparison.Ordinal);
         }
 
         #region Helper methods
