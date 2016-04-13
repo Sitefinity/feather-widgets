@@ -1,5 +1,7 @@
-﻿using System.Linq;
+﻿using System.IO;
+using System.Linq;
 using FeatherWidgets.TestUtilities.CommonOperations;
+using FeatherWidgets.TestUtilities.CommonOperations.Templates;
 using MbUnit.Framework;
 using Telerik.Sitefinity.Frontend.Events.Mvc.Controllers;
 using Telerik.Sitefinity.Frontend.TestUtilities;
@@ -168,6 +170,57 @@ namespace FeatherWidgets.TestIntegration.Events
                 Assert.AreEqual(EventWidgetListSettingsTests.BaseEventTitle + i, (string)items[EventWidgetListSettingsTests.EventsCount - i].Fields.Title, "The event with this title was not found!");
             }
         }
+
+        /// <summary>
+        /// Verifies that selected templates is used in List mode.
+        /// </summary>
+        [Test]
+        [Category(TestCategories.Events)]
+        [Author(FeatherTeams.FeatherTeam)]
+        [Description("Verifies that selected templates is used in List mode.")]
+        public void EventWidget_SelectListTemplate()
+        {
+            string textEdited = "<p> Test paragraph </p>";
+            string paragraphText = "Test paragraph";
+
+            string listTemplate = "ListPageNew";
+            var templateOperation = new TemplateOperations();
+            var listTemplatePath = Path.Combine(templateOperation.SfPath, "ResourcePackages", "Bootstrap", "MVC", "Views", "Event", "List.Default.cshtml");
+            var newListTemplatePath = Path.Combine(templateOperation.SfPath, "MVC", "Views", "Shared", "List.ListPageNew.cshtml");
+
+            try
+            {
+                File.Copy(listTemplatePath, newListTemplatePath);
+                this.EditFile(newListTemplatePath, textEdited);
+
+                var mvcProxy = new MvcControllerProxy();
+                mvcProxy.ControllerName = typeof(EventController).FullName;
+                var eventController = new EventController();
+                eventController.ListTemplateName = listTemplate;
+                mvcProxy.Settings = new ControllerSettings(eventController);
+
+                string responseContent = this.pageOperations.AddWidgetToPageAndRequest(mvcProxy);
+
+                Assert.IsTrue(responseContent.Contains(BaseEventTitle + 1), "The event with this title was not found!");
+                Assert.IsTrue(responseContent.Contains(paragraphText), "The event with this template was not found!");
+            }
+            finally
+            {
+                File.Delete(newListTemplatePath);
+            }
+        }
+
+        #region Helper methods
+
+        private void EditFile(string newListTemplatePath, string textEdited)
+        {
+            using (StreamWriter output = File.AppendText(newListTemplatePath))
+            {
+                output.WriteLine(textEdited);
+            }
+        }
+
+        #endregion
 
         private PagesOperations pageOperations;
         private const int EventsCount = 5;

@@ -6,6 +6,7 @@ using MbUnit.Framework;
 using Telerik.Sitefinity.Events.Model;
 using Telerik.Sitefinity.Frontend.Events.Mvc.Controllers;
 using Telerik.Sitefinity.Frontend.TestUtilities;
+using Telerik.Sitefinity.GenericContent.Model;
 using Telerik.Sitefinity.Modules.Events;
 using Telerik.Sitefinity.Mvc.Proxy;
 using Telerik.Sitefinity.Web;
@@ -162,6 +163,35 @@ namespace FeatherWidgets.TestIntegration.Events
             {
                 File.Delete(newDetailTemplatePath);
             }
+        }
+
+        [Test]
+        [Category(TestCategories.Events)]
+        [Author(FeatherTeams.FeatherTeam)]
+        public void EventWidget_SocialShareButtonsFunctionality()
+        {
+            string socialShare = "list-inline sf-social-share";
+            string testName = System.Reflection.MethodInfo.GetCurrentMethod().Name;
+            string pageNamePrefix = testName + "EventsPage";
+            string pageTitlePrefix = testName + "Events Page";
+            string urlNamePrefix = testName + "events-page";
+            int pageIndex = 1;
+            var eventsManager = EventsManager.GetManager();
+            string url = UrlPath.ResolveAbsoluteUrl("~/" + urlNamePrefix + pageIndex);
+
+            var mvcProxy = new MvcControllerProxy();
+            mvcProxy.ControllerName = typeof(EventController).FullName;
+            var eventController = new EventController();
+            eventController.Model.EnableSocialSharing = true;
+            mvcProxy.Settings = new ControllerSettings(eventController);
+            this.pageOperations.CreatePageWithControl(mvcProxy, pageNamePrefix, pageTitlePrefix, urlNamePrefix, pageIndex);
+
+            var eventItem = eventsManager.GetEvents().Where<Event>(ni => ni.Status == ContentLifecycleStatus.Master && ni.Title == BaseEventTitle + 1).FirstOrDefault();
+            string detailEventUrl = url + eventItem.ItemDefaultUrl;
+            string responseContent = PageInvoker.ExecuteWebRequest(detailEventUrl);
+
+            Assert.IsTrue(responseContent.Contains(socialShare), "Social share button was not found!");
+            Assert.IsTrue(responseContent.Contains(BaseEventTitle + 1), "The event with this title was not found!");
         }
 
         #region Helper methods
