@@ -155,7 +155,7 @@ namespace FeatherWidgets.TestIntegration.Events
                 eventController.Model.SelectionMode = SelectionMode.AllItems;
 
                 var mvcProxy = new MvcControllerProxy() { Settings = new ControllerSettings(eventController), ControllerName = typeof(EventController).FullName };
-                var containedEvents = new string[] { CurrentEventNameFormat, NextWeekEventNameFormat, NextDayEventNameFormat, PreviousDayEventNameFormat, PreviousWeekEventNameFormat }.Select(s => string.Format(CultureInfo.InvariantCulture, s, methodName));
+                var containedEvents = new string[] { CurrentEventNameFormat, NextWeekEventNameFormat, NextMonthEventNameFormat, PreviousMonthEventNameFormat, PreviousWeekEventNameFormat }.Select(s => string.Format(CultureInfo.InvariantCulture, s, methodName));
             
                 using (var generator = new PageContentGenerator())
                 {
@@ -184,7 +184,7 @@ namespace FeatherWidgets.TestIntegration.Events
             
             var methodName = MethodInfo.GetCurrentMethod().Name;
             var containedEvents = new string[] { CurrentEventNameFormat }.Select(s => string.Format(CultureInfo.InvariantCulture, s, methodName));
-            var notContainedEvents = new string[] { NextWeekEventNameFormat, NextDayEventNameFormat, PreviousDayEventNameFormat, PreviousWeekEventNameFormat }.Select(s => string.Format(CultureInfo.InvariantCulture, s, methodName));
+            var notContainedEvents = new string[] { NextWeekEventNameFormat, NextMonthEventNameFormat, PreviousMonthEventNameFormat, PreviousWeekEventNameFormat }.Select(s => string.Format(CultureInfo.InvariantCulture, s, methodName));
 
             this.TestFilterByDate(methodName, SerializedAdditionalFilters, containedEvents, notContainedEvents);
         }
@@ -198,8 +198,8 @@ namespace FeatherWidgets.TestIntegration.Events
             const string SerializedAdditionalFilters = "{\"__msdisposeindex\":196,\"Title\":null,\"Id\":\"00000000-0000-0000-0000-000000000000\",\"QueryItems\":[{\"IsGroup\":true,\"Ordinal\":0,\"Join\":\"OR\",\"ItemPath\":\"_0\",\"Value\":null,\"Condition\":null,\"Name\":\"Upcoming\",\"_itemPathSeparator\":\"_\",\"__msdisposeindex\":204},{\"IsGroup\":false,\"Ordinal\":0,\"Join\":\"AND\",\"ItemPath\":\"_0_0\",\"Value\":\"DateTime.UtcNow\",\"Condition\":{\"FieldName\":\"EventStart\",\"FieldType\":\"System.DateTime\",\"Operator\":\">=\",\"__msdisposeindex\":205},\"Name\":null,\"_itemPathSeparator\":\"_\",\"__msdisposeindex\":206}],\"TypeProperties\":[],\"_itemPathSeparator\":\"_\"}";
 
             var methodName = MethodInfo.GetCurrentMethod().Name;
-            var containedEvents = new string[] { NextWeekEventNameFormat, NextDayEventNameFormat }.Select(s => string.Format(CultureInfo.InvariantCulture, s, methodName));
-            var notContainedEvents = new string[] { CurrentEventNameFormat, PreviousDayEventNameFormat, PreviousWeekEventNameFormat }.Select(s => string.Format(CultureInfo.InvariantCulture, s, methodName));
+            var containedEvents = new string[] { NextWeekEventNameFormat, NextMonthEventNameFormat }.Select(s => string.Format(CultureInfo.InvariantCulture, s, methodName));
+            var notContainedEvents = new string[] { CurrentEventNameFormat, PreviousMonthEventNameFormat, PreviousWeekEventNameFormat }.Select(s => string.Format(CultureInfo.InvariantCulture, s, methodName));
 
             this.TestFilterByDate(methodName, SerializedAdditionalFilters, containedEvents, notContainedEvents);
         }
@@ -210,11 +210,11 @@ namespace FeatherWidgets.TestIntegration.Events
         [Description("Verifies that event widget is displaying only upcoming events narrowed by date.")]
         public void EventWidget_FilterByDate_DisplayUpcomingOnly_NarrowByDate()
         {
-            const string SerializedAdditionalFilters = "{\"__msdisposeindex\":207,\"Title\":null,\"Id\":\"00000000-0000-0000-0000-000000000000\",\"QueryItems\":[{\"IsGroup\":true,\"Ordinal\":0,\"Join\":\"OR\",\"ItemPath\":\"_0\",\"Value\":null,\"Condition\":null,\"Name\":\"Upcoming\",\"_itemPathSeparator\":\"_\",\"__msdisposeindex\":213},{\"IsGroup\":false,\"Ordinal\":0,\"Join\":\"AND\",\"ItemPath\":\"_0_0\",\"Value\":\"DateTime.UtcNow.AddDays(7.0)\",\"Condition\":{\"FieldName\":\"EventStart\",\"FieldType\":\"System.DateTime\",\"Operator\":\"<\",\"__msdisposeindex\":214},\"Name\":\"EventStart.DateTime.UtcNow.AddDays(7.0)\",\"_itemPathSeparator\":\"_\",\"__msdisposeindex\":215},{\"IsGroup\":false,\"Ordinal\":1,\"Join\":\"AND\",\"ItemPath\":\"_0_1\",\"Value\":\"DateTime.UtcNow\",\"Condition\":{\"FieldName\":\"EventStart\",\"FieldType\":\"System.DateTime\",\"Operator\":\">=\",\"__msdisposeindex\":216},\"Name\":null,\"_itemPathSeparator\":\"_\",\"__msdisposeindex\":217}],\"TypeProperties\":[],\"_itemPathSeparator\":\"_\"}";
+            const string SerializedAdditionalFilters = "{\"__msdisposeindex\":307,\"Title\":null,\"Id\":\"00000000-0000-0000-0000-000000000000\",\"QueryItems\":[{\"IsGroup\":true,\"Ordinal\":0,\"Join\":\"OR\",\"ItemPath\":\"_0\",\"Value\":null,\"Condition\":null,\"Name\":\"Upcoming\",\"_itemPathSeparator\":\"_\",\"__msdisposeindex\":313},{\"IsGroup\":false,\"Ordinal\":0,\"Join\":\"AND\",\"ItemPath\":\"_0_0\",\"Value\":\"DateTime.UtcNow.AddDays(7.0)\",\"Condition\":{\"FieldName\":\"EventStart\",\"FieldType\":\"System.DateTime\",\"Operator\":\"<\",\"__msdisposeindex\":314},\"Name\":\"EventStart.DateTime.UtcNow.AddDays(7.0)\",\"_itemPathSeparator\":\"_\",\"__msdisposeindex\":315},{\"IsGroup\":false,\"Ordinal\":1,\"Join\":\"AND\",\"ItemPath\":\"_0_1\",\"Value\":\"DateTime.UtcNow\",\"Condition\":{\"FieldName\":\"EventStart\",\"FieldType\":\"System.DateTime\",\"Operator\":\">=\",\"__msdisposeindex\":316},\"Name\":null,\"_itemPathSeparator\":\"_\",\"__msdisposeindex\":317}],\"TypeProperties\":[],\"_itemPathSeparator\":\"_\"}";
 
             var methodName = MethodInfo.GetCurrentMethod().Name;
             var containedEvents = new string[] { NextWeekEventNameFormat }.Select(s => string.Format(CultureInfo.InvariantCulture, s, methodName));
-            var notContainedEvents = new string[] { CurrentEventNameFormat, NextDayEventNameFormat, PreviousDayEventNameFormat, PreviousWeekEventNameFormat }.Select(s => string.Format(CultureInfo.InvariantCulture, s, methodName));
+            var notContainedEvents = new string[] { CurrentEventNameFormat, NextMonthEventNameFormat, PreviousMonthEventNameFormat, PreviousWeekEventNameFormat }.Select(s => string.Format(CultureInfo.InvariantCulture, s, methodName));
 
             this.TestFilterByDate(methodName, SerializedAdditionalFilters, containedEvents, notContainedEvents);
         }
@@ -228,8 +228,8 @@ namespace FeatherWidgets.TestIntegration.Events
             const string SerializedAdditionalFilters = "{\"__msdisposeindex\":218,\"Title\":null,\"Id\":\"00000000-0000-0000-0000-000000000000\",\"QueryItems\":[{\"IsGroup\":true,\"Ordinal\":0,\"Join\":\"OR\",\"ItemPath\":\"_0\",\"Value\":null,\"Condition\":null,\"Name\":\"Past\",\"_itemPathSeparator\":\"_\",\"__msdisposeindex\":226},{\"IsGroup\":false,\"Ordinal\":0,\"Join\":\"AND\",\"ItemPath\":\"_0_0\",\"Value\":\"DateTime.UtcNow\",\"Condition\":{\"FieldName\":\"EventEnd\",\"FieldType\":\"System.DateTime\",\"Operator\":\"<=\",\"__msdisposeindex\":227},\"Name\":null,\"_itemPathSeparator\":\"_\",\"__msdisposeindex\":228}],\"TypeProperties\":[],\"_itemPathSeparator\":\"_\"}";
 
             var methodName = MethodInfo.GetCurrentMethod().Name;
-            var containedEvents = new string[] { PreviousDayEventNameFormat, PreviousWeekEventNameFormat }.Select(s => string.Format(CultureInfo.InvariantCulture, s, methodName));
-            var notContainedEvents = new string[] { CurrentEventNameFormat, NextWeekEventNameFormat, NextDayEventNameFormat }.Select(s => string.Format(CultureInfo.InvariantCulture, s, methodName));
+            var containedEvents = new string[] { PreviousMonthEventNameFormat, PreviousWeekEventNameFormat }.Select(s => string.Format(CultureInfo.InvariantCulture, s, methodName));
+            var notContainedEvents = new string[] { CurrentEventNameFormat, NextWeekEventNameFormat, NextMonthEventNameFormat }.Select(s => string.Format(CultureInfo.InvariantCulture, s, methodName));
 
             this.TestFilterByDate(methodName, SerializedAdditionalFilters, containedEvents, notContainedEvents);
         }
@@ -240,11 +240,11 @@ namespace FeatherWidgets.TestIntegration.Events
         [Description("Verifies that event widget is displaying only past events narrowed by date.")]
         public void EventWidget_FilterByDate_DisplayPastOnly_NarrowByDate()
         {
-            const string SerializedAdditionalFilters = "{\"__msdisposeindex\":229,\"Title\":null,\"Id\":\"00000000-0000-0000-0000-000000000000\",\"QueryItems\":[{\"IsGroup\":true,\"Ordinal\":0,\"Join\":\"OR\",\"ItemPath\":\"_0\",\"Value\":null,\"Condition\":null,\"Name\":\"Past\",\"_itemPathSeparator\":\"_\",\"__msdisposeindex\":235},{\"IsGroup\":false,\"Ordinal\":0,\"Join\":\"AND\",\"ItemPath\":\"_0_0\",\"Value\":\"DateTime.UtcNow.AddDays(-7.0)\",\"Condition\":{\"FieldName\":\"EventStart\",\"FieldType\":\"System.DateTime\",\"Operator\":\">\",\"__msdisposeindex\":236},\"Name\":\"EventStart.DateTime.UtcNow.AddDays(-7.0)\",\"_itemPathSeparator\":\"_\",\"__msdisposeindex\":237},{\"IsGroup\":false,\"Ordinal\":1,\"Join\":\"AND\",\"ItemPath\":\"_0_1\",\"Value\":\"DateTime.UtcNow\",\"Condition\":{\"FieldName\":\"EventEnd\",\"FieldType\":\"System.DateTime\",\"Operator\":\"<=\",\"__msdisposeindex\":238},\"Name\":null,\"_itemPathSeparator\":\"_\",\"__msdisposeindex\":239}],\"TypeProperties\":[],\"_itemPathSeparator\":\"_\"}";
+            const string SerializedAdditionalFilters = "{\"__msdisposeindex\":279,\"Title\":null,\"Id\":\"00000000-0000-0000-0000-000000000000\",\"QueryItems\":[{\"IsGroup\":true,\"Ordinal\":0,\"Join\":\"OR\",\"ItemPath\":\"_0\",\"Value\":null,\"Condition\":null,\"Name\":\"Past\",\"_itemPathSeparator\":\"_\",\"__msdisposeindex\":291},{\"IsGroup\":false,\"Ordinal\":0,\"Join\":\"AND\",\"ItemPath\":\"_0_0\",\"Value\":\"DateTime.UtcNow.AddDays(-7.0)\",\"Condition\":{\"FieldName\":\"EventStart\",\"FieldType\":\"System.DateTime\",\"Operator\":\">\",\"__msdisposeindex\":292},\"Name\":\"EventStart.DateTime.UtcNow.AddDays(-7.0)\",\"_itemPathSeparator\":\"_\",\"__msdisposeindex\":293},{\"IsGroup\":false,\"Ordinal\":1,\"Join\":\"AND\",\"ItemPath\":\"_0_1\",\"Value\":\"DateTime.UtcNow\",\"Condition\":{\"FieldName\":\"EventEnd\",\"FieldType\":\"System.DateTime\",\"Operator\":\"<=\",\"__msdisposeindex\":294},\"Name\":null,\"_itemPathSeparator\":\"_\",\"__msdisposeindex\":295}],\"TypeProperties\":[],\"_itemPathSeparator\":\"_\"}";
 
             var methodName = MethodInfo.GetCurrentMethod().Name;
             var containedEvents = new string[] { PreviousWeekEventNameFormat }.Select(s => string.Format(CultureInfo.InvariantCulture, s, methodName));
-            var notContainedEvents = new string[] { CurrentEventNameFormat, PreviousDayEventNameFormat, NextWeekEventNameFormat, NextDayEventNameFormat }.Select(s => string.Format(CultureInfo.InvariantCulture, s, methodName));
+            var notContainedEvents = new string[] { CurrentEventNameFormat, PreviousMonthEventNameFormat, NextWeekEventNameFormat, NextMonthEventNameFormat }.Select(s => string.Format(CultureInfo.InvariantCulture, s, methodName));
 
             this.TestFilterByDate(methodName, SerializedAdditionalFilters, containedEvents, notContainedEvents);
         }
@@ -255,11 +255,11 @@ namespace FeatherWidgets.TestIntegration.Events
         [Description("Verifies that event widget is displaying only past and current events.")]
         public void EventWidget_FilterByDate_DisplayPastAndCurrentOnly()
         {
-            const string SerializedAdditionalFilters = "{\"__msdisposeindex\":258,\"Title\":null,\"Id\":\"00000000-0000-0000-0000-000000000000\",\"QueryItems\":[{\"IsGroup\":true,\"Ordinal\":0,\"Join\":\"OR\",\"ItemPath\":\"_0\",\"Value\":null,\"Condition\":null,\"Name\":\"Past\",\"_itemPathSeparator\":\"_\",\"__msdisposeindex\":270},{\"IsGroup\":false,\"Ordinal\":0,\"Join\":\"AND\",\"ItemPath\":\"_0_0\",\"Value\":\"DateTime.UtcNow\",\"Condition\":{\"FieldName\":\"EventEnd\",\"FieldType\":\"System.DateTime\",\"Operator\":\"<=\",\"__msdisposeindex\":271},\"Name\":null,\"_itemPathSeparator\":\"_\",\"__msdisposeindex\":272},{\"IsGroup\":true,\"Ordinal\":1,\"Join\":\"OR\",\"ItemPath\":\"_1\",\"Value\":null,\"Condition\":null,\"Name\":\"Upcoming\",\"_itemPathSeparator\":\"_\",\"__msdisposeindex\":273},{\"IsGroup\":false,\"Ordinal\":0,\"Join\":\"AND\",\"ItemPath\":\"_1_0\",\"Value\":\"DateTime.UtcNow\",\"Condition\":{\"FieldName\":\"EventStart\",\"FieldType\":\"System.DateTime\",\"Operator\":\">=\",\"__msdisposeindex\":274},\"Name\":null,\"_itemPathSeparator\":\"_\",\"__msdisposeindex\":275}],\"TypeProperties\":[],\"_itemPathSeparator\":\"_\"}";
+            const string SerializedAdditionalFilters = "{\"__msdisposeindex\":269,\"Title\":null,\"Id\":\"00000000-0000-0000-0000-000000000000\",\"QueryItems\":[{\"IsGroup\":true,\"Ordinal\":0,\"Join\":\"OR\",\"ItemPath\":\"_0\",\"Value\":null,\"Condition\":null,\"Name\":\"Current\",\"_itemPathSeparator\":\"_\",\"__msdisposeindex\":271},{\"IsGroup\":false,\"Ordinal\":0,\"Join\":\"AND\",\"ItemPath\":\"_0_0\",\"Value\":\"DateTime.UtcNow\",\"Condition\":{\"FieldName\":\"EventStart\",\"FieldType\":\"System.DateTime\",\"Operator\":\"<=\",\"__msdisposeindex\":272},\"Name\":null,\"_itemPathSeparator\":\"_\",\"__msdisposeindex\":273},{\"IsGroup\":false,\"Ordinal\":1,\"Join\":\"AND\",\"ItemPath\":\"_0_1\",\"Value\":\"DateTime.UtcNow\",\"Condition\":{\"FieldName\":\"EventEnd\",\"FieldType\":\"System.DateTime\",\"Operator\":\">=\",\"__msdisposeindex\":274},\"Name\":null,\"_itemPathSeparator\":\"_\",\"__msdisposeindex\":275},{\"IsGroup\":true,\"Ordinal\":1,\"Join\":\"OR\",\"ItemPath\":\"_1\",\"Value\":null,\"Condition\":null,\"Name\":\"Past\",\"_itemPathSeparator\":\"_\",\"__msdisposeindex\":276},{\"IsGroup\":false,\"Ordinal\":0,\"Join\":\"AND\",\"ItemPath\":\"_1_0\",\"Value\":\"DateTime.UtcNow\",\"Condition\":{\"FieldName\":\"EventEnd\",\"FieldType\":\"System.DateTime\",\"Operator\":\"<=\",\"__msdisposeindex\":277},\"Name\":null,\"_itemPathSeparator\":\"_\",\"__msdisposeindex\":278}],\"TypeProperties\":[],\"_itemPathSeparator\":\"_\"}";
 
             var methodName = MethodInfo.GetCurrentMethod().Name;
-            var containedEvents = new string[] { CurrentEventNameFormat, PreviousDayEventNameFormat, PreviousWeekEventNameFormat }.Select(s => string.Format(CultureInfo.InvariantCulture, s, methodName));
-            var notContainedEvents = new string[] { NextWeekEventNameFormat, NextDayEventNameFormat }.Select(s => string.Format(CultureInfo.InvariantCulture, s, methodName));
+            var containedEvents = new string[] { CurrentEventNameFormat, PreviousMonthEventNameFormat, PreviousWeekEventNameFormat }.Select(s => string.Format(CultureInfo.InvariantCulture, s, methodName));
+            var notContainedEvents = new string[] { NextWeekEventNameFormat, NextMonthEventNameFormat }.Select(s => string.Format(CultureInfo.InvariantCulture, s, methodName));
 
             this.TestFilterByDate(methodName, SerializedAdditionalFilters, containedEvents, notContainedEvents);
         }
@@ -273,8 +273,8 @@ namespace FeatherWidgets.TestIntegration.Events
             const string SerializedAdditionalFilters = "{\"__msdisposeindex\":248,\"Title\":null,\"Id\":\"00000000-0000-0000-0000-000000000000\",\"QueryItems\":[{\"IsGroup\":true,\"Ordinal\":0,\"Join\":\"OR\",\"ItemPath\":\"_0\",\"Value\":null,\"Condition\":null,\"Name\":\"Upcoming\",\"_itemPathSeparator\":\"_\",\"__msdisposeindex\":250},{\"IsGroup\":false,\"Ordinal\":0,\"Join\":\"AND\",\"ItemPath\":\"_0_0\",\"Value\":\"DateTime.UtcNow\",\"Condition\":{\"FieldName\":\"EventStart\",\"FieldType\":\"System.DateTime\",\"Operator\":\">=\",\"__msdisposeindex\":251},\"Name\":null,\"_itemPathSeparator\":\"_\",\"__msdisposeindex\":252},{\"IsGroup\":true,\"Ordinal\":1,\"Join\":\"OR\",\"ItemPath\":\"_1\",\"Value\":null,\"Condition\":null,\"Name\":\"Current\",\"_itemPathSeparator\":\"_\",\"__msdisposeindex\":253},{\"IsGroup\":false,\"Ordinal\":0,\"Join\":\"AND\",\"ItemPath\":\"_1_0\",\"Value\":\"DateTime.UtcNow\",\"Condition\":{\"FieldName\":\"EventStart\",\"FieldType\":\"System.DateTime\",\"Operator\":\"<=\",\"__msdisposeindex\":254},\"Name\":null,\"_itemPathSeparator\":\"_\",\"__msdisposeindex\":255},{\"IsGroup\":false,\"Ordinal\":1,\"Join\":\"AND\",\"ItemPath\":\"_1_1\",\"Value\":\"DateTime.UtcNow\",\"Condition\":{\"FieldName\":\"EventEnd\",\"FieldType\":\"System.DateTime\",\"Operator\":\">=\",\"__msdisposeindex\":256},\"Name\":null,\"_itemPathSeparator\":\"_\",\"__msdisposeindex\":257}],\"TypeProperties\":[],\"_itemPathSeparator\":\"_\"}";
 
             var methodName = MethodInfo.GetCurrentMethod().Name;
-            var containedEvents = new string[] { CurrentEventNameFormat, NextWeekEventNameFormat, NextDayEventNameFormat }.Select(s => string.Format(CultureInfo.InvariantCulture, s, methodName));
-            var notContainedEvents = new string[] { PreviousDayEventNameFormat, PreviousWeekEventNameFormat }.Select(s => string.Format(CultureInfo.InvariantCulture, s, methodName));
+            var containedEvents = new string[] { CurrentEventNameFormat, NextWeekEventNameFormat, NextMonthEventNameFormat }.Select(s => string.Format(CultureInfo.InvariantCulture, s, methodName));
+            var notContainedEvents = new string[] { PreviousMonthEventNameFormat, PreviousWeekEventNameFormat }.Select(s => string.Format(CultureInfo.InvariantCulture, s, methodName));
 
             this.TestFilterByDate(methodName, SerializedAdditionalFilters, containedEvents, notContainedEvents);
         }
@@ -288,7 +288,7 @@ namespace FeatherWidgets.TestIntegration.Events
             const string SerializedAdditionalFilters = "{\"__msdisposeindex\":258,\"Title\":null,\"Id\":\"00000000-0000-0000-0000-000000000000\",\"QueryItems\":[{\"IsGroup\":true,\"Ordinal\":0,\"Join\":\"OR\",\"ItemPath\":\"_0\",\"Value\":null,\"Condition\":null,\"Name\":\"Past\",\"_itemPathSeparator\":\"_\",\"__msdisposeindex\":270},{\"IsGroup\":false,\"Ordinal\":0,\"Join\":\"AND\",\"ItemPath\":\"_0_0\",\"Value\":\"DateTime.UtcNow\",\"Condition\":{\"FieldName\":\"EventEnd\",\"FieldType\":\"System.DateTime\",\"Operator\":\"<=\",\"__msdisposeindex\":271},\"Name\":null,\"_itemPathSeparator\":\"_\",\"__msdisposeindex\":272},{\"IsGroup\":true,\"Ordinal\":1,\"Join\":\"OR\",\"ItemPath\":\"_1\",\"Value\":null,\"Condition\":null,\"Name\":\"Upcoming\",\"_itemPathSeparator\":\"_\",\"__msdisposeindex\":273},{\"IsGroup\":false,\"Ordinal\":0,\"Join\":\"AND\",\"ItemPath\":\"_1_0\",\"Value\":\"DateTime.UtcNow\",\"Condition\":{\"FieldName\":\"EventStart\",\"FieldType\":\"System.DateTime\",\"Operator\":\">=\",\"__msdisposeindex\":274},\"Name\":null,\"_itemPathSeparator\":\"_\",\"__msdisposeindex\":275}],\"TypeProperties\":[],\"_itemPathSeparator\":\"_\"}";
 
             var methodName = MethodInfo.GetCurrentMethod().Name;
-            var containedEvents = new string[] { NextWeekEventNameFormat, NextDayEventNameFormat, PreviousDayEventNameFormat, PreviousWeekEventNameFormat }.Select(s => string.Format(CultureInfo.InvariantCulture, s, methodName));
+            var containedEvents = new string[] { NextWeekEventNameFormat, NextMonthEventNameFormat, PreviousMonthEventNameFormat, PreviousWeekEventNameFormat }.Select(s => string.Format(CultureInfo.InvariantCulture, s, methodName));
             var notContainedEvents = new string[] { CurrentEventNameFormat }.Select(s => string.Format(CultureInfo.InvariantCulture, s, methodName));
 
             this.TestFilterByDate(methodName, SerializedAdditionalFilters, containedEvents, notContainedEvents);
@@ -303,7 +303,7 @@ namespace FeatherWidgets.TestIntegration.Events
             const string SerializedAdditionalFilters = "{\"__msdisposeindex\":253,\"Title\":null,\"Id\":\"00000000-0000-0000-0000-000000000000\",\"QueryItems\":[{\"IsGroup\":true,\"Ordinal\":0,\"Join\":\"OR\",\"ItemPath\":\"_0\",\"Value\":null,\"Condition\":{\"FieldName\":null,\"FieldType\":null,\"Operator\":null,\"__msdisposeindex\":255},\"Name\":\"Current\",\"_itemPathSeparator\":\"_\",\"__msdisposeindex\":254},{\"IsGroup\":false,\"Ordinal\":0,\"Join\":\"AND\",\"ItemPath\":\"_0_0\",\"Value\":\"DateTime.UtcNow\",\"Condition\":{\"FieldName\":\"EventStart\",\"FieldType\":\"System.DateTime\",\"Operator\":\"<=\",\"__msdisposeindex\":257},\"Name\":null,\"_itemPathSeparator\":\"_\",\"__msdisposeindex\":256},{\"IsGroup\":false,\"Ordinal\":1,\"Join\":\"AND\",\"ItemPath\":\"_0_1\",\"Value\":\"DateTime.UtcNow\",\"Condition\":{\"FieldName\":\"EventEnd\",\"FieldType\":\"System.DateTime\",\"Operator\":\">=\",\"__msdisposeindex\":259},\"Name\":null,\"_itemPathSeparator\":\"_\",\"__msdisposeindex\":258},{\"IsGroup\":true,\"Ordinal\":1,\"Join\":\"OR\",\"ItemPath\":\"_1\",\"Value\":null,\"Condition\":null,\"Name\":\"Upcoming\",\"_itemPathSeparator\":\"_\",\"__msdisposeindex\":260},{\"IsGroup\":false,\"Ordinal\":0,\"Join\":\"AND\",\"ItemPath\":\"_1_0\",\"Value\":\"DateTime.UtcNow\",\"Condition\":{\"FieldName\":\"EventStart\",\"FieldType\":\"System.DateTime\",\"Operator\":\">=\",\"__msdisposeindex\":261},\"Name\":null,\"_itemPathSeparator\":\"_\",\"__msdisposeindex\":262},{\"IsGroup\":true,\"Ordinal\":2,\"Join\":\"OR\",\"ItemPath\":\"_2\",\"Value\":null,\"Condition\":null,\"Name\":\"Past\",\"_itemPathSeparator\":\"_\",\"__msdisposeindex\":263},{\"IsGroup\":false,\"Ordinal\":0,\"Join\":\"AND\",\"ItemPath\":\"_2_0\",\"Value\":\"DateTime.UtcNow\",\"Condition\":{\"FieldName\":\"EventEnd\",\"FieldType\":\"System.DateTime\",\"Operator\":\"<=\",\"__msdisposeindex\":264},\"Name\":null,\"_itemPathSeparator\":\"_\",\"__msdisposeindex\":265}],\"TypeProperties\":[],\"_itemPathSeparator\":\"_\"}";
 
             var methodName = MethodInfo.GetCurrentMethod().Name;
-            var containedEvents = new string[] { CurrentEventNameFormat, NextWeekEventNameFormat, NextDayEventNameFormat, PreviousDayEventNameFormat, PreviousWeekEventNameFormat }.Select(s => string.Format(CultureInfo.InvariantCulture, s, methodName));
+            var containedEvents = new string[] { CurrentEventNameFormat, NextWeekEventNameFormat, NextMonthEventNameFormat, PreviousMonthEventNameFormat, PreviousWeekEventNameFormat }.Select(s => string.Format(CultureInfo.InvariantCulture, s, methodName));
             var notContainedEvents = new string[] { };
 
             this.TestFilterByDate(methodName, SerializedAdditionalFilters, containedEvents, notContainedEvents);
@@ -382,15 +382,15 @@ namespace FeatherWidgets.TestIntegration.Events
 
             ServerOperations.Events().CreateEvent(string.Format(CultureInfo.InvariantCulture, CurrentEventNameFormat, methodName), "some content", false, DateTime.UtcNow.AddMinutes(-1), DateTime.UtcNow.AddMinutes(1), calendarId);
             ServerOperations.Events().CreateEvent(string.Format(CultureInfo.InvariantCulture, NextWeekEventNameFormat, methodName), "some content", false, DateTime.UtcNow.AddDays(5), DateTime.UtcNow.AddDays(5).AddMinutes(2), calendarId);
-            ServerOperations.Events().CreateEvent(string.Format(CultureInfo.InvariantCulture, NextDayEventNameFormat, methodName), "some content", false, DateTime.UtcNow.AddDays(1), DateTime.UtcNow.AddDays(1).AddMinutes(2), calendarId);
+            ServerOperations.Events().CreateEvent(string.Format(CultureInfo.InvariantCulture, NextMonthEventNameFormat, methodName), "some content", false, DateTime.UtcNow.AddMonths(1), DateTime.UtcNow.AddMonths(1).AddMinutes(2), calendarId);
             ServerOperations.Events().CreateEvent(string.Format(CultureInfo.InvariantCulture, PreviousWeekEventNameFormat, methodName), "some content", false, DateTime.UtcNow.AddDays(-5), DateTime.UtcNow.AddDays(-5).AddMinutes(2), calendarId);
-            ServerOperations.Events().CreateEvent(string.Format(CultureInfo.InvariantCulture, PreviousDayEventNameFormat, methodName), "some content", false, DateTime.UtcNow.AddDays(-1), DateTime.UtcNow.AddDays(-1).AddMinutes(2), calendarId);
+            ServerOperations.Events().CreateEvent(string.Format(CultureInfo.InvariantCulture, PreviousMonthEventNameFormat, methodName), "some content", false, DateTime.UtcNow.AddMonths(-1), DateTime.UtcNow.AddMonths(-1).AddMinutes(2), calendarId);
         }
 
         public const string CurrentEventNameFormat = "{0}_current_event_name";
         public const string NextWeekEventNameFormat = "{0}_next_week_event_name";
-        public const string NextDayEventNameFormat = "{0}_next_day_event_name";
+        public const string NextMonthEventNameFormat = "{0}_next_month_event_name";
         public const string PreviousWeekEventNameFormat = "{0}_previous_week_event_name";
-        public const string PreviousDayEventNameFormat = "{0}_previous_day_event_name";
+        public const string PreviousMonthEventNameFormat = "{0}_previous_month_event_name";
     }
 }
