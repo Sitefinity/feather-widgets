@@ -364,6 +364,50 @@ namespace Feather.Widgets.TestUI.Framework.Framework.ElementMap.Forms
         }
 
         /// <summary>
+        /// Gets the placeholder.
+        /// </summary>
+        public HtmlInputText PlaceHolder
+        {
+            get
+            {
+                return this.Get<HtmlInputText>("tagname=input", "ng-model=properties.Model.PlaceholderText.PropertyValue");
+            }
+        }
+
+        /// <summary>
+        /// Gets the predefined value.
+        /// </summary>
+        public HtmlInputText PredefinedValue
+        {
+            get
+            {
+                return this.Get<HtmlInputText>("tagname=input", "id=predefinedValue");
+            }
+        }
+
+        /// <summary>
+        /// Gets the instructional text link
+        /// </summary>
+        public HtmlAnchor InstructionalTextLink
+        {
+            get
+            {
+                return this.Get<HtmlAnchor>("tagname=a", "InnerText=Add instructional text");
+            }
+        }
+
+        /// <summary>
+        /// Gets the instructional text area
+        /// </summary>
+        public HtmlTextArea InstructionalTextArea
+        {
+            get
+            {
+                return this.Get<HtmlTextArea>("TagName=textarea", "ng-model=properties.Model.MetaField.Description.PropertyValue");
+            }
+        }
+
+        /// <summary>
         /// Gets navigation template selector.
         /// </summary>
         public HtmlSelect NavigationTemplateSelector

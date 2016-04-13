@@ -147,6 +147,27 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Frontend.Forms
         }
 
         /// <summary>
+        /// Remove the TextBox Content in the Frontend of the form
+        /// </summary>
+        public void RemoveTextboxContent()
+        {
+            HtmlInputText textbox = this.EM.Forms.FormsFrontend.TextField.AssertIsPresent("Text field");
+
+            textbox.ScrollToVisible();
+            textbox.Focus();
+            textbox.MouseClick();
+
+            Manager.Current.Desktop.KeyBoard.KeyDown(System.Windows.Forms.Keys.Control);
+            Manager.Current.Desktop.KeyBoard.KeyPress(System.Windows.Forms.Keys.A);
+            Manager.Current.Desktop.KeyBoard.KeyUp(System.Windows.Forms.Keys.Control);
+            Manager.Current.Desktop.KeyBoard.KeyPress(System.Windows.Forms.Keys.Delete);
+
+            HtmlDiv label = this.EM.Forms.FormsFrontend.TextboxField.AssertIsPresent("Text field");
+            label.Focus();
+            label.MouseClick();
+        }
+
+        /// <summary>
         /// Sets the Paragraph Text Content in the Frontend of the form
         /// </summary>
         public void SetParagraphTextContent(string content)
@@ -154,6 +175,24 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Frontend.Forms
             HtmlTextArea textbox = this.EM.Forms.FormsFrontend.ParagraphTextBox.AssertIsPresent("Text field");
             textbox.MouseClick();
             Manager.Current.Desktop.KeyBoard.TypeText(content);
+        }
+
+        /// <summary>
+        /// Remove the Paragraph Text Content in the Frontend of the form
+        /// </summary>
+        public void RemoveParagraphTextContent()
+        {
+            HtmlTextArea textbox = this.EM.Forms.FormsFrontend.ParagraphTextBox.AssertIsPresent("Text field");
+            textbox.MouseClick();
+
+            Manager.Current.Desktop.KeyBoard.KeyDown(System.Windows.Forms.Keys.Control);
+            Manager.Current.Desktop.KeyBoard.KeyPress(System.Windows.Forms.Keys.A);
+            Manager.Current.Desktop.KeyBoard.KeyUp(System.Windows.Forms.Keys.Control);
+            Manager.Current.Desktop.KeyBoard.KeyPress(System.Windows.Forms.Keys.Delete);
+
+            HtmlDiv label = this.EM.Forms.FormsFrontend.ParagraphTextField.AssertIsPresent("Paragraph field");
+            label.Focus();
+            label.MouseClick();
         }
 
         /// <summary>

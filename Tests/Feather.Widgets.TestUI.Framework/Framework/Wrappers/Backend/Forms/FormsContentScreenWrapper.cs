@@ -553,6 +553,78 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend.Forms
             Manager.Current.Desktop.KeyBoard.TypeText(text);
         }
 
+        /// <summary>
+        /// Changes the placeholder.
+        /// </summary>
+        /// <param name="text">The text.</param>
+        public void ChangePlaceholder(string text)
+        {
+            HtmlInputText placeholder = EM.Forms.FormsBackend.PlaceHolder
+                .AssertIsPresent("placeholder");
+
+            placeholder.ScrollToVisible();
+            placeholder.Focus();
+            placeholder.MouseClick();
+
+            Manager.Current.Desktop.KeyBoard.KeyDown(System.Windows.Forms.Keys.Control);
+            Manager.Current.Desktop.KeyBoard.KeyPress(System.Windows.Forms.Keys.A);
+            Manager.Current.Desktop.KeyBoard.KeyUp(System.Windows.Forms.Keys.Control);
+            Manager.Current.Desktop.KeyBoard.KeyPress(System.Windows.Forms.Keys.Delete);
+            Manager.Current.Desktop.KeyBoard.TypeText(text);
+        }
+
+        /// <summary>
+        /// Changes the predefined value.
+        /// </summary>
+        /// <param name="text">The text.</param>
+        public void ChangePredefinedValue(string text)
+        {
+            HtmlInputText predefinedValue = EM.Forms.FormsBackend.PredefinedValue
+                .AssertIsPresent("predefined value");
+
+            predefinedValue.ScrollToVisible();
+            predefinedValue.Focus();
+            predefinedValue.MouseClick();
+
+            Manager.Current.Desktop.KeyBoard.KeyDown(System.Windows.Forms.Keys.Control);
+            Manager.Current.Desktop.KeyBoard.KeyPress(System.Windows.Forms.Keys.A);
+            Manager.Current.Desktop.KeyBoard.KeyUp(System.Windows.Forms.Keys.Control);
+            Manager.Current.Desktop.KeyBoard.KeyPress(System.Windows.Forms.Keys.Delete);
+            Manager.Current.Desktop.KeyBoard.TypeText(text);
+        }
+
+        /// <summary>
+        /// Changes the instructional text.
+        /// </summary>
+        /// <param name="text">The text.</param>
+        public void ChangeInstructionalText(string text)
+        {
+            HtmlTextArea textArea = EM.Forms.FormsBackend.InstructionalTextArea
+                .AssertIsPresent("Instructional text area");
+
+            textArea.ScrollToVisible();
+            textArea.Focus();
+            textArea.MouseClick();
+
+            Manager.Current.Desktop.KeyBoard.KeyDown(System.Windows.Forms.Keys.Control);
+            Manager.Current.Desktop.KeyBoard.KeyPress(System.Windows.Forms.Keys.A);
+            Manager.Current.Desktop.KeyBoard.KeyUp(System.Windows.Forms.Keys.Control);
+            Manager.Current.Desktop.KeyBoard.KeyPress(System.Windows.Forms.Keys.Delete);
+            Manager.Current.Desktop.KeyBoard.TypeText(text);
+        }
+
+        /// <summary>
+        /// Clicks the instructional text link.
+        /// </summary>
+        public void ClickInstructionalTextLink()
+        {
+            HtmlAnchor instructionalLink = EM.Forms.FormsBackend.InstructionalTextLink
+                .AssertIsPresent("Instructional Link");
+            instructionalLink.Click();
+
+            ActiveBrowser.WaitUntilReady();
+        }
+
         /// Duplicates the widget in the header.
         /// </summary>
         public void DuplicateWidgetInTheHeader()

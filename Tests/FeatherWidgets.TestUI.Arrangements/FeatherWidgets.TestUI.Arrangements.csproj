@@ -408,6 +408,7 @@
     <Compile Include="Forms\MultipleChoice\SetRequiredMultipleChoiceField.cs" />
     <Compile Include="Forms\ParagraphTextbox\ChangeAdvancedSettingsOfParagraphTextboxFieldAndSetCssClass.cs" />
     <Compile Include="Forms\ParagraphTextbox\ChangeParagraphTextboxTemplate.cs" />
+    <Compile Include="Forms\ParagraphTextbox\SetLabelPlaceholderInstructionalTextPredefinedValueToParagraphField.cs" />
     <Compile Include="Forms\ParagraphTextbox\SetRequiredParagraphTextboxField.cs" />
     <Compile Include="Forms\SectionHeader\ChangeAdvancedSettingsOfSectionHeaderFieldAndSetCssClass.cs" />
     <Compile Include="Forms\FileUpload\ChangeAdvancedSettingsOfFileUploadFieldAndSetCssClass.cs" />
@@ -425,6 +426,7 @@
     <Compile Include="Forms\SubmitButton\ChangeSubmitButtonTemplate.cs" />
     <Compile Include="Forms\SubmitButton\PreviewFormWithSubmitField.cs" />
     <Compile Include="Forms\Textbox\ChangeTextboxTemplate.cs" />
+    <Compile Include="Forms\Textbox\SetLabelPlaceholderInstructionalTextPredefinedValueToTextboxField.cs" />
     <Compile Include="Forms\Textbox\PreviewFormWithTextField.cs" />
     <Compile Include="Forms\CAPTCHA\EditPageWithCaptchaFieldViaInlineEditing.cs" />
     <Compile Include="Forms\Checkboxes\EditPageWithCheckBoxFieldViaInlineEditing.cs" />
