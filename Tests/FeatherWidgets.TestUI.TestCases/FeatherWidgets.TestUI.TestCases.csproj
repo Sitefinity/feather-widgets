@@ -225,6 +225,8 @@
     <Compile Include="Forms\DropdownList\SetRequiredDropdownListField.cs" />
     <Compile Include="Forms\FileUpload\ChangeFileUploadTemplate.cs" />
     <Compile Include="Forms\FileUpload\SetRequiredFileUpload.cs" />
+    <Compile Include="Forms\Forms\ChangeConfirmationMessageOfFormWidget.cs" />
+    <Compile Include="Forms\Forms\SetRedirectToAPageOfFormWidget.cs" />
     <Compile Include="Forms\MultipleChoice\ChangeAdvancedSettingsOfMultipleChoiceFieldAndSetCssClass.cs" />
     <Compile Include="Forms\Checkboxes\ChangeAdvancedSettingsOfCheckBoxFieldAndSetCssClass.cs" />
     <Compile Include="Forms\DropdownList\ChangeAdvancedSettingsOfDropdownFieldAndSetCssClass.cs" />

@@ -168,6 +168,17 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Frontend.Forms
         }
 
         /// <summary>
+        /// Clicks the submit button in the frontend of the form and checks the succsess message
+        /// </summary>
+        public void SubmitFormWithCustomMessage(string successMessage)
+        {
+            HtmlButton submitButton = EM.Forms.FormsFrontend.SubmitButton;
+            submitButton.MouseClick();
+
+            ActiveBrowser.Find.AssociatedBrowser.GetControl<HtmlDiv>("tagname=div", "innertext=" + successMessage);
+        }
+
+        /// <summary>
         /// Clicks the submit button multiple times in the frontend of the form
         /// </summary>
         /// <param name="count">The count.</param>
