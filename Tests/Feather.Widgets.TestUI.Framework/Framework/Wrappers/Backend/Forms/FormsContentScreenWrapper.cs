@@ -625,6 +625,58 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend.Forms
             ActiveBrowser.WaitUntilReady();
         }
 
+        /// <summary>
+        /// Clicks to add a new choice link.
+        /// </summary>
+        public void ClickToAddNewChoiceLink()
+        {
+            HtmlAnchor addChoiceLink = EM.Forms.FormsBackend.ClickToAddAChoice
+                .AssertIsPresent("Add choice Link");
+            addChoiceLink.Click();
+
+            ActiveBrowser.WaitUntilReady();
+        }
+
+        /// <summary>
+        /// Adds the new choice label.
+        /// </summary>
+        /// <param name="text">The text.</param>
+        public void AddNewChoiceLabel(string text)
+        {
+            HtmlInputText newChoice = ActiveBrowser.Find.AllByExpression<HtmlInputText>("placeholder=Enter label").LastOrDefault();
+            newChoice.ScrollToVisible();
+            newChoice.Focus();
+            newChoice.MouseClick();
+
+            Manager.Current.Desktop.KeyBoard.KeyDown(System.Windows.Forms.Keys.Control);
+            Manager.Current.Desktop.KeyBoard.KeyPress(System.Windows.Forms.Keys.A);
+            Manager.Current.Desktop.KeyBoard.KeyUp(System.Windows.Forms.Keys.Control);
+            Manager.Current.Desktop.KeyBoard.KeyPress(System.Windows.Forms.Keys.Delete);
+            Manager.Current.Desktop.KeyBoard.TypeText(text);
+        }
+
+        /// <summary>
+        /// Clicks to remove first choice link.
+        /// </summary>
+        public void ClickToRemoveFirstChoiceLink()
+        {
+            HtmlDiv firstChoice = ActiveBrowser.Find.AllByExpression<HtmlDiv>("class=col-md-1 text-right").FirstOrDefault();
+            HtmlButton removeFirstChoice = firstChoice.Find.ByExpression<HtmlButton>("class=~close");
+            removeFirstChoice.Click();
+        }
+
+        /// <summary>
+        /// Adds the other choice.
+        /// </summary>
+        public void AddOtherChoice()
+        {
+            HtmlInputCheckBox otherChoice = EM.Forms.FormsBackend.OtherChoice
+                .AssertIsPresent("Other choice Link");
+            otherChoice.ScrollToVisible();
+            otherChoice.Focus();
+            otherChoice.MouseClick();
+        }
+
         /// Duplicates the widget in the header.
         /// </summary>
         public void DuplicateWidgetInTheHeader()

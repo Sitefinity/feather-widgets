@@ -286,6 +286,70 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Frontend.Forms
         }
 
         /// <summary>
+        /// Selects the other RadioButton.
+        /// </summary>
+        public void SelectOtherRadioButton()
+        {
+            HtmlInputRadioButton checkbox = ActiveBrowser.Find.ByExpression<HtmlInputRadioButton>("tagname=input", "data-sf-multiple-choice-role=other-choice-radio");
+            checkbox.MouseClick();
+            ActiveBrowser.WaitUntilReady();
+        }
+
+        /// <summary>
+        /// Selects the other checkbox button.
+        /// </summary>
+        public void SelectOtherCheckboxButton()
+        {
+            ActiveBrowser.RefreshDomTree();
+            HtmlInputCheckBox checkbox = ActiveBrowser.Find.ByExpression<HtmlInputCheckBox>("tagname=input", "data-sf-checkboxes-role=other-choice-checkbox");
+            checkbox.MouseClick();
+            ActiveBrowser.WaitUntilReady();
+        }
+
+        /// <summary>
+        /// Sets the text to other choice.
+        /// </summary>
+        /// <param name="choice">The choice.</param>
+        public void SetTextToOtherChoice(string choice)
+        {
+            ActiveBrowser.RefreshDomTree();
+            HtmlInputText checkbox = ActiveBrowser.Find.ByExpression<HtmlInputText>("tagname=input", "data-sf-multiple-choice-role=other-choice-text");
+            checkbox.ScrollToVisible();
+            checkbox.Focus();
+            checkbox.MouseClick();
+
+            Manager.Current.Desktop.KeyBoard.KeyDown(System.Windows.Forms.Keys.Control);
+            Manager.Current.Desktop.KeyBoard.KeyPress(System.Windows.Forms.Keys.A);
+            Manager.Current.Desktop.KeyBoard.KeyUp(System.Windows.Forms.Keys.Control);
+            Manager.Current.Desktop.KeyBoard.KeyPress(System.Windows.Forms.Keys.Delete);
+
+            Manager.Current.Desktop.KeyBoard.TypeText(choice);
+            Manager.Current.Desktop.KeyBoard.KeyPress(System.Windows.Forms.Keys.Tab);
+        }
+
+
+        /// <summary>
+        /// Sets the text to other choice in CheckBox field.
+        /// </summary>
+        /// <param name="choice">The choice.</param>
+        public void SetTextToOtherChoiceInCheckBoxField(string choice)
+        {
+            ActiveBrowser.RefreshDomTree();
+            HtmlInputText checkbox = ActiveBrowser.Find.ByExpression<HtmlInputText>("tagname=input", "data-sf-checkboxes-role=other-choice-text");
+            checkbox.ScrollToVisible();
+            checkbox.Focus();
+            checkbox.MouseClick();
+
+            Manager.Current.Desktop.KeyBoard.KeyDown(System.Windows.Forms.Keys.Control);
+            Manager.Current.Desktop.KeyBoard.KeyPress(System.Windows.Forms.Keys.A);
+            Manager.Current.Desktop.KeyBoard.KeyUp(System.Windows.Forms.Keys.Control);
+            Manager.Current.Desktop.KeyBoard.KeyPress(System.Windows.Forms.Keys.Delete);
+
+            Manager.Current.Desktop.KeyBoard.TypeText(choice);
+            Manager.Current.Desktop.KeyBoard.KeyPress(System.Windows.Forms.Keys.Tab);
+        }
+
+        /// <summary>
         /// Selects option from dropdown field
         /// </summary>
         public void SelectDropdownOption(string choice)
