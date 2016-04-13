@@ -78,7 +78,7 @@
 
                     var selectedItemsIds = $.parseJSON($scope.properties.SerializedSelectedItemsIds.PropertyValue || null);
                     if (selectedItemsIds) {
-                        $scope.model.selectedItemsIds = selectedItemsIds;
+                        $scope.eventSelector.selectedItemsIds = selectedItemsIds;
                     }
 
                     if (sortOptions.indexOf($scope.properties.SortExpression.PropertyValue) >= 0) {

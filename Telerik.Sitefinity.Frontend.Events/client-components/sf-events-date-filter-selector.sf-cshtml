@@ -8,6 +8,7 @@
     sf-is-upcoming-period = "true"
     sf-custom-range-min-date="today"
     sf-filter-changed = "upcomingChanged"
+    sf-filter-clicked = "upcomingClicked"
     class="sf-date-filter"></sf-date-filter>
 
 <div class="checkbox" >
@@ -28,4 +29,5 @@
     sf-filter-title-label="@(Res.Get<EventResources>().DisplayPastStartsIn)"
     sf-custom-range-max-date="today"
     sf-filter-changed = "pastChanged"
+    sf-filter-clicked = "pastClicked"
     class="sf-date-filter"></sf-date-filter>

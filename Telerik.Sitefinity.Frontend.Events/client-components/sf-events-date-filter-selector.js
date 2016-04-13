@@ -44,12 +44,24 @@
                             scope.sfQueryData.addChildToGroup(upcomingQueryGroup, null, 'AND', 'EventStart', 'System.DateTime', '>=', 'DateTime.UtcNow');
                         };
 
-                        scope.pastChanged = function (toggleArgs) {
-                                var pastQueryGroup = scope.sfQueryData.getItemByName('Past');
-                                if (!pastQueryGroup)
-                                    pastQueryGroup = scope.sfQueryData.addGroup('Past', 'OR');
+                        scope.pastChanged = function () {
+                            var pastQueryGroup = scope.sfQueryData.getItemByName('Past');
+                            if (!pastQueryGroup)
+                                pastQueryGroup = scope.sfQueryData.addGroup('Past', 'OR');
 
-                                scope.sfQueryData.addChildToGroup(pastQueryGroup, null, 'AND', 'EventEnd', 'System.DateTime', '<=', 'DateTime.UtcNow');
+                            scope.sfQueryData.addChildToGroup(pastQueryGroup, null, 'AND', 'EventEnd', 'System.DateTime', '<=', 'DateTime.UtcNow');
+                        };
+
+                        scope.upcomingClicked = function () {
+                            if (element.find('*[sf-group-name="Upcoming"] input[type="checkbox"]')[0].checked) {
+                                scope.upcomingChanged();
+                            }
+                        };
+
+                        scope.pastClicked = function () {
+                            if (element.find('*[sf-group-name="Past"] input[type="checkbox"]')[0].checked) {
+                                scope.pastChanged();
+                            }
                         };
 
                         scope.toggleEventFilterSelection = function (filterName) {
