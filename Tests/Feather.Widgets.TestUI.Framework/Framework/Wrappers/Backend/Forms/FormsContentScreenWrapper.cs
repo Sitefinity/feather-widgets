@@ -738,11 +738,103 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend.Forms
         }
 
         /// <summary>
-        /// Exports the structure.
+        /// Selects the settings tab in form widget.
         /// </summary>
+        public void SelectSettingsTabInFormWidget()
+        {
+            HtmlAnchor settingsTab = EM.Forms.FormsBackend.SettingsTabInFormWidget
+            .AssertIsPresent("Settings tab");
+            settingsTab.Click();
+
+            ActiveBrowser.WaitForAsyncOperations();
+            ActiveBrowser.WaitUntilReady();
+        }
+
+        /// <summary>
+        /// Checks the use custom confirmation checkbox in form widget.
+        /// </summary>
+        public void CheckUseCustomConfirmationCheckboxInFormWidget()
+        {
+            ActiveBrowser.RefreshDomTree();
+            this.WaitForCustomConfirmation();
+            HtmlDiv customConfirmaion = this.EM.Forms.FormsBackend.UseCustomConfirmationDiv.AssertIsPresent("Use custom confirmation");
+
+            var customButton = customConfirmaion.ChildNodes[0].As<HtmlControl>();          
+
+            customButton.ScrollToVisible();
+            customButton.Focus();
+            customButton.MouseClick();
+            ActiveBrowser.WaitUntilReady();
+        }
+
+        /// <summary>
+        /// Sets the new message for success.
+        /// </summary>
+        /// <param name="text">The text.</param>
+        public void SetNewMessageForSuccess(string text)
+        {
+            ActiveBrowser.RefreshDomTree();
+            HtmlTextArea messageArea = EM.Forms.FormsBackend.MessageArea
+                .AssertIsPresent("Message area");
+
+            messageArea.ScrollToVisible();
+            messageArea.Focus();
+            messageArea.MouseClick();
+
+            Manager.Current.Desktop.KeyBoard.KeyDown(System.Windows.Forms.Keys.Control);
+            Manager.Current.Desktop.KeyBoard.KeyPress(System.Windows.Forms.Keys.A);
+            Manager.Current.Desktop.KeyBoard.KeyUp(System.Windows.Forms.Keys.Control);
+            Manager.Current.Desktop.KeyBoard.KeyPress(System.Windows.Forms.Keys.Delete);
+            Manager.Current.Desktop.KeyBoard.TypeText(text);
+        }
+
+        /// <summary>
+        /// Selects the redirect to a page in form widget.
+        /// </summary>
+        public void SelectRedirectToAPageInFormWidget()
+        {
+            ActiveBrowser.RefreshDomTree();
+            HtmlInputRadioButton redirectToAPage = this.EM.Forms.FormsBackend.RedirectToPage.AssertIsPresent("Redirect to a page");
+            redirectToAPage.Click();
+        }
+
+        /// <summary>
+        /// Waits the content of for field.
+        /// </summary>
+        /// <param name="fieldContent">Content of the field.</param>
+        /// <param name="widgetName">Name of the widget.</param>
         public void WaitForFieldContent(string fieldContent, string widgetName)
         {
             Manager.Current.Wait.For(() => this.CheckFieldIsPresent(fieldContent, widgetName), 480000);
+        }
+
+        /// <summary>
+        /// Waits for custom confirmation.
+        /// </summary>
+        public void WaitForCustomConfirmation()
+        {
+            Manager.Current.Wait.For(() => this.CheckCustomConfirmationIsPresent(), 480000);
+        }
+
+        /// <summary>
+        /// Checks the custom confirmation is present.
+        /// </summary>
+        /// <returns>The result</returns>
+        private bool CheckCustomConfirmationIsPresent()
+        {
+            ActiveBrowser.WaitUntilReady();
+            ActiveBrowser.RefreshDomTree();
+
+            HtmlDiv customConfirmaion = this.EM.Forms.FormsBackend.UseCustomConfirmationDiv;            
+
+            bool result = false;
+
+            if (customConfirmaion != null)
+            {
+                result = true;
+            }
+
+            return result;
         }
 
         /// <summary>

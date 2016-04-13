@@ -395,5 +395,49 @@ namespace Feather.Widgets.TestUI.Framework.Framework.ElementMap.Forms
                 return this.Get<HtmlInputText>("tagname=input", "ng-model=properties.Model.CssClass.PropertyValue");
             }
         }
+
+        /// <summary>
+        /// Gets the settings tab in form widget.
+        /// </summary>
+        public HtmlAnchor SettingsTabInFormWidget
+        {
+            get
+            {
+                return this.Get<HtmlAnchor>("tagname=a", "class=ng-binding", "InnerText=Settings");
+            }
+        }
+
+        /// <summary>
+        /// Gets Custom confirmation div
+        /// </summary>
+        public HtmlDiv UseCustomConfirmationDiv
+        {
+            get
+            {
+                return this.Get<HtmlDiv>("class=checkbox");
+            }
+        }
+
+        /// <summary>
+        /// Gets the message area
+        /// </summary>
+        public HtmlTextArea MessageArea
+        {
+            get
+            {
+                return this.Get<HtmlTextArea>("TagName=textarea", "ng-model=properties.CustomConfirmationMessage.PropertyValue");
+            }
+        }
+
+        /// <summary>
+        /// Gets the redirect to page.
+        /// </summary>
+        public HtmlInputRadioButton RedirectToPage
+        {
+            get
+            {
+                return this.Get<HtmlInputRadioButton>("id=RedirectToAPage", "ng-model=properties.CustomConfirmationMode.PropertyValue");
+            }
+        }
     }
 }
