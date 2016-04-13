@@ -483,5 +483,27 @@ namespace Feather.Widgets.TestUI.Framework.Framework.ElementMap.Forms
                 return this.Get<HtmlInputRadioButton>("id=RedirectToAPage", "ng-model=properties.CustomConfirmationMode.PropertyValue");
             }
         }
+
+        /// <summary>
+        /// Gets the click to add a choice.
+        /// </summary>
+        public HtmlAnchor ClickToAddAChoice
+        {
+            get
+            {
+                return this.Get<HtmlAnchor>("tagname=a", "InnerText=Click to add a choice");
+            }
+        }
+
+        /// <summary>
+        /// Gets the other chocie
+        /// </summary>
+        public HtmlInputCheckBox OtherChoice
+        {
+            get
+            {
+                return this.Get<HtmlInputCheckBox>("ng-model=properties.Model.HasOtherChoice.PropertyValue");
+            }
+        }
     }
 }

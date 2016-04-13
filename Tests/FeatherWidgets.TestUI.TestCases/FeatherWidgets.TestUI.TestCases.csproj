@@ -220,6 +220,7 @@
     <Compile Include="FeatherTeams.cs" />
     <Compile Include="FeedWidget\DragAndDropFeedWidgetAndSetDefaultRssOnPage.cs" />
     <Compile Include="Forms\CAPTCHA\ChangeCAPTCHATemplate.cs" />
+    <Compile Include="Forms\Checkboxes\AddAndRemoveChoicesToCheckBoxField.cs" />
     <Compile Include="Forms\Checkboxes\ChangeCheckboxesTemplate.cs" />
     <Compile Include="Forms\Checkboxes\SetRequiredCheckboxField.cs" />
     <Compile Include="Forms\DropdownList\ChangeDropdownListTemplate.cs" />
@@ -232,6 +233,7 @@
     <Compile Include="Forms\Checkboxes\ChangeAdvancedSettingsOfCheckBoxFieldAndSetCssClass.cs" />
     <Compile Include="Forms\DropdownList\ChangeAdvancedSettingsOfDropdownFieldAndSetCssClass.cs" />
     <Compile Include="Forms\MultipleChoice\ChangeMultipleChoiceTemplate.cs" />
+    <Compile Include="Forms\MultipleChoice\AddAndRemoveChoicesToMultipleChoiceField.cs" />
     <Compile Include="Forms\MultipleChoice\SetRequiredMultipleChoiceField.cs" />
     <Compile Include="Forms\ParagraphTextbox\ChangeAdvancedSettingsOfParagraphTextboxFieldAndSetCssClass.cs" />
     <Compile Include="Forms\ParagraphTextbox\ChangeParagraphTextboxTemplate.cs" />
