@@ -10,6 +10,7 @@ using Telerik.Sitefinity.GenericContent.Model;
 using Telerik.Sitefinity.Modules.Events;
 using Telerik.Sitefinity.Mvc.Proxy;
 using Telerik.Sitefinity.Web;
+using System.Reflection;
 
 namespace FeatherWidgets.TestIntegration.Events
 {
@@ -192,6 +193,25 @@ namespace FeatherWidgets.TestIntegration.Events
 
             Assert.IsTrue(responseContent.Contains(socialShare), "Social share button was not found!");
             Assert.IsTrue(responseContent.Contains(BaseEventTitle + 1), "The event with this title was not found!");
+        }
+
+        /// <summary>
+        /// Verifies that correct css class in used in Details mode.
+        /// </summary>
+        [Test]
+        [Category(TestCategories.Events)]
+        [Author(FeatherTeams.FeatherTeam)]
+        [Description("Verifies that correct css class in used in Details mode.")]
+        public void EventWidget_CssClassesDetailsTemplate()
+        {
+            var methodName = MethodInfo.GetCurrentMethod().Name;
+            var cssClass = methodName + "_css-class";
+            var eventController = new EventController();
+            eventController.Model.ListCssClass = cssClass;
+
+            var mvcProxy = new MvcControllerProxy() { Settings = new ControllerSettings(eventController), ControllerName = typeof(EventController).FullName };
+            var responseContent = this.pageOperations.AddWidgetToPageAndRequest(mvcProxy);
+            Assert.Contains(responseContent, cssClass);
         }
 
         #region Helper methods

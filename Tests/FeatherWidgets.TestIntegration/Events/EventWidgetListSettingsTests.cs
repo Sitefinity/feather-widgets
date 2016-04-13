@@ -7,6 +7,7 @@ using Telerik.Sitefinity.Frontend.Events.Mvc.Controllers;
 using Telerik.Sitefinity.Frontend.TestUtilities;
 using Telerik.Sitefinity.Mvc.Proxy;
 using Telerik.Sitefinity.Web;
+using System.Reflection;
 
 namespace FeatherWidgets.TestIntegration.Events
 {
@@ -208,6 +209,25 @@ namespace FeatherWidgets.TestIntegration.Events
             {
                 File.Delete(newListTemplatePath);
             }
+        }
+
+        /// <summary>
+        /// Verifies that correct css class in used in List mode.
+        /// </summary>
+        [Test]
+        [Category(TestCategories.Events)]
+        [Author(FeatherTeams.FeatherTeam)]
+        [Description("Verifies that correct css class in used in List mode.")]
+        public void EventWidget_CssClassesListTemplate()
+        {
+            var methodName = MethodInfo.GetCurrentMethod().Name;
+            var cssClass = methodName + "_css-class";
+            var eventController = new EventController();
+            eventController.Model.ListCssClass = cssClass;
+
+            var mvcProxy = new MvcControllerProxy() { Settings = new ControllerSettings(eventController), ControllerName = typeof(EventController).FullName };
+            var responseContent = this.pageOperations.AddWidgetToPageAndRequest(mvcProxy);
+            Assert.Contains(responseContent, cssClass);
         }
 
         #region Helper methods
