@@ -177,9 +177,9 @@ namespace FeatherWidgets.TestIntegration.Events
         {
             const string ExpectedResultFormat = "{0}-{1}";
 
-            var dateNextMonth = DateTime.UtcNow.Date.AddMonths(1);
-            var start = dateNextMonth.AddDays(12).AddHours(20);
-            var end = dateNextMonth.AddDays(19).AddHours(5);
+            var dateNextMonth = new DateTime(DateTime.UtcNow.Year, 12, 1);
+            var start = dateNextMonth.AddDays(23).AddHours(20);
+            var end = dateNextMonth.AddDays(28).AddHours(5);
 
             var expectedResult = string.Format(CultureInfo.InvariantCulture, ExpectedResultFormat, start.ToString(DateMonthDateFormat, CultureInfo.InvariantCulture), end.Day);
             this.TestDateFormat(expectedResult, start, end);
