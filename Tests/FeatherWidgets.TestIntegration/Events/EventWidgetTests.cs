@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Linq;
 using MbUnit.Framework;
+using Telerik.Sitefinity.Events.Model;
 using Telerik.Sitefinity.Frontend.Events.Mvc.Controllers;
+using Telerik.Sitefinity.Frontend.Events.Mvc.Helpers;
 using Telerik.Sitefinity.Frontend.Mvc.Models;
 using Telerik.Sitefinity.Frontend.TestUtilities;
 using Telerik.Sitefinity.Modules.Events;
@@ -91,6 +93,17 @@ namespace FeatherWidgets.TestIntegration.Events
             Assert.IsTrue(responseContent.Contains(EventWidgetTests.BaseRepeatEventTitle), "Repeat event with this title was not found!");
             Assert.IsTrue(responseContent.Contains(EventWidgetTests.BasePastEventTitle), "Past event with this title was not found!");
             Assert.IsTrue(responseContent.Contains(EventWidgetTests.BaseUpcomingEventTitle), "Upcoming event with this title was not found!");
+        }
+
+        [Test]
+        [Category(TestCategories.Events)]
+        [Author(FeatherTeams.FeatherTeam)]
+        [Description("Ensure that event calendar color is retrieved correctly via the helper.")]
+        public void EventHelperCalendarColor()
+        {
+            const string ExpectedColor = "FF0000";
+            var ev = new Event() { Parent = new Calendar() { Color = ExpectedColor } };
+            Assert.AreEqual(ExpectedColor, new ItemViewModel(ev).EventCalendarColour());
         }
 
         private FeatherWidgets.TestUtilities.CommonOperations.PagesOperations pageOperations;
