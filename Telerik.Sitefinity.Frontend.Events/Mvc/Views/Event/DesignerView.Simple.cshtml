@@ -7,8 +7,8 @@
 </server-data>
 
 <div class="alert alert-danger ng-hide" ng-show="errors.missingSelectedItems">@Html.Resource("MissingEvents")</div>
-<tabset class="nav-tabs-wrapper">
-    <tab heading="@Html.Resource("Content")">
+<uib-tabset class="nav-uib-tabs-wrapper">
+    <uib-tab heading="@Html.Resource("Content")">
         <h4>@Html.Resource("ItemsToDisplay")</h4>
         <div class="form-group">
             <div class="row">
@@ -50,7 +50,7 @@
                 </label>
                 <div class="label-content" ng-show="properties.SelectionMode.PropertyValue=='SelectedItems'">
                     <sf-list-selector sf-event-selector
-                                  sf-multiselect="true" sf-sortable="true"
+                                  sf-multiselect="true" sf-soruib-table="true"
                                   sf-provider="properties.ProviderName.PropertyValue"
                                   sf-selected-ids ="eventSelector.selectedItemsIds"></sf-list-selector>
 
@@ -84,9 +84,9 @@
                 </div>
             </div>
         </expander>
-    </tab>
+    </uib-tab>
 
-    <tab heading="@Html.Resource("ListSettings")">
+    <uib-tab heading="@Html.Resource("ListSettings")">
         <div class="form-group">
             <div class="radio">
                 <label for="usePaging">
@@ -167,9 +167,9 @@
                 </div>
             </div>
         </expander>
-    </tab>
+    </uib-tab>
 
-    <tab heading="@Html.Resource("SingleItemSettings")">
+    <uib-tab heading="@Html.Resource("SingleItemSettings")">
         <div class="form-group">
             <strong>@Html.Resource("OpenSingleItem")</strong>
             <div class="radio">
@@ -220,5 +220,5 @@
                  </div>                    
             </div>
         </expander>
-    </tab>
-</tabset>
+    </uib-tab>
+</uib-tabset>
