@@ -26,6 +26,41 @@ namespace FeatherWidgets.TestIntegration.Events
         [Test]
         [Category(TestCategories.Events)]
         [Author(FeatherTeams.FeatherTeam)]
+        [Description("Verifies that event widget is displaying all events.")]
+        public void EventWidget_AllEvents_DisplayAll()
+        {
+            var methodName = MethodInfo.GetCurrentMethod().Name;
+            try
+            {
+                this.BuildEvents(methodName);
+
+                var eventController = new EventController();
+                eventController.Model.DisplayMode = ListDisplayMode.Paging;
+                eventController.Model.SelectionMode = SelectionMode.AllItems;
+
+                var mvcProxy = new MvcControllerProxy() { Settings = new ControllerSettings(eventController), ControllerName = typeof(EventController).FullName };
+                var containedEvents = new string[] { CurrentEventNameFormat, NextWeekEventNameFormat, NextMonthEventNameFormat, PreviousMonthEventNameFormat, PreviousWeekEventNameFormat }.Select(s => string.Format(CultureInfo.InvariantCulture, s, methodName));
+            
+                using (var generator = new PageContentGenerator())
+                {
+                    generator.CreatePageWithWidget(mvcProxy, null, methodName, methodName, methodName, 0);
+                    var pageContent = WebRequestHelper.GetPageWebContent(RouteHelper.GetAbsoluteUrl("~/" + methodName + "0"));
+
+                    foreach (var title in containedEvents)
+                    {
+                        Assert.Contains(pageContent, title, StringComparison.Ordinal);
+                    }
+                }
+            }
+            finally
+            {
+                ServerOperations.Events().DeleteAllEvents();
+            }
+        }
+
+        [Test]
+        [Category(TestCategories.Events)]
+        [Author(FeatherTeams.FeatherTeam)]
         [Description("Verifies that events widget is filtering events by tags.")]
         public void EventWidget_AllEvents_FilterByTags()
         {
@@ -59,6 +94,44 @@ namespace FeatherWidgets.TestIntegration.Events
             {
                 ServerOperations.Events().DeleteAllEvents();
                 ServerOperations.Taxonomies().DeleteTags(methodName);
+            }
+        }
+        
+        [Test]
+        [Category(TestCategories.Events)]
+        [Author(FeatherTeams.FeatherTeam)]
+        [Description("Verifies that event widget is filtering events by calendar.")]
+        public void EventWidget_AllEvents_FilterByCalendar()
+        {
+            var methodName = MethodInfo.GetCurrentMethod().Name;
+            var calendarId = ServerOperations.Events().CreateCalendar(Guid.NewGuid(), "custom_calendar");
+            ServerOperations.Events().CreateEvent(methodName + "_fromdefault", "some content", false, DateTime.Now, DateTime.Now.AddHours(2), ServerOperations.Events().GetDefaultCalendarId());
+            ServerOperations.Events().CreateEvent(methodName + "_fromcustom", "some content", false, DateTime.Now, DateTime.Now.AddHours(2), calendarId);
+
+            try
+            {
+                var mvcProxy = new MvcControllerProxy();
+                mvcProxy.ControllerName = typeof(EventController).FullName;
+                var eventController = new EventController();
+
+                eventController.Model.NarrowSelectionMode = Telerik.Sitefinity.Frontend.Mvc.Models.SelectionMode.FilteredItems;
+                eventController.Model.SerializedNarrowSelectionFilters = this.GetNarrowSelectionSerializedQueryData("Calendars", "Parent.Id.ToString()", "Parent.Id", calendarId, "System.String");
+
+                mvcProxy.Settings = new ControllerSettings(eventController);
+
+                using (var generator = new PageContentGenerator())
+                {
+                    generator.CreatePageWithWidget(mvcProxy, null, methodName, methodName, methodName, 0);
+                    var pageContent = WebRequestHelper.GetPageWebContent(RouteHelper.GetAbsoluteUrl("~/" + methodName + "0"));
+
+                    Assert.Contains(pageContent, methodName + "_fromcustom", System.StringComparison.Ordinal);
+                    Assert.DoesNotContain(pageContent, methodName + "_fromdefault", System.StringComparison.Ordinal);
+                }
+            }
+            finally
+            {
+                ServerOperations.Events().DeleteAllEvents();
+                ServerOperations.Events().DeleteCalendar(calendarId);
             }
         }
 
@@ -104,74 +177,25 @@ namespace FeatherWidgets.TestIntegration.Events
         [Test]
         [Category(TestCategories.Events)]
         [Author(FeatherTeams.FeatherTeam)]
-        [Description("Verifies that event widget is filtering events by calendar.")]
-        public void EventWidget_AllEvents_FilterByCalendar()
+        [Description("Verifies that event widget is filtering events by hierarchical categories.")]
+        public void EventWidget_AllEvents_FilterByHierarchicalCategories()
         {
-            var methodName = MethodInfo.GetCurrentMethod().Name;
-            var calendarId = ServerOperations.Events().CreateCalendar(Guid.NewGuid(), "custom_calendar");
-            ServerOperations.Events().CreateEvent(methodName + "_fromdefault", "some content", false, DateTime.Now, DateTime.Now.AddHours(2), ServerOperations.Events().GetDefaultCalendarId());
-            ServerOperations.Events().CreateEvent(methodName + "_fromcustom", "some content", false, DateTime.Now, DateTime.Now.AddHours(2), calendarId);
-
-            try
-            {
-                var mvcProxy = new MvcControllerProxy();
-                mvcProxy.ControllerName = typeof(EventController).FullName;
-                var eventController = new EventController();
-
-                eventController.Model.NarrowSelectionMode = Telerik.Sitefinity.Frontend.Mvc.Models.SelectionMode.FilteredItems;
-                eventController.Model.SerializedNarrowSelectionFilters = this.GetNarrowSelectionSerializedQueryData("Calendars", "Parent.Id.ToString()", "Parent.Id", calendarId, "System.String");
-
-                mvcProxy.Settings = new ControllerSettings(eventController);
-
-                using (var generator = new PageContentGenerator())
-                {
-                    generator.CreatePageWithWidget(mvcProxy, null, methodName, methodName, methodName, 0);
-                    var pageContent = WebRequestHelper.GetPageWebContent(RouteHelper.GetAbsoluteUrl("~/" + methodName + "0"));
-
-                    Assert.Contains(pageContent, methodName + "_fromcustom", System.StringComparison.Ordinal);
-                    Assert.DoesNotContain(pageContent, methodName + "_fromdefault", System.StringComparison.Ordinal);
-                }
-            }
-            finally
-            {
-                ServerOperations.Events().DeleteAllEvents();
-                ServerOperations.Events().DeleteCalendar(calendarId);
-            }
         }
 
         [Test]
         [Category(TestCategories.Events)]
         [Author(FeatherTeams.FeatherTeam)]
-        [Description("Verifies that event widget is displaying all events.")]
-        public void EventWidget_AllEvents_DisplayAll()
+        [Description("Verifies that event widget is filtering events by custom categories.")]
+        public void EventWidget_AllEvents_FilterByCustomCategories()
         {
-            var methodName = MethodInfo.GetCurrentMethod().Name;
-            try
-            {
-                this.BuildEvents(methodName);
+        }
 
-                var eventController = new EventController();
-                eventController.Model.DisplayMode = ListDisplayMode.Paging;
-                eventController.Model.SelectionMode = SelectionMode.AllItems;
-
-                var mvcProxy = new MvcControllerProxy() { Settings = new ControllerSettings(eventController), ControllerName = typeof(EventController).FullName };
-                var containedEvents = new string[] { CurrentEventNameFormat, NextWeekEventNameFormat, NextMonthEventNameFormat, PreviousMonthEventNameFormat, PreviousWeekEventNameFormat }.Select(s => string.Format(CultureInfo.InvariantCulture, s, methodName));
-            
-                using (var generator = new PageContentGenerator())
-                {
-                    generator.CreatePageWithWidget(mvcProxy, null, methodName, methodName, methodName, 0);
-                    var pageContent = WebRequestHelper.GetPageWebContent(RouteHelper.GetAbsoluteUrl("~/" + methodName + "0"));
-
-                    foreach (var title in containedEvents)
-                    {
-                        Assert.Contains(pageContent, title, StringComparison.Ordinal);
-                    }
-                }
-            }
-            finally
-            {
-                ServerOperations.Events().DeleteAllEvents();
-            }
+        [Test]
+        [Category(TestCategories.Events)]
+        [Author(FeatherTeams.FeatherTeam)]
+        [Description("Verifies that event widget is filtering events by custom hierarchical categories.")]
+        public void EventWidget_AllEvents_FilterByCustomHierarchicalCategories()
+        {
         }
 
         [Test]
