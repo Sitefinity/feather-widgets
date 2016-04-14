@@ -180,6 +180,40 @@ namespace FeatherWidgets.TestIntegration.Events
         [Description("Verifies that event widget is filtering events by hierarchical categories.")]
         public void EventWidget_AllEvents_FilterByHierarchicalCategories()
         {
+            var methodName = MethodInfo.GetCurrentMethod().Name;
+            ServerOperations.Events().CreateEvent(methodName + "_notclassified");
+            var eventId = ServerOperations.Events().CreateEvent(methodName + "_classified");
+
+            ServerOperations.Taxonomies().CreateHierarchicalTaxon("parent", null, "Categories");
+            ServerOperations.Taxonomies().CreateHierarchicalTaxon("child", "parent", "Categories");
+            var taxonId = ServerOperations.Taxonomies().CreateHierarchicalTaxon(methodName, "child", "Categories");
+            ServerOperations.Events().AssignTaxonToEventItem(eventId, "Category", taxonId);
+
+            try
+            {
+                var mvcProxy = new MvcControllerProxy();
+                mvcProxy.ControllerName = typeof(EventController).FullName;
+                var eventController = new EventController();
+
+                eventController.Model.NarrowSelectionMode = Telerik.Sitefinity.Frontend.Mvc.Models.SelectionMode.FilteredItems;
+                eventController.Model.SerializedNarrowSelectionFilters = this.GetNarrowSelectionSerializedQueryData("Category", "Category", methodName, taxonId);
+
+                mvcProxy.Settings = new ControllerSettings(eventController);
+
+                using (var generator = new PageContentGenerator())
+                {
+                    generator.CreatePageWithWidget(mvcProxy, null, methodName, methodName, methodName, 0);
+                    var pageContent = WebRequestHelper.GetPageWebContent(RouteHelper.GetAbsoluteUrl("~/" + methodName + "0"));
+
+                    Assert.Contains(pageContent, methodName + "_classified", System.StringComparison.Ordinal);
+                    Assert.DoesNotContain(pageContent, methodName + "_notclassified", System.StringComparison.Ordinal);
+                }
+            }
+            finally
+            {
+                ServerOperations.Events().DeleteAllEvents();
+                ServerOperations.Taxonomies().DeleteCategories(methodName, "child", "parent");
+            }
         }
 
         [Test]
@@ -188,6 +222,42 @@ namespace FeatherWidgets.TestIntegration.Events
         [Description("Verifies that event widget is filtering events by custom categories.")]
         public void EventWidget_AllEvents_FilterByCustomCategories()
         {
+            var methodName = MethodInfo.GetCurrentMethod().Name;
+            ServerOperations.Events().CreateEvent(methodName + "_notclassified");
+            var eventId = ServerOperations.Events().CreateEvent(methodName + "_classified");
+
+            ServerOperations.Taxonomies().CreateHierarchicalTaxonomy("Custom");
+            ServerOperations.Taxonomies().CreateHierarchicalTaxon("parent", null, "Custom");
+            ServerOperations.Taxonomies().CreateHierarchicalTaxon("child", "parent", "Custom");
+            var taxonId = ServerOperations.Taxonomies().CreateHierarchicalTaxon(methodName, "child", "Custom");
+            ServerOperations.Events().AssignTaxonToEventItem(eventId, "Category", taxonId);
+
+            try
+            {
+                var mvcProxy = new MvcControllerProxy();
+                mvcProxy.ControllerName = typeof(EventController).FullName;
+                var eventController = new EventController();
+
+                eventController.Model.NarrowSelectionMode = Telerik.Sitefinity.Frontend.Mvc.Models.SelectionMode.FilteredItems;
+                eventController.Model.SerializedNarrowSelectionFilters = this.GetNarrowSelectionSerializedQueryData("Category", "Category", methodName, taxonId);
+
+                mvcProxy.Settings = new ControllerSettings(eventController);
+
+                using (var generator = new PageContentGenerator())
+                {
+                    generator.CreatePageWithWidget(mvcProxy, null, methodName, methodName, methodName, 0);
+                    var pageContent = WebRequestHelper.GetPageWebContent(RouteHelper.GetAbsoluteUrl("~/" + methodName + "0"));
+
+                    Assert.Contains(pageContent, methodName + "_classified", System.StringComparison.Ordinal);
+                    Assert.DoesNotContain(pageContent, methodName + "_notclassified", System.StringComparison.Ordinal);
+                }
+            }
+            finally
+            {
+                ServerOperations.Events().DeleteAllEvents();
+                ServerOperations.Taxonomies().DeleteCategories(methodName, "child", "parent");
+                ServerOperations.Taxonomies().DeleteHierarchicalTaxonomy("Custom");
+            }
         }
 
         [Test]
@@ -196,6 +266,42 @@ namespace FeatherWidgets.TestIntegration.Events
         [Description("Verifies that event widget is filtering events by custom hierarchical categories.")]
         public void EventWidget_AllEvents_FilterByCustomHierarchicalCategories()
         {
+            var methodName = MethodInfo.GetCurrentMethod().Name;
+            ServerOperations.Events().CreateEvent(methodName + "_notclassified");
+            var eventId = ServerOperations.Events().CreateEvent(methodName + "_classified");
+
+            ServerOperations.Taxonomies().CreateHierarchicalTaxonomy("Custom");
+            ServerOperations.Taxonomies().CreateHierarchicalTaxon("parent", null, "Custom");
+            ServerOperations.Taxonomies().CreateHierarchicalTaxon("child", "parent", "Custom");
+            var taxonId = ServerOperations.Taxonomies().CreateHierarchicalTaxon(methodName, "child", "Custom");
+            ServerOperations.Events().AssignTaxonToEventItem(eventId, "Category", taxonId);
+
+            try
+            {
+                var mvcProxy = new MvcControllerProxy();
+                mvcProxy.ControllerName = typeof(EventController).FullName;
+                var eventController = new EventController();
+
+                eventController.Model.NarrowSelectionMode = Telerik.Sitefinity.Frontend.Mvc.Models.SelectionMode.FilteredItems;
+                eventController.Model.SerializedNarrowSelectionFilters = this.GetNarrowSelectionSerializedQueryData("Category", "Category", methodName, taxonId);
+
+                mvcProxy.Settings = new ControllerSettings(eventController);
+
+                using (var generator = new PageContentGenerator())
+                {
+                    generator.CreatePageWithWidget(mvcProxy, null, methodName, methodName, methodName, 0);
+                    var pageContent = WebRequestHelper.GetPageWebContent(RouteHelper.GetAbsoluteUrl("~/" + methodName + "0"));
+
+                    Assert.Contains(pageContent, methodName + "_classified", System.StringComparison.Ordinal);
+                    Assert.DoesNotContain(pageContent, methodName + "_notclassified", System.StringComparison.Ordinal);
+                }
+            }
+            finally
+            {
+                ServerOperations.Events().DeleteAllEvents();
+                ServerOperations.Taxonomies().DeleteCategories(methodName, "child", "parent");
+                ServerOperations.Taxonomies().DeleteHierarchicalTaxonomy("Custom");
+            }
         }
 
         [Test]
