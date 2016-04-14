@@ -202,12 +202,12 @@ namespace Telerik.Sitefinity.Frontend.ContentBlock.Mvc.Controllers
         {
             get
             {
-                return this.Model.WrapperCssClass;
+                return this.wrapperCssClass;
             }
 
             set
             {
-                this.Model.WrapperCssClass = value;
+                this.wrapperCssClass = value;
             }
         }
 
@@ -225,6 +225,7 @@ namespace Telerik.Sitefinity.Frontend.ContentBlock.Mvc.Controllers
                 {
                     this.model = this.InitializeModel();
                     this.isEmpty = string.IsNullOrEmpty(this.model.Content);
+                    this.wrapperCssClass = this.model.WrapperCssClass;
                     this.SharedContentID = this.model.SharedContentID;
                 }
 
@@ -467,6 +468,7 @@ namespace Telerik.Sitefinity.Frontend.ContentBlock.Mvc.Controllers
         private const string IZoneEditorReloaderKeyStringFormat = "ContentBlock_{0}";
         private string content;
         private bool isEmpty = true;
+        private string wrapperCssClass;
         private IContentBlockModel model;
 
         #endregion
