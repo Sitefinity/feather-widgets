@@ -55,8 +55,6 @@ namespace Telerik.Sitefinity.Frontend.Events.Mvc.Helpers
             else
                 result = BuildNonPeriodEvent(ev);
 
-            result = RemoveTrailingZeros(result);
-
             return result;
         }
 
@@ -77,8 +75,6 @@ namespace Telerik.Sitefinity.Frontend.Events.Mvc.Helpers
                 result = BuildNextOccurrence(ev);
             else if (ev.EventEnd.HasValue)
                 result = BuildFullEventDates(ev);
-
-            result = RemoveTrailingZeros(result);
 
             return result;
         }
@@ -201,6 +197,8 @@ namespace Telerik.Sitefinity.Frontend.Events.Mvc.Helpers
                 result.Append(BuildHourMinute(ev.EventStart));
                 result.Append(DashSeparator);
                 result.Append(BuildHourMinute(ev.EventEnd.Value));
+
+                return result.ToString();
             }
             else
             {
@@ -226,9 +224,10 @@ namespace Telerik.Sitefinity.Frontend.Events.Mvc.Helpers
                     result.Append(DashSeparator);
                     result.Append(end.ToString(MonthDayYearFormat));
                 }
+
+                var cleanPart = RemoveTrailingZeros(result.ToString());
+                return cleanPart;
             }
-            
-            return result.ToString();
         }
 
         private static string BuildFullEventDates(Event ev)
@@ -351,7 +350,7 @@ namespace Telerik.Sitefinity.Frontend.Events.Mvc.Helpers
                     break;
             }
 
-            return result;
+            return RemoveTrailingZeros(result);
         }
 
         private static string BuildNextOccurrence(Event ev)
