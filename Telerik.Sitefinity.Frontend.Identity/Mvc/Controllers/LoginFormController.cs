@@ -104,18 +104,6 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Controllers
                 {
                     return this.Redirect(model.RedirectUrlAfterLogin);
                 }
-                else if (!model.IncorrectCredentials && this.Request.UrlReferrer != null)
-                {
-                    var returnUrlFromQS = System.Web.HttpUtility.ParseQueryString(this.Request.UrlReferrer.Query)["ReturnUrl"];
-
-                    if (!string.IsNullOrEmpty(returnUrlFromQS))
-                    {
-                        //validates whether the returnUrl is allowed in the relying parties.
-                        SWTIssuer.GetRelyingPartyKey(returnUrlFromQS);
-                        
-                        return this.Redirect(returnUrlFromQS);
-                    }
-                }
             }
 
             this.Model.InitializeLoginViewModel(model);
