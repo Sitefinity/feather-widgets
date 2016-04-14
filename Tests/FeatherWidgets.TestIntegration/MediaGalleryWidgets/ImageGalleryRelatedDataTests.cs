@@ -23,21 +23,21 @@ namespace FeatherWidgets.TestIntegration.MediaGalleryWidgets
         [FixtureSetUp]
         public void Setup()
         {
-            ////ServerOperationsFeather.DynamicModules().EnsureModuleIsImported(ModuleName, ModuleResource);
-            ////ServerOperations.DynamicTypes().CreateDynamicItem(this.GetDynamicType().FullName, "myUrl", null, "MyItemTitle");
-            ////var manager = DynamicModuleManager.GetManager();
-            ////var dynamicItem = this.GetDynamicItem();
+            ServerOperationsFeather.DynamicModules().EnsureModuleIsImported(ModuleName, ModuleResource);
+            ServerOperations.DynamicTypes().CreateDynamicItem(this.GetDynamicType().FullName, "myUrl", null, "MyItemTitle");
+            var manager = DynamicModuleManager.GetManager();
+            var dynamicItem = this.GetDynamicItem();
 
-            ////ServerSideUpload.CreateAlbum(LibraryTitle);
-            ////var imageId1 = ServerSideUpload.UploadImage(LibraryTitle, ImagetTitle + 1, ImageResource1);
-            ////var imageId2 = ServerSideUpload.UploadImage(LibraryTitle, ImagetTitle + 2, ImageResource2);
-            ////var imageId3 = ServerSideUpload.UploadImage(LibraryTitle, ImagetTitle + 3, ImageResource3);
+            ServerOperations.Images().CreateLibrary(LibraryTitle);
+            var imageId1 = ServerOperations.Images().Upload(LibraryTitle, ImagetTitle + 1, ImageResource1);
+            var imageId2 = ServerOperations.Images().Upload(LibraryTitle, ImagetTitle + 2, ImageResource2);
+            var imageId3 = ServerOperations.Images().Upload(LibraryTitle, ImagetTitle + 3, ImageResource3);
 
-            ////dynamicItem.CreateRelation(imageId1, string.Empty, typeof(Image).FullName, RelatedImagesField);
-            ////dynamicItem.CreateRelation(imageId2, string.Empty, typeof(Image).FullName, RelatedImagesField);
-            ////dynamicItem.CreateRelation(imageId3, string.Empty, typeof(Image).FullName, RelatedImagesField);
+            dynamicItem.CreateRelation(imageId1, string.Empty, typeof(Image).FullName, RelatedImagesField);
+            dynamicItem.CreateRelation(imageId2, string.Empty, typeof(Image).FullName, RelatedImagesField);
+            dynamicItem.CreateRelation(imageId3, string.Empty, typeof(Image).FullName, RelatedImagesField);
 
-            ////manager.SaveChanges();
+            manager.SaveChanges();
         }
 
         [FixtureTearDown]
