@@ -148,8 +148,31 @@ namespace Telerik.Sitefinity.Frontend.Events.Mvc.Helpers
             result.Append(SpaceSeparator);
             result.Append(Res.Get<EventResources>().At);
             result.Append(SpaceSeparator);
-            result.Append(ev.EventStart.ToString(HourFormat));
 
+            var datePart = RemoveTrailingZeros(result.ToString());
+
+            result.Clear();
+            result.Append(datePart);
+            result.Append(BuildHourMinute(ev.EventStart));
+
+            return result.ToString();
+        }
+
+        private static string BuildHourMinute(DateTime dateTime)
+        {
+            var result = new StringBuilder();
+            var hour = dateTime.ToString(HourFormat);
+            result.Append(RemoveTrailingZeros(hour));
+
+            if (dateTime.Minute != 0)
+            {
+                result.Append(SpaceSeparator);
+                result.Append(dateTime.ToString(MinuteFormat));
+            }
+
+            result.Append(SpaceSeparator);
+            result.Append(dateTime.ToString(AmPmFormat));
+            
             return result.ToString();
         }
 
@@ -170,11 +193,14 @@ namespace Telerik.Sitefinity.Frontend.Events.Mvc.Helpers
                 }
 
                 result.Append(GetEventStartDate(ev));
-
                 result.Append(PartsSeparator);
-                result.Append(ev.EventStart.ToString(HourFormat));
+                var datePart = RemoveTrailingZeros(result.ToString());
+
+                result.Clear();
+                result.Append(datePart);
+                result.Append(BuildHourMinute(ev.EventStart));
                 result.Append(DashSeparator);
-                result.Append(ev.EventEnd.Value.ToString(HourFormat));
+                result.Append(BuildHourMinute(ev.EventEnd.Value));
             }
             else
             {
@@ -207,6 +233,7 @@ namespace Telerik.Sitefinity.Frontend.Events.Mvc.Helpers
 
         private static string BuildFullEventDates(Event ev)
         {
+            var finalResult = new StringBuilder();
             var result = new StringBuilder();
 
             var start = ev.AllDayEvent ? ev.EventStart : ev.EventStart.ToSitefinityUITime();
@@ -220,8 +247,10 @@ namespace Telerik.Sitefinity.Frontend.Events.Mvc.Helpers
             result.Append(SpaceSeparator);
             result.Append(Res.Get<EventResources>().At);
             result.Append(SpaceSeparator);
-            result.Append(start.ToString(HourFormat));
+            finalResult.Append(RemoveTrailingZeros(result.ToString()));
+            finalResult.Append(BuildHourMinute(start));
 
+            result.Clear();
             result.Append(SpaceSeparator);
             result.Append(Res.Get<EventResources>().To);
             result.Append(SpaceSeparator);
@@ -234,9 +263,10 @@ namespace Telerik.Sitefinity.Frontend.Events.Mvc.Helpers
             result.Append(SpaceSeparator);
             result.Append(Res.Get<EventResources>().At);
             result.Append(SpaceSeparator);
-            result.Append(end.ToString(HourFormat));
+            finalResult.Append(RemoveTrailingZeros(result.ToString()));
+            finalResult.Append(BuildHourMinute(end));
 
-            return result.ToString();
+            return finalResult.ToString();
         }
         
         private static string GetEventPrefix(Event ev)
@@ -328,6 +358,10 @@ namespace Telerik.Sitefinity.Frontend.Events.Mvc.Helpers
         {
             var descriptor = GetRecurrenceDescriptor(ev.RecurrenceExpression);
             var nextOccurrence = descriptor.Occurrences.OrderBy(o => o).FirstOrDefault(o => o >= DateTime.UtcNow);
+            if (nextOccurrence == null)
+                return string.Empty;
+
+            nextOccurrence = nextOccurrence.ToSitefinityUITime();
 
             var result = new StringBuilder();
 
@@ -338,8 +372,12 @@ namespace Telerik.Sitefinity.Frontend.Events.Mvc.Helpers
 
             result.Append(SpaceSeparator);
             result.Append(Res.Get<EventResources>().At);
-            result.Append(SpaceSeparator);
-            result.Append(nextOccurrence.ToString(HourFormat));
+            result.Append(SpaceSeparator); 
+            var datePart = RemoveTrailingZeros(result.ToString());
+
+            result.Clear();
+            result.Append(datePart);
+            result.Append(BuildHourMinute(nextOccurrence));
 
             return result.ToString();
         }
@@ -515,7 +553,9 @@ namespace Telerik.Sitefinity.Frontend.Events.Mvc.Helpers
         private const string PartsSeparator = ", ";
         private const string DashSeparator = "-";
         private const string SpaceSeparator = " ";
-        private const string HourFormat = "hh tt";
+        private const string HourFormat = "hh";
+        private const string MinuteFormat = "mm";
+        private const string AmPmFormat = "tt";
         private const string DayFormat = "dd";
         private const string MonthDayFormat = "MMMM dd";
         private const string MonthDayYearFormat = "MMMM dd, yyyy";
