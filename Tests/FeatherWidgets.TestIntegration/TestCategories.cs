@@ -21,5 +21,6 @@
         public const string InlineClientAssets = "InlineClientAssets";
         public const string Forms = "Forms";
         public const string Packaging = "Packaging";
+        public const string Events = "Events";
     }
 }

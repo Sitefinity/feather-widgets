@@ -26,9 +26,9 @@ namespace FeatherWidgets.TestUI.TestCases.Forms.MultiPageForms
             BAT.Macros().NavigateTo().Modules().Forms(this.Culture);
             BAT.Wrappers().Backend().Forms().FormsDashboard().OpenFormFromTheGrid(FormName);
             BATFeather.Wrappers().Backend().Pages().PageZoneEditorWrapper().EditWidget(PageBreak);
-            BATFeather.Wrappers().Backend().Navigation().NavigationWidgetEditWrapper().MoreOptions();
-            BATFeather.Wrappers().Backend().Forms().FormsContentScreenWrapper().SelectNewTemplate(TemplateNameFile);
+            BATFeather.Wrappers().Backend().Forms().FormsContentScreenWrapper().SelectReadTemplate(TemplateNameFile);
             BATFeather.Wrappers().Backend().ContentBlocks().ContentBlocksWrapper().SaveChanges();
+            BATFeather.Wrappers().Backend().Forms().FormsContentScreenWrapper().WaitForFieldContent(TemplateContentFile, PageBreak);
             BAT.Wrappers().Backend().Pages().PageZoneEditorWrapper().CheckWidgetContent(PageBreak, TemplateContentFile);         
             BAT.Wrappers().Backend().Forms().FormsContentScreen().PublishForm();
             BAT.Macros().NavigateTo().CustomPage("~/" + PageName.ToLower(), true, this.Culture);
@@ -43,9 +43,9 @@ namespace FeatherWidgets.TestUI.TestCases.Forms.MultiPageForms
             BAT.Macros().NavigateTo().Modules().Forms(this.Culture);
             BAT.Wrappers().Backend().Forms().FormsDashboard().OpenFormFromTheGrid(FormName);
             BATFeather.Wrappers().Backend().Pages().PageZoneEditorWrapper().EditWidget(PageBreak);
-            BATFeather.Wrappers().Backend().Navigation().NavigationWidgetEditWrapper().MoreOptions();
-            BATFeather.Wrappers().Backend().Forms().FormsContentScreenWrapper().SelectNewTemplate(TemplateNameNew);
+            BATFeather.Wrappers().Backend().Forms().FormsContentScreenWrapper().SelectReadTemplate(TemplateNameNew);
             BATFeather.Wrappers().Backend().ContentBlocks().ContentBlocksWrapper().SaveChanges();
+            BATFeather.Wrappers().Backend().Forms().FormsContentScreenWrapper().WaitForFieldContent(TemplateContent, PageBreak);
             BAT.Wrappers().Backend().Pages().PageZoneEditorWrapper().CheckWidgetContent(PageBreak, TemplateContent);     
             BAT.Wrappers().Backend().Forms().FormsContentScreen().PublishForm();
             BAT.Macros().NavigateTo().CustomPage("~/" + PageName.ToLower(), true, this.Culture);

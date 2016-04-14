@@ -147,6 +147,27 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Frontend.Forms
         }
 
         /// <summary>
+        /// Remove the TextBox Content in the Frontend of the form
+        /// </summary>
+        public void RemoveTextboxContent()
+        {
+            HtmlInputText textbox = this.EM.Forms.FormsFrontend.TextField.AssertIsPresent("Text field");
+
+            textbox.ScrollToVisible();
+            textbox.Focus();
+            textbox.MouseClick();
+
+            Manager.Current.Desktop.KeyBoard.KeyDown(System.Windows.Forms.Keys.Control);
+            Manager.Current.Desktop.KeyBoard.KeyPress(System.Windows.Forms.Keys.A);
+            Manager.Current.Desktop.KeyBoard.KeyUp(System.Windows.Forms.Keys.Control);
+            Manager.Current.Desktop.KeyBoard.KeyPress(System.Windows.Forms.Keys.Delete);
+
+            HtmlDiv label = this.EM.Forms.FormsFrontend.TextboxField.AssertIsPresent("Text field");
+            label.Focus();
+            label.MouseClick();
+        }
+
+        /// <summary>
         /// Sets the Paragraph Text Content in the Frontend of the form
         /// </summary>
         public void SetParagraphTextContent(string content)
@@ -154,6 +175,24 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Frontend.Forms
             HtmlTextArea textbox = this.EM.Forms.FormsFrontend.ParagraphTextBox.AssertIsPresent("Text field");
             textbox.MouseClick();
             Manager.Current.Desktop.KeyBoard.TypeText(content);
+        }
+
+        /// <summary>
+        /// Remove the Paragraph Text Content in the Frontend of the form
+        /// </summary>
+        public void RemoveParagraphTextContent()
+        {
+            HtmlTextArea textbox = this.EM.Forms.FormsFrontend.ParagraphTextBox.AssertIsPresent("Text field");
+            textbox.MouseClick();
+
+            Manager.Current.Desktop.KeyBoard.KeyDown(System.Windows.Forms.Keys.Control);
+            Manager.Current.Desktop.KeyBoard.KeyPress(System.Windows.Forms.Keys.A);
+            Manager.Current.Desktop.KeyBoard.KeyUp(System.Windows.Forms.Keys.Control);
+            Manager.Current.Desktop.KeyBoard.KeyPress(System.Windows.Forms.Keys.Delete);
+
+            HtmlDiv label = this.EM.Forms.FormsFrontend.ParagraphTextField.AssertIsPresent("Paragraph field");
+            label.Focus();
+            label.MouseClick();
         }
 
         /// <summary>
@@ -165,6 +204,17 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Frontend.Forms
             submitButton.MouseClick();
 
             this.WaitForSuccessMessage();
+        }
+
+        /// <summary>
+        /// Clicks the submit button in the frontend of the form and checks the succsess message
+        /// </summary>
+        public void SubmitFormWithCustomMessage(string successMessage)
+        {
+            HtmlButton submitButton = EM.Forms.FormsFrontend.SubmitButton;
+            submitButton.MouseClick();
+
+            ActiveBrowser.Find.AssociatedBrowser.GetControl<HtmlDiv>("tagname=div", "innertext=" + successMessage);
         }
 
         /// <summary>
@@ -233,6 +283,70 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Frontend.Forms
             HtmlInputRadioButton checkbox = ActiveBrowser.Find.ByExpression<HtmlInputRadioButton>("tagname=input", "data-sf-role=multiple-choice-field-input", "value=" + choice);
             checkbox.MouseClick();
             ActiveBrowser.WaitUntilReady();
+        }
+
+        /// <summary>
+        /// Selects the other RadioButton.
+        /// </summary>
+        public void SelectOtherRadioButton()
+        {
+            HtmlInputRadioButton checkbox = ActiveBrowser.Find.ByExpression<HtmlInputRadioButton>("tagname=input", "data-sf-multiple-choice-role=other-choice-radio");
+            checkbox.MouseClick();
+            ActiveBrowser.WaitUntilReady();
+        }
+
+        /// <summary>
+        /// Selects the other checkbox button.
+        /// </summary>
+        public void SelectOtherCheckboxButton()
+        {
+            ActiveBrowser.RefreshDomTree();
+            HtmlInputCheckBox checkbox = ActiveBrowser.Find.ByExpression<HtmlInputCheckBox>("tagname=input", "data-sf-checkboxes-role=other-choice-checkbox");
+            checkbox.MouseClick();
+            ActiveBrowser.WaitUntilReady();
+        }
+
+        /// <summary>
+        /// Sets the text to other choice.
+        /// </summary>
+        /// <param name="choice">The choice.</param>
+        public void SetTextToOtherChoice(string choice)
+        {
+            ActiveBrowser.RefreshDomTree();
+            HtmlInputText checkbox = ActiveBrowser.Find.ByExpression<HtmlInputText>("tagname=input", "data-sf-multiple-choice-role=other-choice-text");
+            checkbox.ScrollToVisible();
+            checkbox.Focus();
+            checkbox.MouseClick();
+
+            Manager.Current.Desktop.KeyBoard.KeyDown(System.Windows.Forms.Keys.Control);
+            Manager.Current.Desktop.KeyBoard.KeyPress(System.Windows.Forms.Keys.A);
+            Manager.Current.Desktop.KeyBoard.KeyUp(System.Windows.Forms.Keys.Control);
+            Manager.Current.Desktop.KeyBoard.KeyPress(System.Windows.Forms.Keys.Delete);
+
+            Manager.Current.Desktop.KeyBoard.TypeText(choice);
+            Manager.Current.Desktop.KeyBoard.KeyPress(System.Windows.Forms.Keys.Tab);
+        }
+
+
+        /// <summary>
+        /// Sets the text to other choice in CheckBox field.
+        /// </summary>
+        /// <param name="choice">The choice.</param>
+        public void SetTextToOtherChoiceInCheckBoxField(string choice)
+        {
+            ActiveBrowser.RefreshDomTree();
+            HtmlInputText checkbox = ActiveBrowser.Find.ByExpression<HtmlInputText>("tagname=input", "data-sf-checkboxes-role=other-choice-text");
+            checkbox.ScrollToVisible();
+            checkbox.Focus();
+            checkbox.MouseClick();
+
+            Manager.Current.Desktop.KeyBoard.KeyDown(System.Windows.Forms.Keys.Control);
+            Manager.Current.Desktop.KeyBoard.KeyPress(System.Windows.Forms.Keys.A);
+            Manager.Current.Desktop.KeyBoard.KeyUp(System.Windows.Forms.Keys.Control);
+            Manager.Current.Desktop.KeyBoard.KeyPress(System.Windows.Forms.Keys.Delete);
+
+            Manager.Current.Desktop.KeyBoard.TypeText(choice);
+            Manager.Current.Desktop.KeyBoard.KeyPress(System.Windows.Forms.Keys.Tab);
         }
 
         /// <summary>
@@ -347,7 +461,7 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Frontend.Forms
             var section = ActiveBrowser.Find.ByExpression<HtmlControl>("name=" + controllerType)
             .AssertIsPresent("Controller ");
             var attr = section.Attributes.FirstOrDefault(a => a.Name == "required");
-            Assert.AreEqual("required", attr.Value.ToLower(), "Required field ");
+            Assert.IsTrue(attr.Value.ToLower().Contains("required"), "Required field ");
         }
 
         /// <summary>

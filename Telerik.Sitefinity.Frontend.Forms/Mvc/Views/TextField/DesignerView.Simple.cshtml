@@ -3,8 +3,8 @@
 @using Telerik.Sitefinity.Frontend.Mvc.Helpers;
 @using Telerik.Sitefinity.Mvc;
 
-<tabset class="nav-tabs-wrapper">
-    <tab heading="@Html.Resource("LabelAndText")">
+<uib-tabset class="nav-tabs-wrapper">
+    <uib-tab heading="@Html.Resource("LabelAndText")">
     
         <div class="form-group">
 
@@ -110,9 +110,9 @@
                 <input type="text" id="cssClass" ng-model="properties.Model.CssClass.PropertyValue" class="form-control" />
             </div>
         </expander>
-    </tab>
+    </uib-tab>
 
-    <tab heading="@Html.Resource("Limitations")">
+    <uib-tab heading="@Html.Resource("Limitations")">
         <div class="form-group">
 
             <label for="inputType">@Html.Resource("Type")</label>
@@ -165,6 +165,6 @@
             <input type="text" id="tooLarge" ng-model="properties.Model.ValidatorDefinition.MaxLengthViolationMessage.PropertyValue" class="form-control" />
             
         </div>
-    </tab>
-</tabset>
+    </uib-tab>
+</uib-tabset>
 

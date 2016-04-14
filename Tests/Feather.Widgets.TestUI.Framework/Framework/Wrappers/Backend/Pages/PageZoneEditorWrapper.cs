@@ -251,6 +251,6 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend
             return result;
         }
 
-        private const int TimeOut = 60000;
+        private const int TimeOut = 120000;
     }
 }

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using ArtOfTest.Common.UnitTesting;
 using ArtOfTest.WebAii.Controls.HtmlControls;
@@ -111,10 +112,11 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Frontend
             ActiveBrowser.WaitForAsyncJQueryRequests();
             ActiveBrowser.RefreshDomTree();
             cb.MouseClick();
+            cb.InvokeClick();
+            ActiveBrowser.WaitUntilReady();
             ActiveBrowser.RefreshDomTree();
             ActiveBrowser.WaitForAsyncJQueryRequests();
-            ActiveBrowser.Find.ByCustom<HtmlUnorderedList>(e => e.CssClass.Contains("k-editor-toolbar") && e.IsVisible() == true)
-             .AssertIsPresent("toolbar");
+            ActiveBrowser.WaitForElementWithCssClass("k-editor-toolbar");
 
             Manager.Desktop.KeyBoard.KeyDown(System.Windows.Forms.Keys.LControlKey);
             Manager.Desktop.KeyBoard.KeyPress(System.Windows.Forms.Keys.A);
@@ -157,6 +159,37 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Frontend
                 var anchor = ActiveBrowser.Find.ByExpression<HtmlAnchor>("href=" + href).AssertIsPresent(href + " was not present.");
                 anchor.Find.ByExpression<HtmlImage>("src=" + src).AssertIsPresent(src + " was not present.");
             }
+        }
+
+        /// <summary>
+        /// Waits for content block for edit.
+        /// </summary>
+        public void WaitForContentBlockForEdit()
+        {
+            Manager.Current.Wait.For(() => this.CheckFieldIsPresent(), 480000);
+        }
+
+        /// <summary>
+        /// Checks the field is present.
+        /// </summary>
+        /// <returns></returns>
+        private bool CheckFieldIsPresent()
+        {
+            ActiveBrowser.WaitUntilReady();
+            ActiveBrowser.RefreshDomTree();
+
+            Manager.Current.ActiveBrowser.RefreshDomTree();
+
+            HtmlDiv cb = ActiveBrowser.Find.ByCustom<HtmlDiv>(x => x.CssClass.Contains("sfFieldEditable"));
+
+            bool result = false;
+
+            if (cb != null)
+            {
+                result = true;
+            }
+
+            return result;
         }
     }
 }

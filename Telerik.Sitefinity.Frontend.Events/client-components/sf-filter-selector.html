@@ -1,0 +1,12 @@
+﻿<sf-calendar-filter sf-query-data="sfQueryData" 
+    sf-provider="sfProvider"
+    sf-query-field-name="Calendars"
+    sf-group-logical-operator="AND"
+    sf-item-logical-operator="OR"></sf-calendar-filter>
+<sf-taxon-filter sf-query-data="sfQueryData" 
+    sf-taxonomy-fields="sfTaxonomyFields"
+    sf-provider="sfProvider"
+    sf-group-logical-operator="AND"
+    sf-item-logical-operator="OR"
+    class="sf-taxon-filter"
+    ng-if="sfTaxonomyFields && sfTaxonomyFields.length"></sf-taxon-filter>

@@ -5,8 +5,8 @@
 <server-data default-provider-name='@Html.DefaultProviderName(Telerik.Sitefinity.Modules.News.NewsManager.GetManager())'>
 </server-data>
 
-<tabset class="nav-tabs-wrapper">
-    <tab heading="@Html.Resource("Content")">
+<uib-tabset class="nav-tabs-wrapper">
+    <uib-tab heading="@Html.Resource("Content")">
         <h4>@Html.Resource("NewsToDisplay")</h4>
         <div class="form-group">
             <div class="row">
@@ -54,9 +54,9 @@
                 </label>
             </div>
         </div>
-    </tab>
+    </uib-tab>
 
-    <tab heading="@Html.Resource("ListSettings")">
+    <uib-tab heading="@Html.Resource("ListSettings")">
         <div class="form-group">
             <div class="radio">
                 <label for="usePaging">
@@ -141,9 +141,9 @@
             </div>
 
         </expander>
-    </tab>
+    </uib-tab>
 
-    <tab heading="@Html.Resource("SingleItemSettings")">
+    <uib-tab heading="@Html.Resource("SingleItemSettings")">
         <div class="form-group">
             <strong>@Html.Resource("OpenSingleItem")</strong>
             <div class="radio">
@@ -192,5 +192,5 @@
 
 
         </expander>
-    </tab>
-</tabset>
+    </uib-tab>
+</uib-tabset>

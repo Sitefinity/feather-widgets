@@ -94,9 +94,15 @@
             var separatorsPrev = formStepsContainers.find(selectors.previousButton);
             separatorsPrev.click(function (e) {
                 e.preventDefault();
-
+                
                 var previousIndex = formStepIndex;
-                $(e.target).closest(selectors.separator).hide();
+                var stepNewForm = $('form#stepNewForm');
+                var currentContainer = $(e.target).closest(selectors.separator);
+                if (stepNewForm.children(selectors.separator).length > 0) {
+                    currentContainer.unwrap();
+                }
+                
+                currentContainer.hide();
                 formStepIndex--;
                 $(formStepsContainers[formStepIndex]).show();
                 formElement.trigger("form-page-changed", [formStepIndex, previousIndex]);

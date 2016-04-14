@@ -3,8 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using ArtOfTest.WebAii.Controls.HtmlControls;
+using ArtOfTest.WebAii.Core;
 using Feather.Widgets.TestUI.Framework;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Telerik.WebAii.Controls.Html;
 
 namespace FeatherWidgets.TestUI.TestCases.Forms.MultiPageForms
 {
@@ -25,12 +28,17 @@ namespace FeatherWidgets.TestUI.TestCases.Forms.MultiPageForms
         {
             BAT.Macros().NavigateTo().Modules().Forms(this.Culture);
             BAT.Wrappers().Backend().Forms().FormsDashboard().OpenFormFromTheGrid(FormName);
+            BATFeather.Wrappers().Backend().Forms().FormsContentScreenWrapper().WaitForFieldContent(NextStepOld, PageBreak);
             BATFeather.Wrappers().Frontend().Forms().FormsWrapper().VerifyNextStepText(NextStepOld);
             BATFeather.Wrappers().Backend().Pages().PageZoneEditorWrapper().EditWidget(PageBreak);
+            ActiveBrowser.WaitUntilReady();
+            ActiveBrowser.WaitForAsyncOperations();
+            ActiveBrowser.RefreshDomTree();
             BATFeather.Wrappers().Backend().ModuleBuilder().DynamicWidgetAdvancedSettingsWrapper().ClickAdvancedSettingsButton();
             BATFeather.Wrappers().Backend().ModuleBuilder().DynamicWidgetAdvancedSettingsWrapper().ClickModelButton();
             BATFeather.Wrappers().Backend().Forms().FormsContentScreenWrapper().ChangeNextStepTextInAdvancedSettings(NextStepNew);
             BATFeather.Wrappers().Backend().ContentBlocks().ContentBlocksWrapper().SaveChanges();
+            BATFeather.Wrappers().Backend().Forms().FormsContentScreenWrapper().WaitForFieldContent(NextStepNew, PageBreak);
             BATFeather.Wrappers().Frontend().Forms().FormsWrapper().VerifyNextStepText(NextStepNew);
             BAT.Wrappers().Backend().Forms().FormsContentScreen().PublishForm();
 
