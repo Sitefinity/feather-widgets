@@ -77,6 +77,10 @@
       <Private>True</Private>
       <SpecificVersion>False</SpecificVersion>
     </Reference>
+    <Reference Include="ServiceStack.Text, Version=4.0.0.0, Culture=neutral, PublicKeyToken=e06fbc6124f57c43, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\ServiceStack.Text.Signed.4.0.52\lib\net40\ServiceStack.Text.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.configuration" />
     <Reference Include="System.Core" />
@@ -272,6 +276,11 @@
     <Compile Include="DynamicWidgets\DynamicWidgetsRoutingTests.cs" />
     <Compile Include="DynamicWidgets\DynamicWidgetsToolboxTests.cs" />
     <Compile Include="DynamicWidgets\OldDynamicWidgetsWithFeatherTests.cs" />
+    <Compile Include="Events\EventWidgetListSettingsTests.cs" />
+    <Compile Include="Events\EventWidgetFilteringTests.cs" />
+    <Compile Include="Events\EventDatesFormatTests.cs" />
+    <Compile Include="Events\EventWidgetTests.cs" />
+    <Compile Include="Events\EventWidgetDetailSettingsTests.cs" />
     <Compile Include="Forms\BackendConfiguratorTests.cs" />
     <Compile Include="Forms\Fields\CheckboxesFieldTests.cs" />
     <Compile Include="Forms\Fields\PageBreakTests.cs" />
@@ -352,6 +361,10 @@
       <Project>{c70bd0bd-d081-48a0-af6d-3fa7e584cb04}</Project>
       <Name>Telerik.Sitefinity.Frontend.EmailCampaigns</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\Telerik.Sitefinity.Frontend.Events\Telerik.Sitefinity.Frontend.Events.csproj">
+      <Project>{3d2b45ef-a016-4821-8ba0-badade614080}</Project>
+      <Name>Telerik.Sitefinity.Frontend.Events</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\Telerik.Sitefinity.Frontend.Forms\Telerik.Sitefinity.Frontend.Forms.csproj">
       <Project>{35e2549f-113b-4b81-bdde-f06e78f4bdf8}</Project>
       <Name>Telerik.Sitefinity.Frontend.Forms</Name>
@@ -421,6 +434,7 @@
   <Target Name="BeforeBuild">
     <Copy SourceFiles="$(SolutionDir)FxCop\CustomDictionary.xml" DestinationFolder="$(CodeAnalysisPath)" OverwriteReadOnlyFiles="true" Retries="10" ContinueOnError="false" />
   </Target>
-  <Target Name="AfterBuild"></Target>
+  <Target Name="AfterBuild">
+  </Target>
   <Import Project="$(SolutionDir)\StyleCop\StyleCop.targets" />
 </Project>
