@@ -158,7 +158,7 @@ namespace Telerik.Sitefinity.Frontend.Events.Mvc.Helpers
         {
             var result = new StringBuilder();
             var hour = dateTime.ToString(HourFormat);
-            result.Append(RemoveTrailingZeros(hour));
+            result.Append(RemoveTrailingZeros(hour).TrimStart('0'));
 
             if (dateTime.Minute != 0)
             {
