@@ -3,6 +3,7 @@
 @using System.Collections;
 @using System.Linq;
 @using Telerik.Sitefinity.Frontend.DynamicContent.WidgetTemplates.Fields.Helpers;
+@using Telerik.Sitefinity.Frontend.Mvc.Models;
 @using Telerik.Sitefinity;
 @using Telerik.Sitefinity.Data.ContentLinks;
 @using Telerik.Sitefinity.Frontend.Mvc.Helpers;
@@ -11,7 +12,7 @@
 @using Telerik.Sitefinity.Model;
 @using Telerik.Sitefinity.Model.ContentLinks;
 @using Telerik.Sitefinity.Modules.Pages;
-@using Telerik.Sitefinity.Pages.Model; 
+@using Telerik.Sitefinity.Pages.Model;
 
 <div class="@Model.CssClass" @Html.InlineEditingAttributes(Model.ProviderName, Model.ContentType.FullName, (Guid)Model.Item.Fields.Id)>
     <h3 @Html.InlineEditingFieldAttributes("@*MainTextField*@", "ShortText")>
