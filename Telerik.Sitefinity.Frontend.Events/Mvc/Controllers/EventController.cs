@@ -80,7 +80,7 @@ namespace Telerik.Sitefinity.Frontend.Events.Mvc.Controllers
         }
 
         /// <summary>
-        /// Gets or sets a value indicating whether detail view for the blog post should be opened in the same page.
+        /// Gets or sets a value indicating whether detail view for the event should be opened in the same page.
         /// </summary>
         /// <value>
         /// <c>true</c> if details link should be opened in the same page; otherwise, (if should redirect to custom selected page)<c>false</c>.

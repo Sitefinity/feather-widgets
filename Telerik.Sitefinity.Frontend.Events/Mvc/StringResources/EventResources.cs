@@ -12,15 +12,15 @@ namespace Telerik.Sitefinity.Frontend.Events.Mvc.StringResources
         #region Constructors
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="BlogPostResources"/> class. 
-        /// Initializes new instance of <see cref="BlogPostResources"/> class with the default <see cref="ResourceDataProvider"/>.
+        /// Initializes a new instance of the <see cref="EventResources"/> class. 
+        /// Initializes new instance of <see cref="EventResources"/> class with the default <see cref="ResourceDataProvider"/>.
         /// </summary>
         public EventResources()
         {
         }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="BlogPostResources"/> class.
+        /// Initializes a new instance of the <see cref="EventResources"/> class.
         /// </summary>
         /// <param name="dataProvider">The data provider.</param>
         public EventResources(ResourceDataProvider dataProvider)
@@ -33,7 +33,7 @@ namespace Telerik.Sitefinity.Frontend.Events.Mvc.StringResources
         #region Meta resources
 
         /// <summary>
-        /// Gets Blog post widget resources title.
+        /// Gets Event widget resources title.
         /// </summary>
         [ResourceEntry("EventResourcesTitle", 
             Value = "Event widget resources", 
@@ -48,7 +48,7 @@ namespace Telerik.Sitefinity.Frontend.Events.Mvc.StringResources
         }
 
         /// <summary>
-        /// Gets Blog post widget resources description.
+        /// Gets Event widget resources description.
         /// </summary>
         [ResourceEntry("EventResourcesDescription", 
             Value = "Localizable strings for the event widget.", 
