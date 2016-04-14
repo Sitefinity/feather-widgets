@@ -435,6 +435,23 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend.Forms
             ActiveBrowser.WaitForAsyncOperations();
         }
 
+        /// <summary>
+        /// Selects the read template.
+        /// </summary>
+        /// <param name="templateTitle">The template title.</param>
+        public void SelectReadTemplate(string templateTitle)
+        {
+            HtmlAnchor moreOptions = this.EM.Widgets.WidgetDesignerContentScreen.MoreOptionsDiv.AssertIsPresent("More options span");
+            moreOptions.Click();
+
+            var templateSelector = EM.Forms.FormsBackend.ReadTemplateSelector
+              .AssertIsPresent("Template selector drop-down");
+            templateSelector.SelectByValue(templateTitle);
+            templateSelector.AsjQueryControl().InvokejQueryEvent(jQueryControl.jQueryControlEvents.click);
+            templateSelector.AsjQueryControl().InvokejQueryEvent(jQueryControl.jQueryControlEvents.change);
+            ActiveBrowser.WaitForAsyncOperations();
+        }
+
         /// Selects the cancel.
         /// </summary>
         public void SelectCancel()
@@ -485,6 +502,38 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend.Forms
         }
 
         /// <summary>
+        /// Changes the required message.
+        /// </summary>
+        /// <param name="newValue">The new value.</param>
+        public void ChangeRequiredMessage(string newValue)
+        {
+            HtmlInputText requiredMessage = EM.Forms.FormsBackend.RequiredMessage.AssertIsPresent("Required label ");
+            requiredMessage.Click();
+
+            Manager.Current.Desktop.KeyBoard.KeyDown(System.Windows.Forms.Keys.Control);
+            Manager.Current.Desktop.KeyBoard.KeyPress(System.Windows.Forms.Keys.A);
+            Manager.Current.Desktop.KeyBoard.KeyUp(System.Windows.Forms.Keys.Control);
+            Manager.Current.Desktop.KeyBoard.KeyPress(System.Windows.Forms.Keys.Delete);
+            Manager.Current.Desktop.KeyBoard.TypeText(newValue);
+        }
+
+        /// <summary>
+        /// Changes the required message of file upload.
+        /// </summary>
+        /// <param name="newValue">The new value.</param>
+        public void ChangeRequiredMessageFileUpload(string newValue)
+        {
+            HtmlInputText requiredMessage = EM.Forms.FormsBackend.RequiredMessageFileUpload.AssertIsPresent("Required label ");
+            requiredMessage.Click();
+
+            Manager.Current.Desktop.KeyBoard.KeyDown(System.Windows.Forms.Keys.Control);
+            Manager.Current.Desktop.KeyBoard.KeyPress(System.Windows.Forms.Keys.A);
+            Manager.Current.Desktop.KeyBoard.KeyUp(System.Windows.Forms.Keys.Control);
+            Manager.Current.Desktop.KeyBoard.KeyPress(System.Windows.Forms.Keys.Delete);
+            Manager.Current.Desktop.KeyBoard.TypeText(newValue);
+        }
+
+        /// <summary>
         /// Change label of multiple choices and checkbox fields
         /// </summary>
         /// <param name="text">Text</param>
@@ -502,6 +551,130 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend.Forms
             Manager.Current.Desktop.KeyBoard.KeyUp(System.Windows.Forms.Keys.Control);
             Manager.Current.Desktop.KeyBoard.KeyPress(System.Windows.Forms.Keys.Delete);
             Manager.Current.Desktop.KeyBoard.TypeText(text);
+        }
+
+        /// <summary>
+        /// Changes the placeholder.
+        /// </summary>
+        /// <param name="text">The text.</param>
+        public void ChangePlaceholder(string text)
+        {
+            HtmlInputText placeholder = EM.Forms.FormsBackend.PlaceHolder
+                .AssertIsPresent("placeholder");
+
+            placeholder.ScrollToVisible();
+            placeholder.Focus();
+            placeholder.MouseClick();
+
+            Manager.Current.Desktop.KeyBoard.KeyDown(System.Windows.Forms.Keys.Control);
+            Manager.Current.Desktop.KeyBoard.KeyPress(System.Windows.Forms.Keys.A);
+            Manager.Current.Desktop.KeyBoard.KeyUp(System.Windows.Forms.Keys.Control);
+            Manager.Current.Desktop.KeyBoard.KeyPress(System.Windows.Forms.Keys.Delete);
+            Manager.Current.Desktop.KeyBoard.TypeText(text);
+        }
+
+        /// <summary>
+        /// Changes the predefined value.
+        /// </summary>
+        /// <param name="text">The text.</param>
+        public void ChangePredefinedValue(string text)
+        {
+            HtmlInputText predefinedValue = EM.Forms.FormsBackend.PredefinedValue
+                .AssertIsPresent("predefined value");
+
+            predefinedValue.ScrollToVisible();
+            predefinedValue.Focus();
+            predefinedValue.MouseClick();
+
+            Manager.Current.Desktop.KeyBoard.KeyDown(System.Windows.Forms.Keys.Control);
+            Manager.Current.Desktop.KeyBoard.KeyPress(System.Windows.Forms.Keys.A);
+            Manager.Current.Desktop.KeyBoard.KeyUp(System.Windows.Forms.Keys.Control);
+            Manager.Current.Desktop.KeyBoard.KeyPress(System.Windows.Forms.Keys.Delete);
+            Manager.Current.Desktop.KeyBoard.TypeText(text);
+        }
+
+        /// <summary>
+        /// Changes the instructional text.
+        /// </summary>
+        /// <param name="text">The text.</param>
+        public void ChangeInstructionalText(string text)
+        {
+            HtmlTextArea textArea = EM.Forms.FormsBackend.InstructionalTextArea
+                .AssertIsPresent("Instructional text area");
+
+            textArea.ScrollToVisible();
+            textArea.Focus();
+            textArea.MouseClick();
+
+            Manager.Current.Desktop.KeyBoard.KeyDown(System.Windows.Forms.Keys.Control);
+            Manager.Current.Desktop.KeyBoard.KeyPress(System.Windows.Forms.Keys.A);
+            Manager.Current.Desktop.KeyBoard.KeyUp(System.Windows.Forms.Keys.Control);
+            Manager.Current.Desktop.KeyBoard.KeyPress(System.Windows.Forms.Keys.Delete);
+            Manager.Current.Desktop.KeyBoard.TypeText(text);
+        }
+
+        /// <summary>
+        /// Clicks the instructional text link.
+        /// </summary>
+        public void ClickInstructionalTextLink()
+        {
+            HtmlAnchor instructionalLink = EM.Forms.FormsBackend.InstructionalTextLink
+                .AssertIsPresent("Instructional Link");
+            instructionalLink.Click();
+
+            ActiveBrowser.WaitUntilReady();
+        }
+
+        /// <summary>
+        /// Clicks to add a new choice link.
+        /// </summary>
+        public void ClickToAddNewChoiceLink()
+        {
+            HtmlAnchor addChoiceLink = EM.Forms.FormsBackend.ClickToAddAChoice
+                .AssertIsPresent("Add choice Link");
+            addChoiceLink.Click();
+
+            ActiveBrowser.WaitUntilReady();
+        }
+
+        /// <summary>
+        /// Adds the new choice label.
+        /// </summary>
+        /// <param name="text">The text.</param>
+        public void AddNewChoiceLabel(string text)
+        {
+            HtmlInputText newChoice = ActiveBrowser.Find.AllByExpression<HtmlInputText>("placeholder=Enter label").LastOrDefault();
+            newChoice.ScrollToVisible();
+            newChoice.Focus();
+            newChoice.MouseClick();
+
+            Manager.Current.Desktop.KeyBoard.KeyDown(System.Windows.Forms.Keys.Control);
+            Manager.Current.Desktop.KeyBoard.KeyPress(System.Windows.Forms.Keys.A);
+            Manager.Current.Desktop.KeyBoard.KeyUp(System.Windows.Forms.Keys.Control);
+            Manager.Current.Desktop.KeyBoard.KeyPress(System.Windows.Forms.Keys.Delete);
+            Manager.Current.Desktop.KeyBoard.TypeText(text);
+        }
+
+        /// <summary>
+        /// Clicks to remove first choice link.
+        /// </summary>
+        public void ClickToRemoveFirstChoiceLink()
+        {
+            HtmlDiv firstChoice = ActiveBrowser.Find.AllByExpression<HtmlDiv>("class=col-md-1 text-right").FirstOrDefault();
+            HtmlButton removeFirstChoice = firstChoice.Find.ByExpression<HtmlButton>("class=~close");
+            removeFirstChoice.Click();
+        }
+
+        /// <summary>
+        /// Adds the other choice.
+        /// </summary>
+        public void AddOtherChoice()
+        {
+            HtmlInputCheckBox otherChoice = EM.Forms.FormsBackend.OtherChoice
+                .AssertIsPresent("Other choice Link");
+            otherChoice.ScrollToVisible();
+            otherChoice.Focus();
+            otherChoice.MouseClick();
         }
 
         /// Duplicates the widget in the header.
@@ -686,6 +859,131 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend.Forms
         {          
             var confirmDialog = BAT.Macros().DialogFacade().ConfirmDialog();
             ActiveBrowser.Close();
+        }
+
+        /// <summary>
+        /// Selects the settings tab in form widget.
+        /// </summary>
+        public void SelectSettingsTabInFormWidget()
+        {
+            HtmlAnchor settingsTab = EM.Forms.FormsBackend.SettingsTabInFormWidget
+            .AssertIsPresent("Settings tab");
+            settingsTab.Click();
+
+            ActiveBrowser.WaitForAsyncOperations();
+            ActiveBrowser.WaitUntilReady();
+        }
+
+        /// <summary>
+        /// Checks the use custom confirmation checkbox in form widget.
+        /// </summary>
+        public void CheckUseCustomConfirmationCheckboxInFormWidget()
+        {
+            ActiveBrowser.RefreshDomTree();
+            this.WaitForCustomConfirmation();
+            HtmlDiv customConfirmaion = this.EM.Forms.FormsBackend.UseCustomConfirmationDiv.AssertIsPresent("Use custom confirmation");
+
+            var customButton = customConfirmaion.ChildNodes[0].As<HtmlControl>();          
+
+            customButton.ScrollToVisible();
+            customButton.Focus();
+            customButton.MouseClick();
+            ActiveBrowser.WaitUntilReady();
+        }
+
+        /// <summary>
+        /// Sets the new message for success.
+        /// </summary>
+        /// <param name="text">The text.</param>
+        public void SetNewMessageForSuccess(string text)
+        {
+            ActiveBrowser.RefreshDomTree();
+            HtmlTextArea messageArea = EM.Forms.FormsBackend.MessageArea
+                .AssertIsPresent("Message area");
+
+            messageArea.ScrollToVisible();
+            messageArea.Focus();
+            messageArea.MouseClick();
+
+            Manager.Current.Desktop.KeyBoard.KeyDown(System.Windows.Forms.Keys.Control);
+            Manager.Current.Desktop.KeyBoard.KeyPress(System.Windows.Forms.Keys.A);
+            Manager.Current.Desktop.KeyBoard.KeyUp(System.Windows.Forms.Keys.Control);
+            Manager.Current.Desktop.KeyBoard.KeyPress(System.Windows.Forms.Keys.Delete);
+            Manager.Current.Desktop.KeyBoard.TypeText(text);
+        }
+
+        /// <summary>
+        /// Selects the redirect to a page in form widget.
+        /// </summary>
+        public void SelectRedirectToAPageInFormWidget()
+        {
+            ActiveBrowser.RefreshDomTree();
+            HtmlInputRadioButton redirectToAPage = this.EM.Forms.FormsBackend.RedirectToPage.AssertIsPresent("Redirect to a page");
+            redirectToAPage.Click();
+        }
+
+        /// <summary>
+        /// Waits the content of for field.
+        /// </summary>
+        /// <param name="fieldContent">Content of the field.</param>
+        /// <param name="widgetName">Name of the widget.</param>
+        public void WaitForFieldContent(string fieldContent, string widgetName)
+        {
+            Manager.Current.Wait.For(() => this.CheckFieldIsPresent(fieldContent, widgetName), 480000);
+        }
+
+        /// <summary>
+        /// Waits for custom confirmation.
+        /// </summary>
+        public void WaitForCustomConfirmation()
+        {
+            Manager.Current.Wait.For(() => this.CheckCustomConfirmationIsPresent(), 480000);
+        }
+
+        /// <summary>
+        /// Checks the custom confirmation is present.
+        /// </summary>
+        /// <returns>The result</returns>
+        private bool CheckCustomConfirmationIsPresent()
+        {
+            ActiveBrowser.WaitUntilReady();
+            ActiveBrowser.RefreshDomTree();
+
+            HtmlDiv customConfirmaion = this.EM.Forms.FormsBackend.UseCustomConfirmationDiv;            
+
+            bool result = false;
+
+            if (customConfirmaion != null)
+            {
+                result = true;
+            }
+
+            return result;
+        }
+
+        /// <summary>
+        /// Checks the field is present.
+        /// </summary>
+        /// <returns>Is success message field contained</returns>
+        private bool CheckFieldIsPresent(string fieldContent, string widgetName)
+        {
+            ActiveBrowser.WaitUntilReady();
+            ActiveBrowser.RefreshDomTree();
+
+            Manager.Current.ActiveBrowser.RefreshDomTree();
+            var widgetHeader = Manager.Current
+                                      .ActiveBrowser
+                                      .Find
+                                      .ByCustom<HtmlDiv>(d => d.CssClass.StartsWith("rdTitleBar") && d.ChildNodes.First().InnerText.Equals(widgetName))
+                                      .AssertIsPresent(widgetName);
+            widgetHeader.ScrollToVisible();
+            HtmlTable elementTable = widgetHeader.Parent<HtmlTableRow>().Parent<HtmlTable>();
+            HtmlDiv content = elementTable.Find.ByExpression<HtmlDiv>("class=rdContent");
+            string innerText = content.InnerText;
+
+            bool result = innerText.Contains(fieldContent);
+
+            return result;
         }
     }
 }

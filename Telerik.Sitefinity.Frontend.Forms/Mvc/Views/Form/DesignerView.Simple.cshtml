@@ -1,7 +1,7 @@
 @using Telerik.Sitefinity.Frontend.Mvc.Helpers;
 
-<tabset class="nav-tabs-wrapper">
-    <tab heading="@Html.Resource("Form")">
+<uib-tabset class="nav-tabs-wrapper">
+    <uib-tab heading="@Html.Resource("Form")">
 
         <strong class="u-db m-bottom-xs">@Html.Resource("SelectForm")</strong>
 
@@ -18,9 +18,9 @@
         </expander>
 
 
-    </tab>
+    </uib-tab>
 
-    <tab heading="@Html.Resource("Settings")">
+    <uib-tab heading="@Html.Resource("Settings")">
         <div class="form-group">
             <strong>@Html.Resource("ConfirmationOptions")</strong>
 
@@ -60,5 +60,5 @@
  
             </div>
         </div>
-    </tab>
-</tabset>
+    </uib-tab>
+</uib-tabset>

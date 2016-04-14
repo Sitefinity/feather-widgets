@@ -28,7 +28,7 @@
             <span ng-bind="item.Title"></span>
         </a>
     </div>
-    <pagination ng-show="filter.paging.isVisible" items-per-page="filter.paging.itemsPerPage" total-items="filter.paging.totalItems" ng-model="filter.paging.currentPage"></pagination>
+    <uib-pagination ng-show="filter.paging.isVisible" items-per-page="filter.paging.itemsPerPage" total-items="filter.paging.totalItems" ng-model="filter.paging.currentPage"></uib-pagination>
     <div ng-hide="contentItems.length">@Html.Resource("NoItemsFound")</div>
 </div>
 

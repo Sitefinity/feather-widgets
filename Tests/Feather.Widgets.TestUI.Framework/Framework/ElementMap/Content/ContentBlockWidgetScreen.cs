@@ -263,6 +263,26 @@ namespace Feather.Widgets.TestUI.Framework.Framework.ElementMap.Content
         }
 
         /// <summary>
+        /// Buttonses the in toolbar editor.
+        /// </summary>
+        /// <param name="name">The name.</param>
+        /// <returns></returns>
+        public HtmlAnchor ButtonsInToolbarEditor(string name)
+        {
+                return this.Get<HtmlAnchor>("tagname=a", "title=" + name);
+        }
+
+        /// <summary>
+        /// Dropdowns the in toolbar editor.
+        /// </summary>
+        /// <param name="name">The name.</param>
+        /// <returns></returns>
+        public HtmlSpan DropdownInToolbarEditor(string name)
+        {
+            return this.Get<HtmlSpan>("tagname=span", "title=" + name);
+        }
+
+        /// <summary>
         /// Gets the image selector.
         /// </summary>
         /// <value>The image selector anchor link.</value>
@@ -272,6 +292,16 @@ namespace Feather.Widgets.TestUI.Framework.Framework.ElementMap.Content
             {
                 return this.Get<HtmlAnchor>("tagname=a", "title=Insert image");
             }
+        }
+
+        /// <summary>
+        /// Selects the menu in toolbar editor.
+        /// </summary>
+        /// <param name="name">The name.</param>
+        /// <returns></returns>
+        public HtmlSelect SelectMenuInToolbarEditor(string name)
+        {
+            return this.Get<HtmlSelect>("tagname=select", "title=" + name);
         }
 
         /// <summary>

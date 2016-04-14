@@ -1,7 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using ArtOfTest.WebAii.Controls.HtmlControls;
+using ArtOfTest.WebAii.Core;
 using Feather.Widgets.TestUI.Framework;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Telerik.WebAii.Controls.Html;
 
 namespace FeatherWidgets.TestUI.TestCases.Forms.MultiPageForms
 {
@@ -24,6 +30,9 @@ namespace FeatherWidgets.TestUI.TestCases.Forms.MultiPageForms
             BAT.Wrappers().Backend().Forms().FormsDashboard().OpenFormFromTheGrid(FormName);
             foreach (var fieldName in this.fieldNames)
             {
+                ActiveBrowser.WaitUntilReady();
+                ActiveBrowser.WaitForAsyncOperations();
+                ActiveBrowser.RefreshDomTree();
                 BATFeather.Wrappers().Backend().Pages().PageZoneEditorWrapper().EditWidget(fieldName);
                 BATFeather.Wrappers().Backend().Forms().FormsContentScreenWrapper().CheckRequiredFieldCheckbox();
                 BATFeather.Wrappers().Backend().Widgets().WidgetDesignerWrapper().SaveChanges();
