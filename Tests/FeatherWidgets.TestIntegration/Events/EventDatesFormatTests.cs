@@ -2,6 +2,7 @@
 using System.Globalization;
 using System.Text.RegularExpressions;
 using MbUnit.Framework;
+using Telerik.Sitefinity;
 using Telerik.Sitefinity.Events.Model;
 using Telerik.Sitefinity.Frontend.Events.Mvc.Helpers;
 using Telerik.Sitefinity.Frontend.Mvc.Models;
@@ -176,9 +177,9 @@ namespace FeatherWidgets.TestIntegration.Events
         {
             const string ExpectedResultFormat = "{0}-{1}";
 
-            var dateNextMonth = DateTime.UtcNow.Date.AddMonths(1);
-            var start = dateNextMonth.AddDays(12).AddHours(20);
-            var end = dateNextMonth.AddDays(19).AddHours(5);
+            var dateNextMonth = new DateTime(DateTime.UtcNow.Year, 12, 1);
+            var start = dateNextMonth.AddDays(23).AddHours(20);
+            var end = dateNextMonth.AddDays(28).AddHours(5);
 
             var expectedResult = string.Format(CultureInfo.InvariantCulture, ExpectedResultFormat, start.ToString(DateMonthDateFormat, CultureInfo.InvariantCulture), end.Day);
             this.TestDateFormat(expectedResult, start, end);
@@ -351,8 +352,8 @@ namespace FeatherWidgets.TestIntegration.Events
             const string RecurrenceExpression = "DTSTART;TZID=\"FLE Standard Time\":20160422T080000\r\nDTEND;TZID=\"FLE Standard Time\":22160422T120000\r\nRRULE:FREQ=DAILY;INTERVAL=1";
 
             var now = DateTime.Now;
-            var start = new DateTime(2016, 04, 22, 5, 0, 0);
-            var expected = new DateTime(2016, 04, 22, 5, 0, 0);
+            var start = new DateTime(2016, 04, 22, 5, 30, 0);
+            var expected = new DateTime(2016, 04, 22, 5, 30, 0, DateTimeKind.Utc).ToSitefinityUITime();
             while (expected < now)
             {
                 expected = expected.AddDays(1);
@@ -373,8 +374,8 @@ namespace FeatherWidgets.TestIntegration.Events
             const string RecurrenceExpression = "DTSTART;TZID=\"FLE Standard Time\":20160407T080000\r\nDTEND;TZID=\"FLE Standard Time\":22160407T120000\r\nRRULE:FREQ=DAILY;INTERVAL=2";
 
             var now = DateTime.Now;
-            var start = new DateTime(2016, 04, 7, 5, 0, 0);
-            var expected = new DateTime(2016, 04, 7, 5, 0, 0);
+            var start = new DateTime(2016, 04, 7, 5, 30, 0);
+            var expected = new DateTime(2016, 04, 7, 5, 30, 0, DateTimeKind.Utc).ToSitefinityUITime();
             while (expected < now)
             {
                 expected = expected.AddDays(2);
@@ -395,8 +396,8 @@ namespace FeatherWidgets.TestIntegration.Events
             const string RecurrenceExpression = "DTSTART;TZID=\"FLE Standard Time\":20160407T080000\r\nDTEND;TZID=\"FLE Standard Time\":22160407T120000\r\nRRULE:FREQ=DAILY;BYDAY=MO,TU,WE,TH,FR";
 
             var now = DateTime.Now;
-            var start = new DateTime(2016, 04, 7, 5, 0, 0);
-            var expected = new DateTime(2016, 04, 7, 5, 0, 0);
+            var start = new DateTime(2016, 04, 7, 5, 30, 0);
+            var expected = new DateTime(2016, 04, 7, 5, 30, 0, DateTimeKind.Utc).ToSitefinityUITime();
             while (expected < now || expected.DayOfWeek == DayOfWeek.Saturday || expected.DayOfWeek == DayOfWeek.Sunday)
             {
                 expected = expected.AddDays(1);
@@ -417,8 +418,8 @@ namespace FeatherWidgets.TestIntegration.Events
             const string RecurrenceExpression = "DTSTART;TZID=\"FLE Standard Time\":20160407T080000\r\nDTEND;TZID=\"FLE Standard Time\":22160407T120000\r\nRRULE:FREQ=WEEKLY;INTERVAL=1;BYDAY=MO";
 
             var now = DateTime.Now;
-            var start = new DateTime(2016, 04, 7, 5, 0, 0);
-            var expected = new DateTime(2016, 04, 7, 5, 0, 0);
+            var start = new DateTime(2016, 04, 7, 5, 30, 0);
+            var expected = new DateTime(2016, 04, 7, 5, 30, 0, DateTimeKind.Utc).ToSitefinityUITime();
             while (expected < now || expected.DayOfWeek != DayOfWeek.Monday)
             {
                 expected = expected.AddDays(1);
