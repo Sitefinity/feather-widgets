@@ -79,12 +79,12 @@ namespace FeatherWidgets.TestIntegration.Events
         }
 
         /// <summary>
-        /// Ensures that the past event has correct format for date 'Today, March 3 at 8 PM'.
+        /// Ensures that the current event has correct format for date 'Today, March 3 at 8 PM'.
         /// </summary>
         [Test]
         [Category(TestCategories.Forms)]
         [Author(FeatherTeams.FeatherTeam)]
-        [Description("Ensures that the past event has correct format for date 'Today, March 3 at 8 PM'.")]
+        [Description("Ensures that the current event has correct format for date 'Today, March 3 at 8 PM'.")]
         public void CurrentEvents1DateFormatTest()
         {
             const string ExpectedResultFormat = "Today, {0} at 8 PM";
@@ -96,12 +96,12 @@ namespace FeatherWidgets.TestIntegration.Events
         }
 
         /// <summary>
-        /// Ensures that the past event has correct format for date 'Tomorrow, March 4 at 8 PM'.
+        /// Ensures that the upcoming event has correct format for date 'Tomorrow, March 4 at 8 PM'.
         /// </summary>
         [Test]
         [Category(TestCategories.Forms)]
         [Author(FeatherTeams.FeatherTeam)]
-        [Description("Ensures that the past event has correct format for date 'Tomorrow, March 4 at 8 PM'.")]
+        [Description("Ensures that the upcoming event has correct format for date 'Tomorrow, March 4 at 8 PM'.")]
         public void UpcomingEvents1DateFormatTest()
         {
             const string ExpectedResultFormat = "Tomorrow, {0} at 8 PM";
@@ -113,12 +113,12 @@ namespace FeatherWidgets.TestIntegration.Events
         }
 
         /// <summary>
-        /// Ensures that the past event has correct format for date 'Saturday, March 12 at 8 PM'.
+        /// Ensures that the upcoming event has correct format for date 'Saturday, March 12 at 8 PM'.
         /// </summary>
         [Test]
         [Category(TestCategories.Forms)]
         [Author(FeatherTeams.FeatherTeam)]
-        [Description("Ensures that the past event has correct format for date 'Saturday, March 12 at 8 PM'.")]
+        [Description("Ensures that the upcoming event has correct format for date 'Saturday, March 12 at 8 PM'.")]
         public void UpcomingEvents2DateFormatTest()
         {
             const string ExpectedResultFormat = "{0}, {1} at 8 PM";
@@ -130,15 +130,12 @@ namespace FeatherWidgets.TestIntegration.Events
         }
 
         /// <summary>
-        /// Ensures that the past event has correct format for date 'Saturday, March 2, 2022 at 8 PM'.
+        /// Ensures that the upcoming event has correct format for date 'Saturday, March 2, 2022 at 8 PM'.
         /// </summary>
-        /// <remarks>
-        /// This test will fail after 02.03.2222.
-        /// </remarks>
         [Test]
         [Category(TestCategories.Forms)]
         [Author(FeatherTeams.FeatherTeam)]
-        [Description("Ensures that the past event has correct format for date 'Saturday, March 2, 2222 at 8 PM'.")]
+        [Description("Ensures that the upcoming event has correct format for date 'Saturday, March 2, 2222 at 8 PM'.")]
         public void UpcomingEvents3DateFormatTest()
         {
             const string ExpectedResult = "Saturday, March 2, 2222 at 8 PM";
@@ -147,12 +144,12 @@ namespace FeatherWidgets.TestIntegration.Events
         }
 
         /// <summary>
-        /// Ensures that the past event has correct format for date 'Saturday, March 22, 8 AM-5 PM'.
+        /// Ensures that the one day event has correct format for date 'Saturday, March 22, 8 AM-5 PM'.
         /// </summary>
         [Test]
         [Category(TestCategories.Forms)]
         [Author(FeatherTeams.FeatherTeam)]
-        [Description("Ensures that the past event has correct format for date 'Saturday, March 22, 8 AM-5 PM'.")]
+        [Description("Ensures that the one day event has correct format for date 'Saturday, March 22, 8 AM-5 PM'.")]
         public void EventsOneDay1DateFormatTest()
         {
             const string ExpectedResultFormat = "{0}, {1}, 8 AM-5 PM";
@@ -167,12 +164,12 @@ namespace FeatherWidgets.TestIntegration.Events
         }
 
         /// <summary>
-        /// Ensures that the past event has correct format for date 'Yesterday, March 2 at 8 PM'.
+        /// Ensures that the period event has correct format for date 'Yesterday, March 2 at 8 PM'.
         /// </summary>
         [Test]
         [Category(TestCategories.Forms)]
         [Author(FeatherTeams.FeatherTeam)]
-        [Description("Ensures that the past event has correct format for date 'March 12-19 March 12 at 8 PM to March 19 at 5 AM'.")]
+        [Description("Ensures that the period event has correct format for date 'March 12-19 March 12 at 8 PM to March 19 at 5 AM'.")]
         public void PeriodEvents1DateFormatTest()
         {
             const string ExpectedResultFormat = "{0}-{1}";
@@ -186,12 +183,12 @@ namespace FeatherWidgets.TestIntegration.Events
         }
 
         /// <summary>
-        /// Ensures that the past event has correct format for date 'March 12-April 19 March 12 at 8 PM to April 19 at 5 AM'.
+        /// Ensures that the period event has correct format for date 'March 12-April 19 March 12 at 8 PM to April 19 at 5 AM'.
         /// </summary>
         [Test]
         [Category(TestCategories.Forms)]
         [Author(FeatherTeams.FeatherTeam)]
-        [Description("Ensures that the past event has correct format for date 'March 12-April 19 March 12 at 8 PM to April 19 at 5 AM'.")]
+        [Description("Ensures that the period event has correct format for date 'March 12-April 19 March 12 at 8 PM to April 19 at 5 AM'.")]
         public void PeriodEvents2DateFormatTest()
         {
             const string ExpectedResultFormat = "{0}-{1}";
@@ -205,15 +202,12 @@ namespace FeatherWidgets.TestIntegration.Events
         }
 
         /// <summary>
-        /// Ensures that the past event has correct format for date 'March 12-19, 2222 March 12, 2022 at 8 PM to April 19, 2222 at 5 AM'.
+        /// Ensures that the period event has correct format for date 'March 12-19, 2222 March 12, 2022 at 8 PM to April 19, 2222 at 5 AM'.
         /// </summary>
-        /// <remarks>
-        /// This test will fail after year of 2222.
-        /// </remarks>
         [Test]
         [Category(TestCategories.Forms)]
         [Author(FeatherTeams.FeatherTeam)]
-        [Description("Ensures that the past event has correct format for date 'March 12-19, 2222 March 12, 2022 at 8 PM to March 19, 2022 at 5 AM'.")]
+        [Description("Ensures that the period event has correct format for date 'March 12-19, 2222 March 12, 2022 at 8 PM to March 19, 2022 at 5 AM'.")]
         public void PeriodEvents3DateFormatTest()
         {
             const string ExpectedResultFormat = "{0}-{1}, 2222";
@@ -226,12 +220,12 @@ namespace FeatherWidgets.TestIntegration.Events
         }
 
         /// <summary>
-        /// Ensures that the past event has correct format for date 'Everyday March 22 at 8 PM'.
+        /// Ensures that the recurring event has correct format for date 'Everyday March 22 at 8 PM'.
         /// </summary>
         [Test]
         [Category(TestCategories.Forms)]
         [Author(FeatherTeams.FeatherTeam)]
-        [Description("Ensures that the past event has correct format for date 'Everyday March 22 at 8 PM'.")]
+        [Description("Ensures that the recurring event has correct format for date 'Everyday March 22 at 8 PM'.")]
         public void RecurringEvents1DateFormatTest()
         {
             const string ExpectedResultFormat = "Everyday at {0}";
@@ -242,12 +236,12 @@ namespace FeatherWidgets.TestIntegration.Events
         }
 
         /// <summary>
-        /// Ensures that the past event has correct format for date 'Every 2 days March 22 at 8 PM'.
+        /// Ensures that the recurring event has correct format for date 'Every 2 days March 22 at 8 PM'.
         /// </summary>
         [Test]
         [Category(TestCategories.Forms)]
         [Author(FeatherTeams.FeatherTeam)]
-        [Description("Ensures that the past event has correct format for date 'Every 2 days March 22 at 8 PM'.")]
+        [Description("Ensures that the recurring event has correct format for date 'Every 2 days March 22 at 8 PM'.")]
         public void RecurringEvents2DateFormatTest()
         {
             const string ExpectedResultFormat = "Every 2 days at {0}";
@@ -258,12 +252,12 @@ namespace FeatherWidgets.TestIntegration.Events
         }
 
         /// <summary>
-        /// Ensures that the past event has correct format for date 'Every weekday March 22 at 8 PM'.
+        /// Ensures that the recurring event has correct format for date 'Every weekday March 22 at 8 PM'.
         /// </summary>
         [Test]
         [Category(TestCategories.Forms)]
         [Author(FeatherTeams.FeatherTeam)]
-        [Description("Ensures that the past event has correct format for date 'Every weekday March 22 at 8 PM'.")]
+        [Description("Ensures that the recurring event has correct format for date 'Every weekday March 22 at 8 PM'.")]
         public void RecurringEvents3DateFormatTest()
         {
             const string ExpectedResultFormat = "Every weekday at {0}";
@@ -274,12 +268,12 @@ namespace FeatherWidgets.TestIntegration.Events
         }
 
         /// <summary>
-        /// Ensures that the past event has correct format for date 'Every week on Monday March 22 at 8 PM'.
+        /// Ensures that the recurring event has correct format for date 'Every week on Monday March 22 at 8 PM'.
         /// </summary>
         [Test]
         [Category(TestCategories.Forms)]
         [Author(FeatherTeams.FeatherTeam)]
-        [Description("Ensures that the past event has correct format for date 'Every week on Monday March 22 at 8 PM'.")]
+        [Description("Ensures that the recurring event has correct format for date 'Every week on Monday March 22 at 8 PM'.")]
         public void RecurringEvents4DateFormatTest()
         {
             const string ExpectedResultFormat = "Every week on Monday at {0}";
@@ -287,6 +281,40 @@ namespace FeatherWidgets.TestIntegration.Events
 
             var start = DateTime.UtcNow.Date.AddDays(-1).AddHours(4).AddMinutes(30);
             this.TestDateFormat(string.Format(CultureInfo.InvariantCulture, ExpectedResultFormat, start.ToSitefinityUITime().ToString("hh mm tt", CultureInfo.InvariantCulture)), start, null, RecurrenceExpression);
+        }
+
+        /// <summary>
+        /// Ensures that the all day event has correct format for date 'Saturday, March 22, London'.
+        /// </summary>
+        [Test]
+        [Category(TestCategories.Forms)]
+        [Author(FeatherTeams.FeatherTeam)]
+        [Description("Ensures that the all day event has correct format for date 'Saturday, March 22, London'.")]
+        public void AllDayEventFormatTest()
+        {
+            this.TestAllDayDateFormat(null, DateTime.Now);
+        }
+
+        /// <summary>
+        /// Ensures that the all day period event has correct format for date 'March 12–April 19, London'.
+        /// </summary>
+        [Test]
+        [Category(TestCategories.Forms)]
+        [Author(FeatherTeams.FeatherTeam)]
+        [Description("Ensures that the all day period event has correct format for date 'March 12–April 19, London'.")]
+        public void AllDayPeriodEventFormatTest()
+        {
+        }
+
+        /// <summary>
+        /// Ensures that the all day recurring event has correct format for date 'Everyday at 0:00 AM, London'.
+        /// </summary>
+        [Test]
+        [Category(TestCategories.Forms)]
+        [Author(FeatherTeams.FeatherTeam)]
+        [Description("Ensures that the all day recurring event has correct format for date 'Everyday at 0:00 AM, London'.")]
+        public void AllDayRecurringEventFormatTest()
+        {
         }
 
         /// <summary>
@@ -441,6 +469,15 @@ namespace FeatherWidgets.TestIntegration.Events
             expectedResult = this.RemoveTrailingZeros(expectedResult);
             var viewModel = this.BuildItemViewModel(start, end, recurrenceExpression);
             var result = viewModel.EventDetailedDates();
+            Assert.AreEqual(expectedResult, result);
+        }
+
+        private void TestAllDayDateFormat(string expectedResult, DateTime start, DateTime? end = null, string recurrenceExpression = null)
+        {
+            expectedResult = this.RemoveTrailingZeros(expectedResult);
+            var viewModel = this.BuildItemViewModel(start, end, recurrenceExpression);
+            (viewModel.DataItem as Event).AllDayEvent = true;
+            var result = viewModel.EventDates();
             Assert.AreEqual(expectedResult, result);
         }
 

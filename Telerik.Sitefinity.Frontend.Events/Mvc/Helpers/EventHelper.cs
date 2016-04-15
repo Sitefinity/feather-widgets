@@ -295,7 +295,9 @@ namespace Telerik.Sitefinity.Frontend.Events.Mvc.Helpers
             var now = DateTime.UtcNow;
             if (ev.EventStart < now)
             {
-                if (ev.EventStart.Date == now.Date.AddDays(-1))
+                if (ev.EventEnd.HasValue && ev.EventEnd.Value > now)
+                    result = Res.Get<EventResources>().Today;
+                else if (ev.EventStart.Date == now.Date.AddDays(-1))
                     result = Res.Get<EventResources>().Yesterday;
                 else if (now.Date.AddDays(-1 * (int)now.DayOfWeek).AddDays(-7) < ev.EventStart)
                     result = Res.Get<EventResources>().LastWeek;
