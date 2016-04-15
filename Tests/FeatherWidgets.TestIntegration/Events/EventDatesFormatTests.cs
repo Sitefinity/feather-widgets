@@ -234,11 +234,11 @@ namespace FeatherWidgets.TestIntegration.Events
         [Description("Ensures that the past event has correct format for date 'Everyday March 22 at 8 PM'.")]
         public void RecurringEvents1DateFormatTest()
         {
-            const string ExpectedResult = "Everyday";
+            const string ExpectedResultFormat = "Everyday at {0}";
             const string RecurrenceExpression = "DTSTART;TZID=\"FLE Standard Time\":20160422T080000\r\nDTEND;TZID=\"FLE Standard Time\":20160422T120000\r\nRRULE:FREQ=DAILY;INTERVAL=1";
 
-            var start = DateTime.UtcNow.AddDays(-1);
-            this.TestDateFormat(ExpectedResult, start, null, RecurrenceExpression);
+            var start = DateTime.UtcNow.AddDays(-1).AddHours(4).AddMinutes(30);
+            this.TestDateFormat(string.Format(CultureInfo.InvariantCulture, ExpectedResultFormat, start.ToSitefinityUITime().ToString("hh mm tt", CultureInfo.InvariantCulture)), start, null, RecurrenceExpression);
         }
 
         /// <summary>
@@ -250,11 +250,11 @@ namespace FeatherWidgets.TestIntegration.Events
         [Description("Ensures that the past event has correct format for date 'Every 2 days March 22 at 8 PM'.")]
         public void RecurringEvents2DateFormatTest()
         {
-            const string ExpectedResult = "Every 2 days";
+            const string ExpectedResultFormat = "Every 2 days at {0}";
             const string RecurrenceExpression = "DTSTART;TZID=\"FLE Standard Time\":20160407T080000\r\nDTEND;TZID=\"FLE Standard Time\":22160407T120000\r\nRRULE:FREQ=DAILY;INTERVAL=2";
 
-            var start = DateTime.UtcNow.AddDays(-1);
-            this.TestDateFormat(ExpectedResult, start, null, RecurrenceExpression);
+            var start = DateTime.UtcNow.AddDays(-1).AddHours(4).AddMinutes(30);
+            this.TestDateFormat(string.Format(CultureInfo.InvariantCulture, ExpectedResultFormat, start.ToSitefinityUITime().ToString("hh mm tt", CultureInfo.InvariantCulture)), start, null, RecurrenceExpression);
         }
 
         /// <summary>
@@ -266,11 +266,11 @@ namespace FeatherWidgets.TestIntegration.Events
         [Description("Ensures that the past event has correct format for date 'Every weekday March 22 at 8 PM'.")]
         public void RecurringEvents3DateFormatTest()
         {
-            const string ExpectedResult = "Every weekday";
+            const string ExpectedResultFormat = "Every weekday at {0}";
             const string RecurrenceExpression = "DTSTART;TZID=\"FLE Standard Time\":20160407T080000\r\nDTEND;TZID=\"FLE Standard Time\":22160407T120000\r\nRRULE:FREQ=DAILY;BYDAY=MO,TU,WE,TH,FR";
 
-            var start = DateTime.UtcNow.AddDays(-1);
-            this.TestDateFormat(ExpectedResult, start, null, RecurrenceExpression);
+            var start = DateTime.UtcNow.AddDays(-1).AddHours(4).AddMinutes(30);
+            this.TestDateFormat(string.Format(CultureInfo.InvariantCulture, ExpectedResultFormat, start.ToSitefinityUITime().ToString("hh mm tt", CultureInfo.InvariantCulture)), start, null, RecurrenceExpression);
         }
 
         /// <summary>
@@ -282,11 +282,11 @@ namespace FeatherWidgets.TestIntegration.Events
         [Description("Ensures that the past event has correct format for date 'Every week on Monday March 22 at 8 PM'.")]
         public void RecurringEvents4DateFormatTest()
         {
-            const string ExpectedResult = "Every week on Monday";
+            const string ExpectedResultFormat = "Every week on Monday at {0}";
             const string RecurrenceExpression = "DTSTART;TZID=\"FLE Standard Time\":20160407T080000\r\nDTEND;TZID=\"FLE Standard Time\":22160407T120000\r\nRRULE:FREQ=WEEKLY;INTERVAL=1;BYDAY=MO";
 
-            var start = DateTime.UtcNow.AddDays(-1);
-            this.TestDateFormat(ExpectedResult, start, null, RecurrenceExpression);
+            var start = DateTime.UtcNow.Date.AddDays(-1).AddHours(4).AddMinutes(30);
+            this.TestDateFormat(string.Format(CultureInfo.InvariantCulture, ExpectedResultFormat, start.ToSitefinityUITime().ToString("hh mm tt", CultureInfo.InvariantCulture)), start, null, RecurrenceExpression);
         }
 
         /// <summary>
