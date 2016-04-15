@@ -198,18 +198,7 @@ namespace Telerik.Sitefinity.Frontend.ContentBlock.Mvc.Controllers
         /// <value>
         /// The CSS class.
         /// </value>
-        public string WrapperCssClass
-        {
-            get
-            {
-                return this.Model.WrapperCssClass;
-            }
-
-            set
-            {
-                this.Model.WrapperCssClass = value;
-            }
-        }
+        public string WrapperCssClass { get; set; }
 
         /// <summary>
         /// Gets the model.
@@ -225,6 +214,7 @@ namespace Telerik.Sitefinity.Frontend.ContentBlock.Mvc.Controllers
                 {
                     this.model = this.InitializeModel();
                     this.isEmpty = string.IsNullOrEmpty(this.model.Content);
+                    this.WrapperCssClass = this.model.WrapperCssClass;
                     this.SharedContentID = this.model.SharedContentID;
                 }
 
@@ -452,7 +442,8 @@ namespace Telerik.Sitefinity.Frontend.ContentBlock.Mvc.Controllers
                                                     this.EnableSocialSharing
                                                 }, 
                                                 { "sharedContentId", this.SharedContentID },
-                                                { "containerType", ((IHasContainerType)this).ContainerType }
+                                                { "containerType", ((IHasContainerType)this).ContainerType },
+                                                { "wrapperCssClass", this.WrapperCssClass }
                                             };
 
             return ControllerModelFactory.GetModel<IContentBlockModel>(this.GetType(), constructorParameters);
