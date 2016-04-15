@@ -20,7 +20,7 @@ namespace FeatherWidgets.TestUI.TestCases.ContentBlocks
         /// </summary>
         [TestMethod,
         Owner(FeatherTeams.SitefinityTeam7),
-        TestCategory(FeatherTestCategories.ContentBlock2)]
+        TestCategory(FeatherTestCategories.ContentBlock)]
         public void EditSharedContentBlockFromPage()
         {
             BAT.Macros().NavigateTo().Pages(this.Culture);

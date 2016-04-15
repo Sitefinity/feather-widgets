@@ -21,7 +21,7 @@ namespace FeatherWidgets.TestUI.TestCases.ContentBlocks
         /// </summary>
         [TestMethod,
         Owner(FeatherTeams.SitefinityTeam7),
-        TestCategory(FeatherTestCategories.ContentBlock2)]
+        TestCategory(FeatherTestCategories.ContentBlock)]
         public void DeleteSharedContentInUsedFromContentBlockWidgetOnPage()
         {
             this.VerifyPageBackend(PageName, WidgetName, ContentBlockContent);

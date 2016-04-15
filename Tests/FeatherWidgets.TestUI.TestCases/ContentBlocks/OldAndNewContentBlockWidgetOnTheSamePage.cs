@@ -20,7 +20,7 @@ namespace FeatherWidgets.TestUI.TestCases.ContentBlocks
         /// </summary>
         [TestMethod,
         Owner(FeatherTeams.SitefinityTeam7),
-        TestCategory(FeatherTestCategories.ContentBlock1)]
+        TestCategory(FeatherTestCategories.ContentBlock)]
         public void OldAndNewContentBlockWidgetOnTheSamePage()
         {
             BAT.Macros().NavigateTo().Pages(this.Culture);

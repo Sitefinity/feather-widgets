@@ -16,7 +16,7 @@ namespace FeatherWidgets.TestUI.TestCases.ContentBlocks.LinkSelector
         /// </summary>
         [TestMethod,
         Owner(FeatherTeams.SitefinityTeam7),
-        TestCategory(FeatherTestCategories.ContentBlock2),
+        TestCategory(FeatherTestCategories.ContentBlock),
         TestCategory(FeatherTestCategories.LinkSelector)]
         public void LinkSelectorInsertAnAnchor()        
         {
