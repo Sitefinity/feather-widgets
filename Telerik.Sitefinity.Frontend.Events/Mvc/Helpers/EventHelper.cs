@@ -184,6 +184,8 @@ namespace Telerik.Sitefinity.Frontend.Events.Mvc.Helpers
 
             if (ev.AllDayEvent && start.AddDays(1) == end)
             {
+                result.Append(start.DayOfWeek.ToString());
+                result.Append(PartsSeparator);
                 result.Append(start.ToString(MonthDayFormat));
                 if (start.Year != DateTime.UtcNow.Year)
                 {
@@ -247,6 +249,9 @@ namespace Telerik.Sitefinity.Frontend.Events.Mvc.Helpers
 
         private static string BuildFullEventDates(Event ev)
         {
+            if (ev.AllDayEvent && ev.EventStart.AddDays(1) == ev.EventEnd.Value)
+                return string.Empty;
+
             var finalResult = new StringBuilder();
             var result = new StringBuilder();
 
