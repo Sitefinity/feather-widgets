@@ -1,10 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Reflection;
 using System.Text;
-using System.Text.RegularExpressions;
-using System.Web.Mvc;
 using Telerik.Sitefinity.Events.Model;
 using Telerik.Sitefinity.Frontend.Events.Mvc.StringResources;
 using Telerik.Sitefinity.Frontend.Mvc.Models;
@@ -19,8 +16,6 @@ namespace Telerik.Sitefinity.Frontend.Events.Mvc.Helpers
     /// </summary>
     public static class EventHelper
     {
-        #region Public methods
-
         /// <summary>
         /// The calendar color in hex format depending on the event calendar.
         /// </summary>
@@ -46,39 +41,66 @@ namespace Telerik.Sitefinity.Frontend.Events.Mvc.Helpers
             if (ev == null)
                 return string.Empty;
 
-            var result = string.Empty;
+            string result = string.Empty;
 
-            if (ev.IsRecurrent && !string.IsNullOrEmpty(ev.RecurrenceExpression))
-                result = BuildRecurringEvent(ev);
-            else if (ev.EventEnd.HasValue)
-                result = BuildPeriodEvent(ev);
+            if (!ev.AllDayEvent)
+            {
+                if (ev.EventEnd.HasValue)
+                {
+                    if (ev.EventStart.Year == ev.EventEnd.Value.Year)
+                    {
+                        if (ev.EventStart.Month == ev.EventEnd.Value.Month)
+                            result = ev.EventStart.ToLocal().ToString("dd") + " - " + ev.EventEnd.Value.ToLocal().ToString("dd MMM, yyyy");
+                        else
+                            result = ev.EventStart.ToLocal().ToString("dd MMM") + " - " + ev.EventEnd.Value.ToLocal().ToString("dd MMM, yyyy");
+                    }
+                    else
+                    {
+                        result = ev.EventStart.ToLocal().ToString("dd MMM, yyyy") + " - " + ev.EventEnd.Value.ToLocal().ToString("dd MMM, yyyy");
+                    }
+                }
+                else
+                {
+                    result = ev.EventStart.ToLocal().ToString("dd MMM, yyyy");
+                }
+            }
             else
-                result = BuildNonPeriodEvent(ev);
+            {
+                if (ev.EventEnd.HasValue)
+                {
+                    if (ev.EventStart.Year == ev.EventEnd.Value.Year)
+                    {
+                        if (ev.EventStart.Month == ev.EventEnd.Value.Month)
+                        {
+                            if (ev.EventStart.Date == ev.EventEnd.Value.Date ||
+                                ev.EventStart.Date == ev.EventEnd.Value.Date.AddHours(-24))
+                            {
+                                result = ev.EventStart.ToString("dd MMM, yyyy");
+                            }
+                            else
+                            {
+                                result = ev.EventStart.ToString("dd") + " - " + ev.AllDayEventEnd.Value.ToString("dd MMM, yyyy");
+                            }
+                        }
+                        else
+                        {
+                            result = ev.EventStart.ToString("dd MMM") + " - " + ev.AllDayEventEnd.Value.ToString("dd MMM, yyyy");
+                        }
+                    }
+                    else
+                    {
+                        result = ev.EventStart.ToString("dd MMM, yyyy") + " - " + ev.AllDayEventEnd.Value.ToString("dd MMM, yyyy");
+                    }
+                }
+                else
+                {
+                    result = ev.EventStart.ToString("dd MMM, yyyy");
+                }
+            }
 
             return result;
         }
 
-        /// <summary>
-        /// The event detailed date description.
-        /// </summary>
-        /// <param name="item">The item.</param>
-        /// <returns>The event full dates text.</returns>
-        public static string EventDetailedDates(this ItemViewModel item)
-        {
-            var ev = item.DataItem as Event;
-            if (ev == null)
-                return string.Empty;
-            
-            var result = string.Empty;
-
-            if (ev.IsRecurrent && !string.IsNullOrEmpty(ev.RecurrenceExpression))
-                result = BuildNextOccurrence(ev);
-            else if (ev.EventEnd.HasValue)
-                result = BuildFullEventDates(ev);
-
-            return result;
-        }
-                
         /// <summary>
         /// Generates the google URL.
         /// </summary>
@@ -124,296 +146,11 @@ namespace Telerik.Sitefinity.Frontend.Events.Mvc.Helpers
             return url as string;
         }
 
-        #endregion       
-
-        #region EventDates
-        
-        private static string BuildNonPeriodEvent(Event ev)
-        {
-            var result = new StringBuilder();
-
-            var prefix = GetEventPrefix(ev);
-            if (!string.IsNullOrEmpty(prefix))
-            {
-                result.Append(prefix);
-                result.Append(PartsSeparator);
-            }
-
-            result.Append(GetEventStartDate(ev));
-
-            result.Append(SpaceSeparator);
-            result.Append(Res.Get<EventResources>().At);
-            result.Append(SpaceSeparator);
-
-            var datePart = RemoveTrailingZeros(result.ToString());
-
-            result.Clear();
-            result.Append(datePart);
-            result.Append(BuildHourMinute(ev.EventStart, ev.AllDayEvent));
-
-            return result.ToString();
-        }
-
-        private static string BuildHourMinute(DateTime dateTime, bool isAllDayEvent)
-        {
-            if (isAllDayEvent)
-                return "0:00 AM";
-
-            var result = new StringBuilder();
-            var hour = dateTime.ToString(HourFormat);
-            result.Append(RemoveTrailingZeros(hour).TrimStart('0'));
-
-            if (dateTime.Minute != 0)
-            {
-                result.Append(SpaceSeparator);
-                result.Append(dateTime.ToString(MinuteFormat));
-            }
-
-            result.Append(SpaceSeparator);
-            result.Append(dateTime.ToString(AmPmFormat));
-            
-            return result.ToString();
-        }
-
-        private static string BuildPeriodEvent(Event ev)
-        {
-            var result = new StringBuilder();
-            
-            var start = ev.EventStart.ToSitefinityUITime();
-            var end = ev.EventEnd.Value.ToSitefinityUITime();
-
-            if (ev.AllDayEvent && start.AddDays(1) == end)
-            {
-                result.Append(start.DayOfWeek.ToString());
-                result.Append(PartsSeparator);
-                result.Append(start.ToString(MonthDayFormat));
-                if (start.Year != DateTime.UtcNow.Year)
-                {
-                    result.Append(PartsSeparator);
-                    result.Append(start.ToString(YearFormat));
-                }
-
-                var cleanPart = RemoveTrailingZeros(result.ToString());
-                return cleanPart;
-            }
-            else if (start.Date == end.Date)
-            {
-                var prefix = GetEventPrefix(ev);
-                if (!string.IsNullOrEmpty(prefix))
-                {
-                    result.Append(prefix);
-                    result.Append(PartsSeparator);
-                }
-
-                result.Append(GetEventStartDate(ev));
-                result.Append(PartsSeparator);
-                var datePart = RemoveTrailingZeros(result.ToString());
-
-                result.Clear();
-                result.Append(datePart);
-                result.Append(BuildHourMinute(ev.EventStart, ev.AllDayEvent));
-                result.Append(DashSeparator);
-                result.Append(BuildHourMinute(ev.EventEnd.Value, ev.AllDayEvent));
-
-                return result.ToString();
-            }
-            else
-            {
-                if (start.Year == end.Year)
-                {
-                    result.Append(start.ToString(MonthDayFormat));
-                    result.Append(DashSeparator);
-
-                    if (start.Month == end.Month)
-                        result.Append(end.ToString(DayFormat));
-                    else
-                        result.Append(end.ToString(MonthDayFormat));
-
-                    if (start.Year != DateTime.UtcNow.Year)
-                    {
-                        result.Append(PartsSeparator);
-                        result.Append(start.ToString(YearFormat));
-                    }
-                }
-                else
-                {
-                    result.Append(start.ToString(MonthDayYearFormat));
-                    result.Append(DashSeparator);
-                    result.Append(end.ToString(MonthDayYearFormat));
-                }
-
-                var cleanPart = RemoveTrailingZeros(result.ToString());
-                return cleanPart;
-            }
-        }
-
-        private static string BuildFullEventDates(Event ev)
-        {
-            if (ev.AllDayEvent && ev.EventStart.AddDays(1) == ev.EventEnd.Value)
-                return string.Empty;
-
-            var finalResult = new StringBuilder();
-            var result = new StringBuilder();
-
-            var start = ev.AllDayEvent ? ev.EventStart : ev.EventStart.ToSitefinityUITime();
-            var end = ev.AllDayEvent ? ev.EventEnd.Value : ev.EventEnd.Value.ToSitefinityUITime();
-
-            if (start.Year == DateTime.UtcNow.Year)
-                result.Append(start.ToString(MonthDayFormat));
-            else
-                result.Append(start.ToString(MonthDayYearFormat));
-
-            result.Append(SpaceSeparator);
-            result.Append(Res.Get<EventResources>().At);
-            result.Append(SpaceSeparator);
-            finalResult.Append(RemoveTrailingZeros(result.ToString()));
-            finalResult.Append(BuildHourMinute(start, ev.AllDayEvent));
-
-            result.Clear();
-            result.Append(SpaceSeparator);
-            result.Append(Res.Get<EventResources>().To);
-            result.Append(SpaceSeparator);
-
-            if (end.Year == DateTime.UtcNow.Year)
-                result.Append(end.ToString(MonthDayFormat));
-            else
-                result.Append(end.ToString(MonthDayYearFormat));
-
-            result.Append(SpaceSeparator);
-            result.Append(Res.Get<EventResources>().At);
-            result.Append(SpaceSeparator);
-            finalResult.Append(RemoveTrailingZeros(result.ToString()));
-            finalResult.Append(BuildHourMinute(end, ev.AllDayEvent));
-
-            return finalResult.ToString();
-        }
-        
-        private static string GetEventPrefix(Event ev)
-        {
-            var result = string.Empty;
-
-            var now = DateTime.UtcNow;
-            if (ev.EventStart < now)
-            {
-                if (ev.EventEnd.HasValue && ev.EventEnd.Value > now)
-                    result = Res.Get<EventResources>().Today;
-                else if (ev.EventStart.Date == now.Date.AddDays(-1))
-                    result = Res.Get<EventResources>().Yesterday;
-                else if (now.Date.AddDays(-1 * (int)now.DayOfWeek).AddDays(-7) < ev.EventStart)
-                    result = Res.Get<EventResources>().LastWeek;
-            }
-            else
-            {
-                if (ev.EventStart.Date == now.Date)
-                    result = Res.Get<EventResources>().Today;
-                else if (ev.EventStart.Date == now.Date.AddDays(1))
-                    result = Res.Get<EventResources>().Tomorrow;
-                else
-                    result = ev.EventStart.DayOfWeek.ToString();
-            }
-
-            return result;
-        }
-
-        private static string GetEventStartDate(Event ev)
-        {
-            var date = ev.EventStart.ToSitefinityUITime();
-            if (date.Year == DateTime.UtcNow.Year)
-                return date.ToString(MonthDayFormat);
-            else
-                return date.ToString(MonthDayYearFormat);
-        }
-        
-        private static string GetEventEndDate(Event ev)
-        {
-            if (!ev.EventEnd.HasValue)
-                return string.Empty;
-            
-            var date = ev.EventEnd.Value.ToSitefinityUITime();
-
-            var result = string.Empty;
-            if (ev.EventStart.Year != ev.EventEnd.Value.Year)
-                result = date.ToString(MonthDayYearFormat);
-            else if (ev.EventStart.Month != ev.EventEnd.Value.Month)
-                result = date.ToString(MonthDayFormat);
-            else if (ev.EventStart.Day != ev.EventEnd.Value.Day)
-                result = date.ToString(DayFormat);
-
-            return result;
-        }
-
-        private static string RemoveTrailingZeros(string str)
-        {
-            // Removing trailing 0s -> November 02 at 08 PM => November 2 at 8 PM
-            return Regex.Replace(str, @"([ -])0(\d+)", "$1$2");
-        }
-
-        #endregion
-
-        #region Occurrence
-
-        private static string BuildRecurringEvent(Event ev)
-        {
-            var descriptor = GetRecurrenceDescriptor(ev.RecurrenceExpression);
-
-            var result = new StringBuilder();
-
-            switch (descriptor.Frequency)
-            {
-                case RecurrenceFrequency.Daily: result.Append(BuildFromDaily(descriptor));
-                    break;
-                case RecurrenceFrequency.Weekly: result.Append(BuildFromWeekly(descriptor));
-                    break;
-                case RecurrenceFrequency.Monthly: result.Append(BuildFromMonthly(descriptor));
-                    break;
-                case RecurrenceFrequency.Yearly: result.Append(BuildFromYearly(descriptor));
-                    break;
-                default:
-                    break;
-            }
-
-            result.Append(SpaceSeparator);
-            result.Append(Res.Get<EventResources>().At);
-            result.Append(SpaceSeparator);
-
-            var datePart = RemoveTrailingZeros(result.ToString());
-            result.Clear();
-            result.Append(datePart);
-            result.Append(BuildHourMinute(ev.EventStart.ToSitefinityUITime(), ev.AllDayEvent));
-
-            return result.ToString();
-        }
-
-        private static string BuildNextOccurrence(Event ev)
-        {
-            var descriptor = GetRecurrenceDescriptor(ev.RecurrenceExpression);
-            var nextOccurrence = descriptor.Occurrences.OrderBy(o => o).FirstOrDefault(o => o >= DateTime.UtcNow);
-            if (nextOccurrence == null)
-                return string.Empty;
-
-            nextOccurrence = nextOccurrence.ToSitefinityUITime();
-
-            var result = new StringBuilder();
-
-            if (nextOccurrence.Year == DateTime.UtcNow.Year)
-                result.Append(nextOccurrence.ToString(MonthDayFormat));
-            else
-                result.Append(nextOccurrence.ToString(MonthDayYearFormat));
-
-            result.Append(SpaceSeparator);
-            result.Append(Res.Get<EventResources>().At);
-            result.Append(SpaceSeparator); 
-            var datePart = RemoveTrailingZeros(result.ToString());
-
-            result.Clear();
-            result.Append(datePart);
-            result.Append(BuildHourMinute(nextOccurrence, ev.AllDayEvent));
-
-            return result.ToString();
-        }
-
         private static IRecurrenceDescriptor GetRecurrenceDescriptor(string recurrenceExpression)
         {
+            if (string.IsNullOrEmpty(recurrenceExpression))
+                return null;
+
             var descriptor = ICalRecurrenceSerializerDeserializeMethodInfo.Value.Invoke(ICalRecurrenceSerializerInstance.Value, new object[] { recurrenceExpression });
             return descriptor as IRecurrenceDescriptor;
         }
@@ -551,10 +288,6 @@ namespace Telerik.Sitefinity.Frontend.Events.Mvc.Helpers
             }
         }
 
-        #endregion
-
-        #region Private fields
-
         private static readonly Lazy<MethodInfo> GenerateGoogleUrlMethodInfo =
             new Lazy<MethodInfo>(() => Type.GetType("Telerik.Sitefinity.Modules.Events.Web.UI.Export.GoogleEventExporterHelper, Telerik.Sitefinity.ContentModules").GetMethod("GenerateGoogleUrl", BindingFlags.Public | BindingFlags.Static));
 
@@ -575,22 +308,5 @@ namespace Telerik.Sitefinity.Frontend.Events.Mvc.Helpers
 
         private static readonly Lazy<MethodInfo> ICalRecurrenceSerializerDeserializeMethodInfo =
             new Lazy<MethodInfo>(() => Type.GetType("Telerik.Sitefinity.RecurrentRules.ICalRecurrenceSerializer, Telerik.Sitefinity.RecurrentRules").GetMethod("Deserialize", BindingFlags.Instance | BindingFlags.Public));
-        
-        #endregion
-
-        #region Constants
-
-        private const string PartsSeparator = ", ";
-        private const string DashSeparator = "-";
-        private const string SpaceSeparator = " ";
-        private const string HourFormat = "hh";
-        private const string MinuteFormat = "mm";
-        private const string AmPmFormat = "tt";
-        private const string DayFormat = "dd";
-        private const string MonthDayFormat = "MMMM dd";
-        private const string MonthDayYearFormat = "MMMM dd, yyyy";
-        private const string YearFormat = "yyyy";
-
-        #endregion
     }
 }
