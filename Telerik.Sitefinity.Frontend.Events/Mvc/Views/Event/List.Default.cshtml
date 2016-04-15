@@ -19,10 +19,10 @@
                     <span data-calendar-color="@item.EventCalendarColour()"></span>
                 </h3>
                 <div>
-                    <p>@item.EventDates()</p>
+                    <span>@item.EventDates()</span>
                     @if (!string.IsNullOrEmpty(item.Fields.City))
                     {
-                        <p>, item.Fields.City</p>
+                        <span>, @item.Fields.City</span>
                     }
                 </div>
                 <div @Html.InlineEditingFieldAttributes("Content", "ShortText")>@Html.Raw(item.Fields.Content)</div>
