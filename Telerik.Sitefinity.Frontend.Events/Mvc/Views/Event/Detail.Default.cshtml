@@ -14,15 +14,23 @@
         <p>@Model.Item.EventDates()</p>
     </div>
 
-    @if (!string.IsNullOrEmpty(Model.Item.Fields.City) && !string.IsNullOrEmpty(Model.Item.Fields.Country))
+    @if (!string.IsNullOrEmpty(Model.Item.Fields.City) || !string.IsNullOrEmpty(Model.Item.Fields.Country))
     {
-    <div>
-        <p>@Model.Item.Fields.City, @Model.Item.Fields.Country</p>
-        @if (!string.IsNullOrEmpty(Model.Item.Fields.Street))
-        {
-        <p>@Model.Item.Fields.Street</p>
-        }
-    </div>
+        <div>
+            @if (!string.IsNullOrEmpty(Model.Item.Fields.City) && !string.IsNullOrEmpty(Model.Item.Fields.Country)) 
+            {
+                <p>@Model.Item.Fields.City, @Model.Item.Fields.Country</p>
+            }
+            else 
+            {
+                <p>@(string.IsNullOrEmpty(Model.Item.Fields.City) ? Model.Item.Fields.Country : Model.Item.Fields.City)</p>
+            }
+
+            @if (!string.IsNullOrEmpty(Model.Item.Fields.Street))
+            {
+                <p>@Model.Item.Fields.Street</p>
+            }
+        </div>
     }
 
     <div>
@@ -32,23 +40,25 @@
         
         @if (!string.IsNullOrEmpty(Model.Item.Fields.ContactEmail))
         {
-        <p><a href="mailto:@(Model.Item.Fields.ContactEmail)" target="_blank">@Model.Item.Fields.ContactEmail</a></p>
+            <p><a href="mailto:@(Model.Item.Fields.ContactEmail)" target="_blank">@Model.Item.Fields.ContactEmail</a></p>
         }
 
         @if (!string.IsNullOrEmpty(Model.Item.Fields.ContactWeb))
         {
-        <p><a href="@(Model.Item.Fields.ContactWeb)" target="_blank">@Model.Item.Fields.ContactWeb</a></p>
+            <p><a href="@(Model.Item.Fields.ContactWeb)" target="_blank">@Model.Item.Fields.ContactWeb</a></p>
         }
+
+        <p>@Model.Item.Fields.Location</p>
+    </div>
+        
+    <div>
+        @Html.CommentsCount(string.Empty, @Model.Item.DataItem)
     </div>
 
     <div>
         <p>@Model.Item.Fields.Description</p>
     </div>
-
-    <div>
-        @Html.CommentsCount(string.Empty, @Model.Item.DataItem)
-    </div>
-
+    
     @if (ViewBag.AllowCalendarExport)
     {
         <div>

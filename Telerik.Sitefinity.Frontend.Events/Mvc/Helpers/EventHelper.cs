@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Reflection;
 using System.Text;
+using System.Web.Mvc;
 using Telerik.Sitefinity.Events.Model;
 using Telerik.Sitefinity.Frontend.Events.Mvc.StringResources;
 using Telerik.Sitefinity.Frontend.Mvc.Models;
@@ -102,6 +103,143 @@ namespace Telerik.Sitefinity.Frontend.Events.Mvc.Helpers
         }
 
         /// <summary>
+        /// The event recurrence tooltip.
+        /// </summary>
+        /// <param name="helper">The helper.</param>
+        /// <param name="item">The item.</param>
+        /// <returns>The event recurrence tooltip.</returns>
+        public static MvcHtmlString EventTooltip(this HtmlHelper helper, ItemViewModel item)
+        {
+            var ev = item.DataItem as Event;
+            if (ev == null)
+                return MvcHtmlString.Empty;
+
+            if (!ev.IsRecurrent || string.IsNullOrEmpty(ev.RecurrenceExpression))
+                return MvcHtmlString.Empty;
+
+            var recurrenceDescriptor = GetRecurrenceDescriptor(ev.RecurrenceExpression);
+            var recurrencyLiteral = BuildRecurringEvent(recurrenceDescriptor);
+
+            var startTimeLiteral = string.Empty;
+            var endTimeLiteral = string.Empty;
+            var startsAt = string.Empty;
+            var endsAt = string.Empty;
+            var timeZone = string.Empty;
+
+            if (!ev.AllDayEvent)
+            {
+                startTimeLiteral = ev.EventStart.ToSitefinityUITime().ToString("h:mm tt");
+                endTimeLiteral = " - " + ev.EventStart.Add(recurrenceDescriptor.Duration).ToSitefinityUITime().ToString("h:mm tt");
+                var userTimeZoneInfo = Telerik.Sitefinity.Security.UserManager.GetManager().GetUserTimeZone();
+                timeZone = userTimeZoneInfo.DisplayName;
+            }
+            else
+            {
+                startTimeLiteral = Res.Get<EventsResources>("AllDayEvent");
+            }
+
+            if (ev.EventStart != null && ev.EventEnd.HasValue != null)
+            {
+                DateTime eventStart = ev.AllDayEvent ? ev.EventStart : ev.EventStart.ToSitefinityUITime();
+                DateTime? eventEnd = null;
+                if (ev.EventEnd.HasValue)
+                {
+                    //// NOTE: For all day events we need to remove 24 * 60 minutes (one day) from the event end date to display it correctly in tooltip!
+                    eventEnd = ev.AllDayEvent ? ev.EventEnd.Value.AddHours(-24) : ev.EventEnd.Value.ToSitefinityUITime();
+                }
+
+                startsAt = eventStart.ToString("dd MMM yyyy");
+                if (eventEnd.HasValue)
+                {
+                    endsAt = eventEnd.Value.ToString("dd MMM yyyy");
+                }
+                else
+                {
+                    endsAt = char.ToUpper(Res.Get<Labels>("NoEndDate")[0]) + Res.Get<Labels>("NoEndDate").Substring(1).ToLower();
+                }
+            }
+
+            var result = new TagBuilder("div");
+
+            if (!string.IsNullOrEmpty(recurrencyLiteral))
+            {
+                var paragraph = new TagBuilder("p");
+
+                var label = new TagBuilder("strong");
+                label.SetInnerText(Res.Get<EventsResources>().Occurs);
+                paragraph.InnerHtml += label.ToString(TagRenderMode.Normal);
+
+                var span = new TagBuilder("span");
+                span.InnerHtml = recurrencyLiteral;
+                paragraph.InnerHtml += span.ToString(TagRenderMode.Normal);
+
+                result.InnerHtml += paragraph.ToString(TagRenderMode.Normal);
+            }
+
+            if (!string.IsNullOrEmpty(startsAt))
+            {
+                var paragraph = new TagBuilder("p");
+
+                var label = new TagBuilder("strong");
+                label.SetInnerText(Res.Get<EventsResources>().StartsAt);
+                paragraph.InnerHtml += label.ToString(TagRenderMode.Normal);
+
+                var span = new TagBuilder("span");
+                span.InnerHtml = startsAt;
+                paragraph.InnerHtml += span.ToString(TagRenderMode.Normal);
+
+                result.InnerHtml += paragraph.ToString(TagRenderMode.Normal);
+            }
+
+            if (!string.IsNullOrEmpty(endsAt))
+            {
+                var paragraph = new TagBuilder("p");
+
+                var label = new TagBuilder("strong");
+                label.SetInnerText(Res.Get<EventsResources>().EndsAt);
+                paragraph.InnerHtml += label.ToString(TagRenderMode.Normal);
+
+                var span = new TagBuilder("span");
+                span.InnerHtml = endsAt;
+                paragraph.InnerHtml += span.ToString(TagRenderMode.Normal);
+
+                result.InnerHtml += paragraph.ToString(TagRenderMode.Normal);
+            }
+
+            if (!string.IsNullOrEmpty(startTimeLiteral))
+            {
+                var paragraph = new TagBuilder("p");
+
+                var label = new TagBuilder("strong");
+                label.SetInnerText(Res.Get<EventsResources>().Time);
+                paragraph.InnerHtml += label.ToString(TagRenderMode.Normal);
+
+                var span = new TagBuilder("span");
+                span.InnerHtml = startTimeLiteral;
+                paragraph.InnerHtml += span.ToString(TagRenderMode.Normal);
+
+                result.InnerHtml += paragraph.ToString(TagRenderMode.Normal);
+            }
+
+            if (!string.IsNullOrEmpty(timeZone))
+            {
+                var paragraph = new TagBuilder("p");
+
+                var label = new TagBuilder("strong");
+                label.SetInnerText(Res.Get<EventsResources>().EventTimeZone);
+                paragraph.InnerHtml += label.ToString(TagRenderMode.Normal);
+
+                var span = new TagBuilder("span");
+                span.InnerHtml = timeZone;
+                paragraph.InnerHtml += span.ToString(TagRenderMode.Normal);
+
+                result.InnerHtml += paragraph.ToString(TagRenderMode.Normal);
+            }
+
+            return MvcHtmlString.Create(result.ToString(TagRenderMode.Normal));
+        }
+                
+        /// <summary>
         /// Generates the google URL.
         /// </summary>
         /// <param name="item">The item.</param>
@@ -144,6 +282,30 @@ namespace Telerik.Sitefinity.Frontend.Events.Mvc.Helpers
 
             var url = GenerateICalUrlMethodInfo.Value.Invoke(GenerateICalUrlInstance.Value, new object[] { ev });
             return url as string;
+        }
+
+        private static string BuildRecurringEvent(IRecurrenceDescriptor descriptor)
+        {
+            if (descriptor == null)
+                return string.Empty;
+
+            var result = string.Empty;
+
+            switch (descriptor.Frequency)
+            {
+                case RecurrenceFrequency.Daily: result = BuildFromDaily(descriptor);
+                    break;
+                case RecurrenceFrequency.Weekly: result = BuildFromWeekly(descriptor);
+                    break;
+                case RecurrenceFrequency.Monthly: result = BuildFromMonthly(descriptor);
+                    break;
+                case RecurrenceFrequency.Yearly: result = BuildFromYearly(descriptor);
+                    break;
+                default:
+                    break;
+            }
+
+            return result;
         }
 
         private static IRecurrenceDescriptor GetRecurrenceDescriptor(string recurrenceExpression)
