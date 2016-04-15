@@ -109,6 +109,75 @@ namespace FeatherWidgets.TestIntegration.ContentBlock
             Assert.IsTrue(responseContent.Contains(ContentBlockContentEdited), "The content block with this title was not found!");
         }
 
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Maintainability", "CA1506:AvoidExcessiveClassCoupling"), Test]
+        [Category(TestCategories.ContentBlock)]
+        [Author(FeatherTeams.FeatherTeam)]
+        [Description("Verifies text of content block widget in preview mode.")]
+        public void ContentBlockWidget_ValidatePreviewMode()
+        {
+            string testName = "ContentBlockWidgetEditSharedContent";
+            string pageNamePrefix = testName + "ContentBlockPage";
+            string pageTitlePrefix = testName + "Content Block";
+            string urlNamePrefix = testName + "content-block";
+            int pageIndex = 1;
+            string previewUrl = UrlPath.ResolveAbsoluteUrl("~/" + urlNamePrefix + pageIndex) + "/Action/Preview";
+
+            var content = App.WorkWith().ContentItems()
+                           .Where(c => c.Title == ContentBlockTitle && c.Status == Telerik.Sitefinity.GenericContent.Model.ContentLifecycleStatus.Master)
+                           .Get().Single();
+
+            var mvcProxy = new MvcControllerProxy();
+            mvcProxy.ControllerName = typeof(ContentBlockController).FullName;
+            var contentBlockController = new ContentBlockController();
+            contentBlockController.SharedContentID = content.Id;
+            mvcProxy.Settings = new ControllerSettings(contentBlockController);
+
+            this.pageOperations.CreatePageWithControl(mvcProxy, pageNamePrefix, pageTitlePrefix, urlNamePrefix, pageIndex);
+
+            App.WorkWith().ContentItem(content.Id).CheckOut().Do(cI =>
+            {
+                cI.Content = ContentBlockContentEdited;
+                cI.LastModified = DateTime.UtcNow;
+            })
+                .CheckIn().Publish().SaveChanges();
+
+            string responseContent = PageInvoker.ExecuteWebRequest(previewUrl);
+            Assert.IsTrue(responseContent.Contains(ContentBlockContentEdited), "The content block with this text was not found in preview mode!");
+        }
+
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Maintainability", "CA1506:AvoidExcessiveClassCoupling"), Test]
+        [Category(TestCategories.ContentBlock)]
+        [Author(FeatherTeams.FeatherTeam)]
+        [Description("Verifies text of the content block widget when edit page.")]
+        public void ContentBlockWidget_ValidateOnEditPage()
+        {
+            string testName = "ContentBlockWidgetEditSharedContent";
+            string pageNamePrefix = testName + "ContentBlockPage";
+            string pageTitlePrefix = testName + "Content Block";
+            string urlNamePrefix = testName + "content-block";
+            int pageIndex = 1;
+
+            var content = App.WorkWith().ContentItems()
+                           .Where(c => c.Title == ContentBlockTitle && c.Status == Telerik.Sitefinity.GenericContent.Model.ContentLifecycleStatus.Master)
+                           .Get().Single();
+
+            var mvcProxy = new MvcControllerProxy();
+            mvcProxy.ControllerName = typeof(ContentBlockController).FullName;
+            var contentBlockController = new ContentBlockController();
+            contentBlockController.SharedContentID = content.Id;
+            mvcProxy.Settings = new ControllerSettings(contentBlockController);
+
+            var pageId = this.pageOperations.CreatePageWithControl(mvcProxy, pageNamePrefix, pageTitlePrefix, urlNamePrefix, pageIndex);
+
+            PageManager manager = PageManager.GetManager();
+            var page = manager.GetPageNode(pageId);
+            var pageUrl = page.GetFullUrl();
+            pageUrl = RouteHelper.GetAbsoluteUrl(pageUrl) + "/Action/Edit";
+
+            string responseContent = PageInvoker.ExecuteWebRequest(pageUrl);
+            Assert.IsTrue(responseContent.Contains(ContentBlockContent), "The content block with this text was not found!");
+        }
+
         [Test]
         [Category(TestCategories.ContentBlock)]
         [Author(FeatherTeams.FeatherTeam)]
