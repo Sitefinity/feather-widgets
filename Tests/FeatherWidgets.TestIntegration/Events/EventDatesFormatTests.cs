@@ -440,7 +440,7 @@ namespace FeatherWidgets.TestIntegration.Events
         {
             expectedResult = this.RemoveTrailingZeros(expectedResult);
             var viewModel = this.BuildItemViewModel(start, end, recurrenceExpression);
-            var result = viewModel.EventFullDates();
+            var result = viewModel.EventDetailedDates();
             Assert.AreEqual(expectedResult, result);
         }
 

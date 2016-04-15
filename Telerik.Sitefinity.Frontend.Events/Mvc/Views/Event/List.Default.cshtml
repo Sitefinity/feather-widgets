@@ -19,7 +19,7 @@
                     <span data-calendar-color="@item.EventCalendarColour()"></span>
                 </h3>
                 <div>
-                    <span>@item.EventDates()</span>
+                    <span title="@item.EventDetailedDates()">@item.EventDates()</span>
                     @if (!string.IsNullOrEmpty(item.Fields.City))
                     {
                         <span>, @item.Fields.City</span>

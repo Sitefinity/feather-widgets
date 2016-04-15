@@ -36,7 +36,7 @@ namespace Telerik.Sitefinity.Frontend.Events.Mvc.Helpers
         }
 
         /// <summary>
-        /// The event dates text.
+        /// The event basic date description.
         /// </summary>
         /// <param name="item">The item.</param>
         /// <returns>The event dates text.</returns>
@@ -59,11 +59,11 @@ namespace Telerik.Sitefinity.Frontend.Events.Mvc.Helpers
         }
 
         /// <summary>
-        /// The event full dates text.
+        /// The event detailed date description.
         /// </summary>
         /// <param name="item">The item.</param>
         /// <returns>The event full dates text.</returns>
-        public static string EventFullDates(this ItemViewModel item)
+        public static string EventDetailedDates(this ItemViewModel item)
         {
             var ev = item.DataItem as Event;
             if (ev == null)
@@ -78,7 +78,7 @@ namespace Telerik.Sitefinity.Frontend.Events.Mvc.Helpers
 
             return result;
         }
-        
+                
         /// <summary>
         /// Generates the google URL.
         /// </summary>
@@ -176,8 +176,8 @@ namespace Telerik.Sitefinity.Frontend.Events.Mvc.Helpers
         {
             var result = new StringBuilder();
             
-            var start = ev.AllDayEvent ? ev.EventStart : ev.EventStart.ToSitefinityUITime();
-            var end = ev.AllDayEvent ? ev.EventEnd.Value : ev.EventEnd.Value.ToSitefinityUITime();
+            var start = ev.EventStart.ToSitefinityUITime();
+            var end = ev.EventEnd.Value.ToSitefinityUITime();
             
             if (start.Date == end.Date)
             {
@@ -295,7 +295,7 @@ namespace Telerik.Sitefinity.Frontend.Events.Mvc.Helpers
 
         private static string GetEventStartDate(Event ev)
         {
-            var date = ev.AllDayEvent ? ev.EventStart : ev.EventStart.ToSitefinityUITime();
+            var date = ev.EventStart.ToSitefinityUITime();
             if (date.Year == DateTime.UtcNow.Year)
                 return date.ToString(MonthDayFormat);
             else
@@ -307,7 +307,7 @@ namespace Telerik.Sitefinity.Frontend.Events.Mvc.Helpers
             if (!ev.EventEnd.HasValue)
                 return string.Empty;
             
-            var date = ev.AllDayEvent ? ev.EventEnd.Value : ev.EventEnd.Value.ToSitefinityUITime();
+            var date = ev.EventEnd.Value.ToSitefinityUITime();
 
             var result = string.Empty;
             if (ev.EventStart.Year != ev.EventEnd.Value.Year)
@@ -334,23 +334,32 @@ namespace Telerik.Sitefinity.Frontend.Events.Mvc.Helpers
         {
             var descriptor = GetRecurrenceDescriptor(ev.RecurrenceExpression);
 
-            string result = null;
+            var result = new StringBuilder();
 
             switch (descriptor.Frequency)
             {
-                case RecurrenceFrequency.Daily: result = BuildFromDaily(descriptor);
+                case RecurrenceFrequency.Daily: result.Append(BuildFromDaily(descriptor));
                     break;
-                case RecurrenceFrequency.Weekly: result = BuildFromWeekly(descriptor);
+                case RecurrenceFrequency.Weekly: result.Append(BuildFromWeekly(descriptor));
                     break;
-                case RecurrenceFrequency.Monthly: result = BuildFromMonthly(descriptor);
+                case RecurrenceFrequency.Monthly: result.Append(BuildFromMonthly(descriptor));
                     break;
-                case RecurrenceFrequency.Yearly: result = BuildFromYearly(descriptor);
+                case RecurrenceFrequency.Yearly: result.Append(BuildFromYearly(descriptor));
                     break;
                 default:
                     break;
             }
 
-            return RemoveTrailingZeros(result);
+            result.Append(SpaceSeparator);
+            result.Append(Res.Get<EventResources>().At);
+            result.Append(SpaceSeparator);
+
+            var datePart = RemoveTrailingZeros(result.ToString());
+            result.Clear();
+            result.Append(datePart);
+            result.Append(BuildHourMinute(ev.EventStart.ToSitefinityUITime()));
+
+            return result.ToString();
         }
 
         private static string BuildNextOccurrence(Event ev)
