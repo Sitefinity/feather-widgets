@@ -292,8 +292,11 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.LoginForm
                     SFClaimsAuthenticationManager.ProcessRejectedUser(context, input.RedirectUrlAfterLogin);
                 }
 
-                //validates whether the RedirectUrlAfterLogin is allowed in the relying parties.
-                SWTIssuer.GetRelyingPartyKey(input.RedirectUrlAfterLogin);
+                if (!string.IsNullOrWhiteSpace(input.RedirectUrlAfterLogin))
+                {
+                    //validates whether the RedirectUrlAfterLogin is allowed in the relying parties.
+                    SWTIssuer.GetRelyingPartyKey(input.RedirectUrlAfterLogin);
+                }
             }
 
             return input;
@@ -361,6 +364,7 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.LoginForm
                     }
                     else if (!string.IsNullOrWhiteSpace(redirect_uri))
                     {
+                        //This is valid url, but will not pass SWTIssuer.GetRelyingPartyKey validation
                         redirectUrl = redirect_uri;
                     }
                     else if (!string.IsNullOrWhiteSpace(returnUrl))
