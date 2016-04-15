@@ -1,0 +1,13 @@
+﻿@model Telerik.Sitefinity.Frontend.Mvc.Models.RelatedDataViewModel
+
+@@*Start @Model.RelatedFieldName field*@@
+@@Html.Action("RelatedData",
+    "@Model.ControllerName",
+    new {relatedItem = Model.Item.DataItem,
+    relatedDataViewModel = new RelatedDataViewModel()
+    {
+        RelatedItemType = "@Model.RelatedItemType",
+        RelatedFieldName= "@Model.RelatedFieldName",
+        RelationTypeToDisplay = "@Model.RelationTypeToDisplay"
+    }})
+@@*End @Model.RelatedFieldName field*@@

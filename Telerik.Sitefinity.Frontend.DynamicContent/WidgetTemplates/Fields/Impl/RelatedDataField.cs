@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using Telerik.Sitefinity.DynamicModules.Builder.Model;
+using Telerik.Sitefinity.Frontend.Mvc.Controllers;
 using Telerik.Sitefinity.Libraries.Model;
 using Telerik.Sitefinity.Pages.Model;
-using Telerik.Sitefinity.RelatedData;
 using Telerik.Sitefinity.Utilities.TypeConverters;
 
 namespace Telerik.Sitefinity.Frontend.DynamicContent.WidgetTemplates.Fields.Impl
@@ -54,7 +54,12 @@ namespace Telerik.Sitefinity.Frontend.DynamicContent.WidgetTemplates.Fields.Impl
             var condition = base.GetCondition(field)
                 && field.FieldType == FieldType.RelatedData;
 
-            return condition;
+            if (!condition) return false;
+
+            var frontEndWidgetType = TypeResolutionService.ResolveType(field.FrontendWidgetTypeName, false);
+
+            return frontEndWidgetType == null ||
+                !frontEndWidgetType.ImplementsInterface(typeof(IRelatedDataController));
         }
 
         /// <inheritdoc/>
