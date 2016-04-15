@@ -10,6 +10,7 @@ using Telerik.Sitefinity.Mvc.Proxy;
 using Telerik.Sitefinity.Security;
 using Telerik.Sitefinity.Security.Claims;
 using Telerik.Sitefinity.Services;
+using Telerik.Sitefinity.TestIntegration.Helpers;
 using Telerik.Sitefinity.Web;
 using SitefinityTestUtilities = Telerik.Sitefinity.TestUtilities.CommonOperations;
 
@@ -59,6 +60,9 @@ namespace FeatherWidgets.TestIntegration.Identity.LoginForm
             var redirectQuery = "?RedirectUrl=myRedirectUrl";
             this.pageOperations = new PagesOperations();
 
+            var userId = ClaimsManager.GetCurrentUserId();
+            var user = UserManager.GetManager().GetUser(userId);
+
             try
             {
                 var mvcProxy = new MvcControllerProxy();
@@ -76,9 +80,10 @@ namespace FeatherWidgets.TestIntegration.Identity.LoginForm
             }
             finally
             {
-                SecurityManager.Logout();
-                SitefinityTestUtilities.ServerOperations.Users().AuthenticateAdminUser();
-                this.pageOperations.DeletePages();
+                using (new AuthenticateUserRegion(user))
+                {
+                    this.pageOperations.DeletePages();
+                }
             }
         }
 
@@ -91,6 +96,8 @@ namespace FeatherWidgets.TestIntegration.Identity.LoginForm
             var pageManager = PageManager.GetManager();
             Guid pageId = Guid.Empty;
             string loginFormPageUrl = UrlPath.ResolveAbsoluteUrl("~/" + this.urlNamePrefix);
+            var userId = ClaimsManager.GetCurrentUserId();
+            var user = UserManager.GetManager().GetUser(userId);
 
             try
             {
@@ -108,12 +115,14 @@ namespace FeatherWidgets.TestIntegration.Identity.LoginForm
             }
             finally
             {
-                SitefinityTestUtilities.ServerOperations.Users().AuthenticateAdminUser();
-                var pageNode = pageManager.GetPageNodes().Where(p => p.Id == pageId).SingleOrDefault();
-                if (pageNode != null)
+                using (new AuthenticateUserRegion(user))
                 {
-                    pageManager.Delete(pageNode);
-                    pageManager.SaveChanges();
+                    var pageNode = pageManager.GetPageNodes().Where(p => p.Id == pageId).SingleOrDefault();
+                    if (pageNode != null)
+                    {
+                        pageManager.Delete(pageNode);
+                        pageManager.SaveChanges();
+                    }
                 }
             }
         }
