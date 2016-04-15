@@ -51,12 +51,28 @@ namespace Telerik.Sitefinity.Frontend.ContentBlock.Mvc.Models
         /// <param name="sharedContentId">The shared content identifier.</param>
         /// <param name="containerType">Type of the container.</param>
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public ContentBlockModel(string providerName, string content, bool enableSocialSharing, Guid sharedContentId, Type containerType)
+        public ContentBlockModel(string providerName, string content, bool enableSocialSharing, Guid sharedContentId, Type containerType) :
+            this(providerName, content, enableSocialSharing, sharedContentId, containerType, null)
+        {
+        }
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="ContentBlockModel"/> class.
+        /// </summary>
+        /// <param name="providerName">Name of the provider.</param>
+        /// <param name="content">The content.</param>
+        /// <param name="enableSocialSharing">if set to <c>true</c> [enable social sharing].</param>
+        /// <param name="sharedContentId">The shared content identifier.</param>
+        /// <param name="containerType">Type of the container.</param>
+        /// <param name="wrapperCssClass">The CSS class that will be applied on the wrapper tag of the widget view.</param>
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public ContentBlockModel(string providerName, string content, bool enableSocialSharing, Guid sharedContentId, Type containerType, string wrapperCssClass)
         {
             this.ContainerType = containerType;
             this.ProviderName = providerName;
             this.EnableSocialSharing = enableSocialSharing;
             this.SharedContentID = sharedContentId;
+            this.WrapperCssClass = wrapperCssClass;
 
             content = this.GetContentHtmlValue(content);
 
