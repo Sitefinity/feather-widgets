@@ -73,6 +73,12 @@
             true
         );
 
+        $scope.updateSortOption = function (newSortOption) {
+            if (newSortOption !== "Custom") {
+                $scope.properties.SortExpression.PropertyValue = newSortOption;
+            }
+        };
+
         propertyService.get()
             .then(function (data) {
                 if (data) {
@@ -132,10 +138,6 @@
                     else {
                         $scope.properties.SerializedAdditionalFilters.PropertyValue = null;
                         $scope.properties.SerializedNarrowSelectionFilters.PropertyValue = null;
-                    }
-
-                    if ($scope.selectedSortOption !== "Custom") {
-                        $scope.properties.SortExpression.PropertyValue = $scope.selectedSortOption;
                     }
 
                 });
