@@ -32,7 +32,7 @@
 
         $scope.$watch(
             'eventSelector.selectedItemsIds',
-            function (newVal, oldVal) {	
+            function (newVal, oldVal) {
                 if (newVal !== oldVal) {
                     if (newVal) {
                         $scope.properties.SerializedSelectedItemsIds.PropertyValue = JSON.stringify(newVal);
@@ -41,7 +41,21 @@
             },
         true
         );
-  
+
+        $scope.$watch(
+            'properties.SelectionMode.PropertyValue',
+            function (newVal, oldVal) {
+                if (newVal !== oldVal) {
+                    if (newVal == 'SelectedItems') {
+                        $scope.selectedSortOption = 'AsSetManually';
+                    }
+                    else {
+                        $scope.selectedSortOption = 'EventStart DESC';
+                    }
+                }
+            },
+        true
+        );
 
         $scope.additionalFilters = {};
         $scope.$watch(
@@ -81,7 +95,15 @@
                         $scope.eventSelector.selectedItemsIds = selectedItemsIds;
                     }
 
-                    if (sortOptions.indexOf($scope.properties.SortExpression.PropertyValue) >= 0) {
+                    if ($scope.properties.SortExpression.PropertyValue === '') {
+                        if ($scope.properties.SelectionMode.PropertyValue === 'SelectedItems') {
+                            $scope.selectedSortOption = 'AsSetManually';
+                        }
+                        else {
+                            $scope.selectedSortOption = 'EventStart DESC';
+                        }
+                    }
+                    else if (sortOptions.indexOf($scope.properties.SortExpression.PropertyValue) >= 0) {
                         $scope.selectedSortOption = $scope.properties.SortExpression.PropertyValue;
                     }
                     else {
