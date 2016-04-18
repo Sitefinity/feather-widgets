@@ -20,6 +20,7 @@ namespace FeatherWidgets.TestUI.TestCases.ContentBlocks
         /// UI test AddContentToContentBlockWidgetViaCreateContentOptionOnThePage
         /// </summary>
         [TestMethod,
+        Ignore,
         Owner(FeatherTeams.SitefinityTeam7),
         TestCategory(FeatherTestCategories.ContentBlock)]
         public void AddContentToContentBlockWidgetViaCreateContentOptionOnThePage()
