@@ -342,6 +342,7 @@
     <Compile Include="ContentBlocks\AddContentBlockWidgetToPageVerfiryViewPermissions.cs" />
     <Compile Include="ContentBlocks\AddContentBlockWidgetToTemplateBasedOnLayoutFile.cs" />
     <Compile Include="ContentBlocks\AddContentToContentBlockWidgetViaCreateContentOptionOnThePage.cs" />
+    <Compile Include="ContentBlocks\ContentBlockWidgetAdvancedSettingsWrapperCssClassProperty.cs" />
     <Compile Include="ContentBlocks\ContentBlockWidgetVerifyLinksInEditorToolbar.cs" />
     <Compile Include="ContentBlocks\DocumentSelector\CheckNavigationInDocumentSelector.cs" />
     <Compile Include="ContentBlocks\DocumentSelector\EditAndChangeSelectedDocument.cs" />
@@ -505,6 +506,7 @@
     <Compile Include="Framework\TestArrangementBase.cs" />
     <Compile Include="Lists\VerifyListTemplatesOnBootstrap.cs" />
     <Compile Include="Navigation\LanguageSelectorXssAttack.cs" />
+    <Compile Include="News\VerifyNewsItemsWhenOpenDetailsModeOfDynamicItem.cs" />
     <Compile Include="Packaging\DynamicContent\ExportImportFlatModuleAllFieldsFrontendCheck.cs" />
     <Compile Include="Packaging\DynamicContent\ImportEditedFlatModuleAllFieldsWithNewType.cs" />
     <Compile Include="Packaging\DynamicContent\ImportFlatModuleAllFields.cs" />
