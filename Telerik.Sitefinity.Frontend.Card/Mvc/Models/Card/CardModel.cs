@@ -131,7 +131,16 @@ namespace Telerik.Sitefinity.Frontend.Card.Mvc.Models.Card
                 var node = pageManager.GetPageNode(this.LinkedPageId);
                 if (node != null)
                 {
-                    var relativeUrl = node.GetFullUrl();
+                    string relativeUrl;
+                    if (SystemManager.CurrentContext.AppSettings.Multilingual)
+                    {
+                        relativeUrl = node.GetFullUrl(CultureInfo.CurrentUICulture, false);
+                    }
+                    else
+                    {
+                        relativeUrl = node.GetFullUrl();
+                    }
+
                     linkedUrl = UrlPath.ResolveUrl(relativeUrl, true);
                 }
             }
