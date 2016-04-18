@@ -327,5 +327,33 @@ namespace Feather.Widgets.TestUI.Framework.Framework.ElementMap.Content
                 return this.Get<HtmlAnchor>("tagname=a", "title=Insert video");
             }
         }
+
+        /// <summary>
+        /// Gets the wrapped CSS classes textbox.
+        /// </summary>
+        /// <value>
+        /// The wrapped CSS classes textbox.
+        /// </value>
+        public HtmlInputText WrappedCssClassesTextbox
+        {
+            get
+            {
+                return this.Get<HtmlInputText>("tagname=input", "id=prop-WrapperCssClass");
+            }
+        }
+
+        /// <summary>
+        /// Gets the text box label wrapper CSS class.
+        /// </summary>
+        /// <value>
+        /// The text box label wrapper CSS class.
+        /// </value>
+        public HtmlControl TextBoxLabelWrapperCssClass
+        {
+            get
+            {
+                return this.Get<HtmlControl>("tagname=label", "for=prop-WrapperCssClass");
+            }
+        }
     }
 }
