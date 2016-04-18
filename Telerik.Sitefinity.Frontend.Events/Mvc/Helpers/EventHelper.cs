@@ -215,7 +215,7 @@ namespace Telerik.Sitefinity.Frontend.Events.Mvc.Helpers
                 paragraph.InnerHtml += label.ToString(TagRenderMode.Normal);
 
                 var span = new TagBuilder("span");
-                span.InnerHtml = startTimeLiteral;
+                span.InnerHtml = startTimeLiteral + endTimeLiteral;
                 paragraph.InnerHtml += span.ToString(TagRenderMode.Normal);
 
                 result.InnerHtml += paragraph.ToString(TagRenderMode.Normal);
