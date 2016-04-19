@@ -25,7 +25,6 @@
                         <span>, @item.Fields.City</span>
                     }
                 </div>
-                <div>@Html.EventTooltip(item)</div>
                 <div @Html.InlineEditingFieldAttributes("Summary", "LongText")>@Html.Raw(item.Fields.Summary)</div>
                 <div>@Html.CommentsCount((string)navigateUrl, item.DataItem)</div>
             </li>

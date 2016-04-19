@@ -67,66 +67,6 @@ namespace Telerik.Sitefinity.Frontend.Events.Mvc.StringResources
         #region Date resources
 
         /// <summary>
-        /// Gets word : Yesterday
-        /// </summary>
-        [ResourceEntry("Yesterday",
-            Value = "Yesterday",
-            Description = "word: Yesterday",
-            LastModified = "2016/04/11")]
-        public string Yesterday
-        {
-            get
-            {
-                return this["Yesterday"];
-            }
-        }
-
-        /// <summary>
-        /// Gets phrase : Last week
-        /// </summary>
-        [ResourceEntry("LastWeek",
-            Value = "Last week",
-            Description = "phrase Last week",
-            LastModified = "2016/04/11")]
-        public string LastWeek
-        {
-            get
-            {
-                return this["LastWeek"];
-            }
-        }
-
-        /// <summary>
-        /// Gets word : by
-        /// </summary>
-        [ResourceEntry("Today",
-            Value = "Today",
-            Description = "word: Today",
-            LastModified = "2016/04/11")]
-        public string Today
-        {
-            get
-            {
-                return this["Today"];
-            }
-        }
-
-        /// <summary>
-        /// Gets word : Tomorrow
-        /// </summary>
-        [ResourceEntry("Tomorrow",
-            Value = "Tomorrow",
-            Description = "word: Tomorrow",
-            LastModified = "2016/04/11")]
-        public string Tomorrow
-        {
-            get
-            {
-                return this["Tomorrow"];
-            }
-        }
-
-        /// <summary>
         /// Gets word : at
         /// </summary>
         [ResourceEntry("At",
@@ -140,22 +80,7 @@ namespace Telerik.Sitefinity.Frontend.Events.Mvc.StringResources
                 return this["At"];
             }
         }
-
-        /// <summary>
-        /// Gets word : to
-        /// </summary>
-        [ResourceEntry("To",
-            Value = "to",
-            Description = "word: to",
-            LastModified = "2016/04/12")]
-        public string To
-        {
-            get
-            {
-                return this["To"];
-            }
-        }
-
+        
         #endregion
 
         #region Frontend resources
