@@ -45,6 +45,8 @@ namespace FeatherWidgets.TestUI.TestCases.CardWidget
             BATFeather.Wrappers().Frontend().Card().CardWrapper().VerifyImageIsPresentOnFrontend(ImageTitle);
             BATFeather.Wrappers().Frontend().Card().CardWrapper().VerifyCardWidgetContentOnFrontend(LabelText);
             BATFeather.Wrappers().Frontend().Card().CardWrapper().VerifyPageIsPresentOnFrontend(LabelText, PageName2.ToLower());
+            BATFeather.Wrappers().Frontend().Card().CardWrapper().ClickOnCardWidgetPageFromFrontend(LabelText);
+            Assert.IsTrue(ActiveBrowser.ContainsText(Content), "Content block text was found but it shouldn't");
         }
 
         /// <summary>
@@ -71,5 +73,6 @@ namespace FeatherWidgets.TestUI.TestCases.CardWidget
         private const string HeadingText = "Heading text";
         private const string TextArea = "Text area text";
         private const string LabelText = "Label text";
+        private const string Content = "Test content";
     }
 }
