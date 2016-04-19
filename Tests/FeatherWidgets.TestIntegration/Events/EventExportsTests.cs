@@ -24,7 +24,7 @@ namespace FeatherWidgets.TestIntegration.Events
         [Description("Ensures that event export google link is correctly generated.")]
         public void EventGoogleExportLinkTest()
         {
-            const string ExpectedLink = "http://www.google.com/calendar/event?action=TEMPLATE&text=&dates=20160203T020000Z/20160203T040000Z&location=&sprop=website:http://localhost:3333&sprop=name:&details=&recur=";
+            const string ExpectedLink = "http://www.google.com/calendar/event?action=TEMPLATE&text=&dates=20160203T020000Z/20160203T040000Z&location=&sprop=website:http://localhost&sprop=name:&details=&recur=";
             var ev = new Event() { EventStart = new DateTime(2016, 2, 3, 4, 0, 0), EventEnd = new DateTime(2016, 2, 3, 6, 0, 0) };
             Assert.AreEqual(ExpectedLink, new ItemViewModel(ev).GenerateGoogleUrl());
         }
