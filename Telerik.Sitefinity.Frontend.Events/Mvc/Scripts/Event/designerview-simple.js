@@ -44,7 +44,7 @@
                         $scope.selectedSortOption = 'AsSetManually';
                     }
                     else {
-                        $scope.selectedSortOption = 'EventStart DESC';
+                        $scope.selectedSortOption = 'EventStart ASC';
                     }
                 }
             },
@@ -75,6 +75,7 @@
 
         $scope.updateSortOption = function (newSortOption) {
             if (newSortOption !== "Custom") {
+                $scope.selectedSortOption = newSortOption;
                 $scope.properties.SortExpression.PropertyValue = newSortOption;
             }
         };
@@ -140,6 +141,7 @@
                         $scope.properties.SerializedNarrowSelectionFilters.PropertyValue = null;
                     }
 
+                    $scope.properties.SortExpression.PropertyValue = $scope.selectedSortOption;
                 });
             })
             .finally(function () {
