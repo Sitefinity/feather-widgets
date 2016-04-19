@@ -19,8 +19,9 @@ namespace FeatherWidgets.TestUI.TestCases.ContentBlocks
         /// UI test OldAndNewContentBlockWidgetOnTheSamePage
         /// </summary>
         [TestMethod,
-        Owner(FeatherTeams.FeatherTeam),
-        TestCategory(FeatherTestCategories.ContentBlock1)]
+        Ignore,
+        Owner(FeatherTeams.SitefinityTeam7),
+        TestCategory(FeatherTestCategories.ContentBlock)]
         public void OldAndNewContentBlockWidgetOnTheSamePage()
         {
             BAT.Macros().NavigateTo().Pages(this.Culture);

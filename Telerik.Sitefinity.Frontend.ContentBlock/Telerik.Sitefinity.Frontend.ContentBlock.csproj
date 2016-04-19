@@ -225,6 +225,7 @@
     <EmbeddedResource Include="Mvc\Scripts\ContentBlock\designerview-unshare.js" />
     <EmbeddedResource Include="Mvc\Scripts\Designer\modal-dialog.js" />
   </ItemGroup>
+  <Import Project="$(SolutionDir)\Build\FeatherPrecompilation.targets" />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="OpenAccessNuget.targets" />
   <Import Project="$(SolutionDir)\.nuget\nuget.targets" />

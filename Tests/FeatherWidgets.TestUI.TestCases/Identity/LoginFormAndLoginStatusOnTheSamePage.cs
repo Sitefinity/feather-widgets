@@ -18,7 +18,7 @@ namespace FeatherWidgets.TestUI.TestCases.Identity
         /// UI test LoginAndVerifyUserStatusOnTheSamePage
         /// </summary>
         [TestMethod,
-        Owner(FeatherTeams.FeatherTeam),
+        Owner(FeatherTeams.SitefinityTeam3),
         TestCategory(FeatherTestCategories.PagesAndContent),
         TestCategory(FeatherTestCategories.LoginForm),
         TestCategory(FeatherTestCategories.Bootstrap)]

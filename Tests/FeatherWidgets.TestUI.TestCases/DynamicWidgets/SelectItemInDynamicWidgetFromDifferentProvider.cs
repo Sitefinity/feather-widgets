@@ -16,7 +16,7 @@ namespace FeatherWidgets.TestUI.TestCases.DynamicWidgets
         /// UI test SelectItemInDynamicWidgetFromDifferentProvider
         /// </summary>
         [TestMethod,
-        Owner(FeatherTeams.FeatherTeam)]
+        Owner(FeatherTeams.SitefinityTeam6)]
         public void SelectItemInDynamicWidgetFromDifferentProvider()
         {
             BAT.Macros().NavigateTo().Pages(this.Culture);

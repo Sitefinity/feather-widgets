@@ -19,8 +19,8 @@ namespace FeatherWidgets.TestUI.TestCases.ContentBlocks.LinkSelector
         /// UI test LinkSelectorInsertLinkToPageFromThisSite
         /// </summary>
         [TestMethod,
-        Owner(FeatherTeams.FeatherTeam),
-        TestCategory(FeatherTestCategories.ContentBlock1),
+        Owner(FeatherTeams.SitefinityTeam7),
+        TestCategory(FeatherTestCategories.ContentBlock),
         TestCategory(FeatherTestCategories.LinkSelector)]
         public void LinkSelectorInsertLinkToPageFromThisSite()
         {

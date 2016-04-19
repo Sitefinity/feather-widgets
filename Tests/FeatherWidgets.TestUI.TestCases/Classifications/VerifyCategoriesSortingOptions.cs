@@ -15,7 +15,7 @@ namespace FeatherWidgets.TestUI.TestCases.Classifications
         /// UI test verifying sorting of categories is correct in hybrid page
         /// </summary>
         [TestMethod,
-        Owner(FeatherTeams.FeatherTeam),
+        Owner(FeatherTeams.SitefinityTeam2),
         TestCategory(FeatherTestCategories.PagesAndContent),
         TestCategory(FeatherTestCategories.Classifications)]
         public void VerifyCategoriesSortingOptions()

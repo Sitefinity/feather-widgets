@@ -18,7 +18,7 @@ namespace FeatherWidgets.TestUI.TestCases.CardWidget
         /// UI test ChangeCardWidgetTemplate
         /// </summary>
         [TestMethod,
-        Owner(FeatherTeams.FeatherTeam),
+        Owner(FeatherTeams.SitefinityTeam6),
         TestCategory(FeatherTestCategories.PagesAndContent),
         TestCategory(FeatherTestCategories.Card),
         TestCategory(FeatherTestCategories.Bootstrap)]

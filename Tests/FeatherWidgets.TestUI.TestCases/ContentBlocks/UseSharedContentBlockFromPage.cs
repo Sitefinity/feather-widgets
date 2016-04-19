@@ -20,8 +20,8 @@ namespace FeatherWidgets.TestUI.TestCases.ContentBlocks
         /// UI test UseSharedContentBlockFromPage
         /// </summary>
         [TestMethod,
-        Owner(FeatherTeams.FeatherTeam),
-        TestCategory(FeatherTestCategories.ContentBlock1)]
+        Owner(FeatherTeams.SitefinityTeam7),
+        TestCategory(FeatherTestCategories.ContentBlock)]
         public void UseSharedContentBlockFromPage()
         {
             BAT.Macros().NavigateTo().Pages(this.Culture);

@@ -18,7 +18,7 @@ namespace FeatherWidgets.TestUI.TestCases.Lists
         /// UI test verifying Anchor list template, sort Last published, no filter applied
         /// </summary>
         [TestMethod,
-        Owner(FeatherTeams.FeatherTeam),
+        Owner(FeatherTeams.SitefinityTeam7),
         TestCategory(FeatherTestCategories.PagesAndContent),
         TestCategory(FeatherTestCategories.Lists),
         TestCategory(FeatherTestCategories.Selectors)]

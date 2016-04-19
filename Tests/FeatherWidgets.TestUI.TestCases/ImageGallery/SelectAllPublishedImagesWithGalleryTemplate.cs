@@ -15,7 +15,7 @@ namespace FeatherWidgets.TestUI.TestCases.ImageGallery
         /// UI test SelectAllPublishedImagesWithOverlayGalleryTemplate_Bootstrap
         /// </summary>
         [TestMethod,
-        Owner(FeatherTeams.FeatherTeam),
+        Owner(FeatherTeams.SitefinityTeam1),
         TestCategory(FeatherTestCategories.PagesAndContent),
         TestCategory(FeatherTestCategories.ImageGallery)]
         public void SelectAllPublishedImagesWithOverlayGalleryTemplate_Bootstrap()

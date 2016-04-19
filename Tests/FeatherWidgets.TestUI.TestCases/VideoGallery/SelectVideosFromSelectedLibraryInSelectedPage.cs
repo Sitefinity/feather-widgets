@@ -15,7 +15,7 @@ namespace FeatherWidgets.TestUI.TestCases.VideoGallery
         /// UI test SelectVideosFromSelectedLibraryInSelectedPage
         /// </summary>
         [TestMethod,
-        Owner(FeatherTeams.FeatherTeam),
+        Owner(FeatherTeams.SitefinityTeam2),
         TestCategory(FeatherTestCategories.PagesAndContent),
         TestCategory(FeatherTestCategories.VideoGallery)]
         public void SelectVideosFromSelectedLibraryInSelectedPage()

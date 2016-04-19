@@ -18,7 +18,7 @@ namespace FeatherWidgets.TestUI.TestCases.MediaWidgets
         /// UI test VideoWidgetInsertVideo
         /// </summary>
         [TestMethod,
-        Owner(FeatherTeams.FeatherTeam),
+        Owner(FeatherTeams.SitefinityTeam2),
         TestCategory(FeatherTestCategories.MediaSelector),
         TestCategory(FeatherTestCategories.PagesAndContent)]
         public void VideoWidgetInsertVideo()

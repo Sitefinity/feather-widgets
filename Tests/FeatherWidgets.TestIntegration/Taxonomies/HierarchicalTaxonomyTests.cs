@@ -21,7 +21,7 @@ namespace FeatherWidgets.TestIntegration.Taxonomies
     [TestFixture]
     [AssemblyFixture]
     [Description("Integration tests for the Hierarchical taxonomy model.")]
-    [Author(FeatherTeams.FeatherTeam)]
+    [Author(FeatherTeams.SitefinityTeam2)]
     public class HierarchicalTaxonomyTests
     {
         [FixtureSetUp]
@@ -68,7 +68,7 @@ namespace FeatherWidgets.TestIntegration.Taxonomies
         }
 
         [Test]
-        [Author(FeatherTeams.FeatherTeam)]
+        [Author(FeatherTeams.SitefinityTeam2)]
         [Description("Verifies that if the option to show all taxa is set, all taxa will be retrieved.")]
         public void Categories_VerifyAllTaxaIsRetrieved()
         {
@@ -93,7 +93,7 @@ namespace FeatherWidgets.TestIntegration.Taxonomies
         }
 
         [Test]
-        [Author(FeatherTeams.FeatherTeam)]
+        [Author(FeatherTeams.SitefinityTeam2)]
         [Description("Verifies that if the option to show specific taxa is set, the exactly same taxa will be retrieved.")]
         public void Categories_VerifySpecificTaxaIsRetrieved()
         {
@@ -123,7 +123,7 @@ namespace FeatherWidgets.TestIntegration.Taxonomies
         }
 
         [Test]
-        [Author(FeatherTeams.FeatherTeam)]
+        [Author(FeatherTeams.SitefinityTeam2)]
         [Description("Verifies that only top level taxa is retrieved if that option is selected.")]
         public void Categories_VerifyTopLevelTaxaIsRetrieved()
         {
@@ -147,7 +147,7 @@ namespace FeatherWidgets.TestIntegration.Taxonomies
         }
 
         [Test]
-        [Author(FeatherTeams.FeatherTeam)]
+        [Author(FeatherTeams.SitefinityTeam2)]
         [Description("Verifies that only taxa under particular parent is retrieved if that option is selected.")]
         public void Categories_VerifyTaxaUnderParticularParentIsRetrieved()
         {
@@ -177,7 +177,7 @@ namespace FeatherWidgets.TestIntegration.Taxonomies
         }
 
         [Test]
-        [Author(FeatherTeams.FeatherTeam)]
+        [Author(FeatherTeams.SitefinityTeam2)]
         [Description("Verifies that only taxa filtered by content type is retrieved if that option is selected.")]
         public void Categories_VerifyTaxaFilteredByContentTypeIsRetrieved()
         {
@@ -206,7 +206,7 @@ namespace FeatherWidgets.TestIntegration.Taxonomies
         }
 
         [Test]
-        [Author(FeatherTeams.FeatherTeam)]
+        [Author(FeatherTeams.SitefinityTeam2)]
         [Description("Verifies that only taxa that is assigned to a content item is shown when ShowEmptyTaxa is disabled.")]
         public void Categories_VerifyEmptyTaxaIsNotRetrieved()
         {
@@ -234,7 +234,7 @@ namespace FeatherWidgets.TestIntegration.Taxonomies
         }
 
         [Test]
-        [Author(FeatherTeams.FeatherTeam)]
+        [Author(FeatherTeams.SitefinityTeam2)]
         [Description("Verifies that only taxa from a specific content item is shown when ContentId is set.")]
         public void Categories_VerifyTaxaFromContentItemIsRetrieved()
         {
@@ -258,7 +258,7 @@ namespace FeatherWidgets.TestIntegration.Taxonomies
         }
 
         [Test]
-        [Author(FeatherTeams.FeatherTeam)]
+        [Author(FeatherTeams.SitefinityTeam2)]
         [Description("Verifies that hierarchical taxon view model is constructed if FlattenHierarchy is turned off.")]
         public void Categories_VerifyHierarchicalTaxaIsRetrieved()
         {
@@ -278,7 +278,7 @@ namespace FeatherWidgets.TestIntegration.Taxonomies
         }
 
         [Test]
-        [Author(FeatherTeams.FeatherTeam)]
+        [Author(FeatherTeams.SitefinityTeam2)]
         [Description("Verifies that hierarchical taxon view model filtered by content type is constructed if FlattenHierarchy is turned off.")]
         public void Categories_VerifyHierarchicalTaxaFilteredByContentTypeIsRetrieved()
         {
