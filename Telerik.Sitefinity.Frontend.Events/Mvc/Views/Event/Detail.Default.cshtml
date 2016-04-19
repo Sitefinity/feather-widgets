@@ -11,27 +11,29 @@
     </h3>
 
     <div>
-        <p>@Model.Item.EventDates()</p>
+        <time>@Model.Item.EventDates()</time>
     </div>
 
-    @if (!string.IsNullOrEmpty(Model.Item.Fields.City) || !string.IsNullOrEmpty(Model.Item.Fields.Country))
-    {
-        <div>
-            @if (!string.IsNullOrEmpty(Model.Item.Fields.City) && !string.IsNullOrEmpty(Model.Item.Fields.Country)) 
+    <address>
+        @if (!string.IsNullOrEmpty(Model.Item.Fields.City) || !string.IsNullOrEmpty(Model.Item.Fields.Country))
+        {
+
+            if (!string.IsNullOrEmpty(Model.Item.Fields.City) && !string.IsNullOrEmpty(Model.Item.Fields.Country))
             {
                 <p>@Model.Item.Fields.City, @Model.Item.Fields.Country</p>
             }
-            else 
+            else
             {
                 <p>@(string.IsNullOrEmpty(Model.Item.Fields.City) ? Model.Item.Fields.Country : Model.Item.Fields.City)</p>
             }
 
-            @if (!string.IsNullOrEmpty(Model.Item.Fields.Street))
+            if (!string.IsNullOrEmpty(Model.Item.Fields.Street))
             {
                 <p>@Model.Item.Fields.Street</p>
             }
-        </div>
-    }
+
+        }
+    </address>
 
     <div>
         <p>@Model.Item.Fields.ContactName</p>
@@ -40,7 +42,7 @@
         
         @if (!string.IsNullOrEmpty(Model.Item.Fields.ContactEmail))
         {
-            <p><a href="mailto:@(Model.Item.Fields.ContactEmail)" target="_blank">@Model.Item.Fields.ContactEmail</a></p>
+            <address><a href="mailto:@(Model.Item.Fields.ContactEmail)" target="_blank">@Model.Item.Fields.ContactEmail</a></address>
         }
 
         @if (!string.IsNullOrEmpty(Model.Item.Fields.ContactWeb))
@@ -56,7 +58,7 @@
     </div>
 
     <div>
-        <p>@Model.Item.Fields.Description</p>
+        @Model.Item.Fields.Description
     </div>
     
     @if (ViewBag.AllowCalendarExport)
