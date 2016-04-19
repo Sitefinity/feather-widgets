@@ -108,13 +108,7 @@ namespace Telerik.Sitefinity.Frontend.Events.Mvc.Helpers
 
         private static string BuildDayMonthYear(DateTime time)
         {
-            var format = string.Empty;
-            if (time.Year == DateTime.UtcNow.Year)
-                format = "dd MMMM";
-            else
-                format = "dd MMMM, yyyy";
-
-            return time.ToString(format, CultureInfo.InvariantCulture).TrimStart('0');
+            return time.ToString("dd MMMM, yyyy", CultureInfo.InvariantCulture).TrimStart('0');
         }
 
         private static string BuildRecurringEvent(Event ev)
@@ -127,33 +121,7 @@ namespace Telerik.Sitefinity.Frontend.Events.Mvc.Helpers
             result.Append(Comma);
             result.Append(WhiteSpace);
 
-            result.Append(BuildDayMonthYear(start));
-
-            result.Append(WhiteSpace);
-            result.Append(Res.Get<EventResources>().At);
-            result.Append(WhiteSpace);
-
-            if (ev.AllDayEvent)
-                result.Append(Midnight);
-            else
-                result.Append(BuildHourMinute(start));
-
-            if (ev.EventEnd.HasValue)
-            {
-                var end = ev.EventEnd.Value.ToSitefinityUITime();
-                result.Append(Dash);
-
-                result.Append(BuildDayMonthYear(end));
-
-                result.Append(WhiteSpace);
-                result.Append(Res.Get<EventResources>().At);
-                result.Append(WhiteSpace);
-
-                if (ev.AllDayEvent)
-                    result.Append(Midnight);
-                else
-                    result.Append(BuildHourMinute(end));
-            }
+            result.Append(BuildNonRecurringEvent(ev));
 
             return result.ToString();
         }
