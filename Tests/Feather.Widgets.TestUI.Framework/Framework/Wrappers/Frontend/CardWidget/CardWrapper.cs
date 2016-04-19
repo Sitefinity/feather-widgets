@@ -79,5 +79,22 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Frontend.CardWidge
             bool isContained = pageAnchor.HRef.Contains(pageName);
             Assert.IsTrue(isContained, "Page is not as expected");
         }
+
+        /// <summary>
+        /// Click on Card widget page
+        /// </summary>
+        public void ClickOnCardWidgetPageFromFrontend(string labelName)
+        {
+            HtmlDiv frontendPageMainDiv = BAT.Wrappers().Frontend().Pages().PagesWrapperFrontend().GetPageContent();
+
+            HtmlAnchor pageAnchor = frontendPageMainDiv.Find
+                                                       .ByExpression<HtmlAnchor>("tagname=a", "InnerText=" + labelName)
+                                                       .AssertIsPresent("Tag with this title was not found");
+            pageAnchor.Focus();
+            pageAnchor.Click();
+            
+            ActiveBrowser.WaitUntilReady();
+            ActiveBrowser.RefreshDomTree();
+        }
     }
 }
