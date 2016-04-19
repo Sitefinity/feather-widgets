@@ -23,8 +23,8 @@ namespace FeatherWidgets.TestUI.TestCases.ContentBlocks
         /// UI test EditContentBlockWidgetViaInlineEditing 
         /// </summary>
         [TestMethod,
-        Owner(FeatherTeams.FeatherTeam),
-        TestCategory(FeatherTestCategories.ContentBlock2)]
+        Owner(FeatherTeams.SitefinityTeam7),
+        TestCategory(FeatherTestCategories.ContentBlock)]
         public void EditContentBlockWidgetViaInlineEditing()
         {
             BAT.Macros().NavigateTo().CustomPage("~/" + PageName.ToLower(), true, this.Culture);

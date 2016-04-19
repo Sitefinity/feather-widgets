@@ -19,9 +19,9 @@ namespace FeatherWidgets.TestUI.TestCases.ContentBlocks.DocumentSelector
         /// UI test CheckNavigationInDocumentSelector
         /// </summary>
         [TestMethod,
-        Owner(FeatherTeams.FeatherTeam),
+        Owner(FeatherTeams.SitefinityTeam7),
         TestCategory(FeatherTestCategories.MediaSelector),
-        TestCategory(FeatherTestCategories.ContentBlock3)]
+        TestCategory(FeatherTestCategories.ContentBlock)]
         public void CheckNavigationInDocumentSelector()
         {
             RuntimeSettingsModificator.ExecuteWithClientTimeout(800000, () => BAT.Macros().NavigateTo().CustomPage("~/sitefinity/pages", false));

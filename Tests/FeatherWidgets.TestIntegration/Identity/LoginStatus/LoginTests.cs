@@ -30,7 +30,7 @@ namespace FeatherWidgets.TestIntegration.Identity.LoginStatus
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Globalization", "CA1303:Do not pass literals as localized parameters", MessageId = "Telerik.Sitefinity.TestIntegration.Data.Content.PageContentGenerator.AddControlToPage(System.Guid,System.Web.UI.Control,System.String,System.String,System.Action<Telerik.Sitefinity.Pages.Model.PageDraftControl>)"), System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Naming", "CA1726:UsePreferredTerms", MessageId = "Login")]
         [Test]
         [Category(TestCategories.Identity)]
-        [Author(FeatherTeams.FeatherTeam)]
+        [Author(FeatherTeams.SitefinityTeam3)]
         [Description("Verify that the login status widget does not throw exception when viewed from details page.")]
         public void LoginStatus_OnDetailsPage_DoesNotThrowException()
         {
@@ -83,7 +83,7 @@ namespace FeatherWidgets.TestIntegration.Identity.LoginStatus
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Naming", "CA1726:UsePreferredTerms", MessageId = "Login")]
         [Test]
         [Category(TestCategories.Identity)]
-        [Author(FeatherTeams.FeatherTeam)]
+        [Author(FeatherTeams.SitefinityTeam3)]
         [Description("Verify that the login status widget does not resolve non existing URLs on a page.")]
         public void LoginStatus_NonExistingUrl_Returns404()
         {

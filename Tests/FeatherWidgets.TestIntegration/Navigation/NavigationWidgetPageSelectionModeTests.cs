@@ -53,7 +53,7 @@ namespace FeatherWidgets.TestIntegration.Navigation
         /// </summary>
         [Test]
         [Category(TestCategories.Navigation)]
-        [Author(FeatherTeams.FeatherTeam)]
+        [Author(FeatherTeams.SitefinityTeam7)]
         public void NavigationWidget_AllSiblingPagesOfCurrentlyOpenedPage()
         {
             string pageNamePrefix1 = "NavigationPage1";
@@ -89,7 +89,7 @@ namespace FeatherWidgets.TestIntegration.Navigation
         /// </summary>
         [Test]
         [Category(TestCategories.Navigation)]
-        [Author(FeatherTeams.FeatherTeam)]
+        [Author(FeatherTeams.SitefinityTeam7)]
         public void NavigationWidget_HorizontalTemplate5LevelsToInclude()
         {
             string url = UrlPath.ResolveAbsoluteUrl("~/" + UrlNamePrefix + Index);
@@ -132,7 +132,7 @@ namespace FeatherWidgets.TestIntegration.Navigation
         /// </summary>
         [Test]
         [Category(TestCategories.Navigation)]
-        [Author(FeatherTeams.FeatherTeam)]
+        [Author(FeatherTeams.SitefinityTeam7)]
         public void NavigationWidget_VerticalTemplate5LevelsToInclude()
         {
             string url = UrlPath.ResolveAbsoluteUrl("~/" + UrlNamePrefix + Index);
@@ -172,7 +172,7 @@ namespace FeatherWidgets.TestIntegration.Navigation
         /// </summary>
         [Test]
         [Category(TestCategories.Navigation)]
-        [Author(FeatherTeams.FeatherTeam)]
+        [Author(FeatherTeams.SitefinityTeam7)]
         public void NavigationWidget_TabsTemplate5LevelsToInclude()
         {
             string url = UrlPath.ResolveAbsoluteUrl("~/" + UrlNamePrefix + Index);
@@ -212,7 +212,7 @@ namespace FeatherWidgets.TestIntegration.Navigation
         /// </summary>
         [Test]
         [Category(TestCategories.Navigation)]
-        [Author(FeatherTeams.FeatherTeam)]
+        [Author(FeatherTeams.SitefinityTeam7)]
         public void NavigationWidget_SitemapTemplate5LevelsToInclude()
         {
             string url = UrlPath.ResolveAbsoluteUrl("~/" + UrlNamePrefix + Index);
@@ -252,7 +252,7 @@ namespace FeatherWidgets.TestIntegration.Navigation
         /// </summary>
         [Test]
         [Category(TestCategories.Navigation)]
-        [Author(FeatherTeams.FeatherTeam)]
+        [Author(FeatherTeams.SitefinityTeam7)]
         public void NavigationWidget_AllChildPagesOfSpecifiedPage()
         {
             string pageName1 = "NavigationPage1";
@@ -286,7 +286,7 @@ namespace FeatherWidgets.TestIntegration.Navigation
         /// </summary>
         [Test]
         [Category(TestCategories.Navigation)]
-        [Author(FeatherTeams.FeatherTeam)]
+        [Author(FeatherTeams.SitefinityTeam7)]
         public void NavigationWidget_SelectedPages()
         {
             string pageName1 = "NavigationPage1";
@@ -330,7 +330,7 @@ namespace FeatherWidgets.TestIntegration.Navigation
         /// </summary>
         [Test]
         [Category(TestCategories.Navigation)]
-        [Author(FeatherTeams.FeatherTeam)]
+        [Author(FeatherTeams.SitefinityTeam7)]
         [Description("Checks if the navigation widget properly invalidates the cached page if a page is renamed")]
         public void NavigationWidget_ValidatePagesCacheDependenciesOnPageRename()
         {
@@ -372,7 +372,7 @@ namespace FeatherWidgets.TestIntegration.Navigation
         /// </summary>
         [Test]
         [Category(TestCategories.Navigation)]
-        [Author(FeatherTeams.FeatherTeam)]
+        [Author(FeatherTeams.SitefinityTeam7)]
         [Description("Checks if the navigation widget properly invalidates the cached page if a page is created")]
         public void NavigationWidget_ValidatePagesCacheDependenciesOnPageCreate()
         {
@@ -414,7 +414,7 @@ namespace FeatherWidgets.TestIntegration.Navigation
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Naming", "CA1704:IdentifiersShouldBeSpelledCorrectly", MessageId = "Unpublish"), Test]
         [Ignore("Unstable")]
         [Category(TestCategories.Navigation)]
-        [Author(FeatherTeams.FeatherTeam)]
+        [Author(FeatherTeams.SitefinityTeam7)]
         [Description("Checks if the navigation widget properly invalidates the cached page if a child page is republished")]
         public void NavigationWidget_ValidatePagesCacheDependenciesOnChildPagePublishUnpublish()
         {
@@ -477,7 +477,7 @@ namespace FeatherWidgets.TestIntegration.Navigation
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Naming", "CA1704:IdentifiersShouldBeSpelledCorrectly", MessageId = "Unpublish"), Test]
         [Ignore("Unstable")]
         [Category(TestCategories.Navigation)]
-        [Author(FeatherTeams.FeatherTeam)]
+        [Author(FeatherTeams.SitefinityTeam7)]
         [Description("Checks if the navigation widget properly invalidates the cached page if a grouped page child is republished")]
         public void NavigationWidget_ValidatePagesCacheDependenciesOnGroupPagePublishUnpublish()
         {

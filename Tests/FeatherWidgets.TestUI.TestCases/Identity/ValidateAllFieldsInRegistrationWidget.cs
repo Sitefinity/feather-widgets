@@ -19,7 +19,7 @@ namespace FeatherWidgets.TestUI.TestCases.Identity
         /// UI test ValidateAllFieldsInRegistrationWidget
         /// </summary>
         [TestMethod,
-        Owner(FeatherTeams.FeatherTeam),
+        Owner(FeatherTeams.SitefinityTeam4),
         TestCategory(FeatherTestCategories.PagesAndContent),
         TestCategory(FeatherTestCategories.Registration),
         TestCategory(FeatherTestCategories.Bootstrap)]

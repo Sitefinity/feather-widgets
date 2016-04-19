@@ -18,7 +18,7 @@ namespace FeatherWidgets.TestUI.TestCases.Forms.Textbox
         /// UI test ViewFormWithTextboxFieldOnPageAndVerifyResponseInBackend
         /// </summary>
         [TestMethod,
-        Owner(FeatherTeams.FeatherTeam),
+        Owner(FeatherTeams.SitefinityTeam6),
         TestCategory(FeatherTestCategories.Bootstrap),
         TestCategory(FeatherTestCategories.Forms)]
         public void ViewFormWithTextboxFieldOnPageAndVerifyResponseInBackend()

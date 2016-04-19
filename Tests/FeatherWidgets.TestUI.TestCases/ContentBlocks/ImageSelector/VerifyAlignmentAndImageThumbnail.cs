@@ -17,9 +17,9 @@ namespace FeatherWidgets.TestUI.TestCases.ContentBlocks.ImageSelector
         /// UI test VerifyAlignmentAndImageThumbnail
         /// </summary>
         [TestMethod,
-        Owner(FeatherTeams.FeatherTeam),
+        Owner(FeatherTeams.SitefinityTeam7),
         TestCategory(FeatherTestCategories.MediaSelector),
-        TestCategory(FeatherTestCategories.ContentBlock3)]
+        TestCategory(FeatherTestCategories.ContentBlock)]
         public void VerifyAlignmentAndImageThumbnail()
         {
             BAT.Macros().NavigateTo().Pages(this.Culture);

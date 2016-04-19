@@ -20,8 +20,8 @@ namespace FeatherWidgets.TestUI.TestCases.ContentBlocks
         /// UI test UnshareContentBlockFromPage
         /// </summary>
         [TestMethod,
-        Owner(FeatherTeams.FeatherTeam),
-        TestCategory(FeatherTestCategories.ContentBlock1)]
+        Owner(FeatherTeams.SitefinityTeam7),
+        TestCategory(FeatherTestCategories.ContentBlock)]
         public void UnshareContentBlockFromPage()
         {
             BAT.Macros().NavigateTo().Pages(this.Culture);

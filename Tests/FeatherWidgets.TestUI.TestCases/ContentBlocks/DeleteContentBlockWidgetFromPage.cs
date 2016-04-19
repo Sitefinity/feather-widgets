@@ -20,8 +20,8 @@ namespace FeatherWidgets.TestUI.TestCases.ContentBlocks
         /// UI test DeleteContentBlockWidgetFromPage
         /// </summary>
         [TestMethod,
-        Owner(FeatherTeams.FeatherTeam),
-        TestCategory(FeatherTestCategories.ContentBlock2)]
+        Owner(FeatherTeams.SitefinityTeam7),
+        TestCategory(FeatherTestCategories.ContentBlock)]
         public void DeleteContentBlockWidgetFromPage()
         {
             RuntimeSettingsModificator.ExecuteWithClientTimeout(800000, () => BAT.Macros().NavigateTo().CustomPage("~/" + PageName, false, this.Culture));

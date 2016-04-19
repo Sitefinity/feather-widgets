@@ -39,7 +39,18 @@ namespace Telerik.Sitefinity.Frontend.Events.Mvc.Models
         /// <value>
         /// The sort expression.
         /// </value>
-        public override string SortExpression { get; set; }
+        public override string SortExpression
+        {
+            get
+            {
+                return this.sortExpression;
+            }
+
+            set
+            {
+                this.sortExpression = value;
+            }
+        }
 
         /// <summary>
         /// Gets or sets the selected mode for Narrow selection. That is the filtering by taxonomies and calendars.
@@ -127,6 +138,9 @@ namespace Telerik.Sitefinity.Frontend.Events.Mvc.Models
             return filterExpression;
         }
 
+        private const string DefaultSortExpression = "EventStart ASC";
+
+        private string sortExpression = DefaultSortExpression;
         private bool allowCalendarExport = true;
     }
 }

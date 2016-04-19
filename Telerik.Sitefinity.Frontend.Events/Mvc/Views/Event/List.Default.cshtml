@@ -25,7 +25,7 @@
                         <span>, @item.Fields.City</span>
                     }
                 </div>
-                <div @Html.InlineEditingFieldAttributes("Content", "ShortText")>@Html.Raw(item.Fields.Content)</div>
+                <div @Html.InlineEditingFieldAttributes("Summary", "LongText")>@Html.Raw(item.Fields.Summary)</div>
                 <div>@Html.CommentsCount((string)navigateUrl, item.DataItem)</div>
             </li>
         }

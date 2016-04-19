@@ -18,7 +18,7 @@ namespace FeatherWidgets.TestUI.TestCases.MediaWidgets
         /// UI test ImageWidgetInsertImageWithCustomThumbnail
         /// </summary>
         [TestMethod,
-        Owner(FeatherTeams.FeatherTeam),
+        Owner(FeatherTeams.SitefinityTeam1),
         TestCategory(FeatherTestCategories.MediaSelector),
         TestCategory(FeatherTestCategories.PagesAndContent)]
         public void ImageWidgetInsertImageWithCustomThumbnail()

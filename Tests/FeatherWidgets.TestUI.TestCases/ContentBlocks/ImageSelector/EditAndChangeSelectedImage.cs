@@ -18,9 +18,9 @@ namespace FeatherWidgets.TestUI.TestCases.ContentBlocks.ImageSelector
         /// UI test EditAndChangeSelectedImage
         /// </summary>
         [TestMethod,
-        Owner(FeatherTeams.FeatherTeam),
+        Owner(FeatherTeams.SitefinityTeam7),
         TestCategory(FeatherTestCategories.MediaSelector),
-        TestCategory(FeatherTestCategories.ContentBlock3)]
+        TestCategory(FeatherTestCategories.ContentBlock)]
         public void EditAndChangeSelectedImage()
         {
             BAT.Macros().NavigateTo().Pages(this.Culture);

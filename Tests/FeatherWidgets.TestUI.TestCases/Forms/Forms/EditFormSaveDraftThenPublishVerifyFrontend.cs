@@ -19,7 +19,7 @@ namespace FeatherWidgets.TestUI.TestCases.Forms.Forms
         /// UI test EditFormSaveDraftThenPublishVerifyFrontend
         /// </summary>
         [TestMethod,
-        Owner(FeatherTeams.FeatherTeam),
+        Owner(FeatherTeams.SitefinityTeam6),
         TestCategory(FeatherTestCategories.Bootstrap),
         TestCategory(FeatherTestCategories.Forms),
         Telerik.TestUI.Core.Attributes.KnownIssue(BugId = 144860), Ignore]

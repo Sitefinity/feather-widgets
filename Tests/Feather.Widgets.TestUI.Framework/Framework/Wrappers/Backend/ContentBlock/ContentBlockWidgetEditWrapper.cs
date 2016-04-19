@@ -498,6 +498,43 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend
             buttonHidden.AssertAttribute().Value("title", ArtOfTest.Common.StringCompareType.Exact, title);
         }
 
+        /// <summary>
+        /// Verifies the apply CSS class.
+        /// </summary>
+        /// <param name="cssClassName">Name of the CSS class.</param>
+        public void VerifyApplyCssClass(string cssClassName)
+        {
+            this.AdvanceButtonSelecting();
+            var textLabel = EM.GenericContent.ContentBlockWidget.TextBoxLabelWrapperCssClass.AssertIsPresent("WrapperCssClass");
+            HtmlInputText cssClassesTextbox = this.EM.GenericContent.ContentBlockWidget.WrappedCssClassesTextbox;
+            cssClassesTextbox.Text = cssClassName;
+            cssClassesTextbox.AsjQueryControl().InvokejQueryEvent(jQueryControl.jQueryControlEvents.change);
+            this.SaveChanges();
+        }
+
+        /// <summary>
+        /// Changes the CSS class in advanced settings.
+        /// </summary>
+        /// <param name="oldcss">The oldcss.</param>
+        /// <param name="newcss">The newcss.</param>
+        public void ChangeCssClassInAdvancedSettings(string oldcss, string newcss)
+        {
+            this.AdvanceButtonSelecting();
+            HtmlInputText cssClassInput = EM.GenericContent.ContentBlockWidget.WrappedCssClassesTextbox
+                .AssertIsPresent(oldcss);
+
+            cssClassInput.ScrollToVisible();
+            cssClassInput.Focus();
+            cssClassInput.MouseClick();
+
+            Manager.Current.Desktop.KeyBoard.KeyDown(System.Windows.Forms.Keys.Control);
+            Manager.Current.Desktop.KeyBoard.KeyPress(System.Windows.Forms.Keys.A);
+            Manager.Current.Desktop.KeyBoard.KeyUp(System.Windows.Forms.Keys.Control);
+            Manager.Current.Desktop.KeyBoard.KeyPress(System.Windows.Forms.Keys.Delete);
+            Manager.Current.Desktop.KeyBoard.TypeText(newcss);
+            this.SaveChanges();
+        }
+
         private const int TimeOut = 60000;
     }
 }

@@ -16,7 +16,7 @@ namespace FeatherWidgets.TestUI.TestCases.SocialShare
         /// UI test CreateSocialShareWidgetTemplateAndCheckTheDesigner
         /// </summary>
         [TestMethod,
-        Owner(FeatherTeams.FeatherTeam),
+        Owner(FeatherTeams.SitefinityTeam7),
         TestCategory(FeatherTestCategories.PagesAndContent),
         TestCategory(FeatherTestCategories.SocialShare)]
         public void CreateSocialShareWidgetTemplateAndCheckTheDesigner()

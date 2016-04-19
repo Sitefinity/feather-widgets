@@ -29,7 +29,7 @@ namespace FeatherWidgets.TestIntegration.News
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Maintainability", "CA1506:AvoidExcessiveClassCoupling"), System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Globalization", "CA1305:SpecifyIFormatProvider", MessageId = "System.String.Format(System.String,System.Object[])"), Test]
         [Category(TestCategories.News)]
-        [Author(FeatherTeams.FeatherTeam)]
+        [Author(FeatherTeams.SitefinityTeam7)]
         [Description("Ensures that correct news are displayed when UrlKeyPrefix is set.")]
         public void NewsWidget_UrlKeyPrefix_VerifyContent()
         {

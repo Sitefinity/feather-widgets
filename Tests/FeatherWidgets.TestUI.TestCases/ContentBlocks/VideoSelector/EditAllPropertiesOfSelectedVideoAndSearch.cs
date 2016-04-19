@@ -18,9 +18,9 @@ namespace FeatherWidgets.TestUI.TestCases.ContentBlocks.VideoSelector
         /// UI test EditAllPropertiesOfSelectedVideoAndSearch
         /// </summary>
         [TestMethod,
-        Owner(FeatherTeams.FeatherTeam),
+        Owner(FeatherTeams.SitefinityTeam7),
         TestCategory(FeatherTestCategories.MediaSelector),
-        TestCategory(FeatherTestCategories.ContentBlock3)]
+        TestCategory(FeatherTestCategories.ContentBlock)]
         public void EditAllPropertiesOfSelectedVideoAndSearch()
         {
             BAT.Macros().NavigateTo().Pages(this.Culture);

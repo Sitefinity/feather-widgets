@@ -395,6 +395,7 @@
     <EmbeddedResource Include="assets\dist\css\sf-form-nav.min.css" />
     <EmbeddedResource Include="Mvc\Scripts\NavigationField\navigation-field.js" />
   </ItemGroup>
+  <Import Project="$(SolutionDir)\Build\FeatherPrecompilation.targets" />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="$(SolutionDir)\.nuget\NuGet.targets" Condition="Exists('$(SolutionDir)\.nuget\NuGet.targets')" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

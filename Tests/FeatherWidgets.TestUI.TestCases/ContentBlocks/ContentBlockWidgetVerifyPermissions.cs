@@ -16,7 +16,7 @@ namespace FeatherWidgets.TestUI.TestCases.ContentBlocks
     public class ContentBlockWidgetVerifyPermissions : FeatherTestCase
     {
         [TestMethod,
-        Owner(FeatherTeams.FeatherTeam),
+        Owner(FeatherTeams.SitefinityTeam7),
         TestCategory(FeatherTestCategories.ContentBlock)]
         public void AddContentBlockWidgetToPageVerifyViewPermissions()
         {

@@ -25,7 +25,7 @@ namespace FeatherWidgets.TestIntegration.News
         /// </summary>
         [Test]
         [Category(TestCategories.News)]
-        [Author(FeatherTeams.FeatherTeam)]
+        [Author(FeatherTeams.SitefinityTeam7)]
         [Description("Ensures that the view of the Designer in News widget is precompiled.")]
         public void Designer_UsesPrecompiledView()
         {
@@ -54,7 +54,7 @@ namespace FeatherWidgets.TestIntegration.News
         /// </summary>
         [Test]
         [Category(TestCategories.News)]
-        [Author(FeatherTeams.FeatherTeam)]
+        [Author(FeatherTeams.SitefinityTeam7)]
         [Description("Ensures that the frontend views of the News widget are precompiled.")]
         public void Frontend_UsesPrecompiledView()
         {
@@ -76,7 +76,7 @@ namespace FeatherWidgets.TestIntegration.News
         /// </summary>
         [Test]
         [Category(TestCategories.News)]
-        [Author(FeatherTeams.FeatherTeam)]
+        [Author(FeatherTeams.SitefinityTeam7)]
         [Description("Ensure that updated view template is delivered instead of precompiled one.")]
         public void Frontend_UsesUpdatedView()
         {
@@ -115,7 +115,7 @@ namespace FeatherWidgets.TestIntegration.News
         /// </summary>
         [Test]
         [Category(TestCategories.News)]
-        [Author(FeatherTeams.FeatherTeam)]
+        [Author(FeatherTeams.SitefinityTeam7)]
         [Description("Ensure that precompiled views are delivered even when physical file is present if config is set.")]
         public void Frontend_AlwaysUsePrecompiled_DoesNotUseUpdatedView()
         {
@@ -158,7 +158,7 @@ namespace FeatherWidgets.TestIntegration.News
         [SuppressMessage("Microsoft.Naming", "CA1704:IdentifiersShouldBeSpelledCorrectly", MessageId = "Precompilation")]
         [Test]
         [Category(TestCategories.News)]
-        [Author(FeatherTeams.FeatherTeam)]
+        [Author(FeatherTeams.SitefinityTeam7)]
         [Description("Ensures that precompiled views are not used when precompilation is disabled from config.")]
         public void Frontend_DisablePrecompilation_DoesNotUsePrecompiledView()
         {

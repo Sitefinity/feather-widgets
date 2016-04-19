@@ -21,7 +21,7 @@ namespace FeatherWidgets.TestUI.TestCases.Forms.Forms
         /// UI test DeleteFormFieldInUseVerityFrontend
         /// </summary>
         [TestMethod,
-        Owner(FeatherTeams.FeatherTeam),
+        Owner(FeatherTeams.SitefinityTeam6),
         TestCategory(FeatherTestCategories.Bootstrap),
         TestCategory(FeatherTestCategories.Forms)]
         public void DeleteFormFieldInUseVerityFrontend()

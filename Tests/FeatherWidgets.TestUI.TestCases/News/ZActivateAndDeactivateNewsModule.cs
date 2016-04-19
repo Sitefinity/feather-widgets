@@ -20,7 +20,7 @@ namespace FeatherWidgets.TestUI.TestCases.News
         /// Ignored because of bug ID 145065
         /// </summary>
         [TestMethod,
-        Owner(FeatherTeams.FeatherTeam),
+        Owner(FeatherTeams.SitefinityTeam7),
         TestCategory(FeatherTestCategories.PagesAndContent),
         TestCategory(FeatherTestCategories.News), Ignore]
         public void ZActivateAndDeactivateNewsModule()

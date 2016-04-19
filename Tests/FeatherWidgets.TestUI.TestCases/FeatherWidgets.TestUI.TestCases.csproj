@@ -164,6 +164,7 @@
     <Compile Include="ContentBlocks\AddContentBlockWidgetToPageTemplate.cs" />
     <Compile Include="ContentBlocks\AddContentBlockToTemplateBasedOnLayoutFile.cs" />
     <Compile Include="ContentBlocks\AddContentToContentBlockWidgetViaCreateContentOptionOnThePage.cs" />
+    <Compile Include="ContentBlocks\ContentBlockWidgetAdvancedSettingsWrapperCssClassProperty.cs" />
     <Compile Include="ContentBlocks\ContentBlockWidgetVerifyLinksInEditorToolbar.cs" />
     <Compile Include="ContentBlocks\DocumentSelector\CheckNavigationInDocumentSelector.cs" />
     <Compile Include="ContentBlocks\DocumentSelector\EditAllPropertiesOfSelectedDocumentAndSearch.cs" />
@@ -363,6 +364,7 @@
     <Compile Include="News\SelectNewsItemFromDifferentProviderInNewsWidget.cs" />
     <Compile Include="News\SelectNewsItemInNewsWidgetFromPage.cs" />
     <Compile Include="News\SelectSingleNewsPageAndVerifyFrontendPage.cs" />
+    <Compile Include="News\VerifyNewsItemsWhenOpenDetailsModeOfDynamicItem.cs" />
     <Compile Include="News\ZActivateAndDeactivateNewsModule.cs" />
     <Compile Include="Packaging\DynamicContent\ExportImportFlatModuleAllFieldsFrontendCheck.cs" />
     <Compile Include="Packaging\DynamicContent\ImportEditedFlatModuleAllFieldsWithNewType.cs" />

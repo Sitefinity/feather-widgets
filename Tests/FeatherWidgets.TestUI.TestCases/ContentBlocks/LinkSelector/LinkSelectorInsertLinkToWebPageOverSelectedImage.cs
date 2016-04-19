@@ -16,8 +16,8 @@ namespace FeatherWidgets.TestUI.TestCases.ContentBlocks.LinkSelector
         /// UI test LinkSelectorInsertLinkToWebPageOverSelectedImage
         /// </summary>
         [TestMethod,
-        Owner(FeatherTeams.FeatherTeam),
-        TestCategory(FeatherTestCategories.ContentBlock1),
+        Owner(FeatherTeams.SitefinityTeam7),
+        TestCategory(FeatherTestCategories.ContentBlock),
         TestCategory(FeatherTestCategories.LinkSelector)]
         public void LinkSelectorInsertLinkToWebPageOverSelectedImage()
         {

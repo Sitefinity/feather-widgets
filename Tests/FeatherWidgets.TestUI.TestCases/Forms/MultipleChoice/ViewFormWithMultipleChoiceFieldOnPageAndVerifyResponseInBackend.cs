@@ -18,7 +18,7 @@ namespace FeatherWidgets.TestUI.TestCases.Forms.MultipleChoice
         /// UI test ViewFormWithMultipleChoiceFieldOnPageAndVerifyResponseInBackend
         /// </summary>
         [TestMethod,
-        Owner(FeatherTeams.FeatherTeam),
+        Owner(FeatherTeams.SitefinityTeam6),
         TestCategory(FeatherTestCategories.Bootstrap),
         TestCategory(FeatherTestCategories.Forms)]
         public void ViewFormWithMultipleChoiceFieldOnPageAndVerifyResponseInBackend()

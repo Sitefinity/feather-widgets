@@ -24,15 +24,9 @@
             }
         };
 
-        $scope.updateSortOption = function (newSortOption) {
-            if (newSortOption !== "Custom") {
-                $scope.properties.SortExpression.PropertyValue = newSortOption;
-            }
-        };
-
         $scope.$watch(
             'eventSelector.selectedItemsIds',
-            function (newVal, oldVal) {	
+            function (newVal, oldVal) {
                 if (newVal !== oldVal) {
                     if (newVal) {
                         $scope.properties.SerializedSelectedItemsIds.PropertyValue = JSON.stringify(newVal);
@@ -41,7 +35,21 @@
             },
         true
         );
-  
+
+        $scope.$watch(
+            'properties.SelectionMode.PropertyValue',
+            function (newVal, oldVal) {
+                if (newVal !== oldVal) {
+                    if (newVal == 'SelectedItems') {
+                        $scope.selectedSortOption = 'AsSetManually';
+                    }
+                    else {
+                        $scope.selectedSortOption = 'EventStart ASC';
+                    }
+                }
+            },
+        true
+        );
 
         $scope.additionalFilters = {};
         $scope.$watch(
@@ -65,6 +73,13 @@
             true
         );
 
+        $scope.updateSortOption = function (newSortOption) {
+            if (newSortOption !== "Custom") {
+                $scope.selectedSortOption = newSortOption;
+                $scope.properties.SortExpression.PropertyValue = newSortOption;
+            }
+        };
+
         propertyService.get()
             .then(function (data) {
                 if (data) {
@@ -81,7 +96,15 @@
                         $scope.eventSelector.selectedItemsIds = selectedItemsIds;
                     }
 
-                    if (sortOptions.indexOf($scope.properties.SortExpression.PropertyValue) >= 0) {
+                    if ($scope.properties.SortExpression.PropertyValue === '') {
+                        if ($scope.properties.SelectionMode.PropertyValue === 'SelectedItems') {
+                            $scope.selectedSortOption = 'AsSetManually';
+                        }
+                        else {
+                            $scope.selectedSortOption = 'EventStart ASC';
+                        }
+                    }
+                    else if (sortOptions.indexOf($scope.properties.SortExpression.PropertyValue) >= 0) {
                         $scope.selectedSortOption = $scope.properties.SortExpression.PropertyValue;
                     }
                     else {
@@ -109,7 +132,8 @@
                         // If the sorting expression is AsSetManually but the selection mode is AllItems or FilteredItems, this is not a valid combination.
                         // So set the sort expression to the default value: PublicationDate DESC
                         if ($scope.properties.SortExpression.PropertyValue === 'AsSetManually') {
-                            $scope.properties.SortExpression.PropertyValue = 'PublicationDate DESC';
+                            $scope.properties.SortExpression.PropertyValue = 'EventStart ASC';
+                            $scope.selectedSortOption = 'EventStart ASC';
                         }
                     }
                     else {
@@ -117,6 +141,7 @@
                         $scope.properties.SerializedNarrowSelectionFilters.PropertyValue = null;
                     }
 
+                    $scope.properties.SortExpression.PropertyValue = $scope.selectedSortOption;
                 });
             })
             .finally(function () {

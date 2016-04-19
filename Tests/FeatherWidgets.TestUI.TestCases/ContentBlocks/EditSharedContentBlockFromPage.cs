@@ -19,8 +19,8 @@ namespace FeatherWidgets.TestUI.TestCases.ContentBlocks
         /// UI test EditSharedContentBlockFromPage
         /// </summary>
         [TestMethod,
-        Owner(FeatherTeams.FeatherTeam),
-        TestCategory(FeatherTestCategories.ContentBlock2)]
+        Owner(FeatherTeams.SitefinityTeam7),
+        TestCategory(FeatherTestCategories.ContentBlock)]
         public void EditSharedContentBlockFromPage()
         {
             BAT.Macros().NavigateTo().Pages(this.Culture);
