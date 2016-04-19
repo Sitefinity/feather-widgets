@@ -402,6 +402,27 @@ namespace FeatherWidgets.TestUtilities.CommonOperations
         }
 
         /// <summary>
+        /// Adds the login status widget to page.
+        /// </summary>
+        /// <param name="pageId">The page identifier.</param>
+        /// <param name="placeholder">The placeholder.</param>
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Naming", "CA1726:UsePreferredTerms", MessageId = "Login")]
+        public void AddLoginStatusWidgetToPage(Guid pageId, string placeholder)
+        {
+            PageManager pageManager = PageManager.GetManager();
+            pageManager.Provider.SuppressSecurityChecks = true;
+            var pageDataId = pageManager.GetPageNode(pageId).PageId;
+            var page = pageManager.EditPage(pageDataId, CultureInfo.CurrentUICulture);
+
+            using (var mvcWidget = new Telerik.Sitefinity.Mvc.Proxy.MvcControllerProxy())
+            {
+                mvcWidget.ControllerName = typeof(LoginStatusController).FullName;
+
+                this.CreateControl(pageManager, page, mvcWidget, "Login / Logout button", placeholder);
+            }
+        }
+
+        /// <summary>
         /// Add users list widget to existing page.
         /// </summary>
         /// <param name="pageId">The page id.</param>

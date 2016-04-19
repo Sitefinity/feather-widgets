@@ -90,5 +90,17 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Frontend.Identity
             ActiveBrowser.WaitUntilReady();
             ActiveBrowser.RefreshDomTree();
         }
+
+        /// <summary>
+        /// Presses the forgotten password link.
+        /// </summary>
+        public void PressForgottenPasswordLink()
+        {
+            HtmlAnchor forgottenPasswordLink = this.EM.Identity.LoginFormFrontend.ForgottenPassword.AssertIsPresent("Forgotten Password link");
+            forgottenPasswordLink.Click();
+
+            ActiveBrowser.WaitUntilReady();
+            ActiveBrowser.RefreshDomTree();
+        }
     }
 }
