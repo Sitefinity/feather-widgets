@@ -17,7 +17,7 @@ namespace FeatherWidgets.TestUI.TestCases.News
         /// UI test ReorderSelectedNewsItems.
         /// </summary>
         [TestMethod,
-        Owner(FeatherTeams.FeatherTeam),
+        Owner(FeatherTeams.SitefinityTeam7),
         TestCategory(FeatherTestCategories.PagesAndContent),
         TestCategory(FeatherTestCategories.News),
         TestCategory(FeatherTestCategories.Selectors)]

@@ -21,7 +21,7 @@ namespace FeatherWidgets.TestUI.TestCases.Forms.Forms
         /// UI test DeleteFormInUseVerifyFrontendHybrid
         /// </summary>
         [TestMethod,
-        Owner(FeatherTeams.FeatherTeam),
+        Owner(FeatherTeams.SitefinityTeam6),
         TestCategory(FeatherTestCategories.Forms)]
         public void DeleteFormInUseVerifyFrontendHybrid()
         {

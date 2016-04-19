@@ -19,7 +19,8 @@ namespace FeatherWidgets.TestUI.TestCases.ContentBlocks
         /// UI test ContentBlockWidgetOnPageBasedOnBootstrapTemplate
         /// </summary>
         [TestMethod,
-        Owner(FeatherTeams.FeatherTeam),
+        Ignore,
+        Owner(FeatherTeams.SitefinityTeam7),
         TestCategory(FeatherTestCategories.ContentBlock4),
         TestCategory(FeatherTestCategories.Bootstrap)]
         public void ContentBlockWidgetOnPageBasedOnBootstrapTemplate()
@@ -43,6 +44,7 @@ namespace FeatherWidgets.TestUI.TestCases.ContentBlocks
         /// UI test ContentBlockWidgetOnPageBasedOnFoundationTemplate
         /// </summary>
         [TestMethod,
+        Ignore,
         Owner(FeatherTeams.FeatherTeam),
         TestCategory(FeatherTestCategories.ContentBlock4),
         TestCategory(FeatherTestCategories.Foundation)]
@@ -67,6 +69,7 @@ namespace FeatherWidgets.TestUI.TestCases.ContentBlocks
         /// UI test ContentBlockWidgetOnPageBasedOnSemanticUITemplate
         /// </summary>
         [TestMethod,
+        Ignore,
         Owner(FeatherTeams.FeatherTeam),
         TestCategory(FeatherTestCategories.ContentBlock4),
         TestCategory(FeatherTestCategories.SemanticUI)]

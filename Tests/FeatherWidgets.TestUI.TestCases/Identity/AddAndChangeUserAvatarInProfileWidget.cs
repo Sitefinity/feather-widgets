@@ -16,7 +16,7 @@ namespace FeatherWidgets.TestUI.TestCases.Identity
         /// UI test AddAndChangeUserAvatarInProfileWidget
         /// </summary>
         [TestMethod,
-        Owner(FeatherTeams.FeatherTeam),
+        Owner(FeatherTeams.SitefinityTeam6),
         TestCategory(FeatherTestCategories.PagesAndContent),
         TestCategory(FeatherTestCategories.Profile),
         TestCategory(FeatherTestCategories.Bootstrap), Ignore]

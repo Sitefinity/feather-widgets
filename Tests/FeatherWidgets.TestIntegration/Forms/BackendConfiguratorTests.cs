@@ -26,7 +26,7 @@ namespace FeatherWidgets.TestIntegration.Forms
         /// </summary>
         [Test]
         [Category(TestCategories.Forms)]
-        [Author(FeatherTeams.FeatherTeam)]
+        [Author(FeatherTeams.SitefinityTeam6)]
         [Description("Ensures that checkboxes field backend cofigurator returns textbox when HasOtherChoice is enabled.")]
         public void CheckboxesConfigure_WithOtherChoice_RenderTextBox()
         {
@@ -55,7 +55,7 @@ namespace FeatherWidgets.TestIntegration.Forms
         /// </summary>
         [Test]
         [Category(TestCategories.Forms)]
-        [Author(FeatherTeams.FeatherTeam)]
+        [Author(FeatherTeams.SitefinityTeam6)]
         [Description("Ensures that checkboxes field backend cofigurator returns checkboxes when HasOtherChoice is disabled.")]
         public void CheckboxesConfigure_WithoutOtherChoice_RenderCheckboxes()
         {

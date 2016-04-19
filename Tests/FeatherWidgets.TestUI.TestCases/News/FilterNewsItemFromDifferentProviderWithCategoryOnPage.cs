@@ -15,7 +15,7 @@ namespace FeatherWidgets.TestUI.TestCases.News
         /// UI test FilterNewsItemFromDifferentProviderWithCategoryOnPage
         /// </summary>
         [TestMethod,
-        Owner(FeatherTeams.FeatherTeam),
+        Owner(FeatherTeams.SitefinityTeam7),
         TestCategory(FeatherTestCategories.News),
         TestCategory(FeatherTestCategories.Selectors)]
         public void FilterNewsItemFromDifferentProviderWithCategoryOnPage()

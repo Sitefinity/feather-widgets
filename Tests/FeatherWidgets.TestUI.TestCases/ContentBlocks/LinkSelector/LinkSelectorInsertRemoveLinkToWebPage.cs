@@ -15,8 +15,8 @@ namespace FeatherWidgets.TestUI.TestCases.ContentBlocks.LinkSelector
         /// UI test LinkSelectorInsertRemoveLinkToWebPage
         /// </summary>
         [TestMethod,
-        Owner(FeatherTeams.FeatherTeam),
-        TestCategory(FeatherTestCategories.ContentBlock2),
+        Owner(FeatherTeams.SitefinityTeam7),
+        TestCategory(FeatherTestCategories.ContentBlock),
         TestCategory(FeatherTestCategories.LinkSelector)]
         public void LinkSelectorInsertRemoveLinkToWebPage()        
         {

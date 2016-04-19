@@ -19,7 +19,7 @@ namespace FeatherWidgets.TestUI.TestCases.Forms.Forms
         /// UI test DeactivateAndUninstallMarketoModuleAndCreateAForm
         /// </summary>
         [TestMethod,
-        Owner(FeatherTeams.FeatherTeam)]
+        Owner(FeatherTeams.SitefinityTeam6)]
         public void DeactivateAndUninstallMarketoModuleAndCreateAForm()
         {
             BAT.Macros().User().EnsureAdminLoggedIn();

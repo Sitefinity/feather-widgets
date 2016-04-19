@@ -19,7 +19,7 @@ namespace FeatherWidgets.TestUI.TestCases.Forms.ContentBlock
         /// UI test ViewFormWithContentBlockOnPageAndVerifyResponseInBackend
         /// </summary>
         [TestMethod,
-        Owner(FeatherTeams.FeatherTeam),
+        Owner(FeatherTeams.SitefinityTeam6),
         TestCategory(FeatherTestCategories.Forms)]
         public void ViewFormWithContentBlockOnPageAndVerifyResponseInBackend()
         {

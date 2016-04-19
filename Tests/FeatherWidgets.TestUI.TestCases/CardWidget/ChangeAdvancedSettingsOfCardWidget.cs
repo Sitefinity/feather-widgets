@@ -18,7 +18,7 @@ namespace FeatherWidgets.TestUI.TestCases.CardWidget
         /// UI test ChangeAdvancedSettingsOfCardWidget
         /// </summary>
         [TestMethod,
-        Owner(FeatherTeams.FeatherTeam),
+        Owner(FeatherTeams.SitefinityTeam6),
         TestCategory(FeatherTestCategories.PagesAndContent),
         TestCategory(FeatherTestCategories.Card)]
         public void ChangeAdvancedSettingsOfCardWidget()
