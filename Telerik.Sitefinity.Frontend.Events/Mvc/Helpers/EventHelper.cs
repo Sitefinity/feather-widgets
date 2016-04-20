@@ -128,9 +128,18 @@ namespace Telerik.Sitefinity.Frontend.Events.Mvc.Helpers
 
         private static string BuildNonRecurringEvent(Event ev)
         {
+            if (ev.EventEnd.HasValue)
+                return BuildPeriodEvent(ev);
+            else
+                return BuildNonPeriodEvent(ev);
+        }
+
+        private static string BuildNonPeriodEvent(Event ev)
+        {
             var result = new StringBuilder();
 
-            var start = ev.EventStart.ToSitefinityUITime(); 
+            var start = ev.EventStart.ToSitefinityUITime();
+
             result.Append(BuildDayMonthYear(start));
 
             if (!ev.AllDayEvent)
@@ -141,26 +150,47 @@ namespace Telerik.Sitefinity.Frontend.Events.Mvc.Helpers
                 result.Append(BuildHourMinute(start));
             }
 
-            if (ev.EventEnd.HasValue)
+            return result.ToString();
+        }
+
+        private static string BuildPeriodEvent(Event ev)
+        {
+            var result = new StringBuilder();
+
+            var start = ev.EventStart.ToSitefinityUITime();
+            var end = ev.EventEnd.Value.ToSitefinityUITime();
+
+            result.Append(BuildDayMonthYear(start));
+            
+            if (start.Date == end.Date && !ev.AllDayEvent)
             {
-                var end = ev.EventEnd.Value.ToSitefinityUITime();
+                //// 2 March, 2016, 8 AM–8 PM
+                result.Append(Comma);
+                result.Append(WhiteSpace);
+                result.Append(BuildHourMinute(start));
                 result.Append(Dash);
-
-                if (!ev.AllDayEvent && start.Date == end.Date)
+                result.Append(BuildHourMinute(end));
+            }
+            else
+            {
+                //// 2 March, 2014 at 8 AM–3 March, 2016 at 8 PM
+                if (!ev.AllDayEvent)
                 {
-                    result.Append(BuildHourMinute(end));
+                    result.Append(WhiteSpace);
+                    result.Append(Res.Get<EventResources>().At);
+                    result.Append(WhiteSpace);
+                    result.Append(BuildHourMinute(start));
                 }
-                else
-                {
-                    result.Append(BuildDayMonthYear(end));
 
-                    if (!ev.AllDayEvent)
-                    {
-                        result.Append(WhiteSpace);
-                        result.Append(Res.Get<EventResources>().At);
-                        result.Append(WhiteSpace);
-                        result.Append(BuildHourMinute(end));
-                    }
+                result.Append(Dash);
+                result.Append(BuildDayMonthYear(end));
+
+                if (!ev.AllDayEvent)
+                {
+                    result.Append(WhiteSpace);
+                    result.Append(Res.Get<EventResources>().At);
+                    result.Append(WhiteSpace);
+                    result.Append(BuildHourMinute(end));
                 }
             }
 
