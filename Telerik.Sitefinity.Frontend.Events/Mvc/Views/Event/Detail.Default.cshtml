@@ -7,7 +7,7 @@
 <div class="@Model.CssClass" @Html.InlineEditingAttributes(Model.ProviderName, Model.ContentType.FullName, (Guid)Model.Item.Fields.Id)>
     <h3>
         <span @Html.InlineEditingFieldAttributes("Title", "ShortText")>@Model.Item.Fields.Title</span>
-        <span data-calendar-color="@Model.Item.EventCalendarColour()"></span>
+        <span style="background: @Model.Item.EventCalendarColour()"></span>
     </h3>
 
     @if (!string.IsNullOrEmpty(@Model.Item.EventDates())) {
