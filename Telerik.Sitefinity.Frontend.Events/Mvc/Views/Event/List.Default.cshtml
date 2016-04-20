@@ -18,14 +18,15 @@
                     <a @Html.InlineEditingFieldAttributes("Title", "ShortText") href="@navigateUrl">@item.Fields.Title</a>
                     <span data-calendar-color="@item.EventCalendarColour()" style="background-color:@item.EventCalendarColour()"></span>
                 </h3>
-                <div>
-                    <span>@item.EventDates()</span>
+                <p>
+                    <time>@item.EventDates()</time>
+
                     @if (!string.IsNullOrEmpty(item.Fields.City))
                     {
                         <span>, @item.Fields.City</span>
                     }
-                </div>
-                <div @Html.InlineEditingFieldAttributes("Summary", "LongText")>@Html.Raw(item.Fields.Summary)</div>
+                </p>
+                <p @Html.InlineEditingFieldAttributes("Summary", "LongText")>@Html.Raw(item.Fields.Summary)</p>
                 <div>@Html.CommentsCount((string)navigateUrl, item.DataItem)</div>
             </li>
         }
