@@ -26,6 +26,7 @@ using Telerik.Sitefinity.Web;
 using Telerik.Sitefinity.Web.Mail;
 using Telerik.Sitefinity.Security.Web.UI;
 using System.ComponentModel.DataAnnotations;
+using Telerik.Sitefinity.Services;
 
 namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.Registration
 {
@@ -216,13 +217,21 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.Registration
         public virtual string GetLoginPageUrl()
         {
             string result;
-            if (this.LoginPageId.HasValue)
+
+            if (SystemManager.IsPreviewMode || SystemManager.IsDesignMode)
             {
-                result = HyperLinkHelpers.GetFullPageUrl(this.LoginPageId.Value);
+                result = "javascript:void(0);";
             }
             else
             {
-                result = SitefinityContext.FrontendLoginUrl;
+                if (this.LoginPageId.HasValue)
+                {
+                    result = HyperLinkHelpers.GetFullPageUrl(this.LoginPageId.Value);
+                }
+                else
+                {
+                    result = SitefinityContext.FrontendLoginUrl;
+                }
             }
 
             return result;
