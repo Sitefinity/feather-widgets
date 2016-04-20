@@ -10,7 +10,8 @@
         <span style="background: @Model.Item.EventCalendarColour()"></span>
     </h3>
 
-    @if (!string.IsNullOrEmpty(@Model.Item.EventDates())) {
+    @if (!string.IsNullOrEmpty(Model.Item.EventDates())) 
+    {
     <p>
         <time>@Model.Item.EventDates()</time>
     </p>
@@ -63,8 +64,10 @@
 
     @if (!string.IsNullOrEmpty(Model.Item.Fields.Location))
     {        
-        <p> @*How to find us field*@
-        @Model.Item.Fields.Location</p>
+        <p> 
+            @*How to find us field*@
+            @Model.Item.Fields.Location
+        </p>
     }
 
     @if (!string.IsNullOrEmpty(Model.Item.Fields.Description))
@@ -74,12 +77,9 @@
         </p>
     }
 
-    @if (!string.IsNullOrEmpty(Model.Item.DataItem))
-    {        
-        <p>
-            @Html.CommentsCount(string.Empty, @Model.Item.DataItem)
-        </p>
-    }
+    <p>
+        @Html.CommentsCount(string.Empty, Model.Item.DataItem)
+    </p>
 
     
     @if (ViewBag.AllowCalendarExport)
@@ -109,6 +109,6 @@
         @Html.SocialShareOptions()
     }
 
-    @Html.CommentsList(@Model.Item.DataItem)
+    @Html.CommentsList(Model.Item.DataItem)
 
 </div>
