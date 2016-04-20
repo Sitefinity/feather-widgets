@@ -10,57 +10,76 @@
         <span data-calendar-color="@Model.Item.EventCalendarColour()"></span>
     </h3>
 
-    <div>
+    @if (!string.IsNullOrEmpty(@Model.Item.EventDates())) {
+    <p>
         <time>@Model.Item.EventDates()</time>
-    </div>
+    </p>
+    }
+    
+    @if (!string.IsNullOrEmpty(Model.Item.Fields.City) || !string.IsNullOrEmpty(Model.Item.Fields.Country))
+    {<address>
 
-    <address>
-        @if (!string.IsNullOrEmpty(Model.Item.Fields.City) || !string.IsNullOrEmpty(Model.Item.Fields.Country))
+        @if (!string.IsNullOrEmpty(Model.Item.Fields.City) && !string.IsNullOrEmpty(Model.Item.Fields.Country))
         {
+            <p>@Model.Item.Fields.City, @Model.Item.Fields.Country</p>
+        }
+        else
+        {
+            <p>@(string.IsNullOrEmpty(Model.Item.Fields.City) ? Model.Item.Fields.Country : Model.Item.Fields.City)</p>
+        }
 
-            if (!string.IsNullOrEmpty(Model.Item.Fields.City) && !string.IsNullOrEmpty(Model.Item.Fields.Country))
-            {
-                <p>@Model.Item.Fields.City, @Model.Item.Fields.Country</p>
-            }
-            else
-            {
-                <p>@(string.IsNullOrEmpty(Model.Item.Fields.City) ? Model.Item.Fields.Country : Model.Item.Fields.City)</p>
-            }
-
-            if (!string.IsNullOrEmpty(Model.Item.Fields.Street))
-            {
-                <p>@Model.Item.Fields.Street</p>
-            }
-
+        @if (!string.IsNullOrEmpty(Model.Item.Fields.Street))
+        {
+            <p>@Model.Item.Fields.Street</p>
         }
     </address>
-
-    <div>
+    }
+    
+    @if (!string.IsNullOrEmpty(Model.Item.Fields.ContactName))
+    {
         <p>@Model.Item.Fields.ContactName</p>
+    }
+
+    @if (!string.IsNullOrEmpty(Model.Item.Fields.ContactPhone))
+    {
         <p>@Model.Item.Fields.ContactPhone</p>
+    }
+
+    @if (!string.IsNullOrEmpty(Model.Item.Fields.ContactCell))
+    {
         <p>@Model.Item.Fields.ContactCell</p>
+    }
         
-        @if (!string.IsNullOrEmpty(Model.Item.Fields.ContactEmail))
-        {
-            <address><a href="mailto:@(Model.Item.Fields.ContactEmail)" target="_blank">@Model.Item.Fields.ContactEmail</a></address>
-        }
+    @if (!string.IsNullOrEmpty(Model.Item.Fields.ContactEmail))
+    {
+        <address><a href="mailto:@(Model.Item.Fields.ContactEmail)" target="_blank">@Model.Item.Fields.ContactEmail</a></address>
+    }
 
-        @if (!string.IsNullOrEmpty(Model.Item.Fields.ContactWeb))
-        {
-            <p><a href="@(Model.Item.Fields.ContactWeb)" target="_blank">@Model.Item.Fields.ContactWeb</a></p>
-        }
-        
+    @if (!string.IsNullOrEmpty(Model.Item.Fields.ContactWeb))
+    {
+        <a href="@(Model.Item.Fields.ContactWeb)" target="_blank">@Model.Item.Fields.ContactWeb</a>
+    }
+
+    @if (!string.IsNullOrEmpty(Model.Item.Fields.Location))
+    {        
         <p> @*How to find us field*@
-            @Model.Item.Fields.Location</p>
-    </div>
-        
-    <div>
-        @Html.CommentsCount(string.Empty, @Model.Item.DataItem)
-    </div>
+        @Model.Item.Fields.Location</p>
+    }
 
-    <div>
-        @Model.Item.Fields.Description
-    </div>
+    @if (!string.IsNullOrEmpty(Model.Item.Fields.Description))
+    {        
+        <p>
+            @Model.Item.Fields.Description
+        </p>
+    }
+
+    @if (!string.IsNullOrEmpty(Model.Item.DataItem))
+    {        
+        <p>
+            @Html.CommentsCount(string.Empty, @Model.Item.DataItem)
+        </p>
+    }
+
     
     @if (ViewBag.AllowCalendarExport)
     {
@@ -71,10 +90,16 @@
             <span><a href="@Model.Item.GenerateGoogleUrl()" target="_blank">@Html.Resource("GoogleEventExporterTitle")</a></span>
         </div>
     }
-    
-    <div @Html.InlineEditingFieldAttributes("Summary", "LongText")>@Html.Raw(Model.Item.Fields.Summary)</div>
 
-    <div @Html.InlineEditingFieldAttributes("Content", "LongText")>@Html.Raw(Model.Item.Fields.Content)</div>
+    @if (!string.IsNullOrEmpty(Model.Item.Fields.Summary))
+    {        
+        <p @Html.InlineEditingFieldAttributes("Summary", "LongText")>@Html.Raw(Model.Item.Fields.Summary)</p>
+    }
+
+    @if (!string.IsNullOrEmpty(Model.Item.Fields.Content))
+    {        
+        <p @Html.InlineEditingFieldAttributes("Content", "LongText")>@Html.Raw(Model.Item.Fields.Content)</p>
+    }
     
     @if (Model.EnableSocialSharing)
     {
@@ -82,4 +107,5 @@
     }
 
     @Html.CommentsList(@Model.Item.DataItem)
+
 </div>
