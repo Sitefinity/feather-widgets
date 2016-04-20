@@ -17,22 +17,23 @@
     }
     
     @if (!string.IsNullOrEmpty(Model.Item.Fields.City) || !string.IsNullOrEmpty(Model.Item.Fields.Country))
-    {<address>
+    {
+        <address>
 
-        @if (!string.IsNullOrEmpty(Model.Item.Fields.City) && !string.IsNullOrEmpty(Model.Item.Fields.Country))
-        {
-            <p>@Model.Item.Fields.City, @Model.Item.Fields.Country</p>
-        }
-        else
-        {
-            <p>@(string.IsNullOrEmpty(Model.Item.Fields.City) ? Model.Item.Fields.Country : Model.Item.Fields.City)</p>
-        }
+            @if (!string.IsNullOrEmpty(Model.Item.Fields.City) && !string.IsNullOrEmpty(Model.Item.Fields.Country))
+            {
+                <p>@Model.Item.Fields.City, @Model.Item.Fields.Country</p>
+            }
+            else
+            {
+                <p>@(string.IsNullOrEmpty(Model.Item.Fields.City) ? Model.Item.Fields.Country : Model.Item.Fields.City)</p>
+            }
 
-        @if (!string.IsNullOrEmpty(Model.Item.Fields.Street))
-        {
-            <p>@Model.Item.Fields.Street</p>
-        }
-    </address>
+            @if (!string.IsNullOrEmpty(Model.Item.Fields.Street))
+            {
+                <p>@Model.Item.Fields.Street</p>
+            }
+        </address>
     }
     
     @if (!string.IsNullOrEmpty(Model.Item.Fields.ContactName))
