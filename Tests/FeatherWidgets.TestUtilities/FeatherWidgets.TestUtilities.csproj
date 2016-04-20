@@ -226,6 +226,7 @@
     <Compile Include="CommonOperations\Forms\FeatherGlobals.cs" />
     <Compile Include="CommonOperations\Forms\FormFieldType.cs" />
     <Compile Include="CommonOperations\Forms\FormsOperations.cs" />
+    <Compile Include="CommonOperations\PageInvokerUserRegion.cs" />
     <Compile Include="CommonOperations\Pages\CommentsAndReviews.cs" />
     <Compile Include="CommonOperations\Pages\ContentBlockOperations.cs" />
     <Compile Include="CommonOperations\PageInvoker.cs" />

@@ -316,11 +316,13 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.LoginForm
             redirectUrl = string.Empty;
             try
             {
-                //There is two ways to redirect to another page
-                //First method is to combine realm param with redirect_uri param to get the full redirect url
-                //Example: ?realm=http://localhost:8086/&redirect_uri=/Sitefinity/Dashboard
-                //Second method is to get ReturnUrl param
-                //Example: ?ReturnUrl=http://localhost:8086/Sitefinity/Dashboard
+                ////There is few ways to redirect to another page
+                ////First method is to combine realm param with redirect_uri param to get the full redirect url
+                ////Example: ?realm=http://localhost:8086/&redirect_uri=/Sitefinity/Dashboard
+                ////Second method is to use only realm or redirect_uri param to get the full redirect url
+                ////Example: ?redirect_uri=http://localhost:8086/Sitefinity/Dashboard
+                ////Third method is to get ReturnUrl param
+                ////Example: ?ReturnUrl=http://localhost:8086/Sitefinity/Dashboard
                 Uri urlReferrer = context.Request.UrlReferrer;
                 if (urlReferrer != null)
                 {

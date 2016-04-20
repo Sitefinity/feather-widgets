@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Linq;
+using System.Web;
 using FeatherWidgets.TestUtilities.CommonOperations;
 using MbUnit.Framework;
+using Telerik.Sitefinity.Frontend.ContentBlock.Mvc.Controllers;
 using Telerik.Sitefinity.Frontend.Identity.Mvc.Controllers;
 using Telerik.Sitefinity.Frontend.Identity.Mvc.Models.LoginForm;
 using Telerik.Sitefinity.Frontend.TestUtilities;
@@ -24,21 +26,18 @@ namespace FeatherWidgets.TestIntegration.Identity.LoginForm
         [Description("Checks whether authenticating with login form's model will result in current identity with correctly set claim type properties.")]
         public void AuthenticateUser_IdentityHasClaimTypes()
         {
-            const string UserName = "AuthenticateUser_IdentityHasClaimTypes";
-            const string Password = "admin@2";
-
             SecurityManager.Logout();
 
-            SitefinityTestUtilities.ServerOperations.Users().CreateUser(UserName, Password, "mymail12345@mail.com", "test", "test", true, "AuthenticateUser", "IdentityHasClaimTypes", SecurityConstants.AppRoles.FrontendUsers);
+            SitefinityTestUtilities.ServerOperations.Users().CreateUser(this.userName, this.password, "mymail12345@mail.com", "test", "test", true, "AuthenticateUser", "IdentityHasClaimTypes", SecurityConstants.AppRoles.FrontendUsers);
 
             try
             {
                 var model = new LoginFormModel();
-                model.Authenticate(new LoginFormViewModel() { UserName = UserName, Password = Password }, SystemManager.CurrentHttpContext);
+                model.Authenticate(new LoginFormViewModel() { UserName = this.userName, Password = this.password }, SystemManager.CurrentHttpContext);
 
                 var currentIdentity = ClaimsManager.GetCurrentIdentity();
 
-                Assert.AreEqual(UserName, currentIdentity.Name, "The name of the current identity did not match the user.");
+                Assert.AreEqual(this.userName, currentIdentity.Name, "The name of the current identity did not match the user.");
                 Assert.IsNotNull(currentIdentity.NameClaimType, "NameClaimType was not set in the current identity.");
                 Assert.IsNotNull(currentIdentity.RoleClaimType, "RoleClaimType was not set in the current identity.");
                 Assert.AreEqual("http://schemas.xmlsoap.org/ws/2005/05/identity/claims/name", currentIdentity.NameClaimType, "NameClaimType did not have the expected value.");
@@ -47,17 +46,18 @@ namespace FeatherWidgets.TestIntegration.Identity.LoginForm
             finally
             {
                 SecurityManager.Logout();
-                SitefinityTestUtilities.ServerOperations.Users().DeleteUsers(new[] { UserName });
+                SitefinityTestUtilities.ServerOperations.Users().DeleteUsers(new[] { this.userName });
             }
         }
 
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Globalization", "CA1305:SpecifyIFormatProvider", MessageId = "System.String.Format(System.String,System.Object)"), Test]
         [Author(FeatherTeams.FeatherTeam)]
         [Description("Checks whether redirect url is preserved in form action attribute.")]
         public void PostForm_RedirectUrlIsPreserved()
         {
             string loginFormPageUrl = UrlPath.ResolveAbsoluteUrl("~/" + this.urlNamePrefix + this.pageIndex);
-            var redirectQuery = "?RedirectUrl=myRedirectUrl";
+            var redirectURL = "http://localhost/";
+            var redirectQuery = "?RedirectUrl=";
+            var fullQueryString = redirectQuery + redirectURL;
             this.pageOperations = new PagesOperations();
 
             var userId = ClaimsManager.GetCurrentUserId();
@@ -73,10 +73,16 @@ namespace FeatherWidgets.TestIntegration.Identity.LoginForm
                 this.pageOperations.CreatePageWithControl(mvcProxy, this.pageNamePrefix, this.pageTitlePrefix, this.urlNamePrefix, this.pageIndex);
 
                 SecurityManager.Logout();
-                var responseContent = PageInvoker.ExecuteWebRequest(loginFormPageUrl + redirectQuery);
+                var responseContent = PageInvoker.ExecuteWebRequest(loginFormPageUrl + fullQueryString);
 
-                var expectedActionUrl = this.urlNamePrefix + this.pageIndex + redirectQuery;
-                Assert.IsTrue(responseContent.Contains(string.Format("action=\"{0}\"", expectedActionUrl)), "The action URL no longer contains redirect URL");
+                int startPosition = responseContent.IndexOf(this.actionSearchString, StringComparison.OrdinalIgnoreCase) + this.actionSearchString.Length;
+                Assert.IsTrue(startPosition > 0, "The page is not containing a form with action!");
+
+                int endPosition = responseContent.IndexOf(' ', startPosition);
+                string actionValue = responseContent.Substring(startPosition, endPosition - startPosition);
+                string searchValue = redirectQuery + HttpUtility.UrlEncode(redirectURL);
+
+                Assert.IsTrue(actionValue.Contains(searchValue), "The action URL no longer contains ReturnUrl");
             }
             finally
             {
@@ -87,7 +93,8 @@ namespace FeatherWidgets.TestIntegration.Identity.LoginForm
             }
         }
 
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Globalization", "CA1305:SpecifyIFormatProvider", MessageId = "System.String.Format(System.String,System.Object)"), System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Naming", "CA1726:UsePreferredTerms", MessageId = "Login"), Test]
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Globalization", "CA1305:SpecifyIFormatProvider", MessageId = "System.String.Format(System.String,System.Object)"), 
+            System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Naming", "CA1726:UsePreferredTerms", MessageId = "Login"), Test]
         [Author(FeatherTeams.FeatherTeam)]
         [Description("Checks whether login form will submit only to its post action.")]
         public void PostForm_Login_PostsItselfOnly()
@@ -108,7 +115,8 @@ namespace FeatherWidgets.TestIntegration.Identity.LoginForm
                 this.pageOperations.AddLoginFormWidgetToPage(pageId, "Contentplaceholder1");
 
                 SecurityManager.Logout();
-                var responseContent = PageInvoker.ExecuteWebRequest(loginFormPageUrl);
+                
+                var responseContent = PageInvoker.ExecuteWebRequest(loginFormPageUrl, false);
 
                 var expectedActionUrl = "?sf_cntrl_id=";
                 Assert.IsTrue(responseContent.Contains(string.Format("action=\"{0}", expectedActionUrl)), "The action URL doesn't contain controller ID.");
@@ -127,11 +135,225 @@ namespace FeatherWidgets.TestIntegration.Identity.LoginForm
             }
         }
 
+        [Test]
+        [Author(FeatherTeams.FeatherTeam)]
+        [Description("Checks whether login form redirects after login on the page set by LoginRedirectPageId.")]
+        public void PostForm_LogOnLogOff()
+        {
+            string loginFormPageUrl = UrlPath.ResolveAbsoluteUrl("~/" + this.urlNamePrefix + this.pageIndex);
+            this.pageOperations = new PagesOperations();
+            var userId = ClaimsManager.GetCurrentUserId();
+            var user = UserManager.GetManager().GetUser(userId);
+
+            try
+            {
+                ////Create page with login form and set LoginRedirectPageId to the newly created page above
+                var mvcProxy = new MvcControllerProxy();
+                mvcProxy.ControllerName = typeof(LoginFormController).FullName;
+                var loginFormController = new LoginFormController();
+                mvcProxy.Settings = new ControllerSettings(loginFormController);
+                this.pageOperations.CreatePageWithControl(mvcProxy, this.pageNamePrefix, this.pageTitlePrefix, this.urlNamePrefix, this.pageIndex);
+
+                SecurityManager.Logout();
+
+                ////create new user to Authenticate against newly created login form
+                SitefinityTestUtilities.ServerOperations.Users().CreateUser(this.userName, this.password, "mymail12345@mail.com", "test", "test", true, "AuthenticateUser", "IdentityHasClaimTypes", SecurityConstants.AppRoles.FrontendUsers);
+
+                string postString = "UserName=" + this.userName + "&Password=" + this.password;
+                using (PageInvokerRegion region = new PageInvokerRegion())
+                {
+                    var responseContent = PageInvoker.PostWebRequest(loginFormPageUrl, postString, false);
+                    Assert.IsTrue(responseContent.Contains("You are already logged in"), "The user was not logged in properly on the login form!");
+
+                    string logOutUrl = "http://localhost/Sitefinity/SignOut?sts_signout=true&redirect_uri=http://localhost/" + this.urlNamePrefix + this.pageIndex;
+                    responseContent = PageInvoker.ExecuteWebRequest(logOutUrl, false);
+                    Assert.IsFalse(responseContent.Contains("You are already logged in"), "User was not logget out!");
+                }
+            }
+            finally
+            {
+                using (new AuthenticateUserRegion(user))
+                {
+                    this.pageOperations.DeletePages();
+                }
+
+                SecurityManager.Logout();
+                SitefinityTestUtilities.ServerOperations.Users().DeleteUsers(new[] { this.userName });
+            }
+        }
+
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Globalization", "CA1305:SpecifyIFormatProvider", MessageId = "System.String.Format(System.String,System.Object)"),
+            System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Naming", "CA1726:UsePreferredTerms", MessageId = "Login"), Test]
+        [Author(FeatherTeams.FeatherTeam)]
+        [Description("Checks whether login form redirects after login on a page with property LoginRedirectPageId set.")]
+        public void PostForm_LoginRedirectPageId()
+        {
+            string loginFormPageUrl = UrlPath.ResolveAbsoluteUrl("~/" + this.urlNamePrefix + this.pageIndex);
+            this.pageOperations = new PagesOperations();
+            var userId = ClaimsManager.GetCurrentUserId();
+            var user = UserManager.GetManager().GetUser(userId);
+
+            try
+            {
+                ////Create simple page with a content block to redirect on it
+                var mvcProxyContentBlock = new MvcControllerProxy();
+                mvcProxyContentBlock.ControllerName = typeof(ContentBlockController).FullName;
+                var contentBlockController = new ContentBlockController();
+                contentBlockController.Content = this.searchValueFirst;
+                mvcProxyContentBlock.Settings = new ControllerSettings(contentBlockController);
+                Guid contentBlockPageID = this.pageOperations.CreatePageWithControl(
+                    mvcProxyContentBlock, this.pageNamePrefixContentBlockPage, this.pageTitlePrefixContentBlockPage, this.urlNamePrefixContentBlockPage, this.pageIndexContentBlockFirstPage);
+
+                ////Create page with login form and set LoginRedirectPageId to the newly created page above
+                var mvcProxy = new MvcControllerProxy();
+                mvcProxy.ControllerName = typeof(LoginFormController).FullName;
+                var loginFormController = new LoginFormController();
+                loginFormController.Model.LoginRedirectPageId = contentBlockPageID;
+                mvcProxy.Settings = new ControllerSettings(loginFormController);
+                this.pageOperations.CreatePageWithControl(mvcProxy, this.pageNamePrefix, this.pageTitlePrefix, this.urlNamePrefix, this.pageIndex);
+
+                SecurityManager.Logout();
+
+                ////create new user to Authenticate against newly created login form
+                SitefinityTestUtilities.ServerOperations.Users().CreateUser(this.userName, this.password, "mymail12345@mail.com", "test", "test", true, "AuthenticateUser", "IdentityHasClaimTypes", SecurityConstants.AppRoles.FrontendUsers);
+
+                string postString = "UserName=" + this.userName + "&Password=" + this.password;
+                var responseContent = PageInvoker.PostWebRequest(loginFormPageUrl, postString, false);
+
+                Assert.IsTrue(responseContent.Contains(this.searchValueFirst), "The request was not redirected to the proper page set in LoginRedirectPageId!");
+            }
+            finally
+            {
+                using (new AuthenticateUserRegion(user))
+                {
+                    this.pageOperations.DeletePages();
+                }
+
+                SecurityManager.Logout();
+                SitefinityTestUtilities.ServerOperations.Users().DeleteUsers(new[] { this.userName });
+            }
+        }
+
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Globalization", "CA1305:SpecifyIFormatProvider", MessageId = "System.String.Format(System.String,System.Object)"),
+            System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Naming", "CA1726:UsePreferredTerms", MessageId = "Login"), Test]
+        [Author(FeatherTeams.FeatherTeam)]
+        [Description("Checks whether login form redirects on return url after login.")]
+        public void PostForm_LoginRedirectFromQueryString()
+        {
+            string loginFormPageUrl = UrlPath.ResolveAbsoluteUrl("~/" + this.urlNamePrefix + this.pageIndex);
+            this.pageOperations = new PagesOperations();
+            var userId = ClaimsManager.GetCurrentUserId();
+            var user = UserManager.GetManager().GetUser(userId);
+
+            try
+            {
+                var mvcProxyContentBlock = new MvcControllerProxy();
+                mvcProxyContentBlock.ControllerName = typeof(ContentBlockController).FullName;
+
+                ////Create first simple page with a content block to redirect on it
+                var contentBlockController = new ContentBlockController();
+                contentBlockController.Content = this.searchValueFirst;
+                mvcProxyContentBlock.Settings = new ControllerSettings(contentBlockController);
+                this.pageOperations.CreatePageWithControl(
+                    mvcProxyContentBlock, this.pageNamePrefixContentBlockPage, this.pageTitlePrefixContentBlockPage, this.urlNamePrefixContentBlockPage, this.pageIndexContentBlockFirstPage);
+
+                ////Create second simple page with a content block to redirect on it
+                var contentBlockControllerSecond = new ContentBlockController();
+                contentBlockControllerSecond.Content = this.searchValueSecond;
+                mvcProxyContentBlock.Settings = new ControllerSettings(contentBlockControllerSecond);
+                this.pageOperations.CreatePageWithControl(
+                    mvcProxyContentBlock, this.pageNamePrefixContentBlockPage, this.pageTitlePrefixContentBlockPage, this.urlNamePrefixContentBlockPage, this.pageIndexContentBlockSecondPage);
+
+                ////Create page with login form
+                var mvcProxy = new MvcControllerProxy();
+                mvcProxy.ControllerName = typeof(LoginFormController).FullName;
+                var loginFormController = new LoginFormController();
+                mvcProxy.Settings = new ControllerSettings(loginFormController);
+                this.pageOperations.CreatePageWithControl(mvcProxy, this.pageNamePrefix, this.pageTitlePrefix, this.urlNamePrefix, this.pageIndex);
+
+                SecurityManager.Logout();
+
+                ////create new user to Authenticate against newly created login form
+                SitefinityTestUtilities.ServerOperations.Users().CreateUser(this.userName, this.password, "mymail12345@mail.com", "test", "test", true, "AuthenticateUser", "IdentityHasClaimTypes", SecurityConstants.AppRoles.FrontendUsers);
+
+                ////There is few ways to redirect to another page
+                ////First method is to combine realm param with redirect_uri param to get the full redirect url
+                ////Example: ?realm=http://localhost:8086/&redirect_uri=/Sitefinity/Dashboard
+                ////Second method is to use only realm or redirect_uri param to get the full redirect url
+                ////Example: ?redirect_uri=http://localhost:8086/Sitefinity/Dashboard
+                ////Third method is to get ReturnUrl param
+                ////Example: ?ReturnUrl=http://localhost:8086/Sitefinity/Dashboard
+
+                string postString = "UserName=" + this.userName + "&Password=" + this.password;
+                string responseContent;
+
+                using (PageInvokerRegion region = new PageInvokerRegion())
+                {
+                    string testURL1 = loginFormPageUrl + "?redirect_uri=" + this.urlNamePrefixContentBlockPage + this.pageIndexContentBlockFirstPage + "&realm=http://localhost/"
+                        + "&ReturnUrl=http://localhost/" + this.urlNamePrefixContentBlockPage + this.pageIndexContentBlockSecondPage;
+
+                    responseContent = PageInvoker.ExecuteWebRequest(testURL1, false);
+                    responseContent = PageInvoker.PostWebRequest(testURL1, postString, false);
+                    
+                    Assert.IsTrue(responseContent.Contains(this.searchValueFirst), "The request was not redirected to the proper page set in request url!");
+                }
+
+                using (PageInvokerRegion region = new PageInvokerRegion())
+                {
+                    string testURL2 = loginFormPageUrl + "?realm=http://localhost/" + this.urlNamePrefixContentBlockPage + this.pageIndexContentBlockFirstPage;
+                    responseContent = PageInvoker.ExecuteWebRequest(testURL2, false);
+                    responseContent = PageInvoker.PostWebRequest(testURL2, postString, false);
+
+                    Assert.IsTrue(responseContent.Contains(this.searchValueFirst), "The request was not redirected to the proper page set in request url!");
+                }
+
+                using (PageInvokerRegion region = new PageInvokerRegion())
+                {
+                    string testURL3 = loginFormPageUrl + "?redirect_uri=http://localhost/" + this.urlNamePrefixContentBlockPage + this.pageIndexContentBlockFirstPage;
+                    responseContent = PageInvoker.ExecuteWebRequest(testURL3, false);
+                    responseContent = PageInvoker.PostWebRequest(testURL3, postString, false);
+
+                    Assert.IsTrue(responseContent.Contains(this.searchValueFirst), "The request was not redirected to the proper page set in request url!");
+                }
+
+                using (PageInvokerRegion region = new PageInvokerRegion())
+                {
+                    string testURL4 = loginFormPageUrl + "?ReturnUrl=http://localhost/" + this.urlNamePrefixContentBlockPage + this.pageIndexContentBlockSecondPage;
+                    responseContent = PageInvoker.ExecuteWebRequest(testURL4, false);
+                    responseContent = PageInvoker.PostWebRequest(testURL4, postString, false);
+
+                    Assert.IsTrue(responseContent.Contains(this.searchValueSecond), "The request was not redirected to the proper page set in request url!");
+                }
+            }
+            finally
+            {
+                using (new AuthenticateUserRegion(user))
+                {
+                    this.pageOperations.DeletePages();
+                }
+
+                SecurityManager.Logout();
+                SitefinityTestUtilities.ServerOperations.Users().DeleteUsers(new[] { this.userName });
+            }
+        }
+
+        private string userName = "AuthenticateUser_IdentityHasClaimTypes";
+        private string password = "admin@2";
+
         private string templateName = "Bootstrap.default";
         private string pageNamePrefix = "LoginFormPage";
         private string pageTitlePrefix = "Login Form";
         private string urlNamePrefix = "login-form";
+        private string actionSearchString = "action=";
         private int pageIndex = 1;
+
+        private string pageNamePrefixContentBlockPage = "ContentBlockPage";
+        private string pageTitlePrefixContentBlockPage = "Content Block";
+        private string urlNamePrefixContentBlockPage = "content-block";
+        private string searchValueFirst = "Realm Page Text";
+        private string searchValueSecond = "ReturnUrl Page Text";
+        private int pageIndexContentBlockFirstPage = 1;
+        private int pageIndexContentBlockSecondPage = 2;
 
         private PagesOperations pageOperations;
     }
