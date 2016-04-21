@@ -737,17 +737,17 @@ namespace Telerik.Sitefinity.Frontend.Events.Mvc.StringResources
         }
 
         /// <summary>
-        /// Gets phrase : Display past events start in...
+        /// Gets phrase : Display past events end in...
         /// </summary>
-        [ResourceEntry("DisplayPastStartsIn",
-            Value = "Display past events start in...",
-            Description = "phrase : Display past events start in...",
+        [ResourceEntry("DisplayPastEndsIn",
+            Value = "Display past events end in...",
+            Description = "phrase : Display past events end in...",
             LastModified = "2016/04/07")]
-        public string DisplayPastStartsIn
+        public string DisplayPastEndsIn
         {
             get
             {
-                return this["DisplayPastStartsIn"];
+                return this["DisplayPastEndsIn"];
             }
         }
 
