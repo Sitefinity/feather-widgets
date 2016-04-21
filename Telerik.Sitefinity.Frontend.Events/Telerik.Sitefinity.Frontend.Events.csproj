@@ -178,10 +178,10 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
-    <EmbeddedResource Include="Mvc\Views\Event\List.Default.cshtml" />
+    <EmbeddedResource Include="Mvc\Views\Event\List.EventsList.cshtml" />
     <EmbeddedResource Include="Mvc\Views\Event\DesignerView.Simple.cshtml" />
     <EmbeddedResource Include="Mvc\Views\Event\DesignerView.Simple.json" />
-    <EmbeddedResource Include="Mvc\Views\Event\Detail.Default.cshtml" />
+    <EmbeddedResource Include="Mvc\Views\Event\Detail.EventDetails.cshtml" />
     <None Include="packages.config">
       <SubType>Designer</SubType>
     </None>
