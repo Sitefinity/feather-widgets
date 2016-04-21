@@ -136,7 +136,7 @@ namespace FeatherWidgets.TestIntegration.Events
 
             string detailTemplate = "DetailPageNew";
             var templateOperation = new TemplateOperations();
-            var detailTemplatePath = Path.Combine(templateOperation.SfPath, "ResourcePackages", "Bootstrap", "MVC", "Views", "Event", "Detail.Default.cshtml");
+            var detailTemplatePath = Path.Combine(templateOperation.SfPath, "ResourcePackages", "Bootstrap", "MVC", "Views", "Event", "Detail.EventDetails.cshtml");
             var newDetailTemplatePath = Path.Combine(templateOperation.SfPath, "MVC", "Views", "Shared", "Detail.DetailPageNew.cshtml");
 
             try

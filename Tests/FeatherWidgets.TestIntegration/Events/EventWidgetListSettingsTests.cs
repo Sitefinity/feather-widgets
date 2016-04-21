@@ -186,7 +186,7 @@ namespace FeatherWidgets.TestIntegration.Events
 
             string listTemplate = "ListPageNew";
             var templateOperation = new TemplateOperations();
-            var listTemplatePath = Path.Combine(templateOperation.SfPath, "ResourcePackages", "Bootstrap", "MVC", "Views", "Event", "List.Default.cshtml");
+            var listTemplatePath = Path.Combine(templateOperation.SfPath, "ResourcePackages", "Bootstrap", "MVC", "Views", "Event", "List.EventsList.cshtml");
             var newListTemplatePath = Path.Combine(templateOperation.SfPath, "MVC", "Views", "Shared", "List.ListPageNew.cshtml");
 
             try
