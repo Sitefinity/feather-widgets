@@ -60,5 +60,19 @@ namespace Feather.Widgets.TestUI.Framework.Framework.ElementMap.Identity
                 return this.Get<HtmlDiv>("tagname=div", "InnerText=~This is the page where you have dropped Registration widget", "class=form-group");
             }
         }
+
+        /// <summary>
+        /// Gets the reset password checkbox.
+        /// </summary>
+        /// <value>
+        /// The reset password checkbox.
+        /// </value>
+        public HtmlInputCheckBox ResetPasswordCheckbox
+        {
+            get
+            {
+                return this.Get<HtmlInputCheckBox>("ng-model=properties.AllowResetPassword.PropertyValue");
+            }
+        }
     }
 }

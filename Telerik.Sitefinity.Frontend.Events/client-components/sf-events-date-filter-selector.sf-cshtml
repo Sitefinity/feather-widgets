@@ -1,4 +1,4 @@
-﻿<sf-date-filter sf-query-data="sfQueryData"
+﻿<sf-date-filter class="checkbox" sf-query-data="sfQueryData"
     sf-group-logical-operator="OR"
     sf-item-logical-operator="AND"
     sf-query-field-name="EventStart"
@@ -20,7 +20,7 @@
     </label>
 </div>
 
-<sf-date-filter sf-query-data="sfQueryData"
+<sf-date-filter class="checkbox" sf-query-data="sfQueryData"
     sf-group-logical-operator="OR"
     sf-item-logical-operator="AND"
     sf-query-field-name="EventStart"
