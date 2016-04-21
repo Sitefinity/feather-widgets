@@ -110,5 +110,19 @@ namespace Feather.Widgets.TestUI.Framework.Framework.ElementMap.Identity
                 return this.Get<HtmlAnchor>("TagName=a", "InnerText=Register now");
             }
         }
+
+        /// <summary>
+        /// Gets the forgotten password.
+        /// </summary>
+        /// <value>
+        /// The forgotten password.
+        /// </value>
+        public HtmlAnchor ForgottenPassword
+        {
+            get
+            {
+                return this.Get<HtmlAnchor>("TagName=a", "InnerText=Forgotten Password");
+            }
+        }
     }
 }
