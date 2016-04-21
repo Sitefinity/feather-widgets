@@ -45,5 +45,19 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend.Identity
             ActiveBrowser.WaitUntilReady();
             ActiveBrowser.WaitForAsyncOperations();
         }
+
+
+        /// <summary>
+        /// Selects the allow user to reset password checkbox.
+        /// </summary>
+        public void SelectAllowUserToResetPasswordCheckbox()
+        {
+            var checkbox = EM.Identity.LoginFormEditScreen.ResetPasswordCheckbox.AssertIsPresent("Allow users to reset password");
+
+            checkbox.Click();
+
+            ActiveBrowser.WaitUntilReady();
+            ActiveBrowser.WaitForAsyncOperations();
+        }
     }
 }
