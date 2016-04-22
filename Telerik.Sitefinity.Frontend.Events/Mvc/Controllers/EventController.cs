@@ -220,8 +220,8 @@ namespace Telerik.Sitefinity.Frontend.Events.Mvc.Controllers
         private IEventModel model;
         private bool openInSamePage = true;
 
-        private string listTemplateName = "Default";
-        private string detailTemplateName = "Default";
+        private string listTemplateName = "EventsList";
+        private string detailTemplateName = "EventDetails";
         private bool? disableCanonicalUrlMetaTag;
     }
 }
