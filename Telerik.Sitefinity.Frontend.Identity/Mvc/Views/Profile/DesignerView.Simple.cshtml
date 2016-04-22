@@ -46,7 +46,7 @@
                 <select id="templateName" ng-model="properties.EditModeTemplateName.PropertyValue" class="form-control">
                         @foreach (var viewName in Html.GetViewNames("Profile", @"Edit\.(?<viewName>\w*)$"))
                     {
-                        <option value="@viewName">@viewName</option>
+                        <option value="@viewName"> @viewName.SplitCamelCase()</option>
                     }
                 </select>
             </div>
@@ -62,7 +62,7 @@
                 <select id="templateName" ng-model="properties.ReadModeTemplateName.PropertyValue" class="form-control">
                         @foreach (var viewName in Html.GetViewNames("Profile", @"Read\.(?<viewName>\w*)$"))
                     {
-                        <option value="@viewName">@viewName</option>
+                        <option value="@viewName"> @viewName.SplitCamelCase()</option>
                     }
                 </select>
             </div>
@@ -104,7 +104,7 @@
                     <select id="templateName" ng-model="properties.ReadModeTemplateName.PropertyValue" class="form-control">
                             @foreach (var viewName in Html.GetViewNames("Profile", @"Read\.(?<viewName>\w*)$"))
                         {
-                            <option value="@viewName">@viewName</option>
+                            <option value="@viewName"> @viewName.SplitCamelCase()</option>
                         }
                     </select>
                 </div>
@@ -118,7 +118,7 @@
                     <select id="templateName" ng-model="properties.EditModeTemplateName.PropertyValue" class="form-control">
                             @foreach (var viewName in Html.GetViewNames("Profile", @"Edit\.(?<viewName>\w*)$"))
                         {
-                            <option value="@viewName">@viewName</option>
+                            <option value="@viewName"> @viewName.SplitCamelCase()</option>
                         }
                     </select>
                 </div>
