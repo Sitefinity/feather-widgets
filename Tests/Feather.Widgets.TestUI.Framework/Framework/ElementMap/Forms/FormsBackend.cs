@@ -447,7 +447,7 @@ namespace Feather.Widgets.TestUI.Framework.Framework.ElementMap.Forms
         {
             get
             {
-                return this.Get<HtmlAnchor>("tagname=a", "class=ng-binding", "InnerText=Settings");
+                return this.Get<HtmlAnchor>("tagname=a", "class=~ng-binding", "InnerText=Settings");
             }
         }
 
