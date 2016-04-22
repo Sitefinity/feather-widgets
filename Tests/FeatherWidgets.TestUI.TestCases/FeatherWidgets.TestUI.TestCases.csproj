@@ -171,6 +171,7 @@
     <Compile Include="ContentBlocks\DocumentSelector\EditAndChangeSelectedDocument.cs" />
     <Compile Include="ContentBlocks\DocumentSelector\InsertDocumentFromAlreadyUploaded.cs" />
     <Compile Include="ContentBlocks\DocumentSelector\UploadDocumentWithCategoryAndTag.cs" />
+    <Compile Include="ContentBlocks\EditContentBlockWidgetWithCustomTemplate.cs" />
     <Compile Include="ContentBlocks\ImageSelector\CheckNavigationInImageSelector.cs" />
     <Compile Include="ContentBlocks\ImageSelector\EditAllPropertiesOfSelectedImageAndSearch.cs" />
     <Compile Include="ContentBlocks\ImageSelector\UploadImageWithCategoryAndTag.cs" />
