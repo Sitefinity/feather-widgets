@@ -84,7 +84,7 @@
         </div>
 
         <div>
-            @if (SystemManager.IsPreviewMode || SystemManager.IsDesignMode)
+            @if (SystemManager.IsDesignMode)
             {
                 <input data-sf-role="profile-submit" type="button" value='@Html.Resource("EditProfileSave")' />
                 <a href="javascript:void(0);">@Html.Resource("EditProfileCancel")</a>
@@ -95,6 +95,11 @@
                 @Html.ActionLink(Html.Resource("EditProfileCancel"), "Index")
             }
         </div>
+        
+        if (SystemManager.IsPreviewMode)
+        {
+            <span data-sf-role="profile-submit-preview-message" style="display:none">@Html.Resource("PreviewProfileSaveMessage")</span>
+        }
     }
 </div>
 
