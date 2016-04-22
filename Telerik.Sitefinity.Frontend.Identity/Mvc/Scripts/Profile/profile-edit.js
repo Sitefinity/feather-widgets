@@ -37,5 +37,9 @@
         $('[data-sf-role=edit-profile-upload-picture-button]').click(function () {
             fileInput.click();
         });
+
+        $('[data-sf-role=profile-submit]').click(function () {
+            $('[data-sf-role=profile-submit-preview-message]').show();
+        });
     });
 }(jQuery));

@@ -86,7 +86,7 @@
             </div>
 
             <div>
-                @if (SystemManager.IsPreviewMode || SystemManager.IsDesignMode)
+                @if (SystemManager.IsDesignMode && !SystemManager.IsPreviewMode)
                 {
                     <input type="button" value="@Html.Resource("Register")" />
                 }
