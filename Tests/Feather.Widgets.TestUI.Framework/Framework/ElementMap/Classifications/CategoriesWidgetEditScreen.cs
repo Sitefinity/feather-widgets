@@ -28,7 +28,7 @@ namespace Feather.Widgets.TestUI.Framework.Framework.ElementMap.Classifications
         {
             get
             {
-                return this.Get<HtmlAnchor>("class=ng-binding", "Innertext=Settings");
+                return this.Get<HtmlAnchor>("class=~ng-binding", "Innertext=Settings");
             }
         }
 
