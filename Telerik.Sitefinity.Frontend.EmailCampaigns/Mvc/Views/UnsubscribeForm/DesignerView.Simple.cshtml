@@ -92,7 +92,7 @@ else
                     <select id="emailAddressTemplateName" ng-model="properties.EmailAddressTemplateName.PropertyValue" class="form-control">
                          @foreach (var viewName in Html.GetViewNames(((Telerik.Sitefinity.Mvc.Proxy.MvcProxyBase)Model).GetController(), @"^UnsubscribeFormByEmailAddress\.(?<viewName>[\w\s]*)$"))
                          {
-                            <option value="@viewName"> @viewName</option>
+                            <option value="@viewName"> @viewName.SplitCamelCase()</option>
                          }
                     </select>
                 </div>
@@ -153,7 +153,7 @@ else
                         <select id="linkTemplateName" ng-model="properties.LinkTemplateName.PropertyValue" class="form-control">
                                 @foreach (var viewName in Html.GetViewNames(((Telerik.Sitefinity.Mvc.Proxy.MvcProxyBase)Model).GetController(), @"^UnsubscribeFormByLink\.(?<viewName>[\w\s]*)$"))
                                 {
-                                <option value="@viewName"> @viewName</option>
+                                <option value="@viewName"> @viewName.SplitCamelCase()</option>
                                 }
                         </select>
                     </div>

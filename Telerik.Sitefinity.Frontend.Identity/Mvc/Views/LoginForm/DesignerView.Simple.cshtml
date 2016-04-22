@@ -44,7 +44,7 @@
                 <select id="templateNameLoginForm" ng-model="properties.LoginFormTemplate.PropertyValue" class="form-control">
                     @foreach (var viewName in Html.GetViewNames("LoginForm", @"LoginForm\.(?<viewName>\w*)$"))
                     {
-                        <option value="@viewName">@viewName</option>
+                        <option value="@viewName"> @viewName.SplitCamelCase()</option>
                     }
                 </select>
             </div>
@@ -55,7 +55,7 @@
                     <select id="templateNameForgotPassword" ng-model="properties.ForgotPasswordTemplate.PropertyValue" class="form-control">
                         @foreach (var viewName in Html.GetViewNames("LoginForm", @"ForgotPassword\.(?<viewName>\w*)$"))
                         {
-                            <option value="@viewName">@viewName</option>
+                            <option value="@viewName"> @viewName.SplitCamelCase()</option>
                         }
                     </select>
                 </div>
@@ -65,7 +65,7 @@
                     <select id="templateNameResetPassword" ng-model="properties.ResetPasswordTemplate.PropertyValue" class="form-control">
                         @foreach (var viewName in Html.GetViewNames("LoginForm", @"ResetPassword\.(?<viewName>\w*)$"))
                         {
-                            <option value="@viewName">@viewName</option>
+                            <option value="@viewName"> @viewName.SplitCamelCase()</option>
                         }
                     </select>
                 </div>

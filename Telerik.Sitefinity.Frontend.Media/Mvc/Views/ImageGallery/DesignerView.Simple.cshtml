@@ -144,7 +144,7 @@
                     <select id="listTemplateName" ng-model="properties.ListTemplateName.PropertyValue" class="form-control">
                          @foreach (var viewName in Html.GetViewNames(((Telerik.Sitefinity.Mvc.Proxy.MvcProxyBase)Model).GetController(), @"List\.(?<viewName>[\w\s]*)$"))
                          {
-                             <option value="@viewName"> @viewName</option>
+                             <option value="@viewName"> @viewName.SplitCamelCase()</option>
                          }
                     </select>
                 </div>
@@ -203,7 +203,7 @@
                 <select id="detailTemplateName" ng-model="properties.DetailTemplateName.PropertyValue" class="form-control">
                      @foreach (var viewName in Html.GetViewNames(((Telerik.Sitefinity.Mvc.Proxy.MvcProxyBase)Model).GetController(), @"Detail\.(?<viewName>[\w\s]*)$"))
                      {
-                         <option value="@viewName"> @viewName</option>
+                         <option value="@viewName"> @viewName.SplitCamelCase()</option>
                      }
                 </select>
             </div>

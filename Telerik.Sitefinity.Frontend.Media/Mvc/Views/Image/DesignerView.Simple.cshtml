@@ -82,7 +82,7 @@
                     <select id="templateName" ng-model="properties.TemplateName.PropertyValue" class="form-control">
                         @foreach (var viewName in Html.GetViewNames("Image", @"(?<viewName>^Image.*)$"))
                         {
-                            <option value="@viewName">@viewName</option>
+                            <option value="@viewName"> @viewName.SplitCamelCase()</option>
                         }
                     </select>
                 </div>
