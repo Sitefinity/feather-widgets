@@ -90,7 +90,6 @@ namespace FeatherWidgets.TestUI.TestCases.ContentBlocks
         private const string NotPersonalizedWidgetContent = "Not personalized widget";
         private const string PersonalizedWidgetContent = "Personalized widget";
         private const string SegmentName = "Test segment";
-        private const string PostTitle = "post1";
-        private readonly string expectedUrl = string.Format("/DetailPage/TestBlog/{0}/{1:00}/{2:00}/post1", DateTime.UtcNow.Year, DateTime.UtcNow.Month, DateTime.UtcNow.Day);
+        private const string PostTitle = "post1";        
     }
 }
