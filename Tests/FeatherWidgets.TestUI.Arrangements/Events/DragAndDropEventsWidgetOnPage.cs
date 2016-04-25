@@ -3,12 +3,12 @@ using Telerik.Sitefinity.TestArrangementService.Attributes;
 using Telerik.Sitefinity.TestUI.Arrangements.Framework.Server;
 using Telerik.Sitefinity.TestUtilities.CommonOperations;
 
-namespace FeatherWidgets.TestUI.Arrangements.Events
+namespace FeatherWidgets.TestUI.Arrangements
 {
     /// <summary>
     /// DragAndDropEventsWidgetOnPage arrangement class.
     /// </summary>
-    public class DragAndDropEventsWidgetOnPage : TestArrangementBase
+    public class DragAndDropEventsWidgetOnPage
     {
         /// <summary>
         /// Server side set up.
@@ -20,7 +20,7 @@ namespace FeatherWidgets.TestUI.Arrangements.Events
 
             Guid templateId = ServerOperations.Templates().GetTemplateIdByTitle(templateName);
             ServerOperations.Pages().CreatePage(PageName, templateId);
-            ServerOperations.News().CreatePublishedNewsItem(EventsTitle);
+            ServerOperations.Events().CreateEvent(EventsTitle);
         }
 
         /// <summary>
@@ -30,7 +30,7 @@ namespace FeatherWidgets.TestUI.Arrangements.Events
         public void TearDown()
         {
             ServerOperations.Pages().DeleteAllPages();
-            ServerOperations.News().DeleteAllNews();
+            ServerOperations.Events().DeleteAllEvents();
         }
 
         private const string PageName = "Events";

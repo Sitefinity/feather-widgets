@@ -11,62 +11,15 @@ namespace FeatherWidgets.TestUI.TestCases.Events
     public class DragAndDropEventsWidgetOnPage_ : FeatherTestCase
     {
         /// <summary>
-        /// UI test DragAndDropNewsWidgetOnPage
+        /// UI test DragAndDropEventsWidgetOnPage
         /// </summary>
         [TestMethod,
         Owner(FeatherTeams.SitefinityTeam7),
-        TestCategory(FeatherTestCategories.PagesAndContent),
-        TestCategory(FeatherTestCategories.News),
+        TestCategory(FeatherTestCategories.Events),
         TestCategory(FeatherTestCategories.Bootstrap)]
-        public void DragAndDropNewsWidgetOnPage()
+        public void DragAndDropEventsWidgetOnPage()
         {
             this.pageTemplateName = "Bootstrap.default";
-
-            BAT.Macros().User().EnsureAdminLoggedIn();
-            BAT.Arrange(this.ArrangementClass).AddParameter("templateName", this.pageTemplateName).ExecuteSetUp();
-
-            BAT.Macros().NavigateTo().Pages(this.Culture);
-            BAT.Wrappers().Backend().Pages().PagesWrapper().OpenPageZoneEditor(PageName);
-            BATFeather.Wrappers().Backend().Pages().PageZoneEditorWrapper().AddWidgetToPlaceHolderPureMvcMode(WidgetName);
-            BAT.Wrappers().Backend().Pages().PageZoneEditorWrapper().CheckWidgetContent(WidgetName, EventsTitle);
-            BAT.Wrappers().Backend().Pages().PageZoneEditorWrapper().PublishPage();
-            this.VerifyNewsOnTheFrontend();
-        }
-
-        /// <summary>
-        /// UI test DragAndDropNewsWidgetOnPageBasedOnFoundationTemplate
-        /// </summary>
-        [TestMethod,
-        Owner(FeatherTeams.FeatherTeam),
-        TestCategory(FeatherTestCategories.PagesAndContent),
-        TestCategory(FeatherTestCategories.News),
-        TestCategory(FeatherTestCategories.Foundation)]
-        public void DragAndDropNewsWidgetOnPageBasedOnFoundationTemplate()
-        {
-            this.pageTemplateName = "Foundation.default";
-
-            BAT.Macros().User().EnsureAdminLoggedIn();
-            BAT.Arrange(this.ArrangementClass).AddParameter("templateName", this.pageTemplateName).ExecuteSetUp();
-
-            BAT.Macros().NavigateTo().Pages(this.Culture);
-            BAT.Wrappers().Backend().Pages().PagesWrapper().OpenPageZoneEditor(PageName);
-            BATFeather.Wrappers().Backend().Pages().PageZoneEditorWrapper().AddWidgetToPlaceHolderPureMvcMode(WidgetName);
-            BAT.Wrappers().Backend().Pages().PageZoneEditorWrapper().CheckWidgetContent(WidgetName, EventsTitle);
-            BAT.Wrappers().Backend().Pages().PageZoneEditorWrapper().PublishPage();
-            this.VerifyNewsOnTheFrontend();
-        }
-
-        /// <summary>
-        /// UI test DragAndDropNewsWidgetOnPageBasedOnSemanticUITemplate
-        /// </summary>
-        [TestMethod,
-        Owner(FeatherTeams.FeatherTeam),
-        TestCategory(FeatherTestCategories.PagesAndContent),
-        TestCategory(FeatherTestCategories.News),
-        TestCategory(FeatherTestCategories.SemanticUI)]
-        public void DragAndDropNewsWidgetOnPageBasedOnSemanticUITemplate()
-        {
-            this.pageTemplateName = "SemanticUI.default";
 
             BAT.Macros().User().EnsureAdminLoggedIn();
             BAT.Arrange(this.ArrangementClass).AddParameter("templateName", this.pageTemplateName).ExecuteSetUp();
