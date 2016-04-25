@@ -27,6 +27,12 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend
             ActiveBrowser.WaitForAsyncRequests();
         }
 
+        public void SelectAllItems(string allItemsTitle = "")
+        {
+            ActiveBrowser.RefreshDomTree();
+            ActiveBrowser.WaitUntilReady();
+        }
+
         /// <summary>
         /// Selects items in flat selector.
         /// </summary>

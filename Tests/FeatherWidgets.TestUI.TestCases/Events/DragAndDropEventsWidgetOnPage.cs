@@ -38,7 +38,7 @@ namespace FeatherWidgets.TestUI.TestCases.Events
         public void VerifyNewsOnTheFrontend()
         {
             BAT.Macros().NavigateTo().CustomPage("~/" + PageName.ToLower(), true, this.Culture);
-            Assert.IsTrue(BATFeather.Wrappers().Frontend().News().NewsWrapper().IsNewsTitlesPresentOnThePageFrontend(this.newsTitles));
+            Assert.IsTrue(BATFeather.Wrappers().Frontend().News().NewsWrapper().IsNewsTitlesPresentOnThePageFrontend(this.eventsTitles));
         }
 
         /// <summary>
@@ -57,7 +57,7 @@ namespace FeatherWidgets.TestUI.TestCases.Events
         private const string PageName = "Events";
         private const string WidgetName = "Events";
         private const string EventsTitle = "EventsTitle";
-        private readonly string[] newsTitles = new string[] { EventsTitle };
+        private readonly string[] eventsTitles = new string[] { EventsTitle };
         private string pageTemplateName;
         private const string ArrangementClassName = "DragAndDropEventsWidgetOnPage";
     }
