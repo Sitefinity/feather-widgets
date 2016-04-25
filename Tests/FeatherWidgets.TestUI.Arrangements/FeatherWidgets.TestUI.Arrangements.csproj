@@ -344,6 +344,7 @@
     <Compile Include="ContentBlocks\AddContentToContentBlockWidgetViaCreateContentOptionOnThePage.cs" />
     <Compile Include="ContentBlocks\ContentBlockWidgetAdvancedSettingsWrapperCssClassProperty.cs" />
     <Compile Include="ContentBlocks\ContentBlockWidgetVerifyLinksInEditorToolbar.cs" />
+    <Compile Include="ContentBlocks\CreateSplitPageWithPersonalizedContentBlock.cs" />
     <Compile Include="ContentBlocks\DocumentSelector\CheckNavigationInDocumentSelector.cs" />
     <Compile Include="ContentBlocks\DocumentSelector\EditAndChangeSelectedDocument.cs" />
     <Compile Include="ContentBlocks\DocumentSelector\InsertDocumentFromAlreadyUploaded.cs" />
