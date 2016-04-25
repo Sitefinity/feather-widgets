@@ -78,7 +78,7 @@ namespace FeatherWidgets.TestUI.TestCases.Lists
 
         private const string WidgetName = "Lists";
         private const string SortingOption = "By Title (A-Z)";
-        private const string ListTemplate = "AnchorList";
+        private const string ListTemplate = "Anchor list";
 
         private const string AnchorListPage = "AnchorListPage";
         private const string SimpleListPage = "SimpleListPage";

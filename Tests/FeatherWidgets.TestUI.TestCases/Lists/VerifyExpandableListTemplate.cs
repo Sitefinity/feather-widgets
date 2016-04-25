@@ -64,7 +64,7 @@ namespace FeatherWidgets.TestUI.TestCases.Lists
         private const string WidgetName = "Lists";
         private const string ListTitle = "Test list";
         private const string SortingOption = "Last modified";
-        private const string ListTemplate = "ExpandableList";
+        private const string ListTemplate = "Expandable list";
 
         private readonly Dictionary<string, string> listItems = new Dictionary<string, string>()
                                                                 {
