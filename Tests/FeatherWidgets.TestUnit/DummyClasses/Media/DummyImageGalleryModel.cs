@@ -3,9 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using Telerik.Sitefinity;
 using Telerik.Sitefinity.Frontend.Media.Mvc.Models.ImageGallery;
-using Telerik.Sitefinity.Frontend.Mvc.Models;
-using Telerik.Sitefinity.Model;
-using Telerik.Sitefinity.RelatedData;
 
 namespace FeatherWidgets.TestUnit.DummyClasses.Media
 {
@@ -28,25 +25,7 @@ namespace FeatherWidgets.TestUnit.DummyClasses.Media
         {
             return new Telerik.Sitefinity.Frontend.Mvc.Models.ContentListViewModel();
         }
-
-        public ContentListViewModel CreateListViewModelByRelatedItem(IDataItem relatedItem, int page)
-        {
-            // TODO: Implement this method
-            throw new NotImplementedException();
-        }
-
-        public void SetRelatedDataProperties(IDataItem relatedItem, RelatedDataViewModel relatedDataViewModel)
-        {
-            // TODO: Implement this method
-            throw new NotImplementedException();
-        }
-
-        public void SetModelProperties(ContentListSettingsViewModel viewModel)
-        {
-            // TODO: Implement this method
-            throw new NotImplementedException();
-        }
-
+        
         public string DetailCssClass
         {
             get
@@ -257,66 +236,6 @@ namespace FeatherWidgets.TestUnit.DummyClasses.Media
 
             set
             {
-                throw new NotImplementedException();
-            }
-        }
-
-        public string RelatedItemType
-        {
-            get
-            {
-                // TODO: Implement this property getter
-                throw new NotImplementedException();
-            }
-
-            set
-            {
-                // TODO: Implement this property setter
-                throw new NotImplementedException();
-            }
-        }
-
-        public string RelatedItemProviderName
-        {
-            get
-            {
-                // TODO: Implement this property getter
-                throw new NotImplementedException();
-            }
-
-            set
-            {
-                // TODO: Implement this property setter
-                throw new NotImplementedException();
-            }
-        }
-
-        public string RelatedFieldName
-        {
-            get
-            {
-                // TODO: Implement this property getter
-                throw new NotImplementedException();
-            }
-
-            set
-            {
-                // TODO: Implement this property setter
-                throw new NotImplementedException();
-            }
-        }
-
-        public RelationDirection RelationTypeToDisplay
-        {
-            get
-            {
-                // TODO: Implement this property getter
-                throw new NotImplementedException();
-            }
-
-            set
-            {
-                // TODO: Implement this property setter
                 throw new NotImplementedException();
             }
         }

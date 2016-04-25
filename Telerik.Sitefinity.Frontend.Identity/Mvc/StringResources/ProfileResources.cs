@@ -544,5 +544,21 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.StringResources
                 return this["ChangePasswordGeneralErrorMessage"];
             }
         }
+
+        /// <summary>
+        /// Gets phrase: Saving changes is not available in Preview
+        /// </summary>
+        /// <value>Invalid data.</value>
+        [ResourceEntry("PreviewProfileSaveMessage",
+            Value = "Saving changes is not available in Preview",
+            Description = "phrase : Saving changes is not available in Preview",
+            LastModified = "2016/04/22")]
+        public string PreviewProfileSaveMessage
+        {
+            get
+            {
+                return this["PreviewProfileSaveMessage"];
+            }
+        }
     }
 }

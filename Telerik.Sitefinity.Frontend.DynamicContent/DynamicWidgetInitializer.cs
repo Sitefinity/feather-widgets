@@ -65,7 +65,6 @@ namespace Telerik.Sitefinity.Frontend.DynamicContent
             ObjectFactory.Container.RegisterType(typeof(Field), typeof(ClassificationField), typeof(ClassificationField).Name);
             ObjectFactory.Container.RegisterType(typeof(Field), typeof(RelatedMediaField), typeof(RelatedMediaField).Name);
             ObjectFactory.Container.RegisterType(typeof(Field), typeof(RelatedDataField), typeof(RelatedDataField).Name);
-            ObjectFactory.Container.RegisterType(typeof(Field), typeof(RelatedDataControllerField), typeof(RelatedDataControllerField).Name);
         }
 
         /// <summary>

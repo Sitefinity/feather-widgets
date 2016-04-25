@@ -136,65 +136,69 @@ namespace Telerik.Sitefinity.Frontend.Events.Mvc.Helpers
 
         private static string BuildNonPeriodEvent(Event ev)
         {
-            var result = new StringBuilder();
+            var sb = new StringBuilder();
 
-            var start = ev.EventStart.ToSitefinityUITime();
-
-            result.Append(BuildDayMonthYear(start));
-
-            if (!ev.AllDayEvent)
+            if (ev.AllDayEvent)
             {
-                result.Append(WhiteSpace);
-                result.Append(Res.Get<EventResources>().At);
-                result.Append(WhiteSpace);
-                result.Append(BuildHourMinute(start));
+                sb.Append(BuildDayMonthYear(ev.EventStart));
+            }
+            else
+            {
+                var start = ev.EventStart.ToSitefinityUITime();
+
+                sb.Append(BuildDayMonthYear(start));
+                sb.Append(WhiteSpace);
+                sb.Append(Res.Get<EventResources>().At);
+                sb.Append(WhiteSpace);
+                sb.Append(BuildHourMinute(start));
             }
 
-            return result.ToString();
+            return sb.ToString();
         }
 
         private static string BuildPeriodEvent(Event ev)
         {
-            var result = new StringBuilder();
+            var sb = new StringBuilder();
 
-            var start = ev.EventStart.ToSitefinityUITime();
-            var end = ev.EventEnd.Value.ToSitefinityUITime();
-
-            result.Append(BuildDayMonthYear(start));
-            
-            if (start.Date == end.Date && !ev.AllDayEvent)
+            if (ev.AllDayEvent)
             {
-                //// 2 March, 2016, 8 AM–8 PM
-                result.Append(Comma);
-                result.Append(WhiteSpace);
-                result.Append(BuildHourMinute(start));
-                result.Append(Dash);
-                result.Append(BuildHourMinute(end));
+                sb.Append(BuildDayMonthYear(ev.EventStart));
+                sb.Append(Dash);
+                sb.Append(BuildDayMonthYear(ev.AllDayEventEnd.Value));
             }
             else
             {
-                //// 2 March, 2014 at 8 AM–3 March, 2016 at 8 PM
-                if (!ev.AllDayEvent)
+                var start = ev.EventStart.ToSitefinityUITime();
+                var end = ev.EventEnd.Value.ToSitefinityUITime();
+
+                sb.Append(BuildDayMonthYear(start));
+
+                if (start.Date == end.Date)
                 {
-                    result.Append(WhiteSpace);
-                    result.Append(Res.Get<EventResources>().At);
-                    result.Append(WhiteSpace);
-                    result.Append(BuildHourMinute(start));
+                    sb.Append(Comma);
+                    sb.Append(WhiteSpace);
+                    sb.Append(BuildHourMinute(start));
+                    sb.Append(Dash);
+                    sb.Append(BuildHourMinute(end));
                 }
-
-                result.Append(Dash);
-                result.Append(BuildDayMonthYear(end));
-
-                if (!ev.AllDayEvent)
+                else
                 {
-                    result.Append(WhiteSpace);
-                    result.Append(Res.Get<EventResources>().At);
-                    result.Append(WhiteSpace);
-                    result.Append(BuildHourMinute(end));
+                    sb.Append(WhiteSpace);
+                    sb.Append(Res.Get<EventResources>().At);
+                    sb.Append(WhiteSpace);
+                    sb.Append(BuildHourMinute(start));
+
+                    sb.Append(Dash);
+                    sb.Append(BuildDayMonthYear(end));
+
+                    sb.Append(WhiteSpace);
+                    sb.Append(Res.Get<EventResources>().At);
+                    sb.Append(WhiteSpace);
+                    sb.Append(BuildHourMinute(end));
                 }
             }
 
-            return result.ToString();
+            return sb.ToString();
         }
 
         private static string BuildRecurringEvent(IRecurrenceDescriptor descriptor)
