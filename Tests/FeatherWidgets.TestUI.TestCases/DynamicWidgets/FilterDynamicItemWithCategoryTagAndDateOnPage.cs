@@ -74,7 +74,7 @@ namespace FeatherWidgets.TestUI.TestCases.DynamicWidgets
         private const string WidgetName = "Press Articles MVC";
         private const string DisplayItemsPublishedIn = "Custom range...";
         private const string WhichNewsToDisplay = "Narrow selection by...";
-        private const string DateName = "dateInput";
+        private const string DateName = "sfPublicationDateInput";
         private const int DayAgo = -1;
         private const int DayForward = 1;
         private const string CategoryTitle = "Category3";

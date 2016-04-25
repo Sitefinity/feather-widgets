@@ -142,7 +142,7 @@ namespace FeatherWidgets.TestUI.TestCases.DocumentsList
         private const string DocumentBaseTitle = "Document";
         private const string WidgetName = "Documents list";
         private const string LibraryName = "TestDocumentLibrary";
-        private const string DateName = "dateInput";
+        private const string DateName = "sfPublicationDateInput";
         private const int DayAgo = -1;
         private const int DayForward = 1;
         private const string CategoryTitle = "Category3";
