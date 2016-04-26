@@ -220,6 +220,7 @@
     <Compile Include="EmailCampaigns\TryToUnsubscribeNotExistingSubscriber.cs" />
     <Compile Include="EmailCampaigns\UnsubscribeWidgetOnFoundationAndSemanticPage.cs" />
     <Compile Include="EmailCampaigns\UnsubscribeWidgetOnHybridPageAndSetCssClass.cs" />
+    <Compile Include="Events\FilterCurrentAndPastEventOnPage.cs" />
     <Compile Include="Events\FilterByAllEvents.cs" />
     <Compile Include="Events\DragAndDropEventsWidgetOnPage.cs" />
     <Compile Include="Events\EventsTestsCommon.cs" />
