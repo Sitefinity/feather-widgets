@@ -17,13 +17,13 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Frontend.Events
         /// </summary>
         /// <param name="eventTitles">The event titles.</param>
         /// <returns>true or false depending on event titles presence on frontend</returns>
-        public bool AreEventTitlesPresentOnThePageFrontend(string[] eventTitles)
+        public bool AreEventTitlesPresentOnThePageFrontend(IEnumerable<string> eventTitles)
         {
             HtmlDiv frontendPageMainDiv = BAT.Wrappers().Frontend().Pages().PagesWrapperFrontend().GetPageContent();
 
-            for (int i = 0; i < eventTitles.Length; i++)
+            foreach (var title in eventTitles)
             {
-                HtmlAnchor eventAnchor = frontendPageMainDiv.Find.ByExpression<HtmlAnchor>("tagname=a", "InnerText=" + eventTitles[i]);
+                var eventAnchor = frontendPageMainDiv.Find.ByExpression<HtmlAnchor>("tagname=a", "InnerText=" + title);
                 if ((eventAnchor == null) || (eventAnchor != null && !eventAnchor.IsVisible()))
                 {
                     return false;

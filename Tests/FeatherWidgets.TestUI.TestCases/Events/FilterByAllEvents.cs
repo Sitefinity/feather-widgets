@@ -1,6 +1,7 @@
 ﻿using System;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using System.Collections.Generic;
 using Feather.Widgets.TestUI.Framework;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace FeatherWidgets.TestUI.TestCases.Events
 {
@@ -26,17 +27,17 @@ namespace FeatherWidgets.TestUI.TestCases.Events
             BATFeather.Wrappers().Backend().Widgets().SelectorsWrapper().SelectAllItemsRadioButton();
             BATFeather.Wrappers().Backend().Widgets().WidgetDesignerWrapper().SaveChanges();
 
-            BAT.Wrappers().Backend().Pages().PageZoneEditorWrapper().CheckWidgetContent(WidgetName, EventsTestsCommon.BaseEventTitle);
-            BAT.Wrappers().Backend().Pages().PageZoneEditorWrapper().CheckWidgetContent(WidgetName, EventsTestsCommon.BasePastEventTitle);
-            BAT.Wrappers().Backend().Pages().PageZoneEditorWrapper().CheckWidgetContent(WidgetName, EventsTestsCommon.BaseUpcomingEventTitle);
-            BAT.Wrappers().Backend().Pages().PageZoneEditorWrapper().CheckWidgetContent(WidgetName, EventsTestsCommon.BaseAllDayEventTitle);
-            BAT.Wrappers().Backend().Pages().PageZoneEditorWrapper().CheckWidgetContent(WidgetName, EventsTestsCommon.BaseRepeatEventTitle);
-            BAT.Wrappers().Backend().Pages().PageZoneEditorWrapper().CheckWidgetContentForNotExistingContent(WidgetName, EventsTestsCommon.BaseDraftEventTitle);
-            BAT.Wrappers().Backend().Pages().PageZoneEditorWrapper().PublishPage();
+            var expectedEvents = new List<string>() { EventsTestsCommon.BaseEventTitle, EventsTestsCommon.BasePastEventTitle, EventsTestsCommon.BaseUpcomingEventTitle, EventsTestsCommon.BaseAllDayEventTitle, EventsTestsCommon.BaseRepeatEventTitle };
+            var unexpectedEvents = new List<string>() { EventsTestsCommon.BaseDraftEventTitle };
 
+            expectedEvents.ForEach(e => BAT.Wrappers().Backend().Pages().PageZoneEditorWrapper().CheckWidgetContent(WidgetName, e));
+            unexpectedEvents.ForEach(e => BAT.Wrappers().Backend().Pages().PageZoneEditorWrapper().CheckWidgetContentForNotExistingContent(WidgetName, e));
+
+            BAT.Wrappers().Backend().Pages().PageZoneEditorWrapper().PublishPage();
             BAT.Macros().NavigateTo().CustomPage("~/" + PageName.ToLower(), true, this.Culture);
-            // BAT.Wrappers().Frontend().EventsWidget().VerifyEventsItemsFrontEnd(
-            // Assert.IsTrue(BATFeather.Wrappers().Frontend().IsNewsTitlesPresentOnThePageFrontend(this.newsTitles));
+            
+            Assert.IsTrue(BATFeather.Wrappers().Frontend().Events().EventsWrapper().AreEventTitlesPresentOnThePageFrontend(expectedEvents));
+            Assert.IsFalse(BATFeather.Wrappers().Frontend().Events().EventsWrapper().AreEventTitlesPresentOnThePageFrontend(unexpectedEvents));
         }
 
         /// <summary>
