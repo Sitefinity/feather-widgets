@@ -19,6 +19,7 @@ namespace FeatherWidgets.TestUI.TestCases.ContentBlocks
         /// UI test EditSharedContentBlockFromPage
         /// </summary>
         [TestMethod,
+        Ignore,
         Owner(FeatherTeams.SitefinityTeam7),
         TestCategory(FeatherTestCategories.ContentBlock)]
         public void EditSharedContentBlockFromPage()
