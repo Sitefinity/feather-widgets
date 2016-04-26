@@ -27,10 +27,18 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend
             ActiveBrowser.WaitForAsyncRequests();
         }
 
-        public void SelectAllItems(string allItemsTitle = "")
+        /// <summary>
+        /// Selects all items.
+        /// </summary>
+        /// <param name="allItemsTitle">All items title.</param>
+        public void SelectAllItemsRadioButton()
         {
             ActiveBrowser.RefreshDomTree();
             ActiveBrowser.WaitUntilReady();
+            var allItemsButton = this.EM.Selectors.SelectorsScreen.AllRadioButton.AssertIsPresent("All events button");
+            allItemsButton.Click();
+            ActiveBrowser.WaitUntilReady();
+            ActiveBrowser.WaitForAsyncRequests();
         }
 
         /// <summary>

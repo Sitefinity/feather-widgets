@@ -242,5 +242,19 @@ namespace Feather.Widgets.TestUI.Framework.Framework.ElementMap.Selectors
                 return this.Get<HtmlSelect>("tagname=select", "ng-model=sfProvider");
             }
         }
+
+        /// <summary>
+        /// Gets all RadioButton.
+        /// </summary>
+        /// <value>
+        /// All RadioButton.
+        /// </value>
+        public HtmlInputRadioButton AllRadioButton
+        {
+            get
+            {
+                return this.Get<HtmlInputRadioButton>("tagname=input", "value=AllItems");
+            }
+        }
     }
 }
