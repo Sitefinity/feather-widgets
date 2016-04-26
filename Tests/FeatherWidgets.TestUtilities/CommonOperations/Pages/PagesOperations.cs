@@ -48,7 +48,11 @@ namespace FeatherWidgets.TestUtilities.CommonOperations
             var controls = new List<System.Web.UI.Control>();
             controls.Add(control);
 
-            this.locationGenerator = new PageContentGenerator();
+            if (this.locationGenerator == null)
+            {
+                this.locationGenerator = new PageContentGenerator();
+            }
+
             var pageId = this.locationGenerator.CreatePage(
                                     string.Format(CultureInfo.InvariantCulture, "{0}{1}", pageNamePrefix, index.ToString(CultureInfo.InvariantCulture)),
                                     string.Format(CultureInfo.InvariantCulture, "{0}{1}", pageTitlePrefix, index.ToString(CultureInfo.InvariantCulture)),

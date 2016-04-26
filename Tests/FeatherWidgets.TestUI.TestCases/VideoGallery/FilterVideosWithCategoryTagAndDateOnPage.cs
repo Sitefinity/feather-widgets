@@ -122,7 +122,7 @@ namespace FeatherWidgets.TestUI.TestCases.VideoGallery
         private const string LibraryName = "TestVideoLibrary";
         private const string VideoAltText = "Video";
         private const string VideoType = ".TMB";
-        private const string DateName = "dateInput";
+        private const string DateName = "sfPublicationDateInput";
         private const int DayAgo = -1;
         private const int DayForward = 1;
         private const string CategoryTitle = "Category3";

@@ -69,7 +69,7 @@ namespace FeatherWidgets.TestUI.TestCases.Lists
         private const string WidgetName = "Lists";
         private const string ListTitle = "Test list";
         private const string SortingOption = "By Title (A-Z)";
-        private const string ListTemplate = "ExpandedList";
+        private const string ListTemplate = "Expanded list";
         private const string TagName = "TestTag";
 
         private readonly Dictionary<string, string> listItems = new Dictionary<string, string>()

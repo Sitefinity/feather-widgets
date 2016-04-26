@@ -240,6 +240,30 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend
             }
         }
 
+        /// <summary>
+        /// Sets the page title.
+        /// </summary>
+        /// <param name="pageName">Name of the page.</param>
+        public void SetPageTitle(string pageName)
+        {
+            Manager.Current.ActiveBrowser.RefreshDomTree();
+            var frame = Manager.Current.ActiveBrowser.WaitForFrame(new FrameInfo() { Name = "create" });
+
+            HtmlInputText pageNameInput = frame.Find.ByExpression<HtmlInputText>("tagname=input", "class=sfTxt", "name=contentViewInsertDialog$ctl00$ctl00$contentView$frontendPagesCreate$ctl00$ctl00$sections$ctl00$mainSection$ctl00$ctl00$fields$ctl04$UrlNameFieldControl$ctl00$ctl00$textBox_write");
+            pageNameInput.Focus();
+            Manager.Current.Desktop.KeyBoard.TypeText(pageName);
+
+            Manager.Current.ActiveBrowser.RefreshDomTree();
+            HtmlAnchor changeButton = frame.Find.ByExpression<HtmlAnchor>("tagname=a", "class=sfLinkBtn sfChange", "id=~_UrlNameFieldControl_", "id=~_changeButton_write_");
+            changeButton.Focus();
+            changeButton.MouseClick();
+
+            Manager.Current.ActiveBrowser.RefreshDomTree();
+            HtmlInputText changeUrl = frame.Find.ByExpression<HtmlInputText>("tagname=input", "id=~_UrlNameFieldControl_", "id=~_textBox_write");
+            changeUrl.Focus();
+            Manager.Current.Desktop.KeyBoard.TypeText(pageName.ToLower());
+        }
+
         private bool WaitForSaveButton()
         {
             Manager.Current.ActiveBrowser.RefreshDomTree();

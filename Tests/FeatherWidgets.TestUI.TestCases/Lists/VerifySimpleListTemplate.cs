@@ -71,9 +71,9 @@ namespace FeatherWidgets.TestUI.TestCases.Lists
         private const string WidgetName = "Lists";
         private const string ListTitle = "Test list";
         private const string SortingOption = "By Title (Z-A)";
-        private const string ListTemplate = "SimpleList";
+        private const string ListTemplate = "Simple list";
 
-        private const string ByDateFilter = "dateInput";
+        private const string ByDateFilter = "sfPublicationDateInput";
         private const string CustomRangeFilterOption = "Custom range...";
         private const int DayAgo = -1;
         private const int DayForward = 1;
