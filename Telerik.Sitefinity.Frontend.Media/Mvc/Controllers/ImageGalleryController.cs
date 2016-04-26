@@ -2,26 +2,20 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
-using System.Web;
 using System.Web.Mvc;
 using System.Web.Routing;
 using Telerik.Sitefinity.ContentLocations;
-using Telerik.Sitefinity.Data;
 using Telerik.Sitefinity.Frontend.Media.Mvc.Models;
 using Telerik.Sitefinity.Frontend.Media.Mvc.Models.ImageGallery;
 using Telerik.Sitefinity.Frontend.Media.Mvc.StringResources;
-using Telerik.Sitefinity.Frontend.Mvc.Controllers;
 using Telerik.Sitefinity.Frontend.Mvc.Infrastructure;
 using Telerik.Sitefinity.Frontend.Mvc.Infrastructure.Controllers;
 using Telerik.Sitefinity.Frontend.Mvc.Infrastructure.Controllers.Attributes;
 using Telerik.Sitefinity.Frontend.Mvc.Infrastructure.Routing;
-using Telerik.Sitefinity.Frontend.Mvc.Models;
 using Telerik.Sitefinity.Libraries.Model;
-using Telerik.Sitefinity.Model;
 using Telerik.Sitefinity.Modules.Libraries;
 using Telerik.Sitefinity.Modules.Pages.Configuration;
 using Telerik.Sitefinity.Mvc;
-using Telerik.Sitefinity.RelatedData;
 using Telerik.Sitefinity.Services;
 using Telerik.Sitefinity.Taxonomies.Model;
 using Telerik.Sitefinity.Web;
@@ -33,7 +27,7 @@ namespace Telerik.Sitefinity.Frontend.Media.Mvc.Controllers
     /// </summary>
     [Localization(typeof(ImageGalleryResources))]
     [ControllerToolboxItem(Name = "ImageGallery_MVC", Title = "Image gallery", SectionName = ToolboxesConfig.ContentToolboxSectionName, ModuleName = "Libraries", CssClass = ImageGalleryController.WidgetIconCssClass)]
-    public class ImageGalleryController : Controller, IContentLocatableView, IRouteMapper, IRelatedDataController
+    public class ImageGalleryController : Controller, IContentLocatableView, IRouteMapper
     {
         #region Properties
 
@@ -156,53 +150,6 @@ namespace Telerik.Sitefinity.Frontend.Media.Mvc.Controllers
                 this.AddCacheDependencies(this.Model.GetKeysOfDependentObjects(viewModel));
 
             var fullTemplateName = this.FullListTemplateName();
-            return this.View(fullTemplateName, viewModel);
-        }
-
-        /// <summary>
-        /// Action that returns a list view with the related items of the given item.
-        /// </summary>
-        /// <param name="relatedItem">The related item.</param>
-        /// <param name="templateName">Name of the template that will show the list view.</param>
-        /// <param name="relatedDataViewModel">The related data view model. Contains settings needed to retrieve related data.</param>
-        /// <param name="settingsViewModel">The settings view model. The widget's model will be initialized with them.</param>
-        /// <param name="page">The current page.</param>
-        /// <param name="detailPageId">The id of the page where the detail of the item will be shown.</param>
-        /// <param name="openInSamePage">Determines whether the detail of the item will be on the same page or in another one.</param>
-        /// <returns></returns>
-        public ActionResult RelatedData(
-            IDataItem relatedItem,
-            string templateName,
-            RelatedDataViewModel relatedDataViewModel,
-            ContentListSettingsViewModel settingsViewModel,
-            int? page,
-            Guid? detailPageId,
-            bool? openInSamePage)
-        {
-            if (detailPageId.HasValue)
-                this.DetailsPageId = detailPageId.Value;
-
-            if (openInSamePage.HasValue)
-                this.OpenInSamePage = openInSamePage.Value;
-
-            this.SetPagingRedirectTemplateInViewBag();
-
-            this.ViewBag.CurrentPageUrl = SystemManager.CurrentHttpContext != null ?
-                SystemManager.CurrentHttpContext.Request.Path : string.Empty;
-
-            this.ViewBag.DetailsPageId = this.DetailsPageId;
-            this.ViewBag.OpenInSamePage = this.OpenInSamePage;
-            this.ViewBag.ItemsPerPage = this.Model.ItemsPerPage;
-
-            this.Model.SetRelatedDataProperties(relatedItem, relatedDataViewModel);
-            this.Model.SetModelProperties(settingsViewModel);
-
-            var viewModel = this.Model.CreateListViewModelByRelatedItem(relatedItem, page ?? 1);
-            if (SystemManager.CurrentHttpContext != null)
-                this.AddCacheDependencies(this.Model.GetKeysOfDependentObjects(viewModel));
-
-            templateName = string.IsNullOrEmpty(templateName) ? "OverlayGallery" : templateName;
-            var fullTemplateName = this.listTemplateNamePrefix + templateName;
             return this.View(fullTemplateName, viewModel);
         }
 
@@ -406,33 +353,6 @@ namespace Telerik.Sitefinity.Frontend.Media.Mvc.Controllers
             this.ViewBag.DetailsPageId = this.DetailsPageId;
             this.ViewBag.OpenInSamePage = this.OpenInSamePage;
             this.ViewBag.ItemsPerPage = this.Model.ItemsPerPage;
-        }
-
-        /// <summary>
-        /// Creates an url template for redirecting after another page is selected.
-        /// </summary>
-        private void SetPagingRedirectTemplateInViewBag()
-        {
-            if (SystemManager.CurrentHttpContext != null)
-            {
-                var currentPath = SystemManager.CurrentHttpContext.Request.Path;
-
-                var parsedQuery = HttpUtility.ParseQueryString(
-                    SystemManager.CurrentHttpContext.Request.QueryString.ToQueryString());
-
-                parsedQuery.Remove("page");
-
-                var appendSign = parsedQuery.HasKeys() ? "&" : "?";
-
-                // The query string name-value collection encodes the values, but we don't want to encode the curly brackets.
-                var queryStringTemplate = string.Concat(parsedQuery.ToQueryString(), appendSign, "page={0}");
-
-                this.ViewBag.RedirectPageUrlTemplate = currentPath + queryStringTemplate;
-            }
-            else
-            {
-                this.ViewBag.RedirectPageUrlTemplate = "?page={0}";
-            }
         }
 
         /// <summary>

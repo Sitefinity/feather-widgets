@@ -26,7 +26,7 @@
                 <select id="captchaTemplateName" ng-model="properties.WriteTemplateName.PropertyValue" class="form-control">
                     @foreach (var viewName in Html.GetViewNames(((Telerik.Sitefinity.Mvc.Proxy.MvcProxyBase)Model).GetController(), @"^Write\.(?<viewName>[\w\s]*)$"))
                     {
-                        <option value="@viewName">@viewName</option>
+                        <option value="@viewName"> @viewName.SplitCamelCase()</option>
                     }
                 </select>
             </div>

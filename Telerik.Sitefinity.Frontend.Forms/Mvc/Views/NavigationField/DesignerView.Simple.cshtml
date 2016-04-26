@@ -21,7 +21,7 @@
                 <select id="navigationFieldTemplateName" ng-model="properties.ReadTemplateName.PropertyValue" class="form-control">
                     @foreach (var viewName in Html.GetViewNames(((Telerik.Sitefinity.Mvc.Proxy.MvcProxyBase)Model).GetController(), @"^Read\.(?<viewName>[\w\s]*)$"))
                     {
-                        <option value="@viewName">@viewName</option>
+                        <option value="@viewName"> @viewName.SplitCamelCase()</option>
                     }
                 </select>
             </div>

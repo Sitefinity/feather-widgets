@@ -123,7 +123,7 @@ namespace FeatherWidgets.TestUI.TestCases.ImageGallery
         private const string LibraryName = "TestImageLibrary";
         private const string ImageAltText = "AltText_Image";
         private const string ImageType = ".TMB";
-        private const string DateName = "dateInput";
+        private const string DateName = "sfPublicationDateInput";
         private const int DayAgo = -1;
         private const int DayForward = 1;
         private const string CategoryTitle = "Category3";

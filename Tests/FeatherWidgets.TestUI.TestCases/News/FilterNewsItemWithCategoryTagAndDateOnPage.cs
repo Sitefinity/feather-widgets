@@ -75,7 +75,7 @@ namespace FeatherWidgets.TestUI.TestCases.News
 
         private const string DisplayItemsPublishedIn = "Custom range...";
         private const string WhichNewsToDisplay = "Narrow selection by...";
-        private const string DateName = "dateInput";
+        private const string DateName = "sfPublicationDateInput";
         private const int DayAgo = -1;
         private const int DayForward = 1;
         private const string PageName = "News";

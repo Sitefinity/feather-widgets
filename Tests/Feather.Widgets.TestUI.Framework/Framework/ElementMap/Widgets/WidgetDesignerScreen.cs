@@ -120,7 +120,7 @@ namespace Feather.Widgets.TestUI.Framework.Framework.ElementMap.Widgets
         {
             get
             {
-                return this.Get<HtmlAnchor>("class=ng-binding", "Innertext=Single item settings");
+                return this.Get<HtmlAnchor>("class=~ng-binding", "Innertext=Single item settings");
             }
         }
     
@@ -132,7 +132,7 @@ namespace Feather.Widgets.TestUI.Framework.Framework.ElementMap.Widgets
         {
             get
             {
-                return this.Get<HtmlAnchor>("class=ng-binding", "Innertext=List settings");
+                return this.Get<HtmlAnchor>("class=~ng-binding", "Innertext=List settings");
             }
         }
 
@@ -314,7 +314,7 @@ namespace Feather.Widgets.TestUI.Framework.Framework.ElementMap.Widgets
         {
             get
             {
-                return this.Get<HtmlInputCheckBox>("id=dateInput");
+                return this.Get<HtmlInputCheckBox>("id=sfPublicationDateInput");
             }
         }
 

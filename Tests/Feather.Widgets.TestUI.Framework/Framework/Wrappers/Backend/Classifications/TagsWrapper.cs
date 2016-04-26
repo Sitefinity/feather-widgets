@@ -30,7 +30,7 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend.Classifica
         public void SelectTagsTemplate(TagsTemplates template)
         {
             HtmlSelect templateDropdown = this.EM.Classifications.TagsWidgetEditScreen.TagsTemplateDropdown.AssertIsPresent("Tags template dropdown");
-            templateDropdown.SelectByText(template.ToString(), true);
+            templateDropdown.SelectByValue(template.ToString(), true);
         }
 
         /// <summary>
@@ -41,7 +41,7 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend.Classifica
         {
             HtmlSelect optionsDropdown = this.EM.Classifications.TagsWidgetEditScreen.TagsTemplateDropdown.AssertIsPresent("Tags template dropdown");
 
-            Assert.AreEqual(template.ToString(), optionsDropdown.SelectedOption.Text);
+            Assert.AreEqual(template.ToString(), optionsDropdown.SelectedOption.Value);
         }
 
         /// <summary>

@@ -249,7 +249,7 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend
             Manager.Current.ActiveBrowser.RefreshDomTree();
 
             List<HtmlSelect> hoursSelector = ActiveBrowser.Find.AllByExpression<HtmlSelect>("tagname=select", "ng-change=updateHours(hstep)").ToList<HtmlSelect>();
-            hoursSelector[fromOrTo].SelectByValue(hour);
+            hoursSelector[fromOrTo].SelectByValue("number:" + hour);
             hoursSelector[fromOrTo].AsjQueryControl().InvokejQueryEvent(jQueryControl.jQueryControlEvents.click);
             hoursSelector[fromOrTo].AsjQueryControl().InvokejQueryEvent(jQueryControl.jQueryControlEvents.change);
         }
@@ -276,7 +276,7 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend
 
             List<HtmlSelect> minutesSelector = ActiveBrowser.Find.AllByExpression<HtmlSelect>("tagname=select", "ng-change=updateMinutes(mstep)").ToList<HtmlSelect>();
             minutesSelector[fromOrTo].Click();
-            minutesSelector[fromOrTo].SelectByValue(minute);
+            minutesSelector[fromOrTo].SelectByValue("number:" + minute);
             minutesSelector[fromOrTo].AsjQueryControl().InvokejQueryEvent(jQueryControl.jQueryControlEvents.click);
             minutesSelector[fromOrTo].AsjQueryControl().InvokejQueryEvent(jQueryControl.jQueryControlEvents.change);
         }
