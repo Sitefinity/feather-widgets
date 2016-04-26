@@ -35,7 +35,7 @@ namespace FeatherWidgets.TestUI.TestCases.Events
             BAT.Wrappers().Backend().Pages().PageZoneEditorWrapper().PublishPage();
 
             BAT.Macros().NavigateTo().CustomPage("~/" + PageName.ToLower(), true, this.Culture);
-
+            // BAT.Wrappers().Frontend().EventsWidget().VerifyEventsItemsFrontEnd(
             // Assert.IsTrue(BATFeather.Wrappers().Frontend().IsNewsTitlesPresentOnThePageFrontend(this.newsTitles));
         }
 
