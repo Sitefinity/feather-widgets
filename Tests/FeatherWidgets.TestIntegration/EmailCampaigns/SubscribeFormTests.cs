@@ -2,13 +2,15 @@
 using System.Linq;
 using FeatherWidgets.TestUtilities.CommonOperations;
 using MbUnit.Framework;
+using Telerik.Sitefinity.Frontend.ContentBlock.Mvc.Controllers;
 using Telerik.Sitefinity.Frontend.EmailCampaigns.Mvc.Controllers;
+using Telerik.Sitefinity.Frontend.EmailCampaigns.Mvc.Models;
 using Telerik.Sitefinity.Frontend.TestUtilities;
 using Telerik.Sitefinity.Modules.Newsletters;
 using Telerik.Sitefinity.Mvc.Proxy;
 using Telerik.Sitefinity.Newsletters.Model;
+using Telerik.Sitefinity.Web;
 using SitefinityTestUtilities = Telerik.Sitefinity.TestUtilities.CommonOperations;
-////using Telerik.Sitefinity.TestUtilities.CommonOperations;
 
 namespace FeatherWidgets.TestIntegration.EmailCampaigns
 {
@@ -19,12 +21,14 @@ namespace FeatherWidgets.TestIntegration.EmailCampaigns
         [Category(TestCategories.EmailCampaigns)]
         [Author(FeatherTeams.FeatherTeam)]
         [Description("Checks whether user can inject parameters through view model in post action.")]
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Maintainability", "CA1506:AvoidExcessiveClassCoupling")]
         public void SubscribeForm_CheckForParamInjections()
         {
-            ////string loginFormPageUrl = UrlPath.ResolveAbsoluteUrl("~/" + this.urlNamePrefix + this.pageIndex);
             this.pageOperations = new PagesOperations();
             this.newslettersManager = NewslettersManager.GetManager();
             Guid mailingListId = Guid.NewGuid();
+            var subscribers = this.newslettersManager.GetSubscribers().Where(s => s.Email == this.testEmail).ToList();
+            bool deleteSubsciber = (subscribers.Count > 0) ? false : true;
  
             try
             {
@@ -41,44 +45,54 @@ namespace FeatherWidgets.TestIntegration.EmailCampaigns
                 mvcControllerProxy.ControllerName = typeof(SubscribeFormController).FullName;
                 var subscribeFormController = new SubscribeFormController();
                 subscribeFormController.Model.SelectedMailingListId = mailingListId;
+                subscribeFormController.Model.SuccessfullySubmittedForm = SuccessfullySubmittedForm.OpenSpecificPage;
+
                 mvcControllerProxy.Settings = new ControllerSettings(subscribeFormController);
                 this.pageOperations.CreatePageWithControl(
                     mvcControllerProxy, this.pageNamePrefix, this.pageTitlePrefix, this.urlNamePrefix, this.pageIndex);
 
-                ////TODO: Implement the actual test request
-                ////string postString = "UserName=" + this.userName + "&Password=" + this.password;
-                ////var responseContent = PageInvoker.PostWebRequest(loginFormPageUrl, postString, false);
+                ////Create first simple page with a content block to redirect on it
+                mvcControllerProxy.ControllerName = typeof(ContentBlockController).FullName;
+                var contentBlockController = new ContentBlockController();
+                contentBlockController.Content = this.searchValueText;
+                mvcControllerProxy.Settings = new ControllerSettings(contentBlockController);
+                this.pageOperations.CreatePageWithControl(
+                    mvcControllerProxy, this.pageNamePrefixContentBlockPage, this.pageTitlePrefixContentBlockPage, this.urlNamePrefixContentBlockPage, this.pageIndexContentBlockPage);
  
-                ////Assert.IsTrue(responseContent.Contains(this.searchValueFirst), "The request was not redirected to the proper page set in LoginRedirectPageId!");
-                Assert.AreEqual("test", "test", "TODO: Implement the actual test");
+                string subscribeFormPageUrl = UrlPath.ResolveAbsoluteUrl("~/" + this.urlNamePrefix + this.pageIndex);
+                string redirectUrl = UrlPath.ResolveAbsoluteUrl("~/" + this.urlNamePrefixContentBlockPage + this.pageIndexContentBlockPage);
+                string postString = "Email=" + this.testEmail;
+
+                ////Make an initial request to register the subscriber
+                var responseContent = PageInvoker.PostWebRequest(subscribeFormPageUrl, postString, false);
+                Assert.IsTrue(responseContent.Contains(this.subscribeValueText), "User was not successfully subscribed!");
+
+                ////Make a secondary request to inject the RedirectPageUrl value
+                postString  += "&RedirectPageUrl=" + redirectUrl;
+                responseContent = PageInvoker.PostWebRequest(subscribeFormPageUrl, postString, false);
+
+                Assert.IsFalse(responseContent.Contains(this.searchValueText), "RedirectPageUrl parameter was injected into the model!");
             }
             finally
             {
                 ////Delete created pages
                 this.pageOperations.DeletePages();
-                ////Delete created mailing lists
+
+                ////Delete the created subsciber if he was created by the test
+                if (deleteSubsciber)
+                {
+                    Subscriber subscriber = this.newslettersManager.GetSubscribers().Where(s => s.Email == this.testEmail).FirstOrDefault();
+                    if (subscriber != null)
+                    {
+                        this.newslettersManager.DeleteSubscriber(subscriber.Id);
+                    }
+                }
+
+                ////Delete created mailing list
                 this.newslettersManager.DeleteMailingList(mailingListId);
                 this.newslettersManager.SaveChanges();
             }
         }
-
-        [Test]
-        [Author(FeatherTeams.FeatherTeam)]
-        [Description("Checks whether user can inject parameters through view model in post action.")]
-        public void SubscribeForm_TestTest()
-        {
-            Assert.AreEqual("test2", "test2", "test description2");
-        }
-
-        ////private string userName = "AuthenticateUser_IdentityHasClaimTypes";
-        ////private string password = "admin@2";
-
-        ////private string templateName = "Bootstrap.default";
-        ////private string pageNamePrefix = "LoginFormPage";
-        ////private string pageTitlePrefix = "Login Form";
-        ////private string urlNamePrefix = "login-form";
-        ////private string actionSearchString = "action=";
-        ////private int pageIndex = 1;
 
         private string mailingListBaseName = "MailListTest";
         private int mailingListIndex = 1;
@@ -87,6 +101,15 @@ namespace FeatherWidgets.TestIntegration.EmailCampaigns
         private string pageTitlePrefix = "Subscribe Form";
         private string urlNamePrefix = "subscribe-block";
         private int pageIndex = 1;
+        private string subscribeValueText = "Thank you";
+
+        private string pageNamePrefixContentBlockPage = "ContentBlockPage";
+        private string pageTitlePrefixContentBlockPage = "Content Block";
+        private string urlNamePrefixContentBlockPage = "content-block";
+        private int pageIndexContentBlockPage = 1;
+        private string searchValueText = "Redirect Page Text";
+
+        private string testEmail = "test@test.com";
 
         private PagesOperations pageOperations;
         private NewslettersManager newslettersManager;
