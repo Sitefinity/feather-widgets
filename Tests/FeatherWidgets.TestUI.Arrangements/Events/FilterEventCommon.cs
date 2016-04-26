@@ -7,9 +7,9 @@ using Telerik.Sitefinity.TestUtilities.CommonOperations;
 namespace FeatherWidgets.TestUI.Arrangements
 {
     /// <summary>
-    /// FilterUpcomingAndCurrentEventOnPage arrangement class.
+    /// FilterEventCommon arrangement class.
     /// </summary>
-    public class FilterUpcomingAndCurrentEventOnPage : TestArrangementBase
+    public class FilterEventCommon : TestArrangementBase
     {
         /// <summary>
         /// Server side set up.

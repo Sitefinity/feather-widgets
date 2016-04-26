@@ -46,7 +46,7 @@ namespace FeatherWidgets.TestUI.TestCases.Events
         protected override void ServerSetup()
         {
             BAT.Macros().User().EnsureAdminLoggedIn();
-            BAT.Arrange(this.TestName).ExecuteSetUp();
+            BAT.Arrange(EventsTestsCommon.BaseArrangementName).ExecuteSetUp();
         }
 
         /// <summary>
@@ -54,7 +54,7 @@ namespace FeatherWidgets.TestUI.TestCases.Events
         /// </summary>
         protected override void ServerCleanup()
         {
-            BAT.Arrange(this.TestName).ExecuteTearDown();
+            BAT.Arrange(EventsTestsCommon.BaseArrangementName).ExecuteTearDown();
         }
 
         private const string PageName = "EventsPage";

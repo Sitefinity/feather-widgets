@@ -6,20 +6,20 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 namespace FeatherWidgets.TestUI.TestCases.Events
 {
     /// <summary>
-    /// FilterUpcomingAndCurrentEventOnPage_ test class.
+    /// FilterUpcomingAndCurrentAndPastEventOnPage_ test class.
     /// </summary>
     [TestClass]
-    public class FilterUpcomingAndCurrentEventOnPage_ : FeatherTestCase
+    public class FilterUpcomingAndCurrentAndPastEventOnPage_ : FeatherTestCase
     {
         /// <summary>
-        /// UI test FilterUpcomingAndCurrentEventOnPage
+        /// UI test FilterUpcomingAndCurrentAndPastEventOnPage
         /// </summary>
         [TestMethod,
         Owner(FeatherTeams.SitefinityTeam7),
         TestCategory(FeatherTestCategories.PagesAndContent),
         TestCategory(FeatherTestCategories.Events),
         TestCategory(FeatherTestCategories.Selectors)]
-        public void FilterUpcomingAndCurrentEventOnPage()
+        public void FilterUpcomingAndCurrentAndPastEventOnPage()
         {
             
             BAT.Macros().NavigateTo().Pages(this.Culture);
@@ -28,16 +28,17 @@ namespace FeatherWidgets.TestUI.TestCases.Events
             BATFeather.Wrappers().Backend().Widgets().WidgetDesignerWrapper().SelectWhichItemsToDisplay(1);
 
             BATFeather.Wrappers().Backend().Widgets().WidgetDesignerWrapper().SelectCheckBox(UpcomingDateNameInput);
+            BATFeather.Wrappers().Backend().Widgets().WidgetDesignerWrapper().SelectCheckBox(PastDateNameInput);
             BATFeather.Wrappers().Backend().Widgets().WidgetDesignerWrapper().SelectCheckBox(CurrentDateNameInput);
 
             BATFeather.Wrappers().Backend().Widgets().WidgetDesignerWrapper().SaveChanges();
             BAT.Wrappers().Backend().Pages().PageZoneEditorWrapper().CheckWidgetContent(WidgetName, EventsTestsCommon.BaseAllDayEventTitle);
-            BAT.Wrappers().Backend().Pages().PageZoneEditorWrapper().CheckWidgetContent(WidgetName, EventsTestsCommon.BaseUpcomingEventTitle);
+            BAT.Wrappers().Backend().Pages().PageZoneEditorWrapper().CheckWidgetContent(WidgetName, EventsTestsCommon.BasePastEventTitle);
             BAT.Wrappers().Backend().Pages().PageZoneEditorWrapper().CheckWidgetContent(WidgetName, EventsTestsCommon.BaseRepeatEventTitle);
+            BAT.Wrappers().Backend().Pages().PageZoneEditorWrapper().CheckWidgetContent(WidgetName, EventsTestsCommon.BaseUpcomingEventTitle);
             BAT.Wrappers().Backend().Pages().PageZoneEditorWrapper().PublishPage();
             BAT.Macros().NavigateTo().CustomPage("~/" + PageName.ToLower(), true, this.Culture);
             Assert.IsTrue(BATFeather.Wrappers().Frontend().Events().EventsWrapper().AreEventTitlesPresentOnThePageFrontend(this.eventTitles));
-            Assert.IsFalse(BATFeather.Wrappers().Frontend().Events().EventsWrapper().AreEventTitlesPresentOnThePageFrontend(new string[] { EventsTestsCommon.BasePastEventTitle }));
         }
 
         /// <summary>
@@ -60,7 +61,8 @@ namespace FeatherWidgets.TestUI.TestCases.Events
         private const string PageName = "EventsPage";
         private const string WidgetName = "Events";
         private const string WhichEventsToDisplay = "Selected events";
-        private readonly string[] eventTitles = new string[] { EventsTestsCommon.BaseAllDayEventTitle, EventsTestsCommon.BaseUpcomingEventTitle, EventsTestsCommon.BaseRepeatEventTitle };
+        private readonly string[] eventTitles = new string[] { EventsTestsCommon.BaseAllDayEventTitle, EventsTestsCommon.BasePastEventTitle, EventsTestsCommon.BaseRepeatEventTitle, EventsTestsCommon.BaseUpcomingEventTitle, EventsTestsCommon.BaseEventTitle };
+        private const string PastDateNameInput = "sfPastInput";
         private const string UpcomingDateNameInput = "sfUpcomingInput";
         private const string CurrentDateNameInput = "curentEventsInput";
     }
