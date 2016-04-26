@@ -18,6 +18,7 @@ namespace FeatherWidgets.TestUI.Arrangements.Events
         public static void DeleteEvents()
         {
             ServerOperations.Events().DeleteAllEvents();
+            ServerOperations.Events().DeleteEvent(null, EventsTestsCommon.BaseEventTitle, EventsTestsCommon.BasePastEventTitle, EventsTestsCommon.BaseUpcomingEventTitle, EventsTestsCommon.BaseAllDayEventTitle, EventsTestsCommon.BaseRepeatEventTitle, EventsTestsCommon.BaseDraftEventTitle);
         }
 
         public const string BaseEventTitle = "TestEvent";

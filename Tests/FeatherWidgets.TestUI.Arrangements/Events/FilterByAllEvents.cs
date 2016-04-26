@@ -15,7 +15,7 @@ namespace FeatherWidgets.TestUI.Arrangements
         [ServerSetUp]
         public void SetUp()
         {
-            ServerOperations.Pages().CreatePage("FilterByAllEvents");
+            ServerOperations.Pages().CreatePage(PageName);
             EventsTestsCommon.CreateEvents();
         }
 
@@ -26,7 +26,9 @@ namespace FeatherWidgets.TestUI.Arrangements
         public void TearDown()
         {
             ServerOperations.Events().DeleteAllEvents();
-            ServerOperations.Pages().DeleteAllPages();
+            ServerOperations.Pages().DeletePage(PageName);
         }
+
+        private const string PageName = "FilterByAllEvents";
     }
 }

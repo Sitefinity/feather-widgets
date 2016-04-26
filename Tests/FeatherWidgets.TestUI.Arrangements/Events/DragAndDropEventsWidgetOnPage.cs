@@ -29,8 +29,8 @@ namespace FeatherWidgets.TestUI.Arrangements
         [ServerTearDown]
         public void TearDown()
         {
-            ServerOperations.Pages().DeleteAllPages();
-            ServerOperations.Events().DeleteAllEvents();
+            ServerOperations.Pages().DeletePage(PageName);
+            ServerOperations.Events().DeleteEvent(null, EventsTitle);
         }
 
         private const string PageName = "Events";
