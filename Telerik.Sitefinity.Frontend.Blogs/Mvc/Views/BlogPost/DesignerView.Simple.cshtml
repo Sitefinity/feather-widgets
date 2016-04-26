@@ -64,7 +64,7 @@
             </div>
         </div>
 
-        <expander ng-hide="properties.SelectionMode.PropertyValue === 'SelectedItems'" expander-title='@Html.Resource("NarrowSelection")'>
+        <div class="Options-arrows" expander ng-hide="properties.SelectionMode.PropertyValue === 'SelectedItems'" expander-title='@Html.Resource("NarrowSelection")'>
             <div class="form-group">
                 <div class="radio">
                     <label class="full-width">
@@ -87,7 +87,7 @@
                     </label>
                 </div>
             </div>
-        </expander>
+        </div>
     </uib-tab>
 
     <uib-tab heading="@Html.Resource("ListSettings")">

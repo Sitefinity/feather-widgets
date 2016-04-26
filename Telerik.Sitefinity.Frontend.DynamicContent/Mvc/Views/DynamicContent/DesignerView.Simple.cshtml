@@ -128,7 +128,7 @@
 				</div>
             </div>
 
-			<expander expander-title='@Html.Resource("NarrowSelection")' start-expanded='@Model.ExpandNarrowSelection().ToString()' ng-show="properties.SelectionMode.PropertyValue!='SelectedItems'">
+			<div expander class="Options-arrows" expander-title='@Html.Resource("NarrowSelection")' start-expanded='@Model.ExpandNarrowSelection().ToString()' ng-show="properties.SelectionMode.PropertyValue!='SelectedItems'">
 				<div class="radio m-top-none">
 					<label for="allItems" class="full-width">
 						<input id="allItems" type="radio" ng-model="properties.SelectionMode.PropertyValue" value="AllItems" />
@@ -146,7 +146,7 @@
                             class="sf-filter-selector"></sf-filter-selector>
 					</label>
 				</div>
-			</expander>
+			</div>
         }
     </uib-tab>
 
