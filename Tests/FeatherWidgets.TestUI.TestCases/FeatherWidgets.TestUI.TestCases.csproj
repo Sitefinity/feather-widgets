@@ -223,6 +223,7 @@
     <Compile Include="Events\FilterByAllEvents.cs" />
     <Compile Include="Events\DragAndDropEventsWidgetOnPage.cs" />
     <Compile Include="Events\EventsTestsCommon.cs" />
+    <Compile Include="Events\SelectParticularEventOnPage.cs" />
     <Compile Include="FeatherTeams.cs" />
     <Compile Include="FeedWidget\DragAndDropFeedWidgetAndSetDefaultRssOnPage.cs" />
     <Compile Include="Forms\CAPTCHA\ChangeCAPTCHATemplate.cs" />
