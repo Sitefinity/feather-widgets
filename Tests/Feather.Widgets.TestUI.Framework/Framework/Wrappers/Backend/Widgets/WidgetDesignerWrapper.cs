@@ -19,13 +19,7 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend
         public void SelectWhichItemsToDisplay(string mode)
         {
             int position;
-            HtmlDiv optionsDiv = EM.Widgets
-                                   .WidgetDesignerContentScreen
-                                   .WhichItemsToDisplayList
-                                   .AssertIsPresent("Which items to display options list");
-
-            List<HtmlDiv> itemsDivs = optionsDiv.Find.AllByExpression<HtmlDiv>("tagname=div", "class=radio").ToList<HtmlDiv>();
-
+            
             if (mode.Contains("Selected"))
             {
                 position = 1;
@@ -38,6 +32,22 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend
             {
                 position = 0;
             }
+
+            this.SelectWhichItemsToDisplay(position);
+        }
+
+        /// <summary>
+        /// Selects which items to display in the widget designer
+        /// </summary>
+        /// <param name="position">Position of the checkbox defining which items to display</param>
+        public void SelectWhichItemsToDisplay(int position)
+        {
+            HtmlDiv optionsDiv = EM.Widgets
+                                   .WidgetDesignerContentScreen
+                                   .WhichItemsToDisplayList
+                                   .AssertIsPresent("Which items to display options list");
+
+            List<HtmlDiv> itemsDivs = optionsDiv.Find.AllByExpression<HtmlDiv>("tagname=div", "class=radio").ToList<HtmlDiv>();
 
             HtmlInputRadioButton optionButton = itemsDivs[position].Find.ByExpression<HtmlInputRadioButton>("tagname=input")
                                                                    .AssertIsPresent("Which items to display option radio button");
