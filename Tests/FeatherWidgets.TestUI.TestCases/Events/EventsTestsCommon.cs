@@ -8,5 +8,7 @@
         public const string BaseDraftEventTitle = "DraftTestEvent";
         public const string BaseAllDayEventTitle = "AllDayTestEvent";
         public const string BaseRepeatEventTitle = "RepeatTestEvent";
+
+        public const string BaseArrangementName = "FilterEventCommon";
     }
 }
