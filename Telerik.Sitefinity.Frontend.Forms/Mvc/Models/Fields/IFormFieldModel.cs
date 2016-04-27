@@ -7,6 +7,11 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Models.Fields
     public interface IFormFieldModel : IFormElementModel
     {
         /// <summary>
+        /// Gets or sets the tracking field name
+        /// </summary>
+        string TrackingFieldName { get; set; }
+
+        /// <summary>
         /// Gets or sets the meta field.
         /// </summary>
         /// <value>

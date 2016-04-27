@@ -10,6 +10,9 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Models.Fields
     public abstract class FormFieldModel : FormElementModel, IFormFieldModel
     {
         /// <inheritDocs />
+        public string TrackingFieldName { get; set; }
+
+        /// <inheritDocs />
         [TypeConverter(typeof(ExpandableObjectConverter))]
         public IMetaField MetaField { get; set; }
 
