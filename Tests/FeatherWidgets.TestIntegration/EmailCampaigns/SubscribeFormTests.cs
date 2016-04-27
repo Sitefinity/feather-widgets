@@ -51,7 +51,7 @@ namespace FeatherWidgets.TestIntegration.EmailCampaigns
                 this.pageOperations.CreatePageWithControl(
                     mvcControllerProxy, this.pageNamePrefix, this.pageTitlePrefix, this.urlNamePrefix, this.pageIndex);
 
-                ////Create first simple page with a content block to redirect on it
+                ////Create simple page with a content block to redirect on it
                 mvcControllerProxy.ControllerName = typeof(ContentBlockController).FullName;
                 var contentBlockController = new ContentBlockController();
                 contentBlockController.Content = this.searchValueText;
