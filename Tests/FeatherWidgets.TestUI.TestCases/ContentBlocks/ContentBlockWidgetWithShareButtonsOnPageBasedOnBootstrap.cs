@@ -20,6 +20,7 @@ namespace FeatherWidgets.TestUI.TestCases.ContentBlocks
         /// UI test ContentBlockWidgetWithShareButtonsOnPageBasedOnBootstrap
         /// </summary>
         [TestMethod,
+        Ignore,
         Owner(FeatherTeams.SitefinityTeam7),
         TestCategory(FeatherTestCategories.ContentBlock),
         TestCategory(FeatherTestCategories.SocialShare)]
