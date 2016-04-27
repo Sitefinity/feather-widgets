@@ -3,6 +3,10 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
 using System.Web;
+using System.Web.UI;
+using Telerik.Sitefinity.Frontend.Mvc.Helpers;
+using Telerik.Sitefinity.Model;
+using Telerik.Sitefinity.Mvc;
 using Telerik.Sitefinity.Services;
 using Telerik.Sitefinity.Web;
 using Telerik.Sitefinity.Web.UI.NavigationControls;
@@ -93,13 +97,18 @@ namespace Telerik.Sitefinity.Frontend.Navigation.Mvc.Models.Breadcrumb
         /// <summary>
         /// Creates the view model.
         /// </summary>
-        /// <param name="virtualNodes">The virtual nodes.</param>
+        /// <param name="extender">The object used for retrieving the breadcrump datasources.</param>
         /// <returns></returns>
         public virtual BreadcrumbViewModel CreateViewModel(IBreadcrumExtender extender)
         {
             Tuple<bool, List<SiteMapNode>> result = this.GetBreadcrumbDataSource();
 
-            result.Item2.AddRange(this.GetVirtualNodes(extender));
+            if (this.AllowVirtualNodes)
+            {
+                result.Item2.AddRange(this.GetVirtualNodes(extender));
+                var virtualNodes = this.GetVirtualNodes().Where(n => !result.Item2.Contains(n));
+                result.Item2.AddRange(virtualNodes);
+            }
 
             return new BreadcrumbViewModel(result.Item2)
             {
@@ -110,13 +119,71 @@ namespace Telerik.Sitefinity.Frontend.Navigation.Mvc.Models.Breadcrumb
         }
 
         /// <summary>
+        /// Gets the virtual nodes for the controllers that have detail action method.
+        /// </summary>
+        /// <returns></returns>
+        public virtual IEnumerable<SiteMapNode> GetVirtualNodes()
+        {
+            var nodes = new List<SiteMapNode>();
+
+            var page = HttpContext.Current.Handler as System.Web.UI.Page;
+            if (page != null)
+            {
+                var routeParams = MvcRequestContextBuilder.GetRouteParams(page.GetRequestContext());
+                if (routeParams == null || routeParams.Length == 0)
+                    return null;
+
+                var mvcProxyControls = GetControlsRecusrvive<Telerik.Sitefinity.Mvc.Proxy.MvcControllerProxy>(page);
+                if (mvcProxyControls.Any())
+                {
+                    foreach (var mvcProxy in mvcProxyControls)
+                    {
+                        var contentItemResolver = new ContentDataItemResolver();
+                        var dataItem = contentItemResolver.GetItemByController(mvcProxy.Controller, routeParams) as IContent;
+                        if (dataItem != null)
+                        {
+                            ////check whether the item has title and if it is already added to sitemap datasource
+                            if (!string.IsNullOrEmpty(dataItem.Title))
+                            {
+                                var siteMapNode = new SiteMapNode(
+                                    this.provider, dataItem.Id.ToString(), string.Empty, dataItem.Title, dataItem.Description);
+                                nodes.Add(siteMapNode);
+                            }
+                        }
+                    }
+                }
+            }
+
+            return nodes;
+        }
+
+        private static IList<T> GetControlsRecusrvive<T>(Control control) where T : Control
+        {
+            var rtn = new List<T>();
+            foreach (Control item in control.Controls)
+            {
+                var ctr = item as T;
+                if (ctr != null)
+                {
+                    rtn.Add(ctr);
+                }
+                else
+                {
+                    rtn.AddRange(GetControlsRecusrvive<T>(item));
+                }
+            }
+
+            return rtn;
+        }
+
+        /// <summary>
         /// Gets the virtual nodes.
         /// </summary>
         /// <param name="extender">The extender.</param>
         /// <returns></returns>
         private IEnumerable<SiteMapNode> GetVirtualNodes(IBreadcrumExtender extender)
         {
-            if (extender == null || !this.AllowVirtualNodes)
+            if (extender == null)
             {
                 return Enumerable.Empty<SiteMapNode>();
             }
