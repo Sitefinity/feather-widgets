@@ -164,7 +164,7 @@ namespace FeatherWidgets.TestIntegration.Events
             eventController.Model.SortExpression = "Title DESC";
             eventController.Model.DisplayMode = Telerik.Sitefinity.Frontend.Mvc.Models.ListDisplayMode.All;
 
-            var items = eventController.Model.CreateListViewModel(1).Items.ToArray();
+            var items = eventController.Model.CreateListViewModel(null, 1).Items.ToArray();
 
             for (int i = 1; i <= EventWidgetListSettingsTests.EventsCount; i++)
             {
