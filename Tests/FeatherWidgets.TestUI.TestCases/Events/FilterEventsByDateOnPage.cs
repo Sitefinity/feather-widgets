@@ -154,7 +154,7 @@ namespace FeatherWidgets.TestUI.TestCases.Events
         private const string WhichEventsToDisplay = "Selected events";
         private readonly string[] currentEventTitles = new string[] { EventsTestsCommon.BaseAllDayEventTitle, EventsTestsCommon.BaseRepeatEventTitle };
         private readonly string[] pastEventTitles = new string[] { EventsTestsCommon.BasePastInFourDaysEventTitle, EventsTestsCommon.BasePastInTwoDaysEventTitle };
-        private readonly string[] upcomingEventTitles = new string[] { EventsTestsCommon.BaseUpcomingInOneDayEventTitle, EventsTestsCommon.BaseUpcomingInThreeDaysEventTitle };
+        private readonly string[] upcomingEventTitles = new string[] { EventsTestsCommon.BaseEventTitle, EventsTestsCommon.BaseUpcomingInOneDayEventTitle, EventsTestsCommon.BaseUpcomingInThreeDaysEventTitle };
         private const string PastDateNameInput = "sfPastInput";
         private const string UpcomingDateNameInput = "sfUpcomingInput";
         private const string CurrentDateNameInput = "curentEventsInput";
