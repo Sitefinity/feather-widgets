@@ -8,7 +8,7 @@ namespace FeatherWidgets.TestUI.Arrangements.Events
         public static void CreateEvents()
         {
             ServerOperations.Events().CreateEvent(EventsTestsCommon.BaseEventTitle);
-            ServerOperations.Events().CreateEvent(EventsTestsCommon.BasePastInTwoDaysEventTitle, string.Empty, false, DateTime.Now.AddDays(-5), DateTime.Now.AddDays(-3));
+            ServerOperations.Events().CreateEvent(EventsTestsCommon.BasePastInTwoDaysEventTitle, string.Empty, false, DateTime.Now.AddDays(-5), DateTime.Now.AddDays(-2));
             ServerOperations.Events().CreateEvent(EventsTestsCommon.BasePastInFourDaysEventTitle, string.Empty, false, DateTime.Now.AddDays(-6), DateTime.Now.AddDays(-4));
             ServerOperations.Events().CreateEvent(EventsTestsCommon.BaseUpcomingInOneDayEventTitle, string.Empty, false, DateTime.Now.AddDays(1), DateTime.Now.AddDays(2));
             ServerOperations.Events().CreateEvent(EventsTestsCommon.BaseUpcomingInThreeDaysEventTitle, string.Empty, false, DateTime.Now.AddDays(3), DateTime.Now.AddDays(4));
