@@ -189,5 +189,10 @@ namespace FeatherWidgets.TestUI.TestCases
         /// Pages and content category
         /// </summary>
         public const string Packaging = "Packaging";
+
+        /// <summary>
+        /// Events category
+        /// </summary>
+        public const string Events = "Events";
     }
 }
