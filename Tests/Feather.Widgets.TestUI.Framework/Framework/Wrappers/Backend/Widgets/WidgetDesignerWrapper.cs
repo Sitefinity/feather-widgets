@@ -210,6 +210,24 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend
         }
 
         /// <summary>
+        /// Set From date by typing to custom date selector
+        /// </summary>
+        /// <param name="dayAgo">Day ago</param>
+        public void SetToDateByTyping(int dayAgo)
+        {
+            DateTime publicationDateStart = DateTime.UtcNow.AddDays(dayAgo);
+            string publicationDateStartFormat = publicationDateStart.ToString("dd-MMMM-yyyy", CultureInfo.CreateSpecificCulture("en-US"));
+
+            List<HtmlInputText> inputDate = ActiveBrowser.Find.AllByExpression<HtmlInputText>("tagname=input", "id=fromInput").ToList<HtmlInputText>();
+
+            Manager.Current.Desktop.Mouse.Click(MouseClickType.LeftClick, inputDate[1].GetRectangle());
+            Manager.Current.Desktop.KeyBoard.TypeText(publicationDateStartFormat);
+            Manager.Current.ActiveBrowser.WaitUntilReady();
+            Manager.Current.ActiveBrowser.WaitForAsyncJQueryRequests();
+            Manager.Current.ActiveBrowser.RefreshDomTree();
+        }
+
+        /// <summary>
         /// Set To date by date picker to custom date selector
         /// </summary>
         /// <param name="dayForward">Day forward</param>

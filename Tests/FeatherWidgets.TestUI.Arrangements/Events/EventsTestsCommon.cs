@@ -11,7 +11,7 @@ namespace FeatherWidgets.TestUI.Arrangements.Events
             ServerOperations.Events().CreateEvent(EventsTestsCommon.BasePastInTwoDaysEventTitle, string.Empty, false, DateTime.Now.AddDays(-5), DateTime.Now.AddDays(-3));
             ServerOperations.Events().CreateEvent(EventsTestsCommon.BasePastInFourDaysEventTitle, string.Empty, false, DateTime.Now.AddDays(-6), DateTime.Now.AddDays(-4));
             ServerOperations.Events().CreateEvent(EventsTestsCommon.BaseUpcomingInOneDayEventTitle, string.Empty, false, DateTime.Now.AddDays(1), DateTime.Now.AddDays(2));
-            ServerOperations.Events().CreateEvent(EventsTestsCommon.BaseUpcomingInThreeDaysEventTitle, string.Empty, false, DateTime.Now.AddDays(1), DateTime.Now.AddDays(2));
+            ServerOperations.Events().CreateEvent(EventsTestsCommon.BaseUpcomingInThreeDaysEventTitle, string.Empty, false, DateTime.Now.AddDays(3), DateTime.Now.AddDays(4));
             ServerOperations.Events().CreateEvent(EventsTestsCommon.BaseAllDayEventTitle, string.Empty, true, DateTime.Now, DateTime.Now.AddHours(1));
             ServerOperations.Events().CreateDailyRecurrentEvent(EventsTestsCommon.BaseRepeatEventTitle, string.Empty, DateTime.Now, DateTime.Now.AddHours(1), 60, 5, 1, TimeZoneInfo.Local.StandardName);
             ServerOperations.Events().CreateDraftEvent(EventsTestsCommon.BaseDraftEventTitle, string.Empty, false, DateTime.Now, DateTime.Now.AddHours(1));

@@ -71,7 +71,7 @@ namespace FeatherWidgets.TestUI.TestCases.Events
                 BATFeather.Wrappers().Backend().Widgets().WidgetDesignerWrapper().SetFromDateByTyping(2);
                 BATFeather.Wrappers().Backend().Widgets().WidgetDesignerWrapper().AddHour("10", true);
                 BATFeather.Wrappers().Backend().Widgets().WidgetDesignerWrapper().AddMinute("20", true);
-                BATFeather.Wrappers().Backend().Widgets().WidgetDesignerWrapper().SetToDateByDatePicker(4);
+                BATFeather.Wrappers().Backend().Widgets().WidgetDesignerWrapper().SetToDateByTyping(4);
                 BATFeather.Wrappers().Backend().Widgets().WidgetDesignerWrapper().AddHour("13", false);
                 BATFeather.Wrappers().Backend().Widgets().WidgetDesignerWrapper().AddMinute("40", false);
                 BATFeather.Wrappers().Backend().Widgets().SelectorsWrapper().DoneSelecting();
@@ -99,7 +99,7 @@ namespace FeatherWidgets.TestUI.TestCases.Events
                 BATFeather.Wrappers().Backend().Widgets().WidgetDesignerWrapper().SetFromDateByTyping(-3);
                 BATFeather.Wrappers().Backend().Widgets().WidgetDesignerWrapper().AddHour("10", true);
                 BATFeather.Wrappers().Backend().Widgets().WidgetDesignerWrapper().AddMinute("20", true);
-                BATFeather.Wrappers().Backend().Widgets().WidgetDesignerWrapper().SetToDateByDatePicker(-1);
+                BATFeather.Wrappers().Backend().Widgets().WidgetDesignerWrapper().SetToDateByTyping(-1);
                 BATFeather.Wrappers().Backend().Widgets().WidgetDesignerWrapper().AddHour("13", false);
                 BATFeather.Wrappers().Backend().Widgets().WidgetDesignerWrapper().AddMinute("40", false);
                 BATFeather.Wrappers().Backend().Widgets().SelectorsWrapper().DoneSelecting();
