@@ -394,6 +394,11 @@
     <Compile Include="EmailCampaigns\TryToUnsubscribeNotExistingSubscriber.cs" />
     <Compile Include="EmailCampaigns\UnsubscribeWidgetOnFoundationAndSemanticPage.cs" />
     <Compile Include="EmailCampaigns\UnsubscribeWidgetOnHybridPageAndSetCssClass.cs" />
+    <Compile Include="Events\FilterEventCommon.cs" />
+    <Compile Include="Events\FilterByAllEvents.cs" />
+    <Compile Include="Events\DragAndDropEventsWidgetOnPage.cs" />
+    <Compile Include="Events\EventsTestsCommon.cs" />
+    <Compile Include="Events\SelectParticularEventOnPage.cs" />
     <Compile Include="FeedWidget\DragAndDropFeedWidgetAndSetDefaultRssOnPage.cs" />
     <Compile Include="Forms\CAPTCHA\ChangeCAPTCHATemplate.cs" />
     <Compile Include="Forms\Checkboxes\AddAndRemoveChoicesToCheckBoxField.cs" />
