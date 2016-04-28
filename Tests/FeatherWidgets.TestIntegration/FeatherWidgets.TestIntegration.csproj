@@ -276,6 +276,7 @@
     <Compile Include="DynamicWidgets\DynamicWidgetsRoutingTests.cs" />
     <Compile Include="DynamicWidgets\DynamicWidgetsToolboxTests.cs" />
     <Compile Include="DynamicWidgets\OldDynamicWidgetsWithFeatherTests.cs" />
+    <Compile Include="EmailCampaigns\SubscribeFormTests.cs" />
     <Compile Include="Events\EventExportsTests.cs" />
     <Compile Include="Events\EventWidgetListSettingsTests.cs" />
     <Compile Include="Events\EventWidgetFilteringTests.cs" />
