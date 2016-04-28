@@ -27,7 +27,7 @@ namespace FeatherWidgets.TestUI.TestCases.Events
             BATFeather.Wrappers().Backend().Widgets().SelectorsWrapper().SelectAllItemsRadioButton();
             BATFeather.Wrappers().Backend().Widgets().WidgetDesignerWrapper().SaveChanges();
 
-            var expectedEvents = new List<string>() { EventsTestsCommon.BaseEventTitle, EventsTestsCommon.BasePastEventTitle, EventsTestsCommon.BaseUpcomingEventTitle, EventsTestsCommon.BaseAllDayEventTitle, EventsTestsCommon.BaseRepeatEventTitle };
+            var expectedEvents = new List<string>() { EventsTestsCommon.BaseEventTitle, EventsTestsCommon.BasePastInFourDaysEventTitle, EventsTestsCommon.BasePastInTwoDaysEventTitle, EventsTestsCommon.BaseUpcomingInOneDayEventTitle, EventsTestsCommon.BaseUpcomingInThreeDaysEventTitle, EventsTestsCommon.BaseAllDayEventTitle, EventsTestsCommon.BaseRepeatEventTitle };
             var unexpectedEvents = new List<string>() { EventsTestsCommon.BaseDraftEventTitle };
 
             expectedEvents.ForEach(e => BAT.Wrappers().Backend().Pages().PageZoneEditorWrapper().CheckWidgetContent(WidgetName, e));
@@ -37,7 +37,7 @@ namespace FeatherWidgets.TestUI.TestCases.Events
             BAT.Macros().NavigateTo().CustomPage("~/" + PageName.ToLower(), true, this.Culture);
             
             Assert.IsTrue(BATFeather.Wrappers().Frontend().Events().EventsWrapper().AreEventTitlesPresentOnThePageFrontend(expectedEvents));
-            Assert.IsFalse(BATFeather.Wrappers().Frontend().Events().EventsWrapper().AreEventTitlesPresentOnThePageFrontend(unexpectedEvents));
+            Assert.IsTrue(BATFeather.Wrappers().Frontend().Events().EventsWrapper().AreEventTitlesMissingOnThePageFrontend(unexpectedEvents));
         }
 
         /// <summary>

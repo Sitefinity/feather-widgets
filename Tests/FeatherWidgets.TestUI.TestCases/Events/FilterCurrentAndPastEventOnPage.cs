@@ -32,12 +32,13 @@ namespace FeatherWidgets.TestUI.TestCases.Events
 
             BATFeather.Wrappers().Backend().Widgets().WidgetDesignerWrapper().SaveChanges();
             BAT.Wrappers().Backend().Pages().PageZoneEditorWrapper().CheckWidgetContent(WidgetName, EventsTestsCommon.BaseAllDayEventTitle);
-            BAT.Wrappers().Backend().Pages().PageZoneEditorWrapper().CheckWidgetContent(WidgetName, EventsTestsCommon.BasePastEventTitle);
+            BAT.Wrappers().Backend().Pages().PageZoneEditorWrapper().CheckWidgetContent(WidgetName, EventsTestsCommon.BasePastInTwoDaysEventTitle);
+            BAT.Wrappers().Backend().Pages().PageZoneEditorWrapper().CheckWidgetContent(WidgetName, EventsTestsCommon.BasePastInFourDaysEventTitle);
             BAT.Wrappers().Backend().Pages().PageZoneEditorWrapper().CheckWidgetContent(WidgetName, EventsTestsCommon.BaseRepeatEventTitle);
             BAT.Wrappers().Backend().Pages().PageZoneEditorWrapper().PublishPage();
             BAT.Macros().NavigateTo().CustomPage("~/" + PageName.ToLower(), true, this.Culture);
             Assert.IsTrue(BATFeather.Wrappers().Frontend().Events().EventsWrapper().AreEventTitlesPresentOnThePageFrontend(this.eventTitles));
-            Assert.IsFalse(BATFeather.Wrappers().Frontend().Events().EventsWrapper().AreEventTitlesPresentOnThePageFrontend(new string[] { EventsTestsCommon.BaseUpcomingEventTitle }));
+            Assert.IsTrue(BATFeather.Wrappers().Frontend().Events().EventsWrapper().AreEventTitlesMissingOnThePageFrontend(new string[] { EventsTestsCommon.BaseUpcomingInOneDayEventTitle, EventsTestsCommon.BaseUpcomingInThreeDaysEventTitle }));
         }
 
         /// <summary>
@@ -60,7 +61,7 @@ namespace FeatherWidgets.TestUI.TestCases.Events
         private const string PageName = "EventsPage";
         private const string WidgetName = "Events";
         private const string WhichEventsToDisplay = "Selected events";
-        private readonly string[] eventTitles = new string[] { EventsTestsCommon.BaseAllDayEventTitle, EventsTestsCommon.BasePastEventTitle, EventsTestsCommon.BaseRepeatEventTitle };
+        private readonly string[] eventTitles = new string[] { EventsTestsCommon.BaseAllDayEventTitle, EventsTestsCommon.BasePastInFourDaysEventTitle, EventsTestsCommon.BasePastInTwoDaysEventTitle, EventsTestsCommon.BaseRepeatEventTitle };
         private const string PastDateNameInput = "sfPastInput";
         private const string CurrentDateNameInput = "curentEventsInput";
     }
