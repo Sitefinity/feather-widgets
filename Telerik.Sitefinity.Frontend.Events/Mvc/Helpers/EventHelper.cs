@@ -10,6 +10,7 @@ using Telerik.Sitefinity.Frontend.Events.Mvc.StringResources;
 using Telerik.Sitefinity.Frontend.Mvc.Models;
 using Telerik.Sitefinity.Localization;
 using Telerik.Sitefinity.Modules.Events;
+using Telerik.Sitefinity.Modules.Events.Web.UI.Export;
 using Telerik.Sitefinity.RecurrentRules;
 
 namespace Telerik.Sitefinity.Frontend.Events.Mvc.Helpers
@@ -61,8 +62,8 @@ namespace Telerik.Sitefinity.Frontend.Events.Mvc.Helpers
             if (ev == null)
                 return string.Empty;
 
-            var url = GenerateGoogleUrlMethodInfo.Value.Invoke(null, new object[] { ev });
-            return url as string;
+            var url = GoogleEventExporterHelper.GenerateGoogleUrl(ev);
+            return url;
         }
 
         /// <summary>
@@ -76,8 +77,8 @@ namespace Telerik.Sitefinity.Frontend.Events.Mvc.Helpers
             if (ev == null)
                 return string.Empty;
 
-            var url = GenerateOutlookUrlMethodInfo.Value.Invoke(GenerateOutlookUrlInstance.Value, new object[] { ev });
-            return url as string;
+            var url = OutlookEventExporter.GenerateOutlookUrl(ev);
+            return url;
         }
 
         /// <summary>
@@ -91,8 +92,8 @@ namespace Telerik.Sitefinity.Frontend.Events.Mvc.Helpers
             if (ev == null)
                 return string.Empty;
 
-            var url = GenerateICalUrlMethodInfo.Value.Invoke(GenerateICalUrlInstance.Value, new object[] { ev });
-            return url as string;
+            var url = ICalEventExporter.GenerateICalUrl(ev);
+            return url;
         }
 
         private static string BuildHourMinute(DateTime time)
@@ -230,8 +231,8 @@ namespace Telerik.Sitefinity.Frontend.Events.Mvc.Helpers
             if (string.IsNullOrEmpty(recurrenceExpression))
                 return null;
 
-            var descriptor = ICalRecurrenceSerializerDeserializeMethodInfo.Value.Invoke(ICalRecurrenceSerializerInstance.Value, new object[] { recurrenceExpression });
-            return descriptor as IRecurrenceDescriptor;
+            var descriptor = new ICalRecurrenceSerializer().Deserialize(recurrenceExpression);
+            return descriptor;
         }
 
         private static string BuildFromDaily(IRecurrenceDescriptor recurrenceDescriptor)
@@ -366,27 +367,6 @@ namespace Telerik.Sitefinity.Frontend.Events.Mvc.Helpers
                 default: return char.ToUpper(Res.Get<Labels>("Last")[0]) + Res.Get<Labels>("Last").Substring(1);
             }
         }
-
-        private static readonly Lazy<MethodInfo> GenerateGoogleUrlMethodInfo =
-            new Lazy<MethodInfo>(() => Type.GetType("Telerik.Sitefinity.Modules.Events.Web.UI.Export.GoogleEventExporterHelper, Telerik.Sitefinity.ContentModules").GetMethod("GenerateGoogleUrl", BindingFlags.Public | BindingFlags.Static));
-
-        private static readonly Lazy<object> GenerateOutlookUrlInstance =
-            new Lazy<object>(() => Activator.CreateInstance(Type.GetType("Telerik.Sitefinity.Modules.Events.Web.UI.Export.OutlookEventExporter, Telerik.Sitefinity.ContentModules")));
-
-        private static readonly Lazy<MethodInfo> GenerateOutlookUrlMethodInfo =
-            new Lazy<MethodInfo>(() => Type.GetType("Telerik.Sitefinity.Modules.Events.Web.UI.Export.OutlookEventExporter, Telerik.Sitefinity.ContentModules").GetMethod("GenerateOutlookUrl", BindingFlags.NonPublic | BindingFlags.Instance));
-
-        private static readonly Lazy<object> GenerateICalUrlInstance =
-            new Lazy<object>(() => Activator.CreateInstance(Type.GetType("Telerik.Sitefinity.Modules.Events.Web.UI.Export.ICalEventExporter, Telerik.Sitefinity.ContentModules")));
-
-        private static readonly Lazy<MethodInfo> GenerateICalUrlMethodInfo =
-            new Lazy<MethodInfo>(() => Type.GetType("Telerik.Sitefinity.Modules.Events.Web.UI.Export.ICalEventExporter, Telerik.Sitefinity.ContentModules").GetMethod("GenerateICalUrl", BindingFlags.NonPublic | BindingFlags.Instance));
-
-        private static readonly Lazy<object> ICalRecurrenceSerializerInstance =
-            new Lazy<object>(() => Activator.CreateInstance(Type.GetType("Telerik.Sitefinity.RecurrentRules.ICalRecurrenceSerializer, Telerik.Sitefinity.RecurrentRules")));
-
-        private static readonly Lazy<MethodInfo> ICalRecurrenceSerializerDeserializeMethodInfo =
-            new Lazy<MethodInfo>(() => Type.GetType("Telerik.Sitefinity.RecurrentRules.ICalRecurrenceSerializer, Telerik.Sitefinity.RecurrentRules").GetMethod("Deserialize", BindingFlags.Instance | BindingFlags.Public));
 
         private const string Dash = "-";
         private const string Comma = ",";
