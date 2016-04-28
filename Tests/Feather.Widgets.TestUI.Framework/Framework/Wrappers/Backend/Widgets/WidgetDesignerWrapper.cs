@@ -211,8 +211,11 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend
             List<HtmlSpan> buttonDate = ActiveBrowser.Find.AllByExpression<HtmlSpan>("tagname=span", "class=input-group-btn").ToList<HtmlSpan>();
             Manager.Current.Desktop.Mouse.Click(MouseClickType.LeftClick, buttonDate[1].GetRectangle());
 
+            HtmlFindExpression expression = new HtmlFindExpression("tagname=table", "role=grid");
+            ActiveBrowser.WaitForElement(expression, 60000, false);
+
             List<HtmlTable> dateTable = ActiveBrowser.Find.AllByExpression<HtmlTable>("tagname=table", "role=grid").ToList<HtmlTable>();
-            List<HtmlTableCell> toDay = dateTable[1].Find.AllByExpression<HtmlTableCell>("tagname=td", "InnerText=" + publicationDateEndFormat).ToList<HtmlTableCell>();
+            List<HtmlTableCell> toDay = dateTable[0].Find.AllByExpression<HtmlTableCell>("tagname=td", "InnerText=" + publicationDateEndFormat).ToList<HtmlTableCell>();
             HtmlButton buttonToDay;
 
             if (toDay.Count == 2)
