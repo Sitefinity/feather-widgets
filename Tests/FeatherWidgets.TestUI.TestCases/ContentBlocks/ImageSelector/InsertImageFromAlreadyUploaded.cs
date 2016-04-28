@@ -45,12 +45,12 @@ namespace FeatherWidgets.TestUI.TestCases.ContentBlocks.ImageSelector
             BATFeather.Wrappers().Backend().Media().ImagePropertiesWrapper().ConfirmMediaProperties();
 
             BATFeather.Wrappers().Backend().ContentBlocks().ContentBlocksWrapper()
-                .VerifyContentBlockImageDesignMode(this.GetImageSource(true), this.GetSfRef(imageId), NewImageName, NewImageAltText);
+                      .VerifyContentBlockImageDesignMode(this.GetImageSource(), this.GetSfRef(imageId), NewImageName, NewImageAltText);
             BATFeather.Wrappers().Backend().ContentBlocks().ContentBlocksWrapper().SaveChanges();
             BAT.Wrappers().Backend().Pages().PageZoneEditorWrapper().PublishPage();
 
             BAT.Macros().NavigateTo().CustomPage("~/" + PageName.ToLower(), true, this.Culture);
-            BATFeather.Wrappers().Frontend().MediaWidgets().MediaWidgetsWrapper().VerifyImage(NewImageName, NewImageAltText, this.GetImageSource(false));
+            BATFeather.Wrappers().Frontend().MediaWidgets().MediaWidgetsWrapper().VerifyImage(NewImageName, NewImageAltText, this.GetImageSource());
         }
 
         /// <summary>
@@ -81,7 +81,7 @@ namespace FeatherWidgets.TestUI.TestCases.ContentBlocks.ImageSelector
             return "[images|" + provider + "]" + imageId;
         }
 
-        private string GetImageSource(bool isBaseUrlIncluded)
+        private string GetImageSource()
         {
             currentProviderUrlName = BAT.Arrange(this.TestName).ExecuteArrangement("GetCurrentProviderUrlName").Result.Values["CurrentProviderUrlName"];
             string libraryUrl = LibraryName.ToLower();
@@ -97,7 +97,7 @@ namespace FeatherWidgets.TestUI.TestCases.ContentBlocks.ImageSelector
                 url = ActiveBrowser.Url.Substring(0, 20);
             }
 
-            string scr = BATFeather.Wrappers().Frontend().MediaWidgets().MediaWidgetsWrapper().GetMediaSource(isBaseUrlIncluded, libraryUrl, imageUrl, url, "images", currentProviderUrlName);
+            string scr = BATFeather.Wrappers().Frontend().MediaWidgets().MediaWidgetsWrapper().GetMediaSource(libraryUrl, imageUrl, "images", currentProviderUrlName);
             return scr;
         }
 

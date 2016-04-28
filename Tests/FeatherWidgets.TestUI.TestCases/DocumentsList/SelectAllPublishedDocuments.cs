@@ -34,7 +34,7 @@ namespace FeatherWidgets.TestUI.TestCases.DocumentsList
             BATFeather.Wrappers().Backend().Widgets().WidgetDesignerWrapper().SaveChanges();
             foreach (var doc in this.documentTitles)
             {
-                BATFeather.Wrappers().Backend().Pages().PageZoneEditorMediaWrapper().VerifyDocument(doc, this.GetDocumentHref(true, doc, PageName + "/" + ContentType));
+                BATFeather.Wrappers().Backend().Pages().PageZoneEditorMediaWrapper().VerifyDocument(doc, this.GetDocumentHref(doc, PageName + "/" + ContentType));
                 BATFeather.Wrappers().Backend().Pages().PageZoneEditorMediaWrapper().VerifyDocumentIconOnTemplate(DocumentType);
             }
 
@@ -44,17 +44,17 @@ namespace FeatherWidgets.TestUI.TestCases.DocumentsList
 
             foreach (var doc in this.documentTitles)
             {
-                BATFeather.Wrappers().Frontend().DocumentsList().DocumentsListWrapper().VerifyDocument(doc, this.GetDocumentHref(true, doc, PageName + "/" + ContentType));
-                BATFeather.Wrappers().Frontend().DocumentsList().DocumentsListWrapper().VerifyDownloadButton(this.GetDownloadHref(true, doc, ContentType));              
+                BATFeather.Wrappers().Frontend().DocumentsList().DocumentsListWrapper().VerifyDocument(doc, this.GetDocumentHref(doc, PageName + "/" + ContentType));
+                BATFeather.Wrappers().Frontend().DocumentsList().DocumentsListWrapper().VerifyDownloadButton(this.GetDownloadHref(doc, ContentType));              
             }
 
             BATFeather.Wrappers().Frontend().DocumentsList().DocumentsListWrapper().VerifyCorrectOrderOfDocuments(this.documentTitles);
             BATFeather.Wrappers().Frontend().DocumentsList().DocumentsListWrapper().VerifyDocumentIconOnTemplate(DocumentType);
 
             BATFeather.Wrappers().Frontend().DocumentsList().DocumentsListWrapper().ClickDocument(SelectedDocument);
-            ActiveBrowser.WaitForUrl(this.GetDocumentHref(false, SelectedDocument, PageName + "/" + ContentType), true, 60000);
+            ActiveBrowser.WaitForUrl(this.GetDocumentHref(SelectedDocument, PageName + "/" + ContentType), true, 60000);
             BATFeather.Wrappers().Frontend().DocumentsList().DocumentsListWrapper().IsDocumentTitlePresentOnDetailMasterPage(SelectedDocument);
-            BATFeather.Wrappers().Frontend().DocumentsList().DocumentsListWrapper().VerifyDownloadButton(this.GetDownloadHref(true, SelectedDocument, ContentType));              
+            BATFeather.Wrappers().Frontend().DocumentsList().DocumentsListWrapper().VerifyDownloadButton(this.GetDownloadHref(SelectedDocument, ContentType));              
             BATFeather.Wrappers().Frontend().DocumentsList().DocumentsListWrapper().VerifySizeAndExtensionOnTemplate("5 KB", "(" + DocumentType + ")");
         }
 
@@ -76,7 +76,7 @@ namespace FeatherWidgets.TestUI.TestCases.DocumentsList
             BAT.Arrange(this.TestName).ExecuteTearDown();
         }
 
-        private string GetDocumentHref(bool isBaseUrlIncluded, string documentName, string contentType)
+        private string GetDocumentHref(string documentName, string contentType)
         {
             string libraryUrl = LibraryName.ToLower();
             string documentUrl = documentName.ToLower();
@@ -91,11 +91,11 @@ namespace FeatherWidgets.TestUI.TestCases.DocumentsList
                 url = ActiveBrowser.Url.Substring(0, 20);
             }
 
-            string href = BATFeather.Wrappers().Frontend().MediaWidgets().MediaWidgetsWrapper().GetMediaSource(isBaseUrlIncluded, libraryUrl, documentUrl, url, contentType, currentProviderUrlName, this.Culture);
+            string href = BATFeather.Wrappers().Frontend().MediaWidgets().MediaWidgetsWrapper().GetMediaSource(libraryUrl, documentUrl, contentType, currentProviderUrlName, this.Culture);
             return href;
         }
 
-        private string GetDownloadHref(bool isBaseUrlIncluded, string documentName, string contentType)
+        private string GetDownloadHref(string documentName, string contentType)
         {
             string libraryUrl = LibraryName.ToLower();
             string documentUrl = documentName.ToLower();
@@ -110,7 +110,7 @@ namespace FeatherWidgets.TestUI.TestCases.DocumentsList
                 url = ActiveBrowser.Url.Substring(0, 20);
             }
 
-            string href = BATFeather.Wrappers().Frontend().MediaWidgets().MediaWidgetsWrapper().GetDownloadButtonSource(isBaseUrlIncluded, libraryUrl, documentUrl, url, contentType, currentProviderUrlName);
+            string href = BATFeather.Wrappers().Frontend().MediaWidgets().MediaWidgetsWrapper().GetDownloadButtonSource(libraryUrl, documentUrl, contentType, currentProviderUrlName);
             return href;
         }
 

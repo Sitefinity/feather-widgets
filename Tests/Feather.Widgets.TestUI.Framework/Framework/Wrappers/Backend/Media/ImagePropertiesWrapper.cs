@@ -115,7 +115,7 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend.Media
             HtmlImage image = ActiveBrowser.Find
                                            .ByExpression<HtmlImage>("alt=" + altText)
                                            .AssertIsPresent("image");
-            Assert.IsTrue(image.Src.StartsWith(src), "Actual:" + image.Src + "Expected" + src  + "src is not correct");
+            Assert.IsTrue(image.Src.Contains(src), "Actual:" + image.Src + "Expected" + src  + "src is not correct");
         }
 
         /// <summary>

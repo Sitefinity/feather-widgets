@@ -36,12 +36,12 @@ namespace FeatherWidgets.TestUI.TestCases.ImageGallery
             {
                 if (k == 0)
                 {
-                    string src = this.GetImageSource(false, this.imageTitles[k], ImageType, LibraryName, "-small.jpg");
+                    string src = this.GetImageSource(this.imageTitles[k], ImageType, LibraryName, "-small.jpg");
                     BATFeather.Wrappers().Backend().Pages().PageZoneEditorMediaWrapper().VerifyImageThumbnail(this.imageTitles[k], src);
                 }
                 else
                 {
-                    string src = this.GetImageSource(false, this.imageTitles[k], ImageType, AnotherImageLibraryTitle, "-small.jpg");
+                    string src = this.GetImageSource(this.imageTitles[k], ImageType, AnotherImageLibraryTitle, "-small.jpg");
                     BATFeather.Wrappers().Backend().Pages().PageZoneEditorMediaWrapper().VerifyImageThumbnail(this.imageTitles[k], src);
                 }
             }
@@ -54,12 +54,12 @@ namespace FeatherWidgets.TestUI.TestCases.ImageGallery
             {
                 if (i == 0)
                 {
-                    string src = this.GetImageSource(false, this.imageTitles[i], ImageType, LibraryName, "-small.jpg");
+                    string src = this.GetImageSource(this.imageTitles[i], ImageType, LibraryName, "-small.jpg");
                     BATFeather.Wrappers().Frontend().ImageGallery().ImageGalleryWrapper().VerifyImage(ImageAltText + (i + 1), src);                   
                 }
                 else
                 {
-                    string src = this.GetImageSource(false, this.imageTitles[i], ImageType, AnotherImageLibraryTitle, "-small.jpg");
+                    string src = this.GetImageSource(this.imageTitles[i], ImageType, AnotherImageLibraryTitle, "-small.jpg");
                     BATFeather.Wrappers().Frontend().ImageGallery().ImageGalleryWrapper().VerifyImage(ImageAltText + (i + 1), src);
                 }
             }
@@ -67,13 +67,13 @@ namespace FeatherWidgets.TestUI.TestCases.ImageGallery
             BATFeather.Wrappers().Frontend().ImageGallery().ImageGalleryWrapper().ClickImage(ImageAltText + 2);
             Assert.IsTrue(BATFeather.Wrappers().Frontend().ImageGallery().ImageGalleryWrapper().IsImageTitlePresentOnDetailMasterPage(this.imageTitles[1]));
 
-            var scr = this.GetImageSource(false, this.imageTitles[1], ImageType, AnotherImageLibraryTitle, "-thumbnail.jpg");
+            var scr = this.GetImageSource(this.imageTitles[1], ImageType, AnotherImageLibraryTitle, "-thumbnail.jpg");
             BATFeather.Wrappers().Frontend().ImageGallery().ImageGalleryWrapper().VerifyImage(ImageAltText + 2, scr);
 
-            var hrefPrevious = this.GetImageHref(true, this.imageTitles[0], LibraryName);
+            var hrefPrevious = this.GetImageHref(this.imageTitles[0], LibraryName);
             BATFeather.Wrappers().Frontend().ImageGallery().ImageGalleryWrapper().VerifyPreviousImage(hrefPrevious);
 
-            var hrefNext = this.GetImageHref(true, this.imageTitles[2], AnotherImageLibraryTitle);
+            var hrefNext = this.GetImageHref(this.imageTitles[2], AnotherImageLibraryTitle);
             BATFeather.Wrappers().Frontend().ImageGallery().ImageGalleryWrapper().VerifyNextImage(hrefNext);
 
             var hrefBack = "/" + PageName.ToLower() + "/" + "Index/";
@@ -88,7 +88,7 @@ namespace FeatherWidgets.TestUI.TestCases.ImageGallery
                 }
                 else
                 {
-                    var src = this.GetImageSource(false, this.imageTitles[j - 1], ImageType, AnotherImageLibraryTitle, "-small.jpg");
+                    var src = this.GetImageSource(this.imageTitles[j - 1], ImageType, AnotherImageLibraryTitle, "-small.jpg");
                     BATFeather.Wrappers().Frontend().ImageGallery().ImageGalleryWrapper().VerifyImage(ImageAltText + j, src);
                 }
             }
@@ -114,7 +114,7 @@ namespace FeatherWidgets.TestUI.TestCases.ImageGallery
             BAT.Arrange(this.TestName).ExecuteTearDown();
         }
 
-        private string GetImageSource(bool isBaseUrlIncluded, string imageName, string imageType, string libraryUrl, string imageThumbnailSize = "")
+        private string GetImageSource(string imageName, string imageType, string libraryUrl, string imageThumbnailSize = "")
         {
             string imageUrl = imageName.ToLower() + imageType.ToLower() + imageThumbnailSize;
             string url;
@@ -128,11 +128,11 @@ namespace FeatherWidgets.TestUI.TestCases.ImageGallery
                 url = ActiveBrowser.Url.Substring(0, 20);
             }
 
-            string scr = BATFeather.Wrappers().Frontend().MediaWidgets().MediaWidgetsWrapper().GetMediaSource(isBaseUrlIncluded, libraryUrl.ToLower(), imageUrl, url, ContentType, currentProviderUrlName, this.Culture);
+            string scr = BATFeather.Wrappers().Frontend().MediaWidgets().MediaWidgetsWrapper().GetMediaSource(libraryUrl.ToLower(), imageUrl, ContentType, currentProviderUrlName, this.Culture);
             return scr;
         }
 
-        private string GetImageHref(bool isBaseUrlIncluded, string imageName, string libraryUrl)
+        private string GetImageHref(string imageName, string libraryUrl)
         {
             string imageUrl = imageName.ToLower();
             string url;
@@ -146,7 +146,7 @@ namespace FeatherWidgets.TestUI.TestCases.ImageGallery
                 url = ActiveBrowser.Url.Substring(0, 20);
             }
 
-            string href = BATFeather.Wrappers().Frontend().MediaWidgets().MediaWidgetsWrapper().GetMediaSource(isBaseUrlIncluded, libraryUrl.ToLower(), imageUrl, url, PageName.ToLower() + "/images", currentProviderUrlName, this.Culture);
+            string href = BATFeather.Wrappers().Frontend().MediaWidgets().MediaWidgetsWrapper().GetMediaSource(libraryUrl.ToLower(), imageUrl, PageName.ToLower() + "/images", currentProviderUrlName, this.Culture);
             return href;
         }
 
