@@ -165,7 +165,7 @@ namespace Telerik.Sitefinity.Frontend.Events.Mvc.Helpers
             {
                 sb.Append(BuildDayMonthYear(ev.EventStart));
                 sb.Append(Dash);
-                sb.Append(BuildDayMonthYear(ev.AllDayEventEnd.Value));
+                sb.Append(BuildDayMonthYear(ev.AllDayEventEnd.Value.AddDays(DaysToAdd))); // AddDays is done with JavaScript on the frontend
             }
             else
             {
@@ -372,5 +372,6 @@ namespace Telerik.Sitefinity.Frontend.Events.Mvc.Helpers
         private const string Comma = ",";
         private const string WhiteSpace = " ";
         private const string Midnight = "0:00 AM";
+        private const int DaysToAdd = 1;
     }
 }
