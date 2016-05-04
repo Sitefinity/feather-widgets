@@ -26,7 +26,7 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Frontend
                                            .ByExpression<HtmlImage>("title=" + title, "alt=" + altText)
                                            .AssertIsPresent("image");
 
-            Assert.IsTrue(image.Src.StartsWith(src), "src is not correct");
+            Assert.IsTrue(image.Src.Contains(src), "src is not correct");
         }
 
         /// <summary>
@@ -75,7 +75,7 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Frontend
                                           .ByExpression<HtmlAnchor>("title=" + title)
                                           .AssertIsPresent("document");
 
-            Assert.IsTrue(doc.HRef.StartsWith(href), "href is not correct");
+            Assert.IsTrue(doc.HRef.Contains(href), "href is not correct");
         }
 
         /// <summary>
@@ -89,7 +89,7 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Frontend
                                           .ByExpression<HtmlAnchor>("innertext=" + title)
                                           .AssertIsPresent("document");
 
-            Assert.IsTrue(doc.HRef.StartsWith(href), "href is not correct");
+            Assert.IsTrue(doc.HRef.Contains(href), "href is not correct");
         }
 
         /// <summary>
