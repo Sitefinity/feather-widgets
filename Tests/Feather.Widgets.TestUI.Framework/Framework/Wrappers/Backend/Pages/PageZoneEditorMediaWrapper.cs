@@ -31,7 +31,7 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend
             HtmlImage image = ActiveBrowser.Find.ByExpression<HtmlImage>("alt=~" + altText)
                 .AssertIsPresent(altText);
 
-            Assert.IsTrue(image.Src.StartsWith(src), "src is not correct");
+            Assert.IsTrue(image.Src.Contains(src), "src is not correct");
         }
 
         /// <summary>
@@ -44,7 +44,7 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend
             HtmlAnchor doc = ActiveBrowser.Find.ByExpression<HtmlAnchor>("innertext=" + text)
                 .AssertIsPresent("document");
 
-                Assert.IsTrue(doc.HRef.StartsWith(href), "href is not correct");         
+            Assert.IsTrue(doc.HRef.Contains(href), "href is not correct");         
         }
 
         /// <summary>
