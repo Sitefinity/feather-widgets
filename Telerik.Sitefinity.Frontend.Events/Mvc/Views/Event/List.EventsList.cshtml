@@ -19,12 +19,8 @@
                     <span data-calendar-color="@item.EventCalendarColour()" style="background-color:@item.EventCalendarColour()"></span>
                 </h3>
                 <p>
-                    <time>@item.EventDates()</time>
-
-                    @if (!string.IsNullOrEmpty(item.Fields.City))
-                    {
-                        <span>, @item.Fields.City</span>
-                    }
+                    @*@If is on the same line, because otherwise there is an empty space before the comma*@
+                    <time>@item.EventDates()</time>@if (!string.IsNullOrEmpty(item.Fields.City)){<span>, @item.Fields.City</span>}
                 </p>
                 <p @Html.InlineEditingFieldAttributes("Summary", "LongText")>@Html.Raw(item.Fields.Summary)</p>
                 <div>@Html.CommentsCount((string)navigateUrl, item.DataItem)</div>
