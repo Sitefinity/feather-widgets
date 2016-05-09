@@ -106,8 +106,12 @@ namespace Telerik.Sitefinity.Frontend.Navigation.Mvc.Models.Breadcrumb
             if (this.AllowVirtualNodes)
             {
                 result.Item2.AddRange(this.GetVirtualNodes(extender));
-                var virtualNodes = this.GetVirtualNodes().Where(n => !result.Item2.Contains(n));
-                result.Item2.AddRange(virtualNodes);
+                var virtualNodes = this.GetMvcDetailWidgetVirtualNodes();
+                if (virtualNodes != null)
+                {
+                    virtualNodes = virtualNodes.Where(n => !result.Item2.Contains(n));
+                    result.Item2.AddRange(virtualNodes);
+                }
             }
 
             return new BreadcrumbViewModel(result.Item2)
@@ -122,7 +126,8 @@ namespace Telerik.Sitefinity.Frontend.Navigation.Mvc.Models.Breadcrumb
         /// Gets the virtual nodes for the controllers that have detail action method.
         /// </summary>
         /// <returns></returns>
-        public virtual IEnumerable<SiteMapNode> GetVirtualNodes()
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1024:UsePropertiesWhereAppropriate")]
+        public virtual IEnumerable<SiteMapNode> GetMvcDetailWidgetVirtualNodes()
         {
             var nodes = new List<SiteMapNode>();
 
