@@ -112,7 +112,7 @@ namespace Telerik.Sitefinity.Frontend.Navigation.Mvc.Models.Breadcrumb
                     virtualNodes = virtualNodes.Where(n => !result.Item2.Contains(n));
                     result.Item2.AddRange(virtualNodes);
                 }
-            }
+            }      
 
             return new BreadcrumbViewModel(result.Item2)
             {
