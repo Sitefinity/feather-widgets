@@ -65,6 +65,14 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.UsersList
         int? ItemsPerPage { get; set; }
 
         /// <summary>
+        /// Gets or sets the items limit count.
+        /// </summary>
+        /// <value>
+        /// The items limit.
+        /// </value>
+        int? LimitCount { get; set; }
+
+        /// <summary>
         /// Gets or sets the sort expression.
         /// </summary>
         /// <value>
