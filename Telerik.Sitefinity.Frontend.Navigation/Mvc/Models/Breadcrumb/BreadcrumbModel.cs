@@ -141,9 +141,9 @@ namespace Telerik.Sitefinity.Frontend.Navigation.Mvc.Models.Breadcrumb
                 var mvcProxyControls = GetControlsRecusrvive<Telerik.Sitefinity.Mvc.Proxy.MvcControllerProxy>(page);
                 if (mvcProxyControls.Any())
                 {
+                    var contentItemResolver = new ContentDataItemResolver();
                     foreach (var mvcProxy in mvcProxyControls)
                     {
-                        var contentItemResolver = new ContentDataItemResolver();
                         var dataItem = contentItemResolver.GetItemByController(mvcProxy.Controller, routeParams) as IContent;
                         if (dataItem != null)
                         {
