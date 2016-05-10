@@ -511,6 +511,8 @@
     <Compile Include="Forms\SectionHeader\ViewFormWithSectionHeaderOnPageAndVerifyResponseInBackend.cs" />
     <Compile Include="Forms\Textbox\ViewFormWithTextboxFieldOnPageAndVerifyResponseInBackend.cs" />
     <Compile Include="Framework\TestArrangementBase.cs" />
+    <Compile Include="Identity\VerifyRegistrationWidgetAndProfileWidgetOnPreviewHybridPage.cs" />
+    <Compile Include="Identity\VerifyRegistrationWidgetAndProfileWidgetOnPreviewHybridTemplate.cs" />
     <Compile Include="Identity\VerifyLoginWidgetToTemplateWhenOpenItemDetailViewAndForgotPassword.cs" />
     <Compile Include="Identity\VerifyLoginWidgetWhenOpenItemDetailViewAndForgotPassword.cs" />
     <Compile Include="Identity\VerifyRegistrationWidgetAndProfileWidgetOnPreviewBootstrapTemplate.cs" />
