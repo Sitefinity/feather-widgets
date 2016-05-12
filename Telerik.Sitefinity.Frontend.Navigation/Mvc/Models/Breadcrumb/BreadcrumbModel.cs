@@ -4,6 +4,7 @@ using System.Globalization;
 using System.Linq;
 using System.Web;
 using System.Web.UI;
+using Telerik.Sitefinity.DynamicModules.Model;
 using Telerik.Sitefinity.Frontend.Mvc.Helpers;
 using Telerik.Sitefinity.Model;
 using Telerik.Sitefinity.Mvc;
@@ -144,15 +145,24 @@ namespace Telerik.Sitefinity.Frontend.Navigation.Mvc.Models.Breadcrumb
                     var contentItemResolver = new ContentDataItemResolver();
                     foreach (var mvcProxy in mvcProxyControls)
                     {
-                        var dataItem = contentItemResolver.GetItemByController(mvcProxy.Controller, routeParams) as IContent;
+                        var dataItem = contentItemResolver.GetItemByController(mvcProxy.Controller, routeParams);
                         if (dataItem != null)
                         {
-                            ////check whether the item has title and if it is already added to sitemap datasource
-                            if (!string.IsNullOrEmpty(dataItem.Title))
+                            var content = dataItem as IContent;
+                            var dynamicContent = dataItem as DynamicContent;
+
+                            if (content != null)
                             {
-                                var siteMapNode = new SiteMapNode(
-                                    this.provider, dataItem.Id.ToString(), string.Empty, dataItem.Title, dataItem.Description);
-                                nodes.Add(siteMapNode);
+                                if (!string.IsNullOrEmpty(content.Title))
+                                {
+                                    var siteMapNode = new SiteMapNode(
+                                        this.provider, dataItem.Id.ToString(), string.Empty, content.Title, content.Description);
+                                    nodes.Add(siteMapNode);
+                                }
+                            }
+                            else if (dynamicContent != null)
+                            {
+                                nodes.AddRange(this.GetDynamicContentlVirtualNodes(dynamicContent));
                             }
                         }
                     }
@@ -161,7 +171,7 @@ namespace Telerik.Sitefinity.Frontend.Navigation.Mvc.Models.Breadcrumb
 
             return nodes;
         }
-
+     
         private static IList<T> GetControlsRecusrvive<T>(Control control) where T : Control
         {
             var rtn = new List<T>();
@@ -179,6 +189,32 @@ namespace Telerik.Sitefinity.Frontend.Navigation.Mvc.Models.Breadcrumb
             }
 
             return rtn;
+        }
+
+        private IEnumerable<SiteMapNode> GetDynamicContentlVirtualNodes(DynamicContent dataItem)
+        {
+            List<SiteMapNode> list = new List<SiteMapNode>();
+            var currentParentItem = dataItem.SystemParentItem;
+            while (currentParentItem != null)
+            {
+                var page = HttpContext.Current.Handler as System.Web.UI.Page;
+                var url = page.Request.RawUrl;
+                var indexOfCurrentUrl = url.IndexOf(currentParentItem.ItemDefaultUrl, StringComparison.OrdinalIgnoreCase);
+                if (indexOfCurrentUrl > -1)
+                {
+                    var node = new SiteMapNode(
+                    this.provider, currentParentItem.Id.ToString(), url.Substring(0, indexOfCurrentUrl) + currentParentItem.ItemDefaultUrl, ((IHasTitle)currentParentItem).GetTitle(), string.Empty);
+                    list.Insert(0, node);
+                }
+
+                currentParentItem = currentParentItem.SystemParentItem;
+            }
+
+            var siteMapNode = new SiteMapNode(
+                    this.provider, dataItem.Id.ToString(), string.Empty, ((IHasTitle)dataItem).GetTitle(), string.Empty);
+            list.Add(siteMapNode);
+
+            return list;
         }
 
         /// <summary>
