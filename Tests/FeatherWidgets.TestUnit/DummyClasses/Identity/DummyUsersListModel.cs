@@ -20,6 +20,8 @@ namespace FeatherWidgets.TestUnit.DummyClasses.Identity
 
         public int? ItemsPerPage { get; set; }
 
+        public int? LimitCount { get; set; }
+
         public string SortExpression { get; set; }
 
         public string SerializedAdditionalFilters { get; set; }
