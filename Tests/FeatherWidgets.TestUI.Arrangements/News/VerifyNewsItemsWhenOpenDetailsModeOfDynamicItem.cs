@@ -20,6 +20,7 @@ namespace FeatherWidgets.TestUI.Arrangements
         public void SetUp()
         {
             AuthenticationHelper.AuthenticateUser(AdminUserName, AdminPass, true);
+            ServerOperationsFeather.DynamicModules().EnsureModuleIsImported(ModuleName, ModuleResource);
             Guid templateId = Telerik.Sitefinity.TestUtilities.CommonOperations.ServerOperations.Templates().GetTemplateIdByTitle(BootstrapTemplate);
             Guid pageId = Telerik.Sitefinity.TestUtilities.CommonOperations.ServerOperations.Pages().CreatePage(PageName, templateId);
             pageId = ServerOperations.Pages().GetPageNodeId(pageId);
@@ -32,7 +33,6 @@ namespace FeatherWidgets.TestUI.Arrangements
 
             ServerOperations.News().CreatePublishedNewsItem(NewsTitle1, NewsContent1, null);
             ServerOperations.News().CreatePublishedNewsItem(NewsTitle2, NewsContent2, null);
-            ServerOperationsFeather.DynamicModules().EnsureModuleIsImported(ModuleName, ModuleResource);
             ServerOperationsFeather.DynamicModulePressArticle().CreatePressArticleItem(ItemTitle, ItemTitle + "Url");
         }
 
