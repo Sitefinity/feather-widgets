@@ -535,6 +535,29 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend
         }
 
         /// <summary>
+        /// Verifies the page value.
+        /// </summary>
+        /// <param name="number">The number.</param>
+        /// <param name="selectedListSettingOption">The selected list setting option.</param>
+        public void VerifyPageValue(string number, string selectedListSettingOption)
+        {
+            HtmlInputText itemsTextBox = EM.Widgets.WidgetDesignerContentScreen.PagingValue(selectedListSettingOption)
+                                            .AssertIsPresent("text to display");
+
+            Assert.AreEqual(number, itemsTextBox.Text);
+        }
+
+        /// <summary>
+        /// Presses the cancel button.
+        /// </summary>
+        public void PressCancelButton()
+        {
+            HtmlAnchor cancel = this.EM.Widgets.WidgetDesignerContentScreen.CancelButton.AssertIsPresent("Button Cancel");
+
+            cancel.Click();
+        }
+
+        /// <summary>
         /// Sorts the options selector.
         /// </summary>
         /// <param name="optionValue">The option value.</param>

@@ -9,19 +9,19 @@ using Telerik.Sitefinity.TestUI.Framework.Utilities;
 namespace FeatherWidgets.TestUI.TestCases.News
 {
     /// <summary>
-    /// VerifyNoLimitAndPaginationListSettingsOnFrontendPageForNewsWidget_ test class.
+    /// VerifyUseLimitListSettingsOnFrontendPageForBlogPostsWidget_ test class.
     /// </summary>
     [TestClass]
-    public class VerifyNoLimitAndPaginationListSettingsOnFrontendPageForNewsWidget_ : FeatherTestCase
+    public class VerifyUseLimitListSettingsOnFrontendPageForBlogPostsWidget_ : FeatherTestCase
     {
         /// <summary>
-        /// UI test VerifyNoLimitAndPaginationListSettingsOnFrontendPageForNewsWidget
+        /// UI test VerifyUseLimitListSettingsOnFrontendPageForBlogPostsWidget
         /// </summary>
         [TestMethod,
         Owner(FeatherTeams.SitefinityTeam7),
         TestCategory(FeatherTestCategories.PagesAndContent), 
-        TestCategory(FeatherTestCategories.News)]
-        public void VerifyNoLimitAndPaginationListSettingsOnFrontendPageForNewsWidget()
+        TestCategory(FeatherTestCategories.Blogs)]
+        public void VerifyUseLimitListSettingsOnFrontendPageForBlogPostsWidget()
         {
             RuntimeSettingsModificator.ExecuteWithClientTimeout(800000, () => BAT.Macros().NavigateTo().CustomPage("~/sitefinity/pages", true, null, new HtmlFindExpression("class=~sfMain")));
             BAT.Macros().NavigateTo().Pages(this.Culture);
@@ -30,27 +30,23 @@ namespace FeatherWidgets.TestUI.TestCases.News
             BATFeather.Wrappers().Backend().Widgets().WidgetDesignerWrapper().SwitchToListSettingsTab();
             BATFeather.Wrappers().Backend().Widgets().WidgetDesignerWrapper().VerifyPageValue("20", "Paging");
             BATFeather.Wrappers().Backend().Widgets().WidgetDesignerWrapper().VerifyPageValue("20", "Limit");
-            BATFeather.Wrappers().Backend().Widgets().WidgetDesignerWrapper().ChangePagingOrLimitValue("2", "Paging");
-            BATFeather.Wrappers().Backend().Widgets().WidgetDesignerWrapper().VerifyPageValue("2", "Paging");
-            BATFeather.Wrappers().Backend().Widgets().WidgetDesignerWrapper().VerifyPageValue("20", "Limit");
+            BATFeather.Wrappers().Backend().Widgets().WidgetDesignerWrapper().SelectRadioButtonOption(WidgetDesignerRadioButtonIds.useLimit);
+            BATFeather.Wrappers().Backend().Widgets().WidgetDesignerWrapper().VerifyCheckedRadioButtonOption(WidgetDesignerRadioButtonIds.useLimit);
+            BATFeather.Wrappers().Backend().Widgets().WidgetDesignerWrapper().ChangePagingOrLimitValue("3", "Limit");
+            BATFeather.Wrappers().Backend().Widgets().WidgetDesignerWrapper().VerifyPageValue("20", "Paging");
+            BATFeather.Wrappers().Backend().Widgets().WidgetDesignerWrapper().VerifyPageValue("3", "Limit");
             BATFeather.Wrappers().Backend().Widgets().WidgetDesignerWrapper().SaveChanges();
             BATFeather.Wrappers().Backend().Pages().PageZoneEditorWrapper().EditWidget(WidgetName);
             BATFeather.Wrappers().Backend().Widgets().WidgetDesignerWrapper().SwitchToListSettingsTab();
-            BATFeather.Wrappers().Backend().Widgets().WidgetDesignerWrapper().VerifyPageValue("2", "Paging");
-            //BATFeather.Wrappers().Backend().Widgets().WidgetDesignerWrapper().VerifyPageValue("20", "Limit");
-            BATFeather.Wrappers().Backend().Widgets().WidgetDesignerWrapper().SelectRadioButtonOption(WidgetDesignerRadioButtonIds.allItems);
-            BATFeather.Wrappers().Backend().Widgets().WidgetDesignerWrapper().VerifyCheckedRadioButtonOption(WidgetDesignerRadioButtonIds.allItems);
-            BATFeather.Wrappers().Backend().Widgets().WidgetDesignerWrapper().SaveChanges();
-            BATFeather.Wrappers().Backend().Pages().PageZoneEditorWrapper().EditWidget(WidgetName);
-            BATFeather.Wrappers().Backend().Widgets().WidgetDesignerWrapper().SwitchToListSettingsTab();
-            BATFeather.Wrappers().Backend().Widgets().WidgetDesignerWrapper().VerifyCheckedRadioButtonOption(WidgetDesignerRadioButtonIds.allItems);
-            BATFeather.Wrappers().Backend().Widgets().WidgetDesignerWrapper().VerifyPageValue("2", "Paging");
-            //BATFeather.Wrappers().Backend().Widgets().WidgetDesignerWrapper().VerifyPageValue("20", "Limit");
+            BATFeather.Wrappers().Backend().Widgets().WidgetDesignerWrapper().VerifyCheckedRadioButtonOption(WidgetDesignerRadioButtonIds.useLimit);
+            BATFeather.Wrappers().Backend().Widgets().WidgetDesignerWrapper().VerifyPageValue("20", "Paging");
+            BATFeather.Wrappers().Backend().Widgets().WidgetDesignerWrapper().VerifyPageValue("3", "Limit");
             BATFeather.Wrappers().Backend().Widgets().WidgetDesignerWrapper().PressCancelButton();
             BAT.Wrappers().Backend().Pages().PageZoneEditorWrapper().PublishPage();
 
             BAT.Macros().NavigateTo().CustomPage("~/" + PageName.ToLower(), true, this.Culture);
-            Assert.IsTrue(BATFeather.Wrappers().Frontend().News().NewsWrapper().IsNewsTitlesPresentOnThePageFrontend(new string[] { NewsTitle4, NewsTitle3, NewsTitle2, NewsTitle1, NewsTitle0 }));
+            Assert.IsTrue(BATFeather.Wrappers().Frontend().Blogs().BlogsWrapper().IsBlogPostTitlesPresentOnThePageFrontend(new string[] { PostTitle7, PostTitle6, PostTitle5 }));
+            Assert.IsFalse(BATFeather.Wrappers().Frontend().Blogs().BlogsWrapper().IsBlogPostTitlesPresentOnThePageFrontend(new string[] { PostTitle4, PostTitle3, PostTitle2, PostTitle1 }));
             BAT.Macros().NavigateTo().Pages(this.Culture);
         }
 
@@ -71,12 +67,14 @@ namespace FeatherWidgets.TestUI.TestCases.News
             BAT.Arrange(this.TestName).ExecuteTearDown();
         }
 
-        private const string PageName = "News";
-        private const string WidgetName = "News";
-        private const string NewsTitle0 = "NewsTitle0";
-        private const string NewsTitle1 = "NewsTitle1";
-        private const string NewsTitle2 = "NewsTitle2";
-        private const string NewsTitle3 = "NewsTitle3";
-        private const string NewsTitle4 = "NewsTitle4";
+        private const string PageName = "BlogsPage";
+        private const string WidgetName = "Blog posts";
+        private const string PostTitle1 = "Post1";
+        private const string PostTitle2 = "Post2";
+        private const string PostTitle3 = "Post3";
+        private const string PostTitle4 = "Post4";
+        private const string PostTitle5 = "Post5";
+        private const string PostTitle6 = "PostNew1";
+        private const string PostTitle7 = "PostNew2";
     }
 }
