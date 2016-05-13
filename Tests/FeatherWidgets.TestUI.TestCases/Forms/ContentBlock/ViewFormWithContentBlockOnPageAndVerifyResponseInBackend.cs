@@ -48,6 +48,7 @@ namespace FeatherWidgets.TestUI.TestCases.Forms.ContentBlock
             BAT.Wrappers().Backend().Pages().PageZoneEditorWrapper().PublishPage();
 
             BAT.Macros().NavigateTo().CustomPage("~/" + PageName.ToLower(), true, this.Culture);
+            BATFeather.Wrappers().Frontend().Forms().FormsWrapper().WaitForContentOnFrontend(ExpectedContent);
             BATFeather.Wrappers().Frontend().Forms().FormsWrapper().VerifyContentBlockFieldTextIsVisible(ExpectedContent);
             BATFeather.Wrappers().Frontend().Forms().FormsWrapper().SubmitForm();
 
