@@ -79,7 +79,7 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Frontend.Forms
         /// <param name="expectedCount">The expected count.</param>
         public void VerifySubmitButtonsCountInFrontEnd(int expectedCount)
         {
-            var submitButtons = ActiveBrowser.Find.AllByExpression("tagName=button", "class=sf-SubmitButton btn btn-primary");
+            var submitButtons = ActiveBrowser.Find.AllByExpression("tagName=button", "InnerText=Submit");
             Assert.AreEqual(expectedCount, submitButtons.Count);
         }
 
@@ -726,6 +726,32 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Frontend.Forms
         public void VerifySuccessSubmitMessageIsNotShown()
         {
             Assert.IsNull(EM.Forms.FormsFrontend.SuccessMessage, "SuccessMessage should not be shown");
+        }
+
+        /// <summary>
+        /// Waits for content on frontend.
+        /// </summary>
+        /// <param name="content">The content.</param>
+        public void WaitForContentOnFrontend(string content)
+        {
+            Manager.Current.Wait.For(() => this.WaitForContent(content), 480000);
+        }
+
+        /// <summary>
+        /// Waits for content.
+        /// </summary>
+        /// <param name="expectedContent">The expected content.</param>
+        /// <returns></returns>
+        private bool WaitForContent(string expectedContent)
+        {
+            ActiveBrowser.WaitUntilReady();
+            ActiveBrowser.RefreshDomTree();
+
+            HtmlDiv frontendPageMainDiv = BAT.Wrappers().Frontend().Pages().PagesWrapperFrontend().GetPageContent();
+
+            bool result = frontendPageMainDiv.InnerText.Contains(expectedContent);
+
+            return result;
         }
     }
 }
