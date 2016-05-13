@@ -6,22 +6,22 @@ using FeatherWidgets.TestUI.TestCases;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Telerik.Sitefinity.TestUI.Framework.Utilities;
 
-namespace FeatherWidgets.TestUI.TestCases.BlogPosts
+namespace FeatherWidgets.TestUI.TestCases.Blogs
 {
     /// <summary>
-    /// VerifyPagingOnFrontendPageForBlogPostsWidget_ test class.
+    /// VerifyPagingOnFrontendPageForBlogsWidget_ test class.
     /// </summary>
     [TestClass]
-    public class VerifyPagingOnFrontendPageForBlogPostsWidget_ : FeatherTestCase
+    public class VerifyPagingOnFrontendPageForBlogsWidget_ : FeatherTestCase
     {
         /// <summary>
-        /// UI test VerifyPagingOnFrontendPageForBlogPostsWidget
+        /// UI test VerifyPagingOnFrontendPageForBlogsWidget
         /// </summary>
         [TestMethod,
         Owner(FeatherTeams.SitefinityTeam7),
         TestCategory(FeatherTestCategories.PagesAndContent), 
         TestCategory(FeatherTestCategories.Blogs)]
-        public void VerifyPagingOnFrontendPageForBlogPostsWidget()
+        public void VerifyPagingOnFrontendPageForBlogsWidget()
         {
             RuntimeSettingsModificator.ExecuteWithClientTimeout(800000, () => BAT.Macros().NavigateTo().CustomPage("~/sitefinity/pages", true, null, new HtmlFindExpression("class=~sfMain")));
             BAT.Macros().NavigateTo().Pages(this.Culture);
@@ -42,20 +42,17 @@ namespace FeatherWidgets.TestUI.TestCases.BlogPosts
             BAT.Wrappers().Backend().Pages().PageZoneEditorWrapper().PublishPage();
 
             BAT.Macros().NavigateTo().CustomPage("~/" + PageName.ToLower(), true, this.Culture);
-            Assert.IsTrue(BATFeather.Wrappers().Frontend().Blogs().BlogsWrapper().IsBlogPostTitlesPresentOnThePageFrontend(new string[] { PostTitle7, PostTitle6 }));
-            Assert.IsFalse(BATFeather.Wrappers().Frontend().Blogs().BlogsWrapper().IsBlogPostTitlesPresentOnThePageFrontend(new string[] { PostTitle5, PostTitle4, PostTitle3, PostTitle2, PostTitle1 }));
-            BATFeather.Wrappers().Frontend().CommonWrapper().NavigateToPageUsingPager("2", 4);
-            Assert.IsTrue(BATFeather.Wrappers().Frontend().Blogs().BlogsWrapper().IsBlogPostTitlesPresentOnThePageFrontend(new string[] { PostTitle5, PostTitle4 }));
-            Assert.IsFalse(BATFeather.Wrappers().Frontend().Blogs().BlogsWrapper().IsBlogPostTitlesPresentOnThePageFrontend(new string[] { PostTitle7, PostTitle6, PostTitle3, PostTitle2, PostTitle1 }));
-            BATFeather.Wrappers().Frontend().CommonWrapper().NavigateToPageUsingPager("3", 4);
-            Assert.IsTrue(BATFeather.Wrappers().Frontend().Blogs().BlogsWrapper().IsBlogPostTitlesPresentOnThePageFrontend(new string[] { PostTitle3, PostTitle2 }));
-            Assert.IsFalse(BATFeather.Wrappers().Frontend().Blogs().BlogsWrapper().IsBlogPostTitlesPresentOnThePageFrontend(new string[] { PostTitle7, PostTitle6, PostTitle5, PostTitle4, PostTitle1 }));
-            BATFeather.Wrappers().Frontend().CommonWrapper().NavigateToPageUsingPager("4", 4);
-            Assert.IsTrue(BATFeather.Wrappers().Frontend().Blogs().BlogsWrapper().IsBlogPostTitlesPresentOnThePageFrontend(new string[] { PostTitle1 }));
-            Assert.IsFalse(BATFeather.Wrappers().Frontend().Blogs().BlogsWrapper().IsBlogPostTitlesPresentOnThePageFrontend(new string[] { PostTitle7, PostTitle6, PostTitle5, PostTitle4, PostTitle3, PostTitle2 }));
-            BATFeather.Wrappers().Frontend().CommonWrapper().NavigateToPageUsingPager("1", 4);
-            Assert.IsTrue(BATFeather.Wrappers().Frontend().Blogs().BlogsWrapper().IsBlogPostTitlesPresentOnThePageFrontend(new string[] { PostTitle7, PostTitle6 }));
-            Assert.IsFalse(BATFeather.Wrappers().Frontend().Blogs().BlogsWrapper().IsBlogPostTitlesPresentOnThePageFrontend(new string[] { PostTitle5, PostTitle4, PostTitle3, PostTitle2, PostTitle1 }));
+            Assert.IsTrue(BATFeather.Wrappers().Frontend().Blogs().BlogsWrapper().IsBlogTitlesPresentOnThePageFrontend(new string[] { BlogTitle5, BlogTitle4 }));
+            Assert.IsFalse(BATFeather.Wrappers().Frontend().Blogs().BlogsWrapper().IsBlogTitlesPresentOnThePageFrontend(new string[] { BlogTitle3, BlogTitle2, BlogTitle1 }));
+            BATFeather.Wrappers().Frontend().CommonWrapper().NavigateToPageUsingPager("2", 3);
+            Assert.IsTrue(BATFeather.Wrappers().Frontend().Blogs().BlogsWrapper().IsBlogTitlesPresentOnThePageFrontend(new string[] { BlogTitle3, BlogTitle2 }));
+            Assert.IsFalse(BATFeather.Wrappers().Frontend().Blogs().BlogsWrapper().IsBlogTitlesPresentOnThePageFrontend(new string[] { BlogTitle5, BlogTitle4, BlogTitle1 }));
+            BATFeather.Wrappers().Frontend().CommonWrapper().NavigateToPageUsingPager("3", 3);
+            Assert.IsTrue(BATFeather.Wrappers().Frontend().Blogs().BlogsWrapper().IsBlogTitlesPresentOnThePageFrontend(new string[] { BlogTitle1 }));
+            Assert.IsFalse(BATFeather.Wrappers().Frontend().Blogs().BlogsWrapper().IsBlogTitlesPresentOnThePageFrontend(new string[] { BlogTitle5, BlogTitle4, BlogTitle3, BlogTitle2 }));
+            BATFeather.Wrappers().Frontend().CommonWrapper().NavigateToPageUsingPager("1", 3);
+            Assert.IsTrue(BATFeather.Wrappers().Frontend().Blogs().BlogsWrapper().IsBlogTitlesPresentOnThePageFrontend(new string[] { BlogTitle5, BlogTitle4 }));
+            Assert.IsFalse(BATFeather.Wrappers().Frontend().Blogs().BlogsWrapper().IsBlogTitlesPresentOnThePageFrontend(new string[] { BlogTitle3, BlogTitle2, BlogTitle1 }));
             BAT.Macros().NavigateTo().Pages(this.Culture);
         }
 
@@ -77,13 +74,11 @@ namespace FeatherWidgets.TestUI.TestCases.BlogPosts
         }
 
         private const string PageName = "BlogsPage";
-        private const string WidgetName = "Blog posts";
-        private const string PostTitle1 = "Post1";
-        private const string PostTitle2 = "Post2";
-        private const string PostTitle3 = "Post3";
-        private const string PostTitle4 = "Post4";
-        private const string PostTitle5 = "Post5";
-        private const string PostTitle6 = "PostNew1";
-        private const string PostTitle7 = "PostNew2";
+        private const string WidgetName = "Blogs";
+        private const string BlogTitle1 = "TestBlog1";
+        private const string BlogTitle2 = "TestBlog2";
+        private const string BlogTitle3 = "TestBlog3";
+        private const string BlogTitle4 = "TestBlog4";
+        private const string BlogTitle5 = "TestBlog5";
     }
 }
