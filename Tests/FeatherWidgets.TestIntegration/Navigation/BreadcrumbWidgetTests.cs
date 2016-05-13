@@ -227,7 +227,9 @@ namespace FeatherWidgets.TestIntegration.Navigation
 
                 string detailsUrl = pageUrl + dynamicCollection[0].ItemDefaultUrl;
                 string responseContent = PageInvoker.ExecuteWebRequest(detailsUrl);
-                string breadcrumbTemplate = @"<a[\w\s]{1,}href=""/"">" + pageTitle + @"[\w\s]{1,}</a>[\w\s]{1,}<span>[\w\s]{1,}/[\w\s]{1,}</span>[\w\s]{1,}" + dynamicTitle;
+                
+                string relativeUrl = UrlPath.ResolveUrl("~/" + urlNamePrefix + pageIndex);
+                string breadcrumbTemplate = @"<a[\w\s]{1,}href=(?<url>""/""|""" + relativeUrl + @""")>" + pageTitle + @"[\w\s]{1,}</a>[\w\s]{1,}<span>[\w\s]{1,}/[\w\s]{1,}</span>[\w\s]{1,}" + dynamicTitle;
                 Match match = Regex.Match(responseContent, breadcrumbTemplate, RegexOptions.IgnorePatternWhitespace & RegexOptions.Multiline);
 
                 Assert.IsTrue(match.Success, "Breadcrumb does not contain selected dynamic item as virtual node!");
