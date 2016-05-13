@@ -84,7 +84,7 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend
 
             if(culture == null)
             {
-                 Assert.IsTrue(doc.HRef.StartsWith(href), "href is not correct");
+                 Assert.IsTrue(doc.HRef.Contains(href), "href is not correct");
             }           
         }
 
