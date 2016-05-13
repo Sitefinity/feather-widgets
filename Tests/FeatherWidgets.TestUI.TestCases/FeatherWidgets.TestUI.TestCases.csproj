@@ -108,6 +108,9 @@
       <Link>Properties\SharedAssemblyInfo.cs</Link>
     </Compile>
     <Compile Include="BlogPosts\BlogPostsWidgetOnPage.cs" />
+    <Compile Include="BlogPosts\VerifyNoLimitAndPaginationListSettingsOnFrontendPageForBlogPostsWidget.cs" />
+    <Compile Include="BlogPosts\VerifyUseLimitListSettingsOnFrontendPageForBlogPostsWidget.cs" />
+    <Compile Include="BlogPosts\VerifyPagingOnFrontendPageForBlogPostsWidget.cs" />
     <Compile Include="Blogs\BlogsWidgetOnPage.cs" />
     <Compile Include="CardWidget\AddCardWidgetOnPageBasedOnBootstrapTemplate.cs" />
     <Compile Include="CardWidget\AddCardWidgetOnPageTemplate.cs" />
@@ -220,6 +223,14 @@
     <Compile Include="EmailCampaigns\TryToUnsubscribeNotExistingSubscriber.cs" />
     <Compile Include="EmailCampaigns\UnsubscribeWidgetOnFoundationAndSemanticPage.cs" />
     <Compile Include="EmailCampaigns\UnsubscribeWidgetOnHybridPageAndSetCssClass.cs" />
+    <Compile Include="Events\FilterEventsByDateOnPage.cs" />
+    <Compile Include="Events\FilterUpcomingAndCurrentAndPastEventOnPage.cs" />
+    <Compile Include="Events\FilterUpcomingAndCurrentEventOnPage.cs" />
+    <Compile Include="Events\FilterCurrentAndPastEventOnPage.cs" />
+    <Compile Include="Events\FilterByAllEvents.cs" />
+    <Compile Include="Events\DragAndDropEventsWidgetOnPage.cs" />
+    <Compile Include="Events\EventsTestsCommon.cs" />
+    <Compile Include="Events\SelectParticularEventOnPage.cs" />
     <Compile Include="FeatherTeams.cs" />
     <Compile Include="FeedWidget\DragAndDropFeedWidgetAndSetDefaultRssOnPage.cs" />
     <Compile Include="Forms\CAPTCHA\ChangeCAPTCHATemplate.cs" />
@@ -334,14 +345,20 @@
     <Compile Include="Forms\ParagraphTextbox\ViewFormWithParagraphTextFieldOnPageAndVerifyResponseInBackend.cs" />
     <Compile Include="Forms\SectionHeader\ViewFormWithSectionHeaderOnPageAndVerifyResponseInBackend.cs" />
     <Compile Include="Forms\Textbox\ViewFormWithTextboxFieldOnPageAndVerifyResponseInBackend.cs" />
+    <Compile Include="Identity\VerifyRegistrationWidgetAndProfileWidgetOnPreviewHybridPage.cs" />
+    <Compile Include="Identity\VerifyRegistrationWidgetAndProfileWidgetOnPreviewHybridTemplate.cs" />
     <Compile Include="Identity\VerifyLoginWidgetToTemplateWhenOpenItemDetailViewAndForgotPassword.cs" />
     <Compile Include="Identity\VerifyLoginWidgetWhenOpenItemDetailViewAndForgotPassword.cs" />
+    <Compile Include="Identity\VerifyRegistrationWidgetAndProfileWidgetOnPreviewBootstrapTemplate.cs" />
+    <Compile Include="Identity\VerifyRegistrationWidgetAndProfileWidgetOnPreviewPage.cs" />
     <Compile Include="Lists\VerifyListTemplatesOnBootstrap.cs" />
     <Compile Include="Navigation\LanguageSelectorXssAttack.cs" />
     <Compile Include="News\AddNewsWidgetToPageVerifyViewPermissions.cs" />
     <Compile Include="News\AddRelatedDataToNewsWidget.cs" />
     <Compile Include="News\ChangeSelectedSingleItemPage.cs" />
     <Compile Include="News\CheckSelectorsAfterUNPublishingNewsItem.cs" />
+    <Compile Include="News\VerifyUseLimitListSettingsOnFrontendPageForNewsWidget.cs" />
+    <Compile Include="News\VerifyNoLimitAndPaginationListSettingsOnFrontendPageForNewsWidget.cs" />
     <Compile Include="News\DeleteNewsWidgetFromPage.cs" />
     <Compile Include="News\DeleteTagAndEditNewsWidget.cs" />
     <Compile Include="News\DragAndDropNewsWidgetOnPage.cs" />
@@ -369,6 +386,7 @@
     <Compile Include="News\SelectNewsItemInNewsWidgetFromPage.cs" />
     <Compile Include="News\SelectSingleNewsPageAndVerifyFrontendPage.cs" />
     <Compile Include="News\VerifyNewsItemsWhenOpenDetailsModeOfDynamicItem.cs" />
+    <Compile Include="News\VerifyPagingOnFrontendPageForNewsWidget.cs" />
     <Compile Include="News\ZActivateAndDeactivateNewsModule.cs" />
     <Compile Include="Packaging\DynamicContent\ExportImportFlatModuleAllFieldsFrontendCheck.cs" />
     <Compile Include="Packaging\DynamicContent\ImportEditedFlatModuleAllFieldsWithNewType.cs" />

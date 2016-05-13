@@ -14,6 +14,7 @@ using Telerik.Sitefinity.Frontend.Comments.Mvc.Controllers;
 using Telerik.Sitefinity.Frontend.ContentBlock.Mvc.Controllers;
 using Telerik.Sitefinity.Frontend.DynamicContent.Mvc.Controllers;
 using Telerik.Sitefinity.Frontend.EmailCampaigns.Mvc.Controllers;
+using Telerik.Sitefinity.Frontend.Events.Mvc.Controllers;
 using Telerik.Sitefinity.Frontend.Identity.Mvc.Controllers;
 using Telerik.Sitefinity.Frontend.InlineClientAssets.Mvc.Controllers;
 using Telerik.Sitefinity.Frontend.Lists.Mvc.Controllers;
@@ -230,6 +231,27 @@ namespace FeatherWidgets.TestUtilities.CommonOperations
                 mvcWidget.ControllerName = typeof(NewsController).FullName;
 
                 this.CreateControl(pageManager, page, mvcWidget, "News", placeholder);
+            }
+        }
+
+        /// <summary>
+        /// Adds the events widget to page.
+        /// </summary>
+        /// <param name="pageId">The page identifier.</param>
+        /// <param name="placeholder">The placeholder.</param>
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1026:DefaultParametersShouldNotBeUsed")]
+        public void AddEventsWidgetToPage(Guid pageId, string placeholder = "Body")
+        {
+            PageManager pageManager = PageManager.GetManager();
+            pageManager.Provider.SuppressSecurityChecks = true;
+            var pageDataId = pageManager.GetPageNode(pageId).PageId;
+            var page = pageManager.EditPage(pageDataId, CultureInfo.CurrentUICulture);
+
+            using (var mvcWidget = new Telerik.Sitefinity.Mvc.Proxy.MvcControllerProxy())
+            {
+                mvcWidget.ControllerName = typeof(EventController).FullName;
+
+                this.CreateControl(pageManager, page, mvcWidget, "Events", placeholder);
             }
         }
 

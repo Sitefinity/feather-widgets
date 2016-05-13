@@ -147,15 +147,13 @@
       <Private>True</Private>
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="Telerik.Sitefinity.Mvc, Version=1.6.480.0, Culture=neutral, PublicKeyToken=b28c218413bdf563, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Telerik.Sitefinity.Mvc.1.6.480.0\lib\net45\Telerik.Sitefinity.Mvc.dll</HintPath>
-      <Private>True</Private>
+    <Reference Include="Telerik.Sitefinity.Mvc, Version=1.6.500.0, Culture=neutral, PublicKeyToken=b28c218413bdf563, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\packages\Telerik.Sitefinity.Mvc.1.6.500.0\lib\net45\Telerik.Sitefinity.Mvc.dll</HintPath>
     </Reference>
-    <Reference Include="Telerik.Sitefinity.Mvc.TestUtilities, Version=1.6.480.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Telerik.Sitefinity.Mvc.TestUtilities.1.6.480.0\lib\net45\Telerik.Sitefinity.Mvc.TestUtilities.dll</HintPath>
-      <Private>True</Private>
+    <Reference Include="Telerik.Sitefinity.Mvc.TestUtilities, Version=1.6.500.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\packages\Telerik.Sitefinity.Mvc.TestUtilities.1.6.500.0\lib\net45\Telerik.Sitefinity.Mvc.TestUtilities.dll</HintPath>
     </Reference>
     <Reference Include="Telerik.Sitefinity.Personalization, Version=9.1.6100.0, Culture=neutral, PublicKeyToken=b28c218413bdf563, processorArchitecture=MSIL">
       <HintPath>..\..\packages\Telerik.Sitefinity.Core.9.1.6100.0\lib\net40\Telerik.Sitefinity.Personalization.dll</HintPath>
@@ -315,6 +313,10 @@
     <ProjectReference Include="..\..\Telerik.Sitefinity.Frontend.EmailCampaigns\Telerik.Sitefinity.Frontend.EmailCampaigns.csproj">
       <Project>{c70bd0bd-d081-48a0-af6d-3fa7e584cb04}</Project>
       <Name>Telerik.Sitefinity.Frontend.EmailCampaigns</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Telerik.Sitefinity.Frontend.Events\Telerik.Sitefinity.Frontend.Events.csproj">
+      <Project>{3d2b45ef-a016-4821-8ba0-badade614080}</Project>
+      <Name>Telerik.Sitefinity.Frontend.Events</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\Telerik.Sitefinity.Frontend.Forms\Telerik.Sitefinity.Frontend.Forms.csproj">
       <Project>{35e2549f-113b-4b81-bdde-f06e78f4bdf8}</Project>

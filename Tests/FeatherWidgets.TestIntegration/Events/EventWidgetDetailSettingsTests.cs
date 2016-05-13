@@ -67,7 +67,7 @@ namespace FeatherWidgets.TestIntegration.Events
 
             this.pageOperations.CreatePageWithControl(mvcProxy, pageNamePrefix, pageTitlePrefix, urlNamePrefix, pageIndex);
 
-            var items = eventController.Model.CreateListViewModel(1).Items.ToArray();
+            var items = eventController.Model.CreateListViewModel(null, 1).Items.ToArray();
 
             Assert.AreEqual(EventWidgetDetailSettingsTests.EventsCount, items.Length, "The count of the events is not as expected");
 
@@ -105,7 +105,7 @@ namespace FeatherWidgets.TestIntegration.Events
             eventController.DetailsPageId = secondPageId;
             firstPageMvcProxy.Settings = new ControllerSettings(eventController);
 
-            var items = eventController.Model.CreateListViewModel(1).Items.ToArray();
+            var items = eventController.Model.CreateListViewModel(null, 1).Items.ToArray();
             Assert.AreEqual(EventWidgetDetailSettingsTests.EventsCount, items.Length, "The count of the events is not as expected");
 
             var expectedDetailEvent = (Event)items[0].DataItem;

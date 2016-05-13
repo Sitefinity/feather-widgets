@@ -108,6 +108,8 @@ namespace FeatherWidgets.TestUnit.DummyClasses.Media
 
         public int? ItemsPerPage { get; set; }
 
+        public int? LimitCount { get; set; }
+
         public string ListCssClass
         {
             get

@@ -11,6 +11,7 @@ using Telerik.Sitefinity.Frontend.Mvc.Infrastructure.Controllers.Attributes;
 using Telerik.Sitefinity.Modules.Pages.Configuration;
 using Telerik.Sitefinity.Mvc;
 using Telerik.Sitefinity.Services;
+using Telerik.Sitefinity.Taxonomies.Model;
 
 namespace Telerik.Sitefinity.Frontend.Events.Mvc.Controllers
 {
@@ -135,7 +136,7 @@ namespace Telerik.Sitefinity.Frontend.Events.Mvc.Controllers
         /// </returns>
         public ActionResult Index(int? page)
         {
-            var viewModel = this.Model.CreateListViewModel(page: page ?? 1);
+            var viewModel = this.Model.CreateListViewModel(null, page: page ?? 1);
 
             this.InitializeListViewBag("/{0}");
 
@@ -143,6 +144,26 @@ namespace Telerik.Sitefinity.Frontend.Events.Mvc.Controllers
                 this.AddCacheDependencies(this.Model.GetKeysOfDependentObjects(viewModel));
 
             var fullTemplateName = EventController.ListTemplateNamePrefix + this.ListTemplateName;
+            return this.View(fullTemplateName, viewModel);
+        }
+
+        /// <summary>
+        /// Renders appropriate list view depending on the <see cref="ListTemplateName" /> 
+        /// </summary>
+        /// <param name="taxonFilter">The taxonomy filter.</param>
+        /// <param name="page">The page.</param>
+        /// <returns>
+        /// The <see cref="ActionResult" />.
+        /// </returns>
+        public ActionResult ListByTaxon(ITaxon taxonFilter, int? page)
+        {
+            var fullTemplateName = EventController.ListTemplateNamePrefix + this.ListTemplateName;
+            this.InitializeListViewBag("/" + taxonFilter.UrlName + "/{0}");
+
+            var viewModel = this.Model.CreateListViewModel(taxonFilter, page ?? 1);
+            if (SystemManager.CurrentHttpContext != null)
+                this.AddCacheDependencies(this.Model.GetKeysOfDependentObjects(viewModel));
+
             return this.View(fullTemplateName, viewModel);
         }
 

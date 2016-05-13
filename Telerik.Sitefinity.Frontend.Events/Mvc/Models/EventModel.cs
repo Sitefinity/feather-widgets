@@ -118,8 +118,6 @@ namespace Telerik.Sitefinity.Frontend.Events.Mvc.Models
         {
             var filterExpression = base.CompileFilterExpression();
 
-            filterExpression = filterExpression.Replace("EventEnd>=(DateTime.UtcNow)", "( (EventEnd>=(DateTime.UtcNow)) OR  (NULL==EventEnd))");
-
             if (this.NarrowSelectionMode == SelectionMode.FilteredItems)
             {
                 if (!this.SerializedNarrowSelectionFilters.IsNullOrEmpty())

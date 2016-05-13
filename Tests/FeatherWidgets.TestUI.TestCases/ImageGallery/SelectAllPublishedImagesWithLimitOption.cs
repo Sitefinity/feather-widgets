@@ -39,7 +39,7 @@ namespace FeatherWidgets.TestUI.TestCases.ImageGallery
             BATFeather.Wrappers().Backend().Widgets().WidgetDesignerWrapper().SaveChanges();
             foreach (var image in this.imageTitles)
             {
-                string src = this.GetImageSource(false, image, ImageType);
+                string src = this.GetImageSource(image, ImageType);
                 BATFeather.Wrappers().Backend().Pages().PageZoneEditorMediaWrapper().VerifyImageThumbnail(image, src);
             }
 
@@ -48,7 +48,7 @@ namespace FeatherWidgets.TestUI.TestCases.ImageGallery
             int i = 3;
             foreach (var image in this.imageTitles)
             {
-                var src = this.GetImageSource(false, image, ImageType);
+                var src = this.GetImageSource(image, ImageType);
                 BATFeather.Wrappers().Frontend().ImageGallery().ImageGalleryWrapper().VerifyImage(ImageAltText + i, src);
                 i--;
             }
@@ -56,13 +56,13 @@ namespace FeatherWidgets.TestUI.TestCases.ImageGallery
             BATFeather.Wrappers().Frontend().ImageGallery().ImageGalleryWrapper().ClickImage(ImageAltText + 2);
             Assert.IsTrue(BATFeather.Wrappers().Frontend().ImageGallery().ImageGalleryWrapper().IsImageTitlePresentOnDetailMasterPage(this.imageTitles[1]));
 
-            var scr = this.GetImageSource(false, this.imageTitles[1], ImageTypeFrontend);
+            var scr = this.GetImageSource(this.imageTitles[1], ImageTypeFrontend);
             BATFeather.Wrappers().Frontend().ImageGallery().ImageGalleryWrapper().VerifyImage(ImageAltText + 2, scr);
 
-            var hrefPrevious = this.GetImageHref(true, this.imageTitles[0]);
+            var hrefPrevious = this.GetImageHref(this.imageTitles[0]);
             BATFeather.Wrappers().Frontend().ImageGallery().ImageGalleryWrapper().VerifyPreviousImage(hrefPrevious);
 
-            var hrefNext = this.GetImageHref(true, this.imageTitles[2]);
+            var hrefNext = this.GetImageHref(this.imageTitles[2]);
             BATFeather.Wrappers().Frontend().ImageGallery().ImageGalleryWrapper().VerifyNextImage(hrefNext);
 
             var hrefBack = "/" + PageName.ToLower() + "/" + "Index/";
@@ -87,7 +87,7 @@ namespace FeatherWidgets.TestUI.TestCases.ImageGallery
             BAT.Arrange(this.TestName).ExecuteTearDown();
         }
 
-        private string GetImageSource(bool isBaseUrlIncluded, string imageName, string imageType)
+        private string GetImageSource(string imageName, string imageType)
         {
             string libraryUrl = LibraryName.ToLower();
             string imageUrl = imageName.ToLower() + imageType.ToLower();
@@ -101,11 +101,11 @@ namespace FeatherWidgets.TestUI.TestCases.ImageGallery
             {
                 url = ActiveBrowser.Url.Substring(0, 20);
             }
-            string scr = BATFeather.Wrappers().Frontend().MediaWidgets().MediaWidgetsWrapper().GetMediaSource(isBaseUrlIncluded, libraryUrl, imageUrl, url, ContentType, currentProviderUrlName, this.Culture);
+            string scr = BATFeather.Wrappers().Frontend().MediaWidgets().MediaWidgetsWrapper().GetMediaSource(libraryUrl, imageUrl, ContentType, currentProviderUrlName, this.Culture);
             return scr;
         }
 
-        private string GetImageHref(bool isBaseUrlIncluded, string imageName)
+        private string GetImageHref(string imageName)
         {
             string libraryUrl = LibraryName.ToLower();
             string imageUrl = imageName.ToLower();
@@ -119,7 +119,7 @@ namespace FeatherWidgets.TestUI.TestCases.ImageGallery
                 url = ActiveBrowser.Url.Substring(0, 20);
             }
 
-            string href = BATFeather.Wrappers().Frontend().MediaWidgets().MediaWidgetsWrapper().GetMediaSource(isBaseUrlIncluded, libraryUrl, imageUrl, url, PageName.ToLower() + "/images", currentProviderUrlName, this.Culture);
+            string href = BATFeather.Wrappers().Frontend().MediaWidgets().MediaWidgetsWrapper().GetMediaSource(libraryUrl, imageUrl, PageName.ToLower() + "/images", currentProviderUrlName, this.Culture);
             return href;
         }
 

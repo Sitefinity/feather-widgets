@@ -136,10 +136,9 @@
       <Private>True</Private>
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="Telerik.Sitefinity.Mvc, Version=1.6.480.0, Culture=neutral, PublicKeyToken=b28c218413bdf563, processorArchitecture=MSIL">
-      <HintPath>..\packages\Telerik.Sitefinity.Mvc.1.6.480.0\lib\net45\Telerik.Sitefinity.Mvc.dll</HintPath>
-      <Private>True</Private>
+    <Reference Include="Telerik.Sitefinity.Mvc, Version=1.6.500.0, Culture=neutral, PublicKeyToken=b28c218413bdf563, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Telerik.Sitefinity.Mvc.1.6.500.0\lib\net45\Telerik.Sitefinity.Mvc.dll</HintPath>
     </Reference>
     <Reference Include="Telerik.Sitefinity.Personalization, Version=9.1.6100.0, Culture=neutral, PublicKeyToken=b28c218413bdf563, processorArchitecture=MSIL">
       <HintPath>..\packages\Telerik.Sitefinity.Core.9.1.6100.0\lib\net40\Telerik.Sitefinity.Personalization.dll</HintPath>
@@ -272,7 +271,8 @@
   <Target Name="BeforeBuild">
     <Copy SourceFiles="$(SolutionDir)FxCop\CustomDictionary.xml" DestinationFolder="$(CodeAnalysisPath)" OverwriteReadOnlyFiles="true" Retries="10" ContinueOnError="false" />
   </Target>
-  <Target Name="AfterBuild"></Target>
+  <Target Name="AfterBuild">
+  </Target>
   <Import Project="$(SolutionDir)\StyleCop\StyleCop.targets" />
   <Import Project="..\packages\RazorGenerator.MsBuild.2.4.1\build\RazorGenerator.MsBuild.targets" Condition="Exists('..\packages\RazorGenerator.MsBuild.2.4.1\build\RazorGenerator.MsBuild.targets')" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

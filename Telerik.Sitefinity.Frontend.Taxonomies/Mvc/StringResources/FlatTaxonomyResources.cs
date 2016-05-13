@@ -220,6 +220,21 @@ namespace Telerik.Sitefinity.Frontend.Taxonomies.Mvc.StringResources
         }
 
         /// <summary>
+        /// Gets word : Event
+        /// </summary>
+        [ResourceEntry("Event",
+            Value = "Event",
+            Description = "The word: Event.",
+            LastModified = "2016/04/27")]
+        public string Event
+        {
+            get
+            {
+                return this["Event"];
+            }
+        }
+
+        /// <summary>
         /// The phrase: Only [taxonomies] used by content type...
         /// </summary>
         /// <value>Only {0} used by content type...</value>

@@ -35,10 +35,10 @@ namespace FeatherWidgets.TestUI.TestCases.News
             BATFeather.Wrappers().Backend().Widgets().WidgetDesignerWrapper().SelectDisplayItemsPublishedIn(DisplayItemsPublishedIn);
             BATFeather.Wrappers().Backend().Widgets().WidgetDesignerWrapper().SetFromDateByTyping(DayAgo);
             BATFeather.Wrappers().Backend().Widgets().WidgetDesignerWrapper().AddHour("10", true);
-            BATFeather.Wrappers().Backend().Widgets().WidgetDesignerWrapper().AddMinute("2", true);
+            BATFeather.Wrappers().Backend().Widgets().WidgetDesignerWrapper().AddMinute("20", true);
             BATFeather.Wrappers().Backend().Widgets().WidgetDesignerWrapper().SetToDateByDatePicker(DayForward);
             BATFeather.Wrappers().Backend().Widgets().WidgetDesignerWrapper().AddHour("13", false);
-            BATFeather.Wrappers().Backend().Widgets().WidgetDesignerWrapper().AddMinute("4", false);
+            BATFeather.Wrappers().Backend().Widgets().WidgetDesignerWrapper().AddMinute("40", false);
             BATFeather.Wrappers().Backend().Widgets().SelectorsWrapper().DoneSelecting();
             BATFeather.Wrappers().Backend().Widgets().WidgetDesignerWrapper().SaveChanges();
             BAT.Wrappers().Backend().Pages().PageZoneEditorWrapper().CheckWidgetContent(WidgetName, this.newsTitles[0]);

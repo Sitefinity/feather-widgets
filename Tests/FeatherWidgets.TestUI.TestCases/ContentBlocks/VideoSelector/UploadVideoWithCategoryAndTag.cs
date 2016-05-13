@@ -59,16 +59,16 @@ namespace FeatherWidgets.TestUI.TestCases.ContentBlocks.VideoSelector
             BATFeather.Wrappers().Backend().Media().MediaUploadPropertiesWrapper().UploadMediaFile();
 
             BATFeather.Wrappers().Backend().Media().VideoPropertiesWrapper().VerifyVideoInfo(NewVideoName, VideoType, Size);
-            BATFeather.Wrappers().Backend().Media().VideoPropertiesWrapper().VerifySmallVideoProperites(this.GetVideoSource(true));
+            BATFeather.Wrappers().Backend().Media().VideoPropertiesWrapper().VerifySmallVideoProperites(this.GetVideoSource());
             BATFeather.Wrappers().Backend().Media().VideoPropertiesWrapper().VerifySelectedOptionAspectRatioSelector("Auto");
             BATFeather.Wrappers().Backend().Media().VideoPropertiesWrapper().PlayVideo();
-            BATFeather.Wrappers().Backend().Media().VideoPropertiesWrapper().VerifyBigVideoProperites(this.GetVideoSource(true));
+            BATFeather.Wrappers().Backend().Media().VideoPropertiesWrapper().VerifyBigVideoProperites(this.GetVideoSource());
             BATFeather.Wrappers().Backend().Media().VideoPropertiesWrapper().ConfirmMediaProperties();
             BATFeather.Wrappers().Backend().ContentBlocks().ContentBlocksWrapper().SaveChanges();
             BAT.Wrappers().Backend().Pages().PageZoneEditorWrapper().PublishPage();
 
             BAT.Macros().NavigateTo().CustomPage("~/" + PageName.ToLower(), true, this.Culture);
-            BATFeather.Wrappers().Frontend().MediaWidgets().MediaWidgetsWrapper().VerifyVideo(this.GetVideoSource(false));
+            BATFeather.Wrappers().Frontend().MediaWidgets().MediaWidgetsWrapper().VerifyVideo(this.GetVideoSource());
             BAT.Arrange(this.TestName).ExecuteArrangement("VerifyCreatedTag");
         }
 
@@ -89,7 +89,7 @@ namespace FeatherWidgets.TestUI.TestCases.ContentBlocks.VideoSelector
             BAT.Arrange(this.TestName).ExecuteTearDown();
         }
 
-        private string GetVideoSource(bool isBaseUrlIncluded)
+        private string GetVideoSource()
         {
             currentProviderUrlName = BAT.Arrange(this.TestName).ExecuteArrangement("GetCurrentProviderUrlName").Result.Values["CurrentProviderUrlName"];
             string libraryUrl = LibraryName.ToLower() + "/" + ChildVideoLibrary.ToLower();
@@ -105,7 +105,7 @@ namespace FeatherWidgets.TestUI.TestCases.ContentBlocks.VideoSelector
                 url = ActiveBrowser.Url.Substring(0, 20);
             }
 
-            string scr = BATFeather.Wrappers().Frontend().MediaWidgets().MediaWidgetsWrapper().GetMediaSource(isBaseUrlIncluded, libraryUrl, imageUrl, url, "videos", currentProviderUrlName);
+            string scr = BATFeather.Wrappers().Frontend().MediaWidgets().MediaWidgetsWrapper().GetMediaSource(libraryUrl, imageUrl, "videos", currentProviderUrlName);
             return scr;
         }
 

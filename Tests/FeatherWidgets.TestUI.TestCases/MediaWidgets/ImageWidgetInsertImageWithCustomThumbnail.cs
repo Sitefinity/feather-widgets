@@ -35,7 +35,7 @@ namespace FeatherWidgets.TestUI.TestCases.MediaWidgets
             BATFeather.Wrappers().Backend().Media().ImagePropertiesWrapper().WaitUntilImageIsLoaded();
             Assert.IsTrue(BATFeather.Wrappers().Backend().Media().ImagePropertiesWrapper().IsTitlePopulated(ImageName), "Image title is not populated correctly");
             Assert.IsTrue(BATFeather.Wrappers().Backend().Media().ImagePropertiesWrapper().IsImageAltTextPopulated(ImageAltText1), "Image alt text is not populated correctly");
-            string scr = this.GetImageSource(true, ImageName, ImageTypeInPropertiesDialog);
+            string scr = this.GetImageSource(ImageName, ImageTypeInPropertiesDialog);
             BATFeather.Wrappers().Backend().Media().ImagePropertiesWrapper().VerifyImageThumbnailInPropertiesDialog(ImageName, scr);
             BATFeather.Wrappers().Backend().Media().ImagePropertiesWrapper().VerifySelectedOptionThumbnailSelector(ThumbnailOption);
 
@@ -48,7 +48,7 @@ namespace FeatherWidgets.TestUI.TestCases.MediaWidgets
             BATFeather.Wrappers().Backend().Media().ImagePropertiesWrapper().WaitUntilImageIsLoaded();
             Assert.IsTrue(BATFeather.Wrappers().Backend().Media().ImagePropertiesWrapper().IsTitlePopulated(NewImageName), "Image title is not populated correctly");
             Assert.IsTrue(BATFeather.Wrappers().Backend().Media().ImagePropertiesWrapper().IsImageAltTextPopulated(NewImageAltText), "Image alt text is not populated correctly");
-            scr = this.GetImageSource(true, ImageName, ImageTypeInPropertiesDialog);
+            scr = this.GetImageSource(ImageName, ImageTypeInPropertiesDialog);
             BATFeather.Wrappers().Backend().Media().ImagePropertiesWrapper().VerifyImageThumbnailInPropertiesDialog(ImageName, scr);
             BATFeather.Wrappers().Backend().Media().ImagePropertiesWrapper().SelectOptionThumbnailSelector("Custom size...");
             BATFeather.Wrappers().Backend().Media().ImagePropertiesWrapper().SelectResizeImageOption("Crop to area");
@@ -63,14 +63,14 @@ namespace FeatherWidgets.TestUI.TestCases.MediaWidgets
             BATFeather.Wrappers().Backend().Media().ImagePropertiesWrapper().ClickThisImageIsALink();
             BATFeather.Wrappers().Backend().Media().ImagePropertiesWrapper().ConfirmMediaPropertiesInWidget();
 
-            string src = this.GetImageSource(false, ImageName, ImageType);
+            string src = this.GetImageSource(ImageName, ImageType);
             BATFeather.Wrappers().Backend().Pages().PageZoneEditorMediaWrapper().VerifyImageThumbnail(NewImageAltText, src);
             BATFeather.Wrappers().Backend().Pages().PageZoneEditorMediaWrapper().VerifyImageResizingProperties(NewImageAltText, "MaxWidth=111", "MaxHeight=111", "Quality=Medium", "Method=ResizeFitToAreaArguments");
 
             BAT.Wrappers().Backend().Pages().PageZoneEditorWrapper().PublishPage();
 
             BAT.Macros().NavigateTo().CustomPage("~/" + PageName.ToLower(), true, this.Culture);
-            scr = this.GetImageSource(false, ImageName, ImageType);
+            scr = this.GetImageSource(ImageName, ImageType);
             BATFeather.Wrappers().Frontend().MediaWidgets().MediaWidgetsWrapper().VerifyImage(NewImageName, NewImageAltText, scr);
             BATFeather.Wrappers().Frontend().ImageGallery().ImageGalleryWrapper().ClickImage(NewImageAltText);
             ActiveBrowser.WaitForUrl(scr + "?sfvrsn=0", true, 10000);
@@ -94,7 +94,7 @@ namespace FeatherWidgets.TestUI.TestCases.MediaWidgets
             BAT.Arrange(this.TestName).ExecuteTearDown();
         }
 
-        private string GetImageSource(bool isBaseUrlIncluded, string imageName, string imageType)
+        private string GetImageSource(string imageName, string imageType)
         {
             string libraryUrl = LibraryName.ToLower();
             string imageUrl = imageName.ToLower() + imageType.ToLower();
@@ -109,7 +109,7 @@ namespace FeatherWidgets.TestUI.TestCases.MediaWidgets
                 url = ActiveBrowser.Url.Substring(0, 20);
             }
 
-            string scr = BATFeather.Wrappers().Frontend().MediaWidgets().MediaWidgetsWrapper().GetMediaSource(isBaseUrlIncluded, libraryUrl, imageUrl, url, "images", currentProviderUrlName);
+            string scr = BATFeather.Wrappers().Frontend().MediaWidgets().MediaWidgetsWrapper().GetMediaSource(libraryUrl, imageUrl, "images", currentProviderUrlName);
             return scr;
         }
 

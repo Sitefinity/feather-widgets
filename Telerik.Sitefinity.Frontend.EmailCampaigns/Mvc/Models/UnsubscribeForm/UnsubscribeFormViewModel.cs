@@ -1,12 +1,12 @@
-﻿using System;
-using System.ComponentModel.DataAnnotations;
-using System.Linq;
+﻿using System.ComponentModel.DataAnnotations;
+using System.Web.Mvc;
 
 namespace Telerik.Sitefinity.Frontend.EmailCampaigns.Mvc.Models.UnsubscribeForm
 {
     /// <summary>
     /// This class represents the view model of Unsubscribe widget.
     /// </summary>
+    [Bind(Exclude = "Message, WidgetTitle, WidgetDescription, RedirectPageUrl, CssClass")]
     public class UnsubscribeFormViewModel
     {
         /// <summary>

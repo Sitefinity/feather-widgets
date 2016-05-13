@@ -234,7 +234,7 @@ namespace Feather.Widgets.TestUI.Framework.Framework.ElementMap.Content
         {
             get
             {
-                return this.Get<HtmlDiv>("class=modal-dialog modal-lg", "ng-class={'modal-sm': size == 'sm', 'modal-lg': size == 'lg'}");
+                return this.Get<HtmlDiv>("class=modal-dialog modal-lg");
             }
         }
 
@@ -246,7 +246,7 @@ namespace Feather.Widgets.TestUI.Framework.Framework.ElementMap.Content
         {
             get
             {
-                return this.Get<HtmlDiv>("class=modal-dialog modal-lg modal-full-screen", "ng-class={'modal-sm': size == 'sm', 'modal-lg': size == 'lg'}");
+                return this.Get<HtmlDiv>("class=modal-dialog modal-lg modal-full-screen");
             }
         }
 

@@ -2,6 +2,7 @@
 using Feather.Widgets.TestUI.Framework.Framework.Wrappers.Frontend.Classifications;
 using Feather.Widgets.TestUI.Framework.Framework.Wrappers.Frontend.CommentsAndReviews;
 using Feather.Widgets.TestUI.Framework.Framework.Wrappers.Frontend.EmailCampaigns;
+using Feather.Widgets.TestUI.Framework.Framework.Wrappers.Frontend.Events;
 using Feather.Widgets.TestUI.Framework.Framework.Wrappers.Frontend.FeedWidget;
 using Feather.Widgets.TestUI.Framework.Framework.Wrappers.Frontend.Forms;
 using Feather.Widgets.TestUI.Framework.Framework.Wrappers.Frontend.Identity;
@@ -203,6 +204,15 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Frontend
         public BlogsWrapperFacade Blogs()
         {
             return new BlogsWrapperFacade();
+        }
+
+        /// <summary>
+        /// Provides unified access to the EventsWrapperFacade 
+        /// </summary>
+        /// <returns>Returns the EventsWrapperFacade</returns>
+        public EventsWrapperFacade Events()
+        {
+            return new EventsWrapperFacade();
         }
     }
 }

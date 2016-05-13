@@ -166,15 +166,13 @@
       <Private>True</Private>
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="Telerik.Sitefinity.Mvc, Version=1.6.480.0, Culture=neutral, PublicKeyToken=b28c218413bdf563, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Telerik.Sitefinity.Mvc.1.6.480.0\lib\net45\Telerik.Sitefinity.Mvc.dll</HintPath>
-      <Private>True</Private>
+    <Reference Include="Telerik.Sitefinity.Mvc, Version=1.6.500.0, Culture=neutral, PublicKeyToken=b28c218413bdf563, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\packages\Telerik.Sitefinity.Mvc.1.6.500.0\lib\net45\Telerik.Sitefinity.Mvc.dll</HintPath>
     </Reference>
-    <Reference Include="Telerik.Sitefinity.Mvc.TestUtilities, Version=1.6.480.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Telerik.Sitefinity.Mvc.TestUtilities.1.6.480.0\lib\net45\Telerik.Sitefinity.Mvc.TestUtilities.dll</HintPath>
-      <Private>True</Private>
+    <Reference Include="Telerik.Sitefinity.Mvc.TestUtilities, Version=1.6.500.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\packages\Telerik.Sitefinity.Mvc.TestUtilities.1.6.500.0\lib\net45\Telerik.Sitefinity.Mvc.TestUtilities.dll</HintPath>
     </Reference>
     <Reference Include="Telerik.Sitefinity.Personalization, Version=9.1.6100.0, Culture=neutral, PublicKeyToken=b28c218413bdf563, processorArchitecture=MSIL">
       <HintPath>..\..\packages\Telerik.Sitefinity.ServicesImpl.9.1.6100.0\lib\net40\Telerik.Sitefinity.Personalization.dll</HintPath>
@@ -285,7 +283,10 @@
     </Compile>
     <Compile Include="ApplicationPreStart.cs" />
     <Compile Include="BlogPosts\AddBlogPostsWidgetToPageOpenSingleItemInExistingPage.cs" />
+    <Compile Include="BlogPosts\VerifyNoLimitAndPaginationListSettingsOnFrontendPageForBlogPostsWidget.cs" />
+    <Compile Include="BlogPosts\VerifyUseLimitListSettingsOnFrontendPageForBlogPostsWidget.cs" />
     <Compile Include="Blogs\DragAndDropBlogsWidgetToPage.cs" />
+    <Compile Include="BlogPosts\VerifyPagingOnFrontendPageForBlogPostsWidget.cs" />
     <Compile Include="CardWidget\AddCardWidgetOnPageBasedOnBootstrapTemplate.cs" />
     <Compile Include="CardWidget\AddCardWidgetOnPageTemplate.cs" />
     <Compile Include="CardWidget\AddCssToCardWidget.cs" />
@@ -394,6 +395,11 @@
     <Compile Include="EmailCampaigns\TryToUnsubscribeNotExistingSubscriber.cs" />
     <Compile Include="EmailCampaigns\UnsubscribeWidgetOnFoundationAndSemanticPage.cs" />
     <Compile Include="EmailCampaigns\UnsubscribeWidgetOnHybridPageAndSetCssClass.cs" />
+    <Compile Include="Events\FilterEventCommon.cs" />
+    <Compile Include="Events\FilterByAllEvents.cs" />
+    <Compile Include="Events\DragAndDropEventsWidgetOnPage.cs" />
+    <Compile Include="Events\EventsTestsCommon.cs" />
+    <Compile Include="Events\SelectParticularEventOnPage.cs" />
     <Compile Include="FeedWidget\DragAndDropFeedWidgetAndSetDefaultRssOnPage.cs" />
     <Compile Include="Forms\CAPTCHA\ChangeCAPTCHATemplate.cs" />
     <Compile Include="Forms\Checkboxes\AddAndRemoveChoicesToCheckBoxField.cs" />
@@ -506,11 +512,18 @@
     <Compile Include="Forms\SectionHeader\ViewFormWithSectionHeaderOnPageAndVerifyResponseInBackend.cs" />
     <Compile Include="Forms\Textbox\ViewFormWithTextboxFieldOnPageAndVerifyResponseInBackend.cs" />
     <Compile Include="Framework\TestArrangementBase.cs" />
+    <Compile Include="Identity\VerifyRegistrationWidgetAndProfileWidgetOnPreviewHybridPage.cs" />
+    <Compile Include="Identity\VerifyRegistrationWidgetAndProfileWidgetOnPreviewHybridTemplate.cs" />
     <Compile Include="Identity\VerifyLoginWidgetToTemplateWhenOpenItemDetailViewAndForgotPassword.cs" />
     <Compile Include="Identity\VerifyLoginWidgetWhenOpenItemDetailViewAndForgotPassword.cs" />
+    <Compile Include="Identity\VerifyRegistrationWidgetAndProfileWidgetOnPreviewBootstrapTemplate.cs" />
+    <Compile Include="Identity\VerifyRegistrationWidgetAndProfileWidgetOnPreviewPage.cs" />
     <Compile Include="Lists\VerifyListTemplatesOnBootstrap.cs" />
     <Compile Include="Navigation\LanguageSelectorXssAttack.cs" />
+    <Compile Include="News\VerifyUseLimitListSettingsOnFrontendPageForNewsWidget.cs" />
+    <Compile Include="News\VerifyNoLimitAndPaginationListSettingsOnFrontendPageForNewsWidget.cs" />
     <Compile Include="News\VerifyNewsItemsWhenOpenDetailsModeOfDynamicItem.cs" />
+    <Compile Include="News\VerifyPagingOnFrontendPageForNewsWidget.cs" />
     <Compile Include="Packaging\DynamicContent\ExportImportFlatModuleAllFieldsFrontendCheck.cs" />
     <Compile Include="Packaging\DynamicContent\ImportEditedFlatModuleAllFieldsWithNewType.cs" />
     <Compile Include="Packaging\DynamicContent\ImportFlatModuleAllFields.cs" />

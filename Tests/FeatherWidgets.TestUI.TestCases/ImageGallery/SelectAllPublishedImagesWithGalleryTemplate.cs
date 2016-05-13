@@ -24,7 +24,7 @@ namespace FeatherWidgets.TestUI.TestCases.ImageGallery
 
             foreach (var image in this.imageTitles)
             {
-                string src = this.GetImageSource(false, image, ImageType);
+                string src = this.GetImageSource(image, ImageType);
                 BATFeather.Wrappers().Backend().Pages().PageZoneEditorMediaWrapper().VerifyImageThumbnail(image, src);
             }
 
@@ -33,7 +33,7 @@ namespace FeatherWidgets.TestUI.TestCases.ImageGallery
             int i = 3;
             foreach (var image in this.imageTitles)
             {
-                var src = this.GetImageSource(false, image, ImageType);
+                var src = this.GetImageSource(image, ImageType);
                 BATFeather.Wrappers().Frontend().ImageGallery().ImageGalleryWrapper().VerifyImage(ImageAltText + i, src);
                 i--;
             }
@@ -41,7 +41,7 @@ namespace FeatherWidgets.TestUI.TestCases.ImageGallery
             BATFeather.Wrappers().Frontend().ImageGallery().ImageGalleryWrapper().ClickImage(ImageAltText + 2);
             BATFeather.Wrappers().Frontend().ImageGallery().ImageGalleryWrapper().VerifySelectedImageOverlayTemplate(ImageAltText + 2);
             BATFeather.Wrappers().Frontend().ImageGallery().ImageGalleryWrapper().VerifyPreviousAndNextImageArrowsOverlayTemplate();
-            var scr = this.GetImageSource(false, this.imageTitles[1], string.Empty);
+            var scr = this.GetImageSource(this.imageTitles[1], string.Empty);
             string url = PageName.ToLower() + scr + "?itemIndex=1";
             ActiveBrowser.WaitForUrl("/" + url, true, 60000);
             BATFeather.Wrappers().Frontend().ImageGallery().ImageGalleryWrapper().CloseSelectedImageOverlayTemplate();
@@ -59,13 +59,13 @@ namespace FeatherWidgets.TestUI.TestCases.ImageGallery
         {
             this.SelectListTemplateInImageGalleryDesigner(FoundationTemplate, ThumbnailStripTemplate);
 
-            string src = this.GetImageSource(false, this.imageTitles[0], ImageOriginalType);
+            string src = this.GetImageSource(this.imageTitles[0], ImageOriginalType);
             BATFeather.Wrappers().Backend().Pages().PageZoneEditorMediaWrapper().VerifyImageThumbnail(this.imageTitles[0], src);
             BATFeather.Wrappers().Backend().Pages().PageZoneEditorMediaWrapper().VerifyThumbnailStripTemplateInfo("1of 3", this.imageTitles[0]);
 
             for (int j = 1; j <= 2; j++)
             {
-                src = this.GetImageSource(false, this.imageTitles[j], ImageType);
+                src = this.GetImageSource(this.imageTitles[j], ImageType);
                 BATFeather.Wrappers().Backend().Pages().PageZoneEditorMediaWrapper().VerifyImageThumbnail(this.imageTitles[j], src);
             }
 
@@ -73,21 +73,21 @@ namespace FeatherWidgets.TestUI.TestCases.ImageGallery
             BAT.Macros().NavigateTo().CustomPage("~/" + PageName.ToLower(), true, this.Culture);
 
             BATFeather.Wrappers().Frontend().ImageGallery().ImageGalleryWrapper().VerifyThumbnailStripTemplateInfo("1of 3", this.imageTitles[0]);
-            src = this.GetImageSource(false, this.imageTitles[0], ImageOriginalType);
+            src = this.GetImageSource(this.imageTitles[0], ImageOriginalType);
             BATFeather.Wrappers().Frontend().ImageGallery().ImageGalleryWrapper().VerifyImage(ImageAltText + 3, src);
 
             for (int i = 1; i <= 2; i++)
             {
-                src = this.GetImageSource(false, this.imageTitles[i], ImageType);
+                src = this.GetImageSource(this.imageTitles[i], ImageType);
                 BATFeather.Wrappers().Frontend().ImageGallery().ImageGalleryWrapper().VerifyImage(ImageAltText + (3 - i), src);
             }
 
             BATFeather.Wrappers().Frontend().ImageGallery().ImageGalleryWrapper().ClickImage(ImageAltText + 2);
 
-            src = this.GetImageSource(false, this.imageTitles[1], ImageOriginalType);
+            src = this.GetImageSource(this.imageTitles[1], ImageOriginalType);
             BATFeather.Wrappers().Frontend().ImageGallery().ImageGalleryWrapper().VerifyImage(ImageAltText + 2, src);
             BATFeather.Wrappers().Frontend().ImageGallery().ImageGalleryWrapper().VerifyThumbnailStripTemplateInfo("2of 3", this.imageTitles[1]);
-            var scr = this.GetImageSource(false, this.imageTitles[1], string.Empty);
+            var scr = this.GetImageSource(this.imageTitles[1], string.Empty);
             string url = PageName.ToLower() + scr;
             ActiveBrowser.WaitForUrl("/" + url, true, 60000);
         }
@@ -105,7 +105,7 @@ namespace FeatherWidgets.TestUI.TestCases.ImageGallery
 
             foreach (var image in this.imageTitles)
             {
-                string src = this.GetImageSource(false, image, ImageType);
+                string src = this.GetImageSource(image, ImageType);
                 BATFeather.Wrappers().Backend().Pages().PageZoneEditorMediaWrapper().VerifyImageThumbnail(image, src);
             }
 
@@ -114,7 +114,7 @@ namespace FeatherWidgets.TestUI.TestCases.ImageGallery
             int i = 3;
             foreach (var image in this.imageTitles)
             {
-                var src = this.GetImageSource(false, image, ImageType);
+                var src = this.GetImageSource(image, ImageType);
                 BATFeather.Wrappers().Frontend().ImageGallery().ImageGalleryWrapper().VerifyImage(ImageAltText + i, src);
                 i--;
             }
@@ -143,7 +143,7 @@ namespace FeatherWidgets.TestUI.TestCases.ImageGallery
             BATFeather.Wrappers().Backend().Widgets().WidgetDesignerWrapper().SaveChanges();
         }
 
-        private string GetImageSource(bool isBaseUrlIncluded, string imageName, string imageType)
+        private string GetImageSource(string imageName, string imageType)
         {
             string libraryUrl = LibraryName.ToLower();
             string imageUrl = imageName.ToLower() + imageType.ToLower();
@@ -158,7 +158,7 @@ namespace FeatherWidgets.TestUI.TestCases.ImageGallery
                 url = ActiveBrowser.Url.Substring(0, 20);
             }
 
-            string scr = BATFeather.Wrappers().Frontend().MediaWidgets().MediaWidgetsWrapper().GetMediaSource(isBaseUrlIncluded, libraryUrl, imageUrl, url, ContentType, currentProviderUrlName, this.Culture);
+            string scr = BATFeather.Wrappers().Frontend().MediaWidgets().MediaWidgetsWrapper().GetMediaSource(libraryUrl, imageUrl, ContentType, currentProviderUrlName, this.Culture);
             return scr;
         }
 

@@ -34,7 +34,7 @@ namespace FeatherWidgets.TestUI.TestCases.ContentBlocks.VideoSelector
             BATFeather.Wrappers().Backend().Media().VideoPropertiesWrapper().EditAllProperties();
             BATFeather.Wrappers().Backend().Media().VideoPropertiesWrapper().EnterNewTitleInPropertiesDialogAndPublish(VideoNewName);
             BATFeather.Wrappers().Backend().Media().VideoPropertiesWrapper().VerifyVideoInfo(VideoNewName, VideoType, Size);
-            BATFeather.Wrappers().Backend().Media().VideoPropertiesWrapper().VerifySmallVideoProperites(this.GetVideoSource(true));
+            BATFeather.Wrappers().Backend().Media().VideoPropertiesWrapper().VerifySmallVideoProperites(this.GetVideoSource());
 
             BATFeather.Wrappers().Backend().Media().VideoPropertiesWrapper().ChangeMediaFile();
             BATFeather.Wrappers().Backend().Media().MediaSelectorWrapper().SearchInMediaSelector(VideoName1);
@@ -49,7 +49,7 @@ namespace FeatherWidgets.TestUI.TestCases.ContentBlocks.VideoSelector
             BAT.Wrappers().Backend().Pages().PageZoneEditorWrapper().PublishPage();
 
             BAT.Macros().NavigateTo().CustomPage("~/" + PageName.ToLower(), true, this.Culture);
-            BATFeather.Wrappers().Frontend().MediaWidgets().MediaWidgetsWrapper().VerifyVideo(this.GetVideoSource(false));
+            BATFeather.Wrappers().Frontend().MediaWidgets().MediaWidgetsWrapper().VerifyVideo(this.GetVideoSource());
         }
 
         /// <summary>
@@ -69,7 +69,7 @@ namespace FeatherWidgets.TestUI.TestCases.ContentBlocks.VideoSelector
             BAT.Arrange(this.TestName).ExecuteTearDown();
         }
 
-        private string GetVideoSource(bool isBaseUrlIncluded)
+        private string GetVideoSource()
         {
             currentProviderUrlName = BAT.Arrange(this.TestName).ExecuteArrangement("GetCurrentProviderUrlName").Result.Values["CurrentProviderUrlName"];
             string libraryUrl = LibraryName.ToLower();
@@ -85,7 +85,7 @@ namespace FeatherWidgets.TestUI.TestCases.ContentBlocks.VideoSelector
                 url = ActiveBrowser.Url.Substring(0, 20);
             }
 
-            string scr = BATFeather.Wrappers().Frontend().MediaWidgets().MediaWidgetsWrapper().GetMediaSource(isBaseUrlIncluded, libraryUrl, videoUrl, url, "videos", currentProviderUrlName);
+            string scr = BATFeather.Wrappers().Frontend().MediaWidgets().MediaWidgetsWrapper().GetMediaSource(libraryUrl, videoUrl, "videos", currentProviderUrlName);
             return scr;
         }
 

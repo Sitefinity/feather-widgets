@@ -35,7 +35,7 @@ namespace FeatherWidgets.TestUI.TestCases.VideoGallery
             BATFeather.Wrappers().Backend().Widgets().WidgetDesignerWrapper().SaveChanges();
             foreach (var video in this.videoTitles)
             {
-                string src = this.GetVideoSource(false, video, ImageType);
+                string src = this.GetVideoSource(video, ImageType);
                 BATFeather.Wrappers().Backend().Pages().PageZoneEditorMediaWrapper().VerifyImageThumbnail(video, src);
             }
 
@@ -44,7 +44,7 @@ namespace FeatherWidgets.TestUI.TestCases.VideoGallery
             int i = 3;
             foreach (var video in this.videoTitles)
             {
-                var src = this.GetVideoSource(false, video, ImageType);
+                var src = this.GetVideoSource(video, ImageType);
                 BATFeather.Wrappers().Frontend().ImageGallery().ImageGalleryWrapper().VerifyImage(VideoAltText + i, src);
                 i--;
             }
@@ -52,13 +52,13 @@ namespace FeatherWidgets.TestUI.TestCases.VideoGallery
             BATFeather.Wrappers().Frontend().ImageGallery().ImageGalleryWrapper().ClickImage(VideoAltText + 2);
             Assert.IsTrue(BATFeather.Wrappers().Frontend().VideoGallery().VideoGalleryWrapper().IsVideoTitlePresentOnDetailMasterPage(this.videoTitles[1]));
 
-            var scr = this.GetVideodHref(true, this.videoTitles[1]);
+            var scr = this.GetVideodHref(this.videoTitles[1]);
             BATFeather.Wrappers().Frontend().VideoGallery().VideoGalleryWrapper().VerifyVideo(scr);
 
-            var hrefPrevious = this.GetVideoHref(true, this.videoTitles[0]);
+            var hrefPrevious = this.GetVideoHref(this.videoTitles[0]);
             BATFeather.Wrappers().Frontend().VideoGallery().VideoGalleryWrapper().VerifyPreviousVideo(hrefPrevious);
 
-            var hrefNext = this.GetVideoHref(true, this.videoTitles[2]);
+            var hrefNext = this.GetVideoHref(this.videoTitles[2]);
             BATFeather.Wrappers().Frontend().VideoGallery().VideoGalleryWrapper().VerifyNextVideo(hrefNext);
 
             var hrefBack = "/" + PageName.ToLower() + "/" + "Index/";
@@ -83,7 +83,7 @@ namespace FeatherWidgets.TestUI.TestCases.VideoGallery
             BAT.Arrange(this.TestName).ExecuteTearDown();
         }
 
-        private string GetVideoSource(bool isBaseUrlIncluded, string videoName, string videoType)
+        private string GetVideoSource(string videoName, string videoType)
         {
             string libraryUrl = LibraryName.ToLower();
             string videoUrl = videoName.ToLower() + videoType.ToLower();
@@ -97,11 +97,11 @@ namespace FeatherWidgets.TestUI.TestCases.VideoGallery
             {
                 url = ActiveBrowser.Url.Substring(0, 20);
             }
-            string scr = BATFeather.Wrappers().Frontend().MediaWidgets().MediaWidgetsWrapper().GetMediaSource(isBaseUrlIncluded, libraryUrl, videoUrl, url, "videos", currentProviderUrlName, this.Culture);
+            string scr = BATFeather.Wrappers().Frontend().MediaWidgets().MediaWidgetsWrapper().GetMediaSource(libraryUrl, videoUrl, "videos", currentProviderUrlName, this.Culture);
             return scr;
         }
 
-        private string GetVideoHref(bool isBaseUrlIncluded, string videoName)
+        private string GetVideoHref(string videoName)
         {
             string libraryUrl = LibraryName.ToLower();
             string videoUrl = videoName.ToLower();
@@ -115,11 +115,11 @@ namespace FeatherWidgets.TestUI.TestCases.VideoGallery
             {
                 url = ActiveBrowser.Url.Substring(0, 20);
             }
-            string href = BATFeather.Wrappers().Frontend().MediaWidgets().MediaWidgetsWrapper().GetMediaSource(isBaseUrlIncluded, libraryUrl, videoUrl, url, PageName.ToLower() + "/videos", currentProviderUrlName, this.Culture);
+            string href = BATFeather.Wrappers().Frontend().MediaWidgets().MediaWidgetsWrapper().GetMediaSource(libraryUrl, videoUrl, PageName.ToLower() + "/videos", currentProviderUrlName, this.Culture);
             return href;
         }
 
-        private string GetVideodHref(bool isBaseUrlIncluded, string videoName)
+        private string GetVideodHref(string videoName)
         {
             string documentUrl = videoName.ToLower();
             string libraryUrl = LibraryName.ToLower();
@@ -133,7 +133,7 @@ namespace FeatherWidgets.TestUI.TestCases.VideoGallery
             {
                 url = ActiveBrowser.Url.Substring(0, 20);
             }
-            string href = BATFeather.Wrappers().Frontend().MediaWidgets().MediaWidgetsWrapper().GetDownloadButtonSource(isBaseUrlIncluded, libraryUrl, documentUrl, url, "videos", currentProviderUrlName);
+            string href = BATFeather.Wrappers().Frontend().MediaWidgets().MediaWidgetsWrapper().GetDownloadButtonSource(libraryUrl, documentUrl, "videos", currentProviderUrlName);
             return href;
         }
 

@@ -157,14 +157,14 @@ namespace FeatherWidgets.TestIntegration.News
             string pageTitlePrefix = testName + "News Page";
             string urlNamePrefix = testName + "news-page";
             int index = 1;
-            int itemsPerPage = 3;
+            int limitCount = 3;
             string url = UrlPath.ResolveAbsoluteUrl("~/" + urlNamePrefix + index);
 
             var mvcProxy = new MvcControllerProxy();
             mvcProxy.ControllerName = typeof(NewsController).FullName;
             var newsController = new NewsController();
             newsController.Model.DisplayMode = ListDisplayMode.Limit;
-            newsController.Model.ItemsPerPage = itemsPerPage;
+            newsController.Model.ItemsPerPage = limitCount;
             mvcProxy.Settings = new Telerik.Sitefinity.Mvc.Proxy.ControllerSettings(newsController);
 
             try
@@ -178,7 +178,7 @@ namespace FeatherWidgets.TestIntegration.News
 
                 string responseContent = PageInvoker.ExecuteWebRequest(url);
 
-                for (int i = 5; i <= itemsPerPage; i--)
+                for (int i = 5; i <= limitCount; i--)
                     Assert.IsTrue(responseContent.Contains(NewsTitle + i), "The news with this title was not found!");
             }
             finally

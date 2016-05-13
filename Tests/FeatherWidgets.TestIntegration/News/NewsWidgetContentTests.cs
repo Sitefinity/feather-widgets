@@ -261,7 +261,7 @@ namespace FeatherWidgets.TestIntegration.News
             newsController.Model.SelectionMode = SelectionMode.SelectedItems;
             newsController.Model.DisplayMode = ListDisplayMode.Limit;
             newsController.Model.SortExpression = sortExpession;
-            newsController.Model.ItemsPerPage = 5;
+            newsController.Model.LimitCount = 5;
 
             var newsManager = NewsManager.GetManager();
 
@@ -561,8 +561,8 @@ namespace FeatherWidgets.TestIntegration.News
         {
             var newsController = new NewsController();
             newsController.Model.DisplayMode = ListDisplayMode.Limit;
-            int itemsPerPage = 3;
-            newsController.Model.ItemsPerPage = itemsPerPage;
+            int limitCount = 3;
+            newsController.Model.LimitCount = limitCount;
             string categoryTitle = "Category";
             string[] newsTitles = { "Boat", "Cat", "Angel", "Kitty", "Dog" };
             Guid[] newsId = new Guid[newsTitles.Count()];
@@ -684,7 +684,7 @@ namespace FeatherWidgets.TestIntegration.News
         {
             var newsController = new NewsController();
             newsController.Model.DisplayMode = ListDisplayMode.Limit;
-            newsController.Model.ItemsPerPage = 1;
+            newsController.Model.LimitCount = 1;
 
             string tagTitle = "Tag1";
             string newsTitle = "News ";
@@ -787,6 +787,7 @@ namespace FeatherWidgets.TestIntegration.News
             var newsController = new NewsController();
             newsController.Model.DisplayMode = ListDisplayMode.All;
             newsController.Model.ItemsPerPage = 1;
+            newsController.Model.LimitCount = 1;
 
             string tagTitle = "Tag1";
             string newsTitle = "News ";
