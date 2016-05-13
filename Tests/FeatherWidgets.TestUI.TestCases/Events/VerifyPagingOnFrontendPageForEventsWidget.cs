@@ -6,22 +6,22 @@ using FeatherWidgets.TestUI.TestCases;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Telerik.Sitefinity.TestUI.Framework.Utilities;
 
-namespace FeatherWidgets.TestUI.TestCases.BlogPosts
+namespace FeatherWidgets.TestUI.TestCases.Events
 {
     /// <summary>
-    /// VerifyPagingOnFrontendPageForBlogPostsWidget_ test class.
+    /// VerifyPagingOnFrontendPageForEventsWidget_ test class.
     /// </summary>
     [TestClass]
-    public class VerifyPagingOnFrontendPageForBlogPostsWidget_ : FeatherTestCase
+    public class VerifyPagingOnFrontendPageForBlogsWidget_ : FeatherTestCase
     {
         /// <summary>
-        /// UI test VerifyPagingOnFrontendPageForBlogPostsWidget
+        /// UI test VerifyPagingOnFrontendPageForEventsWidget
         /// </summary>
         [TestMethod,
         Owner(FeatherTeams.SitefinityTeam7),
         TestCategory(FeatherTestCategories.PagesAndContent), 
-        TestCategory(FeatherTestCategories.Blogs)]
-        public void VerifyPagingOnFrontendPageForBlogPostsWidget()
+        TestCategory(FeatherTestCategories.Events)]
+        public void VerifyPagingOnFrontendPageForEventsWidget()
         {
             RuntimeSettingsModificator.ExecuteWithClientTimeout(800000, () => BAT.Macros().NavigateTo().CustomPage("~/sitefinity/pages", true, null, new HtmlFindExpression("class=~sfMain")));
             BAT.Macros().NavigateTo().Pages(this.Culture);
@@ -42,20 +42,17 @@ namespace FeatherWidgets.TestUI.TestCases.BlogPosts
             BAT.Wrappers().Backend().Pages().PageZoneEditorWrapper().PublishPage();
 
             BAT.Macros().NavigateTo().CustomPage("~/" + PageName.ToLower(), true, this.Culture);
-            Assert.IsTrue(BATFeather.Wrappers().Frontend().Blogs().BlogsWrapper().IsBlogPostTitlesPresentOnThePageFrontend(new string[] { PostTitle7, PostTitle6 }));
-            Assert.IsFalse(BATFeather.Wrappers().Frontend().Blogs().BlogsWrapper().IsBlogPostTitlesPresentOnThePageFrontend(new string[] { PostTitle5, PostTitle4, PostTitle3, PostTitle2, PostTitle1 }));
-            BATFeather.Wrappers().Frontend().CommonWrapper().NavigateToPageUsingPager("2", 4);
-            Assert.IsTrue(BATFeather.Wrappers().Frontend().Blogs().BlogsWrapper().IsBlogPostTitlesPresentOnThePageFrontend(new string[] { PostTitle5, PostTitle4 }));
-            Assert.IsFalse(BATFeather.Wrappers().Frontend().Blogs().BlogsWrapper().IsBlogPostTitlesPresentOnThePageFrontend(new string[] { PostTitle7, PostTitle6, PostTitle3, PostTitle2, PostTitle1 }));
-            BATFeather.Wrappers().Frontend().CommonWrapper().NavigateToPageUsingPager("3", 4);
-            Assert.IsTrue(BATFeather.Wrappers().Frontend().Blogs().BlogsWrapper().IsBlogPostTitlesPresentOnThePageFrontend(new string[] { PostTitle3, PostTitle2 }));
-            Assert.IsFalse(BATFeather.Wrappers().Frontend().Blogs().BlogsWrapper().IsBlogPostTitlesPresentOnThePageFrontend(new string[] { PostTitle7, PostTitle6, PostTitle5, PostTitle4, PostTitle1 }));
-            BATFeather.Wrappers().Frontend().CommonWrapper().NavigateToPageUsingPager("4", 4);
-            Assert.IsTrue(BATFeather.Wrappers().Frontend().Blogs().BlogsWrapper().IsBlogPostTitlesPresentOnThePageFrontend(new string[] { PostTitle1 }));
-            Assert.IsFalse(BATFeather.Wrappers().Frontend().Blogs().BlogsWrapper().IsBlogPostTitlesPresentOnThePageFrontend(new string[] { PostTitle7, PostTitle6, PostTitle5, PostTitle4, PostTitle3, PostTitle2 }));
-            BATFeather.Wrappers().Frontend().CommonWrapper().NavigateToPageUsingPager("1", 4);
-            Assert.IsTrue(BATFeather.Wrappers().Frontend().Blogs().BlogsWrapper().IsBlogPostTitlesPresentOnThePageFrontend(new string[] { PostTitle7, PostTitle6 }));
-            Assert.IsFalse(BATFeather.Wrappers().Frontend().Blogs().BlogsWrapper().IsBlogPostTitlesPresentOnThePageFrontend(new string[] { PostTitle5, PostTitle4, PostTitle3, PostTitle2, PostTitle1 }));
+            Assert.IsTrue(BATFeather.Wrappers().Frontend().Events().EventsWrapper().AreEventTitlesPresentOnThePageFrontend(new string[] { EventsTitle1, EventsTitle2 }));
+            Assert.IsFalse(BATFeather.Wrappers().Frontend().Events().EventsWrapper().AreEventTitlesPresentOnThePageFrontend(new string[] { EventsTitle5, EventsTitle4, EventsTitle3 }));
+            BATFeather.Wrappers().Frontend().CommonWrapper().NavigateToPageUsingPager("2", 3);
+            Assert.IsTrue(BATFeather.Wrappers().Frontend().Events().EventsWrapper().AreEventTitlesPresentOnThePageFrontend(new string[] { EventsTitle3, EventsTitle4 }));
+            Assert.IsFalse(BATFeather.Wrappers().Frontend().Events().EventsWrapper().AreEventTitlesPresentOnThePageFrontend(new string[] { EventsTitle5, EventsTitle1, EventsTitle2 }));
+            BATFeather.Wrappers().Frontend().CommonWrapper().NavigateToPageUsingPager("3", 3);
+            Assert.IsTrue(BATFeather.Wrappers().Frontend().Events().EventsWrapper().AreEventTitlesPresentOnThePageFrontend(new string[] { EventsTitle5 }));
+            Assert.IsFalse(BATFeather.Wrappers().Frontend().Events().EventsWrapper().AreEventTitlesPresentOnThePageFrontend(new string[] { EventsTitle1, EventsTitle4, EventsTitle3, EventsTitle2 }));
+            BATFeather.Wrappers().Frontend().CommonWrapper().NavigateToPageUsingPager("1", 3);
+            Assert.IsTrue(BATFeather.Wrappers().Frontend().Events().EventsWrapper().AreEventTitlesPresentOnThePageFrontend(new string[] { EventsTitle1, EventsTitle2 }));
+            Assert.IsFalse(BATFeather.Wrappers().Frontend().Events().EventsWrapper().AreEventTitlesPresentOnThePageFrontend(new string[] { EventsTitle5, EventsTitle4, EventsTitle3 }));
             BAT.Macros().NavigateTo().Pages(this.Culture);
         }
 
@@ -76,14 +73,12 @@ namespace FeatherWidgets.TestUI.TestCases.BlogPosts
             BAT.Arrange(this.TestName).ExecuteTearDown();
         }
 
-        private const string PageName = "BlogsPage";
-        private const string WidgetName = "Blog posts";
-        private const string PostTitle1 = "Post1";
-        private const string PostTitle2 = "Post2";
-        private const string PostTitle3 = "Post3";
-        private const string PostTitle4 = "Post4";
-        private const string PostTitle5 = "Post5";
-        private const string PostTitle6 = "PostNew1";
-        private const string PostTitle7 = "PostNew2";
+        private const string PageName = "EventsPage";
+        private const string WidgetName = "Events";
+        private const string EventsTitle1 = "TestEvent1";
+        private const string EventsTitle2 = "TestEvent2";
+        private const string EventsTitle3 = "TestEvent3";
+        private const string EventsTitle4 = "TestEvent4";
+        private const string EventsTitle5 = "TestEvent5";
     }
 }

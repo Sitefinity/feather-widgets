@@ -136,6 +136,28 @@ namespace FeatherWidgets.TestUtilities.CommonOperations
         }
 
         /// <summary>
+        /// Adds the blogs widget to page.
+        /// </summary>
+        /// <param name="pageId">The page identifier.</param>
+        /// <param name="placeholder">The placeholder.</param>
+        /// <param name="parentFilterMode">The parent filter mode.</param>
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1026:DefaultParametersShouldNotBeUsed")]
+        public void AddBlogsWidgetToPage(Guid pageId, string placeholder = "Body")
+        {
+            PageManager pageManager = PageManager.GetManager();
+            pageManager.Provider.SuppressSecurityChecks = true;
+            var pageDataId = pageManager.GetPageNode(pageId).PageId;
+            var page = pageManager.EditPage(pageDataId, CultureInfo.CurrentUICulture);
+
+            using (var mvcWidget = new Telerik.Sitefinity.Mvc.Proxy.MvcControllerProxy())
+            {
+                mvcWidget.ControllerName = typeof(BlogController).FullName;
+
+                this.CreateControl(pageManager, page, mvcWidget, "Blogs", placeholder);
+            }
+        }
+
+        /// <summary>
         /// Add blog posts widget to existing page.
         /// </summary>
         /// <param name="pageId">The page Id.</param>

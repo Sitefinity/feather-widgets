@@ -6,22 +6,22 @@ using FeatherWidgets.TestUI.TestCases;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Telerik.Sitefinity.TestUI.Framework.Utilities;
 
-namespace FeatherWidgets.TestUI.TestCases.BlogPosts
+namespace FeatherWidgets.TestUI.TestCases.Events
 {
     /// <summary>
-    /// VerifyNoLimitAndPaginationListSettingsOnFrontendPageForBlogPostsWidget_ test class.
+    /// VerifyNoLimitAndPaginationListSettingsOnFrontendPageForEventsWidget_ test class.
     /// </summary>
     [TestClass]
-    public class VerifyNoLimitAndPaginationListSettingsOnFrontendPageForBlogPostsWidget_ : FeatherTestCase
+    public class VerifyNoLimitAndPaginationListSettingsOnFrontendPageForEventsWidget_ : FeatherTestCase
     {
         /// <summary>
-        /// UI test VerifyNoLimitAndPaginationListSettingsOnFrontendPageForBlogPostsWidget
+        /// UI test VerifyNoLimitAndPaginationListSettingsOnFrontendPageForEventsWidget
         /// </summary>
         [TestMethod,
         Owner(FeatherTeams.SitefinityTeam7),
         TestCategory(FeatherTestCategories.PagesAndContent), 
-        TestCategory(FeatherTestCategories.Blogs)]
-        public void VerifyNoLimitAndPaginationListSettingsOnFrontendPageForBlogPostsWidget()
+        TestCategory(FeatherTestCategories.Events)]
+        public void VerifyNoLimitAndPaginationListSettingsOnFrontendPageForEventsWidget()
         {
             RuntimeSettingsModificator.ExecuteWithClientTimeout(800000, () => BAT.Macros().NavigateTo().CustomPage("~/sitefinity/pages", true, null, new HtmlFindExpression("class=~sfMain")));
             BAT.Macros().NavigateTo().Pages(this.Culture);
@@ -50,7 +50,7 @@ namespace FeatherWidgets.TestUI.TestCases.BlogPosts
             BAT.Wrappers().Backend().Pages().PageZoneEditorWrapper().PublishPage();
 
             BAT.Macros().NavigateTo().CustomPage("~/" + PageName.ToLower(), true, this.Culture);
-            Assert.IsTrue(BATFeather.Wrappers().Frontend().Blogs().BlogsWrapper().IsBlogPostTitlesPresentOnThePageFrontend(new string[] { PostTitle7, PostTitle6, PostTitle5, PostTitle4, PostTitle3, PostTitle2, PostTitle1 }));
+            Assert.IsTrue(BATFeather.Wrappers().Frontend().Events().EventsWrapper().AreEventTitlesPresentOnThePageFrontend(new string[] { EventsTitle1, EventsTitle2, EventsTitle3, EventsTitle4, EventsTitle5 }));
             BAT.Macros().NavigateTo().Pages(this.Culture);
         }
 
@@ -71,14 +71,12 @@ namespace FeatherWidgets.TestUI.TestCases.BlogPosts
             BAT.Arrange(this.TestName).ExecuteTearDown();
         }
 
-        private const string PageName = "BlogsPage";
-        private const string WidgetName = "Blog posts";
-        private const string PostTitle1 = "Post1";
-        private const string PostTitle2 = "Post2";
-        private const string PostTitle3 = "Post3";
-        private const string PostTitle4 = "Post4";
-        private const string PostTitle5 = "Post5";
-        private const string PostTitle6 = "PostNew1";
-        private const string PostTitle7 = "PostNew2";
+        private const string PageName = "EventsPage";
+        private const string WidgetName = "Events";
+        private const string EventsTitle1 = "TestEvent1";
+        private const string EventsTitle2 = "TestEvent2";
+        private const string EventsTitle3 = "TestEvent3";
+        private const string EventsTitle4 = "TestEvent4";
+        private const string EventsTitle5 = "TestEvent5";
     }
 }

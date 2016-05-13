@@ -285,8 +285,11 @@
     <Compile Include="BlogPosts\AddBlogPostsWidgetToPageOpenSingleItemInExistingPage.cs" />
     <Compile Include="BlogPosts\VerifyNoLimitAndPaginationListSettingsOnFrontendPageForBlogPostsWidget.cs" />
     <Compile Include="BlogPosts\VerifyUseLimitListSettingsOnFrontendPageForBlogPostsWidget.cs" />
+    <Compile Include="Blogs\VerifyNoLimitAndPaginationListSettingsOnFrontendPageForBlogsWidget.cs" />
+    <Compile Include="Blogs\VerifyUseLimitListSettingsOnFrontendPageForBlogsWidget.cs" />
     <Compile Include="Blogs\DragAndDropBlogsWidgetToPage.cs" />
     <Compile Include="BlogPosts\VerifyPagingOnFrontendPageForBlogPostsWidget.cs" />
+    <Compile Include="Blogs\VerifyPagingOnFrontendPageForBlogsWidget.cs" />
     <Compile Include="CardWidget\AddCardWidgetOnPageBasedOnBootstrapTemplate.cs" />
     <Compile Include="CardWidget\AddCardWidgetOnPageTemplate.cs" />
     <Compile Include="CardWidget\AddCssToCardWidget.cs" />
@@ -395,11 +398,14 @@
     <Compile Include="EmailCampaigns\TryToUnsubscribeNotExistingSubscriber.cs" />
     <Compile Include="EmailCampaigns\UnsubscribeWidgetOnFoundationAndSemanticPage.cs" />
     <Compile Include="EmailCampaigns\UnsubscribeWidgetOnHybridPageAndSetCssClass.cs" />
+    <Compile Include="Events\VerifyNoLimitAndPaginationListSettingsOnFrontendPageForEventsWidget.cs" />
+    <Compile Include="Events\VerifyUseLimitListSettingsOnFrontendPageForEventsWidget.cs" />
     <Compile Include="Events\FilterEventCommon.cs" />
     <Compile Include="Events\FilterByAllEvents.cs" />
     <Compile Include="Events\DragAndDropEventsWidgetOnPage.cs" />
     <Compile Include="Events\EventsTestsCommon.cs" />
     <Compile Include="Events\SelectParticularEventOnPage.cs" />
+    <Compile Include="Events\VerifyPagingOnFrontendPageForEventsWidget.cs" />
     <Compile Include="FeedWidget\DragAndDropFeedWidgetAndSetDefaultRssOnPage.cs" />
     <Compile Include="Forms\CAPTCHA\ChangeCAPTCHATemplate.cs" />
     <Compile Include="Forms\Checkboxes\AddAndRemoveChoicesToCheckBoxField.cs" />
