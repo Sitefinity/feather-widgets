@@ -30,10 +30,10 @@ namespace FeatherWidgets.TestUI.TestCases.VideoGallery
             BATFeather.Wrappers().Backend().Widgets().WidgetDesignerWrapper().SelectDisplayItemsPublishedIn(DisplayItemsPublishedIn);
             BATFeather.Wrappers().Backend().Widgets().WidgetDesignerWrapper().SetFromDateByTyping(DayAgo);
             BATFeather.Wrappers().Backend().Widgets().WidgetDesignerWrapper().AddHour("10", true);
-            BATFeather.Wrappers().Backend().Widgets().WidgetDesignerWrapper().AddMinute("2", true);
+            BATFeather.Wrappers().Backend().Widgets().WidgetDesignerWrapper().AddMinute("20", true);
             BATFeather.Wrappers().Backend().Widgets().WidgetDesignerWrapper().SetToDateByDatePicker(DayForward);
             BATFeather.Wrappers().Backend().Widgets().WidgetDesignerWrapper().AddHour("13", false);
-            BATFeather.Wrappers().Backend().Widgets().WidgetDesignerWrapper().AddMinute("4", false);
+            BATFeather.Wrappers().Backend().Widgets().WidgetDesignerWrapper().AddMinute("40", false);
             BATFeather.Wrappers().Backend().Widgets().SelectorsWrapper().DoneSelecting();
 
             BATFeather.Wrappers().Backend().Widgets().WidgetDesignerWrapper().SelectCheckBox(TaxonomyTags);
@@ -57,7 +57,7 @@ namespace FeatherWidgets.TestUI.TestCases.VideoGallery
                 }
                 else
                 {
-                    string src = this.GetVideoSource(false, VideoBaseTitle + i, ImageType);
+                    string src = this.GetVideoSource(VideoBaseTitle + i, ImageType);
                     BATFeather.Wrappers().Backend().Pages().PageZoneEditorMediaWrapper().VerifyImageThumbnail(VideoBaseTitle + i, src);
                 }
             }
@@ -73,7 +73,7 @@ namespace FeatherWidgets.TestUI.TestCases.VideoGallery
                 }
                 else
                 {
-                    var src = this.GetVideoSource(false, VideoBaseTitle + i, VideoType);
+                    var src = this.GetVideoSource(VideoBaseTitle + i, VideoType);
                     BATFeather.Wrappers().Frontend().ImageGallery().ImageGalleryWrapper().VerifyImage(VideoAltText + i, src);
                 }
             }        
@@ -97,7 +97,7 @@ namespace FeatherWidgets.TestUI.TestCases.VideoGallery
             BAT.Arrange(this.TestName).ExecuteTearDown();
         }
 
-        private string GetVideoSource(bool isBaseUrlIncluded, string videoName, string videoType)
+        private string GetVideoSource(string videoName, string videoType)
         {
             string libraryUrl = LibraryName.ToLower();
             string videoUrl = videoName.ToLower() + videoType.ToLower();
@@ -111,7 +111,7 @@ namespace FeatherWidgets.TestUI.TestCases.VideoGallery
             {
                 url = ActiveBrowser.Url.Substring(0, 20);
             }
-            string scr = BATFeather.Wrappers().Frontend().MediaWidgets().MediaWidgetsWrapper().GetMediaSource(isBaseUrlIncluded, libraryUrl, videoUrl, url, "videos", currentProviderUrlName, this.Culture);
+            string scr = BATFeather.Wrappers().Frontend().MediaWidgets().MediaWidgetsWrapper().GetMediaSource(libraryUrl, videoUrl, "videos", currentProviderUrlName, this.Culture);
             return scr;
         }
 
@@ -122,7 +122,7 @@ namespace FeatherWidgets.TestUI.TestCases.VideoGallery
         private const string LibraryName = "TestVideoLibrary";
         private const string VideoAltText = "Video";
         private const string VideoType = ".TMB";
-        private const string DateName = "dateInput";
+        private const string DateName = "sfPublicationDateInput";
         private const int DayAgo = -1;
         private const int DayForward = 1;
         private const string CategoryTitle = "Category3";

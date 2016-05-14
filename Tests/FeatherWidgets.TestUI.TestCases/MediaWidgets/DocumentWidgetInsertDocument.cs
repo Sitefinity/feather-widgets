@@ -34,18 +34,18 @@ namespace FeatherWidgets.TestUI.TestCases.MediaWidgets
             BATFeather.Wrappers().Backend().Media().MediaSelectorWrapper().VerifyMediaTooltip(DocumentName, LibraryName, DocumentType);
             BATFeather.Wrappers().Backend().Media().MediaSelectorWrapper().SelectMediaFile(DocumentName, true);
             BATFeather.Wrappers().Backend().Media().MediaSelectorWrapper().ConfirmMediaFileSelectionInWidget();
-            BATFeather.Wrappers().Backend().Media().DocumentPropertiesWrapper().VerifyDocumentLink(DocumentName, this.GetDocumentHref(true));
+            BATFeather.Wrappers().Backend().Media().DocumentPropertiesWrapper().VerifyDocumentLink(DocumentName, this.GetDocumentHref());
             BATFeather.Wrappers().Backend().Media().DocumentPropertiesWrapper().VerifyDocumentIcon(DocumentExtension);
             BATFeather.Wrappers().Backend().Media().DocumentPropertiesWrapper().VerifyTemplateDropdownValueInWidget("DocumentLink");
             BATFeather.Wrappers().Backend().Media().DocumentPropertiesWrapper().ApplyCssClasses(CssClassesToApply);
             BATFeather.Wrappers().Backend().Media().DocumentPropertiesWrapper().ConfirmMediaPropertiesInWidget();
-            BATFeather.Wrappers().Backend().Pages().PageZoneEditorMediaWrapper().VerifyDocument(DocumentName, this.GetDocumentHref(false));
+            BATFeather.Wrappers().Backend().Pages().PageZoneEditorMediaWrapper().VerifyDocument(DocumentName, this.GetDocumentHref());
             BATFeather.Wrappers().Backend().Pages().PageZoneEditorMediaWrapper().VerifyDocumentIconOnTemplate(DocumentExtension);
 
             BAT.Wrappers().Backend().Pages().PageZoneEditorWrapper().PublishPage();
 
             BAT.Macros().NavigateTo().CustomPage("~/" + PageName.ToLower(), false, this.Culture);
-            BATFeather.Wrappers().Frontend().MediaWidgets().MediaWidgetsWrapper().VerifyDocumentFromWidget(DocumentName, this.GetDocumentHref(false));
+            BATFeather.Wrappers().Frontend().MediaWidgets().MediaWidgetsWrapper().VerifyDocumentFromWidget(DocumentName, this.GetDocumentHref());
             BATFeather.Wrappers().Frontend().MediaWidgets().MediaWidgetsWrapper().VerifyDocumentCssClass(CssClassesToApply, DocumentName);
             BATFeather.Wrappers().Backend().Pages().PageZoneEditorMediaWrapper().VerifyDocumentIconOnTemplate(DocumentExtension);
         }
@@ -68,7 +68,7 @@ namespace FeatherWidgets.TestUI.TestCases.MediaWidgets
             BAT.Arrange(this.TestName).ExecuteTearDown();
         }
 
-        private string GetDocumentHref(bool isBaseUrlIncluded)
+        private string GetDocumentHref()
         {
             string libraryUrl = LibraryName.ToLower();
             string documentUrl = DocumentName.ToLower() + DocumentType.ToLower();
@@ -84,7 +84,7 @@ namespace FeatherWidgets.TestUI.TestCases.MediaWidgets
                 url = ActiveBrowser.Url.Substring(0, 20);
             }
 
-            string href = BATFeather.Wrappers().Frontend().MediaWidgets().MediaWidgetsWrapper().GetMediaSource(isBaseUrlIncluded, libraryUrl, documentUrl, url, "docs", currentProviderUrlName);
+            string href = BATFeather.Wrappers().Frontend().MediaWidgets().MediaWidgetsWrapper().GetMediaSource(libraryUrl, documentUrl, "docs", currentProviderUrlName);
             return href;
         }
 

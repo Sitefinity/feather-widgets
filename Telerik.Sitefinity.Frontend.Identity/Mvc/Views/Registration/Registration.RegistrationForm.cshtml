@@ -4,6 +4,7 @@
 @using Telerik.Sitefinity.Modules.Pages;
 @using Telerik.Sitefinity.UI.MVC;
 @using Telerik.Sitefinity.Utilities;
+@using Telerik.Sitefinity.Services;
 
 @*Add scripts and stylesheets*@
 @Html.Script(ScriptRef.JQuery, "top", false)
@@ -85,7 +86,14 @@
             </div>
 
             <div>
-                <input type="submit" value="@Html.Resource("Register")" />
+                @if (SystemManager.IsDesignMode && !SystemManager.IsPreviewMode)
+                {
+                    <input type="button" value="@Html.Resource("Register")" />
+                }
+                else
+                {
+                    <input type="submit" value="@Html.Resource("Register")" />
+                }
             </div>
          }
 

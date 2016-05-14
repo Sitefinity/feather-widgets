@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using Telerik.Sitefinity.DynamicModules.Builder.Model;
 using Telerik.Sitefinity.Libraries.Model;
 using Telerik.Sitefinity.Pages.Model;
-using Telerik.Sitefinity.RelatedData;
 using Telerik.Sitefinity.Utilities.TypeConverters;
 
 namespace Telerik.Sitefinity.Frontend.DynamicContent.WidgetTemplates.Fields.Impl

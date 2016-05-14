@@ -18,6 +18,7 @@ namespace Telerik.Sitefinity.Frontend.Taxonomies.Helpers
             { "Document", new StaticType() {TypeName = "Telerik.Sitefinity.Libraries.Model.Document", ModuleName = "Libraries" } },
             { "Video", new StaticType() {TypeName = "Telerik.Sitefinity.Libraries.Model.Video", ModuleName = "Libraries" } },
             { "ListItem", new StaticType() {TypeName = "Telerik.Sitefinity.Lists.Model.ListItem", ModuleName = "Lists" } },
+            { "Event", new StaticType() {TypeName = "Telerik.Sitefinity.Events.Model.Event", ModuleName = "Events" } }
         };
 
         public static IEnumerable<ContentTypeModel> GetContentTypes(string providerName = null)

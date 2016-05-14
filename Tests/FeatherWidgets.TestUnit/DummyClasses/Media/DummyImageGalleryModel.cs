@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Telerik.Sitefinity;
 using Telerik.Sitefinity.Frontend.Media.Mvc.Models.ImageGallery;
 
@@ -27,7 +25,7 @@ namespace FeatherWidgets.TestUnit.DummyClasses.Media
         {
             return new Telerik.Sitefinity.Frontend.Mvc.Models.ContentListViewModel();
         }
-
+        
         public string DetailCssClass
         {
             get
@@ -108,11 +106,7 @@ namespace FeatherWidgets.TestUnit.DummyClasses.Media
             return this.DummyLocations;
         }
 
-        public int? ItemsPerPage
-        {
-            get;
-            set;
-        }
+        public int? ItemsPerPage { get; set; }
 
         public string ListCssClass
         {
@@ -246,10 +240,6 @@ namespace FeatherWidgets.TestUnit.DummyClasses.Media
             }
         }
 
-        public string UrlKeyPrefix
-        {
-            get;
-            set;
-        }
+        public string UrlKeyPrefix { get; set; }
     }
 }

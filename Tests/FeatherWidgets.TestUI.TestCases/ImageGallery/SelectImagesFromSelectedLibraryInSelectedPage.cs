@@ -45,7 +45,7 @@ namespace FeatherWidgets.TestUI.TestCases.ImageGallery
                 }
                 else
                 {
-                    string src = this.GetImageSource(false, ImageBaseTitle + i, ImageType);
+                    string src = this.GetImageSource(ImageBaseTitle + i, ImageType);
                     BATFeather.Wrappers().Backend().Pages().PageZoneEditorMediaWrapper().VerifyImageThumbnail(ImageBaseTitle + i, src);
                 }
             }
@@ -61,18 +61,18 @@ namespace FeatherWidgets.TestUI.TestCases.ImageGallery
                 }
                 else
                 {
-                    var src = this.GetImageSource(false, ImageBaseTitle + i, ImageType);
+                    var src = this.GetImageSource(ImageBaseTitle + i, ImageType);
                     BATFeather.Wrappers().Frontend().ImageGallery().ImageGalleryWrapper().VerifyImage(ImageAltText + i, src);
                 }
             }
 
             BATFeather.Wrappers().Frontend().ImageGallery().ImageGalleryWrapper().ClickImage(ImageAltText + 3);
-            var scr = this.GetImageSource(false, ImageBaseTitle + 3, string.Empty);
+            var scr = this.GetImageSource(ImageBaseTitle + 3, string.Empty);
             string url = SingleItemPage.ToLower() + scr;
             ActiveBrowser.WaitForUrl("/" + url, true, 60000);
             Assert.IsTrue(BATFeather.Wrappers().Frontend().ImageGallery().ImageGalleryWrapper().IsImageTitlePresentOnDetailMasterPage(ImageBaseTitle + 3));
 
-            scr = this.GetImageSource(false, ImageBaseTitle + 3, ImageTypeFrontend);
+            scr = this.GetImageSource(ImageBaseTitle + 3, ImageTypeFrontend);
             BATFeather.Wrappers().Frontend().ImageGallery().ImageGalleryWrapper().VerifyImage(ImageAltText + 3, scr);          
         }
 
@@ -94,15 +94,15 @@ namespace FeatherWidgets.TestUI.TestCases.ImageGallery
             BAT.Arrange(this.TestName).ExecuteTearDown();
         }
 
-        private string GetImageSource(bool isBaseUrlIncluded, string imageName, string imageType)
+        private string GetImageSource(string imageName, string imageType)
         {
             string libraryUrl = LibraryName.ToLower() + "/" + ChildImageLibrary.ToLower();
             string imageUrl = imageName.ToLower() + imageType.ToLower();
-            string scr = BATFeather.Wrappers().Frontend().MediaWidgets().MediaWidgetsWrapper().GetMediaSource(isBaseUrlIncluded, libraryUrl, imageUrl, this.BaseUrl, ContentType, currentProviderUrlName, this.Culture);
+            string scr = BATFeather.Wrappers().Frontend().MediaWidgets().MediaWidgetsWrapper().GetMediaSource(libraryUrl, imageUrl, ContentType, currentProviderUrlName, this.Culture);
             return scr;
         }
 
-        private string GetImageHref(bool isBaseUrlIncluded, string imageName)
+        private string GetImageHref(string imageName)
         {
             string libraryUrl = LibraryName.ToLower() + "/" + ChildImageLibrary.ToLower();
             string imageUrl = imageName.ToLower();
@@ -116,7 +116,7 @@ namespace FeatherWidgets.TestUI.TestCases.ImageGallery
             {
                 url = ActiveBrowser.Url.Substring(0, 20);
             }
-            string href = BATFeather.Wrappers().Frontend().MediaWidgets().MediaWidgetsWrapper().GetMediaSource(isBaseUrlIncluded, libraryUrl, imageUrl, url, PageName.ToLower() + "/images", currentProviderUrlName, this.Culture);
+            string href = BATFeather.Wrappers().Frontend().MediaWidgets().MediaWidgetsWrapper().GetMediaSource(libraryUrl, imageUrl, PageName.ToLower() + "/images", currentProviderUrlName, this.Culture);
             return href;
         }
 

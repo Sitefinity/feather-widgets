@@ -31,10 +31,10 @@ namespace FeatherWidgets.TestUI.TestCases.News
             BATFeather.Wrappers().Backend().Widgets().WidgetDesignerWrapper().SelectDisplayItemsPublishedIn(DisplayItemsPublishedIn);
             BATFeather.Wrappers().Backend().Widgets().WidgetDesignerWrapper().SetFromDateByTyping(DayAgo);
             BATFeather.Wrappers().Backend().Widgets().WidgetDesignerWrapper().AddHour("10", true);
-            BATFeather.Wrappers().Backend().Widgets().WidgetDesignerWrapper().AddMinute("2", true);
+            BATFeather.Wrappers().Backend().Widgets().WidgetDesignerWrapper().AddMinute("20", true);
             BATFeather.Wrappers().Backend().Widgets().WidgetDesignerWrapper().SetToDateByDatePicker(DayForward);
             BATFeather.Wrappers().Backend().Widgets().WidgetDesignerWrapper().AddHour("13", false);
-            BATFeather.Wrappers().Backend().Widgets().WidgetDesignerWrapper().AddMinute("4", false);
+            BATFeather.Wrappers().Backend().Widgets().WidgetDesignerWrapper().AddMinute("40", false);
             BATFeather.Wrappers().Backend().Widgets().SelectorsWrapper().DoneSelecting();
 
             BATFeather.Wrappers().Backend().Widgets().WidgetDesignerWrapper().SelectCheckBox(TaxonomyTags);
@@ -75,7 +75,7 @@ namespace FeatherWidgets.TestUI.TestCases.News
 
         private const string DisplayItemsPublishedIn = "Custom range...";
         private const string WhichNewsToDisplay = "Narrow selection by...";
-        private const string DateName = "dateInput";
+        private const string DateName = "sfPublicationDateInput";
         private const int DayAgo = -1;
         private const int DayForward = 1;
         private const string PageName = "News";

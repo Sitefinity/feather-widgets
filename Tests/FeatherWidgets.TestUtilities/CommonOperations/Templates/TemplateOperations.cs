@@ -132,7 +132,7 @@ namespace FeatherWidgets.TestUtilities.CommonOperations.Templates
                                    t.Description = newTemplateName + " descr";
                                    t.ParentTemplate = parentTemplate;
                                    t.ShowInNavigation = true;
-                                   t.Framework = PageTemplateFramework.Hybrid;
+                                   t.Framework = parentTemplate.Framework;
                                    t.Category = SiteInitializer.CustomTemplatesCategoryId;
                                    t.Visible = true;
                                })

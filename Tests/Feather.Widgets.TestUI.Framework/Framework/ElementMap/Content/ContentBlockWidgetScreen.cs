@@ -234,7 +234,7 @@ namespace Feather.Widgets.TestUI.Framework.Framework.ElementMap.Content
         {
             get
             {
-                return this.Get<HtmlDiv>("class=modal-dialog modal-lg", "ng-class={'modal-sm': size == 'sm', 'modal-lg': size == 'lg'}");
+                return this.Get<HtmlDiv>("class=modal-dialog modal-lg");
             }
         }
 
@@ -246,7 +246,7 @@ namespace Feather.Widgets.TestUI.Framework.Framework.ElementMap.Content
         {
             get
             {
-                return this.Get<HtmlDiv>("class=modal-dialog modal-lg modal-full-screen", "ng-class={'modal-sm': size == 'sm', 'modal-lg': size == 'lg'}");
+                return this.Get<HtmlDiv>("class=modal-dialog modal-lg modal-full-screen");
             }
         }
 
@@ -263,6 +263,26 @@ namespace Feather.Widgets.TestUI.Framework.Framework.ElementMap.Content
         }
 
         /// <summary>
+        /// Buttonses the in toolbar editor.
+        /// </summary>
+        /// <param name="name">The name.</param>
+        /// <returns></returns>
+        public HtmlAnchor ButtonsInToolbarEditor(string name)
+        {
+                return this.Get<HtmlAnchor>("tagname=a", "title=" + name);
+        }
+
+        /// <summary>
+        /// Dropdowns the in toolbar editor.
+        /// </summary>
+        /// <param name="name">The name.</param>
+        /// <returns></returns>
+        public HtmlSpan DropdownInToolbarEditor(string name)
+        {
+            return this.Get<HtmlSpan>("tagname=span", "title=" + name);
+        }
+
+        /// <summary>
         /// Gets the image selector.
         /// </summary>
         /// <value>The image selector anchor link.</value>
@@ -272,6 +292,16 @@ namespace Feather.Widgets.TestUI.Framework.Framework.ElementMap.Content
             {
                 return this.Get<HtmlAnchor>("tagname=a", "title=Insert image");
             }
+        }
+
+        /// <summary>
+        /// Selects the menu in toolbar editor.
+        /// </summary>
+        /// <param name="name">The name.</param>
+        /// <returns></returns>
+        public HtmlSelect SelectMenuInToolbarEditor(string name)
+        {
+            return this.Get<HtmlSelect>("tagname=select", "title=" + name);
         }
 
         /// <summary>
@@ -295,6 +325,34 @@ namespace Feather.Widgets.TestUI.Framework.Framework.ElementMap.Content
             get
             {
                 return this.Get<HtmlAnchor>("tagname=a", "title=Insert video");
+            }
+        }
+
+        /// <summary>
+        /// Gets the wrapped CSS classes textbox.
+        /// </summary>
+        /// <value>
+        /// The wrapped CSS classes textbox.
+        /// </value>
+        public HtmlInputText WrappedCssClassesTextbox
+        {
+            get
+            {
+                return this.Get<HtmlInputText>("tagname=input", "id=prop-WrapperCssClass");
+            }
+        }
+
+        /// <summary>
+        /// Gets the text box label wrapper CSS class.
+        /// </summary>
+        /// <value>
+        /// The text box label wrapper CSS class.
+        /// </value>
+        public HtmlControl TextBoxLabelWrapperCssClass
+        {
+            get
+            {
+                return this.Get<HtmlControl>("tagname=label", "for=prop-WrapperCssClass");
             }
         }
     }

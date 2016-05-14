@@ -312,7 +312,7 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend
         {
             var image = this.GetContentBlockImageDesignMode();
             Assert.IsNotNull(image, "Unable to find image.");
-            Assert.IsTrue(image.Src.StartsWith(src), "src is not correct");
+            Assert.IsTrue(image.Src.Contains(src), "src is not correct");
 
             this.VerifyImageAttribute(image, "sfref", sfref.ToLower());
             this.VerifyImageAttribute(image, "title", title.ToLower());
@@ -329,7 +329,7 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend
         {
             Browser frame = this.GetContentBlockFrame();
             var doc = frame.Find.ByExpression<HtmlAnchor>("tagname=a", "title=" + title).AssertIsPresent(title);
-            Assert.IsTrue(doc.HRef.StartsWith(href), "href is not correct");
+            Assert.IsTrue(doc.HRef.Contains(href), "href is not correct");
             var attr = doc.Attributes.FirstOrDefault(a => a.Name == "sfref");
             Assert.IsNotNull(attr, "Unable to find attribute: sfref");
             Assert.AreEqual(sfref.ToLower(), attr.Value.ToLower(), "Attribute sfref value not as expected.");
@@ -346,7 +346,7 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend
         {
             var video = this.GetContentBlockVideoDesignMode();
             Assert.IsNotNull(video, "Unable to find video.");
-            Assert.IsTrue(video.Src.StartsWith(src), "src is not correct");
+            Assert.IsTrue(video.Src.Contains(src), "src is not correct");
 
             this.VerifyVideoAttribute(video, "sfref", sfref);
             if (!width.Equals(string.Empty) && !height.Equals(string.Empty))
@@ -452,6 +452,87 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend
             bool result = saveButton != null && saveButton.IsVisible();
 
             return result;
+        }
+
+        /// <summary>
+        /// Verifies the visible buttons in editor toolbar.
+        /// </summary>
+        /// <param name="title">The title.</param>
+        public void VerifyVisibleButtonsInEditorToolbar(string title)
+        {
+            var buttonVisibleInContainer = EM.GenericContent.ContentBlockWidget.ButtonsInToolbarEditor(title);
+            buttonVisibleInContainer.AssertIsPresent(title);
+            buttonVisibleInContainer.AssertAttribute().Value("title", ArtOfTest.Common.StringCompareType.Exact, title);
+        }
+
+        /// <summary>
+        /// Verifies the hidden buttons in editor toolbar.
+        /// </summary>
+        /// <param name="title">The title.</param>
+        public void VerifyHiddenButtonsInEditorToolbar(string title)
+        {
+            var buttonIsNotVisibleInContainer = EM.GenericContent.ContentBlockWidget.ButtonsInToolbarEditor(title);
+            buttonIsNotVisibleInContainer.AssertIsNotVisible(title);
+            buttonIsNotVisibleInContainer.AssertAttribute().Value("title", ArtOfTest.Common.StringCompareType.Exact, title);
+        }
+
+        /// <summary>
+        /// Verifies the hidden drop down in editor toolbar.
+        /// </summary>
+        /// <param name="title">The title.</param>
+        public void VerifyHiddenDropDownInEditorToolbar(string title)
+        {
+            var buttonHidden = EM.GenericContent.ContentBlockWidget.DropdownInToolbarEditor(title);
+            buttonHidden.AssertIsNotVisible(title);
+            buttonHidden.AssertAttribute().Value("title", ArtOfTest.Common.StringCompareType.Exact, title);
+        }
+
+        /// <summary>
+        /// Verifies the select menu in editor toolbar.
+        /// </summary>
+        /// <param name="title">The title.</param>
+        public void VerifyHiddenSelectMenuInEditorToolbar(string title)
+        {
+            var buttonHidden = EM.GenericContent.ContentBlockWidget.SelectMenuInToolbarEditor(title);
+            buttonHidden.AssertIsNotVisible(title);
+            buttonHidden.AssertAttribute().Value("title", ArtOfTest.Common.StringCompareType.Exact, title);
+        }
+
+        /// <summary>
+        /// Verifies the apply CSS class.
+        /// </summary>
+        /// <param name="cssClassName">Name of the CSS class.</param>
+        public void VerifyApplyCssClass(string cssClassName)
+        {
+            this.AdvanceButtonSelecting();
+            var textLabel = EM.GenericContent.ContentBlockWidget.TextBoxLabelWrapperCssClass.AssertIsPresent("WrapperCssClass");
+            HtmlInputText cssClassesTextbox = this.EM.GenericContent.ContentBlockWidget.WrappedCssClassesTextbox;
+            cssClassesTextbox.Text = cssClassName;
+            cssClassesTextbox.AsjQueryControl().InvokejQueryEvent(jQueryControl.jQueryControlEvents.change);
+            this.SaveChanges();
+        }
+
+        /// <summary>
+        /// Changes the CSS class in advanced settings.
+        /// </summary>
+        /// <param name="oldcss">The oldcss.</param>
+        /// <param name="newcss">The newcss.</param>
+        public void ChangeCssClassInAdvancedSettings(string oldcss, string newcss)
+        {
+            this.AdvanceButtonSelecting();
+            HtmlInputText cssClassInput = EM.GenericContent.ContentBlockWidget.WrappedCssClassesTextbox
+                .AssertIsPresent(oldcss);
+
+            cssClassInput.ScrollToVisible();
+            cssClassInput.Focus();
+            cssClassInput.MouseClick();
+
+            Manager.Current.Desktop.KeyBoard.KeyDown(System.Windows.Forms.Keys.Control);
+            Manager.Current.Desktop.KeyBoard.KeyPress(System.Windows.Forms.Keys.A);
+            Manager.Current.Desktop.KeyBoard.KeyUp(System.Windows.Forms.Keys.Control);
+            Manager.Current.Desktop.KeyBoard.KeyPress(System.Windows.Forms.Keys.Delete);
+            Manager.Current.Desktop.KeyBoard.TypeText(newcss);
+            this.SaveChanges();
         }
 
         private const int TimeOut = 60000;

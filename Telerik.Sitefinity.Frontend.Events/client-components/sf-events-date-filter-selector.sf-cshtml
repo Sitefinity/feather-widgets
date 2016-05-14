@@ -1,0 +1,33 @@
+﻿<sf-date-filter class="checkbox" sf-query-data="sfQueryData"
+    sf-group-logical-operator="OR"
+    sf-item-logical-operator="AND"
+    sf-query-field-name="EventStart"
+    sf-group-name="Upcoming"
+    sf-filter-label="@(Res.Get<EventResources>().UpcomingEvents)"
+    sf-filter-title-label="@(Res.Get<EventResources>().DisplayUpcomingStartsIn)"
+    sf-is-upcoming-period = "true"
+    sf-custom-range-min-date="today"
+    sf-filter-changed = "upcomingChanged"
+    sf-filter-clicked = "upcomingClicked"
+    class="sf-date-filter"></sf-date-filter>
+
+<div class="checkbox" >
+    <label for="curentEventsInput">
+        <input id="curentEventsInput" type="checkbox"
+            ng-click="toggleEventFilterSelection('Current')"
+            ng-checked="isCurrentSelected"  />
+            @(Res.Get<EventResources>().CurrentEvents)
+    </label>
+</div>
+
+<sf-date-filter class="checkbox" sf-query-data="sfQueryData"
+    sf-group-logical-operator="OR"
+    sf-item-logical-operator="AND"
+    sf-query-field-name="EventEnd"
+    sf-group-name="Past"
+    sf-filter-label="@(Res.Get<EventResources>().PastEvents)"
+    sf-filter-title-label="@(Res.Get<EventResources>().DisplayPastEndsIn)"
+    sf-custom-range-max-date="today"
+    sf-filter-changed = "pastChanged"
+    sf-filter-clicked = "pastClicked"
+    class="sf-date-filter"></sf-date-filter>

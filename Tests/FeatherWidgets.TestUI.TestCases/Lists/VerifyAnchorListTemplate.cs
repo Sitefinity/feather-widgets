@@ -66,7 +66,7 @@ namespace FeatherWidgets.TestUI.TestCases.Lists
         private const string WidgetName = "Lists";
         private const string ListTitle = "Test list";
         private const string SortingOption = "Last published";
-        private const string ListTemplate = "AnchorList";
+        private const string ListTemplate = "Anchor list";
 
         private readonly Dictionary<string, string> listItems = new Dictionary<string, string>()
                                                                 {

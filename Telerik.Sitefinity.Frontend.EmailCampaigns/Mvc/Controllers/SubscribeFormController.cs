@@ -190,9 +190,9 @@ namespace Telerik.Sitefinity.Frontend.EmailCampaigns.Mvc.Controllers
                 if (isSucceeded)
                 {
                     if (this.Model.SuccessfullySubmittedForm == SuccessfullySubmittedForm.OpenSpecificPage && !string.IsNullOrEmpty(viewModel.RedirectPageUrl))
-                {
-                    return this.Redirect(viewModel.RedirectPageUrl);
-                }
+                    {
+                        return this.Redirect(viewModel.RedirectPageUrl);
+                    }
 
                     this.ModelState.Clear();
                 }

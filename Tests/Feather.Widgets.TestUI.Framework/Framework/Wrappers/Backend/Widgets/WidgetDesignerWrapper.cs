@@ -19,13 +19,7 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend
         public void SelectWhichItemsToDisplay(string mode)
         {
             int position;
-            HtmlDiv optionsDiv = EM.Widgets
-                                   .WidgetDesignerContentScreen
-                                   .WhichItemsToDisplayList
-                                   .AssertIsPresent("Which items to display options list");
-
-            List<HtmlDiv> itemsDivs = optionsDiv.Find.AllByExpression<HtmlDiv>("tagname=div", "class=radio").ToList<HtmlDiv>();
-
+            
             if (mode.Contains("Selected"))
             {
                 position = 1;
@@ -38,6 +32,22 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend
             {
                 position = 0;
             }
+
+            this.SelectWhichItemsToDisplay(position);
+        }
+
+        /// <summary>
+        /// Selects which items to display in the widget designer
+        /// </summary>
+        /// <param name="position">Position of the checkbox defining which items to display</param>
+        public void SelectWhichItemsToDisplay(int position)
+        {
+            HtmlDiv optionsDiv = EM.Widgets
+                                   .WidgetDesignerContentScreen
+                                   .WhichItemsToDisplayList
+                                   .AssertIsPresent("Which items to display options list");
+
+            List<HtmlDiv> itemsDivs = optionsDiv.Find.AllByExpression<HtmlDiv>("tagname=div", "class=radio").ToList<HtmlDiv>();
 
             HtmlInputRadioButton optionButton = itemsDivs[position].Find.ByExpression<HtmlInputRadioButton>("tagname=input")
                                                                    .AssertIsPresent("Which items to display option radio button");
@@ -200,6 +210,24 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend
         }
 
         /// <summary>
+        /// Set From date by typing to custom date selector
+        /// </summary>
+        /// <param name="dayAgo">Day ago</param>
+        public void SetToDateByTyping(int dayAgo)
+        {
+            DateTime publicationDateStart = DateTime.UtcNow.AddDays(dayAgo);
+            string publicationDateStartFormat = publicationDateStart.ToString("dd-MMMM-yyyy", CultureInfo.CreateSpecificCulture("en-US"));
+
+            List<HtmlInputText> inputDate = ActiveBrowser.Find.AllByExpression<HtmlInputText>("tagname=input", "id=fromInput").ToList<HtmlInputText>();
+
+            Manager.Current.Desktop.Mouse.Click(MouseClickType.LeftClick, inputDate[1].GetRectangle());
+            Manager.Current.Desktop.KeyBoard.TypeText(publicationDateStartFormat);
+            Manager.Current.ActiveBrowser.WaitUntilReady();
+            Manager.Current.ActiveBrowser.WaitForAsyncJQueryRequests();
+            Manager.Current.ActiveBrowser.RefreshDomTree();
+        }
+
+        /// <summary>
         /// Set To date by date picker to custom date selector
         /// </summary>
         /// <param name="dayForward">Day forward</param>
@@ -211,8 +239,11 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend
             List<HtmlSpan> buttonDate = ActiveBrowser.Find.AllByExpression<HtmlSpan>("tagname=span", "class=input-group-btn").ToList<HtmlSpan>();
             Manager.Current.Desktop.Mouse.Click(MouseClickType.LeftClick, buttonDate[1].GetRectangle());
 
+            HtmlFindExpression expression = new HtmlFindExpression("tagname=table", "role=grid");
+            ActiveBrowser.WaitForElement(expression, 60000, false);
+
             List<HtmlTable> dateTable = ActiveBrowser.Find.AllByExpression<HtmlTable>("tagname=table", "role=grid").ToList<HtmlTable>();
-            List<HtmlTableCell> toDay = dateTable[1].Find.AllByExpression<HtmlTableCell>("tagname=td", "InnerText=" + publicationDateEndFormat).ToList<HtmlTableCell>();
+            List<HtmlTableCell> toDay = dateTable[0].Find.AllByExpression<HtmlTableCell>("tagname=td", "InnerText=" + publicationDateEndFormat).ToList<HtmlTableCell>();
             HtmlButton buttonToDay;
 
             if (toDay.Count == 2)
@@ -249,7 +280,7 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend
             Manager.Current.ActiveBrowser.RefreshDomTree();
 
             List<HtmlSelect> hoursSelector = ActiveBrowser.Find.AllByExpression<HtmlSelect>("tagname=select", "ng-change=updateHours(hstep)").ToList<HtmlSelect>();
-            hoursSelector[fromOrTo].SelectByValue(hour);
+            hoursSelector[fromOrTo].SelectByValue("number:" + hour);
             hoursSelector[fromOrTo].AsjQueryControl().InvokejQueryEvent(jQueryControl.jQueryControlEvents.click);
             hoursSelector[fromOrTo].AsjQueryControl().InvokejQueryEvent(jQueryControl.jQueryControlEvents.change);
         }
@@ -276,7 +307,7 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend
 
             List<HtmlSelect> minutesSelector = ActiveBrowser.Find.AllByExpression<HtmlSelect>("tagname=select", "ng-change=updateMinutes(mstep)").ToList<HtmlSelect>();
             minutesSelector[fromOrTo].Click();
-            minutesSelector[fromOrTo].SelectByValue(minute);
+            minutesSelector[fromOrTo].SelectByValue("number:" + minute);
             minutesSelector[fromOrTo].AsjQueryControl().InvokejQueryEvent(jQueryControl.jQueryControlEvents.click);
             minutesSelector[fromOrTo].AsjQueryControl().InvokejQueryEvent(jQueryControl.jQueryControlEvents.change);
         }

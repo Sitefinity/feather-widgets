@@ -85,8 +85,8 @@ namespace FeatherWidgets.TestUI.TestCases.Search
 
         private const string SearchBoxCssClassesToApply = "testSearchBoxClass";
         private const string SearchResultsCssClassesToApply = "testSearchResultsClass";
-        private const string SearchBoxTemplate = "SearchBox";
-        private const string SearchResultsTemplate = "SearchResults";
+        private const string SearchBoxTemplate = "Search Box";
+        private const string SearchResultsTemplate = "Search Results";
         private const string SortResultsOption = "Most relevant results on top";
     }
 }

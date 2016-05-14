@@ -14,6 +14,7 @@ using Telerik.Sitefinity.Frontend.Comments.Mvc.Controllers;
 using Telerik.Sitefinity.Frontend.ContentBlock.Mvc.Controllers;
 using Telerik.Sitefinity.Frontend.DynamicContent.Mvc.Controllers;
 using Telerik.Sitefinity.Frontend.EmailCampaigns.Mvc.Controllers;
+using Telerik.Sitefinity.Frontend.Events.Mvc.Controllers;
 using Telerik.Sitefinity.Frontend.Identity.Mvc.Controllers;
 using Telerik.Sitefinity.Frontend.InlineClientAssets.Mvc.Controllers;
 using Telerik.Sitefinity.Frontend.Lists.Mvc.Controllers;
@@ -48,7 +49,11 @@ namespace FeatherWidgets.TestUtilities.CommonOperations
             var controls = new List<System.Web.UI.Control>();
             controls.Add(control);
 
-            this.locationGenerator = new PageContentGenerator();
+            if (this.locationGenerator == null)
+            {
+                this.locationGenerator = new PageContentGenerator();
+            }
+
             var pageId = this.locationGenerator.CreatePage(
                                     string.Format(CultureInfo.InvariantCulture, "{0}{1}", pageNamePrefix, index.ToString(CultureInfo.InvariantCulture)),
                                     string.Format(CultureInfo.InvariantCulture, "{0}{1}", pageTitlePrefix, index.ToString(CultureInfo.InvariantCulture)),
@@ -57,6 +62,26 @@ namespace FeatherWidgets.TestUtilities.CommonOperations
             PageContentGenerator.AddControlsToPage(pageId, controls);
 
             return pageId;
+        }
+
+        /// <summary>
+        /// Adds the widget to page and request.
+        /// </summary>
+        /// <param name="control">The control.</param>
+        /// <returns>The response content</returns>
+        public string AddWidgetToPageAndRequest(Control control)
+        {
+            string pageNamePrefix = "TestPage";
+            string pageTitlePrefix = "Test Page";
+            string urlNamePrefix = "test-page";
+            int index = 1;
+            string url = UrlPath.ResolveAbsoluteUrl("~/" + urlNamePrefix + index);
+
+            this.CreatePageWithControl(control, pageNamePrefix, pageTitlePrefix, urlNamePrefix, index);
+
+            string responseContent = PageInvoker.ExecuteWebRequest(url);
+
+            return responseContent;
         }
 
         /// <summary>
@@ -206,6 +231,27 @@ namespace FeatherWidgets.TestUtilities.CommonOperations
                 mvcWidget.ControllerName = typeof(NewsController).FullName;
 
                 this.CreateControl(pageManager, page, mvcWidget, "News", placeholder);
+            }
+        }
+
+        /// <summary>
+        /// Adds the events widget to page.
+        /// </summary>
+        /// <param name="pageId">The page identifier.</param>
+        /// <param name="placeholder">The placeholder.</param>
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1026:DefaultParametersShouldNotBeUsed")]
+        public void AddEventsWidgetToPage(Guid pageId, string placeholder = "Body")
+        {
+            PageManager pageManager = PageManager.GetManager();
+            pageManager.Provider.SuppressSecurityChecks = true;
+            var pageDataId = pageManager.GetPageNode(pageId).PageId;
+            var page = pageManager.EditPage(pageDataId, CultureInfo.CurrentUICulture);
+
+            using (var mvcWidget = new Telerik.Sitefinity.Mvc.Proxy.MvcControllerProxy())
+            {
+                mvcWidget.ControllerName = typeof(EventController).FullName;
+
+                this.CreateControl(pageManager, page, mvcWidget, "Events", placeholder);
             }
         }
 
@@ -378,6 +424,27 @@ namespace FeatherWidgets.TestUtilities.CommonOperations
                 mvcWidget.ControllerName = typeof(LoginFormController).FullName;
 
                 this.CreateControl(pageManager, page, mvcWidget, "Login form", placeholder);
+            }
+        }
+
+        /// <summary>
+        /// Adds the login status widget to page.
+        /// </summary>
+        /// <param name="pageId">The page identifier.</param>
+        /// <param name="placeholder">The placeholder.</param>
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Naming", "CA1726:UsePreferredTerms", MessageId = "Login")]
+        public void AddLoginStatusWidgetToPage(Guid pageId, string placeholder)
+        {
+            PageManager pageManager = PageManager.GetManager();
+            pageManager.Provider.SuppressSecurityChecks = true;
+            var pageDataId = pageManager.GetPageNode(pageId).PageId;
+            var page = pageManager.EditPage(pageDataId, CultureInfo.CurrentUICulture);
+
+            using (var mvcWidget = new Telerik.Sitefinity.Mvc.Proxy.MvcControllerProxy())
+            {
+                mvcWidget.ControllerName = typeof(LoginStatusController).FullName;
+
+                this.CreateControl(pageManager, page, mvcWidget, "Login / Logout button", placeholder);
             }
         }
 

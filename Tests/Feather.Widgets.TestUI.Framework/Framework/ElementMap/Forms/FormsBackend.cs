@@ -261,7 +261,18 @@ namespace Feather.Widgets.TestUI.Framework.Framework.ElementMap.Forms
         {
             get
             {
-                return this.Get<HtmlSelect>("tagname=select", "id=textFieldTemplateName");
+                return this.Get<HtmlSelect>("tagname=select", "ng-model=properties.WriteTemplateName.PropertyValue");
+            }
+        }
+
+        /// <summary>
+        /// Gets read template selector.
+        /// </summary>
+        public HtmlSelect ReadTemplateSelector
+        {
+            get
+            {
+                return this.Get<HtmlSelect>("tagname=select", "ng-model=properties.ReadTemplateName.PropertyValue");
             }
         }
 
@@ -320,6 +331,28 @@ namespace Feather.Widgets.TestUI.Framework.Framework.ElementMap.Forms
         }
 
         /// <summary>
+        /// Gets the required message.
+        /// </summary>
+        public HtmlInputText RequiredMessage
+        {
+            get
+            {
+                return this.Get<HtmlInputText>("tagname=input", "ng-model=properties.Model.ValidatorDefinition.RequiredViolationMessage.PropertyValue");
+            }
+        }
+
+        /// <summary>
+        /// Gets the required message file upload.
+        /// </summary>
+        public HtmlInputText RequiredMessageFileUpload
+        {
+            get
+            {
+                return this.Get<HtmlInputText>("tagname=input", "ng-model=properties.Model.RequiredViolationMessage.PropertyValue");
+            }
+        }
+
+        /// <summary>
         /// Gets the text area
         /// </summary>
         public HtmlTextArea TextArea
@@ -327,6 +360,50 @@ namespace Feather.Widgets.TestUI.Framework.Framework.ElementMap.Forms
             get
             {
                 return this.Get<HtmlTextArea>("TagName=textarea", "ng-model=properties.Model.MetaField.Title.PropertyValue");
+            }
+        }
+
+        /// <summary>
+        /// Gets the placeholder.
+        /// </summary>
+        public HtmlInputText PlaceHolder
+        {
+            get
+            {
+                return this.Get<HtmlInputText>("tagname=input", "ng-model=properties.Model.PlaceholderText.PropertyValue");
+            }
+        }
+
+        /// <summary>
+        /// Gets the predefined value.
+        /// </summary>
+        public HtmlInputText PredefinedValue
+        {
+            get
+            {
+                return this.Get<HtmlInputText>("tagname=input", "id=predefinedValue");
+            }
+        }
+
+        /// <summary>
+        /// Gets the instructional text link
+        /// </summary>
+        public HtmlAnchor InstructionalTextLink
+        {
+            get
+            {
+                return this.Get<HtmlAnchor>("tagname=a", "InnerText=Add instructional text");
+            }
+        }
+
+        /// <summary>
+        /// Gets the instructional text area
+        /// </summary>
+        public HtmlTextArea InstructionalTextArea
+        {
+            get
+            {
+                return this.Get<HtmlTextArea>("TagName=textarea", "ng-model=properties.Model.MetaField.Description.PropertyValue");
             }
         }
 
@@ -360,6 +437,72 @@ namespace Feather.Widgets.TestUI.Framework.Framework.ElementMap.Forms
             get
             {
                 return this.Get<HtmlInputText>("tagname=input", "ng-model=properties.Model.CssClass.PropertyValue");
+            }
+        }
+
+        /// <summary>
+        /// Gets the settings tab in form widget.
+        /// </summary>
+        public HtmlAnchor SettingsTabInFormWidget
+        {
+            get
+            {
+                return this.Get<HtmlAnchor>("tagname=a", "class=~ng-binding", "InnerText=Settings");
+            }
+        }
+
+        /// <summary>
+        /// Gets Custom confirmation div
+        /// </summary>
+        public HtmlDiv UseCustomConfirmationDiv
+        {
+            get
+            {
+                return this.Get<HtmlDiv>("class=checkbox");
+            }
+        }
+
+        /// <summary>
+        /// Gets the message area
+        /// </summary>
+        public HtmlTextArea MessageArea
+        {
+            get
+            {
+                return this.Get<HtmlTextArea>("TagName=textarea", "ng-model=properties.CustomConfirmationMessage.PropertyValue");
+            }
+        }
+
+        /// <summary>
+        /// Gets the redirect to page.
+        /// </summary>
+        public HtmlInputRadioButton RedirectToPage
+        {
+            get
+            {
+                return this.Get<HtmlInputRadioButton>("id=RedirectToAPage", "ng-model=properties.CustomConfirmationMode.PropertyValue");
+            }
+        }
+
+        /// <summary>
+        /// Gets the click to add a choice.
+        /// </summary>
+        public HtmlAnchor ClickToAddAChoice
+        {
+            get
+            {
+                return this.Get<HtmlAnchor>("tagname=a", "InnerText=Click to add a choice");
+            }
+        }
+
+        /// <summary>
+        /// Gets the other chocie
+        /// </summary>
+        public HtmlInputCheckBox OtherChoice
+        {
+            get
+            {
+                return this.Get<HtmlInputCheckBox>("ng-model=properties.Model.HasOtherChoice.PropertyValue");
             }
         }
     }

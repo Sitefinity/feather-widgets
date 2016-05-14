@@ -1,14 +1,13 @@
-﻿using System;
-using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using Telerik.Sitefinity.Frontend.EmailCampaigns.Mvc.StringResources;
+﻿using System.ComponentModel.DataAnnotations;
 using System.Web.Mvc;
+using Telerik.Sitefinity.Frontend.EmailCampaigns.Mvc.StringResources;
 
 namespace Telerik.Sitefinity.Frontend.EmailCampaigns.Mvc.Models
 {
     /// <summary>
     /// This class represents the view model of the subscribe form item.
     /// </summary>
+    [Bind(Exclude = "CssClass, RedirectPageUrl")]
     public class SubscribeFormViewModel
     {
         /// <summary>

@@ -5,8 +5,8 @@
 
 @Html.QueryBuilderScriptReferences()
 
-<tabset class="nav-tabs-wrapper">
-    <tab heading="@Html.Resource("Content")">
+<uib-tabset class="nav-tabs-wrapper">
+    <uib-tab heading="@Html.Resource("Content")">
         <h4>@Html.Resource("UsersToDisplay")</h4>
 
         <div class="form-group">
@@ -59,9 +59,9 @@
                 </div>
             </div>
         </div>
-    </tab>
+    </uib-tab>
 
-    <tab heading="@Html.Resource("ListSettings")">
+    <uib-tab heading="@Html.Resource("ListSettings")">
         <div class="form-group">
             <div class="radio">
                 <label for="usePaging">
@@ -125,7 +125,7 @@
                     <select id="usersTemplateName" ng-model="properties.ListTemplateName.PropertyValue" class="form-control">
                         @foreach (var viewName in Html.GetViewNames(((Telerik.Sitefinity.Mvc.Proxy.MvcProxyBase)Model).GetController(), @"^List\.(?<viewName>[\w\s]*)$"))
                         {
-                            <option value="@viewName">@viewName</option>
+                            <option value="@viewName"> @viewName.SplitCamelCase()</option>
                         }
                     </select>
                 </div>
@@ -140,9 +140,9 @@
                 <input type="text" id="navCssClass" ng-model="properties.ListCssClass.PropertyValue" class="form-control" />
             </div>
         </expander>
-    </tab>
+    </uib-tab>
 
-    <tab heading="@Html.Resource("SingleItemSettings")">
+    <uib-tab heading="@Html.Resource("SingleItemSettings")">
         <div class="form-group">
             <strong>@Html.Resource("OpenSingleItem")</strong>
             <div class="radio">
@@ -172,7 +172,7 @@
                 <select id="usersTemplateName" ng-model="properties.DetailTemplateName.PropertyValue" class="form-control">
                     @foreach (var viewName in Html.GetViewNames(((Telerik.Sitefinity.Mvc.Proxy.MvcProxyBase)Model).GetController(), @"^Detail\.(?<viewName>[\w\s]*)$"))
                      {
-                    <option value="@viewName">@viewName</option>
+                    <option value="@viewName"> @viewName.SplitCamelCase()</option>
                      }
                 </select>
             </div>
@@ -186,6 +186,6 @@
                 <input type="text" id="usersCssClass" ng-model="properties.DetailCssClass.PropertyValue" class="form-control" />
             </div>
         </expander>
-    </tab>
-</tabset>
+    </uib-tab>
+</uib-tabset>
 

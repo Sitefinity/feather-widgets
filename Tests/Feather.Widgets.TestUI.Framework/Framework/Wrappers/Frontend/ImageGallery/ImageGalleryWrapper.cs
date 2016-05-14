@@ -91,7 +91,7 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Frontend
             var prevImage = EM.MediaGallery.MediaGalleryFrontend.PreviousLink
                .AssertIsPresent("previous image");
 
-                Assert.IsTrue(prevImage.HRef.StartsWith(href));          
+                Assert.IsTrue(prevImage.HRef.Contains(href));          
         }
 
         /// <summary>
@@ -103,7 +103,7 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Frontend
             var nextImage = EM.MediaGallery.MediaGalleryFrontend.NextLink
                .AssertIsPresent("next image");
 
-                  Assert.IsTrue(nextImage.HRef.StartsWith(href));       
+            Assert.IsTrue(nextImage.HRef.Contains(href));       
         }
 
         /// <summary>

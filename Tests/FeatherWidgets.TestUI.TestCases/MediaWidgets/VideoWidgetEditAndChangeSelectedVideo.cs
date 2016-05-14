@@ -47,7 +47,7 @@ namespace FeatherWidgets.TestUI.TestCases.MediaWidgets
             BAT.Wrappers().Backend().Pages().PageZoneEditorWrapper().PublishPage();
 
             BAT.Macros().NavigateTo().CustomPage("~/" + PageName.ToLower(), false, this.Culture);
-            BATFeather.Wrappers().Frontend().MediaWidgets().MediaWidgetsWrapper().VerifyVideo(this.GetVideoSource(false, VideoName2), Width, Height);
+            BATFeather.Wrappers().Frontend().MediaWidgets().MediaWidgetsWrapper().VerifyVideo(this.GetVideoSource(VideoName2), Width, Height);
         }
 
         /// <summary>
@@ -68,7 +68,7 @@ namespace FeatherWidgets.TestUI.TestCases.MediaWidgets
             BAT.Arrange(this.TestName).ExecuteTearDown();
         }
 
-        private string GetVideoSource(bool isBaseUrlIncluded, string documentName)
+        private string GetVideoSource(string documentName)
         {
             string libraryUrl = LibraryName.ToLower();
             string documentUrl = documentName.ToLower() + VideoType;
@@ -84,7 +84,7 @@ namespace FeatherWidgets.TestUI.TestCases.MediaWidgets
                 url = ActiveBrowser.Url.Substring(0, 20);
             }
 
-            string href = BATFeather.Wrappers().Frontend().MediaWidgets().MediaWidgetsWrapper().GetMediaSource(isBaseUrlIncluded, libraryUrl, documentUrl, url, "videos", currentProviderUrlName);
+            string href = BATFeather.Wrappers().Frontend().MediaWidgets().MediaWidgetsWrapper().GetMediaSource(libraryUrl, documentUrl, "videos", currentProviderUrlName);
             return href;
         }
 

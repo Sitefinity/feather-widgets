@@ -1,15 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Telerik.Sitefinity.DynamicModules.Builder;
 using Telerik.Sitefinity.DynamicModules.Builder.Model;
 using Telerik.Sitefinity.Libraries.Model;
-using Telerik.Sitefinity.Pages.Model;
-using Telerik.Sitefinity.RelatedData;
-using Telerik.Sitefinity.Taxonomies;
-using Telerik.Sitefinity.Taxonomies.Model;
 using Telerik.Sitefinity.Utilities.TypeConverters;
 
 namespace Telerik.Sitefinity.Frontend.DynamicContent.WidgetTemplates.Fields.Impl

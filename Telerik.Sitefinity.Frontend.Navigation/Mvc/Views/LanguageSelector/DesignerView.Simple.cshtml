@@ -35,7 +35,7 @@
             <select id="templateName" ng-model="properties.TemplateName.PropertyValue" class="form-control">
                 @foreach (var viewName in Html.GetViewNames("LanguageSelector", @"LanguageSelector\.(?<viewName>\w*)$"))
                 {
-                    <option value="@viewName">@viewName</option>
+                    <option value="@viewName"> @viewName.SplitCamelCase()</option>
                 }
             </select>
         </div>

@@ -54,7 +54,7 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend.Media
         /// <param name="documentTitle">The image alt text.</param>
         public void EnterImageAltText(string imageAltText)
         {
-            HtmlInputText altTextField = this.EM.Media.MediaUploadPropertiesScreen.ImageAltTextFields.LastOrDefault()
+            HtmlInputText altTextField = this.EM.Media.MediaUploadPropertiesScreen.ImageAltTextFields.FirstOrDefault()
                                              .AssertIsPresent("Image alt text field");
 
             altTextField.Text = string.Empty;

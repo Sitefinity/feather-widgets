@@ -86,10 +86,10 @@ namespace Telerik.Sitefinity.Frontend.ContentBlock.Mvc.Controllers
         }
 
         /// <summary>
-        /// Gets the widget CSS class.
+        /// Gets the widget CSS class that will be used in the page toolbox.
         /// </summary>
         /// <value>
-        /// The widget CSS class.
+        /// The widget CSS class that will be used in the page toolbox.
         /// </value>
         [Browsable(false)]
         public string WidgetCssClass
@@ -193,6 +193,14 @@ namespace Telerik.Sitefinity.Frontend.ContentBlock.Mvc.Controllers
         public bool EnableSocialSharing { get; set; }
 
         /// <summary>
+        /// Gets or sets the CSS class that will be applied on the wrapper tag of the widget view.
+        /// </summary>
+        /// <value>
+        /// The CSS class.
+        /// </value>
+        public string WrapperCssClass { get; set; }
+
+        /// <summary>
         /// Gets the model.
         /// </summary>
         /// <value>
@@ -206,6 +214,7 @@ namespace Telerik.Sitefinity.Frontend.ContentBlock.Mvc.Controllers
                 {
                     this.model = this.InitializeModel();
                     this.isEmpty = string.IsNullOrEmpty(this.model.Content);
+                    this.WrapperCssClass = this.model.WrapperCssClass;
                     this.SharedContentID = this.model.SharedContentID;
                 }
 
@@ -433,7 +442,8 @@ namespace Telerik.Sitefinity.Frontend.ContentBlock.Mvc.Controllers
                                                     this.EnableSocialSharing
                                                 }, 
                                                 { "sharedContentId", this.SharedContentID },
-                                                { "containerType", ((IHasContainerType)this).ContainerType }
+                                                { "containerType", ((IHasContainerType)this).ContainerType },
+                                                { "wrapperCssClass", this.WrapperCssClass }
                                             };
 
             return ControllerModelFactory.GetModel<IContentBlockModel>(this.GetType(), constructorParameters);

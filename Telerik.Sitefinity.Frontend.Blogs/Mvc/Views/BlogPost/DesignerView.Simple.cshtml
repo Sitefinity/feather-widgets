@@ -7,8 +7,8 @@
 </server-data>
 
 <div class="alert alert-danger ng-hide" ng-show="errors.missingSelectedItems">@Html.Resource("MissingBlogs")</div>
-<tabset class="nav-tabs-wrapper">
-    <tab heading="@Html.Resource("Content")">
+<uib-tabset class="nav-tabs-wrapper">
+    <uib-tab heading="@Html.Resource("Content")">
         <h4>@Html.Resource("ItemsToDisplay")</h4>
         <div class="form-group">
             <div class="row">
@@ -64,7 +64,7 @@
             </div>
         </div>
 
-        <expander ng-hide="properties.SelectionMode.PropertyValue === 'SelectedItems'" expander-title='@Html.Resource("NarrowSelection")'>
+        <div class="Options-arrows" expander ng-hide="properties.SelectionMode.PropertyValue === 'SelectedItems'" expander-title='@Html.Resource("NarrowSelection")'>
             <div class="form-group">
                 <div class="radio">
                     <label class="full-width">
@@ -87,10 +87,10 @@
                     </label>
                 </div>
             </div>
-        </expander>
-    </tab>
+        </div>
+    </uib-tab>
 
-    <tab heading="@Html.Resource("ListSettings")">
+    <uib-tab heading="@Html.Resource("ListSettings")">
         <div class="form-group">
             <div class="radio">
                 <label for="usePaging">
@@ -152,7 +152,7 @@
                     <select id="listTemplateName" ng-model="properties.ListTemplateName.PropertyValue" class="form-control">
                          @foreach (var viewName in Html.GetViewNames(((Telerik.Sitefinity.Mvc.Proxy.MvcProxyBase)Model).GetController(), @"List\.(?<viewName>[\w\s]*)$"))
                          {
-                             <option value="@viewName"> @viewName</option>
+                             <option value="@viewName"> @viewName.SplitCamelCase()</option>
                          }
                     </select>
                 </div>
@@ -175,9 +175,9 @@
                 </div>
             </div>
         </expander>
-    </tab>
+    </uib-tab>
 
-    <tab heading="@Html.Resource("SingleItemSettings")">
+    <uib-tab heading="@Html.Resource("SingleItemSettings")">
         <div class="form-group">
             <strong>@Html.Resource("OpenSingleItem")</strong>
             <div class="radio">
@@ -209,7 +209,7 @@
                 <select id="detailTemplateName" ng-model="properties.DetailTemplateName.PropertyValue" class="form-control">
                      @foreach (var viewName in Html.GetViewNames(((Telerik.Sitefinity.Mvc.Proxy.MvcProxyBase)Model).GetController(), @"Detail\.(?<viewName>[\w\s]*)$"))
                      {
-                         <option value="@viewName"> @viewName</option>
+                         <option value="@viewName"> @viewName.SplitCamelCase()</option>
                      }
                 </select>
             </div>
@@ -232,5 +232,5 @@
             </div>
 
         </expander>
-    </tab>
-</tabset>
+    </uib-tab>
+</uib-tabset>

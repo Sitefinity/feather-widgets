@@ -24,7 +24,7 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Frontend
             HtmlAnchor doc = ActiveBrowser.Find.ByExpression<HtmlAnchor>("innertext=" + title)
                 .AssertIsPresent("document");
 
-                Assert.IsTrue(doc.HRef.StartsWith(href), "href is not correct");     
+                Assert.IsTrue(doc.HRef.Contains(href), "href is not correct");     
         }
 
         /// <summary>
@@ -43,8 +43,8 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Frontend
             var parent = doc.Parent<HtmlTableCell>();
             Assert.IsTrue(parent.TagName == "td");
             Assert.IsTrue(parent.Parent<HtmlTableRow>().TagName == "tr");
-            
-                 Assert.IsTrue(doc.HRef.StartsWith(href), "href is not correct");          
+
+            Assert.IsTrue(doc.HRef.Contains(href), "href is not correct");          
         }
 
         /// <summary>

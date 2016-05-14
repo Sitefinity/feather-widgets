@@ -152,7 +152,7 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend.Media
             HtmlSelect templateDropdown = ActiveBrowser.Find
                                                        .ByExpression<HtmlSelect>("ng-model=properties.TemplateName.PropertyValue", "id=templateName")
                                                        .AssertIsPresent("template");
-            Assert.IsTrue(templateDropdown.SelectedOption.Text.Equals(value));
+            Assert.IsTrue(templateDropdown.SelectedOption.Value.Equals(value));
         }
     }
 }

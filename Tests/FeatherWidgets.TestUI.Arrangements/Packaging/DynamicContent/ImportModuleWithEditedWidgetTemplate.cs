@@ -27,19 +27,6 @@ namespace FeatherWidgets.TestUI.Arrangements
         }
 
         /// <summary>
-        /// Import new package
-        /// </summary>
-        [ServerArrangement]
-        public void ImportNewPackage()
-        {
-            ServerOperations.ModuleBuilder().DeleteDirectory(this.tempFolderPath);
-            ServerOperationsFeather.DynamicModules().ExtractStructureZip(PackageResourceEdited, InstallationPath);
-            ServerOperations.SystemManager().RestartApplication(false);
-            WaitUtils.WaitForSitefinityToStart(HttpContext.Current.Request.Url.GetLeftPart(UriPartial.Authority) 
-                + (HostingEnvironment.ApplicationVirtualPath.TrimEnd('/') ?? string.Empty));
-        }
-
-        /// <summary>
         /// Creates a page and content.
         /// </summary>
         [ServerArrangement]
@@ -58,15 +45,14 @@ namespace FeatherWidgets.TestUI.Arrangements
         {
             ServerOperations.ModuleBuilder().DeleteDirectory(this.tempFolderPath);
             ServerOperations.ModuleBuilder().DeleteModule(ModuleName, string.Empty, "Module Installations");
-            ServerOperations.Packaging().DeletePackageFromDB(ModuleName);
+            ServerOperations.Packaging().DeleteAllPackagesFromDB();
             ServerOperations.Pages().DeleteAllPages();
             ServerOperations.Widgets().DeleteWidgetTemplate("NewWidgetTemplate");
         }
 
         private const string ModuleName = "FlatModuleAllFields";        
         private const string InstallationPath = @"App_Data\Sitefinity";
-        private const string PackageResource = "FeatherWidgets.TestUtilities.Data.Packaging.Structure.FlatModuleAllFieldsStructure.zip";
-        private const string PackageResourceEdited = "FeatherWidgets.TestUtilities.Data.Packaging.Structure.FlatModuleAllFieldsWidgetTemplate.zip";
+        private const string PackageResource = "FeatherWidgets.TestUtilities.Data.Packaging.Structure.FlatModuleAllFieldsWidgetTemplate.zip";
         private string tempFolderPath = AppDomain.CurrentDomain.BaseDirectory + @"App_Data\Sitefinity\Export";
         private const string PageTitle = "myTestPage";
     }
