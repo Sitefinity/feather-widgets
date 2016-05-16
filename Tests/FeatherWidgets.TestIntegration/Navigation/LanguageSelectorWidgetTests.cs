@@ -379,10 +379,15 @@ namespace FeatherWidgets.TestIntegration.Navigation
                 parser.CompressWhiteSpaceBeforeTag = true;
                 parser.KeepRawHTML = true;
                 var initialLinks = new Dictionary<CultureInfo, string>(links);
+                var htmlTagEndIndex = 0;
 
                 while ((chunk = parser.ParseNext()) != null)
                 {
-                    if (chunk.TagName.Equals("a") && !chunk.IsClosure && chunk.GetParamValue("onclick") != null)
+                    if (chunk.TagName.Equals("html") && chunk.IsClosure)
+                    {
+                        htmlTagEndIndex = chunk.ChunkOffset;
+                    }
+                    else if (chunk.TagName.Equals("a") && !chunk.IsClosure && chunk.GetParamValue("onclick") != null)
                     {
                         var linkOnClickAttribute = chunk.GetParamValue("onclick");
                         chunk = parser.ParseNext();
@@ -434,6 +439,7 @@ namespace FeatherWidgets.TestIntegration.Navigation
 
                             var hiddenInputValue = chunk.GetParamValue("value");
 
+                            Assert.IsFalse(htmlTagEndIndex > 0, "Hidden field not exist inside html tag");
                             Assert.IsTrue(hiddenInputValue.EndsWith(expectedLink, StringComparison.Ordinal));
 
                             initialLinks.Remove(currentCulture);
