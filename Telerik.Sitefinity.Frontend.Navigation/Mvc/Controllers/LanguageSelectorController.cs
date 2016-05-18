@@ -202,10 +202,10 @@ namespace Telerik.Sitefinity.Frontend.Navigation.Mvc.Controllers
             {
                 var link = this.AppendDetailItemAndParamsToUrl(item.Url, new CultureInfo(item.Culture));
 
-                page.Controls.Add(new LiteralControl()
-                    {
-                        Text = string.Format(CultureInfo.InvariantCulture, "<input data-sf-role='{0}' type='hidden' value='{1}'>", item.Culture, HttpUtility.HtmlEncode(link))
-                    });
+                page.Header.Controls.Add(new LiteralControl()
+                {
+                    Text = string.Format(CultureInfo.InvariantCulture, "<input data-sf-role='{0}' type='hidden' value='{1}'>", item.Culture, HttpUtility.HtmlEncode(link))
+                });
             }
         }
         
