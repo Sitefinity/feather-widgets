@@ -32,7 +32,9 @@ namespace FeatherWidgets.TestUI.Arrangements
         [ServerTearDown]
         public void ClearUp()
         {
-            ServerOperations.ModuleBuilder().DeleteDirectory(this.tempFolderPath);
+            if (System.IO.Directory.Exists(this.tempFolderPath))
+                ServerOperations.ModuleBuilder().DeleteDirectory(this.tempFolderPath);
+
             ServerOperations.Packaging().DeleteAllPackagesFromDB();
 
             for (int i = 0; i < this.widgetTemplatesNames.Length; i++)

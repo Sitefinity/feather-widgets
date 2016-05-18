@@ -46,8 +46,13 @@ namespace FeatherWidgets.TestUI.Arrangements
         public void ClearUp()
         {
             ServerOperations.News().DeleteAllNews();
-            ServerOperations.ModuleBuilder().DeleteDirectory(this.tempFolderPath);
-            ServerOperations.ModuleBuilder().DeleteDirectory(AppDomain.CurrentDomain.BaseDirectory + @"App_Data\Export");
+
+            if (System.IO.Directory.Exists(this.tempFolderPath))
+                ServerOperations.ModuleBuilder().DeleteDirectory(this.tempFolderPath);
+
+            if (System.IO.Directory.Exists(AppDomain.CurrentDomain.BaseDirectory + @"App_Data\Export"))
+                ServerOperations.ModuleBuilder().DeleteDirectory(AppDomain.CurrentDomain.BaseDirectory + @"App_Data\Export");
+
             ServerOperations.Packaging().DeleteAllPackagesFromDB();
 
             for (int i = 0; i < this.widgetTemplatesNames.Length; i++)
