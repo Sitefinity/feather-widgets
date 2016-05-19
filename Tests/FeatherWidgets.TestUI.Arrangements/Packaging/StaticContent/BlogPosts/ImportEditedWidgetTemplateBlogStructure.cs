@@ -2,6 +2,7 @@
 using System.Web;
 using System.Web.Hosting;
 using FeatherWidgets.TestUtilities.CommonOperations;
+using Telerik.Sitefinity.Restriction;
 using Telerik.Sitefinity.TestArrangementService.Attributes;
 using Telerik.Sitefinity.TestUI.Arrangements.Framework;
 using Telerik.Sitefinity.TestUtilities.CommonOperations;
@@ -52,11 +53,14 @@ namespace FeatherWidgets.TestUI.Arrangements
             ServerOperations.Taxonomies().DeleteHierarchicalTaxonomy(hierarchicalClassification);
             ServerOperations.Taxonomies().DeleteFlatTaxonomy(flatClassification);
 
-            for (int i = 0; i < ServerOperations.CustomFieldsNames().FieldNamesWithoutClassificationsEdited.Length; i++)
+            using (new UnrestrictedModeRegion())
             {
-                ServerOperations.CustomFields().RemoveCustomFieldsFromContent(BlogType, ServerOperations.CustomFieldsNames().FieldNamesWithoutClassificationsEdited[i]);
-                ServerOperations.CustomFields().RemoveCustomFieldsFromContent(BlogType, flatClassificationBlog);
-                ServerOperations.CustomFields().RemoveCustomFieldsFromContent(BlogType, hierarchicalClassificationBlog);
+                for (int i = 0; i < ServerOperations.CustomFieldsNames().FieldNamesWithoutClassificationsEdited.Length; i++)
+                {
+                    ServerOperations.CustomFields().RemoveCustomFieldsFromContent(BlogType, ServerOperations.CustomFieldsNames().FieldNamesWithoutClassificationsEdited[i]);
+                    ServerOperations.CustomFields().RemoveCustomFieldsFromContent(BlogType, flatClassificationBlog);
+                    ServerOperations.CustomFields().RemoveCustomFieldsFromContent(BlogType, hierarchicalClassificationBlog);
+                }
             }
 
             ServerOperations.Taxonomies().DeleteHierarchicalTaxonomy(hierarchicalClassificationBlog);
