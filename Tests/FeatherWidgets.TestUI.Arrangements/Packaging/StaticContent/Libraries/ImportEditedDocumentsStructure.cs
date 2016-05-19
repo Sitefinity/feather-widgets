@@ -54,7 +54,10 @@ namespace FeatherWidgets.TestUI.Arrangements
         {            
             ServerOperations.Documents().DeleteLibrary(AlbumName);
             ServerOperations.Pages().DeleteAllPages();
-            ServerOperations.ModuleBuilder().DeleteDirectory(this.tempFolderPath);
+
+            if (System.IO.Directory.Exists(this.tempFolderPath))
+                ServerOperations.ModuleBuilder().DeleteDirectory(this.tempFolderPath);
+
             ServerOperations.Packaging().DeleteAllPackagesFromDB();
 
             for (int i = 0; i < this.widgetTemplatesNames.Length; i++)

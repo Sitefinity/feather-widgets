@@ -2,6 +2,7 @@
 using System.Web;
 using System.Web.Hosting;
 using FeatherWidgets.TestUtilities.CommonOperations;
+using Telerik.Sitefinity.Restriction;
 using Telerik.Sitefinity.TestArrangementService.Attributes;
 using Telerik.Sitefinity.TestUI.Arrangements.Framework;
 using Telerik.Sitefinity.TestUtilities.CommonOperations;
@@ -47,9 +48,13 @@ namespace FeatherWidgets.TestUI.Arrangements
         [ServerTearDown]
         public void ClearUp()
         {
+            AuthenticationHelper.AuthenticateUser(AdminUserName, AdminPass, true);
             ServerOperations.News().DeleteAllNews();
             ServerOperations.Pages().DeleteAllPages();
-            ServerOperations.ModuleBuilder().DeleteDirectory(this.tempFolderPath);
+
+            if (System.IO.Directory.Exists(this.tempFolderPath))
+                ServerOperations.ModuleBuilder().DeleteDirectory(this.tempFolderPath);
+
             ServerOperations.Packaging().DeleteAllPackagesFromDB();
 
             for (int i = 0; i < this.widgetTemplatesNames.Length; i++)
@@ -57,17 +62,22 @@ namespace FeatherWidgets.TestUI.Arrangements
                 ServerOperations.Widgets().DeleteWidgetTemplate(this.widgetTemplatesNames[i]);
             }
 
-            for (int i = 0; i < ServerOperations.CustomFieldsNames().FieldNamesWithoutClassificationsEdited.Length; i++)
+            using (new UnrestrictedModeRegion())
             {
-                ServerOperations.CustomFields().RemoveCustomFieldsFromContent(NewsType, ServerOperations.CustomFieldsNames().FieldNamesWithoutClassificationsEdited[i]);
-                ServerOperations.CustomFields().RemoveCustomFieldsFromContent(NewsType, flatClassification);
-                ServerOperations.CustomFields().RemoveCustomFieldsFromContent(NewsType, hierarchicalClassification);
+                for (int i = 0; i < ServerOperations.CustomFieldsNames().FieldNamesWithoutClassificationsEdited.Length; i++)
+                {
+                    ServerOperations.CustomFields().RemoveCustomFieldsFromContent(NewsType, ServerOperations.CustomFieldsNames().FieldNamesWithoutClassificationsEdited[i]);
+                    ServerOperations.CustomFields().RemoveCustomFieldsFromContent(NewsType, flatClassification);
+                    ServerOperations.CustomFields().RemoveCustomFieldsFromContent(NewsType, hierarchicalClassification);
+                }
             }
 
             ServerOperations.Taxonomies().DeleteHierarchicalTaxonomy(hierarchicalClassification);
             ServerOperations.Taxonomies().DeleteFlatTaxonomy(flatClassification);
         }
 
+        private const string AdminUserName = "admin";
+        private const string AdminPass = "admin@2";
         private const string PageName = "TestPage";
         private const string InstallationPath = @"App_Data\Sitefinity";
         private const string PackageResource = "FeatherWidgets.TestUtilities.Data.Packaging.Structure.NewsStructure.zip";

@@ -2,6 +2,8 @@
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Telerik.Sitefinity.TestUI.Framework.Utilities;
 using Telerik.Sitefinity.TestUI.Framework.Wrappers.Backend.CustomFields;
+using Telerik.TestUI.Core.Navigation;
+using ArtOfTest.WebAii.Core;
 
 namespace FeatherWidgets.TestUI.TestCases.Packaging.StaticContent
 {
@@ -27,7 +29,7 @@ namespace FeatherWidgets.TestUI.TestCases.Packaging.StaticContent
             BAT.Wrappers().Backend().CustomFields().CustomFieldsWrapper().SaveCustomFields();
             ActiveBrowser.Refresh();
 
-            BAT.Macros().NavigateTo().Modules().Images(this.Culture);
+            this.Images(this.Culture);
             BAT.Wrappers().Backend().CustomFields().CustomFieldsWrapper().OpenCustomFieldsSection(CustomFieldsLinkID);
             BAT.Wrappers().Backend().CustomFields().CustomFieldsWrapper().DeleteField("Short");
             BAT.Wrappers().Backend().CustomFields().CustomFieldsWrapper()
@@ -63,6 +65,19 @@ namespace FeatherWidgets.TestUI.TestCases.Packaging.StaticContent
         protected override void ServerCleanup()
         {
             BAT.Arrange(this.TestName).ExecuteTearDown();
+        }
+
+        /// <summary>
+        /// Navigates to the images page for the specified culture.
+        /// </summary>
+        /// <param name="culture">The culture.</param>
+        private void Images(string culture = null)
+        {
+            var imagesUrl = culture != null ? "~/sitefinity/content/images/?lang=" + culture : "~/sitefinity/content/images";
+            Navigator.Navigate(imagesUrl, true);
+            Manager.Current.ActiveBrowser.WaitUntilReady();
+            Manager.Current.ActiveBrowser.WaitForAsyncOperations();
+            Manager.Current.ActiveBrowser.RefreshDomTree();
         }
 
         private const string CustomFieldsLinkID = "_customFields_ctl00_ctl00_customFields";

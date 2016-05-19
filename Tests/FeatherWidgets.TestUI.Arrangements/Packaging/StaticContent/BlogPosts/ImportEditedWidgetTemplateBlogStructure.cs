@@ -2,6 +2,7 @@
 using System.Web;
 using System.Web.Hosting;
 using FeatherWidgets.TestUtilities.CommonOperations;
+using Telerik.Sitefinity.Restriction;
 using Telerik.Sitefinity.TestArrangementService.Attributes;
 using Telerik.Sitefinity.TestUI.Arrangements.Framework;
 using Telerik.Sitefinity.TestUtilities.CommonOperations;
@@ -32,7 +33,11 @@ namespace FeatherWidgets.TestUI.Arrangements
         [ServerTearDown]
         public void ClearUp()
         {
-            ServerOperations.ModuleBuilder().DeleteDirectory(this.tempFolderPath);
+            AuthenticationHelper.AuthenticateUser(AdminUserName, AdminPass, true);
+
+            if (System.IO.Directory.Exists(this.tempFolderPath))
+                ServerOperations.ModuleBuilder().DeleteDirectory(this.tempFolderPath);
+
             ServerOperations.Packaging().DeleteAllPackagesFromDB();
 
             for (int i = 0; i < this.widgetTemplatesNames.Length; i++)
@@ -50,11 +55,14 @@ namespace FeatherWidgets.TestUI.Arrangements
             ServerOperations.Taxonomies().DeleteHierarchicalTaxonomy(hierarchicalClassification);
             ServerOperations.Taxonomies().DeleteFlatTaxonomy(flatClassification);
 
-            for (int i = 0; i < ServerOperations.CustomFieldsNames().FieldNamesWithoutClassificationsEdited.Length; i++)
+            using (new UnrestrictedModeRegion())
             {
-                ServerOperations.CustomFields().RemoveCustomFieldsFromContent(BlogType, ServerOperations.CustomFieldsNames().FieldNamesWithoutClassificationsEdited[i]);
-                ServerOperations.CustomFields().RemoveCustomFieldsFromContent(BlogType, flatClassificationBlog);
-                ServerOperations.CustomFields().RemoveCustomFieldsFromContent(BlogType, hierarchicalClassificationBlog);
+                for (int i = 0; i < ServerOperations.CustomFieldsNames().FieldNamesWithoutClassificationsEdited.Length; i++)
+                {
+                    ServerOperations.CustomFields().RemoveCustomFieldsFromContent(BlogType, ServerOperations.CustomFieldsNames().FieldNamesWithoutClassificationsEdited[i]);
+                    ServerOperations.CustomFields().RemoveCustomFieldsFromContent(BlogType, flatClassificationBlog);
+                    ServerOperations.CustomFields().RemoveCustomFieldsFromContent(BlogType, hierarchicalClassificationBlog);
+                }
             }
 
             ServerOperations.Taxonomies().DeleteHierarchicalTaxonomy(hierarchicalClassificationBlog);
@@ -75,5 +83,7 @@ namespace FeatherWidgets.TestUI.Arrangements
         private static string hierarchicalClassificationBlog = "b2";
         private const string BlogPostsType = "Telerik.Sitefinity.Blogs.Model.BlogPost,Telerik.Sitefinity.ContentModules";
         private const string BlogType = "Telerik.Sitefinity.Blogs.Model.Blog,Telerik.Sitefinity.ContentModules";
+        private const string AdminUserName = "admin";
+        private const string AdminPass = "admin@2";
     }
 }
