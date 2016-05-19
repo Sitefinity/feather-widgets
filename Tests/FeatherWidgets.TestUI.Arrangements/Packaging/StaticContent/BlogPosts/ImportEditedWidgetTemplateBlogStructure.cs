@@ -33,6 +33,8 @@ namespace FeatherWidgets.TestUI.Arrangements
         [ServerTearDown]
         public void ClearUp()
         {
+            AuthenticationHelper.AuthenticateUser(AdminUserName, AdminPass, true);
+
             if (System.IO.Directory.Exists(this.tempFolderPath))
                 ServerOperations.ModuleBuilder().DeleteDirectory(this.tempFolderPath);
 
@@ -81,5 +83,7 @@ namespace FeatherWidgets.TestUI.Arrangements
         private static string hierarchicalClassificationBlog = "b2";
         private const string BlogPostsType = "Telerik.Sitefinity.Blogs.Model.BlogPost,Telerik.Sitefinity.ContentModules";
         private const string BlogType = "Telerik.Sitefinity.Blogs.Model.Blog,Telerik.Sitefinity.ContentModules";
+        private const string AdminUserName = "admin";
+        private const string AdminPass = "admin@2";
     }
 }
