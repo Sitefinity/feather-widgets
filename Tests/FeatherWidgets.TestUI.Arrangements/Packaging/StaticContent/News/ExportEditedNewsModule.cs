@@ -2,6 +2,7 @@
 using System.Web;
 using System.Web.Hosting;
 using FeatherWidgets.TestUtilities.CommonOperations;
+using Telerik.Sitefinity.Restriction;
 using Telerik.Sitefinity.TestArrangementService.Attributes;
 using Telerik.Sitefinity.TestUI.Arrangements.Framework;
 using Telerik.Sitefinity.TestUtilities.CommonOperations;
@@ -60,11 +61,14 @@ namespace FeatherWidgets.TestUI.Arrangements
                 ServerOperations.Widgets().DeleteWidgetTemplate(this.widgetTemplatesNames[i]);
             }
 
-            for (int i = 0; i < ServerOperations.CustomFieldsNames().FieldNamesWithoutClassificationsEdited.Length; i++)
+            using (new UnrestrictedModeRegion())
             {
-                ServerOperations.CustomFields().RemoveCustomFieldsFromContent(NewsType, ServerOperations.CustomFieldsNames().FieldNamesWithoutClassificationsEdited[i]);
-                ServerOperations.CustomFields().RemoveCustomFieldsFromContent(NewsType, flatClassification);
-                ServerOperations.CustomFields().RemoveCustomFieldsFromContent(NewsType, hierarchicalClassification);
+                for (int i = 0; i < ServerOperations.CustomFieldsNames().FieldNamesWithoutClassificationsEdited.Length; i++)
+                {
+                    ServerOperations.CustomFields().RemoveCustomFieldsFromContent(NewsType, ServerOperations.CustomFieldsNames().FieldNamesWithoutClassificationsEdited[i]);
+                    ServerOperations.CustomFields().RemoveCustomFieldsFromContent(NewsType, flatClassification);
+                    ServerOperations.CustomFields().RemoveCustomFieldsFromContent(NewsType, hierarchicalClassification);
+                }
             }
 
             ServerOperations.Taxonomies().DeleteHierarchicalTaxonomy(hierarchicalClassification);

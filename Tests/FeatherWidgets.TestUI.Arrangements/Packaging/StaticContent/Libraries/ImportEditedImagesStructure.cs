@@ -52,7 +52,7 @@ namespace FeatherWidgets.TestUI.Arrangements
         [ServerTearDown]
         public void ClearUp()
         {            
-            ServerOperations.Images().DeleteLibrary(AlbumName);
+            ServerOperations.Images().DeleteLibrary(AlbumName, false);
             ServerOperations.Pages().DeleteAllPages();
             ServerOperations.ModuleBuilder().DeleteDirectory(this.tempFolderPath);
             ServerOperations.Packaging().DeleteAllPackagesFromDB();
