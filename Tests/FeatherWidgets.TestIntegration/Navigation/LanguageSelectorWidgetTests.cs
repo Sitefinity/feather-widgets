@@ -242,6 +242,40 @@ namespace FeatherWidgets.TestIntegration.Navigation
             this.AssertLanguageLinks(pageContent, expectedLinks, notExpectedLinks);
         }
 
+        [Test]
+        [Multilingual]
+        [Category(TestCategories.Navigation)]
+        [Author(FeatherTeams.SitefinityTeam2)]
+        [Description("Verifies language selector current language included and product list widget")]
+        public void LanguageSelectorWidgetAndProductList_CurrentLanguageIncluded()
+        {
+            var languageSelectorControl = this.CreateLanguageSelectorControl();
+            var languageSelectorModel = languageSelectorControl.Settings.Controller.Model;
+            languageSelectorControl.Settings.Controller.TemplateName = "DropDownMenu";
+            languageSelectorModel.IncludeCurrentLanguage = true;
+            this.productOperations.DeleteAllProducts();
+            this.productOperations.CreatePublishedProduct(ProductTypeName, true, ProductName, ProductPrice);
+            
+            var controls = new List<System.Web.UI.Control>();
+            controls.Add(languageSelectorControl);
+
+            var pageLanguages = new[] 
+            {
+                this.sitefinityLanguages["English"]
+            };
+
+            var createdPages = this.CreateLocalizedPage(PageName, pageLanguages);
+
+            // Add language selector widget to the en-US page
+            var currentPage = createdPages.First();
+            PageContentGenerator.AddControlsToPage(currentPage.Key, controls);
+            ServerOperations.Widgets().AddProductListViewWithTemplate(currentPage.Key, EcommerceGlobals.placeholderId, EcommerceGlobals.captionProducts, ControlTypes.ProductDetailLayoutTemplateName, showWishlist: true);
+
+            string url = UrlPath.ResolveAbsoluteUrl("~/" + PageName + currentPage.Value.Name);
+            var pageContent = PageInvoker.ExecuteWebRequest(url);
+            Assert.IsNotNull(pageContent);
+        }
+
         #region Helper methods
 
         private string GetPageUrl(string pageName, CultureInfo culture, bool isDefaultCulture = false)
@@ -356,17 +390,21 @@ namespace FeatherWidgets.TestIntegration.Navigation
 
         private void InitializeSitefinityLanguages()
         {
-            var english = AppSettings.CurrentSettings.DefinedFrontendLanguages.Where(x => x.Name == "en-US").FirstOrDefault();
+            var english = AppSettings.CurrentSettings.DefinedFrontendLanguages.Where(x => x.Name == "en").FirstOrDefault();
             var turkish = AppSettings.CurrentSettings.DefinedFrontendLanguages.Where(x => x.Name == "tr-TR").FirstOrDefault();
             var arabic = AppSettings.CurrentSettings.DefinedFrontendLanguages.Where(x => x.Name == "ar-MA").FirstOrDefault();
             var serbian = AppSettings.CurrentSettings.DefinedFrontendLanguages.Where(x => x.Name == "sr-Cyrl-BA").FirstOrDefault();
             var bulgarian = AppSettings.CurrentSettings.DefinedFrontendLanguages.Where(x => x.Name == "bg-BG").FirstOrDefault();
+            var dutch = AppSettings.CurrentSettings.DefinedFrontendLanguages.Where(x => x.Name == "nl").FirstOrDefault();
+            var french = AppSettings.CurrentSettings.DefinedFrontendLanguages.Where(x => x.Name == "fr").FirstOrDefault();
 
             this.sitefinityLanguages.Add("English", english);
             this.sitefinityLanguages.Add("Turkish", turkish);
             this.sitefinityLanguages.Add("Arabic", arabic);
             this.sitefinityLanguages.Add("Serbian", serbian);
             this.sitefinityLanguages.Add("Bulgarian", bulgarian);
+            this.sitefinityLanguages.Add("Dutch", dutch);
+            this.sitefinityLanguages.Add("French", french);
         }
 
         private void AssertLanguageLinks(string pageContent, Dictionary<CultureInfo, string> links, Dictionary<CultureInfo, string> notVisiblelinks)
@@ -472,6 +510,10 @@ namespace FeatherWidgets.TestIntegration.Navigation
         private const string PageName = "TestPage";
         private readonly Dictionary<string, CultureInfo> sitefinityLanguages = new Dictionary<string, CultureInfo>();
         private readonly NewsOperations serverOperationsNews = ServerOperations.News();
+        private readonly ProductOperations productOperations = ServerOperations.ECommerce().Products();
+        private const string ProductTypeName = "General product";
+        private const string ProductName = "Product1_EN";
+        private const decimal ProductPrice = 1M;
 
         #endregion
     }
