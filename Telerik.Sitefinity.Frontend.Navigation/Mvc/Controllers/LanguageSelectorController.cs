@@ -201,11 +201,19 @@ namespace Telerik.Sitefinity.Frontend.Navigation.Mvc.Controllers
             foreach (var item in this.viewModel.Languages)
             {
                 var link = this.AppendDetailItemAndParamsToUrl(item.Url, new CultureInfo(item.Culture));
+                LiteralControl control = new LiteralControl()
+                {
+                    Text = string.Format(CultureInfo.InvariantCulture, "<input data-sf-role='{0}' type='hidden' value='{1}'>", item.Culture, HttpUtility.HtmlEncode(link))
+                };
 
-                page.Controls.Add(new LiteralControl()
-                    {
-                        Text = string.Format(CultureInfo.InvariantCulture, "<input data-sf-role='{0}' type='hidden' value='{1}'>", item.Culture, HttpUtility.HtmlEncode(link))
-                    });
+                if (page.Header == null)
+                {
+                    page.Controls.Add(control);
+                }
+                else
+                {
+                    page.Header.Controls.Add(control);
+                }
             }
         }
         
