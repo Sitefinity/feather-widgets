@@ -312,7 +312,7 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend
         {
             var image = this.GetContentBlockImageDesignMode();
             Assert.IsNotNull(image, "Unable to find image.");
-            Assert.IsTrue(image.Src.StartsWith(src), "src is not correct");
+            Assert.IsTrue(image.Src.Contains(src), "src is not correct");
 
             this.VerifyImageAttribute(image, "sfref", sfref.ToLower());
             this.VerifyImageAttribute(image, "title", title.ToLower());
@@ -329,7 +329,7 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend
         {
             Browser frame = this.GetContentBlockFrame();
             var doc = frame.Find.ByExpression<HtmlAnchor>("tagname=a", "title=" + title).AssertIsPresent(title);
-            Assert.IsTrue(doc.HRef.StartsWith(href), "href is not correct");
+            Assert.IsTrue(doc.HRef.Contains(href), "href is not correct");
             var attr = doc.Attributes.FirstOrDefault(a => a.Name == "sfref");
             Assert.IsNotNull(attr, "Unable to find attribute: sfref");
             Assert.AreEqual(sfref.ToLower(), attr.Value.ToLower(), "Attribute sfref value not as expected.");
@@ -346,7 +346,7 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend
         {
             var video = this.GetContentBlockVideoDesignMode();
             Assert.IsNotNull(video, "Unable to find video.");
-            Assert.IsTrue(video.Src.StartsWith(src), "src is not correct");
+            Assert.IsTrue(video.Src.Contains(src), "src is not correct");
 
             this.VerifyVideoAttribute(video, "sfref", sfref);
             if (!width.Equals(string.Empty) && !height.Equals(string.Empty))

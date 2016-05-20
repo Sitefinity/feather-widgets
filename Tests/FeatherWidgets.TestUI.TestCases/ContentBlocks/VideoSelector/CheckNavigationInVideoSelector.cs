@@ -116,7 +116,7 @@ namespace FeatherWidgets.TestUI.TestCases.ContentBlocks.VideoSelector
                 url = ActiveBrowser.Url.Substring(0, 20);
             }
 
-            string src = BATFeather.Wrappers().Frontend().MediaWidgets().MediaWidgetsWrapper().GetMediaSource(false, libraryUrl, imageUrl, url, "videos", currentProviderUrlName);
+            string src = BATFeather.Wrappers().Frontend().MediaWidgets().MediaWidgetsWrapper().GetMediaSource(libraryUrl, imageUrl, "videos", currentProviderUrlName);
             BATFeather.Wrappers().Frontend().MediaWidgets().MediaWidgetsWrapper().VerifyVideo(src);
         }
 

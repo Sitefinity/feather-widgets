@@ -2,6 +2,7 @@
 using System.ComponentModel;
 using System.Linq;
 using System.Web.Mvc;
+using System.Web.Security.AntiXss;
 using Telerik.Sitefinity.Frontend.EmailCampaigns.Mvc.Helpers;
 using Telerik.Sitefinity.Frontend.EmailCampaigns.Mvc.Models;
 using Telerik.Sitefinity.Frontend.EmailCampaigns.Mvc.StringResources;
@@ -185,14 +186,14 @@ namespace Telerik.Sitefinity.Frontend.EmailCampaigns.Mvc.Controllers
 
                 this.ViewBag.Error = error;
                 this.ViewBag.IsSucceeded = isSucceeded;
-                this.ViewBag.Email = viewModel.Email;
+                this.ViewBag.Email = AntiXssEncoder.HtmlEncode(viewModel.Email, false);
 
                 if (isSucceeded)
                 {
                     if (this.Model.SuccessfullySubmittedForm == SuccessfullySubmittedForm.OpenSpecificPage && !string.IsNullOrEmpty(viewModel.RedirectPageUrl))
-                {
-                    return this.Redirect(viewModel.RedirectPageUrl);
-                }
+                    {
+                        return this.Redirect(viewModel.RedirectPageUrl);
+                    }
 
                     this.ModelState.Clear();
                 }

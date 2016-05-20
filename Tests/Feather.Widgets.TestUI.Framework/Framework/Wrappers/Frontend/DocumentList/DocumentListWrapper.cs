@@ -24,7 +24,7 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Frontend
             HtmlAnchor doc = ActiveBrowser.Find.ByExpression<HtmlAnchor>("innertext=" + title)
                 .AssertIsPresent("document");
 
-                Assert.IsTrue(doc.HRef.StartsWith(href), "href is not correct");     
+                Assert.IsTrue(doc.HRef.Contains(href), "href is not correct");     
         }
 
         /// <summary>
@@ -43,8 +43,8 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Frontend
             var parent = doc.Parent<HtmlTableCell>();
             Assert.IsTrue(parent.TagName == "td");
             Assert.IsTrue(parent.Parent<HtmlTableRow>().TagName == "tr");
-            
-                 Assert.IsTrue(doc.HRef.StartsWith(href), "href is not correct");          
+
+            Assert.IsTrue(doc.HRef.Contains(href), "href is not correct");          
         }
 
         /// <summary>
@@ -169,6 +169,27 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Frontend
         public void VerifyDownloadButton(string href)
         {
                 ActiveBrowser.Find.ByExpression<HtmlAnchor>("tagname=a", "target=_blank", "href=~" + href, "innertext=Download").AssertIsPresent("download");         
+        }
+
+        /// <summary>
+        /// Ares the document titles present on the page frontend.
+        /// </summary>
+        /// <param name="eventTitles">The document titles.</param>
+        /// <returns></returns>
+        public bool AreDocumentTitlesPresentOnThePageFrontend(IEnumerable<string> documentTitles)
+        {
+            HtmlDiv frontendPageMainDiv = BAT.Wrappers().Frontend().Pages().PagesWrapperFrontend().GetPageContent();
+
+            foreach (var title in documentTitles)
+            {
+                var documentAnchor = frontendPageMainDiv.Find.ByExpression<HtmlAnchor>("tagname=a", "InnerText=" + title);
+                if ((documentAnchor == null) || (documentAnchor != null && !documentAnchor.IsVisible()))
+                {
+                    return false;
+                }
+            }
+
+            return true;
         }
     }
 }

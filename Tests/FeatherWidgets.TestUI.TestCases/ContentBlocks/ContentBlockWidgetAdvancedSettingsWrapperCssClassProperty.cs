@@ -24,7 +24,7 @@ namespace FeatherWidgets.TestUI.TestCases.ContentBlocks
         /// </summary>
         [TestMethod,
         Owner(FeatherTeams.FeatherTeam),
-        TestCategory(FeatherTestCategories.ContentBlock2)]
+        TestCategory(FeatherTestCategories.ContentBlock)]
         public void ContentBlockWidgetAdvancedSettingsWrapperCssClassProperty()
         {
             RuntimeSettingsModificator.ExecuteWithClientTimeout(800000, () => BAT.Macros().User().EnsureAdminLoggedIn());

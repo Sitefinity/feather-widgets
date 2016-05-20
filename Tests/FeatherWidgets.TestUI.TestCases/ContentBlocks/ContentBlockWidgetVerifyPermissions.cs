@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Telerik.Sitefinity.TestUI.Framework.Framework.ElementMap.Permissions;
 using Telerik.Sitefinity.TestUI.Framework.Utilities;
+using ArtOfTest.WebAii.Core;
 
 namespace FeatherWidgets.TestUI.TestCases.ContentBlocks
 {
@@ -25,6 +26,7 @@ namespace FeatherWidgets.TestUI.TestCases.ContentBlocks
             BAT.Macros().NavigateTo().Pages(this.Culture);
             BAT.Wrappers().Backend().Pages().PagesWrapper().OpenPageZoneEditor(PageTitle);
             BAT.Wrappers().Backend().Pages().PageZoneEditorWrapper().SelectExtraOptionForWidget(OperationName);
+            this.WaitForPermissionsFrameToBeLoaded();
             BAT.Wrappers().Backend().Permissions().PermissionsContentWrapper().ClickChangePermissionsButton(PermissionTypes.View);
             BAT.Wrappers().Backend().Permissions().PermissionsContentWrapper().SelectAndAddRole("Authenticated");
             BAT.Wrappers().Backend().Permissions().PermissionsContentWrapper().ClickBackButton();
@@ -52,6 +54,13 @@ namespace FeatherWidgets.TestUI.TestCases.ContentBlocks
         protected override void ServerCleanup()
         {
             BAT.Arrange(this.TestName).ExecuteTearDown();
+        }
+
+        private void WaitForPermissionsFrameToBeLoaded()
+        {
+            var frame = Manager.Current.ActiveBrowser.WaitForFrame(new FrameInfo() { Name = "permissions" });
+            frame.WaitUntilReady();
+            frame.WaitForAsyncOperations();
         }
 
         private const string PageTitle = "FeatherPage";

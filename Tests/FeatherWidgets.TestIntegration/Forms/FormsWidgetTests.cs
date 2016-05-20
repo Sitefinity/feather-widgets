@@ -163,5 +163,19 @@ namespace FeatherWidgets.TestIntegration.Forms
                 FormsModuleCodeSnippets.DeleteForm(formId);
             }
         }
+
+        [Test]
+        [Category(TestCategories.Forms)]
+        [Author(FeatherTeams.SitefinityTeam6)]
+        [Description("Ensures that the NeedsRedirect property is not throwing an exception")]
+        public void FormsWidget_Form_NeedsRedirect_NoExceptionIsThrown()
+        {
+            var mvcProxy = new MvcControllerProxy();
+            mvcProxy.ControllerName = typeof(FormController).FullName;
+            var controller = new FormController();
+            var needsRedirect = controller.Model.NeedsRedirect;
+            Type expectedType = typeof(bool);
+            Assert.AreEqual(needsRedirect.GetType(), expectedType);
+        }
     }
 }

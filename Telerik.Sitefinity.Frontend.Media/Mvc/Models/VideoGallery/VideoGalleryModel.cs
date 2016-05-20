@@ -112,13 +112,13 @@ namespace Telerik.Sitefinity.Frontend.Media.Mvc.Models.VideoGallery
             if (itemIndex != null)
             {
                 var query = this.GetItemsQuery();
-                int? take = this.DisplayMode == ListDisplayMode.Limit ? this.ItemsPerPage : null;
+                int? take = this.DisplayMode == ListDisplayMode.Limit ? this.LimitCount : null;
 
                 query = this.UpdateExpression(query, null, take, ref totalCount);
 
-                if (this.DisplayMode == ListDisplayMode.Limit && this.ItemsPerPage < totalCount)
+                if (this.DisplayMode == ListDisplayMode.Limit && this.LimitCount < totalCount)
                 {
-                    totalCount = this.ItemsPerPage;
+                    totalCount = this.LimitCount;
                 }
 
                 if (totalCount > 1)

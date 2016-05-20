@@ -16,7 +16,7 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Frontend
     {
         public void VerifyVideo(string src, int width = 0, int height = 0)
         {           
-             HtmlVideo video = EM.MediaGallery.MediaGalleryFrontend.Videos.Where<HtmlVideo>(k => k.Src.StartsWith(src)).FirstOrDefault()
+             HtmlVideo video = EM.MediaGallery.MediaGalleryFrontend.Videos.Where<HtmlVideo>(k => k.Src.Contains(src)).FirstOrDefault()
                 .AssertIsPresent("video");
 
             if (width != 0 && height != 0)
@@ -33,6 +33,27 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Frontend
         public void VerifyVideoIsNotPresent(string altText)
         {
             ActiveBrowser.Find.ByExpression<HtmlVideo>("tagname=video", "alt=" + altText).AssertIsNull(altText);
+        }
+
+        /// <summary>
+        /// Ares the video titles present on the page frontend.
+        /// </summary>
+        /// <param name="videoTitles">The video titles.</param>
+        /// <returns></returns>
+        public bool AreVideoTitlesPresentOnThePageFrontend(IEnumerable<string> videoTitles)
+        {
+            HtmlDiv frontendPageMainDiv = BAT.Wrappers().Frontend().Pages().PagesWrapperFrontend().GetPageContent();
+
+            foreach (var title in videoTitles)
+            {
+                var videoAnchor = frontendPageMainDiv.Find.ByExpression<HtmlAnchor>("tagname=a", "InnerText=" + title);
+                if ((videoAnchor == null) || (videoAnchor != null && !videoAnchor.IsVisible()))
+                {
+                    return false;
+                }
+            }
+
+            return true;
         }
 
         /// <summary>
@@ -57,7 +78,7 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Frontend
             var prev = EM.MediaGallery.MediaGalleryFrontend.PreviousLink
                .AssertIsPresent("previous video");
 
-                Assert.IsTrue(prev.HRef.StartsWith(href));
+                Assert.IsTrue(prev.HRef.Contains(href));
         }
 
         /// <summary>
@@ -69,7 +90,7 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Frontend
             var next = EM.MediaGallery.MediaGalleryFrontend.NextLink
                .AssertIsPresent("next video");
 
-                Assert.IsTrue(next.HRef.StartsWith(href));
+                Assert.IsTrue(next.HRef.Contains(href));
         }
 
         /// <summary>

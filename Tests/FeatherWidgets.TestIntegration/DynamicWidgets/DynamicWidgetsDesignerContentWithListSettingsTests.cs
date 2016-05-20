@@ -138,6 +138,7 @@ namespace FeatherWidgets.TestIntegration.DynamicWidgets
                 mvcProxy.ControllerName = typeof(DynamicContentController).FullName;
                 mvcProxy.Settings = new ControllerSettings(dynamicController);
                 mvcProxy.WidgetName = WidgetName;
+                dynamicController.Model.DisplayMode = ListDisplayMode.Paging;
                 dynamicController.Model.ItemsPerPage = itemsPerPage;
                 dynamicController.Model.SortExpression = AsSetManuallySortingOption;
                 dynamicController.Model.ProviderName = FeatherWidgets.TestUtilities.CommonOperations.DynamicModulesOperations.ProviderName;
@@ -197,7 +198,7 @@ namespace FeatherWidgets.TestIntegration.DynamicWidgets
                 dynamicController.Model.ContentType = TypeResolutionService.ResolveType(ResolveType);
                 dynamicController.Model.SelectionMode = SelectionMode.SelectedItems;
                 dynamicController.Model.DisplayMode = ListDisplayMode.Limit;
-                dynamicController.Model.ItemsPerPage = 5;
+                dynamicController.Model.LimitCount = 5;
                 dynamicController.Model.SortExpression = AsSetManuallySortingOption;
                 dynamicController.Model.ProviderName = FeatherWidgets.TestUtilities.CommonOperations.DynamicModulesOperations.ProviderName;
 
@@ -267,6 +268,8 @@ namespace FeatherWidgets.TestIntegration.DynamicWidgets
                 dynamicController.Model.ContentType = TypeResolutionService.ResolveType(ResolveType);
                 dynamicController.Model.SelectionMode = SelectionMode.SelectedItems;
                 dynamicController.Model.DisplayMode = ListDisplayMode.All;
+                dynamicController.Model.ItemsPerPage = 5;
+                dynamicController.Model.LimitCount = 5;
                 dynamicController.Model.ProviderName = FeatherWidgets.TestUtilities.CommonOperations.DynamicModulesOperations.ProviderName;
 
                 var mvcProxy = new MvcWidgetProxy();
@@ -479,8 +482,8 @@ namespace FeatherWidgets.TestIntegration.DynamicWidgets
             dynamicController.Model.ContentType = TypeResolutionService.ResolveType(ResolveType);
             dynamicController.Model.DisplayMode = ListDisplayMode.Limit;
             dynamicController.Model.ProviderName = FeatherWidgets.TestUtilities.CommonOperations.DynamicModulesOperations.ProviderName;
-            int itemsPerPage = 3;
-            dynamicController.Model.ItemsPerPage = itemsPerPage;
+            int limitCount = 3;
+            dynamicController.Model.LimitCount = limitCount;
             string categoryTitle = "Category";
             string[] itemsTitles = { "Boat", "Cat", "Angel", "Kitty", "Dog" };
             string[] urls = { "AngelUrl", "BoatUrl", "CatUrl", "KittyUrl", "DogUrl" };

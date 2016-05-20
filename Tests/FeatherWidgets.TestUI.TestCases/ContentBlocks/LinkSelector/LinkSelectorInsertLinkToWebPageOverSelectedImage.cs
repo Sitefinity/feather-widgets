@@ -56,7 +56,7 @@ namespace FeatherWidgets.TestUI.TestCases.ContentBlocks.LinkSelector
             BATFeather.Wrappers().Backend().ContentBlocks().ContentBlocksWrapper().PressFullScreenButton();
             BATFeather.Wrappers().Backend().ContentBlocks().ContentBlocksWrapper().VerifyFullScreenMode(false);
             BATFeather.Wrappers().Backend().ContentBlocks().ContentBlocksWrapper().ClickHtmlButton();
-            BATFeather.Wrappers().Backend().ContentBlocks().ContentBlocksWrapper().VerifyCountOfButtonsIsCorrect(39);
+            BATFeather.Wrappers().Backend().ContentBlocks().ContentBlocksWrapper().VerifyCountOfButtonsIsCorrect(38);
             BATFeather.Wrappers().Backend().ContentBlocks().ContentBlocksWrapper().VerifyFullScreenMode(false);
             BATFeather.Wrappers().Backend().ContentBlocks().ContentBlocksWrapper().SaveChanges();
             BAT.Wrappers().Backend().Pages().PageZoneEditorWrapper().PublishPage();

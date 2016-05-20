@@ -54,6 +54,16 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Frontend
         }
 
         /// <summary>
+        /// Verifies the image is present.
+        /// </summary>
+        /// <param name="altText">The alt text.</param>
+        public void VerifyImageIsPresent(string altText)
+        {
+            ICollection<HtmlImage> images = EM.MediaGallery.MediaGalleryFrontend.AllImages;
+            images.Where<HtmlImage>(k => k.Alt.Equals(altText)).FirstOrDefault().AssertIsPresent(altText);
+        }
+
+        /// <summary>
         /// Clicks the image.
         /// </summary>
         /// <param name="altText">The alt text.</param>
@@ -91,7 +101,7 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Frontend
             var prevImage = EM.MediaGallery.MediaGalleryFrontend.PreviousLink
                .AssertIsPresent("previous image");
 
-                Assert.IsTrue(prevImage.HRef.StartsWith(href));          
+                Assert.IsTrue(prevImage.HRef.Contains(href));          
         }
 
         /// <summary>
@@ -103,7 +113,7 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Frontend
             var nextImage = EM.MediaGallery.MediaGalleryFrontend.NextLink
                .AssertIsPresent("next image");
 
-                  Assert.IsTrue(nextImage.HRef.StartsWith(href));       
+            Assert.IsTrue(nextImage.HRef.Contains(href));       
         }
 
         /// <summary>

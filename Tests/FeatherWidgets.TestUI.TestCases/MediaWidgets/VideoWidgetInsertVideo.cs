@@ -39,10 +39,10 @@ namespace FeatherWidgets.TestUI.TestCases.MediaWidgets
             BATFeather.Wrappers().Backend().Media().MediaSelectorWrapper().SelectMediaFile(VideoName);       
             BATFeather.Wrappers().Backend().Media().MediaSelectorWrapper().ConfirmMediaFileSelectionInWidget();
 
-            BATFeather.Wrappers().Backend().Media().VideoPropertiesWrapper().VerifySmallVideoProperites(this.GetVideoSource(true));
+            BATFeather.Wrappers().Backend().Media().VideoPropertiesWrapper().VerifySmallVideoProperites(this.GetVideoSource());
             BATFeather.Wrappers().Backend().Media().VideoPropertiesWrapper().VerifySelectedOptionAspectRatioSelector("Auto");
             BATFeather.Wrappers().Backend().Media().VideoPropertiesWrapper().PlayVideo();
-            BATFeather.Wrappers().Backend().Media().VideoPropertiesWrapper().VerifyBigVideoProperites(this.GetVideoSource(true));
+            BATFeather.Wrappers().Backend().Media().VideoPropertiesWrapper().VerifyBigVideoProperites(this.GetVideoSource());
             BATFeather.Wrappers().Backend().Media().VideoPropertiesWrapper().SelectOptionAspectRatioSelector("4x3");
             BATFeather.Wrappers().Backend().Media().VideoPropertiesWrapper().VerifyWidthAndHeightValues("600", "450");
             BATFeather.Wrappers().Backend().Media().VideoPropertiesWrapper().VerifyTemplateDropdownValueInWidget("Default");
@@ -52,8 +52,8 @@ namespace FeatherWidgets.TestUI.TestCases.MediaWidgets
             BAT.Wrappers().Backend().Pages().PageZoneEditorWrapper().PublishPage();
 
             BAT.Macros().NavigateTo().CustomPage("~/" + PageName.ToLower(), true, this.Culture);
-            BATFeather.Wrappers().Frontend().MediaWidgets().MediaWidgetsWrapper().VerifyVideo(this.GetVideoSource(false), Width, Height);
-            BATFeather.Wrappers().Frontend().MediaWidgets().MediaWidgetsWrapper().VerifyVideoCssClass(CssClassesToApply, this.GetVideoSource(false));
+            BATFeather.Wrappers().Frontend().MediaWidgets().MediaWidgetsWrapper().VerifyVideo(this.GetVideoSource(), Width, Height);
+            BATFeather.Wrappers().Frontend().MediaWidgets().MediaWidgetsWrapper().VerifyVideoCssClass(CssClassesToApply, this.GetVideoSource());
         }
 
         /// <summary>
@@ -74,7 +74,7 @@ namespace FeatherWidgets.TestUI.TestCases.MediaWidgets
             BAT.Arrange(this.TestName).ExecuteTearDown();
         }
 
-        private string GetVideoSource(bool isBaseUrlIncluded)
+        private string GetVideoSource()
         {
             string libraryUrl = LibraryName.ToLower();
             string videoUrl = VideoName.ToLower() + VideoType.ToLower();
@@ -90,7 +90,7 @@ namespace FeatherWidgets.TestUI.TestCases.MediaWidgets
                 url = ActiveBrowser.Url.Substring(0, 20);
             }
 
-            string scr = BATFeather.Wrappers().Frontend().MediaWidgets().MediaWidgetsWrapper().GetMediaSource(isBaseUrlIncluded, libraryUrl, videoUrl, url, "videos", currentProviderUrlName);
+            string scr = BATFeather.Wrappers().Frontend().MediaWidgets().MediaWidgetsWrapper().GetMediaSource(libraryUrl, videoUrl, "videos", currentProviderUrlName);
             return scr;
         }
 

@@ -60,7 +60,7 @@ namespace FeatherWidgets.TestUI.TestCases.ContentBlocks.ImageSelector
 
             Assert.IsTrue(BATFeather.Wrappers().Backend().Media().ImagePropertiesWrapper().IsTitlePopulated(NewImageName), "Image title is not populated correctly");
             Assert.IsTrue(BATFeather.Wrappers().Backend().Media().ImagePropertiesWrapper().IsImageAltTextPopulated(NewImageAltText), "Image alt text is not populated correctly");
-            string scr = this.GetImageSource(true, ImageName, ImageTypeInPropertiesDialog);
+            string scr = this.GetImageSource(ImageName, ImageTypeInPropertiesDialog);
 
             BATFeather.Wrappers().Backend().Media().ImagePropertiesWrapper().VerifyImageThumbnailInPropertiesDialog(NewImageName, scr);
             BATFeather.Wrappers().Backend().Media().ImagePropertiesWrapper().VerifySelectedOptionThumbnailSelector(ThumbnailOption);
@@ -69,7 +69,7 @@ namespace FeatherWidgets.TestUI.TestCases.ContentBlocks.ImageSelector
             BAT.Wrappers().Backend().Pages().PageZoneEditorWrapper().PublishPage();
 
             BAT.Macros().NavigateTo().CustomPage("~/" + PageName.ToLower(), false, this.Culture);
-            scr = this.GetImageSource(false, ImageName, ImageType);
+            scr = this.GetImageSource(ImageName, ImageType);
             BATFeather.Wrappers().Frontend().MediaWidgets().MediaWidgetsWrapper().VerifyImage(NewImageName, NewImageAltText, scr);
             BAT.Arrange(this.TestName).ExecuteArrangement("VerifyCreatedTag");
         }
@@ -91,7 +91,7 @@ namespace FeatherWidgets.TestUI.TestCases.ContentBlocks.ImageSelector
             BAT.Arrange(this.TestName).ExecuteTearDown();
         }
 
-        private string GetImageSource(bool isBaseUrlIncluded, string imageName, string imageType)
+        private string GetImageSource(string imageName, string imageType)
         {
             currentProviderUrlName = BAT.Arrange(this.TestName).ExecuteArrangement("GetCurrentProviderUrlName").Result.Values["CurrentProviderUrlName"];
             string libraryUrl = LibraryName.ToLower() + "/" + ChildImageLibrary.ToLower();
@@ -107,7 +107,7 @@ namespace FeatherWidgets.TestUI.TestCases.ContentBlocks.ImageSelector
                 url = ActiveBrowser.Url.Substring(0, 20);
             }
 
-            string scr = BATFeather.Wrappers().Frontend().MediaWidgets().MediaWidgetsWrapper().GetMediaSource(isBaseUrlIncluded, libraryUrl, imageUrl, url, "images", currentProviderUrlName);
+            string scr = BATFeather.Wrappers().Frontend().MediaWidgets().MediaWidgetsWrapper().GetMediaSource(libraryUrl, imageUrl, "images", currentProviderUrlName);
             return scr;
         }
 
