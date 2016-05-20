@@ -215,6 +215,9 @@
     <Compile Include="ContentBlocks\UseSharedContentBlockFromPage.cs" />
     <Compile Include="ContentBlocks\VideoSelector\CheckNavigationInVideoSelector.cs" />
     <Compile Include="ContentBlocks\VideoSelector\EditAllPropertiesOfSelectedVideoAndSearch.cs" />
+    <Compile Include="DocumentsList\VerifyNoLimitAndPaginationListSettingsOnFrontendPageForDocumentsListWidget.cs" />
+    <Compile Include="DocumentsList\VerifyPagingOnFrontendPageForDocumentsListWidget.cs" />
+    <Compile Include="DocumentsList\VerifyUseLimitListSettingsOnFrontendPageForDocumentsListWidget.cs" />
     <Compile Include="EmailCampaigns\DeleteSelectedMailListAndPageInUnsubscribeWidget.cs" />
     <Compile Include="EmailCampaigns\DeleteSelectedMailListAndPageInSubscribeFormWidget.cs" />
     <Compile Include="EmailCampaigns\DragAndDropUnsubscribeWidgetAndSelectMailingList.cs" />
@@ -357,6 +360,9 @@
     <Compile Include="Identity\VerifyLoginWidgetWhenOpenItemDetailViewAndForgotPassword.cs" />
     <Compile Include="Identity\VerifyRegistrationWidgetAndProfileWidgetOnPreviewBootstrapTemplate.cs" />
     <Compile Include="Identity\VerifyRegistrationWidgetAndProfileWidgetOnPreviewPage.cs" />
+    <Compile Include="ImageGallery\VerifyNoLimitAndPaginationListSettingsOnFrontendPageForImageGalleryWidget.cs" />
+    <Compile Include="ImageGallery\VerifyPagingOnFrontendPageForImageGalleryWidget.cs" />
+    <Compile Include="ImageGallery\VerifyUseLimitListSettingsOnFrontendPageForImageGalleryWidget.cs" />
     <Compile Include="Lists\VerifyListTemplatesOnBootstrap.cs" />
     <Compile Include="Navigation\LanguageSelectorXssAttack.cs" />
     <Compile Include="News\AddNewsWidgetToPageVerifyViewPermissions.cs" />
@@ -515,6 +521,9 @@
     <Compile Include="SocialShare\CheckAllOptionsInSocialShareWidget.cs" />
     <Compile Include="SocialShare\CreateSocialShareWidgetTemplateAndCheckTheDesigner.cs" />
     <Compile Include="SocialShare\EditSocialShareWidgetOnPageBasedOnBootstrapTemplate.cs" />
+    <Compile Include="VideoGallery\VerifyNoLimitAndPaginationListSettingsOnFrontendPageForVideoGalleryWidget.cs" />
+    <Compile Include="VideoGallery\VerifyPagingOnFrontendPageForVideoGalleryWidget.cs" />
+    <Compile Include="VideoGallery\VerifyUseLimitListSettingsOnFrontendPageForVideoGalleryWidget.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config">

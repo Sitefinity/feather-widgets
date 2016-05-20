@@ -170,5 +170,26 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Frontend
         {
                 ActiveBrowser.Find.ByExpression<HtmlAnchor>("tagname=a", "target=_blank", "href=~" + href, "innertext=Download").AssertIsPresent("download");         
         }
+
+        /// <summary>
+        /// Ares the document titles present on the page frontend.
+        /// </summary>
+        /// <param name="eventTitles">The document titles.</param>
+        /// <returns></returns>
+        public bool AreDocumentTitlesPresentOnThePageFrontend(IEnumerable<string> documentTitles)
+        {
+            HtmlDiv frontendPageMainDiv = BAT.Wrappers().Frontend().Pages().PagesWrapperFrontend().GetPageContent();
+
+            foreach (var title in documentTitles)
+            {
+                var documentAnchor = frontendPageMainDiv.Find.ByExpression<HtmlAnchor>("tagname=a", "InnerText=" + title);
+                if ((documentAnchor == null) || (documentAnchor != null && !documentAnchor.IsVisible()))
+                {
+                    return false;
+                }
+            }
+
+            return true;
+        }
     }
 }

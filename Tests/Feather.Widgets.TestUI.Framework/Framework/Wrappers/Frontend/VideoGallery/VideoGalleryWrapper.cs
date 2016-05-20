@@ -36,6 +36,27 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Frontend
         }
 
         /// <summary>
+        /// Ares the video titles present on the page frontend.
+        /// </summary>
+        /// <param name="videoTitles">The video titles.</param>
+        /// <returns></returns>
+        public bool AreVideoTitlesPresentOnThePageFrontend(IEnumerable<string> videoTitles)
+        {
+            HtmlDiv frontendPageMainDiv = BAT.Wrappers().Frontend().Pages().PagesWrapperFrontend().GetPageContent();
+
+            foreach (var title in videoTitles)
+            {
+                var videoAnchor = frontendPageMainDiv.Find.ByExpression<HtmlAnchor>("tagname=a", "InnerText=" + title);
+                if ((videoAnchor == null) || (videoAnchor != null && !videoAnchor.IsVisible()))
+                {
+                    return false;
+                }
+            }
+
+            return true;
+        }
+
+        /// <summary>
         /// Determines whether is Video title present on detail master page.
         /// </summary>
         /// <param name="VideoTitle">The Video title.</param>
