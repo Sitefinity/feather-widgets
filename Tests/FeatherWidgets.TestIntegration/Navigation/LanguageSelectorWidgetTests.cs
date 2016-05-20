@@ -50,6 +50,7 @@ namespace FeatherWidgets.TestIntegration.Navigation
         public void TearDown()
         {
             ServerOperations.Pages().DeleteAllPages();
+            this.productOperations.DeleteAllProducts();
             this.serverOperationsNews.DeleteAllNews();
         }
 
@@ -253,7 +254,6 @@ namespace FeatherWidgets.TestIntegration.Navigation
             var languageSelectorModel = languageSelectorControl.Settings.Controller.Model;
             languageSelectorControl.Settings.Controller.TemplateName = "DropDownMenu";
             languageSelectorModel.IncludeCurrentLanguage = true;
-            this.productOperations.DeleteAllProducts();
             this.productOperations.CreatePublishedProduct(ProductTypeName, true, ProductName, ProductPrice);
             
             var controls = new List<System.Web.UI.Control>();
@@ -390,21 +390,17 @@ namespace FeatherWidgets.TestIntegration.Navigation
 
         private void InitializeSitefinityLanguages()
         {
-            var english = AppSettings.CurrentSettings.DefinedFrontendLanguages.Where(x => x.Name == "en").FirstOrDefault();
+            var english = AppSettings.CurrentSettings.DefinedFrontendLanguages.Where(x => x.Name == "en-US").FirstOrDefault();
             var turkish = AppSettings.CurrentSettings.DefinedFrontendLanguages.Where(x => x.Name == "tr-TR").FirstOrDefault();
             var arabic = AppSettings.CurrentSettings.DefinedFrontendLanguages.Where(x => x.Name == "ar-MA").FirstOrDefault();
             var serbian = AppSettings.CurrentSettings.DefinedFrontendLanguages.Where(x => x.Name == "sr-Cyrl-BA").FirstOrDefault();
             var bulgarian = AppSettings.CurrentSettings.DefinedFrontendLanguages.Where(x => x.Name == "bg-BG").FirstOrDefault();
-            var dutch = AppSettings.CurrentSettings.DefinedFrontendLanguages.Where(x => x.Name == "nl").FirstOrDefault();
-            var french = AppSettings.CurrentSettings.DefinedFrontendLanguages.Where(x => x.Name == "fr").FirstOrDefault();
 
             this.sitefinityLanguages.Add("English", english);
             this.sitefinityLanguages.Add("Turkish", turkish);
             this.sitefinityLanguages.Add("Arabic", arabic);
             this.sitefinityLanguages.Add("Serbian", serbian);
             this.sitefinityLanguages.Add("Bulgarian", bulgarian);
-            this.sitefinityLanguages.Add("Dutch", dutch);
-            this.sitefinityLanguages.Add("French", french);
         }
 
         private void AssertLanguageLinks(string pageContent, Dictionary<CultureInfo, string> links, Dictionary<CultureInfo, string> notVisiblelinks)
