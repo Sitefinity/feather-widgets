@@ -137,7 +137,7 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Models
                 if (this.UseCustomConfirmation)
                     return this.CustomConfirmationMode == CustomConfirmationMode.RedirectToAPage;
                 else
-                    return this.FormData.SubmitAction == SubmitAction.PageRedirect;
+                    return this.FormData != null && this.FormData.SubmitAction == SubmitAction.PageRedirect;
             }
         }
 
