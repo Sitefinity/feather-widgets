@@ -62,11 +62,6 @@ namespace Telerik.Sitefinity.Frontend.Search.Mvc.Models
         {
             get
             {
-                if (this.limitCount == null)
-                {
-                    this.limitCount = this.ItemsPerPage;
-                }
-
                 return this.limitCount;
             }
 
@@ -360,7 +355,7 @@ namespace Telerik.Sitefinity.Frontend.Search.Mvc.Models
 
         #region Private fields and constants
 
-        private int? limitCount;
+        private int? limitCount = 20;
         private int? itemsPerPage = 20;
         private string[] searchFields = new[] { "Title", "Content" };
         private string[] highlightedFields = new[] { "Title", "Content" };

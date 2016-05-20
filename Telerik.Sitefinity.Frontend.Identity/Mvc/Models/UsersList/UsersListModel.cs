@@ -140,11 +140,6 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.UsersList
         {
             get
             {
-                if (this.limitCount == null)
-                {
-                    this.limitCount = this.ItemsPerPage;
-                }
-
                 return this.limitCount;
             }
 
@@ -561,7 +556,7 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.UsersList
         private UserProfileManager manager;
         private string providerName;
         private int? itemsPerPage = 20;
-        private int? limitCount;
+        private int? limitCount = 20;
         private string sortExpression = DefaultSortExpression;
         private string serializedSelectedItemsIds;
         private string serializedAdditionalFilters;
