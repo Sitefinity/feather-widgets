@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using ArtOfTest.Common.UnitTesting;
 using ArtOfTest.WebAii.Controls.HtmlControls;
 using ArtOfTest.WebAii.Core;
@@ -93,6 +95,27 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend.Forms
             HtmlTableCell textbox = this.EM.Forms.FormsBackend.SectionHeaderText.AssertIsPresent("Text field");
             textbox.MouseClick();
             Manager.Current.Desktop.KeyBoard.TypeText(sectionHeader);
+        }
+
+        /// <summary>
+        /// Verifies the Web framework section
+        /// </summary>
+        public void VerifyWebFrameworkOptions(bool isFeatherModuleActive)
+        {
+            HtmlDiv advancedSection = EM.Forms.FormsPropertiesScreenBaseFeather.AdvancedSection;
+
+            if (isFeatherModuleActive == true)
+            {
+                Assert.IsTrue(advancedSection.InnerText.Contains("Web framework"));
+                Assert.IsTrue(advancedSection.InnerText.Contains("MVC only"));
+                Assert.IsTrue(advancedSection.InnerText.Contains("Web Forms only"));
+            }
+            else
+            {
+                Assert.IsFalse(advancedSection.InnerText.Contains("Web Framework"));
+                Assert.IsFalse(advancedSection.InnerText.Contains("MVC only"));
+                Assert.IsFalse(advancedSection.InnerText.Contains("Web Forms only"));
+            }
         }
     }
 }

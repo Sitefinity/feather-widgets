@@ -51,10 +51,14 @@ namespace FeatherWidgets.TestUI.Arrangements
         /// </summary>
         [ServerTearDown]
         public void ClearUp()
-        {            
-            ServerOperations.Images().DeleteLibrary(AlbumName);
+        {
+            AuthenticationHelper.AuthenticateUser(AdminUserName, AdminPass, true);
+            ServerOperations.Images().DeleteLibrary(AlbumName, false);
             ServerOperations.Pages().DeleteAllPages();
-            ServerOperations.ModuleBuilder().DeleteDirectory(this.tempFolderPath);
+
+            if (System.IO.Directory.Exists(this.tempFolderPath))
+                ServerOperations.ModuleBuilder().DeleteDirectory(this.tempFolderPath);
+
             ServerOperations.Packaging().DeleteAllPackagesFromDB();
 
             for (int i = 0; i < this.widgetTemplatesNames.Length; i++)
@@ -91,6 +95,8 @@ namespace FeatherWidgets.TestUI.Arrangements
             ServerOperations.Taxonomies().DeleteFlatTaxonomy(flatClassificationVideo);
         }
 
+        private const string AdminUserName = "admin";
+        private const string AdminPass = "admin@2";
         private const string InstallationPath = @"App_Data\Sitefinity";
         private const string PackageResource = "FeatherWidgets.TestUtilities.Data.Packaging.Structure.LibrariesStructure.zip";
         private const string PackageResourceEdited = "FeatherWidgets.TestUtilities.Data.Packaging.Structure.LibrariesEdited.zip";
