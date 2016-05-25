@@ -74,6 +74,14 @@ namespace Telerik.Sitefinity.Frontend.News.Mvc.Models
         int? ItemsPerPage { get; set; }
 
         /// <summary>
+        /// Gets or sets the items limit count.
+        /// </summary>
+        /// <value>
+        /// The items limit.
+        /// </value>
+        int? LimitCount { get; set; }
+
+        /// <summary>
         /// Gets or sets the sort expression.
         /// </summary>
         /// <value>

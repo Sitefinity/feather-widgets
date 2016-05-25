@@ -283,7 +283,13 @@
     </Compile>
     <Compile Include="ApplicationPreStart.cs" />
     <Compile Include="BlogPosts\AddBlogPostsWidgetToPageOpenSingleItemInExistingPage.cs" />
+    <Compile Include="BlogPosts\VerifyNoLimitAndPaginationListSettingsOnFrontendPageForBlogPostsWidget.cs" />
+    <Compile Include="BlogPosts\VerifyUseLimitListSettingsOnFrontendPageForBlogPostsWidget.cs" />
+    <Compile Include="Blogs\VerifyNoLimitAndPaginationListSettingsOnFrontendPageForBlogsWidget.cs" />
+    <Compile Include="Blogs\VerifyUseLimitListSettingsOnFrontendPageForBlogsWidget.cs" />
     <Compile Include="Blogs\DragAndDropBlogsWidgetToPage.cs" />
+    <Compile Include="BlogPosts\VerifyPagingOnFrontendPageForBlogPostsWidget.cs" />
+    <Compile Include="Blogs\VerifyPagingOnFrontendPageForBlogsWidget.cs" />
     <Compile Include="CardWidget\AddCardWidgetOnPageBasedOnBootstrapTemplate.cs" />
     <Compile Include="CardWidget\AddCardWidgetOnPageTemplate.cs" />
     <Compile Include="CardWidget\AddCssToCardWidget.cs" />
@@ -383,6 +389,9 @@
     <Compile Include="ContentBlocks\UseSharedContentFromPage.cs" />
     <Compile Include="ContentBlocks\VideoSelector\CheckNavigationInVideoSelector.cs" />
     <Compile Include="ContentBlocks\VideoSelector\EditAllPropertiesOfSelectedVideoAndSearch.cs" />
+    <Compile Include="DocumentList\VerifyUseLimitListSettingsOnFrontendPageForDocumentsListWidget.cs" />
+    <Compile Include="DocumentList\VerifyNoLimitAndPaginationListSettingsOnFrontendPageForDocumentsListWidget.cs" />
+    <Compile Include="DocumentList\VerifyPagingOnFrontendPageForDocumentsListWidget.cs" />
     <Compile Include="EmailCampaigns\DeleteSelectedMailListAndPageInUnsubscribeWidget.cs" />
     <Compile Include="EmailCampaigns\DeleteSelectedMailListAndPageInSubscribeFormWidget.cs" />
     <Compile Include="EmailCampaigns\DragAndDropUnsubscribeWidgetAndSelectMailingList.cs" />
@@ -394,11 +403,14 @@
     <Compile Include="EmailCampaigns\TryToUnsubscribeNotExistingSubscriber.cs" />
     <Compile Include="EmailCampaigns\UnsubscribeWidgetOnFoundationAndSemanticPage.cs" />
     <Compile Include="EmailCampaigns\UnsubscribeWidgetOnHybridPageAndSetCssClass.cs" />
+    <Compile Include="Events\VerifyNoLimitAndPaginationListSettingsOnFrontendPageForEventsWidget.cs" />
+    <Compile Include="Events\VerifyUseLimitListSettingsOnFrontendPageForEventsWidget.cs" />
     <Compile Include="Events\FilterEventCommon.cs" />
     <Compile Include="Events\FilterByAllEvents.cs" />
     <Compile Include="Events\DragAndDropEventsWidgetOnPage.cs" />
     <Compile Include="Events\EventsTestsCommon.cs" />
     <Compile Include="Events\SelectParticularEventOnPage.cs" />
+    <Compile Include="Events\VerifyPagingOnFrontendPageForEventsWidget.cs" />
     <Compile Include="FeedWidget\DragAndDropFeedWidgetAndSetDefaultRssOnPage.cs" />
     <Compile Include="Forms\CAPTCHA\ChangeCAPTCHATemplate.cs" />
     <Compile Include="Forms\Checkboxes\AddAndRemoveChoicesToCheckBoxField.cs" />
@@ -517,9 +529,15 @@
     <Compile Include="Identity\VerifyLoginWidgetWhenOpenItemDetailViewAndForgotPassword.cs" />
     <Compile Include="Identity\VerifyRegistrationWidgetAndProfileWidgetOnPreviewBootstrapTemplate.cs" />
     <Compile Include="Identity\VerifyRegistrationWidgetAndProfileWidgetOnPreviewPage.cs" />
+    <Compile Include="ImageGallery\VerifyUseLimitListSettingsOnFrontendPageForImageGalleryWidget.cs" />
+    <Compile Include="ImageGallery\VerifyNoLimitAndPaginationListSettingsOnFrontendPageForImageGalleryWidget.cs" />
+    <Compile Include="ImageGallery\VerifyPagingOnFrontendPageForImageGalleryWidget.cs" />
     <Compile Include="Lists\VerifyListTemplatesOnBootstrap.cs" />
     <Compile Include="Navigation\LanguageSelectorXssAttack.cs" />
+    <Compile Include="News\VerifyUseLimitListSettingsOnFrontendPageForNewsWidget.cs" />
+    <Compile Include="News\VerifyNoLimitAndPaginationListSettingsOnFrontendPageForNewsWidget.cs" />
     <Compile Include="News\VerifyNewsItemsWhenOpenDetailsModeOfDynamicItem.cs" />
+    <Compile Include="News\VerifyPagingOnFrontendPageForNewsWidget.cs" />
     <Compile Include="Packaging\DynamicContent\ExportImportFlatModuleAllFieldsFrontendCheck.cs" />
     <Compile Include="Packaging\DynamicContent\ImportEditedFlatModuleAllFieldsWithNewType.cs" />
     <Compile Include="Packaging\DynamicContent\ImportFlatModuleAllFields.cs" />
@@ -544,6 +562,9 @@
     <Compile Include="ScriptsAndStyles\WriteAndEditCssInEmbedCodeWidget.cs" />
     <Compile Include="EmailCampaigns\DragAndDropSubscribeFormWidgetOnPageAndSelectMailingList.cs" />
     <Compile Include="SystemSetup\SetupSitefinityForMultisiteMultilingual.cs" />
+    <Compile Include="VideoGallery\VerifyUseLimitListSettingsOnFrontendPageForVideoGalleryWidget.cs" />
+    <Compile Include="VideoGallery\VerifyNoLimitAndPaginationListSettingsOnFrontendPageForVideoGalleryWidget.cs" />
+    <Compile Include="VideoGallery\VerifyPagingOnFrontendPageForVideoGalleryWidget.cs" />
     <Compile Include="VideoGallery\FilterVideosWithCategoryTagAndDateOnPage.cs" />
     <Compile Include="VideoGallery\SelectAllPublishedVideosWithOverlayGalleryTemplate.cs" />
     <Compile Include="VideoGallery\SelectAllPublishedVideos.cs" />

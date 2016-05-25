@@ -339,5 +339,30 @@ namespace Feather.Widgets.TestUI.Framework.Framework.ElementMap.Widgets
                 return this.Get<HtmlInputText>("tagname=input", "ng-model=properties.CssClass.PropertyValue");
             }
         }
+
+        /// <summary>
+        /// Pagings the value.
+        /// </summary>
+        /// <param name="selectedListSettingOption">The selected list setting option.</param>
+        /// <returns></returns>
+        public HtmlInputText PagingValue(string selectedListSettingOption)
+        {
+            return this.Get<HtmlInputText>("tagname=input", "ng-disabled=~" + selectedListSettingOption);
+        }
+
+        /// <summary>
+        /// Gets the cancel button.
+        /// </summary>
+        /// <value>
+        /// The cancel button.
+        /// </value>
+        public HtmlAnchor CancelButton
+        {
+            get
+            {
+                return this.Get<HtmlAnchor>("tagname=a", "innerText=Cancel");
+            }
+        }
+
     }
 }

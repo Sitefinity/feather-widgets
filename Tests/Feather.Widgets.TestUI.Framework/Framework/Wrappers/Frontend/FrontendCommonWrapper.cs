@@ -48,6 +48,21 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Frontend
             Assert.AreEqual(200, (int)response.StatusCode);
         }
 
+        /// <summary>
+        /// Navigates to page using pager.
+        /// </summary>
+        /// <param name="page">The page.</param>
+        public void NavigateToPageUsingPager(string page, int expCount)
+        {
+            HtmlUnorderedList pager = ActiveBrowser.Find.ByExpression<HtmlUnorderedList>("TagName=ul", "class=pagination")
+                .AssertIsPresent("Pager");
+
+            Assert.AreEqual(expCount, pager.ChildNodes.Count, "Unexpected number of pages on for pager");
+            HtmlAnchor numPage = ActiveBrowser.Find.ByXPath<HtmlAnchor>("*//li[" + page + "]/a[text()=" + page + "]");
+            numPage.Click();
+        }
+
+
         private const int TimeOut = 30000;
     }
 }

@@ -270,7 +270,7 @@ namespace FeatherWidgets.TestIntegration.SearchResults
                 string orderBy = "Oldest";
                 var searchResultsController = new SearchResultsController();
                 searchResultsController.Model.DisplayMode = Telerik.Sitefinity.Frontend.Search.Mvc.Models.ListDisplayMode.Limit;
-                searchResultsController.Model.ItemsPerPage = 2;
+                searchResultsController.Model.LimitCount = 2;
                 int expectedResultsCount = 2;
 
                 var mvcProxy = new MvcControllerProxy();
@@ -318,6 +318,7 @@ namespace FeatherWidgets.TestIntegration.SearchResults
                 var searchResultsController = new SearchResultsController();
                 searchResultsController.Model.DisplayMode = Telerik.Sitefinity.Frontend.Search.Mvc.Models.ListDisplayMode.All;
                 searchResultsController.Model.ItemsPerPage = 2;
+                searchResultsController.Model.LimitCount = 2;
 
                 var mvcProxy = new MvcControllerProxy();
                 mvcProxy.ControllerName = typeof(NewsController).FullName;

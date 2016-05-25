@@ -81,7 +81,7 @@ namespace FeatherWidgets.TestIntegration.MediaGalleryWidgets
             documentsListController.Model.SelectionMode = SelectionMode.AllItems;
             documentsListController.Model.DisplayMode = ListDisplayMode.Limit;
             documentsListController.Model.SortExpression = "Title ASC";
-            documentsListController.Model.ItemsPerPage = 1;
+            documentsListController.Model.LimitCount = 1;
             mvcProxy.Settings = new ControllerSettings(documentsListController);
 
             var docs = documentsListController.Model.CreateListViewModel(null, 1).Items.ToArray();
@@ -104,6 +104,7 @@ namespace FeatherWidgets.TestIntegration.MediaGalleryWidgets
             documentsListController.Model.DisplayMode = ListDisplayMode.All;
             documentsListController.Model.SortExpression = "Title ASC";
             documentsListController.Model.ItemsPerPage = 1;
+            documentsListController.Model.LimitCount = 1;
             mvcProxy.Settings = new ControllerSettings(documentsListController);
 
             var docs = documentsListController.Model.CreateListViewModel(null, 1).Items.ToArray();

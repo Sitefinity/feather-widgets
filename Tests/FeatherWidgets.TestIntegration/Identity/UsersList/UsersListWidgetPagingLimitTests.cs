@@ -82,7 +82,7 @@ namespace FeatherWidgets.TestIntegration.Identity.UsersList
             usersListController.Model.SelectionMode = SelectionMode.AllItems;
             usersListController.Model.DisplayMode = ListDisplayMode.Limit;
             usersListController.Model.SortExpression = "FirstName ASC";
-            usersListController.Model.ItemsPerPage = 1;
+            usersListController.Model.LimitCount = 1;
             mvcProxy.Settings = new ControllerSettings(usersListController);
 
             var users = usersListController.Model.CreateListViewModel(1).Items.ToArray();
@@ -105,6 +105,7 @@ namespace FeatherWidgets.TestIntegration.Identity.UsersList
             usersListController.Model.DisplayMode = ListDisplayMode.All;
             usersListController.Model.SortExpression = "FirstName ASC";
             usersListController.Model.ItemsPerPage = 1;
+            usersListController.Model.LimitCount = 1;
             mvcProxy.Settings = new ControllerSettings(usersListController);
 
             var users = usersListController.Model.CreateListViewModel(1).Items.ToArray();
