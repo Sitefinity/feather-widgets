@@ -10,6 +10,7 @@ using Telerik.Sitefinity.Localization;
 using Telerik.Sitefinity.Modules.Pages.Configuration;
 using Telerik.Sitefinity.Mvc;
 using Telerik.Sitefinity.Mvc.ActionFilters;
+using Telerik.Sitefinity.Services;
 using Telerik.Sitefinity.Web.UI;
 
 namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Controllers
@@ -50,6 +51,9 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Controllers
             var viewModel = this.Model.GetViewModel();
             if (viewModel != null)
             {
+                if (SystemManager.CurrentHttpContext != null)
+                    this.AddCacheDependencies(this.Model.GetKeysOfDependentObjects(viewModel));
+
                 if (string.IsNullOrEmpty(viewModel.Error))
                 {
                     var viewPath = this.GetViewPath(this.Model.FormId);
@@ -136,7 +140,7 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Controllers
             }
         }
 
-        #endregion 
+        #endregion
 
         #region Controller overrides
 

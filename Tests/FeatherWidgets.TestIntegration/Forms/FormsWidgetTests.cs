@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Globalization;
 using System.Linq;
 using System.Net;
 using System.Reflection;
@@ -11,12 +12,14 @@ using Telerik.Sitefinity.Frontend.GridSystem;
 using Telerik.Sitefinity.Frontend.Mvc.Infrastructure.Controllers;
 using Telerik.Sitefinity.Frontend.TestUtilities;
 using Telerik.Sitefinity.Frontend.TestUtilities.CommonOperations;
+using Telerik.Sitefinity.Modules.Forms;
 using Telerik.Sitefinity.Modules.Pages;
 using Telerik.Sitefinity.Mvc.Proxy;
+using Telerik.Sitefinity.Mvc.TestUtilities.Helpers;
 using Telerik.Sitefinity.TestIntegration.Data.Content;
 using Telerik.Sitefinity.TestIntegration.SDK.DevelopersGuide.SitefinityEssentials.Modules.Forms;
+using Telerik.Sitefinity.TestUtilities.CommonOperations;
 using Telerik.Sitefinity.Web;
-using Telerik.WebTestRunner.Server.Attributes;
 
 namespace FeatherWidgets.TestIntegration.Forms
 {
@@ -115,7 +118,6 @@ namespace FeatherWidgets.TestIntegration.Forms
         /// Ensures that when a form is submited with a forums widget on the same page, on custom hybrid layout, no exception is thrown.
         /// </summary>
         [Test]
-        [Ignore("Depends on Sitefinity 9.0")]
         [Category(TestCategories.Forms)]
         [Author(FeatherTeams.SitefinityTeam6)]
         [Description("Ensures that when a form is submited with a forums widget on the same page, on custom hybrid layout, no exception is thrown.")]
@@ -124,7 +126,7 @@ namespace FeatherWidgets.TestIntegration.Forms
             var testName = MethodInfo.GetCurrentMethod().Name;
             var templateName = testName + "template";
             var pageName = testName + "page";
-            
+
             var submitButtonControl = new MvcWidgetProxy();
             submitButtonControl.ControllerName = typeof(SubmitButtonController).FullName;
             submitButtonControl.Settings = new ControllerSettings(new SubmitButtonController());
@@ -176,6 +178,57 @@ namespace FeatherWidgets.TestIntegration.Forms
             var needsRedirect = controller.Model.NeedsRedirect;
             Type expectedType = typeof(bool);
             Assert.AreEqual(needsRedirect.GetType(), expectedType);
+        }
+
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Naming", "CA1704:IdentifiersShouldBeSpelledCorrectly", MessageId = "Unpublish"), Test]
+        [Category(TestCategories.Forms)]
+        [Author(FeatherTeams.SitefinityTeam6)]
+        [Description("Ensures that the form widget have correct cache dependency behavior when form is unpublished/published")]
+        public void FormsWidget_LoadingMvcForm_UnpublishPublish()
+        {
+            var testName = MethodInfo.GetCurrentMethod().Name;
+            var pageName = testName + "page";
+            Guid pageId = Guid.Empty;
+            var formId = Guid.Empty;
+
+            try
+            {
+                var fields = new FeatherWidgets.TestUtilities.CommonOperations.Forms.FormFieldType[] 
+                { 
+                    FeatherWidgets.TestUtilities.CommonOperations.Forms.FormFieldType.TextField,
+                    FeatherWidgets.TestUtilities.CommonOperations.Forms.FormFieldType.SubmitButton
+                };
+
+                formId = ServerOperationsFeather.Forms().CreateFormWithWidgets(fields, "NewForm");
+                pageId = ServerOperations.Pages().CreatePage(pageName);
+                string url = UrlPath.ResolveAbsoluteUrl("~/" + pageName);
+                ServerOperationsFeather.Forms().AddFormControlToPage(pageId, formId, FeatherGlobals.FormName, "Body");
+
+                var formManager = FormsManager.GetManager();
+                var form = formManager.GetForms().FirstOrDefault(f => f.Id == formId);
+
+                Assert.IsFalse(form == null, "Testing form is missing");
+
+                var errorMessage = new FormsResources().TheSpecifiedFormNoLongerExists;
+
+                string publishFormPageContentFirst = WebRequestHelper.GetPageWebContent(url);
+                Assert.IsFalse(publishFormPageContentFirst.Contains(errorMessage), string.Format(CultureInfo.InvariantCulture, "Unexpected message in page: {0}", errorMessage));
+
+                formManager.UnpublishForm(formId);
+                formManager.SaveChanges();
+                string unpublishFormPageContent = WebRequestHelper.GetPageWebContent(url);
+                Assert.IsTrue(unpublishFormPageContent.Contains(errorMessage), string.Format(CultureInfo.InvariantCulture, "Expected message in page: {0}", errorMessage));
+
+                formManager.PublishForm(form);
+                formManager.SaveChanges();
+                string publishFormPageContentSecond = WebRequestHelper.GetPageWebContent(url);
+                Assert.IsFalse(publishFormPageContentSecond.Contains(errorMessage), string.Format(CultureInfo.InvariantCulture, "Unexpected message in page: {0}", errorMessage));
+            }
+            finally
+            {
+                ServerOperations.Pages().DeletePage(pageId);
+                FormsModuleCodeSnippets.DeleteForm(formId);
+            }
         }
     }
 }

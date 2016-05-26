@@ -5,6 +5,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using Telerik.Sitefinity.Abstractions;
+using Telerik.Sitefinity.Data;
 using Telerik.Sitefinity.Forms.Model;
 using Telerik.Sitefinity.Frontend.Forms.Mvc.Controllers.Base;
 using Telerik.Sitefinity.Frontend.Forms.Mvc.Models.Fields;
@@ -83,8 +84,8 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Models
 
         /// <inheritDoc/>
         public string CssClass
-        { 
-            get 
+        {
+            get
             {
                 if (this.cssClass == null && this.FormData != null)
                     this.cssClass = this.FormData.CssClass;
@@ -92,7 +93,7 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Models
                 return this.cssClass;
             }
 
-            set 
+            set
             {
                 this.cssClass = value;
             }
@@ -142,7 +143,7 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Models
         }
 
         public bool IsMultiStep { get; set; }
-        
+
         #endregion
 
         #region Public methods
@@ -359,14 +360,14 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Models
                     controlType = FormsManager.GetControlType(control);
                 else
                     controlType = TypeResolutionService.ResolveType(behaviorResolver.GetBehaviorObjectType(control), true);
-        
+
                 if (!controlType.ImplementsGenericInterface(typeof(IFormElementController<>)))
                     continue;
-                
+
                 var controlInstance = manager.LoadControl(control);
                 var controlBehaviorObject = behaviorResolver.GetBehaviorObject(controlInstance);
                 var formField = controlBehaviorObject as IFormFieldController<IFormFieldModel>;
-                
+
                 if (formField != null)
                 {
                     if (!this.RaiseFormFieldValidatingEvent(formField))
@@ -471,9 +472,9 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Models
         /// <returns>Whether validation succeeded.</returns>
         protected virtual bool RaiseFormFieldValidatingEvent(IFormFieldControl control)
         {
-            var formEvent = new FormFieldValidatingEvent() 
-            { 
-                FormFieldControl = control 
+            var formEvent = new FormFieldValidatingEvent()
+            {
+                FormFieldControl = control
             };
 
             return !this.ValidationEventFailed(formEvent);
@@ -494,6 +495,35 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Models
         protected override IQueryable<IDataItem> GetItemsQuery()
         {
             return ((FormsManager)this.GetManager()).GetForms().Where(f => f.Framework == FormFramework.Mvc);
+        }
+
+        /// <summary>
+        /// Gets a collection of <see cref="CacheDependencyNotifiedObject"/>.
+        ///     The <see cref="CacheDependencyNotifiedObject"/> represents a key for which cached items could be subscribed for
+        ///     notification.
+        ///     When notified, all cached objects with dependency on the provided keys will expire.
+        /// </summary>
+        /// <param name="viewModel">View model that will be used for displaying the data.</param>
+        /// <returns>
+        /// The <see cref="IList"/>.
+        /// </returns>
+        public virtual IList<CacheDependencyKey> GetKeysOfDependentObjects(FormViewModel viewModel)
+        {
+            if (this.ContentType != null)
+            {
+                var contentResolvedType = this.ContentType;
+                var result = new List<CacheDependencyKey>(1);
+                if (viewModel != null && !string.IsNullOrWhiteSpace(viewModel.FormId))
+                {
+                    result.Add(new CacheDependencyKey { Key = viewModel.FormId, Type = contentResolvedType });
+                }
+
+                return result;
+            }
+            else
+            {
+                return new List<CacheDependencyKey>(0);
+            }
         }
 
         #endregion
