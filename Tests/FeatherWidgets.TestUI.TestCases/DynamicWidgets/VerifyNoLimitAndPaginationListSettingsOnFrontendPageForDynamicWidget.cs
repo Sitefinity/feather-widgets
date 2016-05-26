@@ -6,53 +6,52 @@ using FeatherWidgets.TestUI.TestCases;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Telerik.Sitefinity.TestUI.Framework.Utilities;
 
-namespace FeatherWidgets.TestUI.TestCases.Blogs
+namespace FeatherWidgets.TestUI.TestCases.DynamicWidgets
 {
     /// <summary>
-    /// VerifyPagingOnFrontendPageForBlogsWidget_ test class.
+    /// VerifyNoLimitAndPaginationListSettingsOnFrontendPageForDynamicWidget_ test class.
     /// </summary>
     [TestClass]
-    public class VerifyPagingOnFrontendPageForBlogsWidget_ : FeatherTestCase
+    public class VerifyNoLimitAndPaginationListSettingsOnFrontendPageForDynamicWidget_ : FeatherTestCase
     {
         /// <summary>
-        /// UI test VerifyPagingOnFrontendPageForBlogsWidget
+        /// UI test VerifyNoLimitAndPaginationListSettingsOnFrontendPageForDynamicWidget
         /// </summary>
         [TestMethod,
         Owner(FeatherTeams.SitefinityTeam7),
         TestCategory(FeatherTestCategories.PagesAndContent), 
-        TestCategory(FeatherTestCategories.Blogs)]
-        public void VerifyPagingOnFrontendPageForBlogsWidget()
+        TestCategory(FeatherTestCategories.DynamicWidgets)]
+        public void VerifyNoLimitAndPaginationListSettingsOnFrontendPageForDynamicWidget()
         {
             RuntimeSettingsModificator.ExecuteWithClientTimeout(800000, () => BAT.Macros().NavigateTo().CustomPage("~/sitefinity/pages", true, null, new HtmlFindExpression("class=~sfMain")));
+            BAT.Macros().User().EnsureAdminLoggedIn();
             BAT.Macros().NavigateTo().Pages(this.Culture);
             BAT.Wrappers().Backend().Pages().PagesWrapper().OpenPageZoneEditor(PageName);
             BATFeather.Wrappers().Backend().Pages().PageZoneEditorWrapper().EditWidget(WidgetName);
             BATFeather.Wrappers().Backend().Widgets().WidgetDesignerWrapper().SwitchToListSettingsTab();
-            BATFeather.Wrappers().Backend().Widgets().WidgetDesignerWrapper().VerifyCheckedRadioButtonOption(WidgetDesignerRadioButtonIds.usePaging);
+            BATFeather.Wrappers().Backend().Widgets().WidgetDesignerWrapper().VerifyPageValue("20", "Paging");
+            BATFeather.Wrappers().Backend().Widgets().WidgetDesignerWrapper().VerifyPageValue("20", "Limit");
             BATFeather.Wrappers().Backend().Widgets().WidgetDesignerWrapper().ChangePagingOrLimitValue("2", "Paging");
             BATFeather.Wrappers().Backend().Widgets().WidgetDesignerWrapper().VerifyPageValue("2", "Paging");
             BATFeather.Wrappers().Backend().Widgets().WidgetDesignerWrapper().VerifyPageValue("20", "Limit");
             BATFeather.Wrappers().Backend().Widgets().WidgetDesignerWrapper().SaveChanges();
             BATFeather.Wrappers().Backend().Pages().PageZoneEditorWrapper().EditWidget(WidgetName);
             BATFeather.Wrappers().Backend().Widgets().WidgetDesignerWrapper().SwitchToListSettingsTab();
-            BATFeather.Wrappers().Backend().Widgets().WidgetDesignerWrapper().VerifyCheckedRadioButtonOption(WidgetDesignerRadioButtonIds.usePaging);
+            BATFeather.Wrappers().Backend().Widgets().WidgetDesignerWrapper().VerifyPageValue("2", "Paging");
+            BATFeather.Wrappers().Backend().Widgets().WidgetDesignerWrapper().VerifyPageValue("20", "Limit");
+            BATFeather.Wrappers().Backend().Widgets().WidgetDesignerWrapper().SelectRadioButtonOption(WidgetDesignerRadioButtonIds.allItems);
+            BATFeather.Wrappers().Backend().Widgets().WidgetDesignerWrapper().VerifyCheckedRadioButtonOption(WidgetDesignerRadioButtonIds.allItems);
+            BATFeather.Wrappers().Backend().Widgets().WidgetDesignerWrapper().SaveChanges();
+            BATFeather.Wrappers().Backend().Pages().PageZoneEditorWrapper().EditWidget(WidgetName);
+            BATFeather.Wrappers().Backend().Widgets().WidgetDesignerWrapper().SwitchToListSettingsTab();
+            BATFeather.Wrappers().Backend().Widgets().WidgetDesignerWrapper().VerifyCheckedRadioButtonOption(WidgetDesignerRadioButtonIds.allItems);
             BATFeather.Wrappers().Backend().Widgets().WidgetDesignerWrapper().VerifyPageValue("2", "Paging");
             BATFeather.Wrappers().Backend().Widgets().WidgetDesignerWrapper().VerifyPageValue("20", "Limit");
             BATFeather.Wrappers().Backend().Widgets().WidgetDesignerWrapper().PressCancelButton();
             BAT.Wrappers().Backend().Pages().PageZoneEditorWrapper().PublishPage();
 
             BAT.Macros().NavigateTo().CustomPage("~/" + PageName.ToLower(), true, this.Culture);
-            Assert.IsTrue(BATFeather.Wrappers().Frontend().Blogs().BlogsWrapper().IsBlogTitlesPresentOnThePageFrontend(new string[] { BlogTitle5, BlogTitle4 }));
-            Assert.IsFalse(BATFeather.Wrappers().Frontend().Blogs().BlogsWrapper().IsBlogTitlesPresentOnThePageFrontend(new string[] { BlogTitle3, BlogTitle2, BlogTitle1 }));
-            BATFeather.Wrappers().Frontend().CommonWrapper().NavigateToPageUsingPager("2", 3);
-            Assert.IsTrue(BATFeather.Wrappers().Frontend().Blogs().BlogsWrapper().IsBlogTitlesPresentOnThePageFrontend(new string[] { BlogTitle3, BlogTitle2 }));
-            Assert.IsFalse(BATFeather.Wrappers().Frontend().Blogs().BlogsWrapper().IsBlogTitlesPresentOnThePageFrontend(new string[] { BlogTitle5, BlogTitle4, BlogTitle1 }));
-            BATFeather.Wrappers().Frontend().CommonWrapper().NavigateToPageUsingPager("3", 3);
-            Assert.IsTrue(BATFeather.Wrappers().Frontend().Blogs().BlogsWrapper().IsBlogTitlesPresentOnThePageFrontend(new string[] { BlogTitle1 }));
-            Assert.IsFalse(BATFeather.Wrappers().Frontend().Blogs().BlogsWrapper().IsBlogTitlesPresentOnThePageFrontend(new string[] { BlogTitle5, BlogTitle4, BlogTitle3, BlogTitle2 }));
-            BATFeather.Wrappers().Frontend().CommonWrapper().NavigateToPageUsingPager("1", 3);
-            Assert.IsTrue(BATFeather.Wrappers().Frontend().Blogs().BlogsWrapper().IsBlogTitlesPresentOnThePageFrontend(new string[] { BlogTitle5, BlogTitle4 }));
-            Assert.IsFalse(BATFeather.Wrappers().Frontend().Blogs().BlogsWrapper().IsBlogTitlesPresentOnThePageFrontend(new string[] { BlogTitle3, BlogTitle2, BlogTitle1 }));
+            Assert.IsTrue(BATFeather.Wrappers().Frontend().CommonWrapper().AreTitlesPresentOnThePageFrontend(new string[] { DynamicTitle1, DynamicTitle2, DynamicTitle3, DynamicTitle4, DynamicTitle5 }));
             BAT.Macros().NavigateTo().Pages(this.Culture);
         }
 
@@ -73,12 +72,12 @@ namespace FeatherWidgets.TestUI.TestCases.Blogs
             BAT.Arrange(this.TestName).ExecuteTearDown();
         }
 
-        private const string PageName = "BlogsPage";
-        private const string WidgetName = "Blogs";
-        private const string BlogTitle1 = "TestBlog1";
-        private const string BlogTitle2 = "TestBlog2";
-        private const string BlogTitle3 = "TestBlog3";
-        private const string BlogTitle4 = "TestBlog4";
-        private const string BlogTitle5 = "TestBlog5";
+        private const string PageName = "TestPage";
+        private const string WidgetName = "Press Articles MVC";
+        private const string DynamicTitle1 = "Title1";
+        private const string DynamicTitle2 = "Title2";
+        private const string DynamicTitle3 = "Title3";
+        private const string DynamicTitle4 = "Title4";
+        private const string DynamicTitle5 = "Title5";
     }
 }

@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System;
+using System.Collections.Generic;
 using System.Net.Http;
 using ArtOfTest.Common.UnitTesting;
 using ArtOfTest.WebAii.Controls.HtmlControls;
@@ -62,6 +63,26 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Frontend
             numPage.Click();
         }
 
+        /// <summary>
+        /// Ares the titles present on the page frontend.
+        /// </summary>
+        /// <param name="itemTitles">The item titles.</param>
+        /// <returns></returns>
+        public bool AreTitlesPresentOnThePageFrontend(IEnumerable<string> itemTitles)
+        {
+            HtmlDiv frontendPageMainDiv = BAT.Wrappers().Frontend().Pages().PagesWrapperFrontend().GetPageContent();
+
+            foreach (var title in itemTitles)
+            {
+                var itemAnchor = frontendPageMainDiv.Find.ByExpression<HtmlAnchor>("tagname=a", "InnerText=" + title);
+                if ((itemAnchor == null) || (itemAnchor != null && !itemAnchor.IsVisible()))
+                {
+                    return false;
+                }
+            }
+
+            return true;
+        }
 
         private const int TimeOut = 30000;
     }

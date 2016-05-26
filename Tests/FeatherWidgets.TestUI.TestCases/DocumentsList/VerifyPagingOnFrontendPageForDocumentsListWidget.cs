@@ -37,22 +37,22 @@ namespace FeatherWidgets.TestUI.TestCases.DocumentsList
             BATFeather.Wrappers().Backend().Widgets().WidgetDesignerWrapper().SwitchToListSettingsTab();
             BATFeather.Wrappers().Backend().Widgets().WidgetDesignerWrapper().VerifyCheckedRadioButtonOption(WidgetDesignerRadioButtonIds.usePaging);
             BATFeather.Wrappers().Backend().Widgets().WidgetDesignerWrapper().VerifyPageValue("2", "Paging");
-            //BATFeather.Wrappers().Backend().Widgets().WidgetDesignerWrapper().VerifyPageValue("20", "Limit");
+            BATFeather.Wrappers().Backend().Widgets().WidgetDesignerWrapper().VerifyPageValue("20", "Limit");
             BATFeather.Wrappers().Backend().Widgets().WidgetDesignerWrapper().PressCancelButton();
             BAT.Wrappers().Backend().Pages().PageZoneEditorWrapper().PublishPage();
 
             BAT.Macros().NavigateTo().CustomPage("~/" + PageName.ToLower(), true, this.Culture);
-            Assert.IsTrue(BATFeather.Wrappers().Frontend().DocumentsList().DocumentsListWrapper().AreDocumentTitlesPresentOnThePageFrontend(new string[] { DocumentTitles5, DocumentTitles4 }));
-            Assert.IsFalse(BATFeather.Wrappers().Frontend().DocumentsList().DocumentsListWrapper().AreDocumentTitlesPresentOnThePageFrontend(new string[] { DocumentTitles3, DocumentTitles2, DocumentTitles1 }));
+            Assert.IsTrue(BATFeather.Wrappers().Frontend().CommonWrapper().AreTitlesPresentOnThePageFrontend(new string[] { DocumentTitles5, DocumentTitles4 }));
+            Assert.IsFalse(BATFeather.Wrappers().Frontend().CommonWrapper().AreTitlesPresentOnThePageFrontend(new string[] { DocumentTitles3, DocumentTitles2, DocumentTitles1 }));
             BATFeather.Wrappers().Frontend().CommonWrapper().NavigateToPageUsingPager("2", 3);
-            Assert.IsTrue(BATFeather.Wrappers().Frontend().DocumentsList().DocumentsListWrapper().AreDocumentTitlesPresentOnThePageFrontend(new string[] { DocumentTitles3, DocumentTitles2 }));
-            Assert.IsFalse(BATFeather.Wrappers().Frontend().DocumentsList().DocumentsListWrapper().AreDocumentTitlesPresentOnThePageFrontend(new string[] { DocumentTitles5, DocumentTitles4, DocumentTitles1 }));
+            Assert.IsTrue(BATFeather.Wrappers().Frontend().CommonWrapper().AreTitlesPresentOnThePageFrontend(new string[] { DocumentTitles3, DocumentTitles2 }));
+            Assert.IsFalse(BATFeather.Wrappers().Frontend().CommonWrapper().AreTitlesPresentOnThePageFrontend(new string[] { DocumentTitles5, DocumentTitles4, DocumentTitles1 }));
             BATFeather.Wrappers().Frontend().CommonWrapper().NavigateToPageUsingPager("3", 3);
-            Assert.IsTrue(BATFeather.Wrappers().Frontend().DocumentsList().DocumentsListWrapper().AreDocumentTitlesPresentOnThePageFrontend(new string[] { DocumentTitles1 }));
-            Assert.IsFalse(BATFeather.Wrappers().Frontend().DocumentsList().DocumentsListWrapper().AreDocumentTitlesPresentOnThePageFrontend(new string[] { DocumentTitles5, DocumentTitles4, DocumentTitles3, DocumentTitles2 }));
+            Assert.IsTrue(BATFeather.Wrappers().Frontend().CommonWrapper().AreTitlesPresentOnThePageFrontend(new string[] { DocumentTitles1 }));
+            Assert.IsFalse(BATFeather.Wrappers().Frontend().CommonWrapper().AreTitlesPresentOnThePageFrontend(new string[] { DocumentTitles5, DocumentTitles4, DocumentTitles3, DocumentTitles2 }));
             BATFeather.Wrappers().Frontend().CommonWrapper().NavigateToPageUsingPager("1", 3);
-            Assert.IsTrue(BATFeather.Wrappers().Frontend().DocumentsList().DocumentsListWrapper().AreDocumentTitlesPresentOnThePageFrontend(new string[] { DocumentTitles5, DocumentTitles4 }));
-            Assert.IsFalse(BATFeather.Wrappers().Frontend().DocumentsList().DocumentsListWrapper().AreDocumentTitlesPresentOnThePageFrontend(new string[] { DocumentTitles3, DocumentTitles2, DocumentTitles1 }));
+            Assert.IsTrue(BATFeather.Wrappers().Frontend().CommonWrapper().AreTitlesPresentOnThePageFrontend(new string[] { DocumentTitles5, DocumentTitles4 }));
+            Assert.IsFalse(BATFeather.Wrappers().Frontend().CommonWrapper().AreTitlesPresentOnThePageFrontend(new string[] { DocumentTitles3, DocumentTitles2, DocumentTitles1 }));
             BAT.Macros().NavigateTo().Pages(this.Culture);
         }
 
