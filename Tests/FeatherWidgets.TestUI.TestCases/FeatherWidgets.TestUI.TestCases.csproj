@@ -220,6 +220,9 @@
     <Compile Include="DocumentsList\VerifyNoLimitAndPaginationListSettingsOnFrontendPageForDocumentsListWidget.cs" />
     <Compile Include="DocumentsList\VerifyPagingOnFrontendPageForDocumentsListWidget.cs" />
     <Compile Include="DocumentsList\VerifyUseLimitListSettingsOnFrontendPageForDocumentsListWidget.cs" />
+    <Compile Include="DynamicWidgets\VerifyNoLimitAndPaginationListSettingsOnFrontendPageForDynamicWidget.cs" />
+    <Compile Include="DynamicWidgets\VerifyPagingOnFrontendPageForDynamicWidget.cs" />
+    <Compile Include="DynamicWidgets\VerifyUseLimitListSettingsOnFrontendPageForDynamicWidget.cs" />
     <Compile Include="EmailCampaigns\DeleteSelectedMailListAndPageInUnsubscribeWidget.cs" />
     <Compile Include="EmailCampaigns\DeleteSelectedMailListAndPageInSubscribeFormWidget.cs" />
     <Compile Include="EmailCampaigns\DragAndDropUnsubscribeWidgetAndSelectMailingList.cs" />

@@ -6,24 +6,25 @@ using FeatherWidgets.TestUI.TestCases;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Telerik.Sitefinity.TestUI.Framework.Utilities;
 
-namespace FeatherWidgets.TestUI.TestCases.Events
+namespace FeatherWidgets.TestUI.TestCases.DynamicWidgets
 {
     /// <summary>
-    /// VerifyUseLimitListSettingsOnFrontendPageForEventsWidget_ test class.
+    /// VerifyUseLimitListSettingsOnFrontendPageForDynamicWidget_ test class.
     /// </summary>
     [TestClass]
-    public class VerifyUseLimitListSettingsOnFrontendPageForEventsWidget_ : FeatherTestCase
+    public class VerifyUseLimitListSettingsOnFrontendPageForDynamicWidget_ : FeatherTestCase
     {
         /// <summary>
-        /// UI test VerifyUseLimitListSettingsOnFrontendPageForEventsWidget
+        /// UI test VerifyUseLimitListSettingsOnFrontendPageForDynamicWidget
         /// </summary>
         [TestMethod,
         Owner(FeatherTeams.SitefinityTeam7),
         TestCategory(FeatherTestCategories.PagesAndContent), 
-        TestCategory(FeatherTestCategories.Events)]
-        public void VerifyUseLimitListSettingsOnFrontendPageForEventsWidget()
+        TestCategory(FeatherTestCategories.DynamicWidgets)]
+        public void VerifyUseLimitListSettingsOnFrontendPageForDynamicWidget()
         {
             RuntimeSettingsModificator.ExecuteWithClientTimeout(800000, () => BAT.Macros().NavigateTo().CustomPage("~/sitefinity/pages", true, null, new HtmlFindExpression("class=~sfMain")));
+            BAT.Macros().User().EnsureAdminLoggedIn();
             BAT.Macros().NavigateTo().Pages(this.Culture);
             BAT.Wrappers().Backend().Pages().PagesWrapper().OpenPageZoneEditor(PageName);
             BATFeather.Wrappers().Backend().Pages().PageZoneEditorWrapper().EditWidget(WidgetName);
@@ -45,8 +46,8 @@ namespace FeatherWidgets.TestUI.TestCases.Events
             BAT.Wrappers().Backend().Pages().PageZoneEditorWrapper().PublishPage();
 
             BAT.Macros().NavigateTo().CustomPage("~/" + PageName.ToLower(), true, this.Culture);
-            Assert.IsTrue(BATFeather.Wrappers().Frontend().CommonWrapper().AreTitlesPresentOnThePageFrontend(new string[] { EventsTitle1, EventsTitle2, EventsTitle3 }));
-            Assert.IsFalse(BATFeather.Wrappers().Frontend().CommonWrapper().AreTitlesPresentOnThePageFrontend(new string[] { EventsTitle5, EventsTitle4 }));
+            Assert.IsTrue(BATFeather.Wrappers().Frontend().CommonWrapper().AreTitlesPresentOnThePageFrontend(new string[] { DynamicTitle5, DynamicTitle4, DynamicTitle3 }));
+            Assert.IsFalse(BATFeather.Wrappers().Frontend().CommonWrapper().AreTitlesPresentOnThePageFrontend(new string[] { DynamicTitle2, DynamicTitle1 }));
             BAT.Macros().NavigateTo().Pages(this.Culture);
         }
 
@@ -67,12 +68,12 @@ namespace FeatherWidgets.TestUI.TestCases.Events
             BAT.Arrange(this.TestName).ExecuteTearDown();
         }
 
-        private const string PageName = "EventsPage";
-        private const string WidgetName = "Events";
-        private const string EventsTitle1 = "TestEvent1";
-        private const string EventsTitle2 = "TestEvent2";
-        private const string EventsTitle3 = "TestEvent3";
-        private const string EventsTitle4 = "TestEvent4";
-        private const string EventsTitle5 = "TestEvent5";
+        private const string PageName = "TestPage";
+        private const string WidgetName = "Press Articles MVC";
+        private const string DynamicTitle1 = "Title1";
+        private const string DynamicTitle2 = "Title2";
+        private const string DynamicTitle3 = "Title3";
+        private const string DynamicTitle4 = "Title4";
+        private const string DynamicTitle5 = "Title5";
     }
 }

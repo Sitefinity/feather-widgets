@@ -45,8 +45,8 @@ namespace FeatherWidgets.TestUI.TestCases.VideoGallery
             BAT.Wrappers().Backend().Pages().PageZoneEditorWrapper().PublishPage();
 
             BAT.Macros().NavigateTo().CustomPage("~/" + PageName.ToLower(), true, this.Culture);
-            Assert.IsTrue(BATFeather.Wrappers().Frontend().VideoGallery().VideoGalleryWrapper().AreVideoTitlesPresentOnThePageFrontend(new string[] { VideoTitles5, VideoTitles4, VideoTitles3 }));
-            Assert.IsFalse(BATFeather.Wrappers().Frontend().VideoGallery().VideoGalleryWrapper().AreVideoTitlesPresentOnThePageFrontend(new string[] { VideoTitles2, VideoTitles1 }));
+            Assert.IsTrue(BATFeather.Wrappers().Frontend().CommonWrapper().AreTitlesPresentOnThePageFrontend(new string[] { VideoTitles5, VideoTitles4, VideoTitles3 }));
+            Assert.IsFalse(BATFeather.Wrappers().Frontend().CommonWrapper().AreTitlesPresentOnThePageFrontend(new string[] { VideoTitles2, VideoTitles1 }));
             BAT.Macros().NavigateTo().Pages(this.Culture);
         }
 
