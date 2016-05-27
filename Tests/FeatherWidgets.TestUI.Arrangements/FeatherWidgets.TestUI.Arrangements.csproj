@@ -544,6 +544,9 @@
     <Compile Include="ScriptsAndStyles\AddEmbedCodeWidgetToPageAndWriteAndRemoveJavaScript.cs" />
     <Compile Include="ScriptsAndStyles\WriteAndEditCssInEmbedCodeWidget.cs" />
     <Compile Include="EmailCampaigns\DragAndDropSubscribeFormWidgetOnPageAndSelectMailingList.cs" />
+    <Compile Include="Search\VerifyNoLimitAndPaginationListSettingsOnFrontendPageForSearchResultsWidget.cs" />
+    <Compile Include="Search\VerifyPagingOnFrontendPageForSearchResultsWidget.cs" />
+    <Compile Include="Search\VerifyUseLimitListSettingsOnFrontendPageForSearchResultsWidget.cs" />
     <Compile Include="SystemSetup\SetupSitefinityForMultisiteMultilingual.cs" />
     <Compile Include="VideoGallery\VerifyUseLimitListSettingsOnFrontendPageForVideoGalleryWidget.cs" />
     <Compile Include="VideoGallery\VerifyNoLimitAndPaginationListSettingsOnFrontendPageForVideoGalleryWidget.cs" />
