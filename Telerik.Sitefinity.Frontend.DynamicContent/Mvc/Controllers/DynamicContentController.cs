@@ -522,7 +522,8 @@ namespace Telerik.Sitefinity.Frontend.DynamicContent.Mvc.Controllers
                 return;
             }
 
-            this.ViewBag.RedirectPageUrlTemplate = this.ViewBag.RedirectPageUrlTemplate + this.HttpContext.Request.QueryString.ToQueryString();
+            var taxonQueryStringParams = HyperLinkHelpers.BuildTaxonQueryStringParams(taxon, this.Model.UrlKeyPrefix);
+            this.ViewBag.RedirectPageUrlTemplate = this.ViewBag.RedirectPageUrlTemplate + taxonQueryStringParams;
         }
         #endregion
 
