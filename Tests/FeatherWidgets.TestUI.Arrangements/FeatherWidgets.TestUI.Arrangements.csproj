@@ -503,6 +503,9 @@
     <Compile Include="Forms\SectionHeader\ViewFormWithSectionHeaderOnPageAndVerifyResponseInBackend.cs" />
     <Compile Include="Forms\Textbox\ViewFormWithTextboxFieldOnPageAndVerifyResponseInBackend.cs" />
     <Compile Include="Framework\TestArrangementBase.cs" />
+    <Compile Include="Identity\VerifyNoLimitAndPaginationListSettingsOnFrontendPageForUsersListWidget.cs" />
+    <Compile Include="Identity\VerifyUseLimitListSettingsOnFrontendPageForUsersListWidget.cs" />
+    <Compile Include="Identity\VerifyPagingOnFrontendPageForUsersListWidget.cs" />
     <Compile Include="Identity\VerifyRegistrationWidgetAndProfileWidgetOnPreviewHybridPage.cs" />
     <Compile Include="Identity\VerifyRegistrationWidgetAndProfileWidgetOnPreviewHybridTemplate.cs" />
     <Compile Include="Identity\VerifyLoginWidgetToTemplateWhenOpenItemDetailViewAndForgotPassword.cs" />

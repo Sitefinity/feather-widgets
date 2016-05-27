@@ -359,12 +359,15 @@
     <Compile Include="Forms\ParagraphTextbox\ViewFormWithParagraphTextFieldOnPageAndVerifyResponseInBackend.cs" />
     <Compile Include="Forms\SectionHeader\ViewFormWithSectionHeaderOnPageAndVerifyResponseInBackend.cs" />
     <Compile Include="Forms\Textbox\ViewFormWithTextboxFieldOnPageAndVerifyResponseInBackend.cs" />
+    <Compile Include="Identity\VerifyNoLimitAndPaginationListSettingsOnFrontendPageForUsersListWidget.cs" />
+    <Compile Include="Identity\VerifyPagingOnFrontendPageForUsersListWidget.cs" />
     <Compile Include="Identity\VerifyRegistrationWidgetAndProfileWidgetOnPreviewHybridPage.cs" />
     <Compile Include="Identity\VerifyRegistrationWidgetAndProfileWidgetOnPreviewHybridTemplate.cs" />
     <Compile Include="Identity\VerifyLoginWidgetToTemplateWhenOpenItemDetailViewAndForgotPassword.cs" />
     <Compile Include="Identity\VerifyLoginWidgetWhenOpenItemDetailViewAndForgotPassword.cs" />
     <Compile Include="Identity\VerifyRegistrationWidgetAndProfileWidgetOnPreviewBootstrapTemplate.cs" />
     <Compile Include="Identity\VerifyRegistrationWidgetAndProfileWidgetOnPreviewPage.cs" />
+    <Compile Include="Identity\VerifyUseLimitListSettingsOnFrontendPageForUsersListWidget.cs" />
     <Compile Include="ImageGallery\VerifyNoLimitAndPaginationListSettingsOnFrontendPageForImageGalleryWidget.cs" />
     <Compile Include="ImageGallery\VerifyPagingOnFrontendPageForImageGalleryWidget.cs" />
     <Compile Include="ImageGallery\VerifyUseLimitListSettingsOnFrontendPageForImageGalleryWidget.cs" />
