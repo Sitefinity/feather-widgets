@@ -359,7 +359,7 @@ namespace Telerik.Sitefinity.Frontend.Media.Mvc.Controllers
             }
 
             var taxonQueryStringParams = HyperLinkHelpers.BuildTaxonQueryStringParams(taxon, this.Model.UrlKeyPrefix);
-            this.ViewBag.RedirectPageUrlTemplate = taxonQueryStringParams;
+            this.ViewBag.RedirectPageUrlTemplate += taxonQueryStringParams;
         }
         #endregion
 
