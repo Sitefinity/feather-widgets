@@ -138,5 +138,28 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend
 
             ActiveBrowser.WaitForAsyncOperations();
         }
+
+        /// <summary>
+        /// Sets the allow virtual nodes.
+        /// </summary>
+        /// <param name="value">The value.</param>
+        public void SetAllowVirtualNodes(string value)
+        {
+            HtmlInputControl input = EM.Navigation.NavigationWidgetEditScreen.AllowVirtualNodes
+                                    .AssertIsPresent("Allow virtual nodes");
+
+            input.ScrollToVisible();
+            input.Focus();
+            input.MouseClick();
+
+            Manager.Current.Desktop.KeyBoard.KeyDown(System.Windows.Forms.Keys.Control);
+            Manager.Current.Desktop.KeyBoard.KeyPress(System.Windows.Forms.Keys.A);
+            Manager.Current.Desktop.KeyBoard.KeyUp(System.Windows.Forms.Keys.Control);
+            Manager.Current.Desktop.KeyBoard.KeyPress(System.Windows.Forms.Keys.Delete);
+
+            ActiveBrowser.WaitForAsyncOperations();
+
+            Manager.Current.Desktop.KeyBoard.TypeText(value);
+        }
     }
 }

@@ -516,6 +516,9 @@
     <Compile Include="ImageGallery\VerifyNoLimitAndPaginationListSettingsOnFrontendPageForImageGalleryWidget.cs" />
     <Compile Include="ImageGallery\VerifyPagingOnFrontendPageForImageGalleryWidget.cs" />
     <Compile Include="Lists\VerifyListTemplatesOnBootstrap.cs" />
+    <Compile Include="Navigation\BreadcrumbDetailBlogPostItemVirtualNodes.cs" />
+    <Compile Include="Navigation\BreadcrumbDetailEventItemVirtualNodes.cs" />
+    <Compile Include="Navigation\BreadcrumbDetailImageItemDocumentItemVideoItemVirtualNodes.cs" />
     <Compile Include="Navigation\LanguageSelectorXssAttack.cs" />
     <Compile Include="News\VerifyUseLimitListSettingsOnFrontendPageForNewsWidget.cs" />
     <Compile Include="News\VerifyNoLimitAndPaginationListSettingsOnFrontendPageForNewsWidget.cs" />
