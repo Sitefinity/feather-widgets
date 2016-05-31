@@ -20,6 +20,7 @@ using Telerik.Sitefinity.Frontend.InlineClientAssets.Mvc.Controllers;
 using Telerik.Sitefinity.Frontend.Lists.Mvc.Controllers;
 using Telerik.Sitefinity.Frontend.Media.Mvc.Controllers;
 using Telerik.Sitefinity.Frontend.Mvc.Infrastructure.Controllers;
+using Telerik.Sitefinity.Frontend.Navigation.Mvc.Controllers;
 using Telerik.Sitefinity.Frontend.News.Mvc.Controllers;
 using Telerik.Sitefinity.Frontend.SocialShare.Mvc.Controllers;
 using Telerik.Sitefinity.Frontend.Taxonomies.Mvc.Controllers;
@@ -294,6 +295,27 @@ namespace FeatherWidgets.TestUtilities.CommonOperations
                 mvcWidget.ControllerName = typeof(SocialShareController).FullName;
 
                 this.CreateControl(pageManager, page, mvcWidget, "Social share", placeholder);
+            }
+        }
+
+        /// <summary>
+        /// Adds the breadcrumb widget to page.
+        /// </summary>
+        /// <param name="pageId">The page identifier.</param>
+        /// <param name="placeholder">The placeholder.</param>
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1026:DefaultParametersShouldNotBeUsed")]
+        public void AddBreadcrumbWidgetToPage(Guid pageId, string placeholder = "Body")
+        {
+            PageManager pageManager = PageManager.GetManager();
+            pageManager.Provider.SuppressSecurityChecks = true;
+            var pageDataId = pageManager.GetPageNode(pageId).PageId;
+            var page = pageManager.EditPage(pageDataId, CultureInfo.CurrentUICulture);
+
+            using (var mvcWidget = new Telerik.Sitefinity.Mvc.Proxy.MvcControllerProxy())
+            {
+                mvcWidget.ControllerName = typeof(BreadcrumbController).FullName;
+
+                this.CreateControl(pageManager, page, mvcWidget, "Breadcrumb", placeholder);
             }
         }
 

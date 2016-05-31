@@ -122,5 +122,14 @@ namespace Feather.Widgets.TestUI.Framework.Framework.ElementMap.Navigation
                 return this.Get<HtmlAnchor>("tagname=a", "InnerText=Menu");
             }
         }
+
+        /// <summary>
+        /// Gets the text public wrapper.
+        /// </summary>
+        /// <returns></returns>
+        public HtmlDiv GetTextPublicWrapper()
+        {
+            return this.Get<HtmlDiv>("class=sfPublicWrapper", "id=PublicWrapper");
+        }
     }
 }
