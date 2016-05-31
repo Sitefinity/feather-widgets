@@ -45,7 +45,8 @@
                                       sf-provider="properties.ProviderName.PropertyValue"
                                       sf-selected-ids="itemSelector.selectedItemsIds"
                                       sf-item-type="itemType"
-                                      sf-identifier-field="@Model.GetIdenfierField()"></sf-list-selector>
+                                      sf-identifier-field="@Model.GetIdenfierField()"
+                                      sf-title="@Html.Raw(Model.ContentTypeDisplayNamePlural())"></sf-list-selector>
                     </div>
                 </div>
                 <div class="radio">
