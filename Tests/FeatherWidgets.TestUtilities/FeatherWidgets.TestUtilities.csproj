@@ -270,6 +270,7 @@
     <EmbeddedResource Include="Data\Forms\Write.DefaultParagraphTextFile.cshtml" />
     <EmbeddedResource Include="Data\Forms\Write.DefaultSubmitButtonFile.cshtml" />
     <EmbeddedResource Include="Data\Forms\Write.DefaultTextboxFile.cshtml" />
+    <EmbeddedResource Include="Data\DynamicModules\PressReleaseCustomTaxonomySpacedTitle.zip" />
     <None Include="packages.config">
       <SubType>Designer</SubType>
     </None>
