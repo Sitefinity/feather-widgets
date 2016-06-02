@@ -129,8 +129,8 @@ namespace FeatherWidgets.TestUtilities.CommonOperations
         /// <param name="url">The URL.</param>
         /// <param name="taxonomyName">Name of the taxonomy.</param>
         /// <param name="taxonNames">The taxon names.</param>
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1054:UriParametersShouldNotBeStrings", MessageId = "1#")]
-        public void CreatePressArticleWithCustomTaxonomy(string title, string url, string taxonomyName, IEnumerable<string> taxonNames)
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1026:DefaultParametersShouldNotBeUsed"), System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1054:UriParametersShouldNotBeStrings", MessageId = "1#")]
+        public void CreatePressArticleWithCustomTaxonomy(string title, string url, string taxonomyName, IEnumerable<string> taxonNames, bool isHierarchicalTaxonomy = false)
         {
             // Set the provider name for the DynamicModuleManager here. All available providers are listed in
             // Administration -> Settings -> Advanced -> DynamicModules -> Providers
@@ -149,7 +149,7 @@ namespace FeatherWidgets.TestUtilities.CommonOperations
             pressArticleItem.SetValue("PublishedBy", "Some PublishedBy");
             pressArticleItem.SetValue("Guid", Guid.NewGuid());
 
-            this.AddCustomTaxonomy(taxonNames, taxonomyName, pressArticleItem);
+            this.AddCustomTaxonomy(taxonNames, taxonomyName, pressArticleItem, isHierarchicalTaxonomy);
 
             pressArticleItem.SetString("UrlName", url);
             pressArticleItem.SetValue("Owner", SecurityManager.GetCurrentUserId());
@@ -441,15 +441,29 @@ namespace FeatherWidgets.TestUtilities.CommonOperations
             SystemManager.RestartApplication(false);
         }
 
-        private void AddCustomTaxonomy(IEnumerable<string> taxonNames, string taxonomyName, DynamicContent pressArticleItem)
+        private void AddCustomTaxonomy(IEnumerable<string> taxonNames, string taxonomyName, DynamicContent pressArticleItem, bool isHierarchicalTaxonomy = false)
         {
             TaxonomyManager taxonomyManager = TaxonomyManager.GetManager();
-            foreach (var taxonName in taxonNames)
+            if (!isHierarchicalTaxonomy)
             {
-                var taxon = taxonomyManager.GetTaxa<FlatTaxon>().Where(t => t.Title == taxonName).FirstOrDefault();
-                if (taxon != null)
+                foreach (var taxonName in taxonNames)
                 {
-                    pressArticleItem.Organizer.AddTaxa(taxonomyName, taxon.Id);
+                    var taxon = taxonomyManager.GetTaxa<FlatTaxon>().Where(t => t.Title == taxonName).FirstOrDefault();
+                    if (taxon != null)
+                    {
+                        pressArticleItem.Organizer.AddTaxa(taxonomyName, taxon.Id);
+                    }
+                }
+            }
+            else
+            {
+                foreach (var taxonName in taxonNames)
+                {
+                    var taxon = taxonomyManager.GetTaxa<HierarchicalTaxon>().Where(t => t.Title == taxonName).FirstOrDefault();
+                    if (taxon != null)
+                    {
+                        pressArticleItem.Organizer.AddTaxa(taxonomyName, taxon.Id);
+                    }
                 }
             }
         }
