@@ -217,9 +217,11 @@
     <Compile Include="ContentBlocks\UseSharedContentBlockFromPage.cs" />
     <Compile Include="ContentBlocks\VideoSelector\CheckNavigationInVideoSelector.cs" />
     <Compile Include="ContentBlocks\VideoSelector\EditAllPropertiesOfSelectedVideoAndSearch.cs" />
+    <Compile Include="DocumentsList\VerifyViewPermissionsForDocumentsListWidget.cs" />
     <Compile Include="DocumentsList\VerifyNoLimitAndPaginationListSettingsOnFrontendPageForDocumentsListWidget.cs" />
     <Compile Include="DocumentsList\VerifyPagingOnFrontendPageForDocumentsListWidget.cs" />
     <Compile Include="DocumentsList\VerifyUseLimitListSettingsOnFrontendPageForDocumentsListWidget.cs" />
+    <Compile Include="DynamicWidgets\VerifyTitleOnSelectContentDialogForDynamicWidget.cs" />
     <Compile Include="DynamicWidgets\VerifyNoLimitAndPaginationListSettingsOnFrontendPageForDynamicWidget.cs" />
     <Compile Include="DynamicWidgets\VerifyPagingOnFrontendPageForDynamicWidget.cs" />
     <Compile Include="DynamicWidgets\VerifyUseLimitListSettingsOnFrontendPageForDynamicWidget.cs" />

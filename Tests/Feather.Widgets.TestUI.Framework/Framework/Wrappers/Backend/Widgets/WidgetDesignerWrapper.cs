@@ -4,6 +4,7 @@ using System.Globalization;
 using System.Linq;
 using ArtOfTest.Common.UnitTesting;
 using ArtOfTest.WebAii.Controls.HtmlControls;
+using ArtOfTest.WebAii.Controls.HtmlControls;
 using ArtOfTest.WebAii.Core;
 using ArtOfTest.WebAii.jQuery;
 using Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend.Widgets;
@@ -637,6 +638,26 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend
             HtmlInputText cssClassesTextbox = this.EM.Widgets.WidgetDesignerContentScreen.CssClassesTextbox.AssertIsPresent("Css classes textbox");
             cssClassesTextbox.Text = cssClassName;
             cssClassesTextbox.AsjQueryControl().InvokejQueryEvent(jQueryControl.jQueryControlEvents.change);
+        }
+
+        /// <summary>
+        /// Verifies the title in select content dialog.
+        /// </summary>
+        public void VerifyTitleInSelectContentDialog(string text)
+        {
+            var title = this.EM.Widgets.WidgetDesignerContentScreen.TitleSelectContentDialog;
+            title.AssertIsPresent("Select content");
+            title.AssertContainsText(text, "Title text isn't correct");
+        }
+
+        /// <summary>
+        /// Presses the close button.
+        /// </summary>
+        public void PressCloseButton()
+        {
+            var close = EM.Widgets.WidgetDesignerContentScreen.CloseButton
+               .AssertIsPresent("close button");
+            close.Click();
         }
     }
 }
