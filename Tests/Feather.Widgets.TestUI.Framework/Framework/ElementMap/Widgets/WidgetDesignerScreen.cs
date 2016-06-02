@@ -364,5 +364,32 @@ namespace Feather.Widgets.TestUI.Framework.Framework.ElementMap.Widgets
             }
         }
 
+        /// <summary>
+        /// Gets the title select content dialog.
+        /// </summary>
+        /// <value>
+        /// The title select content dialog.
+        /// </value>
+        public HtmlControl TitleSelectContentDialog
+        {
+            get
+            {
+                return this.Get<HtmlControl>("tagname=h3", "class=modal-title");
+            }
+        }
+
+        /// <summary>
+        /// Gets the close button.
+        /// </summary>
+        /// <value>
+        /// The close button.
+        /// </value>
+        public HtmlButton CloseButton
+        {
+            get
+            {
+                return this.Get<HtmlButton>("tagname=button", "ng-click=cancel()");
+            }
+        }
     }
 }
