@@ -10,7 +10,7 @@
     string classificationPluralTitle = CustomFieldsHelpers.GetClassificationPluralTitle(Model.GetTaxonomyId(), Model.GetTaxonomyProviderName()).ToLower(); 
 }
 
-<h4>@Html.Resource("WhichFlatTaxonomiesLabel").Arrange(classificationPluralTitle)</h4>
+<label>@Html.Resource("WhichFlatTaxonomiesLabel").Arrange(classificationPluralTitle)</label>
 
 <div class="form-group">
 
