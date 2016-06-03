@@ -246,6 +246,11 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend
         /// <param name="pageName">Name of the page.</param>
         public void SetPageTitle(string pageName)
         {
+            if (string.IsNullOrEmpty(pageName))
+            {
+                throw new ArgumentNullException("pageName cannot be empty value.");
+            }
+
             Manager.Current.ActiveBrowser.RefreshDomTree();
             var frame = Manager.Current.ActiveBrowser.WaitForFrame(new FrameInfo() { Name = "create" });
 

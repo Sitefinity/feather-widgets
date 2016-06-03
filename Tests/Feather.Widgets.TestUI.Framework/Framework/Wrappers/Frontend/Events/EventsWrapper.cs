@@ -19,6 +19,11 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Frontend.Events
         /// <returns>true or false depending on event titles presence on frontend</returns>
         public bool AreEventTitlesPresentOnThePageFrontend(IEnumerable<string> eventTitles)
         {
+            if (eventTitles == null && eventTitles.Count() == 0)
+            {
+                throw new ArgumentNullException("eventTitles cannot be empty parameter.");
+            }
+
             HtmlDiv frontendPageMainDiv = BAT.Wrappers().Frontend().Pages().PagesWrapperFrontend().GetPageContent();
 
             foreach (var title in eventTitles)
@@ -40,6 +45,11 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Frontend.Events
         /// <returns>true or false depending on event titles missing on frontend</returns>
         public bool AreEventTitlesMissingOnThePageFrontend(IEnumerable<string> eventTitles)
         {
+            if (eventTitles == null && eventTitles.Count() == 0)
+            {
+                throw new ArgumentNullException("eventTitles cannot be empty parameter.");
+            }
+
             HtmlDiv frontendPageMainDiv = BAT.Wrappers().Frontend().Pages().PagesWrapperFrontend().GetPageContent();
 
             foreach (var title in eventTitles)
