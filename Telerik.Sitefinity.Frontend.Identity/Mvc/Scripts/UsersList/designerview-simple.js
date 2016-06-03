@@ -78,12 +78,6 @@
                         }
                     }
 
-                    if ($scope.properties.SelectionMode.PropertyValue === "FilteredItems" &&
-                        $scope.additionalFilters.value &&
-                        $scope.additionalFilters.value.length === 0) {
-                        $scope.properties.SelectionMode.PropertyValue = 'AllItems';
-                    }
-
                     if ($scope.properties.SelectionMode.PropertyValue !== "FilteredItems") {
                         $scope.properties.SerializedAdditionalFilters.PropertyValue = null;
                     }

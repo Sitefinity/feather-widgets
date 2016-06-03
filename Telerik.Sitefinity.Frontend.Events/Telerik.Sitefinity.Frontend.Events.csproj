@@ -191,7 +191,7 @@
     <EmbeddedResource Include="Mvc\Scripts\Event\designerview-simple.js" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="client-components\sf-filter-selector.html" />
+    <EmbeddedResource Include="client-components\sf-filter-selector.sf-cshtml" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="client-components\sf-events-date-filter-selector.sf-cshtml" />
