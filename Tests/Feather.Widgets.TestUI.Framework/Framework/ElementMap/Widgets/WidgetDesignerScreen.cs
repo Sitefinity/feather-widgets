@@ -374,7 +374,7 @@ namespace Feather.Widgets.TestUI.Framework.Framework.ElementMap.Widgets
         {
             get
             {
-                return this.Get<HtmlControl>("tagname=h3", "class=modal-title");
+                return this.Get<HtmlControl>("tagname=h3", "class=~modal-title");
             }
         }
 
