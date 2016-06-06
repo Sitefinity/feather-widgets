@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
+using System.Web.Mvc;
 using Telerik.Sitefinity.Frontend.Identity.Mvc.StringResources;
 
 namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.LoginForm
@@ -10,6 +11,7 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.LoginForm
     /// <summary>
     /// This class represents login form view model for the <see cref="LoginFormController"/>.
     /// </summary>
+    [Bind(Exclude = "RedirectUrlAfterLogin")]
     public class LoginFormViewModel
     {
         /// <summary>

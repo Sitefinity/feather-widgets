@@ -13,6 +13,7 @@ using System.Web;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.IdentityModel.Claims;
 using Microsoft.IdentityModel.Web;
+using Telerik.Sitefinity.Security.Claims.SWT;
 
 namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.LoginForm
 {
@@ -274,13 +275,7 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.LoginForm
             }
             else
             {
-                string redirectUrl;
-                if (!this.TryResolveUrlFromUrlReferrer(context, out redirectUrl))
-                {
-                    redirectUrl = this.GetPageUrl(this.LoginRedirectPageId);
-                }
-
-                input.RedirectUrlAfterLogin = redirectUrl;
+                input.RedirectUrlAfterLogin = this.GetReturnURL(input, context);
 
                 if (result != UserLoggingReason.Success)
                 {
@@ -305,27 +300,64 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.LoginForm
             redirectUrl = string.Empty;
             try
             {
+                ////There is few ways to redirect to another page
+                ////First method is to combine realm param with redirect_uri param to get the full redirect url
+                ////Example: ?realm=http://localhost:8086/&redirect_uri=/Sitefinity/Dashboard
+                ////Second method is to use only realm or redirect_uri param to get the full redirect url
+                ////Examples: ?realm=http://localhost:8086/Sitefinity/Dashboard
+                ////          ?redirect_uri=http://localhost:8086/Sitefinity/Dashboard
+                ////Third method is to get ReturnUrl param
+                ////Example: ?ReturnUrl=http://localhost:8086/Sitefinity/Dashboard
                 Uri urlReferrer = context.Request.UrlReferrer;
-                if (!this.LoginRedirectPageId.HasValue && urlReferrer != null)
+                if (urlReferrer != null)
                 {
                     var querySegment = HttpUtility.UrlDecode(urlReferrer.Query);
                     if (querySegment.StartsWith("?"))
                     {
                         querySegment = querySegment.Substring(1);
                     }
+
+                    //check query string for all search params
                     var queryStrings = querySegment.Split('&');
+                    string realm = string.Empty;
+                    string redirect_uri = string.Empty;
+                    string returnUrl = string.Empty;
                     foreach (var queryString in queryStrings)
                     {
                         var queryStringPair = queryString.Split('=');
-                        if (queryStringPair[0] == "realm")
+                        switch (queryStringPair[0])
                         {
-                            redirectUrl = queryStringPair[1];
-                        }
-                        else if (queryStringPair[0] == "redirect_uri")
-                        {
-                            redirectUrl = string.Format("{0}{1}", redirectUrl, queryString.Replace("redirect_uri=", string.Empty));
+                            case "realm":
+                                realm = queryStringPair[1];
+                                break;
+                            case "redirect_uri":
+                                redirect_uri = queryStringPair[1];
+                                break;
+                            case "ReturnUrl":
+                                returnUrl = queryStringPair[1];
+                                break;
                         }
                     }
+
+                    //based on the found params get the correct redirectUrl
+                    if (!string.IsNullOrWhiteSpace(realm))
+                    {
+                        redirectUrl = realm;
+
+                        if (!string.IsNullOrWhiteSpace(redirect_uri))
+                        {
+                            redirectUrl += redirect_uri;
+                        }
+                    }
+                    else if (!string.IsNullOrWhiteSpace(redirect_uri))
+                    {
+                        redirectUrl = redirect_uri;
+                    }
+                    else if (!string.IsNullOrWhiteSpace(returnUrl))
+                    {
+                        redirectUrl = returnUrl;
+                    }
+
                     return true;
                 }
             }
@@ -371,6 +403,40 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.LoginForm
             }
 
             return Guid.Empty;
+        }
+
+        /// <summary>
+        /// Gets ReturnURL set by administrator or taken from query string
+        /// </summary>
+        /// <returns>
+        /// ReturnURL to redirect or empty string
+        /// </returns>
+        protected string GetReturnURL(LoginFormViewModel input, HttpContextBase context)
+        {
+            string redirectUrl = string.Empty;
+
+            if (this.LoginRedirectPageId.HasValue)
+            {
+                //Get redirectUrl set by administrator. The value is not validated.
+                redirectUrl = this.GetPageUrl(this.LoginRedirectPageId);
+            }
+            else
+            {
+                //Get redirectUrl from query string parameter
+                string redirectUrlFromQS;
+                this.TryResolveUrlFromUrlReferrer(context, out redirectUrlFromQS);
+                if (!string.IsNullOrWhiteSpace(redirectUrlFromQS))
+                {
+                    //validates whether the redirectUrl is allowed in the relying parties.
+                    byte[] key;
+                    if (SWTIssuer.TryGetRelyingPartyKey(redirectUrlFromQS, out key))
+                    {
+                        redirectUrl = redirectUrlFromQS;
+                    }
+                }
+            }
+
+            return redirectUrl;
         }
 
         private string serviceUrl;

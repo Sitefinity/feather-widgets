@@ -102,19 +102,8 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Controllers
 
                 if (!model.IncorrectCredentials && !string.IsNullOrWhiteSpace(model.RedirectUrlAfterLogin))
                 {
+                    //Redirect to RedirectUrlAfterLogin url value. The value is already checked in the model if it's come from query string parameter.
                     return this.Redirect(model.RedirectUrlAfterLogin);
-                }
-                else if (!model.IncorrectCredentials && this.Request.UrlReferrer != null)
-                {
-                    var returnUrlFromQS = System.Web.HttpUtility.ParseQueryString(this.Request.UrlReferrer.Query)["ReturnUrl"];
-
-                    if (!string.IsNullOrEmpty(returnUrlFromQS))
-                    {
-                        //validates whether the returnUrl is allowed in the relying parties.
-                        SWTIssuer.GetRelyingPartyKey(returnUrlFromQS);
-                        
-                        return this.Redirect(returnUrlFromQS);
-                    }
                 }
             }
 
