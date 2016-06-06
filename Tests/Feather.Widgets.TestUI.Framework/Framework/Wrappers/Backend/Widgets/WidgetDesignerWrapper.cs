@@ -646,7 +646,7 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend
         public void VerifyTitleInSelectContentDialog(string text)
         {
             var title = this.EM.Widgets.WidgetDesignerContentScreen.TitleSelectContentDialog;
-            title.AssertIsPresent("Select content");
+            title.AssertIsPresent(text);
             title.AssertContainsText(text, "Title text isn't correct");
         }
 
