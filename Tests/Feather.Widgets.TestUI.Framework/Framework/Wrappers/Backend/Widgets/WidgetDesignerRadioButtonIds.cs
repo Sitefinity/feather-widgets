@@ -19,6 +19,7 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend.Widgets
         existingPage,
         allUsers,
         selectedUsers,
+        allItemsList,
         filterUsers
     }
 }
