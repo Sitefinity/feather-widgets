@@ -164,7 +164,7 @@ namespace FeatherWidgets.TestIntegration.News
             mvcProxy.ControllerName = typeof(NewsController).FullName;
             var newsController = new NewsController();
             newsController.Model.DisplayMode = ListDisplayMode.Limit;
-            newsController.Model.ItemsPerPage = limitCount;
+            newsController.Model.LimitCount = limitCount;
             mvcProxy.Settings = new Telerik.Sitefinity.Mvc.Proxy.ControllerSettings(newsController);
 
             try

@@ -106,7 +106,7 @@ namespace FeatherWidgets.TestIntegration.Events
             var mvcProxy = new MvcControllerProxy();
             mvcProxy.ControllerName = typeof(EventController).FullName;
             var eventController = new EventController();
-            eventController.Model.ItemsPerPage = limitCount;
+            eventController.Model.LimitCount = limitCount;
             eventController.Model.DisplayMode = Telerik.Sitefinity.Frontend.Mvc.Models.ListDisplayMode.Limit;
             mvcProxy.Settings = new Telerik.Sitefinity.Mvc.Proxy.ControllerSettings(eventController);
 
