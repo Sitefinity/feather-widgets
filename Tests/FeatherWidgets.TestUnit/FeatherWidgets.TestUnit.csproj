@@ -332,6 +332,8 @@
     <Compile Include="DummyClasses\Identity\DummyUsersListModel.cs" />
     <Compile Include="DummyClasses\LanguageSelector\DummyLanguageSelectorController.cs" />
     <Compile Include="DummyClasses\LanguageSelector\DummyLanguageSelectorModel.cs" />
+    <Compile Include="DummyClasses\SearchBox\SearchBoxDummyHttpContext.cs" />
+    <Compile Include="DummyClasses\SearchBox\SearchBoxDummyHttpRequest.cs" />
     <Compile Include="DummyClasses\UnsubscribeForm\DummyUnsubscribeFormController.cs" />
     <Compile Include="DummyClasses\UnsubscribeForm\DummyUnsubscribeFormModel.cs" />
     <Compile Include="DummyClasses\SubscribeForm\DummySubscribeFormController.cs" />
