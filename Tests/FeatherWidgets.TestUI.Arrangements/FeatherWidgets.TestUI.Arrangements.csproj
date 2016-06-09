@@ -522,6 +522,7 @@
     <Compile Include="Navigation\BreadcrumbDetailEventItemVirtualNodes.cs" />
     <Compile Include="Navigation\BreadcrumbDetailImageItemDocumentItemVideoItemVirtualNodes.cs" />
     <Compile Include="Navigation\LanguageSelectorXssAttack.cs" />
+    <Compile Include="News\VerifyDateSelectorAnyTimeValueForNewsWidget.cs" />
     <Compile Include="News\VerifyUseLimitListSettingsOnFrontendPageForNewsWidget.cs" />
     <Compile Include="News\VerifyNoLimitAndPaginationListSettingsOnFrontendPageForNewsWidget.cs" />
     <Compile Include="News\VerifyNewsItemsWhenOpenDetailsModeOfDynamicItem.cs" />

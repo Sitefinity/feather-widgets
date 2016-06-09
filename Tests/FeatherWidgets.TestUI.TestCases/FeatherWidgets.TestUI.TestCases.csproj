@@ -382,6 +382,7 @@
     <Compile Include="News\AddRelatedDataToNewsWidget.cs" />
     <Compile Include="News\ChangeSelectedSingleItemPage.cs" />
     <Compile Include="News\CheckSelectorsAfterUNPublishingNewsItem.cs" />
+    <Compile Include="News\VerifyDateSelectorAnyTimeValueForNewsWidget.cs" />
     <Compile Include="News\VerifyUseLimitListSettingsOnFrontendPageForNewsWidget.cs" />
     <Compile Include="News\VerifyNoLimitAndPaginationListSettingsOnFrontendPageForNewsWidget.cs" />
     <Compile Include="News\DeleteNewsWidgetFromPage.cs" />
