@@ -659,5 +659,16 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend
                .AssertIsPresent("close button");
             close.Click();
         }
+
+        /// <summary>
+        /// Verifies the value in date selector.
+        /// </summary>
+        /// <param name="text">The text.</param>
+        public void VerifyValueInDateSelector(string text)
+        {
+            var valueDS = EM.Widgets.WidgetDesignerContentScreen.DateSelectorValue(text);
+            valueDS.AssertIsPresent(text);
+            valueDS.AssertContainsText(text, "Value isn't correct");
+        }
     }
 }

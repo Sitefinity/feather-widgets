@@ -391,5 +391,15 @@ namespace Feather.Widgets.TestUI.Framework.Framework.ElementMap.Widgets
                 return this.Get<HtmlButton>("tagname=button", "ng-click=cancel()");
             }
         }
+
+        /// <summary>
+        /// Dates the selector value.
+        /// </summary>
+        /// <param name="value">The value.</param>
+        /// <returns></returns>
+        public HtmlSpan DateSelectorValue(string value)
+        {
+                return this.Get<HtmlSpan>("tagname=span", "class=label label-taxon label-full ng-binding", "Innertext=" + value);
+        }
     }
 }
