@@ -346,7 +346,15 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.LoginForm
 
                         if (!string.IsNullOrWhiteSpace(redirect_uri))
                         {
-                            redirectUrl += redirect_uri;
+                            //removing accumulation of more then one '/'
+                            if (redirect_uri[0] == '/')
+                            {
+                                redirectUrl = redirectUrl.TrimEnd('/') + redirect_uri;
+                            }
+                            else
+                            {
+                                redirectUrl += redirect_uri;
+                            }
                         }
                     }
                     else if (!string.IsNullOrWhiteSpace(redirect_uri))
