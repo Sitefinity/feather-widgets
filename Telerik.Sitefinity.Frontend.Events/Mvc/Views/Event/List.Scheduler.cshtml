@@ -1,0 +1,29 @@
+﻿@model Telerik.Sitefinity.Frontend.Mvc.Models.ContentListViewModel
+
+@using ServiceStack.Text;
+@using Telerik.Sitefinity.Frontend.Mvc.Helpers;
+@using Telerik.Sitefinity.Modules.Pages;
+@using Telerik.Sitefinity.Web.DataResolving;
+@using Telerik.Sitefinity.Frontend.Events.Mvc.Controllers;
+
+@Html.StyleSheet("http://kendo.cdn.telerik.com/2016.1.112/styles/kendo.common.min.css", "head")
+@Html.StyleSheet("http://kendo.cdn.telerik.com/2016.1.112/styles/kendo.blueopal.min.css", "head")
+
+@Html.Script(ScriptRef.JQuery, "top", false)
+@Html.Script(ScriptRef.KendoAll, "top", false)
+
+<div data-sf-role="scheduler-wrapper">
+	<ul data-sf-role="scheduler-list" style="width: 200px; display: none; padding: 5px 5px 5px 0px;"></ul>
+    <div data-sf-role="scheduler"></div>
+    <input type="hidden" data-sf-role="scheduler-controller-model" value='@Html.Raw(JsonSerializer.SerializeToString(((EventController)Html.ViewContext.Controller).Model))' />
+    <input type="hidden" data-sf-role="scheduler-controller-events" value='@Url.Content("~/web-interface/events")' />
+    <input type="hidden" data-sf-role="scheduler-controller-calendars" value='@Url.Content("~/web-interface/calendars")' />
+	<script data-sf-role="event-template" type="text/x-kendo-template">
+		<div>
+			<a href="#= eventUrl #">#= title #</a>
+			<div>#= city ## if (city != "" && country != "") { #, # } ##= country #</div>
+		</div>
+	</script>
+</div>
+
+@Html.Script(Url.WidgetContent("Mvc/Scripts/Event/scheduler-events.js"), "bottom", false)
