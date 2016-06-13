@@ -1,16 +1,15 @@
 ﻿(function ($) {
     $(function () {
         $('[data-sf-role="scheduler-wrapper"]').each(function (index, element) {
-            var calendar = [];
-            var minCalendarLenght = 1;
-            var wrapper = $(element);
-            var calendarUrl = wrapper.find('[data-sf-role="scheduler-controller-calendars"]').val();
-            var eventsUrl = wrapper.find('[data-sf-role="scheduler-controller-events"]').val();
-            var model = wrapper.find('[data-sf-role="scheduler-controller-model"]').val();
-            var schedulerList = wrapper.find('[data-sf-role="scheduler-list"]');
-            var eventTemplate = wrapper.find('[data-sf-role="event-template"]');
-            var scheduler = wrapper.find('[data-sf-role="scheduler"]');
-            var kendoScheduler = scheduler.kendoScheduler({
+            var calendar = [], minCalendarLength = 1, wrapper = $(element), calendarIdList = [],
+			schedulerListArea = wrapper.find('[data-sf-role="scheduler-list"]'),
+			schedulerList = wrapper.find('[data-sf-role="scheduler-list"] ul'),
+            calendarUrl = wrapper.find('[data-sf-role="scheduler-controller-calendars"]').val(),
+            eventsUrl = wrapper.find('[data-sf-role="scheduler-controller-events"]').val(),
+            model = wrapper.find('[data-sf-role="scheduler-controller-model"]').val(),
+            eventTemplateHtml = wrapper.find('[data-sf-role="event-template"]').html(),
+            scheduler = wrapper.find('[data-sf-role="scheduler"]'),
+            kendoScheduler = scheduler.kendoScheduler({
                 editable: false,
                 views: [
                     "day",
@@ -20,31 +19,31 @@
                     "agenda",
                     { type: "timeline", eventHeight: 50 }
                 ],
-                allDayEventTemplate: eventTemplate.html(),
-                eventTemplate: eventTemplate.html(),
+                allDayEventTemplate: eventTemplateHtml,
+                eventTemplate: eventTemplateHtml,
                 dataSource: {
-                    batch: true, // Enable batch updates
                     transport: {
                         read: {
                             url: eventsUrl,
                             dataType: "json",
                             complete: function (jqXHR, textStatus) {
-                                if (jqXHR && jqXHR.responseText) {
+                                if (jqXHR && jqXHR.responseJSON) {
                                     var data = jqXHR.responseJSON;
                                     var calendars = [];
                                     $.each(data, function (i, ev) {
                                         $.each(calendar, function (j, cal) {
-                                            if (cal.calendarId == ev.calendarId && $.grep(calendars, function (obj) { return obj == cal; }).length == 0) { //check if calendar exist in calendar list
+                                            if (cal.calendarId == ev.calendarId && $.grep(calendars, function (obj) { return obj == cal; }).length == 0) { //check if calendar exist in event calendars
                                                 calendars.push(cal);
                                                 return;
                                             }
                                         });
                                     });
-                                    if (calendars.length > minCalendarLenght && schedulerList) {
+                                    if (calendars.length > minCalendarLength && schedulerList) {
                                         $.each(calendars, function (i, el) {
-                                            schedulerList.append('<li value="' + el.calendarId + '" style="padding: 2px; background-color: ' + el.color + '">' + el.Title + '</li>');
+                                            schedulerList.append('<li data-sf-id="' + el.calendarId + '" style="padding: 2px; background-color: ' + el.color + '">' + el.Title + '</li>');
+                                            calendarIdList.push(el.calendarId);
                                         });
-                                        schedulerList.show();
+                                        schedulerListArea.show();
                                     }
                                 }
                             }
@@ -89,7 +88,7 @@
                                     url: calendarUrl,
                                     dataType: "json",
                                     complete: function (jqXHR, textStatus) {
-                                        if (jqXHR && jqXHR.responseText) {
+                                        if (jqXHR && jqXHR.responseJSON) {
                                             var data = jqXHR.responseJSON;
                                             $.each(data, function (i, el) {
                                                 calendar.push(el);
@@ -115,6 +114,15 @@
                         }
                     }
                 ]
+            });
+            schedulerList.on('click', 'li', function () {
+                var id = $(this).attr("data-sf-id"),
+				dataKendoScheduler = kendoScheduler.data("kendoScheduler");
+                dataKendoScheduler.dataSource.filter({
+                    operator: function (task) {
+                        return $.inArray(task.calendarId, id == "-1" ? calendarIdList : [id]) >= 0;
+                    }
+                });
             });
         });
     });

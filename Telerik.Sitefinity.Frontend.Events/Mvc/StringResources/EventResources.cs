@@ -751,6 +751,22 @@ namespace Telerik.Sitefinity.Frontend.Events.Mvc.StringResources
             }
         }
 
+        /// <summary>
+        /// Gets Event widget calendat list title.
+        /// </summary>
+        /// <value>Calendars</value>
+        [ResourceEntry("Calendars",
+            Value = "Calendars",
+            Description = "word: Calendars",
+            LastModified = "2016/06/13")]
+        public string Calendars
+        {
+            get
+            {
+                return this["Calendars"];
+            }
+        }
+
         #endregion
     }
 }
