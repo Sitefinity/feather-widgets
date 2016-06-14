@@ -17,6 +17,7 @@ using Telerik.Sitefinity.Localization;
 using Telerik.Sitefinity.Web;
 using Telerik.Sitefinity.Abstractions;
 using Telerik.Sitefinity.Services.Search;
+using System.Web;
 
 namespace Telerik.Sitefinity.Frontend.Search.Mvc.Controllers
 {
@@ -116,7 +117,7 @@ namespace Telerik.Sitefinity.Frontend.Search.Mvc.Controllers
             if (!this.IsEmpty && this.IsSearchModuleActivated())
             {
                 var query = this.GetSearchQueryFromQueryString(this.Model.IndexCatalogue);
-                this.ViewBag.SearchQuery = query;
+                this.ViewBag.SearchQuery = HttpUtility.HtmlEncode(query);
 
                 return this.View(this.TemplateName, this.Model);
             }
