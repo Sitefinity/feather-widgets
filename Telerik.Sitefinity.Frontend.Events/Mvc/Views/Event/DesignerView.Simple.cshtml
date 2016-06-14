@@ -171,7 +171,7 @@
 
     <uib-tab heading="@Html.Resource("SingleItemSettings")">
         <div class="form-group">
-            <strong>@Html.Resource("OpenSingleItem")</strong>
+            <label>@Html.Resource("OpenSingleItem")</label>
             <div class="radio">
                 <label for="samePage">
                     <input id="samePage" type="radio" ng-model="properties.OpenInSamePage.PropertyValue" value="True" />
@@ -208,17 +208,14 @@
         </div>
 
         <expander expander-title='@Html.Resource("MoreOptions")'>            
-            <div class="row">
-                <div class="col-xs-6">
-                    <style-dropdown selected-class="properties.DetailCssClass.PropertyValue" view-name ="properties.DetailTemplateName.PropertyValue"></style-dropdown>
 
-                    <div class="form-group">
-                        <label>@Html.Resource("CssClasses")
-                            <input type="text" ng-model="properties.DetailCssClass.PropertyValue" class="form-control" />
-                        </label>
-                    </div>
-                 </div>                    
-            </div>
+                <style-dropdown selected-class="properties.DetailCssClass.PropertyValue" view-name ="properties.DetailTemplateName.PropertyValue"></style-dropdown>
+
+                <div class="form-group">
+                    <label>@Html.Resource("CssClasses")</label>
+                    <input type="text" ng-model="properties.DetailCssClass.PropertyValue" class="form-control" />
+                </div>
+
         </expander>
     </uib-tab>
 </uib-tabset>
