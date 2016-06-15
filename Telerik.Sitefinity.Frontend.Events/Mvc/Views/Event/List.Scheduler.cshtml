@@ -7,15 +7,15 @@
 @using Telerik.Sitefinity.Services;
 
 @Html.StyleSheet("http://kendo.cdn.telerik.com/2016.1.112/styles/kendo.common.min.css", "head")
-@Html.StyleSheet("http://kendo.cdn.telerik.com/2016.1.112/styles/kendo.blueopal.min.css", "head")
+@Html.StyleSheet("http://kendo.cdn.telerik.com/2016.1.112/styles/kendo.bootstrap.min.css", "head")
 @Html.Script(ScriptRef.JQuery, "top", false)
 @Html.Script(ScriptRef.KendoAll, "top", false)
 
 <div data-sf-role="scheduler-wrapper" data-sf-loaded="false">
-    <div data-sf-role="scheduler-list" style="width: 200px; display: none; padding: 5px 5px 5px 0px;">
-        <h4>@Html.Resource("Calendars")</h4>
+    <div data-sf-role="scheduler-list">
+        <h4 class="sf-calendarList-title">@Html.Resource("Calendars")</h4>
         <ul>
-            <li data-sf-id="-1">@Html.Resource("AllEvents")</li>
+            <li class="sf-calendarList-item" data-sf-id="-1">@Html.Resource("AllEvents")</li>
         </ul>
     </div>
     <div data-sf-role="scheduler"></div>
@@ -23,11 +23,12 @@
     <input type="hidden" data-sf-role="scheduler-controller-events" value='@Url.Content("~/web-interface/events")' />
     <input type="hidden" data-sf-role="scheduler-controller-calendars" value='@Url.Content("~/web-interface/calendars")' />
 	<script data-sf-role="event-template" type="text/x-kendo-tmpl">
-		<div>
+		<div class="sf-event-item">
+            <div style="background-color: #= data.Color #"></div>
 			<a href="#= eventUrl #">#= title #</a>
 			<div>#= city ## if (city != "" && country != "") { #, # } ##= country #</div>
 		</div>
-	</script>
+    </script>
 </div>
 @if (SystemManager.IsDesignMode)
 {

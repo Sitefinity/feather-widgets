@@ -40,7 +40,7 @@
                                     });
                                     if (calendars.length > minCalendarLength && schedulerList) {
                                         $.each(calendars, function (i, el) {
-                                            schedulerList.append('<li data-sf-id="' + el.calendarId + '" style="padding: 2px; background-color: ' + el.color + '">' + el.Title + '</li>');
+                                            schedulerList.append('<li class="sf-calendarList-item" data-sf-id="' + el.calendarId + '"><span class="sf-event-type sf-mr-s" style="background-color: ' + el.color + '""></span>' + el.Title + '</li>');
                                             calendarIdList.push(el.calendarId);
                                         });
                                         schedulerListArea.show();
