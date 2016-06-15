@@ -22,7 +22,14 @@ namespace Telerik.Sitefinity.Frontend.Events.Mvc.Controllers
         {
             var events = model.GetSchedulerEvents();
 
-            return this.Json(events, JsonRequestBehavior.AllowGet);
+            JsonResult json = new JsonResult()
+            {
+                Data = events,
+                JsonRequestBehavior = System.Web.Mvc.JsonRequestBehavior.AllowGet,
+                MaxJsonLength = int.MaxValue
+            };
+
+            return json;
         }
 
         /// <summary>

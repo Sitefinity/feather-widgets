@@ -1,6 +1,6 @@
 ﻿(function ($) {
-    $(function () {
-        $('[data-sf-role="scheduler-wrapper"]').each(function (index, element) {
+    $(document).ready(function () {
+        $('[data-sf-role="scheduler-wrapper"][data-sf-loaded="false"]').each(function (index, element) {
             var calendar = [], minCalendarLength = 1, wrapper = $(element), calendarIdList = [],
 			schedulerListArea = wrapper.find('[data-sf-role="scheduler-list"]'),
 			schedulerList = wrapper.find('[data-sf-role="scheduler-list"] ul'),
@@ -124,6 +124,7 @@
                     }
                 });
             });
+            wrapper.attr("data-sf-loaded", true);
         });
     });
 }(jQuery));
