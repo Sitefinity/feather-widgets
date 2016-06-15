@@ -16,7 +16,7 @@
             <li @Html.InlineEditingAttributes(Model.ProviderName, Model.ContentType.FullName, (Guid)item.Fields.Id)>
                 <h3 class="sf-event-title">
                     <a @Html.InlineEditingFieldAttributes("Title", "ShortText") href="@navigateUrl">@item.Fields.Title</a>
-                    <span class="sf-event-type" data-calendar-color="@item.EventCalendarColour()" style="background-color:@item.EventCalendarColour()"></span>
+                    <span data-calendar-color="@item.EventCalendarColour()"></span>
                 </h3>
                 <p>
                     @*@If is on the same line, because otherwise there is an empty space before the comma*@
