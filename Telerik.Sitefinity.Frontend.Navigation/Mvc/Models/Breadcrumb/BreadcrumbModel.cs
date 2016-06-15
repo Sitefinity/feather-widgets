@@ -158,8 +158,8 @@ namespace Telerik.Sitefinity.Frontend.Navigation.Mvc.Models.Breadcrumb
                 while (!string.IsNullOrEmpty(nodeKey) &&
                         string.Compare(nodeKey, rootNodeKey, StringComparison.OrdinalIgnoreCase) != 0)
                 {
-                    var node = (PageSiteNode)this.SiteMapProvider.FindSiteMapNodeFromKey(nodeKey);
-                    if (node != homePageNode)
+                    var node = (PageSiteNode)((SiteMapBase)this.SiteMapProvider).FindSiteMapNodeFromKey(nodeKey, false);
+                    if (node != homePageNode && node.IsAccessibleToUser(HttpContext.Current))
                     {
                         if (this.ShowGroupPages)
                             breadcrumbDataSource.Insert(0, node);
@@ -206,7 +206,7 @@ namespace Telerik.Sitefinity.Frontend.Navigation.Mvc.Models.Breadcrumb
             {
                 if (this.StartingPageId != Guid.Empty)
                 {
-                    var node = this.SiteMapProvider.FindSiteMapNodeFromKey(this.StartingPageId.ToString());
+                    var node = ((SiteMapBase)this.SiteMapProvider).FindSiteMapNodeFromKey(this.StartingPageId.ToString(), false);
                     return (PageSiteNode)node;
                 }
 
