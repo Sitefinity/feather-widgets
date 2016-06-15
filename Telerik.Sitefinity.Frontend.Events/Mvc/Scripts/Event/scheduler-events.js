@@ -21,6 +21,17 @@
                 ],
                 allDayEventTemplate: eventTemplateHtml,
                 eventTemplate: eventTemplateHtml,
+                dataBound: function () {
+                    var view = this.view(), events = this.dataSource.view(), eventElement, event;
+                    for (var idx = 0, length = events.length; idx < length; idx++) {
+                        event = events[idx];
+                        //get event element
+                        eventElement = view.element.find("[data-uid=" + event.uid + "]");
+                        //set the backgroud of the element
+                        eventElement.css("background-color", "#FFF");
+                        eventElement.css("border-color", "#FFF");
+                    }
+                },
                 dataSource: {
                     transport: {
                         read: {
@@ -117,7 +128,15 @@
             });
             schedulerList.on('click', 'li', function () {
                 var id = $(this).attr("data-sf-id"),
-				dataKendoScheduler = kendoScheduler.data("kendoScheduler");
+                dataKendoScheduler = kendoScheduler.data("kendoScheduler");
+                schedulerList.find("li").each(function (i) {
+                    if (id == $(this).attr("data-sf-id")) {
+                        $(this).addClass("selected");
+                    }
+                    else {
+                        $(this).removeClass("selected");
+                    }
+                });
                 dataKendoScheduler.dataSource.filter({
                     operator: function (task) {
                         return $.inArray(task.calendarId, id == "-1" ? calendarIdList : [id]) >= 0;
