@@ -21,17 +21,6 @@
                 ],
                 allDayEventTemplate: eventTemplateHtml,
                 eventTemplate: eventTemplateHtml,
-                dataBound: function () {
-                    var view = this.view(), events = this.dataSource.view(), eventElement, event;
-                    for (var idx = 0, length = events.length; idx < length; idx++) {
-                        event = events[idx];
-                        //get event element
-                        eventElement = view.element.find("[data-uid=" + event.uid + "]");
-                        //set the backgroud of the element
-                        eventElement.css("background-color", "#FFF");
-                        eventElement.css("border-color", "#FFF");
-                    }
-                },
                 dataSource: {
                     transport: {
                         read: {
@@ -131,10 +120,10 @@
                 dataKendoScheduler = kendoScheduler.data("kendoScheduler");
                 schedulerList.find("li").each(function (i) {
                     if (id == $(this).attr("data-sf-id")) {
-                        $(this).addClass("selected");
+                        $(this).addClass("active");
                     }
                     else {
-                        $(this).removeClass("selected");
+                        $(this).removeClass("active");
                     }
                 });
                 dataKendoScheduler.dataSource.filter({

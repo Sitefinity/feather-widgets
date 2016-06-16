@@ -7,7 +7,13 @@
 @using Telerik.Sitefinity.Services;
 
 @Html.StyleSheet("http://kendo.cdn.telerik.com/2016.1.112/styles/kendo.common.min.css", "head")
-@Html.StyleSheet("http://kendo.cdn.telerik.com/2016.1.112/styles/kendo.bootstrap.min.css", "head")
+@if (Html.ShouldRenderInlineEditing() || SystemManager.IsDesignMode || SystemManager.IsPreviewMode)
+{
+    @Html.StyleSheet("http://kendo.cdn.telerik.com/2016.1.112/styles/kendo.bootstrap.min.css", "bottom")
+}
+else { 
+    @Html.StyleSheet("http://kendo.cdn.telerik.com/2016.1.112/styles/kendo.bootstrap.min.css", "head")
+}
 @Html.Script(ScriptRef.JQuery, "top", false)
 @Html.Script(ScriptRef.KendoAll, "top", false)
 
@@ -15,7 +21,7 @@
     <div data-sf-role="scheduler-list">
         <h4 class="sf-calendarList-title">@Html.Resource("Calendars")</h4>
         <ul>
-            <li class="sf-calendarList-item selected" data-sf-id="-1">@Html.Resource("AllEvents")</li>
+            <li class="sf-calendarList-item active" data-sf-id="-1">@Html.Resource("AllEvents")</li>
         </ul>
     </div>
     <div data-sf-role="scheduler"></div>
@@ -26,7 +32,6 @@
 		<div class="sf-event-item">
             <div style="background-color: #= data.Color #"></div>
 			<a href="#= eventUrl #">#= title #</a>
-			<div>#= city ## if (city != "" && country != "") { #, # } ##= country #</div>
 		</div>
     </script>
 </div>
