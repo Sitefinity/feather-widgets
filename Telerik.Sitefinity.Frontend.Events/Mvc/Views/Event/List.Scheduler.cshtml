@@ -30,7 +30,7 @@ else {
     <input type="hidden" data-sf-role="scheduler-controller-calendars" value='@Url.Content("~/web-interface/calendars")' />
 	<script data-sf-role="event-template" type="text/x-kendo-tmpl">
 		<div class="sf-event-item">
-            <div style="background-color: #= data.Color #"></div>
+            <span class="sf-event-type" style="background-color: #= data.Color #"></span>
 			<a href="#= eventUrl #">#= title #</a>
 		</div>
     </script>
