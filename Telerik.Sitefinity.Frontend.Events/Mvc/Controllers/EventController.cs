@@ -6,12 +6,15 @@ using Telerik.Sitefinity.ContentLocations;
 using Telerik.Sitefinity.Events.Model;
 using Telerik.Sitefinity.Frontend.Events.Mvc.Models;
 using Telerik.Sitefinity.Frontend.Events.Mvc.StringResources;
+using Telerik.Sitefinity.Frontend.Mvc.Helpers;
 using Telerik.Sitefinity.Frontend.Mvc.Infrastructure.Controllers;
 using Telerik.Sitefinity.Frontend.Mvc.Infrastructure.Controllers.Attributes;
 using Telerik.Sitefinity.Modules.Pages.Configuration;
 using Telerik.Sitefinity.Mvc;
 using Telerik.Sitefinity.Services;
 using Telerik.Sitefinity.Taxonomies.Model;
+using Telerik.Sitefinity.Web;
+using Telerik.Sitefinity.Web.DataResolving;
 
 namespace Telerik.Sitefinity.Frontend.Events.Mvc.Controllers
 {
@@ -188,6 +191,38 @@ namespace Telerik.Sitefinity.Frontend.Events.Mvc.Controllers
         }
 
         /// <summary>
+        /// Gets the scheduler events.
+        /// </summary>
+        /// <returns>Scheduler events json</returns>
+        [Route("web-interface/events/")]
+        public ActionResult GetSchedulerEvents(EventModel model)
+        {
+            var events = model.GetSchedulerEvents();
+
+            JsonResult json = new JsonResult()
+            {
+                Data = events,
+                JsonRequestBehavior = System.Web.Mvc.JsonRequestBehavior.AllowGet,
+                MaxJsonLength = int.MaxValue
+            };
+
+            return json;
+        }
+
+        /// <summary>
+        /// Gets the calendars.
+        /// </summary>
+        /// <param name="model">The model.</param>
+        /// <returns>Calendars json</returns>
+        [Route("web-interface/calendars/")]
+        public ActionResult GetCalendars(EventModel model)
+        {
+            var calendars = model.GetCalendars();
+
+            return this.Json(calendars, JsonRequestBehavior.AllowGet);
+        }
+
+        /// <summary>
         /// Gets the information for all of the content types that a control is able to show.
         /// </summary>
         /// <returns>
@@ -220,6 +255,7 @@ namespace Telerik.Sitefinity.Frontend.Events.Mvc.Controllers
             this.ViewBag.AllowCalendarExport = this.Model.AllowCalendarExport;
             this.ViewBag.OpenInSamePage = this.OpenInSamePage;
             this.ViewBag.DetailsPageId = this.DetailsPageId;
+            this.ViewBag.DetailsPageUrl = this.GetDetailsPageUrl();
         }
 
         /// <summary>
@@ -232,6 +268,21 @@ namespace Telerik.Sitefinity.Frontend.Events.Mvc.Controllers
                 this.ViewBag.Title = item.Title;
 
             this.ViewBag.AllowCalendarExport = this.Model.AllowCalendarExport;
+        }
+
+        /// <summary>
+        /// Get details page url
+        /// </summary>
+        /// <returns>Url</returns>
+        private string GetDetailsPageUrl()
+        {
+            string currentPageUrl = SystemManager.CurrentHttpContext != null ? this.GetCurrentPageUrl() : string.Empty;
+            if (this.DetailsPageId != Guid.Empty)
+            {
+                currentPageUrl = HyperLinkHelpers.GetFullPageUrl(this.DetailsPageId);
+            }
+
+            return currentPageUrl;
         }
 
         private const string WidgetIconCssClass = "sfEventsViewIcn sfMvcIcn";

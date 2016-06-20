@@ -1,56 +1,64 @@
 ﻿(function ($) {
     $(document).ready(function () {
-        $('[data-sf-role="scheduler-wrapper"][data-sf-loaded="false"]').each(function (index, element) {
-            var calendar = [], minCalendarLength = 1, wrapper = $(element), calendarIdList = [],
-			schedulerListArea = wrapper.find('[data-sf-role="scheduler-list"]'),
-			schedulerList = wrapper.find('[data-sf-role="scheduler-list"] ul'),
-            calendarUrl = wrapper.find('[data-sf-role="scheduler-controller-calendars"]').val(),
-            eventsUrl = wrapper.find('[data-sf-role="scheduler-controller-events"]').val(),
-            model = wrapper.find('[data-sf-role="scheduler-controller-model"]').val(),
-            eventTemplateHtml = wrapper.find('[data-sf-role="event-template"]').html(),
-            scheduler = wrapper.find('[data-sf-role="scheduler"]'),
-            kendoScheduler = scheduler.kendoScheduler({
+        $('[data-sf-role="scheduler-wrapper"][data-sf-loaded="false"]').each(function (i, element) {
+            var schedulerHtmlTemplates = {
+                eventAllDayEventTemplateHtml: $(element).find('[data-sf-role="event-alldayeventtemplate"]').html(),
+                eventEventTemplateHtml: $(element).find('[data-sf-role="event-eventtemplate"]').html(),
+                eventCalendarlistWrapperHtml: $(element).find('[data-sf-role="event-calendarlist-template-wrapper"]').html(),
+                eventCalendarlistItemHtml: $(element).find('[data-sf-role="event-calendarlist-template-item"]').html()
+            }
+            var schedulerData = {
+                allCalendars: [],
+                minCalendarLength: 2,
+                calendarIdList: [],
+                calendarUrl: $(element).attr('data-sf-controller-calendars'),
+                eventsUrl: $(element).attr('data-sf-controller-events'),
+                model: $(element).attr('data-sf-controller-model'),
+                scheduler: $(element).find('[data-sf-role="scheduler"]'),
+                calendarListClassActive: $(element).attr('data-sf-calendarlist-class-active'),
+                calendarList: $(element).find('[data-sf-role="calendarlist"]')
+            };
+
+            $(schedulerHtmlTemplates.eventCalendarlistWrapperHtml).appendTo(schedulerData.calendarList);
+            schedulerData.calendarlistWrapper = $(schedulerData.calendarList).find('[data-sf-role="calendarlist-wrapper"]');
+
+            var kendoScheduler = schedulerData.scheduler.kendoScheduler({
                 editable: false,
-                views: [
-                    "day",
-                    "workWeek",
-                    "week",
-                    { type: "month", selected: true },
-                    "agenda",
-                    { type: "timeline", eventHeight: 50 }
-                ],
-                allDayEventTemplate: eventTemplateHtml,
-                eventTemplate: eventTemplateHtml,
+                views: ["day", "workWeek", "week", { type: "month", selected: true }, "agenda", { type: "timeline", eventHeight: 50 }],
+                allDayEventTemplate: schedulerHtmlTemplates.eventAllDayEventTemplateHtml,
+                eventTemplate: schedulerHtmlTemplates.eventEventTemplateHtml,
                 dataSource: {
                     transport: {
                         read: {
-                            url: eventsUrl,
+                            url: schedulerData.eventsUrl,
                             dataType: "json",
                             complete: function (jqXHR, textStatus) {
                                 if (jqXHR && jqXHR.responseJSON) {
                                     var data = jqXHR.responseJSON;
                                     var calendars = [];
                                     $.each(data, function (i, ev) {
-                                        $.each(calendar, function (j, cal) {
+                                        $.each(schedulerData.allCalendars, function (j, cal) {
                                             if (cal.calendarId == ev.calendarId && $.grep(calendars, function (obj) { return obj == cal; }).length == 0) { //check if calendar exist in event calendars
                                                 calendars.push(cal);
                                                 return;
                                             }
                                         });
                                     });
-                                    if (calendars.length > minCalendarLength && schedulerList) {
+                                    if (calendars.length >= schedulerData.minCalendarLength) {
                                         $.each(calendars, function (i, el) {
-                                            schedulerList.append('<li class="sf-calendarList-item" data-sf-id="' + el.calendarId + '"><span class="sf-event-type" style="background-color: ' + el.color + '""></span>' + el.Title + '</li>');
-                                            calendarIdList.push(el.calendarId);
+                                            var template = kendo.template(schedulerHtmlTemplates.eventCalendarlistItemHtml);
+                                            var templateData = { calendarId: el.calendarId, color: el.color, title: el.Title };
+                                            schedulerData.calendarlistWrapper.append(template(templateData));
+                                            schedulerData.calendarIdList.push(el.calendarId);
                                         });
-                                        schedulerListArea.show();
+                                        schedulerData.calendarList.show();
                                     }
                                 }
                             }
                         },
                         parameterMap: function (options, operation) {
                             if (operation === "read") {
-                                return $.parseJSON(model);
+                                return $.parseJSON(schedulerData.model);
                             }
                         }
                     },
@@ -85,20 +93,20 @@
                         dataSource: {
                             transport: {
                                 read: {
-                                    url: calendarUrl,
+                                    url: schedulerData.calendarUrl,
                                     dataType: "json",
                                     complete: function (jqXHR, textStatus) {
                                         if (jqXHR && jqXHR.responseJSON) {
                                             var data = jqXHR.responseJSON;
                                             $.each(data, function (i, el) {
-                                                calendar.push(el);
+                                                schedulerData.allCalendars.push(el);
                                             });
                                         }
                                     }
                                 },
                                 parameterMap: function (options, operation) {
                                     if (operation === "read") {
-                                        return $.parseJSON(model);
+                                        return $.parseJSON(schedulerData.model);
                                     }
                                 }
                             },
@@ -115,24 +123,20 @@
                     }
                 ]
             });
-            schedulerList.on('click', 'li', function () {
-                var id = $(this).attr("data-sf-id"),
-                dataKendoScheduler = kendoScheduler.data("kendoScheduler");
-                schedulerList.find("li").each(function (i) {
-                    if (id == $(this).attr("data-sf-id")) {
-                        $(this).addClass("active");
-                    }
-                    else {
-                        $(this).removeClass("active");
-                    }
-                });
-                dataKendoScheduler.dataSource.filter({
+            schedulerData.calendarlistWrapper.on('click', '[data-sf-role="calendarlist-item"]', function () {
+                if ($(this).hasClass(schedulerData.calendarListClassActive)) {
+                    return;
+                }
+                var id = $(this).attr("data-sf-id");
+                $(this).siblings($(this).tagName).removeClass(schedulerData.calendarListClassActive);
+                $(this).addClass(schedulerData.calendarListClassActive);
+                kendoScheduler.data("kendoScheduler").dataSource.filter({
                     operator: function (task) {
-                        return $.inArray(task.calendarId, id == "-1" ? calendarIdList : [id]) >= 0;
+                        return $.inArray(task.calendarId, id && id != "" ? [id] : schedulerData.calendarIdList) >= 0;
                     }
                 });
             });
-            wrapper.attr("data-sf-loaded", true);
+            $(element).attr("data-sf-loaded", true);
         });
     });
 }(jQuery));

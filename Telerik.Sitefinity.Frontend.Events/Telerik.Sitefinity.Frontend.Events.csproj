@@ -171,13 +171,13 @@
     </Compile>
     <Compile Include="InterfaceMappings.cs" />
     <Compile Include="Mvc\Controllers\EventController.cs" />
-    <Compile Include="Mvc\Controllers\SchedulerEventsController.cs" />
     <Compile Include="Mvc\Helpers\EventHelper.cs" />
     <Compile Include="Mvc\Models\CalendarViewModel.cs" />
     <Compile Include="Mvc\Models\EventModel.cs" />
     <Compile Include="Mvc\Models\IEventModel.cs" />
-    <Compile Include="Mvc\Models\SchedulerEventsModel.cs" />
-    <Compile Include="Mvc\Models\SchedulerEventViewModel.cs" />
+    <Compile Include="Mvc\Models\SchedulerEventViewModel.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="Mvc\StringResources\EventResources.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

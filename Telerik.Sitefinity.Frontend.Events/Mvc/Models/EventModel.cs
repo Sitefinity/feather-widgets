@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using ServiceStack.Text;
 using Telerik.Sitefinity.Data;
@@ -89,6 +90,33 @@ namespace Telerik.Sitefinity.Frontend.Events.Mvc.Models
         public ContentListViewModel CreateListViewModel(int page)
         {
             return base.CreateListViewModel(null, page);
+        }
+
+        /// <summary>
+        /// Gets the scheduler events.
+        /// </summary>
+        /// <returns>List view model</returns>
+        public IList<SchedulerEventViewModel> GetSchedulerEvents()
+        {
+            var viewModel = this.CreateListViewModel(null, 1);
+            var manager = (EventsManager)this.GetManager();
+            var events = viewModel.Items.Select(i => i.DataItem as Event);
+            var allOccurrences = manager.GetEventsOccurrences(events, DateTime.MinValue, DateTime.MaxValue);
+            var schedulerEvents = allOccurrences.Select(e => new SchedulerEventViewModel(e));
+            return schedulerEvents.ToList();
+        }
+
+        /// <summary>
+        /// Gets the calendars.
+        /// </summary>
+        /// <returns>List view model</returns>
+        public IList<CalendarViewModel> GetCalendars()
+        {
+            var manager = (EventsManager)this.GetManager();
+            var allCalendars = manager.GetCalendars();
+            var calendars = allCalendars.Select(e => new CalendarViewModel(e));
+
+            return calendars.ToList();
         }
 
         /// <summary>

@@ -28,7 +28,7 @@ namespace Telerik.Sitefinity.Frontend.Events.Mvc.Models
             this.IsAllDay = item.Event.AllDayEvent;
             this.CalendarId = item.Event.ParentId;
             this.Color = item.Event.Parent.Color;
-            this.EventUrl = Telerik.Sitefinity.Web.Url.Combine(item.Event.ApplicationName, item.Event.ItemDefaultUrl.Trim('/')).ToLower();
+            this.EventUrl = item.Event.ItemDefaultUrl;
             this.City = item.Event.City;
             this.Country = item.Event.Country;
         }
