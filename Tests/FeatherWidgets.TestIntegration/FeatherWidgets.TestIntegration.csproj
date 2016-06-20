@@ -306,6 +306,7 @@
     <Compile Include="InlineClientAssets\StyleSheetWidgetTests.cs" />
     <Compile Include="Navigation\BreadcrumbWidgetTests.cs" />
     <Compile Include="Navigation\DummyBreadcrumbExtender.cs" />
+    <Compile Include="Navigation\DummySitemapFilter.cs" />
     <Compile Include="Navigation\LanguageSelectorWidgetTests.cs" />
     <Compile Include="Navigation\NavigationWidgetPageSelectionModeTests.cs" />
     <Compile Include="Navigation\NavigationWidgetPageTemplateTests.cs" />
