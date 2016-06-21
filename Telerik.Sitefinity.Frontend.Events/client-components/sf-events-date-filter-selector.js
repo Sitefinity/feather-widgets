@@ -26,6 +26,11 @@
                         };
 
                         var populateSelectedDateFilters = function () {
+                            //set AnyTime value as default for upcomming and past events
+                            if (scope.sfQueryData && scope.sfQueryData.QueryItems && scope.sfQueryData.QueryItems.length === 0) {
+                                scope.upcomingChanged();
+                                scope.pastChanged();
+                            }
                             if (scope.sfQueryData.QueryItems) {
                                 scope.sfQueryData.QueryItems.forEach(function (queryItem) {
                                     {
