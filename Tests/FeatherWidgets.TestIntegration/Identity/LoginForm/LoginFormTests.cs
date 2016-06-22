@@ -19,6 +19,7 @@ namespace FeatherWidgets.TestIntegration.Identity.LoginForm
     public class LoginFormTests
     {
         [Test]
+        [Category(TestCategories.Identity)]
         [Author(FeatherTeams.SitefinityTeam3)]
         [Description("Checks whether authenticating with login form's model will result in current identity with correctly set claim type properties.")]
         public void AuthenticateUser_IdentityHasClaimTypes()
@@ -51,6 +52,7 @@ namespace FeatherWidgets.TestIntegration.Identity.LoginForm
         }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Globalization", "CA1305:SpecifyIFormatProvider", MessageId = "System.String.Format(System.String,System.Object)"), Test]
+        [Category(TestCategories.Identity)]
         [Author(FeatherTeams.SitefinityTeam3)]
         [Description("Checks whether redirect url is preserved in form action attribute.")]
         public void PostForm_RedirectUrlIsPreserved()
@@ -83,6 +85,7 @@ namespace FeatherWidgets.TestIntegration.Identity.LoginForm
         }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Globalization", "CA1305:SpecifyIFormatProvider", MessageId = "System.String.Format(System.String,System.Object)"), System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Naming", "CA1726:UsePreferredTerms", MessageId = "Login"), Test]
+        [Category(TestCategories.Identity)]
         [Author(FeatherTeams.SitefinityTeam3)]
         [Description("Checks whether login form will submit only to its post action.")]
         public void PostForm_Login_PostsItselfOnly()
