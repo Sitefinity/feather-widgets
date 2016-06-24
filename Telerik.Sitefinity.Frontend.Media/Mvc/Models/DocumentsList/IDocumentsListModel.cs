@@ -108,6 +108,14 @@ namespace Telerik.Sitefinity.Frontend.Media.Mvc.Models.DocumentsList
         string SerializedAdditionalFilters { get; set; }
 
         /// <summary>
+        /// Gets or sets the serialized date filters.
+        /// </summary>
+        /// <value>
+        /// The serialized date filters.
+        /// </value>
+        string SerializedDateFilters { get; set; }
+
+        /// <summary>
         /// Gets or sets a value indicating whether the canonical URL tag should be added to the page when the canonical meta tag should be added to the page.
         /// If the value is not set, the settings from SystemConfig -> ContentLocationsSettings -> DisableCanonicalURLs will be used. 
         /// </summary>

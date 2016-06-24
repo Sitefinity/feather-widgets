@@ -26,6 +26,8 @@ namespace FeatherWidgets.TestUnit.DummyClasses.Identity
 
         public string SerializedAdditionalFilters { get; set; }
 
+        public string SerializedDateFilters { get; set; }
+
         public string FilterExpression { get; set; }
 
         public string ProfileTypeFullName { get; set; }

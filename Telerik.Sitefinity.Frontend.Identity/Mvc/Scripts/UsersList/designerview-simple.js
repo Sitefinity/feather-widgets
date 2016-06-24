@@ -9,6 +9,7 @@
         $scope.feedback.showLoadingIndicator = true;
         $scope.additionalFilters = {};
         $scope.usersSelector = { selectedItemsIds: [] };
+        $scope.dateFilters = {};
 
         $scope.$watch(
             'additionalFilters.value',
@@ -18,6 +19,16 @@
                 }
             },
             true
+        );
+
+        $scope.$watch(
+         'dateFilters.value',
+          function (newDateFilters, oldDateFilters) {
+              if (newDateFilters !== oldDateFilters) {
+                  $scope.properties.SerializedDateFilters.PropertyValue = JSON.stringify(newDateFilters);
+              }
+          },
+          true
         );
 
         $scope.$watch(
@@ -44,8 +55,10 @@
                     $scope.properties = propertyService.toAssociativeArray(data.Items);
 
                     var additionalFilters = $.parseJSON($scope.properties.SerializedAdditionalFilters.PropertyValue || null);
-
                     $scope.additionalFilters.value = additionalFilters;
+
+                    var dateFilters = $.parseJSON($scope.properties.SerializedDateFilters.PropertyValue || null);
+                    $scope.dateFilters.value = dateFilters;
 
                     var selectedItemsIds = $.parseJSON($scope.properties.SerializedSelectedItemsIds.PropertyValue || null);
 

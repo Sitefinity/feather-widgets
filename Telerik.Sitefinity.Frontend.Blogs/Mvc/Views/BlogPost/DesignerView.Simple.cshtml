@@ -82,7 +82,7 @@
                         <sf-filter-selector sf-query-data="additionalFilters.value"
                             sf-taxonomy-fields="@CustomFieldsHelpers.GetTaxonomyFields(typeof(Telerik.Sitefinity.Blogs.Model.BlogPost))"
                             sf-provider="properties.ProviderName.PropertyValue"
-                            ng-show="properties.SelectionMode.PropertyValue=='FilteredItems'"
+                            ng-show="properties.SelectionMode.PropertyValue=='FilteredItems'" sf-date-groups="dateFilters.value"
                             class="sf-filter-selector"></sf-filter-selector>
                     </label>
                 </div>
