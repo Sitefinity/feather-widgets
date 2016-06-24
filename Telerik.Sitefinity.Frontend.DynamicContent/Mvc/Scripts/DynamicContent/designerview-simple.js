@@ -11,6 +11,7 @@
         $scope.parentSelector = { selectedItemsIds: [] };
         $scope.itemType = serverData.get('itemType');
         $scope.parentTypes = $.parseJSON(serverData.get('parentTypes') || null);
+        $scope.dateFilters = {};
 
         $scope.$watch(
             'additionalFilters.value',
@@ -21,6 +22,16 @@
             },
             true
         );
+
+        $scope.$watch(
+             'dateFilters.value',
+              function (newDateFilters, oldDateFilters) {
+                  if (newDateFilters !== oldDateFilters) {
+                      $scope.properties.SerializedDateFilters.PropertyValue = JSON.stringify(newDateFilters);
+                  }
+              },
+              true
+            );
 
         $scope.$watch(
 	        'properties.ProviderName.PropertyValue',
@@ -81,6 +92,9 @@
 
                     var additionalFilters = $.parseJSON($scope.properties.SerializedAdditionalFilters.PropertyValue || null);
                     $scope.additionalFilters.value = additionalFilters;
+
+                    var dateFilters = $.parseJSON($scope.properties.SerializedDateFilters.PropertyValue || null);
+                    $scope.dateFilters.value = dateFilters;
 
                     var selectedItemsIds = $.parseJSON($scope.properties.SerializedSelectedItemsIds.PropertyValue || null);
                     if (selectedItemsIds) {
