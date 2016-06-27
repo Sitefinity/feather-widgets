@@ -28,6 +28,7 @@ namespace FeatherWidgets.TestUI.TestCases.News
             BAT.Wrappers().Backend().Pages().PagesWrapper().OpenPageZoneEditor(PageName);
             BATFeather.Wrappers().Backend().Pages().PageZoneEditorWrapper().EditWidget(WidgetName);
             BATFeather.Wrappers().Backend().Widgets().WidgetDesignerWrapper().SelectWhichItemsToDisplay(WhichNewsToDisplay);
+            BATFeather.Wrappers().Backend().Widgets().WidgetDesignerWrapper().SelectCheckBox(DateName);
             BATFeather.Wrappers().Backend().Widgets().WidgetDesignerWrapper().VerifyValueInDateSelector(DateValueAnyTime);
             BATFeather.Wrappers().Backend().Widgets().WidgetDesignerWrapper().ClickSelectButtonByDate();
             BATFeather.Wrappers().Backend().Widgets().WidgetDesignerWrapper().PressCloseButton();
@@ -71,5 +72,6 @@ namespace FeatherWidgets.TestUI.TestCases.News
         private const string NewsTitle2 = "NewsTitle2";
         private const string NewsTitle3 = "NewsTitle3";
         private const string NewsTitle4 = "NewsTitle4";
+        private const string DateName = "sfPublicationDateInput";
     }
 }
