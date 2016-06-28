@@ -71,7 +71,7 @@ namespace Telerik.Sitefinity.Frontend.Events.Mvc.Models
 
             if (this.CalendarList != null && this.CalendarList.Length > 0)
             {
-                events = events.Where(p => this.CalendarList.Contains(p.Parent.Id.ToString()));
+                events = events.Where(p => p.Parent != null && this.CalendarList.Contains(p.Parent.Id.ToString()));
             }
 
             var manager = (EventsManager)this.GetManager();
@@ -80,16 +80,17 @@ namespace Telerik.Sitefinity.Frontend.Events.Mvc.Models
 
             // get filter expression used for events
             string filterExpression = this.CompileEventsOccurrencesFilterExpression();
-            var eventEnd = this.GetPropertyInfo<Event>(e => e.EventEnd);
-            var occurrenceEnd = this.GetPropertyInfo<EventOccurrence>(eo => eo.EndDate);
-            var eventStart = this.GetPropertyInfo<Event>(e => e.EventStart);
-            var occurrenceStart = this.GetPropertyInfo<EventOccurrence>(eo => eo.StartDate);
-
-            // replace Event properties with EventOccurrence properties in filter expression
-            filterExpression = filterExpression.Replace(eventEnd.Name, occurrenceEnd.Name).Replace(eventStart.Name, occurrenceStart.Name);
 
             if (!string.IsNullOrWhiteSpace(filterExpression))
             {
+                var eventEnd = this.GetPropertyInfo<Event>(e => e.EventEnd);
+                var occurrenceEnd = this.GetPropertyInfo<EventOccurrence>(eo => eo.EndDate);
+                var eventStart = this.GetPropertyInfo<Event>(e => e.EventStart);
+                var occurrenceStart = this.GetPropertyInfo<EventOccurrence>(eo => eo.StartDate);
+
+                // replace Event properties with EventOccurrence properties in filter expression
+                filterExpression = filterExpression.Replace(eventEnd.Name, occurrenceEnd.Name).Replace(eventStart.Name, occurrenceStart.Name);
+
                 allOccurrences = allOccurrences.Where(filterExpression);
             }
          
