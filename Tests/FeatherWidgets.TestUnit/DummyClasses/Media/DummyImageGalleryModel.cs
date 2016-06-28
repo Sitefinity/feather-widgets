@@ -175,6 +175,19 @@ namespace FeatherWidgets.TestUnit.DummyClasses.Media
             }
         }
 
+        public string SerializedDateFilters
+        {
+            get
+            {
+                throw new NotImplementedException();
+            }
+
+            set
+            {
+                throw new NotImplementedException();
+            }
+        }
+
         public string SerializedSelectedItemsIds
         {
             get

@@ -202,6 +202,18 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.UsersList
         }
 
         /// <summary>
+        /// Gets or sets the serialized date filters.
+        /// </summary>
+        /// <value>
+        /// The serialized date filters.
+        /// </value>
+        public string SerializedDateFilters
+        {
+            get;
+            set;
+        }
+
+        /// <summary>
         /// Gets the a configured instance of the UserProfileManager.
         /// </summary>
         /// <value>The manager.</value>
