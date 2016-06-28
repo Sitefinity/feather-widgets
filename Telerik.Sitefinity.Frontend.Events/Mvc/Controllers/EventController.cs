@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Globalization;
 using System.Web.Mvc;
 using Telerik.Sitefinity.ContentLocations;
 using Telerik.Sitefinity.Events.Model;
@@ -195,7 +196,7 @@ namespace Telerik.Sitefinity.Frontend.Events.Mvc.Controllers
         /// </summary>
         /// <returns>Scheduler events json</returns>
         [Route("web-interface/events/")]
-        public ActionResult GetSchedulerEvents(EventModel model)
+        public ActionResult GetSchedulerEvents(SchedulerEventsModel model)
         {
             var events = model.GetSchedulerEvents();
 
@@ -215,7 +216,7 @@ namespace Telerik.Sitefinity.Frontend.Events.Mvc.Controllers
         /// <param name="model">The model.</param>
         /// <returns>Calendars json</returns>
         [Route("web-interface/calendars/")]
-        public ActionResult GetCalendars(EventModel model)
+        public ActionResult GetCalendars(SchedulerEventsModel model)
         {
             var calendars = model.GetCalendars();
 
@@ -256,6 +257,7 @@ namespace Telerik.Sitefinity.Frontend.Events.Mvc.Controllers
             this.ViewBag.OpenInSamePage = this.OpenInSamePage;
             this.ViewBag.DetailsPageId = this.DetailsPageId;
             this.ViewBag.DetailsPageUrl = this.GetDetailsPageUrl();
+            this.ViewBag.UiCulture = SystemManager.CurrentContext.AppSettings.Multilingual ? CultureInfo.CurrentUICulture.ToString() : string.Empty;
         }
 
         /// <summary>

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -17,20 +18,19 @@ namespace Telerik.Sitefinity.Frontend.Events.Mvc.Models
         /// Initializes a new instance of the <see cref="SchedulerEventViewModel"/> class.
         /// </summary>
         /// <param name="item">The item.</param>
-        public SchedulerEventViewModel(EventOccurrence item)
+        public SchedulerEventViewModel(EventOccurrence item, CultureInfo uiCulture)
         {
             this.Id = item.Event.Id;
-            this.Title = item.Title;
-            this.Description = item.Description;
+            this.Title = item.Event.Title[uiCulture.Name];
+            this.Description = item.Event.Description[uiCulture.Name];
             this.Start = item.StartDate;
             this.End = item.EndDate != null ? (item.Event.AllDayEvent ? item.EndDate.Value.AddDays(-1) : item.EndDate.Value) : DateTime.MaxValue;
             this.RecurrenceID = item.IsRecurrent ? item.Event.Id : (Guid?)null;
             this.IsAllDay = item.Event.AllDayEvent;
             this.CalendarId = item.Event.ParentId;
-            this.Color = item.Event.Parent.Color;
-            this.EventUrl = item.Event.ItemDefaultUrl;
-            this.City = item.Event.City;
-            this.Country = item.Event.Country;
+            this.EventUrl = item.Event.ItemDefaultUrl[uiCulture.Name];
+            this.City = item.Event.City[uiCulture.Name];
+            this.Country = item.Event.Country[uiCulture.Name];
         }
 
         /// <summary>
@@ -150,14 +150,6 @@ namespace Telerik.Sitefinity.Frontend.Events.Mvc.Models
         /// The calendar identifier.
         /// </value>
         public Guid CalendarId { get; set; }
-
-        /// <summary>
-        /// Gets or sets the color.
-        /// </summary>
-        /// <value>
-        /// The color.
-        /// </value>
-        public string Color { get; set; }
 
         /// <summary>
         /// Gets or sets the EventUrl.

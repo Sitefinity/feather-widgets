@@ -15,11 +15,11 @@ namespace Telerik.Sitefinity.Frontend.Events.Mvc.Models
         /// Initializes a new instance of the <see cref="CalendarViewModel"/> class.
         /// </summary>
         /// <param name="calendar">The calendar.</param>
-        public CalendarViewModel(Calendar calendar) 
+        public CalendarViewModel(Calendar calendar, System.Globalization.CultureInfo uiCulture) 
         {
             this.CalendarId = calendar.Id;
             this.Color = calendar.Color;
-            this.Title = calendar.Title;
+            this.Title = calendar.Title[uiCulture.Name];
         }
 
         /// <summary>

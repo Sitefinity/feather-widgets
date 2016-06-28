@@ -22,7 +22,9 @@ else {
     data-sf-controller-events='@Url.Content("~/web-interface/events")'
     data-sf-controller-calendars='@Url.Content("~/web-interface/calendars")'
     data-sf-loaded='false'
-    data-sf-calendarlist-class-active='active'>
+	data-sf-mincalendarlength='2'
+    data-sf-calendarlist-class-active='active'
+	data-sf-uiculture='@ViewBag.UiCulture'>
     <div data-sf-role="calendarlist" style="display: none;">
         <h4 class="sf-calendarList-title">@Html.Resource("Calendars")</h4>
     </div>

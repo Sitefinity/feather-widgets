@@ -175,6 +175,7 @@
     <Compile Include="Mvc\Models\CalendarViewModel.cs" />
     <Compile Include="Mvc\Models\EventModel.cs" />
     <Compile Include="Mvc\Models\IEventModel.cs" />
+    <Compile Include="Mvc\Models\SchedulerEventsModel.cs" />
     <Compile Include="Mvc\Models\SchedulerEventViewModel.cs">
       <SubType>Code</SubType>
     </Compile>
