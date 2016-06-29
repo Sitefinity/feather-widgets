@@ -36,7 +36,7 @@ namespace Telerik.Sitefinity.Frontend.Events.Mvc.Models
         /// Gets or sets the calendar id list.
         /// </summary>
         /// <returns>The calendar list</returns>
-        public string[] CalendarList { get; set; }
+        public Guid[] CalendarList { get; set; }
 
         /// <summary>
         /// Gets or sets the ui culture.
@@ -71,7 +71,7 @@ namespace Telerik.Sitefinity.Frontend.Events.Mvc.Models
 
             if (this.CalendarList != null && this.CalendarList.Length > 0)
             {
-                events = events.Where(p => p.Parent != null && this.CalendarList.Contains(p.Parent.Id.ToString()));
+                events = events.Where(p => p.Parent != null && this.CalendarList.Contains(p.Parent.Id));
             }
 
             var manager = (EventsManager)this.GetManager();
