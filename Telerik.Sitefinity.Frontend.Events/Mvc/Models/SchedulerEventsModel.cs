@@ -75,8 +75,9 @@ namespace Telerik.Sitefinity.Frontend.Events.Mvc.Models
             }
 
             var manager = (EventsManager)this.GetManager();
-            //// get event occurrences based on widget selected view
-            var allOccurrences = manager.GetEventsOccurrences(events, this.StartDate, this.EndDate.AddDays(1).AddMilliseconds(-1)).AsQueryable<EventOccurrence>();
+
+            // get event occurrences based on widget selected view
+            var allOccurrences = manager.GetEventsOccurrences(events, this.StartDate, this.EndDate.AddDays(1)).AsQueryable<EventOccurrence>();
 
             // get filter expression used for events
             string filterExpression = this.CompileEventsOccurrencesFilterExpression();

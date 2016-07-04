@@ -24,18 +24,19 @@ else {
     data-sf-loaded='false'
 	data-sf-mincalendarlength='2'
     data-sf-calendarlist-class-active='active'
-	data-sf-uiculture='@ViewBag.UiCulture'>
+	data-sf-uiculture='@ViewBag.UiCulture'
+    data-sf-timezoneoffset="@ViewBag.TimeZoneOffset">
     <div data-sf-role="calendarlist" style="display: none;">
         <h4 class="sf-calendarList-title">@Html.Resource("Calendars")</h4>
     </div>
     <div data-sf-role="scheduler"></div>
 	<script data-sf-role="event-alldayeventtemplate" type="text/x-kendo-tmpl">
-		<div class="sf-event-item" data-sf-eventid="#= taskId #" data-sf-date="#= start #">
+		<div class="sf-event-item" data-sf-eventid="#= taskId #" data-sf-date=#= JSON.stringify(start) #>
 			<a class="sf-event-link" href="@ViewBag.DetailsPageUrl#= eventUrl #" title="#= title #">#= title #</a>
 		</div>
     </script>
     <script data-sf-role="event-eventtemplate" type="text/x-kendo-tmpl">
-		<div class="sf-event-item" data-sf-eventid="#= taskId #" data-sf-date="#= start #">
+		<div class="sf-event-item" data-sf-eventid="#= taskId #" data-sf-date=#= JSON.stringify(start) #>
 			<a class="sf-event-link" href="@ViewBag.DetailsPageUrl#= eventUrl #" title="#= title #">#= title #</a>
 		</div>
     </script>

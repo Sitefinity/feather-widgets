@@ -16,7 +16,8 @@
                 minCalendarLength: $(element).attr('data-sf-mincalendarlength'),
                 model: $(element).attr('data-sf-controller-model'),
                 scheduler: $(element).find('[data-sf-role="scheduler"]'),
-                uiCulture: $(element).attr('data-sf-uiculture')
+                uiCulture: $(element).attr('data-sf-uiculture'),
+                timezoneOffset: $(element).attr('data-sf-timezoneoffset')
             };
 
             $(schedulerHtmlTemplates.eventCalendarlistWrapperHtml).appendTo(schedulerData.calendarList);
@@ -39,8 +40,8 @@
                             if (operation === "read") {
                                 var scheduler = kendoScheduler.data("kendoScheduler");
                                 var model = $.parseJSON(schedulerData.model);
-                                model.StartDate = kendo.toString(scheduler.view().startDate(), "s");
-                                model.EndDate = kendo.toString(scheduler.view().endDate(), "s");
+                                model.StartDate = new Date(scheduler.view().startDate().getTime() - schedulerData.timezoneOffset).toISOString();
+                                model.EndDate = new Date(scheduler.view().endDate().getTime() - schedulerData.timezoneOffset).toISOString();
                                 model.CalendarList = $.makeArray(schedulerData.calendarlistWrapper.find('[data-sf-role="calendarlist-item"].' + schedulerData.calendarListClassActive).attr("data-sf-id"));
                                 model.UiCulture = schedulerData.uiCulture;
                                 return model;
