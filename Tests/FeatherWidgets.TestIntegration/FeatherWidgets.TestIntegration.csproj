@@ -224,8 +224,8 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\packages\Telerik.Sitefinity.Core.9.2.6200.0\lib\net40\Telerik.Sitefinity.Utilities.dll</HintPath>
     </Reference>
-    <Reference Include="Telerik.WebTestRunner.Server">
-      <HintPath>..\..\packages\Telerik.Sitefinity.WebTestRunner.Server.1.0.0.2\lib\net40\Telerik.WebTestRunner.Server.dll</HintPath>
+    <Reference Include="Telerik.WebTestRunner.Server, Version=1.0.0.3, Culture=neutral, PublicKeyToken=b28c218413bdf563, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Telerik.Sitefinity.WebTestRunner.Server.1.0.0.3\lib\net40\Telerik.WebTestRunner.Server.dll</HintPath>
       <SpecificVersion>False</SpecificVersion>
     </Reference>
     <Reference Include="WebActivatorEx, Version=2.0.0.0, Culture=neutral, PublicKeyToken=7b26dc2a43f6a0d4, processorArchitecture=MSIL">
@@ -291,6 +291,7 @@
     <Compile Include="InlineClientAssets\StyleSheetWidgetTests.cs" />
     <Compile Include="Navigation\BreadcrumbWidgetTests.cs" />
     <Compile Include="Navigation\DummyBreadcrumbExtender.cs" />
+    <Compile Include="Navigation\DummySitemapFilter.cs" />
     <Compile Include="Navigation\LanguageSelectorWidgetTests.cs" />
     <Compile Include="Navigation\NavigationWidgetPageSelectionModeTests.cs" />
     <Compile Include="Navigation\NavigationWidgetPageTemplateTests.cs" />
