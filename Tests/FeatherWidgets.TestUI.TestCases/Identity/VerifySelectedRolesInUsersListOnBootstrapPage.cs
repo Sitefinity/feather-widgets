@@ -30,7 +30,7 @@ namespace FeatherWidgets.TestUI.TestCases.Identity
             BAT.Wrappers().Backend().Pages().PagesWrapper().OpenPageZoneEditor(PageName);
             BATFeather.Wrappers().Backend().Pages().PageZoneEditorWrapper().EditWidget(WidgetName);
 
-            BATFeather.Wrappers().Backend().Widgets().WidgetDesignerWrapper().SelectRadioButtonOption(WidgetDesignerRadioButtonIds.filterUsers);
+            BATFeather.Wrappers().Backend().Widgets().WidgetDesignerWrapper().SelectRadioButtonOption(WidgetDesignerRadioButtonIds.FilterUsers);
             BATFeather.Wrappers().Backend().Widgets().WidgetDesignerWrapper().ClickSelectButton(1);
             BATFeather.Wrappers().Backend().Identity().UsersListWrapper().VerifyRolesProviderOptions();
             BATFeather.Wrappers().Backend().Identity().UsersListWrapper().SelectProvider(UserProvider);
