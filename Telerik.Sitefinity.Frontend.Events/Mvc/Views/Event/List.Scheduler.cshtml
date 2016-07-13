@@ -31,12 +31,12 @@ else {
     </div>
     <div data-sf-role="scheduler"></div>
 	<script data-sf-role="event-alldayeventtemplate" type="text/x-kendo-tmpl">
-		<div class="sf-event-item" data-sf-eventid="#= taskId #" data-sf-date=#= JSON.stringify(start) #>
+		<div class="sf-event-item" data-sf-eventid="#= taskId #" data-sf-date="#= start #">
 			<a class="sf-event-link" href="@ViewBag.DetailsPageUrl#= eventUrl #" title="#= title #">#= title #</a>
 		</div>
     </script>
     <script data-sf-role="event-eventtemplate" type="text/x-kendo-tmpl">
-		<div class="sf-event-item" data-sf-eventid="#= taskId #" data-sf-date=#= JSON.stringify(start) #>
+		<div class="sf-event-item" data-sf-eventid="#= taskId #" data-sf-date="#= start #">
 			<a class="sf-event-link" href="@ViewBag.DetailsPageUrl#= eventUrl #" title="#= title #">#= title #</a>
 		</div>
     </script>
