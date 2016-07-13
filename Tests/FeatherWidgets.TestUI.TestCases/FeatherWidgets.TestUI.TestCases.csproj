@@ -236,6 +236,8 @@
     <Compile Include="EmailCampaigns\TryToUnsubscribeNotExistingSubscriber.cs" />
     <Compile Include="EmailCampaigns\UnsubscribeWidgetOnFoundationAndSemanticPage.cs" />
     <Compile Include="EmailCampaigns\UnsubscribeWidgetOnHybridPageAndSetCssClass.cs" />
+    <Compile Include="Events\DeleteEventsWidget.cs" />
+    <Compile Include="Events\DuplicateEventsWidgets.cs" />
     <Compile Include="Events\FilterEventsByDateOnPage.cs" />
     <Compile Include="Events\FilterUpcomingAndCurrentAndPastEventOnPage.cs" />
     <Compile Include="Events\FilterUpcomingAndCurrentEventOnPage.cs" />
@@ -246,6 +248,8 @@
     <Compile Include="Events\SelectParticularEventOnPage.cs" />
     <Compile Include="Events\VerifyNoLimitAndPaginationListSettingsOnFrontendPageForEventsWidget.cs" />
     <Compile Include="Events\VerifyPagingOnFrontendPageForEventsWidget.cs" />
+    <Compile Include="Events\VerifyPastCurrentUpcomingEvents_Scheduler_MvcPage.cs" />
+    <Compile Include="Events\VerifyPastCurrentUpcomingEvents_Scheduler_WorkWeekView_MvcPage.cs" />
     <Compile Include="Events\VerifyUseLimitListSettingsOnFrontendPageForEventsWidget.cs" />
     <Compile Include="FeatherTeams.cs" />
     <Compile Include="FeedWidget\DragAndDropFeedWidgetAndSetDefaultRssOnPage.cs" />

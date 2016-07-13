@@ -19,6 +19,7 @@ using Feather.Widgets.TestUI.Framework.Framework.ElementMap.WidgetTemplates;
 using Feather.Widgets.TestUI.Framework.Framework.ElementMap.FeedWidget;
 using Feather.Widgets.TestUI.Framework.Framework.ElementMap.Forms;
 using Feather.Widgets.TestUI.Framework.Framework.ElementMap.CardWidget;
+using Feather.Widgets.TestUI.Framework.Framework.ElementMap.Events;
 
 namespace Feather.Widgets.TestUI.Framework.Framework.ElementMap
 {
@@ -458,6 +459,29 @@ namespace Feather.Widgets.TestUI.Framework.Framework.ElementMap
         }
 
         /// <summary>
+        /// Gets the EventsMap element map.
+        /// </summary>
+        /// <value>The EventsMap map.</value>
+        public EventsMap Events
+        {
+            get
+            {
+                if (this.eventsMap == null)
+                {
+                    this.EnsureFindIsInitialized();
+                    this.eventsMap = new EventsMap(this.find);
+                }
+
+                return this.eventsMap;
+            }
+
+            private set
+            {
+                this.eventsMap = value;
+            }
+        }
+
+        /// <summary>
         /// Gets the CardMap element map.
         /// </summary>
         /// <value>The CardMap map.</value>
@@ -508,5 +532,6 @@ namespace Feather.Widgets.TestUI.Framework.Framework.ElementMap
         private FeedWidgetMap feedWidgetMap;
         private FormsMap formsMap;
         private CardMap cardMap;
+        private EventsMap eventsMap;
     }
 }

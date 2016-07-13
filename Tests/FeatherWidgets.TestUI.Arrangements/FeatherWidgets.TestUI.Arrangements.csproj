@@ -385,7 +385,15 @@
     <Compile Include="EmailCampaigns\TryToUnsubscribeNotExistingSubscriber.cs" />
     <Compile Include="EmailCampaigns\UnsubscribeWidgetOnFoundationAndSemanticPage.cs" />
     <Compile Include="EmailCampaigns\UnsubscribeWidgetOnHybridPageAndSetCssClass.cs" />
+    <Compile Include="Events\DeleteEventsWidget.cs" />
+    <Compile Include="Events\DuplicateEventsWidgets.cs" />
     <Compile Include="Events\VerifyNoLimitAndPaginationListSettingsOnFrontendPageForEventsWidget.cs" />
+    <Compile Include="Events\VerifyPastCurrentUpcomingEvents_Scheduler_MvcPage_Agenda_View.cs" />
+    <Compile Include="Events\VerifyPastCurrentUpcomingEvents_Scheduler_MvcPage_Day_View.cs" />
+    <Compile Include="Events\VerifyPastCurrentUpcomingEvents_Scheduler_MvcPage_Month_View.cs" />
+    <Compile Include="Events\VerifyPastCurrentUpcomingEvents_Scheduler_MvcPage_Timeline_View.cs" />
+    <Compile Include="Events\VerifyPastCurrentUpcomingEvents_Scheduler_MvcPage_Week_View.cs" />
+    <Compile Include="Events\VerifyPastCurrentUpcomingEvents_Scheduler_WorkWeekView_MvcPage.cs" />
     <Compile Include="Events\VerifyUseLimitListSettingsOnFrontendPageForEventsWidget.cs" />
     <Compile Include="Events\FilterEventCommon.cs" />
     <Compile Include="Events\FilterByAllEvents.cs" />
