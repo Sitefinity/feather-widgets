@@ -7,30 +7,27 @@ using Feather.Widgets.TestUI.Framework;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Telerik.Sitefinity.TestUI.Framework.Wrappers.Backend.PageEditor;
 using System.Globalization;
+
+
 using Feather.Widgets.TestUI.Framework.Framework.Wrappers.Frontend.Events;
 
 namespace FeatherWidgets.TestUI.TestCases.Events
 {
-    /// <summary>
-    /// Create a page with MVC Page Template and add Mvc Events widget with Scheduler view.
-    /// Verify events items that show in preview mode, publish the page. 
-    /// Verify event items (past, current, upcoming) in the frontend page.
-    /// </summary>
     [TestClass]
-    public class VerifyPastCurrentUpcomingEvents_Scheduler_MvcPage_ : FeatherTestCase
+    public class VerifyPastCurrentUpcomingEvents_Scheduler_HybridPage_ : FeatherTestCase
     {
-          /// <summary>
-        /// Test Method that provides test steps for VerifyPastCurrentUpcomingEvents_Scheduler_MvcPage_Month_View UI Test.
+         /// <summary>
+        /// Test Method that provides test steps for VerifyPastCurrentUpcomingEvents_Scheduler_HybridPage_ UI Test.
         /// </summary>
         [TestMethod,
         Owner(FeatherTeams.SitefinityTeam8),
         TestCategory(FeatherTestCategories.PagesAndContent),
         TestCategory(FeatherTestCategories.Events)]
-        public void VerifyPastCurrentUpcomingEvents_Scheduler_MvcPage_Month_View()
+        public void VerifyPastCurrentUpcomingEvents_Scheduler_HybridPage_Month_View()
         {
             this.CreatePageWithEventsWidget();
 
-            ////Monthly view verification
+            //Monthly view verification
             BAT.Macros().NavigateTo().CustomPage("~/" + pageTitle.ToLower(), true, this.Culture);
             Assert.AreEqual(BATFeather.Wrappers().Frontend().Events().EventsWrapper().GetSelectedSchedulerView(), monthSchedulerView);
             this.EventVerification(currentEventTitle, currentEventStartDate, currentEventEndDate, pageTitle, activeCalendar);
@@ -41,7 +38,6 @@ namespace FeatherWidgets.TestUI.TestCases.Events
             BAT.Macros().NavigateTo().CustomPage("~/" + pageTitle.ToLower(), true, this.Culture);
             this.EventVerification(baseUpcomingInOneDayEventTitle, baseUpcomingInOneDayEventStartDate, baseUpcomingInOneDayEventEndDate, pageTitle, activeCalendar);
         }
-
         /// <summary>
         /// Test Method that provides test steps for VerifyPastCurrentUpcomingEvents_Scheduler_MvcPage_Day_View UI Test.
         /// </summary>
@@ -49,7 +45,7 @@ namespace FeatherWidgets.TestUI.TestCases.Events
         Owner(FeatherTeams.SitefinityTeam8),
         TestCategory(FeatherTestCategories.PagesAndContent),
         TestCategory(FeatherTestCategories.Events)]
-        public void VerifyPastCurrentUpcomingEvents_Scheduler_MvcPage_Day_View()
+        public void VerifyPastCurrentUpcomingEvents_Scheduler_HybridPage_Day_View()
         {
             this.CreatePageWithEventsWidget();
 
@@ -80,7 +76,7 @@ namespace FeatherWidgets.TestUI.TestCases.Events
         Owner(FeatherTeams.SitefinityTeam8),
         TestCategory(FeatherTestCategories.PagesAndContent),
         TestCategory(FeatherTestCategories.Events)]
-        public void VerifyPastCurrentUpcomingEvents_Scheduler_MvcPage_Week_View()
+        public void VerifyPastCurrentUpcomingEvents_Scheduler_HybridPage_Week_View()
         {
             this.CreatePageWithEventsWidget();
 
@@ -108,7 +104,7 @@ namespace FeatherWidgets.TestUI.TestCases.Events
         Owner(FeatherTeams.SitefinityTeam8),
         TestCategory(FeatherTestCategories.PagesAndContent),
         TestCategory(FeatherTestCategories.Events)]
-        public void VerifyPastCurrentUpcomingEvents_Scheduler_MvcPage_Agenda_View()
+        public void VerifyPastCurrentUpcomingEvents_Scheduler_HybridPage_Agenda_View()
         {
             this.CreatePageWithEventsWidget();
 
@@ -144,7 +140,7 @@ namespace FeatherWidgets.TestUI.TestCases.Events
         Owner(FeatherTeams.SitefinityTeam8),
         TestCategory(FeatherTestCategories.PagesAndContent),
         TestCategory(FeatherTestCategories.Events)]
-        public void VerifyPastCurrentUpcomingEvents_Scheduler_MvcPage_Timeline_View()
+        public void VerifyPastCurrentUpcomingEvents_Scheduler_HybridPage_Timeline_View()
         {
             this.CreatePageWithEventsWidget();
 
