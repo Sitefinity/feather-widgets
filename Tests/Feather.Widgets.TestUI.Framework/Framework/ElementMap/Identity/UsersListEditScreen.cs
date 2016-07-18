@@ -41,7 +41,7 @@ namespace Feather.Widgets.TestUI.Framework.Framework.ElementMap.Identity
         {
             get
             {
-                return this.Get<HtmlContainerControl>("tagname=h4", "innerText=Which users to display?");
+                return this.Get<HtmlContainerControl>("tagname=label", "innerText=Which users to display?");
             }
         }
 

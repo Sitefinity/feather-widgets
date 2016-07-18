@@ -1,11 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Globalization;
 using System.Linq;
+using System.Reflection;
 using System.Text.RegularExpressions;
 using FeatherWidgets.TestUtilities.CommonOperations;
 using MbUnit.Framework;
 using Telerik.Sitefinity;
+using Telerik.Sitefinity.Abstractions;
 using Telerik.Sitefinity.Fluent.Pages;
 using Telerik.Sitefinity.Frontend.DynamicContent.Mvc.Controllers;
 using Telerik.Sitefinity.Frontend.Mvc.Infrastructure.Controllers;
@@ -19,6 +20,7 @@ using Telerik.Sitefinity.Pages.Model;
 using Telerik.Sitefinity.Services;
 using Telerik.Sitefinity.TestIntegration.Core.SiteMap;
 using Telerik.Sitefinity.TestIntegration.Data.Content;
+using Telerik.Sitefinity.TestIntegration.Helpers;
 using Telerik.Sitefinity.Utilities.TypeConverters;
 using Telerik.Sitefinity.Web;
 using CommonOperationsContext = Telerik.Sitefinity.TestUtilities.CommonOperations;
@@ -149,6 +151,53 @@ namespace FeatherWidgets.TestIntegration.Navigation
             }
 
             Assert.AreEqual(DummyBreadcrumbExtender.DummySiteMapNodeTitle, viewModel.SiteMapNodes.Last().Title);
+        }
+
+        [Test]
+        [Category(TestCategories.Navigation)]
+        [Author(FeatherTeams.SitefinityTeam3)]
+        [Description("Verifies that BreadcrumbModel works properly when we want bradcrumb from the home page to the current one with some restricted pages in the tree.")]
+        public void BreadcrumbModel_FromHomeToCurrentPage_WithRestrictedPages()
+        {
+            this.CreateTestPages();
+
+            ObjectFactory.RegisterSitemapNodeFilter<DummySitemapFilter>("DummyFilter");
+            var restrictedPageIndex = 1;
+            DummySitemapFilter.RestrictPageNode(this.createdPageIDs[restrictedPageIndex]);
+
+            //// invalidates sitemap cache
+            var inf = typeof(SiteMapBase).GetMethod("Reset", BindingFlags.Static | BindingFlags.NonPublic);
+            inf.Invoke(null, null);
+
+            using (var userReg = new CreateUserRegion("Viewer" + Guid.NewGuid().ToString(), false))
+            {
+                using (var profileReg = new CreateUserProfileRegion(userReg.User, "Viewer"))
+                {
+                    using (new AuthenticateUserRegion(userReg.User))
+                    {
+                        var model = new BreadcrumbModel();
+                        var viewModel = model.CreateViewModel(null);
+                        var skipStep = 0;
+
+                        for (int i = 0; i < BreadcrumbWidgetTests.TestPagesCount; i++)
+                        {
+                            var expected = SitefinitySiteMap.GetCurrentProvider().FindSiteMapNodeFromKey(this.createdPageIDs[i].ToString());
+                            if (i == restrictedPageIndex)
+                            {
+                                Assert.IsNull(expected);
+                                skipStep--;
+                                continue;
+                            }
+
+                            var breadcrumgIndex = i + skipStep;
+                            var actual = viewModel.SiteMapNodes[breadcrumgIndex];
+                            Assert.AreEqual(expected.Title, actual.Title);
+                        }
+                    }
+                }
+            }
+
+            DummySitemapFilter.Clear();
         }
 
         [Test]

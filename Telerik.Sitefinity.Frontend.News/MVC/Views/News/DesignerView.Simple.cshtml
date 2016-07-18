@@ -7,7 +7,7 @@
 
 <uib-tabset class="nav-tabs-wrapper">
     <uib-tab heading="@Html.Resource("Content")">
-        <h4>@Html.Resource("NewsToDisplay")</h4>
+        <label>@Html.Resource("NewsToDisplay")</label>
         <div class="form-group">
             <div class="row">
                 <div class="col-xs-6">
@@ -145,7 +145,7 @@
 
     <uib-tab heading="@Html.Resource("SingleItemSettings")">
         <div class="form-group">
-            <strong>@Html.Resource("OpenSingleItem")</strong>
+            <label>@Html.Resource("OpenSingleItem")</label>
             <div class="radio">
                 <label for="samePage">
                     <input id="samePage" type="radio" ng-model="properties.OpenInSamePage.PropertyValue" value="True" />
