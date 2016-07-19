@@ -10,9 +10,9 @@ using Telerik.Sitefinity.Frontend.Forms.Mvc.StringResources;
 using Telerik.Sitefinity.Localization;
 using Telerik.Sitefinity.Metadata.Model;
 using Telerik.Sitefinity.Modules.Forms.Web.UI.Fields;
+using Telerik.Sitefinity.Web.UI.Validation;
 using Telerik.Sitefinity.Web.UI.Validation.Definitions;
 using Telerik.Sitefinity.Web.UI.Validation.Enums;
-using Telerik.Sitefinity.Web.UI.Validation;
 
 namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Models.Fields.TextField
 {
@@ -146,7 +146,8 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Models.Fields.TextField
                 minMaxLength = ".{" + this.ValidatorDefinition.MinLength + "," + this.ValidatorDefinition.MaxLength + "}";
             else if (this.ValidatorDefinition.MinLength > 0)
                 minMaxLength = ".{" + this.ValidatorDefinition.MinLength + ",}";
-            else if (!string.IsNullOrWhiteSpace(this.ValidatorDefinition.ExpectedFormat.ToString()))
+            
+            if (!string.IsNullOrWhiteSpace(this.ValidatorDefinition.ExpectedFormat.ToString()))
             {
                 attributes.Append("pattern=");
                 attributes.Append(this.GetRegExForExpectedFormat(this.ValidatorDefinition.ExpectedFormat));
@@ -217,6 +218,7 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Models.Fields.TextField
                 case ValidationFormat.Custom:
                     throw new ArgumentException("You must specify a valid RegularExpression.");
             }
+
             return regexPattern;
         }
 
