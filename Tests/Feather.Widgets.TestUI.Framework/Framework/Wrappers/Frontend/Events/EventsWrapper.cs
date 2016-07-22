@@ -6,6 +6,7 @@ using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using ArtOfTest.WebAii.Core;
 
 namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Frontend.Events
 {
@@ -88,6 +89,7 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Frontend.Events
         {
             HtmlDiv frontendPageMainDiv = BAT.Wrappers().Frontend().Pages().PagesWrapperFrontend().GetPageContent();
             var eventDetails = frontendPageMainDiv.Find.ByExpression<HtmlDiv>("class=sf-event-item", "data-sf-date=~" + dateTime);
+            
             var eventTitle = eventDetails.ChildNodes.First().InnerText;
             return eventTitle;
         }
@@ -155,9 +157,9 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Frontend.Events
         /// <summary>
         /// Navigate to previous day in Scheduler Day view
         /// </summary>
-        public void NavigateToPreviousDay()
+        public void GoPrevious()
         {
-            var previousDayButton = EM.Events.EventsFrontend.PreviousDay;
+            var previousDayButton = EM.Events.EventsFrontend.NavigatePrevious;
             previousDayButton.AssertIsPresent("Previous day button");
             previousDayButton.Click();
         }
@@ -165,9 +167,9 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Frontend.Events
         /// <summary>
         /// Navigate to next day in Scheduler Day view
         /// </summary>
-        public void NavigateToNextDay()
+        public void GoNext()
         {
-            var nextDayButton = EM.Events.EventsFrontend.NextDay;
+            var nextDayButton = EM.Events.EventsFrontend.NavigateNext;
             nextDayButton.AssertIsPresent("Next day button");
             nextDayButton.Click();
         }
@@ -181,6 +183,260 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Frontend.Events
             HtmlDiv frontendPageMainDiv = BAT.Wrappers().Frontend().Pages().PagesWrapperFrontend().GetPageContent();
             var eventTime = frontendPageMainDiv.Find.ByExpression<HtmlSpan>("class=k-lg-date-format").InnerText;
             return eventTime;
+        }
+
+        /// <summary>
+        /// Navigate back or forward to specific month in calendar accourding to given target datetime
+        /// </summary>
+        /// <param name="startDateTime">Current calendar datetime</param>
+        /// <param name="targetDateTime">Target datetime</param>
+        public void NavigateToDateInSchedulerMonthView(DateTime startDateTime, DateTime targetDateTime)
+        {
+            int monthsDifference = (startDateTime.Year - targetDateTime.Year) * 12 + (startDateTime.Month - targetDateTime.Month);
+
+            if (monthsDifference < 0)
+            {
+                for (int i = 0; i > monthsDifference; i--)
+                {
+                    this.GoNext();
+                }
+            }
+            else if (monthsDifference > 0)
+            {
+                for (int i = 0; i < monthsDifference; i++)
+                {
+                    this.GoPrevious();
+                }
+            }
+
+            //Manager.Current.Wait.For(() => this.WaitForEventAppointmentToAppear());
+        }
+
+
+        /// <summary>
+        /// Navigate back or forward to specific week in calendar accourding to given target datetime
+        /// </summary>
+        /// <param name="startDateTime">Current calendar datetime</param>
+        /// <param name="targetDateTime">Target datetime</param>
+        public void NavigateToDateInSchedulerWorkWeekView(DateTime startDateTime, DateTime targetDateTime)
+        {
+            TimeSpan ts = startDateTime.Subtract(targetDateTime);
+            int dateDiff = ts.Days;
+            int totalWeeks = dateDiff / 7;
+
+            if (totalWeeks < 0)
+            {
+                for (int i = 0; i > totalWeeks; i--)
+                {
+                    //EventsMap.EventsFrontend.CalendarRadScheduler.GoNext();
+                    this.GoNext();
+                }
+                //if (!this.WaitForEventAppointmentToAppear())
+                //{
+                //    //EventsMap.EventsFrontend.CalendarRadScheduler.GoNext();
+                //    this.GoNext();
+                //}
+            }
+            else if (totalWeeks > 0)
+            {
+                for (int i = 0; i < totalWeeks; i++)
+                {
+                    //EventsMap.EventsFrontend.CalendarRadScheduler.GoPrevious();
+                    this.GoPrevious();
+                }
+                //if (!this.WaitForEventAppointmentToAppear())
+                //{
+                //    //EventsMap.EventsFrontend.CalendarRadScheduler.GoPrevious();
+                //    this.GoPrevious();
+                //}
+            }
+        }
+
+        /// <summary>
+        /// Return event occurence count in current view 
+        /// </summary>
+        /// <param name="eventId">Event ID</param>
+        /// <returns>Event occurence count</returns>
+        public int EventOccurenceCountInCurrentView(string eventId)
+        {
+            HtmlDiv frontendPageMainDiv = BAT.Wrappers().Frontend().Pages().PagesWrapperFrontend().GetPageContent();
+            var eventItems = frontendPageMainDiv.Find.AllByExpression<HtmlDiv>("data-sf-eventid=" + eventId);
+            return eventItems.Count();
+        }
+
+        /// <summary>
+        /// Get event atrributes (id, start date, end date) of an event
+        /// </summary>
+        /// <param name="eventId">Event ID</param>
+        /// <returns>List of event occurances</returns>
+        public List<EventOccurence> GetEventAttributesInCurrentView(string eventId)
+        {
+            HtmlDiv frontendPageMainDiv = BAT.Wrappers().Frontend().Pages().PagesWrapperFrontend().GetPageContent();
+            var eventItems = frontendPageMainDiv.Find.AllByExpression<HtmlDiv>("data-sf-eventid=" + eventId);
+
+            List<EventOccurence> list = new List<EventOccurence>();
+
+            foreach (HtmlDiv item in eventItems)
+            {
+                var id = item.Attributes.Where(p => p.Name == "data-sf-eventid").FirstOrDefault();
+                var startDate = item.Attributes.Where(p => p.Name == "data-sf-date-start").FirstOrDefault();
+                var endDate = item.Attributes.Where(p => p.Name == "data-sf-date-end").FirstOrDefault();
+             
+                if (id == null || startDate == null || endDate == null 
+                    || String.IsNullOrWhiteSpace(id.Value) || String.IsNullOrWhiteSpace(startDate.Value) 
+                    || String.IsNullOrWhiteSpace(endDate.Value)) 
+                {
+                    continue;
+                }
+
+                list.Add(new EventOccurence()
+                {
+                    EndDate = endDate.Value,
+                    Id = id.Value,
+                    StartDate = startDate.Value
+                });
+            }
+
+            return list;
+        }
+
+        /// <summary>
+        /// Verify date of event occurance in current view
+        /// </summary>
+        /// <param name="eventId">Event ID</param>
+        /// <param name="date">Event date</param>
+        /// <param name="isStart">Is start date</param>
+        public void VerifyEventDate(string eventId, string date, bool isStart, int lastEventOccuranceIndex)
+        {
+            List<EventOccurence> list = this.GetEventAttributesInCurrentView(eventId);
+           
+            //for(int i = 0; i < list.Count; i++)
+            //{
+                if (isStart)
+                {
+                    string startDate = list[lastEventOccuranceIndex].StartDate;
+                    Assert.IsTrue(startDate.Contains(date), "Wrong end date");
+                }
+                else
+                {
+                    string endDate = list[lastEventOccuranceIndex].EndDate;
+                    Assert.IsTrue(endDate.Contains(date), "Wrong end date");
+                }
+           // }
+        }
+
+        public class EventOccurence
+        {
+            public string Id { get; set; }
+            public string StartDate { get; set; }
+            public string EndDate { get; set; }
+        }
+
+        /// <summary>
+        /// Open Calendar selector
+        /// </summary>
+        public void OpenCalendarSelector()
+        {
+            var calendarSelector = EM.Events.EventsFrontend.CalendarSelector;
+            calendarSelector.AssertIsPresent("Calendar selector button");
+            calendarSelector.Click();
+        }
+
+        /// <summary>
+        /// Open fast navigation by year in Calendar Selector
+        /// </summary>
+        public void OpenCurrentYearMonthsInCalendarSelector()
+        {
+            this.OpenCalendarSelector();
+            var fastNavigation = EM.Events.EventsFrontend.FastNavigationInCalendarSelector;
+            fastNavigation.AssertIsPresent("Fast navigation link in Calendar selector");
+            fastNavigation.Click();
+        }
+
+       /// <summary>
+       /// add summary
+       /// </summary>
+       /// <param name="monthName"></param>
+        public void SelectMonthInCalendarSelector(string monthName)
+        {
+            HtmlTable monthsTable = EM.Events.EventsFrontend.MonthsTableCalendarSelector;
+            monthsTable.AssertIsPresent("Month table");
+            HtmlTableCell month = monthsTable.Find.ByExpression<HtmlTableCell>("InnerText=" + monthName);
+            month.AssertIsPresent("Month");
+            HtmlAnchor monthLink = month.Find.AllByTagName<HtmlAnchor>("a").First();
+            monthLink.AssertIsPresent("Month link");
+            monthLink.Focus();
+            monthLink.Click();
+        }
+
+        public void OpenMonthViewCalendarSelector()
+        {
+            HtmlTable daysTable = EM.Events.EventsFrontend.DaysInMonthTableCalendarSelector;
+            daysTable.AssertIsPresent("Day table");
+            HtmlTableCell day = daysTable.Find.ByExpression<HtmlTableCell>("InnerText=" + 15);
+            day.AssertIsPresent("Day");
+            HtmlAnchor monthLink = day.Find.AllByTagName<HtmlAnchor>("a").First();
+            monthLink.AssertIsPresent("Day link");
+            monthLink.Focus();
+            monthLink.Click();
+        }
+
+        public void 
+            FastNavigateToSpecificYear(int startYear, int targetYear)
+        {
+            int yearDifference = (startYear - targetYear);
+
+            if (yearDifference < 0)
+            {
+                for (int i = 0; i > yearDifference; i--)
+                {
+                    this.NavigateNextYearInCalendarSelector();
+                }
+            }
+
+                else if (yearDifference > 0)
+                {
+                    for (int i = 0; i < yearDifference; i++)
+                    {
+                        this.NavigatePreviousYearInCalendarSelector();
+                    }
+                }
+            }
+
+        /// <summary>
+        /// Navigate to next year in fast navigation
+        /// </summary>
+        public void NavigateNextYearInCalendarSelector()
+        {
+            ActiveBrowser.RefreshDomTree();
+            ActiveBrowser.WaitUntilReady();
+            var nextYearButton = EM.Events.EventsFrontend.NavigateNextInFastNavigation;
+            nextYearButton.AssertIsPresent("Next year button");
+            ActiveBrowser.WaitUntilReady();
+            ActiveBrowser.WaitForElementWithCssClass("^k-link k-nav-next");
+            nextYearButton.Click();
+        }
+
+        /// <summary>
+        /// Navigate to previous year in fast navigation
+        /// </summary>
+        public void NavigatePreviousYearInCalendarSelector()
+        {
+            ActiveBrowser.RefreshDomTree();
+            ActiveBrowser.WaitUntilReady();
+            var previousYearButton = EM.Events.EventsFrontend.NavigatePreviousInFastNavigation;
+            previousYearButton.AssertIsPresent("Previous year button");
+            ActiveBrowser.WaitUntilReady();
+            ActiveBrowser.WaitForElementWithCssClass("k-link k-nav-prev");
+            previousYearButton.Click();
+        }
+
+        public void FastNavigationByYearInCalendarSelector(string monthName, int startYear, int targetYear)
+        {
+            this.OpenCurrentYearMonthsInCalendarSelector();
+            this.FastNavigateToSpecificYear(startYear, targetYear);
+            this.SelectMonthInCalendarSelector(monthName);
+            this.OpenMonthViewCalendarSelector();
         }
     }
 }

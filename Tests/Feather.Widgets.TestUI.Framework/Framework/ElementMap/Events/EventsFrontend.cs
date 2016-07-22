@@ -27,7 +27,7 @@ namespace Feather.Widgets.TestUI.Framework.Framework.ElementMap.Events
         /// <summary>
         /// Previous day button in Scheduler Day's view
         /// </summary>
-        public HtmlListItem PreviousDay
+        public HtmlListItem NavigatePrevious
         {
             get
             {
@@ -38,11 +38,77 @@ namespace Feather.Widgets.TestUI.Framework.Framework.ElementMap.Events
         /// <summary>
         /// Next day button in Scheduler Day's view
         /// </summary>
-        public HtmlListItem NextDay
+        public HtmlListItem NavigateNext
         {
             get
             {
                 return this.Get<HtmlListItem>("class=~k-nav-next");
+            }
+        }
+
+        /// <summary>
+        /// Calendar selector button
+        /// </summary>
+        public HtmlSpan CalendarSelector
+        {
+            get
+            {
+                return this.Get<HtmlSpan>("class=k-icon k-i-calendar");
+            }
+        }
+
+        /// <summary>
+        /// Fast navigation in Calendar Selector
+        /// </summary>
+        public HtmlAnchor FastNavigationInCalendarSelector
+        {
+            get
+            {
+                return this.Get<HtmlAnchor>("class=k-link k-nav-fast");
+            }
+        }
+
+        /// <summary>
+        /// Navigate next link in fast navigation 
+        /// </summary>
+        public HtmlAnchor NavigateNextInFastNavigation
+        {
+            get
+            {
+                return this.Get<HtmlAnchor>("class=k-link k-nav-next");
+            }
+                
+        }
+
+        /// <summary>
+        /// Navigate previous link in fast navigation 
+        /// </summary>
+        public HtmlAnchor NavigatePreviousInFastNavigation
+        {
+            get
+            {
+                return this.Get<HtmlAnchor>("class=k-link k-nav-prev");
+            }
+
+        }
+
+        /// <summary>
+        /// Navigate previous link in fast navigation 
+        /// </summary>
+        public HtmlTable MonthsTableCalendarSelector
+        {
+            get
+            {
+                return this.Get<HtmlTable>("class=k-content k-meta-view");
+            }
+
+        }
+
+        public HtmlTable DaysInMonthTableCalendarSelector
+        {
+            get
+            {
+                return this.Get<HtmlTable>("class=k-content");
             }
         }
     }

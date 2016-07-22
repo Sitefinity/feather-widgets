@@ -35,16 +35,19 @@ namespace FeatherWidgets.TestUI.TestCases.Events
 
            BAT.Macros().NavigateTo().CustomPage("~/" + pageTitle.ToLower(), true, this.Culture);
            BATFeather.Wrappers().Frontend().Events().EventsWrapper().ChangeSchedulerView(SchedulerViewTypes.WorkWeek);
+           BATFeather.Wrappers().Frontend().Events().EventsWrapper().NavigateToDateInSchedulerWorkWeekView(DateTime.Now, targetWorkWeek);
            Assert.AreEqual(BATFeather.Wrappers().Frontend().Events().EventsWrapper().GetSelectedSchedulerView(), workweekSchedulerView);
            this.EventVerification(currentEventTitle, currentEventStartDate, currentEventEndDate, pageTitle, activeCalendar);
 
            BAT.Macros().NavigateTo().CustomPage("~/" + pageTitle.ToLower(), true, this.Culture);
            BATFeather.Wrappers().Frontend().Events().EventsWrapper().ChangeSchedulerView(SchedulerViewTypes.WorkWeek);
+           BATFeather.Wrappers().Frontend().Events().EventsWrapper().NavigateToDateInSchedulerWorkWeekView(DateTime.Now, targetWorkWeek);
            Assert.AreEqual(BATFeather.Wrappers().Frontend().Events().EventsWrapper().GetSelectedSchedulerView(), workweekSchedulerView);
            this.EventVerification(basePastInOneDayEventTitle, basePastInOneDayEventStartDate, basePastInOneDayEventEndDate, pageTitle, activeCalendar);
 
            BAT.Macros().NavigateTo().CustomPage("~/" + pageTitle.ToLower(), true, this.Culture);
            BATFeather.Wrappers().Frontend().Events().EventsWrapper().ChangeSchedulerView(SchedulerViewTypes.WorkWeek);
+           BATFeather.Wrappers().Frontend().Events().EventsWrapper().NavigateToDateInSchedulerWorkWeekView(DateTime.Now, targetWorkWeek);
            Assert.AreEqual(BATFeather.Wrappers().Frontend().Events().EventsWrapper().GetSelectedSchedulerView(), workweekSchedulerView);
            this.EventVerification(baseUpcomingInOneDayEventTitle, baseUpcomingInOneDayEventStartDate, baseUpcomingInOneDayEventEndDate, pageTitle, activeCalendar);
        }
@@ -128,6 +131,7 @@ namespace FeatherWidgets.TestUI.TestCases.Events
        private string baseUpcomingInOneDayEventStartDate = "Wed Jul 13 2016 13:00:00";
        private string baseUpcomingInOneDayEventEndDate = "Wed Jul 13 2016 14:00:00";
 
+       private readonly DateTime targetWorkWeek = new DateTime(2016, 7, 12, 0, 0, 0, DateTimeKind.Utc);
        private const string pageTitle = "EventsPage";
        private const string workweekSchedulerView = "Work Week";
        private string activeCalendar = "default-calendar";

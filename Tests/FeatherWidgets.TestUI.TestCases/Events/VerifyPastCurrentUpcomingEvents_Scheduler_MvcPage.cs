@@ -62,13 +62,13 @@ namespace FeatherWidgets.TestUI.TestCases.Events
 
             BAT.Macros().NavigateTo().CustomPage("~/" + pageTitle.ToLower(), true, this.Culture);
             BATFeather.Wrappers().Frontend().Events().EventsWrapper().ChangeSchedulerView(SchedulerViewTypes.Day);
-            BATFeather.Wrappers().Frontend().Events().EventsWrapper().NavigateToPreviousDay();
+            BATFeather.Wrappers().Frontend().Events().EventsWrapper().GoPrevious();
             this.VerifyEventDateInDayView(basePastInOneDayEventStartDate);
             this.EventVerification(basePastInOneDayEventTitle, basePastInOneDayEventStartDate, basePastInOneDayEventEndDate, pageTitle, activeCalendar);
 
             BAT.Macros().NavigateTo().CustomPage("~/" + pageTitle.ToLower(), true, this.Culture);
             BATFeather.Wrappers().Frontend().Events().EventsWrapper().ChangeSchedulerView(SchedulerViewTypes.Day);
-            BATFeather.Wrappers().Frontend().Events().EventsWrapper().NavigateToNextDay();
+            BATFeather.Wrappers().Frontend().Events().EventsWrapper().GoNext();
             this.VerifyEventDateInDayView(baseUpcomingInOneDayEventStartDate);
             this.EventVerification(baseUpcomingInOneDayEventTitle, baseUpcomingInOneDayEventStartDate, baseUpcomingInOneDayEventEndDate, pageTitle, activeCalendar);
         }
@@ -123,14 +123,14 @@ namespace FeatherWidgets.TestUI.TestCases.Events
             BAT.Macros().NavigateTo().CustomPage("~/" + pageTitle.ToLower(), true, this.Culture);
             BATFeather.Wrappers().Frontend().Events().EventsWrapper().ChangeSchedulerView(SchedulerViewTypes.Agenda);
             Assert.AreEqual(BATFeather.Wrappers().Frontend().Events().EventsWrapper().GetSelectedSchedulerView(), agendaSchedulerView);
-            BATFeather.Wrappers().Frontend().Events().EventsWrapper().NavigateToNextDay();
+            BATFeather.Wrappers().Frontend().Events().EventsWrapper().GoNext();
             Assert.AreEqual(expectedUpcomingEventTitle, baseUpcomingInOneDayEventTitle);
             this.EventVerification(baseUpcomingInOneDayEventTitle, baseUpcomingInOneDayEventStartDate, baseUpcomingInOneDayEventEndDate, pageTitle, activeCalendar);
 
             BAT.Macros().NavigateTo().CustomPage("~/" + pageTitle.ToLower(), true, this.Culture);
             BATFeather.Wrappers().Frontend().Events().EventsWrapper().ChangeSchedulerView(SchedulerViewTypes.Agenda);
             Assert.AreEqual(BATFeather.Wrappers().Frontend().Events().EventsWrapper().GetSelectedSchedulerView(), agendaSchedulerView);
-            BATFeather.Wrappers().Frontend().Events().EventsWrapper().NavigateToPreviousDay();
+            BATFeather.Wrappers().Frontend().Events().EventsWrapper().GoPrevious();
             Assert.AreEqual(expectedUpcomingEventTitle, baseUpcomingInOneDayEventTitle);
             var expectedCurrentEventTitle = BATFeather.Wrappers().Frontend().Events().EventsWrapper().GetEventTitleInScheduler(currentEventStartDate);
             Assert.AreEqual(expectedCurrentEventTitle, currentEventTitle);
@@ -157,13 +157,13 @@ namespace FeatherWidgets.TestUI.TestCases.Events
 
             BAT.Macros().NavigateTo().CustomPage("~/" + pageTitle.ToLower(), true, this.Culture);
             BATFeather.Wrappers().Frontend().Events().EventsWrapper().ChangeSchedulerView(SchedulerViewTypes.Timeline);
-            BATFeather.Wrappers().Frontend().Events().EventsWrapper().NavigateToPreviousDay();
+            BATFeather.Wrappers().Frontend().Events().EventsWrapper().GoPrevious();
             this.VerifyEventDateInDayView(basePastInOneDayEventStartDate);
             this.EventVerification(basePastInOneDayEventTitle, basePastInOneDayEventStartDate, basePastInOneDayEventEndDate, pageTitle, activeCalendar);
 
             BAT.Macros().NavigateTo().CustomPage("~/" + pageTitle.ToLower(), true, this.Culture);
             BATFeather.Wrappers().Frontend().Events().EventsWrapper().ChangeSchedulerView(SchedulerViewTypes.Timeline);
-            BATFeather.Wrappers().Frontend().Events().EventsWrapper().NavigateToNextDay();
+            BATFeather.Wrappers().Frontend().Events().EventsWrapper().GoNext();
             this.VerifyEventDateInDayView(baseUpcomingInOneDayEventStartDate);
             this.EventVerification(baseUpcomingInOneDayEventTitle, baseUpcomingInOneDayEventStartDate, baseUpcomingInOneDayEventEndDate, pageTitle, activeCalendar);
         }
