@@ -180,7 +180,7 @@ namespace FeatherWidgets.TestIntegration.Forms
             Assert.AreEqual(needsRedirect.GetType(), expectedType);
         }
 
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Naming", "CA1704:IdentifiersShouldBeSpelledCorrectly", MessageId = "Unpublish"), Test]
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Maintainability", "CA1506:AvoidExcessiveClassCoupling"), System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Naming", "CA1704:IdentifiersShouldBeSpelledCorrectly", MessageId = "Unpublish"), Test]
         [Category(TestCategories.Forms)]
         [Author(FeatherTeams.SitefinityTeam6)]
         [Description("Ensures that the form widget have correct cache dependency behavior when form is unpublished/published")]
