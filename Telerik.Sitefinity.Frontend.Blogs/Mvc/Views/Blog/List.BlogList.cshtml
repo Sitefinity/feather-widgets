@@ -10,6 +10,10 @@
 
 <div class="@Model.CssClass">
     <ul>
+        @{
+            var lastPostDates = Model.GetLastPostDates();
+        }
+
         @foreach (var item in Model.Items)
         {
             var detailPageUrl = DetailLocationHyperLinkHelper.GetDetailPageUrl(item, ViewBag.DetailsPageId, ViewBag.DetailPageMode);
@@ -25,7 +29,7 @@
                 </h3>
                 
                 @{
-                    var lastPostDate = item.GetLastPostDate();
+                    var lastPostDate = item.GetLastPostDate(lastPostDates);
                     if (lastPostDate != null && lastPostDate.HasValue)
                     {
                         <p>@Html.Resource("LastPost") : @lastPostDate.Value.ToShortDateString() </p>

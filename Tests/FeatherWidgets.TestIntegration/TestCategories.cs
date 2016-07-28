@@ -23,5 +23,6 @@
         public const string Packaging = "Packaging";
         public const string Events = "Events";
         public const string EmailCampaigns = "EmailCampaigns";
+        public const string Performance = "Performance";
     }
 }

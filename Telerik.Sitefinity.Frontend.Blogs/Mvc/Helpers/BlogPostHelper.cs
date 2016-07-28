@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using Telerik.Sitefinity.Blogs.Model;
 using Telerik.Sitefinity.Frontend.Mvc.Models;
@@ -13,10 +14,52 @@ namespace Telerik.Sitefinity.Frontend.Blogs.Mvc.Helpers
     public static class BlogPostHelper
     {
         /// <summary>
-        /// Gets the last post date.
+        /// Gets the last post dates for each blog in the model that has blog posts.
+        /// </summary>
+        /// <param name="model">The blog model.</param>
+        /// <returns>Prefetched dictionary containing last post date for each blog in the model that has blog posts.</returns>
+        public static IDictionary<Guid, DateTime> GetLastPostDates(this ContentListViewModel model)
+        {
+            var ids = model.Items.Select(vm => vm.DataItem.Id).ToArray();
+            var blogPosts = BlogsManager.GetManager(model.ProviderName).GetBlogPosts().Where(i => i.Status == ContentLifecycleStatus.Master);
+            var blogsWithChildPosts = from blogPost in blogPosts
+                                      where ids.Contains(blogPost.Parent.Id)
+                                      group blogPost by blogPost.Parent.Id into blogPostsGroup
+                                      where blogPostsGroup.Count() > 0
+                                      select new KeyValuePair<Guid, DateTime>(blogPostsGroup.Key, blogPostsGroup.Max(p => p.DateCreated));
+
+            var result = blogsWithChildPosts.ToDictionary(k => k.Key, k => k.Value);
+            return result;
+        }
+
+        /// <summary>
+        /// Gets the last post date of the given post.
         /// </summary>
         /// <param name="item">The item.</param>
-        /// <returns></returns>
+        /// <param name="lastDates">The last dates.</param>
+        /// <returns>Last post date for the given blog.</returns>
+        /// <exception cref="System.ArgumentNullException">lastDates</exception>
+        public static DateTime? GetLastPostDate(this ItemViewModel item, IDictionary<Guid, DateTime> lastDates)
+        {
+            if (lastDates == null)
+                throw new ArgumentNullException("lastDates");
+
+            if (lastDates.ContainsKey(item.DataItem.Id))
+            {
+                return lastDates[item.DataItem.Id];
+            }
+            else
+            {
+                return null;
+            }
+        }
+
+        /// <summary>
+        /// Gets the last post date of the blog.
+        /// </summary>
+        /// <param name="item">The blog view model.</param>
+        /// <returns>The date of the last post if such exists.</returns>
+        [Obsolete("This method causes an SQL query. Please Use the one that accepts a dictionary with preloaded dates. Get the dictionary with Model.GetLastPostDates()")]
         public static DateTime? GetLastPostDate(this ItemViewModel item)
         {
             var blog = item.DataItem as Blog;
