@@ -20,13 +20,29 @@ namespace Telerik.Sitefinity.Frontend.Blogs.Mvc.Helpers
         /// <returns>Prefetched dictionary containing last post date for each blog in the model that has blog posts.</returns>
         public static IDictionary<Guid, DateTime> GetLastPostDates(this ContentListViewModel model)
         {
+            const int BatchSize = 200;
+
             var ids = model.Items.Select(vm => vm.DataItem.Id).ToArray();
             var blogPosts = BlogsManager.GetManager(model.ProviderName).GetBlogPosts().Where(i => i.Status == ContentLifecycleStatus.Master);
-            var blogsWithChildPosts = from blogPost in blogPosts
-                                      where ids.Contains(blogPost.Parent.Id)
-                                      group blogPost by blogPost.Parent.Id into blogPostsGroup
-                                      where blogPostsGroup.Count() > 0
-                                      select new KeyValuePair<Guid, DateTime>(blogPostsGroup.Key, blogPostsGroup.Max(p => p.DateCreated));
+            IEnumerable<KeyValuePair<Guid, DateTime>> blogsWithChildPosts;
+            if (ids.Length <= BatchSize)
+            {
+                blogsWithChildPosts = BlogPostHelper.PartialBlogsLastPostDates(ids, blogPosts);
+            }
+            else
+            {
+                var tempResult = new List<KeyValuePair<Guid, DateTime>>(ids.Length);
+
+                // Integer division, rounded up
+                var pagesCount = (ids.Length + BatchSize - 1) / BatchSize;
+                for (var p = 0; p < pagesCount; p++)
+                {
+                    var batch = ids.Skip(p * BatchSize).Take(BatchSize).ToArray();
+                    tempResult.AddRange(BlogPostHelper.PartialBlogsLastPostDates(batch, blogPosts));
+                }
+
+                blogsWithChildPosts = tempResult;
+            }
 
             var result = blogsWithChildPosts.ToDictionary(k => k.Key, k => k.Value);
             return result;
@@ -59,7 +75,7 @@ namespace Telerik.Sitefinity.Frontend.Blogs.Mvc.Helpers
         /// </summary>
         /// <param name="item">The blog view model.</param>
         /// <returns>The date of the last post if such exists.</returns>
-        [Obsolete("This method causes an SQL query. Please Use the one that accepts a dictionary with preloaded dates. Get the dictionary with Model.GetLastPostDates()")]
+        /// <remarks>This method causes an SQL query. For multiple items use the overload that accepts a dictionary with preloaded dates. Get the dictionary with Model.GetLastPostDates().</remarks>
         public static DateTime? GetLastPostDate(this ItemViewModel item)
         {
             var blog = item.DataItem as Blog;
@@ -76,6 +92,17 @@ namespace Telerik.Sitefinity.Frontend.Blogs.Mvc.Helpers
             {
                 return null;
             }
+        }
+
+        private static IEnumerable<KeyValuePair<Guid, DateTime>> PartialBlogsLastPostDates(Guid[] ids, IQueryable<BlogPost> blogPosts)
+        {
+            IEnumerable<KeyValuePair<Guid, DateTime>> blogsWithChildPosts;
+            blogsWithChildPosts = from blogPost in blogPosts
+                                  where ids.Contains(blogPost.Parent.Id)
+                                  group blogPost by blogPost.Parent.Id into blogPostsGroup
+                                  where blogPostsGroup.Count() > 0
+                                  select new KeyValuePair<Guid, DateTime>(blogPostsGroup.Key, blogPostsGroup.Max(p => p.DateCreated));
+            return blogsWithChildPosts;
         }
     }
 }
