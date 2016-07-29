@@ -122,6 +122,7 @@ namespace FeatherWidgets.TestIntegration.Performance
         [Description("Validated the number of SQL queries required to display a Events widget.")]
         public void EventsWidget_Index_ValidateQueriesCount()
         {
+            //// The sample size is chosen to test the inclusion of Calendars with the Event query which is done on batches of 200.
             const int SampleSize = 450;
             var eventOperations = new EventOperations();
             List<Guid> calendars = new List<Guid>(SampleSize);
@@ -149,7 +150,7 @@ namespace FeatherWidgets.TestIntegration.Performance
                                         out tracedData);
 
                 SqlProfiler.DisableSqlProfiling();
-                ContentModelSqlProfilingTests.AssertSelects(tracedData, 3, "EventController.Index");
+                ContentModelSqlProfilingTests.AssertSelects(tracedData, 5, "EventController.Index");
             }
             finally
             {
@@ -198,6 +199,7 @@ namespace FeatherWidgets.TestIntegration.Performance
 
             var controller = new EventController();
             FrontendControllerFactory.EnhanceViewEngines(controller);
+            controller.Model.ItemsPerPage = 450;
             controller.ControllerContext = new System.Web.Mvc.ControllerContext(fakeContext, new RouteData(), controller);
             controller.ControllerContext.RouteData.Values["controller"] = "Event";
             controller.Index(1).ExecuteResult(controller.ControllerContext);
