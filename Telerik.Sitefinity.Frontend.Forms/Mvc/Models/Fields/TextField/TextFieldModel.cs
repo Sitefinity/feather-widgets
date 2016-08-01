@@ -149,9 +149,14 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Models.Fields.TextField
             
             if (!string.IsNullOrWhiteSpace(this.ValidatorDefinition.ExpectedFormat.ToString()))
             {
-                attributes.Append("pattern=");
-                attributes.Append(this.GetRegExForExpectedFormat(this.ValidatorDefinition.ExpectedFormat));
-                attributes.Append(" ");
+                var pattern = this.GetRegExForExpectedFormat(this.ValidatorDefinition.ExpectedFormat);
+                if(!string.IsNullOrEmpty(pattern))
+                {
+                    attributes.Append("pattern=");
+                    attributes.Append(pattern);
+                    attributes.Append(" ");
+                }
+                
             }
 
             if (this.InputType == TextType.Tel)
