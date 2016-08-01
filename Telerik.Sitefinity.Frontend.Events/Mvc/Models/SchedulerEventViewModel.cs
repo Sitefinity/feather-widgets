@@ -23,8 +23,8 @@ namespace Telerik.Sitefinity.Frontend.Events.Mvc.Models
             this.Id = item.Event.Id;
             this.Title = item.Event.Title[uiCulture.Name];
             this.Description = item.Event.Description[uiCulture.Name];
-            this.Start = item.Event.AllDayEvent ? item.StartDate : item.StartDate.ToSitefinityUITime();
-            this.End = item.EndDate != null ? (item.Event.AllDayEvent ? item.EndDate.Value.AddDays(-1) : item.EndDate.Value.ToSitefinityUITime()) : DateTime.MaxValue;
+            this.Start = item.Event.AllDayEvent ? item.StartDate.ToUniversalTime() : item.StartDate.ToUniversalTime();
+            this.End = item.EndDate != null ? (item.Event.AllDayEvent ? item.EndDate.Value.ToUniversalTime().AddDays(-1) : item.EndDate.Value.ToUniversalTime()) : DateTime.MaxValue;
             this.RecurrenceID = item.IsRecurrent ? item.Event.Id : (Guid?)null;
             this.IsAllDay = item.Event.AllDayEvent;
             this.CalendarId = item.Event.ParentId;

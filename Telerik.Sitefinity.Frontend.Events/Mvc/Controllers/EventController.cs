@@ -259,6 +259,7 @@ namespace Telerik.Sitefinity.Frontend.Events.Mvc.Controllers
             this.ViewBag.DetailsPageUrl = this.GetDetailsPageUrl();
             this.ViewBag.UiCulture = SystemManager.CurrentContext.AppSettings.Multilingual ? CultureInfo.CurrentUICulture.ToString() : string.Empty;
             this.ViewBag.TimeZoneOffset = Telerik.Sitefinity.Security.UserManager.GetManager().GetUserTimeZone().BaseUtcOffset.TotalMilliseconds.ToString();
+            this.ViewBag.TimeZoneId = Telerik.Sitefinity.Security.UserManager.GetManager().GetUserTimeZone().Id;
         }
 
         /// <summary>
