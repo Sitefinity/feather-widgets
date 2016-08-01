@@ -17,7 +17,14 @@
                 model: $(element).attr('data-sf-controller-model'),
                 scheduler: $(element).find('[data-sf-role="scheduler"]'),
                 uiCulture: $(element).attr('data-sf-uiculture'),
-                timezoneOffset: $(element).attr('data-sf-timezoneoffset')
+                timezoneOffset: $(element).attr('data-sf-timezoneoffset'),
+                timezone: function () {
+                    var zones = $.grep(kendo.timezone.windows_zones, function (e) { return e.other_zone === $(element).attr('data-sf-timezoneid'); });
+                    if (zones.length > 0) {
+                        return zones[0].zone;
+                    }
+                    return "";
+                }
             };
 
             $(schedulerHtmlTemplates.eventCalendarlistWrapperHtml).appendTo(schedulerData.calendarList);
@@ -26,6 +33,7 @@
             var kendoScheduler = schedulerData.scheduler.kendoScheduler({
                 editable: false,
                 batch: true,
+                timezone: schedulerData.timezone(),
                 views: ["day", "workWeek", "week", { type: "month", selected: true }, "agenda", { type: "timeline", eventHeight: 50 }],
                 allDayEventTemplate: schedulerHtmlTemplates.eventAllDayEventTemplateHtml,
                 eventTemplate: schedulerHtmlTemplates.eventEventTemplateHtml,

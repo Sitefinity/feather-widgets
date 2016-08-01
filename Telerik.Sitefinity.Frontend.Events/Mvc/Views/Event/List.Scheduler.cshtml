@@ -11,12 +11,10 @@
 {
     @Html.StyleSheet("http://kendo.cdn.telerik.com/2016.1.112/styles/kendo.bootstrap.min.css", "bottom")
 }
-else { 
+else 
+{ 
     @Html.StyleSheet("http://kendo.cdn.telerik.com/2016.1.112/styles/kendo.bootstrap.min.css", "head")
 }
-@Html.Script(ScriptRef.JQuery, "top", false)
-@Html.Script(ScriptRef.KendoAll, "top", false)
-
 <div data-sf-role="scheduler-wrapper" 
     data-sf-controller-model='@Html.Raw(JsonSerializer.SerializeToString(((EventController)Html.ViewContext.Controller).Model))'
     data-sf-controller-events='@Url.Content("~/web-interface/events")'
@@ -25,7 +23,8 @@ else {
 	data-sf-mincalendarlength='2'
     data-sf-calendarlist-class-active='active'
 	data-sf-uiculture='@ViewBag.UiCulture'
-    data-sf-timezoneoffset="@ViewBag.TimeZoneOffset">
+    data-sf-timezoneoffset="@ViewBag.TimeZoneOffset"
+    data-sf-timezoneid="@ViewBag.TimeZoneId">
     <div data-sf-role="calendarlist" style="display: none;">
         <h4 class="sf-calendarList-title">@Html.Resource("Calendars")</h4>
     </div>
@@ -49,14 +48,16 @@ else {
         <div data-sf-role="calendarlist-item" class="sf-calendarList-item" data-sf-id="#= calendarId #"><span class="sf-event-type" style="background-color: #= color #;"></span>#= title #</div>
     </script>
 </div>
-@if (SystemManager.IsDesignMode)
+@if (SystemManager.IsDesignMode && !SystemManager.IsPreviewMode)
 {
     var scriptUrl = Url.WidgetContent("Mvc/Scripts/Event/scheduler-events.js");
-    var queryAddition = scriptUrl.Contains("?") ? "&" : "?"; 
-    var fullScriptUrl = scriptUrl + queryAddition + string.Format("_={0}", DateTime.UtcNow.Ticks.ToString());
+    var fullScriptUrl = scriptUrl + (scriptUrl.Contains("?") ? "&" : "?") + string.Format("_={0}", DateTime.UtcNow.Ticks.ToString());
     <script type="text/javascript" src='@fullScriptUrl'></script>
 }
 else
 {
+	@Html.Script(ScriptRef.JQuery, "top", false)
+	@Html.Script(ScriptRef.KendoAll, "top", false)
+	@Html.Script(ScriptRef.KendoTimezones, "top", false)
     @Html.Script(Url.WidgetContent("Mvc/Scripts/Event/scheduler-events.js"), "bottom", false)
 }
