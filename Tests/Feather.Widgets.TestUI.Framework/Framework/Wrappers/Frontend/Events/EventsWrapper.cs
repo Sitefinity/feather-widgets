@@ -88,7 +88,7 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Frontend.Events
         public string GetEventTitleInScheduler(string dateTime)
         {
             HtmlDiv frontendPageMainDiv = BAT.Wrappers().Frontend().Pages().PagesWrapperFrontend().GetPageContent();
-            var eventDetails = frontendPageMainDiv.Find.ByExpression<HtmlDiv>("class=sf-event-item", "data-sf-date=~" + dateTime);
+            var eventDetails = frontendPageMainDiv.Find.ByExpression<HtmlDiv>("class=sf-event-item", "data-sf-date-start=~" + dateTime);
             
             var eventTitle = eventDetails.ChildNodes.First().InnerText;
             return eventTitle;
@@ -219,6 +219,7 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Frontend.Events
         /// <param name="startDateTime">Current calendar datetime</param>
         /// <param name="targetDateTime">Target datetime</param>
         public void NavigateToDateInSchedulerWorkWeekView(DateTime startDateTime, DateTime targetDateTime)
+        
         {
             TimeSpan ts = startDateTime.Subtract(targetDateTime);
             int dateDiff = ts.Days;
@@ -228,27 +229,23 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Frontend.Events
             {
                 for (int i = 0; i > totalWeeks; i--)
                 {
-                    //EventsMap.EventsFrontend.CalendarRadScheduler.GoNext();
                     this.GoNext();
                 }
-                //if (!this.WaitForEventAppointmentToAppear())
-                //{
-                //    //EventsMap.EventsFrontend.CalendarRadScheduler.GoNext();
-                //    this.GoNext();
-                //}
+                if (!this.IsAppointmentVisible())
+                {
+                    this.GoNext();
+                }
             }
             else if (totalWeeks > 0)
             {
                 for (int i = 0; i < totalWeeks; i++)
                 {
-                    //EventsMap.EventsFrontend.CalendarRadScheduler.GoPrevious();
                     this.GoPrevious();
                 }
-                //if (!this.WaitForEventAppointmentToAppear())
-                //{
-                //    //EventsMap.EventsFrontend.CalendarRadScheduler.GoPrevious();
-                //    this.GoPrevious();
-                //}
+                if (!this.IsAppointmentVisible())
+                {
+                    this.GoPrevious();
+                }
             }
         }
 
@@ -354,9 +351,9 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Frontend.Events
         }
 
        /// <summary>
-       /// add summary
+       /// Select month in Calendar Selector
        /// </summary>
-       /// <param name="monthName"></param>
+       /// <param name="monthName">Month name</param>
         public void SelectMonthInCalendarSelector(string monthName)
         {
             HtmlTable monthsTable = EM.Events.EventsFrontend.MonthsTableCalendarSelector;
@@ -369,11 +366,14 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Frontend.Events
             monthLink.Click();
         }
 
-        public void OpenMonthViewCalendarSelector()
+        /// <summary>
+        /// Open month view in Calendar Selector
+        /// </summary>
+        public void OpenMonthViewInCalendarSelector(int targetDay = 15)
         {
             HtmlTable daysTable = EM.Events.EventsFrontend.DaysInMonthTableCalendarSelector;
             daysTable.AssertIsPresent("Day table");
-            HtmlTableCell day = daysTable.Find.ByExpression<HtmlTableCell>("InnerText=" + 15);
+            HtmlTableCell day = daysTable.Find.ByExpression<HtmlTableCell>("InnerText=" + targetDay);
             day.AssertIsPresent("Day");
             HtmlAnchor monthLink = day.Find.AllByTagName<HtmlAnchor>("a").First();
             monthLink.AssertIsPresent("Day link");
@@ -381,8 +381,12 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Frontend.Events
             monthLink.Click();
         }
 
-        public void 
-            FastNavigateToSpecificYear(int startYear, int targetYear)
+        /// <summary>
+        /// Fast navigation to specific year
+        /// </summary>
+        /// <param name="startYear">Start year</param>
+        /// <param name="targetYear">Target year</param>
+        public void FastNavigateToSpecificYear(int startYear, int targetYear)
         {
             int yearDifference = (startYear - targetYear);
 
@@ -394,14 +398,14 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Frontend.Events
                 }
             }
 
-                else if (yearDifference > 0)
+            else if (yearDifference > 0)
+            {
+                for (int i = 0; i < yearDifference; i++)
                 {
-                    for (int i = 0; i < yearDifference; i++)
-                    {
-                        this.NavigatePreviousYearInCalendarSelector();
-                    }
+                    this.NavigatePreviousYearInCalendarSelector();
                 }
             }
+        }
 
         /// <summary>
         /// Navigate to next year in fast navigation
@@ -431,12 +435,32 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Frontend.Events
             previousYearButton.Click();
         }
 
+        /// <summary>
+        /// Fast navigation by year in calendar selector
+        /// </summary>
+        /// <param name="monthName">Month name</param>
+        /// <param name="startYear">Start year</param>
+        /// <param name="targetYear">Target year</param>
         public void FastNavigationByYearInCalendarSelector(string monthName, int startYear, int targetYear)
         {
             this.OpenCurrentYearMonthsInCalendarSelector();
             this.FastNavigateToSpecificYear(startYear, targetYear);
             this.SelectMonthInCalendarSelector(monthName);
-            this.OpenMonthViewCalendarSelector();
+            this.OpenMonthViewInCalendarSelector();
+        }
+
+        /// <summary>
+        /// Wait for event appointment to appear
+        /// </summary>
+        /// <returns>Is appointment visible</returns>
+        private bool IsAppointmentVisible()
+        {
+            ActiveBrowser.RefreshDomTree();
+
+            HtmlDiv appointment = EM.Events.EventsFrontend.Appointment;
+            bool isAppointmentVisible = false;
+            isAppointmentVisible = (appointment != null) && (appointment.IsVisible());
+            return isAppointmentVisible;
         }
     }
 }

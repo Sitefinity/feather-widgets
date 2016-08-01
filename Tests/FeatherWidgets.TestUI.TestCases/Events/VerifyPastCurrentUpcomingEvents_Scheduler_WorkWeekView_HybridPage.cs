@@ -19,7 +19,7 @@ namespace FeatherWidgets.TestUI.TestCases.Events
     public class VerifyPastCurrentUpcomingEvents_Scheduler_WorkWeekView_HybridPage_ : FeatherTestCase
     {
         /// <summary>
-        /// 
+        /// Test Method that provides test steps for VerifyPastCurrentUpcomingEvents_Scheduler_WorkWeekView_HybridPage_ UI Test.
         /// </summary>
         [TestMethod,
         Owner(FeatherTeams.SitefinityTeam8),

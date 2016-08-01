@@ -111,5 +111,13 @@ namespace Feather.Widgets.TestUI.Framework.Framework.ElementMap.Events
                 return this.Get<HtmlTable>("class=k-content");
             }
         }
+
+        public HtmlDiv Appointment
+        {
+            get
+            {
+                return this.Find.ByExpression<HtmlDiv>("class=sf-event-item");
+            }
+        }
     }
 }

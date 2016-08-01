@@ -385,6 +385,7 @@
     <Compile Include="EmailCampaigns\TryToUnsubscribeNotExistingSubscriber.cs" />
     <Compile Include="EmailCampaigns\UnsubscribeWidgetOnFoundationAndSemanticPage.cs" />
     <Compile Include="EmailCampaigns\UnsubscribeWidgetOnHybridPageAndSetCssClass.cs" />
+    <Compile Include="Events\CreateAllDayEventsInOneDay_SchedulerView.cs" />
     <Compile Include="Events\CreateMultipleNormalEventsInThreeDays_SchedulerView.cs" />
     <Compile Include="Events\CreateRecurrentAllDayEventsWithNoEndDate_SchedulerView.cs" />
     <Compile Include="Events\CreateRecurrentNormalEventsFiveRepeats_SchedulerView.cs" />
