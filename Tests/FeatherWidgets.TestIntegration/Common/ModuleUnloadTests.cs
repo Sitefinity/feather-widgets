@@ -761,6 +761,7 @@ namespace FeatherWidgets.TestIntegration.Common
             return pageId;
         }
 
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Globalization", "CA1303:Do not pass literals as localized parameters", MessageId = "Telerik.Sitefinity.TestUtilities.CommonOperations.TemplateOperations.AddControlToTemplate(System.Guid,System.Web.UI.Control,System.String,System.String,System.Boolean)")]
         private Guid CreateTemplateWithControl(PageTemplateFramework framework)
         {
             Guid pageTemplateId = Guid.Empty;
