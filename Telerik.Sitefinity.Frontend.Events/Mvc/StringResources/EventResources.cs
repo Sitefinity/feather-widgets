@@ -793,7 +793,7 @@ namespace Telerik.Sitefinity.Frontend.Events.Mvc.StringResources
         {
             get
             {
-                return this["Month"];
+                return this["Week"];
             }
         }
 
