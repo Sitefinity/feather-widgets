@@ -767,6 +767,111 @@ namespace Telerik.Sitefinity.Frontend.Events.Mvc.StringResources
             }
         }
 
+        /// <summary>
+        /// Gets word : Month
+        /// </summary>
+        [ResourceEntry("Month",
+            Value = "Month",
+            Description = "word: Month",
+            LastModified = "2016/08/02")]
+        public string Month
+        {
+            get
+            {
+                return this["Month"];
+            }
+        }
+
+        /// <summary>
+        /// Gets word : Week
+        /// </summary>
+        [ResourceEntry("Week",
+            Value = "Week",
+            Description = "word: Week",
+            LastModified = "2016/08/02")]
+        public string Week
+        {
+            get
+            {
+                return this["Month"];
+            }
+        }
+
+        /// <summary>
+        /// Gets phrase : Work Week
+        /// </summary>
+        [ResourceEntry("WorkWeek",
+            Value = "Work Week",
+            Description = "phrase: Work Week",
+            LastModified = "2016/08/02")]
+        public string WorkWeek
+        {
+            get
+            {
+                return this["WorkWeek"];
+            }
+        }
+
+        /// <summary>
+        /// Gets word : Day
+        /// </summary>
+        [ResourceEntry("Day",
+            Value = "Day",
+            Description = "word: Day",
+            LastModified = "2016/08/02")]
+        public string Day
+        {
+            get
+            {
+                return this["Day"];
+            }
+        }
+
+        /// <summary>
+        /// Gets word : Agenda
+        /// </summary>
+        [ResourceEntry("Agenda",
+            Value = "Agenda",
+            Description = "word: Agenda",
+            LastModified = "2016/08/02")]
+        public string Agenda
+        {
+            get
+            {
+                return this["Agenda"];
+            }
+        }
+        
+        /// <summary>
+        /// Gets word : Timeline
+        /// </summary>
+        [ResourceEntry("Timeline",
+            Value = "Timeline",
+            Description = "word: Timeline",
+            LastModified = "2016/08/02")]
+        public string Timeline
+        {
+            get
+            {
+                return this["Timeline"];
+            }
+        }
+
+        /// <summary>
+        /// Gets phrase : Default view
+        /// </summary>
+        [ResourceEntry("DefaultView",
+            Value = "Default view",
+            Description = "phrase: Default view",
+            LastModified = "2016/08/02")]
+        public string DefaultSchedulerView
+        {
+            get
+            {
+                return this["DefaultView"];
+            }
+        }
+
         #endregion
     }
 }

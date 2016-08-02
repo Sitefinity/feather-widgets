@@ -173,6 +173,9 @@
     <Compile Include="Mvc\Controllers\EventController.cs" />
     <Compile Include="Mvc\Helpers\EventHelper.cs" />
     <Compile Include="Mvc\Models\CalendarViewModel.cs" />
+    <Compile Include="Mvc\Models\SchedulerViewMode.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="Mvc\Models\EventModel.cs" />
     <Compile Include="Mvc\Models\IEventModel.cs" />
     <Compile Include="Mvc\Models\SchedulerEventsModel.cs" />
