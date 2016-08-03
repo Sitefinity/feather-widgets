@@ -7,8 +7,7 @@
     <DeploymentItem filename="..\..\..\Tooling\Feather\SetupScripts\" />
   </Deployment>
   <NamingScheme baseName="TestExecution@Sitefinity_UITests" useDefault="false" />
-  <Scripts setupScript=".\Tooling\Feather\SetupScripts\Setup.bat" cleanupScript=".\Tooling\Feather\SetupScripts\Cleanup.bat" />
-  <Scripts setupScript=".\Tooling\Feather\SetupScripts\ReadOnlySetup.bat" />
+  <Scripts setupScript=".\Tooling\Feather\SetupScripts\ReadOnlySetup.bat" cleanupScript=".\Tooling\Feather\SetupScripts\Cleanup.bat" />
   <RemoteController name="FEATHER-CI-UI1" />
   <Execution location="Remote">
     <Buckets size="1" />
