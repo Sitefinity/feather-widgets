@@ -23,7 +23,8 @@ namespace FeatherWidgets.TestUI.TestCases.Common
         /// </summary>
         [TestMethod,
         Owner(FeatherTeams.SitefinityTeam2),
-        TestCategory(FeatherTestCategories.PagesAndContent)]
+        TestCategory(FeatherTestCategories.PagesAndContent),
+        TestCategory(FeatherTestCategories.IgnoredInReadOnly)]
         public void UninstallFeatherAndVerifyFormsMvcOption()
         {
             BAT.Wrappers().Backend().ModulesAndServices().ModulesAndServicesWrapper().NavigateToModules();

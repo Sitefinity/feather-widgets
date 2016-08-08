@@ -194,5 +194,10 @@ namespace FeatherWidgets.TestUI.TestCases
         /// Events category
         /// </summary>
         public const string Events = "Events";
+
+        /// <summary>
+        /// Events category
+        /// </summary>
+        public const string IgnoredInReadOnly = "IgnoredInReadOnly";
     }
 }
