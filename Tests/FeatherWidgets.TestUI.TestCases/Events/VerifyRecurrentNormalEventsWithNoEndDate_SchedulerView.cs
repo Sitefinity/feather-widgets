@@ -9,19 +9,19 @@ using Feather.Widgets.TestUI.Framework;
 namespace FeatherWidgets.TestUI.TestCases
 {
      /// <summary>
-    /// Create recurrent normal all day event with no end date and verify its details in Scheduler.
+    /// Create recurrent normal event with no end date and verify its details in Scheduler.
     /// </summary>
     [TestClass]
-    public class CreateRecurrentAllDayEventsWithNoEndDate_SchedulerView_ : FeatherTestCase
+    public class VerifyRecurrentNormalEventsWithNoEndDate_SchedulerView_ : FeatherTestCase
     {
         /// <summary>
-        /// Test Method that provides test steps for CreateRecurrentAllDayEventsWithNoEndDate_SchedulerView_ UI Test.
+        /// Test Method that provides test steps for VerifyRecurrentNormalEventsWithNoEndDate_SchedulerView_ UI Test.
         /// </summary>
         [TestMethod,
         Owner(FeatherTeams.SitefinityTeam8),
         TestCategory(FeatherTestCategories.PagesAndContent),
         TestCategory(FeatherTestCategories.Events)]
-        public void CreateRecurrentAllDayEventsWithNoEndDate_SchedulerView()
+        public void VerifyRecurrentNormalEventsWithNoEndDate_SchedulerView()
         {
             BAT.Macros().NavigateTo().Pages(this.Culture);
             BAT.Wrappers().Backend().Pages().PagesWrapper().OpenPageZoneEditor(pageTitle);

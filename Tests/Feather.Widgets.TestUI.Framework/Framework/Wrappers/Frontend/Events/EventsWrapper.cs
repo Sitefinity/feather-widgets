@@ -278,19 +278,27 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Frontend.Events
                 var id = item.Attributes.Where(p => p.Name == "data-sf-eventid").FirstOrDefault();
                 var startDate = item.Attributes.Where(p => p.Name == "data-sf-date-start").FirstOrDefault();
                 var endDate = item.Attributes.Where(p => p.Name == "data-sf-date-end").FirstOrDefault();
+                var allDayEvent = item.Attributes.Where(p => p.Name == "data-sf-allday").FirstOrDefault();
              
-                if (id == null || startDate == null || endDate == null 
+                if (id == null || startDate == null || endDate == null || allDayEvent == null
                     || String.IsNullOrWhiteSpace(id.Value) || String.IsNullOrWhiteSpace(startDate.Value) 
-                    || String.IsNullOrWhiteSpace(endDate.Value)) 
+                    || String.IsNullOrWhiteSpace(endDate.Value) || String.IsNullOrWhiteSpace(allDayEvent.Value))
                 {
                     continue;
+                }
+
+                bool allDay;
+                if (!bool.TryParse(allDayEvent.Value, out allDay))
+                {
+                    allDay = false;
                 }
 
                 list.Add(new EventOccurence()
                 {
                     EndDate = endDate.Value,
                     Id = id.Value,
-                    StartDate = startDate.Value
+                    StartDate = startDate.Value,
+                    AllDayEvent = allDay
                 });
             }
 
@@ -303,7 +311,7 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Frontend.Events
         /// <param name="eventId">Event ID</param>
         /// <param name="date">Event date</param>
         /// <param name="isStart">Is start date</param>
-        public void VerifyEventDate(string eventId, string date, bool isStart, int lastEventOccuranceIndex)
+        public void VerifyEventDate(string eventId, string date, bool isStart, int eventOccuranceIndex)
         {
             List<EventOccurence> list = this.GetEventAttributesInCurrentView(eventId);
            
@@ -311,22 +319,15 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Frontend.Events
             //{
                 if (isStart)
                 {
-                    string startDate = list[lastEventOccuranceIndex].StartDate;
+                    string startDate = list[eventOccuranceIndex].StartDate;
                     Assert.IsTrue(startDate.Contains(date), "Wrong end date");
                 }
                 else
                 {
-                    string endDate = list[lastEventOccuranceIndex].EndDate;
+                    string endDate = list[eventOccuranceIndex].EndDate;
                     Assert.IsTrue(endDate.Contains(date), "Wrong end date");
                 }
            // }
-        }
-
-        public class EventOccurence
-        {
-            public string Id { get; set; }
-            public string StartDate { get; set; }
-            public string EndDate { get; set; }
         }
 
         /// <summary>
@@ -419,6 +420,29 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Frontend.Events
             ActiveBrowser.WaitUntilReady();
             ActiveBrowser.WaitForElementWithCssClass("^k-link k-nav-next");
             nextYearButton.Click();
+        }
+
+        /// <summary>
+        /// Open target day in day view in Scheduler
+        /// </summary>
+        /// <param name="targetDay">Target day</param>
+        public void OpenTargetDayInDayView(string targetDay)
+        {
+            HtmlDiv frontendPageMainDiv = BAT.Wrappers().Frontend().Pages().PagesWrapperFrontend().GetPageContent();
+            var day = frontendPageMainDiv.Find.ByExpression<HtmlSpan>("class=k-link k-nav-day", "innerText=" + targetDay);
+            day.Click();
+        }
+
+        /// <summary>
+        /// Get visible event in current view
+        /// </summary>
+        /// <param name="eventId">Event ID</param>
+        /// <param name="allDayEvent">All day event</param>
+        /// <returns>List of visible events</returns>
+ 
+        public IEnumerable<EventOccurence> GetVisibleEventInCurrentView(string eventId, bool allDayEvent)
+        {
+            return this.GetEventAttributesInCurrentView(eventId).Where(p => p.AllDayEvent == allDayEvent);
         }
 
         /// <summary>

@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -13,10 +12,7 @@ using Telerik.Sitefinity.TestUtilities.CommonOperations;
 
 namespace FeatherWidgets.TestUI.Arrangements
 {
-    /// <summary>
-    /// Executes Server Side operations for CreateRecurrentNormalEventsFiveRepeats_SchedulerView UI Test.
-    /// </summary>
-    public class CreateRecurrentNormalEventsFiveRepeats_SchedulerView
+    public class VerifyMultipleAllDayEventsInThreeDays_SchedulerView : TestArrangementBase
     {
         /// <summary>
         /// Creates an Event.
@@ -30,14 +26,14 @@ namespace FeatherWidgets.TestUI.Arrangements
             var pageNodeId = ServerOperations.Pages().GetPageNodeId(pageId);
             ServerOperationsFeather.Pages().AddEventsWidgetToPage(pageNodeId, PlaceHolderId);
 
-            ServerOperations.Events().CreateDailyRecurrentEvent(Event1Title, string.Empty, this.event1StartTime, this.event1EndTime, 60, 5, 1, TimeZoneInfo.Local.Id);
+            ServerOperations.Events().CreateAllDayEvent(Event1Title, string.Empty, this.event1Start, this.event1End);
             var event1Item = EventsManager.GetManager().GetEvents().Where<Event>(ni => ni.Status == Telerik.Sitefinity.GenericContent.Model.ContentLifecycleStatus.Live
-               && ni.Title == Event1Title).FirstOrDefault();
+                && ni.Title == Event1Title).FirstOrDefault();
             ServerArrangementContext.GetCurrent().Values.Add("event1Id", event1Item.Id.ToString());
-          
-            ServerOperations.Events().CreateDailyRecurrentEvent(Event2Title, string.Empty, this.event2StartTime, this.event2EndTime, 60, 5, 1, TimeZoneInfo.Local.Id);
+
+            ServerOperations.Events().CreateAllDayEvent(Event2Title, string.Empty, this.event2Start, this.event2End);
             var event2Item = EventsManager.GetManager().GetEvents().Where<Event>(ni => ni.Status == Telerik.Sitefinity.GenericContent.Model.ContentLifecycleStatus.Live
-               && ni.Title == Event2Title).FirstOrDefault();
+                && ni.Title == Event2Title).FirstOrDefault();
             ServerArrangementContext.GetCurrent().Values.Add("event2Id", event2Item.Id.ToString());
         }
 
@@ -52,12 +48,12 @@ namespace FeatherWidgets.TestUI.Arrangements
         }
 
         private const string Event1Title = "Event1Title";
-        private readonly DateTime event1StartTime = new DateTime(2016, 1, 10, 10, 0, 0);
-        private readonly DateTime event1EndTime = new DateTime(2016, 1, 10, 11, 0, 0);
+        private readonly DateTime event1Start = new DateTime(2016, 1, 10, 0, 0, 0, DateTimeKind.Utc);
+        private readonly DateTime event1End = new DateTime(2016, 1, 13, 0, 0, 0, DateTimeKind.Utc);
 
         private const string Event2Title = "Event2Title";
-        private readonly DateTime event2StartTime = new DateTime(2016, 4, 10, 10, 0, 0);
-        private readonly DateTime event2EndTime = new DateTime(2016, 4, 10, 11, 0, 0);
+        private readonly DateTime event2Start = new DateTime(2016, 4, 10, 0, 0, 0, DateTimeKind.Utc);
+        private readonly DateTime event2End = new DateTime(2016, 4, 13, 0, 0, 0, DateTimeKind.Utc);
 
         private const string PageTitle = "EventsPage";
         private const string TemplateTitle = "default";

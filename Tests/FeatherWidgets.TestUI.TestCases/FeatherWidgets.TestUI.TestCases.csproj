@@ -236,10 +236,13 @@
     <Compile Include="EmailCampaigns\TryToUnsubscribeNotExistingSubscriber.cs" />
     <Compile Include="EmailCampaigns\UnsubscribeWidgetOnFoundationAndSemanticPage.cs" />
     <Compile Include="EmailCampaigns\UnsubscribeWidgetOnHybridPageAndSetCssClass.cs" />
-    <Compile Include="Events\CreateAllDayEventsInOneDay_SchedulerView.cs" />
-    <Compile Include="Events\CreateMultipleNormalEventsInThreeDays_SchedulerView.cs" />
-    <Compile Include="Events\CreateRecurrentAllDayEventsWithNoEndDate_SchedulerView.cs" />
-    <Compile Include="Events\CreateRecurrentNormalEventsFiveRepeats_SchedulerView.cs" />
+    <Compile Include="Events\VerifyAllDayEventsInOneDay_SchedulerView.cs" />
+    <Compile Include="Events\VerifyMultipleAllDayEventsInThreeDays_SchedulerView.cs" />
+    <Compile Include="Events\VerifyMultipleNormalEventsInThreeDays_SchedulerView.cs" />
+    <Compile Include="Events\VerifyNormalEventSwitchingDaylightSavingTime_SchedulerView.cs" />
+    <Compile Include="Events\VerifyRecurrentAllDayEventsWithNoEndDate_SchedulerView.cs" />
+    <Compile Include="Events\VerifyRecurrentNormalEventsWithNoEndDate_SchedulerView.cs" />
+    <Compile Include="Events\VerifyRecurrentNormalEventsFiveRepeats_SchedulerView.cs" />
     <Compile Include="Events\DeleteEventsWidget.cs" />
     <Compile Include="Events\DuplicateEventsWidgets.cs" />
     <Compile Include="Events\FilterEventsByDateOnPage.cs" />

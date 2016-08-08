@@ -272,6 +272,7 @@
     <Compile Include="Framework\Wrappers\Frontend\EmailCampaigns\EmailCampaignsWrapperFacade.cs" />
     <Compile Include="Framework\Wrappers\Frontend\EmailCampaigns\SubscibeFormWrapper.cs" />
     <Compile Include="Framework\Wrappers\Frontend\EmailCampaigns\UnsubscribeWrapper.cs" />
+    <Compile Include="Framework\Wrappers\Frontend\Events\EventOccurence.cs" />
     <Compile Include="Framework\Wrappers\Frontend\Events\EventsWrapper.cs" />
     <Compile Include="Framework\Wrappers\Frontend\Events\EventsWrapperFacade.cs" />
     <Compile Include="Framework\Wrappers\Frontend\Events\SchedulerViewTypes.cs" />

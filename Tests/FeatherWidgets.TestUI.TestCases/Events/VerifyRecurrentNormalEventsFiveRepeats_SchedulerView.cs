@@ -13,16 +13,16 @@ namespace FeatherWidgets.TestUI.TestCases.Events
     /// Create recurrent normal event with five repeats and verify its details in Scheduler.
     /// </summary>
     [TestClass]
-    public class CreateRecurrentNormalEventsFiveRepeats_SchedulerView_ : FeatherTestCase
+    public class VerifyRecurrentNormalEventsFiveRepeats_SchedulerView_ : FeatherTestCase
     {
         /// <summary>
-        /// Test Method that provides test steps for CreateRecurrentNormalEventsFiveRepeats_SchedulerView_ UI Test.
+        /// Test Method that provides test steps for VerifyRecurrentNormalEventsFiveRepeats_SchedulerView_ UI Test.
         /// </summary>
         [TestMethod,
         Owner(FeatherTeams.SitefinityTeam8),
         TestCategory(FeatherTestCategories.PagesAndContent),
         TestCategory(FeatherTestCategories.Events)]
-        public void CreateRecurrentNormalEventsFiveRepeats_SchedulerView()
+        public void VerifyRecurrentNormalEventsFiveRepeats_SchedulerView()
         {
             BAT.Macros().NavigateTo().Pages(this.Culture);
             BAT.Wrappers().Backend().Pages().PagesWrapper().OpenPageZoneEditor(pageTitle);

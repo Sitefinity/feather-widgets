@@ -13,16 +13,16 @@ namespace FeatherWidgets.TestUI.TestCases.Events
     /// Create multiple normal event in three days and verify its details in Scheduler.
     /// </summary>
     [TestClass]
-    public class CreateMultipleNormalEventsInThreeDays_SchedulerView_ : FeatherTestCase
+    public class VerifyMultipleNormalEventsInThreeDays_SchedulerView_ : FeatherTestCase
     {
         /// <summary>
-        /// Test Method that provides test steps for CreateMultipleNormalEventsInThreeDays_SchedulerView_ UI Test.
+        /// Test Method that provides test steps for VerifyMultipleNormalEventsInThreeDays_SchedulerView_ UI Test.
         /// </summary>
         [TestMethod,
         Owner(FeatherTeams.SitefinityTeam8),
         TestCategory(FeatherTestCategories.PagesAndContent),
         TestCategory(FeatherTestCategories.Events)]
-        public void CreateMultipleNormalEventsInThreeDays_SchedulerView()
+        public void VerifyMultipleNormalEventsInThreeDays_SchedulerView()
         {
             BAT.Macros().NavigateTo().Pages(this.Culture);
             BAT.Wrappers().Backend().Pages().PagesWrapper().OpenPageZoneEditor(pageTitle);
