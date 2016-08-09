@@ -58,6 +58,7 @@
                                 model.EndDate = new Date(scheduler.view().endDate().getTime() - schedulerData.timezoneOffset).toISOString();
                                 model.CalendarList = $.makeArray(schedulerData.calendarlistWrapper.find('[data-sf-role="calendarlist-item"].' + schedulerData.calendarListClassActive).attr("data-sf-id"));
                                 model.UiCulture = schedulerData.uiCulture;
+                                model.SchedulerViewMode = scheduler.view().options.name.replace("View", "");
                                 return model;
                             }
                         }
