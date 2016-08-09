@@ -59,7 +59,7 @@ namespace FeatherWidgets.TestUI.Arrangements
         private readonly DateTime event2Start = new DateTime(2016, 4, 10, 10, 0, 0);
         private readonly DateTime event2End = new DateTime(2016, 4, 12, 11, 0, 0);
 
-        private const string TemplateTitle = "default";
+        private const string TemplateTitle = "Bootstrap.default";
         private const string PlaceHolderId = "Contentplaceholder1";
     }
 }

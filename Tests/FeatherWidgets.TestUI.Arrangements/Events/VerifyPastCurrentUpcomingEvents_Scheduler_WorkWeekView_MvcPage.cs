@@ -52,7 +52,7 @@ namespace FeatherWidgets.TestUI.Arrangements
         private readonly DateTime baseUpcomingInOneDayEventEndTime = new DateTime(2016, 7, 13, 11, 0, 0, DateTimeKind.Utc);
 
         private const string PageTitle = "EventsPage";
-        private const string TemplateTitle = "default";
+        private const string TemplateTitle = "Bootstrap.default";
         private const string PlaceHolderId = "Contentplaceholder1";
     }
 }

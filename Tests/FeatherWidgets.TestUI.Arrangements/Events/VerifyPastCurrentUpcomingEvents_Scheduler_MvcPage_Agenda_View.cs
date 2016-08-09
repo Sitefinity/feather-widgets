@@ -78,7 +78,7 @@ namespace FeatherWidgets.TestUI.Arrangements
         private const string BaseUpcomingInOneDayEventTitle = "UpcomingInOneDayEvent_Title";
 
         private const string PageTitle = "EventsPage";
-        private const string TemplateTitle = "default";
+        private const string TemplateTitle = "Bootstrap.default";
         private const string PlaceHolderId = "Contentplaceholder1";
     }
 }

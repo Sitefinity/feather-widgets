@@ -41,7 +41,7 @@ namespace FeatherWidgets.TestUI.Arrangements
 
         private const string PageTitle = "EventsPage";
         private const string EventsTitle = "EventTitle";
-        private const string TemplateTitle = "default";
+        private const string TemplateTitle = "Bootstrap.default";
         private const string PlaceHolderId = "Contentplaceholder1";
     }
 }
