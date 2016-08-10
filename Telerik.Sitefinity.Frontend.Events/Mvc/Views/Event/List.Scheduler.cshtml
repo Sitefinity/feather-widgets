@@ -6,21 +6,21 @@
 @using Telerik.Sitefinity.Frontend.Events.Mvc.Controllers;
 @using Telerik.Sitefinity.Services;
 
-@Html.StyleSheet("http://kendo.cdn.telerik.com/2016.1.112/styles/kendo.common.min.css", "head")
+@Html.StyleSheet(Url.EmbeddedResource("Telerik.Sitefinity.Resources.Reference", "Telerik.Sitefinity.Resources.Scripts.Kendo.styles.kendo_common_min.css"), "head")
 @if (Html.ShouldRenderInlineEditing() || SystemManager.IsDesignMode || SystemManager.IsPreviewMode)
 {
-    @Html.StyleSheet("http://kendo.cdn.telerik.com/2016.1.112/styles/kendo.bootstrap.min.css", "bottom")
+	@Html.StyleSheet(Url.EmbeddedResource("Telerik.Sitefinity.Resources.Reference", "Telerik.Sitefinity.Resources.Scripts.Kendo.styles.kendo_bootstrap_min.css"), "bottom")
 }
 else 
 { 
-    @Html.StyleSheet("http://kendo.cdn.telerik.com/2016.1.112/styles/kendo.bootstrap.min.css", "head")
+	@Html.StyleSheet(Url.EmbeddedResource("Telerik.Sitefinity.Resources.Reference", "Telerik.Sitefinity.Resources.Scripts.Kendo.styles.kendo_bootstrap_min.css"), "head")
 }
 <div data-sf-role="scheduler-wrapper" 
     data-sf-controller-model='@Html.Raw(JsonSerializer.SerializeToString(((EventController)Html.ViewContext.Controller).Model))'
     data-sf-controller-events='@Url.Content("~/web-interface/events")'
     data-sf-controller-calendars='@Url.Content("~/web-interface/calendars")'
     data-sf-defaultview='@((((EventController)Html.ViewContext.Controller).Model).SchedulerViewMode)'
-    data-sf-loaded='false'
+    data-sf-loaded='false' 
 	data-sf-mincalendarlength='2'
     data-sf-calendarlist-class-active='active'
 	data-sf-uiculture='@ViewBag.UiCulture'
