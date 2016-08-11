@@ -286,7 +286,7 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend
         {
             var listTemplateSelector = EM.Widgets.WidgetDesignerEventsScreen.ListTemplateSelector;
             listTemplateSelector.AssertIsPresent("List Template Selector");
-            listTemplateSelector.SelectByPartialText("Scheduler", true);
+            listTemplateSelector.SelectByPartialText("Calendar", true);
         }
 
         /// <summary>

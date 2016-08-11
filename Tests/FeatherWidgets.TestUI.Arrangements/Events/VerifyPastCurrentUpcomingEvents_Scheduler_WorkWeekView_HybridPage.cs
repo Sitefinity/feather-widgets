@@ -21,7 +21,7 @@ namespace FeatherWidgets.TestUI.Arrangements
         [ServerSetUp]
         public void OnBeforeTestsStarts()
         {
-            var templateId = ServerOperations.Templates().GetTemplateIdByTitle(TemplateTitle);
+            var templateId = ServerOperations.Templates().CreateHybridMVCPageTemplate(TemplateName);
             Guid pageId = ServerOperations.Pages().CreatePage(PageTitle, templateId);
             var pageNodeId = ServerOperations.Pages().GetPageNodeId(pageId);
             ServerOperationsFeather.Pages().AddEventsWidgetToPage(pageNodeId, PlaceHolderId);
@@ -39,6 +39,7 @@ namespace FeatherWidgets.TestUI.Arrangements
         {
             ServerOperations.Pages().DeleteAllPages();
             ServerOperations.Events().DeleteAllEvents();
+            ServerOperations.Templates().DeletePageTemplate(TemplateName);
         }
 
         private const string CurrentEventTitle = "CurrentEvent_Title";
@@ -51,8 +52,8 @@ namespace FeatherWidgets.TestUI.Arrangements
         private readonly DateTime baseUpcomingInOneDayEventStartTime = new DateTime(2016, 7, 13, 10, 0, 0, DateTimeKind.Utc);
         private readonly DateTime baseUpcomingInOneDayEventEndTime = new DateTime(2016, 7, 13, 11, 0, 0, DateTimeKind.Utc);
 
+        private const string TemplateName = "HybridPage_Template";
         private const string PageTitle = "EventsPage";
-        private const string TemplateTitle = "Right Sidebar, Header, Footer";
         private const string PlaceHolderId = "Body";
     }
 }

@@ -32,6 +32,7 @@ namespace FeatherWidgets.TestUI.TestCases.Events
 
             ////Monthly view verification
             BAT.Macros().NavigateTo().CustomPage("~/" + pageTitle.ToLower(), true, this.Culture);
+            
             Assert.AreEqual(BATFeather.Wrappers().Frontend().Events().EventsWrapper().GetSelectedSchedulerView(), monthSchedulerView);
             this.EventVerification(currentEventTitle, currentEventStartDate, currentEventEndDate, pageTitle, activeCalendar);
 

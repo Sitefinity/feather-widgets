@@ -64,7 +64,7 @@ namespace FeatherWidgets.TestUI.Arrangements
 
         private const string PageTitle = "EventsPage";
         private const string Event1Title = "Event1Title";
-        private const string TemplateTitle = "default";
+        private const string TemplateTitle = "Bootstrap.default";
         private const string PlaceHolderId = "Contentplaceholder1";
         private readonly string localTimeZoneId = TimeZoneInfo.Local.StandardName;
         private readonly int occurenceCount = int.MaxValue;

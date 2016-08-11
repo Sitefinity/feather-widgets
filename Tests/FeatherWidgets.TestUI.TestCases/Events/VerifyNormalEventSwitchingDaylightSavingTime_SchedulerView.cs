@@ -13,16 +13,16 @@ namespace FeatherWidgets.TestUI.TestCases.Events
     /// Verify that the event is displayed correctly in Scheduler.
     /// </summary>
     [TestClass]
-    public class CreateNormalEventSwitchingDaylightSavingTime_SchedulerView_ : FeatherTestCase
+    public class VerifyNormalEventSwitchingDaylightSavingTime_SchedulerView_ : FeatherTestCase
     {
         // <summary>
-        /// Test Method that provides test steps for CreateNormalEventSwitchingDaylightSavingTime_SchedulerView UI Test.
+        /// Test Method that provides test steps for VerifyNormalEventSwitchingDaylightSavingTime_SchedulerView UI Test.
         /// </summary>
         [TestMethod,
         Owner(FeatherTeams.SitefinityTeam8),
         TestCategory(FeatherTestCategories.PagesAndContent),
         TestCategory(FeatherTestCategories.Events)]
-        public void CreateNormalEventSwitchingDaylightSavingTime_SchedulerView()
+        public void VerifyNormalEventSwitchingDaylightSavingTime_SchedulerView()
         {
             BAT.Macros().NavigateTo().Pages(this.Culture);
             BAT.Wrappers().Backend().Pages().PagesWrapper().OpenPageZoneEditor(pageTitle);

@@ -19,12 +19,15 @@ namespace FeatherWidgets.TestUI.Arrangements
         [ServerSetUp]
         public void OnBeforeTestsStarts()
         {
-            var templateId = ServerOperations.Templates().GetTemplateIdByTitle(TemplateTitle);
+            var templateId = ServerOperations.Templates().CreateHybridMVCPageTemplate(TemplateName);
             Guid pageId = ServerOperations.Pages().CreatePage(PageTitle, templateId);
             var pageNodeId = ServerOperations.Pages().GetPageNodeId(pageId);
             ServerOperationsFeather.Pages().AddEventsWidgetToPage(pageNodeId, PlaceHolderId);
-            var currentEventStartTime = DateTime.Now;
-            var currentEventEndTime = DateTime.Now.AddHours(1);
+
+            var basicCurrentEventStartTime = DateTime.Now;
+            var currentEventStartTime = new DateTime(basicCurrentEventStartTime.Year, basicCurrentEventStartTime.Month, basicCurrentEventStartTime.Day, basicCurrentEventStartTime.Hour, basicCurrentEventStartTime.Minute, basicCurrentEventStartTime.Second);
+            var basicCurrentEventEndTime = DateTime.Now.AddHours(1);
+            var currentEventEndTime = new DateTime(basicCurrentEventEndTime.Year, basicCurrentEventEndTime.Month, basicCurrentEventEndTime.Day, basicCurrentEventEndTime.Hour, basicCurrentEventEndTime.Minute, basicCurrentEventEndTime.Second);
 
             ServerOperations.Events().CreateEvent(CurrentEventTitle, string.Empty, false, currentEventStartTime, currentEventEndTime);
             var currentEventExpectedStartTime = this.FormatTime(currentEventStartTime);
@@ -32,8 +35,10 @@ namespace FeatherWidgets.TestUI.Arrangements
             ServerArrangementContext.GetCurrent().Values.Add("currentEventStartTime", currentEventExpectedStartTime);
             ServerArrangementContext.GetCurrent().Values.Add("currentEventEndTime", currentEventExpectedEndTime);
 
-            var basePastInOneDayEventStartTime = DateTime.Now.AddDays(-1);
-            var basePastInOneDayEventEndTime = DateTime.Now.AddDays(-1);
+            var basicBasePastInOneDayEventStartTime = DateTime.Now.AddDays(-1);
+            var basePastInOneDayEventStartTime = new DateTime(basicBasePastInOneDayEventStartTime.Year, basicBasePastInOneDayEventStartTime.Month, basicBasePastInOneDayEventStartTime.Day, basicBasePastInOneDayEventStartTime.Hour, basicBasePastInOneDayEventStartTime.Minute, basicBasePastInOneDayEventStartTime.Second);
+            var basicBasePastInOneDayEventEndTime = DateTime.Now.AddDays(-1);
+            var basePastInOneDayEventEndTime = new DateTime(basicBasePastInOneDayEventEndTime.Year, basicBasePastInOneDayEventEndTime.Month, basicBasePastInOneDayEventEndTime.Day, basicBasePastInOneDayEventEndTime.Hour, basicBasePastInOneDayEventEndTime.Minute, basicBasePastInOneDayEventEndTime.Second);
 
             ServerOperations.Events().CreateEvent(BasePastInOneDayEventTitle, string.Empty, false, basePastInOneDayEventStartTime, basePastInOneDayEventEndTime);
             var basePastInOneDayEventExpectedStartTime = this.FormatTime(basePastInOneDayEventStartTime);
@@ -41,8 +46,10 @@ namespace FeatherWidgets.TestUI.Arrangements
             ServerArrangementContext.GetCurrent().Values.Add("basePastInOneDayEventStartTime", basePastInOneDayEventExpectedStartTime);
             ServerArrangementContext.GetCurrent().Values.Add("basePastInOneDayEventEndTime", basePastInOneDayEventExpectedEndTime);
 
-            var baseUpcomingInOneDayEventStartTime = DateTime.Now.AddDays(1);
-            var baseUpcomingInOneDayEventEndTime = DateTime.Now.AddDays(1);
+            var basicBaseUpcomingInOneDayEventStartTime = DateTime.Now.AddDays(1);
+            var baseUpcomingInOneDayEventStartTime = new DateTime(basicBaseUpcomingInOneDayEventStartTime.Year, basicBaseUpcomingInOneDayEventStartTime.Month, basicBaseUpcomingInOneDayEventStartTime.Day, basicBaseUpcomingInOneDayEventStartTime.Hour, basicBaseUpcomingInOneDayEventStartTime.Minute, basicBaseUpcomingInOneDayEventStartTime.Second);
+            var basicBaseUpcomingInOneDayEventEndTime = DateTime.Now.AddDays(1);
+            var baseUpcomingInOneDayEventEndTime = new DateTime(basicBaseUpcomingInOneDayEventEndTime.Year, basicBaseUpcomingInOneDayEventEndTime.Month, basicBaseUpcomingInOneDayEventEndTime.Day, basicBaseUpcomingInOneDayEventEndTime.Hour, basicBaseUpcomingInOneDayEventEndTime.Minute, basicBaseUpcomingInOneDayEventEndTime.Second);
 
             ServerOperations.Events().CreateEvent(BaseUpcomingInOneDayEventTitle, string.Empty, false, baseUpcomingInOneDayEventStartTime, baseUpcomingInOneDayEventEndTime);
             var baseUpcomingInOneDayEventExpectedStartTime = this.FormatTime(baseUpcomingInOneDayEventStartTime);
@@ -59,6 +66,7 @@ namespace FeatherWidgets.TestUI.Arrangements
         {
             ServerOperations.Pages().DeleteAllPages();
             ServerOperations.Events().DeleteAllEvents();
+            ServerOperations.Templates().DeletePageTemplate(TemplateName);
         }
 
         /// <summary>
@@ -76,8 +84,8 @@ namespace FeatherWidgets.TestUI.Arrangements
         private const string BasePastInOneDayEventTitle = "PastInOneDayEvent_Title";
         private const string BaseUpcomingInOneDayEventTitle = "UpcomingInOneDayEvent_Title";
 
+        private const string TemplateName = "HybridPage_Template";
         private const string PageTitle = "EventsPage";
-        private const string TemplateTitle = "Right Sidebar, Header, Footer";
         private const string PlaceHolderId = "Body";
     }
 }
