@@ -186,7 +186,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Mvc\Views\Event\List.Scheduler.cshtml">
+    <EmbeddedResource Include="Mvc\Views\Event\List.Calendar.cshtml">
       <SubType>Code</SubType>
     </EmbeddedResource>
     <None Include="app.config" />
