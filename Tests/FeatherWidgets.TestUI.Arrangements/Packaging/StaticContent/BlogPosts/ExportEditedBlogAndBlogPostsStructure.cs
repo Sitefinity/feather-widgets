@@ -38,7 +38,6 @@ namespace FeatherWidgets.TestUI.Arrangements
         {
             ServerOperations.Packaging().VerifyExportedStaticModule(File1, File2);
             ServerOperations.Packaging().VerifyExportedWidgetTemplates(Widgets1, Widgets2);
-            ServerOperations.Packaging().VerifyExportedTaxonomies(Taxonomies1, Taxonomies2);
         }
 
         /// <summary>
@@ -87,8 +86,6 @@ namespace FeatherWidgets.TestUI.Arrangements
         private const string File2 = @"App_Data\Export\Blogs\Structure\Blogs.sf";
         private const string Widgets1 = @"App_Data\Sitefinity\Export\Blogs\Structure\widgetTemplates.sf";
         private const string Widgets2 = @"App_Data\Export\Blogs\Structure\widgetTemplates.sf";
-        private const string Taxonomies1 = @"App_Data\Sitefinity\Export\Blogs\Structure\taxonomies.sf";
-        private const string Taxonomies2 = @"App_Data\Export\Blogs\Structure\taxonomies.sf";
         private const string Path = "App_Data";
         private static string flatClassification = "post1";
         private static string hierarchicalClassification = "post2";

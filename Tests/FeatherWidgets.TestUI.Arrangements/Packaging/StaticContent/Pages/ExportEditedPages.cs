@@ -36,7 +36,6 @@ namespace FeatherWidgets.TestUI.Arrangements
         public void VerifyExportedFiles()
         {
             ServerOperations.Packaging().VerifyExportedStaticModule(File1, File2);
-            ServerOperations.Packaging().VerifyExportedTaxonomies(Taxonomies1, Taxonomies2);
         }
 
         /// <summary>
@@ -76,8 +75,6 @@ namespace FeatherWidgets.TestUI.Arrangements
         private const string PagesType = "Telerik.Sitefinity.Pages.Model.PageNode";
         private const string File1 = @"App_Data\Sitefinity\Export\Pages\Structure\Pages.sf";
         private const string File2 = @"App_Data\Export\Pages\Structure\Pages.sf";
-        private const string Taxonomies1 = @"App_Data\Sitefinity\Export\Pages\Structure\taxonomies.sf";
-        private const string Taxonomies2 = @"App_Data\Export\Pages\Structure\taxonomies.sf";
         private static string flatClassification = "p1";
         private static string hierarchicalClassification = "p2";
         private const string Path = "App_Data";
