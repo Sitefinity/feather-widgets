@@ -5,10 +5,10 @@
 @using Telerik.Sitefinity.Web.DataResolving;
 
 <div class="@Model.CssClass" @Html.InlineEditingAttributes(Model.ProviderName, Model.ContentType.FullName, (Guid)Model.Item.Fields.Id)>
-    <h3>
+    <h3 class="sf-event-title">
         <span @Html.InlineEditingFieldAttributes("Title", "ShortText")>@Model.Item.Fields.Title</span>
     </h3>
-    <span style="background: @Model.Item.EventCalendarColour()"></span>
+    <span class="sf-event-type" style="background: @Model.Item.EventCalendarColour()"></span>
 
     @if (!string.IsNullOrEmpty(Model.Item.EventDates())) 
 	{

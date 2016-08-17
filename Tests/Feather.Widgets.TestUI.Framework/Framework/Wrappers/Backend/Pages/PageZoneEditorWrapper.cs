@@ -269,6 +269,39 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend
             Manager.Current.Desktop.KeyBoard.TypeText(pageName.ToLower());
         }
 
+        /// <summary>
+        /// Open List Settings view
+        /// </summary>
+        public void OpenListSettingsView()
+        {
+            var listSettings = EM.Widgets.WidgetDesignerEventsScreen.ListSettings;
+            listSettings.AssertIsPresent("List Settings");
+            listSettings.Click();
+        }
+
+        /// <summary>
+        /// Select Template from List Template Selector
+        /// </summary>
+        public void SelectSchedulerTemplate()
+        {
+            var listTemplateSelector = EM.Widgets.WidgetDesignerEventsScreen.ListTemplateSelector;
+            listTemplateSelector.AssertIsPresent("List Template Selector");
+            listTemplateSelector.SelectByPartialText("Calendar", true);
+        }
+
+        /// <summary>
+        /// Activate Scheduler Mode
+        /// </summary>
+        public void ActivateSchedulerMode()
+        {
+            this.OpenListSettingsView();
+            this.SelectSchedulerTemplate();
+            
+            var saveButton = EM.Widgets.WidgetDesignerContentScreen.SaveChangesButton;
+            saveButton.AssertIsPresent("Save button");
+            saveButton.Click();
+        }
+
         private bool WaitForSaveButton()
         {
             Manager.Current.ActiveBrowser.RefreshDomTree();

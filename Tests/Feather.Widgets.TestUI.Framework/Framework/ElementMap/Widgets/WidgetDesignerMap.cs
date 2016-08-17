@@ -32,6 +32,17 @@ namespace Feather.Widgets.TestUI.Framework.Framework.ElementMap.Widgets
             }
         }
 
+        /// <summary>
+        /// Gets the events widget designer screen
+        /// </summary>
+        public WidgetEventsScreen WidgetDesignerEventsScreen
+        {
+            get
+            {
+                return new WidgetEventsScreen(this.find);
+            }
+        }
+
         private Find find;
     }
 }

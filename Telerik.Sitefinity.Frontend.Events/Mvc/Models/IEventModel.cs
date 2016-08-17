@@ -100,6 +100,14 @@ namespace Telerik.Sitefinity.Frontend.Events.Mvc.Models
         /// </value>
         SelectionMode NarrowSelectionMode { get; set; }
 
+        /// <summary>
+        /// Gets or sets the selected mode for scheduler view.
+        /// </summary>
+        /// <value>
+        /// The selection mode.
+        /// </value>
+        SchedulerViewMode SchedulerViewMode { get; set; }
+
         /// Gets or sets the CSS class that will be applied on the wrapper div of the widget when it is in List view.
         /// </summary>
         /// <value>

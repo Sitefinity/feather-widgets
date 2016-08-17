@@ -1,4 +1,5 @@
 ﻿using FeatherWidgets.TestUtilities.CommonOperations.Blogs;
+using FeatherWidgets.TestUtilities.CommonOperations.Events;
 using FeatherWidgets.TestUtilities.CommonOperations.Forms;
 using FeatherWidgets.TestUtilities.CommonOperations.Pages;
 using FeatherWidgets.TestUtilities.CommonOperations.Templates;
@@ -171,6 +172,15 @@ namespace FeatherWidgets.TestUtilities.CommonOperations
         public static FormsOperations Forms()
         {
             return new FormsOperations();
+        }
+
+        /// <summary>
+        /// Entry point for common operations related to events.
+        /// </summary>
+        /// <returns></returns>
+        public static EventsOperations Events()
+        {
+            return new EventsOperations();
         }
     }
 }
