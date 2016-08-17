@@ -54,8 +54,12 @@
                             if (operation === "read") {
                                 var scheduler = kendoScheduler.data("kendoScheduler");
                                 var model = $.parseJSON(schedulerData.model);
-                                model.StartDate = new Date(scheduler.view().startDate().getTime() - schedulerData.timezoneOffset).toISOString();
-                                model.EndDate = new Date(scheduler.view().endDate().getTime() - schedulerData.timezoneOffset).toISOString();
+                                var startDate = scheduler.view().startDate();
+                                var endDate = scheduler.view().endDate();
+                                var localOffsetStartDate = startDate.getTimezoneOffset() * 60000;
+                                var localOffsetEndDate = endDate.getTimezoneOffset() * 60000;
+                                model.StartDate = new Date(startDate.getTime() - schedulerData.timezoneOffset - localOffsetStartDate).toISOString();
+                                model.EndDate = new Date(endDate.getTime() - schedulerData.timezoneOffset - localOffsetEndDate).toISOString();
                                 model.CalendarList = $.makeArray(schedulerData.calendarlistWrapper.find('[data-sf-role="calendarlist-item"].' + schedulerData.calendarListClassActive).attr("data-sf-id"));
                                 model.UiCulture = schedulerData.uiCulture;
                                 model.SchedulerViewMode = scheduler.view().options.name.replace("View", "");

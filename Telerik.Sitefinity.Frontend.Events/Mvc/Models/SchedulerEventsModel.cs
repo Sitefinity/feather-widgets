@@ -24,13 +24,35 @@ namespace Telerik.Sitefinity.Frontend.Events.Mvc.Models
         /// Gets or sets the start date.
         /// </summary>
         /// <returns>The start date</returns>
-        public DateTime StartDate { get; set; }
+        public DateTime StartDate
+        {
+            get
+            {
+                return this.start;
+            }
+
+            set
+            {
+                this.start = value.ToUniversalTime();
+            }
+        }
         
         /// <summary>
         /// Gets or sets the end date.
         /// </summary>
         /// <returns>The end date</returns>
-        public DateTime EndDate { get; set; }
+        public DateTime EndDate
+        {
+            get
+            {
+                return this.end;
+            }
+
+            set
+            {
+                this.end = value.ToUniversalTime();
+            }
+        }
 
         /// <summary>
         /// Gets or sets the calendar id list.
@@ -201,6 +223,8 @@ namespace Telerik.Sitefinity.Frontend.Events.Mvc.Models
             return info;
         }
 
+        private DateTime start;
+        private DateTime end;
         private CultureInfo uiCulture;
     }
 }

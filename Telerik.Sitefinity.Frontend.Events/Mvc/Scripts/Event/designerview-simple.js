@@ -110,8 +110,6 @@
                     else {
                         $scope.selectedSortOption = 'Custom';
                     }
-
-                    $scope.selectedSchedulerView = 'Custom';
                 }
             },
             function (data) {
