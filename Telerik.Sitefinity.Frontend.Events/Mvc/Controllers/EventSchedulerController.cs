@@ -177,9 +177,8 @@ namespace Telerik.Sitefinity.Frontend.Events.Mvc.Controllers
             JsonResult json = new JsonResult()
             {
                 Data = events,
-                JsonRequestBehavior = System.Web.Mvc.JsonRequestBehavior.AllowGet
-                ////,
-                ////MaxJsonLength = int.MaxValue
+                JsonRequestBehavior = System.Web.Mvc.JsonRequestBehavior.AllowGet,
+                MaxJsonLength = int.MaxValue
             };
 
             return json;
