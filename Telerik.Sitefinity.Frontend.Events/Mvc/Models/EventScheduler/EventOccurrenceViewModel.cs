@@ -2,18 +2,18 @@
 using System.Globalization;
 using Telerik.Sitefinity.Modules.Events;
 
-namespace Telerik.Sitefinity.Frontend.Events.Mvc.Models
+namespace Telerik.Sitefinity.Frontend.Events.Mvc.Models.EventScheduler
 {
     /// <summary>
     /// This is the view model required by Kendo scheduler.
     /// </summary>
-    public class SchedulerEventViewModel
+    public class EventOccurrenceViewModel
     {
         /// <summary>
-        /// Initializes a new instance of the <see cref="SchedulerEventViewModel"/> class.
+        /// Initializes a new instance of the <see cref="EventOccurrenceViewModel"/> class.
         /// </summary>
         /// <param name="item">The item.</param>
-        public SchedulerEventViewModel(EventOccurrence item, CultureInfo uiCulture)
+        public EventOccurrenceViewModel(EventOccurrence item, CultureInfo uiCulture)
         {
             this.Id = item.Event.Id;
             this.Title = item.Event.Title[uiCulture.Name];

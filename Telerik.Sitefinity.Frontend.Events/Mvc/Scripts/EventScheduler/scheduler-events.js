@@ -1,6 +1,8 @@
 ﻿(function ($) {
     $(document).ready(function () {
         $('[data-sf-role="scheduler-wrapper"][data-sf-loaded="false"]').each(function (i, element) {
+            $(element).attr('data-sf-localtimezoneoffset', new Date().getTimezoneOffset());
+
             var schedulerHtmlTemplates = {
                 eventAllDayEventTemplateHtml: $(element).find('[data-sf-role="event-alldayeventtemplate"]').html(),
                 eventCalendarlistWrapperHtml: $(element).find('[data-sf-role="event-calendarlist-template-wrapper"]').html(),
@@ -28,6 +30,7 @@
                 }
             };
 
+            // calendar list init
             $(schedulerHtmlTemplates.eventCalendarlistWrapperHtml).appendTo(schedulerData.calendarList);
             schedulerData.calendarlistWrapper = $(schedulerData.calendarList).find('[data-sf-role="calendarlist-wrapper"]');
 
@@ -62,7 +65,7 @@
                                 model.EndDate = new Date(endDate.getTime() - schedulerData.timezoneOffset - localOffsetEndDate).toISOString();
                                 model.CalendarList = $.makeArray(schedulerData.calendarlistWrapper.find('[data-sf-role="calendarlist-item"].' + schedulerData.calendarListClassActive).attr("data-sf-id"));
                                 model.UiCulture = schedulerData.uiCulture;
-                                model.SchedulerViewMode = scheduler.view().options.name.replace("View", "");
+                                model.EventSchedulerViewMode = scheduler.view().options.name.replace("View", "");
                                 return model;
                             }
                         }
@@ -72,7 +75,6 @@
                         model: {
                             id: "Id", // The "id" of the event is the "taskId" field
                             fields: {
-                                // Describe the scheduler event fields and map them to the fields returned by the remote service
                                 taskId: {
                                     from: "Id"
                                 },

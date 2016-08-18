@@ -60,14 +60,6 @@ namespace Telerik.Sitefinity.Frontend.Events.Mvc.Models
         /// The narrow selection mode.
         /// </value>
         public virtual SelectionMode NarrowSelectionMode { get; set; }
-        
-        /// <summary>
-        /// Gets or sets the selected mode for scheduler view.
-        /// </summary>
-        /// <value>
-        /// The selection mode.
-        /// </value>
-        public virtual SchedulerViewMode SchedulerViewMode { get; set; }
 
         /// <summary>
         /// Gets or sets the serialized narrow selection filters. Contains information about taxonomies and calendar filters as serialized QueryData.

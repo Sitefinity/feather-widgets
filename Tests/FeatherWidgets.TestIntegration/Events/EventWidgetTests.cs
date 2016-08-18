@@ -10,6 +10,7 @@ using Telerik.Sitefinity.Events.Model;
 using Telerik.Sitefinity.Frontend.Events.Mvc.Controllers;
 using Telerik.Sitefinity.Frontend.Events.Mvc.Helpers;
 using Telerik.Sitefinity.Frontend.Events.Mvc.Models;
+using Telerik.Sitefinity.Frontend.Events.Mvc.Models.EventScheduler;
 using Telerik.Sitefinity.Frontend.Mvc.Models;
 using Telerik.Sitefinity.Frontend.TestUtilities;
 using Telerik.Sitefinity.Modules.Events;
@@ -130,25 +131,12 @@ namespace FeatherWidgets.TestIntegration.Events
         [Description("Ensure that after events request, data is correctly retrieved as json content")]
         public void EventWidget_Route_Events()
         {
-            ////var multiOperations = new MultilingualEventOperations();
-            ////var manager = EventsManager.GetManager();
-            ////var calendartDefault = manager.GetCalendars().FirstOrDefault();
-            ////var event1Id = Guid.NewGuid();
-            ////var event2Id = Guid.NewGuid();
-            ////var event3Id = Guid.NewGuid();
-            ////var event4Id = Guid.NewGuid();
-            ////var event5Id = Guid.NewGuid();
-
-            //////multiOperations.CreateLocalizedEvent(event1Id, calendartDefault.Id, "event1Title", string.Empty, string.Empty, DateTime.Now, DateTime.Now.AddDays(1), string.Empty, string.Empty, string.Empty, string.Empty, string.Empty, string.Empty, string.Empty, string.Empty, string.Empty, true);
-            //////this.UpdateEvent(multiOperations, manager, "event1Title");
-            //////multiOperations.CreateLocalizedEvent(event2Id, calendartDefault.Id, "event2Title", string.Empty, string.Empty, DateTime.Now, DateTime.Now.AddDays(1), string.Empty, string.Empty, string.Empty, string.Empty, string.Empty, string.Empty, string.Empty, string.Empty, string.Empty, true);
-            //////multiOperations.MakeEventRecurrent(event2Id, DateTime.Now, 10000);
-            //////multiOperations.CreateLocalizedEvent(event3Id, calendartDefault.Id, "event3Title", string.Empty, string.Empty, DateTime.Now, DateTime.Now.AddDays(1), string.Empty, string.Empty, string.Empty, string.Empty, string.Empty, string.Empty, string.Empty, string.Empty, string.Empty, true);
-            //////multiOperations.MakeEventRecurrent(event3Id, DateTime.Now, 10000);
-            //////multiOperations.CreateLocalizedEvent(event4Id, calendartDefault.Id, "event4Title", string.Empty, string.Empty, DateTime.Now, DateTime.Now.AddDays(1), string.Empty, string.Empty, string.Empty, string.Empty, string.Empty, string.Empty, string.Empty, string.Empty, string.Empty, true);
-            //////multiOperations.MakeEventRecurrent(event4Id, DateTime.Now, 10000);
-            //////multiOperations.CreateLocalizedEvent(event5Id, calendartDefault.Id, "event5Title", string.Empty, string.Empty, DateTime.Now, DateTime.Now.AddDays(1), string.Empty, string.Empty, string.Empty, string.Empty, string.Empty, string.Empty, string.Empty, string.Empty, string.Empty, true);
-            //////multiOperations.MakeEventRecurrent(event5Id, DateTime.Now, 10000);
+            ServerOperations.Events().CreаteAllDayRecurrentEvent("RepeatEventTitle1", string.Empty, DateTime.Now, DateTime.MaxValue, 60, 10000, 1, true);
+            ServerOperations.Events().CreаteAllDayRecurrentEvent("RepeatEventTitle2", string.Empty, DateTime.Now, DateTime.MaxValue, 60, 10000, 1, true);
+            ServerOperations.Events().CreаteAllDayRecurrentEvent("RepeatEventTitle3", string.Empty, DateTime.Now, DateTime.MaxValue, 60, 10000, 1, true);
+            ServerOperations.Events().CreаteAllDayRecurrentEvent("RepeatEventTitle4", string.Empty, DateTime.Now, DateTime.MaxValue, 60, 10000, 1, true);
+            ServerOperations.Events().CreаteAllDayRecurrentEvent("RepeatEventTitle5", string.Empty, DateTime.Now, DateTime.MaxValue, 60, 10000, 1, true);
+            ServerOperations.Events().CreаteAllDayRecurrentEvent("RepeatEventTitle6", string.Empty, DateTime.Now, DateTime.MaxValue, 60, 10000, 1, true);
 
             var eventController = new EventController();
             var model = eventController.Model;
@@ -161,7 +149,7 @@ namespace FeatherWidgets.TestIntegration.Events
             string exceptionMessage = "[InvalidOperationException: Error during serialization or deserialization using the JSON JavaScriptSerializer. The length of the string exceeds the value set on the maxJsonLength property.]";
             var pageContent = WebRequestHelper.GetPageWebContent(UrlPath.ResolveAbsoluteUrl("~/web-interface/events/?") + queryStringValue);
             Assert.DoesNotContain(pageContent, exceptionMessage, exceptionMessage);
-            List<SchedulerEventViewModel> eventsList = JsonSerializer.DeserializeFromString<List<SchedulerEventViewModel>>(pageContent);
+            List<EventOccurrenceViewModel> eventsList = JsonSerializer.DeserializeFromString<List<EventOccurrenceViewModel>>(pageContent);
             Assert.AreNotEqual(eventsList.Count, 0);
         }
 
@@ -216,7 +204,7 @@ namespace FeatherWidgets.TestIntegration.Events
             var queryStringValue = string.Join("&", queryStringDictionary.Select(t => t.Key + "=" + t.Value).ToArray());
 
             var pageContent = WebRequestHelper.GetPageWebContent(UrlPath.ResolveAbsoluteUrl("~/web-interface/calendars/?") + queryStringValue);
-            List<CalendarViewModel> jsonCalendarsList = JsonSerializer.DeserializeFromString<List<CalendarViewModel>>(pageContent);
+            List<EventCalendarViewModel> jsonCalendarsList = JsonSerializer.DeserializeFromString<List<EventCalendarViewModel>>(pageContent);
             Assert.AreEqual(jsonCalendarsList.Count, calendarCount);
         }
 
@@ -264,7 +252,7 @@ namespace FeatherWidgets.TestIntegration.Events
             var queryStringValue = string.Join("&", queryStringDictionary.Select(t => t.Key + "=" + t.Value).ToArray());
 
             var pageContent = WebRequestHelper.GetPageWebContent(UrlPath.ResolveAbsoluteUrl("~/web-interface/calendars/?") + queryStringValue);
-            List<CalendarViewModel> jsonCalendarsList = JsonSerializer.DeserializeFromString<List<CalendarViewModel>>(pageContent);
+            List<EventCalendarViewModel> jsonCalendarsList = JsonSerializer.DeserializeFromString<List<EventCalendarViewModel>>(pageContent);
             Assert.AreEqual(jsonCalendarsList.Count, calendarCount);
         }
 

@@ -150,6 +150,22 @@
                 </div>
             </div>
         </div>
+
+        <div class="form-group">
+            <label for="schedulerView">@Html.Resource("DefaultView")</label>
+            <div class="row">
+                <div class="col-xs-6">
+                    <select id="schedulerView" ng-model="properties.EventSchedulerViewMode.PropertyValue" class="form-control">
+                        <option value="Month">@Html.Resource("Month")</option>
+                        <option value="Week">@Html.Resource("Week")</option>
+                        <option value="WorkWeek">@Html.Resource("WorkWeek")</option>
+                        <option value="Day">@Html.Resource("Day")</option>                       
+                        <option value="Agenda">@Html.Resource("Agenda")</option>
+                        <option value="Timeline">@Html.Resource("Timeline")</option>
+                    </select>
+                </div>
+            </div>
+        </div>
         
         <expander expander-title='@Html.Resource("MoreOptions")'>                    
             

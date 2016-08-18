@@ -6,12 +6,12 @@ using Telerik.Sitefinity.Frontend.Mvc.Models;
 using Telerik.Sitefinity.Model;
 using Telerik.Sitefinity.Taxonomies.Model;
 
-namespace Telerik.Sitefinity.Frontend.Events.Mvc.Models
+namespace Telerik.Sitefinity.Frontend.Events.Mvc.Models.EventScheduler
 {
     /// <summary>
     /// This interface defines API for working with <see cref="Telerik.Sitefinity.Events.Model.Event"/> items.
     /// </summary>
-    public interface IEventModel
+    public interface IEventSchedulerModel
     {
         /// <summary>
         /// Gets the list of events to be displayed inside the widget when option "Selected events" is enabled.
@@ -99,6 +99,14 @@ namespace Telerik.Sitefinity.Frontend.Events.Mvc.Models
         /// The narrow selection mode.
         /// </value>
         SelectionMode NarrowSelectionMode { get; set; }
+
+        /// <summary>
+        /// Gets or sets the selected mode for scheduler view.
+        /// </summary>
+        /// <value>
+        /// The selection mode.
+        /// </value>
+        EventSchedulerViewMode EventSchedulerViewMode { get; set; }
 
         /// Gets or sets the CSS class that will be applied on the wrapper div of the widget when it is in List view.
         /// </summary>
