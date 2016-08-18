@@ -148,7 +148,7 @@
                 $(this).addClass(schedulerData.calendarListClassActive);
                 kendoScheduler.data("kendoScheduler").dataSource.filter({
                     operator: function (task) {
-                        return $.inArray(task.calendarId, id && id != "" ? [id] : schedulerData.calendarIdList) >= 0;
+                        return $.inArray(task.calendarId, id && id !== "" ? [id] : schedulerData.calendarIdList) >= 0;
                     }
                 });
             });
