@@ -8,9 +8,11 @@ using Telerik.Sitefinity.Frontend.Mvc.Infrastructure.Controllers;
 using Telerik.Sitefinity.Frontend.Mvc.Infrastructure.Controllers.Attributes;
 using Telerik.Sitefinity.Frontend.SocialShare.Mvc.Models;
 using Telerik.Sitefinity.Frontend.SocialShare.Mvc.StringResources;
+using Telerik.Sitefinity.Model;
 using Telerik.Sitefinity.Mvc;
 using Telerik.Sitefinity.Services;
 using Telerik.Sitefinity.SiteSettings.Basic;
+using Telerik.Sitefinity.Web.Utilities;
 
 namespace Telerik.Sitefinity.Frontend.SocialShare.Mvc.Controllers
 {
@@ -31,6 +33,15 @@ namespace Telerik.Sitefinity.Frontend.SocialShare.Mvc.Controllers
         {
             get
             {
+                if (this.SocialShareSettings.SocialShareMode == SocialShareMode.IconsWithText)
+                {
+                    this.templateName = SocialShareController.IconsWithTextTemplateName;
+                }
+                else
+                {
+                    this.templateName = SocialShareController.DefaultIconsTemplateName;
+                }
+
                 return this.templateName;
             }
 
@@ -185,8 +196,10 @@ namespace Telerik.Sitefinity.Frontend.SocialShare.Mvc.Controllers
         }
 
         internal const string WidgetIconCssClass = "sfPageSharingIcn sfMvcIcn";
+        private const string IconsWithTextTemplateName = "SocialShareIconsWithText";
+        private const string DefaultIconsTemplateName = "SocialShare";
         private ISocialShareModel model;
-        private string templateName = "SocialShare";
+        private string templateName;
         private string serializedSocialShareOptionsList;
     }
 }
