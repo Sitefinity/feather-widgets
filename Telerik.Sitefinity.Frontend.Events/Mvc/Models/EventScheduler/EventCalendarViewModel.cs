@@ -1,21 +1,18 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using Telerik.Sitefinity.Events.Model;
 
-namespace Telerik.Sitefinity.Frontend.Events.Mvc.Models
+namespace Telerik.Sitefinity.Frontend.Events.Mvc.Models.EventScheduler
 {
     /// <summary>
     /// This is the view model used for displaying calendars.
     /// </summary>
-    public class CalendarViewModel
+    public class EventCalendarViewModel
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="CalendarViewModel"/> class.
         /// </summary>
         /// <param name="calendar">The calendar.</param>
-        public CalendarViewModel(Calendar calendar, System.Globalization.CultureInfo uiCulture) 
+        public EventCalendarViewModel(Calendar calendar, System.Globalization.CultureInfo uiCulture) 
         {
             this.CalendarId = calendar.Id;
             this.Color = calendar.Color;
@@ -39,7 +36,7 @@ namespace Telerik.Sitefinity.Frontend.Events.Mvc.Models
         public string Color { get; set; }
 
         /// <summary>
-        /// Gets or sets the color.
+        /// Gets or sets the title.
         /// </summary>
         /// <value>
         /// The calendar title.

@@ -16,27 +16,28 @@ else
 	@Html.StyleSheet(Url.EmbeddedResource("Telerik.Sitefinity.Resources.Reference", "Telerik.Sitefinity.Resources.Scripts.Kendo.styles.kendo_bootstrap_min.css"), "head")
 }
 <div data-sf-role="scheduler-wrapper" 
-    data-sf-controller-model='@Html.Raw(JsonSerializer.SerializeToString(((EventController)Html.ViewContext.Controller).Model))'
+    data-sf-controller-model='@Html.Raw(JsonSerializer.SerializeToString(((EventSchedulerController)Html.ViewContext.Controller).Model))'
     data-sf-controller-events='@Url.Content("~/web-interface/events")'
     data-sf-controller-calendars='@Url.Content("~/web-interface/calendars")'
-    data-sf-defaultview='@((((EventController)Html.ViewContext.Controller).Model).SchedulerViewMode)'
+    data-sf-defaultview='@((((EventSchedulerController)Html.ViewContext.Controller).Model).EventSchedulerViewMode)'
     data-sf-loaded='false' 
 	data-sf-mincalendarlength='2'
     data-sf-calendarlist-class-active='active'
 	data-sf-uiculture='@ViewBag.UiCulture'
     data-sf-timezoneoffset="@ViewBag.TimeZoneOffset"
-    data-sf-timezoneid="@ViewBag.TimeZoneId">
+    data-sf-timezoneid="@ViewBag.TimeZoneId"
+    data-sf-localtimezoneoffset="">
     <div data-sf-role="calendarlist" style="display: none;">
         <h4 class="sf-calendarList-title">@Html.Resource("Calendars")</h4>
     </div>
     <div data-sf-role="scheduler"></div>
 	<script data-sf-role="event-alldayeventtemplate" type="text/x-kendo-tmpl">
-		<div class="sf-event-item" data-sf-eventid="#= taskId #" data-sf-date-start="#= start #" data-sf-date-end="#= end #" data-sf-allday="#= isAllDay #">
+		<div class="sf-event-item" data-sf-eventid="#= taskId #" data-sf-date-start=#= JSON.stringify(start) # data-sf-date-end=#= JSON.stringify(end) # data-sf-allday="#= isAllDay #">
 			<a class="sf-event-link" href="@ViewBag.DetailsPageUrl#= eventUrl #" title="#= title #">#= title #</a>
 		</div>
     </script>
     <script data-sf-role="event-eventtemplate" type="text/x-kendo-tmpl">
-		<div class="sf-event-item" data-sf-eventid="#= taskId #" data-sf-date-start="#= start #" data-sf-date-end="#= end #" data-sf-allday="#= isAllDay #">
+		<div class="sf-event-item" data-sf-eventid="#= taskId #" data-sf-date-start=#= JSON.stringify(start) # data-sf-date-end=#= JSON.stringify(end) # data-sf-allday="#= isAllDay #">
 			<a class="sf-event-link" href="@ViewBag.DetailsPageUrl#= eventUrl #" title="#= title #">#= title #</a>
 		</div>
     </script>
@@ -51,7 +52,7 @@ else
 </div>
 @if (SystemManager.IsDesignMode && !SystemManager.IsPreviewMode)
 {
-    var scriptUrl = Url.WidgetContent("Mvc/Scripts/Event/scheduler-events.js");
+    var scriptUrl = Url.WidgetContent("Mvc/Scripts/EventScheduler/scheduler-events.js");
     var fullScriptUrl = scriptUrl + (scriptUrl.Contains("?") ? "&" : "?") + string.Format("_={0}", DateTime.UtcNow.Ticks.ToString());
     <script type="text/javascript" src='@fullScriptUrl'></script>
 }
@@ -60,5 +61,5 @@ else
 	@Html.Script(ScriptRef.JQuery, "top", false)
 	@Html.Script(ScriptRef.KendoAll, "top", false)
 	@Html.Script(ScriptRef.KendoTimezones, "top", false)
-    @Html.Script(Url.WidgetContent("Mvc/Scripts/Event/scheduler-events.js"), "bottom", false)
+    @Html.Script(Url.WidgetContent("Mvc/Scripts/EventScheduler/scheduler-events.js"), "bottom", false)
 }

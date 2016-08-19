@@ -1,14 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-
-namespace Telerik.Sitefinity.Frontend.Events.Mvc.Models
+﻿namespace Telerik.Sitefinity.Frontend.Events.Mvc.Models.EventScheduler
 {
     /// <summary>
     /// Defines available modes for displaying the event scheduler views.
     /// </summary>
-    public enum SchedulerViewMode
+    public enum EventSchedulerViewMode
     {
         Month = 0,
         Week = 1,

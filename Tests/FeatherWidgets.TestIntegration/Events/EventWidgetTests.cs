@@ -10,6 +10,7 @@ using Telerik.Sitefinity.Events.Model;
 using Telerik.Sitefinity.Frontend.Events.Mvc.Controllers;
 using Telerik.Sitefinity.Frontend.Events.Mvc.Helpers;
 using Telerik.Sitefinity.Frontend.Events.Mvc.Models;
+using Telerik.Sitefinity.Frontend.Events.Mvc.Models.EventScheduler;
 using Telerik.Sitefinity.Frontend.Mvc.Models;
 using Telerik.Sitefinity.Frontend.TestUtilities;
 using Telerik.Sitefinity.Modules.Events;
@@ -124,62 +125,77 @@ namespace FeatherWidgets.TestIntegration.Events
         }
 
         [Test]
-        [Ignore("Not Completed")]
+        ////[Ignore("Not Completed")]
         [Category(TestCategories.Events)]
         [Author(FeatherTeams.FeatherTeam)]
         [Description("Ensure that after events request, data is correctly retrieved as json content")]
-        public void EventWidget_Route_Events()
+        public void EventSchedulerWidget_Route_Events()
         {
-            ////var multiOperations = new MultilingualEventOperations();
-            ////var manager = EventsManager.GetManager();
-            ////var calendartDefault = manager.GetCalendars().FirstOrDefault();
-            ////var event1Id = Guid.NewGuid();
-            ////var event2Id = Guid.NewGuid();
-            ////var event3Id = Guid.NewGuid();
-            ////var event4Id = Guid.NewGuid();
-            ////var event5Id = Guid.NewGuid();
+            ServerOperations.Events().CreаteAllDayRecurrentEvent("RepeatEventTitle1", string.Empty, DateTime.Now, DateTime.MaxValue, 60, 10000, 1, true);
+            ServerOperations.Events().CreаteAllDayRecurrentEvent("RepeatEventTitle2", string.Empty, DateTime.Now, DateTime.MaxValue, 60, 10000, 1, true);
+            ServerOperations.Events().CreаteAllDayRecurrentEvent("RepeatEventTitle3", string.Empty, DateTime.Now, DateTime.MaxValue, 60, 10000, 1, true);
+            ServerOperations.Events().CreаteAllDayRecurrentEvent("RepeatEventTitle4", string.Empty, DateTime.Now, DateTime.MaxValue, 60, 10000, 1, true);
+            ServerOperations.Events().CreаteAllDayRecurrentEvent("RepeatEventTitle5", string.Empty, DateTime.Now, DateTime.MaxValue, 60, 10000, 1, true);
+            ServerOperations.Events().CreаteAllDayRecurrentEvent("RepeatEventTitle6", string.Empty, DateTime.Now, DateTime.MaxValue, 60, 10000, 1, true);
 
-            //////multiOperations.CreateLocalizedEvent(event1Id, calendartDefault.Id, "event1Title", string.Empty, string.Empty, DateTime.Now, DateTime.Now.AddDays(1), string.Empty, string.Empty, string.Empty, string.Empty, string.Empty, string.Empty, string.Empty, string.Empty, string.Empty, true);
-            //////this.UpdateEvent(multiOperations, manager, "event1Title");
-            //////multiOperations.CreateLocalizedEvent(event2Id, calendartDefault.Id, "event2Title", string.Empty, string.Empty, DateTime.Now, DateTime.Now.AddDays(1), string.Empty, string.Empty, string.Empty, string.Empty, string.Empty, string.Empty, string.Empty, string.Empty, string.Empty, true);
-            //////multiOperations.MakeEventRecurrent(event2Id, DateTime.Now, 10000);
-            //////multiOperations.CreateLocalizedEvent(event3Id, calendartDefault.Id, "event3Title", string.Empty, string.Empty, DateTime.Now, DateTime.Now.AddDays(1), string.Empty, string.Empty, string.Empty, string.Empty, string.Empty, string.Empty, string.Empty, string.Empty, string.Empty, true);
-            //////multiOperations.MakeEventRecurrent(event3Id, DateTime.Now, 10000);
-            //////multiOperations.CreateLocalizedEvent(event4Id, calendartDefault.Id, "event4Title", string.Empty, string.Empty, DateTime.Now, DateTime.Now.AddDays(1), string.Empty, string.Empty, string.Empty, string.Empty, string.Empty, string.Empty, string.Empty, string.Empty, string.Empty, true);
-            //////multiOperations.MakeEventRecurrent(event4Id, DateTime.Now, 10000);
-            //////multiOperations.CreateLocalizedEvent(event5Id, calendartDefault.Id, "event5Title", string.Empty, string.Empty, DateTime.Now, DateTime.Now.AddDays(1), string.Empty, string.Empty, string.Empty, string.Empty, string.Empty, string.Empty, string.Empty, string.Empty, string.Empty, true);
-            //////multiOperations.MakeEventRecurrent(event5Id, DateTime.Now, 10000);
-
-            var eventController = new EventController();
+            var eventController = new EventSchedulerController();
             var model = eventController.Model;
             this.ApplySerializedFilters(model);
             var queryStringDictionary = this.CreateQueryStringDictionary(model);
-            queryStringDictionary.Add("StartDate", HttpUtility.UrlEncode(DateTime.MinValue.ToString("o", System.Globalization.CultureInfo.InvariantCulture)));
-            queryStringDictionary.Add("EndDate=", HttpUtility.UrlEncode(DateTime.MaxValue.AddDays(-1).ToString("o", System.Globalization.CultureInfo.InvariantCulture)));
+            queryStringDictionary["StartDate"] = HttpUtility.UrlEncode(DateTime.MinValue.ToString("o", System.Globalization.CultureInfo.InvariantCulture));
+            queryStringDictionary["EndDate"] = HttpUtility.UrlEncode(DateTime.MaxValue.AddDays(-1).ToString("o", System.Globalization.CultureInfo.InvariantCulture));
             var queryStringValue = string.Join("&", queryStringDictionary.Select(t => t.Key + "=" + t.Value).ToArray());
 
             string exceptionMessage = "[InvalidOperationException: Error during serialization or deserialization using the JSON JavaScriptSerializer. The length of the string exceeds the value set on the maxJsonLength property.]";
             var pageContent = WebRequestHelper.GetPageWebContent(UrlPath.ResolveAbsoluteUrl("~/web-interface/events/?") + queryStringValue);
             Assert.DoesNotContain(pageContent, exceptionMessage, exceptionMessage);
-            List<SchedulerEventViewModel> eventsList = JsonSerializer.DeserializeFromString<List<SchedulerEventViewModel>>(pageContent);
-            Assert.AreNotEqual(eventsList.Count, 0);
+            List<EventOccurrenceViewModel> eventsList = JsonSerializer.DeserializeFromString<List<EventOccurrenceViewModel>>(pageContent);
+            Assert.AreEqual(eventsList.Count, EventsManager.GetManager().GetEventsOccurrences(DateTime.MinValue, DateTime.MaxValue).Count());
         }
 
-        [Test]
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Maintainability", "CA1506:AvoidExcessiveClassCoupling"), Test]
         [Ignore("Not Completed")]
         [Category(TestCategories.Events)]
         [Author(FeatherTeams.FeatherTeam)]
         [Description("Ensure that after events request, data is correctly retrieved as json content")]
-        public void EventWidget_Route_Events_Multilingual()
+        public void EventSchedulerWidget_Route_Events_Multilingual()
         {
-            //// "Not Completed"
+            var manager = EventsManager.GetManager();
+            var multiOperations = new MultilingualEventOperations();
+            var bulgarian = AppSettings.CurrentSettings.DefinedFrontendLanguages.Where(x => x.Name == "bg-BG").FirstOrDefault();
+
+            var calendartDefault = manager.GetCalendars().FirstOrDefault();
+            this.CreateLocalizedRecurrentEvent(multiOperations, "Event 1 bg", Guid.NewGuid(), bulgarian, calendartDefault);
+            this.CreateLocalizedRecurrentEvent(multiOperations, "Event 2 bg", Guid.NewGuid(), bulgarian, calendartDefault);
+            this.CreateLocalizedRecurrentEvent(multiOperations, "Event 3 bg", Guid.NewGuid(), bulgarian, calendartDefault);
+            this.CreateLocalizedRecurrentEvent(multiOperations, "Event 4 bg", Guid.NewGuid(), bulgarian, calendartDefault);
+            this.CreateLocalizedRecurrentEvent(multiOperations, "Event 5 bg", Guid.NewGuid(), bulgarian, calendartDefault);
+            this.CreateLocalizedRecurrentEvent(multiOperations, "Event 6 bg", Guid.NewGuid(), bulgarian, calendartDefault);
+            this.CreateLocalizedRecurrentEvent(multiOperations, "Event 7 bg", Guid.NewGuid(), bulgarian, calendartDefault);
+            this.CreateLocalizedRecurrentEvent(multiOperations, "Event 8 bg", Guid.NewGuid(), bulgarian, calendartDefault);
+            this.CreateLocalizedRecurrentEvent(multiOperations, "Event 9 bg", Guid.NewGuid(), bulgarian, calendartDefault);
+            this.CreateLocalizedRecurrentEvent(multiOperations, "Event 10 bg", Guid.NewGuid(), bulgarian, calendartDefault);
+
+            var eventController = new EventSchedulerController();
+            var model = eventController.Model;
+            this.ApplySerializedFilters(model);
+            var queryStringDictionary = this.CreateQueryStringDictionary(model);
+            queryStringDictionary["StartDate"] = HttpUtility.UrlEncode(DateTime.MinValue.ToString("o", System.Globalization.CultureInfo.InvariantCulture));
+            queryStringDictionary["EndDate"] = HttpUtility.UrlEncode(DateTime.MaxValue.AddDays(-1).ToString("o", System.Globalization.CultureInfo.InvariantCulture));
+            var queryStringValue = string.Join("&", queryStringDictionary.Select(t => t.Key + "=" + t.Value).ToArray());
+
+            string exceptionMessage = "[InvalidOperationException: Error during serialization or deserialization using the JSON JavaScriptSerializer. The length of the string exceeds the value set on the maxJsonLength property.]";
+            var pageContent = WebRequestHelper.GetPageWebContent(UrlPath.ResolveAbsoluteUrl("~/web-interface/events/?") + queryStringValue);
+            Assert.DoesNotContain(pageContent, exceptionMessage, exceptionMessage);
+            List<EventOccurrenceViewModel> eventsList = JsonSerializer.DeserializeFromString<List<EventOccurrenceViewModel>>(pageContent);
+            Assert.AreEqual(eventsList.Count, EventsManager.GetManager().GetEventsOccurrences(DateTime.MinValue, DateTime.MaxValue).Where(p => p.Event.LanguageData.Where(t => t.Language == bulgarian.Name).Count() > 0).Count());
         }
 
         [Test]
         [Category(TestCategories.Events)]
         [Author(FeatherTeams.FeatherTeam)]
         [Description("Ensure that after calendar request, data is correctly retrieved as json content")]
-        public void EventWidget_Route_Calendar()
+        public void EventSchedulerWidget_Route_Calendar()
         {
             var manager = EventsManager.GetManager();
             var calendarCount = 0;
@@ -206,17 +222,17 @@ namespace FeatherWidgets.TestIntegration.Events
                 calendarCount++;
             }
 
-            var eventController = new EventController();
+            var eventController = new EventSchedulerController();
             var model = eventController.Model;
             this.ApplySerializedFilters(model);
 
             var queryStringDictionary = this.CreateQueryStringDictionary(model);
-            queryStringDictionary.Add("StartDate", HttpUtility.UrlEncode(DateTime.MinValue.ToString("o", System.Globalization.CultureInfo.InvariantCulture)));
-            queryStringDictionary.Add("EndDate=", HttpUtility.UrlEncode(DateTime.MaxValue.AddDays(-1).ToString("o", System.Globalization.CultureInfo.InvariantCulture)));
+            queryStringDictionary["StartDate"] = HttpUtility.UrlEncode(DateTime.MinValue.ToString("o", System.Globalization.CultureInfo.InvariantCulture));
+            queryStringDictionary["EndDate"] = HttpUtility.UrlEncode(DateTime.MaxValue.AddDays(-1).ToString("o", System.Globalization.CultureInfo.InvariantCulture));
             var queryStringValue = string.Join("&", queryStringDictionary.Select(t => t.Key + "=" + t.Value).ToArray());
 
             var pageContent = WebRequestHelper.GetPageWebContent(UrlPath.ResolveAbsoluteUrl("~/web-interface/calendars/?") + queryStringValue);
-            List<CalendarViewModel> jsonCalendarsList = JsonSerializer.DeserializeFromString<List<CalendarViewModel>>(pageContent);
+            List<EventCalendarViewModel> jsonCalendarsList = JsonSerializer.DeserializeFromString<List<EventCalendarViewModel>>(pageContent);
             Assert.AreEqual(jsonCalendarsList.Count, calendarCount);
         }
 
@@ -225,7 +241,7 @@ namespace FeatherWidgets.TestIntegration.Events
         [Category(TestCategories.Events)]
         [Author(FeatherTeams.FeatherTeam)]
         [Description("Ensure that after calendar request, data is correctly retrieved as json content")]
-        public void EventWidget_Route_Calendar_Multilingual()
+        public void EventSchedulerWidget_Route_Calendar_Multilingual()
         {
             var multiOperations = new MultilingualEventOperations();
             var calendarCount = 0;
@@ -254,24 +270,30 @@ namespace FeatherWidgets.TestIntegration.Events
                 calendarCount++;
             }
 
-            var eventController = new EventController();
+            var eventController = new EventSchedulerController();
             var model = eventController.Model;
             this.ApplySerializedFilters(model);
             var queryStringDictionary = this.CreateQueryStringDictionary(model);
-            queryStringDictionary.Add("StartDate", HttpUtility.UrlEncode(DateTime.MinValue.ToString("o", System.Globalization.CultureInfo.InvariantCulture)));
-            queryStringDictionary.Add("EndDate", HttpUtility.UrlEncode(DateTime.MaxValue.AddDays(-1).ToString("o", System.Globalization.CultureInfo.InvariantCulture)));
-            queryStringDictionary.Add("UiCulture", bulgarian.Name);
+            queryStringDictionary["StartDate"] = HttpUtility.UrlEncode(DateTime.MinValue.ToString("o", System.Globalization.CultureInfo.InvariantCulture));
+            queryStringDictionary["EndDate"] = HttpUtility.UrlEncode(DateTime.MaxValue.AddDays(-1).ToString("o", System.Globalization.CultureInfo.InvariantCulture));
+            queryStringDictionary["UiCulture"] = bulgarian.Name;
             var queryStringValue = string.Join("&", queryStringDictionary.Select(t => t.Key + "=" + t.Value).ToArray());
 
             var pageContent = WebRequestHelper.GetPageWebContent(UrlPath.ResolveAbsoluteUrl("~/web-interface/calendars/?") + queryStringValue);
-            List<CalendarViewModel> jsonCalendarsList = JsonSerializer.DeserializeFromString<List<CalendarViewModel>>(pageContent);
+            List<EventCalendarViewModel> jsonCalendarsList = JsonSerializer.DeserializeFromString<List<EventCalendarViewModel>>(pageContent);
             Assert.AreEqual(jsonCalendarsList.Count, calendarCount);
         }
 
-        private void ApplySerializedFilters(IEventModel model)
+        private void ApplySerializedFilters(IEventSchedulerModel model)
         {
             model.SerializedNarrowSelectionFilters = "{\"__msdisposeindex\":257,\"Title\":null,\"Id\":\"00000000-0000-0000-0000-000000000000\",\"QueryItems\":[],\"TypeProperties\":[],\"_itemPathSeparator\":\"_\"}";
             model.SerializedAdditionalFilters = "{\"__msdisposeindex\":256,\"Title\":null,\"Id\":\"00000000-0000-0000-0000-000000000000\",\"QueryItems\":[],\"TypeProperties\":[],\"_itemPathSeparator\":\"_\"}";
+        }
+
+        private void CreateLocalizedRecurrentEvent(MultilingualEventOperations multiOperations, string eventTitle, Guid eventId, CultureInfo bulgarian, Telerik.Sitefinity.Events.Model.Calendar calendartDefault)
+        {
+            multiOperations.CreateLocalizedEvent(eventId, calendartDefault.Id, eventTitle, string.Empty, string.Empty, DateTime.Now, DateTime.MaxValue, string.Empty, string.Empty, string.Empty, string.Empty, string.Empty, string.Empty, string.Empty, string.Empty, string.Empty, false, false, bulgarian.Name);
+            multiOperations.MakeEventRecurrent(eventId, DateTime.Now, 10000);
         }
 
         private bool SetCalendarToEvent(EventsManager manager, string eventTitle, Guid calendarId)
@@ -289,7 +311,7 @@ namespace FeatherWidgets.TestIntegration.Events
             return false;
         }
 
-        private Dictionary<string, string> CreateQueryStringDictionary(IEventModel model)
+        private Dictionary<string, string> CreateQueryStringDictionary(IEventSchedulerModel model)
         {
             var queryStringList = model.GetType().GetProperties()
                 .Where(p => p.GetValue(model, null) != null)
