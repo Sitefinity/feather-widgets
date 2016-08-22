@@ -21,14 +21,6 @@ namespace Telerik.Sitefinity.Frontend.SocialShare.Mvc.Models
         string CssClass { get; set; }
 
         /// <summary>
-        /// Gets or sets the data item's title we wish to share
-        /// </summary>
-        /// <value>
-        /// The shared item's Title
-        /// </value>
-        string ItemTitle { get; set; }
-
-        /// <summary>
         /// Initialize the selected social share options.
         /// </summary>
         void InitializeSocialShareButtons(IList<SocialShareGroup> socialShareGroups);

@@ -165,11 +165,6 @@ namespace Telerik.Sitefinity.Frontend.SocialShare.Mvc.Controllers
         public ActionResult Index()
         {
             this.Model.InitializeSocialShareButtons(this.SocialShareGroups);
-            var item = this.RouteData.Values[Telerik.Sitefinity.Frontend.Mvc.Helpers.SocialShareHelpers.DataItemKey] as IHasTitle;
-            if (item != null)
-            {
-                this.Model.ItemTitle = item.GetTitle();
-            }
 
             return this.View(this.TemplateName, this.Model);
         }
