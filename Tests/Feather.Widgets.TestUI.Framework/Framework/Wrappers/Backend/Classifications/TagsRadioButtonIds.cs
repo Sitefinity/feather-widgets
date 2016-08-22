@@ -8,8 +8,8 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend.Classifica
     /// </summary>
     public enum TagsRadioButtonIds
     {
-        allTags,
-        selectedTags,
-        contentTags
+        AllTags,
+        SelectedTags,
+        ContentTags
     }
 }

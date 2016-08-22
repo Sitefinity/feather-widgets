@@ -10,7 +10,9 @@ using Telerik.Sitefinity.Frontend.Forms.Mvc.StringResources;
 using Telerik.Sitefinity.Localization;
 using Telerik.Sitefinity.Metadata.Model;
 using Telerik.Sitefinity.Modules.Forms.Web.UI.Fields;
+using Telerik.Sitefinity.Web.UI.Validation;
 using Telerik.Sitefinity.Web.UI.Validation.Definitions;
+using Telerik.Sitefinity.Web.UI.Validation.Enums;
 
 namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Models.Fields.TextField
 {
@@ -144,6 +146,18 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Models.Fields.TextField
                 minMaxLength = ".{" + this.ValidatorDefinition.MinLength + "," + this.ValidatorDefinition.MaxLength + "}";
             else if (this.ValidatorDefinition.MinLength > 0)
                 minMaxLength = ".{" + this.ValidatorDefinition.MinLength + ",}";
+            
+            if (!string.IsNullOrWhiteSpace(this.ValidatorDefinition.ExpectedFormat.ToString()))
+            {
+                var pattern = this.GetRegExForExpectedFormat(this.ValidatorDefinition.ExpectedFormat);
+                if(!string.IsNullOrEmpty(pattern))
+                {
+                    attributes.Append("pattern=");
+                    attributes.Append(pattern);
+                    attributes.Append(" ");
+                }
+                
+            }
 
             if (this.InputType == TextType.Tel)
             {
@@ -155,7 +169,7 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Models.Fields.TextField
                     attributes.Append("$)");
                 }
 
-                attributes.Append(Telerik.Sitefinity.Web.UI.Validation.Validator.TelRegexPattern);
+                attributes.Append(Validator.TelRegexPattern);
                 attributes.Append(" ");
             }
             else if (!string.IsNullOrEmpty(minMaxLength))
@@ -166,6 +180,51 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Models.Fields.TextField
             }
 
             return attributes.ToString();
+        }
+
+        private string GetRegExForExpectedFormat(ValidationFormat expectedFormat)
+        {
+            string regexPattern = string.Empty;
+
+            switch (expectedFormat)
+            {
+                case ValidationFormat.None:
+                    return string.Empty;
+                case ValidationFormat.AlphaNumeric:
+                    regexPattern = Validator.AlphaNumericRegexPattern;                    
+                    break;
+                case ValidationFormat.Currency:
+                    regexPattern = Validator.CurrencyRegexPattern;                    
+                    break;
+                case ValidationFormat.EmailAddress:
+                    regexPattern = Validator.EmailAddressRegexPattern;                    
+                    break;
+                case ValidationFormat.Integer:
+                    regexPattern = Validator.IntegerRegexPattern;                    
+                    break;
+                case ValidationFormat.InternetUrl:
+                    regexPattern = Validator.InternetUrlRegexPattern;                    
+                    break;
+                case ValidationFormat.NonAlphaNumeric:
+                    regexPattern = Validator.NonAlphaNumericRegexPattern;                    
+                    break;
+                case ValidationFormat.Numeric:
+                    regexPattern = Validator.NumericRegexPattern;                    
+                    break;
+                case ValidationFormat.Percentage:
+                    regexPattern = Validator.PercentRegexPattern;                    
+                    break;
+                case ValidationFormat.USSocialSecurityNumber:
+                    regexPattern = Validator.USSocialSecurityRegexPattern;                    
+                    break;
+                case ValidationFormat.USZipCode:
+                    regexPattern = Validator.USZipCodeRegexPattern;                    
+                    break;
+                case ValidationFormat.Custom:
+                    throw new ArgumentException("You must specify a valid RegularExpression.");
+            }
+
+            return regexPattern;
         }
 
         private ValidatorDefinition validatorDefinition;
