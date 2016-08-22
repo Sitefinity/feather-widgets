@@ -33,13 +33,16 @@ namespace Telerik.Sitefinity.Frontend.SocialShare.Mvc.Controllers
         {
             get
             {
-                if (this.SocialShareSettings.SocialShareMode == SocialShareMode.IconsWithText)
+                if (this.templateName == null)
                 {
-                    this.templateName = SocialShareController.IconsWithTextTemplateName;
-                }
-                else
-                {
-                    this.templateName = SocialShareController.DefaultIconsTemplateName;
+                    if (this.SocialShareSettings.SocialShareMode == SocialShareMode.IconsWithText)
+                    {
+                        this.templateName = SocialShareController.IconsWithTextTemplateName;
+                    }
+                    else
+                    {
+                        this.templateName = SocialShareController.DefaultIconsTemplateName;
+                    }
                 }
 
                 return this.templateName;
