@@ -32,7 +32,7 @@ namespace FeatherWidgets.TestUI.TestCases.Identity
             //// verify Content tab
             BATFeather.Wrappers().Backend().Identity().UsersListWrapper().VerifyWhichUsersToDisplayLabel();
             BATFeather.Wrappers().Backend().Identity().UsersListWrapper().VerifyWhichUsersToDisplayOptions();
-            BATFeather.Wrappers().Backend().Widgets().WidgetDesignerWrapper().SelectRadioButtonOption(WidgetDesignerRadioButtonIds.selectedUsers);
+            BATFeather.Wrappers().Backend().Widgets().WidgetDesignerWrapper().SelectRadioButtonOption(WidgetDesignerRadioButtonIds.SelectedUsers);
             BATFeather.Wrappers().Backend().Widgets().WidgetDesignerWrapper().ClickSelectButton(0);
             BATFeather.Wrappers().Backend().Identity().UsersListWrapper().VerifyUsersProviderOptions();
             BATFeather.Wrappers().Backend().Identity().UsersListWrapper().SelectProvider(UserProvider);

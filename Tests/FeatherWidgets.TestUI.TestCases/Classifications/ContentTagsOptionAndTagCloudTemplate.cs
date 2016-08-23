@@ -27,7 +27,7 @@ namespace FeatherWidgets.TestUI.TestCases.Classifications
             BAT.Macros().NavigateTo().Pages(this.Culture);    
             BAT.Wrappers().Backend().Pages().PagesWrapper().OpenPageZoneEditor(PageName);
             BATFeather.Wrappers().Backend().Pages().PageZoneEditorWrapper().EditWidget(WidgetName);
-            BATFeather.Wrappers().Backend().Classifications().TagsWrapper().SelectRadioButtonOption(TagsRadioButtonIds.contentTags);
+            BATFeather.Wrappers().Backend().Classifications().TagsWrapper().SelectRadioButtonOption(TagsRadioButtonIds.ContentTags);
             BATFeather.Wrappers().Backend().Classifications().TagsWrapper().SelectUsedByContentTypeOption(SelectedContentType);
             BATFeather.Wrappers().Backend().Classifications().TagsWrapper().SelectTagsTemplate(TagsTemplates.TagCloud);
             BATFeather.Wrappers().Backend().Widgets().WidgetDesignerWrapper().SaveChanges();

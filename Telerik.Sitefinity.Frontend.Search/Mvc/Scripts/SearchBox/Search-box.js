@@ -147,7 +147,7 @@
                 if (window.DataIntelligenceSubmitScript) {
                     DataIntelligenceSubmitScript._client.sentenceClient.writeSentence({
                         predicate: "Search for",
-                        object: searchButton.val(),
+                        object: searchTextBox.val(),
                         objectMetadata: [{
                             'K': 'PageUrl',
                             'V': location.href
