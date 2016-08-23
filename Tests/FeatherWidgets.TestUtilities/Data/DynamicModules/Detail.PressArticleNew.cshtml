@@ -77,13 +77,11 @@
     </ul>
     }
 </div>
-@*End Tags field*@    
+@*End Tags field*@
 
-    @{        
-        if (Model.EnableSocialSharing)
-        {
-            var item = Model.Item.DataItem as Telerik.Sitefinity.Model.IHasTitle;
-            @Html.SocialShareOptions(item);
-        }
+    
+    @if (Model.EnableSocialSharing)
+    {
+        @Html.SocialShareOptions()
     }
 </div>

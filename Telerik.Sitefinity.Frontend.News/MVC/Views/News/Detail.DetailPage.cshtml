@@ -6,7 +6,7 @@
 <div class="@Model.CssClass" @Html.InlineEditingAttributes(Model.ProviderName, Model.ContentType.FullName, (Guid)Model.Item.Fields.Id)>
     <h3>
         <span @Html.InlineEditingFieldAttributes("Title", "ShortText")>@Model.Item.Fields.Title</span>
-
+        
     </h3>
 
     <div>
@@ -16,17 +16,14 @@
 
         @Html.CommentsCount(string.Empty, @Model.Item.DataItem)
     </div>
-
+    
     <div @Html.InlineEditingFieldAttributes("Summary", "LongText")>@Html.Raw(Model.Item.Fields.Summary)</div>
 
     <div @Html.InlineEditingFieldAttributes("Content", "LongText")>@Html.Raw(Model.Item.Fields.Content)</div>
-
-    @{        
-        if (Model.EnableSocialSharing)
-        {
-            var item = Model.Item.DataItem as Telerik.Sitefinity.Model.IHasTitle;
-            @Html.SocialShareOptions(item);
-        }
+    
+    @if (Model.EnableSocialSharing)
+    {
+        @Html.SocialShareOptions()
     }
 
     @Html.CommentsList(@Model.Item.DataItem)
