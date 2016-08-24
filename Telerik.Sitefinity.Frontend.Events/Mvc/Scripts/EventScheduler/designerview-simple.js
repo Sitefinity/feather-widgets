@@ -3,6 +3,7 @@
 
     angular.module('designer').controller('SimpleCtrl', ['$scope', 'propertyService', function ($scope, propertyService) {
         var emptyGuid = '00000000-0000-0000-0000-000000000000';
+        var sortOptions = ['PublicationDate DESC', 'LastModified DESC', 'Title ASC', 'Title DESC', 'EventStart ASC', 'EventStart DESC', 'AsSetManually'];
 
         $scope.eventSelector = {
             selectedItemsIds: []
@@ -35,6 +36,21 @@
         true
         );
 
+        $scope.$watch(
+            'properties.SelectionMode.PropertyValue',
+            function (newVal, oldVal) {
+                if (newVal !== oldVal) {
+                    if (newVal == 'SelectedItems') {
+                        $scope.selectedSortOption = 'AsSetManually';
+                    }
+                    else {
+                        $scope.selectedSortOption = 'EventStart ASC';
+                    }
+                }
+            },
+        true
+        );
+
         $scope.additionalFilters = {};
         $scope.$watch(
             'additionalFilters.value',
@@ -57,6 +73,13 @@
             true
         );
 
+        $scope.updateSortOption = function (newSortOption) {
+            if (newSortOption !== "Custom") {
+                $scope.selectedSortOption = newSortOption;
+                $scope.properties.SortExpression.PropertyValue = newSortOption;
+            }
+        };
+
         propertyService.get()
             .then(function (data) {
                 if (data) {
@@ -71,6 +94,21 @@
                     var selectedItemsIds = $.parseJSON($scope.properties.SerializedSelectedItemsIds.PropertyValue || null);
                     if (selectedItemsIds) {
                         $scope.eventSelector.selectedItemsIds = selectedItemsIds;
+                    }
+
+                    if ($scope.properties.SortExpression.PropertyValue === '') {
+                        if ($scope.properties.SelectionMode.PropertyValue === 'SelectedItems') {
+                            $scope.selectedSortOption = 'AsSetManually';
+                        }
+                        else {
+                            $scope.selectedSortOption = 'EventStart ASC';
+                        }
+                    }
+                    else if (sortOptions.indexOf($scope.properties.SortExpression.PropertyValue) >= 0) {
+                        $scope.selectedSortOption = $scope.properties.SortExpression.PropertyValue;
+                    }
+                    else {
+                        $scope.selectedSortOption = 'Custom';
                     }
                 }
             },
@@ -90,11 +128,20 @@
 
                     if ($scope.properties.SelectionMode.PropertyValue !== 'SelectedItems') {
                         $scope.properties.SerializedSelectedItemsIds.PropertyValue = null;
+
+                        // If the sorting expression is AsSetManually but the selection mode is AllItems or FilteredItems, this is not a valid combination.
+                        // So set the sort expression to the default value: PublicationDate DESC
+                        if ($scope.properties.SortExpression.PropertyValue === 'AsSetManually') {
+                            $scope.properties.SortExpression.PropertyValue = 'EventStart ASC';
+                            $scope.selectedSortOption = 'EventStart ASC';
+                        }
                     }
                     else {
                         $scope.properties.SerializedAdditionalFilters.PropertyValue = null;
                         $scope.properties.SerializedNarrowSelectionFilters.PropertyValue = null;
                     }
+
+                    $scope.properties.SortExpression.PropertyValue = $scope.selectedSortOption;
                 });
             })
             .finally(function () {

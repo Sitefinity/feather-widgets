@@ -146,14 +146,6 @@ namespace Telerik.Sitefinity.Frontend.Events.Mvc.Models.EventScheduler
         public virtual EventSchedulerViewMode EventSchedulerViewMode { get; set; }
 
         /// <summary>
-        /// Gets or sets the week start day for scheduler view.
-        /// </summary>
-        /// <value>
-        /// The week start day.
-        /// </value>
-        public virtual WeekStartDay WeekStartDay { get; set; }
-
-        /// <summary>
         /// Gets or sets the serialized narrow selection filters. Contains information about taxonomies and calendar filters as serialized QueryData.
         /// </summary>
         /// <value>
@@ -167,34 +159,10 @@ namespace Telerik.Sitefinity.Frontend.Events.Mvc.Models.EventScheduler
         /// <value>
         ///   <c>true</c> if [allow calendar export]; otherwise, <c>false</c>.
         /// </value>
-        public virtual bool AllowCalendarExport
+        public bool AllowCalendarExport
         {
             get { return this.allowCalendarExport; }
             set { this.allowCalendarExport = value; }
-        }
-
-        /// <summary>
-        /// Gets or sets the allow change for scheduler view.
-        /// </summary>
-        /// <value>
-        ///   <c>true</c> if [allow change view]; otherwise, <c>false</c>.
-        /// </value>
-        public virtual bool AllowChangeCalendarView
-        {
-            get { return this.allowChangeCalendarView; }
-            set { this.allowChangeCalendarView = value; }
-        }
-
-        /// <summary>
-        /// Gets or sets the allow event calendar filter.
-        /// </summary>
-        /// <value>
-        ///   <c>true</c> if [allow event calendar filter]; otherwise, <c>false</c>.
-        /// </value>
-        public virtual bool AllowCalendarFilter 
-        {
-            get { return this.allowCalendarFilter; }
-            set { this.allowCalendarFilter = value; }
         }
 
         #endregion Properties
@@ -395,7 +363,5 @@ namespace Telerik.Sitefinity.Frontend.Events.Mvc.Models.EventScheduler
         private const string DefaultSortExpression = "EventStart ASC";
         private string sortExpression = DefaultSortExpression;
         private bool allowCalendarExport = true;
-        private bool allowChangeCalendarView = true;
-        private bool allowCalendarFilter = true;
     }
 }
