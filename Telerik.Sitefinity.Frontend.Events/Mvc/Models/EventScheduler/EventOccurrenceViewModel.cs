@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Globalization;
 using Telerik.Sitefinity.Modules.Events;
+using Telerik.Sitefinity.Security;
 
 namespace Telerik.Sitefinity.Frontend.Events.Mvc.Models.EventScheduler
 {
@@ -18,8 +19,8 @@ namespace Telerik.Sitefinity.Frontend.Events.Mvc.Models.EventScheduler
             this.Id = item.Event.Id;
             this.Title = item.Event.Title[uiCulture.Name];
             this.Description = item.Event.Description[uiCulture.Name];
-            this.Start = item.Event.AllDayEvent ? item.StartDate.Add(new TimeSpan(item.StartDate.Ticks - item.StartDate.ToSitefinityUITime().Ticks)) : item.StartDate;
-            this.End = item.EndDate.HasValue ? item.Event.AllDayEvent ? item.EndDate.Value.Add(new TimeSpan(item.EndDate.Value.Ticks - item.EndDate.Value.ToSitefinityUITime().Ticks)).AddDays(-1) : item.EndDate.Value : DateTime.MaxValue;
+            this.Start = item.Event.AllDayEvent ? item.StartDate.Add(-new UserManager().GetUserTimeZone().GetUtcOffset(item.StartDate)) : item.StartDate;
+            this.End = item.EndDate.HasValue ? item.Event.AllDayEvent ? item.EndDate.Value.Add(-new UserManager().GetUserTimeZone().GetUtcOffset(item.EndDate.Value)).AddDays(-1) : item.EndDate.Value : DateTime.MaxValue;
             this.RecurrenceID = item.IsRecurrent ? item.Event.Id : (Guid?)null;
             this.IsAllDay = item.Event.AllDayEvent;
             this.CalendarId = item.Event.ParentId;

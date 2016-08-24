@@ -107,6 +107,30 @@ namespace Telerik.Sitefinity.Frontend.Events.Mvc.Models.EventScheduler
         /// The selection mode.
         /// </value>
         EventSchedulerViewMode EventSchedulerViewMode { get; set; }
+        
+        /// <summary>
+        /// Gets or sets the week start day for scheduler view.
+        /// </summary>
+        /// <value>
+        /// The week start day.
+        /// </value>
+        WeekStartDay WeekStartDay { get; set; }
+
+        /// <summary>
+        /// Gets or sets the allow change for scheduler view.
+        /// </summary>
+        /// <value>
+        ///   <c>true</c> if [allow change view]; otherwise, <c>false</c>.
+        /// </value>
+        bool AllowChangeCalendarView { get; set; }
+        
+        /// <summary>
+        /// Gets or sets the allow event calendar filter.
+        /// </summary>
+        /// <value>
+        ///   <c>true</c> if [allow event calendar filter]; otherwise, <c>false</c>.
+        /// </value>
+        bool AllowCalendarFilter { get; set; }
 
         /// Gets or sets the CSS class that will be applied on the wrapper div of the widget when it is in List view.
         /// </summary>

@@ -10,6 +10,7 @@
                 eventEventTemplateHtml: $(element).find('[data-sf-role="event-eventtemplate"]').html()
             };
             var schedulerData = {
+                model: $.parseJSON($(element).attr('data-sf-controller-model')),
                 calendarIdList: [],
                 calendarUrl: $(element).attr('data-sf-controller-calendars'),
                 calendarListClassActive: $(element).attr('data-sf-calendarlist-class-active'),
@@ -17,7 +18,6 @@
                 defaultview: $(element).attr('data-sf-defaultview'),
                 eventsUrl: $(element).attr('data-sf-controller-events'),
                 minCalendarLength: $(element).attr('data-sf-mincalendarlength'),
-                model: $(element).attr('data-sf-controller-model'),
                 scheduler: $(element).find('[data-sf-role="scheduler"]'),
                 uiCulture: $(element).attr('data-sf-uiculture'),
                 timezoneOffset: $(element).attr('data-sf-timezoneoffset'),
@@ -29,21 +29,27 @@
                     return "";
                 }
             };
-
+            // setup start day
+            kendo.culture().calendar.firstDay = schedulerData.model.WeekStartDay === "Sunday" ? 0 : 1;
             // calendar list init
-            $(schedulerHtmlTemplates.eventCalendarlistWrapperHtml).appendTo(schedulerData.calendarList);
-            schedulerData.calendarlistWrapper = $(schedulerData.calendarList).find('[data-sf-role="calendarlist-wrapper"]');
-
+            if (schedulerData.model.AllowCalendarFilter) {
+                $(schedulerHtmlTemplates.eventCalendarlistWrapperHtml).appendTo(schedulerData.calendarList);
+                schedulerData.calendarlistWrapper = $(schedulerData.calendarList).find('[data-sf-role="calendarlist-wrapper"]');
+            }
+            else {
+                schedulerData.calendarList.remove();
+            }
             var kendoScheduler = schedulerData.scheduler.kendoScheduler({
                 editable: false,
                 batch: true,
                 timezone: schedulerData.timezone(),
-                views: [{ type: "day", selected: schedulerData.defaultview == 'Day' },
-                        { type: "workWeek", selected: schedulerData.defaultview == 'WorkWeek' },
-                        { type: "week", selected: schedulerData.defaultview == 'Week' },
-                        { type: "month", selected: schedulerData.defaultview == 'Month' },
-                        { type: "agenda", selected: schedulerData.defaultview == 'Agenda' },
-                        { type: "timeline", selected: schedulerData.defaultview == 'Timeline', eventHeight: 50 }],
+                views: [schedulerData.model.AllowChangeCalendarView ? { type: "day", selected: schedulerData.defaultview == 'Day' } : schedulerData.defaultview == 'Day' ? { type: "day" } : {},
+                        schedulerData.model.AllowChangeCalendarView ? { type: "workWeek", selected: schedulerData.defaultview == 'WorkWeek' } : schedulerData.defaultview == 'WorkWeek' ? { type: "workWeek" } : {},
+                        schedulerData.model.AllowChangeCalendarView ? { type: "week", selected: schedulerData.defaultview == 'Week' } : schedulerData.defaultview == 'Week' ? { type: "week" } : {},
+                        schedulerData.model.AllowChangeCalendarView ? { type: "month", selected: schedulerData.defaultview == 'Month' } : schedulerData.defaultview == 'Month' ? { type: "month" } : {},
+                        schedulerData.model.AllowChangeCalendarView ? { type: "agenda", selected: schedulerData.defaultview == 'Agenda' } : schedulerData.defaultview == 'Agenda' ? { type: "agenda" } : {},
+                        schedulerData.model.AllowChangeCalendarView ? { type: "timeline", eventHeight: 50, selected: schedulerData.defaultview == 'Timeline' } : schedulerData.defaultview == 'Timeline' ? { type: "timeline", eventHeight: 50 } : {}
+                ],
                 allDayEventTemplate: schedulerHtmlTemplates.eventAllDayEventTemplateHtml,
                 eventTemplate: schedulerHtmlTemplates.eventEventTemplateHtml,
                 dataSource: {
@@ -56,14 +62,14 @@
                         parameterMap: function (options, operation) {
                             if (operation === "read") {
                                 var scheduler = kendoScheduler.data("kendoScheduler");
-                                var model = $.parseJSON(schedulerData.model);
+                                var model = schedulerData.model;
                                 var startDate = scheduler.view().startDate();
                                 var endDate = scheduler.view().endDate();
                                 var localOffsetStartDate = startDate.getTimezoneOffset() * 60000;
                                 var localOffsetEndDate = endDate.getTimezoneOffset() * 60000;
                                 model.StartDate = new Date(startDate.getTime() - schedulerData.timezoneOffset - localOffsetStartDate).toISOString();
                                 model.EndDate = new Date(endDate.getTime() - schedulerData.timezoneOffset - localOffsetEndDate).toISOString();
-                                model.CalendarList = $.makeArray(schedulerData.calendarlistWrapper.find('[data-sf-role="calendarlist-item"].' + schedulerData.calendarListClassActive).attr("data-sf-id"));
+                                model.CalendarList = schedulerData.model.AllowCalendarFilter ? $.makeArray(schedulerData.calendarlistWrapper.find('[data-sf-role="calendarlist-item"].' + schedulerData.calendarListClassActive).attr("data-sf-id")) : [];
                                 model.UiCulture = schedulerData.uiCulture;
                                 model.EventSchedulerViewMode = scheduler.view().options.name.replace("View", "");
                                 return model;
@@ -91,6 +97,20 @@
                                 city: { from: "City" },
                                 country: { from: "Country" }
                             }
+                        },
+                        parse: function (response) {
+                            // https://github.com/telerik/kendo-ui-core/issues/1632 fix
+                            var scheduler = kendoScheduler.data("kendoScheduler");
+                            var events = [];
+                            for (var i = 0; i < response.length; i++) {
+                                var currentEvent = response[i];
+                                if (scheduler.view().options.name === "agenda" && currentEvent.IsAllDay) {
+                                    var endDate = new Date(parseInt(currentEvent.End.substr(6)))
+                                    currentEvent.End = new Date(endDate.setDate(endDate.getDate() + 1)).toISOString();
+                                }
+                                events.push(currentEvent);
+                            }
+                            return events;
                         }
                     }
                 },
@@ -119,7 +139,7 @@
                                 },
                                 parameterMap: function (options, operation) {
                                     if (operation === "read") {
-                                        var model = $.parseJSON(schedulerData.model);
+                                        var model = schedulerData.model;
                                         model.UiCulture = schedulerData.uiCulture;
                                         return model;
                                     }
@@ -139,19 +159,21 @@
                     }
                 ]
             });
-            schedulerData.calendarlistWrapper.on('click', '[data-sf-role="calendarlist-item"]', function () {
-                if ($(this).hasClass(schedulerData.calendarListClassActive)) {
-                    return;
-                }
-                var id = $(this).attr("data-sf-id");
-                $(this).siblings($(this).tagName).removeClass(schedulerData.calendarListClassActive);
-                $(this).addClass(schedulerData.calendarListClassActive);
-                kendoScheduler.data("kendoScheduler").dataSource.filter({
-                    operator: function (task) {
-                        return $.inArray(task.calendarId, id && id !== "" ? [id] : schedulerData.calendarIdList) >= 0;
+            if (schedulerData.model.AllowCalendarFilter) {
+                schedulerData.calendarlistWrapper.on('click', '[data-sf-role="calendarlist-item"]', function () {
+                    if ($(this).hasClass(schedulerData.calendarListClassActive)) {
+                        return;
                     }
+                    var id = $(this).attr("data-sf-id");
+                    $(this).siblings($(this).tagName).removeClass(schedulerData.calendarListClassActive);
+                    $(this).addClass(schedulerData.calendarListClassActive);
+                    kendoScheduler.data("kendoScheduler").dataSource.filter({
+                        operator: function (task) {
+                            return $.inArray(task.calendarId, id && id !== "" ? [id] : schedulerData.calendarIdList) >= 0;
+                        }
+                    });
                 });
-            });
+            }
             $(element).attr("data-sf-loaded", true);
         });
     });
