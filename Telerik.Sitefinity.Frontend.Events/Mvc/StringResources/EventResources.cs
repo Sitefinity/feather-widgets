@@ -864,11 +864,86 @@ namespace Telerik.Sitefinity.Frontend.Events.Mvc.StringResources
             Value = "Default view",
             Description = "phrase: Default view",
             LastModified = "2016/08/02")]
-        public string DefaultSchedulerView
+        public string DefaultView
         {
             get
             {
                 return this["DefaultView"];
+            }
+        }
+        
+        /// <summary>
+        /// Gets phrase : Week starts on
+        /// </summary>
+        [ResourceEntry("WeekStartsOn",
+            Value = "Week starts on",
+            Description = "phrase: Week starts on",
+            LastModified = "2016/08/23")]
+        public string WeekStartsOn
+        {
+            get
+            {
+                return this["WeekStartsOn"];
+            }
+        }
+        
+        /// <summary>
+        /// Gets phrase : Allow users to filter by Calendars
+        /// </summary>
+        [ResourceEntry("AllowUsersToFilterByCalendars",
+            Value = "Allow users to filter by Calendars",
+            Description = "phrase: Allow users to filter by Calendars",
+            LastModified = "2016/08/23")]
+        public string AllowUsersToFilterByCalendars
+        {
+            get
+            {
+                return this["AllowUsersToFilterByCalendars"];
+            }
+        }
+        
+        /// <summary>
+        /// Gets phrase : Allow users to switch views
+        /// </summary>
+        [ResourceEntry("AllowUsersToSwitchViews",
+            Value = "Allow users to switch views",
+            Description = "phrase: Allow users to switch views",
+            LastModified = "2016/08/23")]
+        public string AllowUsersToSwitchViews
+        {
+            get
+            {
+                return this["AllowUsersToSwitchViews"];
+            }
+        }
+
+        /// <summary>
+        /// Gets word : Monday
+        /// </summary>
+        [ResourceEntry("Monday",
+            Value = "Monday",
+            Description = "word: Monday",
+            LastModified = "2016/08/23")]
+        public string Monday
+        {
+            get
+            {
+                return this["Monday"];
+            }
+        }
+        
+        /// <summary>
+        /// Gets word : Sunday
+        /// </summary>
+        [ResourceEntry("Sunday",
+            Value = "Sunday",
+            Description = "word: Sunday",
+            LastModified = "2016/08/23")]
+        public string Sunday
+        {
+            get
+            {
+                return this["Sunday"];
             }
         }
 
