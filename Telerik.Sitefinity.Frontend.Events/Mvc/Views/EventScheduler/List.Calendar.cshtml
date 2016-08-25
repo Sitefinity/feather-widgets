@@ -27,9 +27,11 @@ else
     data-sf-timezoneoffset="@ViewBag.TimeZoneOffset"
     data-sf-timezoneid="@ViewBag.TimeZoneId"
     data-sf-localtimezoneoffset="">
-    <div data-sf-role="calendarlist" style="display: none;">
+    @if (((EventSchedulerController)Html.ViewContext.Controller).Model.AllowCalendarFilter) {
+	<div data-sf-role="calendarlist" style="display: none;">
         <h4 class="sf-calendarList-title">@Html.Resource("Calendars")</h4>
     </div>
+	}
     <div data-sf-role="scheduler"></div>
 	<script data-sf-role="event-alldayeventtemplate" type="text/x-kendo-tmpl">
 		<div class="sf-event-item" data-sf-eventid="#= taskId #" data-sf-date-start=#= JSON.stringify(start) # data-sf-date-end=#= JSON.stringify(end) # data-sf-allday="#= isAllDay #">

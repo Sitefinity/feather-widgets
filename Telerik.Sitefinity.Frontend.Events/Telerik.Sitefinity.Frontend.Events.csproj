@@ -183,6 +183,7 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Mvc\Models\EventModel.cs" />
+    <Compile Include="Mvc\Models\EventScheduler\WeekStartDay.cs" />
     <Compile Include="Mvc\Models\IEventModel.cs" />
     <Compile Include="Mvc\Models\EventScheduler\EventSchedulerModel.cs" />
     <Compile Include="Mvc\Models\EventScheduler\EventOccurrenceViewModel.cs">
