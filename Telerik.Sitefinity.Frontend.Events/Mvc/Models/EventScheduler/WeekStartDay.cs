@@ -6,6 +6,9 @@ using System.Threading.Tasks;
 
 namespace Telerik.Sitefinity.Frontend.Events.Mvc.Models.EventScheduler
 {
+    /// <summary>
+    /// Defines available options for start day of week
+    /// </summary>
     public enum WeekStartDay
     {
         Sunday = 0,
