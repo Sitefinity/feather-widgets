@@ -1,19 +1,22 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using FeatherWidgets.TestUI.Arrangements.Events;
 using FeatherWidgets.TestUtilities.CommonOperations;
+using Telerik.Sitefinity.Events.Model;
+using Telerik.Sitefinity.Modules.Events;
 using Telerik.Sitefinity.TestArrangementService.Attributes;
+using Telerik.Sitefinity.TestUI.Arrangements.Framework.Server;
 using Telerik.Sitefinity.TestUtilities.CommonOperations;
 
 namespace FeatherWidgets.TestUI.Arrangements
 {
     /// <summary>
-    /// Executes Server Side operations for DuplicateEventsWidgets UI Test.
+    /// Executes Server Side operations for CreateNormalEventSwitchingDaylightSavingTime_CalendarView UI Test.
     /// </summary>
-    public class DuplicateEventsWidgets
+    public class VerifyNormalEventSwitchingDaylightSavingTime_CalendarView : TestArrangementBase
     {
         /// <summary>
         /// Creates an Event.
@@ -24,14 +27,21 @@ namespace FeatherWidgets.TestUI.Arrangements
         {
             var templateId = ServerOperations.Templates().GetTemplateIdByTitle(TemplateTitle);
             Guid pageId = ServerOperations.Pages().CreatePage(PageTitle, templateId);
-            ServerOperations.Events().CreateEvent(EventsTitle);
             var pageNodeId = ServerOperations.Pages().GetPageNodeId(pageId);
             ServerOperationsFeather.Pages().AddCalendarWidgetToPage(pageNodeId, PlaceHolderId);
+
+            ServerOperations.Events().CreateEvent(Event1Title, string.Empty, false, this.event1Start, this.event1End);
+            var event1Item = EventsManager.GetManager().GetEvents().Where<Event>(ni => ni.Status == Telerik.Sitefinity.GenericContent.Model.ContentLifecycleStatus.Live
+                && ni.Title == Event1Title).FirstOrDefault();
+            ServerArrangementContext.GetCurrent().Values.Add("event1Id", event1Item.Id.ToString());
+
+            ServerArrangementContext.GetCurrent().Values.Add("timezoneId", TimeZoneInfo.Utc.ToString());
         }
 
         /// <summary>
         /// Deletes all Events and Pages
         /// </summary>
+        /// 
         [ServerTearDown]
         public void OnAfterTestCompletes()
         {
@@ -40,7 +50,10 @@ namespace FeatherWidgets.TestUI.Arrangements
         }
 
         private const string PageTitle = "EventsPage";
-        private const string EventsTitle = "EventTitle";
+        private const string Event1Title = "Event1Title";
+        private readonly DateTime event1Start = new DateTime(2016, 1, 10, 10, 0, 0);
+        private readonly DateTime event1End = new DateTime(2016, 4, 10, 11, 0, 0);
+
         private const string TemplateTitle = "Bootstrap.default";
         private const string PlaceHolderId = "Contentplaceholder1";
     }

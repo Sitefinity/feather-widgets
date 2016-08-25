@@ -83,12 +83,12 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Frontend.Events
         /// <summary>
         /// Gets inner text for event title
         /// </summary>
-        /// <param name="actualDateTime"></param>
-        /// <returns>Event title string</returns>
-        public string GetEventTitleInScheduler(string dateTime)
+        /// <param name="eventId">Event Id</param>
+        /// <returns>Event title</returns>
+        public string GetEventTitleInScheduler(string eventId)
         {
             HtmlDiv frontendPageMainDiv = BAT.Wrappers().Frontend().Pages().PagesWrapperFrontend().GetPageContent();
-            var eventDetails = frontendPageMainDiv.Find.ByExpression<HtmlDiv>("class=sf-event-item", "data-sf-date-start=~" + dateTime);
+            var eventDetails = frontendPageMainDiv.Find.ByExpression<HtmlDiv>("class=sf-event-item", "data-sf-eventid=" + eventId);
             
             var eventTitle = eventDetails.ChildNodes.First().InnerText;
             return eventTitle;
@@ -320,7 +320,7 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Frontend.Events
                 if (isStart)
                 {
                     string startDate = list[eventOccuranceIndex].StartDate;
-                    Assert.IsTrue(startDate.Contains(date), "Wrong end date");
+                    Assert.IsTrue(startDate.Contains(date), "Wrong start date");
                 }
                 else
                 {
@@ -471,6 +471,15 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Frontend.Events
             this.FastNavigateToSpecificYear(startYear, targetYear);
             this.SelectMonthInCalendarSelector(monthName);
             this.OpenMonthViewInCalendarSelector();
+        }
+
+        public int LocalTimeZoneOffset()
+        {
+            HtmlDiv frontendPageMainDiv = BAT.Wrappers().Frontend().Pages().PagesWrapperFrontend().GetPageContent();
+            var frontendPageChildDiv = frontendPageMainDiv.ChildNodes.First();
+            var temp = frontendPageChildDiv.Attributes.Single(a => a.Name == "data-sf-localtimezoneoffset").Value;
+            int localTimeZonneOffset = Int32.Parse(temp);
+            return localTimeZonneOffset;
         }
 
         /// <summary>

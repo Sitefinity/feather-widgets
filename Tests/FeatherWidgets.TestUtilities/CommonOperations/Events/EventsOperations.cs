@@ -60,6 +60,7 @@ namespace FeatherWidgets.TestUtilities.CommonOperations.Events
             eventToCreate.TimeZoneId = timeZoneId;
             eventToCreate.IsRecurrent = true;
             eventToCreate.ApprovalWorkflowState = "Published";
+            eventToCreate.UrlName = Regex.Replace(eventTitle.ToLower(), @"[^\w\-\!\$\'\(\)\=\@\d_]+", "-");
 
             var recurrenceBuilder = new RecurrenceRuleBuilder();
             eventToCreate.RecurrenceExpression = recurrenceBuilder.CreateDailyRecurrenceExpression(eventStart, TimeSpan.FromMinutes(minutesDuration), eventEnd, occurrencesCount, occurrenceIntervalInDays, timeZoneId);

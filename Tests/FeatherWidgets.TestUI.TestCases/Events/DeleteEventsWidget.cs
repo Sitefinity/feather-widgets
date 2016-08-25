@@ -29,7 +29,7 @@ namespace FeatherWidgets.TestUI.TestCases.Events
             BAT.Macros().NavigateTo().Pages(this.Culture);
             BAT.Wrappers().Backend().Pages().PagesWrapper().OpenPageZoneEditor(PageTitle);
             BAT.Wrappers().Backend().Pages().PageZoneEditorWrapper().SelectExtraOptionForWidget(OperationNameDelete);
-            BAT.Wrappers().Backend().Pages().PageZoneEditorWrapper().CheckWidgetIsAvailable("Events");
+            BAT.Wrappers().Backend().Pages().PageZoneEditorWrapper().CheckWidgetIsAvailable("Calendar");
             BAT.Wrappers().Backend().Pages().PageZoneEditorWrapper().PublishPage();
             BAT.Macros().NavigateTo().CustomPage("~/" + PageTitle.ToLower(), culture: this.Culture);
             Assert.IsFalse(BATFeather.Wrappers().Frontend().CommonWrapper().IsItemPresent(EventsTitle), "Events widget was not deleted");
