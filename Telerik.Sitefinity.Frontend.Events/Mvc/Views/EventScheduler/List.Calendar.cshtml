@@ -15,7 +15,7 @@ else
 { 
 	@Html.StyleSheet(Url.EmbeddedResource("Telerik.Sitefinity.Resources.Reference", "Telerik.Sitefinity.Resources.Scripts.Kendo.styles.kendo_bootstrap_min.css"), "head")
 }
-<div data-sf-role="scheduler-wrapper" 
+<div data-sf-role="scheduler-wrapper" class="@(((EventSchedulerController)Html.ViewContext.Controller).Model.ListCssClass)"
     data-sf-controller-model='@Html.Raw(JsonSerializer.SerializeToString(((EventSchedulerController)Html.ViewContext.Controller).Model))'
     data-sf-controller-events='@Url.Content("~/web-interface/events")'
     data-sf-controller-calendars='@Url.Content("~/web-interface/calendars")'

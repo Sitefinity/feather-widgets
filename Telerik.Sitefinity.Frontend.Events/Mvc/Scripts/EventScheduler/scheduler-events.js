@@ -39,16 +39,39 @@
             else {
                 schedulerData.calendarList.remove();
             }
+
+            var allowChangeCalendarView = schedulerData.model.AllowChangeCalendarView,
+				defaultview = schedulerData.defaultview;
+
+            var kendoSchedulerViewInit = function (typeCamel, typePascal) {
+                var isTimeline = typeCamel === 'timeline',
+					kendoSchedulerView;
+
+                if (allowChangeCalendarView) {
+                    kendoSchedulerView = { type: typeCamel, selected: defaultview == typePascal };
+                } else if (defaultview == typePascal) {
+                    kendoSchedulerView = { type: typeCamel };
+                } else {
+                    kendoSchedulerView = {};
+                }
+
+                if (isTimeline && (allowChangeCalendarView || defaultview == typePascal)) {
+                    kendoSchedulerView.eventHeight = 50;
+                }
+
+                return kendoSchedulerView;
+            };
+
             var kendoScheduler = schedulerData.scheduler.kendoScheduler({
                 editable: false,
                 batch: true,
                 timezone: schedulerData.timezone(),
-                views: [schedulerData.model.AllowChangeCalendarView ? { type: "day", selected: schedulerData.defaultview == 'Day' } : schedulerData.defaultview == 'Day' ? { type: "day" } : {},
-                        schedulerData.model.AllowChangeCalendarView ? { type: "workWeek", selected: schedulerData.defaultview == 'WorkWeek' } : schedulerData.defaultview == 'WorkWeek' ? { type: "workWeek" } : {},
-                        schedulerData.model.AllowChangeCalendarView ? { type: "week", selected: schedulerData.defaultview == 'Week' } : schedulerData.defaultview == 'Week' ? { type: "week" } : {},
-                        schedulerData.model.AllowChangeCalendarView ? { type: "month", selected: schedulerData.defaultview == 'Month' } : schedulerData.defaultview == 'Month' ? { type: "month" } : {},
-                        schedulerData.model.AllowChangeCalendarView ? { type: "agenda", selected: schedulerData.defaultview == 'Agenda' } : schedulerData.defaultview == 'Agenda' ? { type: "agenda" } : {},
-                        schedulerData.model.AllowChangeCalendarView ? { type: "timeline", eventHeight: 50, selected: schedulerData.defaultview == 'Timeline' } : schedulerData.defaultview == 'Timeline' ? { type: "timeline", eventHeight: 50 } : {}
+                views: [kendoSchedulerViewInit('day', 'Day'),
+						kendoSchedulerViewInit('workWeek', 'WorkWeek'),
+						kendoSchedulerViewInit('week', 'Week'),
+						kendoSchedulerViewInit('month', 'Month'),
+						kendoSchedulerViewInit('agenda', 'Agenda'),
+						kendoSchedulerViewInit('timeline', 'Timeline')
                 ],
                 allDayEventTemplate: schedulerHtmlTemplates.eventAllDayEventTemplateHtml,
                 eventTemplate: schedulerHtmlTemplates.eventEventTemplateHtml,
@@ -124,7 +147,7 @@
                                     url: schedulerData.calendarUrl,
                                     dataType: "json",
                                     complete: function (jqXHR, textStatus) {
-                                        if (jqXHR && jqXHR.responseJSON) {
+                                        if (schedulerData.model.AllowCalendarFilter && jqXHR && jqXHR.responseJSON) {
                                             var calendarData = jqXHR.responseJSON;
                                             if (calendarData.length >= schedulerData.minCalendarLength) {
                                                 $.each(calendarData, function (i, calendar) {
