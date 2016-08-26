@@ -130,6 +130,25 @@ namespace Telerik.Sitefinity.Frontend.Events.Mvc.Models.EventScheduler
         }
 
         /// <summary>
+        /// Gets or sets a value indicating whether to divide items in the list.
+        /// </summary>
+        /// <value>
+        /// The display mode.
+        /// </value>
+        public override ListDisplayMode DisplayMode
+        {
+            get
+            {
+                return this.listDisplayMode;
+            }
+
+            set
+            {
+                this.listDisplayMode = value;
+            }
+        }
+
+        /// <summary>
         /// Gets or sets the selected mode for Narrow selection. That is the filtering by taxonomies and calendars.
         /// </summary>
         /// <value>
@@ -394,6 +413,7 @@ namespace Telerik.Sitefinity.Frontend.Events.Mvc.Models.EventScheduler
         private CultureInfo uiCulture;
         private const string DefaultSortExpression = "EventStart ASC";
         private string sortExpression = DefaultSortExpression;
+        private ListDisplayMode listDisplayMode = ListDisplayMode.All;
         private bool allowCalendarExport = true;
         private bool allowChangeCalendarView = true;
         private bool allowCalendarFilter = true;
