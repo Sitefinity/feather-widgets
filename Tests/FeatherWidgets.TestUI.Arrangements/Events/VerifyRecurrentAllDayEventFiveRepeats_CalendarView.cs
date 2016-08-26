@@ -65,7 +65,7 @@ namespace FeatherWidgets.TestUI.Arrangements
 
         private const string PageTitle = "EventsPage";
         private const string Event1Title = "Event1Title";
-        private readonly DateTime event1Start = new DateTime(2016, 1, 10, 0, 0, 0);
+        private readonly DateTime event1Start = new DateTime(2016, 1, 10, 0, 0, 0, DateTimeKind.Utc);
         private const string TemplateTitle = "Bootstrap.default";
         private const string PlaceHolderId = "Contentplaceholder1";
     }

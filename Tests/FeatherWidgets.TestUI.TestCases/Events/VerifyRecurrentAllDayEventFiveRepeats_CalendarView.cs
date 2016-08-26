@@ -66,8 +66,11 @@ namespace FeatherWidgets.TestUI.TestCases.Events
             BATFeather.Wrappers().Frontend().Events().EventsWrapper().OpenTargetDayInDayView("10");
             BATFeather.Wrappers().Frontend().Events().EventsWrapper().ChangeSchedulerView(SchedulerViewTypes.Agenda);
             this.VerifyAllDayEventVisibilityInCurrentView(event1Id, 5);
+            //Add 1 day to expectedEndDateEvent because of Kendo Agenda issue. 
+            //Must be removed when Kendo fixes its issue.
+            string expectedEndDateEventAgendaView = TimeZoneInfo.ConvertTime(this.event1End.AddDays(1), timezoneInfo).ToString("s") + ".000Z";
             BATFeather.Wrappers().Frontend().Events().EventsWrapper().VerifyEventDate(event1Id, expectedStartDateEvent1, true, 0);
-            BATFeather.Wrappers().Frontend().Events().EventsWrapper().VerifyEventDate(event1Id, expectedEndDateEvent1, false, 4);
+            BATFeather.Wrappers().Frontend().Events().EventsWrapper().VerifyEventDate(event1Id, expectedEndDateEventAgendaView, false, 4);
 
             //Timeline view
             BATFeather.Wrappers().Frontend().Events().EventsWrapper().ChangeSchedulerView(SchedulerViewTypes.Month);
