@@ -229,7 +229,8 @@ namespace FeatherWidgets.TestIntegration.Navigation
                 string detailNewsUrl = pageUrl + newsItem.ItemDefaultUrl;
                 var responseContent = PageInvoker.ExecuteWebRequest(detailNewsUrl);
                 string relativeUrl = UrlPath.ResolveUrl("~/" + urlNamePrefix + pageIndex);
-                string breadcrumbTemplate = @"<a[\w\s]{1,}href=""" + relativeUrl + @""">" + pageTitle + @"[\w\s]{1,}</a>[\w\s]{1,}<span>[\w\s]{1,}/[\w\s]{1,}</span>[\w\s]{1,}" + NewsTitle;
+                string breadcrumbTemplate = @"<a[\w\s]{1,}href=(?<url>""/""|""" + relativeUrl + @""")>" + pageTitle + @"[\w\s]{1,}</a>[\w\s]{1,}<span>[\w\s]{1,}/[\w\s]{1,}</span>[\w\s]{1,}" + NewsTitle;
+         
                 Match match = Regex.Match(responseContent, breadcrumbTemplate, RegexOptions.IgnorePatternWhitespace & RegexOptions.Multiline);
 
                 Assert.IsTrue(match.Success, "Breadcrumb does not contain selected news item as virtual node!");
