@@ -33,7 +33,7 @@ namespace FeatherWidgets.TestUI.Arrangements
             var difference = this.event1EndTime - this.event1StartTime;
             var occurancesCount1 = difference.TotalDays;
             int occurancesCount = (int)occurancesCount1;
-            ServerOperations.Events().CreateDailyRecurrentEvent(Event1Title, string.Empty, this.event1StartTime, this.event1EndTime, 60, occurancesCount, 1, TimeZoneInfo.Local.StandardName);
+            ServerOperations.Events().CreateDailyRecurrentEvent(Event1Title, string.Empty, this.event1StartTime, this.event1EndTime, 60, occurancesCount, 1, TimeZoneInfo.Local.Id);
             var event1Item = EventsManager.GetManager().GetEvents().Where<Event>(ni => ni.Status == Telerik.Sitefinity.GenericContent.Model.ContentLifecycleStatus.Live
                && ni.Title == Event1Title).FirstOrDefault();
             ServerArrangementContext.GetCurrent().Values.Add("event1Id", event1Item.Id.ToString());
