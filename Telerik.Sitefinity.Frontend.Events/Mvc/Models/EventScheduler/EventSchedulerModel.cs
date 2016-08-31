@@ -269,7 +269,7 @@ namespace Telerik.Sitefinity.Frontend.Events.Mvc.Models.EventScheduler
                 .GroupBy(p => p.Parent.Id).Select(p => p.Key);
 
             var eventCalendars = manager.GetCalendars().Where(p => eventCalendarsIds.Contains(p.Id));
-            var calendars = eventCalendars.Select(e => new EventCalendarViewModel(e, this.UiCulture));
+            var calendars = eventCalendars.Select(e => new EventCalendarViewModel(e, this.UiCulture)).OrderBy(p => p.Title, StringComparer.Create(this.UiCulture, true));
 
             return calendars.ToList();
         }
