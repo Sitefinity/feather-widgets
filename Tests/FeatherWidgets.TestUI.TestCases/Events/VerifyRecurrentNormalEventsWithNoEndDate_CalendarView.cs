@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Feather.Widgets.TestUI.Framework;
 
-namespace FeatherWidgets.TestUI.TestCases
+namespace FeatherWidgets.TestUI.TestCases.Events
 {
      /// <summary>
     /// Create recurrent normal event with no end date and verify its details in Calendar.

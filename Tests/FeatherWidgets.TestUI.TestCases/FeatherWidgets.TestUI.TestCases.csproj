@@ -236,6 +236,8 @@
     <Compile Include="EmailCampaigns\TryToUnsubscribeNotExistingSubscriber.cs" />
     <Compile Include="EmailCampaigns\UnsubscribeWidgetOnFoundationAndSemanticPage.cs" />
     <Compile Include="EmailCampaigns\UnsubscribeWidgetOnHybridPageAndSetCssClass.cs" />
+    <Compile Include="Events\CalendarWidgetVerifyEventItemInDifferentPageInPreviewModeAndFrontendPage.cs" />
+    <Compile Include="Events\FilterEventsByCalendar.cs" />
     <Compile Include="Events\VerifyAllDayEventsInOneDay_CalendarView.cs" />
     <Compile Include="Events\VerifyAllDayEventSwitchingDaylightSavingTime_CalendarView.cs" />
     <Compile Include="Events\VerifyMultipleAllDayEventsInThreeDays_CalendarView.cs" />
@@ -263,6 +265,7 @@
     <Compile Include="Events\VerifyPastCurrentUpcomingEvents_Calendar_WorkWeekView_HybridPage.cs" />
     <Compile Include="Events\VerifyPastCurrentUpcomingEvents_Calendar_WorkWeekView_MvcPage.cs" />
     <Compile Include="Events\VerifyUseLimitListSettingsOnFrontendPageForEventsWidget.cs" />
+    <Compile Include="Events\VerifyWeekStartDay_CalendarView.cs" />
     <Compile Include="FeatherTeams.cs" />
     <Compile Include="FeedWidget\DragAndDropFeedWidgetAndSetDefaultRssOnPage.cs" />
     <Compile Include="Forms\CAPTCHA\ChangeCAPTCHATemplate.cs" />

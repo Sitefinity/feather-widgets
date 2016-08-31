@@ -280,6 +280,16 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend
         }
 
         /// <summary>
+        /// Open Single Item Settings view
+        /// </summary>
+        public void OpenSingleItemSettingsView()
+        {
+            var listSettings = EM.Widgets.WidgetDesignerCalendarScreen.SingleItemSettings;
+            listSettings.AssertIsPresent("Single Item Settings");
+            listSettings.Click();
+        }
+
+        /// <summary>
         /// Select Template from List Template Selector
         /// </summary>
         public void SelectSchedulerTemplate()
