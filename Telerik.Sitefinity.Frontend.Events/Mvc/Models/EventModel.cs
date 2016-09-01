@@ -158,25 +158,32 @@ namespace Telerik.Sitefinity.Frontend.Events.Mvc.Models
             const int BatchSize = 200;
             var select = queryable.Select(t => t.Id);
             var ids = select.ToArray();
+            var idPositions = new Dictionary<Guid, int>(ids.Length);
+            for (var i = 0; i < ids.Length; i++)
+                idPositions[ids[i]] = i;
 
             var nonFilteredQuery = this.GetItemsQuery();
             nonFilteredQuery = nonFilteredQuery.Cast<Event>().Include(ev => ev.Parent);
 
-            List<IDataItem> result;
+            var result = new IDataItem[ids.Length];
             if (ids.Length <= BatchSize)
             {
-                result = nonFilteredQuery.Where(t => ids.Contains(t.Id)).ToList();
+                foreach (var item in nonFilteredQuery.Where(t => ids.Contains(t.Id)))
+                {
+                    result[idPositions[item.Id]] = item;
+                }
             }
             else
             {
-                result = new List<IDataItem>(ids.Length);
-
                 // Integer division, rounded up
                 var pagesCount = (ids.Length + BatchSize - 1) / BatchSize;
                 for (var p = 0; p < pagesCount; p++)
                 {
                     var batch = ids.Skip(p * BatchSize).Take(BatchSize).ToArray();
-                    result.AddRange(nonFilteredQuery.Where(t => batch.Contains(t.Id)));
+                    foreach (var item in nonFilteredQuery.Where(t => batch.Contains(t.Id)))
+                    {
+                        result[idPositions[item.Id]] = item;
+                    }
                 }
             }
 
