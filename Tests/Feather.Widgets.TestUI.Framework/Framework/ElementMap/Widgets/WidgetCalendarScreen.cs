@@ -76,5 +76,19 @@ namespace Feather.Widgets.TestUI.Framework.Framework.ElementMap.Widgets
                 return this.Get<HtmlSelect>("id=defaultSchedulerView");
             }
         }
+
+        /// <summary>
+        /// Gets the allow users to switch views CheckBox.
+        /// </summary>
+        /// <value>
+        /// The allow users to switch views CheckBox.
+        /// </value>
+        public HtmlInputCheckBox AllowUsersToSwitchViewsCheckBox
+        {
+            get
+            {
+                return this.Get<HtmlInputCheckBox>("type=checkbox", "ng-model=properties.AllowChangeCalendarView.PropertyValue");
+            }
+        }
     }
 }

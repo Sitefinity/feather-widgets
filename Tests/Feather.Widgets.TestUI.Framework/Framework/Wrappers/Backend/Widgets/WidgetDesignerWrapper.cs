@@ -704,5 +704,46 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend
             selector.AsjQueryControl().InvokejQueryEvent(jQueryControl.jQueryControlEvents.click);
             selector.AsjQueryControl().InvokejQueryEvent(jQueryControl.jQueryControlEvents.change);
         }
+
+        /// <summary>
+        /// Selects the allow users to siwtch views CheckBox in calendar widget.
+        /// </summary>
+        public void SelectAllowUsersToSiwtchViewsCheckBoxInCalendarWidget()
+        {
+            HtmlInputCheckBox optionCheckbox = this.EM.Widgets.WidgetDesignerCalendarScreen.AllowUsersToSwitchViewsCheckBox
+                                                          .AssertIsPresent("Allow users to switch views");
+            Assert.IsFalse(optionCheckbox.Checked);
+            optionCheckbox.Click();
+            Assert.IsTrue(optionCheckbox.Checked);
+        }
+
+        /// <summary>
+        /// Verifies the default view options in calendar.
+        /// </summary>
+        /// <param name="defaultViewOptions">The default view options.</param>
+        public void VerifyDefaultViewOptionsInCalendar(string[] defaultViewOptions)
+        {
+            HtmlSelect defaultViewDropdown = this.EM.Widgets.WidgetDesignerCalendarScreen.DefaultViewDropdown
+                                                  .AssertIsPresent("Default View dropdown");
+
+            Assert.AreEqual(defaultViewOptions.Count(), defaultViewDropdown.Options.Count(), "Default view options are not equal to expected options");
+
+            for (int i = 0; i < defaultViewOptions.Count(); i++)
+            {
+                Assert.AreEqual(defaultViewOptions[i], defaultViewDropdown.Options[i].Text, "Default view option is different");
+            }
+        }
+
+        /// <summary>
+        /// Uns the select allow users to siwtch views CheckBox in calendar widget.
+        /// </summary>
+        public void UnSelectAllowUsersToSiwtchViewsCheckBoxInCalendarWidget()
+        {
+            HtmlInputCheckBox optionCheckbox = this.EM.Widgets.WidgetDesignerCalendarScreen.AllowUsersToSwitchViewsCheckBox
+                                                          .AssertIsPresent("Allow users to switch views");
+            Assert.IsTrue(optionCheckbox.Checked);
+            optionCheckbox.Click();
+            Assert.IsFalse(optionCheckbox.Checked);
+        }
     }
 }

@@ -119,5 +119,19 @@ namespace Feather.Widgets.TestUI.Framework.Framework.ElementMap.Events
                 return this.Find.ByExpression<HtmlDiv>("class=sf-event-item");
             }
         }
+
+        /// <summary>
+        /// Gets the scheduler toolbar.
+        /// </summary>
+        /// <value>
+        /// The scheduler toolbar.
+        /// </value>
+        public HtmlDiv SchedulerToolbar
+        {
+            get
+            {
+                return this.Find.ByExpression<HtmlDiv>("class=k-floatwrap k-header k-scheduler-toolbar");
+            }
+        }
     }
 }

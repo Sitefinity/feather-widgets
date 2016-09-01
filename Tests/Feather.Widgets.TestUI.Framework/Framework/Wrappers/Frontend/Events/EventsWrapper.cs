@@ -534,5 +534,41 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Frontend.Events
             isAppointmentVisible = (appointment != null) && (appointment.IsVisible());
             return isAppointmentVisible;
         }
+
+        /// <summary>
+        /// Determines whether [is item present] [the specified item title].
+        /// </summary>
+        /// <param name="itemTitle">The item title.</param>
+        /// <returns></returns>
+        public Boolean IsItemPresent(string itemTitle)
+        {
+            var item = ActiveBrowser.Find.ByExpression<HtmlAnchor>("tagName=a", "innerText=" + itemTitle);
+            if (item != null && item.IsVisible())
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+
+        /// <summary>
+        /// Determines whether [is table view present] [the specified table class].
+        /// </summary>
+        /// <param name="tableClass">The table class.</param>
+        /// <returns></returns>
+        public Boolean IsTableViewPresent(string tableClass)
+        {
+            var tableView = ActiveBrowser.Find.ByExpression<HtmlTable>("tagName=table", "class=~" + tableClass);
+            if (tableView != null && tableView.IsVisible())
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
     }
 }
