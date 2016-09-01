@@ -62,5 +62,19 @@ namespace Feather.Widgets.TestUI.Framework.Framework.ElementMap.Widgets
                 return this.Get<HtmlInputRadioButton>("id=sundaySelect");
             }
         }
+
+        /// <summary>
+        /// Gets the default view dropdown.
+        /// </summary>
+        /// <value>
+        /// The default view dropdown.
+        /// </value>
+        public HtmlSelect DefaultViewDropdown
+        {
+            get
+            {
+                return this.Get<HtmlSelect>("id=defaultSchedulerView");
+            }
+        }
     }
 }

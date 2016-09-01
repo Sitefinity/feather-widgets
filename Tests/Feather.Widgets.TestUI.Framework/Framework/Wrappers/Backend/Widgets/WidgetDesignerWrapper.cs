@@ -690,5 +690,19 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend
             valueDS.AssertIsPresent(text);
             valueDS.AssertContainsText(text, "Value isn't correct");
         }
+
+        /// <summary>
+        /// Selects the option in default calendar view selector.
+        /// </summary>
+        /// <param name="optionValue">The option value.</param>
+        public void SelectOptionInDefaultCalendarViewSelector(string optionValue)
+        {
+            HtmlSelect selector = this.EM.Widgets.WidgetDesignerCalendarScreen.DefaultViewDropdown
+               .AssertIsPresent("default view selector");
+
+            selector.SelectByValue(optionValue);
+            selector.AsjQueryControl().InvokejQueryEvent(jQueryControl.jQueryControlEvents.click);
+            selector.AsjQueryControl().InvokejQueryEvent(jQueryControl.jQueryControlEvents.change);
+        }
     }
 }
