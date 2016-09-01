@@ -84,6 +84,32 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Frontend
             return true;
         }
 
+        /// <summary>
+        /// Verify Duplicate Widget in Frontend
+        /// </summary>
+        public void VerifyDuplicatedWidgetInFrontend(string itemTitle, int expectedCount)
+        {
+            var allItems = ActiveBrowser.Find.AllByExpression<HtmlAnchor>("tagName=a", "innerText=~" + itemTitle);
+            Assert.AreEqual<int>(allItems.Count, expectedCount, "Widget is not duplicated in the frontend");
+        }
+
+        /// <summary>
+        /// Checks if the widget is present in Frontend
+        /// </summary>
+        /// <param name="itemTitle">Item Title</param>
+        /// <returns>True or false</returns>
+        public Boolean IsItemPresent(string itemTitle)
+        {
+            var item = ActiveBrowser.Find.ByExpression<HtmlAnchor>("tagName=a", "innerText=~" + itemTitle);
+            if (item != null && item.IsVisible())
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
         private const int TimeOut = 30000;
     }
 }

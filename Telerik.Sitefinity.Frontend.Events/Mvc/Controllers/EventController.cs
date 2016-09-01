@@ -179,7 +179,7 @@ namespace Telerik.Sitefinity.Frontend.Events.Mvc.Controllers
             var viewModel = this.Model.CreateDetailsViewModel(item);
 
             this.InitializeDetailsViewBag(item);
-            
+
             if (SystemManager.CurrentHttpContext != null)
                 this.AddCacheDependencies(this.Model.GetKeysOfDependentObjects(viewModel));
 

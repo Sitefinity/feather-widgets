@@ -37,7 +37,6 @@ namespace FeatherWidgets.TestUI.Arrangements
         {
             ServerOperations.Packaging().VerifyExportedStaticModule(File1, File2);
             ServerOperations.Packaging().VerifyExportedWidgetTemplates(Widgets1, Widgets2);
-            ServerOperations.Packaging().VerifyExportedTaxonomies(Taxonomies1, Taxonomies2);
         }
 
         /// <summary>
@@ -90,8 +89,6 @@ namespace FeatherWidgets.TestUI.Arrangements
         private const string File2 = @"App_Data\Export\News\Structure\News.sf";
         private const string Widgets1 = @"App_Data\Sitefinity\Export\News\Structure\widgetTemplates.sf";
         private const string Widgets2 = @"App_Data\Export\News\Structure\widgetTemplates.sf";
-        private const string Taxonomies1 = @"App_Data\Sitefinity\Export\News\Structure\taxonomies.sf";
-        private const string Taxonomies2 = @"App_Data\Export\News\Structure\taxonomies.sf";
         private const string Path = "App_Data";
         private string[] widgetTemplatesNames = new string[] 
                                                    { 

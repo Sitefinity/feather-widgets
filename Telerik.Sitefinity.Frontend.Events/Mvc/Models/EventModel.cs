@@ -8,6 +8,7 @@ using Telerik.Sitefinity.Events.Model;
 using Telerik.Sitefinity.Frontend.Mvc.Models;
 using Telerik.Sitefinity.Model;
 using Telerik.Sitefinity.Modules.Events;
+using Telerik.Sitefinity.Taxonomies.Model;
 using Telerik.Sitefinity.Web.Model;
 
 namespace Telerik.Sitefinity.Frontend.Events.Mvc.Models
@@ -85,12 +86,15 @@ namespace Telerik.Sitefinity.Frontend.Events.Mvc.Models
         /// <summary>
         /// Creates a view model for use in list views.
         /// </summary>
+        /// <param name="taxonFilter">The taxon filter.</param>
         /// <param name="page">The page.</param>
-        /// <returns>A view model for use in list views.</returns>
+        /// <returns>
+        /// A view model for use in list views.
+        /// </returns>
         /// <exception cref="System.ArgumentException">'page' argument has to be at least 1.;page</exception>
-        public ContentListViewModel CreateListViewModel(int page)
+        public ContentListViewModel CreateListViewModel(ITaxon taxonFilter, int page)
         {
-            return base.CreateListViewModel(null, page);
+            return base.CreateListViewModel(taxonFilter, page);
         }
 
         /// <summary>
@@ -119,6 +123,8 @@ namespace Telerik.Sitefinity.Frontend.Events.Mvc.Models
         protected override string CompileFilterExpression()
         {
             var filterExpression = base.CompileFilterExpression();
+
+            filterExpression = filterExpression.Replace("EventEnd>=(DateTime.UtcNow)", "( (EventEnd>=(DateTime.UtcNow)) OR  (NULL==EventEnd))");
 
             if (this.NarrowSelectionMode == SelectionMode.FilteredItems)
             {

@@ -4,7 +4,8 @@
 
 @{
     var shareUrl = SocialShareButtons.ShareUrl;
-    var pageTitle = SocialShareButtons.PageTitle;
+    var unencodedPageTitle = Model.ItemTitle != null ? Model.ItemTitle : SocialShareButtons.PageTitle;
+    var pageTitle = HttpUtility.UrlEncode(unencodedPageTitle);
 }
 
 @Html.StyleSheet(Url.WidgetContent("assets/dist/css/sf-social-share.min.css"), "head", false)
@@ -65,7 +66,7 @@
                     break;
                 case "Delicious":
                 <li>
-                    <a href="#" onclick="window.open('https://delicious.com/save?v=5&provider=Telerik&noui&jump=close&url='+encodeURIComponent(location.href)+'&title='+encodeURIComponent(document.title), 'delicious','toolbar=no,width=550,height=550'); return false;">
+                    <a href="#" onclick="window.open('https://delicious.com/save?v=5&provider=Telerik&noui&jump=close&url=@shareUrl&title=@pageTitle, 'delicious','toolbar=no,width=550,height=550'); return false;">
                         <img src="https://delicious.com/img/logo.png" height="16" width="16" alt="Delicious"> Save this on Delicious
                     </a>
                 </li>
@@ -116,7 +117,7 @@
                     break;
                 case "Reddit":
                 <li>
-                    <a href="//www.reddit.com/submit" onclick="window.location = '//www.reddit.com/submit?url=' + encodeURIComponent(window.location); return false"> <img src="//www.redditstatic.com/spreddit7.gif" alt="submit to reddit" border="0" /> </a>
+                    <a href="//www.reddit.com/submit" onclick="window.location = '//www.reddit.com/submit?url=@shareUrl'; return false"> <img src="//www.redditstatic.com/spreddit7.gif" alt="submit to reddit" border="0" /> </a>
                 </li>
                     break;
 

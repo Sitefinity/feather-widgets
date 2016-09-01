@@ -24,14 +24,14 @@ namespace FeatherWidgets.TestUI.TestCases.DocumentsList
             BAT.Wrappers().Backend().Pages().PagesWrapper().OpenPageZoneEditor(PageName);
             BATFeather.Wrappers().Backend().Pages().PageZoneEditorWrapper().EditWidget(WidgetName);
 
-            BATFeather.Wrappers().Backend().Widgets().WidgetDesignerWrapper().SelectRadioButtonOption(WidgetDesignerRadioButtonIds.selectedLibrariesOnly);
+            BATFeather.Wrappers().Backend().Widgets().WidgetDesignerWrapper().SelectRadioButtonOption(WidgetDesignerRadioButtonIds.SelectedLibrariesOnly);
             BATFeather.Wrappers().Backend().Widgets().WidgetDesignerWrapper().ClickSelectButton();
             BATFeather.Wrappers().Backend().Widgets().SelectorsWrapper().SelectItemsInHierarchicalSelector(ChildDocumentLibrary);
             BATFeather.Wrappers().Backend().Widgets().SelectorsWrapper().DoneSelecting();
             BATFeather.Wrappers().Backend().Widgets().WidgetDesignerWrapper().VerifySelectedItemsFromHierarchicalSelector(new string[] { LibraryName + " > " + ChildDocumentLibrary });
 
             BATFeather.Wrappers().Backend().Widgets().WidgetDesignerWrapper().SwitchToSingleItemSettingsTab();
-            BATFeather.Wrappers().Backend().Widgets().WidgetDesignerWrapper().SelectRadioButtonOption(WidgetDesignerRadioButtonIds.existingPage);
+            BATFeather.Wrappers().Backend().Widgets().WidgetDesignerWrapper().SelectRadioButtonOption(WidgetDesignerRadioButtonIds.ExistingPage);
             BATFeather.Wrappers().Backend().Widgets().WidgetDesignerWrapper().ClickSelectButton();
             BATFeather.Wrappers().Backend().Widgets().SelectorsWrapper().SelectItemsInHierarchicalSelector(SingleItemPage);
             BATFeather.Wrappers().Backend().Widgets().SelectorsWrapper().DoneSelecting();

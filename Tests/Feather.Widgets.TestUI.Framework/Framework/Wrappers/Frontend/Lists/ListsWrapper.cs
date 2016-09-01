@@ -273,7 +273,7 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Frontend.Lists
 
                 HtmlDiv listItemDetails = this.EM.Lists.PagesListFrontend.ListItemsDivOnBootstrap.AssertIsPresent("list item details");
                 Assert.AreEqual(listItemsToVerify.Keys.ElementAt(i), listItemDetails.ChildNodes[0].InnerText, "list item title in details");
-                Assert.AreEqual(listItemsToVerify.Values.ElementAt(i), listItemDetails.ChildNodes[2].InnerText, "list item content in details");
+                Assert.AreEqual(listItemsToVerify.Values.ElementAt(i), listItemDetails.ChildNodes[1].InnerText, "list item content in details");
 
                 //// go back to the main list page
                 ActiveBrowser.GoBack();
