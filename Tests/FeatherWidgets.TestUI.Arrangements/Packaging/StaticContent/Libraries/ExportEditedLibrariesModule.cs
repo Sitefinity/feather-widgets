@@ -44,7 +44,7 @@ namespace FeatherWidgets.TestUI.Arrangements
         public void ClearUp()
         {
             ServerOperations.ModuleBuilder().DeleteDirectory(this.tempFolderPath);
-            ServerOperations.ModuleBuilder().DeleteDirectory(AppDomain.CurrentDomain.BaseDirectory + @"App_Data\Export");
+            ServerOperations.ModuleBuilder().DeleteDirectory(AppDomain.CurrentDomain.BaseDirectory + @"App_Data\Deployment");
             ServerOperations.Packaging().DeleteAllPackagesFromDB();
 
             for (int i = 0; i < this.widgetTemplatesNames.Length; i++)
@@ -82,7 +82,7 @@ namespace FeatherWidgets.TestUI.Arrangements
         }
 
         private const string InstallationPath = @"App_Data\Sitefinity";
-        private string tempFolderPath = AppDomain.CurrentDomain.BaseDirectory + @"App_Data\Sitefinity\Export";
+        private string tempFolderPath = AppDomain.CurrentDomain.BaseDirectory + @"App_Data\Sitefinity\Deployment";
         private const string Path = "App_Data";
         private const string PackageResource = "FeatherWidgets.TestUtilities.Data.Packaging.Structure.LibrariesStructure.zip";
         private const string PackageResourceEdited = "FeatherWidgets.TestUtilities.Data.Packaging.Structure.LibrariesEdited.zip";
@@ -95,10 +95,10 @@ namespace FeatherWidgets.TestUI.Arrangements
         private static string hierarchicalClassificationIm = "i2";
         private static string flatClassificationVideo = "v1";
         private static string hierarchicalClassificationVideo = "v2";
-        private const string File1 = @"App_Data\Sitefinity\Export\Libraries\Structure\Libraries.sf";
-        private const string File2 = @"App_Data\Export\Libraries\Structure\Libraries.sf";
-        private const string Widgets1 = @"App_Data\Sitefinity\Export\Libraries\Structure\widgetTemplates.sf";
-        private const string Widgets2 = @"App_Data\Export\Libraries\Structure\widgetTemplates.sf";
+        private const string File1 = @"App_Data\Sitefinity\Deployment\Libraries\Structure\Libraries.sf";
+        private const string File2 = @"App_Data\Deployment\Libraries\Structure\Libraries.sf";
+        private const string Widgets1 = @"App_Data\Sitefinity\Deployment\Libraries\Structure\widgetTemplates.sf";
+        private const string Widgets2 = @"App_Data\Deployment\Libraries\Structure\widgetTemplates.sf";
         private string[] widgetTemplatesNames = new string[] 
                                                    { 
                                                         "ImageNew", "Detail.DetailPageNewImageGallery", "List.ImageGalleryNew", 

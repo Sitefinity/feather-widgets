@@ -43,7 +43,7 @@ namespace FeatherWidgets.TestUI.Arrangements
   
         private const string InstallationPath = @"App_Data\Sitefinity";
         private const string PackageResource = "FeatherWidgets.TestUtilities.Data.Packaging.Structure.ListsStructure.zip";
-        private string tempFolderPath = AppDomain.CurrentDomain.BaseDirectory + @"App_Data\Sitefinity\Export";
+        private string tempFolderPath = AppDomain.CurrentDomain.BaseDirectory + @"App_Data\Sitefinity\Deployment";
         private string[] widgetTemplatesNames = new string[] 
                                                    { 
                                                         "Detail.DetailPageNewList", "List.AnchorListNew", "List.ExpandableListNew", 

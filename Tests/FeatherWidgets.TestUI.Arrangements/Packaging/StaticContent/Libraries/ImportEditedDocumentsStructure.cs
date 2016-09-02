@@ -97,7 +97,7 @@ namespace FeatherWidgets.TestUI.Arrangements
         private const string InstallationPath = @"App_Data\Sitefinity";
         private const string PackageResource = "FeatherWidgets.TestUtilities.Data.Packaging.Structure.LibrariesStructure.zip";
         private const string PackageResourceEdited = "FeatherWidgets.TestUtilities.Data.Packaging.Structure.LibrariesEdited.zip";
-        private string tempFolderPath = AppDomain.CurrentDomain.BaseDirectory + @"App_Data\Sitefinity\Export";
+        private string tempFolderPath = AppDomain.CurrentDomain.BaseDirectory + @"App_Data\Sitefinity\Deployment";
         private const string DocumentsType = "Telerik.Sitefinity.Libraries.Model.Document";
         private const string AlbumName = "myTestAlbum1";
         private const string DocumentTitle = "Document1";

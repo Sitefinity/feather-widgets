@@ -100,7 +100,7 @@ namespace FeatherWidgets.TestUI.Arrangements
         private const string InstallationPath = @"App_Data\Sitefinity";
         private const string PackageResource = "FeatherWidgets.TestUtilities.Data.Packaging.Structure.LibrariesStructure.zip";
         private const string PackageResourceEdited = "FeatherWidgets.TestUtilities.Data.Packaging.Structure.LibrariesEdited.zip";
-        private string tempFolderPath = AppDomain.CurrentDomain.BaseDirectory + @"App_Data\Sitefinity\Export";
+        private string tempFolderPath = AppDomain.CurrentDomain.BaseDirectory + @"App_Data\Sitefinity\Deployment";
         private const string ImagesType = "Telerik.Sitefinity.Libraries.Model.Image";
         private const string Name = "Test_Image_GIF";
         private const string AlbumName = "myTestAlbum";

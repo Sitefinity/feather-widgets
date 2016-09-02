@@ -245,19 +245,6 @@
     <EmbeddedResource Include="Data\DynamicModules\PackedModule\Structure\PackedModule.sf" />
     <EmbeddedResource Include="Data\DynamicModules\PackedModule\Structure\widgetTemplates.sf" />
     <EmbeddedResource Include="Data\Packaging\Modules\FlatModuleAllFields.zip" />
-    <EmbeddedResource Include="Data\Packaging\Structure\FlatModuleAllFieldsStructure.zip" />
-    <EmbeddedResource Include="Data\Packaging\Structure\FlatModuleAllFieldsWidgetTemplate.zip" />
-    <EmbeddedResource Include="Data\Packaging\Structure\FlatModuleAllFieldsAddedNewType.zip" />
-    <EmbeddedResource Include="Data\Packaging\Structure\BlogsStructure.zip" />
-    <EmbeddedResource Include="Data\Packaging\Structure\LibrariesStructure.zip" />
-    <EmbeddedResource Include="Data\Packaging\Structure\ListsStructure.zip" />
-    <EmbeddedResource Include="Data\Packaging\Structure\NewsStructure.zip" />
-    <EmbeddedResource Include="Data\Packaging\Structure\PagesStructure.zip" />
-    <EmbeddedResource Include="Data\Packaging\Structure\BlogsEdited.zip" />
-    <EmbeddedResource Include="Data\Packaging\Structure\LibrariesEdited.zip" />
-    <EmbeddedResource Include="Data\Packaging\Structure\ListsEdited.zip" />
-    <EmbeddedResource Include="Data\Packaging\Structure\NewsEditedStructure.zip" />
-    <EmbeddedResource Include="Data\Packaging\Structure\PagesEdited.zip" />
     <EmbeddedResource Include="Data\Forms\Read.DefaultSectionHeaderFile.cshtml" />
     <EmbeddedResource Include="Data\Forms\Write.DefaultCaptchaFile.cshtml" />
     <EmbeddedResource Include="Data\Forms\Write.DefaultCheckboxesFile.cshtml" />
@@ -268,6 +255,19 @@
     <EmbeddedResource Include="Data\Forms\Write.DefaultSubmitButtonFile.cshtml" />
     <EmbeddedResource Include="Data\Forms\Write.DefaultTextboxFile.cshtml" />
     <EmbeddedResource Include="Data\DynamicModules\PressReleaseCustomTaxonomySpacedTitle.zip" />
+    <EmbeddedResource Include="Data\Packaging\Structure\BlogsEdited.zip" />
+    <EmbeddedResource Include="Data\Packaging\Structure\BlogsStructure.zip" />
+    <EmbeddedResource Include="Data\Packaging\Structure\FlatModuleAllFieldsAddedNewType.zip" />
+    <EmbeddedResource Include="Data\Packaging\Structure\FlatModuleAllFieldsStructure.zip" />
+    <EmbeddedResource Include="Data\Packaging\Structure\FlatModuleAllFieldsWidgetTemplate.zip" />
+    <EmbeddedResource Include="Data\Packaging\Structure\LibrariesEdited.zip" />
+    <EmbeddedResource Include="Data\Packaging\Structure\LibrariesStructure.zip" />
+    <EmbeddedResource Include="Data\Packaging\Structure\ListsEdited.zip" />
+    <EmbeddedResource Include="Data\Packaging\Structure\ListsStructure.zip" />
+    <EmbeddedResource Include="Data\Packaging\Structure\NewsEditedStructure.zip" />
+    <EmbeddedResource Include="Data\Packaging\Structure\NewsStructure.zip" />
+    <EmbeddedResource Include="Data\Packaging\Structure\PagesEdited.zip" />
+    <EmbeddedResource Include="Data\Packaging\Structure\PagesStructure.zip" />
     <None Include="packages.config">
       <SubType>Designer</SubType>
     </None>

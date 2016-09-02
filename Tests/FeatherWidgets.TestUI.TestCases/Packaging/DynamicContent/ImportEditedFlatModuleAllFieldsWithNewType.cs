@@ -27,7 +27,7 @@ namespace FeatherWidgets.TestUI.TestCases.Packaging.DynamicContent
         {
             BAT.Wrappers().Backend().ModuleBuilder().ModuleInitializerWrapper().NavigateToModuleBuilderPage();
             BAT.Arrange(this.TestName).ExecuteArrangement("ImportNewPackage");
-            BAT.Wrappers().Backend().ModuleBuilder().ModuleInitializerWrapper().NavigateToModuleBuilderPage();
+            RuntimeSettingsModificator.ExecuteWithClientTimeout(200000, () =>   BAT.Wrappers().Backend().ModuleBuilder().ModuleInitializerWrapper().NavigateToModuleBuilderPage());          
             BAT.Wrappers().Backend().ModuleBuilder().ModuleInitializerWrapper().OpenModuleDashboard(ModuleName);
             BAT.Wrappers().Backend().ModuleBuilder().ModuleInitializerWrapper().AssertContentIsPresent(ContentTypeName, true);
             BAT.Wrappers().Backend().ModuleBuilder().ModuleInitializerWrapper().AssertContentIsPresent(ContentTypeNameNew, true);
