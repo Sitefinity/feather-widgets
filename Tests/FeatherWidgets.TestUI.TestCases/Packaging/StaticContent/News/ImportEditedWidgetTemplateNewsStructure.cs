@@ -21,7 +21,8 @@ namespace FeatherWidgets.TestUI.TestCases.Packaging.StaticContent
         TestCategory(FeatherTestCategories.Packaging)]
         public void ImportEditedWidgetTemplateNewsStructure()
         {
-            RuntimeSettingsModificator.ExecuteWithClientTimeout(200000, () =>  BAT.Macros().NavigateTo().Design().WidgetTemplates());  
+            RuntimeSettingsModificator.ExecuteWithClientTimeout(200000, () =>  BAT.Macros().NavigateTo().Design().WidgetTemplates());
+            this.SelectAllTemplatesFromTheSidebar();     
             this.VerifyWidgetTemplates(this.widgetTemplatesNames, EditedWidgetTemplate, AreaName);
         }
 
@@ -60,6 +61,26 @@ namespace FeatherWidgets.TestUI.TestCases.Packaging.StaticContent
                 Manager.Current.ActiveBrowser.WaitUntilReady();
                 Manager.Current.ActiveBrowser.WaitForAsyncOperations();
             }  
+        }
+
+        /// <summary>
+        /// Selects all templates from the sidebar.
+        /// </summary>
+        private void SelectAllTemplatesFromTheSidebar()
+        {
+            BAT.Utilities().InMultiSiteMode(() =>
+            {
+                ActiveBrowser.WaitUntilReady();
+                ActiveBrowser.WaitForAsyncOperations();
+                ActiveBrowser.WaitForBinding();
+
+                HtmlAnchor allTemplatesFilter = ActiveBrowser.Find.ByExpression<HtmlAnchor>("id=?_controlTemplatesBackendList_ctl00_ctl00_sidebar_allTemplates_ctl00_ctl00_allTemplates")
+                    .AssertIsPresent("all templates filter");
+                allTemplatesFilter.Click();
+
+                ActiveBrowser.WaitForAsyncOperations();
+                ActiveBrowser.WaitForBinding();
+            });
         }
 
         private const string EditedWidgetTemplate = "EDITED";
