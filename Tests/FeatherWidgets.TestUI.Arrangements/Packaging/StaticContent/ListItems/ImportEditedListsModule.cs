@@ -73,7 +73,7 @@ namespace FeatherWidgets.TestUI.Arrangements
         private const string InstallationPath = @"App_Data\Sitefinity";
         private const string PackageResource = "FeatherWidgets.TestUtilities.Data.Packaging.Structure.ListsStructure.zip";
         private const string PackageResourceEdited = "FeatherWidgets.TestUtilities.Data.Packaging.Structure.ListsEdited.zip";
-        private string tempFolderPath = AppDomain.CurrentDomain.BaseDirectory + @"App_Data\Sitefinity\Export";
+        private string tempFolderPath = AppDomain.CurrentDomain.BaseDirectory + @"App_Data\Sitefinity\Deployment";
         private const string ListsType = "Telerik.Sitefinity.Lists.Model.ListItem";
         private static string flatClassification = "l1";
         private static string hierarchicalClassification = "l2";

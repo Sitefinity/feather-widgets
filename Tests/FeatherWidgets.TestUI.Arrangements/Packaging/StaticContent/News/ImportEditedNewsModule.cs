@@ -82,7 +82,7 @@ namespace FeatherWidgets.TestUI.Arrangements
         private const string InstallationPath = @"App_Data\Sitefinity";
         private const string PackageResource = "FeatherWidgets.TestUtilities.Data.Packaging.Structure.NewsStructure.zip";
         private const string PackageResourceEdited = "FeatherWidgets.TestUtilities.Data.Packaging.Structure.NewsEditedStructure.zip";
-        private string tempFolderPath = AppDomain.CurrentDomain.BaseDirectory + @"App_Data\Sitefinity\Export";
+        private string tempFolderPath = AppDomain.CurrentDomain.BaseDirectory + @"App_Data\Sitefinity\Deployment";
         private const string NewsType = "Telerik.Sitefinity.News.Model.NewsItem";
         private static string flatClassification = "n1";
         private static string hierarchicalClassification = "n2";

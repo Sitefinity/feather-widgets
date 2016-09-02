@@ -71,7 +71,7 @@ namespace FeatherWidgets.TestUI.Arrangements
 
         private const string InstallationPath = @"App_Data\Sitefinity";
         private const string PackageResource = "FeatherWidgets.TestUtilities.Data.Packaging.Structure.BlogsStructure.zip";
-        private string tempFolderPath = AppDomain.CurrentDomain.BaseDirectory + @"App_Data\Sitefinity\Export";
+        private string tempFolderPath = AppDomain.CurrentDomain.BaseDirectory + @"App_Data\Sitefinity\Deployment";
         private string[] widgetTemplatesNames = new string[] 
                                                    { 
                                                         "Detail.DetailPageNewBlog", "List.BlogListNew", "Detail.DetailPageNewBlogPost", "List.BlogPostListNew"

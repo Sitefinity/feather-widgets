@@ -20,8 +20,8 @@ namespace FeatherWidgets.TestUI.TestCases.Packaging.DynamicContent
         Owner(FeatherTeams.SitefinityTeam6),
         TestCategory(FeatherTestCategories.Packaging)]
         public void ImportModuleWithEditedWidgetTemplate()
-        {        
-            BAT.Macros().NavigateTo().Design().WidgetTemplates();
+        {
+            RuntimeSettingsModificator.ExecuteWithClientTimeout(200000, () => BAT.Macros().NavigateTo().Design().WidgetTemplates());                     
             BAT.Wrappers().Backend().ModuleBuilder().ContentTypePageActionsWrapper().OpenWidgetTemplate(MVCWidgetTemplate);
             BAT.Wrappers().Backend().ModuleBuilder().ContentTypePageActionsWrapper().EditFrame.WaitForAsyncOperations();
             BAT.Wrappers().Backend().ModuleBuilder().ContentTypePageActionsWrapper().VerifyWidgetTemplateContent(EditedWidgetTemplate);

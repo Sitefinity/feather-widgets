@@ -72,8 +72,8 @@ namespace FeatherWidgets.TestUI.Arrangements
         }
      
         private const string InstallationPath = @"App_Data\Sitefinity";
-        private const string PackageResource = "FeatherWidgets.TestUtilities.Data.Packaging.Structure.LibrariesStructure.zip";       
-        private string tempFolderPath = AppDomain.CurrentDomain.BaseDirectory + @"App_Data\Sitefinity\Export";
+        private const string PackageResource = "FeatherWidgets.TestUtilities.Data.Packaging.Structure.LibrariesStructure.zip";
+        private string tempFolderPath = AppDomain.CurrentDomain.BaseDirectory + @"App_Data\Sitefinity\Deployment";
         private static string flatClassificationDoc = "d1";
         private static string hierarchicalClassificationDoc = "d2";
         private static string flatClassificationIm = "i1";

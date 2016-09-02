@@ -25,7 +25,7 @@ namespace FeatherWidgets.TestUI.TestCases.Packaging.DynamicContent
         TestCategory(FeatherTestCategories.Packaging)]
         public void ImportFlatModuleAllFields()
         {
-            BAT.Wrappers().Backend().ModuleBuilder().ModuleInitializerWrapper().NavigateToModuleBuilderPage();
+            RuntimeSettingsModificator.ExecuteWithClientTimeout(200000, () => BAT.Wrappers().Backend().ModuleBuilder().ModuleInitializerWrapper().NavigateToModuleBuilderPage());                     
             BAT.Wrappers().Backend().ModuleBuilder().ModuleInitializerWrapper().OpenModuleDashboard(ModuleName);
             BAT.Wrappers().Backend().ModuleBuilder().ModuleInitializerWrapper().OpenFieldsEditor(ModuleName, ContentTypeName);
             BAT.Wrappers().Backend().ModuleBuilder().FieldActionsWrapper().VerifyIfFieldExists(this.fieldNames);

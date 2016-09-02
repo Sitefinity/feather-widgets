@@ -68,14 +68,14 @@ namespace FeatherWidgets.TestUI.Arrangements
             ServerOperations.Packaging().DeleteAllPackagesFromDB();
 
             ServerOperations.Pages().DeleteAllPages();
-            ServerOperations.ModuleBuilder().DeleteDirectory(AppDomain.CurrentDomain.BaseDirectory + @"App_Data\Sitefinity\Export");
-            ServerOperations.ModuleBuilder().DeleteDirectory(AppDomain.CurrentDomain.BaseDirectory + @"App_Data\Export");
+            ServerOperations.ModuleBuilder().DeleteDirectory(AppDomain.CurrentDomain.BaseDirectory + @"App_Data\Sitefinity\Deployment");
+            ServerOperations.ModuleBuilder().DeleteDirectory(AppDomain.CurrentDomain.BaseDirectory + @"App_Data\Deployment");
         }
 
-        private const string File1 = @"App_Data\Sitefinity\Export\Dynamic modules\FlatModuleAllFields\Structure\FlatModuleAllFields.sf";
-        private const string File2 = @"App_Data\Export\Dynamic modules\FlatModuleAllFields\Structure\FlatModuleAllFields.sf";
-        private const string Widgets1 = @"App_Data\Sitefinity\Export\Dynamic modules\FlatModuleAllFields\Structure\widgetTemplates.sf";
-        private const string Widgets2 = @"App_Data\Export\Dynamic modules\FlatModuleAllFields\Structure\widgetTemplates.sf";
+        private const string File1 = @"App_Data\Sitefinity\Deployment\Dynamic modules\FlatModuleAllFields\Structure\FlatModuleAllFields.sf";
+        private const string File2 = @"App_Data\Deployment\Dynamic modules\FlatModuleAllFields\Structure\FlatModuleAllFields.sf";
+        private const string Widgets1 = @"App_Data\Sitefinity\Deployment\Dynamic modules\FlatModuleAllFields\Structure\widgetTemplates.sf";
+        private const string Widgets2 = @"App_Data\Deployment\Dynamic modules\FlatModuleAllFields\Structure\widgetTemplates.sf";
         private const string PageName = "TestPage";
         private const string ModuleName = "FlatModuleAllFields";
         private const string Path = "App_Data";

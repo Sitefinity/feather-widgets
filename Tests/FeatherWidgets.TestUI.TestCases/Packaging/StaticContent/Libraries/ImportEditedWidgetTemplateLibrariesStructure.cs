@@ -21,7 +21,7 @@ namespace FeatherWidgets.TestUI.TestCases.Packaging.StaticContent
         TestCategory(FeatherTestCategories.Packaging)]
         public void ImportEditedWidgetTemplateLibrariesStructure()
         {
-            BAT.Macros().NavigateTo().Design().WidgetTemplates();
+            RuntimeSettingsModificator.ExecuteWithClientTimeout(200000, () => BAT.Macros().NavigateTo().Design().WidgetTemplates());             
             this.VerifyWidgetTemplates(this.widgetTemplatesNamesImages, EditedWidgetTemplate, AreaNameImage);
             this.VerifyWidgetTemplates(this.widgetTemplatesNamesVideo, EditedWidgetTemplate, AreaNameVideo);
             this.VerifyWidgetTemplates(this.widgetTemplatesNamesDocument, EditedWidgetTemplate, AreaNameDocument);
