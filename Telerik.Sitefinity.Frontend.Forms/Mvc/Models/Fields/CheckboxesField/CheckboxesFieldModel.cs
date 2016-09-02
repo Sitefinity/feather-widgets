@@ -113,10 +113,16 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Models.Fields.CheckboxesField
             if (this.ValidatorDefinition.Required.HasValue && this.ValidatorDefinition.Required.Value && !this.HasOtherChoice)
             {
                 var strValue = value as string;
+
                 if (!string.IsNullOrEmpty(strValue))
                 {
+                    // split multi-values: eg: Choice1,Choice2
+                    var inputValues = strValue.Split(',');
+
                     var choices = this.DeserializeChoices();
-                    if (choices.Contains(strValue))
+
+                    // if the choices array contains all the input values, return isValid
+                    if (choices.Intersect(inputValues).Count() == inputValues.Length)
                     {
                         return base.IsValid(value);
                     }
