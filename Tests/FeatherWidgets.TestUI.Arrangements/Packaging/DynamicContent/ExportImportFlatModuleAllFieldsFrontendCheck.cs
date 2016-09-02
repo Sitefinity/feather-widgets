@@ -26,6 +26,7 @@ namespace FeatherWidgets.TestUI.Arrangements
             WaitUtils.WaitForSitefinityToStart(HttpContext.Current.Request.Url
                 .GetLeftPart(UriPartial.Authority) + (HostingEnvironment.ApplicationVirtualPath.TrimEnd('/') ?? string.Empty));
             ServerOperationsFeather.DynamicModules().ExtractStructureZip(PackageResource, Path);
+            ServerOperations.MultiSite().AssignModuleToCurrentSite(ModuleName);
         }
 
         /// <summary>
@@ -46,6 +47,7 @@ namespace FeatherWidgets.TestUI.Arrangements
             ServerOperations.SystemManager().RestartApplication(false);
             WaitUtils.WaitForSitefinityToStart(HttpContext.Current.Request.Url
                 .GetLeftPart(UriPartial.Authority) + (HostingEnvironment.ApplicationVirtualPath.TrimEnd('/') ?? string.Empty));
+            ServerOperations.MultiSite().AssignModuleToCurrentSite(ModuleName);
         }
 
         /// <summary>

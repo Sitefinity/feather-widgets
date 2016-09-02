@@ -24,6 +24,7 @@ namespace FeatherWidgets.TestUI.Arrangements
             ServerOperations.SystemManager().RestartApplication(false);
             WaitUtils.WaitForSitefinityToStart(HttpContext.Current.Request.Url.GetLeftPart(UriPartial.Authority) 
                 + (HostingEnvironment.ApplicationVirtualPath.TrimEnd('/') ?? string.Empty));
+            ServerOperations.MultiSite().AssignModuleToCurrentSite(ModuleName);
         }
 
         /// <summary>
