@@ -22,7 +22,7 @@ namespace FeatherWidgets.TestUI.TestCases.Packaging.StaticContent
         TestCategory(FeatherTestCategories.Packaging)]
         public void ExportEditedListsModule()
         {
-            BAT.Macros().NavigateTo().Modules().Lists(this.Culture);
+            RuntimeSettingsModificator.ExecuteWithClientTimeout(200000, () => BAT.Macros().NavigateTo().Modules().Lists(this.Culture));
             BAT.Wrappers().Backend().ListItems().ListItemsGridWrapper().NavigateToListItem("TestList");
             BAT.Wrappers().Backend().CustomFields().CustomFieldsWrapper().OpenCustomFieldsSection(CustomFieldsLinkID);
             BAT.Wrappers().Backend().CustomFields().CustomFieldsWrapper().DeleteField("Short");

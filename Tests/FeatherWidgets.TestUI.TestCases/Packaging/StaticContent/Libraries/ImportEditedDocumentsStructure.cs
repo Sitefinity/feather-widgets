@@ -21,7 +21,7 @@ namespace FeatherWidgets.TestUI.TestCases.Packaging.StaticContent
         TestCategory(FeatherTestCategories.Packaging)]
         public void ImportEditedDocumentsStructure()
         {
-            BAT.Macros().NavigateTo().Modules().Documents(this.Culture);
+            RuntimeSettingsModificator.ExecuteWithClientTimeout(200000, () => BAT.Macros().NavigateTo().Modules().Documents(this.Culture));                   
             BAT.Arrange(this.TestName).ExecuteArrangement("ImportNewPackage");
             RuntimeSettingsModificator.ExecuteWithClientTimeout(200000, () => BAT.Macros().NavigateTo().Classifications().AllClassifications());            
             BAT.Wrappers().Backend().Taxonomies().ClassificationWrapper().VerifyTaxonExistenceInTaxonomyItemsScreen(classifications[0], exists: true);

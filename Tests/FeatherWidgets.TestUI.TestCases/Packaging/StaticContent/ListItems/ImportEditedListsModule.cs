@@ -24,7 +24,7 @@ namespace FeatherWidgets.TestUI.TestCases.Packaging.StaticContent
         TestCategory(FeatherTestCategories.Packaging)]
         public void ImportEditedListsModule()
         {
-            BAT.Macros().NavigateTo().Modules().Lists(this.Culture);
+            RuntimeSettingsModificator.ExecuteWithClientTimeout(200000, () => BAT.Macros().NavigateTo().Modules().Lists(this.Culture));
             BAT.Wrappers().Backend().ListItems().ListItemsGridWrapper().NavigateToListItem("TestList");
             BAT.Arrange(this.TestName).ExecuteArrangement("ImportNewPackage");
             RuntimeSettingsModificator.ExecuteWithClientTimeout(200000, () => BAT.Macros().NavigateTo().Classifications().AllClassifications());                

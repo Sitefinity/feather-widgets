@@ -21,7 +21,7 @@ namespace FeatherWidgets.TestUI.TestCases.Packaging.DynamicContent
         TestCategory(FeatherTestCategories.Packaging)]
         public void ExportImportFlatModuleAllFieldsFrontendCheck()
         {
-            BAT.Wrappers().Backend().Packaging().PackagingWrapper().ExportStructure();
+            RuntimeSettingsModificator.ExecuteWithClientTimeout(200000, () => BAT.Wrappers().Backend().Packaging().PackagingWrapper().ExportStructure());                     
             BAT.Wrappers().Backend().ModuleBuilder().ModuleInitializerWrapper().NavigateToModuleBuilderPage();
             BAT.Wrappers().Backend().ModuleBuilder().ModuleInitializerWrapper().DeleteModule(ModuleName);
             BAT.Arrange(this.TestName).ExecuteArrangement("VerifyExportedFiles");
@@ -29,9 +29,7 @@ namespace FeatherWidgets.TestUI.TestCases.Packaging.DynamicContent
             BAT.Arrange(this.TestName).ExecuteArrangement("RestartApplication");
             BAT.Wrappers().Backend().ModuleBuilder().ModuleInitializerWrapper().WaitForSystemRestart();
             ActiveBrowser.Refresh();
-
-            BAT.Wrappers().Backend().ModuleBuilder().ModuleInitializerWrapper().AssertModulePresentInContentMenu(ModuleName, true);
-            BAT.Wrappers().Backend().ModuleBuilder().ModuleInitializerWrapper().NavigateToModuleBuilderPage();
+            RuntimeSettingsModificator.ExecuteWithClientTimeout(200000, () => BAT.Wrappers().Backend().ModuleBuilder().ModuleInitializerWrapper().NavigateToModuleBuilderPage());                 
             BAT.Wrappers().Backend().ModuleBuilder().ModuleInitializerWrapper().OpenModuleDashboard(ModuleName);
             BAT.Wrappers().Backend().ModuleBuilder().ModuleInitializerWrapper().AssertContentIsPresent(ContentTypeName, true);
             BAT.Macros().NavigateTo().Modules().ParticularModule(ModuleName, this.Culture);

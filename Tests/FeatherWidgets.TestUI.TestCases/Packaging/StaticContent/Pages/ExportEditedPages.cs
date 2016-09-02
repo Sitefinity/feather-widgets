@@ -24,7 +24,7 @@ namespace FeatherWidgets.TestUI.TestCases.Packaging.StaticContent
         TestCategory(FeatherTestCategories.Packaging)]
         public void ExportEditedPages()
         {
-            BAT.Macros().NavigateTo().Pages(this.Culture);
+            RuntimeSettingsModificator.ExecuteWithClientTimeout(200000, () => BAT.Macros().NavigateTo().Pages(this.Culture));            
             BAT.Wrappers().Backend().CustomFields().CustomFieldsWrapper().OpenCustomFieldsSection(CustomFieldsLinkID);
             BAT.Wrappers().Backend().CustomFields().CustomFieldsWrapper().DeleteField("Short");
             BAT.Wrappers().Backend().CustomFields().CustomFieldsWrapper()
