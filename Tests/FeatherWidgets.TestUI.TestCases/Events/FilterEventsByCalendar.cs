@@ -10,7 +10,8 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 namespace FeatherWidgets.TestUI.TestCases.Events
 {
     /// <summary>
-    /// 
+    /// Creates 3 calendars with 1 event each.
+    /// Filter by Calendar and verify visible events in each view of Calendar widget.
     /// </summary>
     [TestClass]
     public class FilterEventsByCalendar_ : FeatherTestCase

@@ -13,7 +13,7 @@ namespace FeatherWidgets.TestUI.Arrangements
     /// <summary>
     /// Executes Server Side operations for DeleteEventsWidget UI Test
     /// </summary>
-    public class DeleteEventsWidget
+    public class DeleteEventsWidget : TestArrangementBase
     {
         /// <summary>
         /// Creates an Event.

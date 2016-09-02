@@ -16,7 +16,7 @@ namespace FeatherWidgets.TestUI.Arrangements
     /// <summary>
     /// Executes Server Side operations for VerifyWeekStartDay_CalendarView UI Test
     /// </summary>
-    public class VerifyWeekStartDay_CalendarView
+    public class VerifyWeekStartDay_CalendarView : TestArrangementBase
     {
         /// <summary>
             /// Creates an Event.

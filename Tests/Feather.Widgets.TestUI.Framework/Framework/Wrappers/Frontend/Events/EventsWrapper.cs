@@ -143,6 +143,27 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Frontend.Events
         }
 
         /// <summary>
+        /// Verify CSS class name in calendar widget on page
+        /// </summary>
+        /// <param name="cssClassName">CSS class name</param>
+        public void VerifyCssClassInCalendarWidgetOnPage(string cssClassName)
+        {
+            HtmlDiv frontendPageMainDiv = BAT.Wrappers().Frontend().Pages().PagesWrapperFrontend().GetPageContent();
+            var frontendPageChildDiv = frontendPageMainDiv.ChildNodes.First();
+            var actualCssClassName = frontendPageChildDiv.Attributes.Single(a => a.Name == "class").Value;
+            Assert.AreEqual(cssClassName, actualCssClassName);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        public void VerifyCalendarsAreNotVisible()
+        {
+            HtmlDiv frontendPageMainDiv = BAT.Wrappers().Frontend().Pages().PagesWrapperFrontend().GetPageContent();
+        }
+
+        /// <summary>
         /// Get event datetime in sheduler detail's view
         /// </summary>
         /// <returns>Event datetime</returns>
