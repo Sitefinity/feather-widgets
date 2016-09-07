@@ -38,6 +38,15 @@ namespace FeatherWidgets.TestUI.Arrangements
             ServerOperations.Packaging().VerifyExportedStaticModule(File1, File2);
         }
 
+        /// Load the application.
+        /// </summary>
+        [ServerArrangement]
+        public void LoadApplication()
+        {
+            WaitUtils.WaitForSitefinityToStart(HttpContext.Current.Request.Url
+                .GetLeftPart(UriPartial.Authority) + (HostingEnvironment.ApplicationVirtualPath.TrimEnd('/') ?? string.Empty));
+        }
+
         /// <summary>
         /// Cleans up the resources on the server used for this arrangement
         /// </summary>

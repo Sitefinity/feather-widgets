@@ -51,6 +51,16 @@ namespace FeatherWidgets.TestUI.Arrangements
         }
 
         /// <summary>
+        /// Load the application.
+        /// </summary>
+        [ServerArrangement]
+        public void LoadApplication()
+        {
+            WaitUtils.WaitForSitefinityToStart(HttpContext.Current.Request.Url
+                .GetLeftPart(UriPartial.Authority) + (HostingEnvironment.ApplicationVirtualPath.TrimEnd('/') ?? string.Empty));
+        }
+
+        /// <summary>
         /// Verifies the exported files.
         /// </summary>
         [ServerArrangement]

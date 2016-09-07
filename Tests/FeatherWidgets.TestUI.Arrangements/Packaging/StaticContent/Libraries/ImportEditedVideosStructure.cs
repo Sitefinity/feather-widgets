@@ -32,6 +32,15 @@ namespace FeatherWidgets.TestUI.Arrangements
                 + (HostingEnvironment.ApplicationVirtualPath.TrimEnd('/') ?? string.Empty));
         }
 
+        /// Load the application.
+        /// </summary>
+        [ServerArrangement]
+        public void LoadApplication()
+        {
+            WaitUtils.WaitForSitefinityToStart(HttpContext.Current.Request.Url
+                .GetLeftPart(UriPartial.Authority) + (HostingEnvironment.ApplicationVirtualPath.TrimEnd('/') ?? string.Empty));
+        }
+
         /// <summary>
         /// Import new package
         /// </summary>
