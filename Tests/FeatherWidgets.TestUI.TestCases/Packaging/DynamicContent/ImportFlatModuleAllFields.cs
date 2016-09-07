@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using ArtOfTest.WebAii.Controls.HtmlControls;
+using ArtOfTest.WebAii.Core;
 using Feather.Widgets.TestUI.Framework;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Telerik.Sitefinity.TestUI.Framework.Utilities;
@@ -38,6 +39,7 @@ namespace FeatherWidgets.TestUI.TestCases.Packaging.DynamicContent
 
             BAT.Wrappers().Backend().ModuleBuilder().ModuleInitializerWrapper().ClickFinishEditButton();
             BAT.Wrappers().Backend().ModuleBuilder().ModuleInitializerWrapper().ConfirmWidgetTemplateUpdate(true);
+            ActiveBrowser.WaitForAsyncJQueryRequests();
             BAT.Wrappers().Backend().ModuleBuilder().ModuleInitializerWrapper().OpenFieldsEditor(ModuleName, ContentTypeName);
 
             BAT.Wrappers().Backend().ModuleBuilder().FieldActionsWrapper().OpenEditFieldScreen(this.fieldNames[2]);

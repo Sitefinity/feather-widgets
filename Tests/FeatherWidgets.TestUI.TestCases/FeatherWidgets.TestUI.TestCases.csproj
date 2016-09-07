@@ -438,8 +438,8 @@
     <Compile Include="News\VerifyNewsItemsWhenOpenDetailsModeOfDynamicItem.cs" />
     <Compile Include="News\VerifyPagingOnFrontendPageForNewsWidget.cs" />
     <Compile Include="News\ZActivateAndDeactivateNewsModule.cs" />
-    <Compile Include="Packaging\DynamicContent\ExportImportFlatModuleAllFieldsFrontendCheck.cs" />
-    <Compile Include="Packaging\DynamicContent\ImportEditedFlatModuleAllFieldsWithNewType.cs" />
+    <Compile Include="Packaging\DynamicContent\ExportImportModuleAllFieldsFrontendCheck.cs" />
+    <Compile Include="Packaging\DynamicContent\ImportEditedModuleAllFieldsWithNewType.cs" />
     <Compile Include="Packaging\DynamicContent\ImportFlatModuleAllFields.cs" />
     <Compile Include="Packaging\DynamicContent\ImportModuleWithEditedWidgetTemplate.cs" />
     <Compile Include="Packaging\StaticContent\BlogPosts\ImportEditedBlogPostsStructure.cs" />

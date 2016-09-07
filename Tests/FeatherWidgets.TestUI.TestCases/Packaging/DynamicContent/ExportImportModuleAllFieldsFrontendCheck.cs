@@ -11,7 +11,7 @@ namespace FeatherWidgets.TestUI.TestCases.Packaging.DynamicContent
     ///  Export and import Flat Module and verify front end
     /// </summary>
     [TestClass]
-    public class ExportImportFlatModuleAllFieldsFrontendCheck_ : FeatherTestCase
+    public class ExportImportModuleAllFieldsFrontendCheck_ : FeatherTestCase
     {
         /// <summary>
         ///  Export and import Flat Module and verify front end
@@ -19,7 +19,7 @@ namespace FeatherWidgets.TestUI.TestCases.Packaging.DynamicContent
         [TestMethod,
         Owner(FeatherTeams.SitefinityTeam6),
         TestCategory(FeatherTestCategories.Packaging)]
-        public void ExportImportFlatModuleAllFieldsFrontendCheck()
+        public void ExportImportModuleAllFieldsFrontendCheck()
         {
             RuntimeSettingsModificator.ExecuteWithClientTimeout(200000, () => BAT.Wrappers().Backend().Packaging().PackagingWrapper().ExportStructure());                     
             BAT.Wrappers().Backend().ModuleBuilder().ModuleInitializerWrapper().NavigateToModuleBuilderPage();

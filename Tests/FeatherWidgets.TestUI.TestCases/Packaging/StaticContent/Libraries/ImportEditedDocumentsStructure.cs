@@ -41,10 +41,6 @@ namespace FeatherWidgets.TestUI.TestCases.Packaging.StaticContent
             BAT.Wrappers().Backend().Images().ImagesEdit().SetTitle(NewName);
             BAT.Wrappers().Backend().Images().ImagesEdit().Publish();
 
-            BAT.Macros().NavigateTo().Pages(this.Culture);
-            BAT.Wrappers().Backend().Pages().PagesWrapper().OpenPageZoneEditor(PageName);
-            BATFeather.Wrappers().Backend().Pages().PageZoneEditorWrapper().AddMvcWidgetHybridModePage(DownloadListWidget);
-            BAT.Wrappers().Backend().Pages().PageZoneEditorWrapper().PublishPage();
             BAT.Macros().NavigateTo().CustomPage("~/" + PageName.ToLower(), true, this.Culture);
             this.VerifyItemsOnFrontEnd(NewName);
         }

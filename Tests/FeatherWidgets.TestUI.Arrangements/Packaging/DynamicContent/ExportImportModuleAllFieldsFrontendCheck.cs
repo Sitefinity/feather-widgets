@@ -13,7 +13,7 @@ namespace FeatherWidgets.TestUI.Arrangements
     /// <summary>
     /// Export and import Flat Module and verify front end
     /// </summary>
-    public class ExportImportFlatModuleAllFieldsFrontendCheck : TestArrangementBase
+    public class ExportImportModuleAllFieldsFrontendCheck : TestArrangementBase
     {
         /// <summary>
         /// Set Up

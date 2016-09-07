@@ -20,7 +20,9 @@ namespace FeatherWidgets.TestUI.Arrangements
         [ServerSetUp]
         public void ServerSetUp()
         {
-            ServerOperations.Pages().CreatePage(PageName);
+            Guid pageId = ServerOperations.Pages().CreatePage(PageName);
+            ServerOperationsFeather.Pages().AddBlogPostsWidgetToPage(pageId, "Body");
+            ServerOperationsFeather.Pages().AddBlogsWidgetToPage(pageId, "Body");
             var blogId = ServerOperations.Blogs().CreateBlog("TestBlog");
             ServerOperations.Blogs().CreatePublishedBlogPost("TestBlogPost", blogId);
 

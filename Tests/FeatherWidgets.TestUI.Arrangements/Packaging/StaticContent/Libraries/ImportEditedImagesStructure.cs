@@ -21,7 +21,8 @@ namespace FeatherWidgets.TestUI.Arrangements
         [ServerSetUp]
         public void ServerSetUp()
         {
-            ServerOperations.Pages().CreatePage(PageName);
+            Guid page1Id = ServerOperations.Pages().CreatePage(PageName);
+            ServerOperationsFeather.Pages().AddImageGalleryWidgetToPage(page1Id);
             Guid albumImageId = ServerOperations.Images().CreateLibrary(AlbumName);
             MultilingualTestConfig config = MultilingualTestConfig.Get();
             config.ImageBgTitle = Name;
@@ -68,50 +69,26 @@ namespace FeatherWidgets.TestUI.Arrangements
 
             for (int i = 0; i < ServerOperations.CustomFieldsNames().FieldNamesWithoutClassificationsEdited.Length; i++)
             {
-                ServerOperations.CustomFields().RemoveCustomFieldsFromContent(DocumentsType, ServerOperations.CustomFieldsNames().FieldNamesWithoutClassificationsEdited[i]);
-                ServerOperations.CustomFields().RemoveCustomFieldsFromContent(DocumentsType, flatClassificationDoc);
-                ServerOperations.CustomFields().RemoveCustomFieldsFromContent(DocumentsType, hierarchicalClassificationDoc);
-            }
-
-            for (int i = 0; i < ServerOperations.CustomFieldsNames().FieldNamesWithoutClassificationsEdited.Length; i++)
-            {
                 ServerOperations.CustomFields().RemoveCustomFieldsFromContent(ImagesType, ServerOperations.CustomFieldsNames().FieldNamesWithoutClassificationsEdited[i]);
                 ServerOperations.CustomFields().RemoveCustomFieldsFromContent(ImagesType, flatClassificationIm);
                 ServerOperations.CustomFields().RemoveCustomFieldsFromContent(ImagesType, hierarchicalClassificationIm);
             }
 
-            for (int i = 0; i < ServerOperations.CustomFieldsNames().FieldNamesWithoutClassificationsEdited.Length; i++)
-            {
-                ServerOperations.CustomFields().RemoveCustomFieldsFromContent(VideosType, ServerOperations.CustomFieldsNames().FieldNamesWithoutClassificationsEdited[i]);
-                ServerOperations.CustomFields().RemoveCustomFieldsFromContent(VideosType, flatClassificationVideo);
-                ServerOperations.CustomFields().RemoveCustomFieldsFromContent(VideosType, hierarchicalClassificationVideo);
-            }
-
-            ServerOperations.Taxonomies().DeleteHierarchicalTaxonomy(hierarchicalClassificationDoc);
-            ServerOperations.Taxonomies().DeleteFlatTaxonomy(flatClassificationDoc);
             ServerOperations.Taxonomies().DeleteHierarchicalTaxonomy(hierarchicalClassificationIm);
             ServerOperations.Taxonomies().DeleteFlatTaxonomy(flatClassificationIm);
-            ServerOperations.Taxonomies().DeleteHierarchicalTaxonomy(hierarchicalClassificationVideo);
-            ServerOperations.Taxonomies().DeleteFlatTaxonomy(flatClassificationVideo);
         }
 
         private const string AdminUserName = "admin";
         private const string AdminPass = "admin@2";
         private const string InstallationPath = @"App_Data\Sitefinity";
-        private const string PackageResource = "FeatherWidgets.TestUtilities.Data.Packaging.Structure.LibrariesStructure.zip";
-        private const string PackageResourceEdited = "FeatherWidgets.TestUtilities.Data.Packaging.Structure.LibrariesEdited.zip";
+        private const string PackageResource = "FeatherWidgets.TestUtilities.Data.Packaging.Structure.Images.zip";
+        private const string PackageResourceEdited = "FeatherWidgets.TestUtilities.Data.Packaging.Structure.ImagesEdited.zip";
         private string tempFolderPath = AppDomain.CurrentDomain.BaseDirectory + @"App_Data\Sitefinity\Deployment";
         private const string ImagesType = "Telerik.Sitefinity.Libraries.Model.Image";
         private const string Name = "Test_Image_GIF";
         private const string AlbumName = "myTestAlbum";
-        private static string flatClassificationDoc = "d1";
-        private static string hierarchicalClassificationDoc = "d2";
         private static string flatClassificationIm = "i1";
         private static string hierarchicalClassificationIm = "i2";
-        private static string flatClassificationVideo = "v1";
-        private static string hierarchicalClassificationVideo = "v2";      
-        private const string DocumentsType = "Telerik.Sitefinity.Libraries.Model.Document";
-        private const string VideosType = "Telerik.Sitefinity.Libraries.Model.Video";
         private const string PageName = "TestPage";
         private string[] widgetTemplatesNames = new string[] 
                                                    { 

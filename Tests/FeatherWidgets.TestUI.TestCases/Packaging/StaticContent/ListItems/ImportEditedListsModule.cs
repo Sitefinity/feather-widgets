@@ -48,7 +48,6 @@ namespace FeatherWidgets.TestUI.TestCases.Packaging.StaticContent
 
             BAT.Macros().NavigateTo().Pages(this.Culture);
             BAT.Wrappers().Backend().Pages().PagesWrapper().OpenPageZoneEditor(PageName);
-            BATFeather.Wrappers().Backend().Pages().PageZoneEditorWrapper().AddMvcWidgetHybridModePage(ListWidget);
             BATFeather.Wrappers().Backend().Pages().PageZoneEditorWrapper().EditWidget(ListWidget);
             BATFeather.Wrappers().Backend().Widgets().WidgetDesignerWrapper().ClickSelectButton(0);
             BATFeather.Wrappers().Backend().Widgets().SelectorsWrapper().SelectItemsInFlatSelector("TestList");
@@ -115,7 +114,7 @@ namespace FeatherWidgets.TestUI.TestCases.Packaging.StaticContent
 
         private static string[] classifications = new string[] { "l1", "l2" };
         private const string ListItemTitleNew = "ListItem New";
-        private const string ListWidget = "List";
+        private const string ListWidget = "Lists";
         private const string PageName = "TestPage";
     }
 }
