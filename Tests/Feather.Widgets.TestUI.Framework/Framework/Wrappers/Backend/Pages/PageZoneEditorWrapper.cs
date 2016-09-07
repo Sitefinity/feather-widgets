@@ -8,6 +8,7 @@ using ArtOfTest.Common.UnitTesting;
 using ArtOfTest.WebAii.Controls.HtmlControls;
 using ArtOfTest.WebAii.Core;
 using Telerik.WebAii.Controls.Html;
+using ArtOfTest.WebAii.jQuery;
 
 namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend
 {
@@ -277,6 +278,40 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend
             var listSettings = EM.Widgets.WidgetDesignerEventsScreen.ListSettings;
             listSettings.AssertIsPresent("List Settings");
             listSettings.Click();
+        }
+
+        /// <summary>
+        /// Open more options by clicking the link
+        /// </summary>
+        public void OpenMoreOptions()
+        {
+            var moreOptionsLink = EM.Widgets.WidgetDesignerCalendarScreen.MoreOptionsLink;
+            moreOptionsLink.AssertIsPresent("More options link");
+            moreOptionsLink.Click();
+        }
+
+        /// <summary>
+        /// Apply CSS class name in Calendar Widget Edit - List Settings tab
+        /// </summary>
+        /// <param name="cssClassName">CSS class name</param>
+        public void ApplyCssClassInCalendarWidgetListSettingsTab(string cssClassName)
+        {
+            HtmlInputText cssClassInput = EM.Widgets.WidgetDesignerCalendarScreen.CssClassInputFieldListSettings.AssertIsPresent("CssClass input");
+            cssClassInput.Click();
+            cssClassInput.Text = cssClassName;
+            cssClassInput.AsjQueryControl().InvokejQueryEvent(jQueryControl.jQueryControlEvents.change);
+        }
+
+        /// <summary>
+        /// Apply CSS class name in Calendar Widget Edit - List Settings tab
+        /// </summary>
+        /// <param name="cssClassName">CSS class name</param>
+        public void ApplyCssClassInCalendarWidgetSingleItemSettingsTab(string cssClassName)
+        {
+            HtmlInputText cssClassInput = EM.Widgets.WidgetDesignerCalendarScreen.CssClassInputFieldSingleItemSettings.AssertIsPresent("CssClass input");
+            cssClassInput.Click();
+            cssClassInput.Text = cssClassName;
+            cssClassInput.AsjQueryControl().InvokejQueryEvent(jQueryControl.jQueryControlEvents.change);
         }
 
         /// <summary>

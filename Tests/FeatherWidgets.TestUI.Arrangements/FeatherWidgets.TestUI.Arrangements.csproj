@@ -383,10 +383,13 @@
     <Compile Include="EmailCampaigns\UnsubscribeWidgetOnHybridPageAndSetCssClass.cs" />
     <Compile Include="Events\CalendarWidgetVerifyEventItemInDifferentPageInPreviewModeAndFrontendPage.cs" />
     <Compile Include="Events\VerifyAllowUserToSwitchViews_CalendarView.cs" />
+    <Compile Include="Events\VerifyAllowUsersToFilterByCalendars_CalendarView.cs" />
     <Compile Include="Events\VerifyDefaultView_CalendarView.cs" />
     <Compile Include="Events\FilterEventsByCalendar.cs" />
     <Compile Include="Events\VerifyAllDayEventsInOneDay_CalendarView.cs" />
     <Compile Include="Events\VerifyAllDayEventSwitchingDaylightSavingTime_CalendarView.cs" />
+    <Compile Include="Events\VerifyCssClass_CalendarView.cs" />
+    <Compile Include="Events\VerifyEventDetailsCssClass_CalendarWidget.cs" />
     <Compile Include="Events\VerifyMultipleAllDayEventsInThreeDays_CalendarView.cs" />
     <Compile Include="Events\VerifyMultipleNormalEventsInThreeDays_CalendarView.cs" />
     <Compile Include="Events\VerifyNormalEventSwitchingDaylightSavingTime_CalendarView.cs" />

@@ -16,7 +16,7 @@ namespace FeatherWidgets.TestUI.Arrangements
     /// <summary>
     /// Executes Server Side operations for VerifyRecurrentNormalEventSwitchingDaylightSavingTime_CalendarView UI Test.
     /// </summary>
-    public class VerifyRecurrentNormalEventSwitchingDaylightSavingTime_CalendarView
+    public class VerifyRecurrentNormalEventSwitchingDaylightSavingTime_CalendarView : TestArrangementBase
     {
         /// <summary>
         /// Creates an Event.
