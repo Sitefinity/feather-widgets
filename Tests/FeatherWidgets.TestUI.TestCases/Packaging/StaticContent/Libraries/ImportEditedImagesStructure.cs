@@ -42,10 +42,6 @@ namespace FeatherWidgets.TestUI.TestCases.Packaging.StaticContent
             BAT.Wrappers().Backend().Images().ImagesEdit().SetAlternativeText(NewName);
             BAT.Wrappers().Backend().Images().ImagesEdit().Publish();
 
-            BAT.Macros().NavigateTo().Pages(this.Culture);
-            BAT.Wrappers().Backend().Pages().PagesWrapper().OpenPageZoneEditor(PageName);
-            BATFeather.Wrappers().Backend().Pages().PageZoneEditorWrapper().AddMvcWidgetHybridModePage(ImageGalleryWidget);
-            BAT.Wrappers().Backend().Pages().PageZoneEditorWrapper().PublishPage();
             BAT.Macros().NavigateTo().CustomPage("~/" + PageName.ToLower(), true, this.Culture);           
             Assert.IsTrue(BAT.Wrappers().Frontend().Images().ImageGallery().IsImagePresentByAlt(NewNameFrontend));
         }

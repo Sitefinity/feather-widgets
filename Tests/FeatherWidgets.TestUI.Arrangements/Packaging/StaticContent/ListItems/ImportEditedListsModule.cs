@@ -22,7 +22,8 @@ namespace FeatherWidgets.TestUI.Arrangements
         {
             Guid listId = ServerOperations.Lists().CreateList("TestList");
             ServerOperations.Lists().CreateListItem(listId, "TestListItem", "TestListItem");
-            ServerOperations.Pages().CreatePage(PageName);
+            Guid pageId = ServerOperations.Pages().CreatePage(PageName);
+            ServerOperationsFeather.Pages().AddListsWidgetToPage(pageId);
             ServerOperationsFeather.DynamicModules().ExtractStructureZip(PackageResource, InstallationPath);
             ServerOperations.SystemManager().RestartApplication(false);
             WaitUtils.WaitForSitefinityToStart(HttpContext.Current.Request.Url.GetLeftPart(UriPartial.Authority)

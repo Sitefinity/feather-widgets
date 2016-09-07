@@ -15,7 +15,7 @@ namespace FeatherWidgets.TestUI.TestCases.Packaging.DynamicContent
     /// Import edited module FlatModuleAllFields
     /// </summary>
     [TestClass]
-    public class ImportEditedFlatModuleAllFieldsWithNewType_ : FeatherTestCase
+    public class ImportEditedModuleAllFieldsWithNewType_ : FeatherTestCase
     {
         /// <summary>
         /// Import module FlatModuleAllFields
@@ -23,7 +23,7 @@ namespace FeatherWidgets.TestUI.TestCases.Packaging.DynamicContent
         [TestMethod,
         Owner(FeatherTeams.SitefinityTeam6),
         TestCategory(FeatherTestCategories.Packaging)]
-        public void ImportEditedFlatModuleAllFieldsWithNewType()
+        public void ImportEditedModuleAllFieldsWithNewType()
         {
             BAT.Wrappers().Backend().ModuleBuilder().ModuleInitializerWrapper().NavigateToModuleBuilderPage();
             BAT.Arrange(this.TestName).ExecuteArrangement("ImportNewPackage");

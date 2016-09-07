@@ -21,7 +21,8 @@ namespace FeatherWidgets.TestUI.Arrangements
         [ServerSetUp]
         public void ServerSetUp()
         {
-            ServerOperations.Pages().CreatePage(PageName);
+            Guid pageId = ServerOperations.Pages().CreatePage(PageName);
+            ServerOperationsFeather.Pages().AddNewsWidgetToPage(pageId);
             ServerOperations.News().CreateNewsItem("TestNews");
             ServerOperationsFeather.DynamicModules().ExtractStructureZip(PackageResource, InstallationPath);
             ServerOperations.SystemManager().RestartApplication(false);

@@ -61,11 +61,6 @@ namespace FeatherWidgets.TestUI.TestCases.Packaging.StaticContent
             BAT.Wrappers().Backend().Blogs().BlogPostsWrapper().SetTitle(BlogPostNew);
             BAT.Wrappers().Backend().Blogs().BlogPostsWrapper().Publish();
 
-            BAT.Macros().NavigateTo().Pages(this.Culture);
-            BAT.Wrappers().Backend().Pages().PagesWrapper().OpenPageZoneEditor(pageName);
-            BATFeather.Wrappers().Backend().Pages().PageZoneEditorWrapper().AddMvcWidgetHybridModePage(blogWidget);
-            BATFeather.Wrappers().Backend().Pages().PageZoneEditorWrapper().AddMvcWidgetHybridModePage(blogPostWidget);
-            BAT.Wrappers().Backend().Pages().PageZoneEditorWrapper().PublishPage();
             BAT.Macros().NavigateTo().CustomPage("~/" + pageName.ToLower(), true, this.Culture);
             this.VerifyItemsOnFrontEnd(BlogNew);
             this.VerifyItemsOnFrontEnd(BlogPostNew);

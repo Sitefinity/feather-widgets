@@ -41,11 +41,7 @@ namespace FeatherWidgets.TestUI.TestCases.Packaging.StaticContent
             BAT.Wrappers().Backend().News().NewsCreateScreenWrapper().AssertFieldsAreVisible(CustomFieldsNames.FieldNamesInItemsScreen);
             BAT.Wrappers().Backend().News().NewsCreateScreenWrapper().SetNewsTitle(NewsTitle);
             BAT.Wrappers().Backend().News().NewsCreateScreenWrapper().PublishNewsItem();
-
-            BAT.Macros().NavigateTo().Pages(this.Culture);
-            BAT.Wrappers().Backend().Pages().PagesWrapper().OpenPageZoneEditor(PageName);
-            BATFeather.Wrappers().Backend().Pages().PageZoneEditorWrapper().AddMvcWidgetHybridModePage(NewsWidget);
-            BAT.Wrappers().Backend().Pages().PageZoneEditorWrapper().PublishPage();
+         
             BAT.Macros().NavigateTo().CustomPage("~/" + PageName.ToLower(), true, this.Culture);
             this.VerifyItemsOnFrontEnd(NewsTitle);
         }

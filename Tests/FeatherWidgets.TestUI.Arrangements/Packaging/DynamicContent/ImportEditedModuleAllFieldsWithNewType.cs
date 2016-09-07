@@ -12,7 +12,7 @@ namespace FeatherWidgets.TestUI.Arrangements
     /// <summary>
     /// Import module edited FlatModuleAllFields
     /// </summary>
-    public class ImportEditedFlatModuleAllFieldsWithNewType : TestArrangementBase
+    public class ImportEditedModuleAllFieldsWithNewType : TestArrangementBase
     {
         /// <summary>
         /// Server side setup.
