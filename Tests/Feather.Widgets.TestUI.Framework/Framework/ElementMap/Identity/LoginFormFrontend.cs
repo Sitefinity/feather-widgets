@@ -63,7 +63,7 @@ namespace Feather.Widgets.TestUI.Framework.Framework.ElementMap.Identity
         {
             get
             {
-                return this.Get<HtmlButton>("TagName=button", "type=submit", "InnerText=Log in");
+                return this.Find.ByExpression<HtmlButton>("class=btn btn-primary");
             }
         }
 

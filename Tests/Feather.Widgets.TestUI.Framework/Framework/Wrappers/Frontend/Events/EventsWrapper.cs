@@ -81,6 +81,21 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Frontend.Events
         }
 
         /// <summary>
+        /// Gets the inner text of the week start day
+        /// </summary>
+        /// <returns>Week start day in calendar view</returns>
+        public string GetWeekStartDayInCalendarView()
+        {
+            HtmlDiv frontendPageMainDiv = BAT.Wrappers().Frontend().Pages().PagesWrapperFrontend().GetPageContent();
+            var calendarHeaderWrap = frontendPageMainDiv.Find.ByExpression<HtmlDiv>("class=~k-scheduler-header-wrap");
+            var calendarTable = calendarHeaderWrap.ChildNodes.First();
+            var calendarTableBody = calendarTable.ChildNodes.First();
+            var calendarTableRow = calendarTableBody.ChildNodes.First();
+            var calendarWeekStartDay = calendarTableRow.ChildNodes.First().InnerText;
+            return calendarWeekStartDay;
+        }
+
+        /// <summary>
         /// Gets inner text for event title
         /// </summary>
         /// <param name="eventId">Event Id</param>
@@ -113,10 +128,39 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Frontend.Events
         public string GetEventTitleInDetailsView()
         {
             HtmlDiv frontendPageMainDiv = BAT.Wrappers().Frontend().Pages().PagesWrapperFrontend().GetPageContent();
-            var tempContainer = frontendPageMainDiv.Find.ByExpression<HtmlControl>("tagname=h3", "class=sf-event-title");
+            var tempContainer = frontendPageMainDiv.Find.ByExpression<HtmlControl>("tagname=h3");
             var eventTitle = tempContainer.ChildNodes.First().InnerText;
             return eventTitle;
+        }
 
+        /// <summary>
+        /// Get event content in calendar detail's view
+        /// </summary>
+        /// <returns>Event content</returns>
+        public void VerifyEventConentInDetailsView(string eventContent)
+        {
+            HtmlDiv frontendPageMainDiv = BAT.Wrappers().Frontend().Pages().PagesWrapperFrontend().GetPageContent().AssertContainsText(eventContent, "Content is not visible on page");
+        }
+
+        /// <summary>
+        /// Verify CSS class name in calendar widget on page
+        /// </summary>
+        /// <param name="cssClassName">CSS class name</param>
+        public void VerifyCssClassInCalendarWidgetOnPage(string cssClassName)
+        {
+            HtmlDiv frontendPageMainDiv = BAT.Wrappers().Frontend().Pages().PagesWrapperFrontend().GetPageContent();
+            var frontendPageChildDiv = frontendPageMainDiv.ChildNodes.First();
+            var actualCssClassName = frontendPageChildDiv.Attributes.Single(a => a.Name == "class").Value;
+            Assert.AreEqual(cssClassName, actualCssClassName);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        public void VerifyCalendarsAreNotVisible()
+        {
+            HtmlDiv frontendPageMainDiv = BAT.Wrappers().Frontend().Pages().PagesWrapperFrontend().GetPageContent();
         }
 
         /// <summary>
@@ -473,6 +517,10 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Frontend.Events
             this.OpenMonthViewInCalendarSelector();
         }
 
+        /// <summary>
+        /// Gets Local timezone offset
+        /// </summary>
+        /// <returns>Local timezone offset</returns>
         public int LocalTimeZoneOffset()
         {
             HtmlDiv frontendPageMainDiv = BAT.Wrappers().Frontend().Pages().PagesWrapperFrontend().GetPageContent();
@@ -480,6 +528,18 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Frontend.Events
             var temp = frontendPageChildDiv.Attributes.Single(a => a.Name == "data-sf-localtimezoneoffset").Value;
             int localTimeZonneOffset = Int32.Parse(temp);
             return localTimeZonneOffset;
+        }
+
+        /// <summary>
+        /// Filter events by calendar
+        /// </summary>
+        /// <param name="calendarTitle">calendar title</param>
+        public void FilterEventsByCalendar(string calendarTitle)
+        {
+            HtmlDiv frontendPageMainDiv = BAT.Wrappers().Frontend().Pages().PagesWrapperFrontend().GetPageContent();
+            HtmlDiv calendarList = frontendPageMainDiv.Find.ByExpression<HtmlDiv>("class=list-unstyled nav nav-pills nav-stacked", "data-sf-role=calendarlist-wrapper");
+            var targetCalendar = calendarList.Find.ByExpression<HtmlDiv>("class=sf-calendarList-item", "innerText=" + calendarTitle);
+            targetCalendar.Click();
         }
 
         /// <summary>
@@ -494,6 +554,42 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Frontend.Events
             bool isAppointmentVisible = false;
             isAppointmentVisible = (appointment != null) && (appointment.IsVisible());
             return isAppointmentVisible;
+        }
+
+        /// <summary>
+        /// Determines whether [is item present] [the specified item title].
+        /// </summary>
+        /// <param name="itemTitle">The item title.</param>
+        /// <returns></returns>
+        public Boolean IsItemPresent(string itemTitle)
+        {
+            var item = ActiveBrowser.Find.ByExpression<HtmlAnchor>("tagName=a", "innerText=" + itemTitle);
+            if (item != null && item.IsVisible())
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+
+        /// <summary>
+        /// Determines whether [is table view present] [the specified table class].
+        /// </summary>
+        /// <param name="tableClass">The table class.</param>
+        /// <returns></returns>
+        public Boolean IsTableViewPresent(string tableClass)
+        {
+            var tableView = ActiveBrowser.Find.ByExpression<HtmlTable>("tagName=table", "class=~" + tableClass);
+            if (tableView != null && tableView.IsVisible())
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
         }
     }
 }

@@ -26,6 +26,15 @@ namespace FeatherWidgets.TestUI.Arrangements
                 + (HostingEnvironment.ApplicationVirtualPath.TrimEnd('/') ?? string.Empty));
         }
 
+        /// Load the application.
+        /// </summary>
+        [ServerArrangement]
+        public void LoadApplication()
+        {
+            WaitUtils.WaitForSitefinityToStart(HttpContext.Current.Request.Url
+                .GetLeftPart(UriPartial.Authority) + (HostingEnvironment.ApplicationVirtualPath.TrimEnd('/') ?? string.Empty));
+        }
+
         /// <summary>
         /// Cleans up the resources on the server used for this arrangement
         /// </summary>
@@ -52,10 +61,10 @@ namespace FeatherWidgets.TestUI.Arrangements
             ServerOperations.Taxonomies().DeleteHierarchicalTaxonomy(hierarchicalClassification);
             ServerOperations.Taxonomies().DeleteFlatTaxonomy(flatClassification);
         }
-     
+
         private const string InstallationPath = @"App_Data\Sitefinity";
         private const string PackageResource = "FeatherWidgets.TestUtilities.Data.Packaging.Structure.NewsStructure.zip";
-        private string tempFolderPath = AppDomain.CurrentDomain.BaseDirectory + @"App_Data\Sitefinity\Export";
+        private string tempFolderPath = AppDomain.CurrentDomain.BaseDirectory + @"App_Data\Sitefinity\Deployment";
         private string[] widgetTemplatesNames = new string[] 
                                                    { 
                                                         "List.NewsListNew", "Detail.DetailPageNewNews"

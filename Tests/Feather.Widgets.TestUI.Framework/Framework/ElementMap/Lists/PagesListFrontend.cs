@@ -52,11 +52,10 @@ namespace Feather.Widgets.TestUI.Framework.Framework.ElementMap.Lists
         {
             get
             {
-                return this.Find.AllByTagName<HtmlDiv>("div").Where(d => d.ChildNodes.Count == 3
+                return this.Find.AllByTagName<HtmlDiv>("div").Where(d => d.ChildNodes.Count == 2
                                                                         && d.ChildNodes[0].TagName.Equals("h3")
                                                                         && d.ChildNodes[0].ChildNodes[0].TagName.Equals("span")
-                                                                        && d.ChildNodes[1].TagName.Equals("div")
-                                                                        && d.ChildNodes[2].TagName.Equals("div")).SingleOrDefault();
+                                                                        && d.ChildNodes[1].TagName.Equals("div")).SingleOrDefault();
             }
         }
 

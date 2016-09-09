@@ -381,8 +381,15 @@
     <Compile Include="EmailCampaigns\TryToUnsubscribeNotExistingSubscriber.cs" />
     <Compile Include="EmailCampaigns\UnsubscribeWidgetOnFoundationAndSemanticPage.cs" />
     <Compile Include="EmailCampaigns\UnsubscribeWidgetOnHybridPageAndSetCssClass.cs" />
+    <Compile Include="Events\CalendarWidgetVerifyEventItemInDifferentPageInPreviewModeAndFrontendPage.cs" />
+    <Compile Include="Events\VerifyAllowUserToSwitchViews_CalendarView.cs" />
+    <Compile Include="Events\VerifyAllowUsersToFilterByCalendars_CalendarView.cs" />
+    <Compile Include="Events\VerifyDefaultView_CalendarView.cs" />
+    <Compile Include="Events\FilterEventsByCalendar.cs" />
     <Compile Include="Events\VerifyAllDayEventsInOneDay_CalendarView.cs" />
     <Compile Include="Events\VerifyAllDayEventSwitchingDaylightSavingTime_CalendarView.cs" />
+    <Compile Include="Events\VerifyCssClass_CalendarView.cs" />
+    <Compile Include="Events\VerifyEventDetailsCssClass_CalendarWidget.cs" />
     <Compile Include="Events\VerifyMultipleAllDayEventsInThreeDays_CalendarView.cs" />
     <Compile Include="Events\VerifyMultipleNormalEventsInThreeDays_CalendarView.cs" />
     <Compile Include="Events\VerifyNormalEventSwitchingDaylightSavingTime_CalendarView.cs" />
@@ -413,6 +420,7 @@
     <Compile Include="Events\EventsTestsCommon.cs" />
     <Compile Include="Events\SelectParticularEventOnPage.cs" />
     <Compile Include="Events\VerifyPagingOnFrontendPageForEventsWidget.cs" />
+    <Compile Include="Events\VerifyWeekStartDay_CalendarView.cs" />
     <Compile Include="FeedWidget\DragAndDropFeedWidgetAndSetDefaultRssOnPage.cs" />
     <Compile Include="Forms\CAPTCHA\ChangeCAPTCHATemplate.cs" />
     <Compile Include="Forms\Checkboxes\AddAndRemoveChoicesToCheckBoxField.cs" />
@@ -547,8 +555,8 @@
     <Compile Include="News\VerifyNoLimitAndPaginationListSettingsOnFrontendPageForNewsWidget.cs" />
     <Compile Include="News\VerifyNewsItemsWhenOpenDetailsModeOfDynamicItem.cs" />
     <Compile Include="News\VerifyPagingOnFrontendPageForNewsWidget.cs" />
-    <Compile Include="Packaging\DynamicContent\ExportImportFlatModuleAllFieldsFrontendCheck.cs" />
-    <Compile Include="Packaging\DynamicContent\ImportEditedFlatModuleAllFieldsWithNewType.cs" />
+    <Compile Include="Packaging\DynamicContent\ExportImportModuleAllFieldsFrontendCheck.cs" />
+    <Compile Include="Packaging\DynamicContent\ImportEditedModuleAllFieldsWithNewType.cs" />
     <Compile Include="Packaging\DynamicContent\ImportFlatModuleAllFields.cs" />
     <Compile Include="Packaging\DynamicContent\ImportModuleWithEditedWidgetTemplate.cs" />
     <Compile Include="Packaging\StaticContent\BlogPosts\ImportEditedBlogAndBlogPostsStructure.cs" />

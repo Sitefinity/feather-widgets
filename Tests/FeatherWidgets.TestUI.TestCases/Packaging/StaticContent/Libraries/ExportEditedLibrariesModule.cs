@@ -21,7 +21,7 @@ namespace FeatherWidgets.TestUI.TestCases.Packaging.StaticContent
         TestCategory(FeatherTestCategories.Packaging)]
         public void ExportEditedLibrariesModule()
         {
-            BAT.Macros().NavigateTo().Modules().Documents(this.Culture);
+            RuntimeSettingsModificator.ExecuteWithClientTimeout(200000, () => BAT.Macros().NavigateTo().Modules().Documents(this.Culture));                   
             BAT.Wrappers().Backend().CustomFields().CustomFieldsWrapper().OpenCustomFieldsSection(CustomFieldsLinkID);
             BAT.Wrappers().Backend().CustomFields().CustomFieldsWrapper().DeleteField("Short");
             BAT.Wrappers().Backend().CustomFields().CustomFieldsWrapper()
@@ -55,6 +55,7 @@ namespace FeatherWidgets.TestUI.TestCases.Packaging.StaticContent
         /// </summary>
         protected override void ServerSetup()
         {
+            BAT.Arrange(this.TestName).ExecuteArrangement("LoadApplication");
             RuntimeSettingsModificator.ExecuteWithClientTimeout(200000, () => BAT.Macros().User().EnsureAdminLoggedIn());
             BAT.Arrange(this.TestName).ExecuteSetUp();
         }

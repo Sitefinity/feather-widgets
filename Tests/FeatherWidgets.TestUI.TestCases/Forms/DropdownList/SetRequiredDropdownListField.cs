@@ -21,7 +21,7 @@ namespace FeatherWidgets.TestUI.TestCases.Forms.DropdownList
         [TestMethod,
         Owner(FeatherTeams.FeatherTeam),
         TestCategory(FeatherTestCategories.Bootstrap),
-        TestCategory(FeatherTestCategories.Forms)]
+        TestCategory(FeatherTestCategories.Forms), Ignore]
         public void SetRequiredDropdownListField()
         {
             BAT.Macros().NavigateTo().Modules().Forms(this.Culture);

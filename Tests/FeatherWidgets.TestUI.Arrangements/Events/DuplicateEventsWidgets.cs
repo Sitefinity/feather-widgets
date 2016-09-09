@@ -13,7 +13,7 @@ namespace FeatherWidgets.TestUI.Arrangements
     /// <summary>
     /// Executes Server Side operations for DuplicateEventsWidgets UI Test.
     /// </summary>
-    public class DuplicateEventsWidgets
+    public class DuplicateEventsWidgets : TestArrangementBase
     {
         /// <summary>
         /// Creates an Event.

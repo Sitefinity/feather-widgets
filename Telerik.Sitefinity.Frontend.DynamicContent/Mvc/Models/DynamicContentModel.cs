@@ -129,6 +129,15 @@ namespace Telerik.Sitefinity.Frontend.DynamicContent.Mvc.Models
             return new DynamicContentListViewModel();
         }
 
+        /// <inheritdoc />
+        protected override IManager GetManager()
+        {
+            if (this.ContentType == null)
+                throw new InvalidOperationException("Cannot resolve manager because ContentType is not set.");
+
+            return this.GetManagerInstance();
+        }
+
         /// <summary>
         /// Gets the manager instance.
         /// </summary>
