@@ -575,6 +575,16 @@
     <Compile Include="Packaging\StaticContent\News\ImportEditedWidgetTemplateNewsStructure.cs" />
     <Compile Include="Packaging\StaticContent\Pages\ImportEditedPages.cs" />
     <Compile Include="Packaging\StaticContent\Pages\ExportEditedPages.cs" />
+    <Compile Include="RevisionHistory\DeleteDraftAndPublishVersionInDetailRevisionHistoryPageOnMvcPageTemplate.cs" />
+    <Compile Include="RevisionHistory\DeletePublishAndDraftVersionInRevisionHistoryOnMvcPageTemplate.cs" />
+    <Compile Include="RevisionHistory\OpenRevisionHistoryFromActionMenuToTemplateBasedOnLayoutFile.cs" />
+    <Compile Include="RevisionHistory\OpenRevisionHistoryFromMvcPageTemplateEditMode.cs" />
+    <Compile Include="RevisionHistory\VerifyDeletePublishedVersionFromRevisionHistoryMvcPageTemplate.cs" />
+    <Compile Include="RevisionHistory\VerifyDetailedInformationOfMvcPageTemplateRevisionHistoryVersion.cs" />
+    <Compile Include="RevisionHistory\VerifyOlderAndNewerVersionInRevisionHistoryOnMvcPageTemplate.cs" />
+    <Compile Include="RevisionHistory\VerifyRevertToThisVersionInRevisionHistoryOnMvcPageTemplate.cs" />
+    <Compile Include="RevisionHistory\WriteEditDeleteCancelHideNoteInDetailRevisionHistoryPageOfMvcPageTemplate.cs" />
+    <Compile Include="RevisionHistory\WriteEditDeleteCancelNoteMvcPageTemplateVersionInRevisionHistoryWindow.cs" />
     <Compile Include="ScriptsAndStyles\AddEmbedCodeWidgetToPageAndWriteAndRemoveJavaScript.cs" />
     <Compile Include="ScriptsAndStyles\WriteAndEditCssInEmbedCodeWidget.cs" />
     <Compile Include="EmailCampaigns\DragAndDropSubscribeFormWidgetOnPageAndSelectMailingList.cs" />
