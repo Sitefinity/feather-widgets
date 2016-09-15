@@ -21,7 +21,7 @@ namespace Telerik.Sitefinity.Frontend.Events.Mvc.Helpers
     /// </summary>
     internal class EventSchedulerControllerHelper
     {
-        internal static EventSchedulerModel LoadModel(Guid widgetId, CultureInfo culture)
+        public static EventSchedulerModel LoadModel(Guid widgetId, CultureInfo culture)
         {
             var pageManager = PageManager.GetManager();
             var objectData = pageManager.GetControls<ObjectData>().SingleOrDefault(p => p.Id == widgetId);
@@ -50,7 +50,7 @@ namespace Telerik.Sitefinity.Frontend.Events.Mvc.Helpers
         /// Get controller widget id
         /// </summary>
         /// <returns></returns>
-        internal static Guid GetWidgetId(Controller controller)
+        public static Guid GetWidgetId(Controller controller)
         {
             Guid id = Guid.Empty;
             var pageManager = PageManager.GetManager();
@@ -87,7 +87,7 @@ namespace Telerik.Sitefinity.Frontend.Events.Mvc.Helpers
         /// Gets whether the page is in edit mode.
         /// </summary>
         /// <value>The is edit.</value>
-        internal static bool IsEdit
+        private static bool IsEdit
         {
             get
             {
@@ -101,6 +101,6 @@ namespace Telerik.Sitefinity.Frontend.Events.Mvc.Helpers
             }
         }
 
-        internal const string ControllerKey = "sf_cntrl_id";
+        private const string ControllerKey = "sf_cntrl_id";
     }
 }
