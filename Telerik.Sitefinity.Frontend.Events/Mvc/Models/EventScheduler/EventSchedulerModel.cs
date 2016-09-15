@@ -4,17 +4,21 @@ using System.Globalization;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Reflection;
-using Newtonsoft.Json;
-using ServiceStack.Text;
+using System.Web.Mvc;
 using Telerik.Sitefinity.Data;
 using Telerik.Sitefinity.Data.Linq.Dynamic;
 using Telerik.Sitefinity.Events.Model;
+using Telerik.Sitefinity.Frontend.Events.Mvc.Controllers;
 using Telerik.Sitefinity.Frontend.Mvc.Models;
 using Telerik.Sitefinity.Model;
 using Telerik.Sitefinity.Modules;
 using Telerik.Sitefinity.Modules.Events;
+using Telerik.Sitefinity.Modules.Pages;
+using Telerik.Sitefinity.Mvc.Proxy;
+using Telerik.Sitefinity.Pages.Model;
+using Telerik.Sitefinity.Security.Claims;
 using Telerik.Sitefinity.Services;
-using Telerik.Sitefinity.Taxonomies.Model;
+using Telerik.Sitefinity.Web;
 using Telerik.Sitefinity.Web.Model;
 
 namespace Telerik.Sitefinity.Frontend.Events.Mvc.Models.EventScheduler
@@ -25,72 +29,6 @@ namespace Telerik.Sitefinity.Frontend.Events.Mvc.Models.EventScheduler
     public class EventSchedulerModel : ContentModelBase, IEventSchedulerModel
     {
         #region Properties
-
-        /// <summary>
-        /// Gets or sets the start date.
-        /// </summary>
-        /// <returns>The start date</returns>
-        [JsonIgnore]
-        public virtual DateTime StartDate
-        {
-            get
-            {
-                return this.start;
-            }
-
-            set
-            {
-                this.start = value.ToUniversalTime();
-            }
-        }
-        
-        /// <summary>
-        /// Gets or sets the end date.
-        /// </summary>
-        /// <returns>The end date</returns>
-        [JsonIgnore]
-        public virtual DateTime EndDate
-        {
-            get
-            {
-                return this.end;
-            }
-
-            set
-            {
-                this.end = value.ToUniversalTime();
-            }
-        }
-
-        /// <summary>
-        /// Gets or sets the calendar id list.
-        /// </summary>
-        /// <returns>The calendar list</returns>
-        [JsonIgnore]
-        public virtual Guid[] CalendarList { get; set; }
-
-        /// <summary>
-        /// Gets or sets the ui culture.
-        /// </summary>
-        /// <returns>The ui culture</returns>
-        [JsonIgnore]
-        public virtual CultureInfo UiCulture
-        {
-            get
-            {
-                if (this.uiCulture == null)
-                {
-                    this.uiCulture = CultureInfo.CurrentUICulture;
-                }
-
-                return this.uiCulture;
-            }
-
-            set
-            {
-                this.uiCulture = value;
-            }
-        }
 
         /// <summary>
         /// Gets or sets the type of the content.
@@ -107,6 +45,28 @@ namespace Telerik.Sitefinity.Frontend.Events.Mvc.Models.EventScheduler
 
             set
             {
+            }
+        }
+
+        /// <summary>
+        /// Gets or sets the ui culture.
+        /// </summary>
+        /// <returns>The ui culture</returns>
+        public virtual CultureInfo UICulture
+        {
+            get
+            {
+                if (this.uiCulture == null)
+                {
+                    this.uiCulture = CultureInfo.CurrentUICulture;
+                }
+
+                return this.uiCulture;
+            }
+
+            set
+            {
+                this.uiCulture = value;
             }
         }
 
@@ -222,20 +182,23 @@ namespace Telerik.Sitefinity.Frontend.Events.Mvc.Models.EventScheduler
         /// Gets the scheduler events.
         /// </summary>
         /// <returns>List view model</returns>
-        public virtual IList<EventOccurrenceViewModel> GetSchedulerEvents()
+        public virtual IList<EventOccurrenceViewModel> GetEvents(IEventsFilter filter)
         {
+            EventsFilter eventsFilter = filter as EventsFilter;
+
+            this.UICulture = eventsFilter.UICulture;
             var viewModel = this.CreateListViewModel(null, 1);
             var events = viewModel.Items.Select(i => i.DataItem as Event);
 
-            if (this.CalendarList != null && this.CalendarList.Length > 0)
+            if (eventsFilter.CalendarList != null && eventsFilter.CalendarList.Length > 0)
             {
-                events = events.Where(p => p.Parent != null && this.CalendarList.Contains(p.Parent.Id));
+                events = events.Where(p => p.Parent != null && eventsFilter.CalendarList.Contains(p.Parent.Id));
             }
 
             var manager = (EventsManager)this.GetManager();
 
             // get event occurrences based on widget selected view
-            var allOccurrences = manager.GetEventsOccurrences(events, this.StartDate, this.EndDate.AddDays(1)).AsQueryable<EventOccurrence>();
+            var allOccurrences = manager.GetEventsOccurrences(events, eventsFilter.StartDate, eventsFilter.EndDate.AddDays(1)).AsQueryable<EventOccurrence>();
 
             // get filter expression used for events
             string filterExpression = this.CompileEventsOccurrencesFilterExpression();
@@ -253,7 +216,7 @@ namespace Telerik.Sitefinity.Frontend.Events.Mvc.Models.EventScheduler
                 allOccurrences = allOccurrences.Where(filterExpression);
             }
 
-            var eventOccurrences = allOccurrences.Select(e => new EventOccurrenceViewModel(e, this.UiCulture));
+            var eventOccurrences = allOccurrences.Select(e => new EventOccurrenceViewModel(e, this.UICulture));
             return eventOccurrences.ToList();
         }
 
@@ -261,15 +224,18 @@ namespace Telerik.Sitefinity.Frontend.Events.Mvc.Models.EventScheduler
         /// Gets the calendars.
         /// </summary>
         /// <returns>List view model</returns>
-        public virtual IList<EventCalendarViewModel> GetCalendars()
+        public virtual IList<EventCalendarViewModel> GetCalendars(IEventsFilter filter)
         {
+            EventsFilter eventsFilter = filter as EventsFilter;
+
+            this.UICulture = eventsFilter.UICulture;
             var viewModel = this.CreateListViewModel(null, 1);
             var manager = (EventsManager)this.GetManager();
             var eventCalendarsIds = viewModel.Items.Select(i => i.DataItem as Event).Where(p => p != null)
                 .GroupBy(p => p.Parent.Id).Select(p => p.Key);
 
             var eventCalendars = manager.GetCalendars().Where(p => eventCalendarsIds.Contains(p.Id));
-            var calendars = eventCalendars.Select(e => new EventCalendarViewModel(e, this.UiCulture)).OrderBy(p => p.Title, StringComparer.Create(this.UiCulture, true));
+            var calendars = eventCalendars.Select(e => new EventCalendarViewModel(e, this.UICulture)).OrderBy(p => p.Title, StringComparer.Create(this.UICulture, true));
 
             return calendars.ToList();
         }
@@ -361,13 +327,13 @@ namespace Telerik.Sitefinity.Frontend.Events.Mvc.Models.EventScheduler
             CultureInfo uiCulture;
             if (SystemManager.CurrentContext.AppSettings.Multilingual)
             {
-                if (this.UiCulture == null)
+                if (this.UICulture == null)
                 {
                     uiCulture = System.Globalization.CultureInfo.CurrentUICulture;
                 }
                 else
                 {
-                    uiCulture = this.UiCulture;
+                    uiCulture = this.UICulture;
                 }
             }
             else
@@ -408,14 +374,12 @@ namespace Telerik.Sitefinity.Frontend.Events.Mvc.Models.EventScheduler
             return info;
         }
 
-        private DateTime start;
-        private DateTime end;
-        private CultureInfo uiCulture;
         private const string DefaultSortExpression = "EventStart ASC";
         private string sortExpression = DefaultSortExpression;
         private ListDisplayMode listDisplayMode = ListDisplayMode.All;
         private bool allowCalendarExport = true;
         private bool allowChangeCalendarView = true;
         private bool allowCalendarFilter = true;
+        private CultureInfo uiCulture;
     }
 }

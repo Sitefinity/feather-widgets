@@ -16,7 +16,7 @@ namespace Telerik.Sitefinity.Frontend.Events.Mvc.Models.EventScheduler
         {
             this.CalendarId = calendar.Id;
             this.Color = calendar.Color;
-            this.Title = calendar.Title[uiCulture.Name];
+            this.Title = calendar.Title.GetString(uiCulture, true);
         }
 
         /// <summary>
