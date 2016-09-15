@@ -41,6 +41,7 @@ namespace FeatherWidgets.TestIntegration.Taxonomies
         }
 
         [Test]
+        [Category(TestCategories.Taxonomies)]
         [Author(FeatherTeams.SitefinityTeam2)]
         [Description("Verifies that taxons belonging to a flat taxonomy with spaced title, assigned to a dynamic content type are available at dynamic content mvc detail widget.")]
         public void SpacedTitleFlatTaxonomy_DynamicContentWidget()
@@ -80,6 +81,7 @@ namespace FeatherWidgets.TestIntegration.Taxonomies
         }
 
         [Test]
+        [Category(TestCategories.Taxonomies)]
         [Author(FeatherTeams.SitefinityTeam2)]
         [Description("Verifies that taxons belonging to a hierarchical taxonomy with spaced title, assigned to a dynamic content type are available at dynamic content mvc detail widget.")]
         public void SpacedTitleHierarchicalTaxonomy_DynamicContentWidget()
