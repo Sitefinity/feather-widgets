@@ -177,7 +177,7 @@
     <Compile Include="InterfaceMappings.cs" />
     <Compile Include="Mvc\Controllers\EventController.cs" />
     <Compile Include="Mvc\Controllers\EventSchedulerController.cs" />
-    <Compile Include="Mvc\Helpers\EventSchedulerControllerHelper.cs" />
+    <Compile Include="Mvc\Helpers\EventSchedulerHelper.cs" />
     <Compile Include="Mvc\Helpers\EventHelper.cs" />
     <Compile Include="Mvc\Models\EventScheduler\EventCalendarViewModel.cs" />
     <Compile Include="Mvc\Models\EventScheduler\EventsFilter.cs">

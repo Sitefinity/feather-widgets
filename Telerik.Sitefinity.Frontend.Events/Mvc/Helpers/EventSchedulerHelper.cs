@@ -19,9 +19,9 @@ namespace Telerik.Sitefinity.Frontend.Events.Mvc.Helpers
     /// <summary>
     /// This class contains functionality for working with event items.
     /// </summary>
-    internal class EventSchedulerControllerHelper
+    internal class EventSchedulerHelper
     {
-        public static EventSchedulerModel LoadModel(Guid widgetId, CultureInfo culture)
+        public static IEventSchedulerModel LoadModel(Guid widgetId, CultureInfo culture)
         {
             var pageManager = PageManager.GetManager();
             var objectData = pageManager.GetControls<ObjectData>().SingleOrDefault(p => p.Id == widgetId);
@@ -29,7 +29,7 @@ namespace Telerik.Sitefinity.Frontend.Events.Mvc.Helpers
             if (objectData is PageDraftControl && ClaimsManager.IsBackendUser() == false)
                 return null;
 
-            EventSchedulerModel model = new EventSchedulerModel();
+            IEventSchedulerModel model = null;
 
             if (objectData != null)
             {
@@ -39,7 +39,7 @@ namespace Telerik.Sitefinity.Frontend.Events.Mvc.Helpers
                 {
                     var schedullerController = mvcProxy.Controller as EventSchedulerController;
                     if (schedullerController != null)
-                        model = schedullerController.Model as EventSchedulerModel;
+                        model = schedullerController.Model;
                 }
             }
 

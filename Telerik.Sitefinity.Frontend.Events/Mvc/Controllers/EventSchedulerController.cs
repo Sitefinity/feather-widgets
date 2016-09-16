@@ -176,15 +176,20 @@ namespace Telerik.Sitefinity.Frontend.Events.Mvc.Controllers
         [Route("web-interface/events/")]
         public ActionResult GetEvents(EventsFilter filter)
         {
-            var eventSchedulerModel = EventSchedulerControllerHelper.LoadModel(filter.Id, filter.UICulture);
-            var events = eventSchedulerModel.GetEvents(filter);
+            JsonResult json = new JsonResult();
 
-            JsonResult json = new JsonResult()
+            var eventSchedulerModel = EventSchedulerHelper.LoadModel(filter.Id, filter.UICulture);
+            if (eventSchedulerModel != null)
             {
-                Data = events,
-                JsonRequestBehavior = System.Web.Mvc.JsonRequestBehavior.AllowGet,
-                MaxJsonLength = int.MaxValue
-            };
+                var events = eventSchedulerModel.GetEvents(filter);
+
+                json = new JsonResult()
+                {
+                    Data = events,
+                    JsonRequestBehavior = System.Web.Mvc.JsonRequestBehavior.AllowGet,
+                    MaxJsonLength = int.MaxValue
+                };
+            }
 
             return json;
         }
@@ -197,15 +202,19 @@ namespace Telerik.Sitefinity.Frontend.Events.Mvc.Controllers
         [Route("web-interface/calendars/")]
         public ActionResult GetCalendars(EventsFilter filter)
         {
-            var eventSchedulerModel = EventSchedulerControllerHelper.LoadModel(filter.Id, filter.UICulture);
-            var calendars = eventSchedulerModel.GetCalendars(filter);
+            JsonResult json = new JsonResult();
 
-            JsonResult json = new JsonResult()
+            var eventSchedulerModel = EventSchedulerHelper.LoadModel(filter.Id, filter.UICulture);
+            if (eventSchedulerModel != null)
             {
-                Data = calendars,
-                JsonRequestBehavior = System.Web.Mvc.JsonRequestBehavior.AllowGet,
-                MaxJsonLength = int.MaxValue
-            };
+                var calendars = eventSchedulerModel.GetCalendars(filter);
+                json = new JsonResult()
+                {
+                    Data = calendars,
+                    JsonRequestBehavior = System.Web.Mvc.JsonRequestBehavior.AllowGet,
+                    MaxJsonLength = int.MaxValue
+                };
+            }
 
             return json;
         }
@@ -238,7 +247,7 @@ namespace Telerik.Sitefinity.Frontend.Events.Mvc.Controllers
         protected virtual void InitializeListViewBag(string redirectPageUrl)
         {
             var timezoneInfo = UserManager.GetManager().GetUserTimeZone();
-            this.ViewBag.WidgetId = EventSchedulerControllerHelper.GetWidgetId(this);
+            this.ViewBag.WidgetId = EventSchedulerHelper.GetWidgetId(this);
             this.ViewBag.DetailsPageId = this.DetailsPageId == Guid.Empty ? SiteMapBase.GetActualCurrentNode().Id : this.DetailsPageId;
             this.ViewBag.UiCulture = SystemManager.CurrentContext.AppSettings.Multilingual ? CultureInfo.CurrentUICulture.ToString() : string.Empty;
             this.ViewBag.TimeZoneOffset = timezoneInfo.BaseUtcOffset.TotalMilliseconds.ToString();
