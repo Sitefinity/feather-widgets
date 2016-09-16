@@ -11,6 +11,8 @@ using Telerik.Sitefinity.Frontend.Events.Mvc.Models.EventScheduler;
 using Telerik.Sitefinity.Frontend.Mvc.Models;
 using Telerik.Sitefinity.Frontend.TestUtilities;
 using Telerik.Sitefinity.Modules.Events;
+using Telerik.Sitefinity.Modules.Pages;
+using Telerik.Sitefinity.Mvc.Proxy;
 using Telerik.Sitefinity.Mvc.TestUtilities.Helpers;
 using Telerik.Sitefinity.RecurrentRules;
 using Telerik.Sitefinity.TestUtilities.CommonOperations;
@@ -24,7 +26,7 @@ namespace FeatherWidgets.TestIntegration.Events
     /// <summary>
     /// This class contains test related to basic functionality of Event Scheduler Widget.
     /// </summary>
-    [TestFixture]
+    [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Maintainability", "CA1506:AvoidExcessiveClassCoupling"), TestFixture]
     public class EventSchedulerWidgetTests
     {
         /// <summary>
@@ -39,10 +41,10 @@ namespace FeatherWidgets.TestIntegration.Events
             ServerOperations.Events().CreateEvent(EventSchedulerWidgetTests.BaseAllDayEventTitle, string.Empty, true, DateTime.Now, DateTime.Now.AddHours(1));
             ServerOperations.Events().CreateDailyRecurrentEvent(EventSchedulerWidgetTests.BaseRepeatEventTitle, string.Empty, DateTime.Now, DateTime.Now.AddHours(1), 60, 5, 1, TimeZoneInfo.Local.Id);
             ServerOperations.Events().CreateDraftEvent(EventSchedulerWidgetTests.BaseDraftEventTitle, string.Empty, false, DateTime.Now, DateTime.Now.AddHours(1));
-            
-            ServerOperations.Events().CreateCalendar(Guid.NewGuid(), EventSchedulerWidgetTests.Calendar1Title);
-            ServerOperations.Events().CreateCalendar(Guid.NewGuid(), EventSchedulerWidgetTests.Calendar2Title);
-            ServerOperations.Events().CreateCalendar(Guid.NewGuid(), EventSchedulerWidgetTests.Calendar3Title);
+
+            ServerOperations.Events().CreateCalendar(Guid.NewGuid(), EventSchedulerWidgetTests.Calendar1Title, "en-US");
+            ServerOperations.Events().CreateCalendar(Guid.NewGuid(), EventSchedulerWidgetTests.Calendar2Title, "en-US");
+            ServerOperations.Events().CreateCalendar(Guid.NewGuid(), EventSchedulerWidgetTests.Calendar3Title, "en-US");
 
             ServerOperations.Taxonomies().CreateTag(EventSchedulerWidgetTests.Tag1Title);
             ServerOperations.Taxonomies().CreateTag(EventSchedulerWidgetTests.Tag2Title);
@@ -76,7 +78,7 @@ namespace FeatherWidgets.TestIntegration.Events
             ServerOperations.Taxonomies().ClearAllCategories(TaxonomiesConstants.CategoriesTaxonomyId);
             ServerOperations.Taxonomies().ClearAllTags(TaxonomiesConstants.TagsTaxonomyId);
         }
-        
+
         #region Events
 
         [Test]
@@ -92,10 +94,9 @@ namespace FeatherWidgets.TestIntegration.Events
             ServerOperations.Events().CreаteAllDayRecurrentEvent("RepeatEventTitle5", string.Empty, DateTime.Today, DateTime.Today, 60, 10000, 1, true);
             ServerOperations.Events().CreаteAllDayRecurrentEvent("RepeatEventTitle6", string.Empty, DateTime.Today, DateTime.Today, 60, 10000, 1, true);
 
-            var eventController = new EventSchedulerController();
-            this.ApplyFilters(eventController, SelectionMode.AllItems, DefaultAdditionalFilters, SelectionMode.AllItems, DefaultNarrowSelectionFilters);
+            var widgetId = this.AddControl(this.CreatePage(), SelectionMode.AllItems, DefaultAdditionalFilters, SelectionMode.AllItems, DefaultNarrowSelectionFilters);
 
-            this.AssertEvent(eventController, DateTime.MinValue, DateTime.MaxValue, EventsManager.GetManager().GetEventsOccurrences(DateTime.MinValue, DateTime.MaxValue).Count());
+            this.AssertEvent(widgetId, DateTime.MinValue, DateTime.MaxValue, EventsManager.GetManager().GetEventsOccurrences(DateTime.MinValue, DateTime.MaxValue).Count());
         }
 
         [Test]
@@ -104,10 +105,9 @@ namespace FeatherWidgets.TestIntegration.Events
         [Description("Ensure that after events request, data is correctly retrieved as json content")]
         public void EventSchedulerWidget_Route_Events_Upcoming()
         {
-            var eventController = new EventSchedulerController();
-            this.ApplyFilters(eventController, SelectionMode.FilteredItems, UpcomingAdditionalFilters, SelectionMode.AllItems, DefaultNarrowSelectionFilters);
+            var widgetId = this.AddControl(this.CreatePage(), SelectionMode.FilteredItems, UpcomingAdditionalFilters, SelectionMode.AllItems, DefaultNarrowSelectionFilters);
 
-            this.AssertEvent(eventController, DateTime.MinValue, DateTime.MaxValue, 2);
+            this.AssertEvent(widgetId, DateTime.MinValue, DateTime.MaxValue, 2);
         }
 
         [Test]
@@ -116,10 +116,9 @@ namespace FeatherWidgets.TestIntegration.Events
         [Description("Ensure that after events request, data is correctly retrieved as json content")]
         public void EventSchedulerWidget_Route_Events_Past()
         {
-            var eventController = new EventSchedulerController();
-            this.ApplyFilters(eventController, SelectionMode.FilteredItems, PastAdditionalFilters, SelectionMode.AllItems, DefaultNarrowSelectionFilters);
+            var widgetId = this.AddControl(this.CreatePage(), SelectionMode.FilteredItems, PastAdditionalFilters, SelectionMode.AllItems, DefaultNarrowSelectionFilters);
 
-            this.AssertEvent(eventController, DateTime.MinValue, DateTime.MaxValue, 1);
+            this.AssertEvent(widgetId, DateTime.MinValue, DateTime.MaxValue, 1);
         }
 
         [Test]
@@ -128,10 +127,9 @@ namespace FeatherWidgets.TestIntegration.Events
         [Description("Ensure that after events request, data is correctly retrieved as json content")]
         public void EventSchedulerWidget_Route_Events_Current()
         {
-            var eventController = new EventSchedulerController();
-            this.ApplyFilters(eventController, SelectionMode.FilteredItems, CurrentAdditionalFilters, SelectionMode.AllItems, DefaultNarrowSelectionFilters);
+            var widgetId = this.AddControl(this.CreatePage(), SelectionMode.FilteredItems, CurrentAdditionalFilters, SelectionMode.AllItems, DefaultNarrowSelectionFilters);
 
-            this.AssertEvent(eventController, DateTime.MinValue, DateTime.MaxValue, 6);
+            this.AssertEvent(widgetId, DateTime.MinValue, DateTime.MaxValue, 6);
         }
 
         [Test]
@@ -140,10 +138,9 @@ namespace FeatherWidgets.TestIntegration.Events
         [Description("Ensure that after events request, data is correctly retrieved as json content")]
         public void EventSchedulerWidget_Route_Events_UpcomingAndCurrent()
         {
-            var eventController = new EventSchedulerController();
-            this.ApplyFilters(eventController, SelectionMode.FilteredItems, UpcomingAndCurrentAdditionalFilters, SelectionMode.AllItems, DefaultNarrowSelectionFilters);
+            var widgetId = this.AddControl(this.CreatePage(), SelectionMode.FilteredItems, UpcomingAndCurrentAdditionalFilters, SelectionMode.AllItems, DefaultNarrowSelectionFilters);
 
-            this.AssertEvent(eventController, DateTime.MinValue, DateTime.MaxValue, 8);
+            this.AssertEvent(widgetId, DateTime.MinValue, DateTime.MaxValue, 8);
         }
 
         [Test]
@@ -152,10 +149,9 @@ namespace FeatherWidgets.TestIntegration.Events
         [Description("Ensure that after events request, data is correctly retrieved as json content")]
         public void EventSchedulerWidget_Route_Events_PastAndUpcoming()
         {
-            var eventController = new EventSchedulerController();
-            this.ApplyFilters(eventController, SelectionMode.FilteredItems, PastAndUpcomingAdditionalFilters, SelectionMode.AllItems, DefaultNarrowSelectionFilters);
+            var widgetId = this.AddControl(this.CreatePage(), SelectionMode.FilteredItems, PastAndUpcomingAdditionalFilters, SelectionMode.AllItems, DefaultNarrowSelectionFilters);
 
-            this.AssertEvent(eventController, DateTime.MinValue, DateTime.MaxValue, 3);
+            this.AssertEvent(widgetId, DateTime.MinValue, DateTime.MaxValue, 3);
         }
 
         [Test]
@@ -164,10 +160,9 @@ namespace FeatherWidgets.TestIntegration.Events
         [Description("Ensure that after events request, data is correctly retrieved as json content")]
         public void EventSchedulerWidget_Route_Events_PastAndCurrent()
         {
-            var eventController = new EventSchedulerController();
-            this.ApplyFilters(eventController, SelectionMode.FilteredItems, PastAndCurrentAdditionalFilters, SelectionMode.AllItems, DefaultNarrowSelectionFilters);
+            var widgetId = this.AddControl(this.CreatePage(), SelectionMode.FilteredItems, PastAndCurrentAdditionalFilters, SelectionMode.AllItems, DefaultNarrowSelectionFilters);
 
-            this.AssertEvent(eventController, DateTime.MinValue, DateTime.MaxValue, 7);
+            this.AssertEvent(widgetId, DateTime.MinValue, DateTime.MaxValue, 7);
         }
 
         #endregion
@@ -199,10 +194,8 @@ namespace FeatherWidgets.TestIntegration.Events
             this.CreateLocalizedEvent(multiOperations, "Event 9 bg", Guid.NewGuid(), DateTime.Today, DateTime.MaxValue, false, true, calendartDefault.Id, bulgarian, recurrenceExpression);
             this.CreateLocalizedEvent(multiOperations, "Event 10 bg", Guid.NewGuid(), DateTime.Today, DateTime.MaxValue, false, true, calendartDefault.Id, bulgarian, recurrenceExpression);
 
-            var eventController = new EventSchedulerController();
-            this.ApplyFilters(eventController, SelectionMode.AllItems, DefaultAdditionalFilters, SelectionMode.AllItems, DefaultNarrowSelectionFilters);
-
-            this.AssertEvent(eventController, DateTime.MinValue, DateTime.MaxValue, EventsManager.GetManager().GetEventsOccurrences(EventsManager.GetManager().GetEvents(), DateTime.MinValue, DateTime.Now.AddYears(4000)).Where(p => p.Event.LanguageData.Where(t => t.Language == bulgarian.Name).LongCount() > 0).Count(), bulgarian);
+            var widgetId = this.AddControl(this.CreatePage(bulgarian), SelectionMode.AllItems, DefaultAdditionalFilters, SelectionMode.AllItems, DefaultNarrowSelectionFilters);
+            this.AssertEvent(widgetId, DateTime.MinValue, DateTime.MaxValue, EventsManager.GetManager().GetEventsOccurrences(EventsManager.GetManager().GetEvents(), DateTime.MinValue, DateTime.Now.AddYears(4000)).Where(p => p.Event.LanguageData.Where(t => t.Language == bulgarian.Name).LongCount() > 0).Count(), bulgarian);
         }
 
         [Test]
@@ -220,10 +213,8 @@ namespace FeatherWidgets.TestIntegration.Events
             this.CreateLocalizedEvent(multiOperations, "Event 1 arabic", Guid.NewGuid(), DateTime.Now, DateTime.Now.AddHours(2), false, false, calendartDefault.Id, arabic);
             this.CreateLocalizedEvent(multiOperations, "Event 2 arabic", Guid.NewGuid(), DateTime.Now.AddDays(1), DateTime.Now.AddDays(3), false, false, calendartDefault.Id, arabic);
 
-            var eventController = new EventSchedulerController();
-            this.ApplyFilters(eventController, SelectionMode.AllItems, UpcomingAdditionalFilters, SelectionMode.AllItems, DefaultNarrowSelectionFilters);
-
-            this.AssertEvent(eventController, DateTime.MinValue, DateTime.MaxValue, 2, arabic);
+            var widgetId = this.AddControl(this.CreatePage(arabic), SelectionMode.AllItems, UpcomingAdditionalFilters, SelectionMode.AllItems, DefaultNarrowSelectionFilters);
+            this.AssertEvent(widgetId, DateTime.MinValue, DateTime.MaxValue, 2, arabic);
         }
 
         #endregion
@@ -239,10 +230,9 @@ namespace FeatherWidgets.TestIntegration.Events
             ServerOperations.Events().CreateEvent("UpcomingEventInNext3Days", string.Empty, false, DateTime.Now.AddDays(2), DateTime.Now.AddDays(3));
             ServerOperations.Events().CreateEvent("UpcomingEventInMoreThanNext3Days", string.Empty, false, DateTime.Now.AddDays(5), DateTime.Now.AddDays(7));
 
-            var eventController = new EventSchedulerController();
-            this.ApplyFilters(eventController, SelectionMode.FilteredItems, Next3DaysAdditionalFilters, SelectionMode.AllItems, DefaultNarrowSelectionFilters);
+            var widgetId = this.AddControl(this.CreatePage(), SelectionMode.FilteredItems, Next3DaysAdditionalFilters, SelectionMode.AllItems, DefaultNarrowSelectionFilters);
 
-            this.AssertEvent(eventController, DateTime.MinValue, DateTime.MaxValue, 3);
+            this.AssertEvent(widgetId, DateTime.MinValue, DateTime.MaxValue, 3);
         }
 
         [Test]
@@ -254,10 +244,9 @@ namespace FeatherWidgets.TestIntegration.Events
             ServerOperations.Events().CreateEvent("UpcomingEventInNext3Days", string.Empty, false, DateTime.Now.AddDays(2), DateTime.Now.AddDays(3));
             ServerOperations.Events().CreateEvent("UpcomingEventInMoreThanNext3Days", string.Empty, false, DateTime.Now.AddDays(5), DateTime.Now.AddDays(7));
 
-            var eventController = new EventSchedulerController();
-            this.ApplyFilters(eventController, SelectionMode.FilteredItems, Next3DaysAndCurrentAdditionalFilters, SelectionMode.AllItems, DefaultNarrowSelectionFilters);
+            var widgetId = this.AddControl(this.CreatePage(), SelectionMode.FilteredItems, Next3DaysAndCurrentAdditionalFilters, SelectionMode.AllItems, DefaultNarrowSelectionFilters);
 
-            this.AssertEvent(eventController, DateTime.MinValue, DateTime.MaxValue, 9);
+            this.AssertEvent(widgetId, DateTime.MinValue, DateTime.MaxValue, 9);
         }
 
         [Test]
@@ -269,10 +258,9 @@ namespace FeatherWidgets.TestIntegration.Events
             ServerOperations.Events().CreateEvent("UpcomingEventInNextWeek", string.Empty, false, DateTime.Now.AddDays(4), DateTime.Now.AddDays(6));
             ServerOperations.Events().CreateEvent("UpcomingEventInMoreThanNextWeek", string.Empty, false, DateTime.Now.AddDays(9), DateTime.Now.AddDays(12));
 
-            var eventController = new EventSchedulerController();
-            this.ApplyFilters(eventController, SelectionMode.FilteredItems, NextWeekAdditionalFilters, SelectionMode.AllItems, DefaultNarrowSelectionFilters);
+            var widgetId = this.AddControl(this.CreatePage(), SelectionMode.FilteredItems, NextWeekAdditionalFilters, SelectionMode.AllItems, DefaultNarrowSelectionFilters);
 
-            this.AssertEvent(eventController, DateTime.MinValue, DateTime.MaxValue, 3);
+            this.AssertEvent(widgetId, DateTime.MinValue, DateTime.MaxValue, 3);
         }
 
         [Test]
@@ -284,10 +272,9 @@ namespace FeatherWidgets.TestIntegration.Events
             ServerOperations.Events().CreateEvent("UpcomingEventInNextWeek", string.Empty, false, DateTime.Now.AddDays(4), DateTime.Now.AddDays(6));
             ServerOperations.Events().CreateEvent("UpcomingEventInMoreThanNextWeek", string.Empty, false, DateTime.Now.AddDays(9), DateTime.Now.AddDays(12));
 
-            var eventController = new EventSchedulerController();
-            this.ApplyFilters(eventController, SelectionMode.FilteredItems, NextWeekAndCurrentAdditionalFilters, SelectionMode.AllItems, DefaultNarrowSelectionFilters);
+            var widgetId = this.AddControl(this.CreatePage(), SelectionMode.FilteredItems, NextWeekAndCurrentAdditionalFilters, SelectionMode.AllItems, DefaultNarrowSelectionFilters);
 
-            this.AssertEvent(eventController, DateTime.MinValue, DateTime.MaxValue, 9);
+            this.AssertEvent(widgetId, DateTime.MinValue, DateTime.MaxValue, 9);
         }
 
         [Test]
@@ -299,10 +286,9 @@ namespace FeatherWidgets.TestIntegration.Events
             ServerOperations.Events().CreateEvent("UpcomingEventInNextMonth", string.Empty, false, DateTime.Now.AddDays(20), DateTime.Now.AddDays(22));
             ServerOperations.Events().CreateEvent("UpcomingEventInMoreThanNextMonth", string.Empty, false, DateTime.Now.AddDays(40), DateTime.Now.AddDays(42));
 
-            var eventController = new EventSchedulerController();
-            this.ApplyFilters(eventController, SelectionMode.FilteredItems, NextMonthAdditionalFilters, SelectionMode.AllItems, DefaultNarrowSelectionFilters);
+            var widgetId = this.AddControl(this.CreatePage(), SelectionMode.FilteredItems, NextMonthAdditionalFilters, SelectionMode.AllItems, DefaultNarrowSelectionFilters);
 
-            this.AssertEvent(eventController, DateTime.MinValue, DateTime.MaxValue, 3);
+            this.AssertEvent(widgetId, DateTime.MinValue, DateTime.MaxValue, 3);
         }
 
         [Test]
@@ -314,10 +300,9 @@ namespace FeatherWidgets.TestIntegration.Events
             ServerOperations.Events().CreateEvent("UpcomingEventInNextMonth", string.Empty, false, DateTime.Now.AddDays(20), DateTime.Now.AddDays(22));
             ServerOperations.Events().CreateEvent("UpcomingEventInMoreThanNextMonth", string.Empty, false, DateTime.Now.AddDays(40), DateTime.Now.AddDays(42));
 
-            var eventController = new EventSchedulerController();
-            this.ApplyFilters(eventController, SelectionMode.FilteredItems, NextMonthAndCurrentAdditionalFilters, SelectionMode.AllItems, DefaultNarrowSelectionFilters);
+            var widgetId = this.AddControl(this.CreatePage(), SelectionMode.FilteredItems, NextMonthAndCurrentAdditionalFilters, SelectionMode.AllItems, DefaultNarrowSelectionFilters);
 
-            this.AssertEvent(eventController, DateTime.MinValue, DateTime.MaxValue, 9);
+            this.AssertEvent(widgetId, DateTime.MinValue, DateTime.MaxValue, 9);
         }
 
         [Test]
@@ -329,10 +314,9 @@ namespace FeatherWidgets.TestIntegration.Events
             ServerOperations.Events().CreateEvent("UpcomingEventInNextYear", string.Empty, false, DateTime.Now.AddDays(365), DateTime.Now.AddDays(368));
             ServerOperations.Events().CreateEvent("UpcomingEventInMoreThanNextYear", string.Empty, false, DateTime.Now.AddDays(450), DateTime.Now.AddDays(453));
 
-            var eventController = new EventSchedulerController();
-            this.ApplyFilters(eventController, SelectionMode.FilteredItems, NextYearAdditionalFilters, SelectionMode.AllItems, DefaultNarrowSelectionFilters);
+            var widgetId = this.AddControl(this.CreatePage(), SelectionMode.FilteredItems, NextYearAdditionalFilters, SelectionMode.AllItems, DefaultNarrowSelectionFilters);
 
-            this.AssertEvent(eventController, DateTime.MinValue, DateTime.MaxValue, 3);
+            this.AssertEvent(widgetId, DateTime.MinValue, DateTime.MaxValue, 3);
         }
 
         [Test]
@@ -344,10 +328,9 @@ namespace FeatherWidgets.TestIntegration.Events
             ServerOperations.Events().CreateEvent("UpcomingEventInNextYear", string.Empty, false, DateTime.Now.AddDays(365), DateTime.Now.AddDays(368));
             ServerOperations.Events().CreateEvent("UpcomingEventInMoreThanNextYear", string.Empty, false, DateTime.Now.AddDays(450), DateTime.Now.AddDays(453));
 
-            var eventController = new EventSchedulerController();
-            this.ApplyFilters(eventController, SelectionMode.FilteredItems, NextYearAndCurrentAdditionalFilters, SelectionMode.AllItems, DefaultNarrowSelectionFilters);
+            var widgetId = this.AddControl(this.CreatePage(), SelectionMode.FilteredItems, NextYearAndCurrentAdditionalFilters, SelectionMode.AllItems, DefaultNarrowSelectionFilters);
 
-            this.AssertEvent(eventController, DateTime.MinValue, DateTime.MaxValue, 9);
+            this.AssertEvent(widgetId, DateTime.MinValue, DateTime.MaxValue, 9);
         }
 
         #endregion
@@ -367,10 +350,9 @@ namespace FeatherWidgets.TestIntegration.Events
             ServerOperations.Events().CreateEvent("PastEventInLast3Days", string.Empty, false, DateTime.Now.AddDays(-2), DateTime.Now.AddDays(-1));
             ServerOperations.Events().CreateEvent("PastEventInMoreThanLast3Days", string.Empty, false, DateTime.Now.AddDays(-6), DateTime.Now.AddDays(-4));
 
-            var eventController = new EventSchedulerController();
-            this.ApplyFilters(eventController, SelectionMode.FilteredItems, Last3DaysAdditionalFilters, SelectionMode.AllItems, DefaultNarrowSelectionFilters);
+            var widgetId = this.AddControl(this.CreatePage(), SelectionMode.FilteredItems, Last3DaysAdditionalFilters, SelectionMode.AllItems, DefaultNarrowSelectionFilters);
 
-            this.AssertEvent(eventController, DateTime.MinValue, DateTime.MaxValue, 2);
+            this.AssertEvent(widgetId, DateTime.MinValue, DateTime.MaxValue, 2);
         }
 
         [Test]
@@ -382,10 +364,9 @@ namespace FeatherWidgets.TestIntegration.Events
             ServerOperations.Events().CreateEvent("PastEventInLast3Days", string.Empty, false, DateTime.Now.AddDays(-2), DateTime.Now.AddDays(-1));
             ServerOperations.Events().CreateEvent("PastEventInMoreThanLast3Days", string.Empty, false, DateTime.Now.AddDays(-6), DateTime.Now.AddDays(-4));
 
-            var eventController = new EventSchedulerController();
-            this.ApplyFilters(eventController, SelectionMode.FilteredItems, Last3DaysAndCurrentAdditionalFilters, SelectionMode.AllItems, DefaultNarrowSelectionFilters);
+            var widgetId = this.AddControl(this.CreatePage(), SelectionMode.FilteredItems, Last3DaysAndCurrentAdditionalFilters, SelectionMode.AllItems, DefaultNarrowSelectionFilters);
 
-            this.AssertEvent(eventController, DateTime.MinValue, DateTime.MaxValue, 8);
+            this.AssertEvent(widgetId, DateTime.MinValue, DateTime.MaxValue, 8);
         }
 
         [Test]
@@ -397,10 +378,9 @@ namespace FeatherWidgets.TestIntegration.Events
             ServerOperations.Events().CreateEvent("PastEventInLastWeek", string.Empty, false, DateTime.Now.AddDays(-6), DateTime.Now.AddDays(-4));
             ServerOperations.Events().CreateEvent("PastEventInMoreThanLastWeek", string.Empty, false, DateTime.Now.AddDays(-12), DateTime.Now.AddDays(-9));
 
-            var eventController = new EventSchedulerController();
-            this.ApplyFilters(eventController, SelectionMode.FilteredItems, LastWeekAdditionalFilters, SelectionMode.AllItems, DefaultNarrowSelectionFilters);
+            var widgetId = this.AddControl(this.CreatePage(), SelectionMode.FilteredItems, LastWeekAdditionalFilters, SelectionMode.AllItems, DefaultNarrowSelectionFilters);
 
-            this.AssertEvent(eventController, DateTime.MinValue, DateTime.MaxValue, 2);
+            this.AssertEvent(widgetId, DateTime.MinValue, DateTime.MaxValue, 2);
         }
 
         [Test]
@@ -412,10 +392,9 @@ namespace FeatherWidgets.TestIntegration.Events
             ServerOperations.Events().CreateEvent("PastEventInLastWeek", string.Empty, false, DateTime.Now.AddDays(-6), DateTime.Now.AddDays(-4));
             ServerOperations.Events().CreateEvent("PastEventInMoreThanLastWeek", string.Empty, false, DateTime.Now.AddDays(-12), DateTime.Now.AddDays(-9));
 
-            var eventController = new EventSchedulerController();
-            this.ApplyFilters(eventController, SelectionMode.FilteredItems, LastWeekAndCurrentAdditionalFilters, SelectionMode.AllItems, DefaultNarrowSelectionFilters);
+            var widgetId = this.AddControl(this.CreatePage(), SelectionMode.FilteredItems, LastWeekAndCurrentAdditionalFilters, SelectionMode.AllItems, DefaultNarrowSelectionFilters);
 
-            this.AssertEvent(eventController, DateTime.MinValue, DateTime.MaxValue, 8);
+            this.AssertEvent(widgetId, DateTime.MinValue, DateTime.MaxValue, 8);
         }
 
         [Test]
@@ -427,10 +406,9 @@ namespace FeatherWidgets.TestIntegration.Events
             ServerOperations.Events().CreateEvent("PastEventInLastMonth", string.Empty, false, DateTime.Now.AddDays(-22), DateTime.Now.AddDays(-20));
             ServerOperations.Events().CreateEvent("PastEventInMoreThanLastMonth", string.Empty, false, DateTime.Now.AddDays(-42), DateTime.Now.AddDays(-40));
 
-            var eventController = new EventSchedulerController();
-            this.ApplyFilters(eventController, SelectionMode.FilteredItems, LastMonthAdditionalFilters, SelectionMode.AllItems, DefaultNarrowSelectionFilters);
+            var widgetId = this.AddControl(this.CreatePage(), SelectionMode.FilteredItems, LastMonthAdditionalFilters, SelectionMode.AllItems, DefaultNarrowSelectionFilters);
 
-            this.AssertEvent(eventController, DateTime.MinValue, DateTime.MaxValue, 2);
+            this.AssertEvent(widgetId, DateTime.MinValue, DateTime.MaxValue, 2);
         }
 
         [Test]
@@ -442,10 +420,9 @@ namespace FeatherWidgets.TestIntegration.Events
             ServerOperations.Events().CreateEvent("PastEventInLastMonth", string.Empty, false, DateTime.Now.AddDays(-22), DateTime.Now.AddDays(-20));
             ServerOperations.Events().CreateEvent("PastEventInMoreThanLastMonth", string.Empty, false, DateTime.Now.AddDays(-42), DateTime.Now.AddDays(-40));
 
-            var eventController = new EventSchedulerController();
-            this.ApplyFilters(eventController, SelectionMode.FilteredItems, LastMonthAndCurrentAdditionalFilters, SelectionMode.AllItems, DefaultNarrowSelectionFilters);
+            var widgetId = this.AddControl(this.CreatePage(), SelectionMode.FilteredItems, LastMonthAndCurrentAdditionalFilters, SelectionMode.AllItems, DefaultNarrowSelectionFilters);
 
-            this.AssertEvent(eventController, DateTime.MinValue, DateTime.MaxValue, 8);
+            this.AssertEvent(widgetId, DateTime.MinValue, DateTime.MaxValue, 8);
         }
 
         [Test]
@@ -457,10 +434,9 @@ namespace FeatherWidgets.TestIntegration.Events
             ServerOperations.Events().CreateEvent("PastEventInLastYear", string.Empty, false, DateTime.Now.AddDays(-368), DateTime.Now.AddDays(-365));
             ServerOperations.Events().CreateEvent("PastEventInMoreThanLastYear", string.Empty, false, DateTime.Now.AddDays(-453), DateTime.Now.AddDays(-450));
 
-            var eventController = new EventSchedulerController();
-            this.ApplyFilters(eventController, SelectionMode.FilteredItems, LastYearAdditionalFilters, SelectionMode.AllItems, DefaultNarrowSelectionFilters);
+            var widgetId = this.AddControl(this.CreatePage(), SelectionMode.FilteredItems, LastYearAdditionalFilters, SelectionMode.AllItems, DefaultNarrowSelectionFilters);
 
-            this.AssertEvent(eventController, DateTime.MinValue, DateTime.MaxValue, 2);
+            this.AssertEvent(widgetId, DateTime.MinValue, DateTime.MaxValue, 2);
         }
 
         [Test]
@@ -472,10 +448,9 @@ namespace FeatherWidgets.TestIntegration.Events
             ServerOperations.Events().CreateEvent("PastEventInLastYear", string.Empty, false, DateTime.Now.AddDays(-368), DateTime.Now.AddDays(-365));
             ServerOperations.Events().CreateEvent("PastEventInMoreThanLastYear", string.Empty, false, DateTime.Now.AddDays(-453), DateTime.Now.AddDays(-450));
 
-            var eventController = new EventSchedulerController();
-            this.ApplyFilters(eventController, SelectionMode.FilteredItems, LastYearAndCurrentAdditionalFilters, SelectionMode.AllItems, DefaultNarrowSelectionFilters);
+            var widgetId = this.AddControl(this.CreatePage(), SelectionMode.FilteredItems, LastYearAndCurrentAdditionalFilters, SelectionMode.AllItems, DefaultNarrowSelectionFilters);
 
-            this.AssertEvent(eventController, DateTime.MinValue, DateTime.MaxValue, 8);
+            this.AssertEvent(widgetId, DateTime.MinValue, DateTime.MaxValue, 8);
         }
 
         #endregion
@@ -497,10 +472,9 @@ namespace FeatherWidgets.TestIntegration.Events
             ServerOperations.Events().CreateEvent("PastEventInLast3Days", string.Empty, false, DateTime.Now.AddDays(-2), DateTime.Now.AddDays(-1));
             ServerOperations.Events().CreateEvent("PastEventInMoreThanLast3Days", string.Empty, false, DateTime.Now.AddDays(-6), DateTime.Now.AddDays(-4));
 
-            var eventController = new EventSchedulerController();
-            this.ApplyFilters(eventController, SelectionMode.FilteredItems, Next3DaysOrLast3DaysAdditionalFilters, SelectionMode.AllItems, DefaultNarrowSelectionFilters);
+            var widgetId = this.AddControl(this.CreatePage(), SelectionMode.FilteredItems, Next3DaysOrLast3DaysAdditionalFilters, SelectionMode.AllItems, DefaultNarrowSelectionFilters);
 
-            this.AssertEvent(eventController, DateTime.MinValue, DateTime.MaxValue, 5);
+            this.AssertEvent(widgetId, DateTime.MinValue, DateTime.MaxValue, 5);
         }
 
         [Test]
@@ -514,10 +488,9 @@ namespace FeatherWidgets.TestIntegration.Events
             ServerOperations.Events().CreateEvent("PastEventInLast3Days", string.Empty, false, DateTime.Now.AddDays(-2), DateTime.Now.AddDays(-1));
             ServerOperations.Events().CreateEvent("PastEventInMoreThanLast3Days", string.Empty, false, DateTime.Now.AddDays(-6), DateTime.Now.AddDays(-4));
 
-            var eventController = new EventSchedulerController();
-            this.ApplyFilters(eventController, SelectionMode.FilteredItems, Next3DaysOrLast3DaysOrCurrentAdditionalFilters, SelectionMode.AllItems, DefaultNarrowSelectionFilters);
+            var widgetId = this.AddControl(this.CreatePage(), SelectionMode.FilteredItems, Next3DaysOrLast3DaysOrCurrentAdditionalFilters, SelectionMode.AllItems, DefaultNarrowSelectionFilters);
 
-            this.AssertEvent(eventController, DateTime.MinValue, DateTime.MaxValue, 11);
+            this.AssertEvent(widgetId, DateTime.MinValue, DateTime.MaxValue, 11);
         }
 
         [Test]
@@ -531,10 +504,9 @@ namespace FeatherWidgets.TestIntegration.Events
             ServerOperations.Events().CreateEvent("PastEventInLastWeek", string.Empty, false, DateTime.Now.AddDays(-6), DateTime.Now.AddDays(-4));
             ServerOperations.Events().CreateEvent("PastEventInMoreThanLastWeek", string.Empty, false, DateTime.Now.AddDays(-12), DateTime.Now.AddDays(-9));
 
-            var eventController = new EventSchedulerController();
-            this.ApplyFilters(eventController, SelectionMode.FilteredItems, Next3DaysOrLastWeekAdditionalFilters, SelectionMode.AllItems, DefaultNarrowSelectionFilters);
+            var widgetId = this.AddControl(this.CreatePage(), SelectionMode.FilteredItems, Next3DaysOrLastWeekAdditionalFilters, SelectionMode.AllItems, DefaultNarrowSelectionFilters);
 
-            this.AssertEvent(eventController, DateTime.MinValue, DateTime.MaxValue, 5);
+            this.AssertEvent(widgetId, DateTime.MinValue, DateTime.MaxValue, 5);
         }
 
         [Test]
@@ -548,10 +520,9 @@ namespace FeatherWidgets.TestIntegration.Events
             ServerOperations.Events().CreateEvent("PastEventInLastWeek", string.Empty, false, DateTime.Now.AddDays(-6), DateTime.Now.AddDays(-4));
             ServerOperations.Events().CreateEvent("PastEventInMoreThanLastWeek", string.Empty, false, DateTime.Now.AddDays(-12), DateTime.Now.AddDays(-9));
 
-            var eventController = new EventSchedulerController();
-            this.ApplyFilters(eventController, SelectionMode.FilteredItems, Next3DaysOrLastWeekOrCurrentAdditionalFilters, SelectionMode.AllItems, DefaultNarrowSelectionFilters);
+            var widgetId = this.AddControl(this.CreatePage(), SelectionMode.FilteredItems, Next3DaysOrLastWeekOrCurrentAdditionalFilters, SelectionMode.AllItems, DefaultNarrowSelectionFilters);
 
-            this.AssertEvent(eventController, DateTime.MinValue, DateTime.MaxValue, 11);
+            this.AssertEvent(widgetId, DateTime.MinValue, DateTime.MaxValue, 11);
         }
 
         [Test]
@@ -565,10 +536,9 @@ namespace FeatherWidgets.TestIntegration.Events
             ServerOperations.Events().CreateEvent("PastEventInLastMonth", string.Empty, false, DateTime.Now.AddDays(-22), DateTime.Now.AddDays(-20));
             ServerOperations.Events().CreateEvent("PastEventInMoreThanLastMonth", string.Empty, false, DateTime.Now.AddDays(-42), DateTime.Now.AddDays(-40));
 
-            var eventController = new EventSchedulerController();
-            this.ApplyFilters(eventController, SelectionMode.FilteredItems, Next3DaysOrLastMonthAdditionalFilters, SelectionMode.AllItems, DefaultNarrowSelectionFilters);
+            var widgetId = this.AddControl(this.CreatePage(), SelectionMode.FilteredItems, Next3DaysOrLastMonthAdditionalFilters, SelectionMode.AllItems, DefaultNarrowSelectionFilters);
 
-            this.AssertEvent(eventController, DateTime.MinValue, DateTime.MaxValue, 5);
+            this.AssertEvent(widgetId, DateTime.MinValue, DateTime.MaxValue, 5);
         }
 
         [Test]
@@ -582,10 +552,9 @@ namespace FeatherWidgets.TestIntegration.Events
             ServerOperations.Events().CreateEvent("PastEventInLastMonth", string.Empty, false, DateTime.Now.AddDays(-22), DateTime.Now.AddDays(-20));
             ServerOperations.Events().CreateEvent("PastEventInMoreThanLastMonth", string.Empty, false, DateTime.Now.AddDays(-42), DateTime.Now.AddDays(-40));
 
-            var eventController = new EventSchedulerController();
-            this.ApplyFilters(eventController, SelectionMode.FilteredItems, Next3DaysOrLastMonthOrCurrentAdditionalFilters, SelectionMode.AllItems, DefaultNarrowSelectionFilters);
+            var widgetId = this.AddControl(this.CreatePage(), SelectionMode.FilteredItems, Next3DaysOrLastMonthOrCurrentAdditionalFilters, SelectionMode.AllItems, DefaultNarrowSelectionFilters);
 
-            this.AssertEvent(eventController, DateTime.MinValue, DateTime.MaxValue, 11);
+            this.AssertEvent(widgetId, DateTime.MinValue, DateTime.MaxValue, 11);
         }
 
         [Test]
@@ -599,10 +568,9 @@ namespace FeatherWidgets.TestIntegration.Events
             ServerOperations.Events().CreateEvent("PastEventInLastYear", string.Empty, false, DateTime.Now.AddDays(-368), DateTime.Now.AddDays(-365));
             ServerOperations.Events().CreateEvent("PastEventInMoreThanLastYear", string.Empty, false, DateTime.Now.AddDays(-453), DateTime.Now.AddDays(-450));
 
-            var eventController = new EventSchedulerController();
-            this.ApplyFilters(eventController, SelectionMode.FilteredItems, Next3DaysOrLastYearAdditionalFilters, SelectionMode.AllItems, DefaultNarrowSelectionFilters);
+            var widgetId = this.AddControl(this.CreatePage(), SelectionMode.FilteredItems, Next3DaysOrLastYearAdditionalFilters, SelectionMode.AllItems, DefaultNarrowSelectionFilters);
 
-            this.AssertEvent(eventController, DateTime.MinValue, DateTime.MaxValue, 5);
+            this.AssertEvent(widgetId, DateTime.MinValue, DateTime.MaxValue, 5);
         }
 
         [Test]
@@ -616,10 +584,9 @@ namespace FeatherWidgets.TestIntegration.Events
             ServerOperations.Events().CreateEvent("PastEventInLastYear", string.Empty, false, DateTime.Now.AddDays(-368), DateTime.Now.AddDays(-365));
             ServerOperations.Events().CreateEvent("PastEventInMoreThanLastYear", string.Empty, false, DateTime.Now.AddDays(-453), DateTime.Now.AddDays(-450));
 
-            var eventController = new EventSchedulerController();
-            this.ApplyFilters(eventController, SelectionMode.FilteredItems, Next3DaysOrLastYearOrCurrentAdditionalFilters, SelectionMode.AllItems, DefaultNarrowSelectionFilters);
+            var widgetId = this.AddControl(this.CreatePage(), SelectionMode.FilteredItems, Next3DaysOrLastYearOrCurrentAdditionalFilters, SelectionMode.AllItems, DefaultNarrowSelectionFilters);
 
-            this.AssertEvent(eventController, DateTime.MinValue, DateTime.MaxValue, 11);
+            this.AssertEvent(widgetId, DateTime.MinValue, DateTime.MaxValue, 11);
         }
 
         [Test]
@@ -633,10 +600,9 @@ namespace FeatherWidgets.TestIntegration.Events
             ServerOperations.Events().CreateEvent("PastEventInLast3Days", string.Empty, false, DateTime.Now.AddDays(-2), DateTime.Now.AddDays(-1));
             ServerOperations.Events().CreateEvent("PastEventInMoreThanLast3Days", string.Empty, false, DateTime.Now.AddDays(-6), DateTime.Now.AddDays(-4));
 
-            var eventController = new EventSchedulerController();
-            this.ApplyFilters(eventController, SelectionMode.FilteredItems, NextWeekOrLast3DaysAdditionalFilters, SelectionMode.AllItems, DefaultNarrowSelectionFilters);
+            var widgetId = this.AddControl(this.CreatePage(), SelectionMode.FilteredItems, NextWeekOrLast3DaysAdditionalFilters, SelectionMode.AllItems, DefaultNarrowSelectionFilters);
 
-            this.AssertEvent(eventController, DateTime.MinValue, DateTime.MaxValue, 5);
+            this.AssertEvent(widgetId, DateTime.MinValue, DateTime.MaxValue, 5);
         }
 
         [Test]
@@ -650,10 +616,9 @@ namespace FeatherWidgets.TestIntegration.Events
             ServerOperations.Events().CreateEvent("PastEventInLast3Days", string.Empty, false, DateTime.Now.AddDays(-2), DateTime.Now.AddDays(-1));
             ServerOperations.Events().CreateEvent("PastEventInMoreThanLast3Days", string.Empty, false, DateTime.Now.AddDays(-6), DateTime.Now.AddDays(-4));
 
-            var eventController = new EventSchedulerController();
-            this.ApplyFilters(eventController, SelectionMode.FilteredItems, NextWeekOrLast3DaysOrCurrentAdditionalFilters, SelectionMode.AllItems, DefaultNarrowSelectionFilters);
+            var widgetId = this.AddControl(this.CreatePage(), SelectionMode.FilteredItems, NextWeekOrLast3DaysOrCurrentAdditionalFilters, SelectionMode.AllItems, DefaultNarrowSelectionFilters);
 
-            this.AssertEvent(eventController, DateTime.MinValue, DateTime.MaxValue, 11);
+            this.AssertEvent(widgetId, DateTime.MinValue, DateTime.MaxValue, 11);
         }
 
         [Test]
@@ -667,10 +632,9 @@ namespace FeatherWidgets.TestIntegration.Events
             ServerOperations.Events().CreateEvent("PastEventInLastWeek", string.Empty, false, DateTime.Now.AddDays(-6), DateTime.Now.AddDays(-4));
             ServerOperations.Events().CreateEvent("PastEventInMoreThanLastWeek", string.Empty, false, DateTime.Now.AddDays(-12), DateTime.Now.AddDays(-9));
 
-            var eventController = new EventSchedulerController();
-            this.ApplyFilters(eventController, SelectionMode.FilteredItems, NextWeekOrLastWeekAdditionalFilters, SelectionMode.AllItems, DefaultNarrowSelectionFilters);
+            var widgetId = this.AddControl(this.CreatePage(), SelectionMode.FilteredItems, NextWeekOrLastWeekAdditionalFilters, SelectionMode.AllItems, DefaultNarrowSelectionFilters);
 
-            this.AssertEvent(eventController, DateTime.MinValue, DateTime.MaxValue, 5);
+            this.AssertEvent(widgetId, DateTime.MinValue, DateTime.MaxValue, 5);
         }
 
         [Test]
@@ -684,10 +648,9 @@ namespace FeatherWidgets.TestIntegration.Events
             ServerOperations.Events().CreateEvent("PastEventInLastWeek", string.Empty, false, DateTime.Now.AddDays(-6), DateTime.Now.AddDays(-4));
             ServerOperations.Events().CreateEvent("PastEventInMoreThanLastWeek", string.Empty, false, DateTime.Now.AddDays(-12), DateTime.Now.AddDays(-9));
 
-            var eventController = new EventSchedulerController();
-            this.ApplyFilters(eventController, SelectionMode.FilteredItems, NextWeekOrLastWeekOrCurrentAdditionalFilters, SelectionMode.AllItems, DefaultNarrowSelectionFilters);
+            var widgetId = this.AddControl(this.CreatePage(), SelectionMode.FilteredItems, NextWeekOrLastWeekOrCurrentAdditionalFilters, SelectionMode.AllItems, DefaultNarrowSelectionFilters);
 
-            this.AssertEvent(eventController, DateTime.MinValue, DateTime.MaxValue, 11);
+            this.AssertEvent(widgetId, DateTime.MinValue, DateTime.MaxValue, 11);
         }
 
         [Test]
@@ -701,10 +664,9 @@ namespace FeatherWidgets.TestIntegration.Events
             ServerOperations.Events().CreateEvent("PastEventInLastMonth", string.Empty, false, DateTime.Now.AddDays(-22), DateTime.Now.AddDays(-20));
             ServerOperations.Events().CreateEvent("PastEventInMoreThanLastMonth", string.Empty, false, DateTime.Now.AddDays(-42), DateTime.Now.AddDays(-40));
 
-            var eventController = new EventSchedulerController();
-            this.ApplyFilters(eventController, SelectionMode.FilteredItems, NextWeekOrLastMonthAdditionalFilters, SelectionMode.AllItems, DefaultNarrowSelectionFilters);
+            var widgetId = this.AddControl(this.CreatePage(), SelectionMode.FilteredItems, NextWeekOrLastMonthAdditionalFilters, SelectionMode.AllItems, DefaultNarrowSelectionFilters);
 
-            this.AssertEvent(eventController, DateTime.MinValue, DateTime.MaxValue, 5);
+            this.AssertEvent(widgetId, DateTime.MinValue, DateTime.MaxValue, 5);
         }
 
         [Test]
@@ -718,10 +680,9 @@ namespace FeatherWidgets.TestIntegration.Events
             ServerOperations.Events().CreateEvent("PastEventInLastMonth", string.Empty, false, DateTime.Now.AddDays(-22), DateTime.Now.AddDays(-20));
             ServerOperations.Events().CreateEvent("PastEventInMoreThanLastMonth", string.Empty, false, DateTime.Now.AddDays(-42), DateTime.Now.AddDays(-40));
 
-            var eventController = new EventSchedulerController();
-            this.ApplyFilters(eventController, SelectionMode.FilteredItems, NextWeekOrLastMonthOrCurrentAdditionalFilters, SelectionMode.AllItems, DefaultNarrowSelectionFilters);
+            var widgetId = this.AddControl(this.CreatePage(), SelectionMode.FilteredItems, NextWeekOrLastMonthOrCurrentAdditionalFilters, SelectionMode.AllItems, DefaultNarrowSelectionFilters);
 
-            this.AssertEvent(eventController, DateTime.MinValue, DateTime.MaxValue, 11);
+            this.AssertEvent(widgetId, DateTime.MinValue, DateTime.MaxValue, 11);
         }
 
         [Test]
@@ -735,10 +696,9 @@ namespace FeatherWidgets.TestIntegration.Events
             ServerOperations.Events().CreateEvent("PastEventInLastYear", string.Empty, false, DateTime.Now.AddDays(-368), DateTime.Now.AddDays(-365));
             ServerOperations.Events().CreateEvent("PastEventInMoreThanLastYear", string.Empty, false, DateTime.Now.AddDays(-453), DateTime.Now.AddDays(-450));
 
-            var eventController = new EventSchedulerController();
-            this.ApplyFilters(eventController, SelectionMode.FilteredItems, NextWeekOrLastYearAdditionalFilters, SelectionMode.AllItems, DefaultNarrowSelectionFilters);
+            var widgetId = this.AddControl(this.CreatePage(), SelectionMode.FilteredItems, NextWeekOrLastYearAdditionalFilters, SelectionMode.AllItems, DefaultNarrowSelectionFilters);
 
-            this.AssertEvent(eventController, DateTime.MinValue, DateTime.MaxValue, 5);
+            this.AssertEvent(widgetId, DateTime.MinValue, DateTime.MaxValue, 5);
         }
 
         [Test]
@@ -752,10 +712,9 @@ namespace FeatherWidgets.TestIntegration.Events
             ServerOperations.Events().CreateEvent("PastEventInLastYear", string.Empty, false, DateTime.Now.AddDays(-368), DateTime.Now.AddDays(-365));
             ServerOperations.Events().CreateEvent("PastEventInMoreThanLastYear", string.Empty, false, DateTime.Now.AddDays(-453), DateTime.Now.AddDays(-450));
 
-            var eventController = new EventSchedulerController();
-            this.ApplyFilters(eventController, SelectionMode.FilteredItems, NextWeekOrLastYearOrCurrentAdditionalFilters, SelectionMode.AllItems, DefaultNarrowSelectionFilters);
+            var widgetId = this.AddControl(this.CreatePage(), SelectionMode.FilteredItems, NextWeekOrLastYearOrCurrentAdditionalFilters, SelectionMode.AllItems, DefaultNarrowSelectionFilters);
 
-            this.AssertEvent(eventController, DateTime.MinValue, DateTime.MaxValue, 11);
+            this.AssertEvent(widgetId, DateTime.MinValue, DateTime.MaxValue, 11);
         }
 
         [Test]
@@ -769,10 +728,9 @@ namespace FeatherWidgets.TestIntegration.Events
             ServerOperations.Events().CreateEvent("PastEventInLast3Days", string.Empty, false, DateTime.Now.AddDays(-2), DateTime.Now.AddDays(-1));
             ServerOperations.Events().CreateEvent("PastEventInMoreThanLast3Days", string.Empty, false, DateTime.Now.AddDays(-6), DateTime.Now.AddDays(-4));
 
-            var eventController = new EventSchedulerController();
-            this.ApplyFilters(eventController, SelectionMode.FilteredItems, NextMonthOrLast3DaysAdditionalFilters, SelectionMode.AllItems, DefaultNarrowSelectionFilters);
+            var widgetId = this.AddControl(this.CreatePage(), SelectionMode.FilteredItems, NextMonthOrLast3DaysAdditionalFilters, SelectionMode.AllItems, DefaultNarrowSelectionFilters);
 
-            this.AssertEvent(eventController, DateTime.MinValue, DateTime.MaxValue, 5);
+            this.AssertEvent(widgetId, DateTime.MinValue, DateTime.MaxValue, 5);
         }
 
         [Test]
@@ -786,12 +744,11 @@ namespace FeatherWidgets.TestIntegration.Events
             ServerOperations.Events().CreateEvent("PastEventInLast3Days", string.Empty, false, DateTime.Now.AddDays(-2), DateTime.Now.AddDays(-1));
             ServerOperations.Events().CreateEvent("PastEventInMoreThanLast3Days", string.Empty, false, DateTime.Now.AddDays(-6), DateTime.Now.AddDays(-4));
 
-            var eventController = new EventSchedulerController();
-            this.ApplyFilters(eventController, SelectionMode.FilteredItems, NextMonthOrLast3DaysOrCurrentAdditionalFilters, SelectionMode.AllItems, DefaultNarrowSelectionFilters);
+            var widgetId = this.AddControl(this.CreatePage(), SelectionMode.FilteredItems, NextMonthOrLast3DaysOrCurrentAdditionalFilters, SelectionMode.AllItems, DefaultNarrowSelectionFilters);
 
-            this.AssertEvent(eventController, DateTime.MinValue, DateTime.MaxValue, 11);
+            this.AssertEvent(widgetId, DateTime.MinValue, DateTime.MaxValue, 11);
         }
-        
+
         [Test]
         [Category(TestCategories.Events)]
         [Author(FeatherTeams.SitefinityTeam8)]
@@ -803,10 +760,9 @@ namespace FeatherWidgets.TestIntegration.Events
             ServerOperations.Events().CreateEvent("PastEventInLastWeek", string.Empty, false, DateTime.Now.AddDays(-6), DateTime.Now.AddDays(-4));
             ServerOperations.Events().CreateEvent("PastEventInMoreThanLastWeek", string.Empty, false, DateTime.Now.AddDays(-12), DateTime.Now.AddDays(-9));
 
-            var eventController = new EventSchedulerController();
-            this.ApplyFilters(eventController, SelectionMode.FilteredItems, NextMonthOrLastWeekAdditionalFilters, SelectionMode.AllItems, DefaultNarrowSelectionFilters);
+            var widgetId = this.AddControl(this.CreatePage(), SelectionMode.FilteredItems, NextMonthOrLastWeekAdditionalFilters, SelectionMode.AllItems, DefaultNarrowSelectionFilters);
 
-            this.AssertEvent(eventController, DateTime.MinValue, DateTime.MaxValue, 5);
+            this.AssertEvent(widgetId, DateTime.MinValue, DateTime.MaxValue, 5);
         }
 
         [Test]
@@ -820,10 +776,9 @@ namespace FeatherWidgets.TestIntegration.Events
             ServerOperations.Events().CreateEvent("PastEventInLastWeek", string.Empty, false, DateTime.Now.AddDays(-6), DateTime.Now.AddDays(-4));
             ServerOperations.Events().CreateEvent("PastEventInMoreThanLastWeek", string.Empty, false, DateTime.Now.AddDays(-12), DateTime.Now.AddDays(-9));
 
-            var eventController = new EventSchedulerController();
-            this.ApplyFilters(eventController, SelectionMode.FilteredItems, NextMonthOrLastWeekOrCurrentAdditionalFilters, SelectionMode.AllItems, DefaultNarrowSelectionFilters);
+            var widgetId = this.AddControl(this.CreatePage(), SelectionMode.FilteredItems, NextMonthOrLastWeekOrCurrentAdditionalFilters, SelectionMode.AllItems, DefaultNarrowSelectionFilters);
 
-            this.AssertEvent(eventController, DateTime.MinValue, DateTime.MaxValue, 11);
+            this.AssertEvent(widgetId, DateTime.MinValue, DateTime.MaxValue, 11);
         }
 
         [Test]
@@ -837,10 +792,9 @@ namespace FeatherWidgets.TestIntegration.Events
             ServerOperations.Events().CreateEvent("PastEventInLastMonth", string.Empty, false, DateTime.Now.AddDays(-22), DateTime.Now.AddDays(-20));
             ServerOperations.Events().CreateEvent("PastEventInMoreThanLastMonth", string.Empty, false, DateTime.Now.AddDays(-42), DateTime.Now.AddDays(-40));
 
-            var eventController = new EventSchedulerController();
-            this.ApplyFilters(eventController, SelectionMode.FilteredItems, NextMonthOrLastMonthAdditionalFilters, SelectionMode.AllItems, DefaultNarrowSelectionFilters);
+            var widgetId = this.AddControl(this.CreatePage(), SelectionMode.FilteredItems, NextMonthOrLastMonthAdditionalFilters, SelectionMode.AllItems, DefaultNarrowSelectionFilters);
 
-            this.AssertEvent(eventController, DateTime.MinValue, DateTime.MaxValue, 5);
+            this.AssertEvent(widgetId, DateTime.MinValue, DateTime.MaxValue, 5);
         }
 
         [Test]
@@ -854,10 +808,9 @@ namespace FeatherWidgets.TestIntegration.Events
             ServerOperations.Events().CreateEvent("PastEventInLastMonth", string.Empty, false, DateTime.Now.AddDays(-22), DateTime.Now.AddDays(-20));
             ServerOperations.Events().CreateEvent("PastEventInMoreThanLastMonth", string.Empty, false, DateTime.Now.AddDays(-42), DateTime.Now.AddDays(-40));
 
-            var eventController = new EventSchedulerController();
-            this.ApplyFilters(eventController, SelectionMode.FilteredItems, NextMonthOrLastMonthOrCurrentAdditionalFilters, SelectionMode.AllItems, DefaultNarrowSelectionFilters);
+            var widgetId = this.AddControl(this.CreatePage(), SelectionMode.FilteredItems, NextMonthOrLastMonthOrCurrentAdditionalFilters, SelectionMode.AllItems, DefaultNarrowSelectionFilters);
 
-            this.AssertEvent(eventController, DateTime.MinValue, DateTime.MaxValue, 11);
+            this.AssertEvent(widgetId, DateTime.MinValue, DateTime.MaxValue, 11);
         }
 
         [Test]
@@ -871,10 +824,9 @@ namespace FeatherWidgets.TestIntegration.Events
             ServerOperations.Events().CreateEvent("PastEventInLastYear", string.Empty, false, DateTime.Now.AddDays(-368), DateTime.Now.AddDays(-365));
             ServerOperations.Events().CreateEvent("PastEventInMoreThanLastYear", string.Empty, false, DateTime.Now.AddDays(-453), DateTime.Now.AddDays(-450));
 
-            var eventController = new EventSchedulerController();
-            this.ApplyFilters(eventController, SelectionMode.FilteredItems, NextMonthOrLastYearAdditionalFilters, SelectionMode.AllItems, DefaultNarrowSelectionFilters);
+            var widgetId = this.AddControl(this.CreatePage(), SelectionMode.FilteredItems, NextMonthOrLastYearAdditionalFilters, SelectionMode.AllItems, DefaultNarrowSelectionFilters);
 
-            this.AssertEvent(eventController, DateTime.MinValue, DateTime.MaxValue, 5);
+            this.AssertEvent(widgetId, DateTime.MinValue, DateTime.MaxValue, 5);
         }
 
         [Test]
@@ -888,10 +840,9 @@ namespace FeatherWidgets.TestIntegration.Events
             ServerOperations.Events().CreateEvent("PastEventInLastYear", string.Empty, false, DateTime.Now.AddDays(-368), DateTime.Now.AddDays(-365));
             ServerOperations.Events().CreateEvent("PastEventInMoreThanLastYear", string.Empty, false, DateTime.Now.AddDays(-453), DateTime.Now.AddDays(-450));
 
-            var eventController = new EventSchedulerController();
-            this.ApplyFilters(eventController, SelectionMode.FilteredItems, NextMonthOrLastYearOrCurrentAdditionalFilters, SelectionMode.AllItems, DefaultNarrowSelectionFilters);
+            var widgetId = this.AddControl(this.CreatePage(), SelectionMode.FilteredItems, NextMonthOrLastYearOrCurrentAdditionalFilters, SelectionMode.AllItems, DefaultNarrowSelectionFilters);
 
-            this.AssertEvent(eventController, DateTime.MinValue, DateTime.MaxValue, 11);
+            this.AssertEvent(widgetId, DateTime.MinValue, DateTime.MaxValue, 11);
         }
 
         [Test]
@@ -905,10 +856,9 @@ namespace FeatherWidgets.TestIntegration.Events
             ServerOperations.Events().CreateEvent("PastEventInLast3Days", string.Empty, false, DateTime.Now.AddDays(-2), DateTime.Now.AddDays(-1));
             ServerOperations.Events().CreateEvent("PastEventInMoreThanLast3Days", string.Empty, false, DateTime.Now.AddDays(-6), DateTime.Now.AddDays(-4));
 
-            var eventController = new EventSchedulerController();
-            this.ApplyFilters(eventController, SelectionMode.FilteredItems, NextYearOrLast3DaysAdditionalFilters, SelectionMode.AllItems, DefaultNarrowSelectionFilters);
+            var widgetId = this.AddControl(this.CreatePage(), SelectionMode.FilteredItems, NextYearOrLast3DaysAdditionalFilters, SelectionMode.AllItems, DefaultNarrowSelectionFilters);
 
-            this.AssertEvent(eventController, DateTime.MinValue, DateTime.MaxValue, 5);
+            this.AssertEvent(widgetId, DateTime.MinValue, DateTime.MaxValue, 5);
         }
 
         [Test]
@@ -922,10 +872,9 @@ namespace FeatherWidgets.TestIntegration.Events
             ServerOperations.Events().CreateEvent("PastEventInLast3Days", string.Empty, false, DateTime.Now.AddDays(-2), DateTime.Now.AddDays(-1));
             ServerOperations.Events().CreateEvent("PastEventInMoreThanLast3Days", string.Empty, false, DateTime.Now.AddDays(-6), DateTime.Now.AddDays(-4));
 
-            var eventController = new EventSchedulerController();
-            this.ApplyFilters(eventController, SelectionMode.FilteredItems, NextYearOrLast3DaysOrCurrentAdditionalFilters, SelectionMode.AllItems, DefaultNarrowSelectionFilters);
+            var widgetId = this.AddControl(this.CreatePage(), SelectionMode.FilteredItems, NextYearOrLast3DaysOrCurrentAdditionalFilters, SelectionMode.AllItems, DefaultNarrowSelectionFilters);
 
-            this.AssertEvent(eventController, DateTime.MinValue, DateTime.MaxValue, 11);
+            this.AssertEvent(widgetId, DateTime.MinValue, DateTime.MaxValue, 11);
         }
 
         [Test]
@@ -939,10 +888,9 @@ namespace FeatherWidgets.TestIntegration.Events
             ServerOperations.Events().CreateEvent("PastEventInLastWeek", string.Empty, false, DateTime.Now.AddDays(-6), DateTime.Now.AddDays(-4));
             ServerOperations.Events().CreateEvent("PastEventInMoreThanLastWeek", string.Empty, false, DateTime.Now.AddDays(-12), DateTime.Now.AddDays(-9));
 
-            var eventController = new EventSchedulerController();
-            this.ApplyFilters(eventController, SelectionMode.FilteredItems, NextYearOrLastWeekAdditionalFilters, SelectionMode.AllItems, DefaultNarrowSelectionFilters);
+            var widgetId = this.AddControl(this.CreatePage(), SelectionMode.FilteredItems, NextYearOrLastWeekAdditionalFilters, SelectionMode.AllItems, DefaultNarrowSelectionFilters);
 
-            this.AssertEvent(eventController, DateTime.MinValue, DateTime.MaxValue, 5);
+            this.AssertEvent(widgetId, DateTime.MinValue, DateTime.MaxValue, 5);
         }
 
         [Test]
@@ -956,10 +904,9 @@ namespace FeatherWidgets.TestIntegration.Events
             ServerOperations.Events().CreateEvent("PastEventInLastWeek", string.Empty, false, DateTime.Now.AddDays(-6), DateTime.Now.AddDays(-4));
             ServerOperations.Events().CreateEvent("PastEventInMoreThanLastWeek", string.Empty, false, DateTime.Now.AddDays(-12), DateTime.Now.AddDays(-9));
 
-            var eventController = new EventSchedulerController();
-            this.ApplyFilters(eventController, SelectionMode.FilteredItems, NextYearOrLastWeekOrCurrentAdditionalFilters, SelectionMode.AllItems, DefaultNarrowSelectionFilters);
+            var widgetId = this.AddControl(this.CreatePage(), SelectionMode.FilteredItems, NextYearOrLastWeekOrCurrentAdditionalFilters, SelectionMode.AllItems, DefaultNarrowSelectionFilters);
 
-            this.AssertEvent(eventController, DateTime.MinValue, DateTime.MaxValue, 11);
+            this.AssertEvent(widgetId, DateTime.MinValue, DateTime.MaxValue, 11);
         }
 
         [Test]
@@ -973,10 +920,9 @@ namespace FeatherWidgets.TestIntegration.Events
             ServerOperations.Events().CreateEvent("PastEventInLastMonth", string.Empty, false, DateTime.Now.AddDays(-22), DateTime.Now.AddDays(-20));
             ServerOperations.Events().CreateEvent("PastEventInMoreThanLastMonth", string.Empty, false, DateTime.Now.AddDays(-42), DateTime.Now.AddDays(-40));
 
-            var eventController = new EventSchedulerController();
-            this.ApplyFilters(eventController, SelectionMode.FilteredItems, NextYearOrLastMonthAdditionalFilters, SelectionMode.AllItems, DefaultNarrowSelectionFilters);
+            var widgetId = this.AddControl(this.CreatePage(), SelectionMode.FilteredItems, NextYearOrLastMonthAdditionalFilters, SelectionMode.AllItems, DefaultNarrowSelectionFilters);
 
-            this.AssertEvent(eventController, DateTime.MinValue, DateTime.MaxValue, 5);
+            this.AssertEvent(widgetId, DateTime.MinValue, DateTime.MaxValue, 5);
         }
 
         [Test]
@@ -990,10 +936,9 @@ namespace FeatherWidgets.TestIntegration.Events
             ServerOperations.Events().CreateEvent("PastEventInLastMonth", string.Empty, false, DateTime.Now.AddDays(-22), DateTime.Now.AddDays(-20));
             ServerOperations.Events().CreateEvent("PastEventInMoreThanLastMonth", string.Empty, false, DateTime.Now.AddDays(-42), DateTime.Now.AddDays(-40));
 
-            var eventController = new EventSchedulerController();
-            this.ApplyFilters(eventController, SelectionMode.FilteredItems, NextYearOrLastMonthOrCurrentAdditionalFilters, SelectionMode.AllItems, DefaultNarrowSelectionFilters);
+            var widgetId = this.AddControl(this.CreatePage(), SelectionMode.FilteredItems, NextYearOrLastMonthOrCurrentAdditionalFilters, SelectionMode.AllItems, DefaultNarrowSelectionFilters);
 
-            this.AssertEvent(eventController, DateTime.MinValue, DateTime.MaxValue, 11);
+            this.AssertEvent(widgetId, DateTime.MinValue, DateTime.MaxValue, 11);
         }
 
         [Test]
@@ -1007,10 +952,9 @@ namespace FeatherWidgets.TestIntegration.Events
             ServerOperations.Events().CreateEvent("PastEventInLastYear", string.Empty, false, DateTime.Now.AddDays(-368), DateTime.Now.AddDays(-365));
             ServerOperations.Events().CreateEvent("PastEventInMoreThanLastYear", string.Empty, false, DateTime.Now.AddDays(-453), DateTime.Now.AddDays(-450));
 
-            var eventController = new EventSchedulerController();
-            this.ApplyFilters(eventController, SelectionMode.FilteredItems, NextYearOrLastYearAdditionalFilters, SelectionMode.AllItems, DefaultNarrowSelectionFilters);
+            var widgetId = this.AddControl(this.CreatePage(), SelectionMode.FilteredItems, NextYearOrLastYearAdditionalFilters, SelectionMode.AllItems, DefaultNarrowSelectionFilters);
 
-            this.AssertEvent(eventController, DateTime.MinValue, DateTime.MaxValue, 5);
+            this.AssertEvent(widgetId, DateTime.MinValue, DateTime.MaxValue, 5);
         }
 
         [Test]
@@ -1024,10 +968,9 @@ namespace FeatherWidgets.TestIntegration.Events
             ServerOperations.Events().CreateEvent("PastEventInLastYear", string.Empty, false, DateTime.Now.AddDays(-368), DateTime.Now.AddDays(-365));
             ServerOperations.Events().CreateEvent("PastEventInMoreThanLastYear", string.Empty, false, DateTime.Now.AddDays(-453), DateTime.Now.AddDays(-450));
 
-            var eventController = new EventSchedulerController();
-            this.ApplyFilters(eventController, SelectionMode.FilteredItems, NextYearOrLastYearOrCurrentAdditionalFilters, SelectionMode.AllItems, DefaultNarrowSelectionFilters);
+            var widgetId = this.AddControl(this.CreatePage(), SelectionMode.FilteredItems, NextYearOrLastYearOrCurrentAdditionalFilters, SelectionMode.AllItems, DefaultNarrowSelectionFilters);
 
-            this.AssertEvent(eventController, DateTime.MinValue, DateTime.MaxValue, 11);
+            this.AssertEvent(widgetId, DateTime.MinValue, DateTime.MaxValue, 11);
         }
 
         #endregion
@@ -1050,10 +993,9 @@ namespace FeatherWidgets.TestIntegration.Events
                 ServerOperations.Events().CreateEvent("UpcomingEventInMoreThanNext3Days", string.Empty, false, DateTime.Now.AddDays(5), DateTime.Now.AddDays(7))
             };
 
-            var eventController = new EventSchedulerController();
-            this.ApplyFilters(eventController, SelectionMode.SelectedItems, DefaultAdditionalFilters, SelectionMode.AllItems, DefaultNarrowSelectionFilters, eventListIDs);
+            var widgetId = this.AddControl(this.CreatePage(), SelectionMode.SelectedItems, DefaultAdditionalFilters, SelectionMode.AllItems, DefaultNarrowSelectionFilters, eventListIDs);
 
-            this.AssertEvent(eventController, DateTime.MinValue, DateTime.MaxValue, 2);
+            this.AssertEvent(widgetId, DateTime.MinValue, DateTime.MaxValue, 2);
         }
 
         #endregion
@@ -1075,10 +1017,9 @@ namespace FeatherWidgets.TestIntegration.Events
 
             string filter = this.GetNarrowSelectionFilter(new Dictionary<Guid, string>() { { calendarId1, "Parent.Id" }, { calendarId2, "Parent.Id" } }, null, null);
 
-            var eventController = new EventSchedulerController();
-            this.ApplyFilters(eventController, SelectionMode.AllItems, DefaultAdditionalFilters, SelectionMode.FilteredItems, filter);
+            var widgetId = this.AddControl(this.CreatePage(), SelectionMode.AllItems, DefaultAdditionalFilters, SelectionMode.FilteredItems, filter);
 
-            this.AssertEvent(eventController, DateTime.MinValue, DateTime.MaxValue, 2);
+            this.AssertEvent(widgetId, DateTime.MinValue, DateTime.MaxValue, 2);
         }
 
         [Test]
@@ -1098,10 +1039,9 @@ namespace FeatherWidgets.TestIntegration.Events
 
             string filter = this.GetNarrowSelectionFilter(null, new Dictionary<Guid, string>() { { tag1Id, "Tag custom 1" }, { tag2Id, "Tag custom 2" } }, null);
 
-            var eventController = new EventSchedulerController();
-            this.ApplyFilters(eventController, SelectionMode.AllItems, DefaultAdditionalFilters, SelectionMode.FilteredItems, filter);
+            var widgetId = this.AddControl(this.CreatePage(), SelectionMode.AllItems, DefaultAdditionalFilters, SelectionMode.FilteredItems, filter);
 
-            this.AssertEvent(eventController, DateTime.MinValue, DateTime.MaxValue, 2);
+            this.AssertEvent(widgetId, DateTime.MinValue, DateTime.MaxValue, 2);
         }
 
         [Test]
@@ -1121,10 +1061,9 @@ namespace FeatherWidgets.TestIntegration.Events
 
             string filter = this.GetNarrowSelectionFilter(null, null, new Dictionary<Guid, string>() { { category1Id, "Category custom 1" }, { category2Id, "Category custom 2" } });
 
-            var eventController = new EventSchedulerController();
-            this.ApplyFilters(eventController, SelectionMode.AllItems, DefaultAdditionalFilters, SelectionMode.FilteredItems, filter);
+            var widgetId = this.AddControl(this.CreatePage(), SelectionMode.AllItems, DefaultAdditionalFilters, SelectionMode.FilteredItems, filter);
 
-            this.AssertEvent(eventController, DateTime.MinValue, DateTime.MaxValue, 2);
+            this.AssertEvent(widgetId, DateTime.MinValue, DateTime.MaxValue, 2);
         }
 
         [Test]
@@ -1154,14 +1093,13 @@ namespace FeatherWidgets.TestIntegration.Events
             ServerOperations.Events().AssignTaxonToEventItem(event3Id, "Category", category3Id);
 
             string filter = this.GetNarrowSelectionFilter(
-                new Dictionary<Guid, string>() { { calendarId1, "Parent.Id" }, { calendarId3, "Parent.Id" } }, 
-                null, 
+                new Dictionary<Guid, string>() { { calendarId1, "Parent.Id" }, { calendarId3, "Parent.Id" } },
+                null,
                 new Dictionary<Guid, string>() { { category1Id, "Category custom 1" }, { category2Id, "Category custom 2" }, { category3Id, "Category custom 3" } });
 
-            var eventController = new EventSchedulerController();
-            this.ApplyFilters(eventController, SelectionMode.AllItems, DefaultAdditionalFilters, SelectionMode.FilteredItems, filter);
+            var widgetId = this.AddControl(this.CreatePage(), SelectionMode.AllItems, DefaultAdditionalFilters, SelectionMode.FilteredItems, filter);
 
-            this.AssertEvent(eventController, DateTime.MinValue, DateTime.MaxValue, 2);
+            this.AssertEvent(widgetId, DateTime.MinValue, DateTime.MaxValue, 2);
         }
 
         [Test]
@@ -1191,14 +1129,13 @@ namespace FeatherWidgets.TestIntegration.Events
             ServerOperations.Events().AssignTaxonToEventItem(event3Id, "Tags", tag3Id);
 
             string filter = this.GetNarrowSelectionFilter(
-                new Dictionary<Guid, string>() { { calendar2Id, "Parent.Id" }, { calendar3Id, "Parent.Id" } }, 
-                new Dictionary<Guid, string>() { { tag1Id, "Tag custom 1" }, { tag2Id, "Tag custom 2" } }, 
+                new Dictionary<Guid, string>() { { calendar2Id, "Parent.Id" }, { calendar3Id, "Parent.Id" } },
+                new Dictionary<Guid, string>() { { tag1Id, "Tag custom 1" }, { tag2Id, "Tag custom 2" } },
                 null);
 
-            var eventController = new EventSchedulerController();
-            this.ApplyFilters(eventController, SelectionMode.AllItems, DefaultAdditionalFilters, SelectionMode.FilteredItems, filter);
+            var widgetId = this.AddControl(this.CreatePage(), SelectionMode.AllItems, DefaultAdditionalFilters, SelectionMode.FilteredItems, filter);
 
-            this.AssertEvent(eventController, DateTime.MinValue, DateTime.MaxValue, 1);
+            this.AssertEvent(widgetId, DateTime.MinValue, DateTime.MaxValue, 1);
         }
 
         [Test]
@@ -1232,14 +1169,13 @@ namespace FeatherWidgets.TestIntegration.Events
             ServerOperations.Events().AssignTaxonToEventItem(event3Id, "Tags", tag3Id);
 
             string filter = this.GetNarrowSelectionFilter(
-                null, 
+                null,
                 new Dictionary<Guid, string>() { { tag1Id, "Tag custom 1" }, { tag2Id, "Tag custom 2" } },
                 new Dictionary<Guid, string>() { { category2Id, "Category custom 2" }, { category3Id, "Category custom 3" } });
 
-            var eventController = new EventSchedulerController();
-            this.ApplyFilters(eventController, SelectionMode.AllItems, DefaultAdditionalFilters, SelectionMode.FilteredItems, filter);
+            var widgetId = this.AddControl(this.CreatePage(), SelectionMode.AllItems, DefaultAdditionalFilters, SelectionMode.FilteredItems, filter);
 
-            this.AssertEvent(eventController, DateTime.MinValue, DateTime.MaxValue, 1);
+            this.AssertEvent(widgetId, DateTime.MinValue, DateTime.MaxValue, 1);
         }
 
         [Test]
@@ -1283,10 +1219,9 @@ namespace FeatherWidgets.TestIntegration.Events
                 new Dictionary<Guid, string>() { { tag2Id, "Tag custom 2" }, { tag3Id, "Tag custom 3" } },
                 new Dictionary<Guid, string>() { { category2Id, "Category custom 2" } });
 
-            var eventController = new EventSchedulerController();
-            this.ApplyFilters(eventController, SelectionMode.AllItems, DefaultAdditionalFilters, SelectionMode.FilteredItems, filter);
+            var widgetId = this.AddControl(this.CreatePage(), SelectionMode.AllItems, DefaultAdditionalFilters, SelectionMode.FilteredItems, filter);
 
-            this.AssertEvent(eventController, DateTime.MinValue, DateTime.MaxValue, 1);
+            this.AssertEvent(widgetId, DateTime.MinValue, DateTime.MaxValue, 1);
         }
 
         #endregion
@@ -1306,13 +1241,12 @@ namespace FeatherWidgets.TestIntegration.Events
             this.SetCalendarToEvent(manager, BaseRepeatEventTitle, EventSchedulerWidgetTests.Calendar1Title);
             this.SetCalendarToEvent(manager, BasePastEventTitle, EventSchedulerWidgetTests.Calendar2Title);
 
-            var eventController = new EventSchedulerController();
-            this.ApplyFilters(eventController, SelectionMode.AllItems, DefaultAdditionalFilters, SelectionMode.AllItems, DefaultNarrowSelectionFilters);
+            var widgetId = this.AddControl(this.CreatePage(), SelectionMode.AllItems, DefaultAdditionalFilters, SelectionMode.AllItems, DefaultNarrowSelectionFilters);
 
-            this.AssertCalendar(eventController, DateTime.MinValue, DateTime.MaxValue, 3);
+            this.AssertCalendar(widgetId, DateTime.MinValue, DateTime.MaxValue, 3);
         }
 
-        #endregion        
+        #endregion
 
         #region Calendars - Multilingual
 
@@ -1332,10 +1266,9 @@ namespace FeatherWidgets.TestIntegration.Events
             var calendar2Id = this.CreateLocalizedCalendar(Calendar2Title, Calendar1Title + " bg", bulgarian);
             this.CreateLocalizedEvent(multiOperations, "Event 2 bg", Guid.NewGuid(), DateTime.Now, DateTime.Now.AddDays(1), false, false, calendar2Id, bulgarian);
 
-            var eventController = new EventSchedulerController();
-            this.ApplyFilters(eventController, SelectionMode.AllItems, DefaultAdditionalFilters, SelectionMode.AllItems, DefaultNarrowSelectionFilters);
+            var widgetId = this.AddControl(this.CreatePage(bulgarian), SelectionMode.AllItems, DefaultAdditionalFilters, SelectionMode.AllItems, DefaultNarrowSelectionFilters);
 
-            this.AssertCalendar(eventController, DateTime.MinValue, DateTime.MaxValue, 2, bulgarian);
+            this.AssertCalendar(widgetId, DateTime.MinValue, DateTime.MaxValue, 2, bulgarian);
         }
 
         #endregion
@@ -1354,24 +1287,26 @@ namespace FeatherWidgets.TestIntegration.Events
                 eventController.Model.SerializedSelectedItemsIds = JsonSerializer.SerializeToString<List<Guid>>(selectedItemsIds);
             }
         }
-       
-        private void AssertCalendar(EventSchedulerController controller, DateTime startDate, DateTime endDate, long expectedCalendarCount, CultureInfo culture = null)
+
+        private void AssertCalendar(Guid widgetId, DateTime filterStartDate, DateTime filterEndDate, long expectedCalendarCount, CultureInfo culture = null)
         {
-            var queryStringValue = this.CreateModelQueryString(controller.Model, startDate, endDate, culture);
-            var pageContent = WebRequestHelper.GetPageWebContent(UrlPath.ResolveAbsoluteUrl("~/web-interface/calendars/?") + queryStringValue);
+            var filters = this.CreateFilterQueryString(widgetId, filterStartDate, filterEndDate, culture);
+            var pageContent = WebRequestHelper.GetPageWebContent(UrlPath.ResolveAbsoluteUrl("~/web-interface/calendars/?") + filters);
+
             Assert.DoesNotContain(pageContent, JsonExceptionMessage, JsonExceptionMessage);
-            List<EventCalendarViewModel> jsonCalendarsList = JsonSerializer.DeserializeFromString<List<EventCalendarViewModel>>(pageContent);
-            Assert.AreEqual(jsonCalendarsList.LongCount(), expectedCalendarCount);
+            List<EventCalendarViewModel> calendarOccurrenceList = JsonSerializer.DeserializeFromString<List<EventCalendarViewModel>>(pageContent);
+            Assert.AreEqual(calendarOccurrenceList.LongCount(), expectedCalendarCount);
         }
 
-        private void AssertEvent(EventSchedulerController controller, DateTime startDate, DateTime endDate, long expectedEventOccurrences, CultureInfo culture = null)
+        private void AssertEvent(Guid widgetId, DateTime filterStartDate, DateTime filterEndDate, long expectedEventOccurrences, CultureInfo culture = null)
         {
-            var queryStringValue = this.CreateModelQueryString(controller.Model, startDate, endDate, culture);
-            var pageContent = WebRequestHelper.GetPageWebContent(UrlPath.ResolveAbsoluteUrl("~/web-interface/events/?") + queryStringValue);
+            var filters = this.CreateFilterQueryString(widgetId, filterStartDate, filterEndDate, culture);
+            var pageContent = WebRequestHelper.GetPageWebContent(UrlPath.ResolveAbsoluteUrl("/web-interface/events/?") + filters);
+
             Assert.DoesNotContain(pageContent, JsonExceptionMessage, JsonExceptionMessage);
             List<EventOccurrenceViewModel> eventOccurrenceList = JsonSerializer.DeserializeFromString<List<EventOccurrenceViewModel>>(pageContent);
             Assert.AreEqual(eventOccurrenceList.LongCount(), expectedEventOccurrences);
-        }       
+        }
 
         private void CreateLocalizedEvent(MultilingualEventOperations multiOperations, string eventTitle, Guid eventId, DateTime start, DateTime end, bool allDay, bool isRecurrent, Guid calendarId, CultureInfo culture = null, string recurrenceExpression = null)
         {
@@ -1422,25 +1357,20 @@ namespace FeatherWidgets.TestIntegration.Events
             return id;
         }
 
-        private Dictionary<string, string> CreateQueryStringDictionary(IEventSchedulerModel model)
+        private string CreateFilterQueryString(Guid widgetId, DateTime startDate, DateTime endDate, CultureInfo culture)
         {
-            var queryStringList = model.GetType().GetProperties()
-                .Where(p => p.GetValue(model, null) != null)
-                .Select(property => new { Key = property.Name, Value = HttpUtility.UrlEncode(property.GetValue(model, null).ToString()) })
+            var queryStringDictionary = typeof(EventsFilter).GetProperties()
+                .Where(p => p.GetValue(new EventsFilter(), null) != null)
+                .Select(property => new { Key = property.Name, Value = HttpUtility.UrlEncode(property.GetValue(new EventsFilter(), null).ToString()) })
                 .ToDictionary(t => t.Key, t => t.Value);
 
-            return queryStringList;
-        }
-
-        private string CreateModelQueryString(IEventSchedulerModel model, DateTime startDate, DateTime endDate, CultureInfo culture = null)
-        {
-            var queryStringDictionary = this.CreateQueryStringDictionary(model);
-            queryStringDictionary["StartDate"] = HttpUtility.UrlEncode(startDate.ToString("o", System.Globalization.CultureInfo.InvariantCulture));
-            queryStringDictionary["EndDate"] = HttpUtility.UrlEncode((endDate == DateTime.MaxValue ? DateTime.MaxValue.AddDays(-1) : endDate).ToString("o", System.Globalization.CultureInfo.InvariantCulture));
+            queryStringDictionary["Id"] = widgetId.ToString();
+            queryStringDictionary["StartDate"] = HttpUtility.UrlEncode(startDate.ToString("u", System.Globalization.CultureInfo.InvariantCulture));
+            queryStringDictionary["EndDate"] = HttpUtility.UrlEncode((endDate == DateTime.MaxValue ? DateTime.MaxValue.AddDays(-1) : endDate).ToString("u", System.Globalization.CultureInfo.InvariantCulture));
 
             if (culture != null)
             {
-                queryStringDictionary["UiCulture"] = culture.Name;
+                queryStringDictionary["UICulture"] = culture.Name;
             }
 
             var queryStringValue = string.Join("&", queryStringDictionary.Select(t => t.Key + "=" + t.Value).ToArray());
@@ -1509,7 +1439,7 @@ namespace FeatherWidgets.TestIntegration.Events
 
             return JsonSerializer.SerializeToString(queryData, typeof(QueryData));
         }
-     
+
         private Guid SetCalendarToEvent(EventsManager manager, string eventTitle, string calendarTitle)
         {
             var selectedEvent = manager.GetEvents().Where(i => i.Title == eventTitle).FirstOrDefault();
@@ -1526,6 +1456,25 @@ namespace FeatherWidgets.TestIntegration.Events
             return Guid.Empty;
         }
 
+        private Guid CreatePage(CultureInfo culture = null, string pageName = null)
+        {
+            culture = culture ?? CultureInfo.CurrentUICulture;
+            return new MultilingualPageOperations().CreatePageMultilingual(Guid.Empty, pageName ?? PageNamePrefix + " " + culture.Name, false, culture.Name);
+        }
+
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Globalization", "CA1303:Do not pass literals as localized parameters", MessageId = "Telerik.Sitefinity.Mvc.TestUtilities.Data.PageContentGenerator.AddControlToPage(System.Guid,System.Web.UI.Control,System.String,System.String,System.Action<Telerik.Sitefinity.Pages.Model.PageDraftControl>)")]
+        private Guid AddControl(Guid pageId, SelectionMode additionalFiltersSelectionMode, string additionalFilters, SelectionMode narrowFiltersSelectionMode, string narrowSelectionFilters, List<Guid> selectedItemsIds = null)
+        {
+            var mvcProxy = new MvcControllerProxy();
+            mvcProxy.ControllerName = typeof(EventSchedulerController).FullName;
+            var eventSchedulerController = new EventSchedulerController();
+            this.ApplyFilters(eventSchedulerController, additionalFiltersSelectionMode, additionalFilters, narrowFiltersSelectionMode, narrowSelectionFilters, selectedItemsIds);
+            mvcProxy.Settings = new ControllerSettings(eventSchedulerController);
+            string controlId = Telerik.Sitefinity.Mvc.TestUtilities.Data.PageContentGenerator.AddControlToPage(pageId, mvcProxy, Caption);
+
+            return this.GetWidgetId(pageId, controlId);
+        }
+
         private void InitializeSitefinityLanguages()
         {
             var english = AppSettings.CurrentSettings.DefinedFrontendLanguages.Where(x => x.Name == "en-US").FirstOrDefault();
@@ -1539,6 +1488,24 @@ namespace FeatherWidgets.TestIntegration.Events
             this.sitefinityLanguages.Add("Arabic", arabic);
             this.sitefinityLanguages.Add("Serbian", serbian);
             this.sitefinityLanguages.Add("Bulgarian", bulgarian);
+        }
+
+        /// <summary>
+        /// Get controller widget id
+        /// </summary>
+        /// <returns></returns>
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Globalization", "CA1307:SpecifyStringComparison", MessageId = "System.String.EndsWith(System.String)")]
+        private Guid GetWidgetId(Guid pageId, string controlId)
+        {
+            var page = PageManager.GetManager().GetPageNode(pageId).Page;
+
+            var control = page.Controls.FirstOrDefault(p => p.Properties.FirstOrDefault(t => t.Name == "ID" && controlId.EndsWith(controlId)) != null);
+            if (control != null)
+            {
+                return control.Id;
+            }
+
+            return Guid.Empty;
         }
 
         #endregion
@@ -1629,9 +1596,12 @@ namespace FeatherWidgets.TestIntegration.Events
 
             public string FieldType { get; set; }
         }
-        
+
         private const string JsonExceptionMessage = "[InvalidOperationException: Error during serialization or deserialization using the JSON JavaScriptSerializer. The length of the string exceeds the value set on the maxJsonLength property.]";
         private readonly Dictionary<string, CultureInfo> sitefinityLanguages = new Dictionary<string, CultureInfo>();
+
+        private const string Caption = "Calendar";
+        private const string PageNamePrefix = "EventsPage";
 
         private const string BaseEventTitle = "TestEvent";
         private const string BasePastEventTitle = "PastTestEvent";
