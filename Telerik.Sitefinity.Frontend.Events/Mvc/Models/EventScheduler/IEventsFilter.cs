@@ -9,6 +9,11 @@ namespace Telerik.Sitefinity.Frontend.Events.Mvc.Models.EventScheduler
     public interface IEventsFilter
     {
         /// <summary>
+        /// Gets or sets the widget id.
+        /// </summary>
+        Guid Id { get; set; }
+
+        /// <summary>
         /// Gets or sets the ui culture.
         /// </summary>
         /// <returns>The ui culture</returns>

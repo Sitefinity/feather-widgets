@@ -184,21 +184,19 @@ namespace Telerik.Sitefinity.Frontend.Events.Mvc.Models.EventScheduler
         /// <returns>List view model</returns>
         public virtual IList<EventOccurrenceViewModel> GetEvents(IEventsFilter filter)
         {
-            EventsFilter eventsFilter = filter as EventsFilter;
-
-            this.UICulture = eventsFilter.UICulture;
+            this.UICulture = filter.UICulture;
             var viewModel = this.CreateListViewModel(null, 1);
             var events = viewModel.Items.Select(i => i.DataItem as Event);
 
-            if (eventsFilter.CalendarList != null && eventsFilter.CalendarList.Length > 0)
+            if (filter.CalendarList != null && filter.CalendarList.Length > 0)
             {
-                events = events.Where(p => p.Parent != null && eventsFilter.CalendarList.Contains(p.Parent.Id));
+                events = events.Where(p => p.Parent != null && filter.CalendarList.Contains(p.Parent.Id));
             }
 
             var manager = (EventsManager)this.GetManager();
 
             // get event occurrences based on widget selected view
-            var allOccurrences = manager.GetEventsOccurrences(events, eventsFilter.StartDate, eventsFilter.EndDate.AddDays(1)).AsQueryable<EventOccurrence>();
+            var allOccurrences = manager.GetEventsOccurrences(events, filter.StartDate, filter.EndDate.AddDays(1)).AsQueryable<EventOccurrence>();
 
             // get filter expression used for events
             string filterExpression = this.CompileEventsOccurrencesFilterExpression();
@@ -226,9 +224,7 @@ namespace Telerik.Sitefinity.Frontend.Events.Mvc.Models.EventScheduler
         /// <returns>List view model</returns>
         public virtual IList<EventCalendarViewModel> GetCalendars(IEventsFilter filter)
         {
-            EventsFilter eventsFilter = filter as EventsFilter;
-
-            this.UICulture = eventsFilter.UICulture;
+            this.UICulture = filter.UICulture;
             var viewModel = this.CreateListViewModel(null, 1);
             var manager = (EventsManager)this.GetManager();
             var eventCalendarsIds = viewModel.Items.Select(i => i.DataItem as Event).Where(p => p != null)

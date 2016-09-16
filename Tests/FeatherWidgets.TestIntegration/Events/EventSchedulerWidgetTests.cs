@@ -26,7 +26,7 @@ namespace FeatherWidgets.TestIntegration.Events
     /// <summary>
     /// This class contains test related to basic functionality of Event Scheduler Widget.
     /// </summary>
-    [TestFixture]
+    [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Maintainability", "CA1506:AvoidExcessiveClassCoupling"), TestFixture]
     public class EventSchedulerWidgetTests
     {
         /// <summary>
@@ -1462,6 +1462,7 @@ namespace FeatherWidgets.TestIntegration.Events
             return new MultilingualPageOperations().CreatePageMultilingual(Guid.Empty, pageName ?? PageNamePrefix + " " + culture.Name, false, culture.Name);
         }
 
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Globalization", "CA1303:Do not pass literals as localized parameters", MessageId = "Telerik.Sitefinity.Mvc.TestUtilities.Data.PageContentGenerator.AddControlToPage(System.Guid,System.Web.UI.Control,System.String,System.String,System.Action<Telerik.Sitefinity.Pages.Model.PageDraftControl>)")]
         private Guid AddControl(Guid pageId, SelectionMode additionalFiltersSelectionMode, string additionalFilters, SelectionMode narrowFiltersSelectionMode, string narrowSelectionFilters, List<Guid> selectedItemsIds = null)
         {
             var mvcProxy = new MvcControllerProxy();
@@ -1493,6 +1494,7 @@ namespace FeatherWidgets.TestIntegration.Events
         /// Get controller widget id
         /// </summary>
         /// <returns></returns>
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Globalization", "CA1307:SpecifyStringComparison", MessageId = "System.String.EndsWith(System.String)")]
         private Guid GetWidgetId(Guid pageId, string controlId)
         {
             var page = PageManager.GetManager().GetPageNode(pageId).Page;
