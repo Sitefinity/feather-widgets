@@ -162,9 +162,9 @@ namespace FeatherWidgets.TestIntegration.Taxonomies
             flatTaxonomyController.Model.ShowEmptyTaxa = true;
             flatTaxonomyController.Model.TaxaToDisplay = FlatTaxaToDisplay.Selected;
             flatTaxonomyController.Model.SerializedSelectedTaxaIds = string.Format(
-                        CultureInfo.InvariantCulture, 
-                        @"[""{0}"",""{1}""]", 
-                        this.taxaIds[2], 
+                        CultureInfo.InvariantCulture,
+                        @"[""{0}"",""{1}""]",
+                        this.taxaIds[2],
                         this.taxaIds[1]);
             flatTaxonomyController.Model.SortExpression = "AsSetManually";
             mvcProxy.Settings = new ControllerSettings(flatTaxonomyController);
@@ -432,12 +432,15 @@ namespace FeatherWidgets.TestIntegration.Taxonomies
                             }
                         }
 
+                        if (expectedTags.Count == 0)
+                            continue;
+
                         var currentTag = expectedTags.First();
 
                         Assert.IsTrue(
                             linkHref.EndsWith(currentTag.Url, StringComparison.Ordinal),
                             string.Format(CultureInfo.InvariantCulture, "The expected tag url {0} is not found.", currentTag.Url));
-                        
+
                         Assert.AreEqual(
                             currentTag.Name,
                             linkText,
