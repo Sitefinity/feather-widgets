@@ -474,7 +474,7 @@ namespace FeatherWidgets.TestIntegration.Navigation
 
                         links.Remove(foundlanguageCulture);
                     }
-                    else if (chunk.TagName.Equals("input") && chunk.GetParamValue("type") == "hidden" && chunk.GetParamValue("value") != null && chunk.GetParamValue("value").StartsWith("http://", StringComparison.Ordinal))
+                    else if (chunk.TagName.Equals("input") && chunk.GetParamValue("type") == "hidden" && chunk.GetParamValue("value") != null && (chunk.GetParamValue("value").StartsWith("http://", StringComparison.Ordinal) || chunk.GetParamValue("value").StartsWith("https://", StringComparison.Ordinal)))
                     {
                         var dataSfRole = chunk.GetParamValue("data-sf-role");
                         if (dataSfRole != null)
