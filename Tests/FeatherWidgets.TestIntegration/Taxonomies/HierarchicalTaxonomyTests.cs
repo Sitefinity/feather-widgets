@@ -27,6 +27,8 @@ namespace FeatherWidgets.TestIntegration.Taxonomies
         [FixtureSetUp]
         public void FixtureSetUp()
         {
+            this.DeleteAllCategories();
+
             using (new ElevatedModeRegion(TaxonomyManager.GetManager()))
             {
                 var taxonomyOperations = new TaxonomiesOperations();
@@ -64,12 +66,6 @@ namespace FeatherWidgets.TestIntegration.Taxonomies
             var newsOperations = new NewsOperations();
             newsOperations.DeleteAllNews();
 
-            this.DeleteAllCategories();
-        }
-
-        [SetUp]
-        public void TestSetUp()
-        {
             this.DeleteAllCategories();
         }
 
