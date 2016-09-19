@@ -67,6 +67,12 @@ namespace FeatherWidgets.TestIntegration.Taxonomies
             this.DeleteAllCategories();
         }
 
+        [SetUp]
+        public void TestSetUp()
+        {
+            this.DeleteAllCategories();
+        }
+
         [Test]
         [Category(TestCategories.Taxonomies)]
         [Author(FeatherTeams.SitefinityTeam2)]
