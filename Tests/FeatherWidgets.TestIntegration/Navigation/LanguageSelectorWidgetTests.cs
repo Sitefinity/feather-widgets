@@ -94,7 +94,9 @@ namespace FeatherWidgets.TestIntegration.Navigation
             {
                 { this.sitefinityLanguages["Arabic"], this.GetPageUrl(PageName, this.sitefinityLanguages["Arabic"]) },
                 { this.sitefinityLanguages["Serbian"], this.GetPageUrl(PageName, this.sitefinityLanguages["Serbian"]) },
-                { this.sitefinityLanguages["Bulgarian"], this.GetPageUrl(PageName, this.sitefinityLanguages["Bulgarian"]) }
+                { this.sitefinityLanguages["Bulgarian"], this.GetPageUrl(PageName, this.sitefinityLanguages["Bulgarian"]) },
+                { this.sitefinityLanguages["French"], this.GetPageUrl(PageName, this.sitefinityLanguages["French"]) },
+                { this.sitefinityLanguages["German"], this.GetPageUrl(PageName, this.sitefinityLanguages["German"]) }
             };
 
             this.AssertLanguageLinks(pageContent, expectedLinks, notExpectedLinks);
@@ -137,7 +139,9 @@ namespace FeatherWidgets.TestIntegration.Navigation
                 { this.sitefinityLanguages["English"], this.GetPageUrl(PageName, this.sitefinityLanguages["English"], true) },
                 { this.sitefinityLanguages["Arabic"], this.GetPageUrl(PageName, this.sitefinityLanguages["Arabic"]) },
                 { this.sitefinityLanguages["Serbian"], this.GetPageUrl(PageName, this.sitefinityLanguages["Serbian"]) },
-                { this.sitefinityLanguages["Bulgarian"], this.GetPageUrl(PageName, this.sitefinityLanguages["Bulgarian"]) }
+                { this.sitefinityLanguages["Bulgarian"], this.GetPageUrl(PageName, this.sitefinityLanguages["Bulgarian"]) },
+                { this.sitefinityLanguages["French"], this.GetPageUrl(PageName, this.sitefinityLanguages["French"]) },
+                { this.sitefinityLanguages["German"], this.GetPageUrl(PageName, this.sitefinityLanguages["German"]) }
             };
 
             this.AssertLanguageLinks(pageContent, expectedLinks, notExpectedLinks);
@@ -192,7 +196,9 @@ namespace FeatherWidgets.TestIntegration.Navigation
             {
                 { this.sitefinityLanguages["Arabic"], this.GetPageUrl(PageName, this.sitefinityLanguages["Arabic"]) },
                 { this.sitefinityLanguages["Serbian"], this.GetPageUrl(PageName, this.sitefinityLanguages["Serbian"]) },
-                { this.sitefinityLanguages["Bulgarian"], this.GetPageUrl(PageName, this.sitefinityLanguages["Bulgarian"]) }
+                { this.sitefinityLanguages["Bulgarian"], this.GetPageUrl(PageName, this.sitefinityLanguages["Bulgarian"]) },
+                { this.sitefinityLanguages["French"], this.GetPageUrl(PageName, this.sitefinityLanguages["French"]) },
+                { this.sitefinityLanguages["German"], this.GetPageUrl(PageName, this.sitefinityLanguages["German"]) }
             };
 
             this.AssertLanguageLinks(pageContent, expectedLinks, notExpectedLinks);
@@ -232,7 +238,9 @@ namespace FeatherWidgets.TestIntegration.Navigation
                 { this.sitefinityLanguages["Turkish"], this.GetPageUrl(PageName, this.sitefinityLanguages["Turkish"]) },
                 { this.sitefinityLanguages["Arabic"], this.GetPageUrlOfNotTranslatedPage(PageName + currentPage.Value.Name, this.sitefinityLanguages["Arabic"]) },
                 { this.sitefinityLanguages["Serbian"], this.GetPageUrlOfNotTranslatedPage(PageName + currentPage.Value.Name, this.sitefinityLanguages["Serbian"]) },
-                { this.sitefinityLanguages["Bulgarian"], this.GetPageUrlOfNotTranslatedPage(PageName + currentPage.Value.Name, this.sitefinityLanguages["Bulgarian"]) }
+                { this.sitefinityLanguages["Bulgarian"], this.GetPageUrlOfNotTranslatedPage(PageName + currentPage.Value.Name, this.sitefinityLanguages["Bulgarian"]) },
+                { this.sitefinityLanguages["French"], this.GetPageUrlOfNotTranslatedPage(PageName + currentPage.Value.Name, this.sitefinityLanguages["French"]) },
+                { this.sitefinityLanguages["German"], this.GetPageUrlOfNotTranslatedPage(PageName + currentPage.Value.Name, this.sitefinityLanguages["German"]) }
             };
 
             var notExpectedLinks = new Dictionary<CultureInfo, string>()
@@ -395,12 +403,16 @@ namespace FeatherWidgets.TestIntegration.Navigation
             var arabic = AppSettings.CurrentSettings.DefinedFrontendLanguages.Where(x => x.Name == "ar-MA").FirstOrDefault();
             var serbian = AppSettings.CurrentSettings.DefinedFrontendLanguages.Where(x => x.Name == "sr-Cyrl-BA").FirstOrDefault();
             var bulgarian = AppSettings.CurrentSettings.DefinedFrontendLanguages.Where(x => x.Name == "bg-BG").FirstOrDefault();
+            var french = AppSettings.CurrentSettings.DefinedFrontendLanguages.Where(x => x.Name == "fr-FR").FirstOrDefault();
+            var german = AppSettings.CurrentSettings.DefinedFrontendLanguages.Where(x => x.Name == "de-DE").FirstOrDefault();
 
             this.sitefinityLanguages.Add("English", english);
             this.sitefinityLanguages.Add("Turkish", turkish);
             this.sitefinityLanguages.Add("Arabic", arabic);
             this.sitefinityLanguages.Add("Serbian", serbian);
             this.sitefinityLanguages.Add("Bulgarian", bulgarian);
+            this.sitefinityLanguages.Add("French", french);
+            this.sitefinityLanguages.Add("German", german);
         }
 
         private void AssertLanguageLinks(string pageContent, Dictionary<CultureInfo, string> links, Dictionary<CultureInfo, string> notVisiblelinks)
