@@ -1,8 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using ArtOfTest.WebAii.Core;
 using Feather.Widgets.TestUI.Framework;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
@@ -39,7 +37,7 @@ namespace FeatherWidgets.TestUI.TestCases.Search
             BATFeather.Wrappers().Backend().Widgets().WidgetDesignerWrapper().SaveChanges();
             BAT.Wrappers().Backend().Pages().PageZoneEditorWrapper().PublishPage();
 
-            BAT.Macros().NavigateTo().CustomPage("~/" + SearchPage.ToLower(), true, this.Culture);
+            BAT.Macros().NavigateTo().CustomPage("~/" + SearchPage.ToLower(), true, this.Culture, new HtmlFindExpression("class=~ui-autocomplete-input"));
             BATFeather.Wrappers().Frontend().Search().SearchWrapper().EnterSearchText(NoResultsSearchText);
             BATFeather.Wrappers().Frontend().Search().SearchWrapper().ClickSearchLink(SearchPage.ToLower());
             BATFeather.Wrappers().Frontend().Search().SearchWrapper().VerifySearchResultsLabel(0, NoResultsSearchText);

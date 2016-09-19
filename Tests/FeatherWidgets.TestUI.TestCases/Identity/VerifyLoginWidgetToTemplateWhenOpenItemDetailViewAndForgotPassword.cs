@@ -48,7 +48,7 @@ namespace FeatherWidgets.TestUI.TestCases.Identity
             Assert.IsTrue(ActiveBrowser.ContainsText(PostTitle), "Text was not found on the page");
 
             BAT.Macros().User().LogOut();
-            BAT.Macros().NavigateTo().CustomPage("~/" + PageTitle.ToLower(), false, this.Culture);
+            BAT.Macros().NavigateTo().CustomPage("~/" + PageTitle.ToLower(), false, this.Culture, new HtmlFindExpression("data-sf-role=~sf-logged-out-view"));
             Assert.IsTrue(BATFeather.Wrappers().Frontend().Blogs().BlogsWrapper().IsBlogPostTitlesPresentOnThePageFrontend(this.postTitle));
             Assert.IsTrue(ActiveBrowser.ContainsText(LoginText), "Text was not found on the page");
             Assert.IsTrue(ActiveBrowser.ContainsText(RegisterText), "Text was not found on the page");
