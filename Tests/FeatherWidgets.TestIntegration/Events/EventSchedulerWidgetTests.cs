@@ -1288,14 +1288,14 @@ namespace FeatherWidgets.TestIntegration.Events
             }
         }
 
-        private void AssertCalendar(Guid widgetId, DateTime filterStartDate, DateTime filterEndDate, long expectedCalendarCount, CultureInfo culture = null)
+        private void AssertCalendar(Guid widgetId, DateTime filterStartDate, DateTime filterEndDate, long expectedCalendarOccurrences, CultureInfo culture = null)
         {
             var filters = this.CreateFilterQueryString(widgetId, filterStartDate, filterEndDate, culture);
             var pageContent = WebRequestHelper.GetPageWebContent(UrlPath.ResolveAbsoluteUrl("~/web-interface/calendars/?") + filters);
 
             Assert.DoesNotContain(pageContent, JsonExceptionMessage, JsonExceptionMessage);
             List<EventCalendarViewModel> calendarOccurrenceList = JsonSerializer.DeserializeFromString<List<EventCalendarViewModel>>(pageContent);
-            Assert.AreEqual(calendarOccurrenceList.LongCount(), expectedCalendarCount);
+            Assert.AreEqual(expectedCalendarOccurrences, calendarOccurrenceList.LongCount());
         }
 
         private void AssertEvent(Guid widgetId, DateTime filterStartDate, DateTime filterEndDate, long expectedEventOccurrences, CultureInfo culture = null)
@@ -1305,7 +1305,7 @@ namespace FeatherWidgets.TestIntegration.Events
 
             Assert.DoesNotContain(pageContent, JsonExceptionMessage, JsonExceptionMessage);
             List<EventOccurrenceViewModel> eventOccurrenceList = JsonSerializer.DeserializeFromString<List<EventOccurrenceViewModel>>(pageContent);
-            Assert.AreEqual(eventOccurrenceList.LongCount(), expectedEventOccurrences);
+            Assert.AreEqual(expectedEventOccurrences, eventOccurrenceList.LongCount());
         }
 
         private void CreateLocalizedEvent(MultilingualEventOperations multiOperations, string eventTitle, Guid eventId, DateTime start, DateTime end, bool allDay, bool isRecurrent, Guid calendarId, CultureInfo culture = null, string recurrenceExpression = null)
