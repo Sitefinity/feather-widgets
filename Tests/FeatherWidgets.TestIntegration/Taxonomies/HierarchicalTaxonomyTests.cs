@@ -27,6 +27,8 @@ namespace FeatherWidgets.TestIntegration.Taxonomies
         [FixtureSetUp]
         public void FixtureSetUp()
         {
+            this.DeleteAllCategories();
+
             using (new ElevatedModeRegion(TaxonomyManager.GetManager()))
             {
                 var taxonomyOperations = new TaxonomiesOperations();
