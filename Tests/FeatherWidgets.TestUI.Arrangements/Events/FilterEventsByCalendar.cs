@@ -16,7 +16,7 @@ namespace FeatherWidgets.TestUI.Arrangements
     /// <summary>
     /// Executes Server Side operations for FilterEventsByCalendar UI Test
     /// </summary>
-    public class FilterEventsByCalendar
+    public class FilterEventsByCalendar : TestArrangementBase
     {
         /// <summary>
             /// Creates an Event.

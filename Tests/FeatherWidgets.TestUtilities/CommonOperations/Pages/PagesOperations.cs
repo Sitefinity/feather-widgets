@@ -283,20 +283,12 @@ namespace FeatherWidgets.TestUtilities.CommonOperations
         /// </summary>
         /// <param name="pageId">The page identifier.</param>
         /// <param name="placeholder">The placeholder.</param>
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1026:DefaultParametersShouldNotBeUsed")]
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Globalization", "CA1303:Do not pass literals as localized parameters", MessageId = "Telerik.Sitefinity.TestIntegration.Data.Content.PageContentGenerator.AddControlToPage(System.Guid,System.Web.UI.Control,System.String,System.String,System.Action<Telerik.Sitefinity.Pages.Model.PageDraftControl>)"), System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1026:DefaultParametersShouldNotBeUsed")]
         public void AddCalendarWidgetToPage(Guid pageId, string placeholder = "Body")
         {
-            PageManager pageManager = PageManager.GetManager();
-            pageManager.Provider.SuppressSecurityChecks = true;
-            var pageDataId = pageManager.GetPageNode(pageId).PageId;
-            var page = pageManager.EditPage(pageDataId, CultureInfo.CurrentUICulture);
-
-            using (var mvcWidget = new Telerik.Sitefinity.Mvc.Proxy.MvcControllerProxy())
-            {
-                mvcWidget.ControllerName = typeof(EventSchedulerController).FullName;
-
-                this.CreateControl(pageManager, page, mvcWidget, "Calendar", placeholder);
-            }
+            var mvcProxy = new MvcControllerProxy();
+            mvcProxy.ControllerName = typeof(EventSchedulerController).FullName;
+            PageContentGenerator.AddControlToPage(pageId, mvcProxy, "Calendar", placeholder);
         }
 
         /// <summary>
