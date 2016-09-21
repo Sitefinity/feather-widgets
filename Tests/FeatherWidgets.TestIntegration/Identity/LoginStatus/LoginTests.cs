@@ -201,6 +201,7 @@ namespace FeatherWidgets.TestIntegration.Identity.LoginStatus
                 pageOperations.CreatePageWithControl(mvcProxy, this.pageNamePrefix, this.pageTitlePrefix, this.urlNamePrefix, this.pageIndex);
                 var responseContent = PageInvoker.ExecuteWebRequest(loginStatusPageUrl);
                 var expectedUrl = this.GetExpectedUrlWithParams(absoluteUrl);
+                Assert.IsTrue(responseContent.Contains(expectedUrl), "{0}\n{1}\n{2}", "Login redirect url is not as expected", expectedUrl, responseContent);
             }
             finally
             {
