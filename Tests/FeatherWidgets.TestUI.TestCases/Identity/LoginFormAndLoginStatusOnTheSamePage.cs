@@ -29,7 +29,7 @@ namespace FeatherWidgets.TestUI.TestCases.Identity
             BAT.Wrappers().Backend().Pages().PageZoneEditorWrapper().PublishPage();
 
             BAT.Macros().User().LogOut();
-            BAT.Macros().NavigateTo().CustomPage("~/" + PageName.ToLower(), false, this.Culture, new HtmlFindExpression("class=~sfMain"));
+            BAT.Macros().NavigateTo().CustomPage("~/" + PageName.ToLower(), false, this.Culture, new HtmlFindExpression("class=~sfPublicWrapper"));
 
             BATFeather.Wrappers().Frontend().Identity().LoginFormWrapper().PressLoginButton();
             BATFeather.Wrappers().Frontend().Identity().LoginFormWrapper().AssertEmptyUserNameFieldMessage();
