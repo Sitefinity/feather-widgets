@@ -124,10 +124,9 @@ namespace Telerik.Sitefinity.Frontend.Events.Mvc.Helpers
                 var pageId = SiteMapBase.GetCurrentNode().PageId;
                 var page = pageManager.GetPageData(pageId);
 
-                // if control is not overrided template control, if page is created page template is null
                 if (page.Template != null)
                 {
-                    var templateControl = page.Template.Controls.FirstOrDefault(p => p.IsOverridedControl == false && p.Properties.FirstOrDefault(t => t.Name == "ID" && controlId.EndsWith(t.Value)) != null);
+                    var templateControl = page.Template.Controls.FirstOrDefault(p => p.Properties.FirstOrDefault(t => t.Name == "ID" && controlId.EndsWith(t.Value)) != null);
                     if (templateControl != null)
                     {
                         return templateControl.Id;
