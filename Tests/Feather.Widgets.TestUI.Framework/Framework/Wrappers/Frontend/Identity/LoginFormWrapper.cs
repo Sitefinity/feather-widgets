@@ -52,6 +52,7 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Frontend.Identity
         {
             HtmlButton loginBtn = this.EM.Identity.LoginFormFrontend.LoginButton.AssertIsPresent("Login button");
             loginBtn.Click();
+            ActiveBrowser.RefreshDomTree();
             ActiveBrowser.WaitForAsyncJQueryRequests();
         }
 

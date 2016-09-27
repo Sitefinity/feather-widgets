@@ -34,8 +34,8 @@ namespace FeatherWidgets.TestUI.TestCases.Identity
             BATFeather.Wrappers().Backend().Widgets().WidgetDesignerWrapper().SaveChanges();
             BAT.Wrappers().Backend().Pages().PageZoneEditorWrapper().PublishPage();
             BAT.Macros().User().LogOut();
-
-            BAT.Macros().NavigateTo().CustomPage("~/" + RegistrationPage.ToLower(), true, this.Culture);
+            ActiveBrowser.RefreshDomTree();
+            BAT.Macros().NavigateTo().CustomPage("~/" + RegistrationPage.ToLower(), false, this.Culture);
             BATFeather.Wrappers().Frontend().Identity().RegistrationWrapper().FillFirstName(FirstName);
             BATFeather.Wrappers().Frontend().Identity().RegistrationWrapper().FillLastName(LastName);
             BATFeather.Wrappers().Frontend().Identity().RegistrationWrapper().FillEmail(Email);
