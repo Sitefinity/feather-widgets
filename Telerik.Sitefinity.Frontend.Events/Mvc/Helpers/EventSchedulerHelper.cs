@@ -139,7 +139,7 @@ namespace Telerik.Sitefinity.Frontend.Events.Mvc.Helpers
                     var pageDraft = page.Drafts.FirstOrDefault(p => p.IsTempDraft);
 
                     // Draft, if page is created page template is null, only draft is avalaible
-                    if (page.Template == null)
+                    if (page.Template == null && pageDraft.TemplateId != Guid.Empty)
                     {
                         var template = pageManager.GetTemplate(pageDraft.TemplateId);
                         if (template != null)
