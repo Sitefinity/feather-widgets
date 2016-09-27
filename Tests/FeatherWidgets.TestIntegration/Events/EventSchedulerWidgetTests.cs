@@ -35,6 +35,8 @@ namespace FeatherWidgets.TestIntegration.Events
         [SetUp]
         public void Setup()
         {
+            this.ClearData();
+
             ServerOperations.Events().CreateEvent(EventSchedulerWidgetTests.BaseEventTitle);
             ServerOperations.Events().CreateEvent(EventSchedulerWidgetTests.BasePastEventTitle, string.Empty, false, DateTime.Now.AddDays(-2), DateTime.Now.AddDays(-1));
             ServerOperations.Events().CreateEvent(EventSchedulerWidgetTests.BaseUpcomingEventTitle, string.Empty, false, DateTime.Now.AddDays(1), DateTime.Now.AddDays(2));
@@ -63,20 +65,7 @@ namespace FeatherWidgets.TestIntegration.Events
         [TearDown]
         public void TearDown()
         {
-            Telerik.Sitefinity.TestUtilities.CommonOperations.ServerOperations.Pages().DeleteAllPages();
-            Telerik.Sitefinity.TestUtilities.CommonOperations.ServerOperations.Events().DeleteAllEvents();
-
-            var defaultCalendarId = ServerOperations.Events().GetDefaultCalendarId();
-            foreach (var item in EventsManager.GetManager().GetCalendars())
-            {
-                if (item.Id != defaultCalendarId)
-                {
-                    ServerOperations.Events().DeleteCalendar(item.Id);
-                }
-            }
-
-            ServerOperations.Taxonomies().ClearAllCategories(TaxonomiesConstants.CategoriesTaxonomyId);
-            ServerOperations.Taxonomies().ClearAllTags(TaxonomiesConstants.TagsTaxonomyId);
+            this.ClearData();
         }
 
         #region Events
@@ -1506,6 +1495,24 @@ namespace FeatherWidgets.TestIntegration.Events
             }
 
             return Guid.Empty;
+        }
+
+        private void ClearData()
+        {
+            Telerik.Sitefinity.TestUtilities.CommonOperations.ServerOperations.Pages().DeleteAllPages();
+            Telerik.Sitefinity.TestUtilities.CommonOperations.ServerOperations.Events().DeleteAllEvents();
+
+            var defaultCalendarId = ServerOperations.Events().GetDefaultCalendarId();
+            foreach (var item in EventsManager.GetManager().GetCalendars())
+            {
+                if (item.Id != defaultCalendarId)
+                {
+                    ServerOperations.Events().DeleteCalendar(item.Id);
+                }
+            }
+
+            ServerOperations.Taxonomies().ClearAllCategories(TaxonomiesConstants.CategoriesTaxonomyId);
+            ServerOperations.Taxonomies().ClearAllTags(TaxonomiesConstants.TagsTaxonomyId);
         }
 
         #endregion

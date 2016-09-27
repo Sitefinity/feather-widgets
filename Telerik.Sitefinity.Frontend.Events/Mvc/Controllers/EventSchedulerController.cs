@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Globalization;
 using System.Web.Mvc;
+using Telerik.Microsoft.Practices.Unity.Utility;
 using Telerik.Sitefinity.ContentLocations;
 using Telerik.Sitefinity.Events.Model;
 using Telerik.Sitefinity.Frontend.Events.Mvc.Helpers;
@@ -176,19 +177,18 @@ namespace Telerik.Sitefinity.Frontend.Events.Mvc.Controllers
         [Route("web-interface/events/")]
         public ActionResult GetEvents(EventsFilter filter)
         {
-            JsonResult json = new JsonResult();
+            JsonResult json = new JsonResult()
+            {
+                JsonRequestBehavior = System.Web.Mvc.JsonRequestBehavior.AllowGet,
+                MaxJsonLength = int.MaxValue
+            };
+
+            Guard.ArgumentNotNull(filter, "filter");
 
             var eventSchedulerModel = EventSchedulerHelper.LoadModel(filter.Id, filter.UICulture);
             if (eventSchedulerModel != null)
             {
-                var events = eventSchedulerModel.GetEvents(filter);
-
-                json = new JsonResult()
-                {
-                    Data = events,
-                    JsonRequestBehavior = System.Web.Mvc.JsonRequestBehavior.AllowGet,
-                    MaxJsonLength = int.MaxValue
-                };
+                json.Data = eventSchedulerModel.GetEvents(filter);
             }
 
             return json;
@@ -202,18 +202,18 @@ namespace Telerik.Sitefinity.Frontend.Events.Mvc.Controllers
         [Route("web-interface/calendars/")]
         public ActionResult GetCalendars(EventsFilter filter)
         {
-            JsonResult json = new JsonResult();
+            JsonResult json = new JsonResult()
+            {
+                JsonRequestBehavior = System.Web.Mvc.JsonRequestBehavior.AllowGet,
+                MaxJsonLength = int.MaxValue
+            };
+
+            Guard.ArgumentNotNull(filter, "filter");
 
             var eventSchedulerModel = EventSchedulerHelper.LoadModel(filter.Id, filter.UICulture);
             if (eventSchedulerModel != null)
             {
-                var calendars = eventSchedulerModel.GetCalendars(filter);
-                json = new JsonResult()
-                {
-                    Data = calendars,
-                    JsonRequestBehavior = System.Web.Mvc.JsonRequestBehavior.AllowGet,
-                    MaxJsonLength = int.MaxValue
-                };
+                json.Data = eventSchedulerModel.GetCalendars(filter);
             }
 
             return json;
@@ -248,7 +248,7 @@ namespace Telerik.Sitefinity.Frontend.Events.Mvc.Controllers
         {
             var timezoneInfo = UserManager.GetManager().GetUserTimeZone();
             this.ViewBag.WidgetId = EventSchedulerHelper.GetWidgetId(this);
-            this.ViewBag.DetailsPageId = this.DetailsPageId == Guid.Empty ? SiteMapBase.GetActualCurrentNode().Id : this.DetailsPageId;
+            this.ViewBag.DetailsPageId = this.DetailsPageId == Guid.Empty ? (SiteMapBase.GetActualCurrentNode() == null ? Guid.Empty : SiteMapBase.GetActualCurrentNode().Id) : this.DetailsPageId;
             this.ViewBag.UiCulture = SystemManager.CurrentContext.AppSettings.Multilingual ? CultureInfo.CurrentUICulture.ToString() : string.Empty;
             this.ViewBag.TimeZoneOffset = timezoneInfo.BaseUtcOffset.TotalMilliseconds.ToString();
             this.ViewBag.TimeZoneId = timezoneInfo.Id;
