@@ -87,7 +87,7 @@
                         read: {
                             url: schedulerData.eventsUrl,
                             dataType: "json",
-                            type: "GET"
+                            type: "POST"
                         },
                         parameterMap: function (options, operation) {
                             if (operation === "read") {
@@ -152,7 +152,7 @@
                                 read: {
                                     url: schedulerData.calendarUrl,
                                     dataType: "json",
-                                    type: "GET",
+                                    type: "POST",
                                     complete: function (jqXHR, textStatus) {
                                         if (schedulerData.allowCalendarFilter && jqXHR && jqXHR.responseJSON) {
                                             var calendarData = jqXHR.responseJSON;
