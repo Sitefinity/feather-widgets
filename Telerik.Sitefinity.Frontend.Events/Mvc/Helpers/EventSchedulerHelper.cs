@@ -57,9 +57,7 @@ namespace Telerik.Sitefinity.Frontend.Events.Mvc.Helpers
             var pageManager = PageManager.GetManager();
             var viewBagControlId = controller.ViewData[ControllerKey];
             if (viewBagControlId == null)
-            {
                 return Guid.Empty;
-            }
 
             string controlId = (string)viewBagControlId;
 
@@ -68,9 +66,7 @@ namespace Telerik.Sitefinity.Frontend.Events.Mvc.Helpers
             {
                 // check if action is after save or cancel in template
                 if (controller.HttpContext.Items[FormControlId] != null)
-                {
                     return (Guid)controller.HttpContext.Items[FormControlId];
-                }
 
                 var templateId = GetTemplateIdKey(controller.ControllerContext.HttpContext);
                 var versionId = GetVersionNumberKey(controller.ControllerContext.HttpContext);
@@ -86,9 +82,7 @@ namespace Telerik.Sitefinity.Frontend.Events.Mvc.Helpers
 
                         var control = GetControl(draft.Controls, controlId);
                         if (control != null)
-                        {
                             return control.OriginalControlId;
-                        }
                     }
                 }
 
@@ -99,21 +93,17 @@ namespace Telerik.Sitefinity.Frontend.Events.Mvc.Helpers
                     var template = pageManager.GetTemplate(templateData.ParentItemId);
                     if (template != null)
                     {
-                        if (IsEdit)
+                        if (SystemManager.IsDesignMode || SystemManager.IsPreviewMode)
                         {
                             var control = GetControl(template.Drafts.FirstOrDefault(p => p.IsTempDraft).Controls, controlId);
                             if (control != null)
-                            {
                                 return control.Id;
-                            }
                         }
                         else
                         {
                             var control = GetControl(template.Controls, controlId);
                             if (control != null)
-                            {
                                 return control.Id;
-                            }
                         }
                     }
                 }
@@ -126,14 +116,12 @@ namespace Telerik.Sitefinity.Frontend.Events.Mvc.Helpers
 
                 if (page.Template != null)
                 {
-                    var templateControl = page.Template.Controls.FirstOrDefault(p => p.Properties.FirstOrDefault(t => t.Name == "ID" && controlId.EndsWith(t.Value)) != null);
+                    var templateControl = GetControl(page.Template.Controls, controlId);
                     if (templateControl != null)
-                    {
                         return templateControl.Id;
-                    }
                 }
 
-                if (IsEdit)
+                if (SystemManager.IsDesignMode || SystemManager.IsPreviewMode)
                 {
                     var pageDraft = page.Drafts.FirstOrDefault(p => p.IsTempDraft);
 
@@ -145,25 +133,19 @@ namespace Telerik.Sitefinity.Frontend.Events.Mvc.Helpers
                         {
                             var templateControl = GetControl(template.Controls, controlId);
                             if (templateControl != null)
-                            {
                                 return templateControl.Id;
-                            }
                         }
                     }
 
                     var control = GetControl(pageDraft.Controls, controlId);
                     if (control != null)
-                    {
                         return control.Id;
-                    }
                 }
                 else
                 {
                     var control = GetControl(page.Controls, controlId);
                     if (control != null)
-                    {
                         return control.Id;
-                    }
                 }
             }
 
@@ -199,20 +181,6 @@ namespace Telerik.Sitefinity.Frontend.Events.Mvc.Helpers
             else
             {
                 return null;
-            }
-        }
-
-        private static bool IsEdit
-        {
-            get
-            {
-                var isEdit = false;
-                if (SystemManager.IsDesignMode && !SystemManager.IsPreviewMode)
-                {
-                    isEdit = true;
-                }
-
-                return isEdit;
             }
         }
 
