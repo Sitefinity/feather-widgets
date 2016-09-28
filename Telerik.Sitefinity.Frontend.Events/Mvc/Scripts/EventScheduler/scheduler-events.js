@@ -27,6 +27,7 @@
                     }
                     return "";
                 },
+                siteid: $(element).attr('data-sf-siteid'),
                 localTimezoneOffset: function () {
                     var localtimezoneoffset = new Date().getTimezoneOffset();
                     $(element).attr('data-sf-localtimezoneoffset', localtimezoneoffset);
@@ -86,7 +87,7 @@
                         read: {
                             url: schedulerData.eventsUrl,
                             dataType: "json",
-                            type: "POST"
+                            type: "GET"
                         },
                         parameterMap: function (options, operation) {
                             if (operation === "read") {
@@ -101,6 +102,7 @@
                                 filter.EventSchedulerViewMode = scheduler.view().options.name.replace("View", "");
                                 filter.UICulture = schedulerData.uiCulture;
                                 filter.Id = schedulerData.widgetId;
+                                filter.sf_site = schedulerData.siteid;
                                 return filter;
                             }
                         }
@@ -150,7 +152,7 @@
                                 read: {
                                     url: schedulerData.calendarUrl,
                                     dataType: "json",
-                                    type: "POST",
+                                    type: "GET",
                                     complete: function (jqXHR, textStatus) {
                                         if (schedulerData.allowCalendarFilter && jqXHR && jqXHR.responseJSON) {
                                             var calendarData = jqXHR.responseJSON;
@@ -171,6 +173,7 @@
                                         var filter = {};
                                         filter.UICulture = schedulerData.uiCulture;
                                         filter.Id = schedulerData.widgetId;
+                                        filter.sf_site = schedulerData.siteid;
                                         return filter;
                                     }
                                 }

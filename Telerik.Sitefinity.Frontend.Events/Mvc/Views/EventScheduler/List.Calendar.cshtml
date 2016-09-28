@@ -15,7 +15,7 @@ else
 { 
 	@Html.StyleSheet(Url.EmbeddedResource("Telerik.Sitefinity.Resources.Reference", "Telerik.Sitefinity.Resources.Scripts.Kendo.styles.kendo_bootstrap_min.css"), "head")
 }
-<div data-sf-widget-id='@ViewBag.WidgetId' data-sf-role="scheduler-wrapper" class='@Model.ListCssClass' data-sf-controller-events='@Url.Content("~/web-interface/events")' data-sf-controller-calendars='@Url.Content("~/web-interface/calendars")'
+<div data-sf-widget-id='@ViewBag.WidgetId' data-sf-role="scheduler-wrapper" class='@Model.ListCssClass' data-sf-controller-events='@Url.Content("~/web-interface/events")' data-sf-controller-calendars='@Url.Content("~/web-interface/calendars")' data-sf-siteid="@SystemManager.CurrentContext.CurrentSite.Id"
     data-sf-defaultview='@Model.EventSchedulerViewMode' data-sf-allowchangecalendarview='@Json.Encode(Model.AllowChangeCalendarView)' data-sf-allowcalendarfilter='@Json.Encode(Model.AllowCalendarFilter)' data-sf-weekstartday='@Model.WeekStartDay' data-sf-loaded='false' 
 	data-sf-mincalendarlength='2' data-sf-calendarlist-class-active='active' data-sf-uiculture='@ViewBag.UiCulture' data-sf-timezoneoffset="@ViewBag.TimeZoneOffset" data-sf-timezoneid="@ViewBag.TimeZoneId" data-sf-uiculture='@ViewBag.UiCulture' data-sf-localtimezoneoffset="">
     @if (Model.AllowCalendarFilter) {
