@@ -207,7 +207,7 @@ namespace Telerik.Sitefinity.Frontend.Events.Mvc.Helpers
             get
             {
                 var isEdit = false;
-                if (SystemManager.IsDesignMode && !SystemManager.IsPreviewMode)
+                if (SystemManager.IsDesignMode || SystemManager.IsPreviewMode)
                 {
                     isEdit = true;
                 }
