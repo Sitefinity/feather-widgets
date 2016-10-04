@@ -101,12 +101,12 @@ namespace FeatherWidgets.TestIntegration.Events
         [Description("Add Event widget to a page and display limited events.")]
         public void EventWidget_UseLimit_TwoItems()
         {
-            int itemsPerPage = 2;
+            int limitCount = 2;
 
             var mvcProxy = new MvcControllerProxy();
             mvcProxy.ControllerName = typeof(EventController).FullName;
             var eventController = new EventController();
-            eventController.Model.ItemsPerPage = itemsPerPage;
+            eventController.Model.LimitCount = limitCount;
             eventController.Model.DisplayMode = Telerik.Sitefinity.Frontend.Mvc.Models.ListDisplayMode.Limit;
             mvcProxy.Settings = new Telerik.Sitefinity.Mvc.Proxy.ControllerSettings(eventController);
 
@@ -140,6 +140,7 @@ namespace FeatherWidgets.TestIntegration.Events
             mvcProxy.ControllerName = typeof(EventController).FullName;
             var eventController = new EventController();
             eventController.Model.ItemsPerPage = itemsPerPage;
+            eventController.Model.LimitCount = itemsPerPage;
             eventController.Model.DisplayMode = Telerik.Sitefinity.Frontend.Mvc.Models.ListDisplayMode.All;
             mvcProxy.Settings = new Telerik.Sitefinity.Mvc.Proxy.ControllerSettings(eventController);
 

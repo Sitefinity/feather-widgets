@@ -36,7 +36,7 @@
             <strong>@Html.Resource("FilterListItems")</strong>
             <sf-filter-selector sf-query-data="additionalFilters.value"
                                 sf-taxonomy-fields="@CustomFieldsHelpers.GetTaxonomyFields(typeof(Telerik.Sitefinity.Lists.Model.ListItem))"
-                                sf-provider="properties.ProviderName.PropertyValue"
+                                sf-provider="properties.ProviderName.PropertyValue" sf-date-groups="dateFilters.value"
                                 class="sf-filter-selector">
             </sf-filter-selector>
         </div>

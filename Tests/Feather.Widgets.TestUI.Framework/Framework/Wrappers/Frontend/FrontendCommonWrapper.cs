@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System;
+using System.Collections.Generic;
 using System.Net.Http;
 using ArtOfTest.Common.UnitTesting;
 using ArtOfTest.WebAii.Controls.HtmlControls;
@@ -48,6 +49,67 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Frontend
             Assert.AreEqual(200, (int)response.StatusCode);
         }
 
+        /// <summary>
+        /// Navigates to page using pager.
+        /// </summary>
+        /// <param name="page">The page.</param>
+        public void NavigateToPageUsingPager(string page, int expCount)
+        {
+            HtmlUnorderedList pager = ActiveBrowser.Find.ByExpression<HtmlUnorderedList>("TagName=ul", "class=pagination")
+                .AssertIsPresent("Pager");
+
+            Assert.AreEqual(expCount, pager.ChildNodes.Count, "Unexpected number of pages on for pager");
+            HtmlAnchor numPage = ActiveBrowser.Find.ByXPath<HtmlAnchor>("*//li[" + page + "]/a[text()=" + page + "]");
+            numPage.Click();
+        }
+
+        /// <summary>
+        /// Ares the titles present on the page frontend.
+        /// </summary>
+        /// <param name="itemTitles">The item titles.</param>
+        /// <returns></returns>
+        public bool AreTitlesPresentOnThePageFrontend(IEnumerable<string> itemTitles)
+        {
+            HtmlDiv frontendPageMainDiv = BAT.Wrappers().Frontend().Pages().PagesWrapperFrontend().GetPageContent();
+
+            foreach (var title in itemTitles)
+            {
+                var itemAnchor = frontendPageMainDiv.Find.ByExpression<HtmlAnchor>("tagname=a", "InnerText=" + title);
+                if ((itemAnchor == null) || (itemAnchor != null && !itemAnchor.IsVisible()))
+                {
+                    return false;
+                }
+            }
+
+            return true;
+        }
+
+        /// <summary>
+        /// Verify Duplicate Widget in Frontend
+        /// </summary>
+        public void VerifyDuplicatedWidgetInFrontend(string itemTitle, int expectedCount)
+        {
+            var allItems = ActiveBrowser.Find.AllByExpression<HtmlAnchor>("tagName=a", "innerText=~" + itemTitle);
+            Assert.AreEqual<int>(allItems.Count, expectedCount, "Widget is not duplicated in the frontend");
+        }
+
+        /// <summary>
+        /// Checks if the widget is present in Frontend
+        /// </summary>
+        /// <param name="itemTitle">Item Title</param>
+        /// <returns>True or false</returns>
+        public Boolean IsItemPresent(string itemTitle)
+        {
+            var item = ActiveBrowser.Find.ByExpression<HtmlAnchor>("tagName=a", "innerText=~" + itemTitle);
+            if (item != null && item.IsVisible())
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
         private const int TimeOut = 30000;
     }
 }

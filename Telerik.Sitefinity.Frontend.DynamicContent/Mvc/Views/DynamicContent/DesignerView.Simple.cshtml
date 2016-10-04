@@ -45,7 +45,8 @@
                                       sf-provider="properties.ProviderName.PropertyValue"
                                       sf-selected-ids="itemSelector.selectedItemsIds"
                                       sf-item-type="itemType"
-                                      sf-identifier-field="@Model.GetIdenfierField()"></sf-list-selector>
+                                      sf-identifier-field="@Model.GetIdenfierField()"
+                                      sf-title="@Html.Raw(Model.ContentTypeDisplayNamePlural())"></sf-list-selector>
                     </div>
                 </div>
                 <div class="radio">
@@ -56,7 +57,7 @@
 					    <sf-filter-selector sf-query-data="additionalFilters.value"
                             sf-taxonomy-fields="@CustomFieldsHelpers.GetTaxonomyFields(Model.DynamicContentType())"
                             sf-provider="properties.ProviderName.PropertyValue"
-                            ng-show="properties.SelectionMode.PropertyValue=='FilteredItems'"
+                            ng-show="properties.SelectionMode.PropertyValue=='FilteredItems'" sf-date-groups="dateFilters.value"
                             class="sf-filter-selector"></sf-filter-selector>
                     </label>
                 </div>
@@ -142,7 +143,7 @@
 						<sf-filter-selector sf-query-data="additionalFilters.value"
 							sf-taxonomy-fields="@CustomFieldsHelpers.GetTaxonomyFields(Model.DynamicContentType())"
 							sf-provider="properties.ProviderName.PropertyValue"
-							ng-show="properties.SelectionMode.PropertyValue=='FilteredItems'"
+							ng-show="properties.SelectionMode.PropertyValue=='FilteredItems'" sf-date-groups="dateFilters.value"
                             class="sf-filter-selector"></sf-filter-selector>
 					</label>
 				</div>
@@ -172,7 +173,7 @@
 
                     <span>
                         @Html.Raw(String.Format(Html.Resource("ShowLimitedItems"),
-                        "<input type='text' style='width: 40px' ng-disabled='properties.DisplayMode.PropertyValue!=\"Limit\"' ng-model='properties.ItemsPerPage.PropertyValue'/>"))
+                        "<input type='text' style='width: 40px' ng-disabled='properties.DisplayMode.PropertyValue!=\"Limit\"' ng-model='properties.LimitCount.PropertyValue'/>"))
                     </span>
                 </label>
             </div>

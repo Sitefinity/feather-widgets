@@ -4,6 +4,8 @@ using System.ComponentModel;
 using System.Web;
 using System.Web.Mvc;
 using Telerik.Sitefinity.ContentLocations;
+using Telerik.Sitefinity.Data;
+using Telerik.Sitefinity.Frontend.Mvc.Models;
 
 namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Models
 {
@@ -107,5 +109,17 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Models
         bool RaiseBeforeFormActionEvent();
 
         bool IsMultiStep { get; set; }
+
+        /// <summary>
+        /// Gets a collection of <see cref="CacheDependencyNotifiedObject"/>.
+        ///     The <see cref="CacheDependencyNotifiedObject"/> represents a key for which cached items could be subscribed for
+        ///     notification.
+        ///     When notified, all cached objects with dependency on the provided keys will expire.
+        /// </summary>
+        /// <param name="viewModel">View model that will be used for displaying the data.</param>
+        /// <returns>
+        /// The <see cref="IList"/>.
+        /// </returns>
+        IList<CacheDependencyKey> GetKeysOfDependentObjects(FormViewModel viewModel);
     }
 }

@@ -8,6 +8,7 @@ using ArtOfTest.Common.UnitTesting;
 using ArtOfTest.WebAii.Controls.HtmlControls;
 using ArtOfTest.WebAii.Core;
 using Telerik.WebAii.Controls.Html;
+using ArtOfTest.WebAii.jQuery;
 
 namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend
 {
@@ -246,6 +247,11 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend
         /// <param name="pageName">Name of the page.</param>
         public void SetPageTitle(string pageName)
         {
+            if (string.IsNullOrEmpty(pageName))
+            {
+                throw new ArgumentNullException("pageName cannot be empty value.");
+            }
+
             Manager.Current.ActiveBrowser.RefreshDomTree();
             var frame = Manager.Current.ActiveBrowser.WaitForFrame(new FrameInfo() { Name = "create" });
 
@@ -262,6 +268,83 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend
             HtmlInputText changeUrl = frame.Find.ByExpression<HtmlInputText>("tagname=input", "id=~_UrlNameFieldControl_", "id=~_textBox_write");
             changeUrl.Focus();
             Manager.Current.Desktop.KeyBoard.TypeText(pageName.ToLower());
+        }
+
+        /// <summary>
+        /// Open List Settings view
+        /// </summary>
+        public void OpenListSettingsView()
+        {
+            var listSettings = EM.Widgets.WidgetDesignerEventsScreen.ListSettings;
+            listSettings.AssertIsPresent("List Settings");
+            listSettings.Click();
+        }
+
+        /// <summary>
+        /// Open more options by clicking the link
+        /// </summary>
+        public void OpenMoreOptions()
+        {
+            var moreOptionsLink = EM.Widgets.WidgetDesignerCalendarScreen.MoreOptionsLink;
+            moreOptionsLink.AssertIsPresent("More options link");
+            moreOptionsLink.Click();
+        }
+
+        /// <summary>
+        /// Apply CSS class name in Calendar Widget Edit - List Settings tab
+        /// </summary>
+        /// <param name="cssClassName">CSS class name</param>
+        public void ApplyCssClassInCalendarWidgetListSettingsTab(string cssClassName)
+        {
+            HtmlInputText cssClassInput = EM.Widgets.WidgetDesignerCalendarScreen.CssClassInputFieldListSettings.AssertIsPresent("CssClass input");
+            cssClassInput.Click();
+            cssClassInput.Text = cssClassName;
+            cssClassInput.AsjQueryControl().InvokejQueryEvent(jQueryControl.jQueryControlEvents.change);
+        }
+
+        /// <summary>
+        /// Apply CSS class name in Calendar Widget Edit - List Settings tab
+        /// </summary>
+        /// <param name="cssClassName">CSS class name</param>
+        public void ApplyCssClassInCalendarWidgetSingleItemSettingsTab(string cssClassName)
+        {
+            HtmlInputText cssClassInput = EM.Widgets.WidgetDesignerCalendarScreen.CssClassInputFieldSingleItemSettings.AssertIsPresent("CssClass input");
+            cssClassInput.Click();
+            cssClassInput.Text = cssClassName;
+            cssClassInput.AsjQueryControl().InvokejQueryEvent(jQueryControl.jQueryControlEvents.change);
+        }
+
+        /// <summary>
+        /// Open Single Item Settings view
+        /// </summary>
+        public void OpenSingleItemSettingsView()
+        {
+            var listSettings = EM.Widgets.WidgetDesignerCalendarScreen.SingleItemSettings;
+            listSettings.AssertIsPresent("Single Item Settings");
+            listSettings.Click();
+        }
+
+        /// <summary>
+        /// Select Template from List Template Selector
+        /// </summary>
+        public void SelectSchedulerTemplate()
+        {
+            var listTemplateSelector = EM.Widgets.WidgetDesignerEventsScreen.ListTemplateSelector;
+            listTemplateSelector.AssertIsPresent("List Template Selector");
+            listTemplateSelector.SelectByPartialText("Calendar", true);
+        }
+
+        /// <summary>
+        /// Activate Scheduler Mode
+        /// </summary>
+        public void ActivateSchedulerMode()
+        {
+            this.OpenListSettingsView();
+            this.SelectSchedulerTemplate();
+            
+            var saveButton = EM.Widgets.WidgetDesignerContentScreen.SaveChangesButton;
+            saveButton.AssertIsPresent("Save button");
+            saveButton.Click();
         }
 
         private bool WaitForSaveButton()

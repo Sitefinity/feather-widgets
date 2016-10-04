@@ -11,6 +11,7 @@
         $scope.parentSelector = { selectedItemsIds: [] };
         $scope.itemType = serverData.get('itemType');
         $scope.parentTypes = $.parseJSON(serverData.get('parentTypes') || null);
+        $scope.dateFilters = {};
 
         $scope.$watch(
             'additionalFilters.value',
@@ -21,6 +22,16 @@
             },
             true
         );
+
+        $scope.$watch(
+             'dateFilters.value',
+              function (newDateFilters, oldDateFilters) {
+                  if (newDateFilters !== oldDateFilters) {
+                      $scope.properties.SerializedDateFilters.PropertyValue = JSON.stringify(newDateFilters);
+                  }
+              },
+              true
+            );
 
         $scope.$watch(
 	        'properties.ProviderName.PropertyValue',
@@ -82,6 +93,9 @@
                     var additionalFilters = $.parseJSON($scope.properties.SerializedAdditionalFilters.PropertyValue || null);
                     $scope.additionalFilters.value = additionalFilters;
 
+                    var dateFilters = $.parseJSON($scope.properties.SerializedDateFilters.PropertyValue || null);
+                    $scope.dateFilters.value = dateFilters;
+
                     var selectedItemsIds = $.parseJSON($scope.properties.SerializedSelectedItemsIds.PropertyValue || null);
                     if (selectedItemsIds) {
                         $scope.itemSelector.selectedItemsIds = selectedItemsIds;
@@ -119,13 +133,6 @@
                                 $scope.properties.DetailsPageId.PropertyValue === emptyGuid) {
                             $scope.properties.OpenInSamePage.PropertyValue = true;
                         }
-                    }
-
-                    if ($scope.properties.SelectionMode.PropertyValue === "FilteredItems" &&
-                        $scope.additionalFilters.value &&
-                        $scope.additionalFilters.value.QueryItems &&
-                        $scope.additionalFilters.value.QueryItems.length === 0) {
-                        $scope.properties.SelectionMode.PropertyValue = 'AllItems';
                     }
 
                     if ($scope.properties.SelectionMode.PropertyValue !== "FilteredItems") {

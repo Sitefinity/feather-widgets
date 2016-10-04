@@ -1,0 +1,220 @@
+@using Telerik.Sitefinity.Frontend.Mvc.Helpers;
+@using Telerik.Sitefinity.Mvc;
+
+@Html.QueryBuilderScriptReferences()
+
+<server-data default-provider-name='@Html.DefaultProviderName(Telerik.Sitefinity.Modules.Events.EventsManager.GetManager())'>
+</server-data>
+
+<div class="alert alert-danger ng-hide" ng-show="errors.missingSelectedItems">@Html.Resource("MissingEvents")</div>
+<uib-tabset class="nav-tabs-wrapper">
+    <uib-tab heading="@Html.Resource("Content")">
+        <label>@Html.Resource("ItemsToDisplay")</label>
+        <div class="form-group">
+            <div class="row">
+                <div class="col-xs-6">
+                    <sf-provider-selector sf-manager-type='Telerik.Sitefinity.Modules.Events.EventsManager'
+                        sf-provider-label='@Html.Resource("Provider")'
+                        ng-model="properties.ProviderName.PropertyValue">
+                    </sf-provider-selector>
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="radio">
+                <label class="full-width">
+                    <input type="radio" ng-model="properties.SelectionMode.PropertyValue" value="AllItems" />
+                    @Html.Resource("AllEvents")
+                </label>
+            </div>
+
+            <div class="radio">
+                <label class="full-width">
+                    <input type="radio" ng-model="properties.SelectionMode.PropertyValue" value="FilteredItems" />
+                    @Html.Resource("EventsByDate")
+                </label>
+                <div class="label-content" ng-show="properties.SelectionMode.PropertyValue=='FilteredItems'">
+                    <sf-events-date-filter-selector sf-query-data="additionalFilters.value"
+                            sf-template-assembly="Telerik.Sitefinity.Frontend.Events"
+                            sf-template-url="client-components/sf-events-date-filter-selector.sf-cshtml"
+                            class="sf-filter-selector"
+                        ></sf-events-date-filter-selector>
+                </div>
+            </div>
+            
+            <div class="radio">
+                <label class="full-width">
+                    <input type="radio" ng-model="properties.SelectionMode.PropertyValue" value="SelectedItems" />
+                    @Html.Resource("SelectedEvents")
+                </label>
+                <div class="label-content" ng-show="properties.SelectionMode.PropertyValue=='SelectedItems'">
+                    <sf-list-selector sf-event-selector
+                                  sf-multiselect="true" sf-sortable="true"
+                                  sf-provider="properties.ProviderName.PropertyValue"
+                                  sf-selected-ids ="eventSelector.selectedItemsIds"></sf-list-selector>
+
+                </div>
+            </div>
+        </div>
+
+        <div class="Options-arrows" expander ng-hide="properties.SelectionMode.PropertyValue === 'SelectedItems'" expander-title='@Html.Resource("NarrowSelection")' start-expanded="{{properties.NarrowSelectionMode.PropertyValue=='FilteredItems'}}">
+            <div class="form-group">
+                <div class="radio">
+                    <label class="full-width">
+                        <input type="radio" ng-model="properties.NarrowSelectionMode.PropertyValue" value="AllItems" />
+                        @Html.Resource("AllPublishedEvents")
+                    </label>
+                </div>
+
+                <div class="radio">
+                    <label class="full-width">
+                        <input type="radio" ng-model="properties.NarrowSelectionMode.PropertyValue" value="FilteredItems" />
+                        @Html.Resource("FilteredEventsBy")
+                    </label>
+                    <div class="label-content" ng-show="properties.NarrowSelectionMode.PropertyValue=='FilteredItems'">
+                        <sf-filter-selector sf-query-data="narrowFilters.value"
+                            sf-taxonomy-fields="@CustomFieldsHelpers.GetTaxonomyFields(typeof(Telerik.Sitefinity.Events.Model.Event))"
+                            sf-provider="properties.ProviderName.PropertyValue"
+                            sf-template-assembly="Telerik.Sitefinity.Frontend.Events"
+                            sf-template-url="client-components/sf-filter-selector.sf-cshtml"
+                            class="sf-filter-selector"
+                        ></sf-filter-selector>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </uib-tab>
+
+    <uib-tab heading="@Html.Resource("ListSettings")">
+
+        <div class="form-group">
+            <label>@Html.Resource("WeekStartsOn")</label>
+            <div class="radio">
+                <label for="mondaySelect">
+                    <input id="mondaySelect" type="radio" ng-model="properties.WeekStartDay.PropertyValue" value="Monday" />
+                    <span>
+                        @Html.Resource("Monday")
+                    </span>
+                </label>
+            </div>
+            <div class="radio">
+                <label for="sundaySelect">
+                    <input id="sundaySelect" type="radio" ng-model="properties.WeekStartDay.PropertyValue" value="Sunday" />
+                    <span>
+                        @Html.Resource("Sunday")
+                    <span>
+                </label>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="defaultSchedulerView">@Html.Resource("DefaultView")</label>
+            <div class="row">
+                <div class="col-xs-6">
+                    <select id="defaultSchedulerView" ng-model="properties.EventSchedulerViewMode.PropertyValue" class="form-control">
+                        <option value="Month">@Html.Resource("Month")</option>
+                        <option value="Week">@Html.Resource("Week")</option>
+                        <option value="WorkWeek">@Html.Resource("WorkWeek")</option>
+                        <option value="Day">@Html.Resource("Day")</option>                       
+                        <option value="Agenda">@Html.Resource("Agenda")</option>
+                        <option value="Timeline">@Html.Resource("Timeline")</option>
+                    </select>
+                </div>
+            </div>
+            <div class="checkbox">
+                <label>
+                    <input type="checkbox" ng-model="properties.AllowChangeCalendarView.PropertyValue" ng-true-value="'True'" ng-false-value="'False'" ng-checked="properties.AllowChangeCalendarView.PropertyValue === 'True'"/>
+                    @Html.Resource("AllowUsersToSwitchViews")
+                </label>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="schedulerView">@Html.Resource("Calendars")</label>
+            <div class="checkbox">
+                <label>
+                    <input type="checkbox" ng-model="properties.AllowCalendarFilter.PropertyValue" ng-true-value="'True'" ng-false-value="'False'" ng-checked="properties.AllowCalendarFilter.PropertyValue === 'True'"/>
+                    @Html.Resource("AllowUsersToFilterByCalendars")
+                </label>
+            </div>
+        </div>
+        
+        <div class="form-group">
+            <label for="listTemplateName">@Html.Resource("ListTemplate")</label>
+
+            <div class="row">
+                <div class="col-xs-6">
+                    <select id="listTemplateName" ng-model="properties.ListTemplateName.PropertyValue" class="form-control">
+                         @foreach (var viewName in Html.GetViewNames(((Telerik.Sitefinity.Mvc.Proxy.MvcProxyBase)Model).GetController(), @"List\.(?<viewName>[\w\s]*)$"))
+                         {
+                             <option value="@viewName"> @viewName.SplitCamelCase()</option>
+                         }
+                    </select>
+                </div>
+            </div>
+        </div>
+        
+        <expander expander-title='@Html.Resource("MoreOptions")'>                    
+            
+                <style-dropdown selected-class="properties.ListCssClass.PropertyValue" view-name="properties.ListTemplateName.PropertyValue"></style-dropdown>
+
+                <div class="form-group">
+                    <label>@Html.Resource("CssClasses") </label>
+                    <input type="text" ng-model="properties.ListCssClass.PropertyValue" class="form-control" />
+                   
+                </div>
+
+        </expander>
+    </uib-tab>
+
+    <uib-tab heading="@Html.Resource("SingleItemSettings")">
+        <div class="form-group">
+            <label>@Html.Resource("OpenSingleItem")</label>
+            <div class="radio">
+                <label for="samePage">
+                    <input id="samePage" type="radio" ng-model="properties.OpenInSamePage.PropertyValue" value="True" />
+                    <span>
+                        @Html.Resource("ShowInSamePage")
+                    </span>
+                </label>
+            </div>
+            <div class="radio">
+                <label for="existingPage">
+                    <input id="existingPage" type="radio" ng-model="properties.OpenInSamePage.PropertyValue" value="False" />
+                    @Html.Resource("ShowInExistingPage")
+                </label>
+                <div class="label-content">
+                    <sf-list-selector
+                            sf-page-selector
+                            sf-selected-item-id="properties.DetailsPageId.PropertyValue"
+                            ng-hide="properties.OpenInSamePage.PropertyValue == 'True'"></sf-list-selector>
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group m-top-md row">
+            <div class="col-xs-6">
+                <label for="detailTemplateName">@Html.Resource("DetailTemplate")</label>
+
+                <select id="detailTemplateName" ng-model="properties.DetailTemplateName.PropertyValue" class="form-control">
+                     @foreach (var viewName in Html.GetViewNames(((Telerik.Sitefinity.Mvc.Proxy.MvcProxyBase)Model).GetController(), @"Detail\.(?<viewName>[\w\s]*)$"))
+                     {
+                         <option value="@viewName"> @viewName.SplitCamelCase()</option>
+                     }
+                </select>
+            </div>
+        </div>
+
+        <expander expander-title='@Html.Resource("MoreOptions")'>            
+
+                <style-dropdown selected-class="properties.DetailCssClass.PropertyValue" view-name ="properties.DetailTemplateName.PropertyValue"></style-dropdown>
+
+                <div class="form-group">
+                    <label>@Html.Resource("CssClasses")</label>
+                    <input type="text" ng-model="properties.DetailCssClass.PropertyValue" class="form-control" />
+                </div>
+
+        </expander>
+    </uib-tab>
+</uib-tabset>

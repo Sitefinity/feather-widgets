@@ -123,6 +123,8 @@
     <Compile Include="Framework\ElementMap\EmailCampaigns\SubscribeFormFrontend.cs" />
     <Compile Include="Framework\ElementMap\EmailCampaigns\UnsubscribeEditScreen.cs" />
     <Compile Include="Framework\ElementMap\EmailCampaigns\UnsubscribeFrontend.cs" />
+    <Compile Include="Framework\ElementMap\Events\EventsFrontend.cs" />
+    <Compile Include="Framework\ElementMap\Events\EventsMap.cs" />
     <Compile Include="Framework\ElementMap\FeedWidget\FeedWidgetEditScreen.cs" />
     <Compile Include="Framework\ElementMap\FeedWidget\FeedWidgetFrontend.cs" />
     <Compile Include="Framework\ElementMap\FeedWidget\FeedWidgetMap.cs" />
@@ -169,6 +171,7 @@
     <Compile Include="Framework\ElementMap\SocialShare\SocialShareOptions.cs" />
     <Compile Include="Framework\ElementMap\SocialShare\SocialShareWidgetEditScreen.cs" />
     <Compile Include="Framework\ElementMap\SocialShare\SocialShareMap.cs" />
+    <Compile Include="Framework\ElementMap\Widgets\WidgetCalendarScreen.cs" />
     <Compile Include="Framework\ElementMap\Widgets\WidgetDesignerScreen.cs" />
     <Compile Include="Framework\ElementMap\Widgets\WidgetDesignerMap.cs" />
     <Compile Include="Framework\ElementMap\Content\ContentBlockWidgetScreen.cs" />
@@ -180,6 +183,7 @@
     <Compile Include="Framework\ElementMap\Navigation\NavigationMap.cs" />
     <Compile Include="Framework\ElementMap\Navigation\NavigationWidgetEditScreen.cs" />
     <Compile Include="Framework\ElementMap\Navigation\NavigationWidgetFrontend.cs" />
+    <Compile Include="Framework\ElementMap\Widgets\WidgetEventsScreen.cs" />
     <Compile Include="Framework\ElementMap\WidgetTemplates\WidgetTemplatesCreateEditBaseScreen.cs" />
     <Compile Include="Framework\ElementMap\WidgetTemplates\WidgetTemplatesCreateScreenFrame.cs" />
     <Compile Include="Framework\ElementMap\WidgetTemplates\WidgetTemplatesGrid.cs" />
@@ -269,8 +273,10 @@
     <Compile Include="Framework\Wrappers\Frontend\EmailCampaigns\EmailCampaignsWrapperFacade.cs" />
     <Compile Include="Framework\Wrappers\Frontend\EmailCampaigns\SubscibeFormWrapper.cs" />
     <Compile Include="Framework\Wrappers\Frontend\EmailCampaigns\UnsubscribeWrapper.cs" />
+    <Compile Include="Framework\Wrappers\Frontend\Events\EventOccurence.cs" />
     <Compile Include="Framework\Wrappers\Frontend\Events\EventsWrapper.cs" />
     <Compile Include="Framework\Wrappers\Frontend\Events\EventsWrapperFacade.cs" />
+    <Compile Include="Framework\Wrappers\Frontend\Events\SchedulerViewTypes.cs" />
     <Compile Include="Framework\Wrappers\Frontend\FeedWidget\FeedWidgetWrapper.cs" />
     <Compile Include="Framework\Wrappers\Frontend\FeedWidget\FeedWidgetWrapperFacade.cs" />
     <Compile Include="Framework\Wrappers\Frontend\Forms\FormsWrapper.cs" />

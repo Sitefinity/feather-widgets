@@ -37,6 +37,7 @@ namespace FeatherWidgets.TestIntegration.Taxonomies
         }
 
         [Test]
+        [Category(TestCategories.Taxonomies)]
         [Author(FeatherTeams.FeatherTeam)]
         [Description("Verifies that the default settings are applied..")]
         public void FlatTaxonomy_DefaultSettings()
@@ -73,6 +74,7 @@ namespace FeatherWidgets.TestIntegration.Taxonomies
         }
 
         [Test]
+        [Category(TestCategories.Taxonomies)]
         [Author(FeatherTeams.SitefinityTeam2)]
         [Description("Verifies that tags count is not shown.")]
         public void FlatTaxonomy_DoNotShowCount()
@@ -110,6 +112,7 @@ namespace FeatherWidgets.TestIntegration.Taxonomies
         }
 
         [Test]
+        [Category(TestCategories.Taxonomies)]
         [Author(FeatherTeams.SitefinityTeam2)]
         [Description("Verifies that empty tags are shown and the tags are sorted by Title DESC.")]
         public void FlatTaxonomy_ShowEmptyTags_SortByTitleDescending()
@@ -146,6 +149,7 @@ namespace FeatherWidgets.TestIntegration.Taxonomies
         }
 
         [Test]
+        [Category(TestCategories.Taxonomies)]
         [Author(FeatherTeams.SitefinityTeam2)]
         [Description("Verifies that the selected tags are shown and sorted as manually.")]
         public void FlatTaxonomy_SelectTags_ShowEmptyTags_SortManually()
@@ -158,9 +162,9 @@ namespace FeatherWidgets.TestIntegration.Taxonomies
             flatTaxonomyController.Model.ShowEmptyTaxa = true;
             flatTaxonomyController.Model.TaxaToDisplay = FlatTaxaToDisplay.Selected;
             flatTaxonomyController.Model.SerializedSelectedTaxaIds = string.Format(
-                        CultureInfo.InvariantCulture, 
-                        @"[""{0}"",""{1}""]", 
-                        this.taxaIds[2], 
+                        CultureInfo.InvariantCulture,
+                        @"[""{0}"",""{1}""]",
+                        this.taxaIds[2],
                         this.taxaIds[1]);
             flatTaxonomyController.Model.SortExpression = "AsSetManually";
             mvcProxy.Settings = new ControllerSettings(flatTaxonomyController);
@@ -190,6 +194,7 @@ namespace FeatherWidgets.TestIntegration.Taxonomies
         }
 
         [Test]
+        [Category(TestCategories.Taxonomies)]
         [Author(FeatherTeams.SitefinityTeam2)]
         [Description("Verifies that the tag assigned to a blog post is shown when 'Only tags used by content type...' option is selected with 'Blog posts' value.")]
         public void FlatTaxonomy_SelectTagsByContentType()
@@ -230,6 +235,7 @@ namespace FeatherWidgets.TestIntegration.Taxonomies
         }
 
         [Test]
+        [Category(TestCategories.Taxonomies)]
         [Author(FeatherTeams.SitefinityTeam2)]
         [Description("Verifies that only tags assigned to selected ContentId will be shown and that the filter url will open the page specified in BaseUrl.")]
         public void FlatTaxonomy_ContentId_BaseUrl()
@@ -273,6 +279,7 @@ namespace FeatherWidgets.TestIntegration.Taxonomies
         }
 
         [Test]
+        [Category(TestCategories.Taxonomies)]
         [Author(FeatherTeams.SitefinityTeam2)]
         [Description("Verifies that the tag assigned to a dynamic content type is shown when 'Only tags used by content type...' option is selected with this dynamic content type.")]
         public void FlatTaxonomy_SelectTagsByContentType_DynamicContentTypeName()
@@ -425,12 +432,15 @@ namespace FeatherWidgets.TestIntegration.Taxonomies
                             }
                         }
 
+                        if (expectedTags.Count == 0)
+                            continue;
+
                         var currentTag = expectedTags.First();
 
                         Assert.IsTrue(
                             linkHref.EndsWith(currentTag.Url, StringComparison.Ordinal),
                             string.Format(CultureInfo.InvariantCulture, "The expected tag url {0} is not found.", currentTag.Url));
-                        
+
                         Assert.AreEqual(
                             currentTag.Name,
                             linkText,

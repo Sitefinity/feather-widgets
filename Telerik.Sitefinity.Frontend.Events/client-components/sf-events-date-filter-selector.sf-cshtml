@@ -9,6 +9,7 @@
     sf-custom-range-min-date="today"
     sf-filter-changed = "upcomingChanged"
     sf-filter-clicked = "upcomingClicked"
+    sf-any-time-label='@(Res.Get<ClientComponentsResources>().AnyTime)'
     class="sf-date-filter"></sf-date-filter>
 
 <div class="checkbox" >
@@ -30,4 +31,5 @@
     sf-custom-range-max-date="today"
     sf-filter-changed = "pastChanged"
     sf-filter-clicked = "pastClicked"
+    sf-any-time-label='@(Res.Get<ClientComponentsResources>().AnyTime)'
     class="sf-date-filter"></sf-date-filter>

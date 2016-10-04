@@ -5,6 +5,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.UI;
+using Telerik.Sitefinity.Frontend.Mvc.Helpers;
 using Telerik.Sitefinity.Frontend.Mvc.Infrastructure;
 using Telerik.Sitefinity.Frontend.Mvc.Infrastructure.Controllers;
 using Telerik.Sitefinity.Frontend.Mvc.Infrastructure.Controllers.Attributes;
@@ -199,13 +200,9 @@ namespace Telerik.Sitefinity.Frontend.Navigation.Mvc.Controllers
             var page = (Page)sender;
 
             foreach (var item in this.viewModel.Languages)
-            {
+            {   
                 var link = this.AppendDetailItemAndParamsToUrl(item.Url, new CultureInfo(item.Culture));
-
-                page.Controls.Add(new LiteralControl()
-                    {
-                        Text = string.Format(CultureInfo.InvariantCulture, "<input data-sf-role='{0}' type='hidden' value='{1}'>", item.Culture, HttpUtility.HtmlEncode(link))
-                    });
+                page.PlaceScriptBeforeBodyEnd(string.Format(CultureInfo.InvariantCulture, "<input data-sf-role='{0}' type='hidden' value='{1}'>", item.Culture, HttpUtility.HtmlEncode(link)));
             }
         }
         

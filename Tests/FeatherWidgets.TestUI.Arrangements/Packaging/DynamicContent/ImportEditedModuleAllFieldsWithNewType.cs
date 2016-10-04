@@ -12,7 +12,7 @@ namespace FeatherWidgets.TestUI.Arrangements
     /// <summary>
     /// Import module edited FlatModuleAllFields
     /// </summary>
-    public class ImportEditedFlatModuleAllFieldsWithNewType : TestArrangementBase
+    public class ImportEditedModuleAllFieldsWithNewType : TestArrangementBase
     {
         /// <summary>
         /// Server side setup.
@@ -24,6 +24,7 @@ namespace FeatherWidgets.TestUI.Arrangements
             ServerOperationsFeather.DynamicModules().ExtractStructureZip(PackageResource, InstallationPath);
             ServerOperations.SystemManager().RestartApplication(false);
             WaitUtils.WaitForSitefinityToStart(HttpContext.Current.Request.Url.GetLeftPart(UriPartial.Authority) + (HostingEnvironment.ApplicationVirtualPath.TrimEnd('/') ?? string.Empty));
+            ServerOperations.MultiSite().AssignModuleToCurrentSite(ModuleName);
         }
 
         /// <summary>
@@ -36,6 +37,16 @@ namespace FeatherWidgets.TestUI.Arrangements
             ServerOperationsFeather.DynamicModules().ExtractStructureZip(PackageResourceEdited, InstallationPath);
             ServerOperations.SystemManager().RestartApplication(false);
             WaitUtils.WaitForSitefinityToStart(HttpContext.Current.Request.Url.GetLeftPart(UriPartial.Authority) + (HostingEnvironment.ApplicationVirtualPath.TrimEnd('/') ?? string.Empty));
+            ServerOperations.MultiSite().AssignModuleToCurrentSite(ModuleName);
+        }
+
+        /// Load the application.
+        /// </summary>
+        [ServerArrangement]
+        public void LoadApplication()
+        {
+            WaitUtils.WaitForSitefinityToStart(HttpContext.Current.Request.Url
+                .GetLeftPart(UriPartial.Authority) + (HostingEnvironment.ApplicationVirtualPath.TrimEnd('/') ?? string.Empty));
         }
 
         /// <summary>
@@ -54,7 +65,7 @@ namespace FeatherWidgets.TestUI.Arrangements
         private const string InstallationPath = @"App_Data\Sitefinity";
         private const string PackageResource = "FeatherWidgets.TestUtilities.Data.Packaging.Structure.FlatModuleAllFieldsStructure.zip";
         private const string PackageResourceEdited = "FeatherWidgets.TestUtilities.Data.Packaging.Structure.FlatModuleAllFieldsAddedNewType.zip";
-        private string tempFolderPath = AppDomain.CurrentDomain.BaseDirectory + @"App_Data\Sitefinity\Export";
+        private string tempFolderPath = AppDomain.CurrentDomain.BaseDirectory + @"App_Data\Sitefinity\Deployment";
         private const string PageName = "TestPage";
     }
 }

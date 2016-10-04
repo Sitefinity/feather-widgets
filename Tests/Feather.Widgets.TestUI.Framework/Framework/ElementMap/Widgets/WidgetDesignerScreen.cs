@@ -339,5 +339,67 @@ namespace Feather.Widgets.TestUI.Framework.Framework.ElementMap.Widgets
                 return this.Get<HtmlInputText>("tagname=input", "ng-model=properties.CssClass.PropertyValue");
             }
         }
+
+        /// <summary>
+        /// Pagings the value.
+        /// </summary>
+        /// <param name="selectedListSettingOption">The selected list setting option.</param>
+        /// <returns></returns>
+        public HtmlInputText PagingValue(string selectedListSettingOption)
+        {
+            return this.Get<HtmlInputText>("tagname=input", "ng-disabled=~" + selectedListSettingOption);
+        }
+
+        /// <summary>
+        /// Gets the cancel button.
+        /// </summary>
+        /// <value>
+        /// The cancel button.
+        /// </value>
+        public HtmlAnchor CancelButton
+        {
+            get
+            {
+                return this.Get<HtmlAnchor>("tagname=a", "innerText=Cancel");
+            }
+        }
+
+        /// <summary>
+        /// Gets the title select content dialog.
+        /// </summary>
+        /// <value>
+        /// The title select content dialog.
+        /// </value>
+        public HtmlControl TitleSelectContentDialog
+        {
+            get
+            {
+                return this.Get<HtmlControl>("tagname=h3", "class=~modal-title");
+            }
+        }
+
+        /// <summary>
+        /// Gets the close button.
+        /// </summary>
+        /// <value>
+        /// The close button.
+        /// </value>
+        public HtmlButton CloseButton
+        {
+            get
+            {
+                return this.Get<HtmlButton>("tagname=button", "ng-click=cancel()");
+            }
+        }
+
+        /// <summary>
+        /// Dates the selector value.
+        /// </summary>
+        /// <param name="value">The value.</param>
+        /// <returns></returns>
+        public HtmlSpan DateSelectorValue(string value)
+        {
+                return this.Get<HtmlSpan>("tagname=span", "class=label label-taxon label-full ng-binding", "Innertext=" + value);
+        }
     }
 }

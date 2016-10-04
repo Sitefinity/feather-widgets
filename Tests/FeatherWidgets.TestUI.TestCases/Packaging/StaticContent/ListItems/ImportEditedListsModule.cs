@@ -24,11 +24,10 @@ namespace FeatherWidgets.TestUI.TestCases.Packaging.StaticContent
         TestCategory(FeatherTestCategories.Packaging)]
         public void ImportEditedListsModule()
         {
-            BAT.Macros().NavigateTo().Modules().Lists(this.Culture);
+            RuntimeSettingsModificator.ExecuteWithClientTimeout(200000, () => BAT.Macros().NavigateTo().Modules().Lists(this.Culture));
             BAT.Wrappers().Backend().ListItems().ListItemsGridWrapper().NavigateToListItem("TestList");
             BAT.Arrange(this.TestName).ExecuteArrangement("ImportNewPackage");
-
-            BAT.Macros().NavigateTo().Classifications().AllClassifications();
+            RuntimeSettingsModificator.ExecuteWithClientTimeout(200000, () => BAT.Macros().NavigateTo().Classifications().AllClassifications());                
             BAT.Wrappers().Backend().Taxonomies().ClassificationWrapper().VerifyTaxonExistenceInTaxonomyItemsScreen(classifications[0], exists: true);
             BAT.Wrappers().Backend().Taxonomies().ClassificationWrapper().VerifyTaxonExistenceInTaxonomyItemsScreen(classifications[1], exists: true);
 
@@ -49,7 +48,6 @@ namespace FeatherWidgets.TestUI.TestCases.Packaging.StaticContent
 
             BAT.Macros().NavigateTo().Pages(this.Culture);
             BAT.Wrappers().Backend().Pages().PagesWrapper().OpenPageZoneEditor(PageName);
-            BATFeather.Wrappers().Backend().Pages().PageZoneEditorWrapper().AddMvcWidgetHybridModePage(ListWidget);
             BATFeather.Wrappers().Backend().Pages().PageZoneEditorWrapper().EditWidget(ListWidget);
             BATFeather.Wrappers().Backend().Widgets().WidgetDesignerWrapper().ClickSelectButton(0);
             BATFeather.Wrappers().Backend().Widgets().SelectorsWrapper().SelectItemsInFlatSelector("TestList");
@@ -66,6 +64,7 @@ namespace FeatherWidgets.TestUI.TestCases.Packaging.StaticContent
         /// </summary>
         protected override void ServerSetup()
         {
+            BAT.Arrange(this.TestName).ExecuteArrangement("LoadApplication");
             RuntimeSettingsModificator.ExecuteWithClientTimeout(200000, () => BAT.Macros().User().EnsureAdminLoggedIn());
             BAT.Arrange(this.TestName).ExecuteSetUp();
         }
@@ -116,7 +115,7 @@ namespace FeatherWidgets.TestUI.TestCases.Packaging.StaticContent
 
         private static string[] classifications = new string[] { "l1", "l2" };
         private const string ListItemTitleNew = "ListItem New";
-        private const string ListWidget = "List";
+        private const string ListWidget = "Lists";
         private const string PageName = "TestPage";
     }
 }

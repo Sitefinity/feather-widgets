@@ -2,17 +2,28 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
+using System.Text.RegularExpressions;
+using FeatherWidgets.TestUtilities.CommonOperations;
 using MbUnit.Framework;
 using Telerik.Sitefinity;
 using Telerik.Sitefinity.Abstractions;
 using Telerik.Sitefinity.Fluent.Pages;
+using Telerik.Sitefinity.Frontend.DynamicContent.Mvc.Controllers;
+using Telerik.Sitefinity.Frontend.Mvc.Infrastructure.Controllers;
+using Telerik.Sitefinity.Frontend.Navigation.Mvc.Controllers;
 using Telerik.Sitefinity.Frontend.Navigation.Mvc.Models.Breadcrumb;
+using Telerik.Sitefinity.Frontend.News.Mvc.Controllers;
 using Telerik.Sitefinity.Frontend.TestUtilities;
+using Telerik.Sitefinity.Mvc.Proxy;
+using Telerik.Sitefinity.News.Model;
 using Telerik.Sitefinity.Pages.Model;
 using Telerik.Sitefinity.Services;
 using Telerik.Sitefinity.TestIntegration.Core.SiteMap;
+using Telerik.Sitefinity.TestIntegration.Data.Content;
 using Telerik.Sitefinity.TestIntegration.Helpers;
+using Telerik.Sitefinity.Utilities.TypeConverters;
 using Telerik.Sitefinity.Web;
+using CommonOperationsContext = Telerik.Sitefinity.TestUtilities.CommonOperations;
 
 namespace FeatherWidgets.TestIntegration.Navigation
 {
@@ -20,6 +31,15 @@ namespace FeatherWidgets.TestIntegration.Navigation
     [TestFixture]
     public class BreadcrumbWidgetTests
     {
+        /// <summary>
+        /// Set up method
+        /// </summary>
+        [SetUp]
+        public void Setup()
+        {
+            this.pageOperations = new PagesOperations();
+        }
+
         [Test]
         [Category(TestCategories.Navigation)]
         [Author(FeatherTeams.SitefinityTeam7)]
@@ -180,6 +200,102 @@ namespace FeatherWidgets.TestIntegration.Navigation
             DummySitemapFilter.Clear();
         }
 
+        [Test]
+        [Category(TestCategories.Navigation)]
+        [Author(FeatherTeams.SitefinityTeam7)]
+        [Description("Verifies that virtual nodes are displayed in breadcrump when there are controllers with detail news item on the page.")]
+        public void Breadcrumb_DetailNewsItem_VirtualNodes()
+        {
+            Guid pageId = Guid.Empty;
+            try
+            {
+                string testName = System.Reflection.MethodInfo.GetCurrentMethod().Name;
+                string pageNamePrefix = testName + "NewsPage";
+                string pageTitlePrefix = testName + "News Page";
+                string urlNamePrefix = testName + "news-page";
+                int pageIndex = 1;
+                string pageTitle = pageTitlePrefix + pageIndex;
+                string pageUrl = UrlPath.ResolveAbsoluteUrl("~/" + urlNamePrefix + pageIndex);
+
+                var mvcBreadcrumbWidget = this.CreateBreadcrumbMvcWidget();
+                pageId = this.pageOperations.CreatePageWithControl(mvcBreadcrumbWidget, pageNamePrefix, pageTitlePrefix, urlNamePrefix, pageIndex);
+
+                var newsMvcWidget = this.CreateNewsMvcWidget();
+                PageContentGenerator.AddControlsToPage(pageId, new List<System.Web.UI.Control>() { newsMvcWidget });
+               
+                CommonOperationsContext.ServerOperations.News().CreatePublishedNewsItem(newsTitle: NewsTitle, newsContent: NewsTitle);
+                var items = ((NewsController)newsMvcWidget.Controller).Model.CreateListViewModel(null, 1).Items.ToArray();
+                var newsItem = (NewsItem)items[0].DataItem;
+                string detailNewsUrl = pageUrl + newsItem.ItemDefaultUrl;
+                var responseContent = PageInvoker.ExecuteWebRequest(detailNewsUrl);
+                string relativeUrl = UrlPath.ResolveUrl("~/" + urlNamePrefix + pageIndex);
+                string breadcrumbTemplate = @"<a[\w\s]{1,}href=(?<url>""/""|""" + relativeUrl + @""")>" + pageTitle + @"[\w\s]{1,}</a>[\w\s]{1,}<span>[\w\s]{1,}/[\w\s]{1,}</span>[\w\s]{1,}" + NewsTitle;
+         
+                Match match = Regex.Match(responseContent, breadcrumbTemplate, RegexOptions.IgnorePatternWhitespace & RegexOptions.Multiline);
+
+                Assert.IsTrue(match.Success, "Breadcrumb does not contain selected news item as virtual node!");
+            }
+            finally
+            {
+                if (pageId != Guid.Empty)
+                {
+                    CommonOperationsContext.ServerOperations.Pages().DeletePage(pageId);
+                }
+
+                CommonOperationsContext.ServerOperations.News().DeleteNewsItem(NewsTitle);
+            }
+        }
+
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Globalization", "CA1303:Do not pass literals as localized parameters", MessageId = "FeatherWidgets.TestUtilities.CommonOperations.Templates.TemplateOperations.AddControlToTemplate(System.Guid,System.Web.UI.Control,System.String,System.String)"), Test]
+        [Category(TestCategories.DynamicWidgets)]
+        [Author(FeatherTeams.SitefinityTeam6)]
+        [Description("Verifies that virtual nodes are displayed in breadcrump when there is a controller with detail dynamic item on the page")]
+        public void Breadcrumb_DynamicWidget_VirtualNodes()
+        {
+            string dynamicTitle = "dynamic type title";
+            string dynamicUrl = "dynamic type title";
+            ServerOperationsFeather.DynamicModules().EnsureModuleIsImported(ModuleName, ModuleResource);
+            ServerOperationsFeather.DynamicModulePressArticle().CreatePressArticleItem(dynamicTitle, dynamicUrl);
+            var dynamicCollection = ServerOperationsFeather.DynamicModulePressArticle().RetrieveCollectionOfPressArticles();
+           
+            string testName = System.Reflection.MethodInfo.GetCurrentMethod().Name;
+            string pageNamePrefix = testName + "DynamicPage";
+            string pageTitlePrefix = testName + "Dynamic Page";
+            string urlNamePrefix = testName + "dynamic-page";
+            int pageIndex = 1;
+            string pageTitle = pageTitlePrefix + pageIndex;
+            Guid pageId = Guid.Empty;
+            string pageUrl = UrlPath.ResolveAbsoluteUrl("~/" + urlNamePrefix + pageIndex);
+
+            try
+            {
+                var mvcBreadcrumbWidget = this.CreateBreadcrumbMvcWidget();
+                pageId = this.pageOperations.CreatePageWithControl(mvcBreadcrumbWidget, pageNamePrefix, pageTitlePrefix, urlNamePrefix, pageIndex);
+
+                var mvcProxy = this.CreateDynamicMvcWidget();
+                PageContentGenerator.AddControlsToPage(pageId, new List<System.Web.UI.Control>() { mvcProxy });
+
+                string detailsUrl = pageUrl + dynamicCollection[0].ItemDefaultUrl;
+                string responseContent = PageInvoker.ExecuteWebRequest(detailsUrl);
+                
+                string relativeUrl = UrlPath.ResolveUrl("~/" + urlNamePrefix + pageIndex);
+                string breadcrumbTemplate = @"<a[\w\s]{1,}href=(?<url>""/""|""" + relativeUrl + @""")>" + pageTitle + @"[\w\s]{1,}</a>[\w\s]{1,}<span>[\w\s]{1,}/[\w\s]{1,}</span>[\w\s]{1,}" + dynamicTitle;
+                Match match = Regex.Match(responseContent, breadcrumbTemplate, RegexOptions.IgnorePatternWhitespace & RegexOptions.Multiline);
+
+                Assert.IsTrue(match.Success, "Breadcrumb does not contain selected dynamic item as virtual node!");
+            }
+            finally
+            {
+                if (pageId != Guid.Empty)
+                {
+                    CommonOperationsContext.ServerOperations.Pages().DeletePage(pageId);
+                }
+
+                ServerOperationsFeather.DynamicModulePressArticle().DeleteDynamicItems(dynamicCollection);
+                Telerik.Sitefinity.TestUtilities.CommonOperations.ServerOperations.ModuleBuilder().DeleteAllModules(string.Empty, TransactionName);
+            }
+        }
+
         /// <summary>
         /// Clean up method
         /// </summary>
@@ -221,7 +337,49 @@ namespace FeatherWidgets.TestIntegration.Navigation
             SystemManager.CurrentHttpContext.Items[SiteMapBase.CurrentNodeKey] = pageNode;
         }
 
+        private MvcWidgetProxy CreateBreadcrumbMvcWidget()
+        {
+            var mvcWidget = new MvcWidgetProxy();
+            mvcWidget.ControllerName = typeof(BreadcrumbController).FullName;
+            var breadcrumbController = new BreadcrumbController();
+            mvcWidget.Settings = new ControllerSettings(breadcrumbController);
+            breadcrumbController.Model.AllowVirtualNodes = true;
+
+            return mvcWidget;
+        }
+
+        private MvcWidgetProxy CreateNewsMvcWidget()
+        {
+            var mvcWidget = new MvcWidgetProxy();
+            mvcWidget.ControllerName = typeof(NewsController).FullName;
+            var newsController = new NewsController();
+            newsController.OpenInSamePage = true;
+            mvcWidget.Settings = new ControllerSettings(newsController);
+
+            return mvcWidget;
+        }
+
+        private MvcWidgetProxy CreateDynamicMvcWidget()
+        {
+            var mvcWidget = new MvcWidgetProxy();
+            mvcWidget.ControllerName = typeof(DynamicContentController).FullName;
+            var dynamicController = new DynamicContentController();
+            dynamicController.Model.ContentType = TypeResolutionService.ResolveType(ResolveType);
+            dynamicController.Model.ProviderName = FeatherWidgets.TestUtilities.CommonOperations.DynamicModulesOperations.ProviderName;
+            mvcWidget.Settings = new ControllerSettings(dynamicController);
+            mvcWidget.WidgetName = WidgetName;
+
+            return mvcWidget;
+        }
+
         private List<Guid> createdPageIDs = new List<Guid>();
         private const int TestPagesCount = 5;
+        private PagesOperations pageOperations;
+        private const string NewsTitle = "NewsTitle";
+        private const string ResolveType = "Telerik.Sitefinity.DynamicTypes.Model.PressRelease.PressArticle";
+        private const string WidgetName = "PressArticle";
+        private const string ModuleName = "Press Release";
+        private const string ModuleResource = "FeatherWidgets.TestUtilities.Data.DynamicModules.PressRelease.zip";
+        private const string TransactionName = "Module Installations";
     }
 }

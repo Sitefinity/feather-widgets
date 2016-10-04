@@ -38,7 +38,15 @@ namespace FeatherWidgets.TestUI.Arrangements
         {
             ServerOperations.Packaging().VerifyExportedStaticModule(File1, File2);
             ServerOperations.Packaging().VerifyExportedWidgetTemplates(Widgets1, Widgets2);
-            ServerOperations.Packaging().VerifyExportedTaxonomies(Taxonomies1, Taxonomies2);
+        }
+
+        /// Load the application.
+        /// </summary>
+        [ServerArrangement]
+        public void LoadApplication()
+        {
+            WaitUtils.WaitForSitefinityToStart(HttpContext.Current.Request.Url
+                .GetLeftPart(UriPartial.Authority) + (HostingEnvironment.ApplicationVirtualPath.TrimEnd('/') ?? string.Empty));
         }
 
         /// <summary>
@@ -80,15 +88,13 @@ namespace FeatherWidgets.TestUI.Arrangements
         private const string InstallationPath = @"App_Data\Sitefinity";
         private const string PackageResource = "FeatherWidgets.TestUtilities.Data.Packaging.Structure.BlogsStructure.zip";
         private const string PackageResourceEdited = "FeatherWidgets.TestUtilities.Data.Packaging.Structure.BlogsEdited.zip";
-        private string tempFolderPath = AppDomain.CurrentDomain.BaseDirectory + @"App_Data\Sitefinity\Export";
+        private string tempFolderPath = AppDomain.CurrentDomain.BaseDirectory + @"App_Data\Sitefinity\Deployment";
         private const string BlogPostsType = "Telerik.Sitefinity.Blogs.Model.BlogPost,Telerik.Sitefinity.ContentModules";
         private const string BlogType = "Telerik.Sitefinity.Blogs.Model.Blog,Telerik.Sitefinity.ContentModules";
-        private const string File1 = @"App_Data\Sitefinity\Export\Blogs\Structure\Blogs.sf";
-        private const string File2 = @"App_Data\Export\Blogs\Structure\Blogs.sf";
-        private const string Widgets1 = @"App_Data\Sitefinity\Export\Blogs\Structure\widgetTemplates.sf";
-        private const string Widgets2 = @"App_Data\Export\Blogs\Structure\widgetTemplates.sf";
-        private const string Taxonomies1 = @"App_Data\Sitefinity\Export\Blogs\Structure\taxonomies.sf";
-        private const string Taxonomies2 = @"App_Data\Export\Blogs\Structure\taxonomies.sf";
+        private const string File1 = @"App_Data\Sitefinity\Deployment\Blogs\Structure\Blogs.sf";
+        private const string File2 = @"App_Data\Deployment\Blogs\Structure\Blogs.sf";
+        private const string Widgets1 = @"App_Data\Sitefinity\Deployment\Blogs\Structure\widgetTemplates.sf";
+        private const string Widgets2 = @"App_Data\Deployment\Blogs\Structure\widgetTemplates.sf";
         private const string Path = "App_Data";
         private static string flatClassification = "post1";
         private static string hierarchicalClassification = "post2";

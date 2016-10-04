@@ -1,5 +1,6 @@
 ﻿using Ninject.Modules;
 using Telerik.Sitefinity.Frontend.Events.Mvc.Models;
+using Telerik.Sitefinity.Frontend.Events.Mvc.Models.EventScheduler;
 
 namespace Telerik.Sitefinity.Frontend.Events
 {
@@ -14,6 +15,7 @@ namespace Telerik.Sitefinity.Frontend.Events
         public override void Load()
         {
             Bind<IEventModel>().To<EventModel>();
+            Bind<IEventSchedulerModel>().To<EventSchedulerModel>();
         }
     }
 }

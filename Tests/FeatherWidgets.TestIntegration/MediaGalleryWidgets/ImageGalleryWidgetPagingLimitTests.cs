@@ -82,7 +82,7 @@ namespace FeatherWidgets.TestIntegration.MediaGalleryWidgets
             imageGalleryController.Model.SelectionMode = SelectionMode.AllItems;
             imageGalleryController.Model.DisplayMode = ListDisplayMode.Limit;
             imageGalleryController.Model.SortExpression = "Title ASC";
-            imageGalleryController.Model.ItemsPerPage = 1;
+            imageGalleryController.Model.LimitCount = 1;
             mvcProxy.Settings = new ControllerSettings(imageGalleryController);
 
             var images = imageGalleryController.Model.CreateListViewModel(null, 1).Items.ToArray();
@@ -105,6 +105,7 @@ namespace FeatherWidgets.TestIntegration.MediaGalleryWidgets
             imageGalleryController.Model.DisplayMode = ListDisplayMode.All;
             imageGalleryController.Model.SortExpression = "Title ASC";
             imageGalleryController.Model.ItemsPerPage = 1;
+            imageGalleryController.Model.LimitCount = 1;
             mvcProxy.Settings = new ControllerSettings(imageGalleryController);
 
             var images = imageGalleryController.Model.CreateListViewModel(null, 1).Items.ToArray();

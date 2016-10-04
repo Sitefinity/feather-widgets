@@ -287,6 +287,21 @@ describe('News designer view tests.', function () {
             "PropertyPath": "\/Settings\/Model\/FilterExpression",
             "PropertyValue": "",
             "TypeEditor": null
+        },
+        {
+            "CategoryName": "Misc",
+            "CategoryNameSafe": "Misc",
+            "ClientPropertyTypeName": "System.String",
+            "ElementCssClass": null,
+            "InCategoryOrdinal": 5,
+            "IsProxy": false,
+            "ItemTypeName": "System.String",
+            "NeedsEditor": false,
+            "PropertyId": "acfcc965-f18a-6d82-8924-ff0000fd783f",
+            "PropertyName": "SerializedDateFilters",
+            "PropertyPath": "\/Settings\/Model\/SerializedDateFilters",
+            "PropertyValue": "",
+            "TypeEditor": null
         }],
         "TotalCount": 20
     };

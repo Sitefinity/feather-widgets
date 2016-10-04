@@ -50,6 +50,7 @@ namespace FeatherWidgets.TestIntegration.Navigation
         public void TearDown()
         {
             ServerOperations.Pages().DeleteAllPages();
+            this.productOperations.DeleteAllProducts();
             this.serverOperationsNews.DeleteAllNews();
         }
 
@@ -93,7 +94,9 @@ namespace FeatherWidgets.TestIntegration.Navigation
             {
                 { this.sitefinityLanguages["Arabic"], this.GetPageUrl(PageName, this.sitefinityLanguages["Arabic"]) },
                 { this.sitefinityLanguages["Serbian"], this.GetPageUrl(PageName, this.sitefinityLanguages["Serbian"]) },
-                { this.sitefinityLanguages["Bulgarian"], this.GetPageUrl(PageName, this.sitefinityLanguages["Bulgarian"]) }
+                { this.sitefinityLanguages["Bulgarian"], this.GetPageUrl(PageName, this.sitefinityLanguages["Bulgarian"]) },
+                { this.sitefinityLanguages["French"], this.GetPageUrl(PageName, this.sitefinityLanguages["French"]) },
+                { this.sitefinityLanguages["German"], this.GetPageUrl(PageName, this.sitefinityLanguages["German"]) }
             };
 
             this.AssertLanguageLinks(pageContent, expectedLinks, notExpectedLinks);
@@ -136,7 +139,9 @@ namespace FeatherWidgets.TestIntegration.Navigation
                 { this.sitefinityLanguages["English"], this.GetPageUrl(PageName, this.sitefinityLanguages["English"], true) },
                 { this.sitefinityLanguages["Arabic"], this.GetPageUrl(PageName, this.sitefinityLanguages["Arabic"]) },
                 { this.sitefinityLanguages["Serbian"], this.GetPageUrl(PageName, this.sitefinityLanguages["Serbian"]) },
-                { this.sitefinityLanguages["Bulgarian"], this.GetPageUrl(PageName, this.sitefinityLanguages["Bulgarian"]) }
+                { this.sitefinityLanguages["Bulgarian"], this.GetPageUrl(PageName, this.sitefinityLanguages["Bulgarian"]) },
+                { this.sitefinityLanguages["French"], this.GetPageUrl(PageName, this.sitefinityLanguages["French"]) },
+                { this.sitefinityLanguages["German"], this.GetPageUrl(PageName, this.sitefinityLanguages["German"]) }
             };
 
             this.AssertLanguageLinks(pageContent, expectedLinks, notExpectedLinks);
@@ -191,7 +196,9 @@ namespace FeatherWidgets.TestIntegration.Navigation
             {
                 { this.sitefinityLanguages["Arabic"], this.GetPageUrl(PageName, this.sitefinityLanguages["Arabic"]) },
                 { this.sitefinityLanguages["Serbian"], this.GetPageUrl(PageName, this.sitefinityLanguages["Serbian"]) },
-                { this.sitefinityLanguages["Bulgarian"], this.GetPageUrl(PageName, this.sitefinityLanguages["Bulgarian"]) }
+                { this.sitefinityLanguages["Bulgarian"], this.GetPageUrl(PageName, this.sitefinityLanguages["Bulgarian"]) },
+                { this.sitefinityLanguages["French"], this.GetPageUrl(PageName, this.sitefinityLanguages["French"]) },
+                { this.sitefinityLanguages["German"], this.GetPageUrl(PageName, this.sitefinityLanguages["German"]) }
             };
 
             this.AssertLanguageLinks(pageContent, expectedLinks, notExpectedLinks);
@@ -231,7 +238,9 @@ namespace FeatherWidgets.TestIntegration.Navigation
                 { this.sitefinityLanguages["Turkish"], this.GetPageUrl(PageName, this.sitefinityLanguages["Turkish"]) },
                 { this.sitefinityLanguages["Arabic"], this.GetPageUrlOfNotTranslatedPage(PageName + currentPage.Value.Name, this.sitefinityLanguages["Arabic"]) },
                 { this.sitefinityLanguages["Serbian"], this.GetPageUrlOfNotTranslatedPage(PageName + currentPage.Value.Name, this.sitefinityLanguages["Serbian"]) },
-                { this.sitefinityLanguages["Bulgarian"], this.GetPageUrlOfNotTranslatedPage(PageName + currentPage.Value.Name, this.sitefinityLanguages["Bulgarian"]) }
+                { this.sitefinityLanguages["Bulgarian"], this.GetPageUrlOfNotTranslatedPage(PageName + currentPage.Value.Name, this.sitefinityLanguages["Bulgarian"]) },
+                { this.sitefinityLanguages["French"], this.GetPageUrlOfNotTranslatedPage(PageName + currentPage.Value.Name, this.sitefinityLanguages["French"]) },
+                { this.sitefinityLanguages["German"], this.GetPageUrlOfNotTranslatedPage(PageName + currentPage.Value.Name, this.sitefinityLanguages["German"]) }
             };
 
             var notExpectedLinks = new Dictionary<CultureInfo, string>()
@@ -240,6 +249,39 @@ namespace FeatherWidgets.TestIntegration.Navigation
             };
 
             this.AssertLanguageLinks(pageContent, expectedLinks, notExpectedLinks);
+        }
+
+        [Test]
+        [Multilingual]
+        [Category(TestCategories.Navigation)]
+        [Author(FeatherTeams.SitefinityTeam2)]
+        [Description("Verifies language selector current language included and product list widget")]
+        public void LanguageSelectorWidgetAndProductList_CurrentLanguageIncluded()
+        {
+            var languageSelectorControl = this.CreateLanguageSelectorControl();
+            var languageSelectorModel = languageSelectorControl.Settings.Controller.Model;
+            languageSelectorControl.Settings.Controller.TemplateName = "DropDownMenu";
+            languageSelectorModel.IncludeCurrentLanguage = true;
+            this.productOperations.CreatePublishedProduct(ProductTypeName, true, ProductName, ProductPrice);
+            
+            var controls = new List<System.Web.UI.Control>();
+            controls.Add(languageSelectorControl);
+
+            var pageLanguages = new[] 
+            {
+                this.sitefinityLanguages["English"]
+            };
+
+            var createdPages = this.CreateLocalizedPage(PageName, pageLanguages);
+
+            // Add language selector widget to the en-US page
+            var currentPage = createdPages.First();
+            PageContentGenerator.AddControlsToPage(currentPage.Key, controls);
+            ServerOperations.Widgets().AddProductListViewWithTemplate(currentPage.Key, EcommerceGlobals.placeholderId, EcommerceGlobals.captionProducts, ControlTypes.ProductDetailLayoutTemplateName, showWishlist: true);
+
+            string url = UrlPath.ResolveAbsoluteUrl("~/" + PageName + currentPage.Value.Name);
+            var pageContent = PageInvoker.ExecuteWebRequest(url);
+            Assert.IsNotNull(pageContent);
         }
 
         #region Helper methods
@@ -361,12 +403,16 @@ namespace FeatherWidgets.TestIntegration.Navigation
             var arabic = AppSettings.CurrentSettings.DefinedFrontendLanguages.Where(x => x.Name == "ar-MA").FirstOrDefault();
             var serbian = AppSettings.CurrentSettings.DefinedFrontendLanguages.Where(x => x.Name == "sr-Cyrl-BA").FirstOrDefault();
             var bulgarian = AppSettings.CurrentSettings.DefinedFrontendLanguages.Where(x => x.Name == "bg-BG").FirstOrDefault();
+            var french = AppSettings.CurrentSettings.DefinedFrontendLanguages.Where(x => x.Name == "fr-FR").FirstOrDefault();
+            var german = AppSettings.CurrentSettings.DefinedFrontendLanguages.Where(x => x.Name == "de-DE").FirstOrDefault();
 
             this.sitefinityLanguages.Add("English", english);
             this.sitefinityLanguages.Add("Turkish", turkish);
             this.sitefinityLanguages.Add("Arabic", arabic);
             this.sitefinityLanguages.Add("Serbian", serbian);
             this.sitefinityLanguages.Add("Bulgarian", bulgarian);
+            this.sitefinityLanguages.Add("French", french);
+            this.sitefinityLanguages.Add("German", german);
         }
 
         private void AssertLanguageLinks(string pageContent, Dictionary<CultureInfo, string> links, Dictionary<CultureInfo, string> notVisiblelinks)
@@ -379,10 +425,15 @@ namespace FeatherWidgets.TestIntegration.Navigation
                 parser.CompressWhiteSpaceBeforeTag = true;
                 parser.KeepRawHTML = true;
                 var initialLinks = new Dictionary<CultureInfo, string>(links);
+                var htmlTagEndIndex = 0;
 
                 while ((chunk = parser.ParseNext()) != null)
                 {
-                    if (chunk.TagName.Equals("a") && !chunk.IsClosure && chunk.GetParamValue("onclick") != null)
+                    if (chunk.TagName.Equals("html") && chunk.IsClosure)
+                    {
+                        htmlTagEndIndex = chunk.ChunkOffset;
+                    }
+                    else if (chunk.TagName.Equals("a") && !chunk.IsClosure && chunk.GetParamValue("onclick") != null)
                     {
                         var linkOnClickAttribute = chunk.GetParamValue("onclick");
                         chunk = parser.ParseNext();
@@ -423,7 +474,7 @@ namespace FeatherWidgets.TestIntegration.Navigation
 
                         links.Remove(foundlanguageCulture);
                     }
-                    else if (chunk.TagName.Equals("input") && chunk.GetParamValue("type") == "hidden" && chunk.GetParamValue("value") != null && chunk.GetParamValue("value").StartsWith("http://", StringComparison.Ordinal))
+                    else if (chunk.TagName.Equals("input") && chunk.GetParamValue("type") == "hidden" && chunk.GetParamValue("value") != null && (chunk.GetParamValue("value").StartsWith("http://", StringComparison.Ordinal) || chunk.GetParamValue("value").StartsWith("https://", StringComparison.Ordinal)))
                     {
                         var dataSfRole = chunk.GetParamValue("data-sf-role");
                         if (dataSfRole != null)
@@ -434,6 +485,7 @@ namespace FeatherWidgets.TestIntegration.Navigation
 
                             var hiddenInputValue = chunk.GetParamValue("value");
 
+                            Assert.IsFalse(htmlTagEndIndex > 0, "Hidden field not exist inside html tag");
                             Assert.IsTrue(hiddenInputValue.EndsWith(expectedLink, StringComparison.Ordinal));
 
                             initialLinks.Remove(currentCulture);
@@ -472,6 +524,10 @@ namespace FeatherWidgets.TestIntegration.Navigation
         private const string PageName = "TestPage";
         private readonly Dictionary<string, CultureInfo> sitefinityLanguages = new Dictionary<string, CultureInfo>();
         private readonly NewsOperations serverOperationsNews = ServerOperations.News();
+        private readonly ProductOperations productOperations = ServerOperations.ECommerce().Products();
+        private const string ProductTypeName = "General product";
+        private const string ProductName = "Product1_EN";
+        private const decimal ProductPrice = 1M;
 
         #endregion
     }

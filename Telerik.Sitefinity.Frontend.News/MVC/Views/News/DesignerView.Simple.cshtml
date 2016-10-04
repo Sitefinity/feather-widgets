@@ -49,7 +49,7 @@
                         sf-taxonomy-fields="@CustomFieldsHelpers.GetTaxonomyFields(typeof(Telerik.Sitefinity.News.Model.NewsItem))"
                         sf-provider="properties.ProviderName.PropertyValue"
                         ng-show="properties.SelectionMode.PropertyValue=='FilteredItems'"
-                        class="sf-filter-selector"
+                        class="sf-filter-selector" sf-date-groups="dateFilters.value"
                         ></sf-filter-selector>
                 </label>
             </div>
@@ -78,7 +78,7 @@
 
                     <span>
                         @Html.Raw(String.Format(Html.Resource("ShowLimitedItems"),
-                        "<input type='text' style='width: 40px' ng-disabled='properties.DisplayMode.PropertyValue!=\"Limit\"' ng-model='properties.ItemsPerPage.PropertyValue'/>"))
+                        "<input type='text' style='width: 40px' ng-disabled='properties.DisplayMode.PropertyValue!=\"Limit\"' ng-model='properties.LimitCount.PropertyValue'/>"))
                     </span>
                 </label>
             </div>
