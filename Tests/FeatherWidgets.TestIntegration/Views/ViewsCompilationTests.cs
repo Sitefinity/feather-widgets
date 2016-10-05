@@ -15,6 +15,7 @@ namespace FeatherWidgets.TestIntegration.Views
     [AssemblyFixture]
     [Description("Integration tests for proper compilation of the Feather views.")]
     [Author(TestAuthor.Team7)]
+    [Category(TestCategories.Common)]
     public class ViewsCompilationTests
     {
         [Test]

@@ -96,6 +96,9 @@ namespace FeatherWidgets.TestIntegration.News
                         Assert.IsFalse(responseContent2.Contains(NewsTitle + i), "The news with this title was found!");
                     }
                 }
+
+                Assert.IsTrue(responseContent.Contains("<link rel=\"next\""), "Canonical pagination URL for Next was not found!");
+                Assert.IsTrue(responseContent2.Contains("<link rel=\"prev\""), "Canonical pagination URL for Next was not found!");
             }
             finally
             {

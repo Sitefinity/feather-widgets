@@ -8,20 +8,20 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend.Widgets
 {
     public enum WidgetDesignerRadioButtonIds
     {
-        allPublished,
-        selectedLibrariesOnly,
-        currentlyOpenLibrary,
-        allItems,
-        filterItems,
-        usePaging,
-        useLimit,
-        samePage,
-        existingPage,
-        allUsers,
-        selectedUsers,
-        selectedItems,
-        allItemsList,
-        allItemsExpander,
-        filterUsers
+        AllPublished,
+        SelectedLibrariesOnly,
+        CurrentlyOpenLibrary,
+        AllItems,
+        FilterItems,
+        UsePaging,
+        UseLimit,
+        SamePage,
+        ExistingPage,
+        AllUsers,
+        SelectedUsers,
+        SelectedItems,
+        AllItemsList,
+        AllItemsExpander,
+        FilterUsers
     }
 }

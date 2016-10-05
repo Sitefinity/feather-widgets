@@ -117,24 +117,20 @@
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
-    <Reference Include="Telerik.OpenAccess, Version=2016.1.224.1, Culture=neutral, PublicKeyToken=7ce17eeaf1d59342, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Telerik.DataAccess.Core.2016.1.224.1\lib\net40\Telerik.OpenAccess.dll</HintPath>
-      <SpecificVersion>False</SpecificVersion>
+    <Reference Include="Telerik.OpenAccess, Version=2016.2.822.1, Culture=neutral, PublicKeyToken=7ce17eeaf1d59342, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Telerik.DataAccess.Core.2016.2.822.1\lib\net40\Telerik.OpenAccess.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="Telerik.OpenAccess.35.Extensions, Version=2016.1.224.1, Culture=neutral, PublicKeyToken=7ce17eeaf1d59342, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Telerik.DataAccess.Core.2016.1.224.1\lib\net40\Telerik.OpenAccess.35.Extensions.dll</HintPath>
-      <SpecificVersion>False</SpecificVersion>
+    <Reference Include="Telerik.OpenAccess.35.Extensions, Version=2016.2.822.1, Culture=neutral, PublicKeyToken=7ce17eeaf1d59342, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Telerik.DataAccess.Core.2016.2.822.1\lib\net40\Telerik.OpenAccess.35.Extensions.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="Telerik.OpenAccess.40.Extensions, Version=2016.1.224.1, Culture=neutral, PublicKeyToken=7ce17eeaf1d59342, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Telerik.DataAccess.Core.2016.1.224.1\lib\net40\Telerik.OpenAccess.40.Extensions.dll</HintPath>
-      <SpecificVersion>False</SpecificVersion>
+    <Reference Include="Telerik.OpenAccess.40.Extensions, Version=2016.2.822.1, Culture=neutral, PublicKeyToken=7ce17eeaf1d59342, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Telerik.DataAccess.Core.2016.2.822.1\lib\net40\Telerik.OpenAccess.40.Extensions.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="Telerik.OpenAccess.Runtime, Version=2016.1.224.1, Culture=neutral, PublicKeyToken=7ce17eeaf1d59342, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Telerik.DataAccess.Core.2016.1.224.1\lib\net40\Telerik.OpenAccess.Runtime.dll</HintPath>
-      <SpecificVersion>False</SpecificVersion>
+    <Reference Include="Telerik.OpenAccess.Runtime, Version=2016.2.822.1, Culture=neutral, PublicKeyToken=7ce17eeaf1d59342, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Telerik.DataAccess.Core.2016.2.822.1\lib\net40\Telerik.OpenAccess.Runtime.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Telerik.Sitefinity, Version=9.2.6200.0, Culture=neutral, PublicKeyToken=b28c218413bdf563, processorArchitecture=MSIL">
@@ -385,7 +381,38 @@
     <Compile Include="EmailCampaigns\TryToUnsubscribeNotExistingSubscriber.cs" />
     <Compile Include="EmailCampaigns\UnsubscribeWidgetOnFoundationAndSemanticPage.cs" />
     <Compile Include="EmailCampaigns\UnsubscribeWidgetOnHybridPageAndSetCssClass.cs" />
+    <Compile Include="Events\CalendarWidgetVerifyEventItemInDifferentPageInPreviewModeAndFrontendPage.cs" />
+    <Compile Include="Events\VerifyAllowUserToSwitchViews_CalendarView.cs" />
+    <Compile Include="Events\VerifyAllowUsersToFilterByCalendars_CalendarView.cs" />
+    <Compile Include="Events\VerifyDefaultView_CalendarView.cs" />
+    <Compile Include="Events\FilterEventsByCalendar.cs" />
+    <Compile Include="Events\VerifyAllDayEventsInOneDay_CalendarView.cs" />
+    <Compile Include="Events\VerifyAllDayEventSwitchingDaylightSavingTime_CalendarView.cs" />
+    <Compile Include="Events\VerifyCssClass_CalendarView.cs" />
+    <Compile Include="Events\VerifyEventDetailsCssClass_CalendarWidget.cs" />
+    <Compile Include="Events\VerifyMultipleAllDayEventsInThreeDays_CalendarView.cs" />
+    <Compile Include="Events\VerifyMultipleNormalEventsInThreeDays_CalendarView.cs" />
+    <Compile Include="Events\VerifyNormalEventSwitchingDaylightSavingTime_CalendarView.cs" />
+    <Compile Include="Events\VerifyRecurrentAllDayEventFiveRepeats_CalendarView.cs" />
+    <Compile Include="Events\VerifyRecurrentAllDayEventsWithNoEndDate_CalendarView.cs" />
+    <Compile Include="Events\VerifyRecurrentNormalEventSwitchingDaylightSavingTime_CalendarView.cs" />
+    <Compile Include="Events\VerifyRecurrentNormalEventsWithNoEndDate_CalendarView.cs" />
+    <Compile Include="Events\VerifyRecurrentNormalEventsFiveRepeats_CalendarView.cs" />
+    <Compile Include="Events\DeleteEventsWidget.cs" />
+    <Compile Include="Events\DuplicateEventsWidgets.cs" />
     <Compile Include="Events\VerifyNoLimitAndPaginationListSettingsOnFrontendPageForEventsWidget.cs" />
+    <Compile Include="Events\VerifyPastCurrentUpcomingEvents_Calendar_HybridPage_Agenda_View.cs" />
+    <Compile Include="Events\VerifyPastCurrentUpcomingEvents_Calendar_HybridPage_Day_View.cs" />
+    <Compile Include="Events\VerifyPastCurrentUpcomingEvents_Calendar_HybridPage_Month_View.cs" />
+    <Compile Include="Events\VerifyPastCurrentUpcomingEvents_Calendar_HybridPage_Timeline_View.cs" />
+    <Compile Include="Events\VerifyPastCurrentUpcomingEvents_Calendar_HybridPage_Week_View.cs" />
+    <Compile Include="Events\VerifyPastCurrentUpcomingEvents_Calendar_MvcPage_Agenda_View.cs" />
+    <Compile Include="Events\VerifyPastCurrentUpcomingEvents_Calendar_MvcPage_Day_View.cs" />
+    <Compile Include="Events\VerifyPastCurrentUpcomingEvents_Calendar_MvcPage_Month_View.cs" />
+    <Compile Include="Events\VerifyPastCurrentUpcomingEvents_Calendar_MvcPage_Timeline_View.cs" />
+    <Compile Include="Events\VerifyPastCurrentUpcomingEvents_Calendar_MvcPage_Week_View.cs" />
+    <Compile Include="Events\VerifyPastCurrentUpcomingEvents_Calendar_WorkWeekView_HybridPage.cs" />
+    <Compile Include="Events\VerifyPastCurrentUpcomingEvents_Calendar_WorkWeekView_MvcPage.cs" />
     <Compile Include="Events\VerifyUseLimitListSettingsOnFrontendPageForEventsWidget.cs" />
     <Compile Include="Events\FilterEventCommon.cs" />
     <Compile Include="Events\FilterByAllEvents.cs" />
@@ -393,6 +420,7 @@
     <Compile Include="Events\EventsTestsCommon.cs" />
     <Compile Include="Events\SelectParticularEventOnPage.cs" />
     <Compile Include="Events\VerifyPagingOnFrontendPageForEventsWidget.cs" />
+    <Compile Include="Events\VerifyWeekStartDay_CalendarView.cs" />
     <Compile Include="FeedWidget\DragAndDropFeedWidgetAndSetDefaultRssOnPage.cs" />
     <Compile Include="Forms\CAPTCHA\ChangeCAPTCHATemplate.cs" />
     <Compile Include="Forms\Checkboxes\AddAndRemoveChoicesToCheckBoxField.cs" />
@@ -527,8 +555,8 @@
     <Compile Include="News\VerifyNoLimitAndPaginationListSettingsOnFrontendPageForNewsWidget.cs" />
     <Compile Include="News\VerifyNewsItemsWhenOpenDetailsModeOfDynamicItem.cs" />
     <Compile Include="News\VerifyPagingOnFrontendPageForNewsWidget.cs" />
-    <Compile Include="Packaging\DynamicContent\ExportImportFlatModuleAllFieldsFrontendCheck.cs" />
-    <Compile Include="Packaging\DynamicContent\ImportEditedFlatModuleAllFieldsWithNewType.cs" />
+    <Compile Include="Packaging\DynamicContent\ExportImportModuleAllFieldsFrontendCheck.cs" />
+    <Compile Include="Packaging\DynamicContent\ImportEditedModuleAllFieldsWithNewType.cs" />
     <Compile Include="Packaging\DynamicContent\ImportFlatModuleAllFields.cs" />
     <Compile Include="Packaging\DynamicContent\ImportModuleWithEditedWidgetTemplate.cs" />
     <Compile Include="Packaging\StaticContent\BlogPosts\ImportEditedBlogAndBlogPostsStructure.cs" />
@@ -547,6 +575,16 @@
     <Compile Include="Packaging\StaticContent\News\ImportEditedWidgetTemplateNewsStructure.cs" />
     <Compile Include="Packaging\StaticContent\Pages\ImportEditedPages.cs" />
     <Compile Include="Packaging\StaticContent\Pages\ExportEditedPages.cs" />
+    <Compile Include="RevisionHistory\DeleteDraftAndPublishVersionInDetailRevisionHistoryPageOnMvcPageTemplate.cs" />
+    <Compile Include="RevisionHistory\DeletePublishAndDraftVersionInRevisionHistoryOnMvcPageTemplate.cs" />
+    <Compile Include="RevisionHistory\OpenRevisionHistoryFromActionMenuToTemplateBasedOnLayoutFile.cs" />
+    <Compile Include="RevisionHistory\OpenRevisionHistoryFromMvcPageTemplateEditMode.cs" />
+    <Compile Include="RevisionHistory\VerifyDeletePublishedVersionFromRevisionHistoryMvcPageTemplate.cs" />
+    <Compile Include="RevisionHistory\VerifyDetailedInformationOfMvcPageTemplateRevisionHistoryVersion.cs" />
+    <Compile Include="RevisionHistory\VerifyOlderAndNewerVersionInRevisionHistoryOnMvcPageTemplate.cs" />
+    <Compile Include="RevisionHistory\VerifyRevertToThisVersionInRevisionHistoryOnMvcPageTemplate.cs" />
+    <Compile Include="RevisionHistory\WriteEditDeleteCancelHideNoteInDetailRevisionHistoryPageOfMvcPageTemplate.cs" />
+    <Compile Include="RevisionHistory\WriteEditDeleteCancelNoteMvcPageTemplateVersionInRevisionHistoryWindow.cs" />
     <Compile Include="ScriptsAndStyles\AddEmbedCodeWidgetToPageAndWriteAndRemoveJavaScript.cs" />
     <Compile Include="ScriptsAndStyles\WriteAndEditCssInEmbedCodeWidget.cs" />
     <Compile Include="EmailCampaigns\DragAndDropSubscribeFormWidgetOnPageAndSelectMailingList.cs" />

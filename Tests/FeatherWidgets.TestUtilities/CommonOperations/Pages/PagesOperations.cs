@@ -279,6 +279,19 @@ namespace FeatherWidgets.TestUtilities.CommonOperations
         }
 
         /// <summary>
+        /// Adds the calendar widget to page.
+        /// </summary>
+        /// <param name="pageId">The page identifier.</param>
+        /// <param name="placeholder">The placeholder.</param>
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Globalization", "CA1303:Do not pass literals as localized parameters", MessageId = "Telerik.Sitefinity.TestIntegration.Data.Content.PageContentGenerator.AddControlToPage(System.Guid,System.Web.UI.Control,System.String,System.String,System.Action<Telerik.Sitefinity.Pages.Model.PageDraftControl>)"), System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1026:DefaultParametersShouldNotBeUsed")]
+        public void AddCalendarWidgetToPage(Guid pageId, string placeholder = "Body")
+        {
+            var mvcProxy = new MvcControllerProxy();
+            mvcProxy.ControllerName = typeof(EventSchedulerController).FullName;
+            PageContentGenerator.AddControlToPage(pageId, mvcProxy, "Calendar", placeholder);
+        }
+
+        /// <summary>
         /// Adds social share widget to existing page
         /// </summary>
         /// <param name="pageId">Page id value</param>

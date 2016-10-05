@@ -13,7 +13,7 @@ namespace FeatherWidgets.TestUI.Arrangements
     /// <summary>
     /// Export and import Flat Module and verify front end
     /// </summary>
-    public class ExportImportFlatModuleAllFieldsFrontendCheck : TestArrangementBase
+    public class ExportImportModuleAllFieldsFrontendCheck : TestArrangementBase
     {
         /// <summary>
         /// Set Up
@@ -26,6 +26,7 @@ namespace FeatherWidgets.TestUI.Arrangements
             WaitUtils.WaitForSitefinityToStart(HttpContext.Current.Request.Url
                 .GetLeftPart(UriPartial.Authority) + (HostingEnvironment.ApplicationVirtualPath.TrimEnd('/') ?? string.Empty));
             ServerOperationsFeather.DynamicModules().ExtractStructureZip(PackageResource, Path);
+            ServerOperations.MultiSite().AssignModuleToCurrentSite(ModuleName);
         }
 
         /// <summary>
@@ -44,6 +45,17 @@ namespace FeatherWidgets.TestUI.Arrangements
         public void RestartApplication()
         {
             ServerOperations.SystemManager().RestartApplication(false);
+            WaitUtils.WaitForSitefinityToStart(HttpContext.Current.Request.Url
+                .GetLeftPart(UriPartial.Authority) + (HostingEnvironment.ApplicationVirtualPath.TrimEnd('/') ?? string.Empty));
+            ServerOperations.MultiSite().AssignModuleToCurrentSite(ModuleName);
+        }
+
+        /// <summary>
+        /// Load the application.
+        /// </summary>
+        [ServerArrangement]
+        public void LoadApplication()
+        {
             WaitUtils.WaitForSitefinityToStart(HttpContext.Current.Request.Url
                 .GetLeftPart(UriPartial.Authority) + (HostingEnvironment.ApplicationVirtualPath.TrimEnd('/') ?? string.Empty));
         }
@@ -68,14 +80,14 @@ namespace FeatherWidgets.TestUI.Arrangements
             ServerOperations.Packaging().DeleteAllPackagesFromDB();
 
             ServerOperations.Pages().DeleteAllPages();
-            ServerOperations.ModuleBuilder().DeleteDirectory(AppDomain.CurrentDomain.BaseDirectory + @"App_Data\Sitefinity\Export");
-            ServerOperations.ModuleBuilder().DeleteDirectory(AppDomain.CurrentDomain.BaseDirectory + @"App_Data\Export");
+            ServerOperations.ModuleBuilder().DeleteDirectory(AppDomain.CurrentDomain.BaseDirectory + @"App_Data\Sitefinity\Deployment");
+            ServerOperations.ModuleBuilder().DeleteDirectory(AppDomain.CurrentDomain.BaseDirectory + @"App_Data\Deployment");
         }
 
-        private const string File1 = @"App_Data\Sitefinity\Export\Dynamic modules\FlatModuleAllFields\Structure\FlatModuleAllFields.sf";
-        private const string File2 = @"App_Data\Export\Dynamic modules\FlatModuleAllFields\Structure\FlatModuleAllFields.sf";
-        private const string Widgets1 = @"App_Data\Sitefinity\Export\Dynamic modules\FlatModuleAllFields\Structure\widgetTemplates.sf";
-        private const string Widgets2 = @"App_Data\Export\Dynamic modules\FlatModuleAllFields\Structure\widgetTemplates.sf";
+        private const string File1 = @"App_Data\Sitefinity\Deployment\Dynamic modules\FlatModuleAllFields\Structure\FlatModuleAllFields.sf";
+        private const string File2 = @"App_Data\Deployment\Dynamic modules\FlatModuleAllFields\Structure\FlatModuleAllFields.sf";
+        private const string Widgets1 = @"App_Data\Sitefinity\Deployment\Dynamic modules\FlatModuleAllFields\Structure\widgetTemplates.sf";
+        private const string Widgets2 = @"App_Data\Deployment\Dynamic modules\FlatModuleAllFields\Structure\widgetTemplates.sf";
         private const string PageName = "TestPage";
         private const string ModuleName = "FlatModuleAllFields";
         private const string Path = "App_Data";

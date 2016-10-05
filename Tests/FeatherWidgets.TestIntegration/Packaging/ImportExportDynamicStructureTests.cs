@@ -89,7 +89,7 @@ namespace FeatherWidgets.TestIntegration.Packaging
         private const string ModuleWidgetTitle2 = "T2";
         private const string ModuleWidgetTitle3 = "T3";
 
-        private const string ExportModulePath = "~/App_Data\\Sitefinity\\Export\\Dynamic modules\\PackedModule\\Structure";
-        private const string ExportPath = "~/App_Data\\Sitefinity\\Export";
+        private const string ExportModulePath = "~/App_Data\\Sitefinity\\Deployment\\Dynamic modules\\PackedModule\\Structure";
+        private const string ExportPath = "~/App_Data\\Sitefinity\\Deployment";
     }
 }

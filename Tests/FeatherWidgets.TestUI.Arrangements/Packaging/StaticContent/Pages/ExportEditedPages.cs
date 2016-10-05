@@ -36,7 +36,15 @@ namespace FeatherWidgets.TestUI.Arrangements
         public void VerifyExportedFiles()
         {
             ServerOperations.Packaging().VerifyExportedStaticModule(File1, File2);
-            ServerOperations.Packaging().VerifyExportedTaxonomies(Taxonomies1, Taxonomies2);
+        }
+
+        /// Load the application.
+        /// </summary>
+        [ServerArrangement]
+        public void LoadApplication()
+        {
+            WaitUtils.WaitForSitefinityToStart(HttpContext.Current.Request.Url
+                .GetLeftPart(UriPartial.Authority) + (HostingEnvironment.ApplicationVirtualPath.TrimEnd('/') ?? string.Empty));
         }
 
         /// <summary>
@@ -72,12 +80,10 @@ namespace FeatherWidgets.TestUI.Arrangements
         private const string InstallationPath = @"App_Data\Sitefinity";
         private const string PackageResource = "FeatherWidgets.TestUtilities.Data.Packaging.Structure.PagesStructure.zip";
         private const string PackageResourceEdited = "FeatherWidgets.TestUtilities.Data.Packaging.Structure.PagesEdited.zip";
-        private string tempFolderPath = AppDomain.CurrentDomain.BaseDirectory + @"App_Data\Sitefinity\Export";
+        private string tempFolderPath = AppDomain.CurrentDomain.BaseDirectory + @"App_Data\Sitefinity\Deployment";
         private const string PagesType = "Telerik.Sitefinity.Pages.Model.PageNode";
-        private const string File1 = @"App_Data\Sitefinity\Export\Pages\Structure\Pages.sf";
-        private const string File2 = @"App_Data\Export\Pages\Structure\Pages.sf";
-        private const string Taxonomies1 = @"App_Data\Sitefinity\Export\Pages\Structure\taxonomies.sf";
-        private const string Taxonomies2 = @"App_Data\Export\Pages\Structure\taxonomies.sf";
+        private const string File1 = @"App_Data\Sitefinity\Deployment\Pages\Structure\Pages.sf";
+        private const string File2 = @"App_Data\Deployment\Pages\Structure\Pages.sf";
         private static string flatClassification = "p1";
         private static string hierarchicalClassification = "p2";
         private const string Path = "App_Data";

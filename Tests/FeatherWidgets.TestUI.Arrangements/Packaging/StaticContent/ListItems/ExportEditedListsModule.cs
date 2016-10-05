@@ -38,7 +38,15 @@ namespace FeatherWidgets.TestUI.Arrangements
         {
             ServerOperations.Packaging().VerifyExportedStaticModule(File1, File2);
             ServerOperations.Packaging().VerifyExportedWidgetTemplates(Widgets1, Widgets2);
-            ServerOperations.Packaging().VerifyExportedTaxonomies(Taxonomies1, Taxonomies2);
+        }
+
+        /// Load the application.
+        /// </summary>
+        [ServerArrangement]
+        public void LoadApplication()
+        {
+            WaitUtils.WaitForSitefinityToStart(HttpContext.Current.Request.Url
+                .GetLeftPart(UriPartial.Authority) + (HostingEnvironment.ApplicationVirtualPath.TrimEnd('/') ?? string.Empty));
         }
 
         /// <summary>
@@ -49,7 +57,7 @@ namespace FeatherWidgets.TestUI.Arrangements
         {
             ServerOperations.Lists().DeleteAllLists();
             ServerOperations.ModuleBuilder().DeleteDirectory(this.tempFolderPath);
-            ServerOperations.ModuleBuilder().DeleteDirectory(AppDomain.CurrentDomain.BaseDirectory + @"App_Data\Export");
+            ServerOperations.ModuleBuilder().DeleteDirectory(AppDomain.CurrentDomain.BaseDirectory + @"App_Data\Deployment");
             ServerOperations.Packaging().DeleteAllPackagesFromDB();
 
             for (int i = 0; i < this.widgetTemplatesNames.Length; i++)
@@ -71,17 +79,15 @@ namespace FeatherWidgets.TestUI.Arrangements
         private const string InstallationPath = @"App_Data\Sitefinity";
         private const string PackageResource = "FeatherWidgets.TestUtilities.Data.Packaging.Structure.ListsStructure.zip";
         private const string PackageResourceEdited = "FeatherWidgets.TestUtilities.Data.Packaging.Structure.ListsEdited.zip";
-        private string tempFolderPath = AppDomain.CurrentDomain.BaseDirectory + @"App_Data\Sitefinity\Export";
+        private string tempFolderPath = AppDomain.CurrentDomain.BaseDirectory + @"App_Data\Sitefinity\Deployment";
         private const string ListsType = "Telerik.Sitefinity.Lists.Model.ListItem";
         private const string Path = "App_Data";
         private static string flatClassification = "l1";
         private static string hierarchicalClassification = "l2";
-        private const string File1 = @"App_Data\Sitefinity\Export\Lists\Structure\Lists.sf";
-        private const string File2 = @"App_Data\Export\Lists\Structure\Lists.sf";
-        private const string Widgets1 = @"App_Data\Sitefinity\Export\Lists\Structure\widgetTemplates.sf";
-        private const string Widgets2 = @"App_Data\Export\Lists\Structure\widgetTemplates.sf";
-        private const string Taxonomies1 = @"App_Data\Sitefinity\Export\Lists\Structure\taxonomies.sf";
-        private const string Taxonomies2 = @"App_Data\Export\Lists\Structure\taxonomies.sf";
+        private const string File1 = @"App_Data\Sitefinity\Deployment\Lists\Structure\Lists.sf";
+        private const string File2 = @"App_Data\Deployment\Lists\Structure\Lists.sf";
+        private const string Widgets1 = @"App_Data\Sitefinity\Deployment\Lists\Structure\widgetTemplates.sf";
+        private const string Widgets2 = @"App_Data\Deployment\Lists\Structure\widgetTemplates.sf";
         private string[] widgetTemplatesNames = new string[] 
                                                    { 
                                                         "Detail.DetailPageNewList", "List.AnchorListNew", "List.ExpandableListNew", 

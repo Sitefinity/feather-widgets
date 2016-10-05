@@ -21,9 +21,12 @@
 
     <div @Html.InlineEditingFieldAttributes("Content", "LongText")>@Html.Raw(Model.Item.Fields.Content)</div>
     
-    @if (Model.EnableSocialSharing)
-    {
-        @Html.SocialShareOptions()
+    @{        
+        if (Model.EnableSocialSharing)
+        {
+            var item = Model.Item.DataItem as Telerik.Sitefinity.Model.IHasTitle;
+            @Html.SocialShareOptions(item);
+        }
     }
 		
 	<div class="sfMultiRelatedItmsWrp">
@@ -38,4 +41,3 @@
         </ul>
 	</div>
 </div>
-
