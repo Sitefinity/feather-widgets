@@ -751,6 +751,202 @@ namespace Telerik.Sitefinity.Frontend.Events.Mvc.StringResources
             }
         }
 
+        /// <summary>
+        /// Gets Event widget calendat list title.
+        /// </summary>
+        /// <value>Calendars</value>
+        [ResourceEntry("Calendars",
+            Value = "Calendars",
+            Description = "word: Calendars",
+            LastModified = "2016/06/13")]
+        public string Calendars
+        {
+            get
+            {
+                return this["Calendars"];
+            }
+        }
+
+        /// <summary>
+        /// Gets word : Month
+        /// </summary>
+        [ResourceEntry("Month",
+            Value = "Month",
+            Description = "word: Month",
+            LastModified = "2016/08/02")]
+        public string Month
+        {
+            get
+            {
+                return this["Month"];
+            }
+        }
+
+        /// <summary>
+        /// Gets word : Week
+        /// </summary>
+        [ResourceEntry("Week",
+            Value = "Week",
+            Description = "word: Week",
+            LastModified = "2016/08/02")]
+        public string Week
+        {
+            get
+            {
+                return this["Week"];
+            }
+        }
+
+        /// <summary>
+        /// Gets phrase : Work Week
+        /// </summary>
+        [ResourceEntry("WorkWeek",
+            Value = "Work Week",
+            Description = "phrase: Work Week",
+            LastModified = "2016/08/02")]
+        public string WorkWeek
+        {
+            get
+            {
+                return this["WorkWeek"];
+            }
+        }
+
+        /// <summary>
+        /// Gets word : Day
+        /// </summary>
+        [ResourceEntry("Day",
+            Value = "Day",
+            Description = "word: Day",
+            LastModified = "2016/08/02")]
+        public string Day
+        {
+            get
+            {
+                return this["Day"];
+            }
+        }
+
+        /// <summary>
+        /// Gets word : Agenda
+        /// </summary>
+        [ResourceEntry("Agenda",
+            Value = "Agenda",
+            Description = "word: Agenda",
+            LastModified = "2016/08/02")]
+        public string Agenda
+        {
+            get
+            {
+                return this["Agenda"];
+            }
+        }
+        
+        /// <summary>
+        /// Gets word : Timeline
+        /// </summary>
+        [ResourceEntry("Timeline",
+            Value = "Timeline",
+            Description = "word: Timeline",
+            LastModified = "2016/08/02")]
+        public string Timeline
+        {
+            get
+            {
+                return this["Timeline"];
+            }
+        }
+
+        /// <summary>
+        /// Gets phrase : Default view
+        /// </summary>
+        [ResourceEntry("DefaultView",
+            Value = "Default view",
+            Description = "phrase: Default view",
+            LastModified = "2016/08/02")]
+        public string DefaultView
+        {
+            get
+            {
+                return this["DefaultView"];
+            }
+        }
+        
+        /// <summary>
+        /// Gets phrase : Week starts on
+        /// </summary>
+        [ResourceEntry("WeekStartsOn",
+            Value = "Week starts on",
+            Description = "phrase: Week starts on",
+            LastModified = "2016/08/23")]
+        public string WeekStartsOn
+        {
+            get
+            {
+                return this["WeekStartsOn"];
+            }
+        }
+        
+        /// <summary>
+        /// Gets phrase : Allow users to filter by Calendars
+        /// </summary>
+        [ResourceEntry("AllowUsersToFilterByCalendars",
+            Value = "Allow users to filter by Calendars",
+            Description = "phrase: Allow users to filter by Calendars",
+            LastModified = "2016/08/23")]
+        public string AllowUsersToFilterByCalendars
+        {
+            get
+            {
+                return this["AllowUsersToFilterByCalendars"];
+            }
+        }
+        
+        /// <summary>
+        /// Gets phrase : Allow users to switch views
+        /// </summary>
+        [ResourceEntry("AllowUsersToSwitchViews",
+            Value = "Allow users to switch views",
+            Description = "phrase: Allow users to switch views",
+            LastModified = "2016/08/23")]
+        public string AllowUsersToSwitchViews
+        {
+            get
+            {
+                return this["AllowUsersToSwitchViews"];
+            }
+        }
+
+        /// <summary>
+        /// Gets word : Monday
+        /// </summary>
+        [ResourceEntry("Monday",
+            Value = "Monday",
+            Description = "word: Monday",
+            LastModified = "2016/08/23")]
+        public string Monday
+        {
+            get
+            {
+                return this["Monday"];
+            }
+        }
+        
+        /// <summary>
+        /// Gets word : Sunday
+        /// </summary>
+        [ResourceEntry("Sunday",
+            Value = "Sunday",
+            Description = "word: Sunday",
+            LastModified = "2016/08/23")]
+        public string Sunday
+        {
+            get
+            {
+                return this["Sunday"];
+            }
+        }
+
         #endregion
     }
 }

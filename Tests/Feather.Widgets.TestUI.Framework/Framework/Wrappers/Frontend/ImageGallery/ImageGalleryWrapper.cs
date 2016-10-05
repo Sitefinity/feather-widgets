@@ -54,6 +54,16 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Frontend
         }
 
         /// <summary>
+        /// Verifies the image is present.
+        /// </summary>
+        /// <param name="altText">The alt text.</param>
+        public void VerifyImageIsPresent(string altText)
+        {
+            ICollection<HtmlImage> images = EM.MediaGallery.MediaGalleryFrontend.AllImages;
+            images.Where<HtmlImage>(k => k.Alt.Equals(altText)).FirstOrDefault().AssertIsPresent(altText);
+        }
+
+        /// <summary>
         /// Clicks the image.
         /// </summary>
         /// <param name="altText">The alt text.</param>

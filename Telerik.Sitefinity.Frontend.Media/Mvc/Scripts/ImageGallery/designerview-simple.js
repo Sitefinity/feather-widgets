@@ -12,6 +12,7 @@
         $scope.thumbnailSizeModel = {};
         $scope.imageSizeModel = {};
         $scope.errors = {};
+        $scope.dateFilters = {};
 
         $scope.$watch(
             'additionalFilters.value',
@@ -22,6 +23,16 @@
             },
             true
         );
+
+        $scope.$watch(
+          'dateFilters.value',
+           function (newDateFilters, oldDateFilters) {
+               if (newDateFilters !== oldDateFilters) {
+                   $scope.properties.SerializedDateFilters.PropertyValue = JSON.stringify(newDateFilters);
+               }
+           },
+           true
+         );
 
         $scope.$watch(
 	        'properties.ProviderName.PropertyValue',
@@ -95,6 +106,9 @@
                     var additionalFilters = JSON.parse($scope.properties.SerializedAdditionalFilters.PropertyValue || null);
                     $scope.additionalFilters.value = additionalFilters;
 
+                    var dateFilters = $.parseJSON($scope.properties.SerializedDateFilters.PropertyValue || null);
+                    $scope.dateFilters.value = dateFilters;
+
                     var selectedParentsIds = $scope.properties.SerializedSelectedParentsIds.PropertyValue ? JSON.parse($scope.properties.SerializedSelectedParentsIds.PropertyValue) : null;
                     if (selectedParentsIds) {
                         $scope.parentSelector.selectedItemsIds = selectedParentsIds;
@@ -133,13 +147,6 @@
                                 $scope.properties.DetailsPageId.PropertyValue === emptyGuid) {
                             $scope.properties.OpenInSamePage.PropertyValue = true;
                         }
-                    }
-
-                    if ($scope.properties.SelectionMode.PropertyValue === 'FilteredItems' &&
-                        $scope.additionalFilters.value &&
-                        $scope.additionalFilters.value.QueryItems &&
-                        $scope.additionalFilters.value.QueryItems.length === 0) {
-                        $scope.properties.SelectionMode.PropertyValue = 'AllItems';
                     }
 
                     if ($scope.properties.SelectionMode.PropertyValue !== 'FilteredItems') {

@@ -108,6 +108,8 @@ namespace FeatherWidgets.TestUnit.DummyClasses.Media
 
         public int? ItemsPerPage { get; set; }
 
+        public int? LimitCount { get; set; }
+
         public string ListCssClass
         {
             get
@@ -161,6 +163,19 @@ namespace FeatherWidgets.TestUnit.DummyClasses.Media
         }
 
         public string SerializedAdditionalFilters
+        {
+            get
+            {
+                throw new NotImplementedException();
+            }
+
+            set
+            {
+                throw new NotImplementedException();
+            }
+        }
+
+        public string SerializedDateFilters
         {
             get
             {

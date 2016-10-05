@@ -9,7 +9,7 @@ namespace FeatherWidgets.TestUnit.DummyClasses
     public class DummyConfigProvider : XmlConfigProvider
     {
         /// <inheritdoc />
-        public override bool LoadSection(Telerik.Sitefinity.Configuration.ConfigSection section, Telerik.Sitefinity.Configuration.ConfigPolicyHandler policyHandler, string policyName)
+        public override bool LoadSection(Telerik.Sitefinity.Configuration.ConfigSection section)
         {
             return true;
         }

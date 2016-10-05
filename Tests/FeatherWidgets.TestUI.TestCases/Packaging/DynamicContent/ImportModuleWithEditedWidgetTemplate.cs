@@ -20,8 +20,9 @@ namespace FeatherWidgets.TestUI.TestCases.Packaging.DynamicContent
         Owner(FeatherTeams.SitefinityTeam6),
         TestCategory(FeatherTestCategories.Packaging)]
         public void ImportModuleWithEditedWidgetTemplate()
-        {        
-            BAT.Macros().NavigateTo().Design().WidgetTemplates();
+        {
+            RuntimeSettingsModificator.ExecuteWithClientTimeout(200000, () => BAT.Macros().NavigateTo().Design().WidgetTemplates());
+            this.SelectAllTemplatesFromTheSidebar();     
             BAT.Wrappers().Backend().ModuleBuilder().ContentTypePageActionsWrapper().OpenWidgetTemplate(MVCWidgetTemplate);
             BAT.Wrappers().Backend().ModuleBuilder().ContentTypePageActionsWrapper().EditFrame.WaitForAsyncOperations();
             BAT.Wrappers().Backend().ModuleBuilder().ContentTypePageActionsWrapper().VerifyWidgetTemplateContent(EditedWidgetTemplate);
@@ -42,6 +43,7 @@ namespace FeatherWidgets.TestUI.TestCases.Packaging.DynamicContent
         /// </summary>
         protected override void ServerSetup()
         {
+            BAT.Arrange(this.TestName).ExecuteArrangement("LoadApplication");
             RuntimeSettingsModificator.ExecuteWithClientTimeout(200000, () => BAT.Macros().User().EnsureAdminLoggedIn());
             BAT.Arrange(this.TestName).ExecuteSetUp();
             BAT.Wrappers().Backend().ModuleBuilder().ModuleInitializerWrapper().WaitForSystemRestart();
@@ -53,6 +55,26 @@ namespace FeatherWidgets.TestUI.TestCases.Packaging.DynamicContent
         protected override void ServerCleanup()
         {
             BAT.Arrange(this.TestName).ExecuteTearDown();
+        }
+
+        /// <summary>
+        /// Selects all templates from the sidebar.
+        /// </summary>
+        private void SelectAllTemplatesFromTheSidebar()
+        {
+            BAT.Utilities().InMultiSiteMode(() =>
+            {
+                ActiveBrowser.WaitUntilReady();
+                ActiveBrowser.WaitForAsyncOperations();
+                ActiveBrowser.WaitForBinding();
+
+                HtmlAnchor allTemplatesFilter = ActiveBrowser.Find.ByExpression<HtmlAnchor>("id=?_controlTemplatesBackendList_ctl00_ctl00_sidebar_allTemplates_ctl00_ctl00_allTemplates")
+                    .AssertIsPresent("all templates filter");
+                allTemplatesFilter.Click();
+
+                ActiveBrowser.WaitForAsyncOperations();
+                ActiveBrowser.WaitForBinding();
+            });
         }
 
         private const string ModuleName = "FlatModuleAllFields";

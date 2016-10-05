@@ -71,6 +71,14 @@ namespace Telerik.Sitefinity.Frontend.Lists.Mvc.Models
         string SerializedAdditionalFilters { get; set; }
 
         /// <summary>
+        /// Gets or sets the serialized date filters.
+        /// </summary>
+        /// <value>
+        /// The serialized date filters.
+        /// </value>
+        string SerializedDateFilters { get; set; }
+
+        /// <summary>
         /// Gets or sets the additional filter expression.
         /// </summary>
         /// <value>

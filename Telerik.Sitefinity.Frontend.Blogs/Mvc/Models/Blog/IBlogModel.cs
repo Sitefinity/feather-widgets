@@ -58,6 +58,14 @@ namespace Telerik.Sitefinity.Frontend.Blogs.Mvc.Models.Blog
         /// </value>
         int? ItemsPerPage { get; set; }
 
+        /// <summary>
+        /// Gets or sets the items limit count.
+        /// </summary>
+        /// <value>
+        /// The items limit.
+        /// </value>
+        int? LimitCount { get; set; }
+
         /// Gets or sets the CSS class that will be applied on the wrapper div of the widget when it is in List view.
         /// </summary>
         /// <value>

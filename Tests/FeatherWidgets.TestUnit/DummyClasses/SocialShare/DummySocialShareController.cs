@@ -1,10 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Web.Mvc;
+using System.Web.Routing;
 using Telerik.Sitefinity.Frontend.SocialShare.Mvc.Controllers;
 using Telerik.Sitefinity.Frontend.SocialShare.Mvc.Models;
+using Telerik.Sitefinity.Frontend.TestUtilities.DummyClasses.HttpContext;
 using Telerik.Sitefinity.SiteSettings.Basic;
 using Telerik.Sitefinity.Web.Utilities;
 
@@ -16,12 +17,16 @@ namespace FeatherWidgets.TestUnit.DummyClasses.SocialShare
     public class DummySocialShareController : SocialShareController
     {
         public DummySocialShareController(IList<SocialShareGroup> socialShareGroups)
+            : this()
         {
             this.socialShareGroups = socialShareGroups;
         }
 
         public DummySocialShareController()
         {
+            var routeData = new RouteData();
+            var httpContext = new DummyHttpContext();
+            this.ControllerContext = new ControllerContext(new RequestContext(httpContext, routeData), this);
         }
 
         /// <summary>

@@ -43,8 +43,8 @@ namespace FeatherWidgets.TestUI.TestCases.ContentBlocks
             BATFeather.Wrappers().Backend().ContentBlocks().ContentBlocksWrapper().VerifyHiddenButtonsInEditorToolbar("Superscript");
             BATFeather.Wrappers().Backend().ContentBlocks().ContentBlocksWrapper().VerifyHiddenDropDownInEditorToolbar("Color");
             BATFeather.Wrappers().Backend().ContentBlocks().ContentBlocksWrapper().VerifyHiddenDropDownInEditorToolbar("Background color");
-            BATFeather.Wrappers().Backend().ContentBlocks().ContentBlocksWrapper().VerifyHiddenSelectMenuInEditorToolbar("Font Name");
-            BATFeather.Wrappers().Backend().ContentBlocks().ContentBlocksWrapper().VerifyHiddenSelectMenuInEditorToolbar("Font Size");
+            BATFeather.Wrappers().Backend().ContentBlocks().ContentBlocksWrapper().VerifyHiddenSelectMenuInEditorToolbar("Select font family");
+            BATFeather.Wrappers().Backend().ContentBlocks().ContentBlocksWrapper().VerifyHiddenSelectMenuInEditorToolbar("Select font size");
             BATFeather.Wrappers().Backend().ContentBlocks().ContentBlocksWrapper().SaveChanges();
             BAT.Wrappers().Backend().Pages().PageZoneEditorWrapper().PublishPage();
             
@@ -71,8 +71,8 @@ namespace FeatherWidgets.TestUI.TestCases.ContentBlocks
             BATFeather.Wrappers().Backend().ContentBlocks().ContentBlocksWrapper().VerifyHiddenButtonsInEditorToolbar("Superscript");
             BATFeather.Wrappers().Backend().ContentBlocks().ContentBlocksWrapper().VerifyHiddenDropDownInEditorToolbar("Color");
             BATFeather.Wrappers().Backend().ContentBlocks().ContentBlocksWrapper().VerifyHiddenDropDownInEditorToolbar("Background color");
-            BATFeather.Wrappers().Backend().ContentBlocks().ContentBlocksWrapper().VerifyHiddenSelectMenuInEditorToolbar("Font Name");
-            BATFeather.Wrappers().Backend().ContentBlocks().ContentBlocksWrapper().VerifyHiddenSelectMenuInEditorToolbar("Font Size");
+            BATFeather.Wrappers().Backend().ContentBlocks().ContentBlocksWrapper().VerifyHiddenSelectMenuInEditorToolbar("Select font family");
+            BATFeather.Wrappers().Backend().ContentBlocks().ContentBlocksWrapper().VerifyHiddenSelectMenuInEditorToolbar("Select font size");
             BATFeather.Wrappers().Backend().ContentBlocks().ContentBlocksWrapper().SaveChanges();
             BAT.Wrappers().Backend().Pages().PageZoneEditorWrapper().PublishPage();
         }

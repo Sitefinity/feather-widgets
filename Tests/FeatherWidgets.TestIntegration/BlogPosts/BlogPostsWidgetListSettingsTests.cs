@@ -34,16 +34,18 @@ namespace FeatherWidgets.TestIntegration.BlogPosts
             string pageTitle = "PageWithBlogPostsWidget";
             int page1Index = 1;
             int page2Index = 2;
+            Guid pageId = Guid.Empty;
+            Guid blog1Id = Guid.Empty;
 
             try
             {
-                Guid blog1Id = ServerOperations.Blogs().CreateBlog(blog1Title);
+                blog1Id = ServerOperations.Blogs().CreateBlog(blog1Title);
                 ServerOperations.Blogs().CreatePublishedBlogPost(post1Title, blog1Id);
                 ServerOperations.Blogs().CreatePublishedBlogPost(post2Title, blog1Id);
 
-                Guid pageId = ServerOperations.Pages().CreatePage(pageTitle);
+                pageId = ServerOperations.Pages().CreatePage(pageTitle);
 
-                var blogPostsWidget = this.CreateBlogPostsMvcWidget(ListDisplayMode.Paging, itemsPerPage: 1);
+                var blogPostsWidget = this.CreateBlogPostsMvcWidget(ListDisplayMode.Paging, itemsCount: 1);
 
                 var controls = new List<System.Web.UI.Control>();
                 controls.Add(blogPostsWidget);
@@ -64,8 +66,15 @@ namespace FeatherWidgets.TestIntegration.BlogPosts
             }
             finally
             {
-                ServerOperations.Pages().DeleteAllPages();
-                ServerOperations.Blogs().DeleteAllBlogs();
+                if (pageId != Guid.Empty)
+                {
+                    ServerOperations.Pages().DeletePage(pageId);
+                }
+
+                if (blog1Id != Guid.Empty)
+                {
+                    ServerOperations.Blogs().DeleteBlog(blog1Id);
+                }
             }
         }
 
@@ -79,16 +88,18 @@ namespace FeatherWidgets.TestIntegration.BlogPosts
             string post1Title = "Blog1Post1";
             string post2Title = "Blog1Post2";
             string pageTitle = "PageWithBlogPostsWidget";
+            Guid pageId = Guid.Empty;
+            Guid blog1Id = Guid.Empty;
 
             try
             {
-                Guid blog1Id = ServerOperations.Blogs().CreateBlog(blog1Title);
+                blog1Id = ServerOperations.Blogs().CreateBlog(blog1Title);
                 ServerOperations.Blogs().CreatePublishedBlogPost(post1Title, blog1Id);
                 ServerOperations.Blogs().CreatePublishedBlogPost(post2Title, blog1Id);
 
-                Guid pageId = ServerOperations.Pages().CreatePage(pageTitle);
+                pageId = ServerOperations.Pages().CreatePage(pageTitle);
 
-                var blogPostsWidget = this.CreateBlogPostsMvcWidget(ListDisplayMode.Limit, itemsPerPage: 1);
+                var blogPostsWidget = this.CreateBlogPostsMvcWidget(ListDisplayMode.Limit, itemsCount: 1);
 
                 var controls = new List<System.Web.UI.Control>();
                 controls.Add(blogPostsWidget);
@@ -103,8 +114,15 @@ namespace FeatherWidgets.TestIntegration.BlogPosts
             }
             finally
             {
-                ServerOperations.Pages().DeleteAllPages();
-                ServerOperations.Blogs().DeleteAllBlogs();
+                if (pageId != Guid.Empty)
+                {
+                    ServerOperations.Pages().DeletePage(pageId);
+                }
+
+                if (blog1Id != Guid.Empty)
+                {
+                    ServerOperations.Blogs().DeleteBlog(blog1Id);
+                }
             }
         }
 
@@ -118,16 +136,18 @@ namespace FeatherWidgets.TestIntegration.BlogPosts
             string post1Title = "Blog1Post1";
             string post2Title = "Blog1Post2";
             string pageTitle = "PageWithBlogPostsWidget";
+            Guid pageId = Guid.Empty;
+            Guid blog1Id = Guid.Empty;
 
             try
             {
-                Guid blog1Id = ServerOperations.Blogs().CreateBlog(blog1Title);
+                blog1Id = ServerOperations.Blogs().CreateBlog(blog1Title);
                 ServerOperations.Blogs().CreatePublishedBlogPost(post1Title, blog1Id);
                 ServerOperations.Blogs().CreatePublishedBlogPost(post2Title, blog1Id);
 
-                Guid pageId = ServerOperations.Pages().CreatePage(pageTitle);
+                pageId = ServerOperations.Pages().CreatePage(pageTitle);
 
-                var blogPostsWidget = this.CreateBlogPostsMvcWidget(ListDisplayMode.All, itemsPerPage: 1);
+                var blogPostsWidget = this.CreateBlogPostsMvcWidget(ListDisplayMode.All, itemsCount: 1);
 
                 var controls = new List<System.Web.UI.Control>();
                 controls.Add(blogPostsWidget);
@@ -142,19 +162,27 @@ namespace FeatherWidgets.TestIntegration.BlogPosts
             }
             finally
             {
-                ServerOperations.Pages().DeleteAllPages();
-                ServerOperations.Blogs().DeleteAllBlogs();
+                if (pageId != Guid.Empty)
+                {
+                    ServerOperations.Pages().DeletePage(pageId);
+                }
+
+                if (blog1Id != Guid.Empty)
+                {
+                    ServerOperations.Blogs().DeleteBlog(blog1Id);
+                }
             }
         }
 
-        private MvcWidgetProxy CreateBlogPostsMvcWidget(ListDisplayMode displayMode, int itemsPerPage, string sortExpression)
+        private MvcWidgetProxy CreateBlogPostsMvcWidget(ListDisplayMode displayMode, int itemsCount, string sortExpression)
         {
             var mvcProxy = new MvcWidgetProxy();
             mvcProxy.ControllerName = typeof(BlogPostController).FullName;
             var controller = new BlogPostController();
 
             controller.Model.DisplayMode = displayMode;
-            controller.Model.ItemsPerPage = itemsPerPage;
+            controller.Model.ItemsPerPage = itemsCount;
+            controller.Model.LimitCount = itemsCount;
             controller.Model.SortExpression = sortExpression;
 
             mvcProxy.Settings = new ControllerSettings(controller);
@@ -162,11 +190,11 @@ namespace FeatherWidgets.TestIntegration.BlogPosts
             return mvcProxy;
         }
 
-        private MvcWidgetProxy CreateBlogPostsMvcWidget(ListDisplayMode displayMode, int itemsPerPage)
+        private MvcWidgetProxy CreateBlogPostsMvcWidget(ListDisplayMode displayMode, int itemsCount)
         {
             string defaultSortExpr = "PublicationDate DESC";
 
-            var mvcProxy = this.CreateBlogPostsMvcWidget(displayMode, itemsPerPage, defaultSortExpr);
+            var mvcProxy = this.CreateBlogPostsMvcWidget(displayMode, itemsCount, defaultSortExpr);
 
             return mvcProxy;
         }

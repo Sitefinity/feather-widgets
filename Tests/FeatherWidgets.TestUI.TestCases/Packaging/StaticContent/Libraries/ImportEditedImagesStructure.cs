@@ -21,9 +21,9 @@ namespace FeatherWidgets.TestUI.TestCases.Packaging.StaticContent
         TestCategory(FeatherTestCategories.Packaging)]
         public void ImportEditedImagesStructure()
         {
-            BAT.Macros().NavigateTo().Modules().Images(this.Culture);
+            RuntimeSettingsModificator.ExecuteWithClientTimeout(200000, () => BAT.Macros().NavigateTo().Modules().Images(this.Culture));                   
             BAT.Arrange(this.TestName).ExecuteArrangement("ImportNewPackage");
-            BAT.Macros().NavigateTo().Classifications().AllClassifications();
+            RuntimeSettingsModificator.ExecuteWithClientTimeout(200000, () => BAT.Macros().NavigateTo().Classifications().AllClassifications()); 
             BAT.Wrappers().Backend().Taxonomies().ClassificationWrapper().VerifyTaxonExistenceInTaxonomyItemsScreen(classifications[0], exists: true);
             BAT.Wrappers().Backend().Taxonomies().ClassificationWrapper().VerifyTaxonExistenceInTaxonomyItemsScreen(classifications[1], exists: true);
 
@@ -42,10 +42,6 @@ namespace FeatherWidgets.TestUI.TestCases.Packaging.StaticContent
             BAT.Wrappers().Backend().Images().ImagesEdit().SetAlternativeText(NewName);
             BAT.Wrappers().Backend().Images().ImagesEdit().Publish();
 
-            BAT.Macros().NavigateTo().Pages(this.Culture);
-            BAT.Wrappers().Backend().Pages().PagesWrapper().OpenPageZoneEditor(PageName);
-            BATFeather.Wrappers().Backend().Pages().PageZoneEditorWrapper().AddMvcWidgetHybridModePage(ImageGalleryWidget);
-            BAT.Wrappers().Backend().Pages().PageZoneEditorWrapper().PublishPage();
             BAT.Macros().NavigateTo().CustomPage("~/" + PageName.ToLower(), true, this.Culture);           
             Assert.IsTrue(BAT.Wrappers().Frontend().Images().ImageGallery().IsImagePresentByAlt(NewNameFrontend));
         }
@@ -56,6 +52,7 @@ namespace FeatherWidgets.TestUI.TestCases.Packaging.StaticContent
         /// </summary>
         protected override void ServerSetup()
         {
+            BAT.Arrange(this.TestName).ExecuteArrangement("LoadApplication");
             RuntimeSettingsModificator.ExecuteWithClientTimeout(200000, () => BAT.Macros().User().EnsureAdminLoggedIn());
             BAT.Arrange(this.TestName).ExecuteSetUp();
         }

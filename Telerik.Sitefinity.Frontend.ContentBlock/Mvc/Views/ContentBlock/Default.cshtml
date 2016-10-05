@@ -3,9 +3,11 @@
 @using Telerik.Sitefinity.Frontend.Mvc.Helpers
 
 <div class="@Model.WrapperCssClass" @Html.InlineEditingAttributes(Model.ProviderName, Model.ContentType, Model.SharedContentID)>
-    <div @Html.InlineEditingFieldAttributes("Content", "LongText")>@Html.Raw(Model.Content)</div>
-    @if (Model.EnableSocialSharing)
-    {
-        @Html.SocialShareOptions();
+    <div @Html.InlineEditingFieldAttributes("Content", "LongText")>@Html.Raw(Model.Content)</div>    
+    @{        
+        if (Model.EnableSocialSharing)
+        {
+            @Html.SocialShareOptions(null);
+        }
     }
 </div>

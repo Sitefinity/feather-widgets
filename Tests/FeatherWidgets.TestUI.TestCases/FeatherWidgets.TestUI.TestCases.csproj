@@ -35,8 +35,8 @@
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="ArtOfTest.WebAii, Version=2015.3.1015.0, Culture=neutral, PublicKeyToken=4fd5f65be123776c, processorArchitecture=MSIL">
-      <HintPath>packages\Telerik.Sitefinity.TestStudio.Framework.2.1.4\lib\net40\ArtOfTest.WebAii.dll</HintPath>
+    <Reference Include="ArtOfTest.WebAii, Version=2016.2.630.0, Culture=neutral, PublicKeyToken=4fd5f65be123776c, processorArchitecture=MSIL">
+      <HintPath>packages\Telerik.Sitefinity.TestStudio.Framework.2.1.5\lib\net40\ArtOfTest.WebAii.dll</HintPath>
       <Private>True</Private>
       <SpecificVersion>False</SpecificVersion>
     </Reference>
@@ -58,18 +58,18 @@
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
-    <Reference Include="Telerik.Sitefinity.MS.TestUI.Framework, Version=1.1.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>packages\Telerik.Sitefinity.MS.TestUI.Framework.1.1.0\lib\net45\Telerik.Sitefinity.MS.TestUI.Framework.dll</HintPath>
+    <Reference Include="Telerik.Sitefinity.MS.TestUI.Framework, Version=1.1.1.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>packages\Telerik.Sitefinity.MS.TestUI.Framework.1.1.1\lib\net45\Telerik.Sitefinity.MS.TestUI.Framework.dll</HintPath>
       <Private>True</Private>
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="Telerik.Sitefinity.TestUI.Core, Version=1.1.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>packages\Telerik.Sitefinity.TestUI.Core.1.1.0\lib\net45\Telerik.Sitefinity.TestUI.Core.dll</HintPath>
+    <Reference Include="Telerik.Sitefinity.TestUI.Core, Version=1.1.1.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>packages\Telerik.Sitefinity.TestUI.Core.1.1.1\lib\net45\Telerik.Sitefinity.TestUI.Core.dll</HintPath>
       <Private>True</Private>
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="Telerik.Sitefinity.TestUI.Framework, Version=1.1.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>packages\Telerik.Sitefinity.TestUI.Framework.1.1.0\lib\net40\Telerik.Sitefinity.TestUI.Framework.dll</HintPath>
+    <Reference Include="Telerik.Sitefinity.TestUI.Framework, Version=1.1.1.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>packages\Telerik.Sitefinity.TestUI.Framework.1.1.1\lib\net40\Telerik.Sitefinity.TestUI.Framework.dll</HintPath>
       <Private>True</Private>
       <SpecificVersion>False</SpecificVersion>
     </Reference>
@@ -77,28 +77,28 @@
       <HintPath>packages\Telerik.Sitefinity.TestUI.UIArrangement.1.0.1\lib\net40\Telerik.Sitefinity.TestUI.UIArrangement.dll</HintPath>
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="Telerik.TestUI.Core, Version=1.5.5.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>packages\Telerik.TestUI.Core.1.5.5\lib\net40\Telerik.TestUI.Core.dll</HintPath>
+    <Reference Include="Telerik.TestUI.Core, Version=1.5.6.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>packages\Telerik.TestUI.Core.1.5.6\lib\net45\Telerik.TestUI.Core.dll</HintPath>
       <Private>True</Private>
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="Telerik.WebAii.Controls.Html, Version=2015.3.1015.0, Culture=neutral, PublicKeyToken=528163f3e645de45, processorArchitecture=MSIL">
-      <HintPath>packages\Telerik.Sitefinity.TestStudio.Framework.2.1.4\lib\net40\Telerik.WebAii.Controls.Html.dll</HintPath>
+    <Reference Include="Telerik.WebAii.Controls.Html, Version=2016.2.630.0, Culture=neutral, PublicKeyToken=528163f3e645de45, processorArchitecture=MSIL">
+      <HintPath>packages\Telerik.Sitefinity.TestStudio.Framework.2.1.5\lib\net40\Telerik.WebAii.Controls.Html.dll</HintPath>
       <Private>True</Private>
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="UITests.Configuration, Version=1.6.5.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>packages\UITests.Core.1.6.5\lib\net40\UITests.Configuration.dll</HintPath>
+    <Reference Include="UITests.Configuration, Version=1.6.6.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>packages\UITests.Core.1.6.6\lib\net40\UITests.Configuration.dll</HintPath>
       <Private>True</Private>
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="UITests.Core, Version=1.6.5.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>packages\UITests.Core.1.6.5\lib\net40\UITests.Core.dll</HintPath>
+    <Reference Include="UITests.Core, Version=1.6.6.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>packages\UITests.Core.1.6.6\lib\net40\UITests.Core.dll</HintPath>
       <Private>True</Private>
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="UITests.Web, Version=1.6.5.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>packages\UITests.Core.1.6.5\lib\net40\UITests.Web.dll</HintPath>
+    <Reference Include="UITests.Web, Version=1.6.6.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>packages\UITests.Core.1.6.6\lib\net40\UITests.Web.dll</HintPath>
       <Private>True</Private>
       <SpecificVersion>False</SpecificVersion>
     </Reference>
@@ -108,7 +108,13 @@
       <Link>Properties\SharedAssemblyInfo.cs</Link>
     </Compile>
     <Compile Include="BlogPosts\BlogPostsWidgetOnPage.cs" />
+    <Compile Include="BlogPosts\VerifyNoLimitAndPaginationListSettingsOnFrontendPageForBlogPostsWidget.cs" />
+    <Compile Include="BlogPosts\VerifyUseLimitListSettingsOnFrontendPageForBlogPostsWidget.cs" />
+    <Compile Include="BlogPosts\VerifyPagingOnFrontendPageForBlogPostsWidget.cs" />
     <Compile Include="Blogs\BlogsWidgetOnPage.cs" />
+    <Compile Include="Blogs\VerifyNoLimitAndPaginationListSettingsOnFrontendPageForBlogsWidget.cs" />
+    <Compile Include="Blogs\VerifyPagingOnFrontendPageForBlogsWidget.cs" />
+    <Compile Include="Blogs\VerifyUseLimitListSettingsOnFrontendPageForBlogsWidget.cs" />
     <Compile Include="CardWidget\AddCardWidgetOnPageBasedOnBootstrapTemplate.cs" />
     <Compile Include="CardWidget\AddCardWidgetOnPageTemplate.cs" />
     <Compile Include="CardWidget\AddCssToCardWidget.cs" />
@@ -211,6 +217,14 @@
     <Compile Include="ContentBlocks\UseSharedContentBlockFromPage.cs" />
     <Compile Include="ContentBlocks\VideoSelector\CheckNavigationInVideoSelector.cs" />
     <Compile Include="ContentBlocks\VideoSelector\EditAllPropertiesOfSelectedVideoAndSearch.cs" />
+    <Compile Include="DocumentsList\VerifyViewPermissionsForDocumentsListWidget.cs" />
+    <Compile Include="DocumentsList\VerifyNoLimitAndPaginationListSettingsOnFrontendPageForDocumentsListWidget.cs" />
+    <Compile Include="DocumentsList\VerifyPagingOnFrontendPageForDocumentsListWidget.cs" />
+    <Compile Include="DocumentsList\VerifyUseLimitListSettingsOnFrontendPageForDocumentsListWidget.cs" />
+    <Compile Include="DynamicWidgets\VerifyTitleOnSelectContentDialogForDynamicWidget.cs" />
+    <Compile Include="DynamicWidgets\VerifyNoLimitAndPaginationListSettingsOnFrontendPageForDynamicWidget.cs" />
+    <Compile Include="DynamicWidgets\VerifyPagingOnFrontendPageForDynamicWidget.cs" />
+    <Compile Include="DynamicWidgets\VerifyUseLimitListSettingsOnFrontendPageForDynamicWidget.cs" />
     <Compile Include="EmailCampaigns\DeleteSelectedMailListAndPageInUnsubscribeWidget.cs" />
     <Compile Include="EmailCampaigns\DeleteSelectedMailListAndPageInSubscribeFormWidget.cs" />
     <Compile Include="EmailCampaigns\DragAndDropUnsubscribeWidgetAndSelectMailingList.cs" />
@@ -222,6 +236,25 @@
     <Compile Include="EmailCampaigns\TryToUnsubscribeNotExistingSubscriber.cs" />
     <Compile Include="EmailCampaigns\UnsubscribeWidgetOnFoundationAndSemanticPage.cs" />
     <Compile Include="EmailCampaigns\UnsubscribeWidgetOnHybridPageAndSetCssClass.cs" />
+    <Compile Include="Events\CalendarWidgetVerifyEventItemInDifferentPageInPreviewModeAndFrontendPage.cs" />
+    <Compile Include="Events\VerifyAllowUserToSwitchViews_CalendarView.cs" />
+    <Compile Include="Events\VerifyAllowUsersToFilterByCalendars_CalendarView.cs" />
+    <Compile Include="Events\VerifyDefaultView_CalendarView.cs" />
+    <Compile Include="Events\FilterEventsByCalendar.cs" />
+    <Compile Include="Events\VerifyAllDayEventsInOneDay_CalendarView.cs" />
+    <Compile Include="Events\VerifyAllDayEventSwitchingDaylightSavingTime_CalendarView.cs" />
+    <Compile Include="Events\VerifyCssClass_CalendarView.cs" />
+    <Compile Include="Events\VerifyEventDetailsCssClass_CalendarWidget.cs" />
+    <Compile Include="Events\VerifyMultipleAllDayEventsInThreeDays_CalendarView.cs" />
+    <Compile Include="Events\VerifyMultipleNormalEventsInThreeDays_CalendarView.cs" />
+    <Compile Include="Events\VerifyNormalEventSwitchingDaylightSavingTime_CalendarView.cs" />
+    <Compile Include="Events\VerifyRecurrentAllDayEventFiveRepeats_CalendarView.cs" />
+    <Compile Include="Events\VerifyRecurrentAllDayEventsWithNoEndDate_CalendarView.cs" />
+    <Compile Include="Events\VerifyRecurrentNormalEventSwitchingDaylightSavingTime_CalendarView.cs" />
+    <Compile Include="Events\VerifyRecurrentNormalEventsWithNoEndDate_CalendarView.cs" />
+    <Compile Include="Events\VerifyRecurrentNormalEventsFiveRepeats_CalendarView.cs" />
+    <Compile Include="Events\DeleteEventsWidget.cs" />
+    <Compile Include="Events\DuplicateEventsWidgets.cs" />
     <Compile Include="Events\FilterEventsByDateOnPage.cs" />
     <Compile Include="Events\FilterUpcomingAndCurrentAndPastEventOnPage.cs" />
     <Compile Include="Events\FilterUpcomingAndCurrentEventOnPage.cs" />
@@ -230,6 +263,14 @@
     <Compile Include="Events\DragAndDropEventsWidgetOnPage.cs" />
     <Compile Include="Events\EventsTestsCommon.cs" />
     <Compile Include="Events\SelectParticularEventOnPage.cs" />
+    <Compile Include="Events\VerifyNoLimitAndPaginationListSettingsOnFrontendPageForEventsWidget.cs" />
+    <Compile Include="Events\VerifyPagingOnFrontendPageForEventsWidget.cs" />
+    <Compile Include="Events\VerifyPastCurrentUpcomingEvents_Calendar_HybridPage.cs" />
+    <Compile Include="Events\VerifyPastCurrentUpcomingEvents_Calendar_MvcPage.cs" />
+    <Compile Include="Events\VerifyPastCurrentUpcomingEvents_Calendar_WorkWeekView_HybridPage.cs" />
+    <Compile Include="Events\VerifyPastCurrentUpcomingEvents_Calendar_WorkWeekView_MvcPage.cs" />
+    <Compile Include="Events\VerifyUseLimitListSettingsOnFrontendPageForEventsWidget.cs" />
+    <Compile Include="Events\VerifyWeekStartDay_CalendarView.cs" />
     <Compile Include="FeatherTeams.cs" />
     <Compile Include="FeedWidget\DragAndDropFeedWidgetAndSetDefaultRssOnPage.cs" />
     <Compile Include="Forms\CAPTCHA\ChangeCAPTCHATemplate.cs" />
@@ -344,18 +385,30 @@
     <Compile Include="Forms\ParagraphTextbox\ViewFormWithParagraphTextFieldOnPageAndVerifyResponseInBackend.cs" />
     <Compile Include="Forms\SectionHeader\ViewFormWithSectionHeaderOnPageAndVerifyResponseInBackend.cs" />
     <Compile Include="Forms\Textbox\ViewFormWithTextboxFieldOnPageAndVerifyResponseInBackend.cs" />
+    <Compile Include="Identity\VerifyNoLimitAndPaginationListSettingsOnFrontendPageForUsersListWidget.cs" />
+    <Compile Include="Identity\VerifyPagingOnFrontendPageForUsersListWidget.cs" />
     <Compile Include="Identity\VerifyRegistrationWidgetAndProfileWidgetOnPreviewHybridPage.cs" />
     <Compile Include="Identity\VerifyRegistrationWidgetAndProfileWidgetOnPreviewHybridTemplate.cs" />
     <Compile Include="Identity\VerifyLoginWidgetToTemplateWhenOpenItemDetailViewAndForgotPassword.cs" />
     <Compile Include="Identity\VerifyLoginWidgetWhenOpenItemDetailViewAndForgotPassword.cs" />
     <Compile Include="Identity\VerifyRegistrationWidgetAndProfileWidgetOnPreviewBootstrapTemplate.cs" />
     <Compile Include="Identity\VerifyRegistrationWidgetAndProfileWidgetOnPreviewPage.cs" />
+    <Compile Include="Identity\VerifyUseLimitListSettingsOnFrontendPageForUsersListWidget.cs" />
+    <Compile Include="ImageGallery\VerifyNoLimitAndPaginationListSettingsOnFrontendPageForImageGalleryWidget.cs" />
+    <Compile Include="ImageGallery\VerifyPagingOnFrontendPageForImageGalleryWidget.cs" />
+    <Compile Include="ImageGallery\VerifyUseLimitListSettingsOnFrontendPageForImageGalleryWidget.cs" />
     <Compile Include="Lists\VerifyListTemplatesOnBootstrap.cs" />
+    <Compile Include="Navigation\BreadcrumbDetailBlogPostItemVirtualNodes.cs" />
+    <Compile Include="Navigation\BreadcrumbDetailEventItemVirtualNodes.cs" />
+    <Compile Include="Navigation\BreadcrumbDetailImageItemDocumentItemVideoItemVirtualNodes.cs" />
     <Compile Include="Navigation\LanguageSelectorXssAttack.cs" />
     <Compile Include="News\AddNewsWidgetToPageVerifyViewPermissions.cs" />
     <Compile Include="News\AddRelatedDataToNewsWidget.cs" />
     <Compile Include="News\ChangeSelectedSingleItemPage.cs" />
     <Compile Include="News\CheckSelectorsAfterUNPublishingNewsItem.cs" />
+    <Compile Include="News\VerifyDateSelectorAnyTimeValueForNewsWidget.cs" />
+    <Compile Include="News\VerifyUseLimitListSettingsOnFrontendPageForNewsWidget.cs" />
+    <Compile Include="News\VerifyNoLimitAndPaginationListSettingsOnFrontendPageForNewsWidget.cs" />
     <Compile Include="News\DeleteNewsWidgetFromPage.cs" />
     <Compile Include="News\DeleteTagAndEditNewsWidget.cs" />
     <Compile Include="News\DragAndDropNewsWidgetOnPage.cs" />
@@ -383,9 +436,10 @@
     <Compile Include="News\SelectNewsItemInNewsWidgetFromPage.cs" />
     <Compile Include="News\SelectSingleNewsPageAndVerifyFrontendPage.cs" />
     <Compile Include="News\VerifyNewsItemsWhenOpenDetailsModeOfDynamicItem.cs" />
+    <Compile Include="News\VerifyPagingOnFrontendPageForNewsWidget.cs" />
     <Compile Include="News\ZActivateAndDeactivateNewsModule.cs" />
-    <Compile Include="Packaging\DynamicContent\ExportImportFlatModuleAllFieldsFrontendCheck.cs" />
-    <Compile Include="Packaging\DynamicContent\ImportEditedFlatModuleAllFieldsWithNewType.cs" />
+    <Compile Include="Packaging\DynamicContent\ExportImportModuleAllFieldsFrontendCheck.cs" />
+    <Compile Include="Packaging\DynamicContent\ImportEditedModuleAllFieldsWithNewType.cs" />
     <Compile Include="Packaging\DynamicContent\ImportFlatModuleAllFields.cs" />
     <Compile Include="Packaging\DynamicContent\ImportModuleWithEditedWidgetTemplate.cs" />
     <Compile Include="Packaging\StaticContent\BlogPosts\ImportEditedBlogPostsStructure.cs" />
@@ -404,12 +458,25 @@
     <Compile Include="Packaging\StaticContent\News\ImportEditedWidgetTemplateNewsStructure.cs" />
     <Compile Include="Packaging\StaticContent\Pages\ImportEditedPages.cs" />
     <Compile Include="Packaging\StaticContent\Pages\ExportEditedPages.cs" />
+    <Compile Include="RevisionHistory\DeleteDraftAndPublishVersionInDetailRevisionHistoryPageOnMvcPageTemplate.cs" />
+    <Compile Include="RevisionHistory\DeletePublishAndDraftVersionInRevisionHistoryOnMvcPageTemplate.cs" />
+    <Compile Include="RevisionHistory\OpenRevisionHistoryFromActionMenuToTemplateBasedOnLayoutFile.cs" />
+    <Compile Include="RevisionHistory\OpenRevisionHistoryFromMvcPageTemplateEditMode.cs" />
+    <Compile Include="RevisionHistory\VerifyDeletePublishedVersionFromRevisionHistoryMvcPageTemplate.cs" />
+    <Compile Include="RevisionHistory\VerifyDetailedInformationOfMvcPageTemplateRevisionHistoryVersion.cs" />
+    <Compile Include="RevisionHistory\VerifyOlderAndNewerVersionInRevisionHistoryOnMvcPageTemplate.cs" />
+    <Compile Include="RevisionHistory\VerifyRevertToThisVersionInRevisionHistoryOnMvcPageTemplate.cs" />
+    <Compile Include="RevisionHistory\WriteEditDeleteCancelHideNoteInDetailRevisionHistoryPageOfMvcPageTemplate.cs" />
+    <Compile Include="RevisionHistory\WriteEditDeleteCancelNoteMvcPageTemplateVersionInRevisionHistoryWindow.cs" />
     <Compile Include="ScriptsAndStyles\AddEmbedCodeWidgetToPageAndWriteAndRemoveJavaScript.cs" />
     <Compile Include="ScriptsAndStyles\EmbedCodeWidgetOnPageTemplateAndAddDescription.cs" />
     <Compile Include="ScriptsAndStyles\DuplicateAndDeleteEmbedCodeWidgetOnPage.cs" />
     <Compile Include="ScriptsAndStyles\WriteAndEditCssInEmbedCodeWidget.cs" />
     <Compile Include="ScriptsAndStyles\DuplicateAndDeleteJavaScriptWidgetOnPage.cs" />
     <Compile Include="EmailCampaigns\DragAndDropSubscribeFormWidgetOnPageAndSelectMailingList.cs" />
+    <Compile Include="Search\VerifyNoLimitAndPaginationListSettingsOnFrontendPageForSearchResultsWidget.cs" />
+    <Compile Include="Search\VerifyPagingOnFrontendPageForSearchResultsWidget.cs" />
+    <Compile Include="Search\VerifyUseLimitSettingsOnFrontendPageForSearchResultsWidget.cs" />
     <Compile Include="VideoGallery\FilterVideosWithCategoryTagAndDateOnPage.cs" />
     <Compile Include="VideoGallery\SelectAllPublishedVideosWithOverlayGalleryTemplate.cs" />
     <Compile Include="VideoGallery\SelectAllPublishedVideos.cs" />
@@ -505,6 +572,9 @@
     <Compile Include="SocialShare\CheckAllOptionsInSocialShareWidget.cs" />
     <Compile Include="SocialShare\CreateSocialShareWidgetTemplateAndCheckTheDesigner.cs" />
     <Compile Include="SocialShare\EditSocialShareWidgetOnPageBasedOnBootstrapTemplate.cs" />
+    <Compile Include="VideoGallery\VerifyNoLimitAndPaginationListSettingsOnFrontendPageForVideoGalleryWidget.cs" />
+    <Compile Include="VideoGallery\VerifyPagingOnFrontendPageForVideoGalleryWidget.cs" />
+    <Compile Include="VideoGallery\VerifyUseLimitListSettingsOnFrontendPageForVideoGalleryWidget.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config">

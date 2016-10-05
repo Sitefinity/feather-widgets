@@ -34,5 +34,26 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Frontend
 
             return true;
         }
+
+        /// <summary>
+        /// Determines whether [is blog titles present on the page frontend] [the specified blogs titles].
+        /// </summary>
+        /// <param name="blogsTitles">The blogs titles.</param>
+        /// <returns></returns>
+        public bool IsBlogTitlesPresentOnThePageFrontend(string[] blogsTitles)
+        {
+            HtmlDiv frontendPageMainDiv = BAT.Wrappers().Frontend().Pages().PagesWrapperFrontend().GetPageContent();
+
+            for (int i = 0; i < blogsTitles.Length; i++)
+            {
+                HtmlControl newsAnchor = frontendPageMainDiv.Find.ByExpression<HtmlControl>("tagname=span", "InnerText=" + blogsTitles[i]);
+                if ((newsAnchor == null) || (newsAnchor != null && !newsAnchor.IsVisible()))
+                {
+                    return false;
+                }
+            }
+
+            return true;
+        }
     }
 }

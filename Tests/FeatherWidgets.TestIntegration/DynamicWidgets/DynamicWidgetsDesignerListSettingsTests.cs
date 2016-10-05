@@ -113,7 +113,7 @@ namespace FeatherWidgets.TestIntegration.DynamicWidgets
             string pageTitlePrefix = testName + "Dynamic Page";
             string urlNamePrefix = testName + "dynamic-page";
             int index = 1;
-            int itemsPerPage = 1;
+            int limitCount = 1;
             string url = UrlPath.ResolveAbsoluteUrl("~/" + urlNamePrefix + index);
 
             try
@@ -130,7 +130,7 @@ namespace FeatherWidgets.TestIntegration.DynamicWidgets
                 var dynamicController = new DynamicContentController();
                 dynamicController.Model.ContentType = TypeResolutionService.ResolveType(ResolveType);
                 dynamicController.Model.DisplayMode = ListDisplayMode.Limit;
-                dynamicController.Model.ItemsPerPage = itemsPerPage;
+                dynamicController.Model.LimitCount = limitCount;
                 dynamicController.Model.ProviderName = FeatherWidgets.TestUtilities.CommonOperations.DynamicModulesOperations.ProviderName;
                 mvcProxy.Settings = new ControllerSettings(dynamicController);
                 mvcProxy.WidgetName = WidgetName;

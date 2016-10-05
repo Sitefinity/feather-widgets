@@ -58,6 +58,20 @@ namespace Telerik.Sitefinity.Frontend.Search.Mvc.Models
         }
 
         /// <inheritdoc />
+        public int? LimitCount
+        {
+            get
+            {
+                return this.limitCount;
+            }
+
+            set
+            {
+                this.limitCount = value;
+            }
+        }
+
+        /// <inheritdoc />
         public int CurrentPage { get; set; }
 
         /// <inheritdoc />
@@ -125,10 +139,20 @@ namespace Telerik.Sitefinity.Frontend.Search.Mvc.Models
                 skip = 0;
 
             var itemsToSkip = this.DisplayMode == ListDisplayMode.Paging ? skip.Value : 0;       
-            int? itemsPerPage = this.DisplayMode == ListDisplayMode.All ? 0 : this.ItemsPerPage;
-            
+
+            int? take = 0;
+
+            if (this.DisplayMode == ListDisplayMode.Limit)
+            {
+                take = this.LimitCount;   
+            }
+            else if (this.DisplayMode == ListDisplayMode.Paging)
+            {
+                 take = this.ItemsPerPage;   
+            }
+
             int totalCount = 0;
-            var result = this.Search(searchQuery, language, itemsToSkip, itemsPerPage.Value, out totalCount);
+            var result = this.Search(searchQuery, language, itemsToSkip, take.Value, out totalCount);
 
             int? totalPagesCount = (int)Math.Ceiling((double)(totalCount / (double)this.ItemsPerPage.Value));
             this.TotalPagesCount = this.DisplayMode == ListDisplayMode.Paging ? totalPagesCount : null;
@@ -331,6 +355,7 @@ namespace Telerik.Sitefinity.Frontend.Search.Mvc.Models
 
         #region Private fields and constants
 
+        private int? limitCount = 20;
         private int? itemsPerPage = 20;
         private string[] searchFields = new[] { "Title", "Content" };
         private string[] highlightedFields = new[] { "Title", "Content" };

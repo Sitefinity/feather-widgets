@@ -156,6 +156,22 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Frontend
         }
 
         /// <summary>
+        /// Verifies the breadcrumb in frontend.
+        /// </summary>
+        /// <param name="pageTitle">The page title.</param>
+        /// <param name="title">The title.</param>
+        public void VerifyBreadcrumbInFrontend(string pageTitle, string title)
+        {
+            var textBreadcrumb = EM.Navigation.NavigationWidgetFrontend.GetTextPublicWrapper();
+            textBreadcrumb.AssertIsPresent(pageTitle + "/" + title);
+            textBreadcrumb.Find.ByExpression<HtmlAnchor>("tagname=a", "innerText=~" + pageTitle)
+              .AssertIsPresent(pageTitle);
+            var textBreadcrumbTitle = textBreadcrumb.Find.ByExpression<HtmlDiv>("tagname=div", "innerText=~" + title);
+            Assert.IsTrue(textBreadcrumbTitle.InnerText.Contains(title));
+            textBreadcrumbTitle.AssertIsPresent(title);
+        }
+
+        /// <summary>
         /// Opens the toggle navigation menu
         /// </summary>
         public void OpenNavigationToggleMenu()

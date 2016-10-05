@@ -27,6 +27,7 @@ namespace FeatherWidgets.TestIntegration.Views
     [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Naming", "CA1704:IdentifiersShouldBeSpelledCorrectly", MessageId = "Precompilation"), TestFixture]
     [Description("Integration tests for proper compilation of the Feather views.")]
     [Author(TestAuthor.Team2)]
+    [Category(TestCategories.Common)]
     public class PrecompilationTests
     {
         /// <summary>

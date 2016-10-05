@@ -8,7 +8,7 @@
 
     @@if(Model.Item.Fields.@(Model.Name) != null)
     {
-        <a @@Model.Item.Fields.@(Model.Name).LinkTargetAttribute() href='@@Model.Item.Fields.@(Model.Name).DefaultUrl'>
+        <a @@(((Telerik.Sitefinity.Frontend.Mvc.Models.ItemViewModel)Model.Item.Fields.@(Model.Name)).LinkTargetAttribute()) href='@@Model.Item.Fields.@(Model.Name).DefaultUrl'>
             @@Model.Item.Fields.@(Model.Name).Fields.Title
         </a>
     }

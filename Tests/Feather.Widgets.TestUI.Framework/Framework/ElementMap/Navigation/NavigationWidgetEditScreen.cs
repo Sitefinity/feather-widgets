@@ -88,5 +88,19 @@ namespace Feather.Widgets.TestUI.Framework.Framework.ElementMap.Navigation
                 return this.Get<HtmlAnchor>("tagname=a", "InnerText=More options");
             }
         }
+
+        /// <summary>
+        /// Gets the allow virtual nodes.
+        /// </summary>
+        /// <value>
+        /// The allow virtual nodes.
+        /// </value>
+        public HtmlInputText AllowVirtualNodes
+        {
+            get
+            {
+                return this.Get<HtmlInputText>("tagname=input", "id=prop-AllowVirtualNodes");
+            }
+        }
     }
 }

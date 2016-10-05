@@ -29,6 +29,14 @@ namespace Telerik.Sitefinity.Frontend.Search.Mvc.Models
         int? ItemsPerPage { get; set; }
 
         /// <summary>
+        /// Gets or sets the items limit count.
+        /// </summary>
+        /// <value>
+        /// The items limit.
+        /// </value>
+        int? LimitCount { get; set; }
+
+        /// <summary>
         /// Gets or sets the current page.
         /// </summary>
         /// <value>
