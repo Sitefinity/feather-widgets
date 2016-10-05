@@ -146,22 +146,22 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Models.Fields.TextField
                 minMaxLength = ".{" + this.ValidatorDefinition.MinLength + "," + this.ValidatorDefinition.MaxLength + "}";
             else if (this.ValidatorDefinition.MinLength > 0)
                 minMaxLength = ".{" + this.ValidatorDefinition.MinLength + ",}";
-            
+
             if (!string.IsNullOrWhiteSpace(this.ValidatorDefinition.ExpectedFormat.ToString()))
             {
                 var pattern = this.GetRegExForExpectedFormat(this.ValidatorDefinition.ExpectedFormat);
-                if(!string.IsNullOrEmpty(pattern))
+                if (!string.IsNullOrEmpty(pattern))
                 {
-                    attributes.Append("pattern=");
+                    attributes.Append("pattern='");
                     attributes.Append(pattern);
-                    attributes.Append(" ");
+                    attributes.Append("' ");
                 }
-                
+
             }
 
             if (this.InputType == TextType.Tel)
             {
-                attributes.Append("pattern=");
+                attributes.Append("pattern='");
                 if (!string.IsNullOrEmpty(minMaxLength))
                 {
                     attributes.Append("(?=^");
@@ -170,13 +170,13 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Models.Fields.TextField
                 }
 
                 attributes.Append(Validator.TelRegexPattern);
-                attributes.Append(" ");
+                attributes.Append("' ");
             }
             else if (!string.IsNullOrEmpty(minMaxLength))
             {
-                attributes.Append("pattern=");
+                attributes.Append("pattern='");
                 attributes.Append(minMaxLength);
-                attributes.Append(" ");
+                attributes.Append("' ");
             }
 
             return attributes.ToString();
