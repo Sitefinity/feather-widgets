@@ -27,6 +27,7 @@ using Telerik.Sitefinity.Web.Mail;
 using Telerik.Sitefinity.Security.Web.UI;
 using System.ComponentModel.DataAnnotations;
 using Telerik.Sitefinity.Services;
+using Telerik.Sitefinity.Security.Events;
 
 namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.Registration
 {
@@ -397,6 +398,15 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.Registration
             }
         }
 
+        /// <summary>
+        /// Raises UserRegistered event.
+        /// </summary>
+        protected virtual void RaiseRegistrationEvent()
+        {
+            var eventData = new UserRegistered(); // no event data is used by the DEC handler
+            EventHub.Raise(eventData);
+        }
+
         #endregion
 
         #region Private members
@@ -428,6 +438,8 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.Registration
             {
                 this.SendSuccessfulRegistrationEmail(userManager, user);
             }
+
+            this.RaiseRegistrationEvent();
         }
 
         /// <summary>

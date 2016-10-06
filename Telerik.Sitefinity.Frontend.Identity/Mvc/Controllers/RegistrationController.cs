@@ -6,8 +6,6 @@ using Telerik.Sitefinity.Frontend.Identity.Mvc.StringResources;
 using Telerik.Sitefinity.Frontend.Mvc.Infrastructure.Controllers;
 using Telerik.Sitefinity.Frontend.Mvc.Infrastructure.Controllers.Attributes;
 using Telerik.Sitefinity.Mvc;
-using Telerik.Sitefinity.Security.Events;
-using Telerik.Sitefinity.Services;
 
 namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Controllers
 {
@@ -114,8 +112,6 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Controllers
                 var status = this.Model.RegisterUser(viewModel);
                 if (status == MembershipCreateStatus.Success)
                 {
-					this.RaiseRegistrationEvent();
-
                     if (this.Model.ActivationMethod == ActivationMethod.AfterConfirmation)
                     {
                         this.ViewBag.ShowActivationMsg = true;
@@ -172,12 +168,6 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Controllers
         private IRegistrationModel InitializeModel()
         {
             return ControllerModelFactory.GetModel<IRegistrationModel>(this.GetType());
-        }
-
-        private void RaiseRegistrationEvent()
-        {
-            var eventData = new UserRegistered(); // no event data is used by the DEC handler
-            EventHub.Raise(eventData);
         }
 
         #endregion
