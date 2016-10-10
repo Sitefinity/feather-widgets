@@ -1,6 +1,9 @@
 ﻿@model Telerik.Sitefinity.Frontend.Media.Mvc.Models.Video.VideoViewModel
 
 @using Telerik.Sitefinity.Frontend.Mvc.Helpers;
+@using Telerik.Sitefinity.Modules.Pages;
+
+@Html.Script(ScriptRef.JQuery, "head", false)
 
 @{
     var videoUrl = Model.Item.Fields.MediaUrl;
