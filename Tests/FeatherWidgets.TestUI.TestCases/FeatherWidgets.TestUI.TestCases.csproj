@@ -248,6 +248,8 @@
     <Compile Include="Events\VerifyMultipleAllDayEventsInThreeDays_CalendarView.cs" />
     <Compile Include="Events\VerifyMultipleNormalEventsInThreeDays_CalendarView.cs" />
     <Compile Include="Events\VerifyNormalEventSwitchingDaylightSavingTime_CalendarView.cs" />
+    <Compile Include="Events\VerifyPageWithHybridPageTemplateContainingCalendarWidget.cs" />
+    <Compile Include="Events\VerifyPageWithMvcPageTemplateContainingCalendarWidget.cs" />
     <Compile Include="Events\VerifyRecurrentAllDayEventFiveRepeats_CalendarView.cs" />
     <Compile Include="Events\VerifyRecurrentAllDayEventsWithNoEndDate_CalendarView.cs" />
     <Compile Include="Events\VerifyRecurrentNormalEventSwitchingDaylightSavingTime_CalendarView.cs" />
