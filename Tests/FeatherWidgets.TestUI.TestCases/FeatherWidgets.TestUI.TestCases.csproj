@@ -273,6 +273,8 @@
     <Compile Include="Events\VerifyPastCurrentUpcomingEvents_Calendar_MvcPage.cs" />
     <Compile Include="Events\VerifyPastCurrentUpcomingEvents_Calendar_WorkWeekView_HybridPage.cs" />
     <Compile Include="Events\VerifyPastCurrentUpcomingEvents_Calendar_WorkWeekView_MvcPage.cs" />
+    <Compile Include="Events\VerifyRevisionHistoryOfMVCPageTemplateContainsCalendarWidget.cs" />
+    <Compile Include="Events\VerifyRevisionHistoryOfPageContainsCalendarWidget.cs" />
     <Compile Include="Events\VerifyUseLimitListSettingsOnFrontendPageForEventsWidget.cs" />
     <Compile Include="Events\VerifyWeekStartDay_CalendarView.cs" />
     <Compile Include="FeatherTeams.cs" />
