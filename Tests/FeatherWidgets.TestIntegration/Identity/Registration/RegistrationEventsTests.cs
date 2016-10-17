@@ -15,7 +15,7 @@ namespace FeatherWidgets.TestIntegration.Identity.Registration
     /// </summary>
     [TestFixture]
     [Description("This is a test class with tests related to registration functionality of Registration widget.")]
-    public class RegistrationTests
+    public class RegistrationEventsTests
     {
         [SetUp]
         public void SetUp()
