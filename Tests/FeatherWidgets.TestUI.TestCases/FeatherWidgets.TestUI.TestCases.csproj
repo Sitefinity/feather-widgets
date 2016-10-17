@@ -245,9 +245,13 @@
     <Compile Include="Events\VerifyAllDayEventSwitchingDaylightSavingTime_CalendarView.cs" />
     <Compile Include="Events\VerifyCssClass_CalendarView.cs" />
     <Compile Include="Events\VerifyEventDetailsCssClass_CalendarWidget.cs" />
+    <Compile Include="Events\VerifyHybridPageTemplatePreviewWithCalendarWidget.cs" />
     <Compile Include="Events\VerifyMultipleAllDayEventsInThreeDays_CalendarView.cs" />
     <Compile Include="Events\VerifyMultipleNormalEventsInThreeDays_CalendarView.cs" />
+    <Compile Include="Events\VerifyMvcPageTemplatePreviewWithCalendarWidget.cs" />
     <Compile Include="Events\VerifyNormalEventSwitchingDaylightSavingTime_CalendarView.cs" />
+    <Compile Include="Events\VerifyPageWithHybridPageTemplateContainingCalendarWidget.cs" />
+    <Compile Include="Events\VerifyPageWithMvcPageTemplateContainingCalendarWidget.cs" />
     <Compile Include="Events\VerifyRecurrentAllDayEventFiveRepeats_CalendarView.cs" />
     <Compile Include="Events\VerifyRecurrentAllDayEventsWithNoEndDate_CalendarView.cs" />
     <Compile Include="Events\VerifyRecurrentNormalEventSwitchingDaylightSavingTime_CalendarView.cs" />
@@ -269,6 +273,8 @@
     <Compile Include="Events\VerifyPastCurrentUpcomingEvents_Calendar_MvcPage.cs" />
     <Compile Include="Events\VerifyPastCurrentUpcomingEvents_Calendar_WorkWeekView_HybridPage.cs" />
     <Compile Include="Events\VerifyPastCurrentUpcomingEvents_Calendar_WorkWeekView_MvcPage.cs" />
+    <Compile Include="Events\VerifyRevisionHistoryOfMVCPageTemplateContainsCalendarWidget.cs" />
+    <Compile Include="Events\VerifyRevisionHistoryOfPageContainsCalendarWidget.cs" />
     <Compile Include="Events\VerifyUseLimitListSettingsOnFrontendPageForEventsWidget.cs" />
     <Compile Include="Events\VerifyWeekStartDay_CalendarView.cs" />
     <Compile Include="FeatherTeams.cs" />
