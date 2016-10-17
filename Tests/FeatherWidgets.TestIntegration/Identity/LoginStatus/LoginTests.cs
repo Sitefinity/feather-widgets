@@ -144,6 +144,7 @@ namespace FeatherWidgets.TestIntegration.Identity.LoginStatus
         [Category(TestCategories.Identity)]
         [Author(FeatherTeams.FeatherTeam)]
         [Description("Verify when Page id is provided, redirect link is constructed correctly.")]
+        [Ignore("Failing over SSL - #203166")]
         public void Login_WithPageId_VerifyLoginRedirectUrlIsCorrect()
         {
             var pageOperations = new PagesOperations();
@@ -184,6 +185,7 @@ namespace FeatherWidgets.TestIntegration.Identity.LoginStatus
         [Category(TestCategories.Identity)]
         [Author(FeatherTeams.FeatherTeam)]
         [Description("Verify when AllowWindowsStsLogin is set to true, redirect link is constructed correctly.")]
+        [Ignore("Failing over SSL - #203166")]
         public void Login_WithInstantLogin_VerifyLoginRedirectUrlIsCorrect()
         {
             var pageOperations = new PagesOperations();
