@@ -279,5 +279,23 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Frontend.Lists
                 ActiveBrowser.GoBack();
             }
         }
+
+        /// <summary>
+        /// Verify correct DEC info is send
+        /// </summary>
+        /// <param name="itemName">Name of the item.</param>
+        public void VerifyCorrectDecInfoIsSend()
+        {
+            List<HtmlDiv> listItemDivs = this.EM.Lists.ExpandableListFrontend.ListItemsDivs;
+            var listItem = listItemDivs[0].ChildNodes[0];
+            var listItemLink = listItem.As<HtmlAnchor>();
+            listItemLink.Click();
+            var listTitle = listItem.InnerText;
+            var searchedAttribute = "sf-decdata=" + listTitle;
+            ActiveBrowser.WaitForElement(15000, searchedAttribute);
+            var decData = ActiveBrowser.Find.ByAttributes<HtmlInputHidden>(searchedAttribute);
+            Assert.IsNotNull(decData);
+            Assert.IsTrue(decData.Value.Contains(listTitle));
+        }
     }
 }

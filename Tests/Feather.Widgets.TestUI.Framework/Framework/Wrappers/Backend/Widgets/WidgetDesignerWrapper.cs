@@ -4,7 +4,6 @@ using System.Globalization;
 using System.Linq;
 using ArtOfTest.Common.UnitTesting;
 using ArtOfTest.WebAii.Controls.HtmlControls;
-using ArtOfTest.WebAii.Controls.HtmlControls;
 using ArtOfTest.WebAii.Core;
 using ArtOfTest.WebAii.jQuery;
 using Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend.Widgets;
