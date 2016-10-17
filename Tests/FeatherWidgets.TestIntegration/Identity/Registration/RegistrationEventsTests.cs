@@ -30,6 +30,7 @@ namespace FeatherWidgets.TestIntegration.Identity.Registration
         {
             EventHub.Unsubscribe<UserRegistered>(this.userRegisteredEventHandler);
             ServerOperations.Users().DeleteUserAndProfile(this.validModel.UserName);
+            ServerOperations.Users().DeleteUserAndProfile(this.invalidModel.UserName);
             this.eventRaised = false;
         }
 
