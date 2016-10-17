@@ -1,4 +1,5 @@
-﻿using System.Threading;
+﻿using System;
+using System.Threading;
 using MbUnit.Framework;
 using Telerik.Sitefinity.Frontend.Identity.Mvc.Controllers;
 using Telerik.Sitefinity.Frontend.Identity.Mvc.Models.Registration;
@@ -7,6 +8,7 @@ using Telerik.Sitefinity.Security.Events;
 using Telerik.Sitefinity.Services;
 using Telerik.Sitefinity.Services.Events;
 using Telerik.Sitefinity.TestUtilities.CommonOperations;
+using Telerik.Sitefinity.TestUtilities.Utilities;
 
 namespace FeatherWidgets.TestIntegration.Identity.Registration
 {
@@ -21,6 +23,7 @@ namespace FeatherWidgets.TestIntegration.Identity.Registration
         public void SetUp()
         {
             this.userRegisteredEventHandler = new SitefinityEventHandler<UserRegistered>((e) => this.eventRaised = true);
+            this.isUserRegisteredEventRaised = new Func<bool>(() => this.eventRaised);
             EventHub.Subscribe<UserRegistered>(this.userRegisteredEventHandler);
             this.eventRaised = false;
         }
@@ -46,7 +49,7 @@ namespace FeatherWidgets.TestIntegration.Identity.Registration
             this.controller.Index(this.validModel);
 
             // assert
-            Thread.Sleep(5000);
+            WaitUtils.WaitOperationUntil(this.isUserRegisteredEventRaised, RegistrationEventsTests.EventRaisedTotalTimeout, null, RegistrationEventsTests.EventRaisedPollTimeout);
             Assert.IsTrue(this.eventRaised);
         }
 
@@ -63,13 +66,16 @@ namespace FeatherWidgets.TestIntegration.Identity.Registration
             this.controller.Index(this.invalidModel);
 
             // assert
-            Thread.Sleep(5000);
+            Thread.Sleep(RegistrationEventsTests.EventRaisedTotalTimeout);
             Assert.IsFalse(this.eventRaised);
         }
 
+        private const int EventRaisedTotalTimeout = 6000;
+        private const int EventRaisedPollTimeout = 1000;
         private bool eventRaised;
         private SitefinityEventHandler<UserRegistered> userRegisteredEventHandler;
         private RegistrationController controller = new RegistrationController();
+        private Func<bool> isUserRegisteredEventRaised;
         private RegistrationViewModel validModel = new RegistrationViewModel()
         {
             UserName = "Dummy2",
