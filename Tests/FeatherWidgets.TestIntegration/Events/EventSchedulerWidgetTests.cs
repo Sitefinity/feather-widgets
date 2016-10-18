@@ -5203,7 +5203,7 @@ namespace FeatherWidgets.TestIntegration.Events
             {
                 if (filterList[i].StartDate != null || filterList[i].EndDate != null)
                 {
-                    var tempFilter = this.CreateFilterForUpcomingEventWithCustomRange(filterList[i].StartDate, filterList[i].EndDate, filterList[i].FilterSection);
+                    var tempFilter = this.CreateFilterForEventWithCustomRange(filterList[i].StartDate, filterList[i].EndDate, filterList[i].FilterSection);
                     filter += tempFilter.Replace("$VARINDEXTOREPLACE", i.ToString(CultureInfo.InvariantCulture));
                 }
                 else
@@ -5222,7 +5222,7 @@ namespace FeatherWidgets.TestIntegration.Events
             return filter;
         }
 
-        private string CreateFilterForUpcomingEventWithCustomRange(DateTime? start, DateTime? end, FilterSection filterSection)
+        private string CreateFilterForEventWithCustomRange(DateTime? start, DateTime? end, FilterSection filterSection)
         {
             string firstPart;
             string lastPart;
