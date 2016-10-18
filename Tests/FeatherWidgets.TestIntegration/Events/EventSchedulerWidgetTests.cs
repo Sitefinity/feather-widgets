@@ -5129,19 +5129,6 @@ namespace FeatherWidgets.TestIntegration.Events
             return new MultilingualPageOperations().CreatePageMultilingual(Guid.Empty, pageName ?? PageNamePrefix + " " + culture.Name, false, culture.Name);
         }
 
-        ////[System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Globalization", "CA1303:Do not pass literals as localized parameters", MessageId = "Telerik.Sitefinity.Mvc.TestUtilities.Data.PageContentGenerator.AddControlToPage(System.Guid,System.Web.UI.Control,System.String,System.String,System.Action<Telerik.Sitefinity.Pages.Model.PageDraftControl>)")]
-        ////private Guid AddControl(Guid pageId, SelectionMode additionalFiltersSelectionMode, string additionalFilters, SelectionMode narrowFiltersSelectionMode, string narrowSelectionFilters, List<Guid> selectedItemsIds = null)
-        ////{
-        ////    var mvcProxy = new MvcControllerProxy();
-        ////    mvcProxy.ControllerName = typeof(EventSchedulerController).FullName;
-        ////    var eventSchedulerController = new EventSchedulerController();
-        ////    this.ApplyFilters(eventSchedulerController, additionalFiltersSelectionMode, additionalFilters, narrowFiltersSelectionMode, narrowSelectionFilters, selectedItemsIds);
-        ////    mvcProxy.Settings = new ControllerSettings(eventSchedulerController);
-        ////    string controlId = Telerik.Sitefinity.Mvc.TestUtilities.Data.PageContentGenerator.AddControlToPage(pageId, mvcProxy, Caption);
-
-        ////    return this.GetWidgetId(pageId, controlId);
-        ////}
-
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Globalization", "CA1303:Do not pass literals as localized parameters", MessageId = "Telerik.Sitefinity.Mvc.TestUtilities.Data.PageContentGenerator.AddControlToPage(System.Guid,System.Web.UI.Control,System.String,System.String,System.Action<Telerik.Sitefinity.Pages.Model.PageDraftControl>)")]
         private Guid AddControlFilters(Guid pageId, SelectionMode additionalFiltersSelectionMode, List<AdditionalFilter> filterList, SelectionMode narrowFiltersSelectionMode, string narrowSelectionFilters, List<Guid> selectedItemsIds = null)
         {
