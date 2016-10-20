@@ -28,12 +28,12 @@ namespace FeatherWidgets.TestUI.TestCases.Events
         {
             BAT.Macros().NavigateTo().Design().PageTemplates(this.Culture);
             BAT.Wrappers().Backend().PageTemplates().PageTemplateMainScreen().OpenTemplateEditor(TemplateName);
-            this.VerifyEventVisibilityInCurrentView(event1Id, 1);
-            this.VerifyEventVisibilityInCurrentView(event2Id, 1);
+            BATFeather.Wrappers().Frontend().Events().EventsWrapper().VerifyEventVisibilityInCurrentView(event1Id, 1, false);
+            BATFeather.Wrappers().Frontend().Events().EventsWrapper().VerifyEventVisibilityInCurrentView(event2Id, 1, false);
 
             BAT.Wrappers().Backend().PageTemplates().PageTemplateModifyScreen().PreviewTemplateFromEdit();
-            this.VerifyEventVisibilityInCurrentView(event1Id, 1);
-            this.VerifyEventVisibilityInCurrentView(event2Id, 1);
+            BATFeather.Wrappers().Frontend().Events().EventsWrapper().VerifyEventVisibilityInCurrentView(event1Id, 1, false);
+            BATFeather.Wrappers().Frontend().Events().EventsWrapper().VerifyEventVisibilityInCurrentView(event2Id, 1, false);
         }
 
         /// <summary>
@@ -53,16 +53,6 @@ namespace FeatherWidgets.TestUI.TestCases.Events
         protected override void ServerCleanup()
         {
             BAT.Arrange(this.TestName).ExecuteTearDown();
-        }
-
-        /// <summary>
-        /// Verify event visibility in current view
-        /// </summary>
-        /// <param name="eventId">Event ID</param>
-        private void VerifyEventVisibilityInCurrentView(string eventId, int expectedCount)
-        {
-            var list = BATFeather.Wrappers().Frontend().Events().EventsWrapper().GetVisibleEventInCurrentView(eventId, false);
-            Assert.IsTrue(list.Count() == expectedCount, "The event is not visible");
         }
 
         private const string TemplateName = "Calendar";

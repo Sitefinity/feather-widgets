@@ -10,16 +10,21 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 namespace FeatherWidgets.TestUI.TestCases.Events
 {
     /// <summary>
-    ///
+    /// Creates 2 events each assigned to a calendar.
+    /// Creates Mvc page with Calendar widget.
+    /// Uncheck "Allow users to filter by calendars" and publish page.
+    /// Verify that on frontend Calendar list is not visible.
     /// </summary>
     [TestClass]
     public class VerifyAllowUsersToFilterByCalendars_CalendarView_ : FeatherTestCase
     {
         /// <summary>
-        /// Test Method that provides test steps for FilterEventsByCalendar_ UI Test.
+        /// Test Method that provides test steps for VerifyAllowUsersToFilterByCalendars_CalendarView_ UI Test.
         /// </summary>
         [TestMethod,
-        Owner(FeatherTeams.SitefinityTeam8)]
+        Owner(FeatherTeams.SitefinityTeam8),
+        TestCategory(FeatherTestCategories.PagesAndContent),
+        TestCategory(FeatherTestCategories.Events)]
         public void VerifyAllowUsersToFilterByCalendars_CalendarView()
         {
             BAT.Macros().NavigateTo().Pages(this.Culture);
@@ -30,8 +35,7 @@ namespace FeatherWidgets.TestUI.TestCases.Events
             BATFeather.Wrappers().Backend().Widgets().WidgetDesignerWrapper().SaveChanges();
             BAT.Wrappers().Backend().Pages().PageZoneEditorWrapper().PublishPage();
             BAT.Macros().NavigateTo().CustomPage("~/" + PageTitle.ToLower(), true, this.Culture);
-            BATFeather.Wrappers().Frontend().Events().EventsWrapper().VerifyCalendarsAreNotVisible();
-
+            BATFeather.Wrappers().Frontend().Events().EventsWrapper().VerifyCalendarListIsNotVisible();
         }
 
         /// <summary>
