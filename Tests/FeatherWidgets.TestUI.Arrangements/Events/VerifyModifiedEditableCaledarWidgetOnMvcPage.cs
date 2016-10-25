@@ -6,29 +6,25 @@ using System.Text;
 using System.Threading.Tasks;
 using FeatherWidgets.TestUtilities.CommonOperations;
 using Telerik.Sitefinity.Events.Model;
+using Telerik.Sitefinity.Frontend.Events.Mvc.Controllers;
 using Telerik.Sitefinity.Modules.Events;
+using Telerik.Sitefinity.Mvc.Proxy;
 using Telerik.Sitefinity.TestArrangementService.Attributes;
 using Telerik.Sitefinity.TestUI.Arrangements.Framework.Server;
 using Telerik.Sitefinity.TestUtilities.CommonOperations;
 
 namespace FeatherWidgets.TestUI.Arrangements
 {
-    /// <summary>
-    /// Executes Server Side operations for VerifyAllowUsersToFilterByCalendars_CalendarView UI Test
-    /// </summary>
-    public class VerifyAllowUsersToFilterByCalendars_CalendarView : TestArrangementBase
+    public class VerifyModifiedEditableCaledarWidgetOnMvcPage : TestArrangementBase
     {
         /// <summary>
-        /// Creates an 2 Events and 2 Calendars each with 1 event.
-        /// Creates a Mvc Page with Events Widget.
+        /// Creates 2 Events.
+        /// Creates Mvc page template.
         /// </summary>
         [ServerSetUp]
         public void OnBeforeTestsStarts()
         {
-            var templateId = ServerOperations.Templates().GetTemplateIdByTitle(TemplateTitle);
-            Guid page1Id = ServerOperations.Pages().CreatePage(PageTitle, templateId);
-            var page1NodeId = ServerOperations.Pages().GetPageNodeId(page1Id);
-            ServerOperationsFeather.Pages().AddCalendarWidgetToPage(page1NodeId, PlaceHolderId);
+            var templateId = ServerOperations.Templates().CreatePureMVCPageTemplate(CaptionCalendar);
 
             ServerOperations.Events().CreateCalendar(this.calendar1Guid, Calendar1Title);
             ServerOperations.Events().CreateEvent(Event1Title, string.Empty, IsAllDay, this.eventStart, this.eventEnd, this.calendar1Guid);
@@ -47,19 +43,19 @@ namespace FeatherWidgets.TestUI.Arrangements
         }
 
         /// <summary>
-        /// Deletes all Events and Pages
+        /// Deletes all Events, Pages and Templates
         /// </summary>
         [ServerTearDown]
         public void OnAfterTestCompletes()
         {
             ServerOperations.Pages().DeleteAllPages();
-            ServerOperations.Events().DeleteAllEvents();
             ServerOperations.Events().DeleteAllCalendarsExceptDefaultOne();
+            ServerOperations.Events().DeleteAllEvents();
+            ServerOperations.Templates().DeletePageTemplate(CaptionCalendar);
         }
 
-        private const string PageTitle = "EventsPage";
-        private const string TemplateTitle = "Bootstrap.default";
-        private const string PlaceHolderId = "Contentplaceholder1";
+        private const string CaptionCalendar = "Calendar";
+        private const string PlaceHolderId = "Body";
 
         private readonly Guid calendar1Guid = Guid.NewGuid();
         private const string Calendar1Title = "Calendar1";

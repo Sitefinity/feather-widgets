@@ -28,8 +28,8 @@ namespace FeatherWidgets.TestUI.TestCases.Events
         public void VerifyPageWithMvcPageTemplateContainingCalendarWidget()
         {
             BAT.Macros().NavigateTo().CustomPage("~/" + pageTitle.ToLower(), true, this.Culture);
-            this.VerifyEventVisibilityInCurrentView(event1Id, 1);
-            this.VerifyEventVisibilityInCurrentView(event2Id, 1);
+            BATFeather.Wrappers().Frontend().Events().EventsWrapper().VerifyEventVisibilityInCurrentView(event1Id, 1, false);
+            BATFeather.Wrappers().Frontend().Events().EventsWrapper().VerifyEventVisibilityInCurrentView(event2Id, 1, false);
         }
         /// <summary>
         /// Performs Server Setup and prepare the system with needed data.
@@ -48,16 +48,6 @@ namespace FeatherWidgets.TestUI.TestCases.Events
         protected override void ServerCleanup()
         {
             BAT.Arrange(this.TestName).ExecuteTearDown();
-        }
-
-        /// <summary>
-        /// Verify event visibility in current view
-        /// </summary>
-        /// <param name="eventId">Event ID</param>
-        private void VerifyEventVisibilityInCurrentView(string eventId, int expectedCount)
-        {
-            var list = BATFeather.Wrappers().Frontend().Events().EventsWrapper().GetVisibleEventInCurrentView(eventId, false);
-            Assert.IsTrue(list.Count() == expectedCount, "The event is not visible");
         }
 
         private const string pageTitle = "EventsPage";

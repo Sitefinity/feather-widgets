@@ -756,5 +756,25 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend
             optionCheckbox.Click();
             Assert.IsFalse(optionCheckbox.Checked);
         }
+
+        /// <summary>
+        /// Expand "Filter events by"
+        /// </summary>
+        public void ExpandFilteredEventsBy()
+        {
+            HtmlControl filterEventsByBtn = this.EM.Widgets.WidgetDesignerCalendarScreen.FilterEventsByButton;
+            filterEventsByBtn.AssertIsPresent("Filter Events by button");
+            filterEventsByBtn.Click();
+        }
+
+        /// <summary>
+        /// Check Calendar check box
+        /// </summary>
+        public void SelectFilterByCalendar()
+        {
+            HtmlInputCheckBox calendarCheckBox = this.EM.Widgets.WidgetDesignerCalendarScreen.CalendarCheckBox;
+            calendarCheckBox.AssertIsPresent("Calendar checkbox");
+            calendarCheckBox.Click();
+        }
     }
 }
