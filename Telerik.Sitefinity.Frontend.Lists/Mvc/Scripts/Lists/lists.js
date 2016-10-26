@@ -41,7 +41,7 @@
                 link.removeClass('expanded');
             } else {
                 link.addClass('expanded');
-                var itemTitle = link.html();
+                var itemTitle = link.text().trim();
                 sendSentence(itemTitle);
             }
 
