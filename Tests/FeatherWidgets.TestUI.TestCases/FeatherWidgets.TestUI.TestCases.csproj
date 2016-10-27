@@ -409,6 +409,7 @@
     <Compile Include="ImageGallery\VerifyNoLimitAndPaginationListSettingsOnFrontendPageForImageGalleryWidget.cs" />
     <Compile Include="ImageGallery\VerifyPagingOnFrontendPageForImageGalleryWidget.cs" />
     <Compile Include="ImageGallery\VerifyUseLimitListSettingsOnFrontendPageForImageGalleryWidget.cs" />
+    <Compile Include="Lists\CheckIfRequestToDecIsSendOnListExpanded.cs" />
     <Compile Include="Lists\VerifyListTemplatesOnBootstrap.cs" />
     <Compile Include="Navigation\BreadcrumbDetailBlogPostItemVirtualNodes.cs" />
     <Compile Include="Navigation\BreadcrumbDetailEventItemVirtualNodes.cs" />
@@ -489,6 +490,7 @@
     <Compile Include="Search\VerifyNoLimitAndPaginationListSettingsOnFrontendPageForSearchResultsWidget.cs" />
     <Compile Include="Search\VerifyPagingOnFrontendPageForSearchResultsWidget.cs" />
     <Compile Include="Search\VerifyUseLimitSettingsOnFrontendPageForSearchResultsWidget.cs" />
+    <Compile Include="SocialShare\CheckIfRequestToDecIsSendOnSocialButtonClick.cs" />
     <Compile Include="VideoGallery\FilterVideosWithCategoryTagAndDateOnPage.cs" />
     <Compile Include="VideoGallery\SelectAllPublishedVideosWithOverlayGalleryTemplate.cs" />
     <Compile Include="VideoGallery\SelectAllPublishedVideos.cs" />
@@ -611,6 +613,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="MediaFiles\IMG01648.jpg" />
+    <Compile Include="MediaWidgets\CheckIfRequestToDecIsSendOnVideoPlayed.cs" />
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

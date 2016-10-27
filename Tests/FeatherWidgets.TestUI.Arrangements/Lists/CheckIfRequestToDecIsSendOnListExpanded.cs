@@ -1,15 +1,15 @@
 ﻿using System;
 using FeatherWidgets.TestUtilities.CommonOperations;
+using Telerik.Sitefinity.Mvc.TestUtilities.CommonOperations;
 using Telerik.Sitefinity.TestArrangementService.Attributes;
-using Telerik.Sitefinity.TestUtilities.CommonOperations;
 using Telerik.Sitefinity.TestUtilities.TestConfig;
 
 namespace FeatherWidgets.TestUI.Arrangements
 {
     /// <summary>
-    /// Arrangement methods for VerifyExpandableListTemplate
+    /// Arrangement methods for CheckIfRequestToDecIsSendOnListExpanded
     /// </summary>
-    public class VerifyExpandableListTemplate : TestArrangementBase
+    public class CheckIfRequestToDecIsSendOnListExpanded : TestArrangementBase
     {
         /// <summary>
         /// Server side set up.
@@ -22,7 +22,7 @@ namespace FeatherWidgets.TestUI.Arrangements
 
             Guid listItem2Id = ServerOperationsFeather.ListsOperations().CreateListItemMultilingual(this.mlconfig, this.listId, ListItem2Title, ListItem2Content, false, this.culture);
             ServerOperationsFeather.ListsOperations().CreateListItemMultilingual(this.mlconfig, this.listId, ListItem3Title, ListItem3Content, false, this.culture);
-           
+
             ServerOperationsFeather.ListsOperations().EditListItem(listItem2Id, ListItem2TitleNew, ListItem2ContentNew);
             Guid pageId = ServerOperations.Pages().CreatePage(PageName);
             ServerOperationsFeather.Pages().AddListsWidgetToPage(pageId);

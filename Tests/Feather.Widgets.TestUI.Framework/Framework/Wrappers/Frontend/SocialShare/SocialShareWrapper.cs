@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Linq;
 using ArtOfTest.WebAii.Controls.HtmlControls;
+using ArtOfTest.WebAii.Messaging.Http;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Frontend
@@ -82,6 +83,25 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Frontend
         {
             var options = EM.SocialShare.SocialSharePageEditor.ListOfAllOptions;
             return options.Count();
+        }
+
+        /// <summary>
+        /// Click the item.
+        /// </summary>
+        /// <param name="itemName">Name of the item.</param>
+        public void VerifyCorrectDecInfoIsSend()
+        {
+            var list = EM.SocialShare.SocialSharePageEditor.UnorderedListContainingOptions.AssertIsPresent("UnorderedList of Options");
+            foreach (var listItem in list.AllItems)
+            {
+                listItem.Click();
+                var socialProviderName = listItem.Attributes.Where(t => t.Name.Equals("data-sf-socialshareoption")).FirstOrDefault().Value;
+                var searchedAttribute = "sf-decdata=" + socialProviderName;
+                ActiveBrowser.WaitForElement(15000, searchedAttribute);
+                var decData = ActiveBrowser.Find.ByAttributes<HtmlInputHidden>(searchedAttribute);
+                Assert.IsNotNull(decData);
+                Assert.IsTrue(decData.Value.Contains(socialProviderName));
+            }
         }
     }
 }

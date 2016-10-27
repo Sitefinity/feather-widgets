@@ -557,7 +557,9 @@
     <Compile Include="ImageGallery\VerifyUseLimitListSettingsOnFrontendPageForImageGalleryWidget.cs" />
     <Compile Include="ImageGallery\VerifyNoLimitAndPaginationListSettingsOnFrontendPageForImageGalleryWidget.cs" />
     <Compile Include="ImageGallery\VerifyPagingOnFrontendPageForImageGalleryWidget.cs" />
+    <Compile Include="Lists\CheckIfRequestToDecIsSendOnListExpanded.cs" />
     <Compile Include="Lists\VerifyListTemplatesOnBootstrap.cs" />
+    <Compile Include="MediaWidgets\CheckIfRequestToDecIsSendOnVideoPlayed.cs" />
     <Compile Include="Navigation\BreadcrumbDetailBlogPostItemVirtualNodes.cs" />
     <Compile Include="Navigation\BreadcrumbDetailEventItemVirtualNodes.cs" />
     <Compile Include="Navigation\BreadcrumbDetailImageItemDocumentItemVideoItemVirtualNodes.cs" />
@@ -603,6 +605,7 @@
     <Compile Include="Search\VerifyNoLimitAndPaginationListSettingsOnFrontendPageForSearchResultsWidget.cs" />
     <Compile Include="Search\VerifyPagingOnFrontendPageForSearchResultsWidget.cs" />
     <Compile Include="Search\VerifyUseLimitListSettingsOnFrontendPageForSearchResultsWidget.cs" />
+    <Compile Include="SocialShare\CheckIfRequestToDecIsSendOnSocialButtonClick.cs" />
     <Compile Include="SystemSetup\SetupSitefinityForMultisiteMultilingual.cs" />
     <Compile Include="VideoGallery\VerifyUseLimitListSettingsOnFrontendPageForVideoGalleryWidget.cs" />
     <Compile Include="VideoGallery\VerifyNoLimitAndPaginationListSettingsOnFrontendPageForVideoGalleryWidget.cs" />
