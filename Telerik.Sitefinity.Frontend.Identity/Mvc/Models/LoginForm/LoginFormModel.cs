@@ -1,19 +1,20 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Collections.Specialized;
 using System.Linq;
+using System.Web;
+using Microsoft.Owin;
+using Microsoft.Owin.Security;
+using ServiceStack;
 using Telerik.Sitefinity.Abstractions;
+using Telerik.Sitefinity.Data;
 using Telerik.Sitefinity.Frontend.Mvc.Helpers;
 using Telerik.Sitefinity.Security;
 using Telerik.Sitefinity.Security.Claims;
-using Telerik.Sitefinity.Web;
-using Telerik.Sitefinity.Data;
-using System.Collections.Specialized;
-using Telerik.Sitefinity.Services;
-using Telerik.Sitefinity.Security.Model;
-using System.Web;
-using Microsoft.IdentityModel.Tokens;
-using Microsoft.IdentityModel.Claims;
-using Microsoft.IdentityModel.Web;
 using Telerik.Sitefinity.Security.Claims.SWT;
+using Telerik.Sitefinity.Web;
+using Telerik.Sitefinity.Configuration;
+using Telerik.Sitefinity.Security.Configuration.IdentityServer;
 
 namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.LoginForm
 {
@@ -112,15 +113,29 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.LoginForm
         {
             if (viewModel != null)
             {
+                var configuredProviders = Config.Get<AuthenticationConfig>().AuthenticationProviders.Values;
+                var providers = configuredProviders.Where(x => x.Enabled == true && !string.IsNullOrEmpty(x.Name)).ToList();
+                var modelProviders = new List<LoginFormExternalProvidersViewModel>();
+
+                if (providers.Count() != 0)
+                {                
+                    foreach (var provider in providers)
+                    {
+                        modelProviders.Add(new LoginFormExternalProvidersViewModel() { Name = provider.Name, CssClass = provider.LinkCssClass });
+                    }
+                }
+
                 viewModel.ServiceUrl = this.ServiceUrl;
                 viewModel.MembershipProvider = this.MembershipProvider;
                 viewModel.RedirectUrlAfterLogin = this.GetPageUrl(this.LoginRedirectPageId);
                 viewModel.RegisterPageUrl = this.GetPageUrl(this.RegisterRedirectPageId);
                 viewModel.ShowRegistrationLink = this.RegisterRedirectPageId.HasValue;
                 viewModel.ShowForgotPasswordLink = this.AllowResetPassword && (this.EnablePasswordReset || this.EnablePasswordRetrieval);
-                viewModel.Realm = SitefinityClaimsAuthenticationModule.Current.GetRealm();
+                // TODO: AUTH/4 - Get new Authentication module
+                // viewModel.Realm = SitefinityClaimsAuthenticationModule.Current.GetRealm();
                 viewModel.CssClass = this.CssClass;
                 viewModel.ShowRememberMe = this.ShowRememberMe;
+                viewModel.ExternalProviders = modelProviders;
             }
         }
 
@@ -249,41 +264,79 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.LoginForm
             }
         }
 
-        /// <inheritDoc/>
         public virtual LoginFormViewModel Authenticate(LoginFormViewModel input, HttpContextBase context)
         {
-            User user;
-            UserLoggingReason result = SecurityManager.AuthenticateUser(
-                this.MembershipProvider,
-                input.UserName,
-                input.Password,
-                input.RememberMe,
-                out user);
-
-            var identity = ClaimsManager.GetCurrentIdentity();
-            if (user != null && identity != null && identity.OriginalIdentity is SitefinityIdentity)
+            AuthenticationProperties authenticationProperty = new AuthenticationProperties()
             {
-                IClaimsPrincipal cp = new ClaimsPrincipal(new[] { new ClaimsIdentity(identity.Claims) });
-                var wifCredentials = new FederatedServiceCredentials(FederatedAuthentication.ServiceConfiguration);
-                cp = wifCredentials.ClaimsAuthenticationManager.Authenticate(context.Request.RequestType, cp);
-                SitefinityClaimsAuthenticationModule.Current.AuthenticatePrincipalWithCurrentToken(cp, input.RememberMe);
-            }
+                RedirectUri = "http://localhost:88/"
+            };
+            IOwinContext owinContext = context.Request.GetOwinContext();
+            string userName = input.UserName;
+            string password = input.Password;
+            bool rememberMe = input.RememberMe;
+            var loginParameters = new Dictionary<string, object>();
+            loginParameters.Add(IsExternalProvider, false);
+            loginParameters.Add(UsernameParameter, userName);
+            loginParameters.Add(PasswordParameter, password);   
+            loginParameters.Add(RememberMeParameter, rememberMe);
 
-            if (result == UserLoggingReason.Unknown)
-            {
-                input.IncorrectCredentials = true;
-            }
-            else
-            {
-                input.RedirectUrlAfterLogin = this.GetReturnURL(input, context);
+            var paramsDictJson = loginParameters.ToJson();
+            authenticationProperty.Dictionary.Add(AcrValues, paramsDictJson);
+            owinContext.Authentication.Challenge(authenticationProperty, new string[] { OpenIdConnect });
+            //User user;
+            //UserLoggingReason result = SecurityManager.AuthenticateUser(
+            //    this.MembershipProvider,
+            //    input.UserName,
+            //    input.Password,
+            //    input.RememberMe,
+            //    out user);
 
-                if (result != UserLoggingReason.Success)
-                {
-                    SFClaimsAuthenticationManager.ProcessRejectedUser(context, input.RedirectUrlAfterLogin);
-                }
-            }
+            //var identity = ClaimsManager.GetCurrentIdentity();
+            //if (user != null && identity != null && identity.OriginalIdentity is SitefinityIdentity)
+            //{
+            //    IClaimsPrincipal cp = new ClaimsPrincipal(new[] { new ClaimsIdentity(identity.Claims) });
+            //    var wifCredentials = new FederatedServiceCredentials(FederatedAuthentication.ServiceConfiguration);
+            //    cp = wifCredentials.ClaimsAuthenticationManager.Authenticate(context.Request.RequestType, cp);
+            //    SitefinityClaimsAuthenticationModule.Current.AuthenticatePrincipalWithCurrentToken(cp, input.RememberMe);
+            //}
 
+            //if (result == UserLoggingReason.Unknown)
+            //{
+            //    input.IncorrectCredentials = true;
+            //}
+            //else
+            //{
+            //    input.RedirectUrlAfterLogin = this.GetReturnURL(input, context);
+
+            //    if (result != UserLoggingReason.Success)
+            //    {
+            //        SFClaimsAuthenticationManager.ProcessRejectedUser(context, input.RedirectUrlAfterLogin);
+            //    }
+            //}            
+           
             return input;
+        }
+
+        /// <summary>
+        /// Authenticates external provider and make IdentityServer challenge
+        /// </summary>
+        /// <param name="input">Provider name.</param>
+        /// <param name="context">Current http context from controller</param>
+        public void AuthenticateExternal(string input, HttpContextBase context)
+        {
+            var widgetUrl = context.Request.Url.ToString();
+            var owinContext = context.Request.GetOwinContext();
+
+            var loginParameters = new Dictionary<string, object>();
+            loginParameters.Add(IsExternalProvider, true);
+            loginParameters.Add(ExternalProviderName, input);
+            loginParameters.Add(ErrorRedirectUrlParameter, widgetUrl);
+
+            var paramsDictJson = loginParameters.ToJson();
+            var authProp = new AuthenticationProperties { RedirectUri = context.Request.UrlReferrer.ToString() };
+            authProp.Dictionary[AcrValues] = paramsDictJson;
+
+            owinContext.Authentication.Challenge(authProp, OpenIdConnect);        
         }
         #endregion
 
@@ -384,6 +437,8 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.LoginForm
         /// <returns></returns>
         private string GetClaimsIssuer()
         {
+            // TODO: AUTH/4 - Get new Authentication module
+            /*
             var claimsModule = SitefinityClaimsAuthenticationModule.Current;
 
             if (claimsModule != null)
@@ -391,9 +446,9 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.LoginForm
                 return claimsModule.GetIssuer();
             }
             else
-            {
+            {*/
                 return LoginFormModel.DefaultRealmConfig;
-            }
+            //}
         }
 
         /// <summary>
@@ -450,6 +505,14 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.LoginForm
         private string serviceUrl;
         private const string DefaultRealmConfig = "http://localhost";
         private string membershipProvider;
+        private const string IsExternalProvider = "isExternalProvider";
+        private const string ExternalProviderName = "externalProviderName";
+        private const string RememberMeParameter = "rememberMe";
+        private const string UsernameParameter = "username";
+        private const string PasswordParameter = "password";
+        private const string OpenIdConnect = "OpenIdConnect";
+        private const string ErrorRedirectUrlParameter = "errorRedirectUrl";
+        private const string AcrValues = "acr_values";
 
         #endregion
     }

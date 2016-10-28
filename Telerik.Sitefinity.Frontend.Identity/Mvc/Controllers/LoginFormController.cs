@@ -113,6 +113,16 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Controllers
             return this.View(fullTemplateName, model);
         }
 
+        public ActionResult LoginExternalProvider(string model)
+        {
+            if (!string.IsNullOrEmpty(model))
+            {
+                this.Model.AuthenticateExternal(model, this.ControllerContext.HttpContext);
+            }
+
+            return new EmptyResult();
+        }
+
         public ActionResult ForgotPassword(bool emailSent = false, string email = null, bool emailNotFound = false, string error = null)
         {
             var model = this.Model.GetForgotPasswordViewModel(email, emailNotFound, emailSent, error);

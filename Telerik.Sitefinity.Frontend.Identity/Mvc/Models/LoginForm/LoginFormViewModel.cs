@@ -57,6 +57,14 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.LoginForm
         }
 
         /// <summary>
+        /// Gets or sets the external providers.
+        /// </summary>
+        /// <value>
+        /// List of external providers.
+        /// </value>
+        public List<LoginFormExternalProvidersViewModel> ExternalProviders { get; set; }
+
+        /// <summary>
         /// Gets or sets the token service URL.
         /// </summary>
         /// <value>

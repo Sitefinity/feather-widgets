@@ -46,7 +46,14 @@
             }
 
            <div><input type="submit" value='@Html.Resource("LoginFormLogInButton")' /></div>
-        
+
+            if (Model.ExternalProviders != null)
+            {
+                foreach (var provider in Model.ExternalProviders)
+                {
+                    @Html.ActionLink(provider.Name, "LoginExternalProvider", new { model = provider.Name }, new { @class = provider.CssClass })
+                }
+            }
 
             if (Model.ShowForgotPasswordLink)
             {

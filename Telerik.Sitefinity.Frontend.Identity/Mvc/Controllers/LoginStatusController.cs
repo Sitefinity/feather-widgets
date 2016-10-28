@@ -2,13 +2,14 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
+using System.Web;
 using System.Web.Mvc;
+using Microsoft.Owin;
 using Telerik.Sitefinity.Frontend.Identity.Mvc.Models.LoginStatus;
 using Telerik.Sitefinity.Frontend.Identity.Mvc.StringResources;
 using Telerik.Sitefinity.Frontend.Mvc.Infrastructure.Controllers;
 using Telerik.Sitefinity.Frontend.Mvc.Infrastructure.Controllers.Attributes;
 using Telerik.Sitefinity.Mvc;
-using Telerik.Sitefinity.Mvc.ActionFilters;
 using Telerik.Sitefinity.Services;
 
 namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Controllers
@@ -88,6 +89,21 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Controllers
             this.ViewBag.IsDesignMode = SystemManager.IsDesignMode;
 
             return this.View(fullTemplateName, viewModel);
+        }
+
+        /// <summary>
+        /// Sign out the user and redirect it to the login page.
+        /// </summary>
+        /// <returns>
+        /// /// The <see cref="ActionResult" />.
+        /// </returns>
+        [RelativeRoute("SignOut")]
+        public ActionResult SignOut()
+        {            
+            IOwinContext owimContext = SystemManager.CurrentHttpContext.Request.GetOwinContext();
+            owimContext.Authentication.SignOut();
+           
+            return this.Redirect(this.GetCurrentPageUrl());
         }
 
         /// <summary>

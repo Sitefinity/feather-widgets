@@ -153,5 +153,12 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.LoginForm
         /// <param name="context">The HTTP context that is to be authenticated.</param>
         /// <returns>View model that is populated depending on the outcome of the authentication.</returns>
         LoginFormViewModel Authenticate(LoginFormViewModel input, HttpContextBase context);
+
+        /// <summary>
+        /// Authenticates a specific external user.
+        /// </summary>
+        /// <param name="input">Provider name.</param>
+        /// <param name="context">The HTTP context that is to be authenticated.</param>
+        void AuthenticateExternal(string input, HttpContextBase context);
     }
 }
