@@ -16,7 +16,8 @@ namespace FeatherWidgets.TestUI.TestCases.Events
         [TestMethod,
         Owner(FeatherTeams.SitefinityTeam7),
         TestCategory(FeatherTestCategories.Events),
-        TestCategory(FeatherTestCategories.Bootstrap)]
+        TestCategory(FeatherTestCategories.Bootstrap),
+        TestCategory(FeatherTestCategories.PagesAndContent)]
         public void DragAndDropEventsWidgetOnPage()
         {
             this.pageTemplateName = "Bootstrap.default";
