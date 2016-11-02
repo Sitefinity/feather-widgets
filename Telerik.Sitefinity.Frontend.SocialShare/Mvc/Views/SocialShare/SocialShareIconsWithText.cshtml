@@ -1,6 +1,7 @@
 ﻿@model Telerik.Sitefinity.Frontend.SocialShare.Mvc.Models.SocialShareModel
 @using Telerik.Sitefinity.Frontend.SocialShare.SocialShareHelpers
 @using Telerik.Sitefinity.Frontend.Mvc.Helpers
+@using Telerik.Sitefinity.Modules.Pages;
 
 @{
     var shareUrl = SocialShareButtons.ShareUrl;
@@ -9,6 +10,7 @@
 }
 
 @Html.StyleSheet(Url.WidgetContent("assets/dist/css/sf-social-share.min.css"), "head", false)
+@Html.Script(ScriptRef.JQuery, "head", false)
 
 <style>
     .color {color: blue;}
@@ -50,7 +52,7 @@
                     break;
                 case "GooglePlusOne":
                 <li data-sf-role="socialShare" data-sf-socialshareoption="@button.ButtonName">
-                    <div class='g-plusone' data-size='medium'></div>
+                    <div class='g-plusone' data-size='medium' data-callback="googleShareCallback"></div>
                     <script type='text/javascript'>
                         (function () { var po = document.createElement('script'); po.type = 'text/javascript'; po.async = true; po.src = 'https://apis.google.com/js/platform.js'; var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(po, s); })();
                     </script>
@@ -66,14 +68,14 @@
                     break;
                 case "Delicious":
                 <li data-sf-role="socialShare" data-sf-socialshareoption="@button.ButtonName">
-                    <a href="#" onclick="window.open('https://delicious.com/save?v=5&provider=Telerik&noui&jump=close&url=@shareUrl&title=@pageTitle, 'delicious','toolbar=no,width=550,height=550'); return false;">
+                    <a href="#" onclick="window.open('https://delicious.com/save?v=5&provider=Telerik&noui&jump=close&url=@shareUrl&title=@pageTitle', 'delicious','toolbar=no,width=550,height=550'); return false;">
                         <img src="https://delicious.com/img/logo.png" height="16" width="16" alt="Delicious"> Save this on Delicious
                     </a>
                 </li>
                     break;
                 case "Tumblr":
                 <li data-sf-role="socialShare" data-sf-socialshareoption="@button.ButtonName">
-                    <a href="http://www.tumblr.com/share" title="Share on Tumblr" style="display:inline-block; text-indent:-9999px; overflow:hidden; width:81px; height:20px; background:url('https://platform.tumblr.com/v1/share_1.png') top left no-repeat transparent;">Share on Tumblr</a>
+                    <a href="#" onclick="window.open('http://www.tumblr.com/share', 'Tumblr','toolbar=no,width=900,height=550')";S title="Share on Tumblr" style="display:inline-block; text-indent:-9999px; overflow:hidden; width:81px; height:20px; background:url('https://platform.tumblr.com/v1/share_1.png') top left no-repeat transparent;">Share on Tumblr</a>
                 </li>
                     break;
                 case "GoogleBookmarks":
