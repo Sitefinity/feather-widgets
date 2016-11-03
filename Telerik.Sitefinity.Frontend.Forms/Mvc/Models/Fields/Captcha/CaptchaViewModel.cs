@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using Telerik.Sitefinity.Web.UI.Validation.Definitions;
 
 namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Models.Fields.Captcha
 {
@@ -49,6 +50,13 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Models.Fields.Captcha
         /// The captcha key form key.
         /// </value>
         public string CaptchaKeyFormKey { get; set; }
+
+
+        /// <summary>
+        /// Gets or sets a validation mechanism for the control.
+        /// </summary>
+        /// <value>The validation.</value>
+        public ValidatorDefinition ValidatorDefinition { get; set; }
 
         /// <summary>
         /// Gets or sets the CSS class.
