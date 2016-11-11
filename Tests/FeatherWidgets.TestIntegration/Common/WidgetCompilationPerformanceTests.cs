@@ -45,9 +45,9 @@ namespace FeatherWidgets.TestIntegration.Common
 
             try
             {
-                this.EnableProfiler("HttpRequestProfiler");
+                this.EnableProfiler("HttpRequestsProfiler");
                 this.EnableProfiler("WidgetExecutionsProfiler");
-                this.EnableProfiler("ViewCompilationsProfiler");
+                this.EnableProfiler("RazorViewCompilationsProfiler");
 
                 Guid templateId = Telerik.Sitefinity.TestUtilities.CommonOperations.ServerOperations.Templates().GetTemplateIdByTitle(PageTemplateName);
                 var pageId = ServerOperations.Pages().CreatePage("TestPage1", templateId);
