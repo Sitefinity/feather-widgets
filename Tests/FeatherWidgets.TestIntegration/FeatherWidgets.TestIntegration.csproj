@@ -148,6 +148,9 @@
       <HintPath>..\..\packages\Telerik.Sitefinity.Content.9.3.6300.0\lib\net45\Telerik.Sitefinity.ContentModules.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="Telerik.Sitefinity.Diagnostics">
+      <HintPath>..\..\packages\Telerik.Sitefinity.Diagnostics.9.3.6300.0\lib\net45\Telerik.Sitefinity.Diagnostics.dll</HintPath>
+    </Reference>
     <Reference Include="Telerik.Sitefinity.Ecommerce, Version=9.3.6300.0, Culture=neutral, PublicKeyToken=b28c218413bdf563, processorArchitecture=MSIL">
       <HintPath>..\..\packages\Telerik.Sitefinity.Content.9.3.6300.0\lib\net45\Telerik.Sitefinity.Ecommerce.dll</HintPath>
       <Private>True</Private>
@@ -240,6 +243,7 @@
     <Compile Include="BlogsWidget\BlogsWidgetListSettingsTests.cs" />
     <Compile Include="BlogsWidget\BlogsWidgetTests.cs" />
     <Compile Include="Common\ModuleUnloadTests.cs" />
+    <Compile Include="Common\WidgetCompilationPerformanceTests.cs" />
     <Compile Include="ContentBlock\ContentBlockEditorTests.cs" />
     <Compile Include="ContentBlock\ContentBlockSearchIndex.cs" />
     <Compile Include="ContentBlock\ContentBlockWidget.cs" />
