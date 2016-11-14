@@ -60,6 +60,7 @@ namespace FeatherWidgets.TestIntegration.Common
                     ServerOperationsFeather.Pages().AddContentBlockWidgetToPage(pageNodeId, "ContentBlock", "Contentplaceholder1");
 
                 FeatherServerOperations.ResourcePackages().EditLayoutFile(filePath, widgetText, widgetTextEdited);
+                System.Threading.Thread.Sleep(1000);
 
                 // request page
                 this.ExecuteAuthenticatedRequest(fullPageUrl);
