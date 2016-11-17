@@ -72,7 +72,7 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Controllers
         /// Submits the form selected via the FormId property of the model.
         /// </summary>
         [HttpPost]
-        public ActionResult Index(FormCollection collection)
+        public ActionResult Submit(FormCollection collection)
         {
             var success = this.Model.TrySubmitForm(collection, this.Request != null ? this.Request.Files : null, this.Request != null ? this.Request.UserHostAddress : null);
 

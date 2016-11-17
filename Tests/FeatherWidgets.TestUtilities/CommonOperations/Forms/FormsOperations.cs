@@ -280,7 +280,7 @@ namespace FeatherWidgets.TestUtilities.CommonOperations.Forms
                 new HttpRequest(string.Empty, url, string.Empty),
                 new HttpResponse(new StringWriter(CultureInfo.InvariantCulture))));
 
-            var result = formController.Index(formCollection);
+            var result = formController.Submit(formCollection);
 
             return result;
         }
