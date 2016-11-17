@@ -87,6 +87,6 @@ namespace FeatherWidgets.TestUI.TestCases.Events
         private const string Calendar2Title = "Calendar2";
         private const string Event2Title = "Event2Title";
         private string event2Id = string.Empty;
-        private string PlaceHolderID = "T9DF0DCB4002_Col00";
+        private string PlaceHolderID = "TCCC8E0D0002_Col00";
     }
 }
