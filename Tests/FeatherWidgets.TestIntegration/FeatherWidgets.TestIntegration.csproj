@@ -242,6 +242,7 @@
     <Compile Include="BlogPosts\BlogPostsWidgetTests.cs" />
     <Compile Include="BlogsWidget\BlogsWidgetListSettingsTests.cs" />
     <Compile Include="BlogsWidget\BlogsWidgetTests.cs" />
+    <Compile Include="Common\LayoutCompilationPerformanceTests.cs" />
     <Compile Include="Common\ModuleUnloadTests.cs" />
     <Compile Include="Common\WidgetCompilationPerformanceTests.cs" />
     <Compile Include="ContentBlock\ContentBlockEditorTests.cs" />
