@@ -69,11 +69,11 @@ namespace FeatherWidgets.TestIntegration.Common
                 this.FlushData();
 
                 var viewPath = "~/Frontend-Assembly/Telerik.Sitefinity.Frontend/Mvc/Views/Layouts/TestLayout.cshtml";
-
+                
+                // Assert data
                 this.AssertWidgetExecutionCount(1);
                 this.AssertViewCompilationCount(1);
 
-                // Assert data
                 var rootOperationId = this.GetRequestLogRootOperationId(fullPageUrl);
 
                 var widgetCompilationText = "Compile view \"TestLayout.cshtml#Bootstrap.cshtml\" of controller \"" + typeof(GenericController).FullName + "\"";
@@ -112,13 +112,6 @@ namespace FeatherWidgets.TestIntegration.Common
 
         #region Fields and Constants
 
-        private struct ResourcePackages
-        {
-            public const string Bootstrap = "Bootstrap";
-        }
-
-        private const string WidgetViewPathFormat = "";
-        private const string PageTemplateName = "Bootstrap.default";
         private const string TemplateTitle = "TestLayout";
         private const string FileResource = "Telerik.Sitefinity.Frontend.TestUtilities.Data.TestLayout.cshtml";
 
