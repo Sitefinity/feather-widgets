@@ -133,7 +133,7 @@ namespace FeatherWidgets.TestIntegration.Common
                 var viewPath = "~/Frontend-Assembly/Telerik.Sitefinity.Frontend.ContentBlock/Mvc/Views/ContentBlock/Default.cshtml";
                 var fullViewPath = string.Concat(viewPath, "#Bootstrap.cshtml");
 
-                this.OverwriteRazorViewFile(fullViewPath, filePath);
+                this.OverwriteRazorViewFile(filePath);
                 this.WaitForAspNetCacheToBeInvalidated(fullViewPath);
 
                 // request page
