@@ -6,7 +6,7 @@ using System.Runtime.InteropServices;
 // associated with an assembly.
 [assembly: AssemblyCompany("Telerik")]
 [assembly: AssemblyProduct("Telerik Sitefinity CMS")]
-[assembly: AssemblyCopyright("Copyright © 2005-2016 Telerik AD")]
+[assembly: AssemblyCopyright("Copyright © 2005-2016 Telerik AD. All rights reserved.")]
 [assembly: AssemblyTrademark("Sitefinity")]
 
 // Setting ComVisible to false makes the types in this assembly not visible 
@@ -24,5 +24,10 @@ using System.Runtime.InteropServices;
 // You can specify all the values or you can default the Build and Revision Numbers 
 // by using the '*' as shown below:
 // [assembly: AssemblyVersion("1.0.*")]
+<<<<<<< HEAD
 [assembly: AssemblyVersion("1.9.800.0")]
 [assembly: AssemblyFileVersion("1.9.800.0")]
+=======
+[assembly: AssemblyVersion("1.7.630.0")]
+[assembly: AssemblyFileVersion("1.7.630.0")]
+>>>>>>> master
