@@ -1,5 +1,7 @@
 ﻿using System;
 using System.IO;
+using System.Reflection;
+using System.Web.Compilation;
 using FeatherWidgets.TestUtilities.CommonOperations;
 using MbUnit.Framework;
 using Telerik.Sitefinity.Frontend.ContentBlock.Mvc.Controllers;
@@ -7,6 +9,7 @@ using Telerik.Sitefinity.Frontend.TestUtilities;
 using Telerik.Sitefinity.Frontend.TestUtilities.CommonOperations;
 using Telerik.Sitefinity.Modules.Pages;
 using Telerik.Sitefinity.Pages.Model;
+using Telerik.Sitefinity.Restriction;
 using Telerik.Sitefinity.TestUtilities.CommonOperations;
 using Telerik.Sitefinity.TestUtilities.Modules.Diagnostics;
 using Telerik.Sitefinity.Web;
@@ -63,7 +66,11 @@ namespace FeatherWidgets.TestIntegration.Common
                 var viewPath = "~/Frontend-Assembly/Telerik.Sitefinity.Frontend.ContentBlock/Mvc/Views/ContentBlock/Default.cshtml";
                 var fullViewPath = string.Concat(viewPath, "#Bootstrap.cshtml");
 
-                FeatherServerOperations.ResourcePackages().EditLayoutFile(filePath, widgetText, widgetTextEdited);
+                using (new UnrestrictedModeRegion())
+                {
+                    FeatherServerOperations.ResourcePackages().EditLayoutFile(filePath, widgetText, widgetTextEdited);
+                }
+
                 this.WaitForAspNetCacheToBeInvalidated(fullViewPath);
 
                 // Request page
@@ -91,7 +98,11 @@ namespace FeatherWidgets.TestIntegration.Common
             }
             finally
             {
-                FeatherServerOperations.ResourcePackages().EditLayoutFile(filePath, widgetTextEdited, widgetText);
+                using (new UnrestrictedModeRegion())
+                {
+                    FeatherServerOperations.ResourcePackages().EditLayoutFile(filePath, widgetTextEdited, widgetText);
+                }
+
                 this.DeletePages(pageNode);
             }
         }
@@ -172,11 +183,14 @@ namespace FeatherWidgets.TestIntegration.Common
 
         private void OvewriteFile(string filePath)
         {
-            string contents = File.ReadAllText(filePath);
-            contents += " ";
+            using (new UnrestrictedModeRegion())
+            {
+                string contents = File.ReadAllText(filePath);
+                contents += " ";
 
-            File.Delete(filePath);
-            File.WriteAllText(filePath, contents);
+                File.Delete(filePath);
+                File.WriteAllText(filePath, contents);
+            }
         }
 
         #endregion
