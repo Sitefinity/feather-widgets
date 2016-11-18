@@ -135,7 +135,7 @@ namespace FeatherWidgets.TestIntegration.Forms
 
                 var values = new NameValueCollection();
                 values.Add(FormEventsTests.FieldName, "text");
-                formController.Submit(new System.Web.Mvc.FormCollection(values));
+                formController.Index(new System.Web.Mvc.FormCollection(values));
 
                 Assert.IsTrue(beforeActionRisen, "Before Form Action event was not risen.");
             }

@@ -72,26 +72,33 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Controllers
         /// Submits the form selected via the FormId property of the model.
         /// </summary>
         [HttpPost]
-        public ActionResult Submit(FormCollection collection)
+        public ActionResult Index(FormCollection collection)
         {
-            var success = this.Model.TrySubmitForm(collection, this.Request != null ? this.Request.Files : null, this.Request != null ? this.Request.UserHostAddress : null);
-
-            if (success == SubmitStatus.Success && this.Model.NeedsRedirect)
+            if (!this.ViewData.ContainsKey(FormController.ShouldProcessRequestKey) || (bool)this.ViewData[FormController.ShouldProcessRequestKey])
             {
-                if (this.Model.RaiseBeforeFormActionEvent())
-                {
-                    return this.Redirect(this.Model.GetRedirectPageUrl());
-                }
-                else
-                {
-                    return this.Index();
-                }
-            }
+                var success = this.Model.TrySubmitForm(collection, this.Request != null ? this.Request.Files : null, this.Request != null ? this.Request.UserHostAddress : null);
 
-            if (this.Model.RaiseBeforeFormActionEvent())
-                return this.Content(this.Model.GetSubmitMessage(success));
+                if (success == SubmitStatus.Success && this.Model.NeedsRedirect)
+                {
+                    if (this.Model.RaiseBeforeFormActionEvent())
+                    {
+                        return this.Redirect(this.Model.GetRedirectPageUrl());
+                    }
+                    else
+                    {
+                        return this.Index();
+                    }
+                }
+
+                if (this.Model.RaiseBeforeFormActionEvent())
+                    return this.Content(this.Model.GetSubmitMessage(success));
+                else
+                    return this.Index();
+            }
             else
+            {
                 return this.Index();
+            }
         }
 
         /// <summary>
@@ -180,6 +187,7 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Controllers
         #region Private fields and constants
 
         internal const string WidgetIconCssClass = "sfFormsIcn sfMvcIcn";
+        private const string ShouldProcessRequestKey = "should-process-request";
 
         private IFormModel model;
 
