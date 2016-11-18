@@ -36,9 +36,6 @@ namespace FeatherWidgets.TestIntegration.Common
         {
             string viewFileName = "Default.cshtml";
             string widgetName = "ContentBlock";
-
-            var widgetText = @"@Html.Raw(Model.Content)";
-            var widgetTextEdited = @"edited @Html.Raw(Model.Content)";
             string filePath = FeatherServerOperations.ResourcePackages().GetResourcePackageMvcViewDestinationFilePath(ResourcePackages.Bootstrap, widgetName, viewFileName);
 
             PageNode pageNode = null;
@@ -66,11 +63,7 @@ namespace FeatherWidgets.TestIntegration.Common
                 var viewPath = "~/Frontend-Assembly/Telerik.Sitefinity.Frontend.ContentBlock/Mvc/Views/ContentBlock/Default.cshtml";
                 var fullViewPath = string.Concat(viewPath, "#Bootstrap.cshtml");
 
-                using (new UnrestrictedModeRegion())
-                {
-                    FeatherServerOperations.ResourcePackages().EditLayoutFile(filePath, widgetText, widgetTextEdited);
-                }
-
+                this.InvalidateAspNetRazorViewCache(fullViewPath, filePath);
                 this.WaitForAspNetCacheToBeInvalidated(fullViewPath);
 
                 // Request page
@@ -98,11 +91,6 @@ namespace FeatherWidgets.TestIntegration.Common
             }
             finally
             {
-                using (new UnrestrictedModeRegion())
-                {
-                    FeatherServerOperations.ResourcePackages().EditLayoutFile(filePath, widgetTextEdited, widgetText);
-                }
-
                 this.DeletePages(pageNode);
             }
         }
@@ -145,7 +133,7 @@ namespace FeatherWidgets.TestIntegration.Common
                 var viewPath = "~/Frontend-Assembly/Telerik.Sitefinity.Frontend.ContentBlock/Mvc/Views/ContentBlock/Default.cshtml";
                 var fullViewPath = string.Concat(viewPath, "#Bootstrap.cshtml");
 
-                this.OvewriteFile(filePath);
+                this.OverwriteRazorViewFile(fullViewPath, filePath);
                 this.WaitForAspNetCacheToBeInvalidated(fullViewPath);
 
                 // request page
@@ -178,23 +166,7 @@ namespace FeatherWidgets.TestIntegration.Common
         }
 
         #endregion
-
-        #region Private Methods
-
-        private void OvewriteFile(string filePath)
-        {
-            using (new UnrestrictedModeRegion())
-            {
-                string contents = File.ReadAllText(filePath);
-                contents += " ";
-
-                File.Delete(filePath);
-                File.WriteAllText(filePath, contents);
-            }
-        }
-
-        #endregion
-
+        
         #region Fields and Constants
 
         private struct ResourcePackages
