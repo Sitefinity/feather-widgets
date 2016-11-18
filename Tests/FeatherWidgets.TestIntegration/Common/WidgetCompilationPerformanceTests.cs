@@ -1,5 +1,7 @@
 ﻿using System;
 using System.IO;
+using System.Reflection;
+using System.Web.Compilation;
 using FeatherWidgets.TestUtilities.CommonOperations;
 using MbUnit.Framework;
 using Telerik.Sitefinity.Frontend.ContentBlock.Mvc.Controllers;
@@ -7,6 +9,7 @@ using Telerik.Sitefinity.Frontend.TestUtilities;
 using Telerik.Sitefinity.Frontend.TestUtilities.CommonOperations;
 using Telerik.Sitefinity.Modules.Pages;
 using Telerik.Sitefinity.Pages.Model;
+using Telerik.Sitefinity.Restriction;
 using Telerik.Sitefinity.TestUtilities.CommonOperations;
 using Telerik.Sitefinity.TestUtilities.Modules.Diagnostics;
 using Telerik.Sitefinity.Web;
@@ -33,9 +36,6 @@ namespace FeatherWidgets.TestIntegration.Common
         {
             string viewFileName = "Default.cshtml";
             string widgetName = "ContentBlock";
-
-            var widgetText = @"@Html.Raw(Model.Content)";
-            var widgetTextEdited = @"edited @Html.Raw(Model.Content)";
             string filePath = FeatherServerOperations.ResourcePackages().GetResourcePackageMvcViewDestinationFilePath(ResourcePackages.Bootstrap, widgetName, viewFileName);
 
             PageNode pageNode = null;
@@ -63,7 +63,7 @@ namespace FeatherWidgets.TestIntegration.Common
                 var viewPath = "~/Frontend-Assembly/Telerik.Sitefinity.Frontend.ContentBlock/Mvc/Views/ContentBlock/Default.cshtml";
                 var fullViewPath = string.Concat(viewPath, "#Bootstrap.cshtml");
 
-                FeatherServerOperations.ResourcePackages().EditLayoutFile(filePath, widgetText, widgetTextEdited);
+                this.InvalidateAspNetRazorViewCache(fullViewPath, filePath);
                 this.WaitForAspNetCacheToBeInvalidated(fullViewPath);
 
                 // Request page
@@ -91,7 +91,6 @@ namespace FeatherWidgets.TestIntegration.Common
             }
             finally
             {
-                FeatherServerOperations.ResourcePackages().EditLayoutFile(filePath, widgetTextEdited, widgetText);
                 this.DeletePages(pageNode);
             }
         }
@@ -134,7 +133,7 @@ namespace FeatherWidgets.TestIntegration.Common
                 var viewPath = "~/Frontend-Assembly/Telerik.Sitefinity.Frontend.ContentBlock/Mvc/Views/ContentBlock/Default.cshtml";
                 var fullViewPath = string.Concat(viewPath, "#Bootstrap.cshtml");
 
-                this.OvewriteFile(filePath);
+                this.OverwriteRazorViewFile(filePath);
                 this.WaitForAspNetCacheToBeInvalidated(fullViewPath);
 
                 // request page
@@ -167,20 +166,7 @@ namespace FeatherWidgets.TestIntegration.Common
         }
 
         #endregion
-
-        #region Private Methods
-
-        private void OvewriteFile(string filePath)
-        {
-            string contents = File.ReadAllText(filePath);
-            contents += " ";
-
-            File.Delete(filePath);
-            File.WriteAllText(filePath, contents);
-        }
-
-        #endregion
-
+        
         #region Fields and Constants
 
         private struct ResourcePackages

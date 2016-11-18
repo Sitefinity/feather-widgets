@@ -8,6 +8,7 @@ using Telerik.Sitefinity.Frontend.TestUtilities;
 using Telerik.Sitefinity.Frontend.TestUtilities.CommonOperations;
 using Telerik.Sitefinity.Modules.Pages;
 using Telerik.Sitefinity.Pages.Model;
+using Telerik.Sitefinity.Restriction;
 using Telerik.Sitefinity.TestUtilities.CommonOperations;
 using Telerik.Sitefinity.TestUtilities.Modules.Diagnostics;
 using Telerik.Sitefinity.Web;
@@ -31,8 +32,12 @@ namespace FeatherWidgets.TestIntegration.Common
             base.TestTearDown();
 
             ServerOperations.Templates().DeletePageTemplate(TemplateTitle);
-            string filePath = this.GetFilePath();
-            File.Delete(filePath);
+
+            using (new UnrestrictedModeRegion())
+            {
+                string filePath = this.GetFilePath();
+                File.Delete(filePath);
+            }
         }
 
         #region Tests
@@ -69,7 +74,7 @@ namespace FeatherWidgets.TestIntegration.Common
                 this.FlushData();
 
                 var viewPath = "~/Frontend-Assembly/Telerik.Sitefinity.Frontend/Mvc/Views/Layouts/TestLayout.cshtml";
-                
+
                 // Assert data
                 this.AssertWidgetExecutionCount(1);
                 this.AssertViewCompilationCount(1);
@@ -104,8 +109,11 @@ namespace FeatherWidgets.TestIntegration.Common
 
             string filePath = this.GetFilePath();
 
-            FeatherServerOperations.ResourcePackages().AddNewResource(FileResource, filePath);
-            FeatherServerOperations.ResourcePackages().WaitForTemplatesCountToIncrease(templatesCount, 1);
+            using (new UnrestrictedModeRegion())
+            {
+                FeatherServerOperations.ResourcePackages().AddNewResource(FileResource, filePath);
+                FeatherServerOperations.ResourcePackages().WaitForTemplatesCountToIncrease(templatesCount, 1);
+            }
         }
 
         #endregion

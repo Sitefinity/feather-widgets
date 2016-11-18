@@ -31,7 +31,7 @@ namespace FeatherWidgets.TestUI.TestCases.Events
         {
             BAT.Macros().NavigateTo().Design().PageTemplates(this.Culture);
             BAT.Wrappers().Backend().PageTemplates().PageTemplateMainScreen().OpenTemplateEditor(TemplateName);
-            BATFeather.Wrappers().Backend().Pages().PageZoneEditorWrapper().AddWidgetToPlaceHolderPureMvcMode(WidgetName, PlaceHolderID);
+            BATFeather.Wrappers().Backend().Pages().PageZoneEditorWrapper().AddWidgetToPlaceHolderPureMvcMode(WidgetName, "Body");
             BAT.Wrappers().Backend().Pages().PageZoneEditorWrapper().SelectExtraOptionForWidget(MakeEditableInPagesOption);
             BAT.Wrappers().Backend().PageTemplates().PageTemplateModifyScreen().PublishTemplate();
             BAT.Macros().NavigateTo().Pages(this.Culture);
@@ -87,6 +87,5 @@ namespace FeatherWidgets.TestUI.TestCases.Events
         private const string Calendar2Title = "Calendar2";
         private const string Event2Title = "Event2Title";
         private string event2Id = string.Empty;
-        private string PlaceHolderID = "T9DF0DCB4002_Col00";
     }
 }
