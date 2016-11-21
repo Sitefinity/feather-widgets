@@ -20,6 +20,7 @@ namespace FeatherWidgets.TestIntegration.Common
     /// </summary>
     [TestFixture]
     [Category(TestCategories.Common)]
+    [Category(TestCategories.RazorViewCompilation)]
     [Description("This class contains tests for tracking the razor view compilations of layout files.")]
     public class LayoutCompilationPerformanceTests : ProfilingTestBase
     {

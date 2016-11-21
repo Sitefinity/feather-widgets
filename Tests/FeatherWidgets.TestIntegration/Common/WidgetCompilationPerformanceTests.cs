@@ -13,6 +13,7 @@ using Telerik.Sitefinity.Restriction;
 using Telerik.Sitefinity.TestUtilities.CommonOperations;
 using Telerik.Sitefinity.TestUtilities.Modules.Diagnostics;
 using Telerik.Sitefinity.Web;
+using System.Threading;
 
 namespace FeatherWidgets.TestIntegration.Common
 {
@@ -21,6 +22,7 @@ namespace FeatherWidgets.TestIntegration.Common
     /// </summary>
     [TestFixture]
     [Category(TestCategories.Common)]
+    [Category(TestCategories.RazorViewCompilation)]
     [Description("This class contains tests for the performance method region and tracking razor view compilations.")]
     public class WidgetCompilationPerformanceTests : ProfilingTestBase
     {
@@ -61,6 +63,8 @@ namespace FeatherWidgets.TestIntegration.Common
 
                 this.InvalidateAspNetRazorViewCache(fullViewPath, filePath);
                 this.WaitForAspNetCacheToBeInvalidated(fullViewPath);
+
+                Thread.Sleep(2000);
 
                 // Request page
                 this.ExecuteAuthenticatedRequest(fullPageUrl);
@@ -127,6 +131,8 @@ namespace FeatherWidgets.TestIntegration.Common
 
                 this.OverwriteRazorViewFile(filePath);
                 this.WaitForAspNetCacheToBeInvalidated(fullViewPath);
+
+                Thread.Sleep(2000);
 
                 // request page
                 this.ExecuteAuthenticatedRequest(fullPageUrl);
