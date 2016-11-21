@@ -17,6 +17,13 @@
     </label>
 </div>
 
+<div class="form-group"">
+    <label for="example">
+        @Html.Resource("RequiredErrorMessageTitle")
+    </label>
+    <input type="text" id="example" ng-model="properties.Model.ValidatorDefinition.RequiredViolationMessage.PropertyValue" class="form-control" />
+</div>
+
 <expander expander-title='@Html.Resource("MoreOptions")'>
     <div class="form-group">
         <label for="captchaTemplateName">@Html.Resource("Template")</label>

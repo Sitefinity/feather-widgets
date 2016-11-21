@@ -274,6 +274,7 @@
     <EmbeddedResource Include="Data\Packaging\Structure\ImagesEdited.zip" />
     <EmbeddedResource Include="Data\Packaging\Structure\Video.zip" />
     <EmbeddedResource Include="Data\Packaging\Structure\VideoEdited.zip" />
+    <EmbeddedResource Include="Data\DynamicModules\PressReleaseCustomTaxonomySingle.zip" />
     <None Include="packages.config">
       <SubType>Designer</SubType>
     </None>

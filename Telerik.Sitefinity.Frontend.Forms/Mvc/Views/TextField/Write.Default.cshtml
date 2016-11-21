@@ -11,7 +11,7 @@
     <input data-sf-role="violation-restrictions" type="hidden" value='{"maxLength":"@Model.ValidatorDefinition.MaxLength", "minLength": "@Model.ValidatorDefinition.MinLength"}' />
     <input data-sf-role="violation-messages" type="hidden" value='{"maxLength":"@Model.ValidatorDefinition.MaxLengthViolationMessage", "required": "@Model.ValidatorDefinition.RequiredViolationMessage", "invalid": "@Html.Resource("InvalidEntryMessage")", "regularExpression": "@Model.ValidatorDefinition.RegularExpressionViolationMessage"}' />
     <label for='@Html.UniqueId("Textbox")'>@Model.MetaField.Title</label>
-    <input id='@Html.UniqueId("Textbox")' data-sf-role="text-field-input" type="@Model.InputType.ToHtmlInputType()" name="@Model.MetaField.FieldName" placeholder="@Model.PlaceholderText" value="@Model.Value" @MvcHtmlString.Create(Model.ValidationAttributes) />
+    <input id='@Html.UniqueId("Textbox")' data-sf-role="text-field-input" type="@Model.InputType.ToHtmlInputType()" name="@Model.MetaField.FieldName" placeholder="@Model.PlaceholderText" value="@Model.Value" @Html.Raw(Model.ValidationAttributes) />
     
      @if (!string.IsNullOrEmpty(Model.MetaField.Description)) 
      {
