@@ -1,7 +1,6 @@
 ﻿using System;
 using System.IO;
 using System.Reflection;
-using System.Threading;
 using System.Web.Compilation;
 using FeatherWidgets.TestUtilities.CommonOperations;
 using MbUnit.Framework;
@@ -38,6 +37,9 @@ namespace FeatherWidgets.TestIntegration.Common
         {
             string viewFileName = "Default.cshtml";
             string widgetName = "ContentBlock";
+
+            var widgetText = @"@Html.Raw(Model.Content)";
+            var widgetTextEdited = @"edited @Html.Raw(Model.Content)";
             string filePath = FeatherServerOperations.ResourcePackages().GetResourcePackageMvcViewDestinationFilePath(ResourcePackages.Bootstrap, widgetName, viewFileName);
 
             PageNode pageNode = null;
@@ -46,12 +48,6 @@ namespace FeatherWidgets.TestIntegration.Common
                 this.EnableProfiler("HttpRequestsProfiler");
                 this.EnableProfiler("WidgetExecutionsProfiler");
                 this.EnableProfiler("RazorViewCompilationsProfiler");
-
-                var viewPath = "~/Frontend-Assembly/Telerik.Sitefinity.Frontend.ContentBlock/Mvc/Views/ContentBlock/Default.cshtml";
-                var fullViewPath = string.Concat(viewPath, "#Bootstrap.cshtml");
-
-                this.InvalidateAspNetRazorViewCache(fullViewPath, filePath);
-                this.WaitForAspNetCacheToBeInvalidated(fullViewPath);
 
                 Guid templateId = Telerik.Sitefinity.TestUtilities.CommonOperations.ServerOperations.Templates().GetTemplateIdByTitle(PageTemplateName);
                 var pageId = ServerOperations.Pages().CreatePage("TestPage1", templateId);
@@ -63,7 +59,13 @@ namespace FeatherWidgets.TestIntegration.Common
                 int widgetCount = 3;
                 for (var i = 0; i < widgetCount; i++)
                     ServerOperationsFeather.Pages().AddContentBlockWidgetToPage(pageNodeId, "ContentBlock", "Contentplaceholder1");
-                
+
+                var viewPath = "~/Frontend-Assembly/Telerik.Sitefinity.Frontend.ContentBlock/Mvc/Views/ContentBlock/Default.cshtml";
+                var fullViewPath = string.Concat(viewPath, "#Bootstrap.cshtml");
+
+                FeatherServerOperations.ResourcePackages().EditLayoutFile(filePath, widgetText, widgetTextEdited);
+                this.WaitForAspNetCacheToBeInvalidated(fullViewPath);
+
                 // Request page
                 this.ExecuteAuthenticatedRequest(fullPageUrl);
                 this.FlushData();
@@ -89,6 +91,7 @@ namespace FeatherWidgets.TestIntegration.Common
             }
             finally
             {
+                FeatherServerOperations.ResourcePackages().EditLayoutFile(filePath, widgetTextEdited, widgetText);
                 this.DeletePages(pageNode);
             }
         }
@@ -104,6 +107,8 @@ namespace FeatherWidgets.TestIntegration.Common
             string viewFileName = "Default.cshtml";
             string widgetName = "ContentBlock";
 
+            var widgetText = @"@Html.Raw(Model.Content)";
+            var widgetTextEdited = @"edited @Html.Raw(Model.Content)";
             string filePath = FeatherServerOperations.ResourcePackages().GetResourcePackageMvcViewDestinationFilePath(ResourcePackages.Bootstrap, widgetName, viewFileName);
 
             PageNode pageNode = null;
@@ -112,12 +117,6 @@ namespace FeatherWidgets.TestIntegration.Common
                 this.EnableProfiler("HttpRequestsProfiler");
                 this.EnableProfiler("WidgetExecutionsProfiler");
                 this.EnableProfiler("RazorViewCompilationsProfiler");
-                
-                var viewPath = "~/Frontend-Assembly/Telerik.Sitefinity.Frontend.ContentBlock/Mvc/Views/ContentBlock/Default.cshtml";
-                var fullViewPath = string.Concat(viewPath, "#Bootstrap.cshtml");
-
-                this.OverwriteRazorViewFile(filePath);
-                this.WaitForAspNetCacheToBeInvalidated(fullViewPath);
 
                 Guid templateId = Telerik.Sitefinity.TestUtilities.CommonOperations.ServerOperations.Templates().GetTemplateIdByTitle(PageTemplateName);
                 var pageId = ServerOperations.Pages().CreatePage("TestPage1", templateId);
@@ -129,8 +128,19 @@ namespace FeatherWidgets.TestIntegration.Common
                 int widgetCount = 3;
                 for (var i = 0; i < widgetCount; i++)
                     ServerOperationsFeather.Pages().AddContentBlockWidgetToPage(pageNodeId, "ContentBlock", "Contentplaceholder1");
-                
-                // request page
+
+                var viewPath = "~/Frontend-Assembly/Telerik.Sitefinity.Frontend.ContentBlock/Mvc/Views/ContentBlock/Default.cshtml";
+                var fullViewPath = string.Concat(viewPath, "#Bootstrap.cshtml");
+
+                // Overwrite the view file
+                var originalContents = File.ReadAllText(filePath);
+                var newContents = originalContents.Replace(widgetText, widgetTextEdited);
+                File.Delete(filePath);
+                File.WriteAllText(filePath, newContents);
+
+                this.WaitForAspNetCacheToBeInvalidated(fullViewPath);
+
+                // Request page
                 this.ExecuteAuthenticatedRequest(fullPageUrl);
                 this.FlushData();
 
@@ -155,12 +165,13 @@ namespace FeatherWidgets.TestIntegration.Common
             }
             finally
             {
+                FeatherServerOperations.ResourcePackages().EditLayoutFile(filePath, widgetTextEdited, widgetText);
                 this.DeletePages(pageNode);
             }
         }
 
         #endregion
-        
+
         #region Fields and Constants
 
         private struct ResourcePackages
