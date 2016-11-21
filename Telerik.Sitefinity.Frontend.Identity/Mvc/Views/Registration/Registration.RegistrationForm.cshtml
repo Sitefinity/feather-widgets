@@ -18,12 +18,12 @@
             @Html.Resource("VisitYourEmail")
         </h3>
 
-        <p>@string.Format(Html.Resource("ActivationLinkHasBeenSent"), Model.Email)</p>
-        <a data-sf-role="sendAgainLink">@Html.Resource("SendAgain")</a>
+        <p tabindex="0" role="status">@string.Format(Html.Resource("ActivationLinkHasBeenSent"), Model.Email)</p>
+        <button data-sf-role="sendAgainLink">@Html.Resource("SendAgain")</button>
 
         <div data-sf-role="confirmationResendInfo" style="display:none;">
             @string.Format(Html.Resource("ActivationLinkHasBeenSentAgain"), Model.Email)
-            <a data-sf-role="sendAgainLink">@Html.Resource("SendAgain")</a>
+            <button data-sf-role="sendAgainLink">@Html.Resource("SendAgain")</button>
         </div>
 
         <input type="hidden" data-sf-role="sf-resend-confirmation-endpoint-url" value="@Url.Action("ResendConfirmationEmail", new { email = Model.Email})" />
@@ -31,15 +31,19 @@
     else if (ViewBag.ShowSuccessfulRegistrationMsg is bool && ViewBag.ShowSuccessfulRegistrationMsg)
     {
         <h3>@Html.Resource("ThankYou")</h3>
-        <p>@Html.Resource("DefaultSuccessfulRegistrationMessage")</p>
+        <p tabindex="0" role="status">@Html.Resource("DefaultSuccessfulRegistrationMessage")</p>
 
     }
     else
     {
-        using (Html.BeginFormSitefinity(true))
+        using (Html.BeginFormSitefinity(null, null, (System.Web.Routing.RouteValueDictionary)null, FormMethod.Post, new Dictionary<string, object> { { "role", "form" }, { "aria-label", "Registration" } }, true ))
         {
             @Html.ValidationSummary(true);
-            @ViewBag.Error
+            if (!String.IsNullOrEmpty(ViewBag.Error))
+            {
+                <div tabindex="0" role="alert"> @ViewBag.Error</div>
+            }
+           
 
             <div>
                 <label>
@@ -56,33 +60,33 @@
             <div>
                 <label>
                     @Html.Resource("Email")
-                    @Html.TextBoxFor(m => m.Email, new { type = "email" })
+                    @Html.TextBoxFor(m => m.Email, new { type = "email", aria_required="true" })
+                    @Html.ValidationMessageFor(m => m.Email)
                 </label>
-                @Html.ValidationMessageFor(m => m.Email)
             </div>
             if (!Model.EmailAddressShouldBeTheUsername)
             {
             <div>
                 <label>
                     @Html.Resource("UserName")
-                    @Html.TextBoxFor(m => m.UserName)
+                    @Html.TextBoxFor(m => m.UserName, new { aria_required="true" })
+                    @Html.ValidationMessageFor(m => m.UserName)
                 </label>
-                @Html.ValidationMessageFor(m => m.UserName)
             </div>
             }
             <div>
                 <label>
                     @Html.Resource("Password")
-                    @Html.PasswordFor(m => m.Password)
+                    @Html.PasswordFor(m => m.Password, new { aria_required="true" })
+                    @Html.ValidationMessageFor(m => m.Password)
                 </label>
-                @Html.ValidationMessageFor(m => m.Password)
             </div>
             <div>
                 <label>
                     @Html.Resource("ReTypePassword")
-                    @Html.PasswordFor(m => m.ReTypePassword)
+                    @Html.PasswordFor(m => m.ReTypePassword, new { aria_required="true" })
+                    @Html.ValidationMessageFor(m => m.ReTypePassword)
                 </label>
-                @Html.ValidationMessageFor(m => m.ReTypePassword)
             </div>
 
             <div>
@@ -95,9 +99,10 @@
                     <input type="submit" value="@Html.Resource("Register")" />
                 }
             </div>
+            
+            <a href="@Model.LoginPageUrl">@Html.Resource("BackToLogin")</a>
          }
 
-        <a href="@Model.LoginPageUrl">@Html.Resource("BackToLogin")</a>
     }
 </div>
 @Html.Script(Url.WidgetContent("Mvc/Scripts/Registration/registration-form.js"), "bottom", false)
