@@ -1,6 +1,7 @@
 ﻿using System;
 using System.IO;
 using System.Reflection;
+using System.Threading;
 using System.Web.Compilation;
 using FeatherWidgets.TestUtilities.CommonOperations;
 using MbUnit.Framework;
@@ -13,7 +14,6 @@ using Telerik.Sitefinity.Restriction;
 using Telerik.Sitefinity.TestUtilities.CommonOperations;
 using Telerik.Sitefinity.TestUtilities.Modules.Diagnostics;
 using Telerik.Sitefinity.Web;
-using System.Threading;
 
 namespace FeatherWidgets.TestIntegration.Common
 {
