@@ -41,9 +41,12 @@ namespace FeatherWidgets.TestIntegration.Common
             PageNode pageNode = null;
             try
             {
-                this.EnableProfiler("HttpRequestsProfiler");
-                this.EnableProfiler("WidgetExecutionsProfiler");
-                this.EnableProfiler("RazorViewCompilationsProfiler");
+                using (new UnrestrictedModeRegion())
+                {
+                    this.EnableProfiler("HttpRequestsProfiler");
+                    this.EnableProfiler("WidgetExecutionsProfiler");
+                    this.EnableProfiler("RazorViewCompilationsProfiler");
+                }
 
                 Guid templateId = Telerik.Sitefinity.TestUtilities.CommonOperations.ServerOperations.Templates().GetTemplateIdByTitle(PageTemplateName);
                 var pageId = ServerOperations.Pages().CreatePage("TestPage1", templateId);
@@ -111,9 +114,12 @@ namespace FeatherWidgets.TestIntegration.Common
             PageNode pageNode = null;
             try
             {
-                this.EnableProfiler("HttpRequestsProfiler");
-                this.EnableProfiler("WidgetExecutionsProfiler");
-                this.EnableProfiler("RazorViewCompilationsProfiler");
+                using (new UnrestrictedModeRegion())
+                {
+                    this.EnableProfiler("HttpRequestsProfiler");
+                    this.EnableProfiler("WidgetExecutionsProfiler");
+                    this.EnableProfiler("RazorViewCompilationsProfiler");
+                }
 
                 Guid templateId = Telerik.Sitefinity.TestUtilities.CommonOperations.ServerOperations.Templates().GetTemplateIdByTitle(PageTemplateName);
                 var pageId = ServerOperations.Pages().CreatePage("TestPage1", templateId);
