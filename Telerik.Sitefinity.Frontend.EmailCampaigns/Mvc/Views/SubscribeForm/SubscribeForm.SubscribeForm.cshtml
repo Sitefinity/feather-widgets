@@ -11,7 +11,7 @@
 @Html.Script("//ajax.aspnetcdn.com/ajax/mvc/4.0/jquery.validate.unobtrusive.min.js", "top", false)
 
 <div class="@Model.CssClass">
-    @using (Html.BeginFormSitefinity())
+    @using (Html.BeginFormSitefinity(null, null, (System.Web.Routing.RouteValueDictionary)null, FormMethod.Post, new Dictionary<string, object> { { "role", "form" }, { "aria-label", @Html.Resource("Subscribe") } }, true ))
     {
         <h3>@Html.Resource("Subscribe")</h3>
 
@@ -22,7 +22,7 @@
         if (ViewBag.IsSucceeded == true)
         {
         
-            <p>
+            <p tabindex="0" role="status">
                @Html.Resource("ThankYou"). @Html.Resource("ThankYouMessage") (@ViewBag.Email)
             </p>
         }
@@ -31,7 +31,7 @@
 
             if (!string.IsNullOrEmpty(ViewBag.Error))
             {
-                <div>
+                <div tabindex="0" role="alert">
                     @ViewBag.Error
                 </div>
             }
@@ -57,7 +57,7 @@
             <div>
                 <label>
                     @Html.Resource("Email")
-                    @Html.TextBoxFor(u => u.Email)
+                    @Html.TextBoxFor(u => u.Email, new { aria_required = "true" })
                 </label>
                 <input type="submit" value="@Html.Resource("ButtonSubscribe")" />
                 @Html.ValidationMessageFor(u => u.Email)
