@@ -41,12 +41,9 @@ namespace FeatherWidgets.TestIntegration.Common
             PageNode pageNode = null;
             try
             {
-                using (new UnrestrictedModeRegion())
-                {
-                    this.EnableProfiler("HttpRequestsProfiler");
-                    this.EnableProfiler("WidgetExecutionsProfiler");
-                    this.EnableProfiler("RazorViewCompilationsProfiler");
-                }
+                this.EnableProfiler("HttpRequestsProfiler");
+                this.EnableProfiler("WidgetExecutionsProfiler");
+                this.EnableProfiler("RazorViewCompilationsProfiler");
 
                 Guid templateId = Telerik.Sitefinity.TestUtilities.CommonOperations.ServerOperations.Templates().GetTemplateIdByTitle(PageTemplateName);
                 var pageId = ServerOperations.Pages().CreatePage("TestPage1", templateId);
@@ -58,10 +55,6 @@ namespace FeatherWidgets.TestIntegration.Common
                 int widgetCount = 3;
                 for (var i = 0; i < widgetCount; i++)
                     ServerOperationsFeather.Pages().AddContentBlockWidgetToPage(pageNodeId, "ContentBlock", "Contentplaceholder1");
-
-                this.ExecuteAuthenticatedRequest(fullPageUrl);
-                this.FlushData();
-                this.ClearData();
 
                 var viewPath = "~/Frontend-Assembly/Telerik.Sitefinity.Frontend.ContentBlock/Mvc/Views/ContentBlock/Default.cshtml";
                 var fullViewPath = string.Concat(viewPath, "#Bootstrap.cshtml");
@@ -114,12 +107,9 @@ namespace FeatherWidgets.TestIntegration.Common
             PageNode pageNode = null;
             try
             {
-                using (new UnrestrictedModeRegion())
-                {
-                    this.EnableProfiler("HttpRequestsProfiler");
-                    this.EnableProfiler("WidgetExecutionsProfiler");
-                    this.EnableProfiler("RazorViewCompilationsProfiler");
-                }
+                this.EnableProfiler("HttpRequestsProfiler");
+                this.EnableProfiler("WidgetExecutionsProfiler");
+                this.EnableProfiler("RazorViewCompilationsProfiler");
 
                 Guid templateId = Telerik.Sitefinity.TestUtilities.CommonOperations.ServerOperations.Templates().GetTemplateIdByTitle(PageTemplateName);
                 var pageId = ServerOperations.Pages().CreatePage("TestPage1", templateId);
@@ -131,10 +121,6 @@ namespace FeatherWidgets.TestIntegration.Common
                 int widgetCount = 3;
                 for (var i = 0; i < widgetCount; i++)
                     ServerOperationsFeather.Pages().AddContentBlockWidgetToPage(pageNodeId, "ContentBlock", "Contentplaceholder1");
-
-                this.ExecuteAuthenticatedRequest(fullPageUrl);
-                this.FlushData();
-                this.ClearData();
 
                 var viewPath = "~/Frontend-Assembly/Telerik.Sitefinity.Frontend.ContentBlock/Mvc/Views/ContentBlock/Default.cshtml";
                 var fullViewPath = string.Concat(viewPath, "#Bootstrap.cshtml");
