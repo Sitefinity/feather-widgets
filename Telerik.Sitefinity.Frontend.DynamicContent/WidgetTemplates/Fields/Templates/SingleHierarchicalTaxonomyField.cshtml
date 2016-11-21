@@ -6,8 +6,11 @@
 
     @@if(Model.Item.Fields.@(Model.Name)!=null)
     {
-    <span @@Html.InlineEditingFieldAttributes("@Model.Name", "HierarchicalTaxon")>
-        @@Model.Item.GetHierarchicalTaxon("@Model.Name").Title.ToString()
+    <span @@Html.InlineEditingFieldAttributes("@Model.Name", "HierarchicalTaxon" )>
+        @@if (Model.Item.GetHierarchicalTaxon("@Model.Name") != null)
+        {
+        @@Model.Item.GetHierarchicalTaxon("@Model.Name").Title.ToString();
+        }
     </span>
     }
 </div>

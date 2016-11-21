@@ -17,7 +17,8 @@ namespace FeatherWidgets.TestUI.TestCases.News
         [TestMethod,
         Owner(FeatherTeams.SitefinityTeam7),
         TestCategory(FeatherTestCategories.News),
-        TestCategory(FeatherTestCategories.Selectors)]
+        TestCategory(FeatherTestCategories.Selectors),
+        TestCategory(FeatherTestCategories.PagesAndContent)]
         public void FilterNewsItemFromDifferentProviderWithCategoryOnPage()
         {
             BAT.Macros().NavigateTo().Pages(this.Culture);

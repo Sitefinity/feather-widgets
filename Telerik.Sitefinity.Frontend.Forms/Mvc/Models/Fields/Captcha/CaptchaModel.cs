@@ -1,10 +1,13 @@
 ﻿using System;
+using System.ComponentModel;
 using System.Reflection;
 using System.Web;
+using Telerik.Sitefinity.Frontend.Forms.Mvc.StringResources;
 using Telerik.Sitefinity.Localization;
 using Telerik.Sitefinity.Services;
 using Telerik.Sitefinity.Services.Comments.DTO;
 using Telerik.Sitefinity.Web;
+using Telerik.Sitefinity.Web.UI.Validation.Definitions;
 
 namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Models.Fields.Captcha
 {
@@ -37,6 +40,30 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Models.Fields.Captcha
             }
         }
 
+        /// <summary>
+        /// Gets or sets a validation mechanism for the field.
+        /// </summary>
+        /// <value>The validation.</value>
+        [TypeConverter(typeof(ExpandableObjectConverter))]
+        public override ValidatorDefinition ValidatorDefinition
+        {
+            get
+            {
+                if (this.validatorDefinition == null)
+                {
+                    this.validatorDefinition = new ValidatorDefinition();
+                    this.validatorDefinition.RequiredViolationMessage = Res.Get<FieldResources>().RequiredErrorMessageValue;                    
+                }
+                
+                return this.validatorDefinition;
+            }
+
+            set
+            {
+                this.validatorDefinition = value;
+            }
+        }
+
         /// <inheritDocs/>
         public override object GetViewModel(object value)
         {
@@ -47,6 +74,7 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Models.Fields.Captcha
                 CaptchaCorrectAnswerFormKey = CaptchaModel.CaptchaCorrectAnswerFormKey,
                 CaptchaInitializationVectorFormKey = CaptchaModel.CaptchaInitializationVectorFormKey,
                 CaptchaKeyFormKey = CaptchaModel.CaptchaKeyFormKey,
+                ValidatorDefinition = this.ValidatorDefinition,
                 CssClass = this.CssClass
             };
         }
@@ -105,6 +133,7 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Models.Fields.Captcha
             return result.HasValue && result.Value;
         }
 
+        private ValidatorDefinition validatorDefinition;
         private const string CaptchaGetService = "RestApi/comments-api/";
 
         private const string CaptchaAnswerFormKey = "captcha-a";

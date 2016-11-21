@@ -16,7 +16,8 @@ namespace FeatherWidgets.TestUI.TestCases.Events
         /// </summary>
         [TestMethod,
         Owner(FeatherTeams.SitefinityTeam7),
-        TestCategory(FeatherTestCategories.Events)]
+        TestCategory(FeatherTestCategories.Events),
+        TestCategory(FeatherTestCategories.PagesAndContent)]
         public void FilterByAllEvents()
         {
             BAT.Macros().NavigateTo().Pages(this.Culture);

@@ -6,8 +6,11 @@
 
     @@if(Model.Item.Fields.@(Model.Name)!=null)
     {
-    <span @@Html.InlineEditingFieldAttributes("@Model.Name", "FlatTaxon")>
-        @@Model.Item.GetFlatTaxon("@Model.Name").Title.ToString()
+    <span @@Html.InlineEditingFieldAttributes("@Model.Name", "FlatTaxon" )>
+        @@if (Model.Item.GetFlatTaxon("@Model.Name") != null)
+        {
+        @@Model.Item.GetFlatTaxon("@Model.Name").Title.ToString();
+        }
     </span>
     }
 </div>

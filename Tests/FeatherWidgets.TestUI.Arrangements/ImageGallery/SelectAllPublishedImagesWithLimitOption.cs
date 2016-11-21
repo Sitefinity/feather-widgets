@@ -27,11 +27,11 @@ namespace FeatherWidgets.TestUI.Arrangements
             ServerOperations.Pages().CreatePage(PageName);
 
             ServerOperations.Images().CreateLibrary(ImageLibraryTitle);
-            ServerOperations.Images().Upload(ImageLibraryTitle, ImageTitle + 1, ImageResource1);
 
-            ServerOperations.Images().Upload(ImageLibraryTitle, ImageTitle + 2, ImageResource2);
-
-            ServerOperations.Images().Upload(ImageLibraryTitle, ImageTitle + 3, ImageResource3);
+            for (int i = 1; i <= 4; i++)
+            {
+                ServerOperations.Images().Upload(ImageLibraryTitle, ImageTitle + i, "Telerik.Sitefinity.TestUtilities.Data.Images." + i + ".jpg");        
+            }
         }
 
         /// <summary>
@@ -58,8 +58,5 @@ namespace FeatherWidgets.TestUI.Arrangements
         private const string PageName = "PageWithImage";
         private const string ImageLibraryTitle = "TestImageLibrary";
         private const string ImageTitle = "Image";
-        private const string ImageResource1 = "Telerik.Sitefinity.TestUtilities.Data.Images.1.jpg";
-        private const string ImageResource2 = "Telerik.Sitefinity.TestUtilities.Data.Images.2.jpg";
-        private const string ImageResource3 = "Telerik.Sitefinity.TestUtilities.Data.Images.3.jpg";
     }
 }

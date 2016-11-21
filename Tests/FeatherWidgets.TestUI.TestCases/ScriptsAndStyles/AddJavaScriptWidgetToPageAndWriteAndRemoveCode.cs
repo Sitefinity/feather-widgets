@@ -20,7 +20,8 @@ namespace FeatherWidgets.TestUI.TestCases.ScriptsAndStyles
         /// </summary>
         [TestMethod,
         Owner(FeatherTeams.FeatherTeam),
-        TestCategory(FeatherTestCategories.ScriptsAndStyles)]
+        TestCategory(FeatherTestCategories.ScriptsAndStyles),
+        TestCategory(FeatherTestCategories.PagesAndContent)]
         public void AddJavaScriptWidgetToPageAndWriteAndRemoveCode()
         {
             BAT.Macros().NavigateTo().Pages(this.Culture);
