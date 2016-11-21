@@ -21,26 +21,6 @@ namespace FeatherWidgets.TestUI.TestCases
         public const string ContentBlock = "ContentBlock";
 
         /// <summary>
-        /// Content block category
-        /// </summary>
-        public const string ContentBlock1 = "ContentBlock1";
-
-        /// <summary>
-        /// Content block category
-        /// </summary>
-        public const string ContentBlock2 = "ContentBlock2";
-
-        /// <summary>
-        /// Content block category
-        /// </summary>
-        public const string ContentBlock3 = "ContentBlock3";
-
-        /// <summary>
-        /// Content block category
-        /// </summary>
-        public const string ContentBlock4 = "ContentBlock4";
-
-        /// <summary>
         /// Navigation category
         /// </summary>
         public const string Navigation = "Navigation";

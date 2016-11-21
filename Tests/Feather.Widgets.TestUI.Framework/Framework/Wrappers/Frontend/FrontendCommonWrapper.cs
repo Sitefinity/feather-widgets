@@ -64,6 +64,19 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Frontend
         }
 
         /// <summary>
+        /// Navigates to next section using pager.
+        /// </summary>
+        public void NavigateToNextSectionUsingPager()
+        {
+            HtmlUnorderedList pager = ActiveBrowser.Find.ByExpression<HtmlUnorderedList>("TagName=ul", "class=pagination")
+                .AssertIsPresent("Pager");
+
+            HtmlSpan nextSectionButton = pager.Find.ByExpression<HtmlSpan>("tagname=span", "textContent=»");
+            nextSectionButton.AssertIsPresent("Next Section Button");
+            nextSectionButton.Click();
+        }
+
+        /// <summary>
         /// Ares the titles present on the page frontend.
         /// </summary>
         /// <param name="itemTitles">The item titles.</param>
