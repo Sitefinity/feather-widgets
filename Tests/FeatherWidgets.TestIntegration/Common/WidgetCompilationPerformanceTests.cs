@@ -21,6 +21,7 @@ namespace FeatherWidgets.TestIntegration.Common
     /// </summary>
     [TestFixture]
     [Category(TestCategories.Common)]
+    [Category(TestCategories.RazorViewCompilation)]
     [Description("This class contains tests for the performance method region and tracking razor view compilations.")]
     public class WidgetCompilationPerformanceTests : ProfilingTestBase
     {
@@ -36,6 +37,9 @@ namespace FeatherWidgets.TestIntegration.Common
         {
             string viewFileName = "Default.cshtml";
             string widgetName = "ContentBlock";
+
+            var widgetText = @"@Html.Raw(Model.Content)";
+            var widgetTextEdited = @"edited @Html.Raw(Model.Content)";
             string filePath = FeatherServerOperations.ResourcePackages().GetResourcePackageMvcViewDestinationFilePath(ResourcePackages.Bootstrap, widgetName, viewFileName);
 
             PageNode pageNode = null;
@@ -56,14 +60,10 @@ namespace FeatherWidgets.TestIntegration.Common
                 for (var i = 0; i < widgetCount; i++)
                     ServerOperationsFeather.Pages().AddContentBlockWidgetToPage(pageNodeId, "ContentBlock", "Contentplaceholder1");
 
-                this.ExecuteAuthenticatedRequest(fullPageUrl);
-                this.FlushData();
-                this.ClearData();
-
                 var viewPath = "~/Frontend-Assembly/Telerik.Sitefinity.Frontend.ContentBlock/Mvc/Views/ContentBlock/Default.cshtml";
                 var fullViewPath = string.Concat(viewPath, "#Bootstrap.cshtml");
 
-                this.InvalidateAspNetRazorViewCache(fullViewPath, filePath);
+                FeatherServerOperations.ResourcePackages().EditLayoutFile(filePath, widgetText, widgetTextEdited);
                 this.WaitForAspNetCacheToBeInvalidated(fullViewPath);
 
                 // Request page
@@ -91,6 +91,7 @@ namespace FeatherWidgets.TestIntegration.Common
             }
             finally
             {
+                FeatherServerOperations.ResourcePackages().EditLayoutFile(filePath, widgetTextEdited, widgetText);
                 this.DeletePages(pageNode);
             }
         }
@@ -106,6 +107,8 @@ namespace FeatherWidgets.TestIntegration.Common
             string viewFileName = "Default.cshtml";
             string widgetName = "ContentBlock";
 
+            var widgetText = @"@Html.Raw(Model.Content)";
+            var widgetTextEdited = @"edited @Html.Raw(Model.Content)";
             string filePath = FeatherServerOperations.ResourcePackages().GetResourcePackageMvcViewDestinationFilePath(ResourcePackages.Bootstrap, widgetName, viewFileName);
 
             PageNode pageNode = null;
@@ -126,17 +129,18 @@ namespace FeatherWidgets.TestIntegration.Common
                 for (var i = 0; i < widgetCount; i++)
                     ServerOperationsFeather.Pages().AddContentBlockWidgetToPage(pageNodeId, "ContentBlock", "Contentplaceholder1");
 
-                this.ExecuteAuthenticatedRequest(fullPageUrl);
-                this.FlushData();
-                this.ClearData();
-
                 var viewPath = "~/Frontend-Assembly/Telerik.Sitefinity.Frontend.ContentBlock/Mvc/Views/ContentBlock/Default.cshtml";
                 var fullViewPath = string.Concat(viewPath, "#Bootstrap.cshtml");
 
-                this.OverwriteRazorViewFile(filePath);
+                // Overwrite the view file
+                var originalContents = File.ReadAllText(filePath);
+                var newContents = originalContents.Replace(widgetText, widgetTextEdited);
+                File.Delete(filePath);
+                File.WriteAllText(filePath, newContents);
+
                 this.WaitForAspNetCacheToBeInvalidated(fullViewPath);
 
-                // request page
+                // Request page
                 this.ExecuteAuthenticatedRequest(fullPageUrl);
                 this.FlushData();
 
@@ -161,12 +165,13 @@ namespace FeatherWidgets.TestIntegration.Common
             }
             finally
             {
+                FeatherServerOperations.ResourcePackages().EditLayoutFile(filePath, widgetTextEdited, widgetText);
                 this.DeletePages(pageNode);
             }
         }
 
         #endregion
-        
+
         #region Fields and Constants
 
         private struct ResourcePackages
