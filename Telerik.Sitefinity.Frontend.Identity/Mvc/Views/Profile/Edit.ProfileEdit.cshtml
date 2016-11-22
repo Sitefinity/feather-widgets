@@ -28,11 +28,11 @@
             @Html.HiddenFor(u => u.DefaultAvatarUrl, new Dictionary<string, object>() { { "data-sf-role", "edit-profile-default-avatar-url" } })
 
             <img data-sf-role="edit-profile-user-image" src="@Model.AvatarImageUrl" alt="@Model.UserName" width="100" height="100" />
-            @*<a data-sf-role="edit-profile-delete-picture-button">x</a>*@
+            @*<a href="#" data-sf-role="edit-profile-delete-picture-button">x</a>*@
 
             <input type="file" data-sf-role="edit-profile-upload-picture-input" name="UploadedImage" style="display: none;" />
 
-            <a tabindex="0" data-sf-role="edit-profile-upload-picture-button">@Html.Resource("EditProfileUploadImage")</a>
+            <a href="#" tabindex="0" data-sf-role="edit-profile-upload-picture-button">@Html.Resource("EditProfileUploadImage")</a>
 
         </div>        
 
@@ -40,14 +40,14 @@
             <label>
                 @Html.Resource("EditProfileFirstName")
                 @Html.TextBoxFor(u => u.Profile["FirstName"], new { aria_required="true" })
-                @Html.ValidationMessageFor(u => u.Profile["FirstName"])
+                @Html.ValidationMessageFor(u => u.Profile["FirstName"], null, new { role="alert" })
             </label>
         </div>
         <div>
             <label>
                 @Html.Resource("EditProfileLastName")
                 @Html.TextBoxFor(u => u.Profile["LastName"], new { aria_required="true" })
-                @Html.ValidationMessageFor(u => u.Profile["LastName"])
+                @Html.ValidationMessageFor(u => u.Profile["LastName"], null, new { role="alert" })
             </label>
         </div>
 
@@ -66,22 +66,22 @@
             <div>
                 <label>
                     @Html.Resource("EditProfileOldPassword")
-                    @Html.PasswordFor(u => u.OldPassword, new { autocomplete = "off", aria_required="true" })
-                    @Html.ValidationMessageFor(u => u.OldPassword)
+                    @Html.PasswordFor(u => u.OldPassword, new { autocomplete = "off" })
+                    @Html.ValidationMessageFor(u => u.OldPassword, null, new { role="alert" })
                 </label>
             </div>
             <div>
                 <label>
                     @Html.Resource("EditProfileNewPassword")
-                    @Html.PasswordFor(u => u.NewPassword, new { aria_required="true" })
-                    @Html.ValidationMessageFor(u => u.NewPassword)
+                    @Html.PasswordFor(u => u.NewPassword)
+                    @Html.ValidationMessageFor(u => u.NewPassword, null, new { role="alert" })
                 </label>
             </div>
             <div>
                 <label>
                     @Html.Resource("EditProfileRepeatPassword")
-                    @Html.PasswordFor(u => u.RepeatPassword, new { aria_required="true" })
-                    @Html.ValidationMessageFor(u => u.RepeatPassword)
+                    @Html.PasswordFor(u => u.RepeatPassword)
+                    @Html.ValidationMessageFor(u => u.RepeatPassword, null, new { role="alert" })
                 </label>
             </div>
         </div>

@@ -60,7 +60,7 @@
                     @Html.TextBoxFor(u => u.Email, new { aria_required = "true" })
                 </label>
                 <input type="submit" value="@Html.Resource("ButtonSubscribe")" />
-                @Html.ValidationMessageFor(u => u.Email)
+                @Html.ValidationMessageFor(u => u.Email, null, new { role="alert" })
             </div>
         }
 </div>

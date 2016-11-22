@@ -61,7 +61,7 @@
                 <label>
                     @Html.Resource("Email")
                     @Html.TextBoxFor(m => m.Email, new { type = "email", aria_required="true" })
-                    @Html.ValidationMessageFor(m => m.Email)
+                    @Html.ValidationMessageFor(m => m.Email, null, new { role="alert" })
                 </label>
             </div>
             if (!Model.EmailAddressShouldBeTheUsername)
@@ -70,7 +70,7 @@
                 <label>
                     @Html.Resource("UserName")
                     @Html.TextBoxFor(m => m.UserName, new { aria_required="true" })
-                    @Html.ValidationMessageFor(m => m.UserName)
+                    @Html.ValidationMessageFor(m => m.UserName, null, new { role="alert" })
                 </label>
             </div>
             }
@@ -78,14 +78,14 @@
                 <label>
                     @Html.Resource("Password")
                     @Html.PasswordFor(m => m.Password, new { aria_required="true" })
-                    @Html.ValidationMessageFor(m => m.Password)
+                    @Html.ValidationMessageFor(m => m.Password, null, new { role="alert" })
                 </label>
             </div>
             <div>
                 <label>
                     @Html.Resource("ReTypePassword")
                     @Html.PasswordFor(m => m.ReTypePassword, new { aria_required="true" })
-                    @Html.ValidationMessageFor(m => m.ReTypePassword)
+                    @Html.ValidationMessageFor(m => m.ReTypePassword, null, new { role="alert" })
                 </label>
             </div>
 

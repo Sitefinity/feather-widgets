@@ -28,7 +28,7 @@
                 <label>
                     @Html.Resource("Username")
                     @Html.TextBoxFor(u => u.UserName, new { aria_required="true" })
-                    @Html.ValidationMessage("UserName")
+                    @Html.ValidationMessage("UserName", new { role="alert" })
                 </label>
             </div>
 
@@ -36,7 +36,7 @@
                 <label>
                     @Html.Resource("Password")
                     @Html.PasswordFor(u => u.Password, new { aria_required="true" })
-                    @Html.ValidationMessage("Password")
+                    @Html.ValidationMessage("Password", new { role="alert" })
                 </label>
             </div>
 
