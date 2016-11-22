@@ -21,7 +21,7 @@
             @:<script type="text/template" data-sf-role="file-input-template">
         }
             <div data-sf-role="single-file-input">
-                <input title="file" type="file" name="@(Model.MetaField.FieldName)" @Html.Raw(Model.ValidationAttributes) />
+                <input title="file" type="file" name="@(Model.MetaField.FieldName)" @Html.Raw(Model.ValidationAttributes) aria-label="@Model.MetaField.Title"/>
                 @if (Model.AllowMultipleFiles)
                 {
                     <a href="javascript:void(0);" style="display: none;" data-sf-role="remove-input">Remove</a>
