@@ -39,7 +39,6 @@ namespace FeatherWidgets.TestIntegration.Events
 
             this.ClearData();
 
-            ServerOperations.Events().CreateEvent(EventSchedulerWidgetTests.BaseEventTitle);
             ServerOperations.Events().CreateEvent(EventSchedulerWidgetTests.BasePastEventTitle, string.Empty, false, DateTime.Now.AddDays(-2), DateTime.Now.AddDays(-1));
             ServerOperations.Events().CreateEvent(EventSchedulerWidgetTests.BaseUpcomingEventTitle, string.Empty, false, DateTime.Now.AddDays(1), DateTime.Now.AddDays(2));
             ServerOperations.Events().CreateEvent(EventSchedulerWidgetTests.BaseAllDayEventTitle, string.Empty, true, DateTime.Now, DateTime.Now.AddHours(1));
@@ -120,7 +119,7 @@ namespace FeatherWidgets.TestIntegration.Events
 
             var widgetId = this.AddControlFilters(this.CreatePage(), SelectionMode.FilteredItems, filterList, SelectionMode.AllItems, DefaultNarrowSelectionFilters);
 
-            this.AssertEvent(widgetId, DateTime.MinValue, DateTime.MaxValue, 5);
+            this.AssertEvent(widgetId, DateTime.MinValue, DateTime.MaxValue, 4);
         }
 
         [Test]
@@ -185,7 +184,7 @@ namespace FeatherWidgets.TestIntegration.Events
 
             var widgetId = this.AddControlFilters(this.CreatePage(), SelectionMode.FilteredItems, filterList, SelectionMode.AllItems, DefaultNarrowSelectionFilters);
 
-            this.AssertEvent(widgetId, DateTime.MinValue, DateTime.MaxValue, 11);
+            this.AssertEvent(widgetId, DateTime.MinValue, DateTime.MaxValue, 10);
         }
 
         [Test]
@@ -210,7 +209,7 @@ namespace FeatherWidgets.TestIntegration.Events
 
             var widgetId = this.AddControlFilters(this.CreatePage(), SelectionMode.FilteredItems, filterList, SelectionMode.AllItems, DefaultNarrowSelectionFilters);
 
-            this.AssertEvent(widgetId, DateTime.MinValue, DateTime.MaxValue, 9);
+            this.AssertEvent(widgetId, DateTime.MinValue, DateTime.MaxValue, 8);
         }
 
         [Test]
@@ -265,7 +264,7 @@ namespace FeatherWidgets.TestIntegration.Events
 
             var widgetId = this.AddControlFilters(this.CreatePage(), SelectionMode.FilteredItems, filterList, SelectionMode.AllItems, DefaultNarrowSelectionFilters);
 
-            this.AssertEvent(widgetId, DateTime.MinValue, DateTime.MaxValue, 15);
+            this.AssertEvent(widgetId, DateTime.MinValue, DateTime.MaxValue, 14);
         }
 
         #endregion
@@ -362,7 +361,7 @@ namespace FeatherWidgets.TestIntegration.Events
 
             var widgetId = this.AddControlFilters(this.CreatePage(), SelectionMode.FilteredItems, filterList, SelectionMode.AllItems, DefaultNarrowSelectionFilters);
 
-            this.AssertEvent(widgetId, DateTime.MinValue, DateTime.MaxValue, 6);
+            this.AssertEvent(widgetId, DateTime.MinValue, DateTime.MaxValue, 5);
         }
 
         [Test]
@@ -390,7 +389,7 @@ namespace FeatherWidgets.TestIntegration.Events
 
             var widgetId = this.AddControlFilters(this.CreatePage(), SelectionMode.FilteredItems, filterList, SelectionMode.AllItems, DefaultNarrowSelectionFilters);
 
-            this.AssertEvent(widgetId, DateTime.MinValue, DateTime.MaxValue, 12);
+            this.AssertEvent(widgetId, DateTime.MinValue, DateTime.MaxValue, 11);
         }
 
         [Test]
@@ -413,7 +412,7 @@ namespace FeatherWidgets.TestIntegration.Events
 
             var widgetId = this.AddControlFilters(this.CreatePage(), SelectionMode.FilteredItems, filterList, SelectionMode.AllItems, DefaultNarrowSelectionFilters);
 
-            this.AssertEvent(widgetId, DateTime.MinValue, DateTime.MaxValue, 6);
+            this.AssertEvent(widgetId, DateTime.MinValue, DateTime.MaxValue, 5);
         }
 
         [Test]
@@ -441,7 +440,7 @@ namespace FeatherWidgets.TestIntegration.Events
 
             var widgetId = this.AddControlFilters(this.CreatePage(), SelectionMode.FilteredItems, filterList, SelectionMode.AllItems, DefaultNarrowSelectionFilters);
 
-            this.AssertEvent(widgetId, DateTime.MinValue, DateTime.MaxValue, 12);
+            this.AssertEvent(widgetId, DateTime.MinValue, DateTime.MaxValue, 11);
         }
 
         [Test]
@@ -464,7 +463,7 @@ namespace FeatherWidgets.TestIntegration.Events
 
             var widgetId = this.AddControlFilters(this.CreatePage(), SelectionMode.FilteredItems, filterList, SelectionMode.AllItems, DefaultNarrowSelectionFilters);
 
-            this.AssertEvent(widgetId, DateTime.MinValue, DateTime.MaxValue, 6);
+            this.AssertEvent(widgetId, DateTime.MinValue, DateTime.MaxValue, 5);
         }
 
         [Test]
@@ -492,7 +491,7 @@ namespace FeatherWidgets.TestIntegration.Events
 
             var widgetId = this.AddControlFilters(this.CreatePage(), SelectionMode.FilteredItems, filterList, SelectionMode.AllItems, DefaultNarrowSelectionFilters);
 
-            this.AssertEvent(widgetId, DateTime.MinValue, DateTime.MaxValue, 12);
+            this.AssertEvent(widgetId, DateTime.MinValue, DateTime.MaxValue, 11);
         }
 
         [Test]
@@ -515,7 +514,7 @@ namespace FeatherWidgets.TestIntegration.Events
 
             var widgetId = this.AddControlFilters(this.CreatePage(), SelectionMode.FilteredItems, filterList, SelectionMode.AllItems, DefaultNarrowSelectionFilters);
 
-            this.AssertEvent(widgetId, DateTime.MinValue, DateTime.MaxValue, 6);
+            this.AssertEvent(widgetId, DateTime.MinValue, DateTime.MaxValue, 5);
         }
 
         [Test]
@@ -543,7 +542,7 @@ namespace FeatherWidgets.TestIntegration.Events
 
             var widgetId = this.AddControlFilters(this.CreatePage(), SelectionMode.FilteredItems, filterList, SelectionMode.AllItems, DefaultNarrowSelectionFilters);
 
-            this.AssertEvent(widgetId, DateTime.MinValue, DateTime.MaxValue, 12);
+            this.AssertEvent(widgetId, DateTime.MinValue, DateTime.MaxValue, 11);
         }
 
         #endregion
@@ -793,7 +792,7 @@ namespace FeatherWidgets.TestIntegration.Events
 
             var widgetId = this.AddControlFilters(this.CreatePage(), SelectionMode.FilteredItems, filterList, SelectionMode.AllItems, DefaultNarrowSelectionFilters);
 
-            this.AssertEvent(widgetId, DateTime.MinValue, DateTime.MaxValue, 11);
+            this.AssertEvent(widgetId, DateTime.MinValue, DateTime.MaxValue, 10);
         }
 
         [Test]
@@ -828,7 +827,7 @@ namespace FeatherWidgets.TestIntegration.Events
 
             var widgetId = this.AddControlFilters(this.CreatePage(), SelectionMode.FilteredItems, filterList, SelectionMode.AllItems, DefaultNarrowSelectionFilters);
 
-            this.AssertEvent(widgetId, DateTime.MinValue, DateTime.MaxValue, 17);
+            this.AssertEvent(widgetId, DateTime.MinValue, DateTime.MaxValue, 16);
         }
 
         [Test]
@@ -858,7 +857,7 @@ namespace FeatherWidgets.TestIntegration.Events
 
             var widgetId = this.AddControlFilters(this.CreatePage(), SelectionMode.FilteredItems, filterList, SelectionMode.AllItems, DefaultNarrowSelectionFilters);
 
-            this.AssertEvent(widgetId, DateTime.MinValue, DateTime.MaxValue, 11);
+            this.AssertEvent(widgetId, DateTime.MinValue, DateTime.MaxValue, 10);
         }
 
         [Test]
@@ -893,7 +892,7 @@ namespace FeatherWidgets.TestIntegration.Events
 
             var widgetId = this.AddControlFilters(this.CreatePage(), SelectionMode.FilteredItems, filterList, SelectionMode.AllItems, DefaultNarrowSelectionFilters);
 
-            this.AssertEvent(widgetId, DateTime.MinValue, DateTime.MaxValue, 17);
+            this.AssertEvent(widgetId, DateTime.MinValue, DateTime.MaxValue, 16);
         }
 
         [Test]
@@ -923,7 +922,7 @@ namespace FeatherWidgets.TestIntegration.Events
 
             var widgetId = this.AddControlFilters(this.CreatePage(), SelectionMode.FilteredItems, filterList, SelectionMode.AllItems, DefaultNarrowSelectionFilters);
 
-            this.AssertEvent(widgetId, DateTime.MinValue, DateTime.MaxValue, 11);
+            this.AssertEvent(widgetId, DateTime.MinValue, DateTime.MaxValue, 10);
         }
 
         [Test]
@@ -958,7 +957,7 @@ namespace FeatherWidgets.TestIntegration.Events
 
             var widgetId = this.AddControlFilters(this.CreatePage(), SelectionMode.FilteredItems, filterList, SelectionMode.AllItems, DefaultNarrowSelectionFilters);
 
-            this.AssertEvent(widgetId, DateTime.MinValue, DateTime.MaxValue, 17);
+            this.AssertEvent(widgetId, DateTime.MinValue, DateTime.MaxValue, 16);
         }
 
         [Test]
@@ -988,7 +987,7 @@ namespace FeatherWidgets.TestIntegration.Events
 
             var widgetId = this.AddControlFilters(this.CreatePage(), SelectionMode.FilteredItems, filterList, SelectionMode.AllItems, DefaultNarrowSelectionFilters);
 
-            this.AssertEvent(widgetId, DateTime.MinValue, DateTime.MaxValue, 11);
+            this.AssertEvent(widgetId, DateTime.MinValue, DateTime.MaxValue, 10);
         }
 
         [Test]
@@ -1023,7 +1022,7 @@ namespace FeatherWidgets.TestIntegration.Events
 
             var widgetId = this.AddControlFilters(this.CreatePage(), SelectionMode.FilteredItems, filterList, SelectionMode.AllItems, DefaultNarrowSelectionFilters);
 
-            this.AssertEvent(widgetId, DateTime.MinValue, DateTime.MaxValue, 17);
+            this.AssertEvent(widgetId, DateTime.MinValue, DateTime.MaxValue, 16);
         }
 
         [Test]
@@ -1053,7 +1052,7 @@ namespace FeatherWidgets.TestIntegration.Events
 
             var widgetId = this.AddControlFilters(this.CreatePage(), SelectionMode.FilteredItems, filterList, SelectionMode.AllItems, DefaultNarrowSelectionFilters);
 
-            this.AssertEvent(widgetId, DateTime.MinValue, DateTime.MaxValue, 11);
+            this.AssertEvent(widgetId, DateTime.MinValue, DateTime.MaxValue, 10);
         }
 
         [Test]
@@ -1088,7 +1087,7 @@ namespace FeatherWidgets.TestIntegration.Events
 
             var widgetId = this.AddControlFilters(this.CreatePage(), SelectionMode.FilteredItems, filterList, SelectionMode.AllItems, DefaultNarrowSelectionFilters);
 
-            this.AssertEvent(widgetId, DateTime.MinValue, DateTime.MaxValue, 17);
+            this.AssertEvent(widgetId, DateTime.MinValue, DateTime.MaxValue, 16);
         }
 
         [Test]
@@ -1118,7 +1117,7 @@ namespace FeatherWidgets.TestIntegration.Events
 
             var widgetId = this.AddControlFilters(this.CreatePage(), SelectionMode.FilteredItems, filterList, SelectionMode.AllItems, DefaultNarrowSelectionFilters);
 
-            this.AssertEvent(widgetId, DateTime.MinValue, DateTime.MaxValue, 11);
+            this.AssertEvent(widgetId, DateTime.MinValue, DateTime.MaxValue, 10);
         }
 
         [Test]
@@ -1153,7 +1152,7 @@ namespace FeatherWidgets.TestIntegration.Events
 
             var widgetId = this.AddControlFilters(this.CreatePage(), SelectionMode.FilteredItems, filterList, SelectionMode.AllItems, DefaultNarrowSelectionFilters);
 
-            this.AssertEvent(widgetId, DateTime.MinValue, DateTime.MaxValue, 17);
+            this.AssertEvent(widgetId, DateTime.MinValue, DateTime.MaxValue, 16);
         }
 
         [Test]
@@ -1183,7 +1182,7 @@ namespace FeatherWidgets.TestIntegration.Events
 
             var widgetId = this.AddControlFilters(this.CreatePage(), SelectionMode.FilteredItems, filterList, SelectionMode.AllItems, DefaultNarrowSelectionFilters);
 
-            this.AssertEvent(widgetId, DateTime.MinValue, DateTime.MaxValue, 11);
+            this.AssertEvent(widgetId, DateTime.MinValue, DateTime.MaxValue, 10);
         }
 
         [Test]
@@ -1218,7 +1217,7 @@ namespace FeatherWidgets.TestIntegration.Events
 
             var widgetId = this.AddControlFilters(this.CreatePage(), SelectionMode.FilteredItems, filterList, SelectionMode.AllItems, DefaultNarrowSelectionFilters);
 
-            this.AssertEvent(widgetId, DateTime.MinValue, DateTime.MaxValue, 17);
+            this.AssertEvent(widgetId, DateTime.MinValue, DateTime.MaxValue, 16);
         }
 
         [Test]
@@ -1248,7 +1247,7 @@ namespace FeatherWidgets.TestIntegration.Events
 
             var widgetId = this.AddControlFilters(this.CreatePage(), SelectionMode.FilteredItems, filterList, SelectionMode.AllItems, DefaultNarrowSelectionFilters);
 
-            this.AssertEvent(widgetId, DateTime.MinValue, DateTime.MaxValue, 11);
+            this.AssertEvent(widgetId, DateTime.MinValue, DateTime.MaxValue, 10);
         }
 
         [Test]
@@ -1283,7 +1282,7 @@ namespace FeatherWidgets.TestIntegration.Events
 
             var widgetId = this.AddControlFilters(this.CreatePage(), SelectionMode.FilteredItems, filterList, SelectionMode.AllItems, DefaultNarrowSelectionFilters);
 
-            this.AssertEvent(widgetId, DateTime.MinValue, DateTime.MaxValue, 17);
+            this.AssertEvent(widgetId, DateTime.MinValue, DateTime.MaxValue, 16);
         }
 
         [Test]
@@ -1313,7 +1312,7 @@ namespace FeatherWidgets.TestIntegration.Events
 
             var widgetId = this.AddControlFilters(this.CreatePage(), SelectionMode.FilteredItems, filterList, SelectionMode.AllItems, DefaultNarrowSelectionFilters);
 
-            this.AssertEvent(widgetId, DateTime.MinValue, DateTime.MaxValue, 11);
+            this.AssertEvent(widgetId, DateTime.MinValue, DateTime.MaxValue, 10);
         }
 
         [Test]
@@ -1348,7 +1347,7 @@ namespace FeatherWidgets.TestIntegration.Events
 
             var widgetId = this.AddControlFilters(this.CreatePage(), SelectionMode.FilteredItems, filterList, SelectionMode.AllItems, DefaultNarrowSelectionFilters);
 
-            this.AssertEvent(widgetId, DateTime.MinValue, DateTime.MaxValue, 17);
+            this.AssertEvent(widgetId, DateTime.MinValue, DateTime.MaxValue, 16);
         }
 
         [Test]
@@ -1378,7 +1377,7 @@ namespace FeatherWidgets.TestIntegration.Events
 
             var widgetId = this.AddControlFilters(this.CreatePage(), SelectionMode.FilteredItems, filterList, SelectionMode.AllItems, DefaultNarrowSelectionFilters);
 
-            this.AssertEvent(widgetId, DateTime.MinValue, DateTime.MaxValue, 11);
+            this.AssertEvent(widgetId, DateTime.MinValue, DateTime.MaxValue, 10);
         }
 
         [Test]
@@ -1413,7 +1412,7 @@ namespace FeatherWidgets.TestIntegration.Events
 
             var widgetId = this.AddControlFilters(this.CreatePage(), SelectionMode.FilteredItems, filterList, SelectionMode.AllItems, DefaultNarrowSelectionFilters);
 
-            this.AssertEvent(widgetId, DateTime.MinValue, DateTime.MaxValue, 17);
+            this.AssertEvent(widgetId, DateTime.MinValue, DateTime.MaxValue, 16);
         }
 
         [Test]
@@ -1443,7 +1442,7 @@ namespace FeatherWidgets.TestIntegration.Events
 
             var widgetId = this.AddControlFilters(this.CreatePage(), SelectionMode.FilteredItems, filterList, SelectionMode.AllItems, DefaultNarrowSelectionFilters);
 
-            this.AssertEvent(widgetId, DateTime.MinValue, DateTime.MaxValue, 11);
+            this.AssertEvent(widgetId, DateTime.MinValue, DateTime.MaxValue, 10);
         }
 
         [Test]
@@ -1478,7 +1477,7 @@ namespace FeatherWidgets.TestIntegration.Events
 
             var widgetId = this.AddControlFilters(this.CreatePage(), SelectionMode.FilteredItems, filterList, SelectionMode.AllItems, DefaultNarrowSelectionFilters);
 
-            this.AssertEvent(widgetId, DateTime.MinValue, DateTime.MaxValue, 17);
+            this.AssertEvent(widgetId, DateTime.MinValue, DateTime.MaxValue, 16);
         }
 
         [Test]
@@ -1508,7 +1507,7 @@ namespace FeatherWidgets.TestIntegration.Events
 
             var widgetId = this.AddControlFilters(this.CreatePage(), SelectionMode.FilteredItems, filterList, SelectionMode.AllItems, DefaultNarrowSelectionFilters);
 
-            this.AssertEvent(widgetId, DateTime.MinValue, DateTime.MaxValue, 11);
+            this.AssertEvent(widgetId, DateTime.MinValue, DateTime.MaxValue, 10);
         }
 
         [Test]
@@ -1543,7 +1542,7 @@ namespace FeatherWidgets.TestIntegration.Events
 
             var widgetId = this.AddControlFilters(this.CreatePage(), SelectionMode.FilteredItems, filterList, SelectionMode.AllItems, DefaultNarrowSelectionFilters);
 
-            this.AssertEvent(widgetId, DateTime.MinValue, DateTime.MaxValue, 17);
+            this.AssertEvent(widgetId, DateTime.MinValue, DateTime.MaxValue, 16);
         }
 
         [Test]
@@ -1573,7 +1572,7 @@ namespace FeatherWidgets.TestIntegration.Events
 
             var widgetId = this.AddControlFilters(this.CreatePage(), SelectionMode.FilteredItems, filterList, SelectionMode.AllItems, DefaultNarrowSelectionFilters);
 
-            this.AssertEvent(widgetId, DateTime.MinValue, DateTime.MaxValue, 11);
+            this.AssertEvent(widgetId, DateTime.MinValue, DateTime.MaxValue, 10);
         }
 
         [Test]
@@ -1608,7 +1607,7 @@ namespace FeatherWidgets.TestIntegration.Events
 
             var widgetId = this.AddControlFilters(this.CreatePage(), SelectionMode.FilteredItems, filterList, SelectionMode.AllItems, DefaultNarrowSelectionFilters);
 
-            this.AssertEvent(widgetId, DateTime.MinValue, DateTime.MaxValue, 17);
+            this.AssertEvent(widgetId, DateTime.MinValue, DateTime.MaxValue, 16);
         }
 
         [Test]
@@ -1638,7 +1637,7 @@ namespace FeatherWidgets.TestIntegration.Events
 
             var widgetId = this.AddControlFilters(this.CreatePage(), SelectionMode.FilteredItems, filterList, SelectionMode.AllItems, DefaultNarrowSelectionFilters);
 
-            this.AssertEvent(widgetId, DateTime.MinValue, DateTime.MaxValue, 11);
+            this.AssertEvent(widgetId, DateTime.MinValue, DateTime.MaxValue, 10);
         }
 
         [Test]
@@ -1673,7 +1672,7 @@ namespace FeatherWidgets.TestIntegration.Events
 
             var widgetId = this.AddControlFilters(this.CreatePage(), SelectionMode.FilteredItems, filterList, SelectionMode.AllItems, DefaultNarrowSelectionFilters);
 
-            this.AssertEvent(widgetId, DateTime.MinValue, DateTime.MaxValue, 17);
+            this.AssertEvent(widgetId, DateTime.MinValue, DateTime.MaxValue, 16);
         }
 
         [Test]
@@ -1703,7 +1702,7 @@ namespace FeatherWidgets.TestIntegration.Events
 
             var widgetId = this.AddControlFilters(this.CreatePage(), SelectionMode.FilteredItems, filterList, SelectionMode.AllItems, DefaultNarrowSelectionFilters);
 
-            this.AssertEvent(widgetId, DateTime.MinValue, DateTime.MaxValue, 11);
+            this.AssertEvent(widgetId, DateTime.MinValue, DateTime.MaxValue, 10);
         }
 
         [Test]
@@ -1738,7 +1737,7 @@ namespace FeatherWidgets.TestIntegration.Events
 
             var widgetId = this.AddControlFilters(this.CreatePage(), SelectionMode.FilteredItems, filterList, SelectionMode.AllItems, DefaultNarrowSelectionFilters);
 
-            this.AssertEvent(widgetId, DateTime.MinValue, DateTime.MaxValue, 17);
+            this.AssertEvent(widgetId, DateTime.MinValue, DateTime.MaxValue, 16);
         }
 
         [Test]
@@ -1768,7 +1767,7 @@ namespace FeatherWidgets.TestIntegration.Events
 
             var widgetId = this.AddControlFilters(this.CreatePage(), SelectionMode.FilteredItems, filterList, SelectionMode.AllItems, DefaultNarrowSelectionFilters);
 
-            this.AssertEvent(widgetId, DateTime.MinValue, DateTime.MaxValue, 11);
+            this.AssertEvent(widgetId, DateTime.MinValue, DateTime.MaxValue, 10);
         }
 
         [Test]
@@ -1803,7 +1802,7 @@ namespace FeatherWidgets.TestIntegration.Events
 
             var widgetId = this.AddControlFilters(this.CreatePage(), SelectionMode.FilteredItems, filterList, SelectionMode.AllItems, DefaultNarrowSelectionFilters);
 
-            this.AssertEvent(widgetId, DateTime.MinValue, DateTime.MaxValue, 17);
+            this.AssertEvent(widgetId, DateTime.MinValue, DateTime.MaxValue, 16);
         }
 
         #endregion
@@ -1887,7 +1886,7 @@ namespace FeatherWidgets.TestIntegration.Events
 
             var widgetId = this.AddControlFilters(this.CreatePage(), SelectionMode.FilteredItems, filterList, SelectionMode.AllItems, DefaultNarrowSelectionFilters);
 
-            this.AssertEvent(widgetId, DateTime.MinValue, DateTime.MaxValue, 7);
+            this.AssertEvent(widgetId, DateTime.MinValue, DateTime.MaxValue, 6);
         }
 
         [Test]
@@ -2054,7 +2053,7 @@ namespace FeatherWidgets.TestIntegration.Events
 
             var widgetId = this.AddControlFilters(this.CreatePage(), SelectionMode.FilteredItems, filterList, SelectionMode.AllItems, DefaultNarrowSelectionFilters);
 
-            this.AssertEvent(widgetId, DateTime.MinValue, DateTime.MaxValue, 13);
+            this.AssertEvent(widgetId, DateTime.MinValue, DateTime.MaxValue, 12);
         }
 
         [Test]
@@ -2418,7 +2417,7 @@ namespace FeatherWidgets.TestIntegration.Events
 
             var widgetId = this.AddControlFilters(this.CreatePage(), SelectionMode.FilteredItems, filterList, SelectionMode.AllItems, DefaultNarrowSelectionFilters);
 
-            this.AssertEvent(widgetId, DateTime.MinValue, DateTime.MaxValue, 13);
+            this.AssertEvent(widgetId, DateTime.MinValue, DateTime.MaxValue, 12);
         }
 
         [Test]
@@ -2453,7 +2452,7 @@ namespace FeatherWidgets.TestIntegration.Events
 
             var widgetId = this.AddControlFilters(this.CreatePage(), SelectionMode.FilteredItems, filterList, SelectionMode.AllItems, DefaultNarrowSelectionFilters);
 
-            this.AssertEvent(widgetId, DateTime.MinValue, DateTime.MaxValue, 9);
+            this.AssertEvent(widgetId, DateTime.MinValue, DateTime.MaxValue, 8);
         }
 
         [Test]
@@ -2489,7 +2488,7 @@ namespace FeatherWidgets.TestIntegration.Events
 
             var widgetId = this.AddControlFilters(this.CreatePage(), SelectionMode.FilteredItems, filterList, SelectionMode.AllItems, DefaultNarrowSelectionFilters);
 
-            this.AssertEvent(widgetId, DateTime.MinValue, DateTime.MaxValue, 8);
+            this.AssertEvent(widgetId, DateTime.MinValue, DateTime.MaxValue, 7);
         }
 
         [Test]
@@ -2522,7 +2521,7 @@ namespace FeatherWidgets.TestIntegration.Events
 
             var widgetId = this.AddControlFilters(this.CreatePage(), SelectionMode.FilteredItems, filterList, SelectionMode.AllItems, DefaultNarrowSelectionFilters);
 
-            this.AssertEvent(widgetId, DateTime.MinValue, DateTime.MaxValue, 12);
+            this.AssertEvent(widgetId, DateTime.MinValue, DateTime.MaxValue, 11);
         }
 
         [Test]
@@ -2555,7 +2554,7 @@ namespace FeatherWidgets.TestIntegration.Events
 
             var widgetId = this.AddControlFilters(this.CreatePage(), SelectionMode.FilteredItems, filterList, SelectionMode.AllItems, DefaultNarrowSelectionFilters);
 
-            this.AssertEvent(widgetId, DateTime.MinValue, DateTime.MaxValue, 12);
+            this.AssertEvent(widgetId, DateTime.MinValue, DateTime.MaxValue, 11);
         }
 
         [Test]
@@ -2588,7 +2587,7 @@ namespace FeatherWidgets.TestIntegration.Events
 
             var widgetId = this.AddControlFilters(this.CreatePage(), SelectionMode.FilteredItems, filterList, SelectionMode.AllItems, DefaultNarrowSelectionFilters);
 
-            this.AssertEvent(widgetId, DateTime.MinValue, DateTime.MaxValue, 12);
+            this.AssertEvent(widgetId, DateTime.MinValue, DateTime.MaxValue, 11);
         }
 
         [Test]
@@ -2621,7 +2620,7 @@ namespace FeatherWidgets.TestIntegration.Events
 
             var widgetId = this.AddControlFilters(this.CreatePage(), SelectionMode.FilteredItems, filterList, SelectionMode.AllItems, DefaultNarrowSelectionFilters);
 
-            this.AssertEvent(widgetId, DateTime.MinValue, DateTime.MaxValue, 12);
+            this.AssertEvent(widgetId, DateTime.MinValue, DateTime.MaxValue, 11);
         }
 
         [Test]
@@ -2899,7 +2898,7 @@ namespace FeatherWidgets.TestIntegration.Events
 
             var widgetId = this.AddControlFilters(this.CreatePage(), SelectionMode.FilteredItems, filterList, SelectionMode.AllItems, DefaultNarrowSelectionFilters);
 
-            this.AssertEvent(widgetId, DateTime.MinValue, DateTime.MaxValue, 12);
+            this.AssertEvent(widgetId, DateTime.MinValue, DateTime.MaxValue, 11);
         }
 
         [Test]
@@ -2932,7 +2931,7 @@ namespace FeatherWidgets.TestIntegration.Events
 
             var widgetId = this.AddControlFilters(this.CreatePage(), SelectionMode.FilteredItems, filterList, SelectionMode.AllItems, DefaultNarrowSelectionFilters);
 
-            this.AssertEvent(widgetId, DateTime.MinValue, DateTime.MaxValue, 12);
+            this.AssertEvent(widgetId, DateTime.MinValue, DateTime.MaxValue, 11);
         }
 
         [Test]
@@ -2965,7 +2964,7 @@ namespace FeatherWidgets.TestIntegration.Events
 
             var widgetId = this.AddControlFilters(this.CreatePage(), SelectionMode.FilteredItems, filterList, SelectionMode.AllItems, DefaultNarrowSelectionFilters);
 
-            this.AssertEvent(widgetId, DateTime.MinValue, DateTime.MaxValue, 12);
+            this.AssertEvent(widgetId, DateTime.MinValue, DateTime.MaxValue, 11);
         }
 
         [Test]
@@ -2998,7 +2997,7 @@ namespace FeatherWidgets.TestIntegration.Events
 
             var widgetId = this.AddControlFilters(this.CreatePage(), SelectionMode.FilteredItems, filterList, SelectionMode.AllItems, DefaultNarrowSelectionFilters);
 
-            this.AssertEvent(widgetId, DateTime.MinValue, DateTime.MaxValue, 12);
+            this.AssertEvent(widgetId, DateTime.MinValue, DateTime.MaxValue, 11);
         }
 
         [Test]
@@ -3031,7 +3030,7 @@ namespace FeatherWidgets.TestIntegration.Events
 
             var widgetId = this.AddControlFilters(this.CreatePage(), SelectionMode.FilteredItems, filterList, SelectionMode.AllItems, DefaultNarrowSelectionFilters);
 
-            this.AssertEvent(widgetId, DateTime.MinValue, DateTime.MaxValue, 8);
+            this.AssertEvent(widgetId, DateTime.MinValue, DateTime.MaxValue, 7);
         }
 
         [Test]
@@ -3064,7 +3063,7 @@ namespace FeatherWidgets.TestIntegration.Events
 
             var widgetId = this.AddControlFilters(this.CreatePage(), SelectionMode.FilteredItems, filterList, SelectionMode.AllItems, DefaultNarrowSelectionFilters);
 
-            this.AssertEvent(widgetId, DateTime.MinValue, DateTime.MaxValue, 8);
+            this.AssertEvent(widgetId, DateTime.MinValue, DateTime.MaxValue, 7);
         }
 
         [Test]
@@ -3097,7 +3096,7 @@ namespace FeatherWidgets.TestIntegration.Events
 
             var widgetId = this.AddControlFilters(this.CreatePage(), SelectionMode.FilteredItems, filterList, SelectionMode.AllItems, DefaultNarrowSelectionFilters);
 
-            this.AssertEvent(widgetId, DateTime.MinValue, DateTime.MaxValue, 8);
+            this.AssertEvent(widgetId, DateTime.MinValue, DateTime.MaxValue, 7);
         }
 
         [Test]
@@ -3130,7 +3129,7 @@ namespace FeatherWidgets.TestIntegration.Events
 
             var widgetId = this.AddControlFilters(this.CreatePage(), SelectionMode.FilteredItems, filterList, SelectionMode.AllItems, DefaultNarrowSelectionFilters);
 
-            this.AssertEvent(widgetId, DateTime.MinValue, DateTime.MaxValue, 8);
+            this.AssertEvent(widgetId, DateTime.MinValue, DateTime.MaxValue, 7);
         }
 
         [Test]
@@ -3164,7 +3163,7 @@ namespace FeatherWidgets.TestIntegration.Events
 
             var widgetId = this.AddControlFilters(this.CreatePage(), SelectionMode.FilteredItems, filterList, SelectionMode.AllItems, DefaultNarrowSelectionFilters);
 
-            this.AssertEvent(widgetId, DateTime.MinValue, DateTime.MaxValue, 7);
+            this.AssertEvent(widgetId, DateTime.MinValue, DateTime.MaxValue, 6);
         }
 
         [Test]
@@ -3198,7 +3197,7 @@ namespace FeatherWidgets.TestIntegration.Events
 
             var widgetId = this.AddControlFilters(this.CreatePage(), SelectionMode.FilteredItems, filterList, SelectionMode.AllItems, DefaultNarrowSelectionFilters);
 
-            this.AssertEvent(widgetId, DateTime.MinValue, DateTime.MaxValue, 7);
+            this.AssertEvent(widgetId, DateTime.MinValue, DateTime.MaxValue, 6);
         }
 
         [Test]
@@ -3232,7 +3231,7 @@ namespace FeatherWidgets.TestIntegration.Events
 
             var widgetId = this.AddControlFilters(this.CreatePage(), SelectionMode.FilteredItems, filterList, SelectionMode.AllItems, DefaultNarrowSelectionFilters);
 
-            this.AssertEvent(widgetId, DateTime.MinValue, DateTime.MaxValue, 7);
+            this.AssertEvent(widgetId, DateTime.MinValue, DateTime.MaxValue, 6);
         }
 
         [Test]
@@ -3266,7 +3265,7 @@ namespace FeatherWidgets.TestIntegration.Events
 
             var widgetId = this.AddControlFilters(this.CreatePage(), SelectionMode.FilteredItems, filterList, SelectionMode.AllItems, DefaultNarrowSelectionFilters);
 
-            this.AssertEvent(widgetId, DateTime.MinValue, DateTime.MaxValue, 7);
+            this.AssertEvent(widgetId, DateTime.MinValue, DateTime.MaxValue, 6);
         }
 
         [Test]
@@ -3579,7 +3578,7 @@ namespace FeatherWidgets.TestIntegration.Events
 
             var widgetId = this.AddControlFilters(this.CreatePage(), SelectionMode.FilteredItems, filterList, SelectionMode.AllItems, DefaultNarrowSelectionFilters);
 
-            this.AssertEvent(widgetId, DateTime.MinValue, DateTime.MaxValue, 19);
+            this.AssertEvent(widgetId, DateTime.MinValue, DateTime.MaxValue, 18);
         }
 
         [Test]
@@ -3619,7 +3618,7 @@ namespace FeatherWidgets.TestIntegration.Events
 
             var widgetId = this.AddControlFilters(this.CreatePage(), SelectionMode.FilteredItems, filterList, SelectionMode.AllItems, DefaultNarrowSelectionFilters);
 
-            this.AssertEvent(widgetId, DateTime.MinValue, DateTime.MaxValue, 15);
+            this.AssertEvent(widgetId, DateTime.MinValue, DateTime.MaxValue, 14);
         }
 
         [Test]
@@ -3660,7 +3659,7 @@ namespace FeatherWidgets.TestIntegration.Events
 
             var widgetId = this.AddControlFilters(this.CreatePage(), SelectionMode.FilteredItems, filterList, SelectionMode.AllItems, DefaultNarrowSelectionFilters);
 
-            this.AssertEvent(widgetId, DateTime.MinValue, DateTime.MaxValue, 14);
+            this.AssertEvent(widgetId, DateTime.MinValue, DateTime.MaxValue, 13);
         }
 
         [Test]
@@ -3698,7 +3697,7 @@ namespace FeatherWidgets.TestIntegration.Events
 
             var widgetId = this.AddControlFilters(this.CreatePage(), SelectionMode.FilteredItems, filterList, SelectionMode.AllItems, DefaultNarrowSelectionFilters);
 
-            this.AssertEvent(widgetId, DateTime.MinValue, DateTime.MaxValue, 18);
+            this.AssertEvent(widgetId, DateTime.MinValue, DateTime.MaxValue, 17);
         }
 
         [Test]
@@ -3736,7 +3735,7 @@ namespace FeatherWidgets.TestIntegration.Events
 
             var widgetId = this.AddControlFilters(this.CreatePage(), SelectionMode.FilteredItems, filterList, SelectionMode.AllItems, DefaultNarrowSelectionFilters);
 
-            this.AssertEvent(widgetId, DateTime.MinValue, DateTime.MaxValue, 18);
+            this.AssertEvent(widgetId, DateTime.MinValue, DateTime.MaxValue, 17);
         }
 
         [Test]
@@ -3774,7 +3773,7 @@ namespace FeatherWidgets.TestIntegration.Events
 
             var widgetId = this.AddControlFilters(this.CreatePage(), SelectionMode.FilteredItems, filterList, SelectionMode.AllItems, DefaultNarrowSelectionFilters);
 
-            this.AssertEvent(widgetId, DateTime.MinValue, DateTime.MaxValue, 18);
+            this.AssertEvent(widgetId, DateTime.MinValue, DateTime.MaxValue, 17);
         }
 
         [Test]
@@ -3812,7 +3811,7 @@ namespace FeatherWidgets.TestIntegration.Events
 
             var widgetId = this.AddControlFilters(this.CreatePage(), SelectionMode.FilteredItems, filterList, SelectionMode.AllItems, DefaultNarrowSelectionFilters);
 
-            this.AssertEvent(widgetId, DateTime.MinValue, DateTime.MaxValue, 18);
+            this.AssertEvent(widgetId, DateTime.MinValue, DateTime.MaxValue, 17);
         }
 
         [Test]
@@ -4130,7 +4129,7 @@ namespace FeatherWidgets.TestIntegration.Events
 
             var widgetId = this.AddControlFilters(this.CreatePage(), SelectionMode.FilteredItems, filterList, SelectionMode.AllItems, DefaultNarrowSelectionFilters);
 
-            this.AssertEvent(widgetId, DateTime.MinValue, DateTime.MaxValue, 18);
+            this.AssertEvent(widgetId, DateTime.MinValue, DateTime.MaxValue, 17);
         }
 
         [Test]
@@ -4168,7 +4167,7 @@ namespace FeatherWidgets.TestIntegration.Events
 
             var widgetId = this.AddControlFilters(this.CreatePage(), SelectionMode.FilteredItems, filterList, SelectionMode.AllItems, DefaultNarrowSelectionFilters);
 
-            this.AssertEvent(widgetId, DateTime.MinValue, DateTime.MaxValue, 18);
+            this.AssertEvent(widgetId, DateTime.MinValue, DateTime.MaxValue, 17);
         }
 
         [Test]
@@ -4206,7 +4205,7 @@ namespace FeatherWidgets.TestIntegration.Events
 
             var widgetId = this.AddControlFilters(this.CreatePage(), SelectionMode.FilteredItems, filterList, SelectionMode.AllItems, DefaultNarrowSelectionFilters);
 
-            this.AssertEvent(widgetId, DateTime.MinValue, DateTime.MaxValue, 18);
+            this.AssertEvent(widgetId, DateTime.MinValue, DateTime.MaxValue, 17);
         }
 
         [Test]
@@ -4244,7 +4243,7 @@ namespace FeatherWidgets.TestIntegration.Events
 
             var widgetId = this.AddControlFilters(this.CreatePage(), SelectionMode.FilteredItems, filterList, SelectionMode.AllItems, DefaultNarrowSelectionFilters);
 
-            this.AssertEvent(widgetId, DateTime.MinValue, DateTime.MaxValue, 18);
+            this.AssertEvent(widgetId, DateTime.MinValue, DateTime.MaxValue, 17);
         }
 
         [Test]
@@ -4282,7 +4281,7 @@ namespace FeatherWidgets.TestIntegration.Events
 
             var widgetId = this.AddControlFilters(this.CreatePage(), SelectionMode.FilteredItems, filterList, SelectionMode.AllItems, DefaultNarrowSelectionFilters);
 
-            this.AssertEvent(widgetId, DateTime.MinValue, DateTime.MaxValue, 14);
+            this.AssertEvent(widgetId, DateTime.MinValue, DateTime.MaxValue, 13);
         }
 
         [Test]
@@ -4320,7 +4319,7 @@ namespace FeatherWidgets.TestIntegration.Events
 
             var widgetId = this.AddControlFilters(this.CreatePage(), SelectionMode.FilteredItems, filterList, SelectionMode.AllItems, DefaultNarrowSelectionFilters);
 
-            this.AssertEvent(widgetId, DateTime.MinValue, DateTime.MaxValue, 14);
+            this.AssertEvent(widgetId, DateTime.MinValue, DateTime.MaxValue, 13);
         }
 
         [Test]
@@ -4358,7 +4357,7 @@ namespace FeatherWidgets.TestIntegration.Events
 
             var widgetId = this.AddControlFilters(this.CreatePage(), SelectionMode.FilteredItems, filterList, SelectionMode.AllItems, DefaultNarrowSelectionFilters);
 
-            this.AssertEvent(widgetId, DateTime.MinValue, DateTime.MaxValue, 14);
+            this.AssertEvent(widgetId, DateTime.MinValue, DateTime.MaxValue, 13);
         }
 
         [Test]
@@ -4396,7 +4395,7 @@ namespace FeatherWidgets.TestIntegration.Events
 
             var widgetId = this.AddControlFilters(this.CreatePage(), SelectionMode.FilteredItems, filterList, SelectionMode.AllItems, DefaultNarrowSelectionFilters);
 
-            this.AssertEvent(widgetId, DateTime.MinValue, DateTime.MaxValue, 14);
+            this.AssertEvent(widgetId, DateTime.MinValue, DateTime.MaxValue, 13);
         }
 
         [Test]
@@ -4435,7 +4434,7 @@ namespace FeatherWidgets.TestIntegration.Events
 
             var widgetId = this.AddControlFilters(this.CreatePage(), SelectionMode.FilteredItems, filterList, SelectionMode.AllItems, DefaultNarrowSelectionFilters);
 
-            this.AssertEvent(widgetId, DateTime.MinValue, DateTime.MaxValue, 13);
+            this.AssertEvent(widgetId, DateTime.MinValue, DateTime.MaxValue, 12);
         }
 
         [Test]
@@ -4474,7 +4473,7 @@ namespace FeatherWidgets.TestIntegration.Events
 
             var widgetId = this.AddControlFilters(this.CreatePage(), SelectionMode.FilteredItems, filterList, SelectionMode.AllItems, DefaultNarrowSelectionFilters);
 
-            this.AssertEvent(widgetId, DateTime.MinValue, DateTime.MaxValue, 13);
+            this.AssertEvent(widgetId, DateTime.MinValue, DateTime.MaxValue, 12);
         }
 
         [Test]
@@ -4513,7 +4512,7 @@ namespace FeatherWidgets.TestIntegration.Events
 
             var widgetId = this.AddControlFilters(this.CreatePage(), SelectionMode.FilteredItems, filterList, SelectionMode.AllItems, DefaultNarrowSelectionFilters);
 
-            this.AssertEvent(widgetId, DateTime.MinValue, DateTime.MaxValue, 13);
+            this.AssertEvent(widgetId, DateTime.MinValue, DateTime.MaxValue, 12);
         }
 
         [Test]
@@ -4552,7 +4551,7 @@ namespace FeatherWidgets.TestIntegration.Events
 
             var widgetId = this.AddControlFilters(this.CreatePage(), SelectionMode.FilteredItems, filterList, SelectionMode.AllItems, DefaultNarrowSelectionFilters);
 
-            this.AssertEvent(widgetId, DateTime.MinValue, DateTime.MaxValue, 13);
+            this.AssertEvent(widgetId, DateTime.MinValue, DateTime.MaxValue, 12);
         }
 
         #endregion
@@ -5361,7 +5360,6 @@ namespace FeatherWidgets.TestIntegration.Events
         private const string Caption = "Calendar";
         private const string PageNamePrefix = "EventsPage";
 
-        private const string BaseEventTitle = "TestEvent";
         private const string BasePastEventTitle = "PastTestEvent";
         private const string BaseUpcomingEventTitle = "UpcomingTestEvent";
         private const string BaseDraftEventTitle = "DraftTestEvent";
