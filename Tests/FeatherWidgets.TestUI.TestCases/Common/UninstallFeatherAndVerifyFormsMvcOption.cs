@@ -27,7 +27,9 @@ namespace FeatherWidgets.TestUI.TestCases.Common
         TestCategory(FeatherTestCategories.IgnoredInReadOnly)]
         public void UninstallFeatherAndVerifyFormsMvcOption()
         {
-            BAT.Wrappers().Backend().ModulesAndServices().ModulesAndServicesWrapper().NavigateToModules();
+            BAT.Macros().NavigateTo().System().ModulesAndServices();
+            ActiveBrowser.WaitUntilReady();
+            BAT.Wrappers().Backend().ModulesAndServices().ModulesAndServicesWrapper().WaitForRestart();
             BAT.Wrappers().Backend().ModulesAndServices().ModulesAndServicesWrapper().DeactivateModule(ModuleName);
             BAT.Wrappers().Backend().ModulesAndServices().ModulesAndServicesWrapper().UninstallModule(ModuleName);
 
