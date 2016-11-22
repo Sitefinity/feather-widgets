@@ -11,7 +11,7 @@
         <img data-sf-role="captcha-image" src='@Url.WidgetContent("assets/dist/img/dummy.jpg")'/>
     </div>
 
-    <a data-sf-role="captcha-refresh-button">@Html.Resource("NewCode")</a>
+    <a href="#" data-sf-role="captcha-refresh-button">@Html.Resource("NewCode")</a>
 
     <div>
         <input data-sf-role="violation-messages" type="hidden" value='{"required": "@Model.ValidatorDefinition.RequiredViolationMessage"}' />
