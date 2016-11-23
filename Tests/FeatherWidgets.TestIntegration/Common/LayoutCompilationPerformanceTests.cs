@@ -92,6 +92,65 @@ namespace FeatherWidgets.TestIntegration.Common
             }
         }
 
+        /// <summary>
+        /// Verifies that when edit existing layout and page based on this layout is requested then a compilation for the layout is logged.
+        /// </summary>
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Globalization", "CA1303:Do not pass literals as localized parameters", MessageId = "Telerik.Sitefinity.TestUtilities.CommonOperations.WidgetOperations.AddContentBlockToPage(System.Guid,System.String,System.String,System.String)"), Test]
+        [Author(FeatherTeams.FeatherTeam)]
+        [Description("Verifies that when edit existing layout and page based on this layout is requested then a compilation for the layout is logged.")]
+        public void EditLayout_RequestPageBasedOnTemplate_ShouldLogCompilation()
+        {
+            string widgetName = "ContentBlock";
+            var templateTitle = "Bootstrap.default";
+            var layoutName = "Bootstrap.default.cshtml";
+            var layoutText = @"@Html.SfPlaceHolder(""Contentplaceholder1"")	";
+            var layoutTextEdited = @"edited @Html.SfPlaceHolder(""Contentplaceholder1"") ";
+            string filePath = FeatherServerOperations.ResourcePackages().GetResourcePackageMvcViewDestinationFilePath(Bootstrap, "Layouts", layoutName);
+            PageNode pageNode = null;
+
+            try
+            {
+                this.EnableProfiler("HttpRequestsProfiler");
+                this.EnableProfiler("WidgetExecutionsProfiler");
+                this.EnableProfiler("RazorViewCompilationsProfiler");
+
+                Guid templateId = Telerik.Sitefinity.TestUtilities.CommonOperations.ServerOperations.Templates().GetTemplateIdByTitle(templateTitle);
+                var pageId = ServerOperations.Pages().CreatePage("TestPage1", templateId);
+                var pageNodeId = ServerOperations.Pages().GetPageNodeId(pageId);
+                var pageManager = Telerik.Sitefinity.Modules.Pages.PageManager.GetManager();
+                pageNode = pageManager.GetPageNode(pageNodeId);
+                var fullPageUrl = RouteHelper.GetAbsoluteUrl(pageNode.GetUrl());
+
+                ServerOperationsFeather.Pages().AddContentBlockWidgetToPage(pageNodeId, widgetName, "Contentplaceholder1");
+
+                this.ExecuteAuthenticatedRequest(fullPageUrl);
+                this.FlushData();
+                this.ClearData();
+
+                var viewPath = "~/Frontend-Assembly/Telerik.Sitefinity.Frontend/Mvc/Views/Layouts/Bootstrap.default.cshtml";
+                FeatherServerOperations.ResourcePackages().EditLayoutFile(filePath, layoutText, layoutTextEdited);
+                this.WaitForAspNetCacheToBeInvalidated(viewPath);
+
+                this.ExecuteAuthenticatedRequest(fullPageUrl);
+                this.FlushData();
+
+                // Assert data
+                this.AssertWidgetExecutionCount(1);
+                this.AssertViewCompilationCount(1);
+
+                var rootOperationId = this.GetRequestLogRootOperationId(fullPageUrl);
+
+                var widgetCompilationText = "Compile view \"Bootstrap.default.cshtml#Bootstrap.cshtml\" of controller \"" + typeof(GenericController).FullName + "\"";
+                this.AssertViewCompilationParams(rootOperationId, viewPath, widgetCompilationText);
+            }
+            finally
+            {
+                FeatherServerOperations.ResourcePackages().EditLayoutFile(filePath, layoutTextEdited, layoutText);
+                this.DeletePages(pageNode);
+                this.ClearData();
+            }
+        }
+
         #endregion
 
         #region Private Methods
@@ -121,6 +180,7 @@ namespace FeatherWidgets.TestIntegration.Common
 
         #region Fields and Constants
 
+        private const string Bootstrap = "Bootstrap";
         private const string TemplateTitle = "TestLayout";
         private const string FileResource = "Telerik.Sitefinity.Frontend.TestUtilities.Data.TestLayout.cshtml";
 
