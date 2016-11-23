@@ -31,11 +31,31 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Controllers.Base
             }
         }
 
+        /// <summary>
+        /// Gets or sets the form field name.
+        /// </summary>
+        /// <value></value>
+        public virtual string FieldName
+        {
+            get
+            {
+                return this.fieldName;
+            }
+
+            set
+            {
+                this.fieldName = value;
+            }
+        }
+
+
         /// <inheritDocs />
         protected override System.Web.Mvc.ViewResult View(object value, string templateName)
         {
             var viewModel = this.Model.GetViewModel(value, this.MetaField);
             return this.View(templateName, viewModel);
         }
+
+        private string fieldName;
     }
 }
