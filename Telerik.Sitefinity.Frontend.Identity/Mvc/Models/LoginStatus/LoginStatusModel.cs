@@ -62,10 +62,8 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.LoginStatus
         {
             var loginRedirectUrl = this.ExternalLoginUrl;
             if (string.IsNullOrEmpty(loginRedirectUrl))
-            {
-                // TODO: AUTH/4 - Get new Authentication module
-                /* 
-                var claimsModule = SitefinityClaimsAuthenticationModule.Current;
+            {   
+                var claimsModule = ClaimsManager.CurrentAuthenticationModule;
                 string pageUrl;
 
 
@@ -88,8 +86,7 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.LoginStatus
                     var returnUrl = this.AppendUrlParameter(currentUrl, LoginStatusModel.HandleRejectedUser, "true");
                     loginRedirectUrl = "{0}?realm={1}&redirect_uri={2}&deflate=true".Arrange(
                         pageUrl, claimsModule.GetRealm(), HttpUtility.UrlEncode(returnUrl));
-                }
-                 * */
+                }                
             }
 
             return loginRedirectUrl;

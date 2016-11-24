@@ -130,9 +130,8 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.LoginForm
                 viewModel.RedirectUrlAfterLogin = this.GetPageUrl(this.LoginRedirectPageId);
                 viewModel.RegisterPageUrl = this.GetPageUrl(this.RegisterRedirectPageId);
                 viewModel.ShowRegistrationLink = this.RegisterRedirectPageId.HasValue;
-                viewModel.ShowForgotPasswordLink = this.AllowResetPassword && (this.EnablePasswordReset || this.EnablePasswordRetrieval);
-                // TODO: AUTH/4 - Get new Authentication module
-                // viewModel.Realm = SitefinityClaimsAuthenticationModule.Current.GetRealm();
+                viewModel.ShowForgotPasswordLink = this.AllowResetPassword && (this.EnablePasswordReset || this.EnablePasswordRetrieval);                
+                viewModel.Realm = ClaimsManager.CurrentAuthenticationModule.GetRealm();
                 viewModel.CssClass = this.CssClass;
                 viewModel.ShowRememberMe = this.ShowRememberMe;
                 viewModel.ExternalProviders = modelProviders;
@@ -436,19 +435,17 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.LoginForm
         /// </summary>
         /// <returns></returns>
         private string GetClaimsIssuer()
-        {
-            // TODO: AUTH/4 - Get new Authentication module
-            /*
-            var claimsModule = SitefinityClaimsAuthenticationModule.Current;
+        {            
+            var claimsModule = ClaimsManager.CurrentAuthenticationModule;
 
             if (claimsModule != null)
             {
                 return claimsModule.GetIssuer();
             }
             else
-            {*/
+            {
                 return LoginFormModel.DefaultRealmConfig;
-            //}
+            }
         }
 
         /// <summary>
