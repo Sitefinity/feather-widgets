@@ -25,8 +25,8 @@ namespace FeatherWidgets.TestIntegration.DynamicWidgets
         /// <summary>
         /// Set up method
         /// </summary>
-        [FixtureSetUpAttribute]
-        public void Setup()
+        [FixtureSetUp]
+        public void FixtureSetup()
         {
             this.CreateCustomFlatTaxonomyTestData();
             this.CreateCustomHierarchicalTaxonomyTestData();
@@ -34,11 +34,18 @@ namespace FeatherWidgets.TestIntegration.DynamicWidgets
         }
 
         [FixtureTearDown]
-        public void TearDown()
+        public void FixtureTearDown()
         {
             ServerOperations.ModuleBuilder().DeleteModule(ModuleName, string.Empty, "Module Installations");
             this.taxonomyOperations.DeleteFlatTaxonomy(FlatTaxonomyTitle);
             this.taxonomyOperations.DeleteHierarchicalTaxonomy(HierarchicalTaxonomyTitle);
+        }
+
+        [TearDown]
+        public void TearDown()
+        {
+            var dynamicModulePressArticle = ServerOperationsFeather.DynamicModulePressArticle();
+            dynamicModulePressArticle.DeleteAllDynamicItemsInProvider("dynamicContentProvider");
         }
 
         [Test]
