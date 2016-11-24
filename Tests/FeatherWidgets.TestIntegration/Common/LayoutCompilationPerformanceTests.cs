@@ -145,9 +145,12 @@ namespace FeatherWidgets.TestIntegration.Common
 
             try
             {
-                if (!Directory.Exists(folderPath))
+                using (new UnrestrictedModeRegion())
                 {
-                    Directory.CreateDirectory(folderPath);
+                    if (!Directory.Exists(folderPath))
+                    {
+                        Directory.CreateDirectory(folderPath);
+                    }
                 }
 
                 this.CreateLayoutFolderAndCopyLayoutFile(layoutFilePath);
