@@ -24,21 +24,13 @@ namespace FeatherWidgets.TestIntegration.Common
     [Description("This class contains tests for tracking the razor view compilations of layout files.")]
     public class LayoutCompilationPerformanceTests : ProfilingTestBase
     {
-        /// <summary>
-        /// Test tear down.
-        /// </summary>
-        [TearDown]
-        public override void TestTearDown()
+        public override void TestSetUp()
         {
-            base.TestTearDown();
+            base.TestSetUp();
 
-            ServerOperations.Templates().DeletePageTemplate(TemplateTitle);
-
-            using (new UnrestrictedModeRegion())
-            {
-                string filePath = this.GetFilePath();
-                File.Delete(filePath);
-            }
+            this.EnableProfiler("HttpRequestsProfiler");
+            this.EnableProfiler("WidgetExecutionsProfiler");
+            this.EnableProfiler("RazorViewCompilationsProfiler");
         }
 
         #region Tests
@@ -51,24 +43,14 @@ namespace FeatherWidgets.TestIntegration.Common
         [Description("Verifies that when new layout is added and page based on this layout is requested then a compilation for the layout is logged.")]
         public void NewLayout_RequestPageBasedOnTemplate_ShouldLogCompilation()
         {
-            string widgetName = "ContentBlock";
             PageNode pageNode = null;
+            var layoutFilePath = System.Web.Hosting.HostingEnvironment.MapPath("~/ResourcePackages/Bootstrap/MVC/Views/Layouts/TestLayout.cshtml");
 
             try
             {
-                this.EnableProfiler("HttpRequestsProfiler");
-                this.EnableProfiler("WidgetExecutionsProfiler");
-                this.EnableProfiler("RazorViewCompilationsProfiler");
-
-                this.CreateLayoutFolderAndCopyLayoutFile();
-                Guid templateId = Telerik.Sitefinity.TestUtilities.CommonOperations.ServerOperations.Templates().GetTemplateIdByTitle(TemplateTitle);
-                var pageId = ServerOperations.Pages().CreatePage("TestPage1", templateId);
-                var pageNodeId = ServerOperations.Pages().GetPageNodeId(pageId);
-                var pageManager = Telerik.Sitefinity.Modules.Pages.PageManager.GetManager();
-                pageNode = pageManager.GetPageNode(pageNodeId);
+                this.CreateLayoutFolderAndCopyLayoutFile(layoutFilePath);
+                pageNode = this.CreatePageWithMvcWidget(TestTemplateTitle, TestPlaceholder);
                 var fullPageUrl = RouteHelper.GetAbsoluteUrl(pageNode.GetUrl());
-
-                ServerOperationsFeather.Pages().AddContentBlockWidgetToPage(pageNodeId, widgetName, "TestPlaceHolder");
 
                 this.ClearData();
                 this.ExecuteAuthenticatedRequest(fullPageUrl);
@@ -89,6 +71,13 @@ namespace FeatherWidgets.TestIntegration.Common
             {
                 this.DeletePages(pageNode);
                 this.ClearData();
+
+                ServerOperations.Templates().DeletePageTemplate(TestTemplateTitle);
+
+                using (new UnrestrictedModeRegion())
+                {
+                    File.Delete(layoutFilePath);
+                }
             }
         }
 
@@ -100,8 +89,8 @@ namespace FeatherWidgets.TestIntegration.Common
         [Description("Verifies that when edit existing layout and page based on this layout is requested then a compilation for the layout is logged.")]
         public void EditLayout_RequestPageBasedOnTemplate_ShouldLogCompilation()
         {
-            string widgetName = "ContentBlock";
             var templateTitle = "Bootstrap.default";
+            var bootstrapPlaceholder = "Contentplaceholder1";
             var layoutName = "Bootstrap.default.cshtml";
             var layoutText = @"@Html.SfPlaceHolder(""Contentplaceholder1"")	";
             var layoutTextEdited = @"edited @Html.SfPlaceHolder(""Contentplaceholder1"") ";
@@ -110,18 +99,8 @@ namespace FeatherWidgets.TestIntegration.Common
 
             try
             {
-                this.EnableProfiler("HttpRequestsProfiler");
-                this.EnableProfiler("WidgetExecutionsProfiler");
-                this.EnableProfiler("RazorViewCompilationsProfiler");
-
-                Guid templateId = Telerik.Sitefinity.TestUtilities.CommonOperations.ServerOperations.Templates().GetTemplateIdByTitle(templateTitle);
-                var pageId = ServerOperations.Pages().CreatePage("TestPage1", templateId);
-                var pageNodeId = ServerOperations.Pages().GetPageNodeId(pageId);
-                var pageManager = Telerik.Sitefinity.Modules.Pages.PageManager.GetManager();
-                pageNode = pageManager.GetPageNode(pageNodeId);
+                pageNode = this.CreatePageWithMvcWidget(templateTitle, bootstrapPlaceholder);
                 var fullPageUrl = RouteHelper.GetAbsoluteUrl(pageNode.GetUrl());
-
-                ServerOperationsFeather.Pages().AddContentBlockWidgetToPage(pageNodeId, widgetName, "Contentplaceholder1");
 
                 this.ExecuteAuthenticatedRequest(fullPageUrl);
                 this.FlushData();
@@ -151,29 +130,85 @@ namespace FeatherWidgets.TestIntegration.Common
             }
         }
 
+        /// <summary>
+        /// Verifies that when new layout is added on root level and page based on this layout is requested then a compilation for the layout is logged.
+        /// </summary>
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Globalization", "CA1303:Do not pass literals as localized parameters", MessageId = "Telerik.Sitefinity.TestUtilities.CommonOperations.WidgetOperations.AddContentBlockToPage(System.Guid,System.String,System.String,System.String)"), Test]
+        [Author(FeatherTeams.FeatherTeam)]
+        [Description("Verifies that when new layout is added on root level and page based on this layout is requested then a compilation for the layout is logged.")]
+        public void NewLayoutRoot_RequestPageBasedOnTemplate_ShouldLogCompilation()
+        {
+            PageNode pageNode = null;
+            var layoutFileName = "TestLayout.cshtml";
+            var folderPath = System.Web.Hosting.HostingEnvironment.MapPath("~/MVC/Views/Layouts");
+            var layoutFilePath = Path.Combine(folderPath, layoutFileName);
+
+            try
+            {
+                if (!Directory.Exists(folderPath))
+                {
+                    Directory.CreateDirectory(folderPath);
+                }
+
+                this.CreateLayoutFolderAndCopyLayoutFile(layoutFilePath);
+                pageNode = this.CreatePageWithMvcWidget(TestTemplateTitle, TestPlaceholder);
+                var fullPageUrl = RouteHelper.GetAbsoluteUrl(pageNode.GetUrl());
+
+                this.ClearData();
+                this.ExecuteAuthenticatedRequest(fullPageUrl);
+                this.FlushData();
+
+                var viewPath = "~/Frontend-Assembly/Telerik.Sitefinity.Frontend/Mvc/Views/Layouts/TestLayout.cshtml";
+
+                // Assert data
+                this.AssertWidgetExecutionCount(1);
+                this.AssertViewCompilationCount(1);
+
+                var rootOperationId = this.GetRequestLogRootOperationId(fullPageUrl);
+
+                var widgetCompilationText = "Compile view \"TestLayout.cshtml\" of controller \"" + typeof(GenericController).FullName + "\"";
+                this.AssertViewCompilationParams(rootOperationId, viewPath, widgetCompilationText);
+            }
+            finally
+            {
+                this.DeletePages(pageNode);
+                this.ClearData();
+
+                ServerOperations.Templates().DeletePageTemplate(TestTemplateTitle);
+
+                using (new UnrestrictedModeRegion())
+                {
+                    File.Delete(layoutFilePath);
+                }
+            }
+        }
+
         #endregion
 
         #region Private Methods
 
-        private string GetFilePath()
-        {
-            var path = System.Web.Hosting.HostingEnvironment.MapPath("~/ResourcePackages/Bootstrap/MVC/Views/Layouts/TestLayout.cshtml");
-
-            return path;
-        }
-
-        private void CreateLayoutFolderAndCopyLayoutFile()
+        private void CreateLayoutFolderAndCopyLayoutFile(string layoutFilePath)
         {
             PageManager pageManager = PageManager.GetManager();
             int templatesCount = pageManager.GetTemplates().Count();
 
-            string filePath = this.GetFilePath();
-
             using (new UnrestrictedModeRegion())
             {
-                FeatherServerOperations.ResourcePackages().AddNewResource(FileResource, filePath);
+                FeatherServerOperations.ResourcePackages().AddNewResource(FileResource, layoutFilePath);
                 FeatherServerOperations.ResourcePackages().WaitForTemplatesCountToIncrease(templatesCount, 1);
             }
+        }
+
+        private PageNode CreatePageWithMvcWidget(string templateTitle, string widgetPlaceholder)
+        {
+            Guid templateId = Telerik.Sitefinity.TestUtilities.CommonOperations.ServerOperations.Templates().GetTemplateIdByTitle(templateTitle);
+            var pageId = ServerOperations.Pages().CreatePage("TestPage1", templateId);
+            var pageNodeId = ServerOperations.Pages().GetPageNodeId(pageId);
+            var pageManager = Telerik.Sitefinity.Modules.Pages.PageManager.GetManager();
+            var pageNode = pageManager.GetPageNode(pageNodeId);
+            ServerOperationsFeather.Pages().AddContentBlockWidgetToPage(pageNodeId, LayoutCompilationPerformanceTests.WidgetName, widgetPlaceholder);
+
+            return pageNode;
         }
 
         #endregion
@@ -181,7 +216,9 @@ namespace FeatherWidgets.TestIntegration.Common
         #region Fields and Constants
 
         private const string Bootstrap = "Bootstrap";
-        private const string TemplateTitle = "TestLayout";
+        private const string WidgetName = "ContentBlock";
+        private const string TestTemplateTitle = "TestLayout";
+        private const string TestPlaceholder = "TestPlaceHolder";
         private const string FileResource = "Telerik.Sitefinity.Frontend.TestUtilities.Data.TestLayout.cshtml";
 
         #endregion
