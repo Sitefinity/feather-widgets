@@ -214,7 +214,7 @@ namespace FeatherWidgets.TestIntegration.Common
         }
 
         /// <summary>
-        /// Verifies that executions are logged for every MVC widget placed on the page or on its parent templates.
+        /// Verifies that executions and compilations are logged for the MVC widget placed on the page or on its parent templates.
         /// </summary>
         [Test]
         [Author(FeatherTeams.FeatherTeam)]
