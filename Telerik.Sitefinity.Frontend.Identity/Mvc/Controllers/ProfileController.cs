@@ -2,6 +2,7 @@
 using System.ComponentModel;
 using System.Configuration.Provider;
 using System.Web.Mvc;
+using Telerik.Sitefinity.Frontend.Identity.Mvc.Cache;
 using Telerik.Sitefinity.Frontend.Identity.Mvc.Models.Profile;
 using Telerik.Sitefinity.Frontend.Identity.Mvc.StringResources;
 using Telerik.Sitefinity.Frontend.Mvc.Infrastructure.Controllers;
@@ -97,6 +98,8 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Controllers
             {
                 return this.Content(Res.Get<ProfileResources>().EditNotAllowed);
             }
+
+            this.RegisterCustomOutputCacheVariation();
 
             this.ViewBag.Mode = this.Mode;
             if (this.Mode == ViewMode.EditOnly)
@@ -220,6 +223,12 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Controllers
             return this.View(fullTemplateName, viewModel);
         }
 
+        private void RegisterCustomOutputCacheVariation()
+        {
+            this.outputCacheVariation = new UserProfileMvcOutputCacheVariation();
+            PageRouteHandlerHelper.RegisterCustomOutputCacheVariation(this.outputCacheVariation);
+        }
+
         #endregion
 
         #region Private fields and constants
@@ -232,6 +241,7 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Controllers
         private const string ReadModeTemplatePrefix = "Read.";
         private const string EditModeTemplatePrefix = "Edit.";
 
+        private UserProfileMvcOutputCacheVariation outputCacheVariation;
         private IProfileModel model;
 
         #endregion
