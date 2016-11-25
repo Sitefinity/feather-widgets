@@ -24,6 +24,10 @@ namespace FeatherWidgets.TestIntegration.Common
     [Description("This class contains tests for tracking the razor view compilations of layout files.")]
     public class LayoutCompilationPerformanceTests : ProfilingTestBase
     {
+        /// <summary>
+        /// Set up method.
+        /// </summary>
+        [SetUp]
         public override void TestSetUp()
         {
             base.TestSetUp();
