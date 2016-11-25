@@ -101,6 +101,7 @@ namespace FeatherWidgets.TestIntegration.Identity.LoginForm
         [Category(TestCategories.Identity)]
         [Author(FeatherTeams.SitefinityTeam3)]
         [Description("Checks whether login form will submit only to its post action.")]
+        [Ignore("The test should be reworked - story id: 206582")]
         public void PostForm_Login_PostsItselfOnly()
         {
             this.pageOperations = new PagesOperations();
