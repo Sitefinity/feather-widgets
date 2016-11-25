@@ -179,7 +179,7 @@ namespace FeatherWidgets.TestIntegration.Common
         /// <summary>
         /// Verifies that executions are logged for every MVC widget placed on the page or on its parent templates.
         /// </summary>
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Globalization", "CA1303:Do not pass literals as localized parameters", MessageId = "FeatherWidgets.TestUtilities.CommonOperations.Templates.TemplateOperations.AddControlToTemplate(System.Guid,System.Web.UI.Control,System.String,System.String)"), System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Globalization", "CA1303:Do not pass literals as localized parameters", MessageId = "Telerik.Sitefinity.TestUtilities.CommonOperations.WidgetOperations.AddContentBlockToPage(System.Guid,System.String,System.String,System.String)"), Test]
+        [Test]
         [Author(FeatherTeams.FeatherTeam)]
         [Description("Verifies that executions are logged for every MVC widget placed on the page or on its parent templates.")]
         public void TemplateHierarchy_RequestPage_ShouldLogExecutions()
@@ -195,7 +195,7 @@ namespace FeatherWidgets.TestIntegration.Common
                 this.EnableProfiler("RazorViewCompilationsProfiler");
 
                 pageNode = this.CreatePageTemplateHierarchy(ref templateId1, ref templateId2);
-                
+
                 var fullPageUrl = RouteHelper.GetAbsoluteUrl(pageNode.GetUrl());
 
                 // Request page
@@ -213,6 +213,67 @@ namespace FeatherWidgets.TestIntegration.Common
             }
         }
 
+        /// <summary>
+        /// Verifies that executions are logged for every MVC widget placed on the page or on its parent templates.
+        /// </summary>
+        [Test]
+        [Author(FeatherTeams.FeatherTeam)]
+        [Description("Verifies that executions and compilations are logged for the MVC widget placed on the page or on its parent templates.")]
+        public void TemplateHierarchy_EditWidget_ShouldLogCompilation()
+        {
+            Guid templateId1 = default(Guid);
+            Guid templateId2 = default(Guid);
+
+            var widgetName = "News";
+            var widgetTemplateName = "List.NewsList.cshtml";
+            var widgetText = @"<ul class=""list-unstyled"">";
+            var widgetTextEdited = @"<ul class=""list-unstyled"">edited";
+            string widgetFilePath = FeatherServerOperations.ResourcePackages().GetResourcePackageMvcViewDestinationFilePath(ResourcePackages.Bootstrap, widgetName, widgetTemplateName);
+
+            PageNode pageNode = null;
+
+            try
+            {
+                this.EnableProfiler("HttpRequestsProfiler");
+                this.EnableProfiler("WidgetExecutionsProfiler");
+                this.EnableProfiler("RazorViewCompilationsProfiler");
+
+                pageNode = this.CreatePageTemplateHierarchy(ref templateId1, ref templateId2);
+                var fullPageUrl = RouteHelper.GetAbsoluteUrl(pageNode.GetUrl());
+
+                var viewPath = "~/Frontend-Assembly/Telerik.Sitefinity.Frontend.News/Mvc/Views/News/List.NewsList.cshtml";
+                var fullViewPath = string.Concat(viewPath, "#Bootstrap.cshtml");
+
+                // Request page
+                this.ClearData();
+                this.ExecuteAuthenticatedRequest(fullPageUrl);
+                this.FlushData();
+
+                this.ClearData();
+                FeatherServerOperations.ResourcePackages().EditLayoutFile(widgetFilePath, widgetText, widgetTextEdited);
+                this.WaitForAspNetCacheToBeInvalidated(fullViewPath);
+
+                this.ExecuteAuthenticatedRequest(fullPageUrl);
+                this.FlushData();
+
+                this.AssertWidgetExecutionCount(3);
+                this.AssertViewCompilationCount(1);
+
+                var rootOperationId = this.GetRequestLogRootOperationId(fullPageUrl);
+
+                var widgetCompilationText = "Compile view \"List.NewsList.cshtml#Bootstrap.cshtml\" of controller \"" + typeof(NewsController).FullName + "\"";
+                this.AssertViewCompilationParams(rootOperationId, viewPath, widgetCompilationText);
+            }
+            finally
+            {
+                FeatherServerOperations.ResourcePackages().EditLayoutFile(widgetFilePath, widgetTextEdited, widgetText);
+                this.DeletePages(pageNode);
+                Telerik.Sitefinity.TestUtilities.CommonOperations.ServerOperations.Templates().DeletePageTemplate(templateId2);
+                Telerik.Sitefinity.TestUtilities.CommonOperations.ServerOperations.Templates().DeletePageTemplate(templateId1);
+            }
+        }
+
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Globalization", "CA1303:Do not pass literals as localized parameters", MessageId = "FeatherWidgets.TestUtilities.CommonOperations.Templates.TemplateOperations.AddControlToTemplate(System.Guid,System.Web.UI.Control,System.String,System.String)")]
         private PageNode CreatePageTemplateHierarchy(ref Guid templateId1, ref Guid templateId2)
         {
             var widgetName = "ContentBlock";
