@@ -273,6 +273,12 @@ namespace FeatherWidgets.TestIntegration.Common
             }
         }
 
+        #endregion
+
+        #endregion
+
+        #region Helper methods
+
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Globalization", "CA1303:Do not pass literals as localized parameters", MessageId = "FeatherWidgets.TestUtilities.CommonOperations.Templates.TemplateOperations.AddControlToTemplate(System.Guid,System.Web.UI.Control,System.String,System.String)")]
         private PageNode CreatePageTemplateHierarchy(ref Guid templateId1, ref Guid templateId2)
         {
@@ -303,8 +309,6 @@ namespace FeatherWidgets.TestIntegration.Common
 
             return pageNode;
         }
-
-        #endregion
 
         #endregion
 
