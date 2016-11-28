@@ -22,6 +22,7 @@ namespace FeatherWidgets.TestUI.TestCases.News
         TestCategory(FeatherTestCategories.PagesAndContent)]
         public void SelectNewsItemFromDifferentProviderInNewsWidget()
         {
+            this.AddCustomProviderToSite();
             BAT.Macros().NavigateTo().Pages(this.Culture);
             BAT.Wrappers().Backend().Pages().PagesWrapper().OpenPageZoneEditor(PageName);
             BATFeather.Wrappers().Backend().Pages().PageZoneEditorWrapper().EditWidget(WidgetName);
@@ -55,6 +56,12 @@ namespace FeatherWidgets.TestUI.TestCases.News
         {
             BAT.Arrange(this.TestName).ExecuteTearDown();
         }
+
+        private void AddCustomProviderToSite()
+        {
+            string elementId = "ctl05_ctl00_ctl00_siteDetailView_ctl00_ctl00_configureModulesView_change_Telerik_Sitefinity_Modules_News_NewsManager";
+            BAT.Wrappers().Backend().Multisite().MultisiteWrapper().AddProviderToSite(elementId, SecondProviderName, "SecondSite");
+        } 
 
         private const string PageName = "News";
         private const string NewsTitle1 = "NewsTitle1";

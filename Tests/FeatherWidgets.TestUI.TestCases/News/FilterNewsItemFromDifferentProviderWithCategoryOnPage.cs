@@ -21,6 +21,7 @@ namespace FeatherWidgets.TestUI.TestCases.News
         TestCategory(FeatherTestCategories.PagesAndContent)]
         public void FilterNewsItemFromDifferentProviderWithCategoryOnPage()
         {
+            this.AddCustomProviderToSite();
             BAT.Macros().NavigateTo().Pages(this.Culture);
             BAT.Wrappers().Backend().Pages().PagesWrapper().OpenPageZoneEditor(PageName);
             BATFeather.Wrappers().Backend().Pages().PageZoneEditorWrapper().EditWidget(WidgetName);
@@ -31,6 +32,7 @@ namespace FeatherWidgets.TestUI.TestCases.News
             BATFeather.Wrappers().Backend().Widgets().SelectorsWrapper().WaitForItemsToAppear(1);
             BATFeather.Wrappers().Backend().Widgets().SelectorsWrapper().SelectItemsInHierarchicalSelector(TaxonTitle1, TaxonTitle2);
             BATFeather.Wrappers().Backend().Widgets().SelectorsWrapper().DoneSelecting();
+            ActiveBrowser.RefreshDomTree();
             BATFeather.Wrappers().Backend().Widgets().WidgetDesignerWrapper().VerifySelectedItemsFromHierarchicalSelector(new[] { "Category0 > Category1 > Category2 > Category3", "Category0 > Category1 > Category2 > Category3 > Category4" });
             BATFeather.Wrappers().Backend().Widgets().WidgetDesignerWrapper().SaveChanges();
             for (int i = 0; i < 7; i++)
@@ -66,6 +68,12 @@ namespace FeatherWidgets.TestUI.TestCases.News
         {
             BAT.Arrange(this.TestName).ExecuteTearDown();
         }
+
+        private void AddCustomProviderToSite()
+        {
+            string elementId = "ctl05_ctl00_ctl00_siteDetailView_ctl00_ctl00_configureModulesView_change_Telerik_Sitefinity_Modules_News_NewsManager";
+            BAT.Wrappers().Backend().Multisite().MultisiteWrapper().AddProviderToSite(elementId, SecondProviderName, "SecondSite");
+        } 
 
         private const string PageName = "News";
         private const string TaxonTitle1 = "Category3";
