@@ -3,7 +3,7 @@
         return;
 
     $(function () {
-        var formContainers = $('[data-sf-role="form-container"]');
+        var formContainers = $('[data-sf-role="form-container"]:has([data-sf-role="ajax-submit-url"])');
         formContainers.each(function (i, element) {
             var formContainer = $(element);
             var loadingImg = formContainer.find('[data-sf-role="loading-img"]');

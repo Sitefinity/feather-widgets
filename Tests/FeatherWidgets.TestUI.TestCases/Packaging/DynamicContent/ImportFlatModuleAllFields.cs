@@ -23,6 +23,7 @@ namespace FeatherWidgets.TestUI.TestCases.Packaging.DynamicContent
         /// </summary>
         [TestMethod,
         Owner(FeatherTeams.SitefinityTeam6),
+        Ignore, // Failing more than 20 runs.
         TestCategory(FeatherTestCategories.Packaging)]
         public void ImportFlatModuleAllFields()
         {

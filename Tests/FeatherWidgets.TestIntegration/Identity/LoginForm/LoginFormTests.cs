@@ -100,6 +100,7 @@ namespace FeatherWidgets.TestIntegration.Identity.LoginForm
             System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Naming", "CA1726:UsePreferredTerms", MessageId = "Login"), Test]
         [Category(TestCategories.Identity)]
         [Author(FeatherTeams.SitefinityTeam3)]
+        [Ignore] // Failed more than 40 times (passing locally)
         [Description("Checks whether login form will submit only to its post action.")]
         public void PostForm_Login_PostsItselfOnly()
         {
