@@ -74,7 +74,7 @@ namespace FeatherWidgets.TestUI.TestCases.Identity
         private const string TestAdminPass = "password";
         private const string TestAdminFirstName = "admin2";
         private const string TestAdminLastName = "admin2";
-        private const string TestAdminEmail = "admin2@test.com";
+        private const string TestAdminEmail = "admin2@test.test";
         private const string WrongPassword = "password123";
     }
 }

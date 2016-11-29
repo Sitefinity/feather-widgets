@@ -83,7 +83,7 @@ namespace FeatherWidgets.TestUI.TestCases.Identity
         private const string RegistrationWidgetName = "Registration";
         private const string LoginWidgetName = "Login form";
         private const string SelectedRoles = "Administrators";
-        private const string Email = "user@test.com";
+        private const string Email = "user@test.test";
         private const string UserName = "newUser";
         private const string Password = "password";
     }

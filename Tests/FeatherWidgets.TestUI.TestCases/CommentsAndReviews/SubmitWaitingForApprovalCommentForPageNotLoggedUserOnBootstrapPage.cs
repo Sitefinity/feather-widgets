@@ -61,7 +61,7 @@ namespace FeatherWidgets.TestUI.TestCases.CommentsAndReviews
         private const string LeaveAComment = "Leave a comment";
         private string[] commentToPage = { "Comment to page" };
         private string[] commentAuthor = { "New user" };
-        private string[] commentAuthorEmail = { "user@test.com" };
+        private string[] commentAuthorEmail = { "user@test.test" };
         private const string CommentStatus = "Published";
         private const string CommentStatusWaiting = "Waiting for approval";
         private const string CommentsCount = "1comment";

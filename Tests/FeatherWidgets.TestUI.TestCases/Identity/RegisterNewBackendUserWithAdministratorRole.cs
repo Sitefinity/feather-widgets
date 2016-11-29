@@ -76,7 +76,7 @@ namespace FeatherWidgets.TestUI.TestCases.Identity
         private const string SelectedRoles = "Administrators";
         private const string FirstName = "FirstName";
         private const string LastName = "LastName";
-        private const string Email = "user@test.com";
+        private const string Email = "user@test.test";
         private const string UserName = "newUser";
         private const string Password = "password";
         private const string LoginPage = "Sitefinity";

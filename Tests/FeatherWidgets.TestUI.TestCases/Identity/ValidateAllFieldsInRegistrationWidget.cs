@@ -105,10 +105,10 @@ namespace FeatherWidgets.TestUI.TestCases.Identity
         }
 
         private const string RegistrationPage = "RegistrationPage";
-        private const string Email = "user@test.com";
+        private const string Email = "user@test.test";
         private const string WrongEmail = "email";
         private const string UserName = "newUser";
-        private const string EditorUserEmail = "editor@test.com";
+        private const string EditorUserEmail = "editor@test.test";
         private const string EditorUserName = "editor";
         private const string Password = "password";
         private const string WrongPassword = "password1";

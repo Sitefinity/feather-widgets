@@ -19,7 +19,7 @@ namespace FeatherWidgets.TestUI.Arrangements
         {
             Guid templateId = ServerOperations.Templates().GetTemplateIdByTitle(TemplateTitle);
             ServerOperations.Pages().CreatePage(PageName, templateId);
-            ServerOperations.Users().CreateUserWithProfileAndRoles(TestAdmin, TestAdminPass, TestAdminFirstName, TestAdminLastName, TestAdminEmail, this.roles);
+            ServerOperations.Users().CreateUserWithProfileAndRoles(TestAdminEmail, TestAdminPass, TestAdminFirstName, TestAdminLastName, TestAdminEmail, this.roles);
         }
 
         /// <summary>
@@ -28,21 +28,17 @@ namespace FeatherWidgets.TestUI.Arrangements
         [ServerTearDown]
         public void TearDown()
         {
-            AuthenticationHelper.AuthenticateUser(AdminUserName, AdminPass, true);
+            AuthenticationHelper.AuthenticateUser(this.AdminEmail, this.AdminPass, true);
             ServerOperations.Pages().DeleteAllPages();
-            ServerOperations.Users().DeleteUserAndProfile(TestAdmin);
+            ServerOperations.Users().DeleteUserAndProfile(TestAdminEmail);
         }
 
         private const string PageName = "LoginPage";
         private const string TemplateTitle = "Bootstrap.default";
-        private const string AdminUserName = "admin";
-        private const string AdminPass = "admin@2";
-        private const string TestAdmin = "admin2";
-        private const string TestAdminUserName = "admin2";
         private const string TestAdminPass = "password";
         private const string TestAdminFirstName = "admin2";
         private const string TestAdminLastName = "admin2";
-        private const string TestAdminEmail = "admin2@test.com";
+        private const string TestAdminEmail = "admin2@test.test";
         private readonly List<string> roles = new List<string>() { "Administrators", "BackendUsers" };
     }
 }

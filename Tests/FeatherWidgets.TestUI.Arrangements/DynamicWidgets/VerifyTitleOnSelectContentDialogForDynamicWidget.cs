@@ -20,7 +20,7 @@ namespace FeatherWidgets.TestUI.Arrangements
         [ServerSetUp]
         public void SetUp()
         {
-            AuthenticationHelper.AuthenticateUser(AdminUserName, AdminPass, true);
+            AuthenticationHelper.AuthenticateUser(this.AdminEmail, this.AdminPass, true);
             ServerOperationsFeather.DynamicModules().EnsureModuleIsImported(ModuleName, ModuleResource);
 
             Guid pageId = ServerOperations.Pages().CreatePage(PageName);
@@ -35,7 +35,7 @@ namespace FeatherWidgets.TestUI.Arrangements
         [ServerTearDown]
         public void TearDown()
         {
-            AuthenticationHelper.AuthenticateUser(AdminUserName, AdminPass, true);
+            AuthenticationHelper.AuthenticateUser(this.AdminEmail, this.AdminPass, true);
             ServerOperations.Pages().DeleteAllPages();
 
             var providerName = string.Empty;
@@ -51,7 +51,5 @@ namespace FeatherWidgets.TestUI.Arrangements
         private const string ModuleName = "Press Release";
         private const string ModuleResource = "FeatherWidgets.TestUtilities.Data.DynamicModules.PressReleaseWithCategoriesField.zip";
         private const string ItemsTitle = "TestDynamicTitle";
-        private const string AdminUserName = "admin";
-        private const string AdminPass = "admin@2";
     }
 }

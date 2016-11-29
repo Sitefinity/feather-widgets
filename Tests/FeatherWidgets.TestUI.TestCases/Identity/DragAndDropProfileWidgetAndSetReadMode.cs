@@ -65,7 +65,7 @@ namespace FeatherWidgets.TestUI.TestCases.Identity
         private const string NewUserName = "newUser";
         private const string NewUserPassword = "password";
         private const string NewUserFirstAndLastName = "First name Last name";
-        private const string NewUserEmail = "newuser@test.com";
+        private const string NewUserEmail = "newuser@test.test";
         private const string LoginPage = "Sitefinity";
     }
 }

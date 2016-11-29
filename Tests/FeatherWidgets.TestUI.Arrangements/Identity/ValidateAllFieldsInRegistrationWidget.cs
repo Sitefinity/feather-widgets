@@ -20,16 +20,16 @@ namespace FeatherWidgets.TestUI.Arrangements
         [ServerSetUp]
         public void SetUp()
         {
-            AuthenticationHelper.AuthenticateUser(AdminUserName, AdminPass, true);
+            AuthenticationHelper.AuthenticateUser(this.AdminEmail, this.AdminPass, true);
 
             Guid templateId = ServerOperations.Templates().GetTemplateIdByTitle(TemplateTitle);
             Guid pageId = ServerOperations.Pages().CreatePage(RegistrationPage, templateId);
             pageId = ServerOperations.Pages().GetPageNodeId(pageId);
             ServerOperationsFeather.Pages().AddRegistrationWidgetToPage(pageId, PlaceHolderId);
 
-            ServerOperations.Users().CreateUserWithProfileAndRoles(EditorUserName, EditorUserPassword, EditorUserFirstName, EditorUserLastName, EditorUserEmail, new List<string> { "BackendUsers", "Administrators" });
+            ServerOperations.Users().CreateUserWithProfileAndRoles(EditorUserEmail, EditorUserPassword, EditorUserFirstName, EditorUserLastName, EditorUserEmail, new List<string> { "BackendUsers", "Administrators" });
 
-            AuthenticationHelper.LogoutUser(AdminUserName);
+            AuthenticationHelper.LogoutUser(this.AdminEmail);
         }
 
         /// <summary>
@@ -38,20 +38,17 @@ namespace FeatherWidgets.TestUI.Arrangements
         [ServerTearDown]
         public void TearDown()
         {
-            AuthenticationHelper.AuthenticateUser(AdminUserName, AdminPass, true);
+            AuthenticationHelper.AuthenticateUser(this.AdminEmail, this.AdminPass, true);
             ServerOperations.Pages().DeleteAllPages();
-            ServerOperations.Users().DeleteUserAndProfile(EditorUserName);
+            ServerOperations.Users().DeleteUserAndProfile(EditorUserEmail);
         }
 
         private const string RegistrationPage = "RegistrationPage";
         private const string TemplateTitle = "Bootstrap.default";
-        private const string AdminUserName = "admin";
-        private const string AdminPass = "admin@2";
         private const string PlaceHolderId = "Contentplaceholder1";
-        private const string EditorUserName = "editor";
         private const string EditorUserPassword = "password";
         private const string EditorUserFirstName = "First name";
         private const string EditorUserLastName = "Last name";
-        private const string EditorUserEmail = "editor@test.com";
+        private const string EditorUserEmail = "editor@test.test";
     }
 }

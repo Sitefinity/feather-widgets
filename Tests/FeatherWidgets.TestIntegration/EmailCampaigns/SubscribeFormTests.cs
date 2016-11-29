@@ -109,7 +109,7 @@ namespace FeatherWidgets.TestIntegration.EmailCampaigns
         private int pageIndexContentBlockPage = 1;
         private string searchValueText = "Redirect Page Text";
 
-        private string testEmail = "test@test.com";
+        private string testEmail = "test@test.test";
 
         private PagesOperations pageOperations;
         private NewslettersManager newslettersManager;

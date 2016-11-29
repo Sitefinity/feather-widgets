@@ -95,7 +95,7 @@ namespace FeatherWidgets.TestUI.TestCases.CommentsAndReviews
         private string[] reviewsToPage = { "Reviews to page" };
         private string[] reviewAuthor = { "New user" };
         private string[] reviewAuthorInvalidEmail = { "user" };
-        private string[] reviewAuthorEmail = { "newuser@test.com" };
+        private string[] reviewAuthorEmail = { "newuser@test.test" };
         private const string ReviewsStatus = "Published";
         private const string ReviewsCount = "1 review";
         private const string MessageIsRequired = "Message is required!";
