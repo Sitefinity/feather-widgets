@@ -159,12 +159,12 @@
     </Reference>
     <Reference Include="Telerik.Sitefinity.Mvc, Version=1.7.640.0, Culture=neutral, PublicKeyToken=b28c218413bdf563, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-	  <HintPath>..\..\packages\Telerik.Sitefinity.Mvc.1.7.640.0\lib\net45\Telerik.Sitefinity.Mvc.dll</HintPath>
+      <HintPath>..\..\packages\Telerik.Sitefinity.Mvc.1.7.640.0\lib\net45\Telerik.Sitefinity.Mvc.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Telerik.Sitefinity.Mvc.TestUtilities, Version=1.7.640.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-	  <HintPath>..\..\packages\Telerik.Sitefinity.Mvc.TestUtilities.1.7.640.0\lib\net45\Telerik.Sitefinity.Mvc.TestUtilities.dll</HintPath>
+      <HintPath>..\..\packages\Telerik.Sitefinity.Mvc.TestUtilities.1.7.640.0\lib\net45\Telerik.Sitefinity.Mvc.TestUtilities.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Telerik.Sitefinity.Personalization, Version=9.2.6200.0, Culture=neutral, PublicKeyToken=b28c218413bdf563, processorArchitecture=MSIL">
@@ -433,6 +433,7 @@
     <Compile Include="Forms\FileUpload\ChangeFileUploadTemplate.cs" />
     <Compile Include="Forms\FileUpload\SetRequiredFileUpload.cs" />
     <Compile Include="Forms\Forms\ChangeConfirmationMessageOfFormWidget.cs" />
+    <Compile Include="Forms\Forms\SubmitNonAjaxFormOnPageWithTwoFormsOneOfThemUseAjax.cs" />
     <Compile Include="Forms\Forms\SetRedirectToAPageOfFormWidget.cs" />
     <Compile Include="Forms\MultipleChoice\ChangeAdvancedSettingsOfMultipleChoiceFieldAndSetCssClass.cs" />
     <Compile Include="Forms\Checkboxes\ChangeAdvancedSettingsOfCheckBoxFieldAndSetCssClass.cs" />
@@ -460,6 +461,7 @@
     <Compile Include="Forms\SubmitButton\ChangeSubmitButtonTemplate.cs" />
     <Compile Include="Forms\SubmitButton\PreviewFormWithSubmitField.cs" />
     <Compile Include="Forms\Textbox\ChangeTextboxTemplate.cs" />
+    <Compile Include="Forms\Textbox\ChangeFieldNameOfTextField.cs" />
     <Compile Include="Forms\Textbox\SetLabelPlaceholderInstructionalTextPredefinedValueToTextboxField.cs" />
     <Compile Include="Forms\Textbox\PreviewFormWithTextField.cs" />
     <Compile Include="Forms\CAPTCHA\EditPageWithCaptchaFieldViaInlineEditing.cs" />

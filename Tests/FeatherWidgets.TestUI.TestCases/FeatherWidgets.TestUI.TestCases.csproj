@@ -282,6 +282,7 @@
     <Compile Include="Forms\FileUpload\ChangeFileUploadTemplate.cs" />
     <Compile Include="Forms\FileUpload\SetRequiredFileUpload.cs" />
     <Compile Include="Forms\Forms\ChangeConfirmationMessageOfFormWidget.cs" />
+    <Compile Include="Forms\Forms\SubmitNonAjaxFormOnPageWithTwoFormsOneOfThemUseAjax.cs" />
     <Compile Include="Forms\Forms\SetRedirectToAPageOfFormWidget.cs" />
     <Compile Include="Forms\MultipleChoice\ChangeAdvancedSettingsOfMultipleChoiceFieldAndSetCssClass.cs" />
     <Compile Include="Forms\Checkboxes\ChangeAdvancedSettingsOfCheckBoxFieldAndSetCssClass.cs" />
@@ -309,6 +310,7 @@
     <Compile Include="Forms\SubmitButton\ChangeSubmitButtonTemplate.cs" />
     <Compile Include="Forms\SubmitButton\PreviewFormWithSubmitField.cs" />
     <Compile Include="Forms\Textbox\ChangeTextboxTemplate.cs" />
+    <Compile Include="Forms\Textbox\ChangeFieldNameOfTextField.cs" />
     <Compile Include="Forms\Textbox\SetLabelPlaceholderInstructionalTextPredefinedValueToTextboxField.cs" />
     <Compile Include="Forms\Textbox\PreviewFormWithTextField.cs" />
     <Compile Include="Forms\CAPTCHA\EditPageWithCaptchaFieldViaInlineEditing.cs" />
@@ -585,6 +587,7 @@
     <None Include="packages.config">
       <SubType>Designer</SubType>
     </None>
+    <None Include="Settings.aiis" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Feather.Widgets.TestUI.Framework\Feather.Widgets.TestUI.Framework.csproj">
@@ -604,6 +607,11 @@
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="$(SolutionDir)\.nuget\NuGet.targets" Condition="Exists('$(SolutionDir)\.nuget\NuGet.targets')" />
+  <ProjectExtensions>
+    <VisualStudio>
+      <UserProperties Name="FeatherWidgets.TestUI.TestCases" />
+    </VisualStudio>
+  </ProjectExtensions>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">
