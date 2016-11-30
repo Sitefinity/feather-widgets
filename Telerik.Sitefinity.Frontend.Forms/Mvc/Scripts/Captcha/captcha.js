@@ -124,6 +124,37 @@
         }
     };
 
+    function getValidationMessages(input) {
+        var container = $(input).parents('[data-sf-role="field-captcha-container"]');
+        var validationMessagesInput = $(container).find('[data-sf-role="violation-messages"]');
+        var validationMessages = JSON.parse(validationMessagesInput.val());
+
+        return validationMessages;
+    }
+
+    function changeOrInput(e) {
+        if (typeof e.target.validity == 'undefined')
+            return;
+
+        if (e.target.required && e.target.validity.valueMissing) {
+            var validationMessages = getValidationMessages(e.target);
+            e.target.setCustomValidity(validationMessages.required);
+        } else {
+            e.target.setCustomValidity('');
+        }
+    }
+
+    function invalid(e) {
+        if (typeof e.target.validity == 'undefined')
+            return;
+
+        var validationMessages = getValidationMessages(e.target);
+                
+        if (e.target.validity.valueMissing) {
+            e.target.setCustomValidity(validationMessages.required);
+        }        
+    }
+
     /*
         Widget creation
     */
@@ -132,6 +163,14 @@
             var container = $(this);
             var rootUrl = container.find('[data-sf-role="captcha-settings"]').val();
             (new CaptchaWidget(container, { rootUrl: rootUrl })).initialize();
+
+            var input = container.find('[data-sf-role="captcha-input"]');
+
+            if (input) {
+                input.on('change', changeOrInput);
+                input.on('input', changeOrInput);
+                input.on('invalid', invalid);
+            }
         });
     });
 }(jQuery));
