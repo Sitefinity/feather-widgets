@@ -18,7 +18,7 @@
             @Html.Resource("VisitYourEmail")
         </h3>
 
-        <p tabindex="0" role="status">@string.Format(Html.Resource("ActivationLinkHasBeenSent"), Model.Email)</p>
+        <p role="alert">@string.Format(Html.Resource("ActivationLinkHasBeenSent"), Model.Email)</p>
         <button data-sf-role="sendAgainLink">@Html.Resource("SendAgain")</button>
 
         <div data-sf-role="confirmationResendInfo" style="display:none;">
@@ -31,7 +31,7 @@
     else if (ViewBag.ShowSuccessfulRegistrationMsg is bool && ViewBag.ShowSuccessfulRegistrationMsg)
     {
         <h3>@Html.Resource("ThankYou")</h3>
-        <p tabindex="0" role="status">@Html.Resource("DefaultSuccessfulRegistrationMessage")</p>
+        <p role="alert">@Html.Resource("DefaultSuccessfulRegistrationMessage")</p>
 
     }
     else
@@ -41,7 +41,7 @@
             @Html.ValidationSummary(true);
             if (!String.IsNullOrEmpty(ViewBag.Error))
             {
-                <div tabindex="0" role="alert"> @ViewBag.Error</div>
+                <div role="alert"> @ViewBag.Error</div>
             }
            
 
@@ -61,32 +61,36 @@
                 <label>
                     @Html.Resource("Email")
                     @Html.TextBoxFor(m => m.Email, new { type = "email", aria_required="true" })
-                    @Html.ValidationMessageFor(m => m.Email, null, new { role="alert" })
                 </label>
+
+                @Html.ValidationMessageFor(m => m.Email, null, new { role="alert" })                
             </div>
             if (!Model.EmailAddressShouldBeTheUsername)
             {
-            <div>
-                <label>
-                    @Html.Resource("UserName")
-                    @Html.TextBoxFor(m => m.UserName, new { aria_required="true" })
+                <div>
+                    <label>
+                        @Html.Resource("UserName")
+                        @Html.TextBoxFor(m => m.UserName, new { aria_required="true" })                        
+                    </label>
+
                     @Html.ValidationMessageFor(m => m.UserName, null, new { role="alert" })
-                </label>
-            </div>
+                </div>
             }
             <div>
                 <label>
                     @Html.Resource("Password")
-                    @Html.PasswordFor(m => m.Password, new { aria_required="true" })
-                    @Html.ValidationMessageFor(m => m.Password, null, new { role="alert" })
+                    @Html.PasswordFor(m => m.Password, new { aria_required="true" })                    
                 </label>
+
+                @Html.ValidationMessageFor(m => m.Password, null, new { role="alert" })
             </div>
             <div>
                 <label>
                     @Html.Resource("ReTypePassword")
-                    @Html.PasswordFor(m => m.ReTypePassword, new { aria_required="true" })
-                    @Html.ValidationMessageFor(m => m.ReTypePassword, null, new { role="alert" })
+                    @Html.PasswordFor(m => m.ReTypePassword, new { aria_required="true" })                    
                 </label>
+
+                @Html.ValidationMessageFor(m => m.ReTypePassword, null, new { role="alert" })
             </div>
 
             <div>
@@ -102,7 +106,6 @@
             
             <a href="@Model.LoginPageUrl">@Html.Resource("BackToLogin")</a>
          }
-
     }
 </div>
 @Html.Script(Url.WidgetContent("Mvc/Scripts/Registration/registration-form.js"), "bottom", false)
