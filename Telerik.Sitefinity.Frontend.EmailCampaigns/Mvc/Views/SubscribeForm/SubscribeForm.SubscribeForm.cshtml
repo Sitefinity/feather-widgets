@@ -22,7 +22,7 @@
         if (ViewBag.IsSucceeded == true)
         {
         
-            <p tabindex="0" role="status">
+            <p role="alert">
                @Html.Resource("ThankYou"). @Html.Resource("ThankYouMessage") (@ViewBag.Email)
             </p>
         }
@@ -31,7 +31,7 @@
 
             if (!string.IsNullOrEmpty(ViewBag.Error))
             {
-                <div tabindex="0" role="alert">
+                <div role="alert">
                     @ViewBag.Error
                 </div>
             }
@@ -57,7 +57,7 @@
             <div>
                 <label>
                     @Html.Resource("Email")
-                    @Html.TextBoxFor(u => u.Email, new { aria_required = "true" })
+                    @Html.TextBoxFor(u => u.Email, new { aria_required = "true", aria_label=@Html.Resource("SubscribeMail") })
                 </label>
                 <input type="submit" value="@Html.Resource("ButtonSubscribe")" />
                 @Html.ValidationMessageFor(u => u.Email, null, new { role="alert" })
