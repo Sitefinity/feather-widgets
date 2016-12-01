@@ -6,9 +6,13 @@
 
 @Html.Script(ScriptRef.JQuery, "top", false)
 
+@{
+    var isRequired = Model.IsRequired ? "true" : "false";
+}
+
 <div class="@Model.CssClass sf-fieldWrp" data-sf-role="file-field-container" data-sf-config="@(Html.AttributeEncode(Model.Serialize()))">
     <strong>@Model.MetaField.Title</strong>
-    <p data-sf-role="required-violation-message" style="display: none;">@Model.RequiredViolationMessage</p>
+    <p data-sf-role="required-violation-message" style="display: none;" role="alert">@Model.RequiredViolationMessage</p>
     
     @if (!string.IsNullOrEmpty(Model.MetaField.Description)) 
     {
@@ -21,7 +25,7 @@
             @:<script type="text/template" data-sf-role="file-input-template">
         }
             <div data-sf-role="single-file-input">
-                <input title="file" type="file" name="@(Model.MetaField.FieldName)" @Html.Raw(Model.ValidationAttributes) aria-label="@Model.MetaField.Title"/>
+                <input title="file" type="file" name="@(Model.MetaField.FieldName)" @Html.Raw(Model.ValidationAttributes) aria-label="@Model.MetaField.Title" aria-required=@isRequired />
                 @if (Model.AllowMultipleFiles)
                 {
                     <a href="javascript:void(0);" style="display: none;" data-sf-role="remove-input">Remove</a>

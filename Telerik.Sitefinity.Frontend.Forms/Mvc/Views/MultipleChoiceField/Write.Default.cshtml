@@ -10,6 +10,7 @@
 @{
     var fieldName = string.IsNullOrEmpty(Model.MetaField.FieldName) ? "multiple-choice-field-name" : Model.MetaField.FieldName;
     var requiredAttributes = MvcHtmlString.Create(Model.ValidationAttributes);
+    var isRequired = Model.IsRequired ? "true" : "false";
 }
 
 <div class="@Model.CssClass sf-fieldWrp sf-RadioButtons" data-sf-role="multiple-choice-field-container"  role="radiogroup" aria-label="@Model.MetaField.Title">
@@ -27,7 +28,7 @@
             var selctedAttributes = !Model.IsRequired && choice == Model.MetaField.DefaultValue as string ? "checked" : string.Empty;
             <div>
                 <label>
-                  <input type="radio" name="@fieldName" value="@choice" data-sf-role="multiple-choice-field-input" @selctedAttributes @requiredAttributes />
+                  <input type="radio" name="@fieldName" value="@choice" data-sf-role="multiple-choice-field-input" @selctedAttributes @requiredAttributes aria-required=@isRequired />
                     @choice
                 </label>
             </div>

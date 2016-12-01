@@ -7,10 +7,19 @@
 
 @Html.Script(ScriptRef.JQuery, "top", false)
 
+@{
+    var isRequired = "false";
+
+    if (!string.IsNullOrEmpty(Model.ValidationAttributes))
+    {
+        isRequired = "true";
+    }
+}
+
 <div class="@Model.CssClass sf-fieldWrp" data-sf-role="paragraph-text-field-container">
     <input type="hidden" data-sf-role="violation-messages" value='{"maxLength":"@Model.MaxLengthViolationMessage", "required": "@Model.RequiredViolationMessage"}' />
     <label for='@Html.UniqueId("Textarea")'>@Model.MetaField.Title</label>
-    <textarea id='@Html.UniqueId("Textarea")' data-sf-role="paragraph-text-field-textarea" name="@Model.MetaField.FieldName" placeholder="@Model.PlaceholderText" @MvcHtmlString.Create(Model.ValidationAttributes)>@Model.Value</textarea>
+    <textarea id='@Html.UniqueId("Textarea")' data-sf-role="paragraph-text-field-textarea" name="@Model.MetaField.FieldName" placeholder="@Model.PlaceholderText" @MvcHtmlString.Create(Model.ValidationAttributes) aria-required=@isRequired >@Model.Value</textarea>
     
      @if (!string.IsNullOrEmpty(Model.MetaField.Description)) 
      {
