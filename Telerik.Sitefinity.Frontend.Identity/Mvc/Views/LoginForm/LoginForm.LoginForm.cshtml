@@ -16,7 +16,7 @@
     <div>
         @if (Model.IncorrectCredentials)
         {            
-            <p tabindex="0" role="alert">@Html.Resource("IncorrectCredentialsMessage")</p>                
+            <p role="alert">@Html.Resource("IncorrectCredentialsMessage")</p>                
         }
         
         @using (Html.BeginFormSitefinity(@Request.Url.Query, null, null, FormMethod.Post, new Dictionary<string, object> { { "role", "form" }, { "aria-label", @Html.Resource("LoginFormLogInLegendHeader") } }, true))
