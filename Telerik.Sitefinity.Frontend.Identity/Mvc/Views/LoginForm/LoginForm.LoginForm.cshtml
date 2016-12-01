@@ -27,17 +27,19 @@
             <div>
                 <label>
                     @Html.Resource("Username")
-                    @Html.TextBoxFor(u => u.UserName, new { aria_required="true" })
-                    @Html.ValidationMessage("UserName", new { role="alert" })
+                    @Html.TextBoxFor(u => u.UserName, new { aria_required="true" })                   
                 </label>
+
+                @Html.ValidationMessage("UserName", new { role="alert" })
             </div>
 
             <div>
                 <label>
                     @Html.Resource("Password")
-                    @Html.PasswordFor(u => u.Password, new { aria_required="true" })
-                    @Html.ValidationMessage("Password", new { role="alert" })
+                    @Html.PasswordFor(u => u.Password, new { aria_required="true" })                    
                 </label>
+
+                @Html.ValidationMessage("Password", new { role="alert" })
             </div>
 
             if (Model.ShowRememberMe)

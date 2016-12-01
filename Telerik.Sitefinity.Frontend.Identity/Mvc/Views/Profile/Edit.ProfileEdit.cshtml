@@ -13,12 +13,12 @@
 <div class="@Model.CssClass">
     @if (Model.ShowProfileChangedMsg)
     {
-        <div tabindex="0" role="status">@Html.Resource("ChangesAreSaved")</div>
+        <div role="alert">@Html.Resource("ChangesAreSaved")</div>
     }
 
     @if (!String.IsNullOrEmpty(ViewBag.ErrorMessage))
     {
-        <div tabindex="0" role="alert">@ViewBag.ErrorMessage</div>
+        <div role="alert">@ViewBag.ErrorMessage</div>
     }
 
     @using (Html.BeginFormSitefinity("Index", "EditProfileForm", null, FormMethod.Post, new Dictionary<string, object> { { "role", "form" }, { "aria-label", "Edit profile" } }))
@@ -32,23 +32,25 @@
 
             <input type="file" data-sf-role="edit-profile-upload-picture-input" name="UploadedImage" style="display: none;" />
 
-            <a href="#" tabindex="0" data-sf-role="edit-profile-upload-picture-button">@Html.Resource("EditProfileUploadImage")</a>
+            <a href="#" data-sf-role="edit-profile-upload-picture-button">@Html.Resource("EditProfileUploadImage")</a>
 
         </div>        
 
         <div>
             <label>
                 @Html.Resource("EditProfileFirstName")
-                @Html.TextBoxFor(u => u.Profile["FirstName"], new { aria_required="true" })
-                @Html.ValidationMessageFor(u => u.Profile["FirstName"], null, new { role="alert" })
+                @Html.TextBoxFor(u => u.Profile["FirstName"], new { aria_required="true" })                
             </label>
+
+            @Html.ValidationMessageFor(u => u.Profile["FirstName"], null, new { role="alert" })
         </div>
         <div>
             <label>
                 @Html.Resource("EditProfileLastName")
-                @Html.TextBoxFor(u => u.Profile["LastName"], new { aria_required="true" })
-                @Html.ValidationMessageFor(u => u.Profile["LastName"], null, new { role="alert" })
+                @Html.TextBoxFor(u => u.Profile["LastName"], new { aria_required="true" })                
             </label>
+
+            @Html.ValidationMessageFor(u => u.Profile["LastName"], null, new { role="alert" })
         </div>
 
         <div>
@@ -66,23 +68,26 @@
             <div>
                 <label>
                     @Html.Resource("EditProfileOldPassword")
-                    @Html.PasswordFor(u => u.OldPassword, new { autocomplete = "off" })
-                    @Html.ValidationMessageFor(u => u.OldPassword, null, new { role="alert" })
+                    @Html.PasswordFor(u => u.OldPassword, new { autocomplete = "off" })                    
                 </label>
+
+                @Html.ValidationMessageFor(u => u.OldPassword, null, new { role="alert" })
             </div>
             <div>
                 <label>
                     @Html.Resource("EditProfileNewPassword")
-                    @Html.PasswordFor(u => u.NewPassword)
-                    @Html.ValidationMessageFor(u => u.NewPassword, null, new { role="alert" })
+                    @Html.PasswordFor(u => u.NewPassword)                    
                 </label>
+
+                @Html.ValidationMessageFor(u => u.NewPassword, null, new { role="alert" })
             </div>
             <div>
                 <label>
                     @Html.Resource("EditProfileRepeatPassword")
-                    @Html.PasswordFor(u => u.RepeatPassword)
-                    @Html.ValidationMessageFor(u => u.RepeatPassword, null, new { role="alert" })
+                    @Html.PasswordFor(u => u.RepeatPassword)                   
                 </label>
+
+                @Html.ValidationMessageFor(u => u.RepeatPassword, null, new { role="alert" })
             </div>
         </div>
 
