@@ -382,17 +382,27 @@
     <Compile Include="EmailCampaigns\UnsubscribeWidgetOnFoundationAndSemanticPage.cs" />
     <Compile Include="EmailCampaigns\UnsubscribeWidgetOnHybridPageAndSetCssClass.cs" />
     <Compile Include="Events\CalendarWidgetVerifyEventItemInDifferentPageInPreviewModeAndFrontendPage.cs" />
+    <Compile Include="Events\VerifyTwoCalendarsWidgetsOnPage.cs" />
     <Compile Include="Events\VerifyAllowUserToSwitchViews_CalendarView.cs" />
     <Compile Include="Events\VerifyAllowUsersToFilterByCalendars_CalendarView.cs" />
+    <Compile Include="Events\VerifyCalendarWidgetInPageTemplateAndInPage.cs" />
     <Compile Include="Events\VerifyDefaultView_CalendarView.cs" />
     <Compile Include="Events\FilterEventsByCalendar.cs" />
     <Compile Include="Events\VerifyAllDayEventsInOneDay_CalendarView.cs" />
     <Compile Include="Events\VerifyAllDayEventSwitchingDaylightSavingTime_CalendarView.cs" />
     <Compile Include="Events\VerifyCssClass_CalendarView.cs" />
+    <Compile Include="Events\VerifyEditableCalendarWidgetOnHybridPageTemplate.cs" />
+    <Compile Include="Events\VerifyEditableCalendarWidgetOnMvcPageTemplate.cs" />
     <Compile Include="Events\VerifyEventDetailsCssClass_CalendarWidget.cs" />
+    <Compile Include="Events\VerifyHybridPageTemplatePreviewWithCalendarWidget.cs" />
+    <Compile Include="Events\VerifyModifiedEditableCaledarWidgetOnHybridPage.cs" />
+    <Compile Include="Events\VerifyModifiedEditableCaledarWidgetOnMvcPage.cs" />
     <Compile Include="Events\VerifyMultipleAllDayEventsInThreeDays_CalendarView.cs" />
     <Compile Include="Events\VerifyMultipleNormalEventsInThreeDays_CalendarView.cs" />
+    <Compile Include="Events\VerifyMvcPageTemplatePreviewWithCalendarWidget.cs" />
     <Compile Include="Events\VerifyNormalEventSwitchingDaylightSavingTime_CalendarView.cs" />
+    <Compile Include="Events\VerifyPageWithHybridPageTemplateContainingCalendarWidget.cs" />
+    <Compile Include="Events\VerifyPageWithMvcPageTemplateContainingCalendarWidget.cs" />
     <Compile Include="Events\VerifyRecurrentAllDayEventFiveRepeats_CalendarView.cs" />
     <Compile Include="Events\VerifyRecurrentAllDayEventsWithNoEndDate_CalendarView.cs" />
     <Compile Include="Events\VerifyRecurrentNormalEventSwitchingDaylightSavingTime_CalendarView.cs" />
@@ -413,6 +423,8 @@
     <Compile Include="Events\VerifyPastCurrentUpcomingEvents_Calendar_MvcPage_Week_View.cs" />
     <Compile Include="Events\VerifyPastCurrentUpcomingEvents_Calendar_WorkWeekView_HybridPage.cs" />
     <Compile Include="Events\VerifyPastCurrentUpcomingEvents_Calendar_WorkWeekView_MvcPage.cs" />
+    <Compile Include="Events\VerifyRevisionHistoryOfMVCPageTemplateContainsCalendarWidget.cs" />
+    <Compile Include="Events\VerifyRevisionHistoryOfPageContainsCalendarWidget.cs" />
     <Compile Include="Events\VerifyUseLimitListSettingsOnFrontendPageForEventsWidget.cs" />
     <Compile Include="Events\FilterEventCommon.cs" />
     <Compile Include="Events\FilterByAllEvents.cs" />
@@ -545,7 +557,9 @@
     <Compile Include="ImageGallery\VerifyUseLimitListSettingsOnFrontendPageForImageGalleryWidget.cs" />
     <Compile Include="ImageGallery\VerifyNoLimitAndPaginationListSettingsOnFrontendPageForImageGalleryWidget.cs" />
     <Compile Include="ImageGallery\VerifyPagingOnFrontendPageForImageGalleryWidget.cs" />
+    <Compile Include="Lists\CheckIfRequestToDecIsSendOnListExpanded.cs" />
     <Compile Include="Lists\VerifyListTemplatesOnBootstrap.cs" />
+    <Compile Include="MediaWidgets\CheckIfRequestToDecIsSendOnVideoPlayed.cs" />
     <Compile Include="Navigation\BreadcrumbDetailBlogPostItemVirtualNodes.cs" />
     <Compile Include="Navigation\BreadcrumbDetailEventItemVirtualNodes.cs" />
     <Compile Include="Navigation\BreadcrumbDetailImageItemDocumentItemVideoItemVirtualNodes.cs" />
@@ -592,6 +606,7 @@
     <Compile Include="Search\VerifyNoLimitAndPaginationListSettingsOnFrontendPageForSearchResultsWidget.cs" />
     <Compile Include="Search\VerifyPagingOnFrontendPageForSearchResultsWidget.cs" />
     <Compile Include="Search\VerifyUseLimitListSettingsOnFrontendPageForSearchResultsWidget.cs" />
+    <Compile Include="SocialShare\CheckIfRequestToDecIsSendOnSocialButtonClick.cs" />
     <Compile Include="SystemSetup\SetupSitefinityForMultisiteMultilingual.cs" />
     <Compile Include="VideoGallery\VerifyUseLimitListSettingsOnFrontendPageForVideoGalleryWidget.cs" />
     <Compile Include="VideoGallery\VerifyNoLimitAndPaginationListSettingsOnFrontendPageForVideoGalleryWidget.cs" />
@@ -742,6 +757,10 @@
     <ProjectReference Include="..\..\Telerik.Sitefinity.Frontend.Blogs\Telerik.Sitefinity.Frontend.Blogs.csproj">
       <Project>{7fdac868-95ef-4b9d-bcdb-4dd7c93b3a4e}</Project>
       <Name>Telerik.Sitefinity.Frontend.Blogs</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Telerik.Sitefinity.Frontend.Events\Telerik.Sitefinity.Frontend.Events.csproj">
+      <Project>{3d2b45ef-a016-4821-8ba0-badade614080}</Project>
+      <Name>Telerik.Sitefinity.Frontend.Events</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\Telerik.Sitefinity.Frontend.Navigation\Telerik.Sitefinity.Frontend.Navigation.csproj">
       <Project>{fc694955-3df4-4a35-ad3e-a6954d6243b1}</Project>

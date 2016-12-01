@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using ArtOfTest.Common.UnitTesting;
+﻿using ArtOfTest.Common.UnitTesting;
 using ArtOfTest.WebAii.Controls.HtmlControls;
 using ArtOfTest.WebAii.Core;
 
@@ -103,6 +98,19 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Frontend
             documentDiv.AssertIsNotNull("div is not found");
 
             documentDiv.Find.ByExpression<HtmlAnchor>("innertext=" + title).AssertIsNotNull("document is not found");
+        }
+
+        /// <summary>
+        /// Verify correct DEC info is send
+        /// </summary>
+        /// <param name="itemName">Name of the item.</param>
+        public void VerifyCorrectDecInfoIsSend(string src)
+        {
+            var searchedAttribute = "sf-decdata=" + src;
+            ActiveBrowser.WaitForElement(15000, searchedAttribute);
+            var decData = ActiveBrowser.Find.ByAttributes<HtmlInputHidden>(searchedAttribute);
+            Assert.IsNotNull(decData);
+            Assert.IsTrue(decData.Value.Contains(src));
         }
 
         /// <summary>

@@ -18,7 +18,8 @@ namespace FeatherWidgets.TestUI.TestCases.Events
         Owner(FeatherTeams.SitefinityTeam7),
         TestCategory(FeatherTestCategories.PagesAndContent),
         TestCategory(FeatherTestCategories.Events),
-        TestCategory(FeatherTestCategories.Selectors)]
+        TestCategory(FeatherTestCategories.Selectors),
+        Telerik.TestUI.Core.Attributes.KnownIssue(BugId = 206134), Ignore]
         public void SelectParticularEventOnPage()
         {
             

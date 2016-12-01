@@ -217,7 +217,7 @@ namespace Telerik.Sitefinity.Frontend.News.Mvc.Controllers
         /// <inheritDoc/>
         protected override void HandleUnknownAction(string actionName)
         {
-            this.Index(null).ExecuteResult(this.ControllerContext);
+            this.ActionInvoker.InvokeAction(this.ControllerContext, "Index");
         }
 
         #endregion

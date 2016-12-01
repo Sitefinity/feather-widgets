@@ -280,13 +280,14 @@
     <EmbeddedResource Include="Mvc\Scripts\Document\designerview-simple.js" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Mvc\Scripts\Video\designerview-simple.js" />
-  </ItemGroup>
-  <ItemGroup>
     <EmbeddedResource Include="Mvc\Scripts\VideoGallery\overlay-gallery.js" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Mvc\Scripts\VideoGallery\designerview-simple.js" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Mvc\Scripts\Video\designerview-simple.js" />
+    <EmbeddedResource Include="Mvc\Scripts\Video\video.js" />
   </ItemGroup>
   <Import Project="$(SolutionDir)\Build\FeatherPrecompilation.targets" />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

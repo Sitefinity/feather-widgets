@@ -28,7 +28,7 @@ namespace FeatherWidgets.TestUI.Arrangements
 
             ServerOperations.Images().CreateLibrary(ImageLibraryTitle);
 
-            for (int i = 1; i <= 4; i++)
+            for (int i = 4; i >= 1; i--)
             {
                 ServerOperations.Images().Upload(ImageLibraryTitle, ImageTitle + i, "Telerik.Sitefinity.TestUtilities.Data.Images." + i + ".jpg");        
             }
