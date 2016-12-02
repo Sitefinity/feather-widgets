@@ -72,11 +72,11 @@ namespace Telerik.Sitefinity.Frontend.DynamicContent
         /// </summary>
         private static void RegisterDynamicTemplatableControl()
         {
-            var dynamicContentType = DynamicWidgetInitializer.GetActiveDynamicModuleTypes();
+            var dynamicContentTypes = ModuleBuilderManager.GetActiveTypes();
 
             var dynamicContentControllerType = typeof(DynamicContentController);
 
-            foreach (var dynamicType in dynamicContentType)
+            foreach (var dynamicType in dynamicContentTypes)
             {
                 var mvcAreaWidgetName = string.Format(CultureInfo.InvariantCulture, MvcConstants.DynamicAreaFormat, dynamicType.ModuleName, dynamicType.DisplayName);
 
@@ -84,26 +84,6 @@ namespace Telerik.Sitefinity.Frontend.DynamicContent
 
                 Telerik.Sitefinity.Modules.ControlTemplates.ControlTemplates.RegisterTemplatableControl(dynamicContentControllerType, dynamicContentControllerType, string.Empty, mvcAreaWidgetName, mvcWidgetName);
             }
-        }
-
-        /// <summary>
-        /// Gets the current active dynamic module types.
-        /// </summary>
-        /// <returns>List of DynamiModuleType</returns>
-        private static List<DynamicModuleType> GetActiveDynamicModuleTypes()
-        {
-            var manager = ModuleBuilderManager.GetManager();
-            var provider = manager.Provider as ModuleBuilderDataProvider;
-            List<DynamicModuleType> activeModuleTypes = new List<DynamicModuleType>();
-            var activeModules = provider.GetDynamicModules().Where(m => m.Status == DynamicModuleStatus.Active);
-
-            foreach (var activeModule in activeModules)
-            {
-                var moduleTypes = provider.GetDynamicModuleTypes().Where(t => t.ParentModuleId == activeModule.Id);
-                activeModuleTypes.AddRange(moduleTypes);
-            }
-
-            return activeModuleTypes.ToList();
         }
     }
 }
