@@ -75,7 +75,7 @@ namespace FeatherWidgets.TestIntegration.DynamicWidgets
             dynamicContentModel.ContentType = child1Type;
             
             var manager = DynamicModuleManager.GetManager();
-            var liveItem = manager.GetDataItems(child1Type).First();
+            var liveItem = manager.GetDataItems(child1Type).Where(i => i.Status == Telerik.Sitefinity.GenericContent.Model.ContentLifecycleStatus.Live).First();
             var masterItem = manager.Lifecycle.GetMaster(liveItem);
             
             var viewModel = dynamicContentModel.CreateDetailsViewModel(masterItem);
@@ -104,7 +104,7 @@ namespace FeatherWidgets.TestIntegration.DynamicWidgets
             dynamicContentModel.ContentType = child1Type;
             
             var manager = DynamicModuleManager.GetManager();
-            var liveItem = manager.Lifecycle.GetLive(manager.GetDataItems(child1Type).First());
+            var liveItem = manager.Lifecycle.GetLive(manager.GetDataItems(child1Type).Where(i => i.Status == Telerik.Sitefinity.GenericContent.Model.ContentLifecycleStatus.Master).First());
             var viewModel = dynamicContentModel.CreateDetailsViewModel(liveItem);
             
             var result = viewModel.Item.ParentItem();

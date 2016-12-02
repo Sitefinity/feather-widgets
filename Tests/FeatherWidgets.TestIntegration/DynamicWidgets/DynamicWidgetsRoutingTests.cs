@@ -364,7 +364,7 @@ namespace FeatherWidgets.TestIntegration.DynamicWidgets
                 DynamicModuleManager dynamicModuleManager = DynamicModuleManager.GetManager(providerName);
                 Type countryType = TypeResolutionService.ResolveType(ResolveTypeCountry);
 
-                var countryItem = dynamicModuleManager.GetDataItems(countryType).Where("Title = \"Country2\"").First();
+                var countryItem = dynamicModuleManager.GetDataItems(countryType).Where("Status = Live AND Title = \"Country2\"").First();
                 var countryItem2 = dynamicModuleManager.GetDataItems(countryType).Where("Title = \"Country3\"").First();
 
                 string[] parentIds = new string[] { countryItem.Id.ToString(), countryItem2.Id.ToString() };

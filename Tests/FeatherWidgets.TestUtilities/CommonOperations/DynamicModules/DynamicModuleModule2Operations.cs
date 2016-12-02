@@ -39,7 +39,7 @@ namespace FeatherWidgets.TestUtilities.CommonOperations
 
             foreach (var relatedColor in relatedColors)
             {
-                var relatedColorItem = relatedColorManager.GetDataItems(relatedColorType).Where("Title = \"" + relatedColor + "\"").First();
+                var relatedColorItem = relatedColorManager.GetDataItems(relatedColorType).Where("Status = Master AND Title = \"" + relatedColor + "\"").First();
 
                 if (relatedColorItem != null && relatedColorItem.Status == Telerik.Sitefinity.GenericContent.Model.ContentLifecycleStatus.Master)
                 {
