@@ -4683,6 +4683,7 @@ namespace FeatherWidgets.TestIntegration.Events
         [Category(TestCategories.Events)]
         [Author(FeatherTeams.SitefinityTeam8)]
         [Description("Ensure that after events request, data is correctly retrieved as json content")]
+        [Ignore("Unstable: Story id: 207129")]
         public void EventSchedulerWidget_Route_Events_Filters_CalendarsCategories()
         {
             var manager = EventsManager.GetManager();
@@ -4728,6 +4729,7 @@ namespace FeatherWidgets.TestIntegration.Events
         [Category(TestCategories.Events)]
         [Author(FeatherTeams.SitefinityTeam8)]
         [Description("Ensure that after events request, data is correctly retrieved as json content")]
+        [Ignore("Unstable: Story id: 207133")]
         public void EventSchedulerWidget_Route_Events_Filters_CalendarsTags()
         {
             var manager = EventsManager.GetManager();
@@ -4822,6 +4824,7 @@ namespace FeatherWidgets.TestIntegration.Events
         [Category(TestCategories.Events)]
         [Author(FeatherTeams.SitefinityTeam8)]
         [Description("Ensure that after events request, data is correctly retrieved as json content")]
+        [Ignore("Unstable: Story id: 207131")]
         public void EventSchedulerWidget_Route_Events_Filters_CalendarsCategoriesTags()
         {
             var manager = EventsManager.GetManager();
@@ -4881,6 +4884,7 @@ namespace FeatherWidgets.TestIntegration.Events
         [Category(TestCategories.Events)]
         [Author(FeatherTeams.SitefinityTeam8)]
         [Description("Ensure that after calendar request, data is correctly retrieved as json content")]
+        [Ignore("Unstable: Story id: 207132")]
         public void EventSchedulerWidget_Route_Calendar()
         {
             var manager = EventsManager.GetManager();
