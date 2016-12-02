@@ -19,7 +19,8 @@ namespace FeatherWidgets.TestUI.TestCases.DocumentsList
         [TestMethod,
         Owner(FeatherTeams.SitefinityTeam4),
         TestCategory(FeatherTestCategories.PagesAndContent),
-        TestCategory(FeatherTestCategories.DocumentsList)]
+        TestCategory(FeatherTestCategories.DocumentsList),
+        Telerik.TestUI.Core.Attributes.KnownIssue(BugId = 206476), Ignore]
         public void VerifyViewPermissionsForDocumentsListWidget()
         {
             RuntimeSettingsModificator.ExecuteWithClientTimeout(800000, () => BAT.Macros().NavigateTo().CustomPage("~/sitefinity/pages", true, null, new HtmlFindExpression("class=~sfMain")));

@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using FeatherWidgets.TestUtilities.CommonOperations;
 using Telerik.Sitefinity.Modules.GenericContent;
+using Telerik.Sitefinity.Restriction;
 using Telerik.Sitefinity.TestArrangementService.Attributes;
 using Telerik.Sitefinity.TestUI.Arrangements.Framework;
 using Telerik.Sitefinity.TestUtilities.CommonOperations;
@@ -33,7 +34,10 @@ namespace FeatherWidgets.TestUI.Arrangements
         [ServerArrangement]
         public void DeactivateModule()
         {
-            ServerOperations.StaticModules().DeactivateModule(FeatherModuleName); 
+            using (new UnrestrictedModeRegion())
+            {
+                ServerOperations.StaticModules().DeactivateModule(FeatherModuleName);
+            }
         }
 
         /// <summary>
@@ -42,7 +46,10 @@ namespace FeatherWidgets.TestUI.Arrangements
         [ServerArrangement]
         public void ActivateModule()
         {
-            ServerOperations.StaticModules().ActivateModule(FeatherModuleName);
+            using (new UnrestrictedModeRegion())
+            {
+                ServerOperations.StaticModules().ActivateModule(FeatherModuleName);
+            }
         }
 
         /// <summary>
@@ -53,7 +60,10 @@ namespace FeatherWidgets.TestUI.Arrangements
         {
             ServerOperations.Pages().DeleteAllPages();
             ServerOperations.ContentBlocks().DeleteAllContentBlocks();
-            ServerOperations.StaticModules().ActivateModule(FeatherModuleName);
+            using (new UnrestrictedModeRegion())
+            {
+                ServerOperations.StaticModules().ActivateModule(FeatherModuleName);
+            }
         }
 
         private const string PageName = "ContentBlock";

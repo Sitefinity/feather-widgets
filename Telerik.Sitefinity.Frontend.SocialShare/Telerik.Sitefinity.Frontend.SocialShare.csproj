@@ -209,6 +209,7 @@
     <EmbeddedResource Include="Mvc\Scripts\SocialShare\designerview-simple.js" />
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="Mvc\Scripts\SocialShare\social-share.js" />
     <EmbeddedResource Include="assets\dist\css\sf-social-share.css" />
     <EmbeddedResource Include="assets\dist\css\sf-social-share.min.css" />
     <EmbeddedResource Include="assets\dist\images\social-share-sprite.png" />

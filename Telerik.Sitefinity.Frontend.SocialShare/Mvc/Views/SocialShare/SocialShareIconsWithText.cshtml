@@ -1,6 +1,7 @@
 ﻿@model Telerik.Sitefinity.Frontend.SocialShare.Mvc.Models.SocialShareModel
 @using Telerik.Sitefinity.Frontend.SocialShare.SocialShareHelpers
 @using Telerik.Sitefinity.Frontend.Mvc.Helpers
+@using Telerik.Sitefinity.Modules.Pages;
 
 @{
     var shareUrl = SocialShareButtons.ShareUrl;
@@ -9,6 +10,7 @@
 }
 
 @Html.StyleSheet(Url.WidgetContent("assets/dist/css/sf-social-share.min.css"), "head", false)
+@Html.Script(ScriptRef.JQuery, "head", false)
 
 <style>
     .color {color: blue;}
@@ -21,7 +23,7 @@
             switch (button.ButtonName)
             {
                 case "Facebook":
-                    <li>
+                    <li data-sf-role="socialShare" data-sf-socialshareoption="@button.ButtonName">
                         <div class='fb-share-button' data-href='@shareUrl' data-type='button_count'></div>
                         <div id='fb-root'></div>
                         <script>
@@ -30,17 +32,17 @@
                     </li>
                     break;
                 case "Twitter":
-                <li>
-                    <a href='https://twitter.com/share' title='Share on Twitter' class='twitter-share-button' data-url=@shareUrl data-count='horizontal'>
-                        Tweet
-                    </a>
-                    <script>
-                        !function (d, s, id) { var js, fjs = d.getElementsByTagName(s)[0], p = /^http:/.test(d.location) ? 'http' : 'https'; if (!d.getElementById(id)) { js = d.createElement(s); js.id = id; js.src = p + '://platform.twitter.com/widgets.js'; fjs.parentNode.insertBefore(js, fjs); } }(document, 'script', 'twitter-wjs');
-                    </script>
-                </li>
+                    <li data-sf-role="socialShare" data-sf-socialshareoption="@button.ButtonName">
+                        <a href='https://twitter.com/share' title='Share on Twitter' class='twitter-share-button' data-url=@shareUrl data-count='horizontal'>
+                            Tweet
+                        </a>
+                        <script>
+                            !function (d, s, id) { var js, fjs = d.getElementsByTagName(s)[0], p = /^http:/.test(d.location) ? 'http' : 'https'; if (!d.getElementById(id)) { js = d.createElement(s); js.id = id; js.src = p + '://platform.twitter.com/widgets.js'; fjs.parentNode.insertBefore(js, fjs); } }(document, 'script', 'twitter-wjs');
+                        </script>
+                    </li>
                     break;
                 case "LinkedIn":
-                <li>
+                <li data-sf-role="socialShare" data-sf-socialshareoption="@button.ButtonName">
                     <script src="//platform.linkedin.com/in.js" type="text/javascript">
                         lang: en_US
                     </script>
@@ -49,15 +51,15 @@
                 </li>
                     break;
                 case "GooglePlusOne":
-                <li>
-                    <div class='g-plusone' data-size='medium'></div>
+                <li data-sf-role="socialShare" data-sf-socialshareoption="@button.ButtonName">
+                    <div class='g-plusone' data-size='medium' data-callback="googleShareCallback"></div>
                     <script type='text/javascript'>
                         (function () { var po = document.createElement('script'); po.type = 'text/javascript'; po.async = true; po.src = 'https://apis.google.com/js/platform.js'; var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(po, s); })();
                     </script>
                 </li>
                     break;
                 case "Blogger":
-                <li>
+                <li data-sf-role="socialShare" data-sf-socialshareoption="@button.ButtonName">
                     <a class="sf-share-button" href="#" onclick="window.open('https://www.blogger.com/blog_this.pyra?t&u=@shareUrl&n=@pageTitle', 'Blogger','toolbar=no,width=550,height=550'); return false" title="Share on Blogger">
                         <span class="sf-icon-blogger"></span>
                         <strong>Blogger</strong>
@@ -65,19 +67,19 @@
                 </li>
                     break;
                 case "Delicious":
-                <li>
-                    <a href="#" onclick="window.open('https://delicious.com/save?v=5&provider=Telerik&noui&jump=close&url=@shareUrl&title=@pageTitle, 'delicious','toolbar=no,width=550,height=550'); return false;">
+                <li data-sf-role="socialShare" data-sf-socialshareoption="@button.ButtonName">
+                    <a href="#" onclick="window.open('https://delicious.com/save?v=5&provider=Telerik&noui&jump=close&url=@shareUrl&title=@pageTitle', 'delicious','toolbar=no,width=550,height=550'); return false;">
                         <img src="https://delicious.com/img/logo.png" height="16" width="16" alt="Delicious"> Save this on Delicious
                     </a>
                 </li>
                     break;
                 case "Tumblr":
-                <li>
-                    <a href="http://www.tumblr.com/share" title="Share on Tumblr" style="display:inline-block; text-indent:-9999px; overflow:hidden; width:81px; height:20px; background:url('https://platform.tumblr.com/v1/share_1.png') top left no-repeat transparent;">Share on Tumblr</a>
+                <li data-sf-role="socialShare" data-sf-socialshareoption="@button.ButtonName">
+                    <a href="#" onclick="window.open('http://www.tumblr.com/share', 'Tumblr','toolbar=no,width=900,height=550')";S title="Share on Tumblr" style="display:inline-block; text-indent:-9999px; overflow:hidden; width:81px; height:20px; background:url('https://platform.tumblr.com/v1/share_1.png') top left no-repeat transparent;">Share on Tumblr</a>
                 </li>
                     break;
                 case "GoogleBookmarks":
-                <li>
+                <li data-sf-role="socialShare" data-sf-socialshareoption="@button.ButtonName">
                     <a class="sf-share-button" href="#" onclick="window.open('https://www.google.com/bookmarks/mark?op=add&bkmk=@shareUrl&title=@pageTitle', 'Google bookmarks','toolbar=no,width=550,height=550'); return false" title="Share on GoogleBookmarks">
                         <span class="sf-icon-google"></span>
                         <strong>Google Bookmarks</strong>
@@ -85,14 +87,14 @@
                 </li>
                     break;
                 case "Digg":
-                <li>
+                <li data-sf-role="socialShare" data-sf-socialshareoption="@button.ButtonName">
                     <a class="sf-share-button" href="#" onclick="window.open('http://digg.com/submit?url=@shareUrl&title=@pageTitle', 'Digg','toolbar=no,width=550,height=550'); return false" title="Share on Digg">
                         <span class="sf-icon-digg"></span> <strong>Digg</strong>
                     </a>
                 </li>
                     break;
                 case "MySpace":
-                <li>
+                <li data-sf-role="socialShare" data-sf-socialshareoption="@button.ButtonName">
                     <a class="sf-share-button" href="#" onclick="window.open('http://myspace.com/Modules/PostTo/Pages/?u=@shareUrl&t=@pageTitle', 'My Space','toolbar=no,width=550,height=550'); return false" title="Share on MySpace">
                         <span class="sf-icon-myspace"></span>
                         <strong>MySpace</strong>
@@ -100,7 +102,7 @@
                 </li>
                     break;
                 case "StumbleUpon":
-                <li>
+                <li data-sf-role="socialShare" data-sf-socialshareoption="@button.ButtonName">
                     <!-- Place this tag where you want the su badge to render -->
                     <su:badge layout="2"></su:badge>
 
@@ -116,13 +118,13 @@
                 </li>
                     break;
                 case "Reddit":
-                <li>
+                <li data-sf-role="socialShare" data-sf-socialshareoption="@button.ButtonName">
                     <a href="//www.reddit.com/submit" onclick="window.location = '//www.reddit.com/submit?url=@shareUrl'; return false"> <img src="//www.redditstatic.com/spreddit7.gif" alt="submit to reddit" border="0" /> </a>
                 </li>
                     break;
 
                 case "MailTo":
-                <li>
+                <li data-sf-role="socialShare" data-sf-socialshareoption="@button.ButtonName">
                     <a href="mailto:?body=@shareUrl&subject=@pageTitle" class="sf-share-button" title="Tell a friend">
                         <span class="sf-icon-mailto"></span>
                         <strong>Email</strong>
@@ -135,3 +137,5 @@
         }
     </ul>
 </div>
+
+@Html.Script(Url.WidgetContent("Mvc/Scripts/SocialShare/social-share.js"), "bottom", false)

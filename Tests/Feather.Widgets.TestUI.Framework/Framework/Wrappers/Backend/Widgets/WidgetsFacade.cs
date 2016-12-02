@@ -28,5 +28,14 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend
         {
             return new SelectorsWrapper();
         }
+
+        /// <summary>
+        ///  DEC tracking wrapper.
+        /// </summary>
+        /// <returns></returns>
+        public WidgetDecTrackingWrapper WidgetDecTrackingWrapper()
+        {
+            return new WidgetDecTrackingWrapper();
+        }
     }
 }
