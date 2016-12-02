@@ -241,15 +241,13 @@ namespace Telerik.Sitefinity.Frontend.DynamicContent
         {
             var versionManager = VersionManager.GetManager(null, transactionName);
             var pageManager = PageManager.GetManager(null, transactionName);
-            var moduleManager = ModuleBuilderManager.GetManager(null, transactionName);
 
-            var templateGenerator = new TemplateGenerator(pageManager, moduleManager, versionManager);
+            var templateGenerator = new TemplateGenerator(pageManager, versionManager);
 
             action(templateGenerator);
 
             if (transactionName.IsNullOrEmpty())
             {
-                moduleManager.SaveChanges();
                 pageManager.SaveChanges();
                 versionManager.SaveChanges();
             }
