@@ -29,22 +29,16 @@ namespace Telerik.Sitefinity.Frontend.DynamicContent.WidgetTemplates
         /// Initializes a new instance of the <see cref="TemplateGenerator"/> class.
         /// </summary>
         /// <param name="pageManager">The page manager.</param>
-        /// <param name="moduleBuilderManager">The module builder manager.</param>
+        /// <param name="versionManager">The version manager.</param>
         /// <exception cref="System.ArgumentNullException">
         /// pageManager
-        /// or
-        /// moduleBuilderManager
         /// </exception>
-        public TemplateGenerator(PageManager pageManager, ModuleBuilderManager moduleBuilderManager, VersionManager versionManager) 
+        public TemplateGenerator(PageManager pageManager, VersionManager versionManager)
         {
             if (pageManager == null)
                 throw new ArgumentNullException("pageManager");
 
-            if (moduleBuilderManager == null)
-                throw new ArgumentNullException("moduleBuilderManager");
-
             this.pageManager = pageManager;
-            this.moduleBuilderManager = moduleBuilderManager;
             this.versionManager = versionManager;
         }
 
@@ -262,7 +256,6 @@ namespace Telerik.Sitefinity.Frontend.DynamicContent.WidgetTemplates
         #region Privte fields and Constants
 
         private PageManager pageManager;
-        private ModuleBuilderManager moduleBuilderManager;
         private VersionManager versionManager;
 
         internal static readonly string EmptyLine = "\r\n";

@@ -941,6 +941,26 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend.Forms
         }
 
         /// <summary>
+        /// Changes the use ajax submit in advanced settings.
+        /// </summary>
+        /// <param name="text">The text.</param>
+        public void ChangeUseAjaxSubmitInAdvancedSettings(string text)
+        {
+            HtmlInputText ajaxSubmit = EM.Forms.FormsBackend.UseAjaxSubmit
+                .AssertIsPresent("Use Ajax submit");
+
+            ajaxSubmit.ScrollToVisible();
+            ajaxSubmit.Focus();
+            ajaxSubmit.MouseClick();
+
+            Manager.Current.Desktop.KeyBoard.KeyDown(System.Windows.Forms.Keys.Control);
+            Manager.Current.Desktop.KeyBoard.KeyPress(System.Windows.Forms.Keys.A);
+            Manager.Current.Desktop.KeyBoard.KeyUp(System.Windows.Forms.Keys.Control);
+            Manager.Current.Desktop.KeyBoard.KeyPress(System.Windows.Forms.Keys.Delete);
+            Manager.Current.Desktop.KeyBoard.TypeText(text);
+        }
+
+        /// <summary>
         /// Checks the custom confirmation is present.
         /// </summary>
         /// <returns>The result</returns>

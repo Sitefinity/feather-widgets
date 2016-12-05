@@ -443,6 +443,7 @@
     <Compile Include="Forms\FileUpload\ChangeFileUploadTemplate.cs" />
     <Compile Include="Forms\FileUpload\SetRequiredFileUpload.cs" />
     <Compile Include="Forms\Forms\ChangeConfirmationMessageOfFormWidget.cs" />
+    <Compile Include="Forms\Forms\SubmitNonAjaxFormOnPageWithTwoFormsOneOfThemUseAjax.cs" />
     <Compile Include="Forms\Forms\SetRedirectToAPageOfFormWidget.cs" />
     <Compile Include="Forms\MultipleChoice\ChangeAdvancedSettingsOfMultipleChoiceFieldAndSetCssClass.cs" />
     <Compile Include="Forms\Checkboxes\ChangeAdvancedSettingsOfCheckBoxFieldAndSetCssClass.cs" />
@@ -470,6 +471,7 @@
     <Compile Include="Forms\SubmitButton\ChangeSubmitButtonTemplate.cs" />
     <Compile Include="Forms\SubmitButton\PreviewFormWithSubmitField.cs" />
     <Compile Include="Forms\Textbox\ChangeTextboxTemplate.cs" />
+    <Compile Include="Forms\Textbox\ChangeFieldNameOfTextField.cs" />
     <Compile Include="Forms\Textbox\SetLabelPlaceholderInstructionalTextPredefinedValueToTextboxField.cs" />
     <Compile Include="Forms\Textbox\PreviewFormWithTextField.cs" />
     <Compile Include="Forms\CAPTCHA\EditPageWithCaptchaFieldViaInlineEditing.cs" />

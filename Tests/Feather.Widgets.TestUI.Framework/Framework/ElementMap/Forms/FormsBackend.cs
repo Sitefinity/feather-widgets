@@ -505,5 +505,19 @@ namespace Feather.Widgets.TestUI.Framework.Framework.ElementMap.Forms
                 return this.Get<HtmlInputCheckBox>("ng-model=properties.Model.HasOtherChoice.PropertyValue");
             }
         }
+
+        /// <summary>
+        /// Gets the use ajax submit.
+        /// </summary>
+        /// <value>
+        /// The use ajax submit.
+        /// </value>
+        public HtmlInputText UseAjaxSubmit
+        {
+            get
+            {
+                return this.Get<HtmlInputText>("tagname=input", "id=prop-UseAjaxSubmit");
+            }
+        }
     }
 }
