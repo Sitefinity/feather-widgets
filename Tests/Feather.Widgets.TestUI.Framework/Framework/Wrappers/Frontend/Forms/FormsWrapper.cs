@@ -246,7 +246,7 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Frontend.Forms
         public void ClickSubmit()
         {
             HtmlButton submitButton = EM.Forms.FormsFrontend.SubmitButton;
-            submitButton.Click();
+            submitButton.MouseClick();
             ActiveBrowser.WaitForAsyncJQueryRequests();
             ActiveBrowser.WaitUntilReady();
             ActiveBrowser.RefreshDomTree();
