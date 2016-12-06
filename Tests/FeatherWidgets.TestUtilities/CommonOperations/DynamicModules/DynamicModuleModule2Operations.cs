@@ -26,7 +26,7 @@ namespace FeatherWidgets.TestUtilities.CommonOperations
             if (ServerOperations.MultiSite().CheckIsMultisiteMode())
             {
                 providerName = "dynamicContentProvider";
-            } 
+            }
 
             DynamicModuleManager dynamicModuleManager = DynamicModuleManager.GetManager(providerName);
             Type itemType = TypeResolutionService.ResolveType("Telerik.Sitefinity.DynamicTypes.Model.Module2.Item");
@@ -41,11 +41,8 @@ namespace FeatherWidgets.TestUtilities.CommonOperations
             {
                 var relatedColorItem = relatedColorManager.GetDataItems(relatedColorType).Where("Status = Master AND Title = \"" + relatedColor + "\"").First();
 
-                if (relatedColorItem != null && relatedColorItem.Status == Telerik.Sitefinity.GenericContent.Model.ContentLifecycleStatus.Master)
-                {
-                    itemItem.CreateRelation(relatedColorItem, "RelatedColor");
-                    dynamicModuleManager.SaveChanges();
-                }
+                itemItem.CreateRelation(relatedColorItem, "RelatedColor");
+                dynamicModuleManager.SaveChanges();
             }
 
             itemItem.SetString("UrlName", Regex.Replace(title.ToLower(), urlNameCharsToReplace, urlNameReplaceString));
