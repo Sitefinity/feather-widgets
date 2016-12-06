@@ -12,6 +12,7 @@ using Telerik.Sitefinity.Frontend.DynamicContent.Mvc.Controllers;
 using Telerik.Sitefinity.Frontend.DynamicContent.WidgetTemplates.Fields;
 using Telerik.Sitefinity.Frontend.DynamicContent.WidgetTemplates.Fields.Impl;
 using Telerik.Sitefinity.Frontend.Mvc.Infrastructure;
+using Telerik.Sitefinity.Modules.ControlTemplates;
 using Telerik.Sitefinity.Modules.Pages;
 using Telerik.Sitefinity.Pages.Model;
 using Telerik.Sitefinity.Versioning;
@@ -67,6 +68,9 @@ namespace Telerik.Sitefinity.Frontend.DynamicContent.WidgetTemplates
 
             var content = this.GenerateMasterTemplate(moduleType);
             var listTemplate = this.RegisteredTemplate(area, listTemplateName, nameForDevelopersList, friendlyControlList, content, condition, controlType);
+            
+            Type dynamicType = Telerik.Sitefinity.Utilities.TypeConverters.TypeResolutionService.ResolveType(moduleType.GetFullTypeName(), false);
+            ControlTemplates.RegisterTemplatableControl(typeof(DynamicContentController), dynamicType, null, area, string.Format("{0} - list", area));
 
             return listTemplate.Id;
         }
@@ -92,6 +96,9 @@ namespace Telerik.Sitefinity.Frontend.DynamicContent.WidgetTemplates
 
             var content = this.GenerateDetailTemplate(moduleType);
             var detailTemplate = this.RegisteredTemplate(area, detailTemplateName, nameForDevelopersDetail, friendlyControlDetail, content, condition, controlType);
+
+            Type dynamicType = Telerik.Sitefinity.Utilities.TypeConverters.TypeResolutionService.ResolveType(moduleType.GetFullTypeName(), false);
+            ControlTemplates.RegisterTemplatableControl(typeof(DynamicContentController), dynamicType, null, area, string.Format("{0} - single", area));
 
             return detailTemplate.Id;
         }
