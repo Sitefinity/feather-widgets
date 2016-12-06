@@ -1,8 +1,8 @@
 ﻿using System;
 using System.ComponentModel;
 using System.Configuration.Provider;
+using System.Reflection;
 using System.Web.Mvc;
-using Telerik.Sitefinity.Frontend.Identity.Mvc.Cache;
 using Telerik.Sitefinity.Frontend.Identity.Mvc.Models.Profile;
 using Telerik.Sitefinity.Frontend.Identity.Mvc.StringResources;
 using Telerik.Sitefinity.Frontend.Mvc.Infrastructure.Controllers;
@@ -10,6 +10,7 @@ using Telerik.Sitefinity.Frontend.Mvc.Infrastructure.Controllers.Attributes;
 using Telerik.Sitefinity.Localization;
 using Telerik.Sitefinity.Mvc;
 using Telerik.Sitefinity.Security;
+using Telerik.Sitefinity.Web;
 
 namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Controllers
 {
@@ -225,8 +226,10 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Controllers
 
         private void RegisterCustomOutputCacheVariation()
         {
-            this.outputCacheVariation = new UserProfileMvcOutputCacheVariation();
-            PageRouteHandlerHelper.RegisterCustomOutputCacheVariation(this.outputCacheVariation);
+            var pageRouteHandlerType = typeof(Telerik.Sitefinity.Web.PageRouteHandler);
+
+            pageRouteHandlerType.GetMethod(ProfileController.RegisterOCVariationMethodName, BindingFlags.NonPublic | BindingFlags.Static, null, new Type[] { typeof(ICustomOutputCacheVariation) }, null)
+                                .Invoke(null, new object[] { new UserProfileMvcOutputCacheVariation() });
         }
 
         #endregion
@@ -234,6 +237,7 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Controllers
         #region Private fields and constants
 
         internal const string WidgetIconCssClass = "sfProfilecn sfMvcIcn";
+        internal const string RegisterOCVariationMethodName = "RegisterCustomOutputCacheVariation";
 
         private string readModeTemplateName = "ProfilePreview";
         private string editModeTemplateName = "ProfileEdit";
@@ -241,7 +245,6 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Controllers
         private const string ReadModeTemplatePrefix = "Read.";
         private const string EditModeTemplatePrefix = "Edit.";
 
-        private UserProfileMvcOutputCacheVariation outputCacheVariation;
         private IProfileModel model;
 
         #endregion

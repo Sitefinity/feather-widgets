@@ -3,7 +3,7 @@ using System.Linq;
 using Telerik.Sitefinity.Security.Claims;
 using Telerik.Sitefinity.Web;
 
-namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Cache
+namespace Telerik.Sitefinity.Frontend.Identity
 {
     internal class UserProfileMvcOutputCacheVariation : CustomOutputCacheVariationBase
     {
