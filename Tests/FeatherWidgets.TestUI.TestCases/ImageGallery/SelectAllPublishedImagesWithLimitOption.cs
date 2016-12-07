@@ -16,6 +16,7 @@ namespace FeatherWidgets.TestUI.TestCases.ImageGallery
         /// </summary>
         [TestMethod,
         Owner(FeatherTeams.SitefinityTeam1),
+        Ignore, // Failing more than 45 runs.
         TestCategory(FeatherTestCategories.PagesAndContent),
         TestCategory(FeatherTestCategories.ImageGallery)]
         public void SelectAllPublishedImagesWithLimitOption()

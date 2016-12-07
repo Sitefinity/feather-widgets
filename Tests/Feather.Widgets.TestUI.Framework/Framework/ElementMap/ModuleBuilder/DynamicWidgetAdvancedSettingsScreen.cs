@@ -63,5 +63,19 @@ namespace Feather.Widgets.TestUI.Framework.Framework.ElementMap.ModuleBuilder
                 return this.Get<HtmlInputControl>("tagname=input", "id=prop-SortExpression");
             }
         }
+
+        /// <summary>
+        /// Gets the name of the field.
+        /// </summary>
+        /// <value>
+        /// The name of the field.
+        /// </value>
+        public HtmlInputText FieldName
+        {
+            get
+            {
+                return this.Get<HtmlInputText>("tagname=input", "id=prop-FieldName");
+            }
+        }
     }
 }

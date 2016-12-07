@@ -232,7 +232,7 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend
         public void VerifyJavaScriptWidgetText(string text, bool isPresent = true)
         {
             if (isPresent)
-        {
+            {
                 ActiveBrowser.Find.AllByExpression<HtmlDiv>("class=rdContent", "innertext=~" + text).FirstOrDefault().AssertIsPresent("text");
             }
             else 
