@@ -7,8 +7,6 @@ using Telerik.Sitefinity.Frontend.Mvc.Infrastructure.Controllers;
 using Telerik.Sitefinity.Frontend.Mvc.Models;
 using Telerik.Sitefinity.Frontend.TestUtilities;
 using Telerik.Sitefinity.Mvc.Proxy;
-using Telerik.Sitefinity.Taxonomies;
-using Telerik.Sitefinity.Taxonomies.Model;
 using Telerik.Sitefinity.Utilities.TypeConverters;
 using Telerik.Sitefinity.Web;
 
@@ -127,13 +125,23 @@ namespace FeatherWidgets.TestIntegration.DynamicWidgets
 
             try
             {
-                DateTime publicationDate = DateTime.UtcNow.AddDays(-10);
-
+                DateTime earlierPublicationDate = DateTime.UtcNow.AddDays(-10);
+                string earlierPublishedItemTitle = this.dynamicTitles[0];
+                Guid earlierPublishedItemId = Guid.Empty;
                 for (int i = 0; i < this.dynamicTitles.Length; i++)
-                    ServerOperationsFeather.DynamicModulePressArticle().CreatePressArticleItem(this.dynamicTitles[i], this.dynamicUrls[i]);
+                {
+                    if (i == 0)
+                    {
+                        earlierPublishedItemId = ServerOperationsFeather.DynamicModulePressArticle().CreatePressArticleItem(this.dynamicTitles[i], this.dynamicUrls[i]).Id;
+                    }
+                    else
+                    {
+                        ServerOperationsFeather.DynamicModulePressArticle().CreatePressArticleItem(this.dynamicTitles[i], this.dynamicUrls[i]);
+                    }
+                }
 
-                dynamicCollection = ServerOperationsFeather.DynamicModulePressArticle().RetrieveCollectionOfPressArticles();
-                ServerOperationsFeather.DynamicModulePressArticle().PublishPressArticleWithSpecificDate(dynamicCollection[4], publicationDate);           
+                var earlierPublishedItem = ServerOperationsFeather.DynamicModulePressArticle().RetrieveCollectionOfPressArticles().First(i => i.Id == earlierPublishedItemId && i.Status == Telerik.Sitefinity.GenericContent.Model.ContentLifecycleStatus.Master);
+                ServerOperationsFeather.DynamicModulePressArticle().PublishPressArticleWithSpecificDate(earlierPublishedItem, earlierPublicationDate);
 
                 var mvcProxy = new MvcWidgetProxy();
                 mvcProxy.ControllerName = typeof(DynamicContentController).FullName;
@@ -177,19 +185,16 @@ namespace FeatherWidgets.TestIntegration.DynamicWidgets
                 Assert.AreEqual(2, itemsCount, "The count of the dynamic item is not as expected");
 
                 string title1 = dynamicItems[0].Fields.Title;
-                Assert.IsTrue(title1.Equals(this.dynamicTitles[1]), "The dynamic item with this title was not found!");
+                Assert.IsTrue(this.dynamicTitles.Contains(title1), "The dynamic item with this title was not found!");
+                Assert.IsFalse(title1.Equals(earlierPublishedItemTitle), "The dynamic item with this title was found!");
 
                 string title2 = dynamicItems[1].Fields.Title;
-                Assert.IsTrue(title2.Equals(this.dynamicTitles[0]), "The dynamic item with this title was not found!");
-
-                for (int i = 0; i < itemsCount; i++)
-                {
-                    string title3 = dynamicItems[i].Fields.Title;
-                    Assert.IsFalse(title3.Equals(this.dynamicTitles[2]), "The dynamic item with this title was found!");
-                }
+                Assert.IsTrue(this.dynamicTitles.Contains(title2), "The dynamic item with this title was not found!");
+                Assert.IsFalse(title2.Equals(earlierPublishedItemTitle), "The dynamic item with this title was found!");
             }
             finally
             {
+                dynamicCollection = ServerOperationsFeather.DynamicModulePressArticle().RetrieveCollectionOfPressArticles();
                 ServerOperationsFeather.DynamicModulePressArticle().DeleteDynamicItems(dynamicCollection);
                 Telerik.Sitefinity.TestUtilities.CommonOperations.ServerOperations.Taxonomies().DeleteTags(this.tagTitle);
             }
@@ -211,7 +216,7 @@ namespace FeatherWidgets.TestIntegration.DynamicWidgets
                 {
                     Guid itemId = ServerOperationsFeather.DynamicModulePressArticle().CreatePressArticleItem(this.dynamicTitles[i], this.dynamicUrls[i]).Id;
 
-                    var masterItem = ServerOperationsFeather.DynamicModulePressArticle().RetrieveCollectionOfPressArticles().Where(item => item.Id == itemId && item.Status == Telerik.Sitefinity.GenericContent.Model.ContentLifecycleStatus.Master).First();
+                    var masterItem = ServerOperationsFeather.DynamicModulePressArticle().RetrieveCollectionOfPressArticles().First(item => item.Id == itemId && item.Status == Telerik.Sitefinity.GenericContent.Model.ContentLifecycleStatus.Master);
                     ServerOperationsFeather.DynamicModulePressArticle().PublishPressArticleWithSpecificDate(masterItem, publicationDate);
 
                     var itemsToDelete = ServerOperationsFeather.DynamicModulePressArticle().RetrieveCollectionOfPressArticles().Where(item => item.Id != itemId && item.OriginalContentId != itemId).ToList();
