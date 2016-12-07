@@ -25,6 +25,7 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend
             doneButton.Click();
             ActiveBrowser.WaitUntilReady();
             ActiveBrowser.WaitForAsyncRequests();
+            ActiveBrowser.RefreshDomTree();
         }
 
         /// <summary>
