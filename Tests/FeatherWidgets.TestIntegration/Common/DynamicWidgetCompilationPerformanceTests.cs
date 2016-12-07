@@ -69,6 +69,7 @@ namespace FeatherWidgets.TestIntegration.Common
         [Test]
         [Author(FeatherTeams.FeatherTeam)]
         [Description("Verifies that fist-time request of page with dynamic widget logs the execution and the compilation of the widget.")]
+        [Ignore]
         public void DynamicWidget_RequestPage_ShouldLogRazorViewCompilation()
         {
             var widgetText = "</asp:PlaceHolder>";
@@ -104,6 +105,7 @@ namespace FeatherWidgets.TestIntegration.Common
         [Test]
         [Author(FeatherTeams.FeatherTeam)]
         [Description("Verifies that requesting a Bootstrap page with Bootstrap dynamic widget view logs the execution and the compilation of the dynamic widget.")]
+        [Ignore]
         public void DynamicWidgetResourcePackage_RequestPage_ShouldLogRazorViewCompilation()
         {
             var text = "Expected text";
