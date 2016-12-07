@@ -1,6 +1,7 @@
 ﻿using System;
 using System.ComponentModel;
 using System.Configuration.Provider;
+using System.Reflection;
 using System.Web.Mvc;
 using Telerik.Sitefinity.Frontend.Identity.Mvc.Models.Profile;
 using Telerik.Sitefinity.Frontend.Identity.Mvc.StringResources;
@@ -9,6 +10,7 @@ using Telerik.Sitefinity.Frontend.Mvc.Infrastructure.Controllers.Attributes;
 using Telerik.Sitefinity.Localization;
 using Telerik.Sitefinity.Mvc;
 using Telerik.Sitefinity.Security;
+using Telerik.Sitefinity.Web;
 
 namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Controllers
 {
@@ -97,6 +99,8 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Controllers
             {
                 return this.Content(Res.Get<ProfileResources>().EditNotAllowed);
             }
+
+            this.RegisterCustomOutputCacheVariation();
 
             this.ViewBag.Mode = this.Mode;
             if (this.Mode == ViewMode.EditOnly)
@@ -220,11 +224,20 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Controllers
             return this.View(fullTemplateName, viewModel);
         }
 
+        private void RegisterCustomOutputCacheVariation()
+        {
+            var pageRouteHandlerType = typeof(Telerik.Sitefinity.Web.PageRouteHandler);
+
+            pageRouteHandlerType.GetMethod(ProfileController.RegisterOCVariationMethodName, BindingFlags.NonPublic | BindingFlags.Static, null, new Type[] { typeof(ICustomOutputCacheVariation) }, null)
+                                .Invoke(null, new object[] { new UserProfileMvcOutputCacheVariation() });
+        }
+
         #endregion
 
         #region Private fields and constants
 
         internal const string WidgetIconCssClass = "sfProfilecn sfMvcIcn";
+        internal const string RegisterOCVariationMethodName = "RegisterCustomOutputCacheVariation";
 
         private string readModeTemplateName = "ProfilePreview";
         private string editModeTemplateName = "ProfileEdit";

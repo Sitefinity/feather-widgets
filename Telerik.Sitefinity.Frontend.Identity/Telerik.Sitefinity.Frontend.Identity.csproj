@@ -133,7 +133,7 @@
     </Reference>
     <Reference Include="Telerik.Sitefinity.Mvc, Version=1.7.640.0, Culture=neutral, PublicKeyToken=b28c218413bdf563, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-	  <HintPath>..\packages\Telerik.Sitefinity.Mvc.1.7.640.0\lib\net45\Telerik.Sitefinity.Mvc.dll</HintPath>
+      <HintPath>..\packages\Telerik.Sitefinity.Mvc.1.7.640.0\lib\net45\Telerik.Sitefinity.Mvc.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Telerik.Sitefinity.Personalization, Version=9.2.6200.0, Culture=neutral, PublicKeyToken=b28c218413bdf563, processorArchitecture=MSIL">
@@ -178,6 +178,7 @@
       <Link>Properties\SharedAssemblyInfo.cs</Link>
     </Compile>
     <Compile Include="InterfaceMappings.cs" />
+    <Compile Include="UserProfileMvcOutputCacheVariation.cs" />
     <Compile Include="Mvc\Controllers\ChangePasswordController.cs" />
     <Compile Include="Mvc\Controllers\ProfileController.cs" />
     <Compile Include="Mvc\Controllers\AccountActivationController.cs" />

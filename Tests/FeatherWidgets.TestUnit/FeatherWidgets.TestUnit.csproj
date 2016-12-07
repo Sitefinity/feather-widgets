@@ -340,6 +340,7 @@
     <Compile Include="Forms\NavigationField\NavigationFieldTests.cs" />
     <Compile Include="GlobalSuppressions.cs" />
     <Compile Include="Identity\AccountActivationControllerTests.cs" />
+    <Compile Include="Identity\PageRouteHandlerHelperTest.cs" />
     <Compile Include="InlineClientAssets\EmbedCode\EmbedCodeControllerTests.cs" />
     <Compile Include="InlineClientAssets\JavaScriptControllerTests.cs" />
     <Compile Include="Identity\ProfileControllerTests.cs" />
