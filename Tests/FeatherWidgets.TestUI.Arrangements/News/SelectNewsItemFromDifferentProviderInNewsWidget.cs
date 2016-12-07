@@ -1,10 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using FeatherWidgets.TestUtilities.CommonOperations;
 using Telerik.Sitefinity.TestArrangementService.Attributes;
-using Telerik.Sitefinity.TestUI.Arrangements.Framework;
+using Telerik.Sitefinity.TestUI.Arrangements.Framework.Server;
 using Telerik.Sitefinity.TestUtilities.CommonOperations;
 
 namespace FeatherWidgets.TestUI.Arrangements
@@ -25,6 +22,13 @@ namespace FeatherWidgets.TestUI.Arrangements
             ServerOperations.News().CreatePublishedNewsItem(NewsTitle1, NewsContent1, NewsProvider);
             ServerOperations.News().CreatePublishedNewsItem(NewsTitle2, NewsContent2, NewsProvider);
             ServerOperationsFeather.Pages().AddNewsWidgetToPage(pageId);
+        }
+
+        [ServerArrangement]
+        public void GetApplicationSite()
+        {
+            var siteName = ServerOperationsFeather.NewsOperations().ApplicationSiteName;
+            ServerArrangementContext.GetCurrent().Values.Add("siteName", siteName);
         }
 
         /// <summary>

@@ -59,8 +59,9 @@ namespace FeatherWidgets.TestUI.TestCases.News
 
         private void AddCustomProviderToSite()
         {
+            string siteName = BAT.Arrange(this.TestName).ExecuteArrangement("GetApplicationSite").Result.Values["siteName"];
             string elementId = "ctl05_ctl00_ctl00_siteDetailView_ctl00_ctl00_configureModulesView_change_Telerik_Sitefinity_Modules_News_NewsManager";
-            BAT.Wrappers().Backend().Multisite().MultisiteWrapper().AddProviderToSite(elementId, SecondProviderName, "SecondSite");
+            BAT.Wrappers().Backend().Multisite().MultisiteWrapper().AddProviderToSite(elementId, SecondProviderName, siteName);
         } 
 
         private const string PageName = "News";
