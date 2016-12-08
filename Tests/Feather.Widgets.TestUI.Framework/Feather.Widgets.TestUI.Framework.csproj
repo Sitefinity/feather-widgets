@@ -88,7 +88,7 @@
     <Reference Include="UITests.Configuration, Version=1.6.6.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\FeatherWidgets.TestUI.TestCases\packages\UITests.Core.1.6.6\lib\net40\UITests.Configuration.dll</HintPath>
       <Private>True</Private>
-          <SpecificVersion>False</SpecificVersion>
+      <SpecificVersion>False</SpecificVersion>
     </Reference>
     <Reference Include="UITests.Core, Version=1.6.6.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\FeatherWidgets.TestUI.TestCases\packages\UITests.Core.1.6.6\lib\net40\UITests.Core.dll</HintPath>
