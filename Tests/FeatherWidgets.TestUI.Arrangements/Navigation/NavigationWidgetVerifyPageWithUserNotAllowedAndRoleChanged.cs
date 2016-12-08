@@ -33,7 +33,7 @@ namespace FeatherWidgets.TestUI.Arrangements
             Guid pageId = ServerOperations.Pages().CreatePage(HomePage, templateId);
             pageId = ServerOperations.Pages().GetPageNodeId(pageId);
 
-            ServerOperations.Users().CreateUserWithProfileAndRoles(Email, Password, Email, Email, Email, roles);
+            ServerOperations.Users().CreateUserWithProfileAndRoles(Email, Password, Email, Email, roles);
             ServerOperations.Pages().CreatePage(TestPage);
             ServerOperationsFeather.Pages().DenyPermissionsForRole(Editors, RoleProvider, TestPage);
 

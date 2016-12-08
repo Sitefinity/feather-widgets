@@ -27,7 +27,7 @@ namespace FeatherWidgets.TestUI.Arrangements
             pageId = ServerOperations.Pages().GetPageNodeId(pageId);
             ServerOperationsFeather.Pages().AddRegistrationWidgetToPage(pageId, PlaceHolderId);
 
-            ServerOperations.Users().CreateUserWithProfileAndRoles(EditorUserEmail, EditorUserPassword, EditorUserFirstName, EditorUserLastName, EditorUserEmail, new List<string> { "BackendUsers", "Administrators" });
+            ServerOperations.Users().CreateUserWithProfileAndRoles(EditorUserEmail, EditorUserPassword, EditorUserFirstName, EditorUserLastName, new List<string> { "BackendUsers", "Administrators" });
 
             AuthenticationHelper.LogoutUser(this.AdminEmail);
         }

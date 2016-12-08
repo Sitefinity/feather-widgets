@@ -29,7 +29,7 @@ namespace FeatherWidgets.TestIntegration.Identity.LoginForm
         {
             SecurityManager.Logout();
 
-            SitefinityTestUtilities.ServerOperations.Users().CreateUser(this.userEmail, this.password, this.userEmail, "test", "test", true, "AuthenticateUser", "IdentityHasClaimTypes", SecurityConstants.AppRoles.FrontendUsers);
+            SitefinityTestUtilities.ServerOperations.Users().CreateUser(this.userEmail, this.password, "test", "test", true, "AuthenticateUser", "IdentityHasClaimTypes", SecurityConstants.AppRoles.FrontendUsers);
 
             try
             {
@@ -162,7 +162,7 @@ namespace FeatherWidgets.TestIntegration.Identity.LoginForm
                 SecurityManager.Logout();
 
                 ////create new user to Authenticate against newly created login form
-                SitefinityTestUtilities.ServerOperations.Users().CreateUser(this.userEmail, this.password, "mymail12345@mail.com", "test", "test", true, "AuthenticateUser", "IdentityHasClaimTypes", SecurityConstants.AppRoles.FrontendUsers);
+                SitefinityTestUtilities.ServerOperations.Users().CreateUser(this.userEmail, this.password, "test", "test", true, "AuthenticateUser", "IdentityHasClaimTypes", SecurityConstants.AppRoles.FrontendUsers);
 
                 string postString = "UserName=" + this.userEmail + "&Password=" + this.password;
                 using (PageInvokerRegion region = new PageInvokerRegion())
@@ -220,7 +220,7 @@ namespace FeatherWidgets.TestIntegration.Identity.LoginForm
                 SecurityManager.Logout();
 
                 ////create new user to Authenticate against newly created login form
-                SitefinityTestUtilities.ServerOperations.Users().CreateUser(this.userEmail, this.password, "mymail12345@mail.com", "test", "test", true, "AuthenticateUser", "IdentityHasClaimTypes", SecurityConstants.AppRoles.FrontendUsers);
+                SitefinityTestUtilities.ServerOperations.Users().CreateUser(this.userEmail, this.password, "test", "test", true, "AuthenticateUser", "IdentityHasClaimTypes", SecurityConstants.AppRoles.FrontendUsers);
 
                 string postString = "UserName=" + this.userEmail + "&Password=" + this.password;
                 var responseContent = PageInvoker.PostWebRequest(loginFormPageUrl, postString, false);
@@ -279,7 +279,7 @@ namespace FeatherWidgets.TestIntegration.Identity.LoginForm
                 SecurityManager.Logout();
 
                 ////create new user to Authenticate against newly created login form
-                SitefinityTestUtilities.ServerOperations.Users().CreateUser(this.userEmail, this.password, "mymail12345@mail.com", "test", "test", true, "AuthenticateUser", "IdentityHasClaimTypes", SecurityConstants.AppRoles.FrontendUsers);
+                SitefinityTestUtilities.ServerOperations.Users().CreateUser(this.userEmail, this.password, "test", "test", true, "AuthenticateUser", "IdentityHasClaimTypes", SecurityConstants.AppRoles.FrontendUsers);
 
                 ////There is few ways to redirect to another page
                 ////First method is to combine realm param with redirect_uri param to get the full redirect url

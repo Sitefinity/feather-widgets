@@ -28,7 +28,7 @@ namespace FeatherWidgets.TestUI.Arrangements
             pageId = ServerOperations.Pages().GetPageNodeId(pageId);
             ServerOperationsFeather.Pages().AddReviewsWidgetToPage(pageId, "Contentplaceholder1");
 
-            ServerOperations.Users().CreateUserWithProfileAndRoles(NewUserEmail, NewUserPassword, NewUserFirstName, NewUserLastName, NewUserEmail, new List<string> { "BackendUsers", "Administrators" });
+            ServerOperations.Users().CreateUserWithProfileAndRoles(NewUserEmail, NewUserPassword, NewUserFirstName, NewUserLastName, new List<string> { "BackendUsers", "Administrators" });
             AuthenticationHelper.LogoutUser(this.AdminEmail);
         }
 

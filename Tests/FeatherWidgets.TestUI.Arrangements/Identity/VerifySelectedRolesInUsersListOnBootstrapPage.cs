@@ -25,8 +25,8 @@ namespace FeatherWidgets.TestUI.Arrangements
             Guid pageNodeId = ServerOperations.Pages().GetPageNodeId(pageId);
             ServerOperationsFeather.Pages().AddUsersListWidgetToPage(pageNodeId, PlaceHolderId);
 
-            ServerOperations.Users().CreateUserWithProfileAndRoles(AuthorEmail, AuthorPassword, AuthorFirstName, AuthorLastName, AuthorEmail, new List<string> { "BackendUsers", "Authors" });
-            ServerOperations.Users().CreateUserWithProfileAndRoles(AdministratorEmail, AdministratorPassword, AdministratorFirstName, AdministratorLastName, AdministratorEmail, new List<string> { "BackendUsers", "Administrators" });
+            ServerOperations.Users().CreateUserWithProfileAndRoles(AuthorEmail, AuthorPassword, AuthorFirstName, AuthorLastName, new List<string> { "BackendUsers", "Authors" });
+            ServerOperations.Users().CreateUserWithProfileAndRoles(AdministratorEmail, AdministratorPassword, AdministratorFirstName, AdministratorLastName, new List<string> { "BackendUsers", "Administrators" });
         }
 
         /// <summary>

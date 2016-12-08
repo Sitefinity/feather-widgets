@@ -29,7 +29,7 @@ namespace FeatherWidgets.TestUI.Arrangements
 
             ServerOperations.Images().UploadInFolder(childId, ImageTitle + 2, ImageResourceChild);
 
-            ServerOperations.Users().CreateUserWithProfileAndRoles("administrator", "password", "Administrator", "User", "administrator@test.test", new List<string> { "BackendUsers", "Administrators" });
+            ServerOperations.Users().CreateUserWithProfileAndRoles("administrator", "password", "Administrator", "User", new List<string> { "BackendUsers", "Administrators" });
 
             AuthenticationHelper.AuthenticateUser("administrator", "password", true);
             ServerOperations.Images().UploadInFolder(nextChildId, ImageTitle + 3, ImageResourceNextChild);

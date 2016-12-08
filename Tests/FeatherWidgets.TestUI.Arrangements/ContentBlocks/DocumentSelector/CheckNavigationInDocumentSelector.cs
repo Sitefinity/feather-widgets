@@ -30,7 +30,7 @@ namespace FeatherWidgets.TestUI.Arrangements
             ServerOperations.Documents().Upload(DocumentLibraryTitle, DocumentTitle + 1, DocumentResource);
             ServerOperationsFeather.MediaOperations().UploadDocumentInFolder(childId, DocumentTitle + 2, DocumentResourceChild);
 
-            ServerOperations.Users().CreateUserWithProfileAndRoles("administrator", "password", "Administrator", "User", "administrator@test.test", new List<string> { "BackendUsers", "Administrators" });
+            ServerOperations.Users().CreateUserWithProfileAndRoles("administrator", "password", "Administrator", "User", new List<string> { "BackendUsers", "Administrators" });
 
             AuthenticationHelper.AuthenticateUser("administrator", "password", true);
             ServerOperationsFeather.MediaOperations().UploadDocumentInFolder(nextChildId, DocumentTitle + 3, DocumentResourceNextChild);

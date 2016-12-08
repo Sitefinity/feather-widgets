@@ -19,7 +19,7 @@ namespace FeatherWidgets.TestUI.Arrangements
         {
             Guid templateId = ServerOperations.Templates().GetTemplateIdByTitle(TemplateTitle);
             ServerOperations.Pages().CreatePage(PageName, templateId);
-            ServerOperations.Users().CreateUserWithProfileAndRoles(TestAdminEmail, TestAdminPass, TestAdminFirstName, TestAdminLastName, TestAdminEmail, this.roles);
+            ServerOperations.Users().CreateUserWithProfileAndRoles(TestAdminEmail, TestAdminPass, TestAdminFirstName, TestAdminLastName, this.roles);
         }
 
         /// <summary>

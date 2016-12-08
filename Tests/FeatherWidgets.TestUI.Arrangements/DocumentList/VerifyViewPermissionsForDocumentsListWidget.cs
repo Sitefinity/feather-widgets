@@ -39,8 +39,8 @@ namespace FeatherWidgets.TestUI.Arrangements
             ServerOperations.Documents().Upload(LibraryTitle, DocumentTitle + 1, ImageResource1);
             ServerOperations.Documents().Upload(AnotherDocumentLibraryTitle, DocumentTitle + 2, ImageResource2);
 
-            Guid userId1 = ServerOperations.Users().CreateUserWithProfileAndRoles(AuthorEmail1, AuthorPassword1, AuthorFirstName1, AuthorLastName1, AuthorEmail1, new List<string> { RoleName1 });
-            Guid userId2 = ServerOperations.Users().CreateUserWithProfileAndRoles(AuthorEmail2, AuthorPassword2, AuthorFirstName2, AuthorLastName2, AuthorEmail2, new List<string> { RoleName2 });
+            Guid userId1 = ServerOperations.Users().CreateUserWithProfileAndRoles(AuthorEmail1, AuthorPassword1, AuthorFirstName1, AuthorLastName1, new List<string> { RoleName1 });
+            Guid userId2 = ServerOperations.Users().CreateUserWithProfileAndRoles(AuthorEmail2, AuthorPassword2, AuthorFirstName2, AuthorLastName2, new List<string> { RoleName2 });
             ServerOperations.Roles().AssignRoleToUser(RoleName1, userId1);
             ServerOperations.Roles().AssignRoleToUser(RoleName2, userId2);
         }

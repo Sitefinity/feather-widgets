@@ -23,10 +23,10 @@ namespace FeatherWidgets.TestUI.Arrangements
             Guid listPageId = ServerOperations.Pages().CreatePage(PageName);
             ServerOperationsFeather.Pages().AddUsersListWidgetToPage(listPageId);
 
-            ServerOperations.Users().CreateUserWithProfileAndRoles(AuthorEmail, AuthorPassword, AuthorFirstName, AuthorLastName, AuthorEmail, new List<string> { "BackendUsers", "Authors" });
-            ServerOperations.Users().CreateUserWithProfileAndRoles(AuthorEmail1, AuthorPassword1, AuthorFirstName1, AuthorLastName1, AuthorEmail1, new List<string> { "BackendUsers", "Authors" });
-            ServerOperations.Users().CreateUserWithProfileAndRoles(EditorEmail, EditorPassword, EditorFirstName, EditorLastName, EditorEmail, new List<string> { "BackendUsers", "Editors" });
-            ServerOperations.Users().CreateUserWithProfileAndRoles(AdministratorEmail1, AdministratorPassword1, AdministratorFirstName1, AdministratorLastName1, AdministratorEmail1, new List<string> { "BackendUsers", "Administrators" });
+            ServerOperations.Users().CreateUserWithProfileAndRoles(AuthorEmail, AuthorPassword, AuthorFirstName, AuthorLastName, new List<string> { "BackendUsers", "Authors" });
+            ServerOperations.Users().CreateUserWithProfileAndRoles(AuthorEmail1, AuthorPassword1, AuthorFirstName1, AuthorLastName1, new List<string> { "BackendUsers", "Authors" });
+            ServerOperations.Users().CreateUserWithProfileAndRoles(EditorEmail, EditorPassword, EditorFirstName, EditorLastName, new List<string> { "BackendUsers", "Editors" });
+            ServerOperations.Users().CreateUserWithProfileAndRoles(AdministratorEmail1, AdministratorPassword1, AdministratorFirstName1, AdministratorLastName1, new List<string> { "BackendUsers", "Administrators" });
         }
 
         /// <summary>

@@ -30,7 +30,7 @@ namespace FeatherWidgets.TestUI.Arrangements
             var page2Id = ServerOperations.Pages().CreatePage(SpeciallPage);
             ServerOperationsFeather.Pages().AddContentBlockWidgetToPage(page2Id, ContentBlockText);
 
-            ServerOperations.Users().CreateUserWithProfileAndRoles(NewUserEmail, NewUserPassword, NewUserFirstName, NewUserLastName, NewUserEmail, new List<string> { "BackendUsers", "Administrators" });
+            ServerOperations.Users().CreateUserWithProfileAndRoles(NewUserEmail, NewUserPassword, NewUserFirstName, NewUserLastName, new List<string> { "BackendUsers", "Administrators" });
             AuthenticationHelper.LogoutUser(this.AdminEmail);
         }
 
