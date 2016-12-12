@@ -335,6 +335,9 @@
     <Compile Include="DummyClasses\Taxonomies\DummyFlatTaxonomyController.cs" />
     <Compile Include="DummyClasses\Taxonomies\DummyFlatTaxonomyModel.cs" />
     <Compile Include="DummyClasses\Taxonomies\DummyHierarchicalTaxonomyController.cs" />
+    <Compile Include="Forms\FormControllerTests\FormControllerTests.cs" />
+    <Compile Include="Forms\FormControllerTests\Helpers\FormControllerStub.cs" />
+    <Compile Include="Forms\FormControllerTests\Helpers\FormModelStub.cs" />
     <Compile Include="Forms\NavigationField\NavigationFieldTests.cs" />
     <Compile Include="GlobalSuppressions.cs" />
     <Compile Include="Identity\AccountActivationControllerTests.cs" />

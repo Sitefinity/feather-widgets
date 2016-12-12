@@ -93,7 +93,7 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Controllers
                 var resultMessage = this.Model.GetSubmitMessage(success);
                 this.ViewBag.SubmitMessage = resultMessage;
 
-                var viewTemplatePath = this.TemplateNamePrefix + this.SubmitResultTemplateName;
+                var viewTemplatePath = FormController.TemplateNamePrefix + FormController.SubmitResultTemplateName;
                 return this.View(viewTemplatePath);
             }
             else
@@ -188,8 +188,8 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Controllers
         #region Private fields and constants
 
         internal const string WidgetIconCssClass = "sfFormsIcn sfMvcIcn";
-        private string TemplateNamePrefix = "Form.";
-        private string SubmitResultTemplateName = "SubmitResultView";
+        internal const string TemplateNamePrefix = "Form.";
+        internal const string SubmitResultTemplateName = "SubmitResultView";
 
         private IFormModel model;
 
