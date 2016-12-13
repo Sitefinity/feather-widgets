@@ -5112,7 +5112,7 @@ namespace FeatherWidgets.TestIntegration.Events
 
         private Guid SetCalendarToEvent(EventsManager manager, string eventTitle, string calendarTitle)
         {
-            var selectedEvent = manager.GetEvents().Where(i => i.Title == eventTitle).FirstOrDefault();
+            var selectedEvent = manager.GetEvents().Where(i => i.Title == eventTitle).FirstOrDefault(p => p.Status == Telerik.Sitefinity.GenericContent.Model.ContentLifecycleStatus.Master);
             var selectedCalendar = manager.GetCalendars().Where(i => i.Title == calendarTitle).FirstOrDefault();
 
             if (selectedEvent != null && selectedCalendar != null)
