@@ -1,14 +1,19 @@
 ﻿using System;
+using System.Globalization;
 using System.IO;
+using System.Linq;
+using System.Web.Hosting;
+using FeatherWidgets.TestIntegration.Mvc.Controllers;
 using FeatherWidgets.TestUtilities.CommonOperations;
 using MbUnit.Framework;
 using Telerik.Sitefinity.Frontend.Blogs.Mvc.Controllers;
 using Telerik.Sitefinity.Frontend.ContentBlock.Mvc.Controllers;
+using Telerik.Sitefinity.Frontend.Mvc.Infrastructure.Controllers;
 using Telerik.Sitefinity.Frontend.News.Mvc.Controllers;
 using Telerik.Sitefinity.Frontend.TestUtilities;
 using Telerik.Sitefinity.Frontend.TestUtilities.CommonOperations;
 using Telerik.Sitefinity.Modules.Pages;
-using Telerik.Sitefinity.Mvc.TestUtilities.Data;
+using Telerik.Sitefinity.Mvc.Proxy;
 using Telerik.Sitefinity.Pages.Model;
 using Telerik.Sitefinity.TestUtilities.CommonOperations;
 using Telerik.Sitefinity.TestUtilities.Modules.Diagnostics;
@@ -25,6 +30,20 @@ namespace FeatherWidgets.TestIntegration.Common
     [Description("This class contains tests for the performance method region and tracking razor view compilations.")]
     public class WidgetCompilationPerformanceTests : ProfilingTestBase
     {
+        #region SetUp and TearDown
+
+        [FixtureSetUp]
+        public override void FixtureSetUp()
+        {
+            base.FixtureSetUp();
+
+            this.EnableProfiler("HttpRequestsProfiler");
+            this.EnableProfiler("WidgetExecutionsProfiler");
+            this.EnableProfiler("RazorViewCompilationsProfiler");
+        }
+
+        #endregion
+
         #region Tests
 
         #region Widget on page
@@ -47,10 +66,6 @@ namespace FeatherWidgets.TestIntegration.Common
             PageNode pageNode = null;
             try
             {
-                this.EnableProfiler("HttpRequestsProfiler");
-                this.EnableProfiler("WidgetExecutionsProfiler");
-                this.EnableProfiler("RazorViewCompilationsProfiler");
-
                 Guid templateId = Telerik.Sitefinity.TestUtilities.CommonOperations.ServerOperations.Templates().GetTemplateIdByTitle(PageTemplateName);
                 var pageId = ServerOperations.Pages().CreatePage("TestPage1", templateId);
                 var pageNodeId = ServerOperations.Pages().GetPageNodeId(pageId);
@@ -116,10 +131,6 @@ namespace FeatherWidgets.TestIntegration.Common
             PageNode pageNode = null;
             try
             {
-                this.EnableProfiler("HttpRequestsProfiler");
-                this.EnableProfiler("WidgetExecutionsProfiler");
-                this.EnableProfiler("RazorViewCompilationsProfiler");
-
                 Guid templateId = Telerik.Sitefinity.TestUtilities.CommonOperations.ServerOperations.Templates().GetTemplateIdByTitle(PageTemplateName);
                 var pageId = ServerOperations.Pages().CreatePage("TestPage1", templateId);
                 var pageNodeId = ServerOperations.Pages().GetPageNodeId(pageId);
@@ -172,6 +183,66 @@ namespace FeatherWidgets.TestIntegration.Common
             }
         }
 
+        /// <summary>
+        /// Verifies that when widget template file is overwritten and page is requested the execution and the compilation of the MVC widget is logged.
+        /// </summary>
+        [Test]
+        [Author(FeatherTeams.FeatherTeam)]
+        [Description("Verifies that when requesting a page with mixed widgets an execution and compilation is logged for all widgets when editing all widget views.")]
+        public void MixedWidgets_RequestPage_ShouldLogRazorViewCompilation()
+        {
+            var viewRelativePath = "~/Mvc/Views/Test/Index.cshtml";
+            PageNode pageNode = null;
+
+            try
+            {
+                var pageTitle = "TestPage1";
+                ServerOperations.Pages().CreatePage(pageTitle);
+                var pageManager = PageManager.GetManager();
+                pageNode = pageManager.GetPageNodes().SingleOrDefault(p => p.Title == pageTitle);                
+                var fullPageUrl = RouteHelper.GetAbsoluteUrl(pageNode.GetFullUrl());
+
+                this.ClearData();
+                this.ExecuteAuthenticatedRequest(fullPageUrl);
+                this.FlushData();
+
+                this.AssertWidgetExecutionCount(0);
+                this.AssertViewCompilationCount(0);
+
+                this.AddMixedWidgetsToPage(pageNode);
+
+                this.ClearData();
+                this.ExecuteAuthenticatedRequest(fullPageUrl);
+                this.FlushData();
+
+                var mvcWidgetCount = 1;
+                this.AssertWidgetExecutionCount(mvcWidgetCount);
+                this.AssertViewCompilationCount(0);
+
+                var viewContent = string.Empty;
+                this.CreateView(viewRelativePath, viewContent);
+
+                var viewPath = "~/Frontend-Assembly/Telerik.Sitefinity.Frontend/Mvc/Views/Test/Index.cshtml";
+                this.WaitForAspNetCacheToBeInvalidated(viewPath);
+
+                this.ClearData();
+                this.ExecuteAuthenticatedRequest(fullPageUrl);
+                this.FlushData();
+
+                this.AssertWidgetExecutionCount(mvcWidgetCount);
+                this.AssertViewCompilationCount(mvcWidgetCount);
+
+                var rootOperationId = this.GetRequestLogRootOperationId(fullPageUrl);
+                var widgetCompilationText = "Compile view \"Index.cshtml\" of controller \"" + typeof(TestController).FullName + "\"";
+                this.AssertViewCompilationParams(rootOperationId, viewPath, widgetCompilationText);
+            }
+            finally
+            {
+                this.DeletePages(pageNode);
+                this.DeleteView(viewRelativePath);
+            }
+        }
+
         #endregion
 
         #region Widget on template
@@ -190,10 +261,6 @@ namespace FeatherWidgets.TestIntegration.Common
             PageNode pageNode = null;
             try
             {
-                this.EnableProfiler("HttpRequestsProfiler");
-                this.EnableProfiler("WidgetExecutionsProfiler");
-                this.EnableProfiler("RazorViewCompilationsProfiler");
-
                 pageNode = this.CreatePageTemplateHierarchy(ref templateId1, ref templateId2);
 
                 var fullPageUrl = RouteHelper.GetAbsoluteUrl(pageNode.GetUrl());
@@ -234,10 +301,6 @@ namespace FeatherWidgets.TestIntegration.Common
 
             try
             {
-                this.EnableProfiler("HttpRequestsProfiler");
-                this.EnableProfiler("WidgetExecutionsProfiler");
-                this.EnableProfiler("RazorViewCompilationsProfiler");
-
                 pageNode = this.CreatePageTemplateHierarchy(ref templateId1, ref templateId2);
                 var fullPageUrl = RouteHelper.GetAbsoluteUrl(pageNode.GetUrl());
 
@@ -263,6 +326,13 @@ namespace FeatherWidgets.TestIntegration.Common
 
                 var widgetCompilationText = "Compile view \"List.NewsList.cshtml#Bootstrap.cshtml\" of controller \"" + typeof(NewsController).FullName + "\"";
                 this.AssertViewCompilationParams(rootOperationId, viewPath, widgetCompilationText);
+
+                this.ClearData();
+                this.ExecuteAuthenticatedRequest(fullPageUrl);
+                this.FlushData();
+
+                this.AssertWidgetExecutionCount(3);
+                this.AssertViewCompilationCount(0);
             }
             finally
             {
@@ -270,6 +340,161 @@ namespace FeatherWidgets.TestIntegration.Common
                 this.DeletePages(pageNode);
                 Telerik.Sitefinity.TestUtilities.CommonOperations.ServerOperations.Templates().DeletePageTemplate(templateId2);
                 Telerik.Sitefinity.TestUtilities.CommonOperations.ServerOperations.Templates().DeletePageTemplate(templateId1);
+            }
+        }
+
+        #endregion
+
+        #region Custom widget
+
+        /// <summary>
+        /// Verifies that when requesting a page with a custom widget no widget compilations are logged.
+        /// </summary>
+        [Test]
+        [Author(FeatherTeams.FeatherTeam)]
+        [Description("Verifies that when requesting a page with a custom widget no widget compilations are logged.")]
+        public void CustomWidget_RequestPage_ShouldLogOnlyWidgetExecution()
+        {
+            PageNode pageNode = null;
+            try
+            {
+                pageNode = this.CreatePageWithCustomWidget();
+                var fullPageUrl = RouteHelper.GetAbsoluteUrl(pageNode.GetFullUrl());
+
+                this.ClearData();
+                this.ExecuteAuthenticatedRequest(fullPageUrl);
+                this.FlushData();
+
+                this.AssertWidgetExecutionCount(1);
+                this.AssertViewCompilationCount(0);
+            }
+            finally
+            {
+                this.DeletePages(pageNode);
+            }
+        }
+
+        /// <summary>
+        /// Verifies that when requesting a page based on a template with a custom widget no widget compilations are logged.
+        /// </summary>
+        [Test]
+        [Author(FeatherTeams.FeatherTeam)]
+        [Description("Verifies that when requesting a page based on a template with a custom widget no widget compilations are logged.")]
+        public void CustomWidgetOnTemplate_RequestPage_ShouldLogOnlyWidgetExecution()
+        {
+            PageNode pageNode = null;
+            try
+            {
+                pageNode = this.CreatePageOnTemplateWithCustomWigdet();
+                var fullPageUrl = RouteHelper.GetAbsoluteUrl(pageNode.GetFullUrl());
+
+                this.ClearData();
+                this.ExecuteAuthenticatedRequest(fullPageUrl);
+                this.FlushData();
+
+                this.AssertWidgetExecutionCount(1);
+                this.AssertViewCompilationCount(0);
+            }
+            finally
+            {
+                var pageTemplateId = pageNode.GetPageData().Template.Id;
+
+                this.DeletePages(pageNode);
+                ServerOperations.Templates().DeletePageTemplate(pageTemplateId);
+            }
+        }
+
+        /// <summary>
+        /// Verifies that when requesting a page with an edited custom widget view a widget compilation is logged.
+        /// </summary>
+        [Test]
+        [Author(FeatherTeams.FeatherTeam)]
+        [Description("Verifies that when requesting a page with an edited custom widget view a widget compilation is logged.")]
+        public void CustomWidget_EditView_ShouldLogCompilation()
+        {
+            var viewRelativePath = "~/Mvc/Views/Test/Index.cshtml";
+            PageNode pageNode = null;
+
+            try
+            {
+                pageNode = this.CreatePageWithCustomWidget();
+                var fullPageUrl = RouteHelper.GetAbsoluteUrl(pageNode.GetFullUrl());
+
+                var viewContent = string.Empty;
+                this.CreateView(viewRelativePath, viewContent);
+
+                var viewPath = "~/Frontend-Assembly/Telerik.Sitefinity.Frontend/Mvc/Views/Test/Index.cshtml";
+                this.WaitForAspNetCacheToBeInvalidated(viewPath);
+
+                this.ClearData();
+                this.ExecuteAuthenticatedRequest(fullPageUrl);
+                this.FlushData();
+
+                this.AssertWidgetExecutionCount(1);
+                this.AssertViewCompilationCount(1);
+
+                var rootOperationId = this.GetRequestLogRootOperationId(fullPageUrl);
+                var widgetCompilationText = "Compile view \"Index.cshtml\" of controller \"" + typeof(TestController).FullName + "\"";
+                this.AssertViewCompilationParams(rootOperationId, viewPath, widgetCompilationText);
+
+                this.ClearData();
+                this.ExecuteAuthenticatedRequest(fullPageUrl);
+                this.FlushData();
+
+                this.AssertWidgetExecutionCount(1);
+                this.AssertViewCompilationCount(0);
+            }
+            finally
+            {
+                this.DeletePages(pageNode);
+                this.DeleteView(viewRelativePath);
+            }
+        }
+
+        /// <summary>
+        /// Verifies that when requesting a page based on a template with an edited custom widget view a widget compilation is logged.
+        /// </summary>
+        [Test]
+        [Author(FeatherTeams.FeatherTeam)]
+        [Description("Verifies that when requesting a page based on a template with an edited custom widget view a widget compilation is logged.")]
+        public void CustomWidgetOnTemplate_EditView_ShouldLogCompilation()
+        {
+            var viewRelativePath = "~/Mvc/Views/Test/Index.cshtml";
+            PageNode pageNode = null;
+
+            try
+            {
+                pageNode = this.CreatePageOnTemplateWithCustomWigdet();
+                var fullPageUrl = RouteHelper.GetAbsoluteUrl(pageNode.GetFullUrl());
+
+                var viewContent = string.Empty;
+                this.CreateView(viewRelativePath, viewContent);
+
+                var viewPath = "~/Frontend-Assembly/Telerik.Sitefinity.Frontend/Mvc/Views/Test/Index.cshtml";
+                this.WaitForAspNetCacheToBeInvalidated(viewPath);
+
+                this.ClearData();
+                this.ExecuteAuthenticatedRequest(fullPageUrl);
+                this.FlushData();
+
+                this.AssertWidgetExecutionCount(1);
+                this.AssertViewCompilationCount(1);
+
+                var rootOperationId = this.GetRequestLogRootOperationId(fullPageUrl);
+                var widgetCompilationText = "Compile view \"Index.cshtml#Bootstrap.cshtml\" of controller \"" + typeof(TestController).FullName + "\"";
+                this.AssertViewCompilationParams(rootOperationId, viewPath, widgetCompilationText);
+
+                this.ClearData();
+                this.ExecuteAuthenticatedRequest(fullPageUrl);
+                this.FlushData();
+
+                this.AssertWidgetExecutionCount(1);
+                this.AssertViewCompilationCount(0);
+            }
+            finally
+            {
+                this.DeletePages(pageNode);
+                this.DeleteView(viewRelativePath);
             }
         }
 
@@ -292,22 +517,110 @@ namespace FeatherWidgets.TestIntegration.Common
             var mvcWidget1 = new Telerik.Sitefinity.Mvc.Proxy.MvcControllerProxy();
             mvcWidget1.ControllerName = typeof(NewsController).FullName;
             mvcWidget1.Settings = new Telerik.Sitefinity.Mvc.Proxy.ControllerSettings(new NewsController());
-            ServerOperationsFeather.TemplateOperations().AddControlToTemplate(templateId1, mvcWidget1, BootstrapPlaceholder, widgetName1);
+            ServerOperationsFeather.TemplateOperations().AddControlToTemplate(templateId1, mvcWidget1, Placeholder, widgetName1);
 
             templateId2 = ServerOperationsFeather.TemplateOperations().CreatePageTemplate(template2Name, templateId1);
             var mvcWidget2 = new Telerik.Sitefinity.Mvc.Proxy.MvcControllerProxy();
             mvcWidget2.ControllerName = typeof(BlogPostController).FullName;
             mvcWidget2.Settings = new Telerik.Sitefinity.Mvc.Proxy.ControllerSettings(new BlogPostController());
             mvcWidget2.ID = widgetName2.Replace(" ", string.Empty);
-            ServerOperationsFeather.TemplateOperations().AddControlToTemplate(templateId2, mvcWidget2, BootstrapPlaceholder, widgetName2);
+            ServerOperationsFeather.TemplateOperations().AddControlToTemplate(templateId2, mvcWidget2, Placeholder, widgetName2);
 
             var pageId = ServerOperations.Pages().CreatePage("TestPage1", templateId2);
             var pageNodeId = ServerOperations.Pages().GetPageNodeId(pageId);
             var pageManager = Telerik.Sitefinity.Modules.Pages.PageManager.GetManager();
             var pageNode = pageManager.GetPageNode(pageNodeId);
-            ServerOperationsFeather.Pages().AddContentBlockWidgetToPage(pageNodeId, widgetName, BootstrapPlaceholder);
+            ServerOperationsFeather.Pages().AddContentBlockWidgetToPage(pageNodeId, widgetName, Placeholder);
 
             return pageNode;
+        }
+
+        private PageNode CreatePageWithCustomWidget()
+        {
+            var pageTitle = "TestPage1";
+            ServerOperations.Pages().CreatePage(pageTitle);
+
+            var pageManager = PageManager.GetManager();
+            var pageNode = pageManager.GetPageNodes().SingleOrDefault(p => p.Title == pageTitle);
+            var pageDraft = pageManager.EditPage(pageNode.PageId, CultureInfo.CurrentUICulture);
+
+            var customWidget = new MvcWidgetProxy();
+            customWidget.ControllerName = typeof(TestController).FullName;
+            customWidget.Settings = new ControllerSettings(new TestController());
+            customWidget.WidgetName = typeof(TestController).Name;
+
+            var draftControlDefault = pageManager.CreateControl<PageDraftControl>(customWidget, "Body");
+            draftControlDefault.Caption = string.Empty;
+            pageManager.SetControlDefaultPermissions(draftControlDefault);
+            pageDraft.Controls.Add(draftControlDefault);
+            pageManager.PublishPageDraft(pageDraft, CultureInfo.CurrentUICulture);
+            pageManager.SaveChanges();
+
+            return pageNode;
+        }
+
+        private PageNode CreatePageOnTemplateWithCustomWigdet()
+        {
+            var templateName = "TestTemplate1";
+            var templateId = ServerOperationsFeather.TemplateOperations().DuplicatePageTemplate(PageTemplateName, templateName);
+            var customWidget = new MvcControllerProxy();
+            customWidget.ControllerName = typeof(TestController).FullName;
+            customWidget.Settings = new ControllerSettings(new TestController());
+            ServerOperationsFeather.TemplateOperations().AddControlToTemplate(templateId, customWidget, Placeholder, typeof(TestController).Name);
+
+            var pageTitle = "TestPage1";
+            var pageId = ServerOperations.Pages().CreatePage(pageTitle, templateId);
+            var pageNodeId = ServerOperations.Pages().GetPageNodeId(pageId);
+            var pageManager = Telerik.Sitefinity.Modules.Pages.PageManager.GetManager();
+            var pageNode = pageManager.GetPageNode(pageNodeId);
+
+            return pageNode;
+        }
+
+        private PageNode AddMixedWidgetsToPage(PageNode pageNode)
+        {
+            // Add MVC widget
+            var pageManager = PageManager.GetManager();
+            var pageDraft = pageManager.EditPage(pageNode.PageId, CultureInfo.CurrentUICulture);
+
+            var customWidget = new MvcWidgetProxy();
+            customWidget.ControllerName = typeof(TestController).FullName;
+            customWidget.Settings = new ControllerSettings(new TestController());
+            customWidget.WidgetName = typeof(TestController).Name;
+
+            var customWidgetDraft = pageManager.CreateControl<PageDraftControl>(customWidget, "Body");
+            customWidgetDraft.Caption = string.Empty;
+            pageManager.SetControlDefaultPermissions(customWidgetDraft);
+            pageDraft.Controls.Add(customWidgetDraft);
+
+            pageManager.PublishPageDraft(pageDraft, CultureInfo.CurrentUICulture);
+            pageManager.SaveChanges();
+
+            // Add WebForms widget
+            ServerOperations.Widgets().AddContentBlockToPage(pageNode.Id, string.Empty, Placeholder, string.Empty);
+
+            return pageNode;
+        }
+
+        private void CreateView(string relativePath, string content)
+        {
+            var path = HostingEnvironment.MapPath(relativePath);
+            var fileInfo = new FileInfo(path);
+            if (!fileInfo.Directory.Exists)
+                Directory.CreateDirectory(fileInfo.Directory.FullName);
+
+            if (!fileInfo.Exists)
+                File.WriteAllText(fileInfo.FullName, content);
+        }
+
+        private void DeleteView(string relativePath)
+        {
+            var path = HostingEnvironment.MapPath(relativePath);
+            var fileInfo = new FileInfo(path);
+            if (!fileInfo.Directory.Exists)
+                return;
+
+            fileInfo.Directory.Delete(recursive: true);
         }
 
         #endregion
@@ -321,7 +634,7 @@ namespace FeatherWidgets.TestIntegration.Common
 
         private const string WidgetViewPathFormat = "";
         private const string PageTemplateName = "Bootstrap.default";
-        private const string BootstrapPlaceholder = "Contentplaceholder1";
+        private const string Placeholder = "Body";
 
         #endregion
     }

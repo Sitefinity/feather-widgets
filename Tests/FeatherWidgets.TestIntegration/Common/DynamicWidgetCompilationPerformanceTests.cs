@@ -14,7 +14,6 @@ using Telerik.Sitefinity.Frontend.TestUtilities;
 using Telerik.Sitefinity.Modules.Pages;
 using Telerik.Sitefinity.Mvc.Proxy;
 using Telerik.Sitefinity.Pages.Model;
-using Telerik.Sitefinity.TestIntegration.Data.Content;
 using Telerik.Sitefinity.TestUtilities.CommonOperations;
 using Telerik.Sitefinity.TestUtilities.Modules.Diagnostics;
 using Telerik.Sitefinity.Utilities.TypeConverters;
@@ -69,7 +68,6 @@ namespace FeatherWidgets.TestIntegration.Common
         [Test]
         [Author(FeatherTeams.FeatherTeam)]
         [Description("Verifies that fist-time request of page with dynamic widget logs the execution and the compilation of the widget.")]
-        [Ignore]
         public void DynamicWidget_RequestPage_ShouldLogRazorViewCompilation()
         {
             var widgetText = "</asp:PlaceHolder>";
@@ -105,7 +103,6 @@ namespace FeatherWidgets.TestIntegration.Common
         [Test]
         [Author(FeatherTeams.FeatherTeam)]
         [Description("Verifies that requesting a Bootstrap page with Bootstrap dynamic widget view logs the execution and the compilation of the dynamic widget.")]
-        [Ignore]
         public void DynamicWidgetResourcePackage_RequestPage_ShouldLogRazorViewCompilation()
         {
             var text = "Expected text";
@@ -220,7 +217,7 @@ namespace FeatherWidgets.TestIntegration.Common
             mvcProxy.Settings = new ControllerSettings(dynamicController);
             mvcProxy.WidgetName = WidgetName;
 
-            var draftControlDefault = pageManager.CreateControl<PageDraftControl>(mvcProxy, "Contentplaceholder1");
+            var draftControlDefault = pageManager.CreateControl<PageDraftControl>(mvcProxy, "Body");
             draftControlDefault.Caption = string.Empty;
             pageManager.SetControlDefaultPermissions(draftControlDefault);
             pageDraft.Controls.Add(draftControlDefault);
