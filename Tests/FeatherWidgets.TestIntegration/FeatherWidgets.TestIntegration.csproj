@@ -148,7 +148,7 @@
       <HintPath>..\..\packages\Telerik.Sitefinity.Content.10.0.6400.0\lib\net45\Telerik.Sitefinity.ContentModules.dll</HintPath>
       <Private>True</Private>
     </Reference>
-	<Reference Include="Telerik.Sitefinity.Diagnostics">
+    <Reference Include="Telerik.Sitefinity.Diagnostics">
       <HintPath>..\..\packages\Telerik.Sitefinity.Diagnostics.10.0.6400.0\lib\net45\Telerik.Sitefinity.Diagnostics.dll</HintPath>
     </Reference>
     <Reference Include="Telerik.Sitefinity.Ecommerce, Version=10.0.6400.0, Culture=neutral, PublicKeyToken=b28c218413bdf563, processorArchitecture=MSIL">
@@ -295,6 +295,7 @@
     <Compile Include="MediaGalleryWidgets\ImageGalleryWidgetPagingLimitTests.cs" />
     <Compile Include="MediaGalleryWidgets\ImageGalleryWidgetSortingTests.cs" />
     <Compile Include="InlineClientAssets\StyleSheetWidgetTests.cs" />
+    <Compile Include="Mvc\Controllers\TestController.cs" />
     <Compile Include="Navigation\BreadcrumbWidgetTests.cs" />
     <Compile Include="Navigation\DummyBreadcrumbExtender.cs" />
     <Compile Include="Navigation\DummySitemapFilter.cs" />
@@ -325,6 +326,7 @@
     <None Include="app.config">
       <SubType>Designer</SubType>
     </None>
+    <EmbeddedResource Include="Mvc\Views\Test\Index.cshtml" />
     <None Include="packages.config">
       <SubType>Designer</SubType>
     </None>
