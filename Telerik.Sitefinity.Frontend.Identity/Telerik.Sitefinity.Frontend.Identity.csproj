@@ -177,6 +177,7 @@
       <Link>Properties\SharedAssemblyInfo.cs</Link>
     </Compile>
     <Compile Include="InterfaceMappings.cs" />
+    <Compile Include="UserProfileMvcOutputCacheVariation.cs" />
     <Compile Include="Mvc\Controllers\ChangePasswordController.cs" />
     <Compile Include="Mvc\Controllers\ProfileController.cs" />
     <Compile Include="Mvc\Controllers\AccountActivationController.cs" />
