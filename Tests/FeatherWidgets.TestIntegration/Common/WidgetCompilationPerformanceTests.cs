@@ -75,7 +75,7 @@ namespace FeatherWidgets.TestIntegration.Common
 
                 int widgetCount = 3;
                 for (var i = 0; i < widgetCount; i++)
-                    ServerOperationsFeather.Pages().AddContentBlockWidgetToPage(pageNodeId, "ContentBlock", "Contentplaceholder1");
+                    ServerOperationsFeather.Pages().AddContentBlockWidgetToPage(pageNodeId, "ContentBlock", Placeholder);
 
                 var viewPath = "~/Frontend-Assembly/Telerik.Sitefinity.Frontend.ContentBlock/Mvc/Views/ContentBlock/Default.cshtml";
                 var fullViewPath = string.Concat(viewPath, "#Bootstrap.cshtml");
@@ -140,7 +140,7 @@ namespace FeatherWidgets.TestIntegration.Common
 
                 int widgetCount = 3;
                 for (var i = 0; i < widgetCount; i++)
-                    ServerOperationsFeather.Pages().AddContentBlockWidgetToPage(pageNodeId, "ContentBlock", "Contentplaceholder1");
+                    ServerOperationsFeather.Pages().AddContentBlockWidgetToPage(pageNodeId, "ContentBlock", Placeholder);
 
                 var viewPath = "~/Frontend-Assembly/Telerik.Sitefinity.Frontend.ContentBlock/Mvc/Views/ContentBlock/Default.cshtml";
                 var fullViewPath = string.Concat(viewPath, "#Bootstrap.cshtml");
@@ -632,7 +632,6 @@ namespace FeatherWidgets.TestIntegration.Common
             public const string Bootstrap = "Bootstrap";
         }
 
-        private const string WidgetViewPathFormat = "";
         private const string PageTemplateName = "Bootstrap.default";
         private const string Placeholder = "Body";
 
