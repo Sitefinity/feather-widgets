@@ -30,7 +30,7 @@ namespace Feather.Widgets.TestUI.Framework.Framework.ElementMap.Identity
         {
             get
             {
-                return this.Get<HtmlAnchor>("TagName=a", "data-sf-role=sf-logged-in-name");
+                return this.Find.ByExpression<HtmlAnchor>("TagName=a", "data-sf-role=sf-logged-in-name");
             } 
         }
 
