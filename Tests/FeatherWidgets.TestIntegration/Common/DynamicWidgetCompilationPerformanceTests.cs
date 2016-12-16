@@ -72,7 +72,7 @@ namespace FeatherWidgets.TestIntegration.Common
         {
             var widgetText = "</asp:PlaceHolder>";
             var addedText = "Some added text.";
-            var widgetTextEdited = string.Concat(widgetText, addedText);            
+            var widgetTextEdited = string.Concat(widgetText, addedText);
 
             PageNode pageNode = null;
             try
@@ -217,7 +217,8 @@ namespace FeatherWidgets.TestIntegration.Common
             mvcProxy.Settings = new ControllerSettings(dynamicController);
             mvcProxy.WidgetName = WidgetName;
 
-            var draftControlDefault = pageManager.CreateControl<PageDraftControl>(mvcProxy, "Body");
+            var placeHoler = "Contentplaceholder1";
+            var draftControlDefault = pageManager.CreateControl<PageDraftControl>(mvcProxy, placeHoler);
             draftControlDefault.Caption = string.Empty;
             pageManager.SetControlDefaultPermissions(draftControlDefault);
             pageDraft.Controls.Add(draftControlDefault);
