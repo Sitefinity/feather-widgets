@@ -333,7 +333,7 @@ namespace FeatherWidgets.TestIntegration.Common
                 if (!File.Exists(layoutFilePath))
                     return;
 
-                Directory.Delete(layoutsFolderPath, recursive: true);
+                File.Delete(layoutFilePath);
             }
         }
 
