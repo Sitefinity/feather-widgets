@@ -11,7 +11,7 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.LoginForm
     /// <summary>
     /// This class represents login form view model for the <see cref="LoginFormController"/>.
     /// </summary>
-    [Bind(Exclude = "CssClass, ServiceUrl, MembershipProvider, RedirectUrlAfterLogin, RegisterPageUrl, Realm, ShowRegistrationLink, ShowForgotPasswordLink, IncorrectCredentials, ShowRememberMe")]
+    [Bind(Exclude = "CssClass, ServiceUrl, MembershipProvider, RedirectUrlAfterLogin, RegisterPageUrl, Realm, ShowRegistrationLink, ShowForgotPasswordLink, ShowRememberMe")]
     public class LoginFormViewModel
     {
         /// <summary>
@@ -127,12 +127,6 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.LoginForm
         /// <c>true</c> if the forgot password link should be showed; otherwise, <c>false</c>.
         /// </value>
         public bool ShowForgotPasswordLink { get; set; }
-
-        /// <summary>
-        /// Indicates that the provided credentials are not valid.
-        /// </summary>
-        /// <value>The incorrect credentials.</value>
-        public bool IncorrectCredentials { get; set; }
 
         /// <summary>
         /// Gets or sets a value indicating whether Remember me checkbox is displayed.

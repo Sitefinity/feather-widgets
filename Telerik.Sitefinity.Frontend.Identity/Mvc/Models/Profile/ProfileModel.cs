@@ -163,6 +163,8 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.Profile
                 return false;
             }
 
+            this.EditEmail(model);
+
             var userProfileManager = UserProfileManager.GetManager(this.ProfileProvider);
 
             this.EditProfileProperties(model.Profile, userProfileManager);
@@ -222,16 +224,20 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.Profile
         }
 
         /// <inheritDoc/>
-        public virtual void InitializeUserRelatedData(ProfileEditViewModel model)
+        public virtual void InitializeUserRelatedData(ProfileEditViewModel model, bool emailUpdate = true)
         {
             model.User = SecurityManager.GetUser(this.GetUserId());
 
-            model.UserName = model.User.UserName;
-            model.Email = model.User.Email;
-            model.UserName = model.User.UserName;
+            if (emailUpdate)
+            {
+                model.UserName = model.User.UserName;
+                model.Email = model.User.Email;
+            }
+
             Libraries.Model.Image avatarImage;
 
             var displayNameBuilder = new SitefinityUserDisplayNameBuilder();
+            
             model.DisplayName = displayNameBuilder.GetUserDisplayName(model.User.Id);
             model.AvatarImageUrl = displayNameBuilder.GetAvatarImageUrl(model.User.Id, out avatarImage);
             model.DefaultAvatarUrl = displayNameBuilder.GetAvatarImageUrl(Guid.Empty, out avatarImage);
@@ -373,6 +379,26 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.Profile
         }
 
         /// <summary>
+        /// Edits the email.
+        /// </summary>
+        /// <param name="model">The model.</param>
+        /// <exception cref="System.ArgumentException">Email exists</exception>
+        private void EditEmail(ProfileEditViewModel model)
+        {
+            if (!string.IsNullOrEmpty(model.Email))
+            {
+                var userId = this.GetUserId();
+                var userManager = UserManager.GetManager(SecurityManager.GetUser(userId).ProviderName);
+                var user = userManager.GetUser(userId);
+                if (user.Email != model.Email)
+                {
+                    user.Email = model.Email;
+                    userManager.SaveChanges();
+                }
+            }
+        }
+
+        /// <summary>
         /// Edits the avatar.
         /// </summary>
         /// <param name="model">The model.</param>
@@ -495,7 +521,7 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.Profile
         private string profileProvider;
         private string membrshipProvider;
         private IList<UserProfile> selectedUserProfiles;
-        private string profileBindings = "[{ProfileType: 'Telerik.Sitefinity.Security.Model.SitefinityProfile',Properties: [{ Name: 'FirstName', FieldName: 'FirstName', Required: true },{ Name: 'LastName', FieldName: 'LastName', Required: true }, {Name:'About', FieldName:'About' } ]}]";
+        private string profileBindings = "[{ProfileType: 'Telerik.Sitefinity.Security.Model.SitefinityProfile',Properties: [{ Name: 'FirstName', FieldName: 'FirstName', Required: true },{ Name: 'LastName', FieldName: 'LastName', Required: true }, {Name:'About', FieldName:'About' },{Name:'Nickname', FieldName:'Nickname' } ]}]";
 
         private const string ProfileImagesAlbumTitle = "Profile images";
         private const string ProfileImagesAlbumUrl = "sys-profile-images";

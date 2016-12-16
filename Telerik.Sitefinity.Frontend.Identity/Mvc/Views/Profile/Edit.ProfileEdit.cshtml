@@ -47,7 +47,20 @@
                 @Html.ValidationMessageFor(u => u.Profile["LastName"])
             </label>
         </div>
-
+        <div>
+            <label>
+                @Html.Resource("EditProfileEmail")
+                @Html.TextBoxFor(u => u.Email)
+                @Html.ValidationMessageFor(u => u.Email)
+            </label>
+        </div>
+        <div>
+            <label>
+                @Html.Resource("EditProfileNickname")
+                @Html.TextBoxFor(u => u.Profile["Nickname"])
+                @Html.ValidationMessageFor(u => u.Profile["Nickname"])
+            </label>
+        </div>
         <div>
             <label>
                 @Html.Resource("EditProfileAbout")

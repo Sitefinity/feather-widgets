@@ -39,19 +39,6 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Controllers
         }
 
         /// <summary>
-        /// Gets or sets if on registration the email addess should be used as the username
-        /// </summary>
-        public bool EmailAddressShouldBeTheUsername {
-            get {
-                return this.emailAddressShouldBeTheUsername;
-            }
-
-            set {
-                this.emailAddressShouldBeTheUsername = value;
-            }
-        }
-
-        /// <summary>
         /// Gets or sets the name of the template that widget will be displayed.
         /// </summary>
         /// <value></value>
@@ -83,8 +70,6 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Controllers
             var fullTemplateName = this.templateNamePrefix + this.TemplateName;
 
             var viewModel = new RegistrationViewModel();
-            viewModel.EmailAddressShouldBeTheUsername = this.EmailAddressShouldBeTheUsername;
-
             this.Model.InitializeViewModel(viewModel);
 
             this.ViewBag.ShowSuccessfulRegistrationMsg = false;
@@ -103,12 +88,6 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Controllers
         [HttpPost]
         public ActionResult Index(RegistrationViewModel viewModel)
         {
-            viewModel.EmailAddressShouldBeTheUsername = this.EmailAddressShouldBeTheUsername;
-
-            if(this.EmailAddressShouldBeTheUsername){
-                ModelState.Remove("UserName");
-            }
-
             if (ModelState.IsValid)
             {
                 var status = this.Model.RegisterUser(viewModel);
@@ -149,6 +128,16 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Controllers
             var isSend = this.Model.ResendConfirmationEmail(email);
 
             return Json(isSend, JsonRequestBehavior.AllowGet);
+        }
+
+        public ActionResult LoginExternalProvider(string model)
+        {
+            if (!string.IsNullOrEmpty(model))
+            {
+                this.Model.AuthenticateExternal(model, this.ControllerContext.HttpContext);
+            }
+
+            return new EmptyResult();
         }
 
         /// <inheritDocs/>

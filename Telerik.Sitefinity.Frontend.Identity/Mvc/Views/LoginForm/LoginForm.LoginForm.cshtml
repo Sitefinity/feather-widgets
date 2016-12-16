@@ -59,10 +59,10 @@
             {
                 @Html.ActionLink(Html.Resource("ForgottenPasword"), "ForgotPassword")
             }
- 
-            if (Model.IncorrectCredentials)
+
+            if (@Request.Url.Query.Contains("err=true"))
             {
-            
+
             <p>@Html.Resource("IncorrectCredentialsMessage")</p>
                 
             }

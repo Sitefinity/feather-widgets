@@ -112,15 +112,7 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.LoginStatus
             if (HttpContext.Current.Request.Url == null)
                 return string.Empty;
 
-            string fullLogoutUrl = RouteHelper.ResolveUrl(ClaimsManager.GetLogoutUrl(logoutRedirectUrl), UrlResolveOptions.Rooted);
-
-            // Workaround an issue when the application is hosted under an application path.
-            if (SystemManager.CurrentHttpContext != null && SystemManager.CurrentHttpContext.Request.ApplicationPath != "/")
-            {
-                fullLogoutUrl = fullLogoutUrl.Replace("sts_signout=true&", "");
-            }
-
-            return fullLogoutUrl;
+            return logoutRedirectUrl;
         }
 
         /// <inheritdoc />

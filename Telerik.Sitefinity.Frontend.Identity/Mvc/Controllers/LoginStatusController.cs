@@ -5,12 +5,14 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using Microsoft.Owin;
+using Microsoft.Owin.Security;
 using Telerik.Sitefinity.Frontend.Identity.Mvc.Models.LoginStatus;
 using Telerik.Sitefinity.Frontend.Identity.Mvc.StringResources;
 using Telerik.Sitefinity.Frontend.Mvc.Infrastructure.Controllers;
 using Telerik.Sitefinity.Frontend.Mvc.Infrastructure.Controllers.Attributes;
 using Telerik.Sitefinity.Mvc;
 using Telerik.Sitefinity.Services;
+using Telerik.Sitefinity.Security.Claims;
 
 namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Controllers
 {
@@ -100,10 +102,16 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Controllers
         [RelativeRoute("SignOut")]
         public ActionResult SignOut()
         {            
-            IOwinContext owimContext = SystemManager.CurrentHttpContext.Request.GetOwinContext();
-            owimContext.Authentication.SignOut();
-           
-            return this.Redirect(this.GetCurrentPageUrl());
+            var owinContext = SystemManager.CurrentHttpContext.Request.GetOwinContext();
+            var authenticationTypes = ClaimsManager.CurrentAuthenticationModule.GetSignOutAuthenticationTypes().ToArray();
+            var logoutUrl = this.Model.GetLogoutPageUrl() ?? this.GetCurrentPageUrl();
+
+            owinContext.Authentication.SignOut(new AuthenticationProperties
+            {
+                RedirectUri = logoutUrl
+            }, authenticationTypes);
+
+            return this.Redirect(logoutUrl);
         }
 
         /// <summary>

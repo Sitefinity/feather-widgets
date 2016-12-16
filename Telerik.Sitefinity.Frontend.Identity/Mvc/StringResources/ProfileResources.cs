@@ -335,6 +335,21 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.StringResources
         }
 
         /// <summary>
+        /// Gets phrase: Nickname
+        /// </summary>
+        [ResourceEntry("EditProfileNickname",
+            Value = "Nickname",
+            Description = "phrase : Nickname",
+            LastModified = "2016/12/14")]
+        public string EditProfileNickname
+        {
+            get
+            {
+                return this["EditProfileNickname"];
+            }
+        }
+
+        /// <summary>
         /// Gets phrase: About
         /// </summary>
         [ResourceEntry("EditProfileAbout",
@@ -558,6 +573,22 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.StringResources
             get
             {
                 return this["PreviewProfileSaveMessage"];
+            }
+        }
+
+        /// <summary>
+        /// Gets phrase: Email already exists.
+        /// </summary>
+        /// <value>Email already exists.</value>
+        [ResourceEntry("EmailExistsMessage",
+            Value = "Email already exists.",
+            Description = "phrase : Email already exists.",
+            LastModified = "2016/12/14")]
+        public string EmailExistsMessage
+        {
+            get
+            {
+                return this["EmailExistsMessage"];
             }
         }
     }

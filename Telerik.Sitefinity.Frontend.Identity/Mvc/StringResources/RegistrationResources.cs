@@ -352,6 +352,36 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.StringResources
         }
 
         /// <summary>
+        /// Gets phrase: Question
+        /// </summary>
+        [ResourceEntry("Question",
+            Value = "Password question",
+            Description = "phrase : Password question",
+            LastModified = "2016/12/12")]
+        public string Question
+        {
+            get
+            {
+                return this["Question"];
+            }
+        }
+
+        /// <summary>
+        /// Gets phrase: Answer
+        /// </summary>
+        [ResourceEntry("Answer",
+            Value = "Password answer",
+            Description = "phrase : Password answer",
+            LastModified = "2016/12/12")]
+        public string Answer
+        {
+            get
+            {
+                return this["Answer"];
+            }
+        }
+
+        /// <summary>
         /// Gets phrase: Password
         /// </summary>
         [ResourceEntry("Password",
@@ -623,6 +653,66 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.StringResources
             get
             {
                 return this["SendAgain"];
+            }
+        }
+
+        /// <summary>
+        /// Gets phrase: Allow users to register with...
+        /// </summary>
+        [ResourceEntry("ExternalProvidersRegiterOptions",
+            Value = "Allow users to register with...",
+            Description = "phrase : Allow users to register with...",
+            LastModified = "2016/12/12")]
+        public string ExternalProvidersRegiterOptions
+        {
+            get
+            {
+                return this["ExternalProvidersRegiterOptions"];
+            }
+        }
+
+        /// <summary>
+        /// phrase : Or
+        /// </summary>
+        [ResourceEntry("Or",
+            Value = "Or",
+            Description = "phrase : Or",
+            LastModified = "2016/12/13")]
+        public string Or
+        {
+            get
+            {
+                return this["Or"];
+            }
+        }
+
+        /// <summary>
+        /// Gets phrase: Registration
+        /// </summary>
+        [ResourceEntry("Registration",
+            Value = "Registration",
+            Description = "phrase : Registration",
+            LastModified = "2016/12/13")]
+        public string Registration
+        {
+            get
+            {
+                return this["Registration"];
+            }
+        }
+
+        /// <summary>
+        /// Gets phrase: Connect with...
+        /// </summary>
+        [ResourceEntry("ConnectWith",
+            Value = "Connect with...",
+            Description = "phrase : Connect with...",
+            LastModified = "2016/12/13")]
+        public string ConnectWith
+        {
+            get
+            {
+                return this["ConnectWith"];
             }
         }
     }

@@ -267,52 +267,26 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.LoginForm
         {
             AuthenticationProperties authenticationProperty = new AuthenticationProperties()
             {
-                RedirectUri = "http://localhost:88/"
+                RedirectUri = this.GetReturnURL(input, context)
             };
-            IOwinContext owinContext = context.Request.GetOwinContext();
-            string userName = input.UserName;
-            string password = input.Password;
-            bool rememberMe = input.RememberMe;
+
+            var owinContext = context.Request.GetOwinContext();
+            var widgetUrl = context.Request.Url;
+            var userName = input.UserName;
+            var password = input.Password;
+            var rememberMe = input.RememberMe;
             var loginParameters = new Dictionary<string, object>();
+
             loginParameters.Add(IsExternalProvider, false);
             loginParameters.Add(UsernameParameter, userName);
-            loginParameters.Add(PasswordParameter, password);   
+            loginParameters.Add(PasswordParameter, password);
+            loginParameters.Add(ErrorRedirectUrlParameter, widgetUrl);
             loginParameters.Add(RememberMeParameter, rememberMe);
 
             var paramsDictJson = loginParameters.ToJson();
             authenticationProperty.Dictionary.Add(AcrValues, paramsDictJson);
-            owinContext.Authentication.Challenge(authenticationProperty, new string[] { OpenIdConnect });
-            //User user;
-            //UserLoggingReason result = SecurityManager.AuthenticateUser(
-            //    this.MembershipProvider,
-            //    input.UserName,
-            //    input.Password,
-            //    input.RememberMe,
-            //    out user);
+            owinContext.Authentication.Challenge(authenticationProperty, new string[] { ClaimsManager.CurrentAuthenticationModule.STSAuthenticationType });
 
-            //var identity = ClaimsManager.GetCurrentIdentity();
-            //if (user != null && identity != null && identity.OriginalIdentity is SitefinityIdentity)
-            //{
-            //    IClaimsPrincipal cp = new ClaimsPrincipal(new[] { new ClaimsIdentity(identity.Claims) });
-            //    var wifCredentials = new FederatedServiceCredentials(FederatedAuthentication.ServiceConfiguration);
-            //    cp = wifCredentials.ClaimsAuthenticationManager.Authenticate(context.Request.RequestType, cp);
-            //    SitefinityClaimsAuthenticationModule.Current.AuthenticatePrincipalWithCurrentToken(cp, input.RememberMe);
-            //}
-
-            //if (result == UserLoggingReason.Unknown)
-            //{
-            //    input.IncorrectCredentials = true;
-            //}
-            //else
-            //{
-            //    input.RedirectUrlAfterLogin = this.GetReturnURL(input, context);
-
-            //    if (result != UserLoggingReason.Success)
-            //    {
-            //        SFClaimsAuthenticationManager.ProcessRejectedUser(context, input.RedirectUrlAfterLogin);
-            //    }
-            //}            
-           
             return input;
         }
 
@@ -327,7 +301,7 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.LoginForm
             var owinContext = context.Request.GetOwinContext();
 
             var loginParameters = new Dictionary<string, object>();
-            loginParameters.Add(IsExternalProvider, true);
+            loginParameters.Add(IsExternalProvider, true);            
             loginParameters.Add(ExternalProviderName, input);
             loginParameters.Add(ErrorRedirectUrlParameter, widgetUrl);
 
@@ -335,7 +309,7 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.LoginForm
             var authProp = new AuthenticationProperties { RedirectUri = context.Request.UrlReferrer.ToString() };
             authProp.Dictionary[AcrValues] = paramsDictJson;
 
-            owinContext.Authentication.Challenge(authProp, OpenIdConnect);        
+            owinContext.Authentication.Challenge(authProp, ClaimsManager.CurrentAuthenticationModule.STSAuthenticationType);        
         }
         #endregion
 
@@ -473,28 +447,12 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.LoginForm
         /// </returns>
         protected string GetReturnURL(LoginFormViewModel input, HttpContextBase context)
         {
-            string redirectUrl = string.Empty;
+            string redirectUrl = context.Request.Url.AbsoluteUri.Replace(context.Request.Url.Query, String.Empty);
 
             if (this.LoginRedirectPageId.HasValue)
-            {
-                //Get redirectUrl set by administrator. The value is not validated.
+            {                
                 redirectUrl = this.GetPageUrl(this.LoginRedirectPageId);
-            }
-            else
-            {
-                //Get redirectUrl from query string parameter
-                string redirectUrlFromQS;
-                this.TryResolveUrlFromUrlReferrer(context, out redirectUrlFromQS);
-                if (!string.IsNullOrWhiteSpace(redirectUrlFromQS))
-                {
-                    //validates whether the redirectUrl is allowed in the relying parties.
-                    byte[] key;
-                    if (SWTIssuer.TryGetRelyingPartyKey(redirectUrlFromQS, out key))
-                    {
-                        redirectUrl = redirectUrlFromQS;
-                    }
-                }
-            }
+            }            
 
             return redirectUrl;
         }
@@ -506,8 +464,7 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.LoginForm
         private const string ExternalProviderName = "externalProviderName";
         private const string RememberMeParameter = "rememberMe";
         private const string UsernameParameter = "username";
-        private const string PasswordParameter = "password";
-        private const string OpenIdConnect = "OpenIdConnect";
+        private const string PasswordParameter = "password";        
         private const string ErrorRedirectUrlParameter = "errorRedirectUrl";
         private const string AcrValues = "acr_values";
 

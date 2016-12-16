@@ -2,6 +2,7 @@
 using System.ComponentModel;
 using System.Configuration.Provider;
 using System.Web.Mvc;
+using Telerik.OpenAccess.Exceptions;
 using Telerik.Sitefinity.Frontend.Identity.Mvc.Models.Profile;
 using Telerik.Sitefinity.Frontend.Identity.Mvc.StringResources;
 using Telerik.Sitefinity.Frontend.Mvc.Infrastructure.Controllers;
@@ -140,7 +141,7 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Controllers
         public ActionResult Index(ProfileEditViewModel viewModel)
         {
             this.Model.ValidateProfileData(viewModel, this.ModelState);
-            this.Model.InitializeUserRelatedData(viewModel);
+            this.Model.InitializeUserRelatedData(viewModel, false);
 
             if (ModelState.IsValid)
             {
@@ -166,6 +167,10 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Controllers
                 catch (ProviderException ex)
                 {
                     this.ViewBag.ErrorMessage = ex.Message;
+                }
+                catch (DuplicateKeyException)
+                {
+                    this.ViewBag.ErrorMessage = Res.Get<ProfileResources>().EmailExistsMessage;
                 }
                 catch (Exception)
                 {

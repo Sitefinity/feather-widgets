@@ -582,9 +582,9 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.StringResources
         /// </summary>
         /// <value>Incorrect Username/Password Combination</value>
         [ResourceEntry("IncorrectCredentialsMessage",
-            Value = "Incorrect Username/Password Combination",
-            Description = "phrase: Incorrect Username/Password Combination",
-            LastModified = "2015/03/06")]
+            Value = "Incorrect credentials",
+            Description = "phrase: Incorrect credentials",
+            LastModified = "2016/12/09")]
         public string IncorrectCredentialsMessage
         {
             get
@@ -614,9 +614,9 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.StringResources
         /// </summary>
         /// <value>Username</value>
         [ResourceEntry("Username",
-            Value = "Username",
-            Description = "phrase: Username",
-            LastModified = "2015/03/09")]
+            Value = "Email / Username",
+            Description = "phrase: Email / Username",
+            LastModified = "2016/12/12")]
         public string Username
         {
             get
@@ -686,6 +686,21 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.StringResources
             get
             {
                 return this["DoesNotExist"];
+            }
+        }
+
+        /// <summary>
+        /// Gets phrase: Allow users to log in with...
+        /// </summary>
+        [ResourceEntry("ExternalProvidersLoginOptions",
+            Value = "Allow users to log in with...",
+            Description = "phrase : Allow users to log in with...",
+            LastModified = "2016/12/15")]
+        public string ExternalProvidersLoginOptions
+        {
+            get
+            {
+                return this["ExternalProvidersLoginOptions"];
             }
         }
     }

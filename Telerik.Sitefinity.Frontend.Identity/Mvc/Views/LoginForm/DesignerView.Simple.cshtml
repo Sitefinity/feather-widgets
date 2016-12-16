@@ -1,4 +1,6 @@
+@using Telerik.Sitefinity.Configuration;
 @using Telerik.Sitefinity.Frontend.Mvc.Helpers;
+@using Telerik.Sitefinity.Security.Configuration.IdentityServer;
 
 <form>
     <div class="alert alert-warning" ng-show="properties.AllowResetPassword.PropertyValue === 'True' && properties.EnablePasswordRetrieval.PropertyValue === 'False' && properties.EnablePasswordReset.PropertyValue === 'False'">
@@ -18,6 +20,29 @@
             sf-page-selector
             sf-selected-item-id="properties.RegisterRedirectPageId.PropertyValue"></sf-list-selector>
     </div>
+
+    @{
+        var providers = Config.Get<AuthenticationConfig>().AuthenticationProviders.Values.Where(x => x.Enabled == true && !string.IsNullOrEmpty(x.Name)).ToList();
+        if (providers.Count() != 0)
+        {
+            <div class="form-group">
+                <strong>@Html.Resource("ExternalProvidersLoginOptions")</strong>
+                @foreach (var provider in providers)
+                {
+                    <div class="checkbox">
+                        <label>
+                            <input id="@provider.Name"
+                                   type="checkbox"
+                                   ng-change="updateExternalProvider('@provider.Name', '@provider.LinkCssClass', externalProviderSelector.selectedItems['@provider.Name'])"
+                                   ng-checked="externalProviderSelector.selectedItems['@provider.Name']"
+                                   ng-model="externalProviderSelector.selectedItems['@provider.Name']" />
+                            @provider.Name
+                        </label>
+                    </div>
+                }
+            </div>
+        }
+    }
 
     <div class="form-group">
         <div class="checkbox">

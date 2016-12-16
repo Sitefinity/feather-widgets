@@ -62,7 +62,7 @@ namespace FeatherWidgets.TestUnit.DummyClasses.Identity
             return Guid.NewGuid();
         }
 
-        public void InitializeUserRelatedData(ProfileEditViewModel model)
+        public void InitializeUserRelatedData(ProfileEditViewModel model, bool emailUpdate = true)
         {
             // Do nothing.
         }

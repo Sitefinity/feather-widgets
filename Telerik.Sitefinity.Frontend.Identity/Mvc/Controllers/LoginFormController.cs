@@ -99,12 +99,6 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Controllers
             if (ModelState.IsValid)
             {
                 model = this.Model.Authenticate(model, this.ControllerContext.HttpContext);
-
-                if (!model.IncorrectCredentials && !string.IsNullOrWhiteSpace(model.RedirectUrlAfterLogin))
-                {
-                    //Redirect to RedirectUrlAfterLogin url value. The value is already checked in the model if it's come from query string parameter.
-                    return this.Redirect(model.RedirectUrlAfterLogin);
-                }
             }
 
             this.Model.InitializeLoginViewModel(model);

@@ -12,7 +12,7 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.Profile
     /// <summary>
     /// This class represents view model for Profile widget.
     /// </summary>
-    [Bind(Exclude = "SelectedUserProfiles, User, CanEdit, CssClass, ShowProfileChangedMsg, Email, DisplayName, UserName, AvatarImageUrl, DefaultAvatarUrl")]
+    [Bind(Exclude = "SelectedUserProfiles, User, CanEdit, CssClass, ShowProfileChangedMsg, DisplayName, UserName, AvatarImageUrl, DefaultAvatarUrl")]
     public class ProfileEditViewModel
     {
         /// <summary>

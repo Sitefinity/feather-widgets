@@ -121,7 +121,7 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.Profile
         /// Updates the profile edit view model with the current User data.
         /// </summary>
         /// <param name="model">The model.</param>
-        void InitializeUserRelatedData(ProfileEditViewModel model);
+        void InitializeUserRelatedData(ProfileEditViewModel model, bool emailUpdate = true);
 
         /// <summary>
         /// Validates the profile related data.
