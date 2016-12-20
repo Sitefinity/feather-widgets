@@ -52,7 +52,8 @@ namespace FeatherWidgets.TestIntegration.Common
         /// </summary>
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Globalization", "CA1303:Do not pass literals as localized parameters", MessageId = "Telerik.Sitefinity.TestUtilities.CommonOperations.WidgetOperations.AddContentBlockToPage(System.Guid,System.String,System.String,System.String)"), Test]
         [Author(FeatherTeams.FeatherTeam)]
-        [Description("Verifies that when new layout is added and page based on this layout is requested then a compilation for the layout is logged.")]
+        [Description("Verifies that when new layout is added and page based on this layout is requested then a compilation for the layout is logged."), Ignore]
+        ////StoryId: 208384
         public void NewLayout_RequestPageBasedOnTemplate_ShouldLogCompilation()
         {
             PageNode pageNode = null;
@@ -99,7 +100,8 @@ namespace FeatherWidgets.TestIntegration.Common
         /// </summary>
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Globalization", "CA1303:Do not pass literals as localized parameters", MessageId = "Telerik.Sitefinity.TestUtilities.CommonOperations.WidgetOperations.AddContentBlockToPage(System.Guid,System.String,System.String,System.String)"), Test]
         [Author(FeatherTeams.FeatherTeam)]
-        [Description("Verifies that when a new layout file is added, a template based on this layout is created and then a page based on this new template is requested, a compilation for the layout file is logged.")]
+        [Description("Verifies that when a new layout file is added, a template based on this layout is created and then a page based on this new template is requested, a compilation for the layout file is logged."), Ignore]
+        ////StoryId: 208384
         public void TemplateBasedOnNewLayout_RequestPage_ShouldLogRazorViewCompilation()
         {
             string childTemplateTitle = "NewTestLayout";
@@ -150,7 +152,8 @@ namespace FeatherWidgets.TestIntegration.Common
         /// </summary>
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Globalization", "CA1303:Do not pass literals as localized parameters", MessageId = "Telerik.Sitefinity.TestUtilities.CommonOperations.WidgetOperations.AddContentBlockToPage(System.Guid,System.String,System.String,System.String)"), Test]
         [Author(FeatherTeams.FeatherTeam)]
-        [Description("Verifies that when edit existing layout and page based on this layout is requested then a compilation for the layout is logged.")]
+        [Description("Verifies that when edit existing layout and page based on this layout is requested then a compilation for the layout is logged."), Ignore]
+        ////StoryId: 208384
         public void EditLayout_RequestPageBasedOnTemplate_ShouldLogCompilation()
         {
             var templateTitle = "Bootstrap.default";
@@ -199,7 +202,8 @@ namespace FeatherWidgets.TestIntegration.Common
         /// </summary>
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Globalization", "CA1303:Do not pass literals as localized parameters", MessageId = "Telerik.Sitefinity.TestUtilities.CommonOperations.WidgetOperations.AddContentBlockToPage(System.Guid,System.String,System.String,System.String)"), Test]
         [Author(FeatherTeams.FeatherTeam)]
-        [Description("Verifies that when new layout is added on root level and page based on this layout is requested then a compilation for the layout is logged.")]
+        [Description("Verifies that when new layout is added on root level and page based on this layout is requested then a compilation for the layout is logged."), Ignore]
+        ////StoryId: 208384
         public void NewLayoutRoot_RequestPageBasedOnTemplate_ShouldLogCompilation()
         {
             PageNode pageNode = null;
@@ -245,7 +249,8 @@ namespace FeatherWidgets.TestIntegration.Common
         /// </summary>
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Globalization", "CA1303:Do not pass literals as localized parameters", MessageId = "Telerik.Sitefinity.TestUtilities.CommonOperations.WidgetOperations.AddContentBlockToPage(System.Guid,System.String,System.String,System.String)"), Test]
         [Author(FeatherTeams.FeatherTeam)]
-        [Description("Verifies that when layout from the root folders is edited and page based on this layout is requested then a compilation for the layout is logged.")]
+        [Description("Verifies that when layout from the root folders is edited and page based on this layout is requested then a compilation for the layout is logged."), Ignore]
+        ////StoryId: 208384
         public void EditLayoutRoot_RequestPageBasedOnTemplate_ShouldLogCompilation()
         {
             PageNode pageNode = null;

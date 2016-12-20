@@ -102,7 +102,8 @@ namespace FeatherWidgets.TestIntegration.Common
         /// </summary>
         [Test]
         [Author(FeatherTeams.FeatherTeam)]
-        [Description("Verifies that requesting a Bootstrap page with Bootstrap dynamic widget view logs the execution and the compilation of the dynamic widget.")]
+        [Description("Verifies that requesting a Bootstrap page with Bootstrap dynamic widget view logs the execution and the compilation of the dynamic widget."), Ignore]
+        //// StoryID: 208381
         public void DynamicWidgetResourcePackage_RequestPage_ShouldLogRazorViewCompilation()
         {
             var text = "Expected text";
@@ -151,7 +152,8 @@ namespace FeatherWidgets.TestIntegration.Common
         /// </summary>
         [Test]
         [Author(FeatherTeams.FeatherTeam)]
-        [Description("Verifies that requesting a Bootstrap page with dynamic widget view in the MVC folder logs the execution and the compilation of the dynamic widget.")]
+        [Description("Verifies that requesting a Bootstrap page with dynamic widget view in the MVC folder logs the execution and the compilation of the dynamic widget."), Ignore]
+        //// StoryId: 208381
         public void DynamicWidgetMvc_RequestPage_ShouldLogRazorViewCompilation()
         {
             var text = "Expected text";
