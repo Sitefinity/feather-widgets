@@ -329,17 +329,10 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.Registration
             var owinContext = context.Request.GetOwinContext();
             var selectedRoles = this.selectedRoles.Select(x => x.Name).ToJson();
 
-            var loginParameters = new Dictionary<string, object>();
-            loginParameters.Add(IsExternalProvider, true);
-            loginParameters.Add(ExternalProviderName, input);
-            loginParameters.Add(AssignmentRoles, selectedRoles);
-            loginParameters.Add(ErrorRedirectUrlParameter, returnUri.ToString());
+            var challengeProperties = ChallengeProperties.ForExternalUser(input, returnUri.ToString(), selectedRoles);
+            challengeProperties.RedirectUri = returnUri.ToString();
 
-            var paramsDictJson = loginParameters.ToJson();
-            var authProp = new AuthenticationProperties { RedirectUri = returnUri.ToString() };
-            authProp.Dictionary[AcrValues] = paramsDictJson;
-
-            owinContext.Authentication.Challenge(authProp, ClaimsManager.CurrentAuthenticationModule.STSAuthenticationType);
+            owinContext.Authentication.Challenge(challengeProperties, ClaimsManager.CurrentAuthenticationModule.STSAuthenticationType);
         }
 
         /// <summary>
@@ -651,13 +644,7 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.Registration
         private Guid? successEmailTemplateId;
         private Guid? confirmationEmailTemplateId;
         private string serializedExternalProviders;
-
-        private const string IsExternalProvider = "isExternalProvider";
-        private const string ExternalProviderName = "externalProviderName";
-        private const string ErrorRedirectUrlParameter = "errorRedirectUrl";
-        private const string AssignmentRoles = "assignmentRoles";
-        private const string AcrValues = "acr_values";
-        
+       
         #endregion
 
         private class Role

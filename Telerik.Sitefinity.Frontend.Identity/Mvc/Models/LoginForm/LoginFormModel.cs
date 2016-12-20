@@ -274,27 +274,11 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.LoginForm
 
         public virtual LoginFormViewModel Authenticate(LoginFormViewModel input, HttpContextBase context)
         {
-            AuthenticationProperties authenticationProperty = new AuthenticationProperties()
-            {
-                RedirectUri = this.GetReturnURL(input, context)
-            };
+            var owinContext = context.Request.GetOwinContext();            
+            var challengeProperties = ChallengeProperties.ForLocalUser(input.UserName, input.Password, this.MembershipProvider, input.RememberMe, context.Request.Url.ToString());
+            challengeProperties.RedirectUri = this.GetReturnURL(input, context);
 
-            var owinContext = context.Request.GetOwinContext();
-            var widgetUrl = context.Request.Url;
-            var userName = input.UserName;
-            var password = input.Password;
-            var rememberMe = input.RememberMe;
-            var loginParameters = new Dictionary<string, object>();
-
-            loginParameters.Add(IsExternalProvider, false);
-            loginParameters.Add(UsernameParameter, userName);
-            loginParameters.Add(PasswordParameter, password);
-            loginParameters.Add(ErrorRedirectUrlParameter, widgetUrl);
-            loginParameters.Add(RememberMeParameter, rememberMe);
-
-            var paramsDictJson = loginParameters.ToJson();
-            authenticationProperty.Dictionary.Add(AcrValues, paramsDictJson);
-            owinContext.Authentication.Challenge(authenticationProperty, new string[] { ClaimsManager.CurrentAuthenticationModule.STSAuthenticationType });
+            owinContext.Authentication.Challenge(challengeProperties, ClaimsManager.CurrentAuthenticationModule.STSAuthenticationType);
 
             return input;
         }
@@ -308,17 +292,10 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.LoginForm
         {
             var widgetUrl = context.Request.Url.ToString();
             var owinContext = context.Request.GetOwinContext();
+            var challengeProperties = ChallengeProperties.ForExternalUser(input, widgetUrl);
+            challengeProperties.RedirectUri = context.Request.UrlReferrer.ToString();
 
-            var loginParameters = new Dictionary<string, object>();
-            loginParameters.Add(IsExternalProvider, true);            
-            loginParameters.Add(ExternalProviderName, input);
-            loginParameters.Add(ErrorRedirectUrlParameter, widgetUrl);
-
-            var paramsDictJson = loginParameters.ToJson();
-            var authProp = new AuthenticationProperties { RedirectUri = context.Request.UrlReferrer.ToString() };
-            authProp.Dictionary[AcrValues] = paramsDictJson;
-
-            owinContext.Authentication.Challenge(authProp, ClaimsManager.CurrentAuthenticationModule.STSAuthenticationType);        
+            owinContext.Authentication.Challenge(challengeProperties, ClaimsManager.CurrentAuthenticationModule.STSAuthenticationType);
         }
         #endregion
 
@@ -470,13 +447,6 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.LoginForm
         private const string DefaultRealmConfig = "http://localhost";
         private string membershipProvider;
         private string serializedExternalProviders;
-        private const string IsExternalProvider = "isExternalProvider";
-        private const string ExternalProviderName = "externalProviderName";
-        private const string RememberMeParameter = "rememberMe";
-        private const string UsernameParameter = "username";
-        private const string PasswordParameter = "password";        
-        private const string ErrorRedirectUrlParameter = "errorRedirectUrl";
-        private const string AcrValues = "acr_values";
 
         #endregion
     }
