@@ -46,7 +46,7 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.ChangePassword
         #region Public Methods
 
         /// <inheritDoc/>
-        public void ChangePassword(Guid userId, string oldPassword, string newPassword)
+        public virtual void ChangePassword(Guid userId, string oldPassword, string newPassword)
         {
             UserManager.ChangePasswordForUser(UserManager.GetManager(this.MembershipProvider), userId, oldPassword, newPassword, this.SendEmailOnChangePassword);
         }
