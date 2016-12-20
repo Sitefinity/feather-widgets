@@ -55,10 +55,14 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.ChangePassword
         /// <inheritDoc/>
         public virtual ChangePasswordViewModel GetViewModel()
         {
+            var userId = SecurityManager.GetCurrentUserId();
+            var userManager = UserManager.GetManager(SecurityManager.GetUser(userId).ProviderName);
+            var user = userManager.GetUser(userId);
+
             return new ChangePasswordViewModel()
             {
                 CssClass = this.CssClass,
-                IsExternalUser =  UserProfilesHelper.IsExternalUser(SecurityManager.GetCurrentUserId())
+                ExternalProviderName = user.ExternalProviderName
             };
         }
 

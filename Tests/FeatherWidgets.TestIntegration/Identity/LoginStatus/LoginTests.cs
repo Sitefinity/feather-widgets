@@ -196,8 +196,7 @@ namespace FeatherWidgets.TestIntegration.Identity.LoginStatus
                 var absoluteUrl = UrlPath.GetDomainUrl() + "/Sitefinity/Authenticate/SWT";
                 var mvcProxy = new MvcControllerProxy();
                 mvcProxy.ControllerName = typeof(LoginStatusController).FullName;
-                var loginStatusController = new LoginStatusController();
-                loginStatusController.Model.AllowWindowsStsLogin = true;
+                var loginStatusController = new LoginStatusController();                
                 mvcProxy.Settings = new ControllerSettings(loginStatusController);
 
                 pageOperations.CreatePageWithControl(mvcProxy, this.pageNamePrefix, this.pageTitlePrefix, this.urlNamePrefix, this.pageIndex);

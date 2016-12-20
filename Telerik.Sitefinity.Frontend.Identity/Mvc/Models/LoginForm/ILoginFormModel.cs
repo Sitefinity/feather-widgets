@@ -73,6 +73,14 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.LoginForm
         /// The login redirect page identifier.
         /// </value>
         Guid? LoginRedirectPageId { get; set; }
+
+        /// <summary>
+        /// Gets the list of external providers that will be available for registration.
+        /// </summary>
+        /// <value>
+        /// List of external providers.
+        /// </value>
+        string SerializedExternalProviders { get; set; }
         
         /// <summary>
         /// Gets or sets the register redirect page identifier.

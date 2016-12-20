@@ -703,5 +703,50 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.StringResources
                 return this["ExternalProvidersLoginOptions"];
             }
         }
+
+        /// <summary>
+        /// phrase : Or
+        /// </summary>
+        [ResourceEntry("Or",
+            Value = "Or",
+            Description = "phrase : Or",
+            LastModified = "2016/12/16")]
+        public string Or
+        {
+            get
+            {
+                return this["Or"];
+            }
+        }
+
+        /// <summary>
+        /// phrase : UseAccountIn
+        /// </summary>
+        [ResourceEntry("UseAccountIn",
+            Value = "Use account in...",
+            Description = "phrase : Use account in...",
+            LastModified = "2016/12/16")]
+        public string UseAccountIn
+        {
+            get
+            {
+                return this["UseAccountIn"];
+            }
+        }
+
+        /// <summary>
+        /// phrase : NotRegisteredYet
+        /// </summary>
+        [ResourceEntry("NotRegisteredYet",
+            Value = "Not registered yet?",
+            Description = "phrase : Not registered yet?",
+            LastModified = "2016/12/16")]
+        public string NotRegisteredYet
+        {
+            get
+            {
+                return this["NotRegisteredYet"];
+            }
+        }
     }
 }

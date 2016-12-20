@@ -159,6 +159,14 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.Profile
         public string DefaultAvatarUrl { get; set; }
 
         /// <summary>
+        /// Gets or sets the name of the external provider.
+        /// </summary>
+        /// <value>
+        /// External provider.
+        /// </value>
+        public string ExternalProviderName { get; set; }
+
+        /// <summary>
         /// Gets or sets the uploaded image.
         /// </summary>
         /// <value>

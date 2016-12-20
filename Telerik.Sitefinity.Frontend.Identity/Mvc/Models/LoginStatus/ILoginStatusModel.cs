@@ -56,13 +56,6 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.LoginStatus
         string ExternalLogoutUrl { get; set; }
 
         /// <summary>
-        /// Gets or sets the allow Windows STS login.
-        /// </summary>
-        ///   <c>true</c> if Windows STS login is allowed; otherwise, <c>false</c>.
-        /// </value>
-        bool AllowWindowsStsLogin { get; set; }
-
-        /// <summary>
         /// Gets or sets the external registartion page url.
         /// </summary>
         /// <value>

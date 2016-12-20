@@ -103,6 +103,20 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.Profile
         bool EditUserProfile(ProfileEditViewModel model);
 
         /// <summary>
+        /// Edits the user email.
+        /// </summary>
+        /// <param name="model">The edit email model</param>
+        /// <returns>is updated</returns>
+        bool EditUserEmail(ProfileEmailEditViewModel model);
+
+        /// <summary>
+        /// Check if email is changed
+        /// </summary>
+        /// <param name="model">The profile properties.</param>
+        /// <returns>changed/not changed</returns>
+        bool IsEmailChanged(ProfileEditViewModel model);
+
+        /// <summary>
         /// Gets the page URL.
         /// </summary>
         /// <param name="pageId">The page identifier.</param>

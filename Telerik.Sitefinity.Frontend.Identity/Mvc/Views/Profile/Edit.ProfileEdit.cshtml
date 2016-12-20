@@ -18,6 +18,8 @@
 
     @using (Html.BeginFormSitefinity("Index", "EditProfileForm", FormMethod.Post, new { enctype = "multipart/form-data" }))
     {
+        <h3>@Html.Resource("EditProfileLink")</h3>
+        
         <div>
             @Html.HiddenFor(u => u.DeletePicture, new Dictionary<string, object>() { { "data-sf-role", "edit-profile-delete-picture" } })
             @Html.HiddenFor(u => u.DefaultAvatarUrl, new Dictionary<string, object>() { { "data-sf-role", "edit-profile-default-avatar-url" } })
@@ -29,8 +31,8 @@
 
             <a data-sf-role="edit-profile-upload-picture-button">@Html.Resource("EditProfileUploadImage")</a>
 
-        </div>
-        
+        </div>        
+
         @ViewBag.ErrorMessage
 
         <div>
@@ -49,13 +51,6 @@
         </div>
         <div>
             <label>
-                @Html.Resource("EditProfileEmail")
-                @Html.TextBoxFor(u => u.Email)
-                @Html.ValidationMessageFor(u => u.Email)
-            </label>
-        </div>
-        <div>
-            <label>
                 @Html.Resource("EditProfileNickname")
                 @Html.TextBoxFor(u => u.Profile["Nickname"])
                 @Html.ValidationMessageFor(u => u.Profile["Nickname"])
@@ -67,9 +62,17 @@
                 @Html.TextBoxFor(u => u.Profile["About"])
             </label>
         </div>
-
-        if ((Model.User.ExternalProviderName == null) && (Model.User.ExternalProviderId == null))
+        
+        if (string.IsNullOrEmpty(Model.ExternalProviderName))
         {
+            <div>
+                <label>
+                    @Html.Resource("EditProfileEmail")
+                    @Html.TextBoxFor(u => u.Email)
+                    @Html.ValidationMessageFor(u => u.Email)
+                </label>
+            </div>
+
             <a href="#" data-sf-role="edit-profile-change-password-button">@Html.Resource("EditProfileChangePasswordButton")</a>
             <div data-sf-role="edit-profile-change-password-holder" style="display:none">
 
@@ -96,6 +99,22 @@
                         @Html.ValidationMessageFor(u => u.RepeatPassword)
                     </label>
                 </div>
+            </div>
+        }
+        else
+        {
+            <h4>@string.Format(Html.Resource("RegistratedWithExternal"), Model.ExternalProviderName)</h4>
+            <div>   
+                <label>
+                    @Html.Resource("EditProfileEmail")
+                    @Model.Email
+                </label>
+            </div>
+            <div>
+                <label>
+                    @Html.Resource("Password")
+                    @string.Format(Html.Resource("ExternalProviderNoPassword"), Model.ExternalProviderName)
+                </label>
             </div>
         }
 

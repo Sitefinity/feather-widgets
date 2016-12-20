@@ -47,9 +47,6 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.LoginStatus
         /// <inheritDoc/>
         public string ExternalProfileUrl { get; set; }
 
-        /// <inheritDoc/>
-        public bool AllowWindowsStsLogin { get; set; }
-
         /// <inheritdoc />
         public string CssClass { get; set; }
 
@@ -61,17 +58,12 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.LoginStatus
         public virtual string GetLoginPageUrl()
         {
             var loginRedirectUrl = this.ExternalLoginUrl;
+
             if (string.IsNullOrEmpty(loginRedirectUrl))
             {   
-                var claimsModule = ClaimsManager.CurrentAuthenticationModule;
                 string pageUrl;
 
-
-                if (this.AllowWindowsStsLogin)
-                {
-                    pageUrl = claimsModule.GetIssuer();
-                }
-                else if (this.LoginPageId.HasValue)
+                if (this.LoginPageId.HasValue)
                 {
                     pageUrl = HyperLinkHelpers.GetFullPageUrl(this.LoginPageId.Value);
                 }
@@ -80,13 +72,7 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.LoginStatus
                     pageUrl = SitefinityContext.FrontendLoginUrl;
                 }
 
-                if (!pageUrl.IsNullOrEmpty())
-                {
-                    var currentUrl = HttpContext.Current.Request.RawUrl;
-                    var returnUrl = this.AppendUrlParameter(currentUrl, LoginStatusModel.HandleRejectedUser, "true");
-                    loginRedirectUrl = "{0}?realm={1}&redirect_uri={2}&deflate=true".Arrange(
-                        pageUrl, claimsModule.GetRealm(), HttpUtility.UrlEncode(returnUrl));
-                }                
+                loginRedirectUrl = pageUrl;
             }
 
             return loginRedirectUrl;

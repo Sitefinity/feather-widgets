@@ -15,6 +15,7 @@ using Telerik.Sitefinity.Security.Claims.SWT;
 using Telerik.Sitefinity.Web;
 using Telerik.Sitefinity.Configuration;
 using Telerik.Sitefinity.Security.Configuration.IdentityServer;
+using ServiceStack.Text;
 
 namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.LoginForm
 {
@@ -68,6 +69,22 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.LoginForm
         /// <inheritDoc/>
         public Guid? RegisterRedirectPageId { get; set; }
 
+        /// <inheritDoc/>
+        public string SerializedExternalProviders
+        {
+            get
+            {
+                return this.serializedExternalProviders;
+            }
+            set
+            {
+                if (this.serializedExternalProviders != value)
+                {
+                    this.serializedExternalProviders = value;
+                }
+            }
+        }
+
         /// <summary>
         /// Gets a value indicating whether password retrieval is enabled.
         /// </summary>
@@ -113,18 +130,6 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.LoginForm
         {
             if (viewModel != null)
             {
-                var configuredProviders = Config.Get<AuthenticationConfig>().AuthenticationProviders.Values;
-                var providers = configuredProviders.Where(x => x.Enabled == true && !string.IsNullOrEmpty(x.Name)).ToList();
-                var modelProviders = new List<LoginFormExternalProvidersViewModel>();
-
-                if (providers.Count() != 0)
-                {                
-                    foreach (var provider in providers)
-                    {
-                        modelProviders.Add(new LoginFormExternalProvidersViewModel() { Name = provider.Name, CssClass = provider.LinkCssClass });
-                    }
-                }
-
                 viewModel.ServiceUrl = this.ServiceUrl;
                 viewModel.MembershipProvider = this.MembershipProvider;
                 viewModel.RedirectUrlAfterLogin = this.GetPageUrl(this.LoginRedirectPageId);
@@ -134,7 +139,11 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.LoginForm
                 viewModel.Realm = ClaimsManager.CurrentAuthenticationModule.GetRealm();
                 viewModel.CssClass = this.CssClass;
                 viewModel.ShowRememberMe = this.ShowRememberMe;
-                viewModel.ExternalProviders = modelProviders;
+
+                if (!string.IsNullOrEmpty(this.serializedExternalProviders))
+                {
+                    viewModel.ExternalProviders = JsonSerializer.DeserializeFromString<Dictionary<string, string>>(this.serializedExternalProviders);
+                }  
             }
         }
 
@@ -460,6 +469,7 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.LoginForm
         private string serviceUrl;
         private const string DefaultRealmConfig = "http://localhost";
         private string membershipProvider;
+        private string serializedExternalProviders;
         private const string IsExternalProvider = "isExternalProvider";
         private const string ExternalProviderName = "externalProviderName";
         private const string RememberMeParameter = "rememberMe";

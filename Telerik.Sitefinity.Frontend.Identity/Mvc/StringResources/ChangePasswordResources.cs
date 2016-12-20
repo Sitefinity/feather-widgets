@@ -319,6 +319,21 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.StringResources
             }
         }
 
+        /// <summary>
+        /// Gets phrase : Your profile do not store any passwords, because you're registered with {0}
+        /// </summary>
+        [ResourceEntry("ExternalProviderMessage",
+            Value = "Your profile do not store any passwords, because you're registered with {0}",
+            Description = "phrase : Your profile do not store any passwords, because you're registered with {0}",
+            LastModified = "2016/12/16")]
+        public string ExternalProviderMessage
+        {
+            get
+            {
+                return this["ExternalProviderMessage"];
+            }
+        }
+
         #endregion
     }
 }

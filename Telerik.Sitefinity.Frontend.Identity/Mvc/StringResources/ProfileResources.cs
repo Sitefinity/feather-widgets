@@ -591,5 +591,80 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.StringResources
                 return this["EmailExistsMessage"];
             }
         }
+
+        /// <summary>
+        /// Gets phrase: Registered with 
+        /// </summary>
+        [ResourceEntry("RegistratedWithExternal",
+            Value = "Registered with {0}",
+            Description = "phrase : Registered with {0}",
+            LastModified = "2016/12/19")]
+        public string RegistratedWithExternal
+        {
+            get
+            {
+                return this["RegistratedWithExternal"];
+            }
+        }
+
+        /// <summary>
+        /// Gets phrase: Password
+        /// </summary>
+        [ResourceEntry("Password",
+            Value = "Password",
+            Description = "phrase : Password",
+            LastModified = "2016/12/19")]
+        public string Password
+        {
+            get
+            {
+                return this["Password"];
+            }
+        }
+
+        /// <summary>
+        /// Gets phrase: Login with {0} does not require password
+        /// </summary>
+        [ResourceEntry("ExternalProviderNoPassword",
+            Value = "Login with {0} does not require password",
+            Description = "phrase : Login with {0} does not require password",
+            LastModified = "2016/12/19")]
+        public string ExternalProviderNoPassword
+        {
+            get
+            {
+                return this["ExternalProviderNoPassword"];
+            }
+        }
+
+        /// <summary>
+        /// Gets phrase: InvalidPassword
+        /// </summary>
+        [ResourceEntry("InvalidPassword",
+            Value = "Invalid Password",
+            Description = "phrase : Invalid Password",
+            LastModified = "2016/12/19")]
+        public string InvalidPassword
+        {
+            get
+            {
+                return this["InvalidPassword"];
+            }
+        }
+
+        /// <summary>
+        /// Gets phrase: To complete the change of your email address, you are required to enter your password
+        /// </summary>
+        [ResourceEntry("PasswordEditMessage",
+            Value = "To complete the change of your email address, you are required to enter your password",
+            Description = "phrase : To complete the change of your email address, you are required to enter your password",
+            LastModified = "2016/12/19")]
+        public string PasswordEditMessage
+        {
+            get
+            {
+                return this["PasswordEditMessage"];
+            }
+        }
     }
 }

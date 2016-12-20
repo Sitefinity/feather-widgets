@@ -71,5 +71,15 @@ namespace FeatherWidgets.TestUnit.DummyClasses.Identity
         {
             // Do nothing.
         }
+
+        public bool IsEmailChanged(ProfileEditViewModel model)
+        {
+            return false;
+        }
+
+        public bool EditUserEmail(ProfileEmailEditViewModel model)
+        {
+            return false;
+        }
     }
 }

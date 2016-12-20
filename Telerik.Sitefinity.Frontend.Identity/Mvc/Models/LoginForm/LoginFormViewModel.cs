@@ -57,14 +57,6 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.LoginForm
         }
 
         /// <summary>
-        /// Gets or sets the external providers.
-        /// </summary>
-        /// <value>
-        /// List of external providers.
-        /// </value>
-        public List<LoginFormExternalProvidersViewModel> ExternalProviders { get; set; }
-
-        /// <summary>
         /// Gets or sets the token service URL.
         /// </summary>
         /// <value>
@@ -135,6 +127,14 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.LoginForm
         /// <c>true</c> if Remember me checkbox will be displayed; otherwise, <c>false</c>.
         /// </value>
         public bool ShowRememberMe { get; set; }
+
+        /// <summary>
+        /// Gets or sets the external providers.
+        /// </summary>
+        /// <value>
+        /// External providers.
+        /// </value>
+        public IDictionary<string, string> ExternalProviders { get; set; }
 
         private bool rememberMe = true;
     }

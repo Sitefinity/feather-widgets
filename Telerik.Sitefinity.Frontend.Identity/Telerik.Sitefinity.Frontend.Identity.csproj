@@ -221,7 +221,6 @@
     <Compile Include="Mvc\Models\ChangePassword\IChangePasswordModel.cs" />
     <Compile Include="Mvc\Models\LoginForm\ForgotPasswordViewModel.cs" />
     <Compile Include="Mvc\Models\LoginForm\ILoginFormModel.cs" />
-    <Compile Include="Mvc\Models\LoginForm\LoginFormExternalProvidersViewModel.cs" />
     <Compile Include="Mvc\Models\LoginForm\LoginFormModel.cs" />
     <Compile Include="Mvc\Models\LoginForm\LoginFormViewModel.cs" />
     <Compile Include="Mvc\Models\LoginForm\ResetPasswordInputModel.cs" />
@@ -233,6 +232,7 @@
     <Compile Include="Mvc\Models\Profile\ProfileEditViewModel.cs" />
     <Compile Include="Mvc\Models\Profile\DynamicUserProfileFieldAccessor.cs" />
     <Compile Include="Mvc\Models\Profile\CustomProfileViewModel.cs" />
+    <Compile Include="Mvc\Models\Profile\ProfileEmailEditViewModel.cs" />
     <Compile Include="Mvc\Models\Profile\SaveAction.cs" />
     <Compile Include="Mvc\Models\Profile\IProfileModel.cs" />
     <Compile Include="Mvc\Models\Profile\ProfileModel.cs" />
@@ -289,6 +289,7 @@
     <EmbeddedResource Include="Mvc\Views\UsersList\Detail.UserDetails.cshtml" />
     <EmbeddedResource Include="Mvc\Views\UsersList\List.UsersList.cshtml" />
     <None Include="app.config" />
+    <EmbeddedResource Include="Mvc\Views\Profile\ConfirmPassword.ProfileEdit.cshtml" />
     <None Include="packages.config">
       <SubType>Designer</SubType>
     </None>

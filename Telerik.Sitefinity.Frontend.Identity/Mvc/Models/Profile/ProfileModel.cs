@@ -153,6 +153,29 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.Profile
         }
 
         /// <summary>
+        /// Check if email is changed
+        /// </summary>
+        /// <param name="model">The profile properties.</param>
+        /// <returns>changed/not changed</returns>
+        public bool IsEmailChanged(ProfileEditViewModel model)
+        {
+            if (!string.IsNullOrEmpty(model.Email))
+            {
+                var userId = this.GetUserId();
+                var userManager = UserManager.GetManager(SecurityManager.GetUser(userId).ProviderName);
+                var user = userManager.GetUser(userId);
+                if (user.Email != model.Email)
+                {
+                    return true;
+                }
+
+                return false;
+            }
+
+            return false;
+        }
+
+        /// <summary>
         /// Edits the user profile.
         /// </summary>
         /// <param name="profileProperties">The profile properties.</param>
@@ -162,8 +185,6 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.Profile
             {
                 return false;
             }
-
-            this.EditEmail(model);
 
             var userProfileManager = UserProfileManager.GetManager(this.ProfileProvider);
 
@@ -176,6 +197,32 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.Profile
             userProfileManager.SaveChanges();
 
             return true;
+        }
+
+
+        public bool EditUserEmail(ProfileEmailEditViewModel model)
+        {
+            if (!string.IsNullOrEmpty(model.Email))
+            {                
+                var userManager = UserManager.GetManager(SecurityManager.GetUser(model.UserId).ProviderName);
+                var user = userManager.GetUser(model.UserId);
+                
+                if (!userManager.ValidateUser(user, model.Password))
+                {
+                    return false;
+                }
+
+                if (user.Email != model.Email)
+                {
+                    user.Email = model.Email;
+                    userManager.SaveChanges();
+                    return true;
+                }
+
+                return false;
+            }
+
+            return false;
         }
 
         /// <summary>
@@ -234,6 +281,7 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.Profile
                 model.Email = model.User.Email;
             }
 
+            model.ExternalProviderName = model.User.ExternalProviderName;
             Libraries.Model.Image avatarImage;
 
             var displayNameBuilder = new SitefinityUserDisplayNameBuilder();
@@ -375,26 +423,6 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.Profile
                 var userId = this.GetUserId();
                 var userManager = UserManager.GetManager(SecurityManager.GetUser(userId).ProviderName);
                 UserManager.ChangePasswordForUser(userManager, userId, model.OldPassword, model.NewPassword, this.SendEmailOnChangePassword);
-            }
-        }
-
-        /// <summary>
-        /// Edits the email.
-        /// </summary>
-        /// <param name="model">The model.</param>
-        /// <exception cref="System.ArgumentException">Email exists</exception>
-        private void EditEmail(ProfileEditViewModel model)
-        {
-            if (!string.IsNullOrEmpty(model.Email))
-            {
-                var userId = this.GetUserId();
-                var userManager = UserManager.GetManager(SecurityManager.GetUser(userId).ProviderName);
-                var user = userManager.GetUser(userId);
-                if (user.Email != model.Email)
-                {
-                    user.Email = model.Email;
-                    userManager.SaveChanges();
-                }
             }
         }
 
