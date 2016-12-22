@@ -12,8 +12,8 @@
  }
 
 @(!String.IsNullOrEmpty(Model.CssClass) ?
-    Html.Raw(String.Format("<div class=\"{0}\">", Model.CssClass)) :
-    Html.Raw("<div>"))
+    Html.Raw(String.Format("<div class=\"{0}\" role=\"search\">", Model.CssClass)) :
+    Html.Raw("<div role=\"search\">"))
     <input type="text" title="@Html.Resource("SearchInput")" placeholder="@Model.BackgroundHint" id="@Html.Raw(searchTextBoxId)" value="@Html.Raw(ViewBag.SearchQuery)"/>
     <button type="button" id="@Html.Raw(searchButtonId)">@Html.Resource("SearchLabel")</button>
 

@@ -10,9 +10,10 @@
 @{
     var fieldName = Model.MetaField.FieldName;
     var requiredAttributes = MvcHtmlString.Create(Model.ValidationAttributes);
+    var isRequired = Model.IsRequired ? "true" : "false";
 }
 
-<div class="@Model.CssClass sf-fieldWrp sf-Checkboxes" data-sf-role="checkboxes-field-container">
+<div class="@Model.CssClass sf-fieldWrp sf-Checkboxes" data-sf-role="checkboxes-field-container" role="group" aria-label="@Model.MetaField.Title">
     <input type="hidden" data-sf-role="violation-messages" value='{ "required": "@Model.RequiredViolationMessage"}' />
     <input type="hidden" data-sf-role="required-validator" value='@Model.IsRequired.ToString()' />
    
@@ -27,7 +28,7 @@
 		var selctedAttributes = !string.IsNullOrEmpty(Model.MetaField.DefaultValue) && Model.MetaField.DefaultValue.Contains(choice as string) ? "checked" : string.Empty;
         <div> 
             <label>
-                <input type="checkbox" name="@fieldName" value="@choice" data-sf-role="checkboxes-field-input" @selctedAttributes />
+                <input type="checkbox" name="@fieldName" value="@choice" data-sf-role="checkboxes-field-input" @selctedAttributes aria-required=@isRequired />
                 @choice
             </label>
         </div>

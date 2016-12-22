@@ -7,6 +7,10 @@
 
 @Html.Script(ScriptRef.JQuery, "top", false)
 
+@{
+    var isRequired = Model.IsRequired ? "true" : "false";
+}
+
 <div class="@Model.CssClass sf-fieldWrp" data-sf-role="dropdown-list-field-container">
     <input type="hidden" data-sf-role="violation-messages" value='{ "required": "@Model.RequiredViolationMessage"}' />
     <label for='@Html.UniqueId("Dropdown")'>@Model.MetaField.Title</label>
@@ -16,7 +20,7 @@
            <p>@Model.MetaField.Description</p>
         }
         
-        <select id='@Html.UniqueId("Dropdown")' data-sf-role="dropdown-list-field-select" name="@Model.MetaField.FieldName" @MvcHtmlString.Create(Model.ValidationAttributes)>
+        <select id='@Html.UniqueId("Dropdown")' data-sf-role="dropdown-list-field-select" name="@Model.MetaField.FieldName" @MvcHtmlString.Create(Model.ValidationAttributes) aria-required=@isRequired >
         @foreach (var choice in Model.Choices)
         {
             var optionAttributes = !Model.IsRequired && choice == Model.MetaField.DefaultValue as string ? "selected" : string.Empty;
