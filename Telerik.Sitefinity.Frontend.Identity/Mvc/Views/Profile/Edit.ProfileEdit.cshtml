@@ -21,7 +21,7 @@
         <div role="alert">@ViewBag.ErrorMessage</div>
     }
 
-    @using (Html.BeginFormSitefinity("Index", "EditProfileForm", null, FormMethod.Post, new Dictionary<string, object> { { "role", "form" }, { "aria-label", "Edit profile" } }))
+    @using (Html.BeginFormSitefinity("Index", "EditProfileForm", null, FormMethod.Post, new Dictionary<string, object> { { "enctype", "multipart/form-data"}, { "role", "form" }, { "aria-label", "Edit profile" } }))
     {
         <div>
             @Html.HiddenFor(u => u.DeletePicture, new Dictionary<string, object>() { { "data-sf-role", "edit-profile-delete-picture" } })
