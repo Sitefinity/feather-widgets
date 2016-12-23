@@ -115,12 +115,12 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.StringResources
         }
 
         /// <summary>
-        /// Gets phrase : Old password
+        /// Gets phrase : Current password
         /// </summary>
         [ResourceEntry("ChangePasswordOldPassword",
-            Value = "Old password",
-            Description = "phrase : Old password",
-            LastModified = "2015/03/02")]
+            Value = "Current password",
+            Description = "phrase : Current password",
+            LastModified = "2016/12/23")]
         public string ChangePasswordOldPassword
         {
             get

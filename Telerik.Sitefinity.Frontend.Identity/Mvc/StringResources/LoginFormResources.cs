@@ -626,6 +626,22 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.StringResources
         }
 
         /// <summary>
+        /// phrase: Email
+        /// </summary>
+        /// <value>Email</value>
+        [ResourceEntry("Email",
+            Value = "Email",
+            Description = "phrase: Email",
+            LastModified = "2016/12/23")]
+        public string Email
+        {
+            get
+            {
+                return this["Email"];
+            }
+        }
+
+        /// <summary>
         /// phrase: Password
         /// </summary>
         /// <value>Password</value>
@@ -723,8 +739,8 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.StringResources
         /// phrase : UseAccountIn
         /// </summary>
         [ResourceEntry("UseAccountIn",
-            Value = "Use account in...",
-            Description = "phrase : Use account in...",
+            Value = "Or use account in...",
+            Description = "phrase : Or use account in...",
             LastModified = "2016/12/16")]
         public string UseAccountIn
         {
