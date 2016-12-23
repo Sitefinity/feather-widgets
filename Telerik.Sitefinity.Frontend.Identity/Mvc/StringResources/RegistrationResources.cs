@@ -397,12 +397,12 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.StringResources
         }
 
         /// <summary>
-        /// Gets phrase: Re-type password
+        /// Gets phrase: Repeat password
         /// </summary>
         [ResourceEntry("ReTypePassword",
-            Value = "Re-type password",
-            Description = "phrase : Re-type password",
-            LastModified = "2015/02/26")]
+            Value = "Repeat password",
+            Description = "phrase : Repeat password",
+            LastModified = "2016/12/23")]
         public string ReTypePassword
         {
             get
