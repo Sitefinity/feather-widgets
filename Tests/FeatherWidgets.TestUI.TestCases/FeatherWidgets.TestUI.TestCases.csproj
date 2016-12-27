@@ -584,8 +584,7 @@
     <EmbeddedResource Include="MediaFiles\Ogv File.ogv" />
     <None Include="packages.config">
       <SubType>Designer</SubType>
-    </None>
-    <None Include="Settings.aiis" />
+    </None>    
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Feather.Widgets.TestUI.Framework\Feather.Widgets.TestUI.Framework.csproj">
@@ -604,12 +603,7 @@
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
-  <Import Project="$(SolutionDir)\.nuget\NuGet.targets" Condition="Exists('$(SolutionDir)\.nuget\NuGet.targets')" />
-  <ProjectExtensions>
-    <VisualStudio>
-      <UserProperties Name="FeatherWidgets.TestUI.TestCases" />
-    </VisualStudio>
-  </ProjectExtensions>
+  <Import Project="$(SolutionDir)\.nuget\NuGet.targets" Condition="Exists('$(SolutionDir)\.nuget\NuGet.targets')" />  
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">
