@@ -37,11 +37,9 @@ namespace FeatherWidgets.TestUI.TestCases.Identity
             ////Verify all required fields message for Registration widget in Preview mode
             BAT.Wrappers().Frontend().Pages().PagesWrapperFrontend().ClickButtonByValue("Register");
             BATFeather.Wrappers().Frontend().Identity().RegistrationWrapper().AssertEmptyEmailFieldMessage();
-            BATFeather.Wrappers().Frontend().Identity().RegistrationWrapper().AssertEmptyUsernameFieldMessage();
             BATFeather.Wrappers().Frontend().Identity().RegistrationWrapper().AssertEmptyPasswordFieldMessage();
             ////Verify successful message for Registration widget in Preview mode
             BATFeather.Wrappers().Frontend().Identity().RegistrationWrapper().FillEmail(Email);
-            BATFeather.Wrappers().Frontend().Identity().RegistrationWrapper().FillUserName(UserName);
             BATFeather.Wrappers().Frontend().Identity().RegistrationWrapper().FillPassword(Password);
             BATFeather.Wrappers().Frontend().Identity().RegistrationWrapper().FillRetypePassword(Password);
             BAT.Wrappers().Frontend().Pages().PagesWrapperFrontend().ClickButtonByValue("Register");

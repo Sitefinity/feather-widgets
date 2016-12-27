@@ -1,12 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using ArtOfTest.WebAii.Core;
 using Feather.Widgets.TestUI.Framework;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Telerik.Sitefinity.TestUI.Framework.Wrappers.Backend;
 
 namespace FeatherWidgets.TestUI.TestCases.CommentsAndReviews
 {
@@ -74,13 +69,11 @@ namespace FeatherWidgets.TestUI.TestCases.CommentsAndReviews
         }
 
         private const string PageName = "ReviewsPage";
-        private string[] reviewsToPage = { "Reviews to page" };
-        private string[] reviewAuthor = { "admin" };
-        private string[] reviewRaiting = { "(2)" };
-        private const int Raiting = 2;
+        private readonly string[] reviewsToPage = { "Reviews to page" };
+        private readonly string[] reviewAuthor = { "admin adminov" };
+        private readonly string[] reviewRaiting = { "(2)" };
         private const string ReviewsCount = "1 review";
         private const string ReviewMessage = "Write a review";
-        private const string ReviewsStatusWaiting = "Waiting for approval";
         private const string AllertMessage = "You've already submitted a review for this item";
     }
 }
