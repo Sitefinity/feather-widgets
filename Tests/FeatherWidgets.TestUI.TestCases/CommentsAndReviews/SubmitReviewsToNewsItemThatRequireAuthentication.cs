@@ -3,7 +3,6 @@ using System.Linq;
 using ArtOfTest.WebAii.Core;
 using Feather.Widgets.TestUI.Framework;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Telerik.Sitefinity.TestUI.Framework.Utilities;
 using Telerik.Sitefinity.TestUI.Framework.Wrappers.Backend;
 
 namespace FeatherWidgets.TestUI.TestCases.CommentsAndReviews
@@ -53,7 +52,7 @@ namespace FeatherWidgets.TestUI.TestCases.CommentsAndReviews
 
         public void AdminLogin()
         {
-            RuntimeSettingsModificator.ExecuteWithClientTimeout(200000, () => BAT.Wrappers().Backend().Comments().ManageCommentsWrapper(ActiveBrowser).LogInUser(AdminUserName, AdminPassword));
+            BAT.Wrappers().Backend().Comments().ManageCommentsWrapper().LogInUser(FeatherTestCase.AdminEmail, FeatherTestCase.AdminPassword);
             ActiveBrowser.WaitUntilReady();
             ActiveBrowser.WaitForAsyncJQueryRequests();
             BAT.Macros().User().EnsureAdminLoggedIn();
@@ -79,14 +78,12 @@ namespace FeatherWidgets.TestUI.TestCases.CommentsAndReviews
         private const string NewsTitle = "NewsTitle";
         private const string ReviewMessage = "Write a review";
         private string[] reviewsToNews = { "Reviews to news" };
-        private string[] reviewAuthor = { "admin admin" };
+        private string[] reviewAuthor = { FeatherTestCase.AdminNickname };
         private string[] reviewRaiting = { "(3)" };
         private const int Raiting = 3;
         private const string ReviewsStatus = "Published";
         private const string ReviewsCount = "1 review";
         private const string AllertMessageLogin = "Loginto be able to write a review";
         private const string AllertMessage = "Thank you! Your review has been submitted successfully";
-        private const string AdminUserName = "admin";
-        private const string AdminPassword = "admin@2"; 
     }
 }
