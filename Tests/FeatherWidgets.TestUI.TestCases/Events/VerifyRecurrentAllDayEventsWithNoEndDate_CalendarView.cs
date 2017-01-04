@@ -25,7 +25,7 @@ namespace FeatherWidgets.TestUI.TestCases.Events
         {
             BAT.Macros().NavigateTo().CustomPage("~/" + pageTitle.ToLower(), true, this.Culture);
             int currentEventYear = Int32.Parse(еventStartDate);
-            int targetEventYear = currentEventYear + 5;
+            int targetEventYear = currentEventYear + 4;
             BATFeather.Wrappers().Frontend().Events().EventsWrapper().FastNavigationByYearInCalendarSelector(monthName, currentEventYear, targetEventYear);
             var actualEventOccurence = BATFeather.Wrappers().Frontend().Events().EventsWrapper().EventOccurenceCountInCurrentView(event1Id);
             Assert.AreEqual(expectedEventOccurence, actualEventOccurence);

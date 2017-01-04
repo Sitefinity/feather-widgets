@@ -7,7 +7,7 @@ namespace FeatherWidgets.TestUI.Arrangements
     /// <summary>
     /// FilterByAllEvents arrangement class.
     /// </summary>
-    public class FilterByAllEvents
+    public class FilterByAllEvents : TestArrangementBase
     {
         /// <summary>
         /// Server side set up.
