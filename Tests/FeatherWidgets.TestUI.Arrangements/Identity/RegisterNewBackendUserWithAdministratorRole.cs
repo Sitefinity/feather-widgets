@@ -36,6 +36,6 @@ namespace FeatherWidgets.TestUI.Arrangements
 
         private const string RegistrationPage = "RegistrationPage";
         private const string TemplateTitle = "Bootstrap.default";
-        private const string NewUserEmail = "newuser@test.test";
+        private const string NewUserEmail = "user@test.test";
     }
 }

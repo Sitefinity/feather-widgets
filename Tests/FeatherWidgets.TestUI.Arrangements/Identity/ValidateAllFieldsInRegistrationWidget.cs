@@ -41,6 +41,7 @@ namespace FeatherWidgets.TestUI.Arrangements
             AuthenticationHelper.AuthenticateUser(this.AdminEmail, this.AdminPass, true);
             ServerOperations.Pages().DeleteAllPages();
             ServerOperations.Users().DeleteUserAndProfile(EditorUserEmail);
+            ServerOperations.Users().DeleteUserAndProfile(Email);
         }
 
         private const string RegistrationPage = "RegistrationPage";
@@ -50,5 +51,6 @@ namespace FeatherWidgets.TestUI.Arrangements
         private const string EditorUserFirstName = "First name";
         private const string EditorUserLastName = "Last name";
         private const string EditorUserEmail = "editor@test.test";
+        private const string Email = "user@test.test";
     }
 }
