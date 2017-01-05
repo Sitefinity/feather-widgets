@@ -1,11 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using FeatherWidgets.TestUtilities.CommonOperations;
 using Telerik.Sitefinity.Modules.News;
 using Telerik.Sitefinity.TestArrangementService.Attributes;
-using Telerik.Sitefinity.TestUI.Arrangements.Framework;
 using Telerik.Sitefinity.TestUtilities.CommonOperations;
 
 namespace FeatherWidgets.TestUI.Arrangements
@@ -35,7 +32,7 @@ namespace FeatherWidgets.TestUI.Arrangements
             if (ServerOperations.MultiSite().CheckIsMultisiteMode())
             {
                 Guid pageId2 = Guid.NewGuid();
-                ServerOperations.Multilingual().Pages().CreatePageMultilingual(pageId2, PageTitleLogin, true, "en");
+                ServerOperations.Multilingual().Pages().CreatePageMultilingual(pageId2, PageTitleLogin, true, "bg-bg");
                 ServerOperations.Widgets().AddControlToPage(pageId2, ControlTypes.LoginWidget, "Body", "Login");
                 ServerOperations.MultiSite().AddPublicLoginPageToSite(pageId2);
             }

@@ -86,6 +86,6 @@ namespace FeatherWidgets.TestUI.TestCases.Forms.ContentBlock
         private const string WidgetName = "Form";
         private const int ExpectedResponsesCount = 1;
         private const int ResponseNumber = 1;
-        private const string ExpectedAuthorName = "admin";
+        private const string ExpectedAuthorName = "admin@test.test";
     }
 }

@@ -355,9 +355,9 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.StringResources
         /// Gets phrase: Question
         /// </summary>
         [ResourceEntry("Question",
-            Value = "Password question",
-            Description = "phrase : Password question",
-            LastModified = "2016/12/12")]
+            Value = "Secret question",
+            Description = "phrase : Secret question",
+            LastModified = "2016/12/23")]
         public string Question
         {
             get
@@ -370,9 +370,9 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.StringResources
         /// Gets phrase: Answer
         /// </summary>
         [ResourceEntry("Answer",
-            Value = "Password answer",
-            Description = "phrase : Password answer",
-            LastModified = "2016/12/12")]
+            Value = "Secret answer",
+            Description = "phrase : Secret answer",
+            LastModified = "2016/12/23")]
         public string Answer
         {
             get
@@ -397,12 +397,12 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.StringResources
         }
 
         /// <summary>
-        /// Gets phrase: Re-type password
+        /// Gets phrase: Repeat password
         /// </summary>
         [ResourceEntry("ReTypePassword",
-            Value = "Re-type password",
-            Description = "phrase : Re-type password",
-            LastModified = "2015/02/26")]
+            Value = "Repeat password",
+            Description = "phrase : Repeat password",
+            LastModified = "2016/12/23")]
         public string ReTypePassword
         {
             get
@@ -549,12 +549,12 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.StringResources
         }
 
         /// <summary>
-        /// phrase: Back to Login
+        /// phrase: Log in
         /// </summary>
         [ResourceEntry("BackToLogin",
-            Value = "Back to Login",
-            Description = "Back to Login",
-            LastModified = "2015/03/03")]
+            Value = "Log in",
+            Description = "Log in",
+            LastModified = "2016/12/23")]
         public string BackToLogin
         {
             get
@@ -702,12 +702,12 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.StringResources
         }
 
         /// <summary>
-        /// Gets phrase: Connect with...
+        /// Gets phrase: Or connect with...
         /// </summary>
         [ResourceEntry("ConnectWith",
-            Value = "Connect with...",
-            Description = "phrase : Connect with...",
-            LastModified = "2016/12/13")]
+            Value = "Or connect with...",
+            Description = "phrase : Or connect with...",
+            LastModified = "2016/12/23")]
         public string ConnectWith
         {
             get

@@ -1,8 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using ArtOfTest.WebAii.Core;
 using Feather.Widgets.TestUI.Framework;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -30,13 +27,11 @@ namespace FeatherWidgets.TestUI.TestCases.Identity
             BAT.Macros().NavigateTo().CustomPage("~/" + RegistrationPage.ToLower(), false, this.Culture, new HtmlFindExpression("tagname=button", "InnerText=Register"));
             BATFeather.Wrappers().Frontend().Identity().RegistrationWrapper().RegisterButton();
             BATFeather.Wrappers().Frontend().Identity().RegistrationWrapper().AssertEmptyEmailFieldMessage();
-            BATFeather.Wrappers().Frontend().Identity().RegistrationWrapper().AssertEmptyUsernameFieldMessage();
             BATFeather.Wrappers().Frontend().Identity().RegistrationWrapper().AssertEmptyPasswordFieldMessage();
 
             ////Verify existing user name validation message
 
-            BATFeather.Wrappers().Frontend().Identity().RegistrationWrapper().FillEmail(Email);
-            BATFeather.Wrappers().Frontend().Identity().RegistrationWrapper().FillUserName(EditorUserName);
+            BATFeather.Wrappers().Frontend().Identity().RegistrationWrapper().FillEmail(EditorUserEmail);
             BATFeather.Wrappers().Frontend().Identity().RegistrationWrapper().FillPassword(Password);
             BATFeather.Wrappers().Frontend().Identity().RegistrationWrapper().FillRetypePassword(Password);
             BATFeather.Wrappers().Frontend().Identity().RegistrationWrapper().RegisterButton();
@@ -45,7 +40,6 @@ namespace FeatherWidgets.TestUI.TestCases.Identity
             ////Verify existing email validation message
 
             BATFeather.Wrappers().Frontend().Identity().RegistrationWrapper().FillEmail(EditorUserEmail);
-            BATFeather.Wrappers().Frontend().Identity().RegistrationWrapper().FillUserName(UserName);
             BATFeather.Wrappers().Frontend().Identity().RegistrationWrapper().FillPassword(Password);
             BATFeather.Wrappers().Frontend().Identity().RegistrationWrapper().FillRetypePassword(Password);
             BATFeather.Wrappers().Frontend().Identity().RegistrationWrapper().RegisterButton();
@@ -54,7 +48,6 @@ namespace FeatherWidgets.TestUI.TestCases.Identity
             ////Verify wrong email format validation message 
 
             BATFeather.Wrappers().Frontend().Identity().RegistrationWrapper().FillEmail(WrongEmail);
-            BATFeather.Wrappers().Frontend().Identity().RegistrationWrapper().FillUserName(UserName);
             BATFeather.Wrappers().Frontend().Identity().RegistrationWrapper().FillPassword(Password);
             BATFeather.Wrappers().Frontend().Identity().RegistrationWrapper().FillRetypePassword(Password);
             BATFeather.Wrappers().Frontend().Identity().RegistrationWrapper().RegisterButton();
@@ -63,7 +56,6 @@ namespace FeatherWidgets.TestUI.TestCases.Identity
             ////Verify emtpy re-type password validation message
 
             BATFeather.Wrappers().Frontend().Identity().RegistrationWrapper().FillEmail(Email);
-            BATFeather.Wrappers().Frontend().Identity().RegistrationWrapper().FillUserName(UserName);
             BATFeather.Wrappers().Frontend().Identity().RegistrationWrapper().FillPassword(Password);
             BATFeather.Wrappers().Frontend().Identity().RegistrationWrapper().FillRetypePassword(string.Empty);
             BATFeather.Wrappers().Frontend().Identity().RegistrationWrapper().RegisterButton();
@@ -72,7 +64,6 @@ namespace FeatherWidgets.TestUI.TestCases.Identity
             ////Verify wrong re-type password validation message
 
             BATFeather.Wrappers().Frontend().Identity().RegistrationWrapper().FillEmail(Email);
-            BATFeather.Wrappers().Frontend().Identity().RegistrationWrapper().FillUserName(UserName);
             BATFeather.Wrappers().Frontend().Identity().RegistrationWrapper().FillPassword(Password);
             BATFeather.Wrappers().Frontend().Identity().RegistrationWrapper().FillRetypePassword(WrongPassword);
             BATFeather.Wrappers().Frontend().Identity().RegistrationWrapper().RegisterButton();
@@ -81,7 +72,6 @@ namespace FeatherWidgets.TestUI.TestCases.Identity
             ////Verify short password validation message
 
             BATFeather.Wrappers().Frontend().Identity().RegistrationWrapper().FillEmail(Email);
-            BATFeather.Wrappers().Frontend().Identity().RegistrationWrapper().FillUserName(UserName);
             BATFeather.Wrappers().Frontend().Identity().RegistrationWrapper().FillPassword(ShortPassword);
             BATFeather.Wrappers().Frontend().Identity().RegistrationWrapper().FillRetypePassword(ShortPassword);
             BATFeather.Wrappers().Frontend().Identity().RegistrationWrapper().RegisterButton();
@@ -107,9 +97,7 @@ namespace FeatherWidgets.TestUI.TestCases.Identity
         private const string RegistrationPage = "RegistrationPage";
         private const string Email = "user@test.test";
         private const string WrongEmail = "email";
-        private const string UserName = "newUser";
         private const string EditorUserEmail = "editor@test.test";
-        private const string EditorUserName = "editor";
         private const string Password = "password";
         private const string WrongPassword = "password1";
         private const string ShortPassword = "pass";

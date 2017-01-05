@@ -260,12 +260,12 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.StringResources
         }
 
         /// <summary>
-        /// Gets phrase: Upload photo
+        /// Gets phrase: Change photo
         /// </summary>
         [ResourceEntry("EditProfileUploadImage",
-            Value = "Upload photo",
-            Description = "phrase : Upload photo",
-            LastModified = "2015/03/05")]
+            Value = "Change photo",
+            Description = "phrase : Change photo",
+            LastModified = "2016/12/23")]
         public string EditProfileUploadImage
         {
             get
@@ -395,12 +395,12 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.StringResources
         }
 
         /// <summary>
-        /// Gets phrase: Old password
+        /// Gets phrase: Current password
         /// </summary>
         [ResourceEntry("EditProfileOldPassword",
-            Value = "Old password",
-            Description = "phrase : Old password",
-            LastModified = "2015/03/05")]
+            Value = "Current password",
+            Description = "phrase : Current password",
+            LastModified = "2016/12/23")]
         public string EditProfileOldPassword
         {
             get

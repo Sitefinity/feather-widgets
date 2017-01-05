@@ -25,7 +25,7 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Frontend.Identity
         /// Types user name in the input text field.
         /// </summary>
         /// <param name="userName">the user name.</param>
-        public void EnterUserName(string userName)
+        public void EnterEmail(string userName)
         {
             HtmlInputText userNameField = this.EM.Identity.LoginFormFrontend.UserName.AssertIsPresent("user name input");
 
@@ -61,7 +61,7 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Frontend.Identity
         /// </summary>
         public void AssertEmptyUserNameFieldMessage()
         {
-            this.EM.Identity.LoginFormFrontend.UserNameRequiredMessage.AssertIsPresent("The Username field is required.");
+            this.EM.Identity.LoginFormFrontend.UserNameRequiredMessage.AssertIsPresent("The Email / Username field is required.");
         }
 
         /// <summary>

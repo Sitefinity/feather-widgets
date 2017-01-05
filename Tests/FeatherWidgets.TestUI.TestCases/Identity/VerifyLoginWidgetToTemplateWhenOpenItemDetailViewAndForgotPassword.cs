@@ -94,7 +94,6 @@ namespace FeatherWidgets.TestUI.TestCases.Identity
 
         private const string TemplateTitle = "TestTemplatePureMVC";
         private const string PageTitle = "TestPageWithBlogPostsWidget";
-        private const string BlogTitle = "TestBlog";
         private const string PostTitle = "post1";
         private const string LogoutText = "Logout";
         private const string LoginText = "Login";
