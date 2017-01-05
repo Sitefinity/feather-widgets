@@ -49,6 +49,6 @@ namespace FeatherWidgets.TestUI.Arrangements
         private const string NewUserPassword = "password";
         private const string NewUserFirstName = "First name";
         private const string NewUserLastName = "Last name";
-        private const string NewUserEmail = "newuser@test.test";
+        private const string NewUserEmail = "newUser@test.test";
     }
 }

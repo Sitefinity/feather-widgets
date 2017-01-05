@@ -21,8 +21,8 @@ namespace FeatherWidgets.TestUI.TestCases.Identity
         TestCategory(FeatherTestCategories.Bootstrap)]
         public void VerifyRegistrationWidgetAndProfileWidgetOnPreviewHybridTemplate()
         {
-            RuntimeSettingsModificator.ExecuteWithClientTimeout(800000, () => BAT.Macros().NavigateTo().CustomPage("~/sitefinity/pages", false));
             RuntimeSettingsModificator.ExecuteWithClientTimeout(800000, () => BAT.Macros().User().EnsureAdminLoggedIn());
+            RuntimeSettingsModificator.ExecuteWithClientTimeout(800000, () => BAT.Macros().NavigateTo().CustomPage("~/sitefinity/pages", false));
             BAT.Macros().NavigateTo().Design().PageTemplates(this.Culture);
             BAT.Wrappers().Backend().PageTemplates().PageTemplateMainScreen().ClickOnCreateNewTemplateBtn();
             BAT.Wrappers().Backend().PageTemplates().PageTemplateCreateScreen().SetTemplateName(TemplateTitle);
@@ -68,7 +68,7 @@ namespace FeatherWidgets.TestUI.TestCases.Identity
         }
 
         private const string TemplateTitle = "TestHybrid";
-        private const string Email = "user20@dsds.bg";
+        private const string Email = "newuser@test.test";
         private const string UserName = "newUser";
         private const string Password = "password";
         private const string MessageSaveChangesProfileWidget = "Saving changes is not available in Preview";
