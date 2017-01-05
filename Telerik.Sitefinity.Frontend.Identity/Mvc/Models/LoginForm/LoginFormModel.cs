@@ -433,7 +433,12 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.LoginForm
         /// </returns>
         protected string GetReturnURL(LoginFormViewModel input, HttpContextBase context)
         {
-            string redirectUrl = context.Request.Url.AbsoluteUri.Replace(context.Request.Url.Query, String.Empty);
+            string redirectUrl = context.Request.Url.AbsoluteUri;
+            
+            if (!string.IsNullOrEmpty(context.Request.Url.Query))
+            {
+                redirectUrl = redirectUrl.Replace(context.Request.Url.Query, "");
+            }            
 
             if (this.LoginRedirectPageId.HasValue)
             {                
