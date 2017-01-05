@@ -70,7 +70,7 @@ namespace FeatherWidgets.TestUI.TestCases.CommentsAndReviews
 
         private const string PageName = "ReviewsPage";
         private readonly string[] reviewsToPage = { "Reviews to page" };
-        private readonly string[] reviewAuthor = { "admin adminov" };
+        private readonly string[] reviewAuthor = { FeatherTestCase.AdminNickname };
         private readonly string[] reviewRaiting = { "(2)" };
         private const string ReviewsCount = "1 review";
         private const string ReviewMessage = "Write a review";
