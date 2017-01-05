@@ -64,12 +64,12 @@ namespace FeatherWidgets.TestIntegration.EmailCampaigns
                 string postString = "Email=" + this.testEmail;
 
                 ////Make an initial request to register the subscriber
-                var responseContent = PageInvoker.PostWebRequest(subscribeFormPageUrl, postString, false);
+                var responseContent = PageInvoker.PostWebRequest(subscribeFormPageUrl, postString);
                 Assert.IsTrue(responseContent.Contains(this.subscribeValueText), "User was not successfully subscribed!");
 
                 ////Make a secondary request to inject the RedirectPageUrl value
                 postString  += "&RedirectPageUrl=" + redirectUrl;
-                responseContent = PageInvoker.PostWebRequest(subscribeFormPageUrl, postString, false);
+                responseContent = PageInvoker.PostWebRequest(subscribeFormPageUrl, postString);
 
                 Assert.IsFalse(responseContent.Contains(this.searchValueText), "RedirectPageUrl parameter was injected into the model!");
             }
