@@ -85,7 +85,8 @@ namespace FeatherWidgets.TestUtilities.CommonOperations
                 request.Content = HttpContent.Create(bytes);
             }
 
-            var response = client.Send(request);
+            client.TransportSettings.MaximumAutomaticRedirections = 5;
+            var response = client.Send(request);            
             return response;
         }
     }

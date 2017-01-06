@@ -1431,7 +1431,7 @@ namespace FeatherWidgets.TestIntegration.Events
 
         private Guid SetCalendarToEvent(EventsManager manager, string eventTitle, string calendarTitle)
         {
-            var selectedEvent = manager.GetEvents().Where(i => i.Title == eventTitle).FirstOrDefault();
+            var selectedEvent = manager.GetEvents().Where(i => i.Title == eventTitle && i.Status == Telerik.Sitefinity.GenericContent.Model.ContentLifecycleStatus.Master).FirstOrDefault();
             var selectedCalendar = manager.GetCalendars().Where(i => i.Title == calendarTitle).FirstOrDefault();
 
             if (selectedEvent != null && selectedCalendar != null)
@@ -1499,18 +1499,9 @@ namespace FeatherWidgets.TestIntegration.Events
 
         private void ClearData()
         {
-            Telerik.Sitefinity.TestUtilities.CommonOperations.ServerOperations.Pages().DeleteAllPages();
-            Telerik.Sitefinity.TestUtilities.CommonOperations.ServerOperations.Events().DeleteAllEvents();
-
-            var defaultCalendarId = ServerOperations.Events().GetDefaultCalendarId();
-            foreach (var item in EventsManager.GetManager().GetCalendars())
-            {
-                if (item.Id != defaultCalendarId)
-                {
-                    ServerOperations.Events().DeleteCalendar(item.Id);
-                }
-            }
-
+            ServerOperations.Pages().DeleteAllPages();
+            ServerOperations.Events().DeleteAllEvents();
+            ServerOperations.Events().DeleteAllCalendarsExceptDefaultOne();
             ServerOperations.Taxonomies().ClearAllCategories(TaxonomiesConstants.CategoriesTaxonomyId);
             ServerOperations.Taxonomies().ClearAllTags(TaxonomiesConstants.TagsTaxonomyId);
         }

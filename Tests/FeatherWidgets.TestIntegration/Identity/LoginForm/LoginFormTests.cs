@@ -189,7 +189,7 @@ namespace FeatherWidgets.TestIntegration.Identity.LoginForm
                 }
 
                 SecurityManager.Logout();
-                SitefinityTestUtilities.ServerOperations.Users().DeleteUsers(new[] { this.userEmail });
+                SitefinityTestUtilities.ServerOperations.Users().DeleteUserAndProfile(this.userEmail);
             }
         }
 
@@ -241,7 +241,7 @@ namespace FeatherWidgets.TestIntegration.Identity.LoginForm
                 }
 
                 SecurityManager.Logout();
-                SitefinityTestUtilities.ServerOperations.Users().DeleteUsers(new[] { this.userEmail });
+                SitefinityTestUtilities.ServerOperations.Users().DeleteUserAndProfile(this.userEmail);
             }
         }
 
@@ -344,7 +344,7 @@ namespace FeatherWidgets.TestIntegration.Identity.LoginForm
                 }
 
                 SecurityManager.Logout();
-                SitefinityTestUtilities.ServerOperations.Users().DeleteUsers(new[] { this.userEmail });
+                SitefinityTestUtilities.ServerOperations.Users().DeleteUserAndProfile(this.userEmail);
             }
         }
 
