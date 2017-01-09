@@ -337,13 +337,12 @@ namespace FeatherWidgets.TestIntegration.Identity.LoginStatus
         [Description("Test that Status has available endpoint.")]
         [Test]
         public void Status_TestRouting_Available()
-        {
-            HttpContext.Current.Request.Headers["Authorization"] = string.Empty;
+        {            
             string statusUrl = UrlPath.ResolveAbsoluteUrl("~/rest-api/login-status");
             var responseContent = PageInvoker.ExecuteWebRequest(statusUrl);
             var statusResponse = Json.Decode(responseContent, typeof(StatusViewModel));
 
-            Assert.IsFalse(statusResponse.IsLoggedIn);
+            Assert.IsTrue(statusResponse.IsLoggedIn);
         }
 
         #endregion
