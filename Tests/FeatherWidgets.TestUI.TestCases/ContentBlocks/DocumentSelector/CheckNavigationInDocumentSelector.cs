@@ -2,7 +2,7 @@
 using System.Linq;
 using Feather.Widgets.TestUI.Framework;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Telerik.TestUI.Core.Attributes;
+
 
 namespace FeatherWidgets.TestUI.TestCases.ContentBlocks.DocumentSelector
 {
@@ -19,7 +19,7 @@ namespace FeatherWidgets.TestUI.TestCases.ContentBlocks.DocumentSelector
         Owner(FeatherTeams.SitefinityTeam7),
         TestCategory(FeatherTestCategories.MediaSelector),
         TestCategory(FeatherTestCategories.ContentBlock),
-        KnownIssue(BugId = 210190)]
+        Telerik.TestUI.Core.Attributes.KnownIssue(BugId = 210190)]
         public void CheckNavigationInDocumentSelector()
         {
             BAT.Macros().User().EnsureAdminLoggedIn();
