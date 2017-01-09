@@ -34,7 +34,7 @@ namespace FeatherWidgets.TestUI.TestCases.ContentBlocks
                 BATFeather.Wrappers().Backend().Pages().PageZoneEditorWrapper().EditWidget(WidgetName);
                 BATFeather.Wrappers().Backend().ContentBlocks().ContentBlocksWrapper().FillContentToContentBlockWidget(NotPersonalizedWidgetContent);
                 BATFeather.Wrappers().Backend().ContentBlocks().ContentBlocksWrapper().SaveChanges();
-                BAT.Wrappers().Backend().Personalization().PersonalizationInPages().ExpandMoreInWidgetByIndex();
+                BAT.Wrappers().Backend().Personalization().PersonalizationInPages().ExpandMoreInWidgetByIndex(1);
                 BAT.Wrappers().Backend().Personalization().PersonalizationInPages().AssertAddPersonalizedVersionLink();
                 BAT.Wrappers().Backend().Personalization().PersonalizationInPages().SelectAddPersonalizedVersionLink();
                 BATFeather.Wrappers().Backend().Card().CardWrapper().ClickAddButton();

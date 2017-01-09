@@ -1,9 +1,10 @@
 ﻿using System;
 using System.Web.Mvc;
-
 using FeatherWidgets.TestUnit.DummyClasses.Identity;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Telerik.Sitefinity.Frontend.Identity.Mvc.Models.Profile;
+using Telerik.Sitefinity.Frontend.TestUtilities.DummyClasses.HttpContext;
+using Telerik.Sitefinity.Services;
 
 namespace FeatherWidgets.TestUnit.Identity
 {
@@ -22,7 +23,8 @@ namespace FeatherWidgets.TestUnit.Identity
             controller.ReadModeTemplateName = "TestTemplate";
             controller.Mode = ViewMode.ReadOnly;
 
-            var result = controller.Index();
+            ActionResult result = null;
+            SystemManager.RunWithHttpContext(new DummyHttpContext(), () => result = controller.Index());
 
             Assert.IsNotNull(result, "The action result is null.");
             Assert.IsInstanceOfType(result, typeof(ViewResult), "The action result is not of the expected type.");
@@ -42,7 +44,8 @@ namespace FeatherWidgets.TestUnit.Identity
             controller.EditModeTemplateName = "TestTemplate";
             controller.Mode = ViewMode.EditOnly;
 
-            var result = controller.Index();
+            ActionResult result = null;
+            SystemManager.RunWithHttpContext(new DummyHttpContext(), () => result = controller.Index());
 
             Assert.IsNotNull(result, "The action result is null.");
             Assert.IsInstanceOfType(result, typeof(ViewResult), "The action result is not of the expected type.");
@@ -62,7 +65,8 @@ namespace FeatherWidgets.TestUnit.Identity
             controller.ReadModeTemplateName = "TestTemplate";
             controller.Mode = ViewMode.Both;
 
-            var result = controller.Index();
+            ActionResult result = null;
+            SystemManager.RunWithHttpContext(new DummyHttpContext(), () => result = controller.Index());
 
             Assert.IsNotNull(result, "The action result is null.");
             Assert.IsInstanceOfType(result, typeof(ViewResult), "The action result is not of the expected type.");

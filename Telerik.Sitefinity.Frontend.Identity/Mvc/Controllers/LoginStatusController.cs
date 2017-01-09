@@ -82,7 +82,6 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Controllers
         /// <returns>
         /// The <see cref="ActionResult" />.
         /// </returns>
-        [RelativeRoute("")]
         public ActionResult Index()
         {
             var fullTemplateName = this.templateNamePrefix + this.TemplateName;
@@ -128,7 +127,7 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Controllers
         /// <inheritDocs/>
         protected override void HandleUnknownAction(string actionName)
         {
-            this.Index().ExecuteResult(this.ControllerContext);
+            this.ActionInvoker.InvokeAction(this.ControllerContext, "Index");
         }
 
         #endregion

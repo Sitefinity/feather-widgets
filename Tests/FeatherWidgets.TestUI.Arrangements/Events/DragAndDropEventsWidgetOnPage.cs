@@ -1,4 +1,5 @@
 ﻿using System;
+using FeatherWidgets.TestUI.Arrangements.Events;
 using Telerik.Sitefinity.TestArrangementService.Attributes;
 using Telerik.Sitefinity.TestUI.Arrangements.Framework.Server;
 using Telerik.Sitefinity.TestUtilities.CommonOperations;
@@ -8,7 +9,7 @@ namespace FeatherWidgets.TestUI.Arrangements
     /// <summary>
     /// DragAndDropEventsWidgetOnPage arrangement class.
     /// </summary>
-    public class DragAndDropEventsWidgetOnPage
+    public class DragAndDropEventsWidgetOnPage : TestArrangementBase
     {
         /// <summary>
         /// Server side set up.
@@ -16,9 +17,7 @@ namespace FeatherWidgets.TestUI.Arrangements
         [ServerSetUp]
         public void SetUp()
         {
-            string templateName = ServerArrangementContext.GetCurrent().Values["templateName"];
-
-            Guid templateId = ServerOperations.Templates().GetTemplateIdByTitle(templateName);
+            var templateId = ServerOperations.Templates().GetTemplateIdByTitle(TemplateTitle);
             ServerOperations.Pages().CreatePage(PageName, templateId);
             ServerOperations.Events().CreateEvent(EventsTitle);
         }
@@ -29,12 +28,13 @@ namespace FeatherWidgets.TestUI.Arrangements
         [ServerTearDown]
         public void TearDown()
         {
-            ServerOperations.Pages().DeletePage(PageName);
-            ServerOperations.Events().DeleteEvent(null, EventsTitle);
+            ServerOperations.Pages().DeleteAllPages();
+            ServerOperations.Events().DeleteAllEvents();
         }
 
-        private const string PageName = "Events";
+        private const string PageName = "EventsPage";
         private const string EventsContent = "Events content";
         private const string EventsTitle = "EventsTitle";
+        private const string TemplateTitle = "Bootstrap.default";
     }
 }

@@ -269,7 +269,7 @@ namespace FeatherWidgets.TestIntegration.News
             int lastIndex = newsTitles.Length - 1;
 
             var newsManager = NewsManager.GetManager();
-            var newsItems = newsManager.GetNewsItems().Where<NewsItem>(ni => ni.Status == Telerik.Sitefinity.GenericContent.Model.ContentLifecycleStatus.Master).OrderBy(x => x.PublicationDate);
+            var newsItems = newsManager.GetNewsItems().Where<NewsItem>(ni => ni.Status == Telerik.Sitefinity.GenericContent.Model.ContentLifecycleStatus.Master).OrderBy(ni => ni.PublicationDate);
             
             foreach (NewsItem item in newsItems)
             {

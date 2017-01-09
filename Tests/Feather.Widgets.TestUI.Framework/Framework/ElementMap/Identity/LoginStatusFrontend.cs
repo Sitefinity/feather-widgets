@@ -30,7 +30,7 @@ namespace Feather.Widgets.TestUI.Framework.Framework.ElementMap.Identity
         {
             get
             {
-                return this.Get<HtmlAnchor>("TagName=a", "data-sf-role=sf-logged-in-name");
+                return this.Find.ByExpression<HtmlAnchor>("TagName=a", "data-sf-role=sf-logged-in-name");
             } 
         }
 
@@ -42,6 +42,17 @@ namespace Feather.Widgets.TestUI.Framework.Framework.ElementMap.Identity
             get
             {
                 return this.Get<HtmlContainerControl>("TagName=p", "data-sf-role=sf-logged-in-email");
+            }
+        }
+
+        /// <summary>
+        /// Gets the login button.
+        /// </summary>
+        public HtmlButton LoginButton
+        {
+            get
+            {
+                return this.Get<HtmlButton>("TagName=button", "data-sf-role=login-status-button", "InnerText=Login");
             }
         }
 

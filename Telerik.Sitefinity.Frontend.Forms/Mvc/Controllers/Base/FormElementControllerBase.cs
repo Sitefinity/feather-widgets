@@ -115,7 +115,7 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Controllers.Base
         /// <param name="actionName">The name of the attempted action.</param>
         protected override void HandleUnknownAction(string actionName)
         {
-            this.Write(null).ExecuteResult(this.ControllerContext);
+            this.ActionInvoker.InvokeAction(this.ControllerContext, "Write");
         }
 
         /// <summary>
