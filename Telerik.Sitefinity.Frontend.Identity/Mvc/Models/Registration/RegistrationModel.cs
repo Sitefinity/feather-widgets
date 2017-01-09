@@ -32,6 +32,7 @@ using System.ComponentModel;
 using Telerik.Sitefinity.Security.Claims;
 using Microsoft.Owin.Security;
 using ServiceStack.Text;
+using Telerik.Sitefinity.Security.Events;
 
 namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.Registration
 {
