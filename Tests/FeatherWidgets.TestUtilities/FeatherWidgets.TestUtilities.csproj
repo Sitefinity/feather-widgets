@@ -265,7 +265,6 @@
     <EmbeddedResource Include="Data\DynamicModules\PackedModule\Structure\configs.sf" />
     <EmbeddedResource Include="Data\DynamicModules\PackedModule\Structure\PackedModule.sf" />
     <EmbeddedResource Include="Data\DynamicModules\PackedModule\Structure\widgetTemplates.sf" />
-    <EmbeddedResource Include="Data\Packaging\Modules\FlatModuleAllFields.zip" />
     <EmbeddedResource Include="Data\Forms\Read.DefaultSectionHeaderFile.cshtml" />
     <EmbeddedResource Include="Data\Forms\Write.DefaultCaptchaFile.cshtml" />
     <EmbeddedResource Include="Data\Forms\Write.DefaultCheckboxesFile.cshtml" />
@@ -296,6 +295,7 @@
     <EmbeddedResource Include="Data\Packaging\Structure\Video.zip" />
     <EmbeddedResource Include="Data\Packaging\Structure\VideoEdited.zip" />
     <EmbeddedResource Include="Data\DynamicModules\PressReleaseCustomTaxonomySingle.zip" />
+    <EmbeddedResource Include="Data\Packaging\Modules\FlatModuleAllFields.zip" />
     <None Include="packages.config">
       <SubType>Designer</SubType>
     </None>

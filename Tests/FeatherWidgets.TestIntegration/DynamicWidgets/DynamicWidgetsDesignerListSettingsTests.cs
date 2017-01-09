@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Threading;
@@ -306,18 +307,29 @@ namespace FeatherWidgets.TestIntegration.DynamicWidgets
         public void DynamicWidgetsDesignerListSettings_VerifySortLastModified()
         {
             string sortExpession = "LastModified DESC";
-            string newTitle = "Boat New Name";
+            string newTitle = "Boat New Name"; 
 
             var dynamicCollection = ServerOperationsFeather.DynamicModulePressArticle().RetrieveCollectionOfPressArticles();
 
             try
             {
+                Guid boatItemId = Guid.Empty;
                 for (int i = 0; i < this.dynamicTitles.Length; i++)
-                    ServerOperationsFeather.DynamicModulePressArticle().CreatePressArticleItem(this.dynamicTitles[i], this.dynamicUrls[i]);
+                {
+                    if (i == 1)
+                    {
+                       boatItemId = ServerOperationsFeather.DynamicModulePressArticle().CreatePressArticleItem(this.dynamicTitles[i], this.dynamicUrls[i]).Id;
+                    }
+                    else
+                    {
+                        ServerOperationsFeather.DynamicModulePressArticle().CreatePressArticleItem(this.dynamicTitles[i], this.dynamicUrls[i]);
+                    }
+                }
 
-                dynamicCollection = ServerOperationsFeather.DynamicModulePressArticle().RetrieveCollectionOfPressArticles();
+                dynamicCollection = ServerOperationsFeather.DynamicModulePressArticle().RetrieveCollectionOfPressArticles().Where(item => item.Status == Telerik.Sitefinity.GenericContent.Model.ContentLifecycleStatus.Master).ToList();
+                var boatMasterItem = dynamicCollection.First(item => item.Id == boatItemId);
 
-                ServerOperationsFeather.DynamicModulePressArticle().EditPressArticleTitle(dynamicCollection[2], newTitle);
+                ServerOperationsFeather.DynamicModulePressArticle().EditPressArticleTitle(boatMasterItem, newTitle);
 
                 var mvcProxy = new MvcWidgetProxy();
                 mvcProxy.ControllerName = typeof(DynamicContentController).FullName;
@@ -345,6 +357,7 @@ namespace FeatherWidgets.TestIntegration.DynamicWidgets
             }
             finally
             {
+                dynamicCollection = ServerOperationsFeather.DynamicModulePressArticle().RetrieveCollectionOfPressArticles();
                 ServerOperationsFeather.DynamicModulePressArticle().DeleteDynamicItems(dynamicCollection);
             }
         }
@@ -356,22 +369,25 @@ namespace FeatherWidgets.TestIntegration.DynamicWidgets
         public void DynamicWidgetsDesignerListSettings_VerifyPublicationDateDescending()
         {
             string sortExpession = "PublicationDate DESC";
-            DateTime publicationDateAngel = new DateTime(2014, 9, 10, 12, 00, 00);
-            DateTime publicationDateBoat = new DateTime(2014, 10, 23, 12, 00, 00);
-            DateTime publicationDateCat = new DateTime(2014, 11, 18, 12, 00, 00);
+            var publicationDates = new DateTime[this.dynamicTitles.Length];
+            for (int i = 0; i < this.dynamicTitles.Length; i++)
+            {
+                publicationDates[i] = new DateTime(2014, 9, 10, 12 - i, 00, 00);
+            }
 
             var dynamicCollection = ServerOperationsFeather.DynamicModulePressArticle().RetrieveCollectionOfPressArticles();
 
             try
             {
-                for (int i = 0; i < this.dynamicTitles.Length; i++)
-                    ServerOperationsFeather.DynamicModulePressArticle().CreatePressArticleItem(this.dynamicTitles[i], this.dynamicUrls[i]);
+                for (int j = 0; j < this.dynamicTitles.Length; j++)
+                {
+                    Guid itemId = ServerOperationsFeather.DynamicModulePressArticle().CreatePressArticleItem(this.dynamicTitles[j], this.dynamicUrls[j]).Id;
 
-                dynamicCollection = ServerOperationsFeather.DynamicModulePressArticle().RetrieveCollectionOfPressArticles();
+                    dynamicCollection = ServerOperationsFeather.DynamicModulePressArticle().RetrieveCollectionOfPressArticles();
+                    var masterItem = ServerOperationsFeather.DynamicModulePressArticle().RetrieveCollectionOfPressArticles().Where(item => item.Id == itemId && item.Status == Telerik.Sitefinity.GenericContent.Model.ContentLifecycleStatus.Master).First();
 
-                ServerOperationsFeather.DynamicModulePressArticle().PublishPressArticleWithSpecificDate(dynamicCollection[4], publicationDateAngel);
-                ServerOperationsFeather.DynamicModulePressArticle().PublishPressArticleWithSpecificDate(dynamicCollection[2], publicationDateBoat);
-                ServerOperationsFeather.DynamicModulePressArticle().PublishPressArticleWithSpecificDate(dynamicCollection[0], publicationDateCat);
+                    ServerOperationsFeather.DynamicModulePressArticle().PublishPressArticleWithSpecificDate(masterItem, publicationDates[j]);
+                }
 
                 var mvcProxy = new MvcWidgetProxy();
                 mvcProxy.ControllerName = typeof(DynamicContentController).FullName;

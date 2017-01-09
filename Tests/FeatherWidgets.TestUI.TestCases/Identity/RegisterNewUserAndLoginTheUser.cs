@@ -18,7 +18,8 @@ namespace FeatherWidgets.TestUI.TestCases.Identity
         TestCategory(FeatherTestCategories.PagesAndContent),
         TestCategory(FeatherTestCategories.Registration),
         TestCategory(FeatherTestCategories.LoginForm),
-        TestCategory(FeatherTestCategories.Bootstrap)]
+        TestCategory(FeatherTestCategories.Bootstrap),
+        Telerik.TestUI.Core.Attributes.KnownIssue(BugId = 206478), Ignore]
         public void RegisterNewUserAndLoginTheUser()
         {
             BAT.Macros().NavigateTo().Pages(this.Culture);

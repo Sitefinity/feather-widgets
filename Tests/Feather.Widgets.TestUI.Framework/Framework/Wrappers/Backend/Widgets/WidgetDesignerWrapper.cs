@@ -4,7 +4,6 @@ using System.Globalization;
 using System.Linq;
 using ArtOfTest.Common.UnitTesting;
 using ArtOfTest.WebAii.Controls.HtmlControls;
-using ArtOfTest.WebAii.Controls.HtmlControls;
 using ArtOfTest.WebAii.Core;
 using ArtOfTest.WebAii.jQuery;
 using Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend.Widgets;
@@ -755,6 +754,26 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend
             Assert.IsTrue(optionCheckbox.Checked);
             optionCheckbox.Click();
             Assert.IsFalse(optionCheckbox.Checked);
+        }
+
+        /// <summary>
+        /// Expand "Filter events by"
+        /// </summary>
+        public void ExpandFilteredEventsBy()
+        {
+            HtmlControl filterEventsByBtn = this.EM.Widgets.WidgetDesignerCalendarScreen.FilterEventsByButton;
+            filterEventsByBtn.AssertIsPresent("Filter Events by button");
+            filterEventsByBtn.Click();
+        }
+
+        /// <summary>
+        /// Check Calendar check box
+        /// </summary>
+        public void SelectFilterByCalendar()
+        {
+            HtmlInputCheckBox calendarCheckBox = this.EM.Widgets.WidgetDesignerCalendarScreen.CalendarCheckBox;
+            calendarCheckBox.AssertIsPresent("Calendar checkbox");
+            calendarCheckBox.Click();
         }
     }
 }

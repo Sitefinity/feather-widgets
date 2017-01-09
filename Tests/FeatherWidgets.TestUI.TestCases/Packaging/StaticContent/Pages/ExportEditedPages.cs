@@ -21,7 +21,8 @@ namespace FeatherWidgets.TestUI.TestCases.Packaging.StaticContent
         /// </summary>
         [TestMethod,
         Owner(FeatherTeams.SitefinityTeam6),
-        TestCategory(FeatherTestCategories.Packaging)]
+        TestCategory(FeatherTestCategories.Packaging),
+        Telerik.TestUI.Core.Attributes.KnownIssue(BugId = 207505), Ignore]
         public void ExportEditedPages()
         {
             RuntimeSettingsModificator.ExecuteWithClientTimeout(200000, () => BAT.Macros().NavigateTo().Pages(this.Culture));            

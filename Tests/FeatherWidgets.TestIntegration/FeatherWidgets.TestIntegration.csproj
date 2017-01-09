@@ -171,6 +171,10 @@
       <Private>True</Private>
       <SpecificVersion>False</SpecificVersion>
     </Reference>
+    <Reference Include="Telerik.Sitefinity.Ecommerce, Version=10.0.6390.0, Culture=neutral, PublicKeyToken=b28c218413bdf563, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Telerik.Sitefinity.Content.10.0.6390.0\lib\net45\Telerik.Sitefinity.Ecommerce.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="Telerik.Sitefinity.Forums, Version=10.0.6390.0, Culture=neutral, PublicKeyToken=b28c218413bdf563, processorArchitecture=MSIL">
       <HintPath>..\..\packages\Telerik.Sitefinity.Content.10.0.6390.0\lib\net45\Telerik.Sitefinity.Forums.dll</HintPath>
       <Private>True</Private>
@@ -272,7 +276,10 @@
     <Compile Include="BlogPosts\BlogPostsWidgetTests.cs" />
     <Compile Include="BlogsWidget\BlogsWidgetListSettingsTests.cs" />
     <Compile Include="BlogsWidget\BlogsWidgetTests.cs" />
+    <Compile Include="Common\DynamicWidgetCompilationPerformanceTests.cs" />
+    <Compile Include="Common\LayoutCompilationPerformanceTests.cs" />
     <Compile Include="Common\ModuleUnloadTests.cs" />
+    <Compile Include="Common\WidgetCompilationPerformanceTests.cs" />
     <Compile Include="ContentBlock\ContentBlockEditorTests.cs" />
     <Compile Include="ContentBlock\ContentBlockSearchIndex.cs" />
     <Compile Include="ContentBlock\ContentBlockWidget.cs" />
@@ -311,6 +318,7 @@
     <Compile Include="GlobalSuppressions.cs" />
     <Compile Include="Identity\LoginForm\LoginFormTests.cs" />
     <Compile Include="Identity\LoginStatus\LoginTests.cs" />
+    <Compile Include="Identity\Registration\RegistrationEventsTests.cs" />
     <Compile Include="Identity\UsersList\UsersListWidgetPagingLimitTests.cs" />
     <Compile Include="Identity\UsersList\UsersListWidgetSortingTests.cs" />
     <Compile Include="Lists\ListWidgetTests.cs" />
@@ -321,6 +329,7 @@
     <Compile Include="MediaGalleryWidgets\ImageGalleryWidgetPagingLimitTests.cs" />
     <Compile Include="MediaGalleryWidgets\ImageGalleryWidgetSortingTests.cs" />
     <Compile Include="InlineClientAssets\StyleSheetWidgetTests.cs" />
+    <Compile Include="Mvc\Controllers\TestController.cs" />
     <Compile Include="Navigation\BreadcrumbWidgetTests.cs" />
     <Compile Include="Navigation\DummyBreadcrumbExtender.cs" />
     <Compile Include="Navigation\DummySitemapFilter.cs" />
@@ -351,6 +360,7 @@
     <None Include="app.config">
       <SubType>Designer</SubType>
     </None>
+    <EmbeddedResource Include="Mvc\Views\Test\Index.cshtml" />
     <None Include="packages.config">
       <SubType>Designer</SubType>
     </None>

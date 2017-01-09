@@ -26,7 +26,7 @@ namespace FeatherWidgets.TestUI.Arrangements
 
             Guid templateId = Telerik.Sitefinity.TestUtilities.CommonOperations.ServerOperations.Templates().GetTemplateIdByTitle(PageTemplateName);
 
-            this.pageId = ServerOperations.Multilingual().Pages().CreatePageMultilingual(this.pageId, PageName + "EN", false, "en", pageTemplateId: templateId);
+            this.pageId = ServerOperations.Multilingual().Pages().CreatePageMultilingual(this.pageId, PageName + "EN", null, "en", pageTemplateId: templateId);
            
             ServerOperationsFeather.Pages().AddContentBlockWidgetToPage(this.pageId, string.Empty, PlaceHolderId);
             ServerOperationsFeather.Pages().AddBlogPostsWidgetToPage(this.pageId, PlaceHolderId);
