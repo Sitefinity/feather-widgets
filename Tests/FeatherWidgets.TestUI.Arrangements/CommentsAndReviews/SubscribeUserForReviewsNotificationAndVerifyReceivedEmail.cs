@@ -59,7 +59,7 @@ namespace FeatherWidgets.TestUI.Arrangements
         [ServerTearDown]
         public void TearDown()
         {
-            AuthenticationHelper.AuthenticateUser("admin", "admin@2", true);
+            AuthenticationHelper.AuthenticateUser(this.AdminEmail, this.AdminPass, true);
             ServerOperations.Comments().SetCommentsNotificationProfile("Default");
 
             Telerik.Sitefinity.TestUtilities.Services.Notifications.NotificationsTestHelper.ResetDummySmtpSenderData(profileName: SubscribeUserForReviewsNotificationAndVerifyReceivedEmail.NotificationsProfileName, cleanOnly: true);

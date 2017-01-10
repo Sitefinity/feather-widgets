@@ -74,7 +74,7 @@ namespace FeatherWidgets.TestUI.TestCases.Forms.MultiPageForms
         private const string Header = "Header";
         private const int ExpectedResponsesCount = 1;
         private const int ResponseNumber = 1;
-        private const string ExpectedAuthorName = "admin";
+        private const string ExpectedAuthorName = "admin@test.test";
         private const string Choice = "Second Choice";
         private List<string> pagesDefaultLabels = new List<string>() { "Step 1", "Step 2" };
     }

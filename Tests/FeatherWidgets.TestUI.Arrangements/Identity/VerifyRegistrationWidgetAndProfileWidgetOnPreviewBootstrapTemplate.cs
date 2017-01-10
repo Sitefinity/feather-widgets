@@ -1,5 +1,4 @@
 ﻿using System;
-using FeatherWidgets.TestUtilities.CommonOperations;
 using Telerik.Sitefinity.TestArrangementService.Attributes;
 using Telerik.Sitefinity.TestUtilities.CommonOperations;
 
@@ -16,7 +15,7 @@ namespace FeatherWidgets.TestUI.Arrangements
         [ServerSetUp]
         public void SetUp()
         {
-            AuthenticationHelper.AuthenticateUser(AdminUserName, AdminPass, true);
+            AuthenticationHelper.AuthenticateUser(this.AdminEmail, this.AdminPass, true);
         }
 
         /// <summary>
@@ -25,12 +24,10 @@ namespace FeatherWidgets.TestUI.Arrangements
         [ServerTearDown]
         public void TearDown()
         {
-            AuthenticationHelper.AuthenticateUser(AdminUserName, AdminPass, true);
-            ServerOperations.Users().DeleteUserAndProfile(NewUserName);
+            AuthenticationHelper.AuthenticateUser(this.AdminEmail, this.AdminPass, true);
+            ServerOperations.Users().DeleteUserAndProfile(NewUserEmail);
         }
 
-        private const string AdminUserName = "admin";
-        private const string AdminPass = "admin@2";
-        private const string NewUserName = "newUser";
+        private const string NewUserEmail = "newuser@test.test";
     }
 }

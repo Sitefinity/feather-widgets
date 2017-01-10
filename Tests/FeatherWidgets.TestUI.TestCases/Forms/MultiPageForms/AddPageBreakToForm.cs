@@ -81,6 +81,6 @@ namespace FeatherWidgets.TestUI.TestCases.Forms.MultiPageForms
         private const int DropzonesCount = 3;
         private const int ExpectedResponsesCount = 1;
         private const int ResponseNumber = 1;
-        private const string ExpectedAuthorName = "admin";
+        private const string ExpectedAuthorName = "admin@test.test";
     }
 }

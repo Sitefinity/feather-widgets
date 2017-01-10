@@ -78,6 +78,6 @@ namespace FeatherWidgets.TestUI.TestCases.Forms.Checkboxes
         private const string Choice = "Second Choice";
         private const int ExpectedResponsesCount = 1;
         private const int ResponseNumber = 1;
-        private const string ExpectedAuthorName = "admin";
+        private const string ExpectedAuthorName = "admin@test.test";
     }
 }

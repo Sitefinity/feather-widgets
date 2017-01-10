@@ -1,9 +1,29 @@
+@using Telerik.Sitefinity.Configuration;
 @using Telerik.Sitefinity.Frontend.Mvc.Helpers;
+@using Telerik.Sitefinity.Security.Configuration.IdentityServer;
 
 <form>
     <div class="alert alert-warning" ng-show="properties.AllowResetPassword.PropertyValue === 'True' && properties.EnablePasswordRetrieval.PropertyValue === 'False' && properties.EnablePasswordReset.PropertyValue === 'False'">
         @Html.Resource("PaswordResetNotEnabled")
     </div>
+   
+    <div class="form-group">
+        <label>@Html.Resource("LoginFormTemplate")</label>
+        <div class="checkbox">
+            <label>
+                <input type="checkbox" ng-model="properties.ShowRememberMe.PropertyValue" ng-true-value="'True'" ng-false-value="'False'" ng-checked="properties.ShowRememberMe.PropertyValue === 'True'" />
+                @Html.Resource("ShowRememberMe")
+            </label>
+        </div>
+
+        <div class="checkbox">
+            <label for="allow-reset-password-checkbox">
+                <input id="allow-reset-password-checkbox" type="checkbox" ng-model="properties.AllowResetPassword.PropertyValue" ng-true-value="'True'" ng-false-value="'False'" ng-checked="properties.AllowResetPassword.PropertyValue === 'True'" />
+                @Html.Resource("AllowResetPassword")
+            </label>
+        </div>
+    </div>
+
     <div class="form-group">
         <label>@Html.Resource("LandingPageAfterLoginInfo")</label>
         <sf-list-selector
@@ -11,28 +31,34 @@
             sf-selected-item-id="properties.LoginRedirectPageId.PropertyValue"></sf-list-selector>
     </div>
 
+    @{
+        var providers = Config.Get<AuthenticationConfig>().AuthenticationProviders.Values.Where(x => x.Enabled == true && !string.IsNullOrEmpty(x.Name)).ToList();
+        if (providers.Count() != 0)
+        {
+            <div class="form-group">
+                <strong>@Html.Resource("ExternalProvidersLoginOptions")</strong>
+                @foreach (var provider in providers)
+                {
+                    <div class="checkbox">
+                        <label>
+                            <input id="@provider.Name"
+                                   type="checkbox"
+                                   ng-change="updateExternalProvider('@provider.Name', '@provider.LinkCssClass', externalProviderSelector.selectedItems['@provider.Name'])"
+                                   ng-checked="externalProviderSelector.selectedItems['@provider.Name']"
+                                   ng-model="externalProviderSelector.selectedItems['@provider.Name']" />
+                            @provider.Name
+                        </label>
+                    </div>
+                }
+            </div>
+        }
+    }
+
     <div class="form-group">
         <label>@Html.Resource("RegistrationPage")</label>
         <p class="description-note">@Html.Resource("RegistrationPageInfo")</p>
-        <sf-list-selector
-            sf-page-selector
-            sf-selected-item-id="properties.RegisterRedirectPageId.PropertyValue"></sf-list-selector>
-    </div>
-
-    <div class="form-group">
-        <div class="checkbox">
-            <label>
-                <input type="checkbox" ng-model="properties.ShowRememberMe.PropertyValue" ng-true-value="'True'" ng-false-value="'False'" ng-checked="properties.ShowRememberMe.PropertyValue === 'True'"/>
-                @Html.Resource("ShowRememberMe")
-            </label>
-        </div>
-
-        <div class="checkbox">
-            <label for="allow-reset-password-checkbox">
-                <input id="allow-reset-password-checkbox" type="checkbox" ng-model="properties.AllowResetPassword.PropertyValue" ng-true-value="'True'" ng-false-value="'False'" ng-checked="properties.AllowResetPassword.PropertyValue === 'True'"/>
-                @Html.Resource("AllowResetPassword")
-            </label>
-         </div>
+        <sf-list-selector sf-page-selector
+                          sf-selected-item-id="properties.RegisterRedirectPageId.PropertyValue"></sf-list-selector>
     </div>
 
     <div class="row">

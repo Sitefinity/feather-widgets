@@ -352,6 +352,36 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.StringResources
         }
 
         /// <summary>
+        /// Gets phrase: Question
+        /// </summary>
+        [ResourceEntry("Question",
+            Value = "Secret question",
+            Description = "phrase : Secret question",
+            LastModified = "2016/12/23")]
+        public string Question
+        {
+            get
+            {
+                return this["Question"];
+            }
+        }
+
+        /// <summary>
+        /// Gets phrase: Answer
+        /// </summary>
+        [ResourceEntry("Answer",
+            Value = "Secret answer",
+            Description = "phrase : Secret answer",
+            LastModified = "2016/12/23")]
+        public string Answer
+        {
+            get
+            {
+                return this["Answer"];
+            }
+        }
+
+        /// <summary>
         /// Gets phrase: Password
         /// </summary>
         [ResourceEntry("Password",
@@ -367,12 +397,12 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.StringResources
         }
 
         /// <summary>
-        /// Gets phrase: Re-type password
+        /// Gets phrase: Repeat password
         /// </summary>
         [ResourceEntry("ReTypePassword",
-            Value = "Re-type password",
-            Description = "phrase : Re-type password",
-            LastModified = "2015/02/26")]
+            Value = "Repeat password",
+            Description = "phrase : Repeat password",
+            LastModified = "2016/12/23")]
         public string ReTypePassword
         {
             get
@@ -519,12 +549,12 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.StringResources
         }
 
         /// <summary>
-        /// phrase: Back to Login
+        /// phrase: Log in
         /// </summary>
         [ResourceEntry("BackToLogin",
-            Value = "Back to Login",
-            Description = "Back to Login",
-            LastModified = "2015/03/03")]
+            Value = "Log in",
+            Description = "Log in",
+            LastModified = "2016/12/23")]
         public string BackToLogin
         {
             get
@@ -623,6 +653,66 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.StringResources
             get
             {
                 return this["SendAgain"];
+            }
+        }
+
+        /// <summary>
+        /// Gets phrase: Allow users to register with...
+        /// </summary>
+        [ResourceEntry("ExternalProvidersRegiterOptions",
+            Value = "Allow users to register with...",
+            Description = "phrase : Allow users to register with...",
+            LastModified = "2016/12/12")]
+        public string ExternalProvidersRegiterOptions
+        {
+            get
+            {
+                return this["ExternalProvidersRegiterOptions"];
+            }
+        }
+
+        /// <summary>
+        /// phrase : Or
+        /// </summary>
+        [ResourceEntry("Or",
+            Value = "Or",
+            Description = "phrase : Or",
+            LastModified = "2016/12/13")]
+        public string Or
+        {
+            get
+            {
+                return this["Or"];
+            }
+        }
+
+        /// <summary>
+        /// Gets phrase: Registration
+        /// </summary>
+        [ResourceEntry("Registration",
+            Value = "Registration",
+            Description = "phrase : Registration",
+            LastModified = "2016/12/13")]
+        public string Registration
+        {
+            get
+            {
+                return this["Registration"];
+            }
+        }
+
+        /// <summary>
+        /// Gets phrase: Or connect with...
+        /// </summary>
+        [ResourceEntry("ConnectWith",
+            Value = "Or connect with...",
+            Description = "phrase : Or connect with...",
+            LastModified = "2016/12/23")]
+        public string ConnectWith
+        {
+            get
+            {
+                return this["ConnectWith"];
             }
         }
     }
