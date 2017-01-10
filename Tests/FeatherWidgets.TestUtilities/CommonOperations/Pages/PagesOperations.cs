@@ -756,7 +756,10 @@ namespace FeatherWidgets.TestUtilities.CommonOperations
         /// </summary>
         public void DeletePages()
         {
-            this.locationGenerator.Dispose();
+            if (this.locationGenerator != null)
+            {
+                this.locationGenerator.Dispose();
+            }
         }
 
         /// <summary>
