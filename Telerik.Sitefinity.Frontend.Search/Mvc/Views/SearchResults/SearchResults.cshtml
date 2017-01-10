@@ -16,7 +16,14 @@
 
     @if (@Model.Results.TotalCount > 0)
     {
-        <h1>@Model.Results.TotalCount @Html.Raw(Model.ResultText)</h1>
+		if(ViewBag.IsFilteredbyPermission)
+		{
+			<h1>@Html.Raw(Model.ResultText)</h1>
+		}
+		else
+		{
+			<h1>@Model.Results.TotalCount @Html.Raw(Model.ResultText)</h1>
+		}
     }
     else
     {
@@ -112,27 +119,43 @@
     }
 
     @if (Model.DisplayMode == ListDisplayMode.Paging && Model.TotalPagesCount != null && Model.TotalPagesCount > 1)
-    {
-        if (Model.CurrentPage == Model.TotalPagesCount)
-        {
-            <em>@((Model.ItemsPerPage * Model.TotalPagesCount) - Model.Results.TotalCount) of @Model.Results.TotalCount results</em>
-        }
-        else
-        {
-            <em>@Model.ItemsPerPage of @Model.Results.TotalCount results</em>
-        }
-    
-        @Html.Action("Index", "ContentPager", new
-        {
-            currentPage = Model.CurrentPage,
-            totalPagesCount = Model.TotalPagesCount,
-            redirectUrlTemplate = ViewBag.RedirectPageUrlTemplate
-        })
-    }
+	{
+	    if(ViewBag.IsFilteredbyPermission) 
+	    {
+            <div class="pagination">
+				@if (Model.CurrentPage > 1)
+				{
+					<a class="item" href='@string.Format(ViewBag.RedirectPageUrlTemplate, Model.CurrentPage - 1)'>@Html.Resource("Prev")</a>
+				}
+				@if (Model.CurrentPage < @Model.TotalPagesCount)
+				{
+                    <a class="item" href='@string.Format(ViewBag.RedirectPageUrlTemplate, Model.CurrentPage + 1)'>@Html.Resource("Next")</a>
+				}
+			</div>
+	    }
+	    else 
+	    {
+			if (Model.CurrentPage == Model.TotalPagesCount)
+			{
+				<em>@((Model.ItemsPerPage * Model.TotalPagesCount) - Model.Results.TotalCount) of @Model.Results.TotalCount results</em>
+			}
+			else
+			{
+				<em>@Model.ItemsPerPage of @Model.Results.TotalCount results</em>
+			}
+		
+			@Html.Action("Index", "ContentPager", new
+			{
+				currentPage = Model.CurrentPage,
+				totalPagesCount = Model.TotalPagesCount,
+				redirectUrlTemplate = ViewBag.RedirectPageUrlTemplate
+			})
+		}
+	}
    
-    <input type="hidden" data-sf-role="searchResOrderBy" value="@Request.QueryString["orderBy"]" />
-    <input type="hidden" data-sf-role="searchResLanguage" value="@Request.QueryString["language"]" />
-    <input type="hidden" data-sf-role="searchResIndexCatalogue" value="@Request.QueryString["indexCatalogue"]" />
+    <input type="hidden" data-sf-role="searchResOrderBy" value='@Request.QueryString["orderBy"]' />
+    <input type="hidden" data-sf-role="searchResLanguage" value='@Request.QueryString["language"]' />
+    <input type="hidden" data-sf-role="searchResIndexCatalogue" value='@Request.QueryString["indexCatalogue"]' />
     <input type="hidden" data-sf-role="searchResQuery" value='@Request.QueryString["searchQuery"]' />
     <input type="hidden" data-sf-role="searchResWordsMode" value='@Request.QueryString["wordsMode"]' />
 
