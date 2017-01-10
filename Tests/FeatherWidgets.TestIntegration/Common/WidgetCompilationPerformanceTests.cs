@@ -222,7 +222,7 @@ namespace FeatherWidgets.TestIntegration.Common
                 var viewContent = string.Empty;
                 this.CreateView(viewRelativePath, viewContent);
 
-                var viewPath = "~/Frontend-Assembly/Telerik.Sitefinity.Frontend/Mvc/Views/Test/Index.cshtml";
+                var viewPath = "~/Frontend-Assembly/FeatherWidgets.TestIntegration/Mvc/Views/Test/Index.cshtml";
                 this.WaitForAspNetCacheToBeInvalidated(viewPath);
 
                 this.ClearData();
@@ -383,9 +383,10 @@ namespace FeatherWidgets.TestIntegration.Common
         public void CustomWidgetOnTemplate_RequestPage_ShouldLogOnlyWidgetExecution()
         {
             PageNode pageNode = null;
+            Guid templateId = Guid.Empty;
             try
             {
-                pageNode = this.CreatePageOnTemplateWithCustomWigdet();
+                pageNode = this.CreatePageOnTemplateWithCustomWigdet(out templateId);
                 var fullPageUrl = RouteHelper.GetAbsoluteUrl(pageNode.GetFullUrl());
 
                 this.ClearData();
@@ -397,10 +398,9 @@ namespace FeatherWidgets.TestIntegration.Common
             }
             finally
             {
-                var pageTemplateId = pageNode.GetPageData().Template.Id;
-
                 this.DeletePages(pageNode);
-                ServerOperations.Templates().DeletePageTemplate(pageTemplateId);
+                if (templateId != Guid.Empty)
+                    ServerOperations.Templates().DeletePageTemplate(templateId);
             }
         }
 
@@ -461,16 +461,17 @@ namespace FeatherWidgets.TestIntegration.Common
         {
             var viewRelativePath = "~/Mvc/Views/Test/Index.cshtml";
             PageNode pageNode = null;
+            Guid templateId = Guid.Empty;
 
             try
             {
-                pageNode = this.CreatePageOnTemplateWithCustomWigdet();
+                pageNode = this.CreatePageOnTemplateWithCustomWigdet(out templateId);
                 var fullPageUrl = RouteHelper.GetAbsoluteUrl(pageNode.GetFullUrl());
 
                 var viewContent = string.Empty;
                 this.CreateView(viewRelativePath, viewContent);
 
-                var viewPath = "~/Frontend-Assembly/Telerik.Sitefinity.Frontend/Mvc/Views/Test/Index.cshtml";
+                var viewPath = "~/Frontend-Assembly/FeatherWidgets.TestIntegration/Mvc/Views/Test/Index.cshtml";
                 this.WaitForAspNetCacheToBeInvalidated(viewPath);
 
                 this.ClearData();
@@ -495,6 +496,8 @@ namespace FeatherWidgets.TestIntegration.Common
             {
                 this.DeletePages(pageNode);
                 this.DeleteView(viewRelativePath);
+                if (templateId != Guid.Empty)
+                    ServerOperations.Templates().DeletePageTemplate(templateId);
             }
         }
 
@@ -517,20 +520,20 @@ namespace FeatherWidgets.TestIntegration.Common
             var mvcWidget1 = new Telerik.Sitefinity.Mvc.Proxy.MvcControllerProxy();
             mvcWidget1.ControllerName = typeof(NewsController).FullName;
             mvcWidget1.Settings = new Telerik.Sitefinity.Mvc.Proxy.ControllerSettings(new NewsController());
-            ServerOperationsFeather.TemplateOperations().AddControlToTemplate(templateId1, mvcWidget1, Placeholder, widgetName1);
+            ServerOperationsFeather.TemplateOperations().AddControlToTemplate(templateId1, mvcWidget1, "Contentplaceholder1", widgetName1);
 
             templateId2 = ServerOperationsFeather.TemplateOperations().CreatePageTemplate(template2Name, templateId1);
             var mvcWidget2 = new Telerik.Sitefinity.Mvc.Proxy.MvcControllerProxy();
             mvcWidget2.ControllerName = typeof(BlogPostController).FullName;
             mvcWidget2.Settings = new Telerik.Sitefinity.Mvc.Proxy.ControllerSettings(new BlogPostController());
             mvcWidget2.ID = widgetName2.Replace(" ", string.Empty);
-            ServerOperationsFeather.TemplateOperations().AddControlToTemplate(templateId2, mvcWidget2, Placeholder, widgetName2);
+            ServerOperationsFeather.TemplateOperations().AddControlToTemplate(templateId2, mvcWidget2, "Contentplaceholder1", widgetName2);
 
             var pageId = ServerOperations.Pages().CreatePage("TestPage1", templateId2);
             var pageNodeId = ServerOperations.Pages().GetPageNodeId(pageId);
             var pageManager = Telerik.Sitefinity.Modules.Pages.PageManager.GetManager();
             var pageNode = pageManager.GetPageNode(pageNodeId);
-            ServerOperationsFeather.Pages().AddContentBlockWidgetToPage(pageNodeId, widgetName, Placeholder);
+            ServerOperationsFeather.Pages().AddContentBlockWidgetToPage(pageNodeId, widgetName, "Contentplaceholder1");
 
             return pageNode;
         }
@@ -559,14 +562,14 @@ namespace FeatherWidgets.TestIntegration.Common
             return pageNode;
         }
 
-        private PageNode CreatePageOnTemplateWithCustomWigdet()
+        private PageNode CreatePageOnTemplateWithCustomWigdet(out Guid templateId)
         {
             var templateName = "TestTemplate1";
-            var templateId = ServerOperationsFeather.TemplateOperations().DuplicatePageTemplate(PageTemplateName, templateName);
+            templateId = ServerOperationsFeather.TemplateOperations().DuplicatePageTemplate(PageTemplateName, templateName);
             var customWidget = new MvcControllerProxy();
             customWidget.ControllerName = typeof(TestController).FullName;
             customWidget.Settings = new ControllerSettings(new TestController());
-            ServerOperationsFeather.TemplateOperations().AddControlToTemplate(templateId, customWidget, Placeholder, typeof(TestController).Name);
+            ServerOperationsFeather.TemplateOperations().AddControlToTemplate(templateId, customWidget, "Contentplaceholder1", typeof(TestController).Name);
 
             var pageTitle = "TestPage1";
             var pageId = ServerOperations.Pages().CreatePage(pageTitle, templateId);
