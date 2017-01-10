@@ -169,7 +169,7 @@ namespace FeatherWidgets.TestIntegration.Navigation
             var inf = typeof(SiteMapBase).GetMethod("Reset", BindingFlags.Static | BindingFlags.NonPublic);
             inf.Invoke(null, null);
 
-            using (var userReg = new CreateUserRegion("Viewer" + Guid.NewGuid().ToString(), false))
+            using (var userReg = new CreateUserRegion("Viewer" + Guid.NewGuid().ToString("N") + "@mail.com", false))
             {
                 using (var profileReg = new CreateUserProfileRegion(userReg.User, "Viewer"))
                 {
