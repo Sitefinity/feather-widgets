@@ -82,8 +82,6 @@ namespace Telerik.Sitefinity.Frontend.Search.Mvc.Controllers
 
                 if (isValid)
                 {
-                    var config = Config.Get<SearchConfig>();
-
                     var queryStringFormat = "?indexCatalogue={0}&searchQuery={1}&wordsMode={2}&orderBy={3}";
                     var languageParamFormat = "&language={0}";
 
@@ -93,7 +91,7 @@ namespace Telerik.Sitefinity.Frontend.Search.Mvc.Controllers
 
                     this.ViewBag.LanguageSearchUrlTemplate = String.Concat(currentPageUrl, queryString, languageParamFormat);
                     this.ViewBag.RedirectPageUrlTemplate = String.Concat(currentPageUrl, "/{0}", queryString, languageParam);
-                    this.ViewBag.IsFilteredbyPermission = config.EnableFilterByViewPermissions;
+                    this.ViewBag.IsFilteredbyPermission = this.EnableFilterByViewPermissions();
 
                     if (page == null || page < 1)
                         page = 1;
@@ -134,6 +132,16 @@ namespace Telerik.Sitefinity.Frontend.Search.Mvc.Controllers
         #endregion
 
         #region Private methods
+
+        /// <summary>
+        /// Determines whether the permission filter is enabled.
+        /// </summary>
+        /// <returns></returns>
+        protected virtual bool EnableFilterByViewPermissions()
+        {
+            var config = Config.Get<SearchConfig>();
+            return config.EnableFilterByViewPermissions;
+        }
 
         /// <summary>
         /// Gets the current URL.
