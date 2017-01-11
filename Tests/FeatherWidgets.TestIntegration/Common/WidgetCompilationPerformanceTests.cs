@@ -210,6 +210,7 @@ namespace FeatherWidgets.TestIntegration.Common
                 this.AssertViewCompilationCount(0);
 
                 this.AddMixedWidgetsToPage(pageNode);
+                this.ExecuteAuthenticatedRequest(fullPageUrl);
 
                 this.ClearData();
                 this.ExecuteAuthenticatedRequest(fullPageUrl);
@@ -423,7 +424,7 @@ namespace FeatherWidgets.TestIntegration.Common
                 var viewContent = string.Empty;
                 this.CreateView(viewRelativePath, viewContent);
 
-                var viewPath = "~/Frontend-Assembly/Telerik.Sitefinity.Frontend/Mvc/Views/Test/Index.cshtml";
+                var viewPath = "~/Frontend-Assembly/FeatherWidgets.TestIntegration/Mvc/Views/Test/Index.cshtml";
                 this.WaitForAspNetCacheToBeInvalidated(viewPath);
 
                 this.ClearData();
