@@ -26,8 +26,8 @@ namespace FeatherWidgets.TestUI.TestCases.Identity
         Telerik.TestUI.Core.Attributes.KnownIssue(BugId = 206481), Ignore]
         public void VerifyRegistrationWidgetAndProfileWidgetOnPreviewPage()
         {
-            RuntimeSettingsModificator.ExecuteWithClientTimeout(800000, () => BAT.Macros().NavigateTo().CustomPage("~/sitefinity/pages", false));
             RuntimeSettingsModificator.ExecuteWithClientTimeout(800000, () => BAT.Macros().User().EnsureAdminLoggedIn());
+            RuntimeSettingsModificator.ExecuteWithClientTimeout(800000, () => BAT.Macros().NavigateTo().CustomPage("~/sitefinity/pages", false));
             BAT.Macros().NavigateTo().Pages(this.Culture);
             BAT.Wrappers().Backend().Pages().PagesWrapper().OpenPageZoneEditor(PageTitle);
             BAT.Wrappers().Backend().Pages().PagesWrapper().PreviewPage(PageTitle, isEditMode: true);
@@ -37,11 +37,9 @@ namespace FeatherWidgets.TestUI.TestCases.Identity
             ////Verify all required fields message for Registration widget in Preview mode
             BATFeather.Wrappers().Frontend().Identity().RegistrationWrapper().RegisterButton();
             BATFeather.Wrappers().Frontend().Identity().RegistrationWrapper().AssertEmptyEmailFieldMessage();
-            BATFeather.Wrappers().Frontend().Identity().RegistrationWrapper().AssertEmptyUsernameFieldMessage();
             BATFeather.Wrappers().Frontend().Identity().RegistrationWrapper().AssertEmptyPasswordFieldMessage();
             ////Verify successful message for Registration widget in Preview mode
             BATFeather.Wrappers().Frontend().Identity().RegistrationWrapper().FillEmail(Email);
-            BATFeather.Wrappers().Frontend().Identity().RegistrationWrapper().FillUserName(UserName);
             BATFeather.Wrappers().Frontend().Identity().RegistrationWrapper().FillPassword(Password);
             BATFeather.Wrappers().Frontend().Identity().RegistrationWrapper().FillRetypePassword(Password);
             BATFeather.Wrappers().Frontend().Identity().RegistrationWrapper().RegisterButton();

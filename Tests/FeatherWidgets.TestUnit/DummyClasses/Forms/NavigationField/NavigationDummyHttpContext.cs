@@ -14,7 +14,7 @@ namespace FeatherWidgets.TestUnit.DummyClasses.Forms.NavigationField
         public NavigationDummyHttpContext()
             : base()
         {
-            this.user = new GenericPrincipal(new GenericIdentity("admin"), new string[] { "Administrator" });
+            this.user = new GenericPrincipal(new GenericIdentity("admin@test.test"), new string[] { "Administrator" });
         }
 
         /// <inheritDocs />

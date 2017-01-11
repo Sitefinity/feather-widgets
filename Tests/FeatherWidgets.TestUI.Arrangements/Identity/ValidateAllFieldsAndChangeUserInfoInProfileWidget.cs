@@ -21,15 +21,15 @@ namespace FeatherWidgets.TestUI.Arrangements
         [ServerSetUp]
         public void SetUp()
         {
-            AuthenticationHelper.AuthenticateUser(AdminUserName, AdminPass, true);
+            AuthenticationHelper.AuthenticateUser(this.AdminEmail, this.AdminPass, true);
 
             Guid templateId = ServerOperations.Templates().GetTemplateIdByTitle(PageTemplateName);
             Guid pageId = ServerOperations.Pages().CreatePage(PageName, templateId);
             pageId = ServerOperations.Pages().GetPageNodeId(pageId);
             ServerOperationsFeather.Pages().AddProfileWidgetToPage(pageId, PlaceHolderId);
 
-            ServerOperations.Users().CreateUserWithProfileAndRoles(NewUserName, NewUserPassword, NewUserFirstName, NewUserLastName, NewUserEmail, new List<string> { "BackendUsers", "Administrators" });
-            AuthenticationHelper.LogoutUser(AdminUserName);
+            ServerOperations.Users().CreateUserWithProfileAndRoles(NewUserEmail, NewUserPassword, NewUserFirstName, NewUserLastName, new List<string> { "BackendUsers", "Administrators" });
+            AuthenticationHelper.LogoutUser(this.AdminEmail);
         }
 
         /// <summary>
@@ -38,20 +38,17 @@ namespace FeatherWidgets.TestUI.Arrangements
         [ServerTearDown]
         public void TearDown()
         {
-            AuthenticationHelper.AuthenticateUser(AdminUserName, AdminPass, true);
+            AuthenticationHelper.AuthenticateUser(this.AdminEmail, this.AdminPass, true);
             ServerOperations.Pages().DeleteAllPages();
-            ServerOperations.Users().DeleteUserAndProfile(NewUserName);
+            ServerOperations.Users().DeleteUserAndProfile(NewUserEmail);
         }
 
         private const string PageName = "ProfilePage";
         private const string PageTemplateName = "Bootstrap.default";
         private const string PlaceHolderId = "Contentplaceholder1";
-        private const string NewUserName = "newUser";
         private const string NewUserPassword = "password";
         private const string NewUserFirstName = "First name";
         private const string NewUserLastName = "Last name";
-        private const string NewUserEmail = "newuser@test.com";
-        private const string AdminUserName = "admin";
-        private const string AdminPass = "admin@2";
+        private const string NewUserEmail = "newUser@test.test";
     }
 }

@@ -6,8 +6,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Script.Serialization;
 using System.Web.Security;
-
-using ServiceStack.Text;
+using ServiceStack;
 using Telerik.Sitefinity.Abstractions.VirtualPath;
 using Telerik.Sitefinity.Data;
 using Telerik.Sitefinity.Frontend.Identity.Mvc.Models.Profile;
@@ -27,6 +26,12 @@ using Telerik.Sitefinity.Web.Mail;
 using Telerik.Sitefinity.Security.Web.UI;
 using System.ComponentModel.DataAnnotations;
 using Telerik.Sitefinity.Services;
+using Telerik.Sitefinity.Configuration;
+using Telerik.Sitefinity.Security.Configuration.IdentityServer;
+using System.ComponentModel;
+using Telerik.Sitefinity.Security.Claims;
+using Microsoft.Owin.Security;
+using ServiceStack.Text;
 using Telerik.Sitefinity.Security.Events;
 
 namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.Registration
@@ -59,15 +64,6 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.Registration
         }
 
         /// <inheritDoc/>
-        public bool EmailAddressShouldBeTheUsername {
-            get {
-                return this.emailAddressShouldBeTheUsername;
-            }
-            set { this.emailAddressShouldBeTheUsername = value; }
-        }
-
-
-        /// <inheritDoc/>
         public string SerializedSelectedRoles
         {
             get
@@ -80,14 +76,30 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.Registration
                 if (this.serializedSelectedRoles != value)
                 {
                     this.serializedSelectedRoles = value;
-                    if (!this.serializedSelectedRoles.IsNullOrEmpty())
+                    if (!string.IsNullOrEmpty(this.serializedSelectedRoles))
                     {
                         this.selectedRoles = JsonSerializer.DeserializeFromString<IList<Role>>(this.serializedSelectedRoles);
                     }
                 }
             }
         }
-
+        
+        /// <inheritDoc/>
+        public string SerializedExternalProviders
+        {
+            get
+            {
+                return this.serializedExternalProviders;
+            }
+            set
+            {
+                if (this.serializedExternalProviders != value)
+                {
+                    this.serializedExternalProviders = value;
+                }                
+            }
+        }
+        
         /// <inheritDoc/>
         public SuccessfulRegistrationAction SuccessfulRegistrationAction { get; set; }
 
@@ -208,6 +220,12 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.Registration
                 viewModel.MembershipProviderName = this.MembershipProviderName;
                 viewModel.CssClass = this.CssClass;
                 viewModel.SuccessfulRegistrationPageUrl = this.GetPageUrl(this.SuccessfulRegistrationPageId);
+                viewModel.RequiresQuestionAndAnswer = UserManager.GetManager(this.MembershipProviderName).RequiresQuestionAndAnswer;
+
+                if (!string.IsNullOrEmpty(this.serializedExternalProviders))
+                {
+                    viewModel.ExternalProviders = JsonSerializer.DeserializeFromString<Dictionary<string, string>>(this.serializedExternalProviders);
+                }                 
             }
         }
 
@@ -279,6 +297,43 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.Registration
             }
 
             return isSend;
+        }
+
+        /// <summary>
+        /// Authenticates external provider and make IdentityServer challenge
+        /// </summary>
+        /// <param name="input">Provider name.</param>
+        /// <param name="context">Current http context from controller</param>
+        public void AuthenticateExternal(string input, HttpContextBase context)
+        {
+            Telerik.Sitefinity.Web.Url returnUri;            
+
+            if (this.SuccessfulRegistrationAction == SuccessfulRegistrationAction.RedirectToPage)
+            {
+                returnUri = new Telerik.Sitefinity.Web.Url(this.GetPageUrl(this.SuccessfulRegistrationPageId));
+            }                
+            else
+            {
+                returnUri = new Telerik.Sitefinity.Web.Url(context.Request.UrlReferrer.ToString());
+            }
+
+            if (this.SuccessfulRegistrationAction == SuccessfulRegistrationAction.ShowMessage)
+            {
+                returnUri.Query.Add("ShowSuccessfulRegistrationMsg", "true");
+            }
+
+            if (this.ActivationMethod == ActivationMethod.AfterConfirmation)
+            {
+                returnUri.Query.Add("ShowActivationMsg", "true");
+            }
+                        
+            var owinContext = context.Request.GetOwinContext();
+            var selectedRoles = this.selectedRoles.Select(x => x.Name).ToJson();
+
+            var challengeProperties = ChallengeProperties.ForExternalUser(input, returnUri.ToString(), selectedRoles);
+            challengeProperties.RedirectUri = returnUri.ToString();
+
+            owinContext.Authentication.Challenge(challengeProperties, ClaimsManager.CurrentAuthenticationModule.STSAuthenticationType);
         }
 
         /// <summary>
@@ -419,8 +474,15 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.Registration
         /// <param name="status">The status that will be set depending on the creation outcome.</param>
         protected virtual bool TryCreateUser(UserManager manager, RegistrationViewModel userData, out User user, out MembershipCreateStatus status)
         {
-            string username = (userData.EmailAddressShouldBeTheUsername) ? userData.Email : userData.UserName;
-            user = manager.CreateUser(username, userData.Password, userData.Email, null, null, this.ActivationMethod == ActivationMethod.Immediately, null, out status);
+            if (userData.RequiresQuestionAndAnswer)
+            {
+                user = manager.CreateUser(userData.Email, userData.Password, userData.Email, userData.Question, userData.Answer, this.ActivationMethod == ActivationMethod.Immediately, null, out status);
+            }
+            else
+            {
+                user = manager.CreateUser(userData.Email, userData.Password, userData.Email, null, null, this.ActivationMethod == ActivationMethod.Immediately, null, out status);
+            }
+            
             return status == MembershipCreateStatus.Success;
         }
 
@@ -467,7 +529,7 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.Registration
         /// <param name="profileProperties">A dictionary containing the profile properties.</param>
         protected virtual void CreateUserProfiles(User user, IDictionary<string, string> profileProperties)
         {
-            if (this.ProfileBindings.IsNullOrEmpty())
+            if (string.IsNullOrEmpty(this.ProfileBindings))
             {
                 if (!VirtualPathManager.FileExists(RegistrationModel.ProfileBindingsFile))
                     return;
@@ -587,14 +649,14 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.Registration
         private const string ReturnUrlName = "ReturnUrl";
         private const string ProfileBindingsFile = "~/Frontend-Assembly/Telerik.Sitefinity.Frontend.Identity/Mvc/Views/Registration/ProfileBindings.json";
         private const string DefaultSortExpression = "PublicationDate DESC";
-        private bool emailAddressShouldBeTheUsername = false;
 
-        private string serializedSelectedRoles;
+        private string serializedSelectedRoles;        
         private IList<Role> selectedRoles = new List<Role>();
         private Dictionary<string, RoleManager> roleManagersToSubmit = null;
         private Guid? successEmailTemplateId;
         private Guid? confirmationEmailTemplateId;
-
+        private string serializedExternalProviders;
+       
         #endregion
 
         private class Role
@@ -604,6 +666,6 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.Registration
             public string Name { get; set; }
 
             public string ProviderName { get; set; }
-        }
+        }        
     }
 }

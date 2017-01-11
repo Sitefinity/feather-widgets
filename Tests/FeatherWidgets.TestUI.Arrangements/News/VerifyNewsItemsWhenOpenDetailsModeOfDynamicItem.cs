@@ -19,7 +19,7 @@ namespace FeatherWidgets.TestUI.Arrangements
         [ServerSetUp]
         public void SetUp()
         {
-            AuthenticationHelper.AuthenticateUser(AdminUserName, AdminPass, true);
+            AuthenticationHelper.AuthenticateUser(this.AdminEmail, this.AdminPass, true);
             ServerOperationsFeather.DynamicModules().EnsureModuleIsImported(ModuleName, ModuleResource);
             Guid templateId = Telerik.Sitefinity.TestUtilities.CommonOperations.ServerOperations.Templates().GetTemplateIdByTitle(BootstrapTemplate);
             Guid pageId = Telerik.Sitefinity.TestUtilities.CommonOperations.ServerOperations.Pages().CreatePage(PageName, templateId);
@@ -55,8 +55,6 @@ namespace FeatherWidgets.TestUI.Arrangements
             ServerOperationsFeather.DynamicModulePressArticle().DeleteAllDynamicItemsInProvider(providerName);
         }
 
-        private const string AdminUserName = "admin";
-        private const string AdminPass = "admin@2";
         private const string BootstrapTemplate = "Bootstrap.default";
         private const string NewsContent1 = "News content1";
         private const string NewsTitle1 = "NewsTitle1";

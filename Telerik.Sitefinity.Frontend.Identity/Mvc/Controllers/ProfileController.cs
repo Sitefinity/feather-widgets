@@ -3,6 +3,7 @@ using System.ComponentModel;
 using System.Configuration.Provider;
 using System.Reflection;
 using System.Web.Mvc;
+using Telerik.OpenAccess.Exceptions;
 using Telerik.Sitefinity.Frontend.Identity.Mvc.Models.Profile;
 using Telerik.Sitefinity.Frontend.Identity.Mvc.StringResources;
 using Telerik.Sitefinity.Frontend.Mvc.Infrastructure.Controllers;
@@ -134,6 +135,51 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Controllers
         }
 
         /// <summary>
+        /// Edit user's email.
+        /// </summary>
+        /// <returns></returns>
+        [HttpPost]
+        public ActionResult EditEmail(ProfileEmailEditViewModel viewModel)
+        {
+            if (ModelState.IsValid)
+            {
+                try
+                {
+                    var isEmailUpdated = this.Model.EditUserEmail(viewModel);
+
+                    if (!isEmailUpdated)
+                    {
+                        this.ViewBag.ErrorMessage = Res.Get<ProfileResources>().InvalidPassword;
+                    }
+                    else
+                    {
+                        switch (this.Model.SaveChangesAction)
+                        {
+                            case SaveAction.SwitchToReadMode:
+                                return this.ReadProfile();
+                            case SaveAction.ShowMessage:
+                                viewModel.ShowProfileChangedMsg = true;
+                                break;
+                            case SaveAction.ShowPage:
+                                return this.Redirect(this.Model.GetPageUrl(this.Model.ProfileSavedPageId));
+                        }
+                    }
+                }
+                catch (DuplicateKeyException)
+                {
+                    this.ViewBag.ErrorMessage = Res.Get<ProfileResources>().EmailExistsMessage;
+                }
+                catch (ProviderException ex)
+                {
+                    this.ViewBag.ErrorMessage = ex.Message;
+                }
+            }
+
+            var fullTemplateName = ConfirmPasswordModeTemplatePrefix + this.EditModeTemplateName;
+            return this.View(fullTemplateName, viewModel);
+        }
+
+        /// <summary>
         /// Posts the registration form.
         /// </summary>
         /// <param name="viewModel">The view model.</param>
@@ -144,7 +190,7 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Controllers
         public ActionResult Index(ProfileEditViewModel viewModel)
         {
             this.Model.ValidateProfileData(viewModel, this.ModelState);
-            this.Model.InitializeUserRelatedData(viewModel);
+            this.Model.InitializeUserRelatedData(viewModel, false);
 
             if (ModelState.IsValid)
             {
@@ -154,6 +200,16 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Controllers
                     if (!isUpdated)
                     {
                         return this.Content(Res.Get<ProfileResources>().EditNotAllowed);
+                    }
+
+                    if (this.Model.IsEmailChanged(viewModel))
+                    {
+                        return this.View(ConfirmPasswordModeTemplatePrefix + this.EditModeTemplateName,
+                            new ProfileEmailEditViewModel()
+                            {
+                                UserId = viewModel.User.Id,
+                                Email = viewModel.Email
+                            });
                     }
 
                     switch (this.Model.SaveChangesAction)
@@ -170,6 +226,10 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Controllers
                 catch (ProviderException ex)
                 {
                     this.ViewBag.ErrorMessage = ex.Message;
+                }
+                catch (DuplicateKeyException)
+                {
+                    this.ViewBag.ErrorMessage = Res.Get<ProfileResources>().EmailExistsMessage;
                 }
                 catch (Exception)
                 {
@@ -241,6 +301,7 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Controllers
 
         private const string ReadModeTemplatePrefix = "Read.";
         private const string EditModeTemplatePrefix = "Edit.";
+        private const string ConfirmPasswordModeTemplatePrefix = "ConfirmPassword.";
 
         private IProfileModel model;
 

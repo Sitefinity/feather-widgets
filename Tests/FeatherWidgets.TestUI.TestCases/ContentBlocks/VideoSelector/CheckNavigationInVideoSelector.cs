@@ -1,8 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Feather.Widgets.TestUI.Framework;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
@@ -20,7 +17,8 @@ namespace FeatherWidgets.TestUI.TestCases.ContentBlocks.VideoSelector
         [TestMethod,
         Owner(FeatherTeams.SitefinityTeam7),
         TestCategory(FeatherTestCategories.MediaSelector),
-        TestCategory(FeatherTestCategories.ContentBlock)]
+        TestCategory(FeatherTestCategories.ContentBlock),
+        Telerik.TestUI.Core.Attributes.KnownIssue(BugId = 210190)]
         public void CheckNavigationInVideoSelector()
         {
             BAT.Macros().NavigateTo().Pages(this.Culture);
