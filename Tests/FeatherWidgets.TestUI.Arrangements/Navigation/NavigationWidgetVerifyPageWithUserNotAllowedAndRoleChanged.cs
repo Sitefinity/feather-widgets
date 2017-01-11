@@ -25,7 +25,7 @@ namespace FeatherWidgets.TestUI.Arrangements
         {
             string templateName = ServerArrangementContext.GetCurrent().Values["templateName"];
 
-            AuthenticationHelper.AuthenticateUser(AdminUser, AdminPassword);           
+            AuthenticationHelper.AuthenticateUser(this.AdminEmail, this.AdminPass);           
 
             List<string> roles = new List<string>() { Editors, BackendUsers };
 
@@ -33,7 +33,7 @@ namespace FeatherWidgets.TestUI.Arrangements
             Guid pageId = ServerOperations.Pages().CreatePage(HomePage, templateId);
             pageId = ServerOperations.Pages().GetPageNodeId(pageId);
 
-            ServerOperations.Users().CreateUserWithProfileAndRoles(User, Password, User, User, Email, roles);
+            ServerOperations.Users().CreateUserWithProfileAndRoles(Email, Password, Email, Email, roles);
             ServerOperations.Pages().CreatePage(TestPage);
             ServerOperationsFeather.Pages().DenyPermissionsForRole(Editors, RoleProvider, TestPage);
 
@@ -44,9 +44,9 @@ namespace FeatherWidgets.TestUI.Arrangements
         public void ChangeUserRole()
         {
             ServerOperations.Users().LogoutUser();
-            AuthenticationHelper.AuthenticateUser(AdminUser, AdminPassword);
-            ServerOperationsFeather.Users().RemoveUserFromRole(Editors, RoleProvider, User);
-            ServerOperationsFeather.Users().AddUserToRole(Designers, RoleProvider, User);
+            AuthenticationHelper.AuthenticateUser(this.AdminEmail, this.AdminPass);
+            ServerOperationsFeather.Users().RemoveUserFromRole(Editors, RoleProvider, Email);
+            ServerOperationsFeather.Users().AddUserToRole(Designers, RoleProvider, Email);
             ServerOperationsFeather.Pages().RepublishPage(HomePage);
         }
 
@@ -57,16 +57,13 @@ namespace FeatherWidgets.TestUI.Arrangements
         public void TearDown()
         {
             ServerOperations.Users().LogoutUser();
-            AuthenticationHelper.AuthenticateUser(AdminUser, AdminPassword); 
-            ServerOperations.Users().DeleteUserAndProfile(User);
+            AuthenticationHelper.AuthenticateUser(this.AdminEmail, this.AdminPass);
+            ServerOperations.Users().DeleteUserAndProfile(Email);
             ServerOperations.Pages().DeleteAllPages();
         }
 
-        private const string AdminUser = "admin";
-        private const string AdminPassword = "admin@2";
-        private const string User = "editor";
         private const string Password = "password";
-        private const string Email = "editor@test.bg";
+        private const string Email = "editor@test.test";
         private const string Editors = "Editors";
         private const string BackendUsers = "BackendUsers";
         private const string Designers = "Designers";

@@ -39,8 +39,8 @@ namespace FeatherWidgets.TestUI.Arrangements
             ServerOperations.Documents().Upload(LibraryTitle, DocumentTitle + 1, ImageResource1);
             ServerOperations.Documents().Upload(AnotherDocumentLibraryTitle, DocumentTitle + 2, ImageResource2);
 
-            Guid userId1 = ServerOperations.Users().CreateUserWithProfileAndRoles(AuthorUserName1, AuthorPassword1, AuthorFirstName1, AuthorLastName1, AuthorEmail1, new List<string> { RoleName1 });
-            Guid userId2 = ServerOperations.Users().CreateUserWithProfileAndRoles(AuthorUserName2, AuthorPassword2, AuthorFirstName2, AuthorLastName2, AuthorEmail2, new List<string> { RoleName2 });
+            Guid userId1 = ServerOperations.Users().CreateUserWithProfileAndRoles(AuthorEmail1, AuthorPassword1, AuthorFirstName1, AuthorLastName1, new List<string> { RoleName1 });
+            Guid userId2 = ServerOperations.Users().CreateUserWithProfileAndRoles(AuthorEmail2, AuthorPassword2, AuthorFirstName2, AuthorLastName2, new List<string> { RoleName2 });
             ServerOperations.Roles().AssignRoleToUser(RoleName1, userId1);
             ServerOperations.Roles().AssignRoleToUser(RoleName2, userId2);
         }
@@ -63,16 +63,14 @@ namespace FeatherWidgets.TestUI.Arrangements
         public void TearDown()
         {
             ServerOperations.Users().LogoutUser();
-            AuthenticationHelper.AuthenticateUser(AdminUser, AdminPassword); 
+            AuthenticationHelper.AuthenticateUser(this.AdminEmail, this.AdminPass); 
             ServerOperations.Pages().DeleteAllPages();
             ServerOperations.Documents().DeleteAllLibrariesExceptDefaultOne();
-            ServerOperations.Users().DeleteUserAndProfile(AuthorUserName1);
-            ServerOperations.Users().DeleteUserAndProfile(AuthorUserName2);
+            ServerOperations.Users().DeleteUserAndProfile(AuthorEmail1);
+            ServerOperations.Users().DeleteUserAndProfile(AuthorEmail2);
             ServerOperations.Roles().DeleteRoles(new string[] { RoleName1, RoleName2 });
         }
 
-        private const string AdminUser = "admin";
-        private const string AdminPassword = "admin@2";
         private const string PageName = "PageWithDocument";
         private const string LibraryTitle = "TestDocumentLibrary";
         private const string DocumentTitle = "Document";
@@ -80,16 +78,14 @@ namespace FeatherWidgets.TestUI.Arrangements
         private const string ImageResource1 = "Telerik.Sitefinity.TestUtilities.Data.Images.1.jpg";
         private const string ImageResource2 = "Telerik.Sitefinity.TestUtilities.Data.Images.2.jpg";
         private const string PageTemplateName = "Bootstrap.default";
-        private const string AuthorUserName1 = "user1";
         private const string AuthorPassword1 = "admin@2";
         private const string AuthorFirstName1 = "fname1";
         private const string AuthorLastName1 = "lname1";
-        private const string AuthorEmail1 = "user1@test.com";
-        private const string AuthorUserName2 = "user2";
+        private const string AuthorEmail1 = "user1@test.test";
         private const string AuthorPassword2 = "admin@2";
         private const string AuthorFirstName2 = "fname2";
         private const string AuthorLastName2 = "lname2";
-        private const string AuthorEmail2 = "user2@test.com";
+        private const string AuthorEmail2 = "user2@test.test";
         private const string RoleName1 = "TestRole1";
         private const string RoleName2 = "TestRole2";
     }

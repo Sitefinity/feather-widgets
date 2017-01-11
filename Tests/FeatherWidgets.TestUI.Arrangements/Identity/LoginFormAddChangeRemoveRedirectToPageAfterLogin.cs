@@ -37,7 +37,7 @@ namespace FeatherWidgets.TestUI.Arrangements
         [ServerTearDown]
         public void TearDown()
         {
-            AuthenticationHelper.AuthenticateUser(AdminUserName, AdminPass, true);
+            AuthenticationHelper.AuthenticateUser(this.AdminEmail, this.AdminPass, true);
             ServerOperations.Pages().DeleteAllPages();
         }
 
@@ -45,8 +45,6 @@ namespace FeatherWidgets.TestUI.Arrangements
         private const string FirstRedirectPage = "RedirectPage1";
         private const string SecondRedirectPage = "RedirectPage2";
         private const string TemplateTitle = "Bootstrap.default";
-        private const string AdminUserName = "admin";
-        private const string AdminPass = "admin@2";
         private const string PlaceHolderId = "Contentplaceholder1";
     }
 }

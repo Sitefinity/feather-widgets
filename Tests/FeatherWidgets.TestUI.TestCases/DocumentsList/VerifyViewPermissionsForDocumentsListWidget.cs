@@ -41,7 +41,7 @@ namespace FeatherWidgets.TestUI.TestCases.DocumentsList
             BAT.Macros().NavigateTo().CustomPage("~/" + PageName.ToLower(), false, this.Culture);
             BAT.Macros().User().LogOut();
             BAT.Macros().NavigateTo().CustomPage("~/" + PageName.ToLower(), false, this.Culture);
-            BATFeather.Wrappers().Frontend().Identity().LoginFormWrapper().EnterUserName(UserName);
+            BATFeather.Wrappers().Frontend().Identity().LoginFormWrapper().EnterEmail(UserName);
             BATFeather.Wrappers().Frontend().Identity().LoginFormWrapper().EnterPassword(UserPassword);
             BATFeather.Wrappers().Frontend().Identity().LoginFormWrapper().PressLoginButton();
             BAT.Macros().NavigateTo().CustomPage("~/" + PageName.ToLower(), false, this.Culture);

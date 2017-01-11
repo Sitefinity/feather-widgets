@@ -59,11 +59,19 @@ namespace Feather.Widgets.TestUI.Framework.Framework.ElementMap.Identity
         /// <summary>
         /// Gets the logout button.
         /// </summary>
-        public HtmlButton LogoutButton
+        public HtmlAnchor LogoutButton
         {
             get
             {
-                return this.Get<HtmlButton>("TagName=button", "data-sf-role=sf-logged-in-log-out-btn", "InnerText=Logout");
+                return this.LoggedInView.Find.AllByExpression<HtmlAnchor>("InnerText=~Logout").SingleOrDefault();
+            }
+        }
+
+        public HtmlDiv LoggedInView
+        {
+            get
+            {
+                return this.Find.ByExpression<HtmlDiv>("data-sf-role=sf-logged-in-view");
             }
         }
     }

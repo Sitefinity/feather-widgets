@@ -1,8 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Feather.Widgets.TestUI.Framework;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
@@ -58,7 +55,7 @@ namespace FeatherWidgets.TestUI.TestCases.CommentsAndReviews
         private const string WidgetName = "Comments";
         private const string CloseComments = "True";
         private string[] commentToPage = { "Comment to page published comment" };
-        private string[] commentAuthor = { "admin" };
+        private string[] commentAuthor = { FeatherTestCase.AdminNickname };
         private const string CommentsCount = "1comment";
     }
 }

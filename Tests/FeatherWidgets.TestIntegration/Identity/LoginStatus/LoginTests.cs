@@ -196,8 +196,7 @@ namespace FeatherWidgets.TestIntegration.Identity.LoginStatus
                 var absoluteUrl = UrlPath.GetDomainUrl() + "/Sitefinity/Authenticate/SWT";
                 var mvcProxy = new MvcControllerProxy();
                 mvcProxy.ControllerName = typeof(LoginStatusController).FullName;
-                var loginStatusController = new LoginStatusController();
-                loginStatusController.Model.AllowWindowsStsLogin = true;
+                var loginStatusController = new LoginStatusController();                
                 mvcProxy.Settings = new ControllerSettings(loginStatusController);
 
                 pageOperations.CreatePageWithControl(mvcProxy, this.pageNamePrefix, this.pageTitlePrefix, this.urlNamePrefix, this.pageIndex);
@@ -272,7 +271,7 @@ namespace FeatherWidgets.TestIntegration.Identity.LoginStatus
                     pageOperations.CreatePageWithControl(mvcProxy, this.pageNamePrefix, this.pageTitlePrefix, this.urlNamePrefix, this.pageIndex);
 
                     var responseContent = PageInvoker.ExecuteWebRequest(logoutStatusPageUrl);
-                    Assert.IsTrue(responseContent.Contains(HttpUtility.UrlEncode(absoluteUrl)), "Logout redirect url is not as expected");
+                    Assert.IsTrue(responseContent.Contains(absoluteUrl), "Logout redirect url is not as expected");
                 }
                 finally
                 {
@@ -338,13 +337,12 @@ namespace FeatherWidgets.TestIntegration.Identity.LoginStatus
         [Description("Test that Status has available endpoint.")]
         [Test]
         public void Status_TestRouting_Available()
-        {
-            HttpContext.Current.Request.Headers["Authorization"] = string.Empty;
+        {            
             string statusUrl = UrlPath.ResolveAbsoluteUrl("~/rest-api/login-status");
             var responseContent = PageInvoker.ExecuteWebRequest(statusUrl);
             var statusResponse = Json.Decode(responseContent, typeof(StatusViewModel));
 
-            Assert.IsFalse(statusResponse.IsLoggedIn);
+            Assert.IsTrue(statusResponse.IsLoggedIn);
         }
 
         #endregion
