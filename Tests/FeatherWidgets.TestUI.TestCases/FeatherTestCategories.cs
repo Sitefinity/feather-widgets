@@ -14,6 +14,11 @@ namespace FeatherWidgets.TestUI.TestCases
         /// Pages and content category
         /// </summary>
         public const string PagesAndContent = "PagesAndContent";
+        
+        /// <summary>
+        /// Common category
+        /// </summary>
+        public const string Common = "Common";
 
         /// <summary>
         /// Content block category
@@ -134,6 +139,11 @@ namespace FeatherWidgets.TestUI.TestCases
         /// New category for Users list tests
         /// </summary>
         public const string UsersList = "UsersList";
+
+        /// <summary>
+        /// New category for Identity tests
+        /// </summary>
+        public const string Identity = "Identity";
 
         /// <summary>
         /// New category for Comments and Reviews tests

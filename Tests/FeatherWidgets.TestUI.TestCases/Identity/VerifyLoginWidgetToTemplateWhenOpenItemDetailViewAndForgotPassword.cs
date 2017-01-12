@@ -19,6 +19,7 @@ namespace FeatherWidgets.TestUI.TestCases.Identity
         Owner(FeatherTeams.FeatherTeam),
         TestCategory(FeatherTestCategories.PagesAndContent),
         TestCategory(FeatherTestCategories.LoginForm),
+        TestCategory(FeatherTestCategories.Identity),
         TestCategory(FeatherTestCategories.Bootstrap)]
         public void VerifyLoginWidgetToTemplateWhenOpenItemDetailViewAndForgotPassword()
         {

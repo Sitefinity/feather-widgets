@@ -18,6 +18,8 @@ namespace FeatherWidgets.TestUI.TestCases.Identity
         [TestMethod,
         Owner(FeatherTeams.SitefinityTeam4),
         TestCategory(FeatherTestCategories.PagesAndContent),
+        TestCategory(FeatherTestCategories.Identity),
+        TestCategory(FeatherTestCategories.Registration),
         TestCategory(FeatherTestCategories.Bootstrap)]
         public void VerifyRegistrationWidgetAndProfileWidgetOnPreviewHybridTemplate()
         {

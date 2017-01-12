@@ -21,6 +21,7 @@ namespace FeatherWidgets.TestUI.TestCases.Identity
         Owner(FeatherTeams.SitefinityTeam4),
         TestCategory(FeatherTestCategories.PagesAndContent),
         TestCategory(FeatherTestCategories.Registration),
+        TestCategory(FeatherTestCategories.Identity),
         TestCategory(FeatherTestCategories.Bootstrap),
         Telerik.TestUI.Core.Attributes.KnownIssue(BugId = 206477), Ignore]
         public void RegisterNewBackendUserWithAdministratorRole()

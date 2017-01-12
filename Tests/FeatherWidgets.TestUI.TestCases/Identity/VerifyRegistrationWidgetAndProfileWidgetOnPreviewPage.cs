@@ -22,6 +22,8 @@ namespace FeatherWidgets.TestUI.TestCases.Identity
         [TestMethod,
         Owner(FeatherTeams.SitefinityTeam4),
         TestCategory(FeatherTestCategories.PagesAndContent),
+        TestCategory(FeatherTestCategories.Identity),
+        TestCategory(FeatherTestCategories.Registration),
         TestCategory(FeatherTestCategories.Bootstrap),
         Telerik.TestUI.Core.Attributes.KnownIssue(BugId = 206481), Ignore]
         public void VerifyRegistrationWidgetAndProfileWidgetOnPreviewPage()
