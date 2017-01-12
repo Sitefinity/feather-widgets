@@ -65,7 +65,7 @@ namespace FeatherWidgets.TestUI.Arrangements
         [ServerTearDown]
         public void TearDown()
         {
-            AuthenticationHelper.AuthenticateUser("admin", "admin@2", true);
+            AuthenticationHelper.AuthenticateUser(this.AdminEmail, this.AdminPass, true);
             ServerOperations.Comments().SetCommentsNotificationProfile("Default");
 
             // Use the following line once the Sitefinity is updated to 9.0.

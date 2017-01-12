@@ -23,8 +23,8 @@ namespace FeatherWidgets.TestUI.TestCases.Identity
         TestCategory(FeatherTestCategories.Bootstrap)]
         public void VerifyLoginWidgetToTemplateWhenOpenItemDetailViewAndForgotPassword()
         {
-            RuntimeSettingsModificator.ExecuteWithClientTimeout(800000, () => BAT.Macros().NavigateTo().CustomPage("~/sitefinity/pages", false));
             RuntimeSettingsModificator.ExecuteWithClientTimeout(800000, () => BAT.Macros().User().EnsureAdminLoggedIn());
+            RuntimeSettingsModificator.ExecuteWithClientTimeout(800000, () => BAT.Macros().NavigateTo().CustomPage("~/sitefinity/pages", false));
             BAT.Macros().NavigateTo().Design().PageTemplates(this.Culture);
             BAT.Wrappers().Backend().PageTemplates().PageTemplateMainScreen().OpenTemplateEditor(TemplateTitle);
             BATFeather.Wrappers().Backend().Pages().PageZoneEditorWrapper().AddWidgetToPlaceHolderPureMvcMode(LoginStatusWidget, "Body");
@@ -95,7 +95,6 @@ namespace FeatherWidgets.TestUI.TestCases.Identity
 
         private const string TemplateTitle = "TestTemplatePureMVC";
         private const string PageTitle = "TestPageWithBlogPostsWidget";
-        private const string BlogTitle = "TestBlog";
         private const string PostTitle = "post1";
         private const string LogoutText = "Logout";
         private const string LoginText = "Login";

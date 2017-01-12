@@ -18,7 +18,7 @@ namespace FeatherWidgets.TestUI.Arrangements
         [ServerSetUp]
         public void SetUp()
         {
-            AuthenticationHelper.AuthenticateUser(AdminUserName, AdminPass, true);
+            AuthenticationHelper.AuthenticateUser(this.AdminEmail, this.AdminPass, true);
             ServerOperations.ContentBlocks().CreateSecondDataProvider();
             Guid page1Id = ServerOperations.Pages().CreatePage(PageName);
             var providerName = ContentManager.GetManager().Provider.Name;
@@ -39,8 +39,6 @@ namespace FeatherWidgets.TestUI.Arrangements
             ServerOperations.ContentBlocks().RemoveSecondDataProvider();
         }
 
-        private const string AdminUserName = "admin";
-        private const string AdminPass = "admin@2";
         private const string PageName = "ContentBlock";
         private const string SecondProviderName = "ContentSecondDataProvider";
         private const string Content = "";

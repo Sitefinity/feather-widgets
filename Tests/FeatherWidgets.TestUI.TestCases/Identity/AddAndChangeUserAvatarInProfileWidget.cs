@@ -75,7 +75,7 @@ namespace FeatherWidgets.TestUI.TestCases.Identity
 
         private const string PageName = "ProfilePage";
         private const string LoginPage = "Sitefinity";
-        private const string UserName = "newUser";
+        private const string UserName = "newUser@test.test";
         private const string UserPassword = "password";
         private const string FileToUpload = "IMG01648.jpg";
     }

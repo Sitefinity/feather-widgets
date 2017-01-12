@@ -99,18 +99,22 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Controllers
             if (ModelState.IsValid)
             {
                 model = this.Model.Authenticate(model, this.ControllerContext.HttpContext);
-
-                if (!model.IncorrectCredentials && !string.IsNullOrWhiteSpace(model.RedirectUrlAfterLogin))
-                {
-                    //Redirect to RedirectUrlAfterLogin url value. The value is already checked in the model if it's come from query string parameter.
-                    return this.Redirect(model.RedirectUrlAfterLogin);
-                }
             }
 
             this.Model.InitializeLoginViewModel(model);
 
             var fullTemplateName = this.loginFormTemplatePrefix + this.LoginFormTemplate;
             return this.View(fullTemplateName, model);
+        }
+
+        public ActionResult LoginExternalProvider(string model)
+        {
+            if (!string.IsNullOrEmpty(model))
+            {
+                this.Model.AuthenticateExternal(model, this.ControllerContext.HttpContext);
+            }
+
+            return new EmptyResult();
         }
 
         public ActionResult ForgotPassword(bool emailSent = false, string email = null, bool emailNotFound = false, string error = null)

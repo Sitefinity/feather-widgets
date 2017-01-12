@@ -32,8 +32,8 @@ namespace FeatherWidgets.TestIntegration.Identity.Registration
         public void TearDown()
         {
             EventHub.Unsubscribe<UserRegistered>(this.userRegisteredEventHandler);
-            ServerOperations.Users().DeleteUserAndProfile(this.validModel.UserName);
-            ServerOperations.Users().DeleteUserAndProfile(this.invalidModel.UserName);
+            ServerOperations.Users().DeleteUserAndProfile(this.validModel.Email);
+            ServerOperations.Users().DeleteUserAndProfile(this.invalidModel.Email);
             this.eventRaised = false;
         }
 
@@ -79,7 +79,6 @@ namespace FeatherWidgets.TestIntegration.Identity.Registration
         private Func<bool> isUserRegisteredEventRaised;
         private RegistrationViewModel validModel = new RegistrationViewModel()
         {
-            UserName = "Dummy2",
             Email = "dummy2@dummy.com",
             Password = "admin@2",
             ReTypePassword = "admin@2"
@@ -87,7 +86,6 @@ namespace FeatherWidgets.TestIntegration.Identity.Registration
 
         private RegistrationViewModel invalidModel = new RegistrationViewModel()
         {
-            UserName = "Dummy",
             Email = "invalidmail",
             Password = "a",
             ReTypePassword = "admi"

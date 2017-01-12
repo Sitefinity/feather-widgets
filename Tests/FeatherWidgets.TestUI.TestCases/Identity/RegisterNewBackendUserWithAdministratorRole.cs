@@ -41,18 +41,17 @@ namespace FeatherWidgets.TestUI.TestCases.Identity
             BATFeather.Wrappers().Frontend().Identity().RegistrationWrapper().FillFirstName(FirstName);
             BATFeather.Wrappers().Frontend().Identity().RegistrationWrapper().FillLastName(LastName);
             BATFeather.Wrappers().Frontend().Identity().RegistrationWrapper().FillEmail(Email);
-            BATFeather.Wrappers().Frontend().Identity().RegistrationWrapper().FillUserName(UserName);
             BATFeather.Wrappers().Frontend().Identity().RegistrationWrapper().FillPassword(Password);
             BATFeather.Wrappers().Frontend().Identity().RegistrationWrapper().FillRetypePassword(Password);
             BATFeather.Wrappers().Frontend().Identity().RegistrationWrapper().RegisterButton();
             BATFeather.Wrappers().Frontend().Identity().RegistrationWrapper().VerifySuccessfullyMessage();
 
             BAT.Macros().NavigateTo().CustomPage("~/" + LoginPage.ToLower());
-            BAT.Wrappers().Backend().LoginView().LoginViewWrapper().SetUsername(UserName);
+            BAT.Wrappers().Backend().LoginView().LoginViewWrapper().SetUsername(Email);
             BAT.Wrappers().Backend().LoginView().LoginViewWrapper().SetPassword(Password);
             BAT.Wrappers().Backend().LoginView().LoginViewWrapper().ExecuteLogin();
             BAT.Macros().NavigateTo().UsersManagement().Users();
-            Assert.IsTrue(BAT.Wrappers().Backend().Users().UsersWrapper().IsUserPresentInGrid(UserName), "Registered user was not found in the grid");
+            Assert.IsTrue(BAT.Wrappers().Backend().Users().UsersWrapper().IsUserPresentInGrid(Email), "Registered user was not found in the grid");
             BAT.Macros().User().LogOut();
         }
 
@@ -78,8 +77,7 @@ namespace FeatherWidgets.TestUI.TestCases.Identity
         private const string SelectedRoles = "Administrators";
         private const string FirstName = "FirstName";
         private const string LastName = "LastName";
-        private const string Email = "user@test.com";
-        private const string UserName = "newUser";
+        private const string Email = "user@test.test";
         private const string Password = "password";
         private const string LoginPage = "Sitefinity";
     }
