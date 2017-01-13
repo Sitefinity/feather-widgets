@@ -118,7 +118,7 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.LoginForm
         /// <returns>
         /// An instance of <see cref="ForgotPasswordViewModel"/>
         /// </returns>
-        ForgotPasswordViewModel GetForgotPasswordViewModel(string email, bool emailNotFound, bool emailSent, string error);
+        ForgotPasswordViewModel GetForgotPasswordViewModel(string email, bool emailSent, string error);
         
         /// <summary>
         /// Tries the reset user password.

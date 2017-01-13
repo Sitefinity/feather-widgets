@@ -690,22 +690,6 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.StringResources
         }
 
         /// <summary>
-        /// phrase: {0} does not exist
-        /// </summary>
-        /// <value>{0} does not exist</value>
-        [ResourceEntry("DoesNotExist",
-            Value = "{0} does not exist",
-            Description = "phrase: {0} does not exist",
-            LastModified = "2015/03/13")]
-        public string DoesNotExist
-        {
-            get
-            {
-                return this["DoesNotExist"];
-            }
-        }
-
-        /// <summary>
         /// Gets phrase: Allow users to log in with...
         /// </summary>
         [ResourceEntry("ExternalProvidersLoginOptions",
