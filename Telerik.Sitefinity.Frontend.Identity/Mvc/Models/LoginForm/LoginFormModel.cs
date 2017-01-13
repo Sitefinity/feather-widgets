@@ -162,7 +162,7 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.LoginForm
         }
 
         /// <inheritDoc/>
-        public virtual ForgotPasswordViewModel GetForgotPasswordViewModel(string email = null, bool emailNotFound = false, bool emailSent = false, string error = null)
+        public virtual ForgotPasswordViewModel GetForgotPasswordViewModel(string email = null, bool emailSent = false, string error = null)
         {
             return new ForgotPasswordViewModel()
             {
@@ -170,7 +170,6 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.LoginForm
                 LoginPageUrl = this.GetPageUrl(null),
                 EmailSent = emailSent,
                 Error = error,
-                EmailNotFound = emailNotFound,
                 Email = email
             };
         }
@@ -236,7 +235,8 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.LoginForm
             }
             else
             {
-                viewModel.EmailNotFound = true;
+                // If user is not found, always send correct message (for security)
+                viewModel.EmailSent = true;
             }
 
             return viewModel;
