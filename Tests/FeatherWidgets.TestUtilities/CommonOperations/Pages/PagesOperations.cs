@@ -756,7 +756,10 @@ namespace FeatherWidgets.TestUtilities.CommonOperations
         /// </summary>
         public void DeletePages()
         {
-            this.locationGenerator.Dispose();
+            if (this.locationGenerator != null)
+            {
+                this.locationGenerator.Dispose();
+            }
         }
 
         /// <summary>
@@ -964,6 +967,13 @@ namespace FeatherWidgets.TestUtilities.CommonOperations
             var draftControlDefault = pageManager.CreateControl<PageDraftControl>(mvcWidget, placeholder);
             draftControlDefault.Caption = widgetCaption;
             pageManager.SetControlDefaultPermissions(draftControlDefault);
+            var firstControl = page.Controls.FirstOrDefault(c => c.PlaceHolder == placeholder && c.SiblingId == Guid.Empty);
+            if (firstControl != null)
+            {
+                draftControlDefault.SiblingId = Guid.Empty;
+                firstControl.SiblingId = draftControlDefault.Id;
+            }
+
             page.Controls.Add(draftControlDefault);
 
             pageManager.PublishPageDraft(page, CultureInfo.CurrentUICulture);

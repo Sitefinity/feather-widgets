@@ -582,9 +582,9 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.StringResources
         /// </summary>
         /// <value>Incorrect Username/Password Combination</value>
         [ResourceEntry("IncorrectCredentialsMessage",
-            Value = "Incorrect Username/Password Combination",
-            Description = "phrase: Incorrect Username/Password Combination",
-            LastModified = "2015/03/06")]
+            Value = "Incorrect credentials",
+            Description = "phrase: Incorrect credentials",
+            LastModified = "2016/12/09")]
         public string IncorrectCredentialsMessage
         {
             get
@@ -614,14 +614,30 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.StringResources
         /// </summary>
         /// <value>Username</value>
         [ResourceEntry("Username",
-            Value = "Username",
-            Description = "phrase: Username",
-            LastModified = "2015/03/09")]
+            Value = "Email / Username",
+            Description = "phrase: Email / Username",
+            LastModified = "2016/12/12")]
         public string Username
         {
             get
             {
                 return this["Username"];
+            }
+        }
+
+        /// <summary>
+        /// phrase: Email
+        /// </summary>
+        /// <value>Email</value>
+        [ResourceEntry("Email",
+            Value = "Email",
+            Description = "phrase: Email",
+            LastModified = "2016/12/23")]
+        public string Email
+        {
+            get
+            {
+                return this["Email"];
             }
         }
 
@@ -674,18 +690,62 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.StringResources
         }
 
         /// <summary>
-        /// phrase: {0} does not exist
+        /// Gets phrase: Allow users to log in with...
         /// </summary>
-        /// <value>{0} does not exist</value>
-        [ResourceEntry("DoesNotExist",
-            Value = "{0} does not exist",
-            Description = "phrase: {0} does not exist",
-            LastModified = "2015/03/13")]
-        public string DoesNotExist
+        [ResourceEntry("ExternalProvidersLoginOptions",
+            Value = "Allow users to log in with...",
+            Description = "phrase : Allow users to log in with...",
+            LastModified = "2016/12/15")]
+        public string ExternalProvidersLoginOptions
         {
             get
             {
-                return this["DoesNotExist"];
+                return this["ExternalProvidersLoginOptions"];
+            }
+        }
+
+        /// <summary>
+        /// phrase : Or
+        /// </summary>
+        [ResourceEntry("Or",
+            Value = "Or",
+            Description = "phrase : Or",
+            LastModified = "2016/12/16")]
+        public string Or
+        {
+            get
+            {
+                return this["Or"];
+            }
+        }
+
+        /// <summary>
+        /// phrase : UseAccountIn
+        /// </summary>
+        [ResourceEntry("UseAccountIn",
+            Value = "Or use account in...",
+            Description = "phrase : Or use account in...",
+            LastModified = "2016/12/16")]
+        public string UseAccountIn
+        {
+            get
+            {
+                return this["UseAccountIn"];
+            }
+        }
+
+        /// <summary>
+        /// phrase : NotRegisteredYet
+        /// </summary>
+        [ResourceEntry("NotRegisteredYet",
+            Value = "Not registered yet?",
+            Description = "phrase : Not registered yet?",
+            LastModified = "2016/12/16")]
+        public string NotRegisteredYet
+        {
+            get
+            {
+                return this["NotRegisteredYet"];
             }
         }
     }

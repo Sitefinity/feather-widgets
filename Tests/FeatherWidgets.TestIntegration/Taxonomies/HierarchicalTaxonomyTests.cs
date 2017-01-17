@@ -47,7 +47,7 @@ namespace FeatherWidgets.TestIntegration.Taxonomies
                 var newsItemId = Guid.NewGuid();
                 newsOperations.CreateNewsItem("n1", newsItemId);
 
-                taxonomyOperations.AddTaxonsToNews(newsItemId, new string[] { "c3", "c3c2c1" }, new string[0]);
+                taxonomyOperations.AddTaxonsToNews(newsItemId, new string[] { "c1", "c3", "c3c2c1" }, new string[0]);
 
                 var newsManager = NewsManager.GetManager();
 

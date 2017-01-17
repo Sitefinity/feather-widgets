@@ -19,7 +19,7 @@ namespace FeatherWidgets.TestUI.TestCases.ContentBlocks.ImageSelector
         /// </summary>
         [TestMethod,
         Owner(FeatherTeams.SitefinityTeam7),
-        TestCategory(FeatherTestCategories.MediaSelector),
+        //TestCategory(FeatherTestCategories.MediaSelector),
         TestCategory(FeatherTestCategories.ContentBlock)]
         public void EditAndChangeSelectedImage()
         {

@@ -74,32 +74,39 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Controllers
         [HttpPost]
         public ActionResult Index(FormCollection collection)
         {
-            var success = this.Model.TrySubmitForm(collection, this.Request != null ? this.Request.Files : null, this.Request != null ? this.Request.UserHostAddress : null);
-
-            if (success == SubmitStatus.Success && this.Model.NeedsRedirect)
+            if (!this.ViewData.ContainsKey(FormController.ShouldProcessRequestKey) || (bool)this.ViewData[FormController.ShouldProcessRequestKey])
             {
+                var success = this.Model.TrySubmitForm(collection, this.Request != null ? this.Request.Files : null, this.Request != null ? this.Request.UserHostAddress : null);
+
+                if (success == SubmitStatus.Success && this.Model.NeedsRedirect)
+                {
+                    if (this.Model.RaiseBeforeFormActionEvent())
+                    {
+                        return this.Redirect(this.Model.GetRedirectPageUrl());
+                    }
+                    else
+                    {
+                        return this.Index();
+                    }
+                }
+
                 if (this.Model.RaiseBeforeFormActionEvent())
-                {
-                    return this.Redirect(this.Model.GetRedirectPageUrl());
-                }
+				{
+					var resultMessage = this.Model.GetSubmitMessage(success);
+					this.ViewBag.SubmitMessage = resultMessage;
+
+					var viewTemplatePath = FormController.TemplateNamePrefix + FormController.SubmitResultTemplateName;
+					return this.View(viewTemplatePath);
+				}
                 else
-                {
+				{
                     return this.Index();
-                }
+				}
             }
-
-            if (this.Model.RaiseBeforeFormActionEvent())
-            {
-                var resultMessage = this.Model.GetSubmitMessage(success);
-                this.ViewBag.SubmitMessage = resultMessage;
-
-                var viewTemplatePath = FormController.TemplateNamePrefix + FormController.SubmitResultTemplateName;
-                return this.View(viewTemplatePath);
-            }
-            else
-            {
-                return this.Index();
-            }
+			else
+			{
+				return this.Index();
+			}
         }
 
         /// <summary>
@@ -158,7 +165,7 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Controllers
         /// <param name="actionName">The name of the attempted action.</param>
         protected override void HandleUnknownAction(string actionName)
         {
-            this.Index().ExecuteResult(this.ControllerContext);
+            this.ActionInvoker.InvokeAction(this.ControllerContext, "Index");
         }
 
         #endregion
@@ -187,11 +194,11 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Controllers
 
         #region Private fields and constants
 
+        private IFormModel model;
+        private const string ShouldProcessRequestKey = "should-process-request";
         internal const string WidgetIconCssClass = "sfFormsIcn sfMvcIcn";
         internal const string TemplateNamePrefix = "Form.";
-        internal const string SubmitResultTemplateName = "SubmitResultView";
-
-        private IFormModel model;
+        internal const string SubmitResultTemplateName = "SubmitResultView";        
 
         #endregion
     }

@@ -1,8 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using ArtOfTest.WebAii.Core;
 using Feather.Widgets.TestUI.Framework;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -62,7 +59,7 @@ namespace FeatherWidgets.TestUI.TestCases.CommentsAndReviews
         private const string PageName = "CommentsPage";
         private const string LeaveAComment = "Leave a comment";
         private string[] commentToPage = { "Comment to page" };
-        private string[] commentAuthor = { "admin" };
+        private string[] commentAuthor = { FeatherTestCase.AdminNickname };
         private const string CommentStatus = "Published";
         private const string CommentsCount = "1 comment";
         private const string CommentsMessage = "Leave a comment";

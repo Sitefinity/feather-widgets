@@ -25,16 +25,16 @@ namespace FeatherWidgets.TestUI.TestCases.Events
             BATFeather.Wrappers().Backend().Pages().PageZoneEditorWrapper().AddWidgetToPlaceHolderPureMvcMode(WidgetName);
             BAT.Wrappers().Backend().Pages().PageZoneEditorWrapper().CheckWidgetContent(WidgetName, EventsTitle);
             BAT.Wrappers().Backend().Pages().PageZoneEditorWrapper().PublishPage();
-            this.VerifyNewsOnTheFrontend();
+            this.VerifyEventsOnTheFrontend();
         }
 
         /// <summary>
-        /// Verify news widget on the frontend
+        /// Verify events widget on the frontend
         /// </summary>
-        public void VerifyNewsOnTheFrontend()
+        public void VerifyEventsOnTheFrontend()
         {
             BAT.Macros().NavigateTo().CustomPage("~/" + PageName.ToLower(), true, this.Culture);
-            Assert.IsTrue(BATFeather.Wrappers().Frontend().News().NewsWrapper().IsNewsTitlesPresentOnThePageFrontend(this.eventsTitles));
+            Assert.IsTrue(BATFeather.Wrappers().Frontend().Events().EventsWrapper().AreEventTitlesPresentOnThePageFrontend(this.eventsTitles));
         }
 
         /// <summary>
@@ -54,7 +54,7 @@ namespace FeatherWidgets.TestUI.TestCases.Events
             BAT.Arrange(this.TestName).ExecuteTearDown();
         }
 
-        private const string PageName = "Events";
+        private const string PageName = "EventsPage";
         private const string WidgetName = "Events";
         private const string EventsTitle = "EventsTitle";
         private readonly string[] eventsTitles = new string[] { EventsTitle };

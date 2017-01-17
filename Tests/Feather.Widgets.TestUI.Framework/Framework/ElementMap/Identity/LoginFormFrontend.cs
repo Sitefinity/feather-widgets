@@ -74,7 +74,7 @@ namespace Feather.Widgets.TestUI.Framework.Framework.ElementMap.Identity
         {
             get
             {
-                return this.Get<HtmlSpan>("TagName=span", "InnerText=The Username field is required.");
+                return this.Get<HtmlSpan>("TagName=span", "InnerText=The Email / Username field is required.");
             } 
         }
 
@@ -96,7 +96,7 @@ namespace Feather.Widgets.TestUI.Framework.Framework.ElementMap.Identity
         {
             get
             {
-                return this.Get<HtmlSpan>("TagName=span", "InnerText=Incorrect Username/Password Combination");
+                return this.Get<HtmlSpan>("TagName=span", "InnerText=Incorrect credentials");
             }
         }
 

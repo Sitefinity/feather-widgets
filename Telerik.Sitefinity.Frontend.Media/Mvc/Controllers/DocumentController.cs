@@ -210,7 +210,7 @@ namespace Telerik.Sitefinity.Frontend.Media.Mvc.Controllers
         {
             ContentLocationHelper.HandlePreview<Telerik.Sitefinity.Libraries.Model.Document>(HttpContext.Request, this.Model.Id, this.Model.ProviderName);
 
-            this.Index().ExecuteResult(this.ControllerContext);
+            this.ActionInvoker.InvokeAction(this.ControllerContext, "Index");
         }
 
         #endregion

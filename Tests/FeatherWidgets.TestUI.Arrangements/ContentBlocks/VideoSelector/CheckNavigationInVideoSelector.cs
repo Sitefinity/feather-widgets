@@ -28,9 +28,9 @@ namespace FeatherWidgets.TestUI.Arrangements
             var nextChildId = ServerOperations.Videos().CreateFolder(NextChildLibraryTitle, childId);
             ServerOperations.Videos().Upload(VideoLibraryTitle, VideoTitle + 1, VideoResource);
             ServerOperationsFeather.MediaOperations().UploadVideoInFolder(childId, VideoTitle + 2, VideoResourceChild);
-            ServerOperations.Users().CreateUserWithProfileAndRoles("administrator", "password", "Administrator", "User", "administrator@test.test", new List<string> { "BackendUsers", "Administrators" });
+            ServerOperations.Users().CreateUserWithProfileAndRoles(this.AdninistratorEmail, "password", "Administrator", "User", new List<string> { "BackendUsers", "Administrators" });
 
-            AuthenticationHelper.AuthenticateUser("administrator", "password", true);
+            AuthenticationHelper.AuthenticateUser(this.AdninistratorEmail, "password", true);
             ServerOperationsFeather.MediaOperations().UploadVideoInFolder(nextChildId, VideoTitle + 3, VideoResourceNextChild);
         }
 
@@ -42,7 +42,7 @@ namespace FeatherWidgets.TestUI.Arrangements
         public void TearDown()
         {
             ServerOperations.Pages().DeleteAllPages();
-            ServerOperations.Users().DeleteUserAndProfile("administrator");
+            ServerOperations.Users().DeleteUserAndProfile(this.AdninistratorEmail);
             ServerOperations.Videos().DeleteAllLibrariesExceptDefaultOne();
         }
 

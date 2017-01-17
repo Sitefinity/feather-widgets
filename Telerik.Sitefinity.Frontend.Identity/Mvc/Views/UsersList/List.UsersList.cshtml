@@ -5,6 +5,7 @@
 @using Telerik.Sitefinity.Modules.Pages;
 @using Telerik.Sitefinity.Web.DataResolving;
 @using Telerik.Sitefinity.Security.Model;
+@using Telerik.Sitefinity.Frontend.Identity.Mvc.Helpers;
 @using Telerik.Sitefinity.Frontend.Identity.Mvc.Models.UsersList;
 @using Telerik.Sitefinity.Services;
 @using Telerik.Sitefinity.Modules.UserProfiles;
@@ -22,7 +23,7 @@
                 <img src="@((item as SitefinityProfileItemViewModel).AvatarImageUrl)" alt="@item.Fields.FirstName" width="100" height="100" />
 
                 <h3>
-                    <a href="@HyperLinkHelpers.GetDetailPageUrl(item, ViewBag.DetailsPageId, ViewBag.OpenInSamePage)">
+                    <a href="@UsersHelper.EncodeUrlUsername(HyperLinkHelpers.GetDetailPageUrl(item, ViewBag.DetailsPageId, ViewBag.OpenInSamePage), item as SitefinityProfileItemViewModel)">
                         @(((SitefinityProfile)item.DataItem).GetUserDisplayName())
                     </a>
                 </h3>
