@@ -194,15 +194,11 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Controllers
 
         #region Private fields and constants
 
-        internal const string WidgetIconCssClass = "sfFormsIcn sfMvcIcn";
-<<<<<<< HEAD
-        private const string ShouldProcessRequestKey = "should-process-request";
-=======
-        internal const string TemplateNamePrefix = "Form.";
-        internal const string SubmitResultTemplateName = "SubmitResultView";
->>>>>>> master
-
         private IFormModel model;
+        private const string ShouldProcessRequestKey = "should-process-request";
+        internal const string WidgetIconCssClass = "sfFormsIcn sfMvcIcn";
+        internal const string TemplateNamePrefix = "Form.";
+        internal const string SubmitResultTemplateName = "SubmitResultView";        
 
         #endregion
     }
