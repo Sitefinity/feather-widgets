@@ -91,14 +91,22 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Controllers
                 }
 
                 if (this.Model.RaiseBeforeFormActionEvent())
-                    return this.Content(this.Model.GetSubmitMessage(success));
+				{
+					var resultMessage = this.Model.GetSubmitMessage(success);
+					this.ViewBag.SubmitMessage = resultMessage;
+
+					var viewTemplatePath = FormController.TemplateNamePrefix + FormController.SubmitResultTemplateName;
+					return this.View(viewTemplatePath);
+				}
                 else
+				{
                     return this.Index();
+				}
             }
-            else
-            {
-                return this.Index();
-            }
+			else
+			{
+				return this.Index();
+			}
         }
 
         /// <summary>
@@ -187,7 +195,12 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Controllers
         #region Private fields and constants
 
         internal const string WidgetIconCssClass = "sfFormsIcn sfMvcIcn";
+<<<<<<< HEAD
         private const string ShouldProcessRequestKey = "should-process-request";
+=======
+        internal const string TemplateNamePrefix = "Form.";
+        internal const string SubmitResultTemplateName = "SubmitResultView";
+>>>>>>> master
 
         private IFormModel model;
 

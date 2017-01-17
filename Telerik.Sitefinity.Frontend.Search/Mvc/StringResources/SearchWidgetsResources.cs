@@ -657,7 +657,6 @@ namespace Telerik.Sitefinity.Frontend.Search.Mvc.StringResources
                 return this["BackgroundHint"];
             }
         }
-        #endregion
 
         /// <summary>
         /// phrase: Sort dropdown
@@ -674,5 +673,39 @@ namespace Telerik.Sitefinity.Frontend.Search.Mvc.StringResources
                 return this["SortDropdown"];
             }
         }
+
+        /// <summary>
+        /// word: Next
+        /// </summary>
+        /// <value>Next</value>
+        [ResourceEntry("Next",
+            Value = "Next",
+            Description = "word: Next",
+            LastModified = "2017/01/05")]
+        public string Next
+        {
+            get
+            {
+                return this["Next"];
+            }
+        }
+
+        /// <summary>
+        /// word: Prev
+        /// </summary>
+        /// <value>Prev</value>
+        [ResourceEntry("Prev",
+            Value = "Prev",
+            Description = "word: Prev",
+            LastModified = "2017/01/05")]
+        public string Prev
+        {
+            get
+            {
+                return this["Prev"];
+            }
+        }
+
+        #endregion
     }
 }
