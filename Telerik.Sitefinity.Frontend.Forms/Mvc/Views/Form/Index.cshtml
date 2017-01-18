@@ -7,7 +7,7 @@
 @using Telerik.Sitefinity.Modules.Pages;
 
 <div data-sf-role="form-container" class="@Model.CssClass">
-    <input type="hidden" data-sf-role="form-id" value="@Model.FormId" />
+    <input type="hidden" data-sf-role="form-id" value="@Model.FormId" name="FormId" />
     @{
         if (Model.UseAjaxSubmit)
         {

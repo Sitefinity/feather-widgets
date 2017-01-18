@@ -10,10 +10,12 @@ using Telerik.Sitefinity.Configuration;
 using Telerik.Sitefinity.Frontend.Search.Mvc.StringResources;
 using Telerik.Sitefinity.Localization;
 using Telerik.Sitefinity.Publishing;
+using Telerik.Sitefinity.Security;
 using Telerik.Sitefinity.Services;
 using Telerik.Sitefinity.Services.Search;
 using Telerik.Sitefinity.Services.Search.Configuration;
 using Telerik.Sitefinity.Services.Search.Data;
+using Telerik.Sitefinity.Services.Search.Model;
 using Telerik.Sitefinity.Utilities.TypeConverters;
 
 namespace Telerik.Sitefinity.Frontend.Search.Mvc.Models
@@ -28,10 +30,10 @@ namespace Telerik.Sitefinity.Frontend.Search.Mvc.Models
         /// </summary>
         /// <param name="languages">The languages.</param>
         public SearchResultsModel(CultureInfo[] languages)
-	    {
+        {
             this.Languages = languages;
             this.Results = new ResultModel();
-	    }
+        }
 
         #endregion
 
@@ -96,7 +98,7 @@ namespace Telerik.Sitefinity.Frontend.Search.Mvc.Models
         [TypeConverter(typeof(StringArrayConverter))]
         public string[] SearchFields
         {
-            get 
+            get
             {
                 return this.searchFields;
             }
@@ -138,17 +140,21 @@ namespace Telerik.Sitefinity.Frontend.Search.Mvc.Models
             if (skip == null)
                 skip = 0;
 
-            var itemsToSkip = this.DisplayMode == ListDisplayMode.Paging ? skip.Value : 0;       
+            var itemsToSkip = this.DisplayMode == ListDisplayMode.Paging ? skip.Value : 0;
 
             int? take = 0;
 
             if (this.DisplayMode == ListDisplayMode.Limit)
             {
-                take = this.LimitCount;   
+                take = this.LimitCount;
             }
             else if (this.DisplayMode == ListDisplayMode.Paging)
             {
-                 take = this.ItemsPerPage;   
+                take = this.ItemsPerPage;
+            }
+            else
+            {
+                take = int.MaxValue;
             }
 
             int totalCount = 0;
@@ -217,10 +223,51 @@ namespace Telerik.Sitefinity.Frontend.Search.Mvc.Models
             }
 
             var oldSkipValue = skip;
-            IResultSet result = service.Search(searchQuery);
-            hitCount = result.HitCount;
+            var permissionFilter = config.EnableFilterByViewPermissions;
+            if (permissionFilter)
+            {
+                Func<int, int, IEnumerable<Document>> searchResults = delegate(int querySkip, int queryTake)
+                {
+                    searchQuery.Skip = querySkip;
+                    searchQuery.Take = queryTake;
+                    var results = service.Search(searchQuery);
 
-            return result.SetContentLinks();
+                    return results.OfType<Document>();
+                };
+
+                var loader = new FilteredDataItemsLoader<Document>(searchResults);
+
+                bool hasMoreItems = false;
+                var items = loader.ValidateDataItems<Document>(PermissionsFilter.PermissionAction.View, out hasMoreItems, take, skip, (i, j) => i);
+
+                oldSkipValue++;
+
+                // Value will always show one more, when hasMoreItems is true. It also be at least one.
+                if (hasMoreItems)
+                {
+                    hitCount = items.Count() + oldSkipValue;
+                }
+                else
+                {
+                    if (skip == 0 && take == int.MaxValue)
+                    {
+                        hitCount = items.Count();
+                    }
+                    else
+                    {
+                        hitCount = oldSkipValue;
+                    }
+                }
+
+                return items.Cast<IDocument>().SetContentLinks();
+            }
+            else
+            {
+                IResultSet result = service.Search(searchQuery);
+                hitCount = result.HitCount;
+
+                return result.SetContentLinks();
+            }
         }
         #endregion
 

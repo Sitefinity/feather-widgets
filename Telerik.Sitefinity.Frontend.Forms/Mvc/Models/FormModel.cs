@@ -12,7 +12,6 @@ using Telerik.Sitefinity.Frontend.Forms.Mvc.Models.Fields;
 using Telerik.Sitefinity.Frontend.Forms.Mvc.StringResources;
 using Telerik.Sitefinity.Frontend.Mvc.Helpers;
 using Telerik.Sitefinity.Frontend.Mvc.Models;
-using Telerik.Sitefinity.GenericContent.Model;
 using Telerik.Sitefinity.Lifecycle;
 using Telerik.Sitefinity.Localization;
 using Telerik.Sitefinity.Model;
@@ -203,6 +202,15 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Models
         public virtual SubmitStatus TrySubmitForm(FormCollection collection, HttpFileCollectionBase files, string userHostAddress)
         {
             var manager = FormsManager.GetManager();
+
+            var formIdString = collection[FormIdName];
+            Guid formId;
+ 
+            if (!string.IsNullOrWhiteSpace(formIdString) && Guid.TryParse(formIdString, out formId))
+            {
+                this.FormId = formId;
+            }
+
             var form = manager.GetForm(this.FormId);
 
             var formEntry = new FormEntryDTO(form);
@@ -587,6 +595,7 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Models
         private string cssClass;
         private string customConfirmationMessage;
         private readonly FormEventsFactory eventFactory;
+        internal const string FormIdName = "FormId";
 
         #endregion
     }

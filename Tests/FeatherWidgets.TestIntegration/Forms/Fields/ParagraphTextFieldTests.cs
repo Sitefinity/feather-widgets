@@ -145,10 +145,11 @@ namespace FeatherWidgets.TestIntegration.Forms.Fields
                 
                 var paragraphTextFieldName = ServerOperationsFeather.Forms().GetFirstFieldName(formManager, form);
                 var result = ServerOperationsFeather.Forms().SubmitField(paragraphTextFieldName, string.Empty, pageManager, pageId);
-                var contentResult = result as ContentResult;
+                var contentResult = result as ViewResult;
                 Assert.IsNotNull(contentResult, "Submit should return content result.");
-                Assert.AreEqual(Res.Get<FormResources>().UnsuccessfullySubmittedMessage, contentResult.Content, "The Submit didn't result in error as expected!");
-                
+                Assert.AreEqual(Res.Get<FormResources>().UnsuccessfullySubmittedMessage, contentResult.ViewBag.SubmitMessage, "The Submit didn't result in error as expected!");
+                Assert.AreEqual("Form.SubmitResultView", contentResult.ViewName);
+
                 var formEntry = formManager.GetFormEntries(form).LastOrDefault();
                 Assert.IsNull(formEntry, "Form entry has been submitted even when the form is not valid.");
             }
