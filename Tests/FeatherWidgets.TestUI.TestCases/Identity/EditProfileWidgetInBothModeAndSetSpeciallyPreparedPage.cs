@@ -21,12 +21,11 @@ namespace FeatherWidgets.TestUI.TestCases.Identity
         Owner(FeatherTeams.SitefinityTeam6),
         TestCategory(FeatherTestCategories.PagesAndContent),
         TestCategory(FeatherTestCategories.Profile),
-        TestCategory(FeatherTestCategories.Identity),
         TestCategory(FeatherTestCategories.Bootstrap)]
         public void EditProfileWidgetInBothModeAndSetSpeciallyPreparedPage()
         {
             BAT.Macros().NavigateTo().CustomPage("~/" + LoginPage.ToLower(), true);
-            BAT.Wrappers().Backend().LoginView().LoginViewWrapper().SetUsername(NewUserEmail);
+            BAT.Wrappers().Backend().LoginView().LoginViewWrapper().SetUsername(UserName);
             BAT.Wrappers().Backend().LoginView().LoginViewWrapper().SetPassword(UserPassword);
             BAT.Wrappers().Backend().LoginView().LoginViewWrapper().ExecuteLogin();
 
@@ -84,9 +83,10 @@ namespace FeatherWidgets.TestUI.TestCases.Identity
 
         private const string ProfilePage = "ProfilePage";
         private const string WidgetName = "Profile";
+        private const string UserName = "newUser";
         private const string UserPassword = "password";
         private const string NewUserFirstAndLastName = "First name Last name";
-        private const string NewUserEmail = "newuser@test.test";
+        private const string NewUserEmail = "newuser@test.com";
         private const string UserFirstNameEdited = "First name Edited";
         private const string UserLastNameEdited = "Last name Edited";
         private const string LoginPage = "Sitefinity";

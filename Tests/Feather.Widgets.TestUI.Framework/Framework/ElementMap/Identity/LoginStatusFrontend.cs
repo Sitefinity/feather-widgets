@@ -30,7 +30,7 @@ namespace Feather.Widgets.TestUI.Framework.Framework.ElementMap.Identity
         {
             get
             {
-                return this.Find.ByExpression<HtmlAnchor>("TagName=a", "data-sf-role=sf-logged-in-name");
+                return this.Get<HtmlAnchor>("TagName=a", "data-sf-role=sf-logged-in-name");
             } 
         }
 
@@ -46,32 +46,13 @@ namespace Feather.Widgets.TestUI.Framework.Framework.ElementMap.Identity
         }
 
         /// <summary>
-        /// Gets the login button.
-        /// </summary>
-        public HtmlButton LoginButton
-        {
-            get
-            {
-                return this.Get<HtmlButton>("TagName=button", "data-sf-role=login-status-button", "InnerText=Login");
-            }
-        }
-
-        /// <summary>
         /// Gets the logout button.
         /// </summary>
-        public HtmlAnchor LogoutButton
+        public HtmlButton LogoutButton
         {
             get
             {
-                return this.LoggedInView.Find.AllByExpression<HtmlAnchor>("InnerText=~Logout").SingleOrDefault();
-            }
-        }
-
-        public HtmlDiv LoggedInView
-        {
-            get
-            {
-                return this.Find.ByExpression<HtmlDiv>("data-sf-role=sf-logged-in-view");
+                return this.Get<HtmlButton>("TagName=button", "data-sf-role=sf-logged-in-log-out-btn", "InnerText=Logout");
             }
         }
     }

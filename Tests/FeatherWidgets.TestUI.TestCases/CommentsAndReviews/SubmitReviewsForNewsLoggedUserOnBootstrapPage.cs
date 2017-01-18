@@ -69,7 +69,7 @@ namespace FeatherWidgets.TestUI.TestCases.CommentsAndReviews
         private const string NewsTitle = "NewsTitle";
         private const string ReviewMessage = "Write a review";
         private string[] reviewsToNews = { "Reviews to news" };
-        private string[] reviewAuthor = { "admin admin" };
+        private string[] reviewAuthor = { "admin" };
         private string[] reviewRaiting = { "(3)" };
         private const int Raiting = 3;
         private const string ReviewsStatus = "Published";

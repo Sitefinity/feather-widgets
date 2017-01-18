@@ -19,7 +19,7 @@ namespace FeatherWidgets.TestUI.TestCases.ContentBlocks.DocumentSelector
         /// </summary>
         [TestMethod,
         Owner(FeatherTeams.SitefinityTeam7),
-        //TestCategory(FeatherTestCategories.MediaSelector),
+        TestCategory(FeatherTestCategories.MediaSelector),
         TestCategory(FeatherTestCategories.ContentBlock)]
         public void InsertDocumentFromAlreadyUploaded()
         {

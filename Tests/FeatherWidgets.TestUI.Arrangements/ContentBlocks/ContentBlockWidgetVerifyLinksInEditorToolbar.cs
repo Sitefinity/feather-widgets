@@ -21,7 +21,7 @@ namespace FeatherWidgets.TestUI.Arrangements
         [ServerSetUp]
         public void SetUp()
         {
-            AuthenticationHelper.AuthenticateUser(this.AdminEmail, this.AdminPass, true);
+            AuthenticationHelper.AuthenticateUser(AdminUserName, AdminPass, true);
             
             var pageId = ServerOperations.Pages().CreatePage(PageTitle);
             ServerOperationsFeather.Pages().AddContentBlockWidgetToPage(pageId, ContentBlockText);
@@ -41,6 +41,8 @@ namespace FeatherWidgets.TestUI.Arrangements
             ServerOperations.Pages().DeleteAllPages();
         }
 
+        private const string AdminUserName = "admin";
+        private const string AdminPass = "admin@2";
         private const string PageTitle = "FeatherPageNonBootstrap";
         private const string ContentBlockText = "TestContent";
         private const string PageTitle1 = "TestPage";

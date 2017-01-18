@@ -23,9 +23,9 @@ namespace FeatherWidgets.TestUI.TestCases.ContentBlocks
         /// UI test ContentBlockWidgetMultipleProviders
         /// </summary>
         [TestMethod,
+        Ignore,
         Owner(FeatherTeams.SitefinityTeam7),
-        TestCategory(FeatherTestCategories.ContentBlock),
-        Telerik.TestUI.Core.Attributes.KnownIssue(BugId = 206484), Ignore]
+        TestCategory(FeatherTestCategories.ContentBlock)]
         public void ContentBlockWidgetMultipleProviders()
         {
             RuntimeSettingsModificator.ExecuteWithClientTimeout(800000, () => BAT.Macros().NavigateTo().CustomPage("~/sitefinity/pages", false, this.Culture));

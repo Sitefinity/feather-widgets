@@ -102,8 +102,8 @@ namespace FeatherWidgets.TestUnit.Identity
             controller.TemplateName = "TestTemplate";
             var viewModel = new RegistrationViewModel();
 
-            // "fail@mail.com" is a magical Email that tells the Dummy Model to fail the registration.
-            viewModel.Email = "fail@mail.com";
+            // "Fail" is a magical UserName that tells the Dummy Model to fail the registration.
+            viewModel.UserName = "Fail";
 
             var result = controller.Index(viewModel);
 

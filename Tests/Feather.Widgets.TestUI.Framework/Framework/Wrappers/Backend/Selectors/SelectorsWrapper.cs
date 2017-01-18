@@ -25,7 +25,6 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend
             doneButton.Click();
             ActiveBrowser.WaitUntilReady();
             ActiveBrowser.WaitForAsyncRequests();
-            ActiveBrowser.RefreshDomTree();
         }
 
         /// <summary>
@@ -119,25 +118,11 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend
         /// <param name="itemName">Name of the item.</param>
         public void SelectItemsInHierarchicalSelector(params string[] itemNames)
         {
-            HtmlDiv activeTab = this.EM.Selectors.SelectorsScreen.ActiveTab;
-            activeTab.AssertIsPresent("active tab");
+            HtmlDiv activeTab = this.EM.Selectors.SelectorsScreen.ActiveTab.AssertIsPresent("active tab");
+
             foreach (var itemName in itemNames)
             {
                 this.SelectElementInTree(itemName, activeTab);
-            }
-        }
-
-        /// <summary>
-        /// Selects calendar items in hierarchical selector.
-        /// </summary>
-        /// <param name="itemName">Name of the item.</param>
-        public void SelectCalendarInHierarchicalSelector(params string[] calendarNames)
-        {
-            HtmlDiv activeTab = this.EM.Selectors.SelectorsScreen.ActiveTab;
-            activeTab.AssertIsPresent("active tab");
-            foreach (var calendarName in calendarNames)
-            {
-                this.SelectCalendarInTree(calendarName, activeTab);
             }
         }
 
@@ -452,19 +437,6 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend
             {
                 checkbox.Click();                
             }
-        }
-
-        /// <summary>
-        /// Select Calendar in Tree (filter)
-        /// </summary>
-        /// <param name="calenarName">Calendar name</param>
-        /// <param name="activeTab">Active tab</param>
-        private void SelectCalendarInTree(string calenarName, HtmlDiv activeTab)
-        {
-            var element = activeTab.Find.ByExpression<HtmlDiv>("innertext=" + calenarName);
-            element.AssertIsPresent("Calendar");
-            element.Click();
-            ActiveBrowser.RefreshDomTree();
         }
 
         private void SelectElementInTree(string itemName, HtmlDiv activeTab)

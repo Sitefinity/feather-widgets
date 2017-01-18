@@ -21,7 +21,6 @@ namespace FeatherWidgets.TestUI.TestCases.Identity
         Owner(FeatherTeams.SitefinityTeam6),
         TestCategory(FeatherTestCategories.PagesAndContent),
         TestCategory(FeatherTestCategories.Profile),
-        TestCategory(FeatherTestCategories.Identity),
         TestCategory(FeatherTestCategories.Bootstrap)]
         public void DragAndDropProfileWidgetAndSetReadMode()
         {
@@ -35,7 +34,7 @@ namespace FeatherWidgets.TestUI.TestCases.Identity
 
             BAT.Macros().User().LogOut();
             BAT.Macros().NavigateTo().CustomPage("~/" + LoginPage.ToLower(), true);
-            BAT.Wrappers().Backend().LoginView().LoginViewWrapper().SetUsername(NewUserEmail);
+            BAT.Wrappers().Backend().LoginView().LoginViewWrapper().SetUsername(NewUserName);
             BAT.Wrappers().Backend().LoginView().LoginViewWrapper().SetPassword(NewUserPassword);
             BAT.Wrappers().Backend().LoginView().LoginViewWrapper().ExecuteLogin();
             BAT.Macros().NavigateTo().CustomPage("~/" + ProfilePage.ToLower(), false, this.Culture);
@@ -63,9 +62,10 @@ namespace FeatherWidgets.TestUI.TestCases.Identity
 
         private const string ProfilePage = "ProfilePage";
         private const string WidgetName = "Profile";
+        private const string NewUserName = "newUser";
         private const string NewUserPassword = "password";
         private const string NewUserFirstAndLastName = "First name Last name";
-        private const string NewUserEmail = "newuser@test.test";
+        private const string NewUserEmail = "newuser@test.com";
         private const string LoginPage = "Sitefinity";
     }
 }

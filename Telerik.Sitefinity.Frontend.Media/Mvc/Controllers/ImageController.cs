@@ -175,7 +175,7 @@ namespace Telerik.Sitefinity.Frontend.Media.Mvc.Controllers
         {
             ContentLocationHelper.HandlePreview<Telerik.Sitefinity.Libraries.Model.Image>(HttpContext.Request, this.Model.Id, this.Model.ProviderName);
 
-            this.ActionInvoker.InvokeAction(this.ControllerContext, "Index");
+            this.Index().ExecuteResult(this.ControllerContext);
         }
 
         #endregion

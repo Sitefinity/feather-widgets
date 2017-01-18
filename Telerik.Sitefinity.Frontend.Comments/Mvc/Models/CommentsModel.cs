@@ -3,7 +3,6 @@ using Newtonsoft.Json.Serialization;
 using System;
 using System.ComponentModel;
 using System.Web;
-using Telerik.Sitefinity.Abstractions;
 using Telerik.Sitefinity.Frontend.Comments.Mvc.StringResources;
 using Telerik.Sitefinity.Localization;
 using Telerik.Sitefinity.Modules.Comments;
@@ -448,8 +447,7 @@ namespace Telerik.Sitefinity.Frontend.Comments.Mvc.Models
                 {
                     var manager = Telerik.Sitefinity.Modules.Pages.PageManager.GetManager();
                     var redirectPage = manager.GetPageNode(currentSite.FrontEndLoginPageId);
-                    var culture = AppSettings.CurrentSettings.Multilingual ? SystemManager.CurrentContext.AppSettings.CurrentCulture : null;
-                    defaultLoginPageUrl = !redirectPage.IsDeleted ? Telerik.Sitefinity.Modules.Pages.PageExtesnsions.GetFullUrl(redirectPage, culture, true) : string.Empty;
+                    defaultLoginPageUrl = !redirectPage.IsDeleted ? Telerik.Sitefinity.Modules.Pages.PageExtesnsions.GetUrl(redirectPage, String.Empty, null, true) : string.Empty;
                 }
                 catch (ItemNotFoundException)
                 {

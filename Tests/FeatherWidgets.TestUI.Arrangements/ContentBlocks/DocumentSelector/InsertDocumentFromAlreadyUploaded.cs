@@ -59,6 +59,8 @@ namespace FeatherWidgets.TestUI.Arrangements
             ServerArrangementContext.GetCurrent().Values.Add("CurrentProviderUrlName", urlName);
         }
 
+        private const string AdminUserName = "admin";
+        private const string AdminPass = "admin@2";
         private const string PageName = "PageWithDocument";
         private const string LibraryTitle = "TestDocumentLibrary";
         private const string DocumentTitle = "Image1";

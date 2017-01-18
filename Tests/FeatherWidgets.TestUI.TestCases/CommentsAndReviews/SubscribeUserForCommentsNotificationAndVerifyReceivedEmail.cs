@@ -62,7 +62,7 @@ namespace FeatherWidgets.TestUI.TestCases.CommentsAndReviews
         private string[] commentToPage = { "Comment to page published comment" };
         private const string NewCommentToPage = "This is test comment";
         private const string NewUser = "New user";
-        private string[] commentAuthor = { FeatherTestCase.AdminNickname };
+        private string[] commentAuthor = { "admin" };
         private const string CommentsCount = "1comment";
     }
 }

@@ -61,15 +61,15 @@
       <Private>True</Private>
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="Telerik.Sitefinity.TestUI.Core, Version=1.1.2.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\FeatherWidgets.TestUI.TestCases\packages\Telerik.Sitefinity.TestUI.Core.1.1.2.0\lib\net45\Telerik.Sitefinity.TestUI.Core.dll</HintPath>
+    <Reference Include="Telerik.Sitefinity.TestUI.Core, Version=1.1.1.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\FeatherWidgets.TestUI.TestCases\packages\Telerik.Sitefinity.TestUI.Core.1.1.1\lib\net45\Telerik.Sitefinity.TestUI.Core.dll</HintPath>
       <Private>True</Private>
-	<SpecificVersion>False</SpecificVersion> 
+      <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="Telerik.Sitefinity.TestUI.Framework, Version=1.1.2.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\FeatherWidgets.TestUI.TestCases\packages\Telerik.Sitefinity.TestUI.Framework.1.1.2.0\lib\net40\Telerik.Sitefinity.TestUI.Framework.dll</HintPath>
+    <Reference Include="Telerik.Sitefinity.TestUI.Framework, Version=1.1.1.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\FeatherWidgets.TestUI.TestCases\packages\Telerik.Sitefinity.TestUI.Framework.1.1.1\lib\net40\Telerik.Sitefinity.TestUI.Framework.dll</HintPath>
       <Private>True</Private>
-	<SpecificVersion>False</SpecificVersion>
+      <SpecificVersion>False</SpecificVersion>
     </Reference>
     <Reference Include="Telerik.Sitefinity.TestUI.UIArrangement">
       <HintPath>..\FeatherWidgets.TestUI.TestCases\packages\Telerik.Sitefinity.TestUI.UIArrangement.1.0.1\lib\net40\Telerik.Sitefinity.TestUI.UIArrangement.dll</HintPath>
@@ -88,7 +88,7 @@
     <Reference Include="UITests.Configuration, Version=1.6.6.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\FeatherWidgets.TestUI.TestCases\packages\UITests.Core.1.6.6\lib\net40\UITests.Configuration.dll</HintPath>
       <Private>True</Private>
-      <SpecificVersion>False</SpecificVersion>
+          <SpecificVersion>False</SpecificVersion>
     </Reference>
     <Reference Include="UITests.Core, Version=1.6.6.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\FeatherWidgets.TestUI.TestCases\packages\UITests.Core.1.6.6\lib\net40\UITests.Core.dll</HintPath>
@@ -220,7 +220,6 @@
     <Compile Include="Framework\Wrappers\Backend\Lists\ListsWrapperFacade.cs" />
     <Compile Include="Framework\Wrappers\Backend\Media\VideoPropertiesWrapper.cs" />
     <Compile Include="Framework\Wrappers\Backend\ScriptsAndStylesWidgets\ScriptsAndStylesCommonWrapper.cs" />
-    <Compile Include="Framework\Wrappers\Backend\Widgets\WidgetDecTrackingWrapper.cs" />
     <Compile Include="Framework\Wrappers\Backend\Widgets\WidgetDesignerRadioButtonIds.cs" />
     <Compile Include="Framework\Wrappers\Backend\Media\DocumentPropertiesWrapper.cs" />
     <Compile Include="Framework\Wrappers\Backend\Media\MediaPropertiesBaseWrapper.cs" />
@@ -321,9 +320,7 @@
       <SubType>Designer</SubType>
     </None>
   </ItemGroup>
-  <ItemGroup>
-    <Content Include="Framework\SciptHelpers\set-dec-test-data.js" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="$(SolutionDir)\.nuget\NuGet.targets" Condition="Exists('$(SolutionDir)\.nuget\NuGet.targets')" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

@@ -25,6 +25,5 @@
         public const string Events = "Events";
         public const string EmailCampaigns = "EmailCampaigns";
         public const string Taxonomies = "Taxonomies";
-        public const string RazorViewCompilation = "RazorViewCompilation";
     }
 }

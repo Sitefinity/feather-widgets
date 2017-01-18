@@ -38,8 +38,10 @@ namespace Telerik.Sitefinity.Frontend.Taxonomies.Helpers
 
         private static IEnumerable<ContentTypeModel> GetAllDynamicTypes(string providerName = null)
         {
-            return ModuleBuilderManager.GetActiveTypes()
-                           .Select(t => new ContentTypeModel(t.DisplayName, t.FullTypeName));
+            var provider = ModuleBuilderManager.GetManager(providerName).Provider;
+
+            return provider.GetDynamicModuleTypes()
+                           .Select(t => new ContentTypeModel(t.DisplayName, String.Format("{0}.{1}", t.TypeNamespace, t.TypeName)));
         }
 
         private static bool IsModuleInstalled(string moduleName)

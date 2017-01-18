@@ -19,8 +19,7 @@ namespace FeatherWidgets.TestUI.TestCases.Identity
         /// </summary>
         [TestMethod,
         Owner(FeatherTeams.SitefinityTeam7),
-        TestCategory(FeatherTestCategories.PagesAndContent),
-        TestCategory(FeatherTestCategories.Identity),
+        TestCategory(FeatherTestCategories.PagesAndContent), 
         TestCategory(FeatherTestCategories.UsersList)]
         public void VerifyNoLimitAndPaginationListSettingsOnFrontendPageForUsersListWidget()
         {

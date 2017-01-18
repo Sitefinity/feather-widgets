@@ -62,7 +62,7 @@ namespace FeatherWidgets.TestUI.Arrangements
         [ServerTearDown]
         public void ClearUp()
         {
-            AuthenticationHelper.AuthenticateUser(this.AdminEmail, this.AdminPass, true);
+            AuthenticationHelper.AuthenticateUser(AdminUserName, AdminPass, true);
             ServerOperations.Images().DeleteLibrary(AlbumName, false);
             ServerOperations.Pages().DeleteAllPages();
 
@@ -87,6 +87,8 @@ namespace FeatherWidgets.TestUI.Arrangements
             ServerOperations.Taxonomies().DeleteFlatTaxonomy(flatClassificationIm);
         }
 
+        private const string AdminUserName = "admin";
+        private const string AdminPass = "admin@2";
         private const string InstallationPath = @"App_Data\Sitefinity";
         private const string PackageResource = "FeatherWidgets.TestUtilities.Data.Packaging.Structure.Images.zip";
         private const string PackageResourceEdited = "FeatherWidgets.TestUtilities.Data.Packaging.Structure.ImagesEdited.zip";

@@ -237,7 +237,7 @@ namespace Telerik.Sitefinity.Frontend.Events.Mvc.Controllers
         /// <param name="actionName">The name of the attempted action.</param>
         protected override void HandleUnknownAction(string actionName)
         {
-            this.ActionInvoker.InvokeAction(this.ControllerContext, "Index");
+            this.Index().ExecuteResult(this.ControllerContext);
         }
 
         /// <summary>

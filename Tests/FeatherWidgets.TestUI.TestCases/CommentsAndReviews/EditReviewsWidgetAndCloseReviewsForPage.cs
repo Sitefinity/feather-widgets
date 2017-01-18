@@ -64,7 +64,7 @@ namespace FeatherWidgets.TestUI.TestCases.CommentsAndReviews
         private const string WidgetName = "Reviews";
         private const string CloseReviews = "True";
         private string[] reviewsToPage = { "Reviews to page" };
-        private string[] reviewAuthor = { "admin admin" };
+        private string[] reviewAuthor = { "admin" };
         private string[] reviewRaiting = { "(2)" };
         private const string ReviewsCount = "1 review";
         private const string AllertMessage = "Reviews are not allowed anymore";

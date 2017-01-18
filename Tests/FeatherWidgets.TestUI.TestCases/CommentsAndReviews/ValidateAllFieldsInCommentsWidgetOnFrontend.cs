@@ -86,7 +86,7 @@ namespace FeatherWidgets.TestUI.TestCases.CommentsAndReviews
         private string[] commentToPage = { "Comment to page" };
         private string[] commentAuthor = { "New user" };
         private string[] commentAuthorInvalidEmail = { "user" };
-        private string[] commentAuthorEmail = { "user@test.test" };
+        private string[] commentAuthorEmail = { "user@test.com" };
         private const string CommentStatus = "Published";
         private const string CommentsCount = "1comment";
         private const string MessageIsRequired = "Message is required!";

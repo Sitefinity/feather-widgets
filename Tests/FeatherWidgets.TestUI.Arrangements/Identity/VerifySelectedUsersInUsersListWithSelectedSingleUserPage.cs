@@ -25,8 +25,8 @@ namespace FeatherWidgets.TestUI.Arrangements
             Guid detailsPageId = ServerOperations.Pages().CreatePage(SingleUserPage);
             ServerOperationsFeather.Pages().AddUsersListWidgetToPage(detailsPageId);
 
-            ServerOperations.Users().CreateUserWithProfileAndRoles(AuthorEmail, AuthorPassword, AuthorFirstName, AuthorLastName, new List<string> { "BackendUsers", "Authors" });
-            ServerOperations.Users().CreateUserWithProfileAndRoles(EditorEmail, EditorPassword, EditorFirstName, EditorLastName, new List<string> { "BackendUsers", "Editors" });
+            ServerOperations.Users().CreateUserWithProfileAndRoles(AuthorUserName, AuthorPassword, AuthorFirstName, AuthorLastName, AuthorEmail, new List<string> { "BackendUsers", "Authors" });
+            ServerOperations.Users().CreateUserWithProfileAndRoles(EditorUserName, EditorPassword, EditorFirstName, EditorLastName, EditorEmail, new List<string> { "BackendUsers", "Editors" });
         }
 
         /// <summary>
@@ -36,21 +36,23 @@ namespace FeatherWidgets.TestUI.Arrangements
         public void TearDown()
         {
             ServerOperations.Pages().DeleteAllPages();
-            ServerOperations.Users().DeleteUserAndProfile(AuthorEmail);
-            ServerOperations.Users().DeleteUserAndProfile(EditorEmail);
+            ServerOperations.Users().DeleteUserAndProfile(AuthorUserName);
+            ServerOperations.Users().DeleteUserAndProfile(EditorUserName);
         }
 
         private const string PageName = "UsersListPage";
         private const string SingleUserPage = "UserPage";
 
+        private const string AuthorUserName = "author";
         private const string AuthorPassword = "password";
         private const string AuthorFirstName = "fname";
         private const string AuthorLastName = "lname";
-        private const string AuthorEmail = "author@test.test";
+        private const string AuthorEmail = "author@test.com";
 
+        private const string EditorUserName = "editor";
         private const string EditorPassword = "password";
         private const string EditorFirstName = "fn";
         private const string EditorLastName = "ln";
-        private const string EditorEmail = "editor@test.test";
+        private const string EditorEmail = "editor@test.com";
     }
 }

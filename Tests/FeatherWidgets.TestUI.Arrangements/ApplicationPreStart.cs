@@ -1,5 +1,4 @@
-﻿using System.Linq;
-using System.ServiceModel.Activation;
+﻿using System.ServiceModel.Activation;
 using System.Web.Routing;
 using Telerik.Sitefinity.TestUI.Arrangements.Framework;
 
@@ -15,11 +14,13 @@ namespace FeatherWidgets.TestUI.Arrangements
         /// </summary>
         public static void Init()
         {
-            if (!RouteTable.Routes.Any(x => (x as ServiceRoute) != null && (x as ServiceRoute).Url.StartsWith(TestsArrangemetsService.UiTestsWebServiceUrl)))
+            if (!RouteTable.Routes.Contains(ApplicationPreStart.UITestsServiceRoute))
             {
-                var uiTestsServiceRoute = new ServiceRoute(TestsArrangemetsService.UiTestsWebServiceUrl, new WebServiceHostFactory(), typeof(TestsArrangemetsService));
-                RouteTable.Routes.Add("ui-tests", uiTestsServiceRoute);
+                RouteTable.Routes.Add("ui-tests", ApplicationPreStart.UITestsServiceRoute);
             }
         }
+
+        internal static readonly ServiceRoute UITestsServiceRoute =
+            new ServiceRoute(TestsArrangemetsService.UiTestsWebServiceUrl, new WebServiceHostFactory(), typeof(TestsArrangemetsService));
     }
 }

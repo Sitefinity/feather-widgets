@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using System.Web;
 using System.Web.Security;
 using Telerik.Sitefinity.Security;
 using Telerik.Sitefinity.Security.Model;
@@ -34,6 +33,12 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.Registration
         string MembershipProviderName { get; set; }
 
         /// <summary>
+        /// Gets the option to use the email as the username
+        /// </summary>
+        /// <value>True or False</value>
+        bool EmailAddressShouldBeTheUsername { get; set; }
+
+        /// <summary>
         /// Gets the list of roles that will be assigned to the user when registering.
         /// </summary>
         /// <value>
@@ -48,14 +53,6 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.Registration
         /// The success action.
         /// </value>
         SuccessfulRegistrationAction SuccessfulRegistrationAction { get; set; }
-
-        /// <summary>
-        /// Gets the list of external providers that will be available for registration.
-        /// </summary>
-        /// <value>
-        /// List of external providers.
-        /// </value>
-        string SerializedExternalProviders { get; set; }
 
         /// <summary>
         /// Gets or sets the whether to send email message on successful registration confirmation.
@@ -173,12 +170,5 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.Registration
         /// </summary>
         /// <param name="viewModel">The view model.</param>
         void InitializeViewModel(RegistrationViewModel viewModel);
-
-                /// <summary>
-        /// Authenticates external provider and make IdentityServer challenge
-        /// </summary>
-        /// <param name="input">Provider name.</param>
-        /// <param name="context">Current http context from controller</param>
-        void AuthenticateExternal(string input, HttpContextBase context);
     }
 }

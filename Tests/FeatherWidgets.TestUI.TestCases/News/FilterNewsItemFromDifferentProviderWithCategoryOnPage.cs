@@ -32,6 +32,7 @@ namespace FeatherWidgets.TestUI.TestCases.News
             BATFeather.Wrappers().Backend().Widgets().SelectorsWrapper().WaitForItemsToAppear(1);
             BATFeather.Wrappers().Backend().Widgets().SelectorsWrapper().SelectItemsInHierarchicalSelector(TaxonTitle1, TaxonTitle2);
             BATFeather.Wrappers().Backend().Widgets().SelectorsWrapper().DoneSelecting();
+            ActiveBrowser.RefreshDomTree();
             BATFeather.Wrappers().Backend().Widgets().WidgetDesignerWrapper().VerifySelectedItemsFromHierarchicalSelector(new[] { "Category0 > Category1 > Category2 > Category3", "Category0 > Category1 > Category2 > Category3 > Category4" });
             BATFeather.Wrappers().Backend().Widgets().WidgetDesignerWrapper().SaveChanges();
             for (int i = 0; i < 7; i++)
@@ -70,9 +71,8 @@ namespace FeatherWidgets.TestUI.TestCases.News
 
         private void AddCustomProviderToSite()
         {
-            string siteName = BAT.Arrange(ArrangementName).ExecuteArrangement("SetApplicationSite").Result.Values["siteName"];
             string elementId = "ctl05_ctl00_ctl00_siteDetailView_ctl00_ctl00_configureModulesView_change_Telerik_Sitefinity_Modules_News_NewsManager";
-            BAT.Wrappers().Backend().Multisite().MultisiteWrapper().AddProviderToSite(elementId, SecondProviderName, siteName);
+            BAT.Wrappers().Backend().Multisite().MultisiteWrapper().AddProviderToSite(elementId, SecondProviderName, "SecondSite");
         } 
 
         private const string PageName = "News";
@@ -85,6 +85,5 @@ namespace FeatherWidgets.TestUI.TestCases.News
         private const string TaxonomyName = "Category";
         private readonly string[] newsTitles = new string[] { NewsTitle3, NewsTitle2 };
         private const string SecondProviderName = "NewsSecondDataProvider";
-        private const string ArrangementName = "SelectNewsItemFromDifferentProviderInNewsWidget";
     }
 }

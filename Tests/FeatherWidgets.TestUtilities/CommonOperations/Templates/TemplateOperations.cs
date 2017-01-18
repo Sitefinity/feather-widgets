@@ -64,43 +64,6 @@ namespace FeatherWidgets.TestUtilities.CommonOperations.Templates
         }
 
         /// <summary>
-        /// Creates the page template.
-        /// </summary>
-        /// <param name="templateTitle">The template title.</param>
-        /// <param name="parentTemplateId">The parent template identifier.</param>
-        /// <returns></returns>
-        public Guid CreatePageTemplate(string templateTitle, Guid parentTemplateId)
-        {
-            Guid templateId = Guid.Empty;
-            var fluent = App.WorkWith();
-            var parentTemplate = fluent.Page().PageManager.GetTemplates().FirstOrDefault(x => x.Id == parentTemplateId);
-            templateId = fluent.PageTemplate()
-                               .CreateNew()
-                               .Do(t =>
-                               {
-                                   t.Title = templateTitle;
-                                   t.Name = new Lstring(Regex.Replace(templateTitle, ArrangementConstants.UrlNameCharsToReplace, string.Empty).ToLower());
-                                   t.Description = templateTitle + " descr";
-                                   t.ParentTemplate = parentTemplate;
-                                   t.ShowInNavigation = true;
-                                   t.Framework = PageTemplateFramework.Mvc;
-                                   t.Category = SiteInitializer.CustomTemplatesCategoryId;
-                                   t.Visible = true;
-                               })
-                               .SaveAndContinue()
-                               .Get()
-                               .Id;
-
-            var pageManager = PageManager.GetManager();
-            var template = pageManager.GetTemplates().Where(t => t.Id == templateId).SingleOrDefault();
-            var master = pageManager.TemplatesLifecycle.Edit(template);
-            pageManager.TemplatesLifecycle.Publish(master);
-            pageManager.SaveChanges();
-
-            return template.Id;
-        }
-
-        /// <summary>
         /// Returns the template Id by given title 
         /// </summary>
         /// <param name="templateTitle">the template title</param>

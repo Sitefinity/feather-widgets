@@ -22,7 +22,6 @@ namespace FeatherWidgets.TestUI.TestCases.Packaging.DynamicContent
         TestCategory(FeatherTestCategories.Packaging)]
         public void ExportImportModuleAllFieldsFrontendCheck()
         {
-            ActiveBrowser.Refresh();
             RuntimeSettingsModificator.ExecuteWithClientTimeout(200000, () => BAT.Wrappers().Backend().Packaging().PackagingWrapper().ExportStructure());                     
             BAT.Wrappers().Backend().ModuleBuilder().ModuleInitializerWrapper().NavigateToModuleBuilderPage();
             BAT.Wrappers().Backend().ModuleBuilder().ModuleInitializerWrapper().DeleteModule(ModuleName);

@@ -21,7 +21,7 @@ namespace FeatherWidgets.TestUI.Arrangements
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Globalization", "CA1303:Do not pass literals as localized parameters", MessageId = "Telerik.Sitefinity.TestUtilities.CommonOperations.WidgetOperations.AddControlToPage(System.Guid,System.String,System.String,System.String,System.String,System.String)"), ServerSetUp]
         public void SetUp()
         {
-            AuthenticationHelper.AuthenticateUser(this.AdminEmail, this.AdminPass, true);
+            AuthenticationHelper.AuthenticateUser(AdminUserName, AdminPass, true);
 
             ServerOperations.Comments().RequireAuthentication(ThreadType, true);
             ServerOperations.News().CreatePublishedNewsItemLiveId(NewsTitle, NewsContent, NewsAuthor, NewsSource);
@@ -53,7 +53,7 @@ namespace FeatherWidgets.TestUI.Arrangements
         [ServerTearDown]
         public void TearDown()
         {
-            AuthenticationHelper.AuthenticateUser(this.AdminEmail, this.AdminPass, true);
+            AuthenticationHelper.AuthenticateUser(AdminUserName, AdminPass, true);
 
             ServerOperations.Comments().RequireAuthentication(ThreadType, false);
             ServerOperations.Pages().DeleteAllPages();
@@ -71,5 +71,7 @@ namespace FeatherWidgets.TestUI.Arrangements
         private const string NewsSource = "TestNewsSource";
         private string key = "Telerik.Sitefinity.Modules.News.NewsManager_" + NewsManager.GetManager().Provider.Name;
         private const string ThreadType = "Telerik.Sitefinity.News.Model.NewsItem";
+        private const string AdminUserName = "admin";
+        private const string AdminPass = "admin@2";
     }
 }

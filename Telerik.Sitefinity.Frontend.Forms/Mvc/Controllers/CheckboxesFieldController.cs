@@ -14,7 +14,7 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Controllers
     /// <summary>
     /// This class represents the controller of the MVC forms checkboxes field.
     /// </summary>
-    [DatabaseMapping(UserFriendlyDataType.LongText)]
+    [DatabaseMapping(UserFriendlyDataType.ShortText)]
     [Localization(typeof(FieldResources))]
     public class CheckboxesFieldController : FormFieldControllerBase<ICheckboxesFieldModel>
     {

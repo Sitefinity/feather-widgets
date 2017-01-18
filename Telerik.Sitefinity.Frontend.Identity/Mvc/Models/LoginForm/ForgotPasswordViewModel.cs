@@ -25,6 +25,12 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.LoginForm
         public bool EmailSent { get; set; }
 
         /// <summary>
+        /// Indicates that user with this email was not found.
+        /// </summary>
+        /// <value>The email not found.</value>
+        public bool EmailNotFound { get; set; }
+
+        /// <summary>
         /// Gets or sets the error.
         /// </summary>
         /// <value>

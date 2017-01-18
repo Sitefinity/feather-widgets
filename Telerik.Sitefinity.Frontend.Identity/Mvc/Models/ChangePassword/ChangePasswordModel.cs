@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using Telerik.Sitefinity.Frontend.Mvc.Helpers;
-using Telerik.Sitefinity.Modules.UserProfiles;
 using Telerik.Sitefinity.Security;
 using Telerik.Sitefinity.Web;
 
@@ -55,14 +54,9 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.ChangePassword
         /// <inheritDoc/>
         public virtual ChangePasswordViewModel GetViewModel()
         {
-            var userId = SecurityManager.GetCurrentUserId();
-            var userManager = UserManager.GetManager(SecurityManager.GetUser(userId).ProviderName);
-            var user = userManager.GetUser(userId);
-
             return new ChangePasswordViewModel()
             {
-                CssClass = this.CssClass,
-                ExternalProviderName = user.ExternalProviderName
+                CssClass = this.CssClass
             };
         }
 

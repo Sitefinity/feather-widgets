@@ -146,7 +146,8 @@ namespace Telerik.Sitefinity.Frontend.DynamicContent.Mvc.Models
         {
             if (this.ProviderName == null)
             {
-                var dynamicType = ModuleBuilderManager.GetActiveTypes().FirstOrDefault(t => t.FullTypeName == this.ContentType.FullName);
+                var moduleBuilderManager = ModuleBuilderManager.GetManager().Provider;
+                var dynamicType = moduleBuilderManager.GetDynamicModuleTypes().FirstOrDefault(t => t.TypeName == this.ContentType.Name && t.TypeNamespace == this.ContentType.Namespace);
                 this.ProviderName = DynamicModuleManager.GetDefaultProviderName(dynamicType.ModuleName);
             }
 

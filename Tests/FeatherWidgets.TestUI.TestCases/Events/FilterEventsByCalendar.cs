@@ -27,15 +27,15 @@ namespace FeatherWidgets.TestUI.TestCases.Events
         {
             BAT.Macros().NavigateTo().CustomPage("~/" + PageTitle.ToLower(), true, this.Culture);
             BATFeather.Wrappers().Frontend().Events().EventsWrapper().FilterEventsByCalendar(Calendar1Title);
-            this.VerifyEventVisibilityInAllViews(1, 0, 0, false);
+            this.VerifyEventVisibilityInAllViews(1, 0, 0);
 
             BAT.Macros().NavigateTo().CustomPage("~/" + PageTitle.ToLower(), true, this.Culture);
             BATFeather.Wrappers().Frontend().Events().EventsWrapper().FilterEventsByCalendar(Calendar2Title);
-            this.VerifyEventVisibilityInAllViews(0, 1, 0, false);
+            this.VerifyEventVisibilityInAllViews(0, 1, 0);
 
             BAT.Macros().NavigateTo().CustomPage("~/" + PageTitle.ToLower(), true, this.Culture);
             BATFeather.Wrappers().Frontend().Events().EventsWrapper().FilterEventsByCalendar(Calendar3Title);
-            this.VerifyEventVisibilityInAllViews(0, 0, 1, false);
+            this.VerifyEventVisibilityInAllViews(0, 0, 1);
         }
 
         /// <summary>
@@ -59,41 +59,51 @@ namespace FeatherWidgets.TestUI.TestCases.Events
         }
 
         /// <summary>
+        /// Verify event visibility in current view
+        /// </summary>
+        /// <param name="eventId">Event ID</param>
+        private void VerifyEventVisibilityInCurrentView(string eventId, int expectedCount)
+        {
+            var list = BATFeather.Wrappers().Frontend().Events().EventsWrapper().GetVisibleEventInCurrentView(eventId, false);
+            Assert.IsTrue(list.Count() == expectedCount, "The event is not visible");
+        }
+
+        /// <summary>
         /// Verify event visibility in all views
         /// </summary>
         /// <param name="expectedCountEvent1">expected count of event1 in current view</param>
         /// <param name="expectedCountEvent2">expected count of event2 in current view</param>
         /// <param name="expectedCountEvent3">expected count of event3 in current view</param>
-        private void VerifyEventVisibilityInAllViews(int expectedCountEvent1, int expectedCountEvent2, int expectedCountEvent3, bool allDayEvent)
+        private void VerifyEventVisibilityInAllViews(int expectedCountEvent1, int expectedCountEvent2, int expectedCountEvent3)
         {
             //Month view
-            BATFeather.Wrappers().Frontend().Events().EventsWrapper().VerifyEventVisibilityInCurrentView(event1Id, expectedCountEvent1, allDayEvent);
-            BATFeather.Wrappers().Frontend().Events().EventsWrapper().VerifyEventVisibilityInCurrentView(event2Id, expectedCountEvent2, allDayEvent);
-            BATFeather.Wrappers().Frontend().Events().EventsWrapper().VerifyEventVisibilityInCurrentView(event3Id, expectedCountEvent3, allDayEvent);
+            this.VerifyEventVisibilityInCurrentView(event1Id, expectedCountEvent1);
+            this.VerifyEventVisibilityInCurrentView(event2Id, expectedCountEvent2);
+            this.VerifyEventVisibilityInCurrentView(event3Id, expectedCountEvent3);
 
             //Day view
             BATFeather.Wrappers().Frontend().Events().EventsWrapper().ChangeSchedulerView(SchedulerViewTypes.Day);
-            BATFeather.Wrappers().Frontend().Events().EventsWrapper().VerifyEventVisibilityInCurrentView(event1Id, expectedCountEvent1, allDayEvent);
-            BATFeather.Wrappers().Frontend().Events().EventsWrapper().VerifyEventVisibilityInCurrentView(event2Id, expectedCountEvent2, allDayEvent);
-            BATFeather.Wrappers().Frontend().Events().EventsWrapper().VerifyEventVisibilityInCurrentView(event3Id, expectedCountEvent3, allDayEvent);
+            this.VerifyEventVisibilityInCurrentView(event1Id, expectedCountEvent1);
+            this.VerifyEventVisibilityInCurrentView(event2Id, expectedCountEvent2);
+            this.VerifyEventVisibilityInCurrentView(event3Id, expectedCountEvent3);
 
             //Week view
             BATFeather.Wrappers().Frontend().Events().EventsWrapper().ChangeSchedulerView(SchedulerViewTypes.Week);
-            BATFeather.Wrappers().Frontend().Events().EventsWrapper().VerifyEventVisibilityInCurrentView(event1Id, expectedCountEvent1, allDayEvent);
-            BATFeather.Wrappers().Frontend().Events().EventsWrapper().VerifyEventVisibilityInCurrentView(event2Id, expectedCountEvent2, allDayEvent);
-            BATFeather.Wrappers().Frontend().Events().EventsWrapper().VerifyEventVisibilityInCurrentView(event3Id, expectedCountEvent3, allDayEvent);
+            this.VerifyEventVisibilityInCurrentView(event1Id, expectedCountEvent1);
+            this.VerifyEventVisibilityInCurrentView(event2Id, expectedCountEvent2);
+            this.VerifyEventVisibilityInCurrentView(event3Id, expectedCountEvent3);
 
             //Agenda view
             BATFeather.Wrappers().Frontend().Events().EventsWrapper().ChangeSchedulerView(SchedulerViewTypes.Agenda);
-            BATFeather.Wrappers().Frontend().Events().EventsWrapper().VerifyEventVisibilityInCurrentView(event1Id, expectedCountEvent1, allDayEvent);
-            BATFeather.Wrappers().Frontend().Events().EventsWrapper().VerifyEventVisibilityInCurrentView(event2Id, expectedCountEvent2, allDayEvent);
-            BATFeather.Wrappers().Frontend().Events().EventsWrapper().VerifyEventVisibilityInCurrentView(event3Id, expectedCountEvent3, allDayEvent);
+            this.VerifyEventVisibilityInCurrentView(event1Id, expectedCountEvent1);
+            this.VerifyEventVisibilityInCurrentView(event2Id, expectedCountEvent2);
+            this.VerifyEventVisibilityInCurrentView(event3Id, expectedCountEvent3);
 
             //Timeline view
             BATFeather.Wrappers().Frontend().Events().EventsWrapper().ChangeSchedulerView(SchedulerViewTypes.Timeline);
-            BATFeather.Wrappers().Frontend().Events().EventsWrapper().VerifyEventVisibilityInCurrentView(event1Id, expectedCountEvent1, allDayEvent);
-            BATFeather.Wrappers().Frontend().Events().EventsWrapper().VerifyEventVisibilityInCurrentView(event2Id, expectedCountEvent2, allDayEvent);
-            BATFeather.Wrappers().Frontend().Events().EventsWrapper().VerifyEventVisibilityInCurrentView(event3Id, expectedCountEvent3, allDayEvent);
+            this.VerifyEventVisibilityInCurrentView(event1Id, expectedCountEvent1);
+            this.VerifyEventVisibilityInCurrentView(event2Id, expectedCountEvent2);
+            this.VerifyEventVisibilityInCurrentView(event3Id, expectedCountEvent3);
         }
 
         private const string PageTitle = "EventsPage";

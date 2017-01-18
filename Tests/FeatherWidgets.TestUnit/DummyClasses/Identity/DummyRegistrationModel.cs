@@ -47,7 +47,7 @@ namespace FeatherWidgets.TestUnit.DummyClasses.Identity
 
         public MembershipCreateStatus RegisterUser(RegistrationViewModel model)
         {
-            if (model.Email != "fail@mail.com")
+            if (model.UserName != "Fail")
                 return MembershipCreateStatus.Success;
             else
                 return MembershipCreateStatus.InvalidUserName;
@@ -82,13 +82,6 @@ namespace FeatherWidgets.TestUnit.DummyClasses.Identity
 
         public void InitializeViewModel(RegistrationViewModel viewModel)
         {
-        }
-
-        public string SerializedExternalProviders { get; set; }
-
-        public void AuthenticateExternal(string input, System.Web.HttpContextBase context)
-        {
-            // throw new NotImplementedException();
         }
     }
 }

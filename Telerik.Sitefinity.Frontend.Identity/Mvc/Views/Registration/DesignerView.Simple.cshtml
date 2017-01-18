@@ -2,8 +2,6 @@
 @using Telerik.Sitefinity.Frontend.Notifications;
 @using Telerik.Sitefinity.Security;
 @using Telerik.Sitefinity.Security.Web.UI;
-@using Telerik.Sitefinity.Configuration;
-@using Telerik.Sitefinity.Security.Configuration.IdentityServer;
 
 <uib-tabset class="nav-tabs-wrapper">
     <uib-tab heading="@Html.Resource("General")">
@@ -50,29 +48,6 @@
                     ng-show="properties.SuccessfulRegistrationAction.PropertyValue == 'RedirectToPage'"></sf-list-selector>
             </div>
         </div>
-        
-        @{
-            var providers = Config.Get<AuthenticationConfig>().AuthenticationProviders.Values.Where(x => x.Enabled == true && !string.IsNullOrEmpty(x.Name)).ToList();
-            if (providers.Count() != 0)
-            {
-                <div class="form-group">
-                    <strong>@Html.Resource("ExternalProvidersRegiterOptions")</strong>
-                    @foreach (var provider in providers)
-                    {
-                        <div class="checkbox">
-                            <label>
-                                <input id="@provider.Name"
-                                       type="checkbox"
-                                       ng-change="updateExternalProvider('@provider.Name', '@provider.LinkCssClass', externalProviderSelector.selectedItems['@provider.Name'])"
-                                       ng-checked="externalProviderSelector.selectedItems['@provider.Name']"
-                                       ng-model="externalProviderSelector.selectedItems['@provider.Name']" />
-                                @provider.Name
-                            </label>
-                        </div>
-                    }
-                </div>
-            }
-        }
 
         <div class="form-group">
             <label>@Html.Resource("LoginPage")</label>

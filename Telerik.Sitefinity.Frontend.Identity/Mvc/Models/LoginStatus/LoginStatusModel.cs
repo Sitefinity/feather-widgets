@@ -47,6 +47,9 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.LoginStatus
         /// <inheritDoc/>
         public string ExternalProfileUrl { get; set; }
 
+        /// <inheritDoc/>
+        public bool AllowWindowsStsLogin { get; set; }
+
         /// <inheritdoc />
         public string CssClass { get; set; }
 
@@ -58,12 +61,17 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.LoginStatus
         public virtual string GetLoginPageUrl()
         {
             var loginRedirectUrl = this.ExternalLoginUrl;
-
             if (string.IsNullOrEmpty(loginRedirectUrl))
-            {   
+            {
+                var claimsModule = SitefinityClaimsAuthenticationModule.Current;
                 string pageUrl;
 
-                if (this.LoginPageId.HasValue)
+
+                if (this.AllowWindowsStsLogin)
+                {
+                    pageUrl = claimsModule.GetIssuer();
+                }
+                else if (this.LoginPageId.HasValue)
                 {
                     pageUrl = HyperLinkHelpers.GetFullPageUrl(this.LoginPageId.Value);
                 }
@@ -72,7 +80,13 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.LoginStatus
                     pageUrl = SitefinityContext.FrontendLoginUrl;
                 }
 
-                loginRedirectUrl = pageUrl;
+                if (!pageUrl.IsNullOrEmpty())
+                {
+                    var currentUrl = HttpContext.Current.Request.RawUrl;
+                    var returnUrl = this.AppendUrlParameter(currentUrl, LoginStatusModel.HandleRejectedUser, "true");
+                    loginRedirectUrl = "{0}?realm={1}&redirect_uri={2}&deflate=true".Arrange(
+                        pageUrl, claimsModule.GetRealm(), HttpUtility.UrlEncode(returnUrl));
+                }
             }
 
             return loginRedirectUrl;
@@ -98,7 +112,15 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.LoginStatus
             if (HttpContext.Current.Request.Url == null)
                 return string.Empty;
 
-            return logoutRedirectUrl;
+            string fullLogoutUrl = RouteHelper.ResolveUrl(ClaimsManager.GetLogoutUrl(logoutRedirectUrl), UrlResolveOptions.Rooted);
+
+            // Workaround an issue when the application is hosted under an application path.
+            if (SystemManager.CurrentHttpContext != null && SystemManager.CurrentHttpContext.Request.ApplicationPath != "/")
+            {
+                fullLogoutUrl = fullLogoutUrl.Replace("sts_signout=true&", "");
+            }
+
+            return fullLogoutUrl;
         }
 
         /// <inheritdoc />

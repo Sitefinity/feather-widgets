@@ -1,7 +1,6 @@
 ﻿using System.Reflection;
 using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
-using Telerik.Sitefinity.Frontend.Mvc.Infrastructure.Controllers.Attributes;
 using Telerik.WebTestRunner.Server.Attributes;
 
 // General Information about an assembly is controlled through the following 
@@ -13,4 +12,3 @@ using Telerik.WebTestRunner.Server.Attributes;
 [assembly: Guid("636fec7b-d1b3-4fc8-a6c2-453c78506bd7")]
 
 [assembly: IntegrationTests]
-[assembly: ControllerContainer]

@@ -23,8 +23,7 @@ namespace FeatherWidgets.TestUI.TestCases.Common
         /// </summary>
         [TestMethod,
         Owner(FeatherTeams.FeatherTeam),
-        TestCategory(FeatherTestCategories.PagesAndContent),
-        TestCategory(FeatherTestCategories.Common)]
+        TestCategory(FeatherTestCategories.PagesAndContent)]
         public void DeactivateFeatherModule()
         {
             BAT.Arrange(this.TestName).ExecuteArrangement("DeactivateModule");

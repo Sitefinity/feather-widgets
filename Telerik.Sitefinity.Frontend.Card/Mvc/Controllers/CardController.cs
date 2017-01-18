@@ -144,7 +144,7 @@ namespace Telerik.Sitefinity.Frontend.Card.Mvc.Controllers
         /// <inheritDoc/>
         protected override void HandleUnknownAction(string actionName)
         {
-            this.ActionInvoker.InvokeAction(this.ControllerContext, "Index");
+            this.Index().ExecuteResult(this.ControllerContext);
         } 
 
         #endregion

@@ -25,8 +25,8 @@ namespace FeatherWidgets.TestUI.Arrangements
             Guid pageNodeId = ServerOperations.Pages().GetPageNodeId(pageId);
             ServerOperationsFeather.Pages().AddUsersListWidgetToPage(pageNodeId, PlaceHolderId);
 
-            ServerOperations.Users().CreateUserWithProfileAndRoles(AuthorEmail, AuthorPassword, AuthorFirstName, AuthorLastName, new List<string> { "BackendUsers", "Authors" });
-            ServerOperations.Users().CreateUserWithProfileAndRoles(AdministratorEmail, AdministratorPassword, AdministratorFirstName, AdministratorLastName, new List<string> { "BackendUsers", "Administrators" });
+            ServerOperations.Users().CreateUserWithProfileAndRoles(AuthorUserName, AuthorPassword, AuthorFirstName, AuthorLastName, AuthorEmail, new List<string> { "BackendUsers", "Authors" });
+            ServerOperations.Users().CreateUserWithProfileAndRoles(AdministratorUserName, AdministratorPassword, AdministratorFirstName, AdministratorLastName, AdministratorEmail, new List<string> { "BackendUsers", "Administrators" });
         }
 
         /// <summary>
@@ -36,19 +36,21 @@ namespace FeatherWidgets.TestUI.Arrangements
         public void TearDown()
         {
             ServerOperations.Pages().DeleteAllPages();
-            ServerOperations.Users().DeleteUserAndProfile(AuthorEmail);
-            ServerOperations.Users().DeleteUserAndProfile(AdministratorEmail);
+            ServerOperations.Users().DeleteUserAndProfile(AuthorUserName);
+            ServerOperations.Users().DeleteUserAndProfile(AdministratorUserName);
         }
 
         private const string PageTemplateName = "Bootstrap.default";
         private const string PageName = "UsersListPage";
         private const string PlaceHolderId = "Contentplaceholder1";
 
+        private const string AuthorUserName = "author";
         private const string AuthorPassword = "password";
         private const string AuthorFirstName = "fname";
         private const string AuthorLastName = "lname";
-        private const string AuthorEmail = "author@test.test";
+        private const string AuthorEmail = "author@test.com";
 
+        private const string AdministratorUserName = "admin2";
         private const string AdministratorPassword = "passoword";
         private const string AdministratorFirstName = "admin2";
         private const string AdministratorLastName = "admin2";

@@ -33,9 +33,6 @@ namespace FeatherWidgets.TestUI.Arrangements
             }
         }
 
-        protected readonly string AdminEmail = "admin@test.test";
-        protected readonly string AdminPass = "admin@2";
-        protected readonly string AdninistratorEmail = "administrator@test.test";
         private const string SingleSiteProviderName = "OpenAccessProvider";
         private const string MultisiteProviderName = "dynamicContentProvider";
         private string providerName;

@@ -23,8 +23,7 @@ namespace FeatherWidgets.TestUI.TestCases.Common
         /// </summary>
         [TestMethod,
         Owner(FeatherTeams.SitefinityTeam2),
-        TestCategory(FeatherTestCategories.PagesAndContent),
-        TestCategory(FeatherTestCategories.Common)]
+        TestCategory(FeatherTestCategories.PagesAndContent)]
         public void DeactivateFeatherAndVerifyFormsMvcOption()
         {
             BAT.Arrange(this.TestName).ExecuteArrangement("DeactivateModule");

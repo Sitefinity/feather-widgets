@@ -1,8 +1,11 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 using Feather.Widgets.TestUI.Framework;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-
+using Telerik.Sitefinity.TestUI.Framework.Utilities;
 
 namespace FeatherWidgets.TestUI.TestCases.ContentBlocks.DocumentSelector
 {
@@ -17,12 +20,12 @@ namespace FeatherWidgets.TestUI.TestCases.ContentBlocks.DocumentSelector
         /// </summary>
         [TestMethod,
         Owner(FeatherTeams.SitefinityTeam7),
-        //TestCategory(FeatherTestCategories.MediaSelector),
-        TestCategory(FeatherTestCategories.ContentBlock),
-        Telerik.TestUI.Core.Attributes.KnownIssue(BugId = 210190)]
+        TestCategory(FeatherTestCategories.MediaSelector),
+        TestCategory(FeatherTestCategories.ContentBlock)]
         public void CheckNavigationInDocumentSelector()
         {
-            BAT.Macros().User().EnsureAdminLoggedIn();
+            RuntimeSettingsModificator.ExecuteWithClientTimeout(800000, () => BAT.Macros().NavigateTo().CustomPage("~/sitefinity/pages", false));
+            RuntimeSettingsModificator.ExecuteWithClientTimeout(800000, () => BAT.Macros().User().EnsureAdminLoggedIn());
             BAT.Macros().NavigateTo().Pages(this.Culture);
             BAT.Wrappers().Backend().Pages().PagesWrapper().OpenPageZoneEditor(PageName);
             BATFeather.Wrappers().Backend().Pages().PageZoneEditorWrapper().EditWidget(WidgetName);

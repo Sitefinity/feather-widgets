@@ -37,13 +37,10 @@
         });
 
         function expandElement(link) {
-            if (link.hasClass('expanded')) {
+            if (link.hasClass('expanded'))
                 link.removeClass('expanded');
-            } else {
+            else
                 link.addClass('expanded');
-                var itemTitle = link.text().trim();
-                sendSentence(itemTitle);
-            }
 
             var content = link.next();
             if (content.css('display') === 'none')
@@ -60,24 +57,6 @@
         function hideCollapseAllLink(wrapper) {
             wrapper.find('[data-sf-role=expandAll]').css('display', 'block');
             wrapper.find('[data-sf-role=collapseAll]').css('display', 'none');
-        }
-
-        function sendSentence(itemTitle) {
-            if (window.DataIntelligenceSubmitScript) {
-                DataIntelligenceSubmitScript._client.sentenceClient.writeSentence({
-                    predicate: "Expand list",
-                    object: itemTitle,
-                    objectMetadata: [{
-                        'K': 'PageTitle',
-                        'V': document.title
-                    },
-                    {
-                        'K': 'PageUrl',
-                        'V': location.href
-                    }
-                    ]
-                });
-            }
         }
     });
 }(jQuery));

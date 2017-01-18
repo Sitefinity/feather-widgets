@@ -22,7 +22,7 @@ namespace FeatherWidgets.TestUI.Arrangements
         [ServerSetUp]
         public void SetUp()
         {
-            AuthenticationHelper.AuthenticateUser(this.AdminEmail, this.AdminPass, true);
+            AuthenticationHelper.AuthenticateUser(AdminUserName, AdminPass, true);
             ServerOperations.News().CreatePublishedNewsItemLiveId(NewsTitle1, NewsContent, NewsAuthor, NewsSource);
             ServerOperations.News().CreatePublishedNewsItemLiveId(NewsTitle2, NewsContent, NewsAuthor, NewsSource);
 
@@ -46,6 +46,8 @@ namespace FeatherWidgets.TestUI.Arrangements
             ServerOperations.News().DeleteAllNews();
         }
 
+        private const string AdminUserName = "admin";
+        private const string AdminPass = "admin@2";
         private const string SearchIndexName = "VerifySearchResults_BootstrapTemplate";
         private const string NewsTitle1 = "test news";
         private const string NewsTitle2 = "another news";

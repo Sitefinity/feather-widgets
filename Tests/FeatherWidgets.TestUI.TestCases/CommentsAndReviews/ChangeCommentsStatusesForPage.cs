@@ -1,7 +1,12 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using ArtOfTest.WebAii.Core;
 using Feather.Widgets.TestUI.Framework;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Telerik.Sitefinity.TestUI.Framework.Wrappers.Backend;
 
 namespace FeatherWidgets.TestUI.TestCases.CommentsAndReviews
 {
@@ -66,7 +71,7 @@ namespace FeatherWidgets.TestUI.TestCases.CommentsAndReviews
         private const string PageName = "CommentsPage";
         private const string LeaveAComment = "Leave a comment";
         private string[] commentToPage = { "Comment to page waiting for approval comment" };
-        private string[] commentAuthor = { FeatherTestCase.AdminNickname };
+        private string[] commentAuthor = { "admin" };
         private const string CommentsCount = "1comment";
         private const string CommentsMessage = "Leave a comment";
     }

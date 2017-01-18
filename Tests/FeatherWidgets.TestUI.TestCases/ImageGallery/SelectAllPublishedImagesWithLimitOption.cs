@@ -59,10 +59,10 @@ namespace FeatherWidgets.TestUI.TestCases.ImageGallery
             var scr = this.GetImageSource(this.imageTitles[1], ImageTypeFrontend);
             BATFeather.Wrappers().Frontend().ImageGallery().ImageGalleryWrapper().VerifyImage(ImageAltText + 2, scr);
 
-            var hrefPrevious = this.GetImageHref(this.imageTitles[2]);
+            var hrefPrevious = this.GetImageHref(this.imageTitles[0]);
             BATFeather.Wrappers().Frontend().ImageGallery().ImageGalleryWrapper().VerifyPreviousImage(hrefPrevious);
 
-            var hrefNext = this.GetImageHref(this.imageTitles[0]);
+            var hrefNext = this.GetImageHref(this.imageTitles[2]);
             BATFeather.Wrappers().Frontend().ImageGallery().ImageGalleryWrapper().VerifyNextImage(hrefNext);
 
             var hrefBack = "/" + PageName.ToLower() + "/" + "Index/";

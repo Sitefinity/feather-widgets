@@ -17,10 +17,8 @@ namespace FeatherWidgets.TestUI.TestCases.Identity
         Owner(FeatherTeams.SitefinityTeam4),
         TestCategory(FeatherTestCategories.PagesAndContent),
         TestCategory(FeatherTestCategories.Registration),
-        TestCategory(FeatherTestCategories.Identity),
         TestCategory(FeatherTestCategories.LoginForm),
-        TestCategory(FeatherTestCategories.Bootstrap),
-        Telerik.TestUI.Core.Attributes.KnownIssue(BugId = 206478), Ignore]
+        TestCategory(FeatherTestCategories.Bootstrap)]
         public void RegisterNewUserAndLoginTheUser()
         {
             BAT.Macros().NavigateTo().Pages(this.Culture);
@@ -48,13 +46,14 @@ namespace FeatherWidgets.TestUI.TestCases.Identity
             BATFeather.Wrappers().Frontend().Identity().LoginFormWrapper().PressRegisterNowLink();
 
             BATFeather.Wrappers().Frontend().Identity().RegistrationWrapper().FillEmail(Email);
+            BATFeather.Wrappers().Frontend().Identity().RegistrationWrapper().FillUserName(UserName);
             BATFeather.Wrappers().Frontend().Identity().RegistrationWrapper().FillPassword(Password);
             BATFeather.Wrappers().Frontend().Identity().RegistrationWrapper().FillRetypePassword(Password);
             BATFeather.Wrappers().Frontend().Identity().RegistrationWrapper().RegisterButton();
             BATFeather.Wrappers().Frontend().Identity().RegistrationWrapper().VerifySuccessfullyMessage();
 
             BAT.Macros().NavigateTo().CustomPage("~/" + LoginPage.ToLower(), true, this.Culture);
-            BATFeather.Wrappers().Frontend().Identity().LoginFormWrapper().EnterEmail(Email);
+            BATFeather.Wrappers().Frontend().Identity().LoginFormWrapper().EnterUserName(UserName);
             BATFeather.Wrappers().Frontend().Identity().LoginFormWrapper().EnterPassword(Password);
             BATFeather.Wrappers().Frontend().Identity().LoginFormWrapper().PressLoginButton();
 
@@ -84,7 +83,8 @@ namespace FeatherWidgets.TestUI.TestCases.Identity
         private const string RegistrationWidgetName = "Registration";
         private const string LoginWidgetName = "Login form";
         private const string SelectedRoles = "Administrators";
-        private const string Email = "newUser@test.test";
+        private const string Email = "user@test.com";
+        private const string UserName = "newUser";
         private const string Password = "password";
     }
 }

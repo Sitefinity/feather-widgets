@@ -14,7 +14,13 @@
                         var loggedInView = $('[data-sf-role="sf-logged-in-view"]');
                         loggedInView.find('[data-sf-role="sf-logged-in-avatar"]').attr('src', statusViewModel.AvatarImageUrl).attr('alt', statusViewModel.DisplayName);
                         loggedInView.find('[data-sf-role="sf-logged-in-name"]').html(statusViewModel.DisplayName);
-                        loggedInView.find('[data-sf-role="sf-logged-in-email"]').html(statusViewModel.Email);                        
+                        loggedInView.find('[data-sf-role="sf-logged-in-email"]').html(statusViewModel.Email);
+                        loggedInView.find('[data-sf-role="sf-logged-in-log-out-btn"]').on('click', function () {
+                            var redirectUrl = $('[data-sf-role="sf-logout-redirect-url"]').val();
+                            window.location.href = redirectUrl;
+                            return false;
+                        });
+
                         loggedInView.show();
                     }
                     else {

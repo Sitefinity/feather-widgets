@@ -19,8 +19,7 @@ namespace FeatherWidgets.TestUI.TestCases.Search
         Owner(FeatherTeams.SitefinityTeam4),
         TestCategory(FeatherTestCategories.PagesAndContent),
         TestCategory(FeatherTestCategories.Search),
-        TestCategory(FeatherTestCategories.SemanticUI),
-        Telerik.TestUI.Core.Attributes.KnownIssue(BugId = 206482), Ignore]
+        TestCategory(FeatherTestCategories.SemanticUI)]
         public void VerifySearchResults_SemanticUITemplate()
         {
             BAT.Macros().NavigateTo().Pages(this.Culture);

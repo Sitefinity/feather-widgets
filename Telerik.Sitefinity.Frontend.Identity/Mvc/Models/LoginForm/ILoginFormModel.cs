@@ -73,14 +73,6 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.LoginForm
         /// The login redirect page identifier.
         /// </value>
         Guid? LoginRedirectPageId { get; set; }
-
-        /// <summary>
-        /// Gets the list of external providers that will be available for registration.
-        /// </summary>
-        /// <value>
-        /// List of external providers.
-        /// </value>
-        string SerializedExternalProviders { get; set; }
         
         /// <summary>
         /// Gets or sets the register redirect page identifier.
@@ -118,7 +110,7 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.LoginForm
         /// <returns>
         /// An instance of <see cref="ForgotPasswordViewModel"/>
         /// </returns>
-        ForgotPasswordViewModel GetForgotPasswordViewModel(string email, bool emailSent, string error);
+        ForgotPasswordViewModel GetForgotPasswordViewModel(string email, bool emailNotFound, bool emailSent, string error);
         
         /// <summary>
         /// Tries the reset user password.
@@ -161,12 +153,5 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.LoginForm
         /// <param name="context">The HTTP context that is to be authenticated.</param>
         /// <returns>View model that is populated depending on the outcome of the authentication.</returns>
         LoginFormViewModel Authenticate(LoginFormViewModel input, HttpContextBase context);
-
-        /// <summary>
-        /// Authenticates a specific external user.
-        /// </summary>
-        /// <param name="input">Provider name.</param>
-        /// <param name="context">The HTTP context that is to be authenticated.</param>
-        void AuthenticateExternal(string input, HttpContextBase context);
     }
 }

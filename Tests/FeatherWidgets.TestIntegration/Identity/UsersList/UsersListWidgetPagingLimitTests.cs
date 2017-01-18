@@ -24,8 +24,8 @@ namespace FeatherWidgets.TestIntegration.Identity.UsersList
         [SetUp]
         public void Setup()
         {
-            ServerOperations.Users().CreateUserWithProfileAndRoles(AuthorEmail, AuthorPassword, AuthorFirstName, AuthorLastName, new List<string> { "BackendUsers", "Authors" });
-            ServerOperations.Users().CreateUserWithProfileAndRoles(AdministratorEmail, AdministratorPassword, AdministratorFirstName, AdministratorLastName, new List<string> { "BackendUsers", "Administrators" });
+            ServerOperations.Users().CreateUserWithProfileAndRoles(AuthorUserName, AuthorPassword, AuthorFirstName, AuthorLastName, AuthorEmail, new List<string> { "BackendUsers", "Authors" });
+            ServerOperations.Users().CreateUserWithProfileAndRoles(AdministratorUserName, AdministratorPassword, AdministratorFirstName, AdministratorLastName, AdministratorEmail, new List<string> { "BackendUsers", "Administrators" });
         }
 
         /// <summary>
@@ -34,8 +34,8 @@ namespace FeatherWidgets.TestIntegration.Identity.UsersList
         [TearDown]
         public void TearDown()
         {
-            ServerOperations.Users().DeleteUserAndProfile(AuthorEmail);
-            ServerOperations.Users().DeleteUserAndProfile(AdministratorEmail);
+            ServerOperations.Users().DeleteUserAndProfile(AuthorUserName);
+            ServerOperations.Users().DeleteUserAndProfile(AdministratorUserName);
         }
 
         /// <summary>
@@ -61,11 +61,11 @@ namespace FeatherWidgets.TestIntegration.Identity.UsersList
 
             var usersPage2 = usersListController.Model.CreateListViewModel(2).Items.ToArray();
             Assert.IsTrue(usersPage2.Length.Equals(1), "Number of users is not correct");
-            Assert.AreEqual(AdministratorEmail, usersPage2[0].Fields.User.UserName, "Wrong username");
+            Assert.AreEqual(AdministratorUserName, usersPage2[0].Fields.User.UserName, "Wrong username");
 
             var usersPage3 = usersListController.Model.CreateListViewModel(3).Items.ToArray();
             Assert.IsTrue(usersPage3.Length.Equals(1), "Number of users is not correct");
-            Assert.AreEqual(AuthorEmail, usersPage3[0].Fields.User.UserName, "Wrong username");
+            Assert.AreEqual(AuthorUserName, usersPage3[0].Fields.User.UserName, "Wrong username");
         }
 
         /// <summary>
@@ -111,17 +111,19 @@ namespace FeatherWidgets.TestIntegration.Identity.UsersList
             var users = usersListController.Model.CreateListViewModel(1).Items.ToArray();
             Assert.IsTrue(users.Length.Equals(3), "Number of users is not correct");
             Assert.AreEqual(SitefinityAdmin, users[0].Fields.User.UserName, "Wrong username");
-            Assert.AreEqual(AdministratorEmail, users[1].Fields.User.UserName, "Wrong username");
-            Assert.AreEqual(AuthorEmail, users[2].Fields.User.UserName, "Wrong username");
+            Assert.AreEqual(AdministratorUserName, users[1].Fields.User.UserName, "Wrong username");
+            Assert.AreEqual(AuthorUserName, users[2].Fields.User.UserName, "Wrong username");
         }
 
-        private const string SitefinityAdmin = "admin@test.test";
+        private const string SitefinityAdmin = "admin";
 
+        private const string AuthorUserName = "author";
         private const string AuthorPassword = "password";
         private const string AuthorFirstName = "test";
         private const string AuthorLastName = "last";
-        private const string AuthorEmail = "author@test.test";
+        private const string AuthorEmail = "author@test.com";
 
+        private const string AdministratorUserName = "admin2";
         private const string AdministratorPassword = "passoword";
         private const string AdministratorFirstName = "fname";
         private const string AdministratorLastName = "lname";

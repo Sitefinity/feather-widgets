@@ -11,7 +11,7 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.LoginForm
     /// <summary>
     /// This class represents login form view model for the <see cref="LoginFormController"/>.
     /// </summary>
-    [Bind(Exclude = "CssClass, ServiceUrl, MembershipProvider, RedirectUrlAfterLogin, RegisterPageUrl, Realm, ShowRegistrationLink, ShowForgotPasswordLink, ShowRememberMe")]
+    [Bind(Exclude = "CssClass, ServiceUrl, MembershipProvider, RedirectUrlAfterLogin, RegisterPageUrl, Realm, ShowRegistrationLink, ShowForgotPasswordLink, IncorrectCredentials, ShowRememberMe")]
     public class LoginFormViewModel
     {
         /// <summary>
@@ -121,20 +121,18 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.LoginForm
         public bool ShowForgotPasswordLink { get; set; }
 
         /// <summary>
+        /// Indicates that the provided credentials are not valid.
+        /// </summary>
+        /// <value>The incorrect credentials.</value>
+        public bool IncorrectCredentials { get; set; }
+
+        /// <summary>
         /// Gets or sets a value indicating whether Remember me checkbox is displayed.
         /// </summary>
         /// <value>
         /// <c>true</c> if Remember me checkbox will be displayed; otherwise, <c>false</c>.
         /// </value>
         public bool ShowRememberMe { get; set; }
-
-        /// <summary>
-        /// Gets or sets the external providers.
-        /// </summary>
-        /// <value>
-        /// External providers.
-        /// </value>
-        public IDictionary<string, string> ExternalProviders { get; set; }
 
         private bool rememberMe = true;
     }

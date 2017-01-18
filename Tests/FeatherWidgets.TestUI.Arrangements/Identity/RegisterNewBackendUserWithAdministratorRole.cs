@@ -29,13 +29,15 @@ namespace FeatherWidgets.TestUI.Arrangements
         [ServerTearDown]
         public void TearDown()
         {
-            AuthenticationHelper.AuthenticateUser(this.AdminEmail, this.AdminPass, true);
+            AuthenticationHelper.AuthenticateUser(AdminUserName, AdminPass, true);
             ServerOperations.Pages().DeleteAllPages();
-            ServerOperations.Users().DeleteUserAndProfile(NewUserEmail);
+            ServerOperations.Users().DeleteUserAndProfile(NewUser);
         }
 
         private const string RegistrationPage = "RegistrationPage";
         private const string TemplateTitle = "Bootstrap.default";
-        private const string NewUserEmail = "user@test.test";
+        private const string NewUser = "newUser";
+        private const string AdminUserName = "admin";
+        private const string AdminPass = "admin@2";
     }
 }

@@ -1,8 +1,10 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 using Feather.Widgets.TestUI.Framework;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-
 
 namespace FeatherWidgets.TestUI.TestCases.ContentBlocks.ImageSelector
 {
@@ -17,9 +19,8 @@ namespace FeatherWidgets.TestUI.TestCases.ContentBlocks.ImageSelector
         /// </summary>
         [TestMethod,
         Owner(FeatherTeams.SitefinityTeam7),
-        //TestCategory(FeatherTestCategories.MediaSelector),
-        TestCategory(FeatherTestCategories.ContentBlock),
-        Telerik.TestUI.Core.Attributes.KnownIssue(BugId = 210190)]
+        TestCategory(FeatherTestCategories.MediaSelector),
+        TestCategory(FeatherTestCategories.ContentBlock)]
         public void CheckNavigationInImageSelector()
         {
             BAT.Macros().NavigateTo().Pages(this.Culture);

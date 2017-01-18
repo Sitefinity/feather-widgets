@@ -5,7 +5,6 @@
 
         $scope.feedback.showLoadingIndicator = true;
         $scope.rolesSelector = { selectedItems: [] };
-        $scope.externalProviderSelector = { selectedItems: {}, classData: {} };        
 
         $scope.$watch(
             'rolesSelector.selectedItems',
@@ -19,16 +18,6 @@
 	        true
         );
 
-        $scope.updateExternalProvider = function (name, cssClass, value) {
-            if (value === false) {
-                delete $scope.externalProviderSelector.classData[name];
-            }
-            else {
-                $scope.externalProviderSelector.classData[name] = cssClass;
-            }           
-            $scope.properties.SerializedExternalProviders.PropertyValue = JSON.stringify($scope.externalProviderSelector.classData);
-        }
-
         propertyService.get()
             .then(function (data) {
                 if (data) {
@@ -39,12 +28,6 @@
                     if (selectedRoles) {
                         $scope.rolesSelector.selectedItems = selectedRoles;
                     }
-
-                    $scope.externalProviderSelector.classData = $.parseJSON($scope.properties.SerializedExternalProviders.PropertyValue || null) || {};
-                    
-                    angular.forEach($scope.externalProviderSelector.classData, function (value, key) {
-                        $scope.externalProviderSelector.selectedItems[key] = true;
-                    });                    
                 }
             },
             function (data) {

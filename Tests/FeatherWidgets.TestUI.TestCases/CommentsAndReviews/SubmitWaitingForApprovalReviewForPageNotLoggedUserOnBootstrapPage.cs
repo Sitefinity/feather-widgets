@@ -62,7 +62,7 @@ namespace FeatherWidgets.TestUI.TestCases.CommentsAndReviews
         private const string PageName = "ReviewsPage";
         private string[] reviewsToPage = { "Reviews to page" };
         private string[] reviewAuthor = { "New user" };
-        private string[] reviewAuthorEmail = { "newuser@test.test" };
+        private string[] reviewAuthorEmail = { "newuser@test.com" };
         private string[] reviewRaiting = { "(3)" };
         private const int Raiting = 3;
         private const string ReviewsStatus = "Published";

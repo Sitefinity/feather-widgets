@@ -1,10 +1,12 @@
 ﻿using System.ComponentModel;
+using System.Globalization;
 using System.Web.Mvc;
 using System.Web.Security;
 using Telerik.Sitefinity.Frontend.Identity.Mvc.Models.Registration;
 using Telerik.Sitefinity.Frontend.Identity.Mvc.StringResources;
 using Telerik.Sitefinity.Frontend.Mvc.Infrastructure.Controllers;
 using Telerik.Sitefinity.Frontend.Mvc.Infrastructure.Controllers.Attributes;
+using Telerik.Sitefinity.Localization;
 using Telerik.Sitefinity.Mvc;
 
 namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Controllers
@@ -33,6 +35,19 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Controllers
                     this.model = this.InitializeModel();
 
                 return this.model;
+            }
+        }
+
+        /// <summary>
+        /// Gets or sets if on registration the email addess should be used as the username
+        /// </summary>
+        public bool EmailAddressShouldBeTheUsername {
+            get {
+                return this.emailAddressShouldBeTheUsername;
+            }
+
+            set {
+                this.emailAddressShouldBeTheUsername = value;
             }
         }
 
@@ -68,6 +83,8 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Controllers
             var fullTemplateName = this.templateNamePrefix + this.TemplateName;
 
             var viewModel = new RegistrationViewModel();
+            viewModel.EmailAddressShouldBeTheUsername = this.EmailAddressShouldBeTheUsername;
+
             this.Model.InitializeViewModel(viewModel);
 
             this.ViewBag.ShowSuccessfulRegistrationMsg = false;
@@ -86,6 +103,12 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Controllers
         [HttpPost]
         public ActionResult Index(RegistrationViewModel viewModel)
         {
+            viewModel.EmailAddressShouldBeTheUsername = this.EmailAddressShouldBeTheUsername;
+
+            if(this.EmailAddressShouldBeTheUsername){
+                ModelState.Remove("UserName");
+            }
+
             if (ModelState.IsValid)
             {
                 var status = this.Model.RegisterUser(viewModel);
@@ -128,20 +151,10 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Controllers
             return Json(isSend, JsonRequestBehavior.AllowGet);
         }
 
-        public ActionResult LoginExternalProvider(string model)
-        {
-            if (!string.IsNullOrEmpty(model))
-            {
-                this.Model.AuthenticateExternal(model, this.ControllerContext.HttpContext);
-            }
-
-            return new EmptyResult();
-        }
-
         /// <inheritDocs/>
         protected override void HandleUnknownAction(string actionName)
         {
-            this.ActionInvoker.InvokeAction(this.ControllerContext, "Index");
+            this.Index().ExecuteResult(this.ControllerContext);
         }
 
         #endregion

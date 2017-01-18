@@ -78,6 +78,6 @@ namespace FeatherWidgets.TestUI.TestCases.Forms.DropdownList
         private const string Choice = "First Choice";
         private const int ExpectedResponsesCount = 1;
         private const int ResponseNumber = 1;
-        private const string ExpectedAuthorName = "admin@test.test";
+        private const string ExpectedAuthorName = "admin";
     }
 }

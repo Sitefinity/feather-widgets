@@ -72,7 +72,7 @@ namespace FeatherWidgets.TestUtilities.CommonOperations
             
             Type countryType = TypeResolutionService.ResolveType("Telerik.Sitefinity.DynamicTypes.Model.Booking.Country");
             DynamicContent parent = dynamicModuleManager.GetDataItems(countryType)
-                .First(i => i.Id == parentId && i.Status == Telerik.Sitefinity.GenericContent.Model.ContentLifecycleStatus.Master);
+                .Where(i => i.Id == parentId).First();
 
             cityItem.SetParent(parent.Id, countryType.FullName);
 
@@ -108,7 +108,7 @@ namespace FeatherWidgets.TestUtilities.CommonOperations
             
             Type cityType = TypeResolutionService.ResolveType("Telerik.Sitefinity.DynamicTypes.Model.Booking.City");
             DynamicContent parent = dynamicModuleManager.GetDataItems(cityType)
-                .First(i => i.Id == parentId && i.Status == Telerik.Sitefinity.GenericContent.Model.ContentLifecycleStatus.Master);
+                .Where(i => i.Id == parentId).First();
             hotelItem.SetParent(parent.Id, cityType.FullName);
 
             dynamicModuleManager.Lifecycle.Publish(hotelItem);

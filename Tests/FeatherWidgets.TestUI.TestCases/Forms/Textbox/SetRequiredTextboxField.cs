@@ -92,7 +92,7 @@ namespace FeatherWidgets.TestUI.TestCases.Forms.Textbox
         private const string TextBoxContent = "Textbox Field Text";
         private const int ExpectedResponsesCount = 1;
         private const int ResponseNumber = 1;
-        private const string ExpectedAuthorName = "admin@test.test";
+        private const string ExpectedAuthorName = "admin";
         private const string NewRequiredMessage = "This is required field";
     }
 }

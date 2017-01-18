@@ -117,8 +117,5 @@ namespace FeatherWidgets.TestUI.TestCases
         private bool? isMultisite = null;
         private bool? isMultilingual = null;
         private string culture = "undefined";
-        protected const string AdminEmail = "admin@test.test";
-        protected const string AdminPassword = "admin@2"; 
-        protected const string AdminNickname = "admin admin";
     }
 }

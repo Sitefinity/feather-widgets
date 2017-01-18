@@ -1,5 +1,8 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 using Feather.Widgets.TestUI.Framework;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
@@ -17,8 +20,7 @@ namespace FeatherWidgets.TestUI.TestCases.ContentBlocks.LinkSelector
         [TestMethod,
         Owner(FeatherTeams.SitefinityTeam7),
         TestCategory(FeatherTestCategories.ContentBlock),
-        TestCategory(FeatherTestCategories.LinkSelector),
-        Telerik.TestUI.Core.Attributes.KnownIssue(BugId = 210208)]
+        TestCategory(FeatherTestCategories.LinkSelector)]
         public void LinkSelectorInsertLinkToPageFromThisSiteOverSelectedText()
         {
             BAT.Macros().NavigateTo().Pages(this.Culture);

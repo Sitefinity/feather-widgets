@@ -12,7 +12,7 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.Profile
     /// <summary>
     /// This class represents view model for Profile widget.
     /// </summary>
-    [Bind(Exclude = "SelectedUserProfiles, User, CanEdit, CssClass, ShowProfileChangedMsg, DisplayName, UserName, AvatarImageUrl, DefaultAvatarUrl")]
+    [Bind(Exclude = "SelectedUserProfiles, User, CanEdit, CssClass, ShowProfileChangedMsg, Email, DisplayName, UserName, AvatarImageUrl, DefaultAvatarUrl")]
     public class ProfileEditViewModel
     {
         /// <summary>
@@ -157,14 +157,6 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.Profile
         /// The default avatar URL.
         /// </value>
         public string DefaultAvatarUrl { get; set; }
-
-        /// <summary>
-        /// Gets or sets the name of the external provider.
-        /// </summary>
-        /// <value>
-        /// External provider.
-        /// </value>
-        public string ExternalProviderName { get; set; }
 
         /// <summary>
         /// Gets or sets the uploaded image.

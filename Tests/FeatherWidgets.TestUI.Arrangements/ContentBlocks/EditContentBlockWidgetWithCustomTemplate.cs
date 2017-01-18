@@ -19,7 +19,7 @@ namespace FeatherWidgets.TestUI.Arrangements
         [ServerSetUp]
         public void SetUp()
         {
-            AuthenticationHelper.AuthenticateUser(this.AdminEmail, this.AdminPass, true);
+            AuthenticationHelper.AuthenticateUser(AdminUserName, AdminPass, true);
             this.CreateLayoutFolderAndCopyLayoutFile();
             var templateId = ServerOperations.Templates().GetTemplateIdByTitle(TemplateTitle);
             ServerOperations.Pages().CreatePage(PageName, templateId);
@@ -62,6 +62,8 @@ namespace FeatherWidgets.TestUI.Arrangements
             return filePath;
         }
 
+        private const string AdminUserName = "admin";
+        private const string AdminPass = "admin@2";
         private const string PageName = "TestContentBlockPage";
         private const string FileResource = "Telerik.Sitefinity.Frontend.TestUtilities.Data.TestLayoutTwoPlaceholders.cshtml";
         private const string LayoutFileName = "TestLayoutTwoPlaceholders.cshtml";

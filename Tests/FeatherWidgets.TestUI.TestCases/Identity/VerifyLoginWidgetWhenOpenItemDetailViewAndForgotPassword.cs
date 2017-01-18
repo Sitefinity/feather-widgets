@@ -19,7 +19,6 @@ namespace FeatherWidgets.TestUI.TestCases.Identity
         Owner(FeatherTeams.FeatherTeam),
         TestCategory(FeatherTestCategories.PagesAndContent),
         TestCategory(FeatherTestCategories.LoginForm),
-        TestCategory(FeatherTestCategories.Identity),
         TestCategory(FeatherTestCategories.Bootstrap)]
         public void VerifyLoginWidgetWhenOpenItemDetailViewAndForgotPassword()
         {
@@ -36,40 +35,40 @@ namespace FeatherWidgets.TestUI.TestCases.Identity
             //Verify Login widet when open post item
             BAT.Macros().NavigateTo().CustomPage("~/" + PageTitle.ToLower(), false, this.Culture);
             Assert.IsTrue(BATFeather.Wrappers().Frontend().Blogs().BlogsWrapper().IsBlogPostTitlesPresentOnThePageFrontend(this.postTitle));
-            BATFeather.Wrappers().Frontend().Identity().LoginFormWrapper().AssertAlreadyLoggedInMessage();
-            BATFeather.Wrappers().Frontend().Identity().LoginStatusWrapper().AssertLogoutButton();
+            Assert.IsTrue(ActiveBrowser.ContainsText(LoggedInText), "Text was not found on the page");
+            Assert.IsTrue(ActiveBrowser.ContainsText(LogoutText), "Text was not found on the page");
             BATFeather.Wrappers().Frontend().CommonWrapper().VerifySelectedAnchorLink(PostTitle, this.expectedUrl);
-            BATFeather.Wrappers().Frontend().Identity().LoginFormWrapper().AssertAlreadyLoggedInMessage();
-            BATFeather.Wrappers().Frontend().Identity().LoginStatusWrapper().AssertLogoutButton();
-            Assert.IsTrue(ActiveBrowser.ContainsText(PostTitle), string.Format("The blog post title {0} was not found on the page", PostTitle));
+            Assert.IsTrue(ActiveBrowser.ContainsText(LoggedInText), "Text was not found on the page");
+            Assert.IsTrue(ActiveBrowser.ContainsText(LogoutText), "Text was not found on the page");
+            Assert.IsTrue(ActiveBrowser.ContainsText(PostTitle), "Text was not found on the page");
 
             BAT.Macros().User().LogOut();
             BAT.Macros().NavigateTo().CustomPage("~/" + PageTitle.ToLower(), false, this.Culture, new HtmlFindExpression("class=sfPublicWrapper"));
             Assert.IsTrue(BATFeather.Wrappers().Frontend().Blogs().BlogsWrapper().IsBlogPostTitlesPresentOnThePageFrontend(this.postTitle));
-            BATFeather.Wrappers().Frontend().Identity().LoginStatusWrapper().AssertLoginButton();
-            Assert.IsTrue(ActiveBrowser.ContainsText(RegisterText), "RegisterText was not found on the page");
-            Assert.IsTrue(ActiveBrowser.ContainsText(ForgottenPasswordText), "ForgottenPasswordText was not found on the page");
-            Assert.IsTrue(ActiveBrowser.ContainsText(UsernameText), "UsernameText was not found on the page");
-            Assert.IsTrue(ActiveBrowser.ContainsText(PasswordText), "PasswordText was not found on the page");
+            Assert.IsTrue(ActiveBrowser.ContainsText(LoginText), "Text was not found on the page");
+            Assert.IsTrue(ActiveBrowser.ContainsText(RegisterText), "Text was not found on the page");
+            Assert.IsTrue(ActiveBrowser.ContainsText(ForgottenPasswordText), "Text was not found on the page");
+            Assert.IsTrue(ActiveBrowser.ContainsText(UsernameText), "Text was not found on the page");
+            Assert.IsTrue(ActiveBrowser.ContainsText(PasswordText), "Text was not found on the page");
             
             BATFeather.Wrappers().Frontend().CommonWrapper().VerifySelectedAnchorLink(PostTitle, this.expectedUrl);
-            BATFeather.Wrappers().Frontend().Identity().LoginStatusWrapper().AssertLoginButton();
-            Assert.IsTrue(ActiveBrowser.ContainsText(RegisterText), "RegisterText was not found on the page");
-            Assert.IsTrue(ActiveBrowser.ContainsText(ForgottenPasswordText), "ForgottenPasswordText was not found on the page");
-            Assert.IsTrue(ActiveBrowser.ContainsText(UsernameText), "UsernameText was not found on the page");
-            Assert.IsTrue(ActiveBrowser.ContainsText(PasswordText), "PasswordText was not found on the page");
-            Assert.IsTrue(ActiveBrowser.ContainsText(PostTitle), "PostTitle was not found on the page");
+            Assert.IsTrue(ActiveBrowser.ContainsText(LoginText), "Text was not found on the page");
+            Assert.IsTrue(ActiveBrowser.ContainsText(RegisterText), "Text was not found on the page");
+            Assert.IsTrue(ActiveBrowser.ContainsText(ForgottenPasswordText), "Text was not found on the page");
+            Assert.IsTrue(ActiveBrowser.ContainsText(UsernameText), "Text was not found on the page");
+            Assert.IsTrue(ActiveBrowser.ContainsText(PasswordText), "Text was not found on the page");
+            Assert.IsTrue(ActiveBrowser.ContainsText(PostTitle), "Text was not found on the page");
 
             //Verify Login widget when open Forgotten password link
             BAT.Macros().NavigateTo().CustomPage("~/" + PageTitle.ToLower(), false, this.Culture);
             BATFeather.Wrappers().Frontend().Identity().LoginFormWrapper().PressForgottenPasswordLink();
             Assert.IsTrue(BATFeather.Wrappers().Frontend().Blogs().BlogsWrapper().IsBlogPostTitlesPresentOnThePageFrontend(this.postTitle));
-            BATFeather.Wrappers().Frontend().Identity().LoginStatusWrapper().AssertLoginButton();
-            Assert.IsTrue(ActiveBrowser.ContainsText(RegisterText), "RegisterText was not found on the page");
-            Assert.IsTrue(ActiveBrowser.ContainsText("Forgot your password?"), "Forgot your password? was not found on the page");
+            Assert.IsTrue(ActiveBrowser.ContainsText(LoginText), "Text was not found on the page");
+            Assert.IsTrue(ActiveBrowser.ContainsText(RegisterText), "Text was not found on the page");
+            Assert.IsTrue(ActiveBrowser.ContainsText("Forgot your password?"), "Text was not found on the page");
             Assert.IsTrue(ActiveBrowser.ContainsText("Enter your login email address and you will receive email with a link to reset your password."), "Text was not found on the page");
-            Assert.IsTrue(ActiveBrowser.ContainsText("Email"), "Email was not found on the page");
-            Assert.IsTrue(ActiveBrowser.ContainsText("Send"), "Send was not found on the page");
+            Assert.IsTrue(ActiveBrowser.ContainsText("Email"), "Text was not found on the page");
+            Assert.IsTrue(ActiveBrowser.ContainsText("Send"), "Text was not found on the page");
         }
         /// <summary>
         /// Performs Server Setup and prepare the system with needed data.

@@ -126,7 +126,7 @@ namespace FeatherWidgets.TestUI.TestCases.Navigation
 
         private const string HomePage = "HomePage";
         private const string TestPage = "TestPage";
-        private const string User = "editor@test.test";
+        private const string User = "editor";
         private const string Password = "password";
         private const string ArrangementClassName = "NavigationWidgetVerifyPageWithUserNotAllowedAndRoleChanged";
     }

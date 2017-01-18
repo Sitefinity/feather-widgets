@@ -21,7 +21,7 @@ namespace FeatherWidgets.TestUI.Arrangements
         [ServerSetUp]
         public void SetUp()
         {
-            AuthenticationHelper.AuthenticateUser(this.AdminEmail, this.AdminPass, true);
+            AuthenticationHelper.AuthenticateUser(AdminUserName, AdminPass, true);
 
             ServerOperations.Templates().CreatePureMVCPageTemplate(TemplateTitle);        
         }
@@ -45,6 +45,8 @@ namespace FeatherWidgets.TestUI.Arrangements
             ServerOperations.Templates().DeletePageTemplate(TemplateTitle);
         }
 
+        private const string AdminUserName = "admin";
+        private const string AdminPass = "admin@2";
         private const string TemplateTitle = "TestLayout";
         private const string PageName = "FeatherPage";
     }

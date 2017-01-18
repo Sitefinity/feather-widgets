@@ -1,8 +1,11 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 using FeatherWidgets.TestUtilities.CommonOperations;
 using Telerik.Sitefinity.Modules.News;
 using Telerik.Sitefinity.TestArrangementService.Attributes;
+using Telerik.Sitefinity.TestUI.Arrangements.Framework;
 using Telerik.Sitefinity.TestUtilities.CommonOperations;
 
 namespace FeatherWidgets.TestUI.Arrangements
@@ -18,7 +21,7 @@ namespace FeatherWidgets.TestUI.Arrangements
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Globalization", "CA1303:Do not pass literals as localized parameters", MessageId = "Telerik.Sitefinity.TestUtilities.CommonOperations.WidgetOperations.AddControlToPage(System.Guid,System.String,System.String,System.String,System.String,System.String)"), ServerSetUp]
         public void SetUp()
         {
-            AuthenticationHelper.AuthenticateUser(this.AdminEmail, this.AdminPass, true);
+            AuthenticationHelper.AuthenticateUser(AdminUserName, AdminPass, true);
 
             ServerOperations.Comments().RequireAuthentication(ThreadType, true);
             ServerOperations.Configuration().EnableRatings(true);
@@ -32,7 +35,7 @@ namespace FeatherWidgets.TestUI.Arrangements
             if (ServerOperations.MultiSite().CheckIsMultisiteMode())
             {
                 Guid pageId2 = Guid.NewGuid();
-                ServerOperations.Multilingual().Pages().CreatePageMultilingual(pageId2, PageTitleLogin, true, "bg-bg");
+                ServerOperations.Multilingual().Pages().CreatePageMultilingual(pageId2, PageTitleLogin, true, "en");
                 ServerOperations.Widgets().AddControlToPage(pageId2, ControlTypes.LoginWidget, "Body", "Login");
                 ServerOperations.MultiSite().AddPublicLoginPageToSite(pageId2);
             }
@@ -51,7 +54,7 @@ namespace FeatherWidgets.TestUI.Arrangements
         [ServerTearDown]
         public void TearDown()
         {
-            AuthenticationHelper.AuthenticateUser(this.AdminEmail, this.AdminPass, true);
+            AuthenticationHelper.AuthenticateUser(AdminUserName, AdminPass, true);
             ServerOperations.Comments().RequireAuthentication(ThreadType, false);
             ServerOperations.Configuration().EnableRatings(false);
             ServerOperations.Pages().DeleteAllPages();
@@ -67,6 +70,8 @@ namespace FeatherWidgets.TestUI.Arrangements
         private const string NewsAuthor = "TestNewsAuthor";
         private const string NewsSource = "TestNewsSource";
         private string key = "Telerik.Sitefinity.Modules.News.NewsManager_" + NewsManager.GetManager().Provider.Name;
+        private const string AdminUserName = "admin";
+        private const string AdminPass = "admin@2";
         private const string ThreadType = "Telerik.Sitefinity.News.Model.NewsItem";
         private const string PageTitleLogin = "LogIn";
         private const string LoginURL = "~/login";

@@ -1,5 +1,4 @@
-﻿using System;
-using System.IO;
+﻿using System.IO;
 using System.Linq;
 using System.Threading;
 using FeatherWidgets.TestUtilities.CommonOperations;
@@ -39,6 +38,8 @@ namespace FeatherWidgets.TestIntegration.DynamicWidgets
             string pageNamePrefix = testName + "DynamicPage";
             string pageTitlePrefix = testName + "Dynamic Page";
             string urlNamePrefix = testName + "dynamic-page";
+            int index = 1;
+            string url = UrlPath.ResolveAbsoluteUrl("~/" + urlNamePrefix + index);
 
             string fileDeatil = null;
             string fileList = null;
@@ -51,44 +52,31 @@ namespace FeatherWidgets.TestIntegration.DynamicWidgets
                 fileList = this.CopyFile(DynamicFileListName, DynamicFileListFileResource);
 
                 for (int i = 0; i < this.dynamicTitles.Length; i++)
-                {
-                    string url = UrlPath.ResolveAbsoluteUrl("~/" + urlNamePrefix + i.ToString());
+                    ServerOperationsFeather.DynamicModulePressArticle().CreatePressArticleItem(this.dynamicTitles[i], this.dynamicUrls[i]);
 
-                    Guid itemId = ServerOperationsFeather.DynamicModulePressArticle().CreatePressArticleItem(this.dynamicTitles[i], this.dynamicUrls[i]).Id;
-                    dynamicCollection = ServerOperationsFeather.DynamicModulePressArticle().RetrieveCollectionOfPressArticles().Where(item => item.OriginalContentId == itemId && item.Status == Telerik.Sitefinity.GenericContent.Model.ContentLifecycleStatus.Live).ToList();                    
-                    var itemsToDelete = ServerOperationsFeather.DynamicModulePressArticle().RetrieveCollectionOfPressArticles().Where(item => item.Id != itemId && item.OriginalContentId != itemId).ToList();
-                    ServerOperationsFeather.DynamicModulePressArticle().DeleteDynamicItems(itemsToDelete);
+                dynamicCollection = ServerOperationsFeather.DynamicModulePressArticle().RetrieveCollectionOfPressArticles();
 
-                    var mvcProxy = new MvcWidgetProxy();
-                    mvcProxy.ControllerName = typeof(DynamicContentController).FullName;
-                    var dynamicController = new DynamicContentController();
-                    dynamicController.Model.ContentType = TypeResolutionService.ResolveType(ResolveType);
-                    dynamicController.Model.ProviderName = ((Telerik.Sitefinity.Data.DataProviderBase)dynamicCollection.First().Provider).Name;
-                    dynamicController.ListTemplateName = detailTemplate;
-                    dynamicController.DetailTemplateName = detailTemplate;
-                    dynamicController.Model.ProviderName = FeatherWidgets.TestUtilities.CommonOperations.DynamicModulesOperations.ProviderName;
-                    mvcProxy.Settings = new ControllerSettings(dynamicController);
-                    mvcProxy.WidgetName = WidgetName;
+                var mvcProxy = new MvcWidgetProxy();
+                mvcProxy.ControllerName = typeof(DynamicContentController).FullName;
+                var dynamicController = new DynamicContentController();
+                dynamicController.Model.ContentType = TypeResolutionService.ResolveType(ResolveType);
+                dynamicController.Model.ProviderName = ((Telerik.Sitefinity.Data.DataProviderBase)dynamicCollection.First().Provider).Name;
+                dynamicController.ListTemplateName = detailTemplate;
+                dynamicController.DetailTemplateName = detailTemplate;
+                dynamicController.Model.ProviderName = FeatherWidgets.TestUtilities.CommonOperations.DynamicModulesOperations.ProviderName;
+                mvcProxy.Settings = new ControllerSettings(dynamicController);
+                mvcProxy.WidgetName = WidgetName;
 
-                    this.pageOperations.CreatePageWithControl(mvcProxy, pageNamePrefix, pageTitlePrefix, urlNamePrefix, i);
+                this.pageOperations.CreatePageWithControl(mvcProxy, pageNamePrefix, pageTitlePrefix, urlNamePrefix, index);
 
-                    string detailNewsUrl = url + dynamicCollection[0].ItemDefaultUrl;
-                    string responseContent = PageInvoker.ExecuteWebRequest(detailNewsUrl);
+                string detailNewsUrl = url + dynamicCollection[0].ItemDefaultUrl; 
+                string responseContent = PageInvoker.ExecuteWebRequest(detailNewsUrl);
 
-                    Assert.IsTrue(responseContent.Contains(paragraphText), "The paragraph text was not found!");
+                Assert.IsTrue(responseContent.Contains(paragraphText), "The paragraph text was not found!");
 
-                    for (int j = 0; j < this.dynamicTitles.Length; j++)
-                    {
-                        if (j != i)
-                        {
-                            Assert.IsFalse(responseContent.Contains(this.dynamicTitles[j]), "The dynamic item with this title was found!");
-                        }
-                        else
-                        {
-                            Assert.IsTrue(responseContent.Contains(this.dynamicTitles[j]), "The dynamic item with this title was not found!");
-                        }
-                    }
-                }
+                Assert.IsTrue(responseContent.Contains(this.dynamicTitles[0]), "The dynamic item with this title was not found!");
+                Assert.IsFalse(responseContent.Contains(this.dynamicTitles[1]), "The dynamic item with this title was found!");
+                Assert.IsFalse(responseContent.Contains(this.dynamicTitles[2]), "The dynamic item with this title was found!");
             }
             finally
             {
@@ -96,7 +84,6 @@ namespace FeatherWidgets.TestIntegration.DynamicWidgets
                 File.Delete(fileList);
                 Directory.Delete(this.folderPath);
                 this.pageOperations.DeletePages();
-                dynamicCollection = ServerOperationsFeather.DynamicModulePressArticle().RetrieveCollectionOfPressArticles();
                 ServerOperationsFeather.DynamicModulePressArticle().DeleteDynamicItems(dynamicCollection);
             }
         }
@@ -114,6 +101,8 @@ namespace FeatherWidgets.TestIntegration.DynamicWidgets
             string pageNamePrefix = testName + "DynamicPage";
             string pageTitlePrefix = testName + "Dynamic Page";
             string urlNamePrefix = testName + "dynamic-page";
+            int index = 1;
+            string url = UrlPath.ResolveAbsoluteUrl("~/" + urlNamePrefix + index);
 
             string fileDeatil = null;
             string fileList = null;
@@ -126,53 +115,39 @@ namespace FeatherWidgets.TestIntegration.DynamicWidgets
                 fileList = this.CopyFile(DynamicFileListName, DynamicFileListFileResource);
 
                 for (int i = 0; i < this.dynamicTitles.Length; i++)
-                {
-                    string url = UrlPath.ResolveAbsoluteUrl("~/" + urlNamePrefix + i.ToString());
+                    ServerOperationsFeather.DynamicModulePressArticle().CreatePressArticleItem(this.dynamicTitles[i], this.dynamicUrls[i]);
 
-                    Guid itemId = ServerOperationsFeather.DynamicModulePressArticle().CreatePressArticleItem(this.dynamicTitles[i], this.dynamicUrls[i]).Id;
-                    dynamicCollection = ServerOperationsFeather.DynamicModulePressArticle().RetrieveCollectionOfPressArticles().Where(item => item.OriginalContentId == itemId && item.Status == Telerik.Sitefinity.GenericContent.Model.ContentLifecycleStatus.Live).ToList();
-                    var itemsToDelete = ServerOperationsFeather.DynamicModulePressArticle().RetrieveCollectionOfPressArticles().Where(item => item.Id != itemId && item.OriginalContentId != itemId).ToList();
-                    ServerOperationsFeather.DynamicModulePressArticle().DeleteDynamicItems(itemsToDelete);
+                dynamicCollection = ServerOperationsFeather.DynamicModulePressArticle().RetrieveCollectionOfPressArticles();
 
-                    var mvcProxy = new MvcWidgetProxy();
-                    mvcProxy.ControllerName = typeof(DynamicContentController).FullName;
-                    var dynamicController = new DynamicContentController();
-                    dynamicController.Model.ContentType = TypeResolutionService.ResolveType(ResolveType);
-                    dynamicController.Model.ProviderName = ((Telerik.Sitefinity.Data.DataProviderBase)dynamicCollection.First().Provider).Name;
-                    dynamicController.ListTemplateName = detailTemplate;
-                    dynamicController.DetailTemplateName = detailTemplate;
-                    dynamicController.Model.ProviderName = FeatherWidgets.TestUtilities.CommonOperations.DynamicModulesOperations.ProviderName;
-                    mvcProxy.Settings = new ControllerSettings(dynamicController);
-                    mvcProxy.WidgetName = WidgetName;
+                var mvcProxy = new MvcWidgetProxy();
+                mvcProxy.ControllerName = typeof(DynamicContentController).FullName;
+                var dynamicController = new DynamicContentController();
+                dynamicController.Model.ContentType = TypeResolutionService.ResolveType(ResolveType);
+                dynamicController.Model.ProviderName = ((Telerik.Sitefinity.Data.DataProviderBase)dynamicCollection.First().Provider).Name;
+                dynamicController.ListTemplateName = detailTemplate;
+                dynamicController.DetailTemplateName = detailTemplate;
+                dynamicController.Model.ProviderName = FeatherWidgets.TestUtilities.CommonOperations.DynamicModulesOperations.ProviderName;
+                mvcProxy.Settings = new ControllerSettings(dynamicController);
+                mvcProxy.WidgetName = WidgetName;
 
-                    this.pageOperations.CreatePageWithControl(mvcProxy, pageNamePrefix, pageTitlePrefix, urlNamePrefix, i);
+                this.pageOperations.CreatePageWithControl(mvcProxy, pageNamePrefix, pageTitlePrefix, urlNamePrefix, index);
 
-                    File.Delete(fileDeatil);
+                File.Delete(fileDeatil);
 
-                    string detailNewsUrl = url + dynamicCollection[0].ItemDefaultUrl;
-                    string responseContent = PageInvoker.ExecuteWebRequest(detailNewsUrl);
+                string detailNewsUrl = url + dynamicCollection[0].ItemDefaultUrl;
+                string responseContent = PageInvoker.ExecuteWebRequest(detailNewsUrl);
 
-                    Assert.IsFalse(responseContent.Contains(paragraphText), "The paragraph text was found!");
+                Assert.IsFalse(responseContent.Contains(paragraphText), "The paragraph text was found!");
 
-                    for (int j = 0; j < this.dynamicTitles.Length; j++)
-                    {
-                        if (j != i)
-                        {
-                            Assert.IsFalse(responseContent.Contains(this.dynamicTitles[j]), "The dynamic item with this title was found!");
-                        }
-                        else
-                        {
-                            Assert.IsTrue(responseContent.Contains(this.dynamicTitles[j]), "The dynamic item with this title was not found!");
-                        }
-                    }
-                }
+                Assert.IsTrue(responseContent.Contains(this.dynamicTitles[0]), "The dynamic item with this title was not found!");
+                Assert.IsFalse(responseContent.Contains(this.dynamicTitles[1]), "The dynamic item with this title was found!");
+                Assert.IsFalse(responseContent.Contains(this.dynamicTitles[2]), "The dynamic item with this title was found!");
             }
             finally
             {                
                 File.Delete(fileList);
                 Directory.Delete(this.folderPath);
                 this.pageOperations.DeletePages();
-                dynamicCollection = ServerOperationsFeather.DynamicModulePressArticle().RetrieveCollectionOfPressArticles();
                 ServerOperationsFeather.DynamicModulePressArticle().DeleteDynamicItems(dynamicCollection);
             }
         }
@@ -180,7 +155,7 @@ namespace FeatherWidgets.TestIntegration.DynamicWidgets
         [FixtureTearDown]
         public void Teardown()
         {
-            Telerik.Sitefinity.Mvc.TestUtilities.CommonOperations.AuthenticationHelper.AuthenticateUser("admin@test.test", "admin@2");
+            Telerik.Sitefinity.Mvc.TestUtilities.CommonOperations.AuthenticationHelper.AuthenticateUser("admin", "admin@2");
             Telerik.Sitefinity.TestUtilities.CommonOperations.ServerOperations.ModuleBuilder().DeleteAllModules(string.Empty, TransactionName);
         }
 

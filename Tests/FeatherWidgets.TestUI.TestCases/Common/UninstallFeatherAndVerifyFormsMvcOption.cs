@@ -23,14 +23,10 @@ namespace FeatherWidgets.TestUI.TestCases.Common
         /// </summary>
         [TestMethod,
         Owner(FeatherTeams.SitefinityTeam2),
-        TestCategory(FeatherTestCategories.PagesAndContent),
-        TestCategory(FeatherTestCategories.Common),
-        TestCategory(FeatherTestCategories.IgnoredInReadOnly)]
+        TestCategory(FeatherTestCategories.PagesAndContent)]
         public void UninstallFeatherAndVerifyFormsMvcOption()
         {
-            BAT.Macros().NavigateTo().System().ModulesAndServices();
-            ActiveBrowser.WaitUntilReady();
-            BAT.Wrappers().Backend().ModulesAndServices().ModulesAndServicesWrapper().WaitForRestart();
+            BAT.Wrappers().Backend().ModulesAndServices().ModulesAndServicesWrapper().NavigateToModules();
             BAT.Wrappers().Backend().ModulesAndServices().ModulesAndServicesWrapper().DeactivateModule(ModuleName);
             BAT.Wrappers().Backend().ModulesAndServices().ModulesAndServicesWrapper().UninstallModule(ModuleName);
 
@@ -42,9 +38,8 @@ namespace FeatherWidgets.TestUI.TestCases.Common
             BATFeather.Wrappers().Backend().Forms().FormsWrapper().VerifyWebFrameworkOptions(false);
             BAT.Wrappers().Backend().Forms().FormsCreateScreen().ClickBackToForms();
 
-            BAT.Macros().NavigateTo().System().ModulesAndServices();
-            ActiveBrowser.WaitUntilReady();
-            BAT.Wrappers().Backend().ModulesAndServices().ModulesAndServicesWrapper().WaitForRestart();
+
+            BAT.Wrappers().Backend().ModulesAndServices().ModulesAndServicesWrapper().NavigateToModules();
             BAT.Wrappers().Backend().ModulesAndServices().ModulesAndServicesWrapper().InstallModule(ModuleName);
 
             this.VerifyPageBackend(PageName, WidgetName, FormsContentEnabled, true);

@@ -317,7 +317,6 @@ namespace FeatherWidgets.TestIntegration.News
         [Category(TestCategories.News)]
         [Author(FeatherTeams.SitefinityTeam7)]
         [Description("Verifies that the date selector - custom range resolves the correct news.")]
-        [Ignore]
         public void NewsWidget_VerifyDateSelectorCustomRangeOption()
         {
             var newsManager = NewsManager.GetManager();

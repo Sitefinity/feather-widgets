@@ -19,7 +19,7 @@ namespace FeatherWidgets.TestUI.Arrangements
         [ServerSetUp]
         public void SetUp()
         {
-            AuthenticationHelper.AuthenticateUser(this.AdminEmail, this.AdminPass, true);
+            AuthenticationHelper.AuthenticateUser(AdminUserName, AdminPass, true);
             Guid templateId = Telerik.Sitefinity.TestUtilities.CommonOperations.ServerOperations.Templates().GetTemplateIdByTitle(PageTemplateName);
             Guid pageId = Telerik.Sitefinity.TestUtilities.CommonOperations.ServerOperations.Pages().CreatePage(PageName, templateId);
             pageId = ServerOperations.Pages().GetPageNodeId(pageId);
@@ -52,6 +52,8 @@ namespace FeatherWidgets.TestUI.Arrangements
             ServerArrangementContext.GetCurrent().Values.Add("CurrentProviderUrlName", urlName);
         }
 
+        private const string AdminUserName = "admin";
+        private const string AdminPass = "admin@2";
         private const string PageName = "PageWithDocument";
         private const string LibraryTitle = "TestDocumentLibrary";
         private const string DocumentTitle1 = "Image1";

@@ -92,17 +92,18 @@ namespace FeatherWidgets.TestUI.TestCases.CommentsAndReviews
 
         private const string PageName = "ReviewsPage";
         private const string ReviewMessage = "Write a review";
-        private readonly string[] reviewsToPage = { "Reviews to page" };
-        private readonly string[] reviewAuthor = { "New user" };
-        private readonly string[] reviewAuthorInvalidEmail = { "user" };
-        private readonly string[] reviewAuthorEmail = { "newuser@test.test" };
+        private string[] reviewsToPage = { "Reviews to page" };
+        private string[] reviewAuthor = { "New user" };
+        private string[] reviewAuthorInvalidEmail = { "user" };
+        private string[] reviewAuthorEmail = { "newuser@test.com" };
         private const string ReviewsStatus = "Published";
         private const string ReviewsCount = "1 review";
         private const string MessageIsRequired = "Message is required!";
         private const string RaitingIsRequired = "Rating is required!";
         private const string AuthorIsRequired = "Author name is required!";
-        private const string InvalidEmail = "Invalid email format!";
-        private readonly string[] reviewRaiting = { "(3)" };
+        private const string InvalidEmail = "Invalid email format!";                       
+        private string[] reviewRaiting = { "(3)" };
         private const int Raiting = 3;               
+        private const string AllertMessage = "Thank you! Your review has been submitted successfully";
     }
 }

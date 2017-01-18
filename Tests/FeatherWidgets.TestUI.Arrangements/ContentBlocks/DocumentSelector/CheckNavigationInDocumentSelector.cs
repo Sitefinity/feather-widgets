@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using FeatherWidgets.TestUtilities.CommonOperations;
+using FeatherWidgets.TestUtilities.CommonOperations.Pages;
 using Telerik.Sitefinity.TestArrangementService.Attributes;
+using Telerik.Sitefinity.TestUI.Arrangements.Framework;
 using Telerik.Sitefinity.TestUI.Arrangements.Framework.Server;
 using Telerik.Sitefinity.TestUtilities.CommonOperations;
 
@@ -18,7 +20,7 @@ namespace FeatherWidgets.TestUI.Arrangements
         [ServerSetUp]
         public void SetUp()
         {
-            AuthenticationHelper.AuthenticateUser(this.AdminEmail, this.AdminPass, true);
+            AuthenticationHelper.AuthenticateUser(AdminUserName, AdminPass, true);
             Guid page1Id = ServerOperations.Pages().CreatePage(PageName);
             ServerOperationsFeather.Pages().AddContentBlockWidgetToPage(page1Id);
 
@@ -28,9 +30,9 @@ namespace FeatherWidgets.TestUI.Arrangements
             ServerOperations.Documents().Upload(DocumentLibraryTitle, DocumentTitle + 1, DocumentResource);
             ServerOperationsFeather.MediaOperations().UploadDocumentInFolder(childId, DocumentTitle + 2, DocumentResourceChild);
 
-            ServerOperations.Users().CreateUserWithProfileAndRoles(this.AdninistratorEmail, "password", "Administrator", "User", new List<string> { "BackendUsers", "Administrators" });
+            ServerOperations.Users().CreateUserWithProfileAndRoles("administrator", "password", "Administrator", "User", "administrator@test.test", new List<string> { "BackendUsers", "Administrators" });
 
-            AuthenticationHelper.AuthenticateUser(this.AdninistratorEmail, "password", true);
+            AuthenticationHelper.AuthenticateUser("administrator", "password", true);
             ServerOperationsFeather.MediaOperations().UploadDocumentInFolder(nextChildId, DocumentTitle + 3, DocumentResourceNextChild);
         }
 
@@ -51,10 +53,12 @@ namespace FeatherWidgets.TestUI.Arrangements
         public void TearDown()
         {
             ServerOperations.Pages().DeleteAllPages();
-            ServerOperations.Users().DeleteUserAndProfile(this.AdninistratorEmail);
+            ServerOperations.Users().DeleteUserAndProfile("administrator");
             ServerOperations.Documents().DeleteAllLibrariesExceptDefaultOne();
         }
 
+        private const string AdminUserName = "admin";
+        private const string AdminPass = "admin@2";
         private const string PageName = "PageWithDocument";
         private const string DocumentLibraryTitle = "TestDocumentLibrary";
         private const string ChildLibraryTitle = "ChildDocumentLibrary";

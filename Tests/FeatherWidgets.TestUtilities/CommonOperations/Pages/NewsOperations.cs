@@ -7,8 +7,6 @@ using Telerik.Sitefinity;
 using Telerik.Sitefinity.Configuration;
 using Telerik.Sitefinity.Modules.News;
 using Telerik.Sitefinity.Modules.News.Configuration;
-using Telerik.Sitefinity.Multisite;
-using Telerik.Sitefinity.Multisite.Model;
 using Telerik.Sitefinity.News.Model;
 using Telerik.Sitefinity.SitefinityExceptions;
 using Telerik.Sitefinity.Taxonomies;
@@ -179,26 +177,6 @@ namespace FeatherWidgets.TestUtilities.CommonOperations.Pages
             var liveNewsItem = newsManager.Lifecycle.GetLive(newsItem);
             newsManager.Lifecycle.Unpublish(liveNewsItem);
             newsManager.SaveChanges();
-        }
-
-        /// <summary>
-        /// Gets the name of the application site.
-        /// </summary>
-        /// <returns></returns>
-        public string ApplicationSiteName
-        {
-            get
-            {
-                var manager = MultisiteManager.GetManager();
-                var site = manager.GetSites().FirstOrDefault(s => !s.IsDefault);
-
-                if (site == null)
-                {
-                    site = manager.GetSites().First();
-                }
-
-                return site.Name;
-            }
         }
 
         private NewsItem CreateNewsWithBasicProperties(NewsManager manager, string title, string content, string author, string sourceName)

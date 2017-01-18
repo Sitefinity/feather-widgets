@@ -11,11 +11,6 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.ChangePassword
     public class ChangePasswordViewModel
     {
         /// <summary>
-        /// Gets or sets the user's external provider
-        /// </summary>        
-        public string ExternalProviderName { get; set; }
-
-        /// <summary>
         /// Gets or sets the css class.
         /// </summary>
         /// <value>

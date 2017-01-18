@@ -153,29 +153,6 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.Profile
         }
 
         /// <summary>
-        /// Check if email is changed
-        /// </summary>
-        /// <param name="model">The profile properties.</param>
-        /// <returns>changed/not changed</returns>
-        public bool IsEmailChanged(ProfileEditViewModel model)
-        {
-            if (!string.IsNullOrEmpty(model.Email))
-            {
-                var userId = this.GetUserId();
-                var userManager = UserManager.GetManager(SecurityManager.GetUser(userId).ProviderName);
-                var user = userManager.GetUser(userId);
-                if (user.Email != model.Email)
-                {
-                    return true;
-                }
-
-                return false;
-            }
-
-            return false;
-        }
-
-        /// <summary>
         /// Edits the user profile.
         /// </summary>
         /// <param name="profileProperties">The profile properties.</param>
@@ -197,32 +174,6 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.Profile
             userProfileManager.SaveChanges();
 
             return true;
-        }
-
-
-        public bool EditUserEmail(ProfileEmailEditViewModel model)
-        {
-            if (!string.IsNullOrEmpty(model.Email))
-            {                
-                var userManager = UserManager.GetManager(SecurityManager.GetUser(model.UserId).ProviderName);
-                var user = userManager.GetUser(model.UserId);
-                
-                if (!userManager.ValidateUser(user, model.Password))
-                {
-                    return false;
-                }
-
-                if (user.Email != model.Email)
-                {
-                    user.Email = model.Email;
-                    userManager.SaveChanges();
-                    return true;
-                }
-
-                return false;
-            }
-
-            return false;
         }
 
         /// <summary>
@@ -271,21 +222,16 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.Profile
         }
 
         /// <inheritDoc/>
-        public virtual void InitializeUserRelatedData(ProfileEditViewModel model, bool emailUpdate = true)
+        public virtual void InitializeUserRelatedData(ProfileEditViewModel model)
         {
             model.User = SecurityManager.GetUser(this.GetUserId());
 
-            if (emailUpdate)
-            {
-                model.UserName = model.User.UserName;
-                model.Email = model.User.Email;
-            }
-
-            model.ExternalProviderName = model.User.ExternalProviderName;
+            model.UserName = model.User.UserName;
+            model.Email = model.User.Email;
+            model.UserName = model.User.UserName;
             Libraries.Model.Image avatarImage;
 
             var displayNameBuilder = new SitefinityUserDisplayNameBuilder();
-            
             model.DisplayName = displayNameBuilder.GetUserDisplayName(model.User.Id);
             model.AvatarImageUrl = displayNameBuilder.GetAvatarImageUrl(model.User.Id, out avatarImage);
             model.DefaultAvatarUrl = displayNameBuilder.GetAvatarImageUrl(Guid.Empty, out avatarImage);
@@ -549,7 +495,7 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.Profile
         private string profileProvider;
         private string membrshipProvider;
         private IList<UserProfile> selectedUserProfiles;
-        private string profileBindings = "[{ProfileType: 'Telerik.Sitefinity.Security.Model.SitefinityProfile',Properties: [{ Name: 'FirstName', FieldName: 'FirstName', Required: true },{ Name: 'LastName', FieldName: 'LastName', Required: true }, {Name:'About', FieldName:'About' },{Name:'Nickname', FieldName:'Nickname' } ]}]";
+        private string profileBindings = "[{ProfileType: 'Telerik.Sitefinity.Security.Model.SitefinityProfile',Properties: [{ Name: 'FirstName', FieldName: 'FirstName', Required: true },{ Name: 'LastName', FieldName: 'LastName', Required: true }, {Name:'About', FieldName:'About' } ]}]";
 
         private const string ProfileImagesAlbumTitle = "Profile images";
         private const string ProfileImagesAlbumUrl = "sys-profile-images";

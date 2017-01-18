@@ -71,8 +71,8 @@ namespace FeatherWidgets.TestUI.TestCases.CommentsAndReviews
         private const string ReviewsCountNew = "2 reviews";
         private string[] reviewsToNewsNewest = { "Reviews to news", "Reviews to news new" };
         private string[] reviewsToNewsOldest = { "Reviews to news new", "Reviews to news" };
-        private string[] reviewAuthorOldest = { "New user", "admin admin" };
-        private string[] reviewAuthorNewest = { "admin admin", "New user" };
+        private string[] reviewAuthorOldest = { "New user", "admin" };
+        private string[] reviewAuthorNewest = { "admin", "New user" };
         private const int Raiting = 3;
         private string[] reviewRaiting = { "(3)", "(3)" };
         private const string ReviewMessage = "Write a review";

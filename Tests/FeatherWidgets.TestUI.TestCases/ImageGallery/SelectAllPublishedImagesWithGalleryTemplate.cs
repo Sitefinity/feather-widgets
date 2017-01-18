@@ -158,7 +158,7 @@ namespace FeatherWidgets.TestUI.TestCases.ImageGallery
                 url = ActiveBrowser.Url.Substring(0, 20);
             }
 
-            string scr = BATFeather.Wrappers().Frontend().MediaWidgets().MediaWidgetsWrapper().GetMediaSource(libraryUrl, imageUrl, ContentType, currentProviderUrlName);
+            string scr = BATFeather.Wrappers().Frontend().MediaWidgets().MediaWidgetsWrapper().GetMediaSource(libraryUrl, imageUrl, ContentType, currentProviderUrlName, this.Culture);
             return scr;
         }
 

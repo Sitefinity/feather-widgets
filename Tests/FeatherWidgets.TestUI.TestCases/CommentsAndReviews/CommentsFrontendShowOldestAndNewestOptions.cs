@@ -1,5 +1,8 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 using Feather.Widgets.TestUI.Framework;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
@@ -56,7 +59,7 @@ namespace FeatherWidgets.TestUI.TestCases.CommentsAndReviews
         private const string LeaveAComment = "Leave a comment";
         private string[] commentToNewsOldest = { "Comment1", "Comment2" };
         private string[] commentToNewsNewest = { "Comment2", "Comment1" };
-        private string[] commentAuthor = { FeatherTestCase.AdminNickname, FeatherTestCase.AdminNickname };
+        private string[] commentAuthor = { "admin", "admin" };
         private const string CommentStatus = "Published";
         private const string CommentsCount = "1 comment";
         private const string CommentsCountNew = "2 comments";

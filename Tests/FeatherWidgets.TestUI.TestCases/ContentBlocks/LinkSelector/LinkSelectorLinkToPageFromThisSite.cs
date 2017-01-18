@@ -21,11 +21,11 @@ namespace FeatherWidgets.TestUI.TestCases.ContentBlocks.LinkSelector
         [TestMethod,
         Owner(FeatherTeams.SitefinityTeam7),
         TestCategory(FeatherTestCategories.ContentBlock),
-        TestCategory(FeatherTestCategories.LinkSelector),
-        Telerik.TestUI.Core.Attributes.KnownIssue(BugId = 210208)]
+        TestCategory(FeatherTestCategories.LinkSelector)]
         public void LinkSelectorInsertLinkToPageFromThisSite()
         {
-            BAT.Macros().User().EnsureAdminLoggedIn();
+            RuntimeSettingsModificator.ExecuteWithClientTimeout(800000, () => BAT.Macros().NavigateTo().CustomPage("~/sitefinity/pages", false));
+            RuntimeSettingsModificator.ExecuteWithClientTimeout(800000, () => BAT.Macros().User().EnsureAdminLoggedIn());
             BAT.Macros().NavigateTo().Pages(this.Culture);
             BAT.Wrappers().Backend().Pages().PagesWrapper().OpenPageZoneEditor(LinkSelectorPageName);
             BATFeather.Wrappers().Backend().Pages().PageZoneEditorWrapper().EditWidget(WidgetName);

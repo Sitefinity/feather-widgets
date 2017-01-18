@@ -53,12 +53,22 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.Registration
         public virtual Guid? ConfirmationPageId { get; set; }
 
         /// <summary>
-        /// Gets or sets a value indicating whether the membership provider settings require question and answer for reset/retrieval password functionality.
+        /// Gets or sets is the username is required
         /// </summary>
         /// <value>
-        /// <c>true</c> if the membership provider requires question and answer; otherwise, <c>false</c>.
+        /// Should the email be the username be the same
         /// </value>
-        public bool RequiresQuestionAndAnswer { get; set; }
+        public bool EmailAddressShouldBeTheUsername { get; set; }
+
+        /// <summary>
+        /// Gets or sets the name of the user.
+        /// </summary>
+        /// <value>
+        /// The name of the user.
+        /// </value>
+        [Required]
+        [Display(Name = "Username", ResourceType = typeof(RegistrationStaticResources))]
+        public string UserName { get; set; }
 
         /// <summary>
         /// Gets or sets the password.
@@ -69,24 +79,6 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.Registration
         [Required]
         [Display(Name = "Password", ResourceType = typeof(RegistrationStaticResources))]
         public string Password { get; set; }
-
-        /// <summary>
-        /// Gets or sets the question.
-        /// </summary>
-        /// <value>
-        /// The question.
-        /// </value>
-        [Display(Name = "Question", ResourceType = typeof(RegistrationStaticResources))]
-        public string Question { get; set; }
-
-        /// <summary>
-        /// Gets or sets the answer.
-        /// </summary>
-        /// <value>
-        /// The answer.
-        /// </value>
-        [Display(Name = "Answer", ResourceType = typeof(RegistrationStaticResources))]
-        public string Answer { get; set; }
 
         /// <summary>
         /// Gets or sets the password confirmation value.
@@ -117,13 +109,5 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.Registration
         /// The profile.
         /// </value>
         public IDictionary<string, string> Profile { get; private set; }
-
-        /// <summary>
-        /// Gets or sets the external providers.
-        /// </summary>
-        /// <value>
-        /// External providers.
-        /// </value>
-        public IDictionary<string, string> ExternalProviders { get; set; }
     }
 }

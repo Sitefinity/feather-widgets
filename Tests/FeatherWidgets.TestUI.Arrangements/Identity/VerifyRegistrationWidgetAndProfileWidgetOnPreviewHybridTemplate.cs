@@ -16,7 +16,7 @@ namespace FeatherWidgets.TestUI.Arrangements
         [ServerSetUp]
         public void SetUp()
         {
-            AuthenticationHelper.AuthenticateUser(this.AdminEmail, this.AdminPass, true);
+            AuthenticationHelper.AuthenticateUser(AdminUserName, AdminPass, true);
         }
 
         /// <summary>
@@ -25,11 +25,13 @@ namespace FeatherWidgets.TestUI.Arrangements
         [ServerTearDown]
         public void TearDown()
         {
-            AuthenticationHelper.AuthenticateUser(this.AdminEmail, this.AdminPass, true);
-            ServerOperations.Users().DeleteUserAndProfile(NewUserEmail);
+            AuthenticationHelper.AuthenticateUser(AdminUserName, AdminPass, true);
+            ServerOperations.Users().DeleteUserAndProfile(NewUserName);
             ServerOperations.Templates().DeletePageTemplate("TestHybrid");
         }
 
-        private const string NewUserEmail = "newuser@test.test";
+        private const string AdminUserName = "admin";
+        private const string AdminPass = "admin@2";
+        private const string NewUserName = "newUser";
     }
 }

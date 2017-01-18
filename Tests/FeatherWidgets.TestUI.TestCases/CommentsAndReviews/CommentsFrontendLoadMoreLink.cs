@@ -1,7 +1,12 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using ArtOfTest.WebAii.Core;
 using Feather.Widgets.TestUI.Framework;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Telerik.Sitefinity.TestUI.Framework.Wrappers.Backend;
 
 namespace FeatherWidgets.TestUI.TestCases.CommentsAndReviews
 {
@@ -43,7 +48,7 @@ namespace FeatherWidgets.TestUI.TestCases.CommentsAndReviews
             for (int i = 0; i <= 50; i++)
             {
                 this.commentToNews[i] = "Comment" + i;
-                this.commentAuthor[i] = FeatherTestCase.AdminNickname;
+                this.commentAuthor[i] = "admin";
             }
         }
 

@@ -62,7 +62,7 @@ namespace FeatherWidgets.TestUnit.DummyClasses.Identity
             return Guid.NewGuid();
         }
 
-        public void InitializeUserRelatedData(ProfileEditViewModel model, bool emailUpdate = true)
+        public void InitializeUserRelatedData(ProfileEditViewModel model)
         {
             // Do nothing.
         }
@@ -70,16 +70,6 @@ namespace FeatherWidgets.TestUnit.DummyClasses.Identity
         public void ValidateProfileData(ProfileEditViewModel viewModel, System.Web.Mvc.ModelStateDictionary modelState)
         {
             // Do nothing.
-        }
-
-        public bool IsEmailChanged(ProfileEditViewModel model)
-        {
-            return false;
-        }
-
-        public bool EditUserEmail(ProfileEmailEditViewModel model)
-        {
-            return false;
         }
     }
 }

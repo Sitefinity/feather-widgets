@@ -15,6 +15,14 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.StringResources
             }
         }
 
+        public static string Username
+        {
+            get
+            {
+                return Res.Get<RegistrationResources>().Username;
+            }
+        }
+
         public static string Password
         {
             get
@@ -28,22 +36,6 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.StringResources
             get
             {
                 return Res.Get<RegistrationResources>().ReTypePassword;
-            }
-        }
-
-        public static string Question
-        {
-            get
-            {
-                return Res.Get<RegistrationResources>().Question;
-            }
-        }
-
-        public static string Answer
-        {
-            get
-            {
-                return Res.Get<RegistrationResources>().Answer;
             }
         }
     }

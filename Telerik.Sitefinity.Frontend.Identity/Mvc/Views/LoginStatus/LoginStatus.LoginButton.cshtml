@@ -10,8 +10,8 @@
 
         <div><img data-sf-role="sf-logged-in-avatar" width="80" height="80" /></div>
         <a href="@(Model.ProfilePageUrl ?? "#")" data-sf-role="sf-logged-in-name"></a>
-        <p data-sf-role="sf-logged-in-email"></p>      
-        @Html.ActionLink(Html.Resource("Logout"), "SignOut")
+        <p data-sf-role="sf-logged-in-email"></p>
+        <button data-sf-role="sf-logged-in-log-out-btn">@Html.Resource("Logout")</button>
 
     </div>
 

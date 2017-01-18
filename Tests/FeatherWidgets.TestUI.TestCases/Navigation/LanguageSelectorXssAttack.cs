@@ -18,8 +18,7 @@ namespace FeatherWidgets.TestUI.TestCases.Navigation
         /// </summary>
         [TestMethod,
         Owner(FeatherTeams.SitefinityTeam7),
-        TestCategory(FeatherTestCategories.PagesAndContent),
-        TestCategory(FeatherTestCategories.Navigation)]
+        TestCategory(FeatherTestCategories.PagesAndContent)]
         public void LanguageSelectorXssAttack()
         {
             BAT.Macros().NavigateTo().CustomPage("~/" + PageName.ToLower(), false, this.Culture);

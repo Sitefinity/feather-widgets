@@ -5,7 +5,6 @@ using System.Linq;
 using System.Text.RegularExpressions;
 using System.Threading;
 using Telerik.Sitefinity;
-using Telerik.Sitefinity.Data;
 using Telerik.Sitefinity.Lists.Model;
 using Telerik.Sitefinity.Modules.Lists;
 using Telerik.Sitefinity.Security;
@@ -173,8 +172,7 @@ namespace FeatherWidgets.TestUtilities.CommonOperations
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Maintainability", "CA1506:AvoidExcessiveClassCoupling")]
         public void AddTaxonomiesToListItem(Guid listItemId, IEnumerable<string> categories, IEnumerable<string> tags)
         {
-            string transactionName = "AddTaxonomiesToListItem";
-            ListsManager listManager = ListsManager.GetManager(string.Empty, transactionName);
+            ListsManager listManager = ListsManager.GetManager();
 
             ListItem listItemMaster = listManager.GetListItems().Where(i => i.Id == listItemId).FirstOrDefault();
 
@@ -214,7 +212,7 @@ namespace FeatherWidgets.TestUtilities.CommonOperations
 
             listItemMaster = listManager.Lifecycle.CheckIn(listItemTemp) as ListItem;
             listManager.Lifecycle.Publish(listItemMaster);
-            TransactionManager.CommitTransaction(transactionName);
+            listManager.SaveChanges();
         }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1024:UsePropertiesWhereAppropriate")]

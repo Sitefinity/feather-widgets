@@ -156,38 +156,5 @@ namespace Feather.Widgets.TestUI.Framework.Framework.ElementMap.Widgets
                 return this.Get<HtmlInputCheckBox>("ng-model=properties.AllowCalendarFilter.PropertyValue");
             }
         }
-
-        /// <summary>
-        /// Gets "Filter events by" radio button in Content tab
-        /// </summary>
-        public HtmlControl FilterEventsByButton
-        {
-            get
-            {
-                return this.Find.ByExpression<HtmlControl>("tagname=label", "innerText=Filtered events by...");
-            }
-        }
-
-        /// <summary>
-        /// Gets Calendar checkbox
-        /// </summary>
-        public HtmlInputCheckBox CalendarCheckBox
-        {
-            get
-            {
-                return this.Get<HtmlInputCheckBox>("tagname=input", "id=calendarInput");
-            }
-        }
-
-        /// <summary>
-        /// Gets Calendar Select button.
-        /// </summary>
-        public HtmlButton SelectCalendarButton
-        {
-            get
-            {
-                return this.Get<HtmlButton>("tagname=button", "class=btn btn-xs btn-default openSelectorBtn ng-scope");
-            }
-        }
     }
 }

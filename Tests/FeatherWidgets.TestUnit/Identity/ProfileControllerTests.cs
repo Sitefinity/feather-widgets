@@ -1,9 +1,9 @@
 ﻿using System;
+using System.Web;
 using System.Web.Mvc;
 using FeatherWidgets.TestUnit.DummyClasses.Identity;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Telerik.Sitefinity.Frontend.Identity.Mvc.Models.Profile;
-using Telerik.Sitefinity.Frontend.TestUtilities.DummyClasses.HttpContext;
 using Telerik.Sitefinity.Services;
 
 namespace FeatherWidgets.TestUnit.Identity
@@ -19,12 +19,18 @@ namespace FeatherWidgets.TestUnit.Identity
         [Owner("Boyko-Karadzhov")]
         public void Index_ReadOnlyMode_ReturnsReadView()
         {
+            var context = new HttpContextWrapper(new HttpContext(new HttpRequest(null, "http://tempuri.org", null), new HttpResponse(null)));
             var controller = new DummyProfileController();
             controller.ReadModeTemplateName = "TestTemplate";
             controller.Mode = ViewMode.ReadOnly;
-
             ActionResult result = null;
-            SystemManager.RunWithHttpContext(new DummyHttpContext(), () => result = controller.Index());
+
+            SystemManager.RunWithHttpContext(
+                context,
+                () =>
+                {
+                    result = controller.Index();
+                });
 
             Assert.IsNotNull(result, "The action result is null.");
             Assert.IsInstanceOfType(result, typeof(ViewResult), "The action result is not of the expected type.");
@@ -40,12 +46,18 @@ namespace FeatherWidgets.TestUnit.Identity
         [Owner("Boyko-Karadzhov")]
         public void Index_EditOnlyMode_ReturnsEditView()
         {
+            var context = new HttpContextWrapper(new HttpContext(new HttpRequest(null, "http://tempuri.org", null), new HttpResponse(null)));
             var controller = new DummyProfileController();
             controller.EditModeTemplateName = "TestTemplate";
             controller.Mode = ViewMode.EditOnly;
-
             ActionResult result = null;
-            SystemManager.RunWithHttpContext(new DummyHttpContext(), () => result = controller.Index());
+
+            SystemManager.RunWithHttpContext(
+                context,
+                () =>
+                {
+                    result = controller.Index();
+                });
 
             Assert.IsNotNull(result, "The action result is null.");
             Assert.IsInstanceOfType(result, typeof(ViewResult), "The action result is not of the expected type.");
@@ -61,12 +73,18 @@ namespace FeatherWidgets.TestUnit.Identity
         [Owner("Boyko-Karadzhov")]
         public void Index_BothMode_ReturnsReadView()
         {
+            var context = new HttpContextWrapper(new HttpContext(new HttpRequest(null, "http://tempuri.org", null), new HttpResponse(null)));
             var controller = new DummyProfileController();
             controller.ReadModeTemplateName = "TestTemplate";
             controller.Mode = ViewMode.Both;
-
             ActionResult result = null;
-            SystemManager.RunWithHttpContext(new DummyHttpContext(), () => result = controller.Index());
+
+            SystemManager.RunWithHttpContext(
+                context,
+                () =>
+                {
+                    result = controller.Index();
+                });
 
             Assert.IsNotNull(result, "The action result is null.");
             Assert.IsInstanceOfType(result, typeof(ViewResult), "The action result is not of the expected type.");

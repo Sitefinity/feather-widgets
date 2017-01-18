@@ -41,7 +41,7 @@ namespace FeatherWidgets.TestUI.TestCases.CommentsAndReviews
             BATFeather.Wrappers().Frontend().CommentsAndReviews().ReviewsWrapper().VerifyReviewsTextAreaIsNotVisible();
 
             BAT.Macros().NavigateTo().CustomPage("~/" + LoginPage.ToLower());
-            BAT.Wrappers().Backend().LoginView().LoginViewWrapper().SetUsername(NewUserEmail);
+            BAT.Wrappers().Backend().LoginView().LoginViewWrapper().SetUsername(NewUserName);
             BAT.Wrappers().Backend().LoginView().LoginViewWrapper().SetPassword(NewUserPassword);
             BAT.Wrappers().Backend().LoginView().LoginViewWrapper().ExecuteLogin();
 
@@ -75,19 +75,21 @@ namespace FeatherWidgets.TestUI.TestCases.CommentsAndReviews
             BAT.Arrange(this.TestName).ExecuteTearDown();
         }
 
+        private const string ReviewMessage = "Write a review";
         private const string ReviewsCount = "1 review";
         private const string AllertMessageThankYou = "Thank you! Your review has been submitted successfully";
         private const string AllertMessage = "You've already submitted a review for this item";
         private const string PageName = "ReviewsPage";
-        private readonly string[] reviewsToPage = { "Reviews to page from Anonymous user" };
-        private readonly string[] reviewAuthor = { "Anonymous user" };
-        private readonly string[] reviewRaiting = { "(3)" };
-        private readonly string[] reviewsToPageAll = { "Reviews to page from new user", "Reviews to page from Anonymous user" };
-        private readonly string[] reviewAuthorAll = { "First name Last name", "Anonymous user" };
-        private readonly string[] reviewRaitingAll = { "(3)", "(3)" };
-        private readonly string[] averageRaiting = { "(3)" };
+        private string[] reviewsToPage = { "Reviews to page from Anonymous user" };
+        private string[] reviewAuthor = { "Anonymous user" };
+        private string[] reviewRaiting = { "(3)" };
+        private string[] reviewsToPageAll = { "Reviews to page from new user", "Reviews to page from Anonymous user" };
+        private string[] reviewAuthorAll = { "newUser", "Anonymous user" };
+        private string[] reviewRaitingAll = { "(3)", "(3)" };
+        private string[] averageRaiting = { "(3)" };
         private const string AllReviewsCount = "2 reviews";
-        private const string NewUserEmail = "newUser@test.test";
+        private int[] raiting = { 3, 3 };
+        private const string NewUserName = "newUser";
         private const string NewUserPassword = "password";
         private const string LoginPage = "Sitefinity";
     }

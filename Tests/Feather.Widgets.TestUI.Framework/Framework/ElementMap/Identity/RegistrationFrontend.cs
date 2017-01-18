@@ -52,7 +52,7 @@ namespace Feather.Widgets.TestUI.Framework.Framework.ElementMap.Identity
         {
             get
             {
-                return this.Find.AllByExpression<HtmlInputEmail>("tagname=input", "id=Email").SingleOrDefault();
+                return this.Get<HtmlInputEmail>("tagname=input", "id=Email");
             }
         }
 
@@ -162,7 +162,7 @@ namespace Feather.Widgets.TestUI.Framework.Framework.ElementMap.Identity
         {
             get
             {
-                return this.Get<HtmlDiv>("TagName=div", "InnerText=Please enter a different email.");
+                return this.Get<HtmlDiv>("TagName=div", "InnerText=Please enter a different user name.");
             }
         }
 
@@ -173,7 +173,7 @@ namespace Feather.Widgets.TestUI.Framework.Framework.ElementMap.Identity
         {
             get
             {
-                return this.Get<HtmlDiv>("TagName=div", "InnerText=Please enter a different email.");
+                return this.Get<HtmlDiv>("TagName=div", "InnerText=The email address that you entered is already in use. Please enter a different email address.");
             }
         }
     }

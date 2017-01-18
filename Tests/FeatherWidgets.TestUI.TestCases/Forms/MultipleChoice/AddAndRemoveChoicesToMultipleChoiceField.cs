@@ -94,7 +94,7 @@ namespace FeatherWidgets.TestUI.TestCases.Forms.MultipleChoice
         private const string Choice = "First Choice";
         private const int ExpectedResponsesCount1 = 1;
         private const int ExpectedResponsesCount2 = 2;
-        private const string ExpectedAuthorName = "admin@test.test";
+        private const string ExpectedAuthorName = "admin";
         private const string OtherChoice = "Other...";
         private const string OtherChoiceText = "This is other choice";
         private const string TwoResponses = "2 responses";

@@ -18,8 +18,6 @@
 
     @using (Html.BeginFormSitefinity("Index", "EditProfileForm", FormMethod.Post, new { enctype = "multipart/form-data" }))
     {
-        <h3>@Html.Resource("EditProfileLink")</h3>
-        
         <div>
             @Html.HiddenFor(u => u.DeletePicture, new Dictionary<string, object>() { { "data-sf-role", "edit-profile-delete-picture" } })
             @Html.HiddenFor(u => u.DefaultAvatarUrl, new Dictionary<string, object>() { { "data-sf-role", "edit-profile-default-avatar-url" } })
@@ -31,8 +29,8 @@
 
             <a data-sf-role="edit-profile-upload-picture-button">@Html.Resource("EditProfileUploadImage")</a>
 
-        </div>        
-
+        </div>
+        
         @ViewBag.ErrorMessage
 
         <div>
@@ -49,74 +47,41 @@
                 @Html.ValidationMessageFor(u => u.Profile["LastName"])
             </label>
         </div>
-        <div>
-            <label>
-                @Html.Resource("EditProfileNickname")
-                @Html.TextBoxFor(u => u.Profile["Nickname"])
-                @Html.ValidationMessageFor(u => u.Profile["Nickname"])
-            </label>
-        </div>
+
         <div>
             <label>
                 @Html.Resource("EditProfileAbout")
                 @Html.TextBoxFor(u => u.Profile["About"])
             </label>
         </div>
-        
-        if (string.IsNullOrEmpty(Model.ExternalProviderName))
-        {
+
+        <a href="#" data-sf-role="edit-profile-change-password-button">@Html.Resource("EditProfileChangePasswordButton")</a>
+        <div data-sf-role="edit-profile-change-password-holder" style="display:none">
+
+            <h4>@Html.Resource("EditProfileEditChangePasswordHeader")</h4>
+
             <div>
                 <label>
-                    @Html.Resource("EditProfileEmail")
-                    @Html.TextBoxFor(u => u.Email)
-                    @Html.ValidationMessageFor(u => u.Email)
-                </label>
-            </div>
-
-            <a href="#" data-sf-role="edit-profile-change-password-button">@Html.Resource("EditProfileChangePasswordButton")</a>
-            <div data-sf-role="edit-profile-change-password-holder" style="display:none">
-
-                <h4>@Html.Resource("EditProfileEditChangePasswordHeader")</h4>
-
-                <div>
-                    <label>
-                        @Html.Resource("EditProfileOldPassword")
-                        @Html.PasswordFor(u => u.OldPassword, new { autocomplete = "off" })
-                        @Html.ValidationMessageFor(u => u.OldPassword)
-                    </label>
-                </div>
-                <div>
-                    <label>
-                        @Html.Resource("EditProfileNewPassword")
-                        @Html.PasswordFor(u => u.NewPassword)
-                        @Html.ValidationMessageFor(u => u.NewPassword)
-                    </label>
-                </div>
-                <div>
-                    <label>
-                        @Html.Resource("EditProfileRepeatPassword")
-                        @Html.PasswordFor(u => u.RepeatPassword)
-                        @Html.ValidationMessageFor(u => u.RepeatPassword)
-                    </label>
-                </div>
-            </div>
-        }
-        else
-        {
-            <h4>@string.Format(Html.Resource("RegistratedWithExternal"), Model.ExternalProviderName)</h4>
-            <div>   
-                <label>
-                    @Html.Resource("EditProfileEmail")
-                    @Model.Email
+                    @Html.Resource("EditProfileOldPassword")
+                    @Html.PasswordFor(u => u.OldPassword, new { autocomplete = "off" })
+                    @Html.ValidationMessageFor(u => u.OldPassword)
                 </label>
             </div>
             <div>
                 <label>
-                    @Html.Resource("Password")
-                    @string.Format(Html.Resource("ExternalProviderNoPassword"), Model.ExternalProviderName)
+                    @Html.Resource("EditProfileNewPassword")
+                    @Html.PasswordFor(u => u.NewPassword)
+                    @Html.ValidationMessageFor(u => u.NewPassword)
                 </label>
             </div>
-        }
+            <div>
+                <label>
+                    @Html.Resource("EditProfileRepeatPassword")
+                    @Html.PasswordFor(u => u.RepeatPassword)
+                    @Html.ValidationMessageFor(u => u.RepeatPassword)
+                </label>
+            </div>
+        </div>
 
         <div>
             @if (SystemManager.IsDesignMode)

@@ -20,7 +20,7 @@ namespace FeatherWidgets.TestUI.Arrangements
         [ServerSetUp]
         public void SetUp()
         {
-            AuthenticationHelper.AuthenticateUser(this.AdminEmail, this.AdminPass, true);
+            AuthenticationHelper.AuthenticateUser(AdminUserName, AdminPass, true);
 
             ServerOperations.Comments().AllowComments(ThreadType, true);
             ServerOperations.Comments().RequireApproval(ThreadType, true);
@@ -49,7 +49,7 @@ namespace FeatherWidgets.TestUI.Arrangements
         [ServerTearDown]
         public void TearDown()
         {
-            AuthenticationHelper.AuthenticateUser(this.AdminEmail, this.AdminPass, true);
+            AuthenticationHelper.AuthenticateUser(AdminUserName, AdminPass, true);
 
             ServerOperations.Pages().DeleteAllPages();
             var siteID = ServerOperations.Comments().GetCurrentSiteId.ToString();
@@ -61,6 +61,8 @@ namespace FeatherWidgets.TestUI.Arrangements
         private const string PageName = "CommentsPage";
         private const string PageTemplateName = "Bootstrap.default";
         private const string ThreadType = "Telerik.Sitefinity.Pages.Model.PageNode";
+        private const string AdminUserName = "admin";
+        private const string AdminPass = "admin@2";
         private const string CommentStatusPublish = "Published";
     }
 }

@@ -213,7 +213,7 @@ namespace Feather.Widgets.TestUI.Framework.Framework.ElementMap.Widgets
         {
             get
             {
-                return this.Get<HtmlAnchor>("tagName=a", "ng-click=toggle()", "innertext=~Narrow selection");
+                return this.Get<HtmlAnchor>("tagName=a", "ng-click=toggle()", "innertext=~Narrow selection by...");
             }
         }
 

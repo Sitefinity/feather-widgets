@@ -21,10 +21,8 @@ namespace FeatherWidgets.TestUI.TestCases.Identity
         [TestMethod,
         Owner(FeatherTeams.SitefinityTeam1),
         TestCategory(FeatherTestCategories.PagesAndContent),
-        TestCategory(FeatherTestCategories.Identity),
         TestCategory(FeatherTestCategories.UsersList),
-        TestCategory(FeatherTestCategories.Selectors),
-        Telerik.TestUI.Core.Attributes.KnownIssue(BugId = 209936)]
+        TestCategory(FeatherTestCategories.Selectors)]
         public void VerifySelectedUsersInUsersListWithSelectedSingleUserPage()
         {
             BAT.Macros().NavigateTo().Pages(this.Culture);

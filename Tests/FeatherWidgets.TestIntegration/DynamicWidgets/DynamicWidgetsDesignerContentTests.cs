@@ -7,6 +7,8 @@ using Telerik.Sitefinity.Frontend.Mvc.Infrastructure.Controllers;
 using Telerik.Sitefinity.Frontend.Mvc.Models;
 using Telerik.Sitefinity.Frontend.TestUtilities;
 using Telerik.Sitefinity.Mvc.Proxy;
+using Telerik.Sitefinity.Taxonomies;
+using Telerik.Sitefinity.Taxonomies.Model;
 using Telerik.Sitefinity.Utilities.TypeConverters;
 using Telerik.Sitefinity.Web;
 
@@ -82,31 +84,28 @@ namespace FeatherWidgets.TestIntegration.DynamicWidgets
             try
             {
                 for (int i = 0; i < this.dynamicTitles.Length; i++)
-                {
-                    Guid itemId = ServerOperationsFeather.DynamicModulePressArticle().CreatePressArticleItem(this.dynamicTitles[i], this.dynamicUrls[i]).Id;
+                    ServerOperationsFeather.DynamicModulePressArticle().CreatePressArticleItem(this.dynamicTitles[i], this.dynamicUrls[i]);
 
-                    dynamicCollection = ServerOperationsFeather.DynamicModulePressArticle().RetrieveCollectionOfPressArticles();
+                dynamicCollection = ServerOperationsFeather.DynamicModulePressArticle().RetrieveCollectionOfPressArticles();
 
-                    var mvcProxy = new MvcWidgetProxy();
+                var mvcProxy = new MvcWidgetProxy();
+                mvcProxy.ControllerName = typeof(DynamicContentController).FullName;
+                var dynamicController = new DynamicContentController();
+                dynamicController.Model.ContentType = TypeResolutionService.ResolveType(ResolveType);
+                dynamicController.Model.SelectionMode = SelectionMode.SelectedItems;
+                dynamicController.Model.SerializedSelectedItemsIds = "[\"" + dynamicCollection[3].Id.ToString() + "\"]";
+                dynamicController.Model.ProviderName = FeatherWidgets.TestUtilities.CommonOperations.DynamicModulesOperations.ProviderName;
+                mvcProxy.Settings = new ControllerSettings(dynamicController);
+                mvcProxy.WidgetName = WidgetName;
 
-                    mvcProxy.ControllerName = typeof(DynamicContentController).FullName;
-                    var dynamicController = new DynamicContentController();
-                    dynamicController.Model.ContentType = TypeResolutionService.ResolveType(ResolveType);
-                    dynamicController.Model.SelectionMode = SelectionMode.SelectedItems;
-                    dynamicController.Model.SerializedSelectedItemsIds = "[\"" + itemId.ToString() + "\"]";
-                    dynamicController.Model.ProviderName = FeatherWidgets.TestUtilities.CommonOperations.DynamicModulesOperations.ProviderName;
-                    mvcProxy.Settings = new ControllerSettings(dynamicController);
-                    mvcProxy.WidgetName = WidgetName;
+                var modelItems = dynamicController.Model.CreateListViewModel(taxonFilter: null, page: 1);
+                var dynamicItems = modelItems.Items.ToList();
+                int itemsCount = dynamicItems.Count;
 
-                    var modelItems = dynamicController.Model.CreateListViewModel(taxonFilter: null, page: 1);
-                    var dynamicItems = modelItems.Items.ToList();
-                    int itemsCount = dynamicItems.Count;
+                Assert.AreEqual(1, itemsCount, "The count of the dynamic item is not as expected");
 
-                    Assert.AreEqual(1, itemsCount, "The count of the dynamic item is not as expected");
-
-                    string title = dynamicItems[0].Fields.Title;
-                    Assert.IsTrue(title.Equals(this.dynamicTitles[i]), "The dynamic item with this title was not found!");
-                }
+                string title = dynamicItems[0].Fields.Title;
+                Assert.IsTrue(title.Equals(this.dynamicTitles[1]), "The dynamic item with this title was not found!");
             }
             finally
             {
@@ -125,23 +124,13 @@ namespace FeatherWidgets.TestIntegration.DynamicWidgets
 
             try
             {
-                DateTime earlierPublicationDate = DateTime.UtcNow.AddDays(-10);
-                string earlierPublishedItemTitle = this.dynamicTitles[0];
-                Guid earlierPublishedItemId = Guid.Empty;
-                for (int i = 0; i < this.dynamicTitles.Length; i++)
-                {
-                    if (i == 0)
-                    {
-                        earlierPublishedItemId = ServerOperationsFeather.DynamicModulePressArticle().CreatePressArticleItem(this.dynamicTitles[i], this.dynamicUrls[i]).Id;
-                    }
-                    else
-                    {
-                        ServerOperationsFeather.DynamicModulePressArticle().CreatePressArticleItem(this.dynamicTitles[i], this.dynamicUrls[i]);
-                    }
-                }
+                DateTime publicationDate = DateTime.UtcNow.AddDays(-10);
 
-                var earlierPublishedItem = ServerOperationsFeather.DynamicModulePressArticle().RetrieveCollectionOfPressArticles().First(i => i.Id == earlierPublishedItemId && i.Status == Telerik.Sitefinity.GenericContent.Model.ContentLifecycleStatus.Master);
-                ServerOperationsFeather.DynamicModulePressArticle().PublishPressArticleWithSpecificDate(earlierPublishedItem, earlierPublicationDate);
+                for (int i = 0; i < this.dynamicTitles.Length; i++)
+                    ServerOperationsFeather.DynamicModulePressArticle().CreatePressArticleItem(this.dynamicTitles[i], this.dynamicUrls[i]);
+
+                dynamicCollection = ServerOperationsFeather.DynamicModulePressArticle().RetrieveCollectionOfPressArticles();
+                ServerOperationsFeather.DynamicModulePressArticle().PublishPressArticleWithSpecificDate(dynamicCollection[4], publicationDate);           
 
                 var mvcProxy = new MvcWidgetProxy();
                 mvcProxy.ControllerName = typeof(DynamicContentController).FullName;
@@ -185,16 +174,19 @@ namespace FeatherWidgets.TestIntegration.DynamicWidgets
                 Assert.AreEqual(2, itemsCount, "The count of the dynamic item is not as expected");
 
                 string title1 = dynamicItems[0].Fields.Title;
-                Assert.IsTrue(this.dynamicTitles.Contains(title1), "The dynamic item with this title was not found!");
-                Assert.IsFalse(title1.Equals(earlierPublishedItemTitle), "The dynamic item with this title was found!");
+                Assert.IsTrue(title1.Equals(this.dynamicTitles[1]), "The dynamic item with this title was not found!");
 
                 string title2 = dynamicItems[1].Fields.Title;
-                Assert.IsTrue(this.dynamicTitles.Contains(title2), "The dynamic item with this title was not found!");
-                Assert.IsFalse(title2.Equals(earlierPublishedItemTitle), "The dynamic item with this title was found!");
+                Assert.IsTrue(title2.Equals(this.dynamicTitles[0]), "The dynamic item with this title was not found!");
+
+                for (int i = 0; i < itemsCount; i++)
+                {
+                    string title3 = dynamicItems[i].Fields.Title;
+                    Assert.IsFalse(title3.Equals(this.dynamicTitles[2]), "The dynamic item with this title was found!");
+                }
             }
             finally
             {
-                dynamicCollection = ServerOperationsFeather.DynamicModulePressArticle().RetrieveCollectionOfPressArticles();
                 ServerOperationsFeather.DynamicModulePressArticle().DeleteDynamicItems(dynamicCollection);
                 Telerik.Sitefinity.TestUtilities.CommonOperations.ServerOperations.Taxonomies().DeleteTags(this.tagTitle);
             }
@@ -213,22 +205,18 @@ namespace FeatherWidgets.TestIntegration.DynamicWidgets
                 DateTime publicationDate = new DateTime(2014, 10, 23, 12, 00, 00);
 
                 for (int i = 0; i < this.dynamicTitles.Length; i++)
-                {
-                    Guid itemId = ServerOperationsFeather.DynamicModulePressArticle().CreatePressArticleItem(this.dynamicTitles[i], this.dynamicUrls[i]).Id;
+                    ServerOperationsFeather.DynamicModulePressArticle().CreatePressArticleItem(this.dynamicTitles[i], this.dynamicUrls[i]);
 
-                    var masterItem = ServerOperationsFeather.DynamicModulePressArticle().RetrieveCollectionOfPressArticles().First(item => item.Id == itemId && item.Status == Telerik.Sitefinity.GenericContent.Model.ContentLifecycleStatus.Master);
-                    ServerOperationsFeather.DynamicModulePressArticle().PublishPressArticleWithSpecificDate(masterItem, publicationDate);
+                dynamicCollection = ServerOperationsFeather.DynamicModulePressArticle().RetrieveCollectionOfPressArticles();
+                ServerOperationsFeather.DynamicModulePressArticle().PublishPressArticleWithSpecificDate(dynamicCollection[4], publicationDate);            
 
-                    var itemsToDelete = ServerOperationsFeather.DynamicModulePressArticle().RetrieveCollectionOfPressArticles().Where(item => item.Id != itemId && item.OriginalContentId != itemId).ToList();
-                    ServerOperationsFeather.DynamicModulePressArticle().DeleteDynamicItems(itemsToDelete);
-
-                    var mvcProxy = new MvcWidgetProxy();
-                    mvcProxy.ControllerName = typeof(DynamicContentController).FullName;
-                    var dynamicController = new DynamicContentController();
-                    dynamicController.Model.ContentType = TypeResolutionService.ResolveType(ResolveType);
-                    dynamicController.Model.SelectionMode = SelectionMode.FilteredItems;
-                    dynamicController.Model.ProviderName = FeatherWidgets.TestUtilities.CommonOperations.DynamicModulesOperations.ProviderName;
-                    dynamicController.Model.SerializedAdditionalFilters = @"{
+                var mvcProxy = new MvcWidgetProxy();
+                mvcProxy.ControllerName = typeof(DynamicContentController).FullName;
+                var dynamicController = new DynamicContentController();
+                dynamicController.Model.ContentType = TypeResolutionService.ResolveType(ResolveType);
+                dynamicController.Model.SelectionMode = SelectionMode.FilteredItems;
+                dynamicController.Model.ProviderName = FeatherWidgets.TestUtilities.CommonOperations.DynamicModulesOperations.ProviderName;
+                dynamicController.Model.SerializedAdditionalFilters = @"{
             ""QueryItems"":[
 	            {
 		            ""IsGroup"":true,
@@ -268,30 +256,27 @@ namespace FeatherWidgets.TestIntegration.DynamicWidgets
 		            ""Name"":""PublicationDate.Fri, 24 Oct 2014 21:00:00 GMT""
 	            }";
 
-                    mvcProxy.Settings = new ControllerSettings(dynamicController);
-                    mvcProxy.WidgetName = WidgetName;
+                mvcProxy.Settings = new ControllerSettings(dynamicController);
+                mvcProxy.WidgetName = WidgetName;
 
-                    var modelItems = dynamicController.Model.CreateListViewModel(taxonFilter: null, page: 1);
-                    var dynamicItems = modelItems.Items.ToList();
-                    int itemsCount = dynamicItems.Count;
+                var modelItems = dynamicController.Model.CreateListViewModel(taxonFilter: null, page: 1);
+                var dynamicItems = modelItems.Items.ToList();
+                int itemsCount = dynamicItems.Count;
 
-                    Assert.AreEqual(1, itemsCount, "The count of the dynamic item is not as expected");
+                Assert.AreEqual(1, itemsCount, "The count of the dynamic item is not as expected");
 
-                    string title1 = dynamicItems[0].Fields.Title;
-                    Assert.IsTrue(title1.Equals(this.dynamicTitles[i]), "The dynamic item with this title was not found!");
+                string title1 = dynamicItems[0].Fields.Title;
+                Assert.IsTrue(title1.Equals(this.dynamicTitles[2]), "The dynamic item with this title was not found!");
 
-                    for (int j = 0; j < this.dynamicTitles.Length; j++)
-                    {
-                        if (j != i)
-                        {
-                            Assert.IsFalse(title1.Equals(this.dynamicTitles[j]), "The dynamic item with this title was found!");
-                        }
-                    }
+                for (int i = 0; i < itemsCount; i++)
+                {
+                    string titleNotExist = dynamicItems[i].Fields.Title;
+                    Assert.IsFalse(titleNotExist.Equals(this.dynamicTitles[0]), "The dynamic item with this title was found!");
+                    Assert.IsFalse(titleNotExist.Equals(this.dynamicTitles[1]), "The dynamic item with this title was found!");
                 }
             }
             finally
             {
-                dynamicCollection = ServerOperationsFeather.DynamicModulePressArticle().RetrieveCollectionOfPressArticles();
                 ServerOperationsFeather.DynamicModulePressArticle().DeleteDynamicItems(dynamicCollection);
                 Telerik.Sitefinity.TestUtilities.CommonOperations.ServerOperations.Taxonomies().DeleteTags(this.tagTitle);
             }

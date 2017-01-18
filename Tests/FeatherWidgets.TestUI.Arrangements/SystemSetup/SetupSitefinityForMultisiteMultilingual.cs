@@ -104,7 +104,7 @@ namespace FeatherWidgets.TestUI.Arrangements
         private const string Url = "http://localhost:83/";
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1823:AvoidUnusedPrivateFields")]
         private static readonly List<string> Cultures = new List<string>() { "en", "bg-BG" };
-        private const string Admin = "admin@test.test";
+        private const string Admin = "admin";
         private const string Password = "admin@2";
         private const string PageTemplateNameB = "Bootstrap.default";
         private const string PageTemplateNameS = "Foundation.default";

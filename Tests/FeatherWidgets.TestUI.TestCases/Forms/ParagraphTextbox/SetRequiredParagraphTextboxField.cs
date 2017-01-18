@@ -76,6 +76,6 @@ namespace FeatherWidgets.TestUI.TestCases.Forms.ParagraphTextbox
         private const string TextBoxContent = "Paragraph Field Text";
         private const int ExpectedResponsesCount = 1;
         private const int ResponseNumber = 1;
-        private const string ExpectedAuthorName = "admin@test.test";
+        private const string ExpectedAuthorName = "admin";
     }
 }
