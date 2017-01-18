@@ -61,12 +61,12 @@
                     {
                         <div class="checkbox">
                             <label>
-                                <input id="@provider.Name"
+                                <input id="@provider.Title"
                                        type="checkbox"
-                                       ng-change="updateExternalProvider('@provider.Name', '@provider.LinkCssClass', externalProviderSelector.selectedItems['@provider.Name'])"
-                                       ng-checked="externalProviderSelector.selectedItems['@provider.Name']"
-                                       ng-model="externalProviderSelector.selectedItems['@provider.Name']" />
-                                @provider.Name
+                                       ng-change="updateExternalProvider('@provider.Title', '@provider.LinkCssClass', externalProviderSelector.selectedItems['@provider.Name'])"
+                                       ng-checked="externalProviderSelector.selectedItems['@provider.Title']"
+                                       ng-model="externalProviderSelector.selectedItems['@provider.Title']" />
+                                @provider.Title
                             </label>
                         </div>
                     }
