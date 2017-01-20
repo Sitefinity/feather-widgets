@@ -101,19 +101,6 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Frontend
         }
 
         /// <summary>
-        /// Verify correct DEC info is send
-        /// </summary>
-        /// <param name="itemName">Name of the item.</param>
-        public void VerifyCorrectDecInfoIsSend(string src)
-        {
-            var searchedAttribute = "sf-decdata=" + src;
-            ActiveBrowser.WaitForElement(15000, searchedAttribute);
-            var decData = ActiveBrowser.Find.ByAttributes<HtmlInputHidden>(searchedAttribute);
-            Assert.IsNotNull(decData);
-            Assert.IsTrue(decData.Value.Contains(src));
-        }
-
-        /// <summary>
         /// Gets the image source.
         /// </summary>
         /// <param name="libraryUrl">The library URL.</param>
