@@ -43,6 +43,8 @@
             @Html.ValidationSummary(true);
             @ViewBag.Error
 
+            @Html.HiddenFor(m => m.RequiresQuestionAndAnswer)
+            
             <div>
                 <div class="text">
                     <p><span>@Html.Resource("Registration")</span></p>
