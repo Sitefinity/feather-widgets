@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Linq;
 using System.Web;
+using Telerik.Sitefinity.Configuration;
 using Telerik.Sitefinity.Frontend.Mvc.Helpers;
 using Telerik.Sitefinity.Security;
 using Telerik.Sitefinity.Security.Claims;
+using Telerik.Sitefinity.Security.Configuration;
 using Telerik.Sitefinity.Services;
 using Telerik.Sitefinity.Web;
 
@@ -106,21 +108,23 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.LoginStatus
                 else
                 {
                     logoutRedirectUrl = UrlPath.ResolveAbsoluteUrl(this.currentPageUrl, true);
-                }                
+                }
             }
 
             if (HttpContext.Current.Request.Url == null)
                 return string.Empty;
 
-            string fullLogoutUrl = RouteHelper.ResolveUrl(ClaimsManager.GetLogoutUrl(logoutRedirectUrl), UrlResolveOptions.Rooted);
+			AuthenticationMode authenticationMode = Config.Get<SecurityConfig>().AuthenticationMode;
+			if (authenticationMode == AuthenticationMode.Claims)
+			{
+				logoutRedirectUrl = ClaimsManager.GetLogoutUrl(logoutRedirectUrl);
+			}
+			else
+			{
+				logoutRedirectUrl = string.Format("~/Sitefinity/SignOut?redirect_uri={0}", HttpUtility.UrlEncode(logoutRedirectUrl));
+			}
 
-            // Workaround an issue when the application is hosted under an application path.
-            if (SystemManager.CurrentHttpContext != null && SystemManager.CurrentHttpContext.Request.ApplicationPath != "/")
-            {
-                fullLogoutUrl = fullLogoutUrl.Replace("sts_signout=true&", "");
-            }
-
-            return fullLogoutUrl;
+			return RouteHelper.ResolveUrl(logoutRedirectUrl, UrlResolveOptions.Rooted);
         }
 
         /// <inheritdoc />
