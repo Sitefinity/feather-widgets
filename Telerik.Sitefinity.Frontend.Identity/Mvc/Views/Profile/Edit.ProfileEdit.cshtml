@@ -107,6 +107,7 @@
             <div>   
                 <label>
                     @Html.Resource("EditProfileEmail")
+                    @Html.HiddenFor(u => u.Email)
                     @Model.Email
                 </label>
             </div>
