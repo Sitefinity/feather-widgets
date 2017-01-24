@@ -20,7 +20,7 @@ namespace FeatherWidgets.TestUI.TestCases.Forms.Forms
         [TestMethod,
         Owner(FeatherTeams.SitefinityTeam6),
         TestCategory(FeatherTestCategories.Bootstrap),
-        TestCategory(FeatherTestCategories.Forms)]
+        TestCategory(FeatherTestCategories.Forms), Ignore]
         public void SubmitNonAjaxFormOnPageWithTwoFormsOneOfThemUseAjax()
         {
             BAT.Macros().NavigateTo().Modules().Forms(this.Culture);
