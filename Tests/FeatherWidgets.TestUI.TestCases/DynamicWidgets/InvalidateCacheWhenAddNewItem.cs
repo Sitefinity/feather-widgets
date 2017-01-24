@@ -21,7 +21,8 @@ namespace FeatherWidgets.TestUI.TestCases.DynamicWidgets
         /// </summary>
         [TestMethod,
         Owner(FeatherTeams.SitefinityTeam6),
-        TestCategory(FeatherTestCategories.DynamicWidgets)]
+        TestCategory(FeatherTestCategories.DynamicWidgets),
+        Telerik.TestUI.Core.Attributes.KnownIssue(BugId = 210944), Ignore]
         public void InvalidateCacheWhenAddNewItem()
         {
             RuntimeSettingsModificator.ExecuteWithClientTimeout(800000, () => BAT.Macros().NavigateTo().CustomPage("~/sitefinity/pages", true, null, new HtmlFindExpression("class=~sfMain")));
