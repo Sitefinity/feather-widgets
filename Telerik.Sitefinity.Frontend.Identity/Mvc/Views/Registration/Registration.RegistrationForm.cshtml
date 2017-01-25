@@ -12,8 +12,7 @@
 @Html.Script("//ajax.aspnetcdn.com/ajax/mvc/4.0/jquery.validate.unobtrusive.min.js", "top", false)
 
 <div class="@Model.CssClass">
-    
-        @if ((Request.QueryString["ShowActivationMsg"] == "true") ||
+    @if ((Request.QueryString["ShowActivationMsg"] == "true") ||
              (ViewBag.ShowActivationMsg is bool && ViewBag.ShowActivationMsg))
     {
         <h3>
@@ -21,68 +20,67 @@
         </h3>
 
         <p>@string.Format(Html.Resource("ActivationLinkHasBeenSent"), Model.Email)</p>
-        <a data-sf-role="sendAgainLink">@Html.Resource("SendAgain")</a>
+        <a href="javascript:void(0)" data-sf-role="sendAgainLink">@Html.Resource("SendAgain")</a>
 
         <div data-sf-role="confirmationResendInfo" style="display:none;">
             @string.Format(Html.Resource("ActivationLinkHasBeenSentAgain"), Model.Email)
-            <a data-sf-role="sendAgainLink">@Html.Resource("SendAgain")</a>
+            <a href="javascript:void(0)" data-sf-role="sendAgainLink">@Html.Resource("SendAgain")</a>
         </div>
 
         <input type="hidden" data-sf-role="sf-resend-confirmation-endpoint-url" value="@Url.Action("ResendConfirmationEmail", new { email = Model.Email})" />
-    }    
+    }
     else if ((Request.QueryString["ShowSuccessfulRegistrationMsg"] == "true") ||
-             (ViewBag.ShowSuccessfulRegistrationMsg is bool && ViewBag.ShowSuccessfulRegistrationMsg))
+     (ViewBag.ShowSuccessfulRegistrationMsg is bool && ViewBag.ShowSuccessfulRegistrationMsg))
     {
         <h3>@Html.Resource("ThankYou")</h3>
         <p>@Html.Resource("DefaultSuccessfulRegistrationMessage")</p>
+
     }
     else
     {
         using (Html.BeginFormSitefinity(true))
         {
             @Html.ValidationSummary(true);
+
+            <h3>@Html.Resource("Registration")</h3>
+
             @ViewBag.Error
 
             <div>
-                <div class="text">
-                    <p><span>@Html.Resource("Registration")</span></p>
-                </div>
-                <div>
-                    <label>
-                        @Html.Resource("FirstName")
-                        @Html.TextBox("Profile[FirstName]")
-                    </label>
-                </div>
-                <div>
-                    <label>
-                        @Html.Resource("LastName")
-                        @Html.TextBox("Profile[LastName]")
-                    </label>
-                </div>
-                <div>
-                    <label>
-                        @Html.Resource("Email")
-                        @Html.TextBoxFor(m => m.Email, new { type = "email" })
-                    </label>
-                    @Html.ValidationMessageFor(m => m.Email)
-                </div>
-                <div>
-                    <label>
-                        @Html.Resource("Password")
-                        @Html.PasswordFor(m => m.Password)
-                    </label>
-                    @Html.ValidationMessageFor(m => m.Password)
-                </div>
-                <div>
-                    <label>
-                        @Html.Resource("ReTypePassword")
-                        @Html.PasswordFor(m => m.ReTypePassword)
-                    </label>
-                    @Html.ValidationMessageFor(m => m.ReTypePassword)
-                </div>
-
-                @if (Model.RequiresQuestionAndAnswer)
-                {
+                <label>
+                    @Html.Resource("FirstName")
+                    @Html.TextBox("Profile[FirstName]")
+                </label>
+            </div>
+            <div>
+                <label>
+                    @Html.Resource("LastName")
+                    @Html.TextBox("Profile[LastName]")
+                </label>
+            </div>
+            <div>
+                <label>
+                    @Html.Resource("Email")
+                    @Html.TextBoxFor(m => m.Email, new { type = "email" })
+                </label>
+                @Html.ValidationMessageFor(m => m.Email)
+            </div>           
+            <div>
+                <label>
+                    @Html.Resource("Password")
+                    @Html.PasswordFor(m => m.Password)
+                </label>
+                @Html.ValidationMessageFor(m => m.Password)
+            </div>
+            <div>
+                <label>
+                    @Html.Resource("ReTypePassword")
+                    @Html.PasswordFor(m => m.ReTypePassword)
+                </label>
+                @Html.ValidationMessageFor(m => m.ReTypePassword)
+            </div>
+            if (Model.RequiresQuestionAndAnswer)
+            {
                 <div>
                     <label>
                         @Html.Resource("Question")
@@ -93,34 +91,25 @@
                 <div>
                     <label>
                         @Html.Resource("Answer")
-                        @Html.PasswordFor(m => m.Answer)
+                        @Html.TextBoxFor(m => m.Answer)
                     </label>
                     @Html.ValidationMessageFor(m => m.Answer)
-                </div>
+                </div>                
+            }
+            <div>
+                @if (SystemManager.IsDesignMode && !SystemManager.IsPreviewMode)
+                {
+                    <input type="button" value="@Html.Resource("Register")" />
                 }
-
-                <div>
-                    @if (SystemManager.IsDesignMode && !SystemManager.IsPreviewMode)
-                    {
-                        <input type="button" value="@Html.Resource("Register")" />
-                    }
-                    else
-                    {
-                        <input type="submit" value="@Html.Resource("Register")" />
-                    }
-                </div>
-
+                else
+                {
+                    <input type="submit" value="@Html.Resource("Register")" />
+                }
             </div>
 
             if (Model.ExternalProviders != null && Model.ExternalProviders.Count() > 0)
             {
-                <div class="text">
-                    <p><span>@Html.Resource("Or")</span></p>
-                </div>
-
-                <div class="text">
-                    <p><span>@Html.Resource("ConnectWith")</span></p>
-                </div>
+                <h3>@Html.Resource("ConnectWith")</h3>
 
                 foreach (var provider in Model.ExternalProviders)
                 {
@@ -129,10 +118,12 @@
                     </div>
                 }
             }
-        }
 
-        <a href="@Model.LoginPageUrl">@Html.Resource("BackToLogin")</a>
+            <div>
+                <a href="@Model.LoginPageUrl">@Html.Resource("BackToLogin")</a>
+            </div>
+        }        
     }
 </div>
-
 @Html.Script(Url.WidgetContent("Mvc/Scripts/Registration/registration-form.js"), "bottom", false)
+
