@@ -9,7 +9,7 @@
     <div data-sf-role="sf-logged-in-view" style="display: none">
         <span>@Html.Resource("LoggedAs") </span>
         <a href="@(Model.ProfilePageUrl ?? "#")" data-sf-role="sf-logged-in-name"></a>
-        <a data-sf-role="sf-logged-in-log-out-btn">@Html.Resource("Logout")</a>
+        @Html.ActionLink(Html.Resource("Logout"), "SignOut")
     </div>
 
     <div data-sf-role="sf-logged-out-view" style="display: none">
