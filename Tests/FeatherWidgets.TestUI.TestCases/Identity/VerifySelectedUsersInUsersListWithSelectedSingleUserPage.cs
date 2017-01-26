@@ -93,7 +93,7 @@ namespace FeatherWidgets.TestUI.TestCases.Identity
         private const string ListTemplateName = "UsersList";
         private const string DetailTemplateName = "UserDetails";
         private const string UserFirstLastName = "admin admin";
-        private const string UserEmail = "dadasda@dasd.fdf";
+        private const string UserEmail = "admin@test.test";
         private const string AdminUserName = "admin";
         private const string AuthorUserName = "author";
 

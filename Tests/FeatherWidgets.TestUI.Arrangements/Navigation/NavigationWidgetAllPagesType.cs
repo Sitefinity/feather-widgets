@@ -38,7 +38,7 @@ namespace FeatherWidgets.TestUI.Arrangements
             ServerOperations.Pages().CreateExternalRedirectPage(Page1Redirect, ExternalUrl);
 
             Guid unpublisId = ServerOperations.Pages().CreatePage(UnpublishPage);
-            ServerOperations.Pages().UnpublishPage(unpublisId);
+            ServerOperations.Multilingual().Pages().UnpublishPage(unpublisId);
 
             ServerOperations.Pages().CreateDraftPage(PageDraft);
 
