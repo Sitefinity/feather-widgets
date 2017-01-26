@@ -80,7 +80,7 @@
 
         $scope.sortableOptions = {
             hint: function (element) {
-                return $('<div class="sf-backend-wrp"><div class="list-group-item-radio list-group-item list-group-item-draggable-2 list-group-item-hint list-group-item-hint-2">' +
+                return $('<div class="sf-backend-wrp"><div class="list-group-item-multiselect list-group-item list-group-item-draggable list-group-item-hint list-group-item-hint-2">' +
                             element.html() +
                         '</div></div>');
             },
