@@ -27,7 +27,6 @@ using Telerik.Sitefinity.Security.Web.UI;
 using System.ComponentModel.DataAnnotations;
 using Telerik.Sitefinity.Services;
 using Telerik.Sitefinity.Configuration;
-using Telerik.Sitefinity.Security.Configuration.IdentityServer;
 using System.ComponentModel;
 using Telerik.Sitefinity.Security.Claims;
 using Microsoft.Owin.Security;
