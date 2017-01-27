@@ -14,7 +14,6 @@ using Telerik.Sitefinity.Security.Claims;
 using Telerik.Sitefinity.Security.Claims.SWT;
 using Telerik.Sitefinity.Web;
 using Telerik.Sitefinity.Configuration;
-using Telerik.Sitefinity.Security.Configuration.IdentityServer;
 using ServiceStack.Text;
 
 namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.LoginForm

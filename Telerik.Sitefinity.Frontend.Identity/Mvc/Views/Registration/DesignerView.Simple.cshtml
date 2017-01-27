@@ -3,7 +3,7 @@
 @using Telerik.Sitefinity.Security;
 @using Telerik.Sitefinity.Security.Web.UI;
 @using Telerik.Sitefinity.Configuration;
-@using Telerik.Sitefinity.Security.Configuration.IdentityServer;
+@using Telerik.Sitefinity.Security.Claims;
 
 <uib-tabset class="nav-tabs-wrapper">
     <uib-tab heading="@Html.Resource("General")">
@@ -27,7 +27,7 @@
             <p class="description-note">@Html.Resource("RolesDescription")</p>
 
             <sf-list-selector sf-role-selector sf-selected-items="rolesSelector.selectedItems" sf-multiselect="true"
-                                sf-hide-roles="Owner, Anonymous, Authenticated, Everyone">
+                              sf-hide-roles="Owner, Anonymous, Authenticated, Everyone">
             </sf-list-selector>
 
         </div>
@@ -43,16 +43,15 @@
                 <label>
                     <input type="radio" ng-model="properties.SuccessfulRegistrationAction.PropertyValue" value="RedirectToPage">@Html.Resource("OpenPage")
                 </label>
-                <sf-list-selector
-                    class="label-content"
-                    sf-page-selector
-                    sf-selected-item-id="properties.SuccessfulRegistrationPageId.PropertyValue"
-                    ng-show="properties.SuccessfulRegistrationAction.PropertyValue == 'RedirectToPage'"></sf-list-selector>
+                <sf-list-selector class="label-content"
+                                  sf-page-selector
+                                  sf-selected-item-id="properties.SuccessfulRegistrationPageId.PropertyValue"
+                                  ng-show="properties.SuccessfulRegistrationAction.PropertyValue == 'RedirectToPage'"></sf-list-selector>
             </div>
         </div>
-        
+
         @{
-            var providers = Config.Get<AuthenticationConfig>().AuthenticationProviders.Values.Where(x => x.Enabled == true && !string.IsNullOrEmpty(x.Name)).ToList();
+            var providers = ClaimsManager.CurrentAuthenticationModule.ExternalAuthenticationProviders.Where(x => x.Enabled == true && !string.IsNullOrEmpty(x.Name)).ToList();
             if (providers.Count() != 0)
             {
                 <div class="form-group">
@@ -77,8 +76,7 @@
         <div class="form-group">
             <label>@Html.Resource("LoginPage")</label>
             <p class="description-note">@Html.Resource("LoginPageInfo")</p>
-            <sf-list-selector
-                              sf-page-selector
+            <sf-list-selector sf-page-selector
                               sf-selected-item-id="properties.LoginPageId.PropertyValue"></sf-list-selector>
         </div>
 
@@ -165,9 +163,8 @@
 
                 <label>@Html.Resource("ActivationPage")</label>
                 <p class="description-note">@Html.Resource("ActivationPageDescription")</p>
-                <sf-list-selector
-                                    sf-page-selector
-                                sf-selected-item-id="properties.ConfirmationPageId.PropertyValue"></sf-list-selector>
+                <sf-list-selector sf-page-selector
+                                  sf-selected-item-id="properties.ConfirmationPageId.PropertyValue"></sf-list-selector>
 
             </div>
         </div>
