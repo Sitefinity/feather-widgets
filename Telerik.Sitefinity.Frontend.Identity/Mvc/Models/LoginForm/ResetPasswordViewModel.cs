@@ -62,6 +62,14 @@
         public bool RequiresQuestionAndAnswer { get; set; }
 
         /// <summary>
+        /// Gets or sets the reset password question.
+        /// </summary>
+        /// <value>
+        /// The reset password question.
+        /// </value>
+        public string ResetPasswordQuestion { get; set; }
+
+        /// <summary>
         /// Gets or sets the reset password answer.
         /// </summary>
         /// <value>
