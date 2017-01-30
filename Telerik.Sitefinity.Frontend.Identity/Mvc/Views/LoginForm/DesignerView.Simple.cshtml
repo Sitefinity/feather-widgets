@@ -1,6 +1,6 @@
 @using Telerik.Sitefinity.Configuration;
 @using Telerik.Sitefinity.Frontend.Mvc.Helpers;
-@using Telerik.Sitefinity.Security.Configuration.IdentityServer;
+@using Telerik.Sitefinity.Security.Claims;
 
 <form>
     <div class="alert alert-warning" ng-show="properties.AllowResetPassword.PropertyValue === 'True' && properties.EnablePasswordRetrieval.PropertyValue === 'False' && properties.EnablePasswordReset.PropertyValue === 'False'">
@@ -32,7 +32,7 @@
     </div>
 
     @{
-        var providers = Config.Get<AuthenticationConfig>().AuthenticationProviders.Values.Where(x => x.Enabled == true && !string.IsNullOrEmpty(x.Name)).ToList();
+        var providers = ClaimsManager.CurrentAuthenticationModule.ExternalAuthenticationProviders.Where(x => x.Enabled == true && !string.IsNullOrEmpty(x.Name)).ToList();
         if (providers.Count() != 0)
         {
             <div class="form-group">

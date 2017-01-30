@@ -14,7 +14,6 @@ using Telerik.Sitefinity.Security.Claims;
 using Telerik.Sitefinity.Security.Claims.SWT;
 using Telerik.Sitefinity.Web;
 using Telerik.Sitefinity.Configuration;
-using Telerik.Sitefinity.Security.Configuration.IdentityServer;
 using ServiceStack.Text;
 
 namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.LoginForm
@@ -150,12 +149,28 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.LoginForm
         /// <inheritDoc/>
         public virtual ResetPasswordViewModel GetResetPasswordViewModel(string securityToken, bool resetComplete = false, string error = null)
         {
+            var securityParams = HttpUtility.ParseQueryString(securityToken);
+            var userId = this.GetUserId(securityParams);
+            var userManager = UserManager.GetManager(this.MembershipProvider);
+            string question = null;
+
+            if (userId != Guid.Empty)
+            {
+                var user = userManager.GetUser(userId);
+
+                if (user != null)
+                {
+                    question = user.PasswordQuestion;
+                }
+            }
+
             return new ResetPasswordViewModel()
             {
                 CssClass = this.CssClass,
                 LoginPageUrl = this.GetPageUrl(null),
-                RequiresQuestionAndAnswer = UserManager.GetManager(this.MembershipProvider).RequiresQuestionAndAnswer,
+                RequiresQuestionAndAnswer = userManager.RequiresQuestionAndAnswer,
                 Error = error,
+                ResetPasswordQuestion = question,
                 ResetComplete = resetComplete,
                 SecurityToken = securityToken
             };

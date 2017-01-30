@@ -46,6 +46,8 @@
 
             @ViewBag.Error
 
+            @Html.HiddenFor(m => m.RequiresQuestionAndAnswer)
+            
             <div>
                 <label>
                     @Html.Resource("FirstName")
