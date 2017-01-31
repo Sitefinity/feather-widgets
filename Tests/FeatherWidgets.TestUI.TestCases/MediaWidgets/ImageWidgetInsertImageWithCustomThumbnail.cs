@@ -73,7 +73,7 @@ namespace FeatherWidgets.TestUI.TestCases.MediaWidgets
             scr = this.GetImageSource(ImageName, ImageType);
             BATFeather.Wrappers().Frontend().MediaWidgets().MediaWidgetsWrapper().VerifyImage(NewImageName, NewImageAltText, scr);
             BATFeather.Wrappers().Frontend().ImageGallery().ImageGalleryWrapper().ClickImage(NewImageAltText);
-            ActiveBrowser.WaitForUrl(scr + "?sfvrsn=0", true, 10000);
+            ActiveBrowser.WaitForUrl(scr + "?sfvrsn=", true, 10000);
         }
 
         /// <summary>
