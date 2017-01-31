@@ -478,7 +478,7 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend
             }
             else
             {
-                var arrows = this.EM.Widgets.WidgetDesignerContentScreen.Find.AllByCustom<HtmlSpan>(a => a.CssClass.Contains("k-icon k-plus"));
+                var arrows = this.EM.Widgets.WidgetDesignerContentScreen.Find.AllByCustom<HtmlSpan>(a => a.CssClass.Contains("k-icon k-i-expand"));
                 Assert.AreNotEqual(0, arrows.Count, "No arrows appear");
 
                 this.SearchAndSelectElementByExpandingArrows(arrows, element, itemName, activeTab);

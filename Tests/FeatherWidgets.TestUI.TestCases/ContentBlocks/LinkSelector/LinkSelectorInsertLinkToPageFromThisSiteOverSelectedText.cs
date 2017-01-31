@@ -17,8 +17,7 @@ namespace FeatherWidgets.TestUI.TestCases.ContentBlocks.LinkSelector
         [TestMethod,
         Owner(FeatherTeams.SitefinityTeam7),
         TestCategory(FeatherTestCategories.ContentBlock),
-        TestCategory(FeatherTestCategories.LinkSelector),
-        Telerik.TestUI.Core.Attributes.KnownIssue(BugId = 210208)]
+        TestCategory(FeatherTestCategories.LinkSelector)]
         public void LinkSelectorInsertLinkToPageFromThisSiteOverSelectedText()
         {
             BAT.Macros().NavigateTo().Pages(this.Culture);
