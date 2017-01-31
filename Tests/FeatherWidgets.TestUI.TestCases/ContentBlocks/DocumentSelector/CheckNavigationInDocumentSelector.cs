@@ -18,8 +18,7 @@ namespace FeatherWidgets.TestUI.TestCases.ContentBlocks.DocumentSelector
         [TestMethod,
         Owner(FeatherTeams.SitefinityTeam7),
         //TestCategory(FeatherTestCategories.MediaSelector),
-        TestCategory(FeatherTestCategories.ContentBlock),
-        Telerik.TestUI.Core.Attributes.KnownIssue(BugId = 210190)]
+        TestCategory(FeatherTestCategories.ContentBlock)]
         public void CheckNavigationInDocumentSelector()
         {
             BAT.Macros().User().EnsureAdminLoggedIn();
