@@ -291,7 +291,7 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.LoginForm
         {
             var owinContext = context.Request.GetOwinContext();            
             var challengeProperties = ChallengeProperties.ForLocalUser(input.UserName, input.Password, this.MembershipProvider, input.RememberMe, context.Request.Url.ToString());
-            challengeProperties.RedirectUri = this.GetReturnURL(input, context);
+            challengeProperties.RedirectUri = this.GetReturnURL(context);
 
             owinContext.Authentication.Challenge(challengeProperties, ClaimsManager.CurrentAuthenticationModule.STSAuthenticationType);
 
@@ -307,8 +307,8 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.LoginForm
         {
             var widgetUrl = context.Request.Url.ToString();
             var owinContext = context.Request.GetOwinContext();
-            var challengeProperties = ChallengeProperties.ForExternalUser(input, widgetUrl);
-            challengeProperties.RedirectUri = context.Request.UrlReferrer.ToString();
+            var challengeProperties = ChallengeProperties.ForExternalUser(input, widgetUrl);            
+            challengeProperties.RedirectUri = this.GetReturnURL(context);
 
             owinContext.Authentication.Challenge(challengeProperties, ClaimsManager.CurrentAuthenticationModule.STSAuthenticationType);
         }
@@ -446,19 +446,31 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.LoginForm
         /// <returns>
         /// ReturnURL to redirect or empty string
         /// </returns>
-        protected string GetReturnURL(LoginFormViewModel input, HttpContextBase context)
+        protected string GetReturnURL(HttpContextBase context)
         {
             string redirectUrl = context.Request.Url.AbsoluteUri;
             
             if (!string.IsNullOrEmpty(context.Request.Url.Query))
             {
-                redirectUrl = redirectUrl.Replace(context.Request.Url.Query, "");
+                // remove err flag in redirect data
+                redirectUrl = redirectUrl.Replace("&err=true", string.Empty).Replace("err=true", string.Empty);
             }            
 
             if (this.LoginRedirectPageId.HasValue)
             {                
                 redirectUrl = this.GetPageUrl(this.LoginRedirectPageId);
-            }            
+            }
+            else
+            {
+                //Get redirectUrl from query string parameter
+                string redirectUrlFromQS;
+                this.TryResolveUrlFromUrlReferrer(context, out redirectUrlFromQS);
+                
+                if (!string.IsNullOrWhiteSpace(redirectUrlFromQS))
+                {                    
+                    redirectUrl = redirectUrlFromQS;                 
+                }
+            }
 
             return redirectUrl;
         }
