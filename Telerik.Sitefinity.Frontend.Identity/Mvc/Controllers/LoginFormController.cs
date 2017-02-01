@@ -181,9 +181,16 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Controllers
                 {
                     error = Res.Get<LoginFormResources>().ResetPasswordNotEnabled;
                 }
-                catch (Exception)
+                catch (Exception ex)
                 {
-                    error = Res.Get<LoginFormResources>().ResetPasswordGeneralErrorMessage;
+                    if (string.Compare(ex.Message, Res.Get<ErrorMessages>().WrongPasswordAnswer) == 0)
+                    {
+                        error = Res.Get<LoginFormResources>().ResetPasswordIncorrectAnswerErrorMessage;
+                    }
+                    else
+                    {
+                        error = Res.Get<LoginFormResources>().ResetPasswordGeneralErrorMessage;
+                    }                    
                 }
             }
             else
