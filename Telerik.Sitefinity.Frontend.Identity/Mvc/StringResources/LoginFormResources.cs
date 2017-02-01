@@ -367,6 +367,21 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.StringResources
         }
 
         /// <summary>
+        /// phrase : Incorrect answer. Please try again.
+        /// </summary>
+        [ResourceEntry("ResetPasswordIncorrectAnswerErrorMessage",
+            Value = "Incorrect answer. Please try again.",
+            Description = "phrase : Incorrect answer. Please try again.",
+            LastModified = "2017/02/01")]
+        public string ResetPasswordIncorrectAnswerErrorMessage
+        {
+            get
+            {
+                return this["ResetPasswordIncorrectAnswerErrorMessage"];
+            }
+        }
+
+        /// <summary>
         /// phrase : Invalid data.
         /// </summary>
         [ResourceEntry("ResetPasswordGeneralErrorMessage",
