@@ -221,11 +221,7 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.LoginForm
 
             if (user != null)
             {
-                if (!UserManager.ShouldSendPasswordEmail(user, manager.Provider.GetType()))
-                {
-                    viewModel.Error = "Not supported";
-                }
-                else
+                if (UserManager.ShouldSendPasswordEmail(user, manager.Provider.GetType()))
                 {
                     var currentNode = SiteMapBase.GetActualCurrentNode();
                     if (currentNode != null)
@@ -235,8 +231,6 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.LoginForm
                         try
                         {
                             UserManager.SendRecoveryPasswordMail(UserManager.GetManager(user.ProviderName), email, resetPassUrl);
-
-                            viewModel.EmailSent = true;
                         }
                         catch (Exception ex)
                         {
@@ -248,11 +242,9 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.LoginForm
                     }
                 }
             }
-            else
-            {
-                // If user is not found, always send correct message (for security)
-                viewModel.EmailSent = true;
-            }
+
+            // Always send correct message (for security)
+            viewModel.EmailSent = true;
 
             return viewModel;
         }
