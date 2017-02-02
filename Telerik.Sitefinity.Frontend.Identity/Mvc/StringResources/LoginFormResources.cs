@@ -427,6 +427,21 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.StringResources
         }
 
         /// <summary>
+        /// phrase : You are unable to reset password. Contact your administrator for assistance
+        /// </summary>
+        [ResourceEntry("CannotResetPasswordError",
+            Value = "You are unable to reset password. Contact your administrator for assistance",
+            Description = "phrase : You are unable to reset password. Contact your administrator for assistance",
+            LastModified = "2016/02/02")]
+        public string CannotResetPasswordError
+        {
+            get
+            {
+                return this["CannotResetPasswordError"];
+            }
+        }
+
+        /// <summary>
         /// phrase : Save
         /// </summary>
         [ResourceEntry("ResetPasswordSaveButton",
