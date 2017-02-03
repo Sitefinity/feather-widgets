@@ -15,10 +15,16 @@
 <div class="@Model.CssClass">
     @foreach (var item in Model.Items)
     {
+        var thumbnailViewModel = (ThumbnailViewModel)item;
+        
         <a class="image-link"
-            href="@(((ThumbnailViewModel)item).MediaUrl)"
+            href="@(thumbnailViewModel.MediaUrl)"
             title="@item.Fields.AlternativeText">
-            <img src="@(((ThumbnailViewModel)item).ThumbnailUrl)" data-detail-url="@HyperLinkHelpers.GetDetailPageUrl(item, ViewBag.DetailsPageId, ViewBag.OpenInSamePage, Model.UrlKeyPrefix)" alt="@item.Fields.AlternativeText" />
+            <img src="@(thumbnailViewModel.ThumbnailUrl)" 
+                 data-detail-url="@HyperLinkHelpers.GetDetailPageUrl(item, ViewBag.DetailsPageId, ViewBag.OpenInSamePage, Model.UrlKeyPrefix)" 
+                 alt="@item.Fields.AlternativeText"
+                 @(thumbnailViewModel.Width.HasValue ? Html.Raw(string.Format(@"width={0}", thumbnailViewModel.Width.Value)).ToString() : string.Empty)
+                 @(thumbnailViewModel.Height.HasValue ? Html.Raw(string.Format(@"height={0}", thumbnailViewModel.Height.Value)).ToString() : string.Empty) />
         </a>
     }
 </div>
