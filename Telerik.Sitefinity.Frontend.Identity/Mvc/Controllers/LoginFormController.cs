@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Linq;
 using System.Reflection;
 using System.Web;
 using System.Web.Mvc;
@@ -111,7 +112,14 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Controllers
         {
             if (!string.IsNullOrEmpty(model))
             {
-                this.Model.AuthenticateExternal(model, this.ControllerContext.HttpContext);
+                var provider = ClaimsManager.CurrentAuthenticationModule.ExternalAuthenticationProviders.FirstOrDefault(x => x.Title == model);
+
+                if (provider != null)
+                {
+                    this.Model.AuthenticateExternal(provider.Name, this.ControllerContext.HttpContext);
+                }
+
+                return new EmptyResult();
             }
 
             return new EmptyResult();
