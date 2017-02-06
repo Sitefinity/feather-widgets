@@ -2,10 +2,12 @@
 using System.Linq;
 using ServiceStack.Text;
 using Telerik.Sitefinity.Configuration;
+using Telerik.Sitefinity.Frontend.Media.Mvc.Helpers;
 using Telerik.Sitefinity.Frontend.Media.Mvc.Models.Image;
 using Telerik.Sitefinity.Frontend.Mvc.Models;
 using Telerik.Sitefinity.Libraries.Model;
 using Telerik.Sitefinity.Model;
+using Telerik.Sitefinity.Modules.Libraries;
 using Telerik.Sitefinity.Modules.Libraries;
 using Telerik.Sitefinity.Services;
 using SfImage = Telerik.Sitefinity.Libraries.Model.Image;
@@ -146,7 +148,7 @@ namespace Telerik.Sitefinity.Frontend.Media.Mvc.Models.ImageGallery
             viewModel.MediaUrl = this.GetSelectedSizeUrl((SfImage)item, this.ImageSizeModel);
 
             var sfImage = item as SfImage;
-            if (sfImage != null && this.IsVectorGraphics(sfImage))
+            if (sfImage != null && sfImage.IsVectorGraphics())
             {
                 this.ApplyThumbnailProfileToViewModel(viewModel, this.ImageSizeModel);
             }
@@ -169,7 +171,7 @@ namespace Telerik.Sitefinity.Frontend.Media.Mvc.Models.ImageGallery
             {
                 var sfImage = (SfImage)item.DataItem;
 
-                if (this.IsVectorGraphics(sfImage))
+                if (sfImage.IsVectorGraphics())
                 {
                     this.ApplyThumbnailProfileToViewModel(item, this.ThumbnailSizeModel);
                 }
@@ -233,11 +235,6 @@ namespace Telerik.Sitefinity.Frontend.Media.Mvc.Models.ImageGallery
             }
 
             return result;
-        }
-
-        private bool IsVectorGraphics(SfImage image)
-        {
-            return !string.IsNullOrWhiteSpace(image.Extension) && image.Extension.Equals(".svg");
         }
 
         private void ApplyThumbnailProfileToViewModel(ThumbnailViewModel thumbnailViewModel, ImageSizeModel imageSizeModel)

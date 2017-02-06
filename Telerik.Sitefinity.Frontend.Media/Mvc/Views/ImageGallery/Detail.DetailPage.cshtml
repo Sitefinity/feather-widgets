@@ -1,6 +1,7 @@
 @model Telerik.Sitefinity.Frontend.Media.Mvc.Models.ImageGallery.ImageDetailsViewModel
 
 @using Telerik.Sitefinity;
+@using Telerik.Sitefinity.Frontend.Media.Mvc.Helpers
 @using Telerik.Sitefinity.Frontend.Mvc.Helpers;
 @using Telerik.Sitefinity.Web.DataResolving;
 
@@ -19,8 +20,8 @@
     <div @Html.InlineEditingFieldAttributes("Description", "LongText")>@Html.Raw(Model.Item.Fields.Description)</div>
 
     <img src="@Html.Raw(Model.MediaUrl)" alt='@System.Text.RegularExpressions.Regex.Replace(Model.Item.Fields.AlternativeText, @"[^\w\d_-]", "")'
-                 @(Model.Width.HasValue ? Html.Raw(string.Format(@"width={0}", Model.Width.Value)).ToString() : string.Empty)
-                 @(Model.Height.HasValue ? Html.Raw(string.Format(@"height={0}", Model.Height.Value)).ToString() : string.Empty) />
+                 @Html.GetWidthAttributeIfPresents(Model.Width)
+                 @Html.GetHeightAttributeIfPresents(Model.Height) />
 
     @if (ViewBag.ItemIndex != null)
     {
