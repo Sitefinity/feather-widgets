@@ -37,8 +37,8 @@
     <div><span class="js-Gallery-index">1</span> of @Model.Items.Count()</div>
 
     <p class="js-Gallery-image">
-        <a class='js-Gallery-prev'>Prev</a>
-        <a class='js-Gallery-next'>Next</a>
+        <a href="javascript:void(0)" class='js-Gallery-prev'>Prev</a>
+        <a href="javascript:void(0)" class='js-Gallery-next'>Next</a>
         <img src="@(thumbnailViewModel.MediaUrl)" title="@firstItem.DataItem.Title" alt="@firstItem.DataItem.AlternativeText" 
                  @(thumbnailViewModel.Width.HasValue ? Html.Raw(string.Format(@"width={0}", thumbnailViewModel.Width.Value)).ToString() : string.Empty)
                  @(thumbnailViewModel.Height.HasValue ? Html.Raw(string.Format(@"height={0}", thumbnailViewModel.Height.Value)).ToString() : string.Empty) />
@@ -53,8 +53,8 @@
     <div><span class="js-Gallery-index"></span> of @Model.Items.Count()</div>
 
     <p class="js-Gallery-image">
-        <a class='js-Gallery-prev'>Prev</a>
-        <a class='js-Gallery-next'>Next</a>
+        <a href="javascript:void(0)" class='js-Gallery-prev'>Prev</a>
+        <a href="javascript:void(0)" class='js-Gallery-next'>Next</a>
         <img />
     </p>
     }
@@ -73,3 +73,12 @@
     </a>
 }
 </div>
+@if (Model.ShowPager)
+{
+    @Html.Action("Index", "ContentPager", new
+       {
+           currentPage = Model.CurrentPage,
+           totalPagesCount = Model.TotalPagesCount.Value,
+           redirectUrlTemplate = ViewBag.RedirectPageUrlTemplate
+       })
+}
