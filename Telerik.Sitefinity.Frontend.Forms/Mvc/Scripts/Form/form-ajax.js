@@ -41,7 +41,7 @@
                         return false;
 
                     if (typeof MarketoSubmitScript !== 'undefined') {
-                        MarketoSubmitScript._populateFormId($(newForm).find('input[data-sf-role=""form-id""]').val());
+                        MarketoSubmitScript._populateFormId($(newForm).find('input[data-sf-role="form-id"]').val());
                         var newSubmitButtons = $(newForm).find(MarketoSubmitScript._settings.externalFormSubmitButtonsQuery);
                         if (newSubmitButtons.length > 0)
                             MarketoSubmitScript._formFields = MarketoSubmitScript._getExternalFormFields(newSubmitButtons[0]);
