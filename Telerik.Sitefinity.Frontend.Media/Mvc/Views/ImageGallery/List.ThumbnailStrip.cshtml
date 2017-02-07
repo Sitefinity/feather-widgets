@@ -40,8 +40,8 @@
         <a href="javascript:void(0)" class='js-Gallery-prev'>Prev</a>
         <a href="javascript:void(0)" class='js-Gallery-next'>Next</a>
         <img src="@(thumbnailViewModel.MediaUrl)" title="@firstItem.DataItem.Title" alt="@firstItem.DataItem.AlternativeText" 
-                 @(thumbnailViewModel.Width.HasValue ? Html.Raw(string.Format(@"width={0}", thumbnailViewModel.Width.Value)).ToString() : string.Empty)
-                 @(thumbnailViewModel.Height.HasValue ? Html.Raw(string.Format(@"height={0}", thumbnailViewModel.Height.Value)).ToString() : string.Empty) />
+                  @Html.GetWidthAttributeIfPresents(thumbnailViewModel.Width)
+                  @Html.GetHeightAttributeIfPresents(thumbnailViewModel.Height) />
     </p>
         }
         else
@@ -68,8 +68,8 @@
     
     <a title="@item.Fields.Title" data-item="@Html.GetSerializedImage(item)" data-detail-url="@HyperLinkHelpers.GetDetailPageUrl(item, ViewBag.DetailsPageId, ViewBag.OpenInSamePage, Model.UrlKeyPrefix)">
         <img src="@(itemViewModel.ThumbnailUrl)" alt="@item.Fields.AlternativeText" 
-                  @(itemViewModel.Width.HasValue ? Html.Raw(string.Format(@"width={0}", itemViewModel.Width.Value)).ToString() : string.Empty)
-                  @(itemViewModel.Height.HasValue ? Html.Raw(string.Format(@"height={0}", itemViewModel.Height.Value)).ToString() : string.Empty) />
+                      @Html.GetWidthAttributeIfPresents(itemViewModel.Width)
+                      @Html.GetHeightAttributeIfPresents(itemViewModel.Height) />
     </a>
 }
 </div>
