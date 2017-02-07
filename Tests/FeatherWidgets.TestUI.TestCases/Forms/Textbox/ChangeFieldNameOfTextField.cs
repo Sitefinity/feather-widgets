@@ -72,6 +72,6 @@ namespace FeatherWidgets.TestUI.TestCases.Forms.Textbox
         private const string TextBoxContent = "Textbox Field Text";
         private const int ExpectedResponsesCount = 2;
         private const int ResponseNumber = 2;
-        private const string ExpectedAuthorName = "admin";
+        private const string ExpectedAuthorName = "admin@test.test";
     }
 }
