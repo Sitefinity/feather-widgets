@@ -19,14 +19,14 @@
          @Html.ValidationSummary(true)
             <h3>@Html.Resource("LoginFormLogInLegendHeader")</h3>
 
-            if (@Request.Url.Query.Contains("err=true"))
+            if (Request.Url.Query.Contains("err=true") || Model.LoginError)
             {
                 <p>@Html.Resource("IncorrectCredentialsMessage")</p>
             }
 
             <div>
                 <label>
-                    @Html.Resource("Email")
+                    @Html.Resource("Username")
                     @Html.TextBoxFor(u => u.UserName)
                 </label>
                 @Html.ValidationMessage("UserName")
