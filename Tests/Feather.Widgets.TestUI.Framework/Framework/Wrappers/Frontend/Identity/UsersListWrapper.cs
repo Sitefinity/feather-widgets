@@ -45,7 +45,8 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Frontend.Identity
             userLink.Click();
 
             ActiveBrowser.WaitUntilReady();
-            ActiveBrowser.WaitForUrl(singlePageURlEnding);
+            string encodedUrl = singlePageURlEnding.Replace("@", "%40");
+            ActiveBrowser.WaitForUrl(encodedUrl);
             ActiveBrowser.WaitForAsyncJQueryRequests();
 
             HtmlDiv usersDiv = this.EM.Identity.UsersListFrontend.SingleUserDivHybridPage.AssertIsPresent("single user");

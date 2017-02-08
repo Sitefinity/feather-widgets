@@ -77,7 +77,7 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Frontend.Identity
         /// </summary>
         public void AssertIncorrectUserNamePasswordMessage()
         {
-            this.EM.Identity.LoginFormFrontend.IncorrectUserNamePasswordMessage.AssertIsPresent("Incorrect Username/Password Message"); 
+            this.EM.Identity.LoginFormFrontend.IncorrectUserNamePasswordMessage.AssertIsPresent("Incorrect credentials"); 
         }
 
         /// <summary>

@@ -23,8 +23,7 @@ namespace FeatherWidgets.TestUI.TestCases.Identity
         TestCategory(FeatherTestCategories.PagesAndContent),
         TestCategory(FeatherTestCategories.Identity),
         TestCategory(FeatherTestCategories.UsersList),
-        TestCategory(FeatherTestCategories.Selectors),
-        Telerik.TestUI.Core.Attributes.KnownIssue(BugId = 209936)]
+        TestCategory(FeatherTestCategories.Selectors)]
         public void VerifySelectedUsersInUsersListWithSelectedSingleUserPage()
         {
             BAT.Macros().NavigateTo().Pages(this.Culture);
@@ -87,19 +86,19 @@ namespace FeatherWidgets.TestUI.TestCases.Identity
 
         private const string PageName = "UsersListPage";
         private const string SingleUserPageName = "UserPage";
-        private const string SingleUserPageURLEnding = "userpage/admin";
+        private const string SingleUserPageURLEnding = "userpage/admin@test.test";
         private const string WidgetName = "Users list";
         private const string UserProvider = "All Users";
         private const string UserProfile = "Basic profile";
         private const string SortingOption = "FirstName ASC";
         private const string ListTemplateName = "UsersList";
         private const string DetailTemplateName = "UserDetails";
-        private const string UserFirstLastName = "admin admin";
-        private const string UserEmail = "dadasda@dasd.fdf";
-        private const string AdminUserName = "admin";
-        private const string AuthorUserName = "author";
+        private const string UserFirstLastName = "admin adminov";
+        private const string UserEmail = "admin@test.test";
+        private const string AdminUserName = "admin adminov";
+        private const string AuthorUserName = "authorfname authorlname";
 
         private readonly string[] sortingOptions = new string[] { "First name (A-Z)", "First name (Z-A)", "Last name (A-Z)", "Last name (Z-A)", "Last created", "Last modified", "As set in Advanced mode" };
-        private readonly string[] users = new string[] { "admin admin", "fname lname" };
+        private readonly string[] users = new string[] { "admin adminov", "authorfname authorlname" };
     }
 }
