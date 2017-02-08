@@ -127,20 +127,6 @@
                                 calendarId: { from: "CalendarId", defaultValue: '045b2da5-a247-6ea2-811c-ff0000a3df5c' },
                                 eventUrl: { from: "EventUrl" }
                             }
-                        },
-                        parse: function (response) {
-                            // https://github.com/telerik/kendo-ui-core/issues/1632 temp fix
-                            var scheduler = kendoScheduler.data("kendoScheduler");
-                            var events = [];
-                            for (var i = 0; i < response.length; i++) {
-                                var currentEvent = response[i];
-                                if (scheduler.view().options.name === "agenda" && currentEvent.IsAllDay) {
-                                    var endDate = new Date(parseInt(currentEvent.End.substr(6)));
-                                    currentEvent.End = new Date(endDate.setDate(endDate.getDate() + 1)).toISOString();
-                                }
-                                events.push(currentEvent);
-                            }
-                            return events;
                         }
                     }
                 },
