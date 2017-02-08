@@ -44,8 +44,8 @@ namespace FeatherWidgets.TestUI.Arrangements
         private const string SingleUserPage = "UserPage";
 
         private const string AuthorPassword = "password";
-        private const string AuthorFirstName = "fname";
-        private const string AuthorLastName = "lname";
+        private const string AuthorFirstName = "authorfname";
+        private const string AuthorLastName = "authorlname";
         private const string AuthorEmail = "author@test.test";
 
         private const string EditorPassword = "password";
