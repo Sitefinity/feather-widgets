@@ -513,7 +513,7 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend
                     }
                     else
                     {
-                        var newArrows = this.EM.Widgets.WidgetDesignerContentScreen.Find.AllByCustom<HtmlSpan>(a => a.CssClass.Contains("k-icon k-plus"));
+                        var newArrows = this.EM.Widgets.WidgetDesignerContentScreen.Find.AllByCustom<HtmlSpan>(a => a.CssClass.Contains("k-icon k-i-expand"));
                         if (newArrows.Count != 0)
                         {
                             this.SearchAndSelectElementByExpandingArrows(newArrows, element, itemName, activeTab);

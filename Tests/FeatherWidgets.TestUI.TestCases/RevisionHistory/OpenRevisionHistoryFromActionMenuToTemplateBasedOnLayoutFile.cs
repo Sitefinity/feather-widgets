@@ -35,6 +35,7 @@ namespace FeatherWidgets.TestUI.TestCases.RevisionHistory
             BAT.Wrappers().Backend().RevisionHistory().RevisionHistoryWrapper().VerifyRevisionHistoryScreen(TemplateTitle, "Templates");
             Assert.AreEqual<int>(0, BAT.Wrappers().Backend().RevisionHistory().RevisionHistoryWrapper().GetRevisionHistoryRows().Count, "The actual number of revisions doesn't match the expected (0) zero");
             BAT.Wrappers().Backend().RevisionHistory().RevisionHistoryWrapper().NavigateBack();
+            BAT.Macros().NavigateTo().Design().PageTemplates();
             BAT.Wrappers().Backend().PageTemplates().PageTemplateMainScreen().OpenRevisionHistoryScreenFromActionsMenu(TemplateTitle1);
             BAT.Wrappers().Backend().RevisionHistory().RevisionHistoryWrapper().VerifyRevisionHistoryScreen(TemplateTitle1, "Templates");
             BAT.Wrappers().Backend().RevisionHistory().RevisionHistoryWrapper().NavigateBack();   
