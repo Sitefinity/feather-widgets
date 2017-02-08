@@ -602,7 +602,7 @@ namespace FeatherWidgets.TestIntegration.SearchResults
         private const string NewsTitle = "TestNews";
         private string searchIndexName;
         private const int NewsCount = 5;
-        private const string AdminUserName = "admin";
+        private const string AdminUserName = "admin@test.test";
         private const string AdminPass = "admin@2";
 
         #endregion

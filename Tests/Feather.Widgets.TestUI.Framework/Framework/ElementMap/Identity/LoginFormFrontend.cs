@@ -92,11 +92,11 @@ namespace Feather.Widgets.TestUI.Framework.Framework.ElementMap.Identity
         /// <summary>
         /// Gets the incorrect user name and password message span.
         /// </summary>
-        public HtmlSpan IncorrectUserNamePasswordMessage
+        public HtmlDiv IncorrectUserNamePasswordMessage
         {
             get
             {
-                return this.Get<HtmlSpan>("TagName=span", "InnerText=Incorrect credentials");
+                return this.Get<HtmlDiv>("TagName=div", "InnerText=Incorrect credentials");
             }
         }
 

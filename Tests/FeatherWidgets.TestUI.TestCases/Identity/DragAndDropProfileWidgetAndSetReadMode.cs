@@ -64,7 +64,7 @@ namespace FeatherWidgets.TestUI.TestCases.Identity
         private const string ProfilePage = "ProfilePage";
         private const string WidgetName = "Profile";
         private const string NewUserPassword = "password";
-        private const string NewUserFirstAndLastName = "First name Last name";
+        private const string NewUserFirstAndLastName = "First name Last name(First name Last name)";
         private const string NewUserEmail = "newuser@test.test";
         private const string LoginPage = "Sitefinity";
     }
