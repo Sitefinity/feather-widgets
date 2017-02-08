@@ -13,6 +13,10 @@ using Telerik.Sitefinity.Frontend.Mvc.Infrastructure.Controllers.Attributes;
 using Telerik.Sitefinity.Mvc;
 using Telerik.Sitefinity.Services;
 using Telerik.Sitefinity.Security.Claims;
+using Telerik.Sitefinity.Configuration;
+using Telerik.Sitefinity.Security.Configuration;
+using SecConfig = Telerik.Sitefinity.Security.Configuration;
+using Telerik.Sitefinity.Security;
 
 namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Controllers
 {
@@ -100,15 +104,23 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Controllers
         /// </returns>
         [RelativeRoute("SignOut")]
         public ActionResult SignOut()
-        {            
-            var owinContext = SystemManager.CurrentHttpContext.Request.GetOwinContext();
-            var authenticationTypes = ClaimsManager.CurrentAuthenticationModule.GetSignOutAuthenticationTypes().ToArray();
+        {
             var logoutUrl = this.Model.GetLogoutPageUrl() ?? this.GetCurrentPageUrl();
 
-            owinContext.Authentication.SignOut(new AuthenticationProperties
+            if (Config.Get<SecurityConfig>().AuthenticationMode == SecConfig.AuthenticationMode.Claims)
             {
-                RedirectUri = logoutUrl
-            }, authenticationTypes);
+                var owinContext = SystemManager.CurrentHttpContext.Request.GetOwinContext();
+                var authenticationTypes = ClaimsManager.CurrentAuthenticationModule.GetSignOutAuthenticationTypes().ToArray();                
+
+                owinContext.Authentication.SignOut(new AuthenticationProperties
+                {
+                    RedirectUri = logoutUrl
+                }, authenticationTypes);            
+            }
+            else
+            {
+                SecurityManager.Logout();
+            }
 
             return this.Redirect(logoutUrl);
         }

@@ -136,6 +136,14 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.LoginForm
         /// </value>
         public IDictionary<string, string> ExternalProviders { get; set; }
 
+        /// <summary>
+        /// Gets or sets the login error flag.
+        /// </summary>
+        /// <value>
+        /// Error flag.
+        /// </value>
+        public bool LoginError { get; set; }
+
         private bool rememberMe = true;
     }
 }

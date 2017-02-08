@@ -11,10 +11,13 @@ using Telerik.Sitefinity.Data;
 using Telerik.Sitefinity.Frontend.Mvc.Helpers;
 using Telerik.Sitefinity.Security;
 using Telerik.Sitefinity.Security.Claims;
+using Telerik.Sitefinity.Security.Configuration;
+using Telerik.Sitefinity.Security.Model;
 using Telerik.Sitefinity.Security.Claims.SWT;
 using Telerik.Sitefinity.Web;
 using Telerik.Sitefinity.Configuration;
 using ServiceStack.Text;
+using SecConfig = Telerik.Sitefinity.Security.Configuration;
 
 namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.LoginForm
 {
@@ -281,11 +284,34 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.LoginForm
 
         public virtual LoginFormViewModel Authenticate(LoginFormViewModel input, HttpContextBase context)
         {
-            var owinContext = context.Request.GetOwinContext();            
-            var challengeProperties = ChallengeProperties.ForLocalUser(input.UserName, input.Password, this.MembershipProvider, input.RememberMe, context.Request.Url.ToString());
-            challengeProperties.RedirectUri = this.GetReturnURL(context);
+            input.LoginError = false;
 
-            owinContext.Authentication.Challenge(challengeProperties, ClaimsManager.CurrentAuthenticationModule.STSAuthenticationType);
+            if (Config.Get<SecurityConfig>().AuthenticationMode == SecConfig.AuthenticationMode.Claims)
+            {                
+                var owinContext = context.Request.GetOwinContext();
+                var challengeProperties = ChallengeProperties.ForLocalUser(input.UserName, input.Password, this.MembershipProvider, input.RememberMe, context.Request.Url.ToString());
+                challengeProperties.RedirectUri = this.GetReturnURL(context);
+                owinContext.Authentication.Challenge(challengeProperties, ClaimsManager.CurrentAuthenticationModule.STSAuthenticationType);                
+            }
+            else
+            {
+                User user;
+                UserLoggingReason result = SecurityManager.AuthenticateUser(
+                    this.MembershipProvider,
+                    input.UserName,
+                    input.Password,
+                    input.RememberMe,
+                    out user);
+
+                if (result != UserLoggingReason.Success)
+                {
+                    input.LoginError = true;                   
+                }
+                else
+                {
+                    input.RedirectUrlAfterLogin = this.GetReturnURL(context);
+                }
+            }
 
             return input;
         }
@@ -296,7 +322,7 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.LoginForm
         /// <param name="input">Provider name.</param>
         /// <param name="context">Current http context from controller</param>
         public void AuthenticateExternal(string input, HttpContextBase context)
-        {
+        {            
             var widgetUrl = context.Request.Url.ToString();
             var owinContext = context.Request.GetOwinContext();
             var challengeProperties = ChallengeProperties.ForExternalUser(input, widgetUrl);            
