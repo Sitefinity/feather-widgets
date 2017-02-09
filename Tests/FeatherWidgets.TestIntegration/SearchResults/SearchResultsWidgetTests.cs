@@ -545,8 +545,8 @@ namespace FeatherWidgets.TestIntegration.SearchResults
         private void BreakPermissions<T>(Guid itemId) where T : ISecuredObject
         {
             var itemType = typeof(T);
-            var transaction = "permissions_" + Guid.NewGuid();
-            var manager = ManagerBase.GetMappedManagerInTransaction(itemType, transaction);
+            var manager = ManagerBase.GetMappedManager(itemType); 
+
             var item = manager.GetItem(itemType, itemId) as ISecuredObject;
 
             manager.BreakPermiossionsInheritance(item);
@@ -555,7 +555,7 @@ namespace FeatherWidgets.TestIntegration.SearchResults
                 item.Permissions.RemoveAt(i);
             }
 
-            TransactionManager.CommitTransaction(transaction);
+            manager.SaveChanges();
         }
 
         private void CreateNewsInLanguage(string language, string title, string content)
