@@ -40,8 +40,8 @@
         <a href="javascript:void(0)" class='js-Gallery-prev'>Prev</a>
         <a href="javascript:void(0)" class='js-Gallery-next'>Next</a>
         <img src="@(thumbnailViewModel.MediaUrl)" title="@firstItem.DataItem.Title" alt="@firstItem.DataItem.AlternativeText" 
-                  @Html.GetWidthAttributeIfPresents(thumbnailViewModel.Width)
-                  @Html.GetHeightAttributeIfPresents(thumbnailViewModel.Height) />
+                  @Html.GetWidthAttributeIfExists(thumbnailViewModel.Width)
+                  @Html.GetHeightAttributeIfExists(thumbnailViewModel.Height) />
     </p>
         }
         else
@@ -68,8 +68,8 @@
     
     <a title="@item.Fields.Title" data-item="@Html.GetSerializedImage(item)" data-detail-url="@HyperLinkHelpers.GetDetailPageUrl(item, ViewBag.DetailsPageId, ViewBag.OpenInSamePage, Model.UrlKeyPrefix)">
         <img src="@(itemViewModel.ThumbnailUrl)" alt="@item.Fields.AlternativeText" 
-                      @Html.GetWidthAttributeIfPresents(itemViewModel.Width)
-                      @Html.GetHeightAttributeIfPresents(itemViewModel.Height) />
+                      @Html.GetWidthAttributeIfExists(itemViewModel.Width)
+                      @Html.GetHeightAttributeIfExists(itemViewModel.Height) />
     </a>
 }
 </div>

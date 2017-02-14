@@ -174,6 +174,7 @@ namespace Telerik.Sitefinity.Frontend.Media.Mvc.Models.ImageGallery
                 if (sfImage.IsVectorGraphics())
                 {
                     this.ApplyThumbnailProfileToViewModel(item, this.ThumbnailSizeModel);
+                    this.ApplyImageSizesToViewModel(item, this.ImageSizeModel);
                 }
 
                 item.ThumbnailUrl = this.GetSelectedSizeUrl(sfImage, this.ThumbnailSizeModel);
@@ -252,6 +253,24 @@ namespace Telerik.Sitefinity.Frontend.Media.Mvc.Models.ImageGallery
             if (width > 0)
             {
                 thumbnailViewModel.Width = width;
+            }
+        }
+
+        private void ApplyImageSizesToViewModel(ThumbnailViewModel thumbnailViewModel, ImageSizeModel imageSizeModel)
+        {
+            int width;
+            int height;
+
+            this.GetThumbnailSizes(out width, out height, imageSizeModel);
+
+            if (height > 0)
+            {
+                thumbnailViewModel.DetailsImageHeight = height;
+            }
+
+            if (width > 0)
+            {
+                thumbnailViewModel.DetailsImageWidth = width;
             }
         }
 

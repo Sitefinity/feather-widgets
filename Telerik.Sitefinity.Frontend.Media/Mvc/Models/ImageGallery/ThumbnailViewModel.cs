@@ -36,5 +36,15 @@ namespace Telerik.Sitefinity.Frontend.Media.Mvc.Models.ImageGallery
         /// Gets or sets the height of the image.
         /// </summary>
         public int? Height { get; set; }
+
+        /// <summary>
+        /// Gets or sets the width of the details image.
+        /// </summary>
+        public int? DetailsImageWidth { get; set; }
+
+        /// <summary>
+        /// Gets or sets the height of the details image.
+        /// </summary>
+        public int? DetailsImageHeight { get; set; }
     }
 }
