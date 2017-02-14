@@ -16,6 +16,21 @@
             $('.js-Gallery-image').find('img').attr('src', item.MediaUrl);
             $('.js-Gallery-image').find('img').attr('title', item.Title);
             $('.js-Gallery-image').find('img').attr('alt', item.AlternativeText);
+
+            if (item.Width) {
+                $('.js-Gallery-image').find('img').attr("width", item.Width);
+            }
+            else {
+                $('.js-Gallery-image').find('img').removeAttr("width");
+            }
+
+            if (item.Height) {
+                $('.js-Gallery-image').find('img').attr("height", item.Height);
+            }
+            else {
+                $('.js-Gallery-image').find('img').removeAttr("height");
+            }
+
             $('.js-Gallery-title').html(item.Title);
             $('.js-Gallery-description').html(item.Description);
             $('.js-Gallery-index').html(selectedElementIndex + 1);

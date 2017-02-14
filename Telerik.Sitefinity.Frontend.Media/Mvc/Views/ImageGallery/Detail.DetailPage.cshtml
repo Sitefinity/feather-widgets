@@ -20,8 +20,8 @@
     <div @Html.InlineEditingFieldAttributes("Description", "LongText")>@Html.Raw(Model.Item.Fields.Description)</div>
 
     <img src="@Html.Raw(Model.MediaUrl)" alt='@System.Text.RegularExpressions.Regex.Replace(Model.Item.Fields.AlternativeText, @"[^\w\d_-]", "")'
-                 @Html.GetWidthAttributeIfPresents(Model.Width)
-                 @Html.GetHeightAttributeIfPresents(Model.Height) />
+                 @Html.GetWidthAttributeIfExists(Model.Width)
+                 @Html.GetHeightAttributeIfExists(Model.Height) />
 
     @if (ViewBag.ItemIndex != null)
     {

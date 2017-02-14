@@ -23,8 +23,8 @@
        href="@detailPageUrl"
        title="@(string.IsNullOrEmpty(item.Fields.Description) ? item.Fields.Title : item.Fields.Description)">
             <img src="@(thumbnailViewModel.ThumbnailUrl)" alt='@System.Text.RegularExpressions.Regex.Replace(item.Fields.AlternativeText, @"[^\w\d_-]", "")'
-                      @Html.GetWidthAttributeIfPresents(thumbnailViewModel.Width)
-                      @Html.GetHeightAttributeIfPresents(thumbnailViewModel.Height) />
+                      @Html.GetWidthAttributeIfExists(thumbnailViewModel.Width)
+                      @Html.GetHeightAttributeIfExists(thumbnailViewModel.Height) />
         </a>
     }
 

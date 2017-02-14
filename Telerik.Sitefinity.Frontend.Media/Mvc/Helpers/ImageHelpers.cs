@@ -7,6 +7,7 @@ using Telerik.Sitefinity.Frontend.Media.Mvc.Models.ImageGallery;
 using Telerik.Sitefinity.Frontend.Mvc.Models;
 using Telerik.Sitefinity.Libraries.Model;
 using Telerik.Sitefinity.Model;
+using Telerik.Sitefinity.Modules.Libraries;
 
 namespace Telerik.Sitefinity.Frontend.Media.Mvc.Helpers
 {
@@ -24,15 +25,18 @@ namespace Telerik.Sitefinity.Frontend.Media.Mvc.Helpers
         public static string GetSerializedImage(this HtmlHelper helper, ItemViewModel item)
         {
             var image = (Image)item.DataItem;
+            var thumbnailViewModel = item as ThumbnailViewModel;
 
             var itemViewModel = new
             {
                 Title = image.Title.Value,
                 AlternativeText = image.AlternativeText.Value,
                 Description = image.Description.Value,
-                MediaUrl = ((ThumbnailViewModel)item).MediaUrl,
+                MediaUrl = thumbnailViewModel.MediaUrl,
                 DateCreated = image.DateCreated,
-                Author = image.Author.Value
+                Author = image.Author.Value,
+                Width = thumbnailViewModel.DetailsImageWidth.HasValue ? (int?)thumbnailViewModel.DetailsImageWidth.Value : (int?)null,
+                Height = thumbnailViewModel.DetailsImageHeight.HasValue ? (int?)thumbnailViewModel.DetailsImageHeight.Value : (int?)null
             };
 
             var serializedItemViewModel = new JavaScriptSerializer().Serialize(itemViewModel);
@@ -46,7 +50,7 @@ namespace Telerik.Sitefinity.Frontend.Media.Mvc.Helpers
         /// <param name="helper">The helper.</param>
         /// <param name="width">The value to check.</param>
         /// <returns>The generated image width attribute as html content.</returns>
-        public static string GetWidthAttributeIfPresents(this HtmlHelper helper, int? width)
+        public static string GetWidthAttributeIfExists(this HtmlHelper helper, int? width)
         {
             var html = width.HasValue ? string.Format(@"width={0}", width.Value) : string.Empty;
 
@@ -59,9 +63,22 @@ namespace Telerik.Sitefinity.Frontend.Media.Mvc.Helpers
         /// <param name="helper">The helper.</param>
         /// <param name="height">The value to check.</param>
         /// <returns>The generated image height attribute as html content.</returns>
-        public static string GetHeightAttributeIfPresents(this HtmlHelper helper, int? height)
+        public static string GetHeightAttributeIfExists(this HtmlHelper helper, int? height)
         {
             var html = height.HasValue ? string.Format(@"height={0}", height.Value) : string.Empty;
+
+            return html;
+        }
+
+        /// <summary>
+        /// Generates details image width attribute as html if the given width value is not nullable.
+        /// </summary>
+        /// <param name="helper">The helper.</param>
+        /// <param name="width">The value to check.</param>
+        /// <returns>The generated details image width attribute as html content.</returns>
+        public static string GetDetailsImageWidthAttributeIfExists(this HtmlHelper helper, int? width)
+        {
+            var html = width.HasValue ? string.Format(@"data-width={0}", width.Value) : string.Empty;
 
             return html;
         }
@@ -124,18 +141,6 @@ namespace Telerik.Sitefinity.Frontend.Media.Mvc.Helpers
             }
 
             return html;
-        }
-
-        /// <summary>
-        /// Gets a value indicating whether the image is vector graphics or not.
-        /// </summary>
-        /// <param name="image">The image.</param>
-        /// <returns>A value indicating whether the image is vercor graphics or not.</returns>
-        internal static bool IsVectorGraphics(this Image image)
-        {
-            bool isVectorGraphics = image != null && !string.IsNullOrWhiteSpace(image.Extension) && image.Extension.Equals(".svg");
-
-            return isVectorGraphics;
         }
     }
 }

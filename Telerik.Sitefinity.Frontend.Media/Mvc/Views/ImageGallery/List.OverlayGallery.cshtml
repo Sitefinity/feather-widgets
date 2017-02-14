@@ -24,8 +24,8 @@
             <img src="@(thumbnailViewModel.ThumbnailUrl)" 
                  data-detail-url="@HyperLinkHelpers.GetDetailPageUrl(item, ViewBag.DetailsPageId, ViewBag.OpenInSamePage, Model.UrlKeyPrefix)" 
                  alt="@item.Fields.AlternativeText"
-                      @Html.GetWidthAttributeIfPresents(thumbnailViewModel.Width)
-                      @Html.GetHeightAttributeIfPresents(thumbnailViewModel.Height) />
+                      @Html.GetWidthAttributeIfExists(thumbnailViewModel.Width)
+                      @Html.GetHeightAttributeIfExists(thumbnailViewModel.Height) @Html.GetDetailsImageWidthAttributeIfExists(thumbnailViewModel.DetailsImageWidth) />
         </a>
     }
 </div>
