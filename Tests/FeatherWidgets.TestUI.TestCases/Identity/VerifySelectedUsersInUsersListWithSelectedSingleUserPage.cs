@@ -37,7 +37,7 @@ namespace FeatherWidgets.TestUI.TestCases.Identity
             BATFeather.Wrappers().Backend().Widgets().WidgetDesignerWrapper().ClickSelectButton(0);
             BATFeather.Wrappers().Backend().Identity().UsersListWrapper().VerifyUsersProviderOptions();
             BATFeather.Wrappers().Backend().Identity().UsersListWrapper().SelectProvider(UserProvider);
-            BATFeather.Wrappers().Backend().Widgets().SelectorsWrapper().SelectItemsInFlatSelector(AdminUserName, AuthorUserName);
+            BATFeather.Wrappers().Backend().Widgets().SelectorsWrapper().SelectItemsInFlatSelector(AdminFirstLastName, AuthorFirstLastName);
             BATFeather.Wrappers().Backend().Widgets().SelectorsWrapper().DoneSelecting();
 
             BATFeather.Wrappers().Backend().Identity().UsersListWrapper().VerifyWhichProfileToDisplayLabel();
@@ -64,7 +64,7 @@ namespace FeatherWidgets.TestUI.TestCases.Identity
 
             BAT.Macros().NavigateTo().CustomPage("~/" + PageName.ToLower(), true, this.Culture);
             BATFeather.Wrappers().Frontend().Identity().UsersListWrapper().VerifyUsersListOnHybridPage(this.users);
-            BATFeather.Wrappers().Frontend().Identity().UsersListWrapper().VerifySingleUserOnHybridPage(UserFirstLastName, UserEmail, SingleUserPageURLEnding);
+            BATFeather.Wrappers().Frontend().Identity().UsersListWrapper().VerifySingleUserOnHybridPage(AdminFirstLastName, UserEmail, SingleUserPageURLEnding);
         }
 
         /// <summary>
@@ -93,12 +93,11 @@ namespace FeatherWidgets.TestUI.TestCases.Identity
         private const string SortingOption = "FirstName ASC";
         private const string ListTemplateName = "UsersList";
         private const string DetailTemplateName = "UserDetails";
-        private const string UserFirstLastName = "admin adminov";
         private const string UserEmail = "admin@test.test";
-        private const string AdminUserName = "admin adminov";
-        private const string AuthorUserName = "authorfname authorlname";
+        private const string AdminFirstLastName = "admin admin";
+        private const string AuthorFirstLastName = "authorfname authorlname";
 
         private readonly string[] sortingOptions = new string[] { "First name (A-Z)", "First name (Z-A)", "Last name (A-Z)", "Last name (Z-A)", "Last created", "Last modified", "As set in Advanced mode" };
-        private readonly string[] users = new string[] { "admin adminov", "authorfname authorlname" };
+        private readonly string[] users = new string[] { AdminFirstLastName, AuthorFirstLastName };
     }
 }
