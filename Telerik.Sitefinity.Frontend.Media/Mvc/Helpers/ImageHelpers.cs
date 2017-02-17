@@ -99,11 +99,11 @@ namespace Telerik.Sitefinity.Frontend.Media.Mvc.Helpers
                 var image = dataItem as Image;
                 if (image != null && image.IsVectorGraphics())
                 {
-                    if (customSize.Width.HasValue)
+                    if (customSize.Width.HasValue && customSize.Method.Equals(CropCropArguments, StringComparison.InvariantCultureIgnoreCase))
                     {
                         html = string.Format(@"width={0}", customSize.Width.Value);
                     }
-                    else if (customSize.MaxWidth.HasValue)
+                    else if (customSize.MaxWidth.HasValue && customSize.Method.Equals(ResizeFitToAreaArguments, StringComparison.InvariantCultureIgnoreCase))
                     {
                         html = string.Format(@"width={0}", customSize.MaxWidth.Value);
                     }
@@ -129,11 +129,11 @@ namespace Telerik.Sitefinity.Frontend.Media.Mvc.Helpers
                 var image = dataItem as Image;
                 if (image != null && image.IsVectorGraphics())
                 {
-                    if (customSize.Height.HasValue)
+                    if (customSize.Height.HasValue && customSize.Method.Equals(CropCropArguments, StringComparison.InvariantCultureIgnoreCase))
                     {
                         html = string.Format(@"height={0}", customSize.Height.Value);
                     }
-                    else if (customSize.MaxHeight.HasValue)
+                    else if (customSize.MaxHeight.HasValue && customSize.Method.Equals(ResizeFitToAreaArguments, StringComparison.InvariantCultureIgnoreCase))
                     {
                         html = string.Format(@"height={0}", customSize.MaxHeight.Value);
                     }
@@ -142,5 +142,8 @@ namespace Telerik.Sitefinity.Frontend.Media.Mvc.Helpers
 
             return html;
         }
+
+        private static readonly string ResizeFitToAreaArguments = "ResizeFitToAreaArguments";
+        private static readonly string CropCropArguments = "CropCropArguments";
     }
 }
