@@ -31,9 +31,7 @@ namespace FeatherWidgets.TestUI.TestCases.Common
 
             this.VerifyPageBackend(PageName, WidgetName, ContentBlockContent, false);
 
-            BAT.Macros().NavigateTo().CustomPage("~/" + PageName.ToLower(), true, this.Culture);
-            BAT.Wrappers().Backend().ModulesAndServices().FrontendWrapper().VerifyFrontendForNotExistingModule(ContentBlockContent, PageName);
-
+            BATFeather.Wrappers().Frontend().CommonWrapper().VerifyFrontendForNotExistingModule(ContentBlockContent, PageName, this.Culture);
 
             BAT.Arrange(this.TestName).ExecuteArrangement("ActivateModule");
 
