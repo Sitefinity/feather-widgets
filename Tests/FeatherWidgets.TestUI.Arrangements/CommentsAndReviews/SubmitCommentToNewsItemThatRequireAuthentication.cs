@@ -23,6 +23,8 @@ namespace FeatherWidgets.TestUI.Arrangements
         {
             AuthenticationHelper.AuthenticateUser(this.AdminEmail, this.AdminPass, true);
 
+            string culture = ServerOperationsFeather.CommentsAndReviews().GetCurrentCulture();
+
             ServerOperations.Comments().RequireAuthentication(ThreadType, true);
             ServerOperations.News().CreatePublishedNewsItemLiveId(NewsTitle, NewsContent, NewsAuthor, NewsSource);
 
@@ -34,7 +36,7 @@ namespace FeatherWidgets.TestUI.Arrangements
             if (ServerOperations.MultiSite().CheckIsMultisiteMode())
             {
                 Guid pageId2 = Guid.NewGuid();
-                ServerOperations.Multilingual().Pages().CreatePageMultilingual(pageId2, PageTitleLogin, true, "en");
+                ServerOperations.Multilingual().Pages().CreatePageMultilingual(pageId2, PageTitleLogin, true, culture);
                 ServerOperations.Widgets().AddControlToPage(pageId2, ControlTypes.LoginWidget, "Body", "Login");
                 ServerOperations.MultiSite().AddPublicLoginPageToSite(pageId2);
             }
