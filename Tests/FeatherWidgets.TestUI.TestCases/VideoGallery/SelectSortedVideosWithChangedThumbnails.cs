@@ -119,7 +119,6 @@ namespace FeatherWidgets.TestUI.TestCases.VideoGallery
         private string GetVideoSource(string videoName, string videoType, string libraryUrl, string videoThumbnailSize = "")
         {
             string videoUrl = videoName.ToLower() + videoType.ToLower() + videoThumbnailSize;
-            string url = this.BaseUrl;
 
             string scr = BATFeather.Wrappers().Frontend().MediaWidgets().MediaWidgetsWrapper().GetMediaSource(libraryUrl.ToLower(), videoUrl, "videos", currentProviderUrlName);
             return scr;
