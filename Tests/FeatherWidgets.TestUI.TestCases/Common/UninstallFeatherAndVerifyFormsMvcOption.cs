@@ -37,6 +37,7 @@ namespace FeatherWidgets.TestUI.TestCases.Common
             this.VerifyPageBackend(PageName, WidgetName, FormsContentDisabled, false);
 
             BAT.Macros().NavigateTo().Modules().Forms(this.Culture);
+            BAT.Wrappers().Backend().Forms().FormsDashboard().PublishFormFromActionsMenu(WidgetName);
             BAT.Wrappers().Backend().Forms().FormsDashboard().ClickCreateAFormButton();
             BATFeather.Wrappers().Backend().Forms().FormsContentScreenWrapper().ClickAdvancedButton();
             BATFeather.Wrappers().Backend().Forms().FormsWrapper().VerifyWebFrameworkOptions(false);
