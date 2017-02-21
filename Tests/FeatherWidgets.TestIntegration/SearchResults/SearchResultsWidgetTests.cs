@@ -436,7 +436,7 @@ namespace FeatherWidgets.TestIntegration.SearchResults
                 string pageTitlePrefix = testName + "NewsPage" + index;
                 string urlNamePrefix = testName + "news-page" + index;
 
-                var newsItem = newsManager.GetNewsItems().Where(p => p.Title == SearchResultsWidgetTests.NewsTitle + "1").FirstOrDefault();
+                var newsItem = newsManager.GetNewsItems().Where(p => p.Title == SearchResultsWidgetTests.NewsTitle + "1" && p.Status == Telerik.Sitefinity.GenericContent.Model.ContentLifecycleStatus.Master).FirstOrDefault();
                 this.BreakPermissions<NewsItem>(newsItem.Id);
                 Telerik.Sitefinity.TestUtilities.CommonOperations.ServerOperations.ContentItems().PublishNewsItem(newsItem.Id);
 
@@ -498,7 +498,7 @@ namespace FeatherWidgets.TestIntegration.SearchResults
                 string pageTitlePrefix = testName + "NewsPage" + index;
                 string urlNamePrefix = testName + "news-page" + index;
 
-                var newsItem = newsManager.GetNewsItems().Where(p => p.Title == SearchResultsWidgetTests.NewsTitle + "1").FirstOrDefault();
+                var newsItem = newsManager.GetNewsItems().Where(p => p.Title == SearchResultsWidgetTests.NewsTitle + "1" && p.Status == Telerik.Sitefinity.GenericContent.Model.ContentLifecycleStatus.Master).FirstOrDefault();
                 this.BreakPermissions<NewsItem>(newsItem.Id);
                 Telerik.Sitefinity.TestUtilities.CommonOperations.ServerOperations.ContentItems().PublishNewsItem(newsItem.Id);
 
