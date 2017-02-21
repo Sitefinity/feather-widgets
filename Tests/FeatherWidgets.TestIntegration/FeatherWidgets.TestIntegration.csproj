@@ -432,6 +432,7 @@
       <ErrorText>This project references NuGet package(s) that are missing on this computer. Enable NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
     </PropertyGroup>
     <Error Condition="!Exists('$(SolutionDir)\.nuget\NuGet.targets')" Text="$([System.String]::Format('$(ErrorText)', '$(SolutionDir)\.nuget\NuGet.targets'))" />
+    <Error Condition="!Exists('..\..\packages\RazorGenerator.MsBuild.2.2.2\build\RazorGenerator.MsBuild.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\..\packages\RazorGenerator.MsBuild.2.2.2\build\RazorGenerator.MsBuild.targets'))" />
   </Target>
   <Import Project="$(SolutionDir)\ReferenceAssemblies\Bcl\Microsoft.Bcl.Build.targets" Condition="Exists('$(SolutionDir)\ReferenceAssemblies\Bcl\Microsoft.Bcl.Build.targets')" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
@@ -442,4 +443,5 @@
   <Target Name="AfterBuild">
   </Target>
   <Import Project="$(SolutionDir)\StyleCop\StyleCop.targets" />
+  <Import Project="..\..\packages\RazorGenerator.MsBuild.2.2.2\build\RazorGenerator.MsBuild.targets" Condition="Exists('..\..\packages\RazorGenerator.MsBuild.2.2.2\build\RazorGenerator.MsBuild.targets')" />
 </Project>

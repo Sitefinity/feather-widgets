@@ -197,9 +197,11 @@ namespace FeatherWidgets.TestIntegration.Common
             try
             {
                 var pageTitle = "TestPage1";
-                ServerOperations.Pages().CreatePage(pageTitle);
+                ServerOperations.Pages().CreateTestPage(Guid.NewGuid(), pageTitle);
+
                 var pageManager = PageManager.GetManager();
-                pageNode = pageManager.GetPageNodes().SingleOrDefault(p => p.Title == pageTitle);                
+                pageNode = pageManager.GetPageNodes().SingleOrDefault(p => p.Title == pageTitle);
+
                 var fullPageUrl = RouteHelper.GetAbsoluteUrl(pageNode.GetFullUrl());
 
                 this.ClearData();
@@ -601,7 +603,7 @@ namespace FeatherWidgets.TestIntegration.Common
             pageManager.SaveChanges();
 
             // Add WebForms widget
-            ServerOperations.Widgets().AddContentBlockToPage(pageNode.Id, string.Empty, Placeholder, string.Empty);
+            ServerOperations.Widgets().AddContentBlockToPage(pageNode.Id, string.Empty, "Body", string.Empty);
 
             return pageNode;
         }
@@ -636,9 +638,7 @@ namespace FeatherWidgets.TestIntegration.Common
             public const string Bootstrap = "Bootstrap";
         }
 
-        private const string WidgetViewPathFormat = "";
         private const string PageTemplateName = "Bootstrap.default";
-        private const string Placeholder = "Body";
 
         #endregion
     }
