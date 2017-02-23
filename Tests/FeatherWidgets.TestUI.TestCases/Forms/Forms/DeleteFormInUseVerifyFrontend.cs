@@ -1,12 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using ArtOfTest.WebAii.Core;
 using Feather.Widgets.TestUI.Framework;
 using Feather.Widgets.TestUI.Framework.Framework;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using ArtOfTest.WebAii.Core;
+using System;
 using Telerik.TestUI.Core.Utilities;
 
 namespace FeatherWidgets.TestUI.TestCases.Forms.Forms
@@ -23,7 +19,8 @@ namespace FeatherWidgets.TestUI.TestCases.Forms.Forms
         [TestMethod,
         Owner(FeatherTeams.SitefinityTeam6),
         TestCategory(FeatherTestCategories.Bootstrap),
-        TestCategory(FeatherTestCategories.Forms)]
+        TestCategory(FeatherTestCategories.Forms),
+        Telerik.TestUI.Core.Attributes.KnownIssue(BugId = 212789), Ignore]
         public void DeleteFormInUseVerifyFrontend()
         {
             RuntimeSettingsModificator.ExecuteWithClientTimeout(800000, () => BAT.Macros().NavigateTo().CustomPage("~/" + FeatherGlobals.BootstrapPageName.ToLower(), true, this.Culture, new HtmlFindExpression("TagName=button")));
