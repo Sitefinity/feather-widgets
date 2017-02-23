@@ -18,7 +18,7 @@ namespace FeatherWidgets.TestUI.TestCases.Forms.Forms
         /// </summary>
         [TestMethod,
         Owner(FeatherTeams.SitefinityTeam6),
-        TestCategory(FeatherTestCategories.Forms)
+        TestCategory(FeatherTestCategories.Forms),
         Telerik.TestUI.Core.Attributes.KnownIssue(BugId = 212790), Ignore]
         public void DeleteFormInUseVerifyFrontendHybrid()
         {

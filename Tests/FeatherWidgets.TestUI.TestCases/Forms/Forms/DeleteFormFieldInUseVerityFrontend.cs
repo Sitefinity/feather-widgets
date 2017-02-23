@@ -19,7 +19,7 @@ namespace FeatherWidgets.TestUI.TestCases.Forms.Forms
         [TestMethod,
         Owner(FeatherTeams.SitefinityTeam6),
         TestCategory(FeatherTestCategories.Bootstrap),
-        TestCategory(FeatherTestCategories.Forms)
+        TestCategory(FeatherTestCategories.Forms),
         Telerik.TestUI.Core.Attributes.KnownIssue(BugId = 212789), Ignore]
         public void DeleteFormFieldInUseVerityFrontend()
         {

@@ -18,7 +18,7 @@ namespace FeatherWidgets.TestUI.TestCases.Forms.Forms
         [TestMethod,
         Owner(FeatherTeams.SitefinityTeam6),
         TestCategory(FeatherTestCategories.Bootstrap),
-        TestCategory(FeatherTestCategories.Forms)
+        TestCategory(FeatherTestCategories.Forms),
         Telerik.TestUI.Core.Attributes.KnownIssue(BugId = 212791), Ignore]
         public void PublishUnpublishFormInUseVerifyFrontend()
         {
