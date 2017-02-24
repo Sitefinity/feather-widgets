@@ -57,11 +57,13 @@ namespace FeatherWidgets.TestIntegration.DynamicWidgets
 
                 string responseContent = PageInvoker.ExecuteWebRequest(url);
 
+                Assert.IsNotNull(responseContent, string.Format("Request to URL: '{0}' returned null as content", url));
                 Assert.IsTrue(responseContent.Contains(this.dynamicTitles), string.Format("The dynamic item with {0} title was not found in response: {1}!", this.dynamicTitles, responseContent));
 
                 string detailNewsUrl = url + dynamicCollection[0].ItemDefaultUrl;
                 string detailResponseContent = PageInvoker.ExecuteWebRequest(detailNewsUrl);
 
+                Assert.IsNotNull(detailResponseContent, string.Format("Request to URL: '{0}' returned null as content", detailNewsUrl));
                 Assert.IsTrue(detailResponseContent.Contains(this.dynamicTitles), string.Format("The title {0} was not found in response: {1}!", this.dynamicTitles, detailResponseContent));
             }
             finally
