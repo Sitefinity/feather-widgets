@@ -1,7 +1,7 @@
 ﻿(function ($) {
     $(function () {
         $('[data-sf-role="login-status-button"]').on('click', function () {
-            location.href = $('[data-sf-role="sf-login-redirect-url"]').val() || '#';
+            location.href = $('[data-sf-role="sf-login-redirect-url"]').val() || '?challenge=true';
             return false;
         });
 
