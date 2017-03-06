@@ -86,10 +86,10 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Controllers
         /// <returns>
         /// The <see cref="ActionResult" />.
         /// </returns>
-        public ActionResult Index(bool challenge = false)
+        public ActionResult Index(bool stsLogin = false)
         {
-            if (challenge)
-            {
+            if (stsLogin)
+            {   
                 var authProp = new AuthenticationProperties() { RedirectUri = this.GetCurrentPageUrl() };
                 SystemManager.CurrentHttpContext.Request.GetOwinContext().Authentication.Challenge(authProp);
                 return new EmptyResult();

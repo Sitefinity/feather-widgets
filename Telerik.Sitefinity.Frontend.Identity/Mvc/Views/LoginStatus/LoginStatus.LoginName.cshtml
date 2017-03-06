@@ -19,6 +19,7 @@
 </div>
 
 <input type="hidden" data-sf-role="sf-status-json-endpoint-url" value="@Model.StatusServiceUrl"/>
+<input type="hidden" data-sf-role="sf-allow-windows-sts-login" value="@Model.AllowWindowsStsLogin.ToString()" />
 <input type="hidden" data-sf-role="sf-logout-redirect-url" value="@Model.LogoutPageUrl"/>
 <input type="hidden" data-sf-role="sf-is-design-mode-value" value="@ViewBag.IsDesignMode.ToString()" />
 

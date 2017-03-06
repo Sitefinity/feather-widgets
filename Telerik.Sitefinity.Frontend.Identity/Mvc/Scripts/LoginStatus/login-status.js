@@ -1,7 +1,12 @@
 ﻿(function ($) {
     $(function () {
         $('[data-sf-role="login-status-button"]').on('click', function () {
-            location.href = $('[data-sf-role="sf-login-redirect-url"]').val() || '?challenge=true';
+
+            if ($('[data-sf-role="sf-allow-windows-sts-login"]').val().toLowerCase() === 'true') {
+                location.href = '?stsLogin=true';
+            } else {
+                location.href = $('[data-sf-role="sf-login-redirect-url"]').val() || '#';
+            }
             return false;
         });
 

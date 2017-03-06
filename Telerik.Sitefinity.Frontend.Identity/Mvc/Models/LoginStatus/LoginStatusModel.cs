@@ -47,6 +47,9 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.LoginStatus
         /// <inheritDoc/>
         public string ExternalProfileUrl { get; set; }
 
+        /// <inheritDoc/>
+        public bool AllowWindowsStsLogin { get; set; }
+
         /// <inheritdoc />
         public string CssClass { get; set; }
 
@@ -137,6 +140,7 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.LoginStatus
                 RegistrationPageUrl = this.GetRegistrationPageUrl(),
                 LoginPageUrl = this.GetLoginPageUrl(),
                 CssClass = this.CssClass,
+                AllowWindowsStsLogin = this.AllowWindowsStsLogin,
                 StatusServiceUrl = RouteHelper.ResolveUrl("~/rest-api/login-status", UrlResolveOptions.Rooted)
             };
         }
