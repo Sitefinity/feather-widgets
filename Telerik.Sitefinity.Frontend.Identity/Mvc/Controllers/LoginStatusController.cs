@@ -86,8 +86,15 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Controllers
         /// <returns>
         /// The <see cref="ActionResult" />.
         /// </returns>
-        public ActionResult Index()
+        public ActionResult Index(bool stsLogin = false)
         {
+            if (stsLogin)
+            {   
+                var authProp = new AuthenticationProperties() { RedirectUri = this.GetCurrentPageUrl() };
+                SystemManager.CurrentHttpContext.Request.GetOwinContext().Authentication.Challenge(authProp);
+                return new EmptyResult();
+            }
+
             var fullTemplateName = this.templateNamePrefix + this.TemplateName;
             var viewModel = this.Model.GetViewModel();
 

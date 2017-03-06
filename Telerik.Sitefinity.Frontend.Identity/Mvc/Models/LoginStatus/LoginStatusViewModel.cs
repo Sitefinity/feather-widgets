@@ -49,5 +49,12 @@
         /// The status service URL.
         /// </value>
         public string StatusServiceUrl { get; set; }
+
+        /// <summary>
+        /// Gets or sets the allow Windows STS login.
+        /// </summary>
+        ///   <c>true</c> if Windows STS login is allowed; otherwise, <c>false</c>.
+        /// </value>
+        public bool AllowWindowsStsLogin { get; set; }
     }
 }
