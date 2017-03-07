@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel;
+using System.Linq;
 using System.Web.Mvc;
 using System.Web.Security;
 using Telerik.Sitefinity.Frontend.Identity.Mvc.Models.Registration;
@@ -6,6 +7,7 @@ using Telerik.Sitefinity.Frontend.Identity.Mvc.StringResources;
 using Telerik.Sitefinity.Frontend.Mvc.Infrastructure.Controllers;
 using Telerik.Sitefinity.Frontend.Mvc.Infrastructure.Controllers.Attributes;
 using Telerik.Sitefinity.Mvc;
+using Telerik.Sitefinity.Security.Claims;
 
 namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Controllers
 {
@@ -132,7 +134,12 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Controllers
         {
             if (!string.IsNullOrEmpty(model))
             {
-                this.Model.AuthenticateExternal(model, this.ControllerContext.HttpContext);
+                var provider = ClaimsManager.CurrentAuthenticationModule.ExternalAuthenticationProviders.FirstOrDefault(x => x.Title == model);
+
+                if (provider != null)
+                {
+                    this.Model.AuthenticateExternal(provider.Name, this.ControllerContext.HttpContext);
+                }
             }
 
             return new EmptyResult();
