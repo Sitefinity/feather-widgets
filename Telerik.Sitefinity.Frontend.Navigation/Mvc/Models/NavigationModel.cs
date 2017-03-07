@@ -39,11 +39,11 @@ namespace Telerik.Sitefinity.Frontend.Navigation.Mvc.Models
         /// <param name="cssClass">The CSS class.</param>
         /// <param name="openExternalPageInNewTab">if set to <c>true</c> [open external page in new tab].</param>
         public NavigationModel(
-            PageSelectionMode selectionMode, 
+            PageSelectionMode selectionMode,
             Guid selectedPageId,
             SelectedPageModel[] selectedPages,
-            int? levelsToInclude, 
-            bool showParentPage, 
+            int? levelsToInclude,
+            bool showParentPage,
             string cssClass,
             bool openExternalPageInNewTab)
         {
@@ -176,7 +176,7 @@ namespace Telerik.Sitefinity.Frontend.Navigation.Mvc.Models
                 var multilingualKey = nodeId;
                 if (AppSettings.CurrentSettings.Multilingual)
                     multilingualKey += Thread.CurrentThread.CurrentUICulture;
-                
+
                 cacheDependencyNotifiedObjects.Add(new CacheDependencyKey() { Type = CacheDependencyPageNodeStateChangeType, Key = multilingualKey });
                 cacheDependencyNotifiedObjects.Add(new CacheDependencyKey() { Type = CacheDependencyPageNodeObjectType, Key = multilingualKey });
             }
@@ -346,7 +346,7 @@ namespace Telerik.Sitefinity.Frontend.Navigation.Mvc.Models
         {
             return new NodeViewModel(null, url, target, false, false);
         }
-        
+
         private void SubscribeCacheDependency(List<CacheDependencyKey> objects)
         {
             if (!SystemManager.CurrentHttpContext.Items.Contains(PageCacheDependencyKeys.PageNodes))
@@ -419,8 +419,12 @@ namespace Telerik.Sitefinity.Frontend.Navigation.Mvc.Models
                     this.AddChildNodes(siteMapProvider.RootNode, false);
                     break;
                 case PageSelectionMode.SelectedPageChildren:
-                    var siteMapNodeFromKey = siteMapProvider.FindSiteMapNodeFromKey(this.selectedPageId.ToString("D"));
-                    this.AddChildNodes(siteMapNodeFromKey, this.ShowParentPage);
+                    if (!Guid.Equals(this.selectedPageId, Guid.Empty))
+                    {
+                        var siteMapNodeFromKey = siteMapProvider.FindSiteMapNodeFromKey(this.selectedPageId.ToString("D"));
+                        this.AddChildNodes(siteMapNodeFromKey, this.ShowParentPage);
+                    }
+
                     break;
                 case PageSelectionMode.CurrentPageChildren:
 
@@ -495,7 +499,7 @@ namespace Telerik.Sitefinity.Frontend.Navigation.Mvc.Models
 
         private Guid selectedPageId;
         private SelectedPageModel[] selectedPages;
-              
+
         #endregion
     }
 }
