@@ -140,8 +140,6 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Controllers
                 {
                     this.Model.AuthenticateExternal(provider.Name, this.ControllerContext.HttpContext);
                 }
-
-                return new EmptyResult();
             }
 
             return new EmptyResult();
