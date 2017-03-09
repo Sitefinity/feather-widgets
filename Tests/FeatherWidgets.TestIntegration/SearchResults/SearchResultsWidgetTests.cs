@@ -405,12 +405,7 @@ namespace FeatherWidgets.TestIntegration.SearchResults
             finally
             {
                 SitefinityOperations.AuthenticationHelper.AuthenticateUser(AdminUserName, AdminPass, true);
-
-                if (searchIndex1Id != Guid.Empty)
-                {
-                    Telerik.Sitefinity.TestUtilities.CommonOperations.ServerOperations.Search().DeleteSearchIndex(this.searchIndexName, searchIndex1Id);
-                }
-
+                Telerik.Sitefinity.TestUtilities.CommonOperations.ServerOperations.Search().DeleteAllIndexes();
                 SitefinityOperations.ServerOperations.Search().SetFilterByViewPermissions(false);
             }
         }
@@ -467,12 +462,7 @@ namespace FeatherWidgets.TestIntegration.SearchResults
             finally
             {
                 SitefinityOperations.AuthenticationHelper.AuthenticateUser(AdminUserName, AdminPass, true);
-
-                if (searchIndex1Id != Guid.Empty)
-                {
-                    Telerik.Sitefinity.TestUtilities.CommonOperations.ServerOperations.Search().DeleteSearchIndex(this.searchIndexName, searchIndex1Id);
-                }
-
+                Telerik.Sitefinity.TestUtilities.CommonOperations.ServerOperations.Search().DeleteAllIndexes();
                 SitefinityOperations.ServerOperations.Search().SetFilterByViewPermissions(false);
             }
         }
@@ -525,12 +515,7 @@ namespace FeatherWidgets.TestIntegration.SearchResults
             finally
             {
                 SitefinityOperations.AuthenticationHelper.AuthenticateUser(AdminUserName, AdminPass, true);
-
-                if (searchIndex1Id != Guid.Empty)
-                {
-                    Telerik.Sitefinity.TestUtilities.CommonOperations.ServerOperations.Search().DeleteSearchIndex(this.searchIndexName, searchIndex1Id);
-                }
-
+                Telerik.Sitefinity.TestUtilities.CommonOperations.ServerOperations.Search().DeleteAllIndexes(); 
                 SitefinityOperations.ServerOperations.Search().SetFilterByViewPermissions(false);
             }
         }
