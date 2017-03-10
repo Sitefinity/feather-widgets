@@ -249,6 +249,11 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend
             if (toDay.Count == 2)
             {
                 buttonToDay = toDay[1].Find.ByExpression<HtmlButton>("tagname=button");
+
+                if (buttonToDay == null)
+                {
+                    buttonToDay = toDay[0].Find.ByExpression<HtmlButton>("tagname=button");
+                }
             }
             else
             {
