@@ -9,6 +9,7 @@ using Telerik.Sitefinity.Data;
 using Telerik.Sitefinity.Forms.Model;
 using Telerik.Sitefinity.Frontend.Forms.Mvc.Controllers.Base;
 using Telerik.Sitefinity.Frontend.Forms.Mvc.Models.Fields;
+using Telerik.Sitefinity.Frontend.Forms.Mvc.Models.Fields.Captcha;
 using Telerik.Sitefinity.Frontend.Forms.Mvc.StringResources;
 using Telerik.Sitefinity.Frontend.Mvc.Helpers;
 using Telerik.Sitefinity.Frontend.Mvc.Models;
@@ -41,6 +42,7 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Models
         public FormModel()
         {
             this.eventFactory = new FormEventsFactory();
+            this.useAjaxSubmit = true;
         }
 
         #endregion
@@ -101,7 +103,17 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Models
         /// <summary>
         /// Gets or sets a value indicating whether the control to use Ajax submit when the form submit button is clicked
         /// </summary>
-        public bool UseAjaxSubmit { get; set; }
+        public bool UseAjaxSubmit
+        {
+            get
+            {
+                return this.useAjaxSubmit;
+            }
+            set
+            {
+                this.useAjaxSubmit = value;
+            }
+        }
 
         /// <summary>
         /// Gets or sets the submit URL when using AJAX for submitting.
@@ -205,7 +217,7 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Models
 
             var formIdString = collection[FormIdName];
             Guid formId;
- 
+
             if (!string.IsNullOrWhiteSpace(formIdString) && Guid.TryParse(formIdString, out formId))
             {
                 this.FormId = formId;
@@ -328,7 +340,7 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Models
                 case SubmitStatus.Success:
                     return this.CustomConfirmationMessage;
                 case SubmitStatus.InvalidEntry:
-                    return Res.Get<FormResources>().UnsuccessfullySubmittedMessage;
+                    return this.InvalidInputMessage;
                 case SubmitStatus.RestrictionViolation:
                     return Res.Get<FormsResources>().YouHaveAlreadySubmittedThisForm;
                 default:
@@ -356,6 +368,7 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Models
         /// <returns>true if form is valid, false otherwise.</returns>
         protected virtual bool IsValidForm(FormDescription form, FormCollection collection, HttpFileCollectionBase files, FormsManager manager)
         {
+            this.ResetInvalidInputMessage();
             this.SanitizeFormCollection(collection);
             var behaviorResolver = ObjectFactory.Resolve<IControlBehaviorResolver>();
             foreach (var control in form.Controls)
@@ -399,18 +412,61 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Models
                     }
 
                     if (!formField.Model.IsValid(fieldValue))
+                    {
+                        this.SetFormFieldInvalidInputMessage(formField);
                         return false;
+                    }
                 }
                 else
                 {
                     var formElement = (IFormElementController<IFormElementModel>)controlBehaviorObject;
                     if (!formElement.IsValid())
+                    {
+                        this.SetFormElementInvalidInputMessage(formElement);
                         return false;
+                    }
                 }
             }
 
             return true;
         }
+
+        /// <summary>
+        /// Resets the invalid input message.
+        /// </summary>
+        protected virtual void ResetInvalidInputMessage()
+        {
+            this.InvalidInputMessage = Res.Get<FormResources>().UnsuccessfullySubmittedMessage;
+        }
+
+        /// <summary>
+        /// Sets the form field invalid input message.
+        /// </summary>
+        /// <param name="formField">The form field.</param>
+        protected virtual void SetFormFieldInvalidInputMessage(IFormFieldController<IFormFieldModel> formField)
+        {
+            string invalidFieldName = formField.MetaField.Title;
+            this.InvalidInputMessage = string.Format(Res.Get<FormResources>().InvalidInputErrorMessage, invalidFieldName);
+        }
+
+        /// <summary>
+        /// Sets the form element invalid input message.
+        /// </summary>
+        /// <param name="formElement">The form element.</param>
+        protected virtual void SetFormElementInvalidInputMessage(IFormElementController<IFormElementModel> formElement)
+        {
+            // Current default IFormElementController<IFormElementModel> elements - Section Header, Submit Button, Captcha.
+            if (formElement.Model != null && (formElement.Model is ICaptchaModel))
+            {
+                this.InvalidInputMessage = Res.Get<FormsResources>().CaptchaErrorMessage;
+            }
+        }
+
+        /// <summary>
+        /// Gets or sets the invalid input message.
+        /// </summary>
+        /// <value>The invalid input message.</value>
+        protected virtual string InvalidInputMessage { get; set; }
 
         /// <summary>
         /// Sanitizes the form collection.
@@ -593,6 +649,7 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Models
         #region Private fields
 
         private string cssClass;
+        private bool useAjaxSubmit;
         private string customConfirmationMessage;
         private readonly FormEventsFactory eventFactory;
         internal const string FormIdName = "FormId";

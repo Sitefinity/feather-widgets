@@ -10,7 +10,6 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.StringResources
     public class FormResources : Resource
     {
         #region Constructions
-
         /// <summary>
         /// Initializes a new instance of the <see cref="NewsWidgetResources"/> class.
         /// </summary>
@@ -26,11 +25,9 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.StringResources
             : base(dataProvider)
         {
         }
-
         #endregion
 
         #region Class Description
-
         /// <summary>
         /// Gets Title for the form widgets resources class.
         /// </summary>
@@ -60,11 +57,9 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.StringResources
                 return this["FormResourcesDescription"];
             }
         }
-
         #endregion
 
         #region Designer Form
-
         /// <summary>
         /// Gets word : Form
         /// </summary>
@@ -124,11 +119,9 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.StringResources
                 return this["CssClasses"];
             }
         }
-        
         #endregion
 
         #region Designer Settings
-
         /// <summary>
         /// Gets word : Settings
         /// </summary>
@@ -158,7 +151,7 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.StringResources
                 return this["ConfirmationOptions"];
             }
         }
-        
+
         /// <summary>
         /// Gets phrase : Use custom confirmation
         /// </summary>
@@ -203,7 +196,7 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.StringResources
                 return this["RedirectToAPage"];
             }
         }
-        
+
         /// <summary>
         /// Gets phrase : Success! Thanks for filling out our form!
         /// </summary>
@@ -233,7 +226,22 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.StringResources
                 return this["UnsuccessfullySubmittedMessage"];
             }
         }
-
         #endregion
+
+        /// <summary>
+        /// phrase: {0} field input is invalid
+        /// </summary>
+        /// <value>{0} field input is invalid</value>
+        [ResourceEntry("InvalidInputErrorMessage",
+            Value = "{0} field input is invalid",
+            Description = "phrase: {0} field input is invalid",
+            LastModified = "2017/03/10")]
+        public string InvalidInputErrorMessage
+        {
+            get
+            {
+                return this["InvalidInputErrorMessage"];
+            }
+        }
     }
 }
