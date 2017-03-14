@@ -18,12 +18,14 @@ namespace FeatherWidgets.TestUI.TestCases.Identity
         [TestMethod,
         Owner(FeatherTeams.SitefinityTeam4),
         TestCategory(FeatherTestCategories.PagesAndContent),
+        TestCategory(FeatherTestCategories.Identity),
+        TestCategory(FeatherTestCategories.Registration),
         TestCategory(FeatherTestCategories.Bootstrap)]
         public void VerifyRegistrationWidgetAndProfileWidgetOnPreviewBootstrapTemplate()
         {
-            RuntimeSettingsModificator.ExecuteWithClientTimeout(800000, () => BAT.Macros().NavigateTo().CustomPage("~/sitefinity/pages", false));
             RuntimeSettingsModificator.ExecuteWithClientTimeout(800000, () => BAT.Macros().User().EnsureAdminLoggedIn());
-            BAT.Macros().NavigateTo().Design().PageTemplates(this.Culture);
+            RuntimeSettingsModificator.ExecuteWithClientTimeout(800000, () => BAT.Macros().NavigateTo().CustomPage("~/sitefinity/pages", false));
+            BAT.Macros().NavigateTo().Design().PageTemplates();
             BAT.Wrappers().Backend().PageTemplates().PageTemplateMainScreen().OpenTemplateEditor(TemplateTitle);
             BATFeather.Wrappers().Backend().Pages().PageZoneEditorWrapper().AddWidgetToPlaceHolderPureMvcMode(ProfileWidget, PlaceHolderId);
             BATFeather.Wrappers().Backend().Pages().PageZoneEditorWrapper().AddWidgetToPlaceHolderPureMvcMode(RegistrationWidget, PlaceHolderId);
@@ -35,11 +37,9 @@ namespace FeatherWidgets.TestUI.TestCases.Identity
             ////Verify all required fields message for Registration widget in Preview mode
             BATFeather.Wrappers().Frontend().Identity().RegistrationWrapper().RegisterButton();
             BATFeather.Wrappers().Frontend().Identity().RegistrationWrapper().AssertEmptyEmailFieldMessage();
-            BATFeather.Wrappers().Frontend().Identity().RegistrationWrapper().AssertEmptyUsernameFieldMessage();
             BATFeather.Wrappers().Frontend().Identity().RegistrationWrapper().AssertEmptyPasswordFieldMessage();
             ////Verify successful message for Registration widget in Preview mode
             BATFeather.Wrappers().Frontend().Identity().RegistrationWrapper().FillEmail(Email);
-            BATFeather.Wrappers().Frontend().Identity().RegistrationWrapper().FillUserName(UserName);
             BATFeather.Wrappers().Frontend().Identity().RegistrationWrapper().FillPassword(Password);
             BATFeather.Wrappers().Frontend().Identity().RegistrationWrapper().FillRetypePassword(Password);
             BATFeather.Wrappers().Frontend().Identity().RegistrationWrapper().RegisterButton();
@@ -68,8 +68,7 @@ namespace FeatherWidgets.TestUI.TestCases.Identity
         }
 
         private const string TemplateTitle = "Bootstrap.default";
-        private const string Email = "user20@dsds.bg";
-        private const string UserName = "newUser";
+        private const string Email = "newuser@test.test";
         private const string Password = "password";
         private const string MessageSaveChangesProfileWidget = "Saving changes is not available in Preview";
         private const string OperationNameDelete = "Delete";

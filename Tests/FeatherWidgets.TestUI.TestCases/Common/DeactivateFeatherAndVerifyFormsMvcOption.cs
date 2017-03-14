@@ -23,7 +23,8 @@ namespace FeatherWidgets.TestUI.TestCases.Common
         /// </summary>
         [TestMethod,
         Owner(FeatherTeams.SitefinityTeam2),
-        TestCategory(FeatherTestCategories.PagesAndContent)]
+        TestCategory(FeatherTestCategories.PagesAndContent),
+        TestCategory(FeatherTestCategories.Common)]
         public void DeactivateFeatherAndVerifyFormsMvcOption()
         {
             BAT.Arrange(this.TestName).ExecuteArrangement("DeactivateModule");
@@ -31,6 +32,7 @@ namespace FeatherWidgets.TestUI.TestCases.Common
             this.VerifyPageBackend(PageName, WidgetName, FormsContentDisabled, false);
 
             BAT.Macros().NavigateTo().Modules().Forms(this.Culture);
+            BAT.Wrappers().Backend().Forms().FormsDashboard().PublishFormFromActionsMenu(WidgetName);
             BAT.Wrappers().Backend().Forms().FormsDashboard().ClickCreateAFormButton();
             BATFeather.Wrappers().Backend().Forms().FormsContentScreenWrapper().ClickAdvancedButton();
             BATFeather.Wrappers().Backend().Forms().FormsWrapper().VerifyWebFrameworkOptions(false);

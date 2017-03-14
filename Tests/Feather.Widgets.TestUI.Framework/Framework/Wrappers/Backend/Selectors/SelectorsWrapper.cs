@@ -25,6 +25,7 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend
             doneButton.Click();
             ActiveBrowser.WaitUntilReady();
             ActiveBrowser.WaitForAsyncRequests();
+            ActiveBrowser.RefreshDomTree();
         }
 
         /// <summary>
@@ -118,11 +119,25 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend
         /// <param name="itemName">Name of the item.</param>
         public void SelectItemsInHierarchicalSelector(params string[] itemNames)
         {
-            HtmlDiv activeTab = this.EM.Selectors.SelectorsScreen.ActiveTab.AssertIsPresent("active tab");
-
+            HtmlDiv activeTab = this.EM.Selectors.SelectorsScreen.ActiveTab;
+            activeTab.AssertIsPresent("active tab");
             foreach (var itemName in itemNames)
             {
                 this.SelectElementInTree(itemName, activeTab);
+            }
+        }
+
+        /// <summary>
+        /// Selects calendar items in hierarchical selector.
+        /// </summary>
+        /// <param name="itemName">Name of the item.</param>
+        public void SelectCalendarInHierarchicalSelector(params string[] calendarNames)
+        {
+            HtmlDiv activeTab = this.EM.Selectors.SelectorsScreen.ActiveTab;
+            activeTab.AssertIsPresent("active tab");
+            foreach (var calendarName in calendarNames)
+            {
+                this.SelectCalendarInTree(calendarName, activeTab);
             }
         }
 
@@ -439,6 +454,19 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend
             }
         }
 
+        /// <summary>
+        /// Select Calendar in Tree (filter)
+        /// </summary>
+        /// <param name="calenarName">Calendar name</param>
+        /// <param name="activeTab">Active tab</param>
+        private void SelectCalendarInTree(string calenarName, HtmlDiv activeTab)
+        {
+            var element = activeTab.Find.ByExpression<HtmlDiv>("innertext=" + calenarName);
+            element.AssertIsPresent("Calendar");
+            element.Click();
+            ActiveBrowser.RefreshDomTree();
+        }
+
         private void SelectElementInTree(string itemName, HtmlDiv activeTab)
         {
             var element = activeTab.Find.ByExpression<HtmlSpan>("innertext=" + itemName);
@@ -450,7 +478,7 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend
             }
             else
             {
-                var arrows = this.EM.Widgets.WidgetDesignerContentScreen.Find.AllByCustom<HtmlSpan>(a => a.CssClass.Contains("k-icon k-plus"));
+                var arrows = this.EM.Widgets.WidgetDesignerContentScreen.Find.AllByCustom<HtmlSpan>(a => a.CssClass.Contains("k-icon k-i-expand"));
                 Assert.AreNotEqual(0, arrows.Count, "No arrows appear");
 
                 this.SearchAndSelectElementByExpandingArrows(arrows, element, itemName, activeTab);
@@ -485,7 +513,7 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend
                     }
                     else
                     {
-                        var newArrows = this.EM.Widgets.WidgetDesignerContentScreen.Find.AllByCustom<HtmlSpan>(a => a.CssClass.Contains("k-icon k-plus"));
+                        var newArrows = this.EM.Widgets.WidgetDesignerContentScreen.Find.AllByCustom<HtmlSpan>(a => a.CssClass.Contains("k-icon k-i-expand"));
                         if (newArrows.Count != 0)
                         {
                             this.SearchAndSelectElementByExpandingArrows(newArrows, element, itemName, activeTab);

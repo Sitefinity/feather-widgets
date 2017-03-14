@@ -24,8 +24,8 @@ namespace FeatherWidgets.TestIntegration.Identity.UsersList
         [SetUp]
         public void Setup()
         {
-            ServerOperations.Users().CreateUserWithProfileAndRoles(AuthorUserName, AuthorPassword, AuthorFirstName, AuthorLastName, AuthorEmail, new List<string> { "BackendUsers", "Authors" });
-            ServerOperations.Users().CreateUserWithProfileAndRoles(AdministratorUserName, AdministratorPassword, AdministratorFirstName, AdministratorLastName, AdministratorEmail, new List<string> { "BackendUsers", "Administrators" });
+            ServerOperations.Users().CreateUserWithProfileAndRoles(AuthorEmail, AuthorPassword, AuthorFirstName, AuthorLastName, new List<string> { "BackendUsers", "Authors" });
+            ServerOperations.Users().CreateUserWithProfileAndRoles(AdministratorEmail, AdministratorPassword, AdministratorFirstName, AdministratorLastName, new List<string> { "BackendUsers", "Administrators" });
         }
 
         /// <summary>
@@ -34,8 +34,8 @@ namespace FeatherWidgets.TestIntegration.Identity.UsersList
         [TearDown]
         public void TearDown()
         {
-            ServerOperations.Users().DeleteUserAndProfile(AuthorUserName);
-            ServerOperations.Users().DeleteUserAndProfile(AdministratorUserName);
+            ServerOperations.Users().DeleteUserAndProfile(AuthorEmail);
+            ServerOperations.Users().DeleteUserAndProfile(AdministratorEmail);
         }
 
         /// <summary>
@@ -58,8 +58,8 @@ namespace FeatherWidgets.TestIntegration.Identity.UsersList
 
             //// expected: Admin Admin, fname lname, test last
             Assert.AreEqual(SitefinityAdmin, users[0].Fields.User.UserName, "Wrong username");
-            Assert.AreEqual(AdministratorUserName, users[1].Fields.User.UserName, "Wrong username");
-            Assert.AreEqual(AuthorUserName, users[2].Fields.User.UserName, "Wrong username");
+            Assert.AreEqual(AdministratorEmail, users[1].Fields.User.UserName, "Wrong username");
+            Assert.AreEqual(AuthorEmail, users[2].Fields.User.UserName, "Wrong username");
         }
 
         /// <summary>
@@ -81,8 +81,8 @@ namespace FeatherWidgets.TestIntegration.Identity.UsersList
             Assert.IsTrue(users.Length.Equals(3), "Number of users is not correct");
 
             //// expected: test last, fname lname, Admin Admin
-            Assert.AreEqual(AuthorUserName, users[0].Fields.User.UserName, "Wrong username");
-            Assert.AreEqual(AdministratorUserName, users[1].Fields.User.UserName, "Wrong username");
+            Assert.AreEqual(AuthorEmail, users[0].Fields.User.UserName, "Wrong username");
+            Assert.AreEqual(AdministratorEmail, users[1].Fields.User.UserName, "Wrong username");
             Assert.AreEqual(SitefinityAdmin, users[2].Fields.User.UserName, "Wrong username");
         }
 
@@ -106,8 +106,8 @@ namespace FeatherWidgets.TestIntegration.Identity.UsersList
 
             //// expected: Admin Admin, test last, fname lname
             Assert.AreEqual(SitefinityAdmin, users[0].Fields.User.UserName, "Wrong username");
-            Assert.AreEqual(AuthorUserName, users[1].Fields.User.UserName, "Wrong username");
-            Assert.AreEqual(AdministratorUserName, users[2].Fields.User.UserName, "Wrong username");
+            Assert.AreEqual(AuthorEmail, users[1].Fields.User.UserName, "Wrong username");
+            Assert.AreEqual(AdministratorEmail, users[2].Fields.User.UserName, "Wrong username");
         }
 
         /// <summary>
@@ -129,8 +129,8 @@ namespace FeatherWidgets.TestIntegration.Identity.UsersList
             Assert.IsTrue(users.Length.Equals(3), "Number of users is not correct");
 
             //// expected: fname lname, test last, Admin Admin
-            Assert.AreEqual(AdministratorUserName, users[0].Fields.User.UserName, "Wrong username");
-            Assert.AreEqual(AuthorUserName, users[1].Fields.User.UserName, "Wrong username");
+            Assert.AreEqual(AdministratorEmail, users[0].Fields.User.UserName, "Wrong username");
+            Assert.AreEqual(AuthorEmail, users[1].Fields.User.UserName, "Wrong username");
             Assert.AreEqual(SitefinityAdmin, users[2].Fields.User.UserName, "Wrong username");
         }
 
@@ -153,20 +153,18 @@ namespace FeatherWidgets.TestIntegration.Identity.UsersList
             Assert.IsTrue(users.Length.Equals(3), "Number of users is not correct");
 
             //// expected: fname lname, test last, Admin Admin
-            Assert.AreEqual(AdministratorUserName, users[0].Fields.User.UserName, "Wrong username");
-            Assert.AreEqual(AuthorUserName, users[1].Fields.User.UserName, "Wrong username");
+            Assert.AreEqual(AdministratorEmail, users[0].Fields.User.UserName, "Wrong username");
+            Assert.AreEqual(AuthorEmail, users[1].Fields.User.UserName, "Wrong username");
             Assert.AreEqual(SitefinityAdmin, users[2].Fields.User.UserName, "Wrong username");
         }
 
-        private const string SitefinityAdmin = "admin";
+        private const string SitefinityAdmin = "admin@test.test";
 
-        private const string AuthorUserName = "author";
         private const string AuthorPassword = "password";
         private const string AuthorFirstName = "test";
         private const string AuthorLastName = "last";
-        private const string AuthorEmail = "author@test.com";
+        private const string AuthorEmail = "author@test.test";
 
-        private const string AdministratorUserName = "admin2";
         private const string AdministratorPassword = "passoword";
         private const string AdministratorFirstName = "fname";
         private const string AdministratorLastName = "lname";

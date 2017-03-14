@@ -45,7 +45,8 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Frontend.Identity
             userLink.Click();
 
             ActiveBrowser.WaitUntilReady();
-            ActiveBrowser.WaitForUrl(singlePageURlEnding);
+            string encodedUrl = singlePageURlEnding.Replace("@", "%40");
+            ActiveBrowser.WaitForUrl(encodedUrl);
             ActiveBrowser.WaitForAsyncJQueryRequests();
 
             HtmlDiv usersDiv = this.EM.Identity.UsersListFrontend.SingleUserDivHybridPage.AssertIsPresent("single user");
@@ -61,7 +62,7 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Frontend.Identity
         /// <param name="usersToVerify">users first and last name to be verified</param>
         public void VerifyUsersListOnBootstrapPage(string[] usersToVerify)
         {
-            List<HtmlDiv> usersDivs = this.EM.Identity.UsersListFrontend.UsersDivsBootstrapPage;
+            var usersDivs = this.EM.Identity.UsersListFrontend.UsersDivsBootstrapPage;
             Assert.IsNotNull(usersDivs, "List of div elements is null.");
             Assert.AreEqual(usersToVerify.Length, usersDivs.Count, "Expected and actual count of list items are not equal.");
 

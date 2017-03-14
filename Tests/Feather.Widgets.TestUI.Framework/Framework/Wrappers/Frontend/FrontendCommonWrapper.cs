@@ -123,6 +123,24 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Frontend
                 return false;
             }
         }
+
+        /// <summary>
+        /// Navigate to existing page in frontend. Search for a widget that should not be present on the screen
+        /// </summary>
+        /// <param name="elementTitle"></param> Title of the widget
+        public void VerifyFrontendForNotExistingModule(string elementTitle, string pageName, string culture)
+        {
+            //Navigate to Frontend and verify that the news is not visible
+            BAT.Macros().NavigateTo().CustomPage("~/" + pageName, true, culture);
+            ActiveBrowser.WaitForUrl("/" + pageName, true);
+            ActiveBrowser.Window.SetFocus();
+            ActiveBrowser.WaitUntilReady();
+            Manager.ActiveBrowser.RefreshDomTree();
+            HtmlDiv pageContainer = ActiveBrowser.Find.ByExpression<HtmlDiv>("id=PublicWrapper")
+                .AssertIsPresent("Page Container");
+            Assert.IsFalse(pageContainer.InnerText.Contains(elementTitle), "The module exists and it should not");
+            ActiveBrowser.WaitUntilReady();
+        }
         private const int TimeOut = 30000;
     }
 }

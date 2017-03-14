@@ -35,5 +35,15 @@ namespace Telerik.Sitefinity.Frontend.Media.Mvc.Models.ImageGallery
         /// </summary>
         /// <value>The image URL.</value>
         public string MediaUrl { get; set; }
+
+        /// <summary>
+        /// Gets or sets the width of the image.
+        /// </summary>
+        public int? Width { get; set; }
+
+        /// <summary>
+        /// Gets or sets the height of the image.
+        /// </summary>
+        public int? Height { get; set; }
     }
 }

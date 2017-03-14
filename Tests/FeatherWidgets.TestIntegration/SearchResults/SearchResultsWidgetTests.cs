@@ -369,7 +369,7 @@ namespace FeatherWidgets.TestIntegration.SearchResults
                 string pageTitlePrefix = testName + "NewsPage" + index;
                 string urlNamePrefix = testName + "news-page" + index;
 
-                var newsItem = newsManager.GetNewsItems().Where(p => p.Title == SearchResultsWidgetTests.NewsTitle + "1").FirstOrDefault();
+                var newsItem = newsManager.GetNewsItems().Where(p => p.Title == SearchResultsWidgetTests.NewsTitle + "1" && p.Status == Telerik.Sitefinity.GenericContent.Model.ContentLifecycleStatus.Master).FirstOrDefault();
                 this.BreakPermissions<NewsItem>(newsItem.Id);
                 Telerik.Sitefinity.TestUtilities.CommonOperations.ServerOperations.ContentItems().PublishNewsItem(newsItem.Id);
 
@@ -405,12 +405,7 @@ namespace FeatherWidgets.TestIntegration.SearchResults
             finally
             {
                 SitefinityOperations.AuthenticationHelper.AuthenticateUser(AdminUserName, AdminPass, true);
-
-                if (searchIndex1Id != Guid.Empty)
-                {
-                    Telerik.Sitefinity.TestUtilities.CommonOperations.ServerOperations.Search().DeleteSearchIndex(this.searchIndexName, searchIndex1Id);
-                }
-
+                Telerik.Sitefinity.TestUtilities.CommonOperations.ServerOperations.Search().DeleteAllIndexes();
                 SitefinityOperations.ServerOperations.Search().SetFilterByViewPermissions(false);
             }
         }
@@ -436,7 +431,7 @@ namespace FeatherWidgets.TestIntegration.SearchResults
                 string pageTitlePrefix = testName + "NewsPage" + index;
                 string urlNamePrefix = testName + "news-page" + index;
 
-                var newsItem = newsManager.GetNewsItems().Where(p => p.Title == SearchResultsWidgetTests.NewsTitle + "1").FirstOrDefault();
+                var newsItem = newsManager.GetNewsItems().Where(p => p.Title == SearchResultsWidgetTests.NewsTitle + "1" && p.Status == Telerik.Sitefinity.GenericContent.Model.ContentLifecycleStatus.Master).FirstOrDefault();
                 this.BreakPermissions<NewsItem>(newsItem.Id);
                 Telerik.Sitefinity.TestUtilities.CommonOperations.ServerOperations.ContentItems().PublishNewsItem(newsItem.Id);
 
@@ -467,12 +462,7 @@ namespace FeatherWidgets.TestIntegration.SearchResults
             finally
             {
                 SitefinityOperations.AuthenticationHelper.AuthenticateUser(AdminUserName, AdminPass, true);
-
-                if (searchIndex1Id != Guid.Empty)
-                {
-                    Telerik.Sitefinity.TestUtilities.CommonOperations.ServerOperations.Search().DeleteSearchIndex(this.searchIndexName, searchIndex1Id);
-                }
-
+                Telerik.Sitefinity.TestUtilities.CommonOperations.ServerOperations.Search().DeleteAllIndexes();
                 SitefinityOperations.ServerOperations.Search().SetFilterByViewPermissions(false);
             }
         }
@@ -498,7 +488,7 @@ namespace FeatherWidgets.TestIntegration.SearchResults
                 string pageTitlePrefix = testName + "NewsPage" + index;
                 string urlNamePrefix = testName + "news-page" + index;
 
-                var newsItem = newsManager.GetNewsItems().Where(p => p.Title == SearchResultsWidgetTests.NewsTitle + "1").FirstOrDefault();
+                var newsItem = newsManager.GetNewsItems().Where(p => p.Title == SearchResultsWidgetTests.NewsTitle + "1" && p.Status == Telerik.Sitefinity.GenericContent.Model.ContentLifecycleStatus.Master).FirstOrDefault();
                 this.BreakPermissions<NewsItem>(newsItem.Id);
                 Telerik.Sitefinity.TestUtilities.CommonOperations.ServerOperations.ContentItems().PublishNewsItem(newsItem.Id);
 
@@ -525,12 +515,7 @@ namespace FeatherWidgets.TestIntegration.SearchResults
             finally
             {
                 SitefinityOperations.AuthenticationHelper.AuthenticateUser(AdminUserName, AdminPass, true);
-
-                if (searchIndex1Id != Guid.Empty)
-                {
-                    Telerik.Sitefinity.TestUtilities.CommonOperations.ServerOperations.Search().DeleteSearchIndex(this.searchIndexName, searchIndex1Id);
-                }
-
+                Telerik.Sitefinity.TestUtilities.CommonOperations.ServerOperations.Search().DeleteAllIndexes(); 
                 SitefinityOperations.ServerOperations.Search().SetFilterByViewPermissions(false);
             }
         }
@@ -545,8 +530,8 @@ namespace FeatherWidgets.TestIntegration.SearchResults
         private void BreakPermissions<T>(Guid itemId) where T : ISecuredObject
         {
             var itemType = typeof(T);
-            var transaction = "permissions_" + Guid.NewGuid();
-            var manager = ManagerBase.GetMappedManagerInTransaction(itemType, transaction);
+            var manager = ManagerBase.GetMappedManager(itemType); 
+
             var item = manager.GetItem(itemType, itemId) as ISecuredObject;
 
             manager.BreakPermiossionsInheritance(item);
@@ -555,7 +540,7 @@ namespace FeatherWidgets.TestIntegration.SearchResults
                 item.Permissions.RemoveAt(i);
             }
 
-            TransactionManager.CommitTransaction(transaction);
+            manager.SaveChanges();
         }
 
         private void CreateNewsInLanguage(string language, string title, string content)
@@ -602,7 +587,7 @@ namespace FeatherWidgets.TestIntegration.SearchResults
         private const string NewsTitle = "TestNews";
         private string searchIndexName;
         private const int NewsCount = 5;
-        private const string AdminUserName = "admin";
+        private const string AdminUserName = "admin@test.test";
         private const string AdminPass = "admin@2";
 
         #endregion

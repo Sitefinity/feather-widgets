@@ -32,7 +32,7 @@ namespace FeatherWidgets.TestUI.Arrangements
             ServerOperations.Events().DeleteAllEvents();
         }
 
-        private const string PageName = "Events";
+        private const string PageName = "EventsPage";
         private const string EventsContent = "Events content";
         private const string EventsTitle = "EventsTitle";
         private const string TemplateTitle = "Bootstrap.default";

@@ -22,7 +22,8 @@ namespace FeatherWidgets.TestUI.TestCases.Search
         Owner(FeatherTeams.SitefinityTeam4),
         TestCategory(FeatherTestCategories.PagesAndContent),
         TestCategory(FeatherTestCategories.Search),
-        TestCategory(FeatherTestCategories.Foundation)]
+        TestCategory(FeatherTestCategories.Foundation),
+        Telerik.TestUI.Core.Attributes.KnownIssue(BugId = 206483), Ignore]
         public void VerifySearchResults_FoundationTemplate()
         {
             RuntimeSettingsModificator.ExecuteWithClientTimeout(800000, () => BAT.Macros().NavigateTo().CustomPage("~/sitefinity/pages", false));

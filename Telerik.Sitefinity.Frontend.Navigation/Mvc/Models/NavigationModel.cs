@@ -419,8 +419,12 @@ namespace Telerik.Sitefinity.Frontend.Navigation.Mvc.Models
                     this.AddChildNodes(siteMapProvider.RootNode, false);
                     break;
                 case PageSelectionMode.SelectedPageChildren:
-                    var siteMapNodeFromKey = siteMapProvider.FindSiteMapNodeFromKey(this.selectedPageId.ToString("D"));
-                    this.AddChildNodes(siteMapNodeFromKey, this.ShowParentPage);
+                    if (!Guid.Equals(this.selectedPageId, Guid.Empty))
+                    {
+                        var siteMapNodeFromKey = siteMapProvider.FindSiteMapNodeFromKey(this.selectedPageId.ToString("D"));
+                        this.AddChildNodes(siteMapNodeFromKey, this.ShowParentPage);
+                    }
+
                     break;
                 case PageSelectionMode.CurrentPageChildren:
 

@@ -19,7 +19,7 @@ namespace FeatherWidgets.TestUI.TestCases.Forms.Textbox
         /// </summary>
         [TestMethod,
         Owner(FeatherTeams.SitefinityTeam6),
-        TestCategory(FeatherTestCategories.Forms)]
+        TestCategory(FeatherTestCategories.Forms), Ignore]
         public void ChangeFieldNameOfTextField()
         {
             BAT.Macros().NavigateTo().Modules().Forms(this.Culture);

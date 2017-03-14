@@ -40,9 +40,25 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Frontend.Identity
         /// </summary>
         public void Logout()
         {
-            HtmlButton logoutBtn = this.EM.Identity.LoginStatusFrontend.LogoutButton.AssertIsPresent("Logout button");
+            var logoutBtn = this.EM.Identity.LoginStatusFrontend.LogoutButton.AssertIsPresent("Logout button");
             logoutBtn.Click();
             ActiveBrowser.WaitForAsyncJQueryRequests();
+        }
+
+        /// <summary>
+        /// Asserts that login button is present.
+        /// </summary>
+        public void AssertLoginButton()
+        {
+            this.EM.Identity.LoginStatusFrontend.LoginButton.AssertIsPresent("Login button");
+        }
+
+        /// <summary>
+        /// Asserts that logout button is present.
+        /// </summary>
+        public void AssertLogoutButton()
+        {
+            this.EM.Identity.LoginStatusFrontend.LogoutButton.AssertIsPresent("Logout button");
         }
     }
 }

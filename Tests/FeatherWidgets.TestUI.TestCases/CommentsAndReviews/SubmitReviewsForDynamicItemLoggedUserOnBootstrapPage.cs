@@ -69,7 +69,7 @@ namespace FeatherWidgets.TestUI.TestCases.CommentsAndReviews
         private const string DynamicTitle = "Angel";
         private const string ReviewMessage = "Write a review";
         private string[] reviewsToDynamicItem = { "Reviews to dynamic item" };
-        private string[] reviewAuthor = { "admin" };
+        private string[] reviewAuthor = { "admin admin" };
         private string[] reviewRaiting = { "(3)" };
         private const int Raiting = 3;
         private const string ReviewsStatus = "Published";

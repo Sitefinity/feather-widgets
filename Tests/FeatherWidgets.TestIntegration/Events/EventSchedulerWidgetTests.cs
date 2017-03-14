@@ -509,7 +509,7 @@ namespace FeatherWidgets.TestIntegration.Events
                 }
             };
 
-            ServerOperations.Events().CreateEvent("UpcomingEventInNextYear", string.Empty, false, DateTime.Now.AddDays(365), DateTime.Now.AddDays(368));
+            ServerOperations.Events().CreateEvent("UpcomingEventInNextYear", string.Empty, false, DateTime.Now.AddYears(1).AddDays(-10), DateTime.Now.AddYears(1).AddDays(-5));
             ServerOperations.Events().CreateEvent("UpcomingEventInMoreThanNextYear", string.Empty, false, DateTime.Now.AddDays(450), DateTime.Now.AddDays(453));
 
             var widgetId = this.AddControlFilters(this.CreatePage(), SelectionMode.FilteredItems, filterList, SelectionMode.AllItems, DefaultNarrowSelectionFilters);
@@ -537,7 +537,7 @@ namespace FeatherWidgets.TestIntegration.Events
                 }
             };
 
-            ServerOperations.Events().CreateEvent("UpcomingEventInNextYear", string.Empty, false, DateTime.Now.AddDays(365), DateTime.Now.AddDays(368));
+            ServerOperations.Events().CreateEvent("UpcomingEventInNextYear", string.Empty, false, DateTime.Now.AddYears(1).AddDays(-10), DateTime.Now.AddYears(1).AddDays(-5));
             ServerOperations.Events().CreateEvent("UpcomingEventInMoreThanNextYear", string.Empty, false, DateTime.Now.AddDays(450), DateTime.Now.AddDays(453));
 
             var widgetId = this.AddControlFilters(this.CreatePage(), SelectionMode.FilteredItems, filterList, SelectionMode.AllItems, DefaultNarrowSelectionFilters);
@@ -721,7 +721,7 @@ namespace FeatherWidgets.TestIntegration.Events
                 }
             };
 
-            ServerOperations.Events().CreateEvent("PastEventInLastYear", string.Empty, false, DateTime.Now.AddDays(-368), DateTime.Now.AddDays(-365));
+            ServerOperations.Events().CreateEvent("PastEventInLastYear", string.Empty, false, DateTime.Now.AddYears(-1).AddDays(5), DateTime.Now.AddYears(-1).AddDays(10));
             ServerOperations.Events().CreateEvent("PastEventInMoreThanLastYear", string.Empty, false, DateTime.Now.AddDays(-453), DateTime.Now.AddDays(-450));
 
             var widgetId = this.AddControlFilters(this.CreatePage(), SelectionMode.FilteredItems, filterList, SelectionMode.AllItems, DefaultNarrowSelectionFilters);
@@ -749,7 +749,7 @@ namespace FeatherWidgets.TestIntegration.Events
                 }
             };
 
-            ServerOperations.Events().CreateEvent("PastEventInLastYear", string.Empty, false, DateTime.Now.AddDays(-368), DateTime.Now.AddDays(-365));
+            ServerOperations.Events().CreateEvent("PastEventInLastYear", string.Empty, false, DateTime.Now.AddYears(-1).AddDays(5), DateTime.Now.AddYears(-1).AddDays(10));
             ServerOperations.Events().CreateEvent("PastEventInMoreThanLastYear", string.Empty, false, DateTime.Now.AddDays(-453), DateTime.Now.AddDays(-450));
 
             var widgetId = this.AddControlFilters(this.CreatePage(), SelectionMode.FilteredItems, filterList, SelectionMode.AllItems, DefaultNarrowSelectionFilters);
@@ -982,7 +982,7 @@ namespace FeatherWidgets.TestIntegration.Events
 
             ServerOperations.Events().CreateEvent("UpcomingEventInNext3Days", string.Empty, false, DateTime.Now.AddDays(2), DateTime.Now.AddDays(3));
             ServerOperations.Events().CreateEvent("UpcomingEventInMoreThanNext3Days", string.Empty, false, DateTime.Now.AddDays(5), DateTime.Now.AddDays(7));
-            ServerOperations.Events().CreateEvent("PastEventInLastYear", string.Empty, false, DateTime.Now.AddDays(-368), DateTime.Now.AddDays(-365));
+            ServerOperations.Events().CreateEvent("PastEventInLastYear", string.Empty, false, DateTime.Now.AddYears(-1).AddDays(5), DateTime.Now.AddYears(-1).AddDays(10));
             ServerOperations.Events().CreateEvent("PastEventInMoreThanLastYear", string.Empty, false, DateTime.Now.AddDays(-453), DateTime.Now.AddDays(-450));
 
             var widgetId = this.AddControlFilters(this.CreatePage(), SelectionMode.FilteredItems, filterList, SelectionMode.AllItems, DefaultNarrowSelectionFilters);
@@ -1017,7 +1017,7 @@ namespace FeatherWidgets.TestIntegration.Events
 
             ServerOperations.Events().CreateEvent("UpcomingEventInNext3Days", string.Empty, false, DateTime.Now.AddDays(2), DateTime.Now.AddDays(3));
             ServerOperations.Events().CreateEvent("UpcomingEventInMoreThanNext3Days", string.Empty, false, DateTime.Now.AddDays(5), DateTime.Now.AddDays(7));
-            ServerOperations.Events().CreateEvent("PastEventInLastYear", string.Empty, false, DateTime.Now.AddDays(-368), DateTime.Now.AddDays(-365));
+            ServerOperations.Events().CreateEvent("PastEventInLastYear", string.Empty, false, DateTime.Now.AddYears(-1).AddDays(5), DateTime.Now.AddYears(-1).AddDays(10));
             ServerOperations.Events().CreateEvent("PastEventInMoreThanLastYear", string.Empty, false, DateTime.Now.AddDays(-453), DateTime.Now.AddDays(-450));
 
             var widgetId = this.AddControlFilters(this.CreatePage(), SelectionMode.FilteredItems, filterList, SelectionMode.AllItems, DefaultNarrowSelectionFilters);
@@ -1242,7 +1242,7 @@ namespace FeatherWidgets.TestIntegration.Events
 
             ServerOperations.Events().CreateEvent("UpcomingEventInNextWeek", string.Empty, false, DateTime.Now.AddDays(4), DateTime.Now.AddDays(6));
             ServerOperations.Events().CreateEvent("UpcomingEventInMoreThanNextWeek", string.Empty, false, DateTime.Now.AddDays(9), DateTime.Now.AddDays(12));
-            ServerOperations.Events().CreateEvent("PastEventInLastYear", string.Empty, false, DateTime.Now.AddDays(-368), DateTime.Now.AddDays(-365));
+            ServerOperations.Events().CreateEvent("PastEventInLastYear", string.Empty, false, DateTime.Now.AddYears(-1).AddDays(5), DateTime.Now.AddYears(-1).AddDays(10));
             ServerOperations.Events().CreateEvent("PastEventInMoreThanLastYear", string.Empty, false, DateTime.Now.AddDays(-453), DateTime.Now.AddDays(-450));
 
             var widgetId = this.AddControlFilters(this.CreatePage(), SelectionMode.FilteredItems, filterList, SelectionMode.AllItems, DefaultNarrowSelectionFilters);
@@ -1277,7 +1277,7 @@ namespace FeatherWidgets.TestIntegration.Events
 
             ServerOperations.Events().CreateEvent("UpcomingEventInNextWeek", string.Empty, false, DateTime.Now.AddDays(4), DateTime.Now.AddDays(6));
             ServerOperations.Events().CreateEvent("UpcomingEventInMoreThanNextWeek", string.Empty, false, DateTime.Now.AddDays(9), DateTime.Now.AddDays(12));
-            ServerOperations.Events().CreateEvent("PastEventInLastYear", string.Empty, false, DateTime.Now.AddDays(-368), DateTime.Now.AddDays(-365));
+            ServerOperations.Events().CreateEvent("PastEventInLastYear", string.Empty, false, DateTime.Now.AddYears(-1).AddDays(5), DateTime.Now.AddYears(-1).AddDays(10));
             ServerOperations.Events().CreateEvent("PastEventInMoreThanLastYear", string.Empty, false, DateTime.Now.AddDays(-453), DateTime.Now.AddDays(-450));
 
             var widgetId = this.AddControlFilters(this.CreatePage(), SelectionMode.FilteredItems, filterList, SelectionMode.AllItems, DefaultNarrowSelectionFilters);
@@ -1502,7 +1502,7 @@ namespace FeatherWidgets.TestIntegration.Events
 
             ServerOperations.Events().CreateEvent("UpcomingEventInNextMonth", string.Empty, false, DateTime.Now.AddDays(20), DateTime.Now.AddDays(22));
             ServerOperations.Events().CreateEvent("UpcomingEventInMoreThanNextMonth", string.Empty, false, DateTime.Now.AddDays(40), DateTime.Now.AddDays(42));
-            ServerOperations.Events().CreateEvent("PastEventInLastYear", string.Empty, false, DateTime.Now.AddDays(-368), DateTime.Now.AddDays(-365));
+            ServerOperations.Events().CreateEvent("PastEventInLastYear", string.Empty, false, DateTime.Now.AddYears(-1).AddDays(5), DateTime.Now.AddYears(-1).AddDays(10));
             ServerOperations.Events().CreateEvent("PastEventInMoreThanLastYear", string.Empty, false, DateTime.Now.AddDays(-453), DateTime.Now.AddDays(-450));
 
             var widgetId = this.AddControlFilters(this.CreatePage(), SelectionMode.FilteredItems, filterList, SelectionMode.AllItems, DefaultNarrowSelectionFilters);
@@ -1537,7 +1537,7 @@ namespace FeatherWidgets.TestIntegration.Events
 
             ServerOperations.Events().CreateEvent("UpcomingEventInNextMonth", string.Empty, false, DateTime.Now.AddDays(20), DateTime.Now.AddDays(22));
             ServerOperations.Events().CreateEvent("UpcomingEventInMoreThanNextMonth", string.Empty, false, DateTime.Now.AddDays(40), DateTime.Now.AddDays(42));
-            ServerOperations.Events().CreateEvent("PastEventInLastYear", string.Empty, false, DateTime.Now.AddDays(-368), DateTime.Now.AddDays(-365));
+            ServerOperations.Events().CreateEvent("PastEventInLastYear", string.Empty, false, DateTime.Now.AddYears(-1).AddDays(5), DateTime.Now.AddYears(-1).AddDays(10));
             ServerOperations.Events().CreateEvent("PastEventInMoreThanLastYear", string.Empty, false, DateTime.Now.AddDays(-453), DateTime.Now.AddDays(-450));
 
             var widgetId = this.AddControlFilters(this.CreatePage(), SelectionMode.FilteredItems, filterList, SelectionMode.AllItems, DefaultNarrowSelectionFilters);
@@ -1565,7 +1565,7 @@ namespace FeatherWidgets.TestIntegration.Events
                 }
             };
 
-            ServerOperations.Events().CreateEvent("UpcomingEventInNextYear", string.Empty, false, DateTime.Now.AddDays(365), DateTime.Now.AddDays(368));
+            ServerOperations.Events().CreateEvent("UpcomingEventInNextYear", string.Empty, false, DateTime.Now.AddYears(1).AddDays(-10), DateTime.Now.AddYears(1).AddDays(-5));
             ServerOperations.Events().CreateEvent("UpcomingEventInMoreThanNextYear", string.Empty, false, DateTime.Now.AddDays(450), DateTime.Now.AddDays(453));
             ServerOperations.Events().CreateEvent("PastEventInLast3Days", string.Empty, false, DateTime.Now.AddDays(-2), DateTime.Now.AddDays(-1));
             ServerOperations.Events().CreateEvent("PastEventInMoreThanLast3Days", string.Empty, false, DateTime.Now.AddDays(-6), DateTime.Now.AddDays(-4));
@@ -1600,7 +1600,7 @@ namespace FeatherWidgets.TestIntegration.Events
                 }
             };
 
-            ServerOperations.Events().CreateEvent("UpcomingEventInNextYear", string.Empty, false, DateTime.Now.AddDays(365), DateTime.Now.AddDays(368));
+            ServerOperations.Events().CreateEvent("UpcomingEventInNextYear", string.Empty, false, DateTime.Now.AddYears(1).AddDays(-10), DateTime.Now.AddYears(1).AddDays(-5));
             ServerOperations.Events().CreateEvent("UpcomingEventInMoreThanNextYear", string.Empty, false, DateTime.Now.AddDays(450), DateTime.Now.AddDays(453));
             ServerOperations.Events().CreateEvent("PastEventInLast3Days", string.Empty, false, DateTime.Now.AddDays(-2), DateTime.Now.AddDays(-1));
             ServerOperations.Events().CreateEvent("PastEventInMoreThanLast3Days", string.Empty, false, DateTime.Now.AddDays(-6), DateTime.Now.AddDays(-4));
@@ -1630,7 +1630,7 @@ namespace FeatherWidgets.TestIntegration.Events
                 }
             };
 
-            ServerOperations.Events().CreateEvent("UpcomingEventInNextYear", string.Empty, false, DateTime.Now.AddDays(365), DateTime.Now.AddDays(368));
+            ServerOperations.Events().CreateEvent("UpcomingEventInNextYear", string.Empty, false, DateTime.Now.AddYears(1).AddDays(-10), DateTime.Now.AddYears(1).AddDays(-5));
             ServerOperations.Events().CreateEvent("UpcomingEventInMoreThanNextYear", string.Empty, false, DateTime.Now.AddDays(450), DateTime.Now.AddDays(453));
             ServerOperations.Events().CreateEvent("PastEventInLastWeek", string.Empty, false, DateTime.Now.AddDays(-6), DateTime.Now.AddDays(-4));
             ServerOperations.Events().CreateEvent("PastEventInMoreThanLastWeek", string.Empty, false, DateTime.Now.AddDays(-12), DateTime.Now.AddDays(-9));
@@ -1665,7 +1665,7 @@ namespace FeatherWidgets.TestIntegration.Events
                 }
             };
 
-            ServerOperations.Events().CreateEvent("UpcomingEventInNextYear", string.Empty, false, DateTime.Now.AddDays(365), DateTime.Now.AddDays(368));
+            ServerOperations.Events().CreateEvent("UpcomingEventInNextYear", string.Empty, false, DateTime.Now.AddYears(1).AddDays(-10), DateTime.Now.AddYears(1).AddDays(-5));
             ServerOperations.Events().CreateEvent("UpcomingEventInMoreThanNextYear", string.Empty, false, DateTime.Now.AddDays(450), DateTime.Now.AddDays(453));
             ServerOperations.Events().CreateEvent("PastEventInLastWeek", string.Empty, false, DateTime.Now.AddDays(-6), DateTime.Now.AddDays(-4));
             ServerOperations.Events().CreateEvent("PastEventInMoreThanLastWeek", string.Empty, false, DateTime.Now.AddDays(-12), DateTime.Now.AddDays(-9));
@@ -1695,7 +1695,7 @@ namespace FeatherWidgets.TestIntegration.Events
                 }
             };
 
-            ServerOperations.Events().CreateEvent("UpcomingEventInNextYear", string.Empty, false, DateTime.Now.AddDays(365), DateTime.Now.AddDays(368));
+            ServerOperations.Events().CreateEvent("UpcomingEventInNextYear", string.Empty, false, DateTime.Now.AddYears(1).AddDays(-10), DateTime.Now.AddYears(1).AddDays(-5));
             ServerOperations.Events().CreateEvent("UpcomingEventInMoreThanNextYear", string.Empty, false, DateTime.Now.AddDays(450), DateTime.Now.AddDays(453));
             ServerOperations.Events().CreateEvent("PastEventInLastMonth", string.Empty, false, DateTime.Now.AddDays(-22), DateTime.Now.AddDays(-20));
             ServerOperations.Events().CreateEvent("PastEventInMoreThanLastMonth", string.Empty, false, DateTime.Now.AddDays(-42), DateTime.Now.AddDays(-40));
@@ -1730,7 +1730,7 @@ namespace FeatherWidgets.TestIntegration.Events
                 }
             };
 
-            ServerOperations.Events().CreateEvent("UpcomingEventInNextYear", string.Empty, false, DateTime.Now.AddDays(365), DateTime.Now.AddDays(368));
+            ServerOperations.Events().CreateEvent("UpcomingEventInNextYear", string.Empty, false, DateTime.Now.AddYears(1).AddDays(-10), DateTime.Now.AddYears(1).AddDays(-5));
             ServerOperations.Events().CreateEvent("UpcomingEventInMoreThanNextYear", string.Empty, false, DateTime.Now.AddDays(450), DateTime.Now.AddDays(453));
             ServerOperations.Events().CreateEvent("PastEventInLastMonth", string.Empty, false, DateTime.Now.AddDays(-22), DateTime.Now.AddDays(-20));
             ServerOperations.Events().CreateEvent("PastEventInMoreThanLastMonth", string.Empty, false, DateTime.Now.AddDays(-42), DateTime.Now.AddDays(-40));
@@ -1760,9 +1760,9 @@ namespace FeatherWidgets.TestIntegration.Events
                 }
             };
 
-            ServerOperations.Events().CreateEvent("UpcomingEventInNextYear", string.Empty, false, DateTime.Now.AddDays(365), DateTime.Now.AddDays(368));
+            ServerOperations.Events().CreateEvent("UpcomingEventInNextYear", string.Empty, false, DateTime.Now.AddYears(1).AddDays(-10), DateTime.Now.AddYears(1).AddDays(-5));
             ServerOperations.Events().CreateEvent("UpcomingEventInMoreThanNextYear", string.Empty, false, DateTime.Now.AddDays(450), DateTime.Now.AddDays(453));
-            ServerOperations.Events().CreateEvent("PastEventInLastYear", string.Empty, false, DateTime.Now.AddDays(-368), DateTime.Now.AddDays(-365));
+            ServerOperations.Events().CreateEvent("PastEventInLastYear", string.Empty, false, DateTime.Now.AddYears(-1).AddDays(5), DateTime.Now.AddYears(-1).AddDays(10));
             ServerOperations.Events().CreateEvent("PastEventInMoreThanLastYear", string.Empty, false, DateTime.Now.AddDays(-453), DateTime.Now.AddDays(-450));
 
             var widgetId = this.AddControlFilters(this.CreatePage(), SelectionMode.FilteredItems, filterList, SelectionMode.AllItems, DefaultNarrowSelectionFilters);
@@ -1795,9 +1795,9 @@ namespace FeatherWidgets.TestIntegration.Events
                 }
             };
 
-            ServerOperations.Events().CreateEvent("UpcomingEventInNextYear", string.Empty, false, DateTime.Now.AddDays(365), DateTime.Now.AddDays(368));
+            ServerOperations.Events().CreateEvent("UpcomingEventInNextYear", string.Empty, false, DateTime.Now.AddYears(1).AddDays(-10), DateTime.Now.AddYears(1).AddDays(-5));
             ServerOperations.Events().CreateEvent("UpcomingEventInMoreThanNextYear", string.Empty, false, DateTime.Now.AddDays(450), DateTime.Now.AddDays(453));
-            ServerOperations.Events().CreateEvent("PastEventInLastYear", string.Empty, false, DateTime.Now.AddDays(-368), DateTime.Now.AddDays(-365));
+            ServerOperations.Events().CreateEvent("PastEventInLastYear", string.Empty, false, DateTime.Now.AddYears(-1).AddDays(5), DateTime.Now.AddYears(-1).AddDays(10));
             ServerOperations.Events().CreateEvent("PastEventInMoreThanLastYear", string.Empty, false, DateTime.Now.AddDays(-453), DateTime.Now.AddDays(-450));
 
             var widgetId = this.AddControlFilters(this.CreatePage(), SelectionMode.FilteredItems, filterList, SelectionMode.AllItems, DefaultNarrowSelectionFilters);
@@ -2373,7 +2373,7 @@ namespace FeatherWidgets.TestIntegration.Events
                 }
             };
 
-            ServerOperations.Events().CreateEvent("PastEventInLastYear", string.Empty, false, DateTime.Now.AddDays(-368), DateTime.Now.AddDays(-365));
+            ServerOperations.Events().CreateEvent("PastEventInLastYear", string.Empty, false, DateTime.Now.AddYears(-1).AddDays(5), DateTime.Now.AddYears(-1).AddDays(10));
             ServerOperations.Events().CreateEvent("PastEventInMoreThanLastYear", string.Empty, false, DateTime.Now.AddDays(-453), DateTime.Now.AddDays(-450));
 
             ServerOperations.Events().CreateEvent("UpcomingEventInNextCustomRange", string.Empty, false, DateTime.Now.AddDays(7), DateTime.Now.AddDays(8));
@@ -2611,7 +2611,7 @@ namespace FeatherWidgets.TestIntegration.Events
                 }
             };
 
-            ServerOperations.Events().CreateEvent("PastEventInLastYear", string.Empty, false, DateTime.Now.AddDays(-368), DateTime.Now.AddDays(-365));
+            ServerOperations.Events().CreateEvent("PastEventInLastYear", string.Empty, false, DateTime.Now.AddYears(-1).AddDays(5), DateTime.Now.AddYears(-1).AddDays(10));
             ServerOperations.Events().CreateEvent("PastEventInMoreThanLastYear", string.Empty, false, DateTime.Now.AddDays(-453), DateTime.Now.AddDays(-450));
 
             ServerOperations.Events().CreateEvent("UpcomingEventInNextCustomRange", string.Empty, false, DateTime.Now.AddDays(7), DateTime.Now.AddDays(8));
@@ -2856,7 +2856,7 @@ namespace FeatherWidgets.TestIntegration.Events
                 }
             };
 
-            ServerOperations.Events().CreateEvent("PastEventInLastYear", string.Empty, false, DateTime.Now.AddDays(-368), DateTime.Now.AddDays(-365));
+            ServerOperations.Events().CreateEvent("PastEventInLastYear", string.Empty, false, DateTime.Now.AddYears(-1).AddDays(5), DateTime.Now.AddYears(-1).AddDays(10));
             ServerOperations.Events().CreateEvent("PastEventInMoreThanLastYear", string.Empty, false, DateTime.Now.AddDays(-453), DateTime.Now.AddDays(-450));
 
             ServerOperations.Events().CreateEvent("UpcomingEventInNextCustomRange", string.Empty, false, DateTime.Now.AddDays(7), DateTime.Now.AddDays(8));
@@ -2992,7 +2992,7 @@ namespace FeatherWidgets.TestIntegration.Events
             ServerOperations.Events().CreateEvent("PastEventInLessThanPastCustomRange", string.Empty, false, DateTime.Now.AddDays(-3), DateTime.Now.AddDays(-1));
             ServerOperations.Events().CreateEvent("PastEventInMoreThanPastCustomRange", string.Empty, false, DateTime.Now.AddDays(-18), DateTime.Now.AddDays(-16));
 
-            ServerOperations.Events().CreateEvent("UpcomingEventInNextYear", string.Empty, false, DateTime.Now.AddDays(365), DateTime.Now.AddDays(368));
+            ServerOperations.Events().CreateEvent("UpcomingEventInNextYear", string.Empty, false, DateTime.Now.AddYears(1).AddDays(-10), DateTime.Now.AddYears(1).AddDays(-5));
             ServerOperations.Events().CreateEvent("UpcomingEventInMoreThanNextYear", string.Empty, false, DateTime.Now.AddDays(450), DateTime.Now.AddDays(453));
 
             var widgetId = this.AddControlFilters(this.CreatePage(), SelectionMode.FilteredItems, filterList, SelectionMode.AllItems, DefaultNarrowSelectionFilters);
@@ -3124,7 +3124,7 @@ namespace FeatherWidgets.TestIntegration.Events
             ServerOperations.Events().CreateEvent("PastEventInLessThanPastCustomRange", string.Empty, false, DateTime.Now.AddDays(-3), DateTime.Now.AddDays(-1));
             ServerOperations.Events().CreateEvent("PastEventInMoreThanPastCustomRange", string.Empty, false, DateTime.Now.AddDays(-18), DateTime.Now.AddDays(-16));
 
-            ServerOperations.Events().CreateEvent("UpcomingEventInNextYear", string.Empty, false, DateTime.Now.AddDays(365), DateTime.Now.AddDays(368));
+            ServerOperations.Events().CreateEvent("UpcomingEventInNextYear", string.Empty, false, DateTime.Now.AddYears(1).AddDays(-10), DateTime.Now.AddYears(1).AddDays(-5));
             ServerOperations.Events().CreateEvent("UpcomingEventInMoreThanNextYear", string.Empty, false, DateTime.Now.AddDays(450), DateTime.Now.AddDays(453));
 
             var widgetId = this.AddControlFilters(this.CreatePage(), SelectionMode.FilteredItems, filterList, SelectionMode.AllItems, DefaultNarrowSelectionFilters);
@@ -3260,7 +3260,7 @@ namespace FeatherWidgets.TestIntegration.Events
             ServerOperations.Events().CreateEvent("PastEventInLessThanPastCustomRange", string.Empty, false, DateTime.Now.AddDays(-3), DateTime.Now.AddDays(-1));
             ServerOperations.Events().CreateEvent("PastEventInMoreThanPastCustomRange", string.Empty, false, DateTime.Now.AddDays(-18), DateTime.Now.AddDays(-16));
 
-            ServerOperations.Events().CreateEvent("UpcomingEventInNextYear", string.Empty, false, DateTime.Now.AddDays(365), DateTime.Now.AddDays(368));
+            ServerOperations.Events().CreateEvent("UpcomingEventInNextYear", string.Empty, false, DateTime.Now.AddYears(1).AddDays(-10), DateTime.Now.AddYears(1).AddDays(-5));
             ServerOperations.Events().CreateEvent("UpcomingEventInMoreThanNextYear", string.Empty, false, DateTime.Now.AddDays(450), DateTime.Now.AddDays(453));
 
             var widgetId = this.AddControlFilters(this.CreatePage(), SelectionMode.FilteredItems, filterList, SelectionMode.AllItems, DefaultNarrowSelectionFilters);
@@ -3529,7 +3529,7 @@ namespace FeatherWidgets.TestIntegration.Events
                 }
             };
 
-            ServerOperations.Events().CreateEvent("PastEventInLastYear", string.Empty, false, DateTime.Now.AddDays(-368), DateTime.Now.AddDays(-365));
+            ServerOperations.Events().CreateEvent("PastEventInLastYear", string.Empty, false, DateTime.Now.AddYears(-1).AddDays(5), DateTime.Now.AddYears(-1).AddDays(10));
             ServerOperations.Events().CreateEvent("PastEventInMoreThanLastYear", string.Empty, false, DateTime.Now.AddDays(-453), DateTime.Now.AddDays(-450));
 
             ServerOperations.Events().CreateEvent("UpcomingEventInNextCustomRange", string.Empty, false, DateTime.Now.AddDays(7), DateTime.Now.AddDays(8));
@@ -3802,7 +3802,7 @@ namespace FeatherWidgets.TestIntegration.Events
                 }
             };
 
-            ServerOperations.Events().CreateEvent("PastEventInLastYear", string.Empty, false, DateTime.Now.AddDays(-368), DateTime.Now.AddDays(-365));
+            ServerOperations.Events().CreateEvent("PastEventInLastYear", string.Empty, false, DateTime.Now.AddYears(-1).AddDays(5), DateTime.Now.AddYears(-1).AddDays(10));
             ServerOperations.Events().CreateEvent("PastEventInMoreThanLastYear", string.Empty, false, DateTime.Now.AddDays(-453), DateTime.Now.AddDays(-450));
 
             ServerOperations.Events().CreateEvent("UpcomingEventInNextCustomRange", string.Empty, false, DateTime.Now.AddDays(7), DateTime.Now.AddDays(8));
@@ -4082,7 +4082,7 @@ namespace FeatherWidgets.TestIntegration.Events
                 }
             };
 
-            ServerOperations.Events().CreateEvent("PastEventInLastYear", string.Empty, false, DateTime.Now.AddDays(-368), DateTime.Now.AddDays(-365));
+            ServerOperations.Events().CreateEvent("PastEventInLastYear", string.Empty, false, DateTime.Now.AddYears(-1).AddDays(5), DateTime.Now.AddYears(-1).AddDays(10));
             ServerOperations.Events().CreateEvent("PastEventInMoreThanLastYear", string.Empty, false, DateTime.Now.AddDays(-453), DateTime.Now.AddDays(-450));
 
             ServerOperations.Events().CreateEvent("UpcomingEventInNextCustomRange", string.Empty, false, DateTime.Now.AddDays(7), DateTime.Now.AddDays(8));
@@ -4238,7 +4238,7 @@ namespace FeatherWidgets.TestIntegration.Events
             ServerOperations.Events().CreateEvent("PastEventInLessThanPastCustomRange", string.Empty, false, DateTime.Now.AddDays(-3), DateTime.Now.AddDays(-1));
             ServerOperations.Events().CreateEvent("PastEventInMoreThanPastCustomRange", string.Empty, false, DateTime.Now.AddDays(-18), DateTime.Now.AddDays(-16));
 
-            ServerOperations.Events().CreateEvent("UpcomingEventInNextYear", string.Empty, false, DateTime.Now.AddDays(365), DateTime.Now.AddDays(368));
+            ServerOperations.Events().CreateEvent("UpcomingEventInNextYear", string.Empty, false, DateTime.Now.AddYears(1).AddDays(-10), DateTime.Now.AddYears(1).AddDays(-5));
             ServerOperations.Events().CreateEvent("UpcomingEventInMoreThanNextYear", string.Empty, false, DateTime.Now.AddDays(450), DateTime.Now.AddDays(453));
 
             var widgetId = this.AddControlFilters(this.CreatePage(), SelectionMode.FilteredItems, filterList, SelectionMode.AllItems, DefaultNarrowSelectionFilters);
@@ -4390,7 +4390,7 @@ namespace FeatherWidgets.TestIntegration.Events
             ServerOperations.Events().CreateEvent("PastEventInLessThanPastCustomRange", string.Empty, false, DateTime.Now.AddDays(-3), DateTime.Now.AddDays(-1));
             ServerOperations.Events().CreateEvent("PastEventInMoreThanPastCustomRange", string.Empty, false, DateTime.Now.AddDays(-18), DateTime.Now.AddDays(-16));
 
-            ServerOperations.Events().CreateEvent("UpcomingEventInNextYear", string.Empty, false, DateTime.Now.AddDays(365), DateTime.Now.AddDays(368));
+            ServerOperations.Events().CreateEvent("UpcomingEventInNextYear", string.Empty, false, DateTime.Now.AddYears(1).AddDays(-10), DateTime.Now.AddYears(1).AddDays(-5));
             ServerOperations.Events().CreateEvent("UpcomingEventInMoreThanNextYear", string.Empty, false, DateTime.Now.AddDays(450), DateTime.Now.AddDays(453));
 
             var widgetId = this.AddControlFilters(this.CreatePage(), SelectionMode.FilteredItems, filterList, SelectionMode.AllItems, DefaultNarrowSelectionFilters);
@@ -4546,7 +4546,7 @@ namespace FeatherWidgets.TestIntegration.Events
             ServerOperations.Events().CreateEvent("PastEventInLessThanPastCustomRange", string.Empty, false, DateTime.Now.AddDays(-3), DateTime.Now.AddDays(-1));
             ServerOperations.Events().CreateEvent("PastEventInMoreThanPastCustomRange", string.Empty, false, DateTime.Now.AddDays(-18), DateTime.Now.AddDays(-16));
 
-            ServerOperations.Events().CreateEvent("UpcomingEventInNextYear", string.Empty, false, DateTime.Now.AddDays(365), DateTime.Now.AddDays(368));
+            ServerOperations.Events().CreateEvent("UpcomingEventInNextYear", string.Empty, false, DateTime.Now.AddYears(1).AddDays(-10), DateTime.Now.AddYears(1).AddDays(-5));
             ServerOperations.Events().CreateEvent("UpcomingEventInMoreThanNextYear", string.Empty, false, DateTime.Now.AddDays(450), DateTime.Now.AddDays(453));
 
             var widgetId = this.AddControlFilters(this.CreatePage(), SelectionMode.FilteredItems, filterList, SelectionMode.AllItems, DefaultNarrowSelectionFilters);

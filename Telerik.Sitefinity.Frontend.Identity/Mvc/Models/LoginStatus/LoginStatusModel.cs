@@ -1,11 +1,9 @@
 ﻿using System;
 using System.Linq;
 using System.Web;
-using Telerik.Sitefinity.Configuration;
 using Telerik.Sitefinity.Frontend.Mvc.Helpers;
 using Telerik.Sitefinity.Security;
 using Telerik.Sitefinity.Security.Claims;
-using Telerik.Sitefinity.Security.Configuration;
 using Telerik.Sitefinity.Services;
 using Telerik.Sitefinity.Web;
 
@@ -63,17 +61,12 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.LoginStatus
         public virtual string GetLoginPageUrl()
         {
             var loginRedirectUrl = this.ExternalLoginUrl;
+
             if (string.IsNullOrEmpty(loginRedirectUrl))
-            {
-                var claimsModule = SitefinityClaimsAuthenticationModule.Current;
+            {   
                 string pageUrl;
 
-
-                if (this.AllowWindowsStsLogin)
-                {
-                    pageUrl = claimsModule.GetIssuer();
-                }
-                else if (this.LoginPageId.HasValue)
+                if (this.LoginPageId.HasValue)
                 {
                     pageUrl = HyperLinkHelpers.GetFullPageUrl(this.LoginPageId.Value);
                 }
@@ -82,13 +75,7 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.LoginStatus
                     pageUrl = SitefinityContext.FrontendLoginUrl;
                 }
 
-                if (!pageUrl.IsNullOrEmpty())
-                {
-                    var currentUrl = HttpContext.Current.Request.RawUrl;
-                    var returnUrl = this.AppendUrlParameter(currentUrl, LoginStatusModel.HandleRejectedUser, "true");
-                    loginRedirectUrl = "{0}?realm={1}&redirect_uri={2}&deflate=true".Arrange(
-                        pageUrl, claimsModule.GetRealm(), HttpUtility.UrlEncode(returnUrl));
-                }
+                loginRedirectUrl = pageUrl;
             }
 
             return loginRedirectUrl;
@@ -108,23 +95,13 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.LoginStatus
                 else
                 {
                     logoutRedirectUrl = UrlPath.ResolveAbsoluteUrl(this.currentPageUrl, true);
-                }
+                }                
             }
 
             if (HttpContext.Current.Request.Url == null)
                 return string.Empty;
 
-			AuthenticationMode authenticationMode = Config.Get<SecurityConfig>().AuthenticationMode;
-			if (authenticationMode == AuthenticationMode.Claims)
-			{
-				logoutRedirectUrl = ClaimsManager.GetLogoutUrl(logoutRedirectUrl);
-			}
-			else
-			{
-				logoutRedirectUrl = string.Format("~/Sitefinity/SignOut?redirect_uri={0}", HttpUtility.UrlEncode(logoutRedirectUrl));
-			}
-
-			return RouteHelper.ResolveUrl(logoutRedirectUrl, UrlResolveOptions.Rooted);
+            return logoutRedirectUrl;
         }
 
         /// <inheritdoc />
@@ -163,6 +140,7 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.LoginStatus
                 RegistrationPageUrl = this.GetRegistrationPageUrl(),
                 LoginPageUrl = this.GetLoginPageUrl(),
                 CssClass = this.CssClass,
+                AllowWindowsStsLogin = this.AllowWindowsStsLogin,
                 StatusServiceUrl = RouteHelper.ResolveUrl("~/rest-api/login-status", UrlResolveOptions.Rooted)
             };
         }
