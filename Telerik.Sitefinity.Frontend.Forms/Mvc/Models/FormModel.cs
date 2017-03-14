@@ -42,7 +42,6 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Models
         public FormModel()
         {
             this.eventFactory = new FormEventsFactory();
-            this.useAjaxSubmit = true;
         }
 
         #endregion
@@ -103,17 +102,7 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Models
         /// <summary>
         /// Gets or sets a value indicating whether the control to use Ajax submit when the form submit button is clicked
         /// </summary>
-        public bool UseAjaxSubmit
-        {
-            get
-            {
-                return this.useAjaxSubmit;
-            }
-            set
-            {
-                this.useAjaxSubmit = value;
-            }
-        }
+        public bool UseAjaxSubmit { get; set; }
 
         /// <summary>
         /// Gets or sets the submit URL when using AJAX for submitting.
@@ -155,6 +144,9 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Models
 
         public bool IsMultiStep { get; set; }
 
+        /// <inheritDoc/>
+        public FormCollection FormCollection { get; set; }
+
         #endregion
 
         #region Public methods
@@ -173,7 +165,8 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Models
                 CssClass = this.CssClass,
                 UseAjaxSubmit = this.UseAjaxSubmit,
                 FormId = this.FormId.ToString("D"),
-                IsMultiStep = this.IsMultiStep
+                IsMultiStep = this.IsMultiStep,
+                FormCollection = this.FormCollection
             };
 
             if (this.FormData != null && this.AllowRenderForm())
@@ -649,7 +642,6 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Models
         #region Private fields
 
         private string cssClass;
-        private bool useAjaxSubmit;
         private string customConfirmationMessage;
         private readonly FormEventsFactory eventFactory;
         internal const string FormIdName = "FormId";
