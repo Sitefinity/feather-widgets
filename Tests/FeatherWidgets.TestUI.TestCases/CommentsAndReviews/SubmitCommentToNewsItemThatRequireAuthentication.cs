@@ -1,12 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using ArtOfTest.WebAii.Core;
 using Feather.Widgets.TestUI.Framework;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Telerik.Sitefinity.TestUI.Framework.Utilities;
 using Telerik.Sitefinity.TestUI.Framework.Wrappers.Backend;
 
 namespace FeatherWidgets.TestUI.TestCases.CommentsAndReviews
@@ -52,7 +48,7 @@ namespace FeatherWidgets.TestUI.TestCases.CommentsAndReviews
 
         public void AdminLogin()
         {
-            RuntimeSettingsModificator.ExecuteWithClientTimeout(200000, () => BAT.Wrappers().Backend().Comments().ManageCommentsWrapper(ActiveBrowser).LogInUser(AdminUserName, AdminPassword));
+            BAT.Wrappers().Backend().Comments().ManageCommentsWrapper().LogInUser(FeatherTestCase.AdminEmail, FeatherTestCase.AdminPassword);
             ActiveBrowser.WaitUntilReady();
             ActiveBrowser.WaitForAsyncJQueryRequests();
             BAT.Macros().User().EnsureAdminLoggedIn();
@@ -78,12 +74,10 @@ namespace FeatherWidgets.TestUI.TestCases.CommentsAndReviews
         private const string NewsTitle = "NewsTitle";
         private const string LeaveAComment = "Leave a comment";
         private string[] commentToNews = { "Comment to news" };
-        private string[] commentAuthor = { "admin" };
+        private string[] commentAuthor = { FeatherTestCase.AdminNickname };
         private const string CommentStatus = "Published";
         private const string CommentsCount = "1 comment";
         private const string CommentsMessage = "Leave a comment";
         private const string AllertMessage = "Loginto be able to comment";
-        private const string AdminUserName = "admin";
-        private const string AdminPassword = "admin@2"; 
     }
 }

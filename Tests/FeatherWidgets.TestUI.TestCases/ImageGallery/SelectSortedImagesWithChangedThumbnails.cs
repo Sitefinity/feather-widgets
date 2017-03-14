@@ -117,16 +117,6 @@ namespace FeatherWidgets.TestUI.TestCases.ImageGallery
         private string GetImageSource(string imageName, string imageType, string libraryUrl, string imageThumbnailSize = "")
         {
             string imageUrl = imageName.ToLower() + imageType.ToLower() + imageThumbnailSize;
-            string url;
-
-            if (this.Culture == null)
-            {
-                url = this.BaseUrl;
-            }
-            else
-            {
-                url = ActiveBrowser.Url.Substring(0, 20);
-            }
 
             string scr = BATFeather.Wrappers().Frontend().MediaWidgets().MediaWidgetsWrapper().GetMediaSource(libraryUrl.ToLower(), imageUrl, ContentType, currentProviderUrlName);
             return scr;

@@ -22,11 +22,14 @@ namespace FeatherWidgets.TestUI.TestCases.Identity
         [TestMethod,
         Owner(FeatherTeams.SitefinityTeam4),
         TestCategory(FeatherTestCategories.PagesAndContent),
-        TestCategory(FeatherTestCategories.Bootstrap)]
+        TestCategory(FeatherTestCategories.Identity),
+        TestCategory(FeatherTestCategories.Registration),
+        TestCategory(FeatherTestCategories.Bootstrap),
+        Telerik.TestUI.Core.Attributes.KnownIssue(BugId = 206480), Ignore]
         public void VerifyRegistrationWidgetAndProfileWidgetOnPreviewHybridPage()
         {
-            RuntimeSettingsModificator.ExecuteWithClientTimeout(800000, () => BAT.Macros().NavigateTo().CustomPage("~/sitefinity/pages", false));
             RuntimeSettingsModificator.ExecuteWithClientTimeout(800000, () => BAT.Macros().User().EnsureAdminLoggedIn());
+            RuntimeSettingsModificator.ExecuteWithClientTimeout(800000, () => BAT.Macros().NavigateTo().CustomPage("~/sitefinity/pages", false));
             BAT.Macros().NavigateTo().Pages(this.Culture);
             BAT.Wrappers().Backend().Pages().PagesWrapper().OpenPageZoneEditor(PageTitle);
             BAT.Wrappers().Backend().Pages().PagesWrapper().PreviewPage(PageTitle, isEditMode: true);
@@ -36,11 +39,9 @@ namespace FeatherWidgets.TestUI.TestCases.Identity
             ////Verify all required fields message for Registration widget in Preview mode
             BAT.Wrappers().Frontend().Pages().PagesWrapperFrontend().ClickButtonByValue("Register");
             BATFeather.Wrappers().Frontend().Identity().RegistrationWrapper().AssertEmptyEmailFieldMessage();
-            BATFeather.Wrappers().Frontend().Identity().RegistrationWrapper().AssertEmptyUsernameFieldMessage();
             BATFeather.Wrappers().Frontend().Identity().RegistrationWrapper().AssertEmptyPasswordFieldMessage();
             ////Verify successful message for Registration widget in Preview mode
             BATFeather.Wrappers().Frontend().Identity().RegistrationWrapper().FillEmail(Email);
-            BATFeather.Wrappers().Frontend().Identity().RegistrationWrapper().FillUserName(UserName);
             BATFeather.Wrappers().Frontend().Identity().RegistrationWrapper().FillPassword(Password);
             BATFeather.Wrappers().Frontend().Identity().RegistrationWrapper().FillRetypePassword(Password);
             BAT.Wrappers().Frontend().Pages().PagesWrapperFrontend().ClickButtonByValue("Register");

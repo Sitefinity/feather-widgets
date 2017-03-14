@@ -19,7 +19,7 @@ namespace FeatherWidgets.TestUI.Arrangements
         [ServerSetUp]
         public void SetUp()
         {
-            AuthenticationHelper.AuthenticateUser(AdminUserName, AdminPass, true);
+            AuthenticationHelper.AuthenticateUser(this.AdminEmail, this.AdminPass, true);
             Guid selectorPageId = ServerOperations.Pages().CreatePage(LinkSelectorPageName);
             ServerOperationsFeather.Pages().AddContentBlockWidgetToPage(selectorPageId);
 
@@ -56,8 +56,6 @@ namespace FeatherWidgets.TestUI.Arrangements
             ServerOperations.Pages().DeleteAllPages();
         }
 
-        private const string AdminUserName = "admin";
-        private const string AdminPass = "admin@2";
         private const string LinkSelectorPageName = "PageWithContentBlockAndLinkSelector";
         private const string ParentPageName = "ParentPage";
         private const string ChildPageName = "ChildPage";

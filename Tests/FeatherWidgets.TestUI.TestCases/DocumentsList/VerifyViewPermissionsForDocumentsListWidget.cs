@@ -19,7 +19,8 @@ namespace FeatherWidgets.TestUI.TestCases.DocumentsList
         [TestMethod,
         Owner(FeatherTeams.SitefinityTeam4),
         TestCategory(FeatherTestCategories.PagesAndContent),
-        TestCategory(FeatherTestCategories.DocumentsList)]
+        TestCategory(FeatherTestCategories.DocumentsList),
+        Telerik.TestUI.Core.Attributes.KnownIssue(BugId = 206476), Ignore]
         public void VerifyViewPermissionsForDocumentsListWidget()
         {
             RuntimeSettingsModificator.ExecuteWithClientTimeout(800000, () => BAT.Macros().NavigateTo().CustomPage("~/sitefinity/pages", true, null, new HtmlFindExpression("class=~sfMain")));
@@ -40,7 +41,7 @@ namespace FeatherWidgets.TestUI.TestCases.DocumentsList
             BAT.Macros().NavigateTo().CustomPage("~/" + PageName.ToLower(), false, this.Culture);
             BAT.Macros().User().LogOut();
             BAT.Macros().NavigateTo().CustomPage("~/" + PageName.ToLower(), false, this.Culture);
-            BATFeather.Wrappers().Frontend().Identity().LoginFormWrapper().EnterUserName(UserName);
+            BATFeather.Wrappers().Frontend().Identity().LoginFormWrapper().EnterEmail(UserName);
             BATFeather.Wrappers().Frontend().Identity().LoginFormWrapper().EnterPassword(UserPassword);
             BATFeather.Wrappers().Frontend().Identity().LoginFormWrapper().PressLoginButton();
             BAT.Macros().NavigateTo().CustomPage("~/" + PageName.ToLower(), false, this.Culture);

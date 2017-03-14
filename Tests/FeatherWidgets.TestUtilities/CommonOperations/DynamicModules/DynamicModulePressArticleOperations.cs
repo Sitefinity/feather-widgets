@@ -198,8 +198,6 @@ namespace FeatherWidgets.TestUtilities.CommonOperations
             pressArticleItem.SetWorkflowStatus(dynamicModuleManager.Provider.ApplicationName, "Published");
             dynamicModuleManager.Lifecycle.Publish(pressArticleItem);
 
-            dynamicModuleManager.RecompileDataItemsUrls(pressArticleType);
-
             // You need to call SaveChanges() in order for the items to be actually persisted to data store
             dynamicModuleManager.SaveChanges();
 

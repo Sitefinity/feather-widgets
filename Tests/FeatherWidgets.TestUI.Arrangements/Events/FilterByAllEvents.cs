@@ -1,4 +1,6 @@
-﻿using FeatherWidgets.TestUI.Arrangements.Events;
+﻿using System;
+using FeatherWidgets.TestUI.Arrangements.Events;
+using FeatherWidgets.TestUtilities.CommonOperations;
 using Telerik.Sitefinity.TestArrangementService.Attributes;
 using Telerik.Sitefinity.TestUtilities.CommonOperations;
 

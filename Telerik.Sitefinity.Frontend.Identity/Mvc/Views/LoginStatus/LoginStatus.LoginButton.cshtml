@@ -10,8 +10,8 @@
 
         <div><img data-sf-role="sf-logged-in-avatar" width="80" height="80" /></div>
         <a href="@(Model.ProfilePageUrl ?? "#")" data-sf-role="sf-logged-in-name"></a>
-        <p data-sf-role="sf-logged-in-email"></p>
-        <button data-sf-role="sf-logged-in-log-out-btn">@Html.Resource("Logout")</button>
+        <p data-sf-role="sf-logged-in-email"></p>      
+        @Html.ActionLink(Html.Resource("Logout"), "SignOut")
 
     </div>
 
@@ -25,6 +25,7 @@
 
 <input type="hidden" data-sf-role="sf-status-json-endpoint-url" value="@Model.StatusServiceUrl"/>
 <input type="hidden" data-sf-role="sf-logout-redirect-url" value="@Model.LogoutPageUrl"/>
+<input type="hidden" data-sf-role="sf-allow-windows-sts-login" value="@Model.AllowWindowsStsLogin.ToString()" />
 <input type="hidden" data-sf-role="sf-login-redirect-url" value="@Model.LoginPageUrl" />
 <input type="hidden" data-sf-role="sf-is-design-mode-value" value="@ViewBag.IsDesignMode.ToString()" />
 

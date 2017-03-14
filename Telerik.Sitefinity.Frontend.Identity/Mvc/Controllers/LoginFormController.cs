@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Linq;
 using System.Reflection;
 using System.Web;
 using System.Web.Mvc;
@@ -99,12 +100,6 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Controllers
             if (ModelState.IsValid)
             {
                 model = this.Model.Authenticate(model, this.ControllerContext.HttpContext);
-
-                if (!model.IncorrectCredentials && !string.IsNullOrWhiteSpace(model.RedirectUrlAfterLogin))
-                {
-                    //Redirect to RedirectUrlAfterLogin url value. The value is already checked in the model if it's come from query string parameter.
-                    return this.Redirect(model.RedirectUrlAfterLogin);
-                }
             }
 
             this.Model.InitializeLoginViewModel(model);
@@ -113,9 +108,26 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Controllers
             return this.View(fullTemplateName, model);
         }
 
-        public ActionResult ForgotPassword(bool emailSent = false, string email = null, bool emailNotFound = false, string error = null)
+        public ActionResult LoginExternalProvider(string model)
         {
-            var model = this.Model.GetForgotPasswordViewModel(email, emailNotFound, emailSent, error);
+            if (!string.IsNullOrEmpty(model))
+            {
+                var provider = ClaimsManager.CurrentAuthenticationModule.ExternalAuthenticationProviders.FirstOrDefault(x => x.Title == model);
+
+                if (provider != null)
+                {
+                    this.Model.AuthenticateExternal(provider.Name, this.ControllerContext.HttpContext);
+                }
+
+                return new EmptyResult();
+            }
+
+            return new EmptyResult();
+        }
+
+        public ActionResult ForgotPassword(bool emailSent = false, string email = null, string error = null)
+        {
+            var model = this.Model.GetForgotPasswordViewModel(email, emailSent, error);
 
             var fullTemplateName = this.forgotPasswordTemplatePrefix + this.ForgotPasswordTemplate;
 
@@ -128,10 +140,9 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Controllers
             var viewModel = this.Model.SendResetPasswordEmail(email);
             var pageUrl = this.Model.GetPageUrl(null);
             var queryString = string.Format(
-                "emailSent={0}&email={1}&emailNotFound={2}&error={3}",
+                "emailSent={0}&email={1}&error={2}",
                 viewModel.EmailSent,
                 HttpUtility.UrlEncode(viewModel.Email),
-                viewModel.EmailNotFound,
                 HttpUtility.UrlEncode(viewModel.Error));
 
             return this.Redirect(string.Format("{0}/ForgotPassword?{1}", pageUrl, queryString));
@@ -178,9 +189,16 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Controllers
                 {
                     error = Res.Get<LoginFormResources>().ResetPasswordNotEnabled;
                 }
-                catch (Exception)
+                catch (Exception ex)
                 {
-                    error = Res.Get<LoginFormResources>().ResetPasswordGeneralErrorMessage;
+                    if (string.Compare(ex.Message, Res.Get<ErrorMessages>().WrongPasswordAnswer) == 0)
+                    {
+                        error = Res.Get<LoginFormResources>().ResetPasswordIncorrectAnswerErrorMessage;
+                    }
+                    else
+                    {
+                        error = Res.Get<LoginFormResources>().ResetPasswordGeneralErrorMessage;
+                    }                    
                 }
             }
             else
@@ -205,7 +223,7 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Controllers
         /// <inheritDocs/>
         protected override void HandleUnknownAction(string actionName)
         {
-            this.Index().ExecuteResult(this.ControllerContext);
+            this.ActionInvoker.InvokeAction(this.ControllerContext, "Index");
         }
 
         #endregion

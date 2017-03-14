@@ -73,7 +73,7 @@ namespace FeatherWidgets.TestUI.TestCases.MediaWidgets
             scr = this.GetImageSource(ImageName, ImageType);
             BATFeather.Wrappers().Frontend().MediaWidgets().MediaWidgetsWrapper().VerifyImage(NewImageName, NewImageAltText, scr);
             BATFeather.Wrappers().Frontend().ImageGallery().ImageGalleryWrapper().ClickImage(NewImageAltText);
-            ActiveBrowser.WaitForUrl(scr + "?sfvrsn=", true, 10000);
+            ActiveBrowser.WaitForUrl(scr + "?sfvrsn", true, 10000);
         }
 
         /// <summary>
@@ -110,7 +110,7 @@ namespace FeatherWidgets.TestUI.TestCases.MediaWidgets
             }
 
             string scr = BATFeather.Wrappers().Frontend().MediaWidgets().MediaWidgetsWrapper().GetMediaSource(libraryUrl, imageUrl, "images", currentProviderUrlName);
-            return scr;
+            return scr.TrimStart('b', '-', 'g');
         }
 
         private const string PageName = "PageWithImage";

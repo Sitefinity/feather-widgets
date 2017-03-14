@@ -2,6 +2,7 @@
 
 @using Telerik.Sitefinity;
 @using Telerik.Sitefinity.Frontend.Mvc.Helpers;
+@using Telerik.Sitefinity.Frontend.Media.Mvc.Helpers
 @using Telerik.Sitefinity.Frontend.Media.Mvc.Models.ImageGallery;
 @using Telerik.Sitefinity.Modules.Pages;
 
@@ -15,10 +16,16 @@
 <div class="@Model.CssClass">
     @foreach (var item in Model.Items)
     {
+        var thumbnailViewModel = (ThumbnailViewModel)item;
+        
         <a class="image-link"
-            href="@(((ThumbnailViewModel)item).MediaUrl)"
+            href="@(thumbnailViewModel.MediaUrl)"
             title="@item.Fields.AlternativeText">
-            <img src="@(((ThumbnailViewModel)item).ThumbnailUrl)" data-detail-url="@HyperLinkHelpers.GetDetailPageUrl(item, ViewBag.DetailsPageId, ViewBag.OpenInSamePage, Model.UrlKeyPrefix)" alt="@item.Fields.AlternativeText" />
+            <img src="@(thumbnailViewModel.ThumbnailUrl)" 
+                 data-detail-url="@HyperLinkHelpers.GetDetailPageUrl(item, ViewBag.DetailsPageId, ViewBag.OpenInSamePage, Model.UrlKeyPrefix)" 
+                 alt="@item.Fields.AlternativeText"
+                      @Html.GetWidthAttributeIfExists(thumbnailViewModel.Width)
+                      @Html.GetHeightAttributeIfExists(thumbnailViewModel.Height) @Html.GetDetailsImageWidthAttributeIfExists(thumbnailViewModel.DetailsImageWidth) />
         </a>
     }
 </div>

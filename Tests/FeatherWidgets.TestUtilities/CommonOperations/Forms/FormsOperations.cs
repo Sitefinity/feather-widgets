@@ -309,8 +309,9 @@ namespace FeatherWidgets.TestUtilities.CommonOperations.Forms
                 form.UrlName = Regex.Replace(form.Name.ToLower(), ArrangementConstants.UrlNameCharsToReplace, ArrangementConstants.UrlNameReplaceString);
                 form.SuccessMessage = formSuccessMessage;
 
+                var culture = SystemManager.CurrentContext.AppSettings.DefaultFrontendLanguage;
                 var draft = formManager.EditForm(form.Id);
-                var master = formManager.Lifecycle.CheckOut(draft);
+                var master = formManager.Lifecycle.CheckOut(draft, culture);
 
                 if (master != null)
                 {
@@ -335,10 +336,10 @@ namespace FeatherWidgets.TestUtilities.CommonOperations.Forms
                         }
                     }
 
-                    master = formManager.Lifecycle.CheckIn(master);
+                    master = formManager.Lifecycle.CheckIn(master, culture);
 
                     if (publishForm)
-                        formManager.Lifecycle.Publish(master);
+                        formManager.Lifecycle.Publish(master, culture);
 
                     formManager.SaveChanges(true);
                 }

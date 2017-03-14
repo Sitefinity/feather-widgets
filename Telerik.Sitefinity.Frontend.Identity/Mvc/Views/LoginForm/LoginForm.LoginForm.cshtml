@@ -1,4 +1,4 @@
-@model Telerik.Sitefinity.Frontend.Identity.Mvc.Models.LoginForm.LoginFormViewModel
+﻿@model Telerik.Sitefinity.Frontend.Identity.Mvc.Models.LoginForm.LoginFormViewModel
 
 @using Telerik.Sitefinity.UI.MVC;
 @using Telerik.Sitefinity.Frontend.Mvc.Helpers;
@@ -18,6 +18,11 @@
         {
          @Html.ValidationSummary(true)
             <h3>@Html.Resource("LoginFormLogInLegendHeader")</h3>
+
+            if (Request.Url.Query.Contains("err=true") || Model.LoginError)
+            {
+                <p>@Html.Resource("IncorrectCredentialsMessage")</p>
+            }
 
             <div>
                 <label>
@@ -45,24 +50,31 @@
             </div>
             }
 
-           <div><input type="submit" value='@Html.Resource("LoginFormLogInButton")' /></div>
-        
-
             if (Model.ShowForgotPasswordLink)
             {
                 @Html.ActionLink(Html.Resource("ForgottenPasword"), "ForgotPassword")
             }
- 
-            if (Model.IncorrectCredentials)
+
+            <div><input type="submit" value='@Html.Resource("LoginFormLogInButton")' /></div>
+
+            if (Model.ExternalProviders != null && Model.ExternalProviders.Count() > 0)
             {
-            
-            <p>@Html.Resource("IncorrectCredentialsMessage")</p>
-                
+                <h3>@Html.Resource("UseAccountIn")</h3>
+
+                foreach (var provider in Model.ExternalProviders)
+                {
+                    <div>
+                        @Html.ActionLink(provider.Key, "LoginExternalProvider", new { model = provider.Key }, new { @class = provider.Value })
+                    </div>
+                }
             }
 
             if (Model.ShowRegistrationLink)
             {
-                <strong><a href="@Model.RegisterPageUrl">@Html.Resource("LoginFormRegisterNow")</a></strong>
+                <div>
+                    <div>@Html.Resource("NotRegisteredYet")</div>
+                    <a href="@Model.RegisterPageUrl">@Html.Resource("LoginFormRegisterNow")</a>
+                </div>
             }
         }
     </div>
@@ -75,3 +87,4 @@
 </div>
 
 @Html.Script(Url.WidgetContent("Mvc/Scripts/LoginForm/login-form.js"), "bottom", false)
+

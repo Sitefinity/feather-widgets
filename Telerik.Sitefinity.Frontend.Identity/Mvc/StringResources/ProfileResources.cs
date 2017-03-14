@@ -260,12 +260,12 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.StringResources
         }
 
         /// <summary>
-        /// Gets phrase: Upload photo
+        /// Gets phrase: Change photo
         /// </summary>
         [ResourceEntry("EditProfileUploadImage",
-            Value = "Upload photo",
-            Description = "phrase : Upload photo",
-            LastModified = "2015/03/05")]
+            Value = "Change photo",
+            Description = "phrase : Change photo",
+            LastModified = "2016/12/23")]
         public string EditProfileUploadImage
         {
             get
@@ -335,6 +335,21 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.StringResources
         }
 
         /// <summary>
+        /// Gets phrase: Nickname
+        /// </summary>
+        [ResourceEntry("EditProfileNickname",
+            Value = "Nickname",
+            Description = "phrase : Nickname",
+            LastModified = "2016/12/14")]
+        public string EditProfileNickname
+        {
+            get
+            {
+                return this["EditProfileNickname"];
+            }
+        }
+
+        /// <summary>
         /// Gets phrase: About
         /// </summary>
         [ResourceEntry("EditProfileAbout",
@@ -380,12 +395,12 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.StringResources
         }
 
         /// <summary>
-        /// Gets phrase: Old password
+        /// Gets phrase: Current password
         /// </summary>
         [ResourceEntry("EditProfileOldPassword",
-            Value = "Old password",
-            Description = "phrase : Old password",
-            LastModified = "2015/03/05")]
+            Value = "Current password",
+            Description = "phrase : Current password",
+            LastModified = "2016/12/23")]
         public string EditProfileOldPassword
         {
             get
@@ -558,6 +573,97 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.StringResources
             get
             {
                 return this["PreviewProfileSaveMessage"];
+            }
+        }
+
+        /// <summary>
+        /// Gets phrase: Email already exists.
+        /// </summary>
+        /// <value>Email already exists.</value>
+        [ResourceEntry("EmailExistsMessage",
+            Value = "Email already exists.",
+            Description = "phrase : Email already exists.",
+            LastModified = "2016/12/14")]
+        public string EmailExistsMessage
+        {
+            get
+            {
+                return this["EmailExistsMessage"];
+            }
+        }
+
+        /// <summary>
+        /// Gets phrase: Registered with 
+        /// </summary>
+        [ResourceEntry("RegistratedWithExternal",
+            Value = "Registered with {0}",
+            Description = "phrase : Registered with {0}",
+            LastModified = "2016/12/19")]
+        public string RegistratedWithExternal
+        {
+            get
+            {
+                return this["RegistratedWithExternal"];
+            }
+        }
+
+        /// <summary>
+        /// Gets phrase: Password
+        /// </summary>
+        [ResourceEntry("Password",
+            Value = "Password",
+            Description = "phrase : Password",
+            LastModified = "2016/12/19")]
+        public string Password
+        {
+            get
+            {
+                return this["Password"];
+            }
+        }
+
+        /// <summary>
+        /// Gets phrase: Login with {0} does not require password
+        /// </summary>
+        [ResourceEntry("ExternalProviderNoPassword",
+            Value = "Login with {0} does not require password",
+            Description = "phrase : Login with {0} does not require password",
+            LastModified = "2016/12/19")]
+        public string ExternalProviderNoPassword
+        {
+            get
+            {
+                return this["ExternalProviderNoPassword"];
+            }
+        }
+
+        /// <summary>
+        /// Gets phrase: InvalidPassword
+        /// </summary>
+        [ResourceEntry("InvalidPassword",
+            Value = "Invalid Password",
+            Description = "phrase : Invalid Password",
+            LastModified = "2016/12/19")]
+        public string InvalidPassword
+        {
+            get
+            {
+                return this["InvalidPassword"];
+            }
+        }
+
+        /// <summary>
+        /// Gets phrase: To complete the change of your email address, you are required to enter your password
+        /// </summary>
+        [ResourceEntry("PasswordEditMessage",
+            Value = "To complete the change of your email address, you are required to enter your password",
+            Description = "phrase : To complete the change of your email address, you are required to enter your password",
+            LastModified = "2016/12/19")]
+        public string PasswordEditMessage
+        {
+            get
+            {
+                return this["PasswordEditMessage"];
             }
         }
     }

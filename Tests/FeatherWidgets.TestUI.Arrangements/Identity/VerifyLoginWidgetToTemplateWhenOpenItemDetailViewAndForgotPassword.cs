@@ -21,7 +21,7 @@ namespace FeatherWidgets.TestUI.Arrangements
         [ServerSetUp]
         public void SetUp()
         {
-            AuthenticationHelper.AuthenticateUser(AdminUserName, AdminPass, true);
+            AuthenticationHelper.AuthenticateUser(this.AdminEmail, this.AdminPass, true);
             var blogId = ServerOperations.Blogs().CreateBlog(BlogTitle);
             ServerOperations.Blogs().CreatePublishedBlogPost(PostTitle, blogId);
 
@@ -39,14 +39,12 @@ namespace FeatherWidgets.TestUI.Arrangements
         [ServerTearDown]
         public void TearDown()
         {
-            AuthenticationHelper.AuthenticateUser(AdminUserName, AdminPass, true);
+            AuthenticationHelper.AuthenticateUser(this.AdminEmail, this.AdminPass, true);
             ServerOperations.Pages().DeleteAllPages();
             ServerOperations.Blogs().DeleteAllBlogs();
             ServerOperations.Templates().DeletePageTemplate(TemplateTitle);
         }
 
-        private const string AdminUserName = "admin";
-        private const string AdminPass = "admin@2";
         private const string PageTitle = "TestPageWithBlogPostsWidget";
         private const string PlaceHolderId = "Body";
         private const string TemplateTitle = "TestTemplatePureMVC";

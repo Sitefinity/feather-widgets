@@ -103,6 +103,22 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.Profile
         public string AvatarImageUrl { get; set; }
 
         /// <summary>
+        /// Gets or sets the about field.
+        /// </summary>
+        /// <value>
+        /// The avatar image URL.
+        /// </value>
+        public string About { get; set; }
+
+        /// <summary>
+        /// Gets or sets the nickname.
+        /// </summary>
+        /// <value>
+        /// The avatar image URL.
+        /// </value>
+        public string Nickname { get; set; }
+
+        /// <summary>
         /// Initializes the user related data.
         /// </summary>
         /// <param name="user">The user.</param>
@@ -115,6 +131,8 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.Profile
             var displayNameBuilder = new SitefinityUserDisplayNameBuilder();
             this.DisplayName = displayNameBuilder.GetUserDisplayName(this.User.Id);
             this.AvatarImageUrl = displayNameBuilder.GetAvatarImageUrl(this.User.Id, out avatarImage);
+            this.Nickname = displayNameBuilder.GetUserNickname(this.User.Id);
+            this.About = displayNameBuilder.GetAboutInfo(this.User.Id);
         }
     }
 }

@@ -19,8 +19,8 @@ namespace FeatherWidgets.TestUI.Arrangements
     public class VerifyAllowUsersToFilterByCalendars_CalendarView : TestArrangementBase
     {
         /// <summary>
-        /// Creates an Event.
-        /// Creates a Page with Events Widget.
+        /// Creates an 2 Events and 2 Calendars each with 1 event.
+        /// Creates a Mvc Page with Events Widget.
         /// </summary>
         [ServerSetUp]
         public void OnBeforeTestsStarts()

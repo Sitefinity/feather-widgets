@@ -68,8 +68,8 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Frontend.ScriptsAn
         /// <param name="value">The value.</param>
         public void VerifyScriptResultInAboutFieldOfProfileWidget(string value)
         {
-            var about = ActiveBrowser.Find.ByExpression<HtmlInputText>("tagname=input", "id=Profile_About_");
-            Assert.AreEqual(value, about.Value);
+            var about = ActiveBrowser.Find.ByExpression<HtmlTextArea>("id=Profile_About_");
+            Assert.AreEqual(value, about.InnerText);
         }
 
         /// <summary>

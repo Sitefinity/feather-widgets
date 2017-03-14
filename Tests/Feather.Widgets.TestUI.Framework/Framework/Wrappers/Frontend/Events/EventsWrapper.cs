@@ -155,12 +155,13 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Frontend.Events
         }
 
         /// <summary>
-        /// 
+        /// Verify Calendar list is not visible
         /// </summary>
-        /// <returns></returns>
-        public void VerifyCalendarsAreNotVisible()
+        public void VerifyCalendarListIsNotVisible()
         {
             HtmlDiv frontendPageMainDiv = BAT.Wrappers().Frontend().Pages().PagesWrapperFrontend().GetPageContent();
+            HtmlDiv calendarList = frontendPageMainDiv.Find.ByExpression<HtmlDiv>("class=list-unstyled nav nav-pills nav-stacked", "data-sf-role=calendarlist-wrapper");
+            calendarList.AssertIsNull("Calendar list");
         }
 
         /// <summary>
@@ -487,6 +488,18 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Frontend.Events
         public IEnumerable<EventOccurence> GetVisibleEventInCurrentView(string eventId, bool allDayEvent)
         {
             return this.GetEventAttributesInCurrentView(eventId).Where(p => p.AllDayEvent == allDayEvent);
+        }
+
+        /// <summary>
+        /// Verify event visibility in current view
+        /// </summary>
+        /// <param name="eventId">Event ID</param>
+        /// <param name="expectedCount">Expected Count</param>
+        /// <param name="allDayEvent">Is all day event</param>
+        public void VerifyEventVisibilityInCurrentView(string eventId, int expectedCount, bool allDayEvent)
+        {
+            var list = this.GetVisibleEventInCurrentView(eventId, allDayEvent);
+            Assert.IsTrue(list.Count() == expectedCount, "The event is not visible");
         }
 
         /// <summary>

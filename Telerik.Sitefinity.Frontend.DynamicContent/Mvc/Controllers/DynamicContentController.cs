@@ -169,13 +169,12 @@ namespace Telerik.Sitefinity.Frontend.DynamicContent.Mvc.Controllers
             {
                 if (this.Model.CurrentlyOpenParentType != null && SitefinityContext.IsBackend)
                 {
-                    var manager = ModuleBuilderManager.GetManager().Provider;
-                    var dynamicType = manager.GetDynamicModuleTypes().FirstOrDefault(t => t.TypeName == this.Model.ContentType.Name && t.TypeNamespace == this.Model.ContentType.Namespace);
+                    var dynamicType = ModuleBuilderManager.GetActiveTypes().FirstOrDefault(t => t.FullTypeName == this.Model.ContentType.FullName);
                     if (dynamicType != null)
                     {
                         if (this.Model.CurrentlyOpenParentType != DynamicContentController.AnyParentValue)
                         {
-                            var parentType = manager.GetDynamicModuleTypes().FirstOrDefault(t => t.TypeNamespace + "." + t.TypeName == this.Model.CurrentlyOpenParentType);
+                            var parentType = ModuleBuilderManager.GetActiveTypes().FirstOrDefault(t => t.FullTypeName == this.Model.CurrentlyOpenParentType);
                             if (parentType != null)
                             {
                                 return this.Content(Res.Get<DynamicContentResources>().DisplaysFromCurrentlyOpen.Arrange(dynamicType.DisplayName, PluralsResolver.Instance.ToPlural(parentType.DisplayName)));

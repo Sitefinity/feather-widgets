@@ -39,13 +39,6 @@ namespace FeatherWidgets.TestUI.TestCases.RevisionHistory
             Assert.AreEqual<int>(1, BAT.Wrappers().Backend().RevisionHistory().RevisionHistoryWrapper().GetRevisionHistoryRowsFromEdiFromMoreeActionsMenu().Count, "The actual number of revisions doesn't match the expected (1) one");
             BAT.Wrappers().Backend().RevisionHistory().RevisionHistoryWrapper().ClickBackToLinInRevisionHistoryScreenFromEditFromMoreActionsMenu(TemplateTitle);
             BAT.Wrappers().Backend().PageTemplates().PageTemplateModifyScreen().PublishTemplate();
-
-            BAT.Wrappers().Backend().PageTemplates().PageTemplateMainScreen().OpenTemplateEditor(TemplateTitle1);
-            BAT.Wrappers().Backend().PageTemplates().PageTemplateModifyScreen().ClickItemFromMoreActionssMenu(RevisionHistoryLink);
-            BAT.Wrappers().Backend().RevisionHistory().RevisionHistoryWrapper().VerifyRevisionHistoryScreenFromEditFromMoreActionsMenu(TemplateTitle1);
-            BAT.Wrappers().Backend().RevisionHistory().RevisionHistoryWrapper().ClickBackToLinInRevisionHistoryScreenFromEditFromMoreActionsMenu(TemplateTitle1);
-            ////BAT.Wrappers().Backend().PageTemplates().PageTemplateModifyScreen().PublishTemplate();
-            BAT.Wrappers().Backend().PageTemplates().PageTemplateModifyScreen().ClickBackToTemplatesButton();
         }
 
         /// <summary>
@@ -66,7 +59,6 @@ namespace FeatherWidgets.TestUI.TestCases.RevisionHistory
         }
 
         private const string TemplateTitle = "TestLayout";
-        private const string TemplateTitle1 = "Bootstrap.default";
         private const string RevisionHistoryLink = "Revision History";
     }
 }
