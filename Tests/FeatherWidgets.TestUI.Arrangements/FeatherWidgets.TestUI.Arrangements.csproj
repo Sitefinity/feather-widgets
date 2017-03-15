@@ -332,6 +332,7 @@
     <Compile Include="ContentBlocks\DocumentSelector\UploadDocumentWithCategoryAndTag.cs" />
     <Compile Include="ContentBlocks\EditContentBlockWidgetWithCustomTemplate.cs" />
     <Compile Include="ContentBlocks\ImageSelector\CheckNavigationInImageSelector.cs" />
+    <Compile Include="ContentBlocks\ImageSelector\UploadAndVerifySvgImageInContentBlock.cs" />
     <Compile Include="ContentBlocks\ImageSelector\UploadImageWithCategoryAndTag.cs" />
     <Compile Include="ContentBlocks\ImageSelector\EditAndChangeSelectedImage.cs" />
     <Compile Include="ContentBlocks\ImageSelector\InsertImageFromAlreadyUploaded.cs" />
@@ -558,9 +559,11 @@
     <Compile Include="Identity\VerifyLoginWidgetWhenOpenItemDetailViewAndForgotPassword.cs" />
     <Compile Include="Identity\VerifyRegistrationWidgetAndProfileWidgetOnPreviewBootstrapTemplate.cs" />
     <Compile Include="Identity\VerifyRegistrationWidgetAndProfileWidgetOnPreviewPage.cs" />
+    <Compile Include="ImageGallery\VerifySvgImageInImageGallery.cs" />
     <Compile Include="ImageGallery\VerifyUseLimitListSettingsOnFrontendPageForImageGalleryWidget.cs" />
     <Compile Include="ImageGallery\VerifyNoLimitAndPaginationListSettingsOnFrontendPageForImageGalleryWidget.cs" />
     <Compile Include="ImageGallery\VerifyPagingOnFrontendPageForImageGalleryWidget.cs" />
+    <Compile Include="Images\VerifySvgImageInImageWidget.cs" />
     <Compile Include="Lists\VerifyListTemplatesOnBootstrap.cs" />
     <Compile Include="Navigation\BreadcrumbDetailBlogPostItemVirtualNodes.cs" />
     <Compile Include="Navigation\BreadcrumbDetailEventItemVirtualNodes.cs" />

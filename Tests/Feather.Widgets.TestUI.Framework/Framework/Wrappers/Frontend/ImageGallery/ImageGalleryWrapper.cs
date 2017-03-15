@@ -192,5 +192,23 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Frontend
             ActiveBrowser.Find.ByExpression<HtmlDiv>("innertext=" + countLabel).AssertIsPresent(countLabel);
             ActiveBrowser.Find.ByExpression<HtmlContainerControl>("tagname=h2", "class=js-Gallery-title", "innertext=" + imageName).AssertIsPresent("Next");
         }
+
+        /// <summary>
+        /// Verify image width and height on Frontend
+        /// </summary>
+        /// <param name="src">Image source</param>
+        /// <param name="width">Image width</param>
+        /// <param name="height">Image height</param>
+        public void VerifyImageThumbnail(string src, string width, string height)
+        {
+            HtmlImage image = EM.MediaGallery.MediaGalleryFrontend.AllImages.Where<HtmlImage>(k => k.Src.Contains(src)).FirstOrDefault()
+               .AssertIsPresent("image");
+
+            if (width != string.Empty && height != string.Empty)
+            {
+                Assert.IsTrue(image.Width.Equals(width), "width is not correct");
+                Assert.IsTrue(image.Height.Equals(height), "height is not correct");
+            }
+        }
     }
 }

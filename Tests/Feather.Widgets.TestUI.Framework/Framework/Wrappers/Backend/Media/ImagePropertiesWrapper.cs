@@ -119,6 +119,23 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend.Media
         }
 
         /// <summary>
+        /// Verifiy available options for SVG in Thumbnail selector
+        /// </summary>
+        /// <param name="expectedOptions">Number of expected available options in Thumbnail selector</param>
+        public void VerifyImageThumbnailOptionsForSVG(int expectedOptions)
+        {
+            HtmlSelect selector = this.EM.Media.ImagePropertiesScreen.ThumbnailSelector
+                                      .AssertIsPresent("Thumbnail selector");
+            var firstOption = selector.ChildNodes.Where(t => t.TagName.Equals("option")).FirstOrDefault().InnerText;
+            Assert.AreEqual("Original size", firstOption);
+            var secondOption = selector.ChildNodes.Where(t => t.TagName.Equals("option")).Last().InnerText;
+            Assert.AreEqual("Custom size...", secondOption);
+
+            var availableOptionsCount = selector.ChildNodes.Where(t => t.TagName.Contains("option"));
+            Assert.AreEqual(expectedOptions, availableOptionsCount.Count());
+        }
+
+        /// <summary>
         /// Enters the width of the max.
         /// </summary>
         /// <param name="number">The number.</param>

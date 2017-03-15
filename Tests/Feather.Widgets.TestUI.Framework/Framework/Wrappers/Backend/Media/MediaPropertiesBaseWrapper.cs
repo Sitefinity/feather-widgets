@@ -103,6 +103,18 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend.Media
         }
 
         /// <summary>
+        /// Clicks Done button on Custom thumbnail size dialog.
+        /// </summary>
+        public void ConfirmCustomThumbnailSize()
+        {
+            HtmlButton doneBtn = this.EM.Media.MediaPropertiesBaseScreen.DoneButtonCustomThumbnailSize.AssertIsPresent("Done button");
+
+            doneBtn.Click();
+            ActiveBrowser.WaitForAsyncOperations();
+            ActiveBrowser.RefreshDomTree();
+        }
+
+        /// <summary>
         /// Clicks Done button on media properties dialog for docs. This is temporary fix!
         /// </summary>
         public void ConfirmMediaPropertiesDocsTemporary()

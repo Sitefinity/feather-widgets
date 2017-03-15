@@ -129,6 +129,38 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend
         }
 
         /// <summary>
+        /// Edit widget by name
+        /// </summary>
+        /// <param name="widgetName">The widget name</param>
+        /// <param name="dropZoneIndex">The drop zone index</param>
+        public void EditImageWidget(string widgetName, int dropZoneIndex = 0, bool isMediaWidgetEdited = false)
+        {
+            ActiveBrowser.WaitUntilReady();
+            ActiveBrowser.RefreshDomTree();
+            ActiveBrowser.WaitUntilReady();
+            var widgetHeader = ActiveBrowser
+                                      .Find
+                                      .AllByCustom<HtmlDiv>(d => d.CssClass.StartsWith("rdTitleBar") && d.ChildNodes.First().InnerText.Equals(widgetName))[dropZoneIndex]
+                                      .AssertIsPresent(widgetName);
+            widgetHeader.ScrollToVisible();
+            HtmlAnchor editLink = widgetHeader.Find
+                                              .ByCustom<HtmlAnchor>(a => a.TagName == "a" && a.Title.Equals("Edit"))
+                                              .AssertIsPresent("edit link");
+            editLink.Focus();
+            editLink.Click();
+            ActiveBrowser.WaitUntilReady();
+            ActiveBrowser.WaitForAsyncOperations();
+            ActiveBrowser.WaitForAjax(TimeOut);
+            ActiveBrowser.RefreshDomTree();
+
+            if (!isMediaWidgetEdited)
+            {
+                HtmlFindExpression expression = new HtmlFindExpression("class=modal-title", "InnerText=" + widgetName);
+                ActiveBrowser.WaitForElement(expression, TimeOut, false);
+            }
+        }
+
+        /// <summary>
         /// Selects "an extra option" (option from the 'More' menu)
         /// for a given widget
         /// </summary>

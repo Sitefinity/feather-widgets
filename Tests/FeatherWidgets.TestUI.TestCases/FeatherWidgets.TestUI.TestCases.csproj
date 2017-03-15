@@ -183,6 +183,7 @@
     <Compile Include="ContentBlocks\EditContentBlockWidgetWithCustomTemplate.cs" />
     <Compile Include="ContentBlocks\ImageSelector\CheckNavigationInImageSelector.cs" />
     <Compile Include="ContentBlocks\ImageSelector\EditAllPropertiesOfSelectedImageAndSearch.cs" />
+    <Compile Include="ContentBlocks\ImageSelector\UploadAndVerifySvgImageInContentBlock.cs" />
     <Compile Include="ContentBlocks\ImageSelector\UploadImageWithCategoryAndTag.cs" />
     <Compile Include="ContentBlocks\ImageSelector\EditAndChangeSelectedImage.cs" />
     <Compile Include="ContentBlocks\ImageSelector\InsertImageFromAlreadyUploaded.cs" />
@@ -410,7 +411,9 @@
     <Compile Include="Identity\VerifyUseLimitListSettingsOnFrontendPageForUsersListWidget.cs" />
     <Compile Include="ImageGallery\VerifyNoLimitAndPaginationListSettingsOnFrontendPageForImageGalleryWidget.cs" />
     <Compile Include="ImageGallery\VerifyPagingOnFrontendPageForImageGalleryWidget.cs" />
+    <Compile Include="ImageGallery\VerifySvgImageInImageGallery.cs" />
     <Compile Include="ImageGallery\VerifyUseLimitListSettingsOnFrontendPageForImageGalleryWidget.cs" />
+    <Compile Include="Images\VerifySvgImageInImageWidget.cs" />
     <Compile Include="Lists\VerifyListTemplatesOnBootstrap.cs" />
     <Compile Include="Navigation\BreadcrumbDetailBlogPostItemVirtualNodes.cs" />
     <Compile Include="Navigation\BreadcrumbDetailEventItemVirtualNodes.cs" />
@@ -615,6 +618,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="MediaFiles\IMG01648.jpg" />
+    <Content Include="MediaFiles\kiwi.svg" />
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
