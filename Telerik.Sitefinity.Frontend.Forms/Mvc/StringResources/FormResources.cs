@@ -235,7 +235,7 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.StringResources
         [ResourceEntry("InvalidInputErrorMessage",
             Value = "{0} field input is invalid",
             Description = "phrase: {0} field input is invalid",
-            LastModified = "2017/03/10")]
+            LastModified = "2017/03/15")]
         public string InvalidInputErrorMessage
         {
             get

@@ -11,7 +11,7 @@
     @{
         if (!string.IsNullOrEmpty(@ViewBag.ErrorMessage))
         {
-            <span class="sf-errorMsg">@ViewBag.ErrorMessage</span>
+            <div>@ViewBag.ErrorMessage</div>
         }
         
         if (Model.UseAjaxSubmit)
