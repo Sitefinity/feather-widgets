@@ -1,13 +1,13 @@
 @using Telerik.Sitefinity.Frontend.Mvc.Helpers;
 
-<sf-image-field class="sf-Media--info modal-settings" 
+<sf-image-field ng-if="initialized" class="sf-Media--info modal-settings" 
     sf-auto-open-selector 
     sf-model="properties.Id.PropertyValue" 
     sf-image="model.item" 
     sf-provider="properties.ProviderName.PropertyValue"></sf-image-field>
 
 <form name="imageProperties">
-    <div class="form-group" ng-class="{ 'has-error' : hasErrors() }">
+    <div class="form-group" ng-class="{ 'has-error' : hasErrors && hasErrors() }">
         <label for="title">Title</label>
 
         <div class="row">
@@ -22,7 +22,7 @@
 
         <p class="text-danger" ng-show="properties.Title.PropertyValue.$error.required">Title is required</p>
     </div>
-    <div class="form-group" ng-class="{ 'has-error' : hasErrors() }">
+    <div class="form-group" ng-class="{ 'has-error' : hasErrors && hasErrors() }">
         <label for="alternativeText">Alternative text</label>
         <div class="row">
             <div class="col-xs-11">

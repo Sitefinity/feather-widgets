@@ -4,42 +4,44 @@
     angular.module('designer').requires.push('simpleViewModule');
 
     simpleViewModule.controller('SimpleCtrl', ['$scope', 'propertyService', 'serverContext', 'serviceHelper', 'sfMediaService', '$q', function ($scope, propertyService, serverContext, serviceHelper, mediaService, $q) {
-
+        $scope.initialized = false;
         $scope.feedback.showLoadingIndicator = true;
         $scope.thumbnailSizeTempalteUrl = serverContext.getEmbeddedResourceUrl('Telerik.Sitefinity.Frontend', 'client-components/selectors/media/sf-thumbnail-size-selection.html');
 
-        $scope.$watch('properties.Id.PropertyValue', function (newVal, oldVal) {
-            // If controller returns Empty guid - no image is selected
-            if (newVal === serviceHelper.emptyGuid()) {
-                $scope.properties.Id.PropertyValue = undefined;
-            }
-                // Cancel is selected with no image selected - close the designer
-            else if (newVal === null) {
-                $scope.$parent.cancel();
-            }
-        });
-
-        $scope.$watch('model', function (newVal, oldVal) {
-            if (newVal && newVal.item && newVal.item.Id) {
-                if (!$scope.properties.Title.PropertyValue && newVal.item.Title && newVal.item.Title.Value) {
-                    $scope.properties.Title.PropertyValue = newVal.item.Title.Value;
+        var onPostPropertiesInitialized = function () {
+            $scope.$watch('properties.Id.PropertyValue', function (newVal, oldVal) {
+                // If controller returns Empty guid - no image is selected
+                if (newVal === serviceHelper.emptyGuid()) {
+                    $scope.properties.Id.PropertyValue = undefined;
                 }
-                if (!$scope.properties.AlternativeText.PropertyValue && newVal.item.AlternativeText && newVal.item.AlternativeText.Value) {
-                    $scope.properties.AlternativeText.PropertyValue = newVal.item.AlternativeText.Value;
+                    // Cancel is selected with no image selected - close the designer
+                else if (newVal === null) {
+                    $scope.$parent.cancel();
                 }
+            });
 
-                $scope.properties.ThumbnailName.PropertyValue = newVal.thumbnail ? newVal.thumbnail.name : null;
-                $scope.properties.ThumbnailUrl.PropertyValue = newVal.thumbnail ? newVal.thumbnail.url : null;
-                $scope.properties.CustomSize.PropertyValue = JSON.stringify(newVal.customSize);
-                $scope.properties.DisplayMode.PropertyValue = newVal.displayMode;
+            $scope.$watch('model', function (newVal, oldVal) {
+                if (newVal && newVal.item && newVal.item.Id) {
+                    if (!$scope.properties.Title.PropertyValue && newVal.item.Title && newVal.item.Title.Value) {
+                        $scope.properties.Title.PropertyValue = newVal.item.Title.Value;
+                    }
+                    if (!$scope.properties.AlternativeText.PropertyValue && newVal.item.AlternativeText && newVal.item.AlternativeText.Value) {
+                        $scope.properties.AlternativeText.PropertyValue = newVal.item.AlternativeText.Value;
+                    }
 
-                $scope.openOriginalImageOnClick = $scope.properties.UseAsLink.PropertyValue === 'True' && $scope.properties.LinkedPageId.PropertyValue === serviceHelper.emptyGuid();
-            }
-        }, true);
+                    $scope.properties.ThumbnailName.PropertyValue = newVal.thumbnail ? newVal.thumbnail.name : null;
+                    $scope.properties.ThumbnailUrl.PropertyValue = newVal.thumbnail ? newVal.thumbnail.url : null;
+                    $scope.properties.CustomSize.PropertyValue = JSON.stringify(newVal.customSize);
+                    $scope.properties.DisplayMode.PropertyValue = newVal.displayMode;
 
-        $scope.hasErrors = function () {
-            return !$scope.properties.Title || !$scope.properties.Title.PropertyValue;
-        };
+                    $scope.openOriginalImageOnClick = $scope.properties.UseAsLink.PropertyValue === 'True' && $scope.properties.LinkedPageId.PropertyValue === serviceHelper.emptyGuid();
+                }
+            }, true);
+
+            $scope.hasErrors = function () {
+                return !$scope.properties.Title || !$scope.properties.Title.PropertyValue;
+            };
+        }
 
         var updateProperties = function () {
             var savingPromise;
@@ -78,6 +80,12 @@
             });
         };
 
+        var showError = function (err) {
+            $scope.feedback.showError = true;
+            if (err)
+                $scope.feedback.errorMessage = err;
+        }
+
         propertyService.get()
             .then(function (data) {
                 if (data) {
@@ -103,12 +111,21 @@
                         },
                         customSize: $scope.properties.CustomSize.PropertyValue ? JSON.parse($scope.properties.CustomSize.PropertyValue) : null
                     };
+
+                    $scope.initialized = true;
+                } else {
+                    throw "Error getting properties data.";
                 }
-            },
-            function (data) {
-                $scope.feedback.showError = true;
+            }, function (data) {
+                var err = '';
                 if (data)
-                    $scope.feedback.errorMessage = data.Detail;
+                    err = data.Detail;
+                showError(err);
+            })
+            .then(function () {
+                onPostPropertiesInitialized();
+            }, function (err) {
+                showError(err);
             })
             .then(function () {
                 $scope.feedback.savingHandlers.push(function () {
