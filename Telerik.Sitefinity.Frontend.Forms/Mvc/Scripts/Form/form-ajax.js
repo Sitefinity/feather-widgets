@@ -59,6 +59,7 @@
                                 errorMessage.text(responseJson.error);
                                 errorMessage.show();
                                 fieldsContainer.show();
+                                fieldsContainer.find('[data-sf-role="captcha-refresh-button"]').click();
                                 loadingImg.hide();
                             }
                         }

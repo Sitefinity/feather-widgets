@@ -111,6 +111,12 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Models
         bool IsMultiStep { get; set; }
 
         /// <summary>
+        /// Gets or sets the form collection.
+        /// </summary>
+        /// <value>The form collection.</value>
+        FormCollection FormCollection { get; set; }
+
+        /// <summary>
         /// Gets a collection of <see cref="CacheDependencyNotifiedObject"/>.
         ///     The <see cref="CacheDependencyNotifiedObject"/> represents a key for which cached items could be subscribed for
         ///     notification.

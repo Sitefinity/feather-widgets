@@ -115,8 +115,9 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Models.Fields.CheckboxesField
                 var strValue = value as string;
                 if (!string.IsNullOrEmpty(strValue))
                 {
+                    var selectedChoices = strValue.Split(',').Where(s => !string.IsNullOrWhiteSpace(s)).ToList();
                     var choices = this.DeserializeChoices();
-                    if (choices.Contains(strValue))
+                    if (selectedChoices.Any(s => choices.Contains(s)))
                     {
                         return base.IsValid(value);
                     }

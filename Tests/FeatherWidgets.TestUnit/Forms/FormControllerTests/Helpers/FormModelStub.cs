@@ -101,6 +101,19 @@ namespace FeatherWidgets.TestUnit.Forms.FormControllerTests.Helpers
             }
         }
 
+        public FormCollection FormCollection
+        {
+            get
+            {
+                throw new NotImplementedException();
+            }
+
+            set
+            {
+                throw new NotImplementedException();
+            }
+        }
+
         public bool NeedsRedirect { get; set; }
 
         public bool UseAjaxSubmit
