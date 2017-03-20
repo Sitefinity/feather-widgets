@@ -45,7 +45,7 @@ namespace Telerik.Sitefinity.Frontend.EmailCampaigns.Mvc.Models.UnsubscribeForm
                 this.widgetTitle = value;
             }
         }
-        
+
         /// <inheritDoc/>
         public string WidgetDescription
         {
@@ -59,7 +59,7 @@ namespace Telerik.Sitefinity.Frontend.EmailCampaigns.Mvc.Models.UnsubscribeForm
                 this.widgetDescription = value;
             }
         }
-        
+
         /// <inheritDoc/>
         public string Message
         {
@@ -115,25 +115,32 @@ namespace Telerik.Sitefinity.Frontend.EmailCampaigns.Mvc.Models.UnsubscribeForm
         }
 
         /// <inheritDoc/>
-        public virtual void ExecuteAction(string subscriberId, string issueId, bool shouldSubscribe)
+        public virtual void ExecuteAction(string subscriberId, string issueId, string listId, bool shouldSubscribe)
         {
             var newslettersManager = NewslettersManager.GetManager(this.ProviderName);
 
             var issueGuid = Guid.Empty;
             var subscriberGuid = Guid.Empty;
+            var mailingListGuid = Guid.Empty;
 
-            if (!string.IsNullOrEmpty(subscriberId) && Guid.TryParse(subscriberId, out subscriberGuid)
-                && (!string.IsNullOrEmpty(issueId) && Guid.TryParse(issueId, out issueGuid)))
+            if (!string.IsNullOrEmpty(subscriberId) && Guid.TryParse(subscriberId, out subscriberGuid))
             {
                 Guid mailingListId = Guid.Empty;
-                var issue = newslettersManager.GetIssue(issueGuid);
-                if (issue != null)
+                if (!string.IsNullOrEmpty(listId) && Guid.TryParse(listId, out mailingListGuid) && mailingListGuid != Guid.Empty)
                 {
-                    mailingListId = issue.List.Id;
+                    mailingListId = mailingListGuid;
+                }
+                Campaign issue = null;
+                if (!string.IsNullOrEmpty(issueId) && Guid.TryParse(issueId, out issueGuid) && issueGuid != Guid.Empty)
+                {
+                    issue = newslettersManager.GetIssues().FirstOrDefault(i => i.Id == issueGuid);
+                    if (issue != null)
+                    {
+                        mailingListId = issue.List.Id;
+                    }
                 }
 
                 var subscriber = newslettersManager.GetSubscriber(subscriberGuid);
-
                 if (shouldSubscribe)
                 {
                     this.Subscribe(newslettersManager, subscriber, mailingListId);
@@ -228,7 +235,12 @@ namespace Telerik.Sitefinity.Frontend.EmailCampaigns.Mvc.Models.UnsubscribeForm
         /// <param name="issue">The issue.</param>
         private void Unsubscribe(NewslettersManager newslettersManager, Subscriber subscriber, Guid mailingListId, Campaign issue)
         {
-            this.Message = this.GetUnsubscribeSuccessfulMessage(subscriber, issue);
+            MailingList list = null;
+            if (issue == null)
+            {
+                list = newslettersManager.GetMailingLists().FirstOrDefault(m => m.Id == mailingListId);
+            }
+            this.Message = this.GetUnsubscribeSuccessfulMessage(subscriber, issue, list);
 
             var isUnsubscribed = newslettersManager.Unsubscribe(subscriber, mailingListId, issue);
             if (isUnsubscribed)
@@ -242,8 +254,9 @@ namespace Telerik.Sitefinity.Frontend.EmailCampaigns.Mvc.Models.UnsubscribeForm
         /// </summary>
         /// <param name="subscriber">The subscriber.</param>
         /// <param name="issue">The issue.</param>
+        /// <param name="list">The mailing list.</param>
         /// <returns></returns>
-        private string GetUnsubscribeSuccessfulMessage(Subscriber subscriber, Campaign issue)
+        private string GetUnsubscribeSuccessfulMessage(Subscriber subscriber, Campaign issue, MailingList list)
         {
             //resolves the merge tags
             var mergeContextItemsObject = new MergeContextItems();
@@ -251,11 +264,20 @@ namespace Telerik.Sitefinity.Frontend.EmailCampaigns.Mvc.Models.UnsubscribeForm
             var pageUri = SystemManager.CurrentHttpContext.Request.Url.PathAndQuery;
             var subscribeAnchor = @"<a href=""{0}&subscribe={1}"">{2}</a>";
             mergeContextItemsObject.SubscribeLink = subscribeAnchor.Arrange(pageUri, true, Res.Get<UnsubscribeFormResources>().SubscribeLink);
-            string resolvedMessageBody = Merger.MergeTags(this.Message, issue.List, issue, subscriber, mergeContextItemsObject);
+
+            string resolvedMessageBody;
+            if (issue != null)
+            {
+                resolvedMessageBody = Merger.MergeTags(this.Message, issue.List, issue, subscriber, mergeContextItemsObject);
+            }
+            else
+            {
+                resolvedMessageBody = Merger.MergeTags(this.Message, list, subscriber, mergeContextItemsObject);
+            }
 
             return resolvedMessageBody;
         }
-        
+
         #endregion
 
         #region Private fields and constants
