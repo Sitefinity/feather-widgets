@@ -136,7 +136,7 @@ namespace FeatherWidgets.TestUI.TestCases.ImageGallery
                 url = ActiveBrowser.Url.Substring(0, 20);
             }
 
-            string href = BATFeather.Wrappers().Frontend().MediaWidgets().MediaWidgetsWrapper().GetMediaSource(libraryUrl.ToLower(), imageUrl, PageName.ToLower() + "/images", currentProviderUrlName, this.Culture);
+            string href = BATFeather.Wrappers().Frontend().MediaWidgets().MediaWidgetsWrapper().GetMediaSource(libraryUrl.ToLower(), imageUrl, PageName.ToLower() + "/images", currentProviderUrlName);
             return href;
         }
 

@@ -106,7 +106,7 @@ namespace FeatherWidgets.TestUI.TestCases.VideoGallery
             {
                 url = ActiveBrowser.Url.Substring(0, 20);
             }
-            string href = BATFeather.Wrappers().Frontend().MediaWidgets().MediaWidgetsWrapper().GetMediaSource(libraryUrl, videoUrl, PageName.ToLower() + "/videos", currentProviderUrlName, this.Culture);
+            string href = BATFeather.Wrappers().Frontend().MediaWidgets().MediaWidgetsWrapper().GetMediaSource(libraryUrl, videoUrl, PageName.ToLower() + "/videos", currentProviderUrlName);
             return href;
         }
 
