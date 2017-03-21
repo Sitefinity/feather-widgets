@@ -156,12 +156,13 @@ namespace Telerik.Sitefinity.Frontend.EmailCampaigns.Mvc.Controllers
 
             if (!SystemManager.IsDesignMode && this.Model.UnsubscribeMode == UnsubscribeMode.Link)
             {
-                var subscriberId = page.Request.QueryString["subscriberId"];
-                var issueId = page.Request.QueryString["issueId"];
+                string subscriberId = page.Request.QueryString["subscriberId"];
+                string issueId = page.Request.QueryString["issueId"];
+                string listId = page.Request.QueryString["listId"];
                 bool isSubscribe = false;
                 bool.TryParse(page.Request.QueryString["subscribe"], out isSubscribe);
 
-                this.Model.ExecuteAction(subscriberId, issueId, isSubscribe);
+                this.Model.ExecuteAction(subscriberId, issueId, listId, isSubscribe);
 
                 this.ViewBag.IsSubscribe = isSubscribe;
             }

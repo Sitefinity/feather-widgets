@@ -32,7 +32,7 @@ namespace FeatherWidgets.TestUnit.DummyClasses.UnsubscribeForm
             return new UnsubscribeFormViewModel();
         }
 
-        public void ExecuteAction(string subscriberId, string issueId, bool shouldSubscribe)
+        public void ExecuteAction(string subscriberId, string issueId, string listId, bool shouldSubscribe)
         {
         }
 
