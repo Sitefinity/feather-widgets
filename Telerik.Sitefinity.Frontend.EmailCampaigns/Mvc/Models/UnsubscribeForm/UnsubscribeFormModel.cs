@@ -123,15 +123,15 @@ namespace Telerik.Sitefinity.Frontend.EmailCampaigns.Mvc.Models.UnsubscribeForm
             var subscriberGuid = Guid.Empty;
             var mailingListGuid = Guid.Empty;
 
-            if (!string.IsNullOrEmpty(subscriberId) && Guid.TryParse(subscriberId, out subscriberGuid))
+            if (Guid.TryParse(subscriberId, out subscriberGuid))
             {
                 Guid mailingListId = Guid.Empty;
-                if (!string.IsNullOrEmpty(listId) && Guid.TryParse(listId, out mailingListGuid) && mailingListGuid != Guid.Empty)
+                if (Guid.TryParse(listId, out mailingListGuid) && mailingListGuid != Guid.Empty)
                 {
                     mailingListId = mailingListGuid;
                 }
                 Campaign issue = null;
-                if (!string.IsNullOrEmpty(issueId) && Guid.TryParse(issueId, out issueGuid) && issueGuid != Guid.Empty)
+                if (Guid.TryParse(issueId, out issueGuid) && issueGuid != Guid.Empty)
                 {
                     issue = newslettersManager.GetIssues().FirstOrDefault(i => i.Id == issueGuid);
                     if (issue != null)
