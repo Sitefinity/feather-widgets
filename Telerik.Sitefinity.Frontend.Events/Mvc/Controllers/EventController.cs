@@ -10,6 +10,7 @@ using Telerik.Sitefinity.Frontend.Mvc.Infrastructure.Controllers;
 using Telerik.Sitefinity.Frontend.Mvc.Infrastructure.Controllers.Attributes;
 using Telerik.Sitefinity.Modules.Pages.Configuration;
 using Telerik.Sitefinity.Mvc;
+using Telerik.Sitefinity.Personalization;
 using Telerik.Sitefinity.Services;
 using Telerik.Sitefinity.Taxonomies.Model;
 
@@ -20,7 +21,7 @@ namespace Telerik.Sitefinity.Frontend.Events.Mvc.Controllers
     /// </summary>
     [ControllerToolboxItem(Name = "Events_MVC", Title = "Events", SectionName = ToolboxesConfig.ContentToolboxSectionName, ModuleName = "Events", CssClass = EventController.WidgetIconCssClass)]
     [Localization(typeof(EventResources))]
-    public class EventController : Controller, IContentLocatableView
+    public class EventController : Controller, IContentLocatableView, IPersonalizable
     {
         #region Properties
 

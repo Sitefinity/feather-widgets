@@ -13,10 +13,9 @@ using Telerik.Sitefinity.Frontend.News.Mvc.StringResources;
 using Telerik.Sitefinity.Modules.Pages.Configuration;
 using Telerik.Sitefinity.Mvc;
 using Telerik.Sitefinity.News.Model;
-using Telerik.Sitefinity.Pages.Model;
+using Telerik.Sitefinity.Personalization;
 using Telerik.Sitefinity.Services;
 using Telerik.Sitefinity.Taxonomies.Model;
-using Telerik.Sitefinity.Web.UrlEvaluation;
 
 namespace Telerik.Sitefinity.Frontend.News.Mvc.Controllers
 {
@@ -25,7 +24,7 @@ namespace Telerik.Sitefinity.Frontend.News.Mvc.Controllers
     /// </summary>
     [ControllerToolboxItem(Name = "News_MVC", Title = "News", SectionName = ToolboxesConfig.ContentToolboxSectionName, ModuleName = "News", CssClass = NewsController.WidgetIconCssClass)]
     [Localization(typeof(NewsWidgetResources))]
-    public class NewsController : Controller, IContentLocatableView
+    public class NewsController : Controller, IContentLocatableView, IPersonalizable
     {
         #region Properties
 
