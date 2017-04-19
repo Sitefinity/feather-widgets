@@ -5,11 +5,9 @@
 
 <div class="@Model.CssClass">
     <img src="@Model.AvatarImageUrl" alt="@Model.UserName" width="100" height="100"/>
-    <h3>@Model.DisplayName</h3>
+    <h3>@Model.DisplayName <small>(@Model.Nickname)</small></h3>
     <p>@Model.Email</p>
-
-    @*User does not have 'About' property*@
-    @*<p>@Model.About</p>*@
+    <p>@Model.About</p>
 
     @if (Model.CanEdit && ViewBag.Mode == ViewMode.Both)
     {

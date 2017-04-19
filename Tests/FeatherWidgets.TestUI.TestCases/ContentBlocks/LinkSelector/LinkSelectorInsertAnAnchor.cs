@@ -86,7 +86,7 @@ namespace FeatherWidgets.TestUI.TestCases.ContentBlocks.LinkSelector
         private const string PageName = "ContentBlock";
         private const string SelectedTabName = "Anchor";
         private const string WidgetName = "ContentBlock";
-        private const string HtmlContent = "<div id=\"test1\">Test1</div><p></p><div id=\"test2\">Test2</div><p></p><a href=\"#test2\">Test content</a>";
+        private const string HtmlContent = "<div id=\"test1\">Test1</div><div id=\"test2\"><p>Test2</p></div><a href=\"#test2\">Test content</a>";
         private const string TextToDisplay = "Test content";
         private const string AnchorName = "test2";
         private const string Anchor = "#test2";

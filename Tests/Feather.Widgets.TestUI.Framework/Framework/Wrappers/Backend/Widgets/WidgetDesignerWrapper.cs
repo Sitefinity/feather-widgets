@@ -4,7 +4,6 @@ using System.Globalization;
 using System.Linq;
 using ArtOfTest.Common.UnitTesting;
 using ArtOfTest.WebAii.Controls.HtmlControls;
-using ArtOfTest.WebAii.Controls.HtmlControls;
 using ArtOfTest.WebAii.Core;
 using ArtOfTest.WebAii.jQuery;
 using Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend.Widgets;
@@ -250,6 +249,11 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend
             if (toDay.Count == 2)
             {
                 buttonToDay = toDay[1].Find.ByExpression<HtmlButton>("tagname=button");
+
+                if (buttonToDay == null)
+                {
+                    buttonToDay = toDay[0].Find.ByExpression<HtmlButton>("tagname=button");
+                }
             }
             else
             {
@@ -425,6 +429,17 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend
             HtmlInputRadioButton selectWeekStartsOnSunday = this.EM.Widgets.WidgetDesignerCalendarScreen.WeekStartsOnSunday
                 .AssertIsPresent("Weeks starts on Sunday");
             selectWeekStartsOnSunday.Click();
+        }
+
+        /// <summary>
+        /// Disallow users to filter by calendars
+        /// </summary>
+        public void ClickAllowUsersToFilterByCalendars()
+        {
+            HtmlInputCheckBox allowUsersToFilterByCalendars = this.EM.Widgets.WidgetDesignerCalendarScreen.AllowUsersToFilterByCalendars
+                .AssertIsPresent("Allow users to filter by calendars");
+            allowUsersToFilterByCalendars.Focus();
+            allowUsersToFilterByCalendars.MouseClick();
         }
 
         /// <summary>
@@ -703,6 +718,67 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend
             selector.SelectByValue(optionValue);
             selector.AsjQueryControl().InvokejQueryEvent(jQueryControl.jQueryControlEvents.click);
             selector.AsjQueryControl().InvokejQueryEvent(jQueryControl.jQueryControlEvents.change);
+        }
+
+        /// <summary>
+        /// Selects the allow users to siwtch views CheckBox in calendar widget.
+        /// </summary>
+        public void SelectAllowUsersToSiwtchViewsCheckBoxInCalendarWidget()
+        {
+            HtmlInputCheckBox optionCheckbox = this.EM.Widgets.WidgetDesignerCalendarScreen.AllowUsersToSwitchViewsCheckBox
+                                                          .AssertIsPresent("Allow users to switch views");
+            Assert.IsFalse(optionCheckbox.Checked);
+            optionCheckbox.Click();
+            Assert.IsTrue(optionCheckbox.Checked);
+        }
+
+        /// <summary>
+        /// Verifies the default view options in calendar.
+        /// </summary>
+        /// <param name="defaultViewOptions">The default view options.</param>
+        public void VerifyDefaultViewOptionsInCalendar(string[] defaultViewOptions)
+        {
+            HtmlSelect defaultViewDropdown = this.EM.Widgets.WidgetDesignerCalendarScreen.DefaultViewDropdown
+                                                  .AssertIsPresent("Default View dropdown");
+
+            Assert.AreEqual(defaultViewOptions.Count(), defaultViewDropdown.Options.Count(), "Default view options are not equal to expected options");
+
+            for (int i = 0; i < defaultViewOptions.Count(); i++)
+            {
+                Assert.AreEqual(defaultViewOptions[i], defaultViewDropdown.Options[i].Text, "Default view option is different");
+            }
+        }
+
+        /// <summary>
+        /// Uns the select allow users to siwtch views CheckBox in calendar widget.
+        /// </summary>
+        public void UnSelectAllowUsersToSiwtchViewsCheckBoxInCalendarWidget()
+        {
+            HtmlInputCheckBox optionCheckbox = this.EM.Widgets.WidgetDesignerCalendarScreen.AllowUsersToSwitchViewsCheckBox
+                                                          .AssertIsPresent("Allow users to switch views");
+            Assert.IsTrue(optionCheckbox.Checked);
+            optionCheckbox.Click();
+            Assert.IsFalse(optionCheckbox.Checked);
+        }
+
+        /// <summary>
+        /// Expand "Filter events by"
+        /// </summary>
+        public void ExpandFilteredEventsBy()
+        {
+            HtmlControl filterEventsByBtn = this.EM.Widgets.WidgetDesignerCalendarScreen.FilterEventsByButton;
+            filterEventsByBtn.AssertIsPresent("Filter Events by button");
+            filterEventsByBtn.Click();
+        }
+
+        /// <summary>
+        /// Check Calendar check box
+        /// </summary>
+        public void SelectFilterByCalendar()
+        {
+            HtmlInputCheckBox calendarCheckBox = this.EM.Widgets.WidgetDesignerCalendarScreen.CalendarCheckBox;
+            calendarCheckBox.AssertIsPresent("Calendar checkbox");
+            calendarCheckBox.Click();
         }
     }
 }

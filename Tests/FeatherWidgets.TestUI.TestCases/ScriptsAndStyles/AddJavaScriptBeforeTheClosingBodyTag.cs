@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Feather.Widgets.TestUI.Framework;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using ArtOfTest.WebAii.Controls.HtmlControls;
+using Telerik.TestUI.Core.Attributes;
 
 namespace FeatherWidgets.TestUI.TestCases.ScriptsAndStyles
 {
@@ -19,8 +20,11 @@ namespace FeatherWidgets.TestUI.TestCases.ScriptsAndStyles
         /// UI test AddJavaScriptInBodyTag
         /// </summary>
         [TestMethod,
-        Owner(FeatherTeams.FeatherTeam),
-        TestCategory(FeatherTestCategories.ScriptsAndStyles)]
+        Microsoft.VisualStudio.TestTools.UnitTesting.Owner(FeatherTeams.FeatherTeam),
+        TestCategory(FeatherTestCategories.ScriptsAndStyles),
+        TestCategory(FeatherTestCategories.PagesAndContent),
+        KnownIssue(BugId = 206938),
+        Ignore]
         public void AddJavaScriptBeforeTheClosingBodyTag()
         {
             BAT.Macros().NavigateTo().Pages(this.Culture);

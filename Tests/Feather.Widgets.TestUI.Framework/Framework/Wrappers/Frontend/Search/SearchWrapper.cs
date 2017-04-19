@@ -41,6 +41,14 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Frontend
         /// <param name="resultPageUrl">results page URL</param>
         public void ClickSearchButton(string resultsPageUrl)
         {
+            Manager.Current.Wait.For(() =>
+            {
+                ActiveBrowser.RefreshDomTree();
+                var button = ActiveBrowser.Find.ByExpression<HtmlButton>("tagname=button", "innerText=Search");
+                bool result = button != null && button.IsVisible();
+                return result;
+            });
+
             HtmlButton searchButton = this.EM.Search.SearchFrontend.SearchButton.AssertIsPresent("Search button");
             searchButton.AsjQueryControl().InvokejQueryEvent(jQueryControl.jQueryControlEvents.focus);
             searchButton.AsjQueryControl().InvokejQueryEvent(jQueryControl.jQueryControlEvents.click);
@@ -69,6 +77,13 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Frontend
         /// <param name="resultPageUrl">results page URL</param>
         public void ClickSearchLink(string resultsPageUrl)
         {
+            Manager.Current.Wait.For(() =>
+            {
+                ActiveBrowser.RefreshDomTree();
+                var link = ActiveBrowser.Find.ByExpression<HtmlAnchor>("tagname=a", "innerText=Search");
+                bool result = link != null && link.IsVisible();
+                return result;
+            });
             HtmlAnchor searchButton = this.EM.Search.SearchFrontend.SearchLink.AssertIsPresent("Search link");
 
             searchButton.Click();
@@ -101,7 +116,7 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Frontend
         public void SelectSortingOption(string sortingOption)
         {
             HtmlSelect sortingOptionsDropdown = this.EM.Search.SearchFrontend.SortingOptionsDropdown.AssertIsPresent("Sorting option dropdown");
-            
+
             sortingOptionsDropdown.SelectByText(sortingOption);
             sortingOptionsDropdown.AsjQueryControl().InvokejQueryEvent(jQueryControl.jQueryControlEvents.click);
             sortingOptionsDropdown.AsjQueryControl().InvokejQueryEvent(jQueryControl.jQueryControlEvents.change);

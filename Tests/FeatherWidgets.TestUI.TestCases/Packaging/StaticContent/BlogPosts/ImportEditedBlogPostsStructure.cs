@@ -24,10 +24,11 @@ namespace FeatherWidgets.TestUI.TestCases.Packaging.StaticContent
         TestCategory(FeatherTestCategories.Packaging)]
         public void ImportEditedBlogAndBlogPostsStructure()
         {
-            BAT.Macros().NavigateTo().Modules().Blogs(this.Culture);
+            RuntimeSettingsModificator.ExecuteWithClientTimeout(200000, () => BAT.Macros().NavigateTo().Modules().Blogs(this.Culture));          
             BAT.Arrange(this.TestName).ExecuteArrangement("ImportNewPackage");
 
-            BAT.Macros().NavigateTo().Classifications().AllClassifications();
+            RuntimeSettingsModificator.ExecuteWithClientTimeout(200000, () => BAT.Macros().NavigateTo().Classifications().AllClassifications());
+          
             BAT.Wrappers().Backend().Taxonomies().ClassificationWrapper().VerifyTaxonExistenceInTaxonomyItemsScreen(classifications[0], exists: true);
             BAT.Wrappers().Backend().Taxonomies().ClassificationWrapper().VerifyTaxonExistenceInTaxonomyItemsScreen(classifications[1], exists: true);
             BAT.Wrappers().Backend().Taxonomies().ClassificationWrapper().VerifyTaxonExistenceInTaxonomyItemsScreen(classificationsBlog[0], exists: true);
@@ -60,11 +61,6 @@ namespace FeatherWidgets.TestUI.TestCases.Packaging.StaticContent
             BAT.Wrappers().Backend().Blogs().BlogPostsWrapper().SetTitle(BlogPostNew);
             BAT.Wrappers().Backend().Blogs().BlogPostsWrapper().Publish();
 
-            BAT.Macros().NavigateTo().Pages(this.Culture);
-            BAT.Wrappers().Backend().Pages().PagesWrapper().OpenPageZoneEditor(pageName);
-            BATFeather.Wrappers().Backend().Pages().PageZoneEditorWrapper().AddMvcWidgetHybridModePage(blogWidget);
-            BATFeather.Wrappers().Backend().Pages().PageZoneEditorWrapper().AddMvcWidgetHybridModePage(blogPostWidget);
-            BAT.Wrappers().Backend().Pages().PageZoneEditorWrapper().PublishPage();
             BAT.Macros().NavigateTo().CustomPage("~/" + pageName.ToLower(), true, this.Culture);
             this.VerifyItemsOnFrontEnd(BlogNew);
             this.VerifyItemsOnFrontEnd(BlogPostNew);
@@ -76,6 +72,7 @@ namespace FeatherWidgets.TestUI.TestCases.Packaging.StaticContent
         /// </summary>
         protected override void ServerSetup()
         {
+            BAT.Arrange(this.TestName).ExecuteArrangement("LoadApplication");
             RuntimeSettingsModificator.ExecuteWithClientTimeout(200000, () => BAT.Macros().User().EnsureAdminLoggedIn());
             BAT.Arrange(this.TestName).ExecuteSetUp();
         }

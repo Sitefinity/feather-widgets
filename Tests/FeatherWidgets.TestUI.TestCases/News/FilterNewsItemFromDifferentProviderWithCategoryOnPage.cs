@@ -17,9 +17,11 @@ namespace FeatherWidgets.TestUI.TestCases.News
         [TestMethod,
         Owner(FeatherTeams.SitefinityTeam7),
         TestCategory(FeatherTestCategories.News),
-        TestCategory(FeatherTestCategories.Selectors)]
+        TestCategory(FeatherTestCategories.Selectors),
+        TestCategory(FeatherTestCategories.PagesAndContent)]
         public void FilterNewsItemFromDifferentProviderWithCategoryOnPage()
         {
+            this.AddCustomProviderToSite();
             BAT.Macros().NavigateTo().Pages(this.Culture);
             BAT.Wrappers().Backend().Pages().PagesWrapper().OpenPageZoneEditor(PageName);
             BATFeather.Wrappers().Backend().Pages().PageZoneEditorWrapper().EditWidget(WidgetName);
@@ -66,6 +68,13 @@ namespace FeatherWidgets.TestUI.TestCases.News
             BAT.Arrange(this.TestName).ExecuteTearDown();
         }
 
+        private void AddCustomProviderToSite()
+        {
+            string siteName = BAT.Arrange(ArrangementName).ExecuteArrangement("SetApplicationSite").Result.Values["siteName"];
+            string elementId = "ctl05_ctl00_ctl00_siteDetailView_ctl00_ctl00_configureModulesView_change_Telerik_Sitefinity_Modules_News_NewsManager";
+            BAT.Wrappers().Backend().Multisite().MultisiteWrapper().AddProviderToSite(elementId, SecondProviderName, siteName);
+        } 
+
         private const string PageName = "News";
         private const string TaxonTitle1 = "Category3";
         private const string TaxonTitle2 = "Category4";
@@ -76,5 +85,6 @@ namespace FeatherWidgets.TestUI.TestCases.News
         private const string TaxonomyName = "Category";
         private readonly string[] newsTitles = new string[] { NewsTitle3, NewsTitle2 };
         private const string SecondProviderName = "NewsSecondDataProvider";
+        private const string ArrangementName = "SelectNewsItemFromDifferentProviderInNewsWidget";
     }
 }

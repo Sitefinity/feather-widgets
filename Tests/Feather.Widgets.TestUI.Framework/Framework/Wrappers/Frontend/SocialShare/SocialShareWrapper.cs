@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Linq;
 using ArtOfTest.WebAii.Controls.HtmlControls;
+using ArtOfTest.WebAii.Messaging.Http;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Frontend

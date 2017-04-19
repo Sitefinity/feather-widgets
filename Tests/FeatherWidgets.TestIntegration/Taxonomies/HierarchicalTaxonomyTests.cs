@@ -27,6 +27,8 @@ namespace FeatherWidgets.TestIntegration.Taxonomies
         [FixtureSetUp]
         public void FixtureSetUp()
         {
+            this.DeleteAllCategories();
+
             using (new ElevatedModeRegion(TaxonomyManager.GetManager()))
             {
                 var taxonomyOperations = new TaxonomiesOperations();
@@ -45,7 +47,7 @@ namespace FeatherWidgets.TestIntegration.Taxonomies
                 var newsItemId = Guid.NewGuid();
                 newsOperations.CreateNewsItem("n1", newsItemId);
 
-                taxonomyOperations.AddTaxonsToNews(newsItemId, new string[] { "c3", "c3c2c1" }, new string[0]);
+                taxonomyOperations.AddTaxonsToNews(newsItemId, new string[] { "c1", "c3", "c3c2c1" }, new string[0]);
 
                 var newsManager = NewsManager.GetManager();
 
@@ -68,6 +70,7 @@ namespace FeatherWidgets.TestIntegration.Taxonomies
         }
 
         [Test]
+        [Category(TestCategories.Taxonomies)]
         [Author(FeatherTeams.SitefinityTeam2)]
         [Description("Verifies that if the option to show all taxa is set, all taxa will be retrieved.")]
         public void Categories_VerifyAllTaxaIsRetrieved()
@@ -93,6 +96,7 @@ namespace FeatherWidgets.TestIntegration.Taxonomies
         }
 
         [Test]
+        [Category(TestCategories.Taxonomies)]
         [Author(FeatherTeams.SitefinityTeam2)]
         [Description("Verifies that if the option to show specific taxa is set, the exactly same taxa will be retrieved.")]
         public void Categories_VerifySpecificTaxaIsRetrieved()
@@ -123,6 +127,7 @@ namespace FeatherWidgets.TestIntegration.Taxonomies
         }
 
         [Test]
+        [Category(TestCategories.Taxonomies)]
         [Author(FeatherTeams.SitefinityTeam2)]
         [Description("Verifies that only top level taxa is retrieved if that option is selected.")]
         public void Categories_VerifyTopLevelTaxaIsRetrieved()
@@ -147,6 +152,7 @@ namespace FeatherWidgets.TestIntegration.Taxonomies
         }
 
         [Test]
+        [Category(TestCategories.Taxonomies)]
         [Author(FeatherTeams.SitefinityTeam2)]
         [Description("Verifies that only taxa under particular parent is retrieved if that option is selected.")]
         public void Categories_VerifyTaxaUnderParticularParentIsRetrieved()
@@ -177,6 +183,7 @@ namespace FeatherWidgets.TestIntegration.Taxonomies
         }
 
         [Test]
+        [Category(TestCategories.Taxonomies)]
         [Author(FeatherTeams.SitefinityTeam2)]
         [Description("Verifies that only taxa filtered by content type is retrieved if that option is selected.")]
         public void Categories_VerifyTaxaFilteredByContentTypeIsRetrieved()
@@ -206,6 +213,7 @@ namespace FeatherWidgets.TestIntegration.Taxonomies
         }
 
         [Test]
+        [Category(TestCategories.Taxonomies)]
         [Author(FeatherTeams.SitefinityTeam2)]
         [Description("Verifies that only taxa that is assigned to a content item is shown when ShowEmptyTaxa is disabled.")]
         public void Categories_VerifyEmptyTaxaIsNotRetrieved()
@@ -234,6 +242,7 @@ namespace FeatherWidgets.TestIntegration.Taxonomies
         }
 
         [Test]
+        [Category(TestCategories.Taxonomies)]
         [Author(FeatherTeams.SitefinityTeam2)]
         [Description("Verifies that only taxa from a specific content item is shown when ContentId is set.")]
         public void Categories_VerifyTaxaFromContentItemIsRetrieved()
@@ -258,6 +267,7 @@ namespace FeatherWidgets.TestIntegration.Taxonomies
         }
 
         [Test]
+        [Category(TestCategories.Taxonomies)]
         [Author(FeatherTeams.SitefinityTeam2)]
         [Description("Verifies that hierarchical taxon view model is constructed if FlattenHierarchy is turned off.")]
         public void Categories_VerifyHierarchicalTaxaIsRetrieved()
@@ -278,6 +288,7 @@ namespace FeatherWidgets.TestIntegration.Taxonomies
         }
 
         [Test]
+        [Category(TestCategories.Taxonomies)]
         [Author(FeatherTeams.SitefinityTeam2)]
         [Description("Verifies that hierarchical taxon view model filtered by content type is constructed if FlattenHierarchy is turned off.")]
         public void Categories_VerifyHierarchicalTaxaFilteredByContentTypeIsRetrieved()

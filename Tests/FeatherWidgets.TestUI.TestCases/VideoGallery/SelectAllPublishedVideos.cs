@@ -87,17 +87,8 @@ namespace FeatherWidgets.TestUI.TestCases.VideoGallery
         {
             string libraryUrl = LibraryName.ToLower();
             string videoUrl = videoName.ToLower() + videoType.ToLower();
-            string url;
 
-            if (this.Culture == null)
-            {
-                url = this.BaseUrl;
-            }
-            else
-            {
-                url = ActiveBrowser.Url.Substring(0, 20);
-            }
-            string scr = BATFeather.Wrappers().Frontend().MediaWidgets().MediaWidgetsWrapper().GetMediaSource(libraryUrl, videoUrl, "videos", currentProviderUrlName, this.Culture);
+            string scr = BATFeather.Wrappers().Frontend().MediaWidgets().MediaWidgetsWrapper().GetMediaSource(libraryUrl, videoUrl, "videos", currentProviderUrlName);
             return scr;
         }
 
@@ -115,7 +106,7 @@ namespace FeatherWidgets.TestUI.TestCases.VideoGallery
             {
                 url = ActiveBrowser.Url.Substring(0, 20);
             }
-            string href = BATFeather.Wrappers().Frontend().MediaWidgets().MediaWidgetsWrapper().GetMediaSource(libraryUrl, videoUrl, PageName.ToLower() + "/videos", currentProviderUrlName, this.Culture);
+            string href = BATFeather.Wrappers().Frontend().MediaWidgets().MediaWidgetsWrapper().GetMediaSource(libraryUrl, videoUrl, PageName.ToLower() + "/videos", currentProviderUrlName);
             return href;
         }
 

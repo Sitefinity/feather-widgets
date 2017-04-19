@@ -1,4 +1,6 @@
-﻿using FeatherWidgets.TestUI.Arrangements.Events;
+﻿using System;
+using FeatherWidgets.TestUI.Arrangements.Events;
+using FeatherWidgets.TestUtilities.CommonOperations;
 using Telerik.Sitefinity.TestArrangementService.Attributes;
 using Telerik.Sitefinity.TestUtilities.CommonOperations;
 
@@ -7,7 +9,7 @@ namespace FeatherWidgets.TestUI.Arrangements
     /// <summary>
     /// FilterByAllEvents arrangement class.
     /// </summary>
-    public class FilterByAllEvents
+    public class FilterByAllEvents : TestArrangementBase
     {
         /// <summary>
         /// Server side set up.

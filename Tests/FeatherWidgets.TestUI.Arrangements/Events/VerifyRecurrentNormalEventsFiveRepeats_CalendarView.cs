@@ -16,7 +16,7 @@ namespace FeatherWidgets.TestUI.Arrangements
     /// <summary>
     /// Executes Server Side operations for CreateRecurrentNormalEventsFiveRepeats_CalendarView UI Test.
     /// </summary>
-    public class VerifyRecurrentNormalEventsFiveRepeats_CalendarView
+    public class VerifyRecurrentNormalEventsFiveRepeats_CalendarView : TestArrangementBase
     {
         /// <summary>
         /// Creates an Event.

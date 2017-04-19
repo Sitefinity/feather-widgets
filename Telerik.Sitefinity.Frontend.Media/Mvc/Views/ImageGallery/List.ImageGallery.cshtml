@@ -2,6 +2,7 @@
 
 @using Telerik.Sitefinity;
 @using Telerik.Sitefinity.Frontend.Mvc.Helpers;
+@using Telerik.Sitefinity.Frontend.Media.Mvc.Helpers
 @using Telerik.Sitefinity.Modules.Pages;
 @using Telerik.Sitefinity.Frontend.Media.Mvc.Models.ImageGallery;
 
@@ -12,6 +13,8 @@
     @for (int i = 0; i < Model.Items.Count(); i++)
     {
         var item = Model.Items.ElementAt(i);
+        var thumbnailViewModel = (ThumbnailViewModel)item;
+        
         var itemIndex = (Model.CurrentPage - 1) * ViewBag.ItemsPerPage + i + 1;
         var detailPageUrl = ViewBag.OpenInSamePage ? HyperLinkHelpers.GetDetailPageUrl(item, ViewBag.DetailsPageId, ViewBag.OpenInSamePage, Model.UrlKeyPrefix, itemIndex) :
             HyperLinkHelpers.GetDetailPageUrl(item, ViewBag.DetailsPageId, ViewBag.OpenInSamePage);
@@ -19,7 +22,9 @@
         <a
        href="@detailPageUrl"
        title="@(string.IsNullOrEmpty(item.Fields.Description) ? item.Fields.Title : item.Fields.Description)">
-            <img src="@(((ThumbnailViewModel)item).ThumbnailUrl)" alt='@System.Text.RegularExpressions.Regex.Replace(item.Fields.AlternativeText, @"[^\w\d_-]", "")' />
+            <img src="@(thumbnailViewModel.ThumbnailUrl)" alt='@System.Text.RegularExpressions.Regex.Replace(item.Fields.AlternativeText, @"[^\w\d_-]", "")'
+                      @Html.GetWidthAttributeIfExists(thumbnailViewModel.Width)
+                      @Html.GetHeightAttributeIfExists(thumbnailViewModel.Height) />
         </a>
     }
 

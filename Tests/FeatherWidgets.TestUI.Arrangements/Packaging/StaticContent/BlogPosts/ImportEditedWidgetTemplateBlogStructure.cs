@@ -27,13 +27,22 @@ namespace FeatherWidgets.TestUI.Arrangements
                 + (HostingEnvironment.ApplicationVirtualPath.TrimEnd('/') ?? string.Empty));
         }
 
+        /// Load the application.
+        /// </summary>
+        [ServerArrangement]
+        public void LoadApplication()
+        {
+            WaitUtils.WaitForSitefinityToStart(HttpContext.Current.Request.Url
+                .GetLeftPart(UriPartial.Authority) + (HostingEnvironment.ApplicationVirtualPath.TrimEnd('/') ?? string.Empty));
+        }
+
         /// <summary>
         /// Cleans up the resources on the server used for this arrangement
         /// </summary>
         [ServerTearDown]
         public void ClearUp()
         {
-            AuthenticationHelper.AuthenticateUser(AdminUserName, AdminPass, true);
+            AuthenticationHelper.AuthenticateUser(this.AdminEmail, this.AdminPass, true);
 
             if (System.IO.Directory.Exists(this.tempFolderPath))
                 ServerOperations.ModuleBuilder().DeleteDirectory(this.tempFolderPath);
@@ -71,7 +80,7 @@ namespace FeatherWidgets.TestUI.Arrangements
 
         private const string InstallationPath = @"App_Data\Sitefinity";
         private const string PackageResource = "FeatherWidgets.TestUtilities.Data.Packaging.Structure.BlogsStructure.zip";
-        private string tempFolderPath = AppDomain.CurrentDomain.BaseDirectory + @"App_Data\Sitefinity\Export";
+        private string tempFolderPath = AppDomain.CurrentDomain.BaseDirectory + @"App_Data\Sitefinity\Deployment";
         private string[] widgetTemplatesNames = new string[] 
                                                    { 
                                                         "Detail.DetailPageNewBlog", "List.BlogListNew", "Detail.DetailPageNewBlogPost", "List.BlogPostListNew"
@@ -83,7 +92,5 @@ namespace FeatherWidgets.TestUI.Arrangements
         private static string hierarchicalClassificationBlog = "b2";
         private const string BlogPostsType = "Telerik.Sitefinity.Blogs.Model.BlogPost,Telerik.Sitefinity.ContentModules";
         private const string BlogType = "Telerik.Sitefinity.Blogs.Model.Blog,Telerik.Sitefinity.ContentModules";
-        private const string AdminUserName = "admin";
-        private const string AdminPass = "admin@2";
     }
 }

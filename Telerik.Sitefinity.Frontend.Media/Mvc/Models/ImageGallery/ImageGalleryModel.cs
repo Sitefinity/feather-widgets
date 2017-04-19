@@ -2,13 +2,16 @@
 using System.Linq;
 using ServiceStack.Text;
 using Telerik.Sitefinity.Configuration;
+using Telerik.Sitefinity.Frontend.Media.Mvc.Helpers;
 using Telerik.Sitefinity.Frontend.Media.Mvc.Models.Image;
 using Telerik.Sitefinity.Frontend.Mvc.Models;
 using Telerik.Sitefinity.Libraries.Model;
 using Telerik.Sitefinity.Model;
 using Telerik.Sitefinity.Modules.Libraries;
+using Telerik.Sitefinity.Modules.Libraries;
 using Telerik.Sitefinity.Services;
 using SfImage = Telerik.Sitefinity.Libraries.Model.Image;
+using Telerik.Sitefinity.Modules.Libraries.Configuration;
 
 namespace Telerik.Sitefinity.Frontend.Media.Mvc.Models.ImageGallery
 {
@@ -144,6 +147,12 @@ namespace Telerik.Sitefinity.Frontend.Media.Mvc.Models.ImageGallery
 
             viewModel.MediaUrl = this.GetSelectedSizeUrl((SfImage)item, this.ImageSizeModel);
 
+            var sfImage = item as SfImage;
+            if (sfImage != null && sfImage.IsVectorGraphics())
+            {
+                this.ApplyThumbnailProfileToViewModel(viewModel, this.ImageSizeModel);
+            }
+
             return viewModel;
         }
 
@@ -158,10 +167,18 @@ namespace Telerik.Sitefinity.Frontend.Media.Mvc.Models.ImageGallery
         {
             base.PopulateListViewModel(page, query, viewModel);
 
-            foreach (var item in viewModel.Items)
+            foreach (ThumbnailViewModel item in viewModel.Items)
             {
-                ((ThumbnailViewModel)item).ThumbnailUrl = this.GetSelectedSizeUrl((SfImage)item.DataItem, this.ThumbnailSizeModel);
-                ((ThumbnailViewModel)item).MediaUrl = this.GetSelectedSizeUrl((SfImage)item.DataItem, this.ImageSizeModel);
+                var sfImage = (SfImage)item.DataItem;
+
+                if (sfImage.IsVectorGraphics())
+                {
+                    this.ApplyThumbnailProfileToViewModel(item, this.ThumbnailSizeModel);
+                    this.ApplyImageSizesToViewModel(item, this.ImageSizeModel);
+                }
+
+                item.ThumbnailUrl = this.GetSelectedSizeUrl(sfImage, this.ThumbnailSizeModel);
+                item.MediaUrl = this.GetSelectedSizeUrl(sfImage, this.ImageSizeModel);
             }
         }
         #endregion
@@ -219,6 +236,117 @@ namespace Telerik.Sitefinity.Frontend.Media.Mvc.Models.ImageGallery
             }
 
             return result;
+        }
+
+        private void ApplyThumbnailProfileToViewModel(ThumbnailViewModel thumbnailViewModel, ImageSizeModel imageSizeModel)
+        {
+            int width;
+            int height;
+
+            this.GetThumbnailSizes(out width, out height, imageSizeModel);
+
+            if (height > 0)
+            {
+                thumbnailViewModel.Height = height;
+            }
+            
+            if (width > 0)
+            {
+                thumbnailViewModel.Width = width;
+            }
+        }
+
+        private void ApplyImageSizesToViewModel(ThumbnailViewModel thumbnailViewModel, ImageSizeModel imageSizeModel)
+        {
+            int width;
+            int height;
+
+            this.GetThumbnailSizes(out width, out height, imageSizeModel);
+
+            if (height > 0)
+            {
+                thumbnailViewModel.DetailsImageHeight = height;
+            }
+
+            if (width > 0)
+            {
+                thumbnailViewModel.DetailsImageWidth = width;
+            }
+        }
+
+        private void ApplyThumbnailProfileToViewModel(ImageDetailsViewModel imageDetailsViewModel, ImageSizeModel imageSizeModel)
+        {
+            int width;
+            int height;
+
+            this.GetThumbnailSizes(out width, out height, imageSizeModel);
+
+            if (height > 0)
+            {
+                imageDetailsViewModel.Height = height;
+            }
+
+            if (width > 0)
+            {
+                imageDetailsViewModel.Width = width;
+            }
+        }
+
+        private void GetThumbnailSizes(out int width, out int height, ImageSizeModel imageSizeModel)
+        {
+            width = 0;
+            height = 0;
+
+            var thumbnailName = imageSizeModel.Thumbnail != null ? imageSizeModel.Thumbnail.Name : string.Empty;
+
+            var thumbnailProfile = this.DefaultAlbumThumbnailProfile(thumbnailName);
+            if (thumbnailProfile != null)
+            {
+                // Sets width - width is with higher priority if presents in parameters' collection
+                if (thumbnailProfile.Parameters.Keys.Contains("Width"))
+                {
+                    width = this.GetThumbnailProfileSize(thumbnailProfile, "Width");
+                }
+                else if (thumbnailProfile.Parameters.Keys.Contains("MaxWidth"))
+                {
+                    width = this.GetThumbnailProfileSize(thumbnailProfile, "MaxWidth");
+                }
+
+                // Sets height - height is with higher priority if presents in parameters' collection
+                if (thumbnailProfile.Parameters.Keys.Contains("Height"))
+                {
+                    height = this.GetThumbnailProfileSize(thumbnailProfile, "Height");
+                }
+                else if (thumbnailProfile.Parameters.Keys.Contains("MaxHeight"))
+                {
+                    height = this.GetThumbnailProfileSize(thumbnailProfile, "MaxHeight");
+                }
+            }
+        }
+
+        private int GetThumbnailProfileSize(ThumbnailProfileConfigElement thumbnailProfile, string parameterKey)
+        {
+            int width = 0;
+            int.TryParse(thumbnailProfile.Parameters[parameterKey], out width);
+
+            return width;
+        }
+
+        private ThumbnailProfileConfigElement DefaultAlbumThumbnailProfile(string thumbnailName)
+        {
+            if (!string.IsNullOrWhiteSpace(thumbnailName))
+            {
+                var profiles = Config.Get<LibrariesConfig>().Images.Thumbnails.Profiles;
+
+                if (profiles.ContainsKey(thumbnailName))
+                {
+                    var thumbnailProfile = profiles[thumbnailName];
+
+                    return thumbnailProfile;
+                }
+            }
+
+            return null;
         }
 
         #endregion

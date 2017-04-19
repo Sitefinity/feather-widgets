@@ -35,7 +35,6 @@
                     }
                     if ($scope.currentItems.indexOf('') === -1) {
                         $scope.properties.Model.SerializedChoices.PropertyValue = JSON.stringify($scope.currentItems);
-                        $scope.properties.Model.MetaField.DefaultValue.PropertyValue = $scope.defaultValue;
                         deferred.resolve();
                     }
                     else {

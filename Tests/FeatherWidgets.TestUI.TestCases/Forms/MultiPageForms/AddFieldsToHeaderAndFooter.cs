@@ -19,7 +19,8 @@ namespace FeatherWidgets.TestUI.TestCases.Forms.MultiPageForms
         /// </summary>
         [TestMethod,
         Owner(FeatherTeams.SitefinityTeam6),
-        TestCategory(FeatherTestCategories.Bootstrap)]
+        TestCategory(FeatherTestCategories.Bootstrap),
+        TestCategory(FeatherTestCategories.Forms)]
         public void AddFieldsToHeaderAndFooter()
         {
             BAT.Macros().NavigateTo().Modules().Forms(this.Culture);
@@ -95,6 +96,6 @@ namespace FeatherWidgets.TestUI.TestCases.Forms.MultiPageForms
         private const string Header = "Header";
         private const int ExpectedResponsesCount = 1;
         private const int ResponseNumber = 1;
-        private const string ExpectedAuthorName = "admin";
+        private const string ExpectedAuthorName = "admin@test.test";
     }
 }

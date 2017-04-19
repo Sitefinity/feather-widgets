@@ -22,6 +22,8 @@
     {
         firstItem = Model.Items.FirstOrDefault();
     }
+
+    ThumbnailViewModel thumbnailViewModel = (ThumbnailViewModel)firstItem;
 }
 
 @if (hasItems)
@@ -35,9 +37,11 @@
     <div><span class="js-Gallery-index">1</span> of @Model.Items.Count()</div>
 
     <p class="js-Gallery-image">
-        <a class='js-Gallery-prev'>Prev</a>
-        <a class='js-Gallery-next'>Next</a>
-        <img src="@(((ThumbnailViewModel)firstItem).MediaUrl)" title="@firstItem.DataItem.Title" alt="@firstItem.DataItem.AlternativeText" />
+        <a href="javascript:void(0)" class='js-Gallery-prev'>Prev</a>
+        <a href="javascript:void(0)" class='js-Gallery-next'>Next</a>
+        <img src="@(thumbnailViewModel.MediaUrl)" title="@firstItem.DataItem.Title" alt="@firstItem.DataItem.AlternativeText" 
+                  @Html.GetWidthAttributeIfExists(thumbnailViewModel.Width)
+                  @Html.GetHeightAttributeIfExists(thumbnailViewModel.Height) />
     </p>
         }
         else
@@ -49,8 +53,8 @@
     <div><span class="js-Gallery-index"></span> of @Model.Items.Count()</div>
 
     <p class="js-Gallery-image">
-        <a class='js-Gallery-prev'>Prev</a>
-        <a class='js-Gallery-next'>Next</a>
+        <a href="javascript:void(0)" class='js-Gallery-prev'>Prev</a>
+        <a href="javascript:void(0)" class='js-Gallery-next'>Next</a>
         <img />
     </p>
     }
@@ -60,8 +64,21 @@
 <div class="js-Gallery-thumbs">
 @foreach(var item in Model.Items)
 {
+    var itemViewModel = (ThumbnailViewModel)item;
+    
     <a title="@item.Fields.Title" data-item="@Html.GetSerializedImage(item)" data-detail-url="@HyperLinkHelpers.GetDetailPageUrl(item, ViewBag.DetailsPageId, ViewBag.OpenInSamePage, Model.UrlKeyPrefix)">
-        <img src="@(((ThumbnailViewModel)item).ThumbnailUrl)" alt="@item.Fields.AlternativeText"/>
+        <img src="@(itemViewModel.ThumbnailUrl)" alt="@item.Fields.AlternativeText" 
+                      @Html.GetWidthAttributeIfExists(itemViewModel.Width)
+                      @Html.GetHeightAttributeIfExists(itemViewModel.Height) />
     </a>
 }
 </div>
+@if (Model.ShowPager)
+{
+    @Html.Action("Index", "ContentPager", new
+       {
+           currentPage = Model.CurrentPage,
+           totalPagesCount = Model.TotalPagesCount.Value,
+           redirectUrlTemplate = ViewBag.RedirectPageUrlTemplate
+       })
+}

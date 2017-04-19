@@ -90,6 +90,46 @@ namespace FeatherWidgets.TestUtilities.CommonOperations.Pages
         }
 
         /// <summary>
+        /// Uploads the image in folder.
+        /// </summary>
+        /// <param name="folderId">The folder id.</param>
+        /// <param name="videoTitle">The image title.</param>
+        /// <param name="videoResource">The image resource.</param>
+        /// <param name="videoExtension">The image extension.</param>
+        /// <returns></returns>
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1026:DefaultParametersShouldNotBeUsed")]
+        public Guid UploadImageInFolder(Guid folderId, string imageTitle, string imageResource, string imageExtension = null)
+        {
+            var manager = LibrariesManager.GetManager();
+
+            var folder = manager.GetFolder(folderId);
+            Library library = this.GetLibraryByFolder(manager, folder);
+
+            var image = manager.CreateImage();
+            var title = imageTitle;
+            image.Parent = library;
+            if (folderId != library.Id)
+                image.FolderId = folderId;
+            image.Title = title;
+            image.UrlName = title.ToLower().Replace(' ', '-');
+            image.AlternativeText = title;
+            image.ApprovalWorkflowState = "Published";
+            manager.RecompileItemUrls<Telerik.Sitefinity.Libraries.Model.Image>(image);
+
+            System.Reflection.Assembly thisExe;
+            thisExe = System.Reflection.Assembly.GetExecutingAssembly();
+            System.IO.Stream imageStream = thisExe.GetManifestResourceStream(imageResource);
+
+            manager.Upload(image, imageStream, imageExtension ?? Path.GetExtension(imageResource));
+
+            manager.Lifecycle.Publish(image);
+
+            manager.SaveChanges();
+
+            return image.Id;
+        }
+
+        /// <summary>
         /// Get the Library of a given Folder
         /// </summary>
         /// <param name="manager">Library Manager</param>

@@ -21,6 +21,7 @@ namespace FeatherWidgets.TestUI.TestCases.Identity
         Owner(FeatherTeams.SitefinityTeam3),
         TestCategory(FeatherTestCategories.PagesAndContent),
         TestCategory(FeatherTestCategories.LoginForm),
+        TestCategory(FeatherTestCategories.Identity),
         TestCategory(FeatherTestCategories.Bootstrap)]
         public void LoginFormAddChangeRemoveRedirectToPageAfterLogin()
         {
@@ -39,7 +40,7 @@ namespace FeatherWidgets.TestUI.TestCases.Identity
 
             BAT.Macros().NavigateTo().CustomPage("~/" + LoginPageName.ToLower(), false, this.Culture);
 
-            BATFeather.Wrappers().Frontend().Identity().LoginFormWrapper().EnterUserName(AdminUserName);
+            BATFeather.Wrappers().Frontend().Identity().LoginFormWrapper().EnterEmail(AdminEmail);
             BATFeather.Wrappers().Frontend().Identity().LoginFormWrapper().EnterPassword(AdminPassword);
             BATFeather.Wrappers().Frontend().Identity().LoginFormWrapper().PressLoginButton();
 
@@ -60,7 +61,7 @@ namespace FeatherWidgets.TestUI.TestCases.Identity
 
             BAT.Macros().NavigateTo().CustomPage("~/" + LoginPageName.ToLower(), false, this.Culture);
 
-            BATFeather.Wrappers().Frontend().Identity().LoginFormWrapper().EnterUserName(AdminUserName);
+            BATFeather.Wrappers().Frontend().Identity().LoginFormWrapper().EnterEmail(AdminEmail);
             BATFeather.Wrappers().Frontend().Identity().LoginFormWrapper().EnterPassword(AdminPassword);
             BATFeather.Wrappers().Frontend().Identity().LoginFormWrapper().PressLoginButton();
 
@@ -80,7 +81,7 @@ namespace FeatherWidgets.TestUI.TestCases.Identity
 
             BAT.Macros().NavigateTo().CustomPage("~/" + LoginPageName.ToLower(), false, this.Culture);
 
-            BATFeather.Wrappers().Frontend().Identity().LoginFormWrapper().EnterUserName(AdminUserName);
+            BATFeather.Wrappers().Frontend().Identity().LoginFormWrapper().EnterEmail(AdminEmail);
             BATFeather.Wrappers().Frontend().Identity().LoginFormWrapper().EnterPassword(AdminPassword);
             BATFeather.Wrappers().Frontend().Identity().LoginFormWrapper().PressLoginButton();
 
@@ -109,7 +110,7 @@ namespace FeatherWidgets.TestUI.TestCases.Identity
         private const string LoginFormWidget = "Login form";
         private readonly string[] pageToSelect = new string[] { "RedirectPage1" };
         private readonly string[] pageToChange = new string[] { "RedirectPage2" };
-        private const string AdminUserName = "admin";
+        private const string AdminEmail = "admin@test.test";
         private const string AdminPassword = "admin@2"; 
     }
 }

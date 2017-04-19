@@ -3,19 +3,19 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Globalization;
 using System.Web.Mvc;
+using Telerik.Microsoft.Practices.Unity.Utility;
 using Telerik.Sitefinity.ContentLocations;
 using Telerik.Sitefinity.Events.Model;
+using Telerik.Sitefinity.Frontend.Events.Mvc.Helpers;
 using Telerik.Sitefinity.Frontend.Events.Mvc.Models.EventScheduler;
 using Telerik.Sitefinity.Frontend.Events.Mvc.StringResources;
-using Telerik.Sitefinity.Frontend.Mvc.Helpers;
 using Telerik.Sitefinity.Frontend.Mvc.Infrastructure.Controllers;
 using Telerik.Sitefinity.Frontend.Mvc.Infrastructure.Controllers.Attributes;
 using Telerik.Sitefinity.Modules.Pages.Configuration;
 using Telerik.Sitefinity.Mvc;
+using Telerik.Sitefinity.Security;
 using Telerik.Sitefinity.Services;
-using Telerik.Sitefinity.Taxonomies.Model;
 using Telerik.Sitefinity.Web;
-using Telerik.Sitefinity.Web.DataResolving;
 
 namespace Telerik.Sitefinity.Frontend.Events.Mvc.Controllers
 {
@@ -139,10 +139,15 @@ namespace Telerik.Sitefinity.Frontend.Events.Mvc.Controllers
         /// </returns>
         public ActionResult Index()
         {
+            var viewModel = this.Model.CreateListViewModel(null, 1);
+
             this.InitializeListViewBag("/{0}");
 
+            if (SystemManager.CurrentHttpContext != null)
+                this.AddCacheDependencies(this.Model.GetKeysOfDependentObjects(viewModel));
+
             var fullTemplateName = EventSchedulerController.ListTemplateNamePrefix + this.ListTemplateName;
-            return this.View(fullTemplateName);
+            return this.View(fullTemplateName, this.Model);
         }
 
         /// <summary>
@@ -170,16 +175,21 @@ namespace Telerik.Sitefinity.Frontend.Events.Mvc.Controllers
         /// </summary>
         /// <returns>Scheduler events json</returns>
         [Route("web-interface/events/")]
-        public ActionResult GetSchedulerEvents(EventSchedulerModel model)
+        public ActionResult GetEvents(EventsFilter filter)
         {
-            var events = model.GetSchedulerEvents();
-
             JsonResult json = new JsonResult()
             {
-                Data = events,
                 JsonRequestBehavior = System.Web.Mvc.JsonRequestBehavior.AllowGet,
                 MaxJsonLength = int.MaxValue
             };
+
+            Guard.ArgumentNotNull(filter, "filter");
+
+            var eventSchedulerModel = EventSchedulerHelper.LoadModel(filter.Id, filter.UICulture);
+            if (eventSchedulerModel != null)
+            {
+                json.Data = eventSchedulerModel.GetEvents(filter);
+            }
 
             return json;
         }
@@ -190,16 +200,21 @@ namespace Telerik.Sitefinity.Frontend.Events.Mvc.Controllers
         /// <param name="model">The model.</param>
         /// <returns>Calendars json</returns>
         [Route("web-interface/calendars/")]
-        public ActionResult GetCalendars(EventSchedulerModel model)
+        public ActionResult GetCalendars(EventsFilter filter)
         {
-            var calendars = model.GetCalendars();
-
             JsonResult json = new JsonResult()
             {
-                Data = calendars,
                 JsonRequestBehavior = System.Web.Mvc.JsonRequestBehavior.AllowGet,
                 MaxJsonLength = int.MaxValue
             };
+
+            Guard.ArgumentNotNull(filter, "filter");
+
+            var eventSchedulerModel = EventSchedulerHelper.LoadModel(filter.Id, filter.UICulture);
+            if (eventSchedulerModel != null)
+            {
+                json.Data = eventSchedulerModel.GetCalendars(filter);
+            }
 
             return json;
         }
@@ -222,7 +237,7 @@ namespace Telerik.Sitefinity.Frontend.Events.Mvc.Controllers
         /// <param name="actionName">The name of the attempted action.</param>
         protected override void HandleUnknownAction(string actionName)
         {
-            this.Index().ExecuteResult(this.ControllerContext);
+            this.ActionInvoker.InvokeAction(this.ControllerContext, "Index");
         }
 
         /// <summary>
@@ -231,14 +246,12 @@ namespace Telerik.Sitefinity.Frontend.Events.Mvc.Controllers
         /// <param name="redirectPageUrl">The redirect page URL.</param>
         protected virtual void InitializeListViewBag(string redirectPageUrl)
         {
-            this.ViewBag.CurrentPageUrl = SystemManager.CurrentHttpContext != null ? this.GetCurrentPageUrl() : string.Empty;
-            this.ViewBag.RedirectPageUrlTemplate = this.ViewBag.CurrentPageUrl + redirectPageUrl;
-            this.ViewBag.OpenInSamePage = this.OpenInSamePage;
-            this.ViewBag.DetailsPageId = this.DetailsPageId;
-            this.ViewBag.DetailsPageUrl = this.GetDetailsPageUrl();
+            var timezoneInfo = UserManager.GetManager().GetUserTimeZone();
+            this.ViewBag.WidgetId = EventSchedulerHelper.GetWidgetId(this);
+            this.ViewBag.DetailsPageId = this.DetailsPageId == Guid.Empty ? (SiteMapBase.GetActualCurrentNode() == null ? Guid.Empty : SiteMapBase.GetActualCurrentNode().Id) : this.DetailsPageId;
             this.ViewBag.UiCulture = SystemManager.CurrentContext.AppSettings.Multilingual ? CultureInfo.CurrentUICulture.ToString() : string.Empty;
-            this.ViewBag.TimeZoneOffset = Telerik.Sitefinity.Security.UserManager.GetManager().GetUserTimeZone().BaseUtcOffset.TotalMilliseconds.ToString();
-            this.ViewBag.TimeZoneId = Telerik.Sitefinity.Security.UserManager.GetManager().GetUserTimeZone().Id;
+            this.ViewBag.TimeZoneOffset = timezoneInfo.BaseUtcOffset.TotalMilliseconds.ToString();
+            this.ViewBag.TimeZoneId = timezoneInfo.Id;
         }
 
         /// <summary>
@@ -251,21 +264,6 @@ namespace Telerik.Sitefinity.Frontend.Events.Mvc.Controllers
                 this.ViewBag.Title = item.Title;
 
             this.ViewBag.AllowCalendarExport = this.Model.AllowCalendarExport;
-        }
-
-        /// <summary>
-        /// Get details page url
-        /// </summary>
-        /// <returns>Url</returns>
-        private string GetDetailsPageUrl()
-        {
-            string currentPageUrl = SystemManager.CurrentHttpContext != null ? this.GetCurrentPageUrl() : string.Empty;
-            if (this.DetailsPageId != Guid.Empty)
-            {
-                currentPageUrl = HyperLinkHelpers.GetFullPageUrl(this.DetailsPageId);
-            }
-
-            return currentPageUrl;
         }
 
         private const string WidgetIconCssClass = "sfEventsViewIcn sfMvcIcn";

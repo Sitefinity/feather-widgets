@@ -99,6 +99,7 @@ namespace FeatherWidgets.TestIntegration.Events
         [Category(TestCategories.Events)]
         [Author(FeatherTeams.FeatherTeam)]
         [Description("Add Event widget to a page and display limited events.")]
+        [Ignore("Unstable test: 207130")]
         public void EventWidget_UseLimit_TwoItems()
         {
             int limitCount = 2;

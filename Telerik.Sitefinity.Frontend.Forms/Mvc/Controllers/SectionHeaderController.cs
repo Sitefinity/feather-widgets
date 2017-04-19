@@ -64,7 +64,7 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Controllers
         /// <inheritDocs />
         protected override void HandleUnknownAction(string actionName)
         {
-            this.Read(null).ExecuteResult(this.ControllerContext);
+            this.ActionInvoker.InvokeAction(this.ControllerContext, "Read");
         }
 
         private ISectionHeaderModel model;

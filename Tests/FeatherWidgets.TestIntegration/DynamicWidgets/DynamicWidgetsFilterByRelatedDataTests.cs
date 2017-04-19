@@ -21,7 +21,7 @@ namespace FeatherWidgets.TestIntegration.DynamicWidgets
     [TestFixture]
     public class DynamicWidgetsFilterByRelatedDataTests
     {
-        [FixtureSetUp]
+        [SetUp]
         public void Setup()
         {
             ServerOperationsFeather.DynamicModules().EnsureModuleIsImported(Module1Name, Module1Resource);
@@ -168,7 +168,7 @@ namespace FeatherWidgets.TestIntegration.DynamicWidgets
             }
         }
 
-        [FixtureTearDown]
+        [TearDown]
         public void Teardown()
         {
             ServerOperations.ModuleBuilder().DeleteAllModules(this.providerName, TransactionName);

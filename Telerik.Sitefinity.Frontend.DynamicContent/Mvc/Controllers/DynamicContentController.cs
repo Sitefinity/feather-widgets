@@ -20,6 +20,7 @@ using Telerik.Sitefinity.Frontend.Mvc.Models;
 using Telerik.Sitefinity.GenericContent.Model;
 using Telerik.Sitefinity.Localization;
 using Telerik.Sitefinity.Model;
+using Telerik.Sitefinity.Personalization;
 using Telerik.Sitefinity.Services;
 using Telerik.Sitefinity.Taxonomies.Model;
 using Telerik.Sitefinity.Utilities.TypeConverters;
@@ -32,7 +33,7 @@ namespace Telerik.Sitefinity.Frontend.DynamicContent.Mvc.Controllers
     /// </summary>
     [Localization(typeof(DynamicContentResources))]
     [ControllerMetadataAttribute(IsTemplatableControl = false)]
-    public class DynamicContentController : Controller, IRouteMapper, IContentLocatableView, IDynamicContentWidget
+    public class DynamicContentController : Controller, IRouteMapper, IContentLocatableView, IDynamicContentWidget, IPersonalizable
     {
         #region Properties
 
@@ -169,13 +170,12 @@ namespace Telerik.Sitefinity.Frontend.DynamicContent.Mvc.Controllers
             {
                 if (this.Model.CurrentlyOpenParentType != null && SitefinityContext.IsBackend)
                 {
-                    var manager = ModuleBuilderManager.GetManager().Provider;
-                    var dynamicType = manager.GetDynamicModuleTypes().FirstOrDefault(t => t.TypeName == this.Model.ContentType.Name && t.TypeNamespace == this.Model.ContentType.Namespace);
+                    var dynamicType = ModuleBuilderManager.GetActiveTypes().FirstOrDefault(t => t.FullTypeName == this.Model.ContentType.FullName);
                     if (dynamicType != null)
                     {
                         if (this.Model.CurrentlyOpenParentType != DynamicContentController.AnyParentValue)
                         {
-                            var parentType = manager.GetDynamicModuleTypes().FirstOrDefault(t => t.TypeNamespace + "." + t.TypeName == this.Model.CurrentlyOpenParentType);
+                            var parentType = ModuleBuilderManager.GetActiveTypes().FirstOrDefault(t => t.FullTypeName == this.Model.CurrentlyOpenParentType);
                             if (parentType != null)
                             {
                                 return this.Content(Res.Get<DynamicContentResources>().DisplaysFromCurrentlyOpen.Arrange(dynamicType.DisplayName, PluralsResolver.Instance.ToPlural(parentType.DisplayName)));

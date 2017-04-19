@@ -16,7 +16,7 @@ namespace FeatherWidgets.TestUnit.DummyClasses.SocialShare
     /// </summary>
     public class DummySocialShareController : SocialShareController
     {
-        public DummySocialShareController(IList<SocialShareGroup> socialShareGroups) 
+        public DummySocialShareController(IList<SocialShareGroup> socialShareGroups)
             : this()
         {
             this.socialShareGroups = socialShareGroups;

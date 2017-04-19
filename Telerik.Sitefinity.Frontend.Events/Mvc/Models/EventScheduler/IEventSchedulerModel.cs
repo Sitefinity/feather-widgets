@@ -209,5 +209,17 @@ namespace Telerik.Sitefinity.Frontend.Events.Mvc.Models.EventScheduler
         /// </summary>
         [SuppressMessage("Microsoft.Design", "CA1024:UsePropertiesWhereAppropriate")]
         IEnumerable<IContentLocationInfo> GetLocations();
+
+        /// <summary>
+        /// Gets the scheduler events.
+        /// </summary>
+        /// <returns>List view model</returns>
+        IList<EventOccurrenceViewModel> GetEvents(IEventsFilter filter);
+
+        /// <summary>
+        /// Gets the calendars.
+        /// </summary>
+        /// <returns>List view model</returns>
+        IList<EventCalendarViewModel> GetCalendars(IEventsFilter filter);
     }
 }

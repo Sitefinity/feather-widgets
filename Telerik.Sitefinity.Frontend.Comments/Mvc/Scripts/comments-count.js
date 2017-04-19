@@ -5,7 +5,7 @@
         Widget
     */
     var CommentsCountWidget = function (rootUrl) {
-        if (rootUrl === null || rootUrl.length === 0)
+        if (typeof rootUrl === "undefined" || rootUrl === null || rootUrl.length === 0)
             rootUrl = '/';
         else if (rootUrl.charAt(rootUrl.length - 1) !== '/')
             rootUrl = rootUrl + '/';
@@ -172,7 +172,7 @@
                 var oldRatingValue = parseFloat(oldRating);
                 currentRating = (((currentCount - 1) * oldRatingValue) + currentRating) / currentCount;
             }
-            
+
             // round to the second decimal
             currentRating = Math.round(currentRating * 100) / 100;
 
@@ -185,7 +185,7 @@
 
             self.setCommentsCounts();
 
-            $(document).on('sf-comments-count-received', function (event, args) {
+            $(document).on('click', 'sf-comments-count-received', function (event, args) {
                 $('div[data-sf-thread-key="' + args.key + '"]').each(self.populateCommentsCountTextCallBack(args.count, args.rating));
             });
         },
@@ -195,7 +195,18 @@
         Widgets creation
     */
     $(function () {
+        if (typeof personalizationManager !== "undefined" && personalizationManager) {
+            personalizationManager.addPersonalizedContentLoaded(function () {
+                Initialization();
+            });
+        }
+        else {
+            Initialization();
+        }
+    });
+
+    function Initialization() {
         var rootUrl = $('[data-sf-role="comments-count-wrapper"]').find('[data-sf-role="service-url"]').val();
         (new CommentsCountWidget(rootUrl)).initialize();
-    });
+    }
 }(jQuery));

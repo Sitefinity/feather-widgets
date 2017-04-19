@@ -3,7 +3,7 @@
         return;
 
     $(function () {
-        var formContainers = $('[data-sf-role="form-container"]');
+        var formContainers = $('[data-sf-role="form-container"]:has([data-sf-role="ajax-submit-url"])');
         formContainers.each(function (i, element) {
             var formContainer = $(element);
             var loadingImg = formContainer.find('[data-sf-role="loading-img"]');
@@ -40,6 +40,16 @@
                     if (!isValid)
                         return false;
 
+                    if (typeof MarketoSubmitScript !== 'undefined') {
+                        MarketoSubmitScript._populateFormId($(newForm).find('input[data-sf-role="form-id"]').val());
+                        var newSubmitButtons = $(newForm).find(MarketoSubmitScript._settings.externalFormSubmitButtonsQuery);
+                        if (newSubmitButtons.length > 0)
+                            MarketoSubmitScript._formFields = MarketoSubmitScript._getExternalFormFields(newSubmitButtons[0]);
+                        if (MarketoSubmitScript._formFields && MarketoSubmitScript._formFields.length === 0)
+                            MarketoSubmitScript._populateFieldsFromLabels(newForm);
+                        MarketoSubmitScript._formSubmitHandler();
+                    }
+
                     var formData = new FormData(newForm[0]);
                     var request = new XMLHttpRequest();
                     request.open('POST', submitUrl);
@@ -59,6 +69,7 @@
                                 errorMessage.text(responseJson.error);
                                 errorMessage.show();
                                 fieldsContainer.show();
+                                fieldsContainer.find('[data-sf-role="captcha-refresh-button"]').click();
                                 loadingImg.hide();
                             }
                         }

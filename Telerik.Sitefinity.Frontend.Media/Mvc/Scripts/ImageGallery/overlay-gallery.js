@@ -23,6 +23,13 @@
                     if (detailUrl && history.state !== this.currItem.index) {
                         history.pushState(this.currItem.index, img.attr('alt'), detailUrl);
                     }
+
+                    if (img && img.length > 0) {
+                        var width = $(img[0]).data("width");
+                        if (width) {
+                            this.currItem.img.css("max-width", width);
+                        }
+                    }
                 },
                 close: function () {
                     if (pageHref !== location.href) {

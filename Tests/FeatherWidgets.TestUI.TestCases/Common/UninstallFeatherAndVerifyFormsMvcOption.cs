@@ -23,23 +23,29 @@ namespace FeatherWidgets.TestUI.TestCases.Common
         /// </summary>
         [TestMethod,
         Owner(FeatherTeams.SitefinityTeam2),
-        TestCategory(FeatherTestCategories.PagesAndContent)]
+        TestCategory(FeatherTestCategories.PagesAndContent),
+        TestCategory(FeatherTestCategories.Common),
+        TestCategory(FeatherTestCategories.IgnoredInReadOnly)]
         public void UninstallFeatherAndVerifyFormsMvcOption()
         {
-            BAT.Wrappers().Backend().ModulesAndServices().ModulesAndServicesWrapper().NavigateToModules();
+            BAT.Macros().NavigateTo().System().ModulesAndServices();
+            ActiveBrowser.WaitUntilReady();
+            BAT.Wrappers().Backend().ModulesAndServices().ModulesAndServicesWrapper().WaitForRestart();
             BAT.Wrappers().Backend().ModulesAndServices().ModulesAndServicesWrapper().DeactivateModule(ModuleName);
             BAT.Wrappers().Backend().ModulesAndServices().ModulesAndServicesWrapper().UninstallModule(ModuleName);
 
             this.VerifyPageBackend(PageName, WidgetName, FormsContentDisabled, false);
 
             BAT.Macros().NavigateTo().Modules().Forms(this.Culture);
+            BAT.Wrappers().Backend().Forms().FormsDashboard().PublishFormFromActionsMenu(WidgetName);
             BAT.Wrappers().Backend().Forms().FormsDashboard().ClickCreateAFormButton();
             BATFeather.Wrappers().Backend().Forms().FormsContentScreenWrapper().ClickAdvancedButton();
             BATFeather.Wrappers().Backend().Forms().FormsWrapper().VerifyWebFrameworkOptions(false);
             BAT.Wrappers().Backend().Forms().FormsCreateScreen().ClickBackToForms();
 
-
-            BAT.Wrappers().Backend().ModulesAndServices().ModulesAndServicesWrapper().NavigateToModules();
+            BAT.Macros().NavigateTo().System().ModulesAndServices();
+            ActiveBrowser.WaitUntilReady();
+            BAT.Wrappers().Backend().ModulesAndServices().ModulesAndServicesWrapper().WaitForRestart();
             BAT.Wrappers().Backend().ModulesAndServices().ModulesAndServicesWrapper().InstallModule(ModuleName);
 
             this.VerifyPageBackend(PageName, WidgetName, FormsContentEnabled, true);

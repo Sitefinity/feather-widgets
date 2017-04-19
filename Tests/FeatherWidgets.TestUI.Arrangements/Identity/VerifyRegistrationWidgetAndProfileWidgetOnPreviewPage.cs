@@ -16,7 +16,7 @@ namespace FeatherWidgets.TestUI.Arrangements
         [ServerSetUp]
         public void SetUp()
         {
-            AuthenticationHelper.AuthenticateUser(AdminUserName, AdminPass, true);
+            AuthenticationHelper.AuthenticateUser(this.AdminEmail, this.AdminPass, true);
 
             Guid templateId = ServerOperations.Templates().GetTemplateIdByTitle(TemplateTitle);
             Guid pageId = ServerOperations.Pages().CreatePage(PageTitle, templateId);
@@ -31,16 +31,14 @@ namespace FeatherWidgets.TestUI.Arrangements
         [ServerTearDown]
         public void TearDown()
         {
-            AuthenticationHelper.AuthenticateUser(AdminUserName, AdminPass, true);
+            AuthenticationHelper.AuthenticateUser(this.AdminEmail, this.AdminPass, true);
             ServerOperations.Pages().DeleteAllPages();
-            ServerOperations.Users().DeleteUserAndProfile(NewUserName);
+            ServerOperations.Users().DeleteUserAndProfile(NewUserEmail);
         }
 
         private const string PageTitle = "RegistrationPage";
         private const string TemplateTitle = "Bootstrap.default";
-        private const string AdminUserName = "admin";
-        private const string AdminPass = "admin@2";
         private const string PlaceHolderId = "Contentplaceholder1";
-        private const string NewUserName = "newUser";
+        private const string NewUserEmail = "newuser@test.test";
     }
 }

@@ -237,9 +237,9 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.StringResources
         /// Gets phrase : Login with Windows Security Token Service.
         /// </summary>
         [ResourceEntry("LoginWinSts",
-            Value = "Login with Windows Security Token Service",
-            Description = "phrase : Login with Windows Security Token Service",
-            LastModified = "2015/02/26")]
+            Value = "Login with Windows Security Token Service (applicable only for Simple Web Token)",
+            Description = "phrase : Login with Windows Security Token Service (applicable only for Simple Web Token)",
+            LastModified = "2017/03/06")]
         public string LoginWinSts
         {
             get

@@ -8,6 +8,7 @@ using ArtOfTest.Common.UnitTesting;
 using ArtOfTest.WebAii.Controls.HtmlControls;
 using ArtOfTest.WebAii.Core;
 using Telerik.WebAii.Controls.Html;
+using ArtOfTest.WebAii.jQuery;
 
 namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend
 {
@@ -128,6 +129,38 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend
         }
 
         /// <summary>
+        /// Edit widget by name
+        /// </summary>
+        /// <param name="widgetName">The widget name</param>
+        /// <param name="dropZoneIndex">The drop zone index</param>
+        public void EditImageWidget(string widgetName, int dropZoneIndex = 0, bool isMediaWidgetEdited = false)
+        {
+            ActiveBrowser.WaitUntilReady();
+            ActiveBrowser.RefreshDomTree();
+            ActiveBrowser.WaitUntilReady();
+            var widgetHeader = ActiveBrowser
+                                      .Find
+                                      .AllByCustom<HtmlDiv>(d => d.CssClass.StartsWith("rdTitleBar") && d.ChildNodes.First().InnerText.Equals(widgetName))[dropZoneIndex]
+                                      .AssertIsPresent(widgetName);
+            widgetHeader.ScrollToVisible();
+            HtmlAnchor editLink = widgetHeader.Find
+                                              .ByCustom<HtmlAnchor>(a => a.TagName == "a" && a.Title.Equals("Edit"))
+                                              .AssertIsPresent("edit link");
+            editLink.Focus();
+            editLink.Click();
+            ActiveBrowser.WaitUntilReady();
+            ActiveBrowser.WaitForAsyncOperations();
+            ActiveBrowser.WaitForAjax(TimeOut);
+            ActiveBrowser.RefreshDomTree();
+
+            if (!isMediaWidgetEdited)
+            {
+                HtmlFindExpression expression = new HtmlFindExpression("class=modal-title", "InnerText=" + widgetName);
+                ActiveBrowser.WaitForElement(expression, TimeOut, false);
+            }
+        }
+
+        /// <summary>
         /// Selects "an extra option" (option from the 'More' menu)
         /// for a given widget
         /// </summary>
@@ -231,7 +264,7 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend
         public void VerifyJavaScriptWidgetText(string text, bool isPresent = true)
         {
             if (isPresent)
-        {
+            {
                 ActiveBrowser.Find.AllByExpression<HtmlDiv>("class=rdContent", "innertext=~" + text).FirstOrDefault().AssertIsPresent("text");
             }
             else 
@@ -277,6 +310,40 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend
             var listSettings = EM.Widgets.WidgetDesignerEventsScreen.ListSettings;
             listSettings.AssertIsPresent("List Settings");
             listSettings.Click();
+        }
+
+        /// <summary>
+        /// Open more options by clicking the link
+        /// </summary>
+        public void OpenMoreOptions()
+        {
+            var moreOptionsLink = EM.Widgets.WidgetDesignerCalendarScreen.MoreOptionsLink;
+            moreOptionsLink.AssertIsPresent("More options link");
+            moreOptionsLink.Click();
+        }
+
+        /// <summary>
+        /// Apply CSS class name in Calendar Widget Edit - List Settings tab
+        /// </summary>
+        /// <param name="cssClassName">CSS class name</param>
+        public void ApplyCssClassInCalendarWidgetListSettingsTab(string cssClassName)
+        {
+            HtmlInputText cssClassInput = EM.Widgets.WidgetDesignerCalendarScreen.CssClassInputFieldListSettings.AssertIsPresent("CssClass input");
+            cssClassInput.Click();
+            cssClassInput.Text = cssClassName;
+            cssClassInput.AsjQueryControl().InvokejQueryEvent(jQueryControl.jQueryControlEvents.change);
+        }
+
+        /// <summary>
+        /// Apply CSS class name in Calendar Widget Edit - List Settings tab
+        /// </summary>
+        /// <param name="cssClassName">CSS class name</param>
+        public void ApplyCssClassInCalendarWidgetSingleItemSettingsTab(string cssClassName)
+        {
+            HtmlInputText cssClassInput = EM.Widgets.WidgetDesignerCalendarScreen.CssClassInputFieldSingleItemSettings.AssertIsPresent("CssClass input");
+            cssClassInput.Click();
+            cssClassInput.Text = cssClassName;
+            cssClassInput.AsjQueryControl().InvokejQueryEvent(jQueryControl.jQueryControlEvents.change);
         }
 
         /// <summary>

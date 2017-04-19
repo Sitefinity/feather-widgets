@@ -1,8 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Telerik.Sitefinity.Frontend.Search.Mvc.Controllers;
 
 namespace FeatherWidgets.TestUnit.DummyClasses.SearchResults
@@ -24,6 +21,11 @@ namespace FeatherWidgets.TestUnit.DummyClasses.SearchResults
         protected override bool IsSearchModuleActivated()
         {
             return true;
+        }
+
+        protected override bool EnableFilterByViewPermissions()
+        {
+            return false;
         }
     }
 }

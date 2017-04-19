@@ -52,25 +52,13 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Frontend.Identity
                 return EM.Identity.RegistrationFrontend.Email != null;
             }, 10000);
 
-            HtmlInputText emailInput = EM.Identity.RegistrationFrontend.Email
+            var emailInput = EM.Identity.RegistrationFrontend.Email
                 .AssertIsPresent("Email field");
 
             emailInput.Text = string.Empty;
             emailInput.Text = email;
         }
 
-        /// <summary>
-        /// Fill user name
-        /// </summary>
-        /// <param name="firstName">User name</param>
-        public void FillUserName(string userName)
-        {
-            HtmlInputText userNameInput = EM.Identity.RegistrationFrontend.Username
-                .AssertIsPresent("User name field");
-
-            userNameInput.Text = string.Empty;
-            userNameInput.Text = userName;
-        }
 
         /// <summary>
         /// Fill user password
@@ -129,13 +117,6 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Frontend.Identity
             this.EM.Identity.RegistrationFrontend.EmailRequiredMessage.AssertIsPresent("The username field is required.");
         }
 
-        /// <summary>
-        /// Verifies required message for username field.
-        /// </summary>
-        public void AssertEmptyUsernameFieldMessage()
-        {
-            this.EM.Identity.RegistrationFrontend.UserNameRequiredMessage.AssertIsPresent("The username field is required.");
-        }
 
         /// <summary>
         /// Verifies required message for password field.

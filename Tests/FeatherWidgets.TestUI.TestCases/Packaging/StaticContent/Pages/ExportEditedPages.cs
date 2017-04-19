@@ -21,10 +21,11 @@ namespace FeatherWidgets.TestUI.TestCases.Packaging.StaticContent
         /// </summary>
         [TestMethod,
         Owner(FeatherTeams.SitefinityTeam6),
-        TestCategory(FeatherTestCategories.Packaging)]
+        TestCategory(FeatherTestCategories.Packaging),
+        Telerik.TestUI.Core.Attributes.KnownIssue(BugId = 207505), Ignore]
         public void ExportEditedPages()
         {
-            BAT.Macros().NavigateTo().Pages(this.Culture);
+            RuntimeSettingsModificator.ExecuteWithClientTimeout(200000, () => BAT.Macros().NavigateTo().Pages(this.Culture));            
             BAT.Wrappers().Backend().CustomFields().CustomFieldsWrapper().OpenCustomFieldsSection(CustomFieldsLinkID);
             BAT.Wrappers().Backend().CustomFields().CustomFieldsWrapper().DeleteField("Short");
             BAT.Wrappers().Backend().CustomFields().CustomFieldsWrapper()
@@ -41,6 +42,7 @@ namespace FeatherWidgets.TestUI.TestCases.Packaging.StaticContent
         /// </summary>
         protected override void ServerSetup()
         {
+            BAT.Arrange(this.TestName).ExecuteArrangement("LoadApplication");
             RuntimeSettingsModificator.ExecuteWithClientTimeout(200000, () => BAT.Macros().User().EnsureAdminLoggedIn());
             BAT.Arrange(this.TestName).ExecuteSetUp();
         }

@@ -1,11 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using ArtOfTest.Common.UnitTesting;
 using ArtOfTest.WebAii.Controls.HtmlControls;
 using ArtOfTest.WebAii.Core;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Frontend
 {
@@ -24,7 +21,7 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Frontend
             HtmlAnchor doc = ActiveBrowser.Find.ByExpression<HtmlAnchor>("innertext=" + title)
                 .AssertIsPresent("document");
 
-                Assert.IsTrue(doc.HRef.Contains(href), "href is not correct");     
+            Assert.IsTrue(doc.HRef.Contains(href), "href is not correct");
         }
 
         /// <summary>
@@ -44,7 +41,7 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Frontend
             Assert.IsTrue(parent.TagName == "td");
             Assert.IsTrue(parent.Parent<HtmlTableRow>().TagName == "tr");
 
-            Assert.IsTrue(doc.HRef.Contains(href), "href is not correct");          
+            Assert.IsTrue(doc.HRef.Contains(href), "href is not correct");
         }
 
         /// <summary>
@@ -125,7 +122,7 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Frontend
 
             doc.Wait.ForVisible();
             doc.ScrollToVisible();
-            doc.MouseClick();
+            doc.Click();
             ActiveBrowser.WaitUntilReady();
         }
 
@@ -139,7 +136,7 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Frontend
             ActiveBrowser.RefreshDomTree();
             HtmlDiv frontendPageMainDiv = BAT.Wrappers().Frontend().Pages().PagesWrapperFrontend().GetPageContent();
 
-            return frontendPageMainDiv.InnerText.Contains(documentTitle);           
+            return frontendPageMainDiv.InnerText.Contains(documentTitle);
         }
 
         /// <summary>
@@ -149,8 +146,9 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Frontend
         /// <param name="extension">The extension.</param>
         public void VerifySizeAndExtensionOnTemplate(string size, string extension)
         {
-            ActiveBrowser.Find.ByExpression<HtmlSpan>("class=text-muted", "innertext=" + size).AssertIsPresent("size");
-            ActiveBrowser.Find.ByExpression<HtmlSpan>("class=text-muted", "innertext=" + extension).AssertIsPresent("extension");
+            var div4e = ActiveBrowser.Find.ByExpression<HtmlDiv>("id=~PublicWrapper");
+            StringAssert.Contains(div4e.InnerText, extension);
+            div4e.Find.ByExpression<HtmlSpan>("innertext=" + size).AssertIsPresent("size");
         }
 
         /// <summary>
@@ -168,7 +166,7 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Frontend
         /// <param name="href">The href.</param>
         public void VerifyDownloadButton(string href)
         {
-                ActiveBrowser.Find.ByExpression<HtmlAnchor>("tagname=a", "target=_blank", "href=~" + href, "innertext=Download").AssertIsPresent("download");         
+            ActiveBrowser.Find.ByExpression<HtmlAnchor>("tagname=a", "target=_blank", "href=~" + href, "innertext=Download").AssertIsPresent("download");
         }
     }
 }

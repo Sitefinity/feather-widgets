@@ -21,7 +21,8 @@ namespace FeatherWidgets.TestUI.Arrangements
         [ServerSetUp]
         public void ServerSetUp()
         {
-            ServerOperations.Pages().CreatePage(PageName);
+            Guid page1Id = ServerOperations.Pages().CreatePage(PageName);
+            ServerOperationsFeather.Pages().AddDocumentsListWidgetToPage(page1Id);
             Guid albumId = ServerOperations.Documents().CreateLibrary(AlbumName);
             MultilingualTestConfig config = MultilingualTestConfig.Get();
             config.DocumentBgTitle = DocumentTitle;
@@ -31,6 +32,15 @@ namespace FeatherWidgets.TestUI.Arrangements
             ServerOperations.SystemManager().RestartApplication(false);
             WaitUtils.WaitForSitefinityToStart(HttpContext.Current.Request.Url.GetLeftPart(UriPartial.Authority) 
                 + (HostingEnvironment.ApplicationVirtualPath.TrimEnd('/') ?? string.Empty));
+        }
+
+        /// Load the application.
+        /// </summary>
+        [ServerArrangement]
+        public void LoadApplication()
+        {
+            WaitUtils.WaitForSitefinityToStart(HttpContext.Current.Request.Url
+                .GetLeftPart(UriPartial.Authority) + (HostingEnvironment.ApplicationVirtualPath.TrimEnd('/') ?? string.Empty));
         }
 
         /// <summary>
@@ -51,7 +61,8 @@ namespace FeatherWidgets.TestUI.Arrangements
         /// </summary>
         [ServerTearDown]
         public void ClearUp()
-        {            
+        {
+            AuthenticationHelper.AuthenticateUser(this.AdminEmail, this.AdminPass, true);
             ServerOperations.Documents().DeleteLibrary(AlbumName);
             ServerOperations.Pages().DeleteAllPages();
 
@@ -72,43 +83,19 @@ namespace FeatherWidgets.TestUI.Arrangements
                 ServerOperations.CustomFields().RemoveCustomFieldsFromContent(DocumentsType, hierarchicalClassificationDoc);
             }
 
-            for (int i = 0; i < ServerOperations.CustomFieldsNames().FieldNamesWithoutClassificationsEdited.Length; i++)
-            {
-                ServerOperations.CustomFields().RemoveCustomFieldsFromContent(ImagesType, ServerOperations.CustomFieldsNames().FieldNamesWithoutClassificationsEdited[i]);
-                ServerOperations.CustomFields().RemoveCustomFieldsFromContent(ImagesType, flatClassificationIm);
-                ServerOperations.CustomFields().RemoveCustomFieldsFromContent(ImagesType, hierarchicalClassificationIm);
-            }
-
-            for (int i = 0; i < ServerOperations.CustomFieldsNames().FieldNamesWithoutClassificationsEdited.Length; i++)
-            {
-                ServerOperations.CustomFields().RemoveCustomFieldsFromContent(VideosType, ServerOperations.CustomFieldsNames().FieldNamesWithoutClassificationsEdited[i]);
-                ServerOperations.CustomFields().RemoveCustomFieldsFromContent(VideosType, flatClassificationVideo);
-                ServerOperations.CustomFields().RemoveCustomFieldsFromContent(VideosType, hierarchicalClassificationVideo);
-            }
-
             ServerOperations.Taxonomies().DeleteHierarchicalTaxonomy(hierarchicalClassificationDoc);
             ServerOperations.Taxonomies().DeleteFlatTaxonomy(flatClassificationDoc);
-            ServerOperations.Taxonomies().DeleteHierarchicalTaxonomy(hierarchicalClassificationIm);
-            ServerOperations.Taxonomies().DeleteFlatTaxonomy(flatClassificationIm);
-            ServerOperations.Taxonomies().DeleteHierarchicalTaxonomy(hierarchicalClassificationVideo);
-            ServerOperations.Taxonomies().DeleteFlatTaxonomy(flatClassificationVideo);
         }
 
         private const string InstallationPath = @"App_Data\Sitefinity";
-        private const string PackageResource = "FeatherWidgets.TestUtilities.Data.Packaging.Structure.LibrariesStructure.zip";
-        private const string PackageResourceEdited = "FeatherWidgets.TestUtilities.Data.Packaging.Structure.LibrariesEdited.zip";
-        private string tempFolderPath = AppDomain.CurrentDomain.BaseDirectory + @"App_Data\Sitefinity\Export";
+        private const string PackageResource = "FeatherWidgets.TestUtilities.Data.Packaging.Structure.Documents.zip";
+        private const string PackageResourceEdited = "FeatherWidgets.TestUtilities.Data.Packaging.Structure.DocumentsEdited.zip";
+        private string tempFolderPath = AppDomain.CurrentDomain.BaseDirectory + @"App_Data\Sitefinity\Deployment";
         private const string DocumentsType = "Telerik.Sitefinity.Libraries.Model.Document";
         private const string AlbumName = "myTestAlbum1";
         private const string DocumentTitle = "Document1";
         private static string flatClassificationDoc = "d1";
-        private static string hierarchicalClassificationDoc = "d2";
-        private static string flatClassificationIm = "i1";
-        private static string hierarchicalClassificationIm = "i2";
-        private static string flatClassificationVideo = "v1";
-        private static string hierarchicalClassificationVideo = "v2";       
-        private const string ImagesType = "Telerik.Sitefinity.Libraries.Model.Image";
-        private const string VideosType = "Telerik.Sitefinity.Libraries.Model.Video";
+        private static string hierarchicalClassificationDoc = "d2";    
         private const string PageName = "TestPage";
         private string[] widgetTemplatesNames = new string[] 
                                                    { 

@@ -29,9 +29,9 @@ namespace FeatherWidgets.TestUI.Arrangements
 
             ServerOperations.Images().UploadInFolder(childId, ImageTitle + 2, ImageResourceChild);
 
-            ServerOperations.Users().CreateUserWithProfileAndRoles("administrator", "password", "Administrator", "User", "administrator@test.test", new List<string> { "BackendUsers", "Administrators" });
+            ServerOperations.Users().CreateUserWithProfileAndRoles(this.AdninistratorEmail, "password", "Administrator", "User", new List<string> { "BackendUsers", "Administrators" });
 
-            AuthenticationHelper.AuthenticateUser("administrator", "password", true);
+            AuthenticationHelper.AuthenticateUser(this.AdninistratorEmail, "password", true);
             ServerOperations.Images().UploadInFolder(nextChildId, ImageTitle + 3, ImageResourceNextChild);
         }
 
@@ -42,7 +42,7 @@ namespace FeatherWidgets.TestUI.Arrangements
         public void TearDown()
         {
             ServerOperations.Pages().DeleteAllPages();
-            ServerOperations.Users().DeleteUserAndProfile("administrator");
+            ServerOperations.Users().DeleteUserAndProfile(this.AdninistratorEmail);
             ServerOperations.Images().DeleteAllLibrariesExceptDefaultOne();
         }
 

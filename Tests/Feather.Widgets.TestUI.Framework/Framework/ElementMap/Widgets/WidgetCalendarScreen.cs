@@ -76,5 +76,118 @@ namespace Feather.Widgets.TestUI.Framework.Framework.ElementMap.Widgets
                 return this.Get<HtmlSelect>("id=defaultSchedulerView");
             }
         }
+
+        /// <summary>
+        /// Gets the allow users to switch views CheckBox.
+        /// </summary>
+        /// <value>
+        /// The allow users to switch views CheckBox.
+        /// </value>
+        public HtmlInputCheckBox AllowUsersToSwitchViewsCheckBox
+        {
+            get
+            {
+                return this.Get<HtmlInputCheckBox>("type=checkbox", "ng-model=properties.AllowChangeCalendarView.PropertyValue");
+            }
+        }
+
+        /// <summary>
+        /// CSS class input textbox in List settings tab
+        /// </summary>
+        public HtmlInputText  CssClassInputFieldListSettings
+        {
+            get
+            {
+                return this.Get<HtmlInputText>("tagname=input", "ng-model=properties.ListCssClass.PropertyValue");
+            }
+        }
+
+        /// <summary>
+        /// CSS class input textbox in Single item settings tab
+        /// </summary>
+        public HtmlInputText CssClassInputFieldSingleItemSettings
+        {
+            get
+            {
+                return this.Get<HtmlInputText>("tagname=input", "ng-model=properties.DetailCssClass.PropertyValue");
+            }
+        }
+
+        /// <summary>
+        /// Get active tab in Edit dialog
+        /// </summary>
+        public HtmlDiv ActiveTab
+        {
+            get
+            {
+                return this.Get<HtmlDiv>("class=tab-pane ng-scope active");
+            }
+        }
+
+        /// <summary>
+        /// Get expander tag in Edit dialog
+        /// </summary>
+        public HtmlControl ExpanderTag
+        {
+            get
+            {
+                return this.ActiveTab.Find.ByExpression<HtmlControl>("tagName=expander", "class=ng-scope ng-isolate-scope");
+            }
+        }
+
+        /// <summary>
+        /// Get More options link 
+        /// </summary>
+        public HtmlAnchor MoreOptionsLink
+        {
+            get
+            {
+                return this.ExpanderTag.Find.ByExpression<HtmlAnchor>("class=Options-toggler ng-binding", "innerText=More options");
+            }
+        }
+
+        /// <summary>
+        /// Get allow users to filter by calendars checkbox
+        /// </summary>
+        public HtmlInputCheckBox AllowUsersToFilterByCalendars
+        {
+            get
+            {
+                return this.Get<HtmlInputCheckBox>("ng-model=properties.AllowCalendarFilter.PropertyValue");
+            }
+        }
+
+        /// <summary>
+        /// Gets "Filter events by" radio button in Content tab
+        /// </summary>
+        public HtmlControl FilterEventsByButton
+        {
+            get
+            {
+                return this.Find.ByExpression<HtmlControl>("tagname=label", "innerText=Filtered events by...");
+            }
+        }
+
+        /// <summary>
+        /// Gets Calendar checkbox
+        /// </summary>
+        public HtmlInputCheckBox CalendarCheckBox
+        {
+            get
+            {
+                return this.Get<HtmlInputCheckBox>("tagname=input", "id=calendarInput");
+            }
+        }
+
+        /// <summary>
+        /// Gets Calendar Select button.
+        /// </summary>
+        public HtmlButton SelectCalendarButton
+        {
+            get
+            {
+                return this.Get<HtmlButton>("tagname=button", "class=btn btn-xs btn-default openSelectorBtn ng-scope");
+            }
+        }
     }
 }

@@ -143,6 +143,28 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Frontend.Events
         }
 
         /// <summary>
+        /// Verify CSS class name in calendar widget on page
+        /// </summary>
+        /// <param name="cssClassName">CSS class name</param>
+        public void VerifyCssClassInCalendarWidgetOnPage(string cssClassName)
+        {
+            HtmlDiv frontendPageMainDiv = BAT.Wrappers().Frontend().Pages().PagesWrapperFrontend().GetPageContent();
+            var frontendPageChildDiv = frontendPageMainDiv.ChildNodes.First();
+            var actualCssClassName = frontendPageChildDiv.Attributes.Single(a => a.Name == "class").Value;
+            Assert.AreEqual(cssClassName, actualCssClassName);
+        }
+
+        /// <summary>
+        /// Verify Calendar list is not visible
+        /// </summary>
+        public void VerifyCalendarListIsNotVisible()
+        {
+            HtmlDiv frontendPageMainDiv = BAT.Wrappers().Frontend().Pages().PagesWrapperFrontend().GetPageContent();
+            HtmlDiv calendarList = frontendPageMainDiv.Find.ByExpression<HtmlDiv>("class=list-unstyled nav nav-pills nav-stacked", "data-sf-role=calendarlist-wrapper");
+            calendarList.AssertIsNull("Calendar list");
+        }
+
+        /// <summary>
         /// Get event datetime in sheduler detail's view
         /// </summary>
         /// <returns>Event datetime</returns>
@@ -469,6 +491,18 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Frontend.Events
         }
 
         /// <summary>
+        /// Verify event visibility in current view
+        /// </summary>
+        /// <param name="eventId">Event ID</param>
+        /// <param name="expectedCount">Expected Count</param>
+        /// <param name="allDayEvent">Is all day event</param>
+        public void VerifyEventVisibilityInCurrentView(string eventId, int expectedCount, bool allDayEvent)
+        {
+            var list = this.GetVisibleEventInCurrentView(eventId, allDayEvent);
+            Assert.IsTrue(list.Count() == expectedCount, "The event is not visible");
+        }
+
+        /// <summary>
         /// Navigate to previous year in fast navigation
         /// </summary>
         public void NavigatePreviousYearInCalendarSelector()
@@ -533,6 +567,42 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Frontend.Events
             bool isAppointmentVisible = false;
             isAppointmentVisible = (appointment != null) && (appointment.IsVisible());
             return isAppointmentVisible;
+        }
+
+        /// <summary>
+        /// Determines whether [is item present] [the specified item title].
+        /// </summary>
+        /// <param name="itemTitle">The item title.</param>
+        /// <returns></returns>
+        public Boolean IsItemPresent(string itemTitle)
+        {
+            var item = ActiveBrowser.Find.ByExpression<HtmlAnchor>("tagName=a", "innerText=" + itemTitle);
+            if (item != null && item.IsVisible())
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+
+        /// <summary>
+        /// Determines whether [is table view present] [the specified table class].
+        /// </summary>
+        /// <param name="tableClass">The table class.</param>
+        /// <returns></returns>
+        public Boolean IsTableViewPresent(string tableClass)
+        {
+            var tableView = ActiveBrowser.Find.ByExpression<HtmlTable>("tagName=table", "class=~" + tableClass);
+            if (tableView != null && tableView.IsVisible())
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
         }
     }
 }

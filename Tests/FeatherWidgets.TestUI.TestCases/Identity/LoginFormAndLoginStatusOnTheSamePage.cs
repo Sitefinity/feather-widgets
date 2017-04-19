@@ -1,8 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using ArtOfTest.WebAii.Core;
 using Feather.Widgets.TestUI.Framework;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
@@ -21,6 +19,7 @@ namespace FeatherWidgets.TestUI.TestCases.Identity
         Owner(FeatherTeams.SitefinityTeam3),
         TestCategory(FeatherTestCategories.PagesAndContent),
         TestCategory(FeatherTestCategories.LoginForm),
+        TestCategory(FeatherTestCategories.Identity),
         TestCategory(FeatherTestCategories.Bootstrap)]
         public void LoginAndVerifyUserStatusOnTheSamePage()
         {
@@ -31,18 +30,18 @@ namespace FeatherWidgets.TestUI.TestCases.Identity
             BAT.Wrappers().Backend().Pages().PageZoneEditorWrapper().PublishPage();
 
             BAT.Macros().User().LogOut();
-            BAT.Macros().NavigateTo().CustomPage("~/" + PageName.ToLower(), false, this.Culture);
+            BAT.Macros().NavigateTo().CustomPage("~/" + PageName.ToLower(), false, this.Culture, new HtmlFindExpression("class=~sfPublicWrapper"));
 
             BATFeather.Wrappers().Frontend().Identity().LoginFormWrapper().PressLoginButton();
             BATFeather.Wrappers().Frontend().Identity().LoginFormWrapper().AssertEmptyUserNameFieldMessage();
             BATFeather.Wrappers().Frontend().Identity().LoginFormWrapper().AssertEmptyPasswordFieldMessage();
 
-            BATFeather.Wrappers().Frontend().Identity().LoginFormWrapper().EnterUserName(TestAdminUserName);
+            BATFeather.Wrappers().Frontend().Identity().LoginFormWrapper().EnterEmail(TestAdminEmail);
             BATFeather.Wrappers().Frontend().Identity().LoginFormWrapper().EnterPassword(WrongPassword);
             BATFeather.Wrappers().Frontend().Identity().LoginFormWrapper().PressLoginButton();
             BATFeather.Wrappers().Frontend().Identity().LoginFormWrapper().AssertIncorrectUserNamePasswordMessage();
 
-            BATFeather.Wrappers().Frontend().Identity().LoginFormWrapper().EnterUserName(TestAdminUserName);
+            BATFeather.Wrappers().Frontend().Identity().LoginFormWrapper().EnterEmail(TestAdminEmail);
             BATFeather.Wrappers().Frontend().Identity().LoginFormWrapper().EnterPassword(TestAdminPass);
             BATFeather.Wrappers().Frontend().Identity().LoginFormWrapper().PressLoginButton();
 
@@ -71,12 +70,10 @@ namespace FeatherWidgets.TestUI.TestCases.Identity
         private const string PageName = "LoginPage";
         private const string LoginFormWidget = "Login form";
         private const string LoginStatusWidget = "Login / Logout button";
-        private const string TestAdmin = "admin2";
-        private const string TestAdminUserName = "admin2";
+        private const string TestAdminEmail = "admin2@test.test";
         private const string TestAdminPass = "password";
         private const string TestAdminFirstName = "admin2";
         private const string TestAdminLastName = "admin2";
-        private const string TestAdminEmail = "admin2@test.com";
         private const string WrongPassword = "password123";
     }
 }

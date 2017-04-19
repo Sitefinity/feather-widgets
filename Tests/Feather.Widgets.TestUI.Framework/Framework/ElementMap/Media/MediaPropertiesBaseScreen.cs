@@ -47,6 +47,18 @@ namespace Feather.Widgets.TestUI.Framework.Framework.ElementMap.Media
         }
 
         /// <summary>
+        /// Gets the done button.
+        /// </summary>
+        /// <value>The done button.</value>
+        public HtmlButton DoneButtonCustomThumbnailSize
+        {
+            get
+            {
+                return this.MediaPropertiesModalDialog.Find.ByExpression<HtmlButton>("tagName=button", "InnerText=~Done");
+            }
+        }
+
+        /// <summary>
         /// Gets the save button in media widget.
         /// </summary>
         /// <value>The save button in media widget.</value>

@@ -21,7 +21,8 @@ namespace FeatherWidgets.TestUI.Arrangements
         [ServerSetUp]
         public void ServerSetUp()
         {
-            ServerOperations.Pages().CreatePage(PageName);
+            Guid pageId = ServerOperations.Pages().CreatePage(PageName);
+            ServerOperationsFeather.Pages().AddNewsWidgetToPage(pageId);
             ServerOperations.News().CreateNewsItem("TestNews");
             ServerOperationsFeather.DynamicModules().ExtractStructureZip(PackageResource, InstallationPath);
             ServerOperations.SystemManager().RestartApplication(false);
@@ -42,13 +43,22 @@ namespace FeatherWidgets.TestUI.Arrangements
                 + (HostingEnvironment.ApplicationVirtualPath.TrimEnd('/') ?? string.Empty));
         }
 
+        /// Load the application.
+        /// </summary>
+        [ServerArrangement]
+        public void LoadApplication()
+        {
+            WaitUtils.WaitForSitefinityToStart(HttpContext.Current.Request.Url
+                .GetLeftPart(UriPartial.Authority) + (HostingEnvironment.ApplicationVirtualPath.TrimEnd('/') ?? string.Empty));
+        }
+
         /// <summary>
         /// Cleans up the resources on the server used for this arrangement
         /// </summary>
         [ServerTearDown]
         public void ClearUp()
         {
-            AuthenticationHelper.AuthenticateUser(AdminUserName, AdminPass, true);
+            AuthenticationHelper.AuthenticateUser(this.AdminEmail, this.AdminPass, true);
             ServerOperations.News().DeleteAllNews();
             ServerOperations.Pages().DeleteAllPages();
 
@@ -76,13 +86,11 @@ namespace FeatherWidgets.TestUI.Arrangements
             ServerOperations.Taxonomies().DeleteFlatTaxonomy(flatClassification);
         }
 
-        private const string AdminUserName = "admin";
-        private const string AdminPass = "admin@2";
         private const string PageName = "TestPage";
         private const string InstallationPath = @"App_Data\Sitefinity";
         private const string PackageResource = "FeatherWidgets.TestUtilities.Data.Packaging.Structure.NewsStructure.zip";
         private const string PackageResourceEdited = "FeatherWidgets.TestUtilities.Data.Packaging.Structure.NewsEditedStructure.zip";
-        private string tempFolderPath = AppDomain.CurrentDomain.BaseDirectory + @"App_Data\Sitefinity\Export";
+        private string tempFolderPath = AppDomain.CurrentDomain.BaseDirectory + @"App_Data\Sitefinity\Deployment";
         private const string NewsType = "Telerik.Sitefinity.News.Model.NewsItem";
         private static string flatClassification = "n1";
         private static string hierarchicalClassification = "n2";

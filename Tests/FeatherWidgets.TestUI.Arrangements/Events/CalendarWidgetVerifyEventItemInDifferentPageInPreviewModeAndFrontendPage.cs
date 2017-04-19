@@ -16,7 +16,7 @@ namespace FeatherWidgets.TestUI.Arrangements
     /// <summary>
     /// Executes Server Side operations for CalendarWidgetVerifyEventItemInDifferentPageInPreviewModeAndFrontendPage UI Test
     /// </summary>
-    public class CalendarWidgetVerifyEventItemInDifferentPageInPreviewModeAndFrontendPage
+    public class CalendarWidgetVerifyEventItemInDifferentPageInPreviewModeAndFrontendPage : TestArrangementBase
     {
             /// <summary>
             /// Creates an Event.

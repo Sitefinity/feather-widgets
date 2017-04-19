@@ -34,6 +34,6 @@ namespace FeatherWidgets.TestUI.Arrangements
         }
 
         private const string PageName = "ContentBlock";
-        private const string ContentBlockHtml = "<div id=\"test1\">Test1</div ><p><div  id=\"test2\">Test2</div ></p>";
+        private const string ContentBlockHtml = "<div id=\"test1\">Test1</div><div id=\"test2\"><p>Test2</p></div>";
     }
 }

@@ -24,8 +24,6 @@ namespace Telerik.Sitefinity.Frontend.Events.Mvc.Models.EventScheduler
             this.IsAllDay = item.Event.AllDayEvent;
             this.CalendarId = item.Event.ParentId;
             this.EventUrl = item.Event.ItemDefaultUrl[uiCulture.Name];
-            this.City = item.Event.City[uiCulture.Name];
-            this.Country = item.Event.Country[uiCulture.Name];
         }
 
         /// <summary>
@@ -153,22 +151,6 @@ namespace Telerik.Sitefinity.Frontend.Events.Mvc.Models.EventScheduler
         /// The event url.
         /// </value>
         public string EventUrl { get; set; }
-
-        /// <summary>
-        /// Gets or sets the city of the event.
-        /// </summary>
-        /// <value>
-        /// The event city.
-        /// </value>
-        public string City { get; set; }
-
-        /// <summary>
-        //  Gets or sets the country of the event.
-        /// </summary>
-        /// <value>
-        /// The event country.
-        /// </value>
-        public string Country { get; set; }
 
         private DateTime start;
         private DateTime end;

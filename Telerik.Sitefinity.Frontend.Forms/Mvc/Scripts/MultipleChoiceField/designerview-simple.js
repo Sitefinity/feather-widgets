@@ -20,7 +20,7 @@
             if (newValue === 'True') {
                 setTimeout(function () { $('#err-message-example').focus(); }, 300);
             }
-        });
+        });        
 
         propertyService.get()
             .then(function (data) {
@@ -45,7 +45,6 @@
                     }
                     if ($scope.currentItems.indexOf('') === -1) {
                         $scope.properties.Model.SerializedChoices.PropertyValue = JSON.stringify($scope.currentItems);
-                        $scope.properties.Model.MetaField.DefaultValue.PropertyValue = $scope.defaultValue;
                         deferred.resolve();
                     }
                     else {

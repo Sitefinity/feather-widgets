@@ -12,6 +12,7 @@
         public const string Samples = "Samples";
         public const string Navigation = "Navigation";
         public const string News = "News";
+        public const string List = "List";
         public const string ContentBlock = "ContentBlock";
         public const string DynamicWidgets = "DynamicWidgets";
         public const string SearchResults = "SearchResults";
@@ -23,6 +24,8 @@
         public const string Packaging = "Packaging";
         public const string Events = "Events";
         public const string EmailCampaigns = "EmailCampaigns";
+        public const string Taxonomies = "Taxonomies";
+        public const string RazorViewCompilation = "RazorViewCompilation";
         public const string Performance = "Performance";
     }
 }

@@ -5,16 +5,14 @@
         <div class="form-group">
             <label>@Html.Resource("LoginPage")</label>
             <p class="description-note">@Html.Resource("LoginPageInfo")</p>
-            <sf-list-selector 
-                              sf-page-selector
+            <sf-list-selector sf-page-selector
                               sf-selected-item-id="properties.LoginPageId.PropertyValue"></sf-list-selector>
         </div>
 
         <div class="form-group" ng-disabled="properties.AllowWindowsStsLogin.PropertyValue">
             <label>@Html.Resource("RegistrationPage")</label>
             <p class="description-note">@Html.Resource("RegistrationPageInfo")</p>
-            <sf-list-selector 
-                              sf-page-selector
+            <sf-list-selector sf-page-selector
                               ng-disabled="properties.AllowWindowsStsLogin.PropertyValue"
                               sf-selected-item-id="properties.RegistrationPageId.PropertyValue"></sf-list-selector>
         </div>
@@ -22,16 +20,14 @@
 
     <div class="form-group">
         <label>@Html.Resource("LogoutPageInfo")</label>
-        <sf-list-selector
-                          sf-page-selector
+        <sf-list-selector sf-page-selector
                           sf-selected-item-id="properties.LogoutPageId.PropertyValue"></sf-list-selector>
     </div>
 
     <div class="form-group">
         <label>@Html.Resource("ProfilePage")</label>
         <p class="description-note">@Html.Resource("ProfilePageInfo")</p>
-        <sf-list-selector
-                          sf-page-selector
+        <sf-list-selector sf-page-selector
                           sf-selected-item-id="properties.ProfilePageId.PropertyValue"></sf-list-selector>
     </div>
 
@@ -54,10 +50,10 @@
         <div class="checkbox">
             <label for="stsCheckbox">
                 <input id="stsCheckbox" type="checkbox" ng-true-value="'True'" ng-model="properties.AllowWindowsStsLogin.PropertyValue" />
-                    @Html.Resource("LoginWinSts")
-                    <a href="http://docs.sitefinity.com/administration-set-up-sso-with-windows-authentication" target="_blank">@Html.Resource("LearnMore")</a>
+                @Html.Resource("LoginWinSts")
+                <a href="http://docs.sitefinity.com/administration-set-up-sso-with-windows-authentication" target="_blank">@Html.Resource("LearnMore")</a>
             </label>
-        </div>             
+        </div>
     </div>
 
     <expander expander-title='@Html.Resource("MoreOptions")'>

@@ -14,31 +14,16 @@ namespace FeatherWidgets.TestUI.TestCases
         /// Pages and content category
         /// </summary>
         public const string PagesAndContent = "PagesAndContent";
+        
+        /// <summary>
+        /// Common category
+        /// </summary>
+        public const string Common = "Common";
 
         /// <summary>
         /// Content block category
         /// </summary>
         public const string ContentBlock = "ContentBlock";
-
-        /// <summary>
-        /// Content block category
-        /// </summary>
-        public const string ContentBlock1 = "ContentBlock1";
-
-        /// <summary>
-        /// Content block category
-        /// </summary>
-        public const string ContentBlock2 = "ContentBlock2";
-
-        /// <summary>
-        /// Content block category
-        /// </summary>
-        public const string ContentBlock3 = "ContentBlock3";
-
-        /// <summary>
-        /// Content block category
-        /// </summary>
-        public const string ContentBlock4 = "ContentBlock4";
 
         /// <summary>
         /// Navigation category
@@ -156,6 +141,11 @@ namespace FeatherWidgets.TestUI.TestCases
         public const string UsersList = "UsersList";
 
         /// <summary>
+        /// New category for Identity tests
+        /// </summary>
+        public const string Identity = "Identity";
+
+        /// <summary>
         /// New category for Comments and Reviews tests
         /// </summary>
         public const string CommentsAndReviews = "CommentsAndReviews";
@@ -194,5 +184,9 @@ namespace FeatherWidgets.TestUI.TestCases
         /// Events category
         /// </summary>
         public const string Events = "Events";
+        
+		public const string IgnoredInReadOnly = "IgnoredInReadOnly";
+        public const string RevisionHistory = "RevisionHistory";
+
     }
 }

@@ -21,7 +21,9 @@ namespace FeatherWidgets.TestUI.TestCases.Identity
         Owner(FeatherTeams.SitefinityTeam4),
         TestCategory(FeatherTestCategories.PagesAndContent),
         TestCategory(FeatherTestCategories.Registration),
-        TestCategory(FeatherTestCategories.Bootstrap)]
+        TestCategory(FeatherTestCategories.Identity),
+        TestCategory(FeatherTestCategories.Bootstrap),
+        Telerik.TestUI.Core.Attributes.KnownIssue(BugId = 206477), Ignore]
         public void RegisterNewBackendUserWithAdministratorRole()
         {
             BAT.Macros().NavigateTo().Pages(this.Culture);
@@ -34,23 +36,22 @@ namespace FeatherWidgets.TestUI.TestCases.Identity
             BATFeather.Wrappers().Backend().Widgets().WidgetDesignerWrapper().SaveChanges();
             BAT.Wrappers().Backend().Pages().PageZoneEditorWrapper().PublishPage();
             BAT.Macros().User().LogOut();
-
-            BAT.Macros().NavigateTo().CustomPage("~/" + RegistrationPage.ToLower(), true, this.Culture);
+            ActiveBrowser.RefreshDomTree();
+            BAT.Macros().NavigateTo().CustomPage("~/" + RegistrationPage.ToLower(), false, this.Culture);
             BATFeather.Wrappers().Frontend().Identity().RegistrationWrapper().FillFirstName(FirstName);
             BATFeather.Wrappers().Frontend().Identity().RegistrationWrapper().FillLastName(LastName);
             BATFeather.Wrappers().Frontend().Identity().RegistrationWrapper().FillEmail(Email);
-            BATFeather.Wrappers().Frontend().Identity().RegistrationWrapper().FillUserName(UserName);
             BATFeather.Wrappers().Frontend().Identity().RegistrationWrapper().FillPassword(Password);
             BATFeather.Wrappers().Frontend().Identity().RegistrationWrapper().FillRetypePassword(Password);
             BATFeather.Wrappers().Frontend().Identity().RegistrationWrapper().RegisterButton();
             BATFeather.Wrappers().Frontend().Identity().RegistrationWrapper().VerifySuccessfullyMessage();
 
             BAT.Macros().NavigateTo().CustomPage("~/" + LoginPage.ToLower());
-            BAT.Wrappers().Backend().LoginView().LoginViewWrapper().SetUsername(UserName);
+            BAT.Wrappers().Backend().LoginView().LoginViewWrapper().SetUsername(Email);
             BAT.Wrappers().Backend().LoginView().LoginViewWrapper().SetPassword(Password);
             BAT.Wrappers().Backend().LoginView().LoginViewWrapper().ExecuteLogin();
             BAT.Macros().NavigateTo().UsersManagement().Users();
-            Assert.IsTrue(BAT.Wrappers().Backend().Users().UsersWrapper().IsUserPresentInGrid(UserName), "Registered user was not found in the grid");
+            Assert.IsTrue(BAT.Wrappers().Backend().Users().UsersWrapper().IsUserPresentInGrid(Email), "Registered user was not found in the grid");
             BAT.Macros().User().LogOut();
         }
 
@@ -76,8 +77,7 @@ namespace FeatherWidgets.TestUI.TestCases.Identity
         private const string SelectedRoles = "Administrators";
         private const string FirstName = "FirstName";
         private const string LastName = "LastName";
-        private const string Email = "user@test.com";
-        private const string UserName = "newUser";
+        private const string Email = "user@test.test";
         private const string Password = "password";
         private const string LoginPage = "Sitefinity";
     }

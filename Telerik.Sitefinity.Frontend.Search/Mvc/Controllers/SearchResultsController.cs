@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 using System.Web.Mvc;
+using Telerik.Sitefinity.Configuration;
 using Telerik.Sitefinity.Frontend.Mvc.Infrastructure.Controllers;
 using Telerik.Sitefinity.Frontend.Mvc.Infrastructure.Controllers.Attributes;
 using Telerik.Sitefinity.Frontend.Search.Mvc.Models;
@@ -10,6 +11,7 @@ using Telerik.Sitefinity.Frontend.Search.Mvc.StringResources;
 using Telerik.Sitefinity.Mvc;
 using Telerik.Sitefinity.Services;
 using Telerik.Sitefinity.Services.Search;
+using Telerik.Sitefinity.Services.Search.Configuration;
 
 namespace Telerik.Sitefinity.Frontend.Search.Mvc.Controllers
 {
@@ -36,7 +38,7 @@ namespace Telerik.Sitefinity.Frontend.Search.Mvc.Controllers
                 this.templateName = value;
             }
         }
-        
+
         /// <summary>
         /// Gets the Search results widget model.
         /// </summary>
@@ -80,7 +82,6 @@ namespace Telerik.Sitefinity.Frontend.Search.Mvc.Controllers
 
                 if (isValid)
                 {
-
                     var queryStringFormat = "?indexCatalogue={0}&searchQuery={1}&wordsMode={2}&orderBy={3}";
                     var languageParamFormat = "&language={0}";
 
@@ -90,13 +91,14 @@ namespace Telerik.Sitefinity.Frontend.Search.Mvc.Controllers
 
                     this.ViewBag.LanguageSearchUrlTemplate = String.Concat(currentPageUrl, queryString, languageParamFormat);
                     this.ViewBag.RedirectPageUrlTemplate = String.Concat(currentPageUrl, "/{0}", queryString, languageParam);
+                    this.ViewBag.IsFilteredbyPermission = this.EnableFilterByViewPermissions();
 
                     if (page == null || page < 1)
                         page = 1;
 
                     this.Model.CurrentPage = page.Value;
 
-                    int? itemsToSkip = this.Model.DisplayMode == ListDisplayMode.Paging ? ((page.Value - 1) * this.Model.ItemsPerPage) : 0;                   
+                    int? itemsToSkip = this.Model.DisplayMode == ListDisplayMode.Paging ? ((page.Value - 1) * this.Model.ItemsPerPage) : 0;
                     this.Model.PopulateResults(searchQuery, indexCatalogue, itemsToSkip, language, orderBy);
 
                     return View(this.TemplateName, this.Model);
@@ -132,6 +134,16 @@ namespace Telerik.Sitefinity.Frontend.Search.Mvc.Controllers
         #region Private methods
 
         /// <summary>
+        /// Determines whether the permission filter is enabled.
+        /// </summary>
+        /// <returns></returns>
+        protected virtual bool EnableFilterByViewPermissions()
+        {
+            var config = Config.Get<SearchConfig>();
+            return config.EnableFilterByViewPermissions;
+        }
+
+        /// <summary>
         /// Gets the current URL.
         /// </summary>
         /// <returns></returns>
@@ -139,7 +151,7 @@ namespace Telerik.Sitefinity.Frontend.Search.Mvc.Controllers
         {
             return this.GetCurrentPageUrl();
         }
-        
+
         /// <summary>
         /// Initializes the model.
         /// </summary>
@@ -150,7 +162,7 @@ namespace Telerik.Sitefinity.Frontend.Search.Mvc.Controllers
             {
                 {"languages", languages}
             };
-            
+
 
             return ControllerModelFactory.GetModel<ISearchResultsModel>(this.GetType(), constructorParams);
         }

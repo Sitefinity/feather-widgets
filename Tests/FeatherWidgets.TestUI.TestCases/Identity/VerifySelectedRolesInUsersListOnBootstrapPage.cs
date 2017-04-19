@@ -21,6 +21,7 @@ namespace FeatherWidgets.TestUI.TestCases.Identity
         [TestMethod,
         Owner(FeatherTeams.SitefinityTeam1),
         TestCategory(FeatherTestCategories.PagesAndContent),
+        TestCategory(FeatherTestCategories.Identity),
         TestCategory(FeatherTestCategories.UsersList),
         TestCategory(FeatherTestCategories.Selectors),
         TestCategory(FeatherTestCategories.Bootstrap)]
@@ -71,7 +72,7 @@ namespace FeatherWidgets.TestUI.TestCases.Identity
         private const string UserProvider = "All Roles";
         private const string RoleToFilter = "Administrators";
         private const string UserFirstLastName = "admin admin";
-        private const string UserEmail = "dadasda@dasd.fdf";
+        private const string UserEmail = "admin@test.test";
         private const string AdminUserName = "admin";
 
         private readonly string[] users = new string[] { "admin admin", "admin2 admin2" };

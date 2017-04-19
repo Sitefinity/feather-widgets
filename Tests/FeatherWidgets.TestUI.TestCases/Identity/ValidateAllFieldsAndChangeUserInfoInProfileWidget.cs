@@ -21,10 +21,11 @@ namespace FeatherWidgets.TestUI.TestCases.Identity
         Owner(FeatherTeams.SitefinityTeam6),
         TestCategory(FeatherTestCategories.PagesAndContent),
         TestCategory(FeatherTestCategories.Profile),
+        TestCategory(FeatherTestCategories.Identity),
         TestCategory(FeatherTestCategories.Bootstrap)]
         public void ValidateAllFieldsAndChangeUserInfoInProfileWidget()
         {
-            this.LoginUser(UserName, UserPassword);
+            this.LoginUser(UserEmail, UserPassword);
 
             ////Verify first and last name empty fields message
 
@@ -84,7 +85,7 @@ namespace FeatherWidgets.TestUI.TestCases.Identity
             ////Log in with new password 
 
             BAT.Macros().User().LogOut();
-            this.LoginUser(UserName, UserPasswordEdited);
+            this.LoginUser(UserEmail, UserPasswordEdited);
             BAT.Macros().User().LogOut();
         }
 
@@ -122,7 +123,7 @@ namespace FeatherWidgets.TestUI.TestCases.Identity
         private const string WrongPassword = "password1";
         private const string OldPassword = "password";
         private const string ShortPassword = "pass";
-        private const string UserName = "newUser";
+        private const string UserEmail = "newUser@test.test";
         private const string UserPassword = "password";
         private const string UserPasswordEdited = "passwordEdited";
         private const string UserFirstNameEdited = "First name Edited";

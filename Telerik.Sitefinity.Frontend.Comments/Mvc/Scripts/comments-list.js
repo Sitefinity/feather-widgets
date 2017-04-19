@@ -749,7 +749,7 @@
                 return false;
             });
 
-            self.newCommentSubmitButton().click(function () {
+            self.newCommentSubmitButton().on("click", function () {
                 if (!self.settings.isDesignMode) {
                     // Hide all generated errors
                     self.errorMessage().hide();
@@ -782,14 +782,25 @@
     };
 
     /*
-        Widgets creation
-    */
+       Widgets creation
+   */
     $(function () {
+        if (typeof personalizationManager !== "undefined" && personalizationManager) {
+            personalizationManager.addPersonalizedContentLoaded(function () {
+                Initialization();
+            });
+        }
+        else {
+            Initialization();
+        }
+    });
+
+    function Initialization() {
         $('[data-sf-role="comments-wrapper"]').each(function () {
             var element = $(this);
             var settings = JSON.parse(element.find('[data-sf-role="comments-settings"]').val());
             var resources = JSON.parse(element.find('[data-sf-role="comments-resources"]').val());
             (new CommentsListWidget(element, settings, resources)).initialize();
         });
-    });
+    }
 }(jQuery));

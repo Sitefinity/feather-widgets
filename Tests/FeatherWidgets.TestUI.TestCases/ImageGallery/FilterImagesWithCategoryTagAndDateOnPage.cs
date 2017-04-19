@@ -113,7 +113,7 @@ namespace FeatherWidgets.TestUI.TestCases.ImageGallery
             }
 
             string scr = BATFeather.Wrappers().Frontend().MediaWidgets().MediaWidgetsWrapper().GetMediaSource(libraryUrl, imageUrl, ContentType, currentProviderUrlName, this.Culture);
-            return scr;
+            return scr.TrimStart('b', '-', 'g');
         }
 
         private const string DisplayItemsPublishedIn = "Custom range...";

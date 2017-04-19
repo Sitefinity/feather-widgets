@@ -1,19 +1,23 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Collections.Specialized;
 using System.Linq;
+using System.Web;
+using Microsoft.Owin;
+using Microsoft.Owin.Security;
+using ServiceStack;
 using Telerik.Sitefinity.Abstractions;
+using Telerik.Sitefinity.Data;
 using Telerik.Sitefinity.Frontend.Mvc.Helpers;
 using Telerik.Sitefinity.Security;
 using Telerik.Sitefinity.Security.Claims;
-using Telerik.Sitefinity.Web;
-using Telerik.Sitefinity.Data;
-using System.Collections.Specialized;
-using Telerik.Sitefinity.Services;
+using Telerik.Sitefinity.Security.Configuration;
 using Telerik.Sitefinity.Security.Model;
-using System.Web;
-using Microsoft.IdentityModel.Tokens;
-using Microsoft.IdentityModel.Claims;
-using Microsoft.IdentityModel.Web;
 using Telerik.Sitefinity.Security.Claims.SWT;
+using Telerik.Sitefinity.Web;
+using Telerik.Sitefinity.Configuration;
+using ServiceStack.Text;
+using SecConfig = Telerik.Sitefinity.Security.Configuration;
 
 namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.LoginForm
 {
@@ -67,6 +71,22 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.LoginForm
         /// <inheritDoc/>
         public Guid? RegisterRedirectPageId { get; set; }
 
+        /// <inheritDoc/>
+        public string SerializedExternalProviders
+        {
+            get
+            {
+                return this.serializedExternalProviders;
+            }
+            set
+            {
+                if (this.serializedExternalProviders != value)
+                {
+                    this.serializedExternalProviders = value;
+                }
+            }
+        }
+
         /// <summary>
         /// Gets a value indicating whether password retrieval is enabled.
         /// </summary>
@@ -117,29 +137,50 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.LoginForm
                 viewModel.RedirectUrlAfterLogin = this.GetPageUrl(this.LoginRedirectPageId);
                 viewModel.RegisterPageUrl = this.GetPageUrl(this.RegisterRedirectPageId);
                 viewModel.ShowRegistrationLink = this.RegisterRedirectPageId.HasValue;
-                viewModel.ShowForgotPasswordLink = this.AllowResetPassword && (this.EnablePasswordReset || this.EnablePasswordRetrieval);
-                viewModel.Realm = SitefinityClaimsAuthenticationModule.Current.GetRealm();
+                viewModel.ShowForgotPasswordLink = this.AllowResetPassword && (this.EnablePasswordReset || this.EnablePasswordRetrieval);                
+                viewModel.Realm = ClaimsManager.CurrentAuthenticationModule.GetRealm();
                 viewModel.CssClass = this.CssClass;
                 viewModel.ShowRememberMe = this.ShowRememberMe;
+
+                if (!string.IsNullOrEmpty(this.serializedExternalProviders))
+                {
+                    viewModel.ExternalProviders = JsonSerializer.DeserializeFromString<Dictionary<string, string>>(this.serializedExternalProviders);
+                }  
             }
         }
 
         /// <inheritDoc/>
         public virtual ResetPasswordViewModel GetResetPasswordViewModel(string securityToken, bool resetComplete = false, string error = null)
         {
+            var securityParams = HttpUtility.ParseQueryString(securityToken);
+            var userId = this.GetUserId(securityParams);
+            var userManager = UserManager.GetManager(this.MembershipProvider);
+            string question = null;
+
+            if (userId != Guid.Empty)
+            {
+                var user = userManager.GetUser(userId);
+
+                if (user != null)
+                {
+                    question = user.PasswordQuestion;
+                }
+            }
+
             return new ResetPasswordViewModel()
             {
                 CssClass = this.CssClass,
                 LoginPageUrl = this.GetPageUrl(null),
-                RequiresQuestionAndAnswer = UserManager.GetManager(this.MembershipProvider).RequiresQuestionAndAnswer,
+                RequiresQuestionAndAnswer = userManager.RequiresQuestionAndAnswer,
                 Error = error,
+                ResetPasswordQuestion = question,
                 ResetComplete = resetComplete,
                 SecurityToken = securityToken
             };
         }
 
         /// <inheritDoc/>
-        public virtual ForgotPasswordViewModel GetForgotPasswordViewModel(string email = null, bool emailNotFound = false, bool emailSent = false, string error = null)
+        public virtual ForgotPasswordViewModel GetForgotPasswordViewModel(string email = null, bool emailSent = false, string error = null)
         {
             return new ForgotPasswordViewModel()
             {
@@ -147,7 +188,6 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.LoginForm
                 LoginPageUrl = this.GetPageUrl(null),
                 EmailSent = emailSent,
                 Error = error,
-                EmailNotFound = emailNotFound,
                 Email = email
             };
         }
@@ -184,11 +224,7 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.LoginForm
 
             if (user != null)
             {
-                if (!UserManager.ShouldSendPasswordEmail(user, manager.Provider.GetType()))
-                {
-                    viewModel.Error = "Not supported";
-                }
-                else
+                if (UserManager.ShouldSendPasswordEmail(user, manager.Provider.GetType()))
                 {
                     var currentNode = SiteMapBase.GetActualCurrentNode();
                     if (currentNode != null)
@@ -198,8 +234,6 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.LoginForm
                         try
                         {
                             UserManager.SendRecoveryPasswordMail(UserManager.GetManager(user.ProviderName), email, resetPassUrl);
-
-                            viewModel.EmailSent = true;
                         }
                         catch (Exception ex)
                         {
@@ -211,10 +245,9 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.LoginForm
                     }
                 }
             }
-            else
-            {
-                viewModel.EmailNotFound = true;
-            }
+
+            // Always send correct message (for security)
+            viewModel.EmailSent = true;
 
             return viewModel;
         }
@@ -249,41 +282,53 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.LoginForm
             }
         }
 
-        /// <inheritDoc/>
         public virtual LoginFormViewModel Authenticate(LoginFormViewModel input, HttpContextBase context)
         {
-            User user;
-            UserLoggingReason result = SecurityManager.AuthenticateUser(
-                this.MembershipProvider,
-                input.UserName,
-                input.Password,
-                input.RememberMe,
-                out user);
+            input.LoginError = false;
 
-            var identity = ClaimsManager.GetCurrentIdentity();
-            if (user != null && identity != null && identity.OriginalIdentity is SitefinityIdentity)
-            {
-                IClaimsPrincipal cp = new ClaimsPrincipal(new[] { new ClaimsIdentity(identity.Claims) });
-                var wifCredentials = new FederatedServiceCredentials(FederatedAuthentication.ServiceConfiguration);
-                cp = wifCredentials.ClaimsAuthenticationManager.Authenticate(context.Request.RequestType, cp);
-                SitefinityClaimsAuthenticationModule.Current.AuthenticatePrincipalWithCurrentToken(cp, input.RememberMe);
-            }
-
-            if (result == UserLoggingReason.Unknown)
-            {
-                input.IncorrectCredentials = true;
+            if (Config.Get<SecurityConfig>().AuthenticationMode == SecConfig.AuthenticationMode.Claims)
+            {                
+                var owinContext = context.Request.GetOwinContext();
+                var challengeProperties = ChallengeProperties.ForLocalUser(input.UserName, input.Password, this.MembershipProvider, input.RememberMe, context.Request.Url.ToString());
+                challengeProperties.RedirectUri = this.GetReturnURL(context);
+                owinContext.Authentication.Challenge(challengeProperties, ClaimsManager.CurrentAuthenticationModule.STSAuthenticationType);                
             }
             else
             {
-                input.RedirectUrlAfterLogin = this.GetReturnURL(input, context);
+                User user;
+                UserLoggingReason result = SecurityManager.AuthenticateUser(
+                    this.MembershipProvider,
+                    input.UserName,
+                    input.Password,
+                    input.RememberMe,
+                    out user);
 
                 if (result != UserLoggingReason.Success)
                 {
-                    SFClaimsAuthenticationManager.ProcessRejectedUser(context, input.RedirectUrlAfterLogin);
+                    input.LoginError = true;                   
+                }
+                else
+                {
+                    input.RedirectUrlAfterLogin = this.GetReturnURL(context);
                 }
             }
 
             return input;
+        }
+
+        /// <summary>
+        /// Authenticates external provider and make IdentityServer challenge
+        /// </summary>
+        /// <param name="input">Provider name.</param>
+        /// <param name="context">Current http context from controller</param>
+        public void AuthenticateExternal(string input, HttpContextBase context)
+        {            
+            var widgetUrl = context.Request.Url.ToString();
+            var owinContext = context.Request.GetOwinContext();
+            var challengeProperties = ChallengeProperties.ForExternalUser(input, widgetUrl);            
+            challengeProperties.RedirectUri = this.GetReturnURL(context);
+
+            owinContext.Authentication.Challenge(challengeProperties, ClaimsManager.CurrentAuthenticationModule.STSAuthenticationType);
         }
         #endregion
 
@@ -383,8 +428,8 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.LoginForm
         /// </summary>
         /// <returns></returns>
         private string GetClaimsIssuer()
-        {
-            var claimsModule = SitefinityClaimsAuthenticationModule.Current;
+        {            
+            var claimsModule = ClaimsManager.CurrentAuthenticationModule;
 
             if (claimsModule != null)
             {
@@ -419,13 +464,18 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.LoginForm
         /// <returns>
         /// ReturnURL to redirect or empty string
         /// </returns>
-        protected string GetReturnURL(LoginFormViewModel input, HttpContextBase context)
+        protected string GetReturnURL(HttpContextBase context)
         {
-            string redirectUrl = string.Empty;
+            string redirectUrl = context.Request.Url.AbsoluteUri;
+            
+            if (!string.IsNullOrEmpty(context.Request.Url.Query))
+            {
+                // remove err flag in redirect data
+                redirectUrl = redirectUrl.Replace("&err=true", string.Empty).Replace("err=true", string.Empty);
+            }            
 
             if (this.LoginRedirectPageId.HasValue)
-            {
-                //Get redirectUrl set by administrator. The value is not validated.
+            {                
                 redirectUrl = this.GetPageUrl(this.LoginRedirectPageId);
             }
             else
@@ -433,14 +483,10 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.LoginForm
                 //Get redirectUrl from query string parameter
                 string redirectUrlFromQS;
                 this.TryResolveUrlFromUrlReferrer(context, out redirectUrlFromQS);
+                
                 if (!string.IsNullOrWhiteSpace(redirectUrlFromQS))
-                {
-                    //validates whether the redirectUrl is allowed in the relying parties.
-                    byte[] key;
-                    if (SWTIssuer.TryGetRelyingPartyKey(redirectUrlFromQS, out key))
-                    {
-                        redirectUrl = redirectUrlFromQS;
-                    }
+                {                    
+                    redirectUrl = redirectUrlFromQS;                 
                 }
             }
 
@@ -450,6 +496,7 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.LoginForm
         private string serviceUrl;
         private const string DefaultRealmConfig = "http://localhost";
         private string membershipProvider;
+        private string serializedExternalProviders;
 
         #endregion
     }

@@ -24,7 +24,7 @@ namespace FeatherWidgets.TestUI.TestCases.ContentBlocks
         /// </summary>
         [TestMethod,
         Owner(FeatherTeams.SitefinityTeam6),
-        TestCategory(FeatherTestCategories.PagesAndContent)]
+        TestCategory(FeatherTestCategories.ContentBlock)]
         public void CreateSplitPageWithPersonalizedContentBlock()
         {
             if (this.Culture != null)
@@ -34,7 +34,7 @@ namespace FeatherWidgets.TestUI.TestCases.ContentBlocks
                 BATFeather.Wrappers().Backend().Pages().PageZoneEditorWrapper().EditWidget(WidgetName);
                 BATFeather.Wrappers().Backend().ContentBlocks().ContentBlocksWrapper().FillContentToContentBlockWidget(NotPersonalizedWidgetContent);
                 BATFeather.Wrappers().Backend().ContentBlocks().ContentBlocksWrapper().SaveChanges();
-                BAT.Wrappers().Backend().Personalization().PersonalizationInPages().ExpandMoreInWidgetByIndex();
+                BAT.Wrappers().Backend().Personalization().PersonalizationInPages().ExpandMoreInWidgetByIndex(1);
                 BAT.Wrappers().Backend().Personalization().PersonalizationInPages().AssertAddPersonalizedVersionLink();
                 BAT.Wrappers().Backend().Personalization().PersonalizationInPages().SelectAddPersonalizedVersionLink();
                 BATFeather.Wrappers().Backend().Card().CardWrapper().ClickAddButton();
