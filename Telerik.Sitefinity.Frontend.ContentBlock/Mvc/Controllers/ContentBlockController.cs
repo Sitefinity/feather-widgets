@@ -297,6 +297,7 @@ namespace Telerik.Sitefinity.Frontend.ContentBlock.Mvc.Controllers
         /// <returns>
         /// The <see cref="IList"/>.
         /// </returns>
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("StyleCopPlus.StyleCopPlusRules", "SP2101:MethodMustNotContainMoreLinesThan")]
         protected virtual IList<WidgetMenuItem> InitializeCommands()
         {
             var packageManager = new PackageManager();

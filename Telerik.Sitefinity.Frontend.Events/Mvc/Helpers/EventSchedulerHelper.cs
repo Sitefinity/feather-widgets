@@ -52,6 +52,7 @@ namespace Telerik.Sitefinity.Frontend.Events.Mvc.Helpers
         /// Get controller widget id
         /// </summary>
         /// <returns></returns>
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("StyleCopPlus.StyleCopPlusRules", "SP2101:MethodMustNotContainMoreLinesThan")]
         public static Guid GetWidgetId(Controller controller)
         {
             var pageManager = PageManager.GetManager();
