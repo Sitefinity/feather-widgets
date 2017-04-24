@@ -23,17 +23,17 @@
                 <span ng-show="currentItems.length > 1" class="handler list-group-item-drag"></span>
                 <div>
                     <section class="row">
-                        <div class="col-md-8">
+                        <div class="col-xs-8">
                             <input ng-click="itemClicked($event)" ng-model="currentItems[$index]" ng-value="currentItems[$index]" placeholder='@Html.Resource("EnterLabel")' type="text" class="form-control-highlight"/>
                         </div>
 
-                        <div class="col-md-2">
+                        <div class="col-xs-2">
                             <em class="text-muted" ng-show="item == defaultValue">@Html.Resource("Default")</em>
 
                             <a class="make-default" ng-click="setDefault(item)" ng-hide="!item || item == defaultValue || properties.Model.ValidatorDefinition.Required.PropertyValue === 'True'">@Html.Resource("MakeDefault")</a>
                         </div>
 
-                        <div class="col-md-2 text-right">
+                        <div class="col-xs-2 text-right">
                             <button ng-show="currentItems.length > 1" ng-click="removeItem(item, $index)" type="button" class="close" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                         </div>
                         
