@@ -1,8 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
-using System.Text;
 using System.Web.Mvc;
 using Telerik.Sitefinity.Blogs.Model;
 using Telerik.Sitefinity.Frontend.Blogs.Mvc.Models.Blog;
@@ -11,6 +9,7 @@ using Telerik.Sitefinity.Frontend.Mvc.Infrastructure.Controllers;
 using Telerik.Sitefinity.Frontend.Mvc.Infrastructure.Controllers.Attributes;
 using Telerik.Sitefinity.Modules.Pages.Configuration;
 using Telerik.Sitefinity.Mvc;
+using Telerik.Sitefinity.Personalization;
 using Telerik.Sitefinity.Services;
 
 namespace Telerik.Sitefinity.Frontend.Blogs.Mvc.Controllers
@@ -20,7 +19,7 @@ namespace Telerik.Sitefinity.Frontend.Blogs.Mvc.Controllers
     /// </summary>
     [Localization(typeof(BlogListResources))]
     [ControllerToolboxItem(Name = "Blog_MVC", Title = "Blogs", SectionName = ToolboxesConfig.ContentToolboxSectionName, ModuleName = "Blogs", CssClass = BlogController.WidgetIconCssClass)]
-    public class BlogController: Controller
+    public class BlogController: Controller, IPersonalizable
     {
         #region Properties
 

@@ -9,6 +9,11 @@
 <div data-sf-role="form-container" class="@Model.CssClass">
     <input type="hidden" data-sf-role="form-id" value="@Model.FormId" name="FormId" />
     @{
+        if (!string.IsNullOrEmpty(@ViewBag.ErrorMessage))
+        {
+            <div>@ViewBag.ErrorMessage</div>
+        }
+        
         if (Model.UseAjaxSubmit)
         {
         <span data-sf-role="success-message" style="display: none;">@Model.SuccessMessage</span>

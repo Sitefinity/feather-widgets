@@ -120,6 +120,7 @@ namespace Telerik.Sitefinity.Frontend.SocialShare.Mvc.Controllers
         /// <summary>
         /// Gets the list of <see cref="SocialShareGroup" /> objects based on Sitefinity settings.
         /// </summary>
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("StyleCopPlus.StyleCopPlusRules", "SP2102:PropertyMustNotContainMoreLinesThan")]
         private IList<SocialShareGroup> SocialShareOptionsList
         {
             get

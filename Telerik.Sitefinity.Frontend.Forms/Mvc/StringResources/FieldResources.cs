@@ -1326,5 +1326,21 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.StringResources
             }
         }
         #endregion
+
+        /// <summary>
+        /// label: Name
+        /// </summary>
+        /// <value>Name</value>
+        [ResourceEntry("Name",
+            Value = "Name",
+            Description = "label: Name",
+            LastModified = "2017/04/26")]
+        public string Name
+        {
+            get
+            {
+                return this["Name"];
+            }
+        }
     }
 }

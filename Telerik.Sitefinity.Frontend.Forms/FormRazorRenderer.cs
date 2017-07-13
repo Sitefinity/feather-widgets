@@ -66,7 +66,7 @@ namespace Telerik.Sitefinity.Frontend.Forms
         {
             if (controlInstance is MvcProxyBase)
             {
-                var controlInstanceString = string.Format("@Html.FormController(new Guid(\"{0}\"), (FormViewMode)Model.ViewMode, null)", controlDataId.ToString("D"));
+                var controlInstanceString = string.Format("@Html.FormController(new Guid(\"{0}\"), (FormViewMode)Model.ViewMode, null, (FormCollection)Model.FormCollection)", controlDataId.ToString("D"));
                 var controllerName = ((MvcProxyBase)controlInstance).ControllerName;
                 var controlType = Telerik.Sitefinity.Utilities.TypeConverters.TypeResolutionService.ResolveType(controllerName, throwOnError: false);
 

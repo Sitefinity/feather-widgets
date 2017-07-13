@@ -784,12 +784,23 @@
     /*
         Widgets creation
     */
-    $(function () {
+    if (window.personalizationManager) {
+        window.personalizationManager.addPersonalizedContentLoaded(function () {
+            Initialization();
+        });
+    }
+    else {
+        $(function () {
+            Initialization();
+        });
+    }
+
+    function Initialization() {
         $('[data-sf-role="comments-wrapper"]').each(function () {
             var element = $(this);
             var settings = JSON.parse(element.find('[data-sf-role="comments-settings"]').val());
             var resources = JSON.parse(element.find('[data-sf-role="comments-resources"]').val());
             (new CommentsListWidget(element, settings, resources)).initialize();
         });
-    });
+    }
 }(jQuery));

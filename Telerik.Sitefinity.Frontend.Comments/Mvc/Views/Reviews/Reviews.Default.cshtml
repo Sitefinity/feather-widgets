@@ -4,7 +4,7 @@
 @using Telerik.Sitefinity.Modules.Pages;
 
 @Html.Script(ScriptRef.JQuery, "top", false)
-@Html.StyleSheet(Url.WidgetContent("assets/dist/css/sf-ratings.css"), "head", false)
+@Html.StyleSheet(Url.WidgetContent("assets/dist/css/sf-ratings.min.css"), "head", false)
 
 <div id="comments-@HttpUtility.HtmlEncode(Model.ThreadKey)" data-sf-role="comments-wrapper" class="@Model.CssClass">
     <input type="hidden" data-sf-role="comments-settings" value="@Model.SerializedWidgetSettings" />
@@ -29,7 +29,6 @@
         <a href="#" data-sf-role="comments-sort-new-button" style="display:none;">@Html.Resource("NewestOnTop")</a>
         <a href="#" data-sf-role="comments-sort-old-button" style="display:none;">@Html.Resource("OldestOnTop")</a>
     </div>
-          
     <div data-sf-role="list-loading-indicator" style="display:none;"></div>
     <div data-sf-role="comments-container"></div>
 

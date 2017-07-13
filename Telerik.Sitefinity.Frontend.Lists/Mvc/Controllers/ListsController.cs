@@ -14,6 +14,7 @@ using Telerik.Sitefinity.Lists.Model;
 using Telerik.Sitefinity.Localization;
 using Telerik.Sitefinity.Modules.Pages.Configuration;
 using Telerik.Sitefinity.Mvc;
+using Telerik.Sitefinity.Personalization;
 using Telerik.Sitefinity.Services;
 using Telerik.Sitefinity.Taxonomies.Model;
 using Telerik.Sitefinity.Web.UI;
@@ -25,7 +26,7 @@ namespace Telerik.Sitefinity.Frontend.Lists.Mvc.Controllers
     /// </summary>
     [ControllerToolboxItem(Name = "List_MVC", Title = "List", SectionName = ToolboxesConfig.ContentToolboxSectionName, ModuleName = "Lists", CssClass = ListsController.WidgetIconCssClass)]
     [Localization(typeof(ListsWidgetResources))]
-    public class ListsController : Controller, ICustomWidgetVisualization, ICustomWidgetVisualizationExtended, IContentLocatableView
+    public class ListsController : Controller, ICustomWidgetVisualization, ICustomWidgetVisualizationExtended, IContentLocatableView, IPersonalizable
     {
         #region Properties
 

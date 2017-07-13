@@ -1,6 +1,6 @@
 ﻿(function ($) {
 
-    var simpleViewModule = angular.module('simpleViewModule', ['expander', 'designer']);
+    var simpleViewModule = angular.module('simpleViewModule', ['expander', 'designer', 'ngSanitize']);
     angular.module('designer').requires.push('simpleViewModule');
     angular.module('designer').requires.push('sfFields');
     angular.module('designer').requires.push('sfSelectors');

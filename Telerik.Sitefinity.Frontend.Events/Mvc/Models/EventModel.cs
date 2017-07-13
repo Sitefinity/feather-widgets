@@ -1,6 +1,8 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using ServiceStack.Text;
+using Telerik.OpenAccess;
 using Telerik.Sitefinity.Data;
 using Telerik.Sitefinity.Events.Model;
 using Telerik.Sitefinity.Frontend.Mvc.Models;
@@ -142,6 +144,50 @@ namespace Telerik.Sitefinity.Frontend.Events.Mvc.Models
             }
 
             return filterExpression;
+        }
+
+        /// <summary>
+        /// Fetches the items from a queryable.
+        /// </summary>
+        /// <param name="query">The queryable.</param>
+        /// <returns>Fetched items.</returns>
+        protected override IEnumerable<IDataItem> FetchItems(IQueryable<IDataItem> queryable)
+        {
+            //// Use QueryableExtensions.IncludeToList from Telerik.Sitefinity when available.
+
+            const int BatchSize = 200;
+            var select = queryable.Select(t => t.Id);
+            var ids = select.ToArray();
+            var idPositions = new Dictionary<Guid, int>(ids.Length);
+            for (var i = 0; i < ids.Length; i++)
+                idPositions[ids[i]] = i;
+
+            var nonFilteredQuery = this.GetItemsQuery();
+            nonFilteredQuery = nonFilteredQuery.Cast<Event>().Include(ev => ev.Parent);
+
+            var result = new IDataItem[ids.Length];
+            if (ids.Length <= BatchSize)
+            {
+                foreach (var item in nonFilteredQuery.Where(t => ids.Contains(t.Id)))
+                {
+                    result[idPositions[item.Id]] = item;
+                }
+            }
+            else
+            {
+                // Integer division, rounded up
+                var pagesCount = (ids.Length + BatchSize - 1) / BatchSize;
+                for (var p = 0; p < pagesCount; p++)
+                {
+                    var batch = ids.Skip(p * BatchSize).Take(BatchSize).ToArray();
+                    foreach (var item in nonFilteredQuery.Where(t => batch.Contains(t.Id)))
+                    {
+                        result[idPositions[item.Id]] = item;
+                    }
+                }
+            }
+
+            return result;
         }
 
         private const string DefaultSortExpression = "EventStart ASC";

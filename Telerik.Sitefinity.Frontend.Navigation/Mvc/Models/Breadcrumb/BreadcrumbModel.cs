@@ -232,6 +232,7 @@ namespace Telerik.Sitefinity.Frontend.Navigation.Mvc.Models.Breadcrumb
             return extender.GetVirtualNodes(this.SiteMapProvider);
         }
 
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("StyleCopPlus.StyleCopPlusRules", "SP2101:MethodMustNotContainMoreLinesThan")]
         private Tuple<bool, List<SiteMapNode>> GetBreadcrumbDataSource()
         {
             var breadcrumbDataSource = new List<SiteMapNode>();

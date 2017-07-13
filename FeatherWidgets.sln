@@ -1,8 +1,6 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 2013
-VisualStudioVersion = 12.0.31101.0
-MinimumVisualStudioVersion = 10.0.40219.1
+# Visual Studio 2012
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Telerik.Sitefinity.Frontend.ContentBlock", "Telerik.Sitefinity.Frontend.ContentBlock\Telerik.Sitefinity.Frontend.ContentBlock.csproj", "{827B5C1E-619A-4080-A7F1-10D103C38CFD}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Telerik.Sitefinity.Frontend.SocialShare", "Telerik.Sitefinity.Frontend.SocialShare\Telerik.Sitefinity.Frontend.SocialShare.csproj", "{33171BB5-9918-41BE-B06D-0D8347846B0C}"
@@ -14,33 +12,13 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{5EEBCA
 		.nuget\NuGet.targets = .nuget\NuGet.targets
 	EndProjectSection
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{61445BD5-A99E-4F27-B523-5331BE82291F}"
-	ProjectSection(SolutionItems) = preProject
-		FeatherWidgets.vsmdi = FeatherWidgets.vsmdi
-		Tests\TestSettings.testsettings = Tests\TestSettings.testsettings
-	EndProjectSection
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Telerik.Sitefinity.Frontend.Navigation", "Telerik.Sitefinity.Frontend.Navigation\Telerik.Sitefinity.Frontend.Navigation.csproj", "{FC694955-3DF4-4A35-AD3E-A6954D6243B1}"
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "UITests", "UITests", "{EB73BDA8-73B7-4EC8-8707-853B53C40992}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FeatherWidgets.TestIntegration", "Tests\FeatherWidgets.TestIntegration\FeatherWidgets.TestIntegration.csproj", "{6F9EE665-8F08-41F2-8AF1-8A8654AA6CA7}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FeatherWidgets.TestUnit", "Tests\FeatherWidgets.TestUnit\FeatherWidgets.TestUnit.csproj", "{04E71A1D-8C5E-4B03-BA1E-5C0CE0E99663}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FeatherWidgets.TestUtilities", "Tests\FeatherWidgets.TestUtilities\FeatherWidgets.TestUtilities.csproj", "{3A2DB408-48E4-4C20-BBBC-3F730009322A}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FeatherWidgets.TestUI.Arrangements", "Tests\FeatherWidgets.TestUI.Arrangements\FeatherWidgets.TestUI.Arrangements.csproj", "{B02EF644-7756-41FA-BBA8-63F4F44C652B}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Telerik.Sitefinity.Frontend.News", "Telerik.Sitefinity.Frontend.News\Telerik.Sitefinity.Frontend.News.csproj", "{574042A9-61AA-4EAC-83D2-79CD19AA8BD4}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Telerik.Sitefinity.Frontend.DynamicContent", "Telerik.Sitefinity.Frontend.DynamicContent\Telerik.Sitefinity.Frontend.DynamicContent.csproj", "{F4D16A33-FEAA-4008-B941-AFC1AE95DB31}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Telerik.Sitefinity.Frontend.Search", "Telerik.Sitefinity.Frontend.Search\Telerik.Sitefinity.Frontend.Search.csproj", "{B1E056F8-D6AD-4C0C-A619-053E23F44A60}"
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{865316AB-A05C-4A86-87AD-BB3E4AC4A384}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FeatherWidgets.ClientTest", "Tests\FeatherWidgets.ClientTest\FeatherWidgets.ClientTest.csproj", "{7A619682-93B4-48CC-B6C0-3365657B51A3}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Telerik.Sitefinity.Frontend.Media", "Telerik.Sitefinity.Frontend.Media\Telerik.Sitefinity.Frontend.Media.csproj", "{8B6BB322-AE6D-42EF-8667-2E0A2EA65C98}"
 EndProject
@@ -88,26 +66,6 @@ Global
 		{FC694955-3DF4-4A35-AD3E-A6954D6243B1}.Release Pro|Any CPU.ActiveCfg = Release|Any CPU
 		{FC694955-3DF4-4A35-AD3E-A6954D6243B1}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{FC694955-3DF4-4A35-AD3E-A6954D6243B1}.Release|Any CPU.Build.0 = Release|Any CPU
-		{6F9EE665-8F08-41F2-8AF1-8A8654AA6CA7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{6F9EE665-8F08-41F2-8AF1-8A8654AA6CA7}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{6F9EE665-8F08-41F2-8AF1-8A8654AA6CA7}.Release Pro|Any CPU.ActiveCfg = Release|Any CPU
-		{6F9EE665-8F08-41F2-8AF1-8A8654AA6CA7}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{6F9EE665-8F08-41F2-8AF1-8A8654AA6CA7}.Release|Any CPU.Build.0 = Release|Any CPU
-		{04E71A1D-8C5E-4B03-BA1E-5C0CE0E99663}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{04E71A1D-8C5E-4B03-BA1E-5C0CE0E99663}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{04E71A1D-8C5E-4B03-BA1E-5C0CE0E99663}.Release Pro|Any CPU.ActiveCfg = Release|Any CPU
-		{04E71A1D-8C5E-4B03-BA1E-5C0CE0E99663}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{04E71A1D-8C5E-4B03-BA1E-5C0CE0E99663}.Release|Any CPU.Build.0 = Release|Any CPU
-		{3A2DB408-48E4-4C20-BBBC-3F730009322A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{3A2DB408-48E4-4C20-BBBC-3F730009322A}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{3A2DB408-48E4-4C20-BBBC-3F730009322A}.Release Pro|Any CPU.ActiveCfg = Release|Any CPU
-		{3A2DB408-48E4-4C20-BBBC-3F730009322A}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{3A2DB408-48E4-4C20-BBBC-3F730009322A}.Release|Any CPU.Build.0 = Release|Any CPU
-		{B02EF644-7756-41FA-BBA8-63F4F44C652B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{B02EF644-7756-41FA-BBA8-63F4F44C652B}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{B02EF644-7756-41FA-BBA8-63F4F44C652B}.Release Pro|Any CPU.ActiveCfg = Release|Any CPU
-		{B02EF644-7756-41FA-BBA8-63F4F44C652B}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{B02EF644-7756-41FA-BBA8-63F4F44C652B}.Release|Any CPU.Build.0 = Release|Any CPU
 		{574042A9-61AA-4EAC-83D2-79CD19AA8BD4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{574042A9-61AA-4EAC-83D2-79CD19AA8BD4}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{574042A9-61AA-4EAC-83D2-79CD19AA8BD4}.Release Pro|Any CPU.ActiveCfg = Release|Any CPU
@@ -123,11 +81,6 @@ Global
 		{B1E056F8-D6AD-4C0C-A619-053E23F44A60}.Release Pro|Any CPU.ActiveCfg = Release|Any CPU
 		{B1E056F8-D6AD-4C0C-A619-053E23F44A60}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B1E056F8-D6AD-4C0C-A619-053E23F44A60}.Release|Any CPU.Build.0 = Release|Any CPU
-		{7A619682-93B4-48CC-B6C0-3365657B51A3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{7A619682-93B4-48CC-B6C0-3365657B51A3}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{7A619682-93B4-48CC-B6C0-3365657B51A3}.Release Pro|Any CPU.ActiveCfg = Release|Any CPU
-		{7A619682-93B4-48CC-B6C0-3365657B51A3}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{7A619682-93B4-48CC-B6C0-3365657B51A3}.Release|Any CPU.Build.0 = Release|Any CPU
 		{8B6BB322-AE6D-42EF-8667-2E0A2EA65C98}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{8B6BB322-AE6D-42EF-8667-2E0A2EA65C98}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8B6BB322-AE6D-42EF-8667-2E0A2EA65C98}.Release Pro|Any CPU.ActiveCfg = Release|Any CPU
@@ -191,15 +144,5 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
-	EndGlobalSection
-	GlobalSection(NestedProjects) = preSolution
-		{6F9EE665-8F08-41F2-8AF1-8A8654AA6CA7} = {865316AB-A05C-4A86-87AD-BB3E4AC4A384}
-		{04E71A1D-8C5E-4B03-BA1E-5C0CE0E99663} = {865316AB-A05C-4A86-87AD-BB3E4AC4A384}
-		{3A2DB408-48E4-4C20-BBBC-3F730009322A} = {865316AB-A05C-4A86-87AD-BB3E4AC4A384}
-		{B02EF644-7756-41FA-BBA8-63F4F44C652B} = {EB73BDA8-73B7-4EC8-8707-853B53C40992}
-		{7A619682-93B4-48CC-B6C0-3365657B51A3} = {865316AB-A05C-4A86-87AD-BB3E4AC4A384}
-	EndGlobalSection
-	GlobalSection(TestCaseManagementSettings) = postSolution
-		CategoryFile = FeatherWidgets.vsmdi
 	EndGlobalSection
 EndGlobal

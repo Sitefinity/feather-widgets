@@ -124,7 +124,7 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.StringResources
                 return this["CssClasses"];
             }
         }
-        
+
         #endregion
 
         #region Designer Settings
@@ -158,7 +158,7 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.StringResources
                 return this["ConfirmationOptions"];
             }
         }
-        
+
         /// <summary>
         /// Gets phrase : Use custom confirmation
         /// </summary>
@@ -203,7 +203,7 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.StringResources
                 return this["RedirectToAPage"];
             }
         }
-        
+
         /// <summary>
         /// Gets phrase : Success! Thanks for filling out our form!
         /// </summary>
@@ -235,5 +235,21 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.StringResources
         }
 
         #endregion
+
+        /// <summary>
+        /// phrase: {0} field input is invalid
+        /// </summary>
+        /// <value>{0} field input is invalid</value>
+        [ResourceEntry("InvalidInputErrorMessage",
+            Value = "{0} field input is invalid",
+            Description = "phrase: {0} field input is invalid",
+            LastModified = "2017/03/15")]
+        public string InvalidInputErrorMessage
+        {
+            get
+            {
+                return this["InvalidInputErrorMessage"];
+            }
+        }
     }
 }

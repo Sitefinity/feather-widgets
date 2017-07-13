@@ -6,6 +6,9 @@
             .then(function (data) {
                 if (data) {
                     $scope.properties = propertyService.toAssociativeArray(data.Items);
+
+                    var connectorSettings = $scope.properties.ConnectorSettings.PropertyValue;
+                    $scope.properties.ConnectorSettings.PropertyValue = connectorSettings === "" ? {} : JSON.parse(connectorSettings);
                 }
             },
             function (data) {

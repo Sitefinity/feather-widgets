@@ -1,6 +1,6 @@
 ﻿(function ($) {
     $(function () {
-        $('[data-sf-role=toggleLink]').on('click', function () {
+        $(document).on('click', '[data-sf-role=toggleLink]', function () {
             var link = $(this);
 
             expandElement(link);
@@ -18,7 +18,7 @@
             }
         });
 
-        $('[data-sf-role=expandAll]').on('click', function () {
+        $(document).on('click', '[data-sf-role=expandAll]', function () {
             var wrapper = $(this).closest('[data-sf-role=lists]');
             wrapper.find('[data-sf-role=expandAll]').css('display', 'none');
             wrapper.find('[data-sf-role=collapseAll]').css('display', 'block');
@@ -27,7 +27,7 @@
             links.next('div').css('display', 'block');
         });
 
-        $('[data-sf-role=collapseAll]').on('click', function () {
+        $(document).on('click', '[data-sf-role=collapseAll]', function () {
             var wrapper = $(this).closest('[data-sf-role=lists]');
             wrapper.find('[data-sf-role=expandAll]').css('display', 'block');
             wrapper.find('[data-sf-role=collapseAll]').css('display', 'none');

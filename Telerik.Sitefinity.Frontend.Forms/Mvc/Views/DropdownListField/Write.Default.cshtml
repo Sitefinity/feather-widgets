@@ -19,7 +19,11 @@
         <select id='@Html.UniqueId("Dropdown")' data-sf-role="dropdown-list-field-select" name="@Model.MetaField.FieldName" @MvcHtmlString.Create(Model.ValidationAttributes)>
         @foreach (var choice in Model.Choices)
         {
-            var optionAttributes = !Model.IsRequired && choice == Model.MetaField.DefaultValue as string ? "selected" : string.Empty;
+            string value = !string.IsNullOrEmpty(Model.Value as string) ? Model.Value as string : string.Empty;
+            bool isSelected = (!string.IsNullOrEmpty(value) && choice == value) ||
+                    (string.IsNullOrEmpty(value) && !Model.IsRequired && choice == Model.MetaField.DefaultValue as string);
+ 
+            var optionAttributes = isSelected ? "selected" : string.Empty;
             var optionValue = Model.IsRequired && choice == Model.Choices.FirstOrDefault() ? string.Empty : choice;
 
             <option @optionAttributes value="@optionValue">@choice</option>
