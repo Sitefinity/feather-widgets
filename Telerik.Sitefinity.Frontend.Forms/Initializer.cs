@@ -1,4 +1,6 @@
-﻿using System.Collections.Specialized;
+﻿using System;
+using System.Collections.Generic;
+using System.Collections.Specialized;
 using System.Linq;
 using System.Web.UI;
 using Telerik.Microsoft.Practices.Unity;
@@ -64,32 +66,52 @@ namespace Telerik.Sitefinity.Frontend.Forms
 
         private static void AddFieldsToToolbox()
         {
-            var configurationManager = ConfigManager.GetManager();
-            configurationManager.Provider.SuppressSecurityChecks = true;
-            var toolboxesConfig = configurationManager.GetSection<ToolboxesConfig>();
+            var toolboxesConfig = Config.Get<ToolboxesConfig>();
 
             var section = Initializer.GetFormsToolboxSection(toolboxesConfig);
             if (section == null)
                 return;
 
-            bool needsSaveSection = false;
-            Initializer.RegisterToolboxItem(section, "MvcTextField", "Textbox", "Telerik.Sitefinity.Frontend.Forms.Mvc.Controllers.TextFieldController", "sfTextboxIcn sfMvcIcn", ref needsSaveSection);
-            Initializer.RegisterToolboxItem(section, "MvcPageBreak", "Page break", "Telerik.Sitefinity.Frontend.Forms.Mvc.Controllers.PageBreakController", "sfPageBreakIcn sfMvcIcn", ref needsSaveSection);
-            Initializer.RegisterToolboxItem(section, "MvcNavigationField", "Form navigation", "Telerik.Sitefinity.Frontend.Forms.Mvc.Controllers.NavigationFieldController", "sfFormNavIcn sfMvcIcn", ref needsSaveSection);
-            Initializer.RegisterToolboxItem(section, "MvcMultipleChoiceField", "Multiple choice", "Telerik.Sitefinity.Frontend.Forms.Mvc.Controllers.MultipleChoiceFieldController", "sfMultipleChoiceIcn sfMvcIcn", ref needsSaveSection);
-            Initializer.RegisterToolboxItem(section, "MvcCheckboxesField", "Checkboxes", "Telerik.Sitefinity.Frontend.Forms.Mvc.Controllers.CheckboxesFieldController", "sfCheckboxesIcn sfMvcIcn", ref needsSaveSection);
-            Initializer.RegisterToolboxItem(section, "MvcParagraphTextField", "Paragraph textbox", "Telerik.Sitefinity.Frontend.Forms.Mvc.Controllers.ParagraphTextFieldController", "sfParagraphboxIcn sfMvcIcn", ref needsSaveSection);
-            Initializer.RegisterToolboxItem(section, "MvcDropdownListField", "Dropdown list", "Telerik.Sitefinity.Frontend.Forms.Mvc.Controllers.DropdownListFieldController", "sfDropdownIcn sfMvcIcn", ref needsSaveSection);
-            Initializer.RegisterToolboxItem(section, "MvcSectionHeaderField", "Section header", "Telerik.Sitefinity.Frontend.Forms.Mvc.Controllers.SectionHeaderController", "sfSectionHeaderIcn sfMvcIcn", ref needsSaveSection);
-            Initializer.RegisterToolboxItem(section, "MvcInstructionalTextField", "Content block", "Telerik.Sitefinity.Frontend.ContentBlock.Mvc.Controllers.ContentBlockController", "sfInstructionIcn sfMvcIcn", ref needsSaveSection);
-            Initializer.RegisterToolboxItem(section, "MvcFileField", "File upload", "Telerik.Sitefinity.Frontend.Forms.Mvc.Controllers.FileFieldController", "sfFileUploadIcn sfMvcIcn", ref needsSaveSection);
-            Initializer.RegisterToolboxItem(section, "MvcCaptchaField", "CAPTCHA", "Telerik.Sitefinity.Frontend.Forms.Mvc.Controllers.CaptchaController", "sfCaptchaIcn sfMvcIcn", ref needsSaveSection);
-            Initializer.RegisterToolboxItem(section, "MvcSubmitButton", "Submit button", "Telerik.Sitefinity.Frontend.Forms.Mvc.Controllers.SubmitButtonController", "sfSubmitBtnIcn sfMvcIcn", ref needsSaveSection);
-
-            if (needsSaveSection)
+            ConfigManager configManager = null;
+            var items = new List<KeyValuePair<string, Func<ToolboxItemInfo>>>()
             {
-                configurationManager.SaveSection(toolboxesConfig);
-                configurationManager.Provider.SuppressSecurityChecks = false;
+                new KeyValuePair<string, Func<ToolboxItemInfo>>("MvcTextField", () => new ToolboxItemInfo("Textbox", "Telerik.Sitefinity.Frontend.Forms.Mvc.Controllers.TextFieldController", "sfTextboxIcn sfMvcIcn")),
+                new KeyValuePair<string, Func<ToolboxItemInfo>>("MvcPageBreak", () => new ToolboxItemInfo("Page break", "Telerik.Sitefinity.Frontend.Forms.Mvc.Controllers.PageBreakController", "sfPageBreakIcn sfMvcIcn")),
+                new KeyValuePair<string, Func<ToolboxItemInfo>>("MvcNavigationField", () => new ToolboxItemInfo("Form navigation", "Telerik.Sitefinity.Frontend.Forms.Mvc.Controllers.NavigationFieldController", "sfFormNavIcn sfMvcIcn")),
+                new KeyValuePair<string, Func<ToolboxItemInfo>>("MvcMultipleChoiceField", () => new ToolboxItemInfo("Multiple choice", "Telerik.Sitefinity.Frontend.Forms.Mvc.Controllers.MultipleChoiceFieldController", "sfMultipleChoiceIcn sfMvcIcn")),
+                new KeyValuePair<string, Func<ToolboxItemInfo>>("MvcCheckboxesField", () => new ToolboxItemInfo("Checkboxes", "Telerik.Sitefinity.Frontend.Forms.Mvc.Controllers.CheckboxesFieldController", "sfCheckboxesIcn sfMvcIcn")),
+                new KeyValuePair<string, Func<ToolboxItemInfo>>("MvcParagraphTextField", () => new ToolboxItemInfo("Paragraph textbox", "Telerik.Sitefinity.Frontend.Forms.Mvc.Controllers.ParagraphTextFieldController", "sfParagraphboxIcn sfMvcIcn")),
+                new KeyValuePair<string, Func<ToolboxItemInfo>>("MvcDropdownListField", () => new ToolboxItemInfo("Dropdown list", "Telerik.Sitefinity.Frontend.Forms.Mvc.Controllers.DropdownListFieldController", "sfDropdownIcn sfMvcIcn")),
+                new KeyValuePair<string, Func<ToolboxItemInfo>>("MvcSectionHeaderField", () => new ToolboxItemInfo("Section header", "Telerik.Sitefinity.Frontend.Forms.Mvc.Controllers.SectionHeaderController", "sfSectionHeaderIcn sfMvcIcn")),
+                new KeyValuePair<string, Func<ToolboxItemInfo>>("MvcInstructionalTextField", () => new ToolboxItemInfo("Content block", "Telerik.Sitefinity.Frontend.ContentBlock.Mvc.Controllers.ContentBlockController", "sfInstructionIcn sfMvcIcn")),
+                new KeyValuePair<string, Func<ToolboxItemInfo>>("MvcFileField", () => new ToolboxItemInfo("File upload", "Telerik.Sitefinity.Frontend.Forms.Mvc.Controllers.FileFieldController", "sfFileUploadIcn sfMvcIcn")),
+                new KeyValuePair<string, Func<ToolboxItemInfo>>("MvcCaptchaField", () => new ToolboxItemInfo("CAPTCHA", "Telerik.Sitefinity.Frontend.Forms.Mvc.Controllers.CaptchaController", "sfCaptchaIcn sfMvcIcn")),
+                new KeyValuePair<string, Func<ToolboxItemInfo>>("MvcHiddenField", () => new ToolboxItemInfo("Hidden field", "Telerik.Sitefinity.Frontend.Forms.Mvc.Controllers.HiddenFieldController", "sfTextboxIcn sfMvcIcn")),
+                new KeyValuePair<string, Func<ToolboxItemInfo>>("MvcSubmitButton", () => new ToolboxItemInfo("Submit button", "Telerik.Sitefinity.Frontend.Forms.Mvc.Controllers.SubmitButtonController", "sfSubmitBtnIcn sfMvcIcn")),
+            };
+
+            foreach (var item in items)
+            {
+                if (!section.Tools.Contains(item.Key))
+                {
+                    if (configManager == null)
+                    {
+                        configManager = ConfigManager.GetManager();
+
+                        toolboxesConfig = configManager.GetSection<ToolboxesConfig>();
+                        section = Initializer.GetFormsToolboxSection(toolboxesConfig);
+                    }
+
+                    RegisterToolboxItem(section, item.Key, item.Value());
+                }
+            }
+
+            if (configManager != null)
+            {
+                using (new ElevatedModeRegion(configManager))
+                {
+                    configManager.SaveSection(toolboxesConfig);
+                }
             }
         }
 
@@ -107,26 +129,25 @@ namespace Telerik.Sitefinity.Frontend.Forms
             }
         }
 
-        private static void RegisterToolboxItem(ToolboxSection section, string name, string title, string controllerType, string cssClass, ref bool needsSaveSection)
+        private static void RegisterToolboxItem(ToolboxSection section, string name, ToolboxItemInfo item)
         {
-            if (!section.Tools.Any<ToolboxItem>(t => t.Name == name))
+            if (!section.Tools.Contains(name))
             {
                 var toolboxItem = new ToolboxItem(section.Tools)
                 {
                     Name = name,
-                    Title = title,
+                    Title = item.Title,
                     Description = string.Empty,
                     ControlType = typeof(MvcControllerProxy).FullName,
-                    ControllerType = controllerType,
-                    CssClass = cssClass,
+                    ControllerType = item.ControllerType,
+                    CssClass = item.CssClass,
                     Parameters = new NameValueCollection() 
                     { 
-                        { "ControllerName", controllerType }
+                        { "ControllerName", item.ControllerType }
                     }
                 };
 
                 section.Tools.Add(toolboxItem);
-                needsSaveSection = true;
             }
         }
 
@@ -137,6 +158,20 @@ namespace Telerik.Sitefinity.Frontend.Forms
             ToolboxSection section = formsControls.Sections.Where<ToolboxSection>(e => e.Name == sectionName).FirstOrDefault();
 
             return section;
+        }
+
+        class ToolboxItemInfo
+        {
+            public ToolboxItemInfo(string title, string controllerType, string cssClass)
+            {
+                this.Title = title;
+                this.ControllerType = controllerType;
+                this.CssClass = cssClass;
+            }
+
+            public string Title { get; private set; }
+            public string ControllerType { get; private set; }
+            public string CssClass { get; private set; }
         }
 
         #endregion

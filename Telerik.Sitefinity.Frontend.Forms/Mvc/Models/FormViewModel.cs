@@ -1,4 +1,4 @@
-﻿using System;
+﻿using System.Web.Mvc;
 
 namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Models
 {
@@ -59,6 +59,16 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Models
         /// </value>
         public string FormId { get; set; }
 
+        /// <summary>
+        /// Gets or sets a value indicating whether the form is multi-step form.
+        /// </summary>
+        /// <value>A value indicating whether the form is multi-step form.</value>
         public bool IsMultiStep { get; set; }
+ 
+        /// <summary>
+        /// Gets or sets the form collection.
+        /// </summary>
+        /// <value>The form collection.</value>
+        public FormCollection FormCollection { get; set; }
     }
 }

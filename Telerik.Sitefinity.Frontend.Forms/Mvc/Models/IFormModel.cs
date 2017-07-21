@@ -72,6 +72,11 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Models
         bool NeedsRedirect { get; }
 
         /// <summary>
+        /// Gets or sets the connectors settings
+        /// </summary>
+        string ConnectorSettings { get; set; }
+
+        /// <summary>
         /// Gets the information for all of the content types that a model is able to show
         /// </summary>
         IEnumerable<IContentLocationInfo> GetLocations();
@@ -109,6 +114,12 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Models
         bool RaiseBeforeFormActionEvent();
 
         bool IsMultiStep { get; set; }
+
+        /// <summary>
+        /// Gets or sets the form collection.
+        /// </summary>
+        /// <value>The form collection.</value>
+        FormCollection FormCollection { get; set; }
 
         /// <summary>
         /// Gets a collection of <see cref="CacheDependencyNotifiedObject"/>.

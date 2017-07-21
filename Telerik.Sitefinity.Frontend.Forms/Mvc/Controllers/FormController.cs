@@ -95,8 +95,17 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Controllers
 					var resultMessage = this.Model.GetSubmitMessage(success);
 					this.ViewBag.SubmitMessage = resultMessage;
 
-					var viewTemplatePath = FormController.TemplateNamePrefix + FormController.SubmitResultTemplateName;
-					return this.View(viewTemplatePath);
+                    if (success == SubmitStatus.Success)
+                    {
+                        var viewTemplatePath = FormController.TemplateNamePrefix + FormController.SubmitResultTemplateName;
+                        return this.View(viewTemplatePath);
+                    }
+                    else
+                    {
+                        this.ViewBag.ErrorMessage = resultMessage;
+                        this.Model.FormCollection = collection;
+                        return this.Index();
+                    }
 				}
                 else
 				{

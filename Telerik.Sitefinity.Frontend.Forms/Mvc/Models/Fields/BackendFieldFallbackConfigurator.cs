@@ -74,7 +74,7 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Models.Fields
                     if (newControl is FieldControl)
                     {
                         var newFieldControl = (FieldControl)newControl;
-                        newFieldControl.Title = formField.MetaField.Title;
+                        newFieldControl.Title = formField.MetaField.Title ?? formField.MetaField.FieldName;
                         var fieldController = formField as IFormFieldController<IFormFieldModel>;
                         if (fieldController != null)
                         {

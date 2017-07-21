@@ -59,8 +59,7 @@
       <SpecificVersion>False</SpecificVersion>
     </Reference>
     <Reference Include="ServiceStack.Text, Version=4.0.0.0, Culture=neutral, PublicKeyToken=e06fbc6124f57c43, processorArchitecture=MSIL">
-      <HintPath>..\packages\ServiceStack.Text.Signed.4.5.6\lib\net45\ServiceStack.Text.dll</HintPath>
-      <Private>True</Private>
+      <HintPath>..\packages\ServiceStack.Text.Signed.4.5.8\lib\net45\ServiceStack.Text.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Configuration" />
@@ -119,19 +118,16 @@
       <Private>True</Private>
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="Telerik.Web.Design">
-      <HintPath>..\packages\Telerik.Web.UI.2017.1.118.40\lib\net40\Telerik.Web.Design.dll</HintPath>
-      <SpecificVersion>false</SpecificVersion>
+    <Reference Include="Telerik.Web.Design, Version=2017.2.621.40, Culture=neutral, PublicKeyToken=121fae78165ba3d4, processorArchitecture=MSIL">
+      <HintPath>..\packages\Telerik.Web.UI.2017.2.621.40\lib\net40\Telerik.Web.Design.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="Telerik.Web.UI">
-      <HintPath>..\packages\Telerik.Web.UI.2017.1.118.40\lib\net40\Telerik.Web.UI.dll</HintPath>
-      <SpecificVersion>false</SpecificVersion>
+    <Reference Include="Telerik.Web.UI, Version=2017.2.621.40, Culture=neutral, PublicKeyToken=121fae78165ba3d4, processorArchitecture=MSIL">
+      <HintPath>..\packages\Telerik.Web.UI.2017.2.621.40\lib\net40\Telerik.Web.UI.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="Telerik.Web.UI.Skins">
-      <HintPath>..\packages\Telerik.Web.UI.2017.1.118.40\lib\net40\Telerik.Web.UI.Skins.dll</HintPath>
-      <SpecificVersion>false</SpecificVersion>
+    <Reference Include="Telerik.Web.UI.Skins, Version=2017.2.621.40, Culture=neutral, PublicKeyToken=121fae78165ba3d4, processorArchitecture=MSIL">
+      <HintPath>..\packages\Telerik.Web.UI.2017.2.621.40\lib\net40\Telerik.Web.UI.Skins.dll</HintPath>
       <Private>True</Private>
     </Reference>
   </ItemGroup>
@@ -153,6 +149,7 @@
     <Compile Include="Mvc\Controllers\CaptchaController.cs" />
     <Compile Include="Mvc\Controllers\CheckboxesFieldController.cs" />
     <Compile Include="Mvc\Controllers\Base\FormElementControllerBase.cs" />
+    <Compile Include="Mvc\Controllers\HiddenFieldController.cs" />
     <Compile Include="Mvc\Controllers\NavigationFieldController.cs" />
     <Compile Include="Mvc\Controllers\PageBreakController.cs" />
     <Compile Include="Mvc\Controllers\FileFieldController.cs" />
@@ -178,6 +175,9 @@
     <Compile Include="Mvc\Models\Fields\CheckboxesField\ICheckboxesFieldModel.cs" />
     <Compile Include="Mvc\Models\Fields\CheckboxesField\CheckboxesFieldModel.cs" />
     <Compile Include="Mvc\Models\Fields\CheckboxesField\CheckboxesFieldViewModel.cs" />
+    <Compile Include="Mvc\Models\Fields\HiddenField\IHiddenFieldModel.cs" />
+    <Compile Include="Mvc\Models\Fields\HiddenField\HiddenFieldModel.cs" />
+    <Compile Include="Mvc\Models\Fields\HiddenField\HiddenFieldViewModel.cs" />
     <Compile Include="Mvc\Models\Fields\NavigationField\FormPage.cs" />
     <Compile Include="Mvc\Models\Fields\NavigationField\INavigationFieldModel.cs" />
     <Compile Include="Mvc\Models\Fields\NavigationField\NavigationFieldModel.cs" />
@@ -225,6 +225,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
+    <EmbeddedResource Include="Mvc\Scripts\HiddenField\designerview-simple.js" />
     <EmbeddedResource Include="Mvc\Views\TextField\Write.Default.cshtml" />
     <EmbeddedResource Include="Mvc\Views\SubmitButton\Write.Default.cshtml" />
     <EmbeddedResource Include="Mvc\Views\TextField\DesignerView.Simple.cshtml" />
@@ -271,7 +272,13 @@
     <EmbeddedResource Include="Mvc\Views\NavigationField\DesignerView.Simple.json" />
     <EmbeddedResource Include="Mvc\Views\NavigationField\Read.ProgressBar.cshtml" />
     <EmbeddedResource Include="Mvc\Views\Form\Form.SubmitResultView.cshtml" />
-    <None Include="packages.config" />
+    <EmbeddedResource Include="Mvc\Views\HiddenField\DesignerView.Simple.cshtml" />
+    <EmbeddedResource Include="Mvc\Views\HiddenField\DesignerView.Simple.json" />
+    <EmbeddedResource Include="Mvc\Views\HiddenField\Read.Default.cshtml" />
+    <EmbeddedResource Include="Mvc\Views\HiddenField\Write.Default.cshtml" />
+    <None Include="packages.config">
+      <SubType>Designer</SubType>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Mvc\Scripts\TextField\designerview-simple.js" />
@@ -337,37 +344,36 @@
     <EmbeddedResource Include="Mvc\Scripts\PageBreak\page-break.js" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="assets\dist\css\sf-form-nav.css" />
     <EmbeddedResource Include="assets\dist\css\sf-form-nav.min.css" />
     <EmbeddedResource Include="Mvc\Scripts\NavigationField\navigation-field.js" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="Telerik.Sitefinity.Services.Events">
-      <HintPath>..\packages\Telerik.Sitefinity.Core.10.0.6421.0\lib\net45\Telerik.Sitefinity.Services.Events.dll</HintPath>
+      <HintPath>..\packages\Telerik.Sitefinity.Core.10.1.6520.0\lib\net45\Telerik.Sitefinity.Services.Events.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Telerik.Sitefinity.ContentModules">
-      <HintPath>..\packages\Telerik.Sitefinity.Content.10.0.6421.0\lib\net45\Telerik.Sitefinity.ContentModules.dll</HintPath>
+      <HintPath>..\packages\Telerik.Sitefinity.Content.10.1.6520.0\lib\net45\Telerik.Sitefinity.ContentModules.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Telerik.Sitefinity.Model">
-      <HintPath>..\packages\Telerik.Sitefinity.Core.10.0.6421.0\lib\net45\Telerik.Sitefinity.Model.dll</HintPath>
+      <HintPath>..\packages\Telerik.Sitefinity.Core.10.1.6520.0\lib\net45\Telerik.Sitefinity.Model.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Telerik.Sitefinity">
-      <HintPath>..\packages\Telerik.Sitefinity.Core.10.0.6421.0\lib\net45\Telerik.Sitefinity.dll</HintPath>
+      <HintPath>..\packages\Telerik.Sitefinity.Core.10.1.6520.0\lib\net45\Telerik.Sitefinity.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Telerik.Sitefinity.Utilities">
-      <HintPath>..\packages\Telerik.Sitefinity.Core.10.0.6421.0\lib\net45\Telerik.Sitefinity.Utilities.dll</HintPath>
+      <HintPath>..\packages\Telerik.Sitefinity.Core.10.1.6520.0\lib\net45\Telerik.Sitefinity.Utilities.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Telerik.Sitefinity.Frontend">
-      <HintPath>..\packages\Telerik.Sitefinity.Feather.Core.10.0.6421.0\lib\net45\Telerik.Sitefinity.Frontend.dll</HintPath>
+      <HintPath>..\packages\Telerik.Sitefinity.Feather.Core.10.1.6520.0\lib\net45\Telerik.Sitefinity.Frontend.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Telerik.Sitefinity.Mvc">
-      <HintPath>..\packages\Telerik.Sitefinity.Mvc.10.0.6421.0\lib\net45\Telerik.Sitefinity.Mvc.dll</HintPath>
+      <HintPath>..\packages\Telerik.Sitefinity.Mvc.10.1.6520.0\lib\net45\Telerik.Sitefinity.Mvc.dll</HintPath>
       <Private>True</Private>
     </Reference>
   </ItemGroup>

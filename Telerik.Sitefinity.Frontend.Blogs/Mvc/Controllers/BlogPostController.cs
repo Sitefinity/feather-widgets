@@ -16,6 +16,7 @@ using Telerik.Sitefinity.Frontend.Mvc.Infrastructure.Routing;
 using Telerik.Sitefinity.Modules.Blogs;
 using Telerik.Sitefinity.Modules.Pages.Configuration;
 using Telerik.Sitefinity.Mvc;
+using Telerik.Sitefinity.Personalization;
 using Telerik.Sitefinity.Services;
 using Telerik.Sitefinity.Taxonomies.Model;
 using Telerik.Sitefinity.Web;
@@ -27,7 +28,7 @@ namespace Telerik.Sitefinity.Frontend.Blogs.Mvc.Controllers
     /// </summary>
     [Localization(typeof(BlogPostResources))]
     [ControllerToolboxItem(Name = "BlogPost_MVC", Title = "Blog posts", SectionName = ToolboxesConfig.ContentToolboxSectionName, ModuleName = "Blogs", CssClass = BlogPostController.WidgetIconCssClass)]
-    public class BlogPostController : Controller, IContentLocatableView, IRouteMapper
+    public class BlogPostController : Controller, IContentLocatableView, IRouteMapper, IPersonalizable
     {
         #region Properties
 

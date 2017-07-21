@@ -1,0 +1,34 @@
+﻿@model Telerik.Sitefinity.Frontend.Forms.Mvc.Models.Fields.HiddenField.HiddenFieldViewModel
+
+@using Telerik.Sitefinity.Frontend.Forms.Mvc.Helpers;
+@using Telerik.Sitefinity.Frontend.Mvc.Helpers;
+@using Telerik.Sitefinity.Localization;
+@using Telerik.Sitefinity.Frontend.Forms.Mvc.StringResources
+@using Telerik.Sitefinity.Services;
+
+@{
+    string untitledLabel = Res.Get<FieldResources>().Untitled;
+}
+
+@if (SystemManager.IsDesignMode && !SystemManager.IsPreviewMode)
+{
+    // Using sfHiddenField class this field is hidden in Page Editing mode and shown only when in Form Editing mode.
+    <div class="sf-fieldWrp sfHiddenField">
+        <label for='@Html.UniqueId("HiddenField")'>
+            @if (string.IsNullOrEmpty(Model.MetaField.FieldName))
+            {
+                @untitledLabel;
+            }
+            else
+            {
+                @Model.MetaField.FieldName;
+            }
+
+        </label>
+        <input id='@Html.UniqueId("HiddenField")' type="text" name="@Model.MetaField.FieldName" value="@Model.MetaField.DefaultValue" disabled="disabled" />
+    </div>
+}
+else
+{
+   <input id='@Html.UniqueId("HiddenField")' type="hidden" name="@Model.MetaField.FieldName" value="@Model.MetaField.DefaultValue" /> 
+}

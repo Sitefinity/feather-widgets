@@ -20,6 +20,7 @@ using Telerik.Sitefinity.Frontend.Mvc.Models;
 using Telerik.Sitefinity.GenericContent.Model;
 using Telerik.Sitefinity.Localization;
 using Telerik.Sitefinity.Model;
+using Telerik.Sitefinity.Personalization;
 using Telerik.Sitefinity.Services;
 using Telerik.Sitefinity.Taxonomies.Model;
 using Telerik.Sitefinity.Utilities.TypeConverters;
@@ -32,7 +33,7 @@ namespace Telerik.Sitefinity.Frontend.DynamicContent.Mvc.Controllers
     /// </summary>
     [Localization(typeof(DynamicContentResources))]
     [ControllerMetadataAttribute(IsTemplatableControl = false)]
-    public class DynamicContentController : Controller, IRouteMapper, IContentLocatableView, IDynamicContentWidget
+    public class DynamicContentController : Controller, IRouteMapper, IContentLocatableView, IDynamicContentWidget, IPersonalizable
     {
         #region Properties
 

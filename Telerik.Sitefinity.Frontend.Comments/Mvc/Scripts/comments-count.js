@@ -5,7 +5,7 @@
         Widget
     */
     var CommentsCountWidget = function (rootUrl) {
-        if (rootUrl === null || rootUrl.length === 0)
+        if (typeof rootUrl === "undefined" || rootUrl === null || rootUrl.length === 0)
             rootUrl = '/';
         else if (rootUrl.charAt(rootUrl.length - 1) !== '/')
             rootUrl = rootUrl + '/';
@@ -194,8 +194,19 @@
     /*
         Widgets creation
     */
-    $(function () {
+    if (window.personalizationManager) {
+        window.personalizationManager.addPersonalizedContentLoaded(function () {
+            Initialization();
+        });
+    }
+    else {
+        $(function () {
+            Initialization();
+        });
+    }
+
+    function Initialization() {
         var rootUrl = $('[data-sf-role="comments-count-wrapper"]').find('[data-sf-role="service-url"]').val();
         (new CommentsCountWidget(rootUrl)).initialize();
-    });
+    }
 }(jQuery));

@@ -39,7 +39,7 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Helpers
             }
         }
 
-        public static MvcHtmlString FormController(this HtmlHelper htmlHelper, Guid id, FormViewMode viewMode, object routeValues)
+        public static MvcHtmlString FormController(this HtmlHelper htmlHelper, Guid id, FormViewMode viewMode, object routeValues, FormCollection collection = null)
         {
             var manager = FormsManager.GetManager();
             var controlData = manager.GetControl<FormControl>(id);
@@ -65,6 +65,19 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Helpers
             }
 
             var controller = mvcProxy.GetController();
+            if (collection != null)
+            {
+                var formField = controller as IFormFieldController<IFormFieldModel>;
+
+                if (formField != null && collection.Keys.Contains(formField.MetaField.FieldName))
+                {
+                    var fieldValue = collection[formField.MetaField.FieldName];
+                    if (fieldValue != null)
+                    {
+                        routeData.Values.Add("Value", fieldValue);
+                    }
+                }
+            }
 
             if (mvcProxy.IsIndexingMode() && controller.GetIndexRenderMode() == IndexRenderModes.NoOutput)
                 return MvcHtmlString.Empty;

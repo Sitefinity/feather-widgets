@@ -123,9 +123,6 @@
       <Link>Properties\SharedAssemblyInfo.cs</Link>
     </Compile>
     <None Include="app.config" />
-    <None Include="assets\src\sass\feed\_sf-feed.sass" />
-    <None Include="assets\src\sass\sf-sprite.mustache" />
-    <None Include="assets\src\sass\styles.sass" />
     <Compile Include="Helpers\PublishingWidgetExtensions.cs" />
     <Compile Include="InterfaceMappings.cs" />
     <Compile Include="Mvc\Controllers\FeedController.cs" />
@@ -137,46 +134,13 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="assets\dist\css\feed.css" />
+    <EmbeddedResource Include="assets\dist\images\feed.png" />
     <EmbeddedResource Include="assets\dist\css\feed.min.css" />
-    <Content Include="assets\src\images\sprite.png" />
-    <Content Include="assets\src\images\sprite\blogger.png" />
-    <Content Include="assets\src\images\sprite\comment.png" />
-    <Content Include="assets\src\images\sprite\delicious.png" />
-    <Content Include="assets\src\images\sprite\digg.png" />
-    <Content Include="assets\src\images\sprite\email.png" />
-    <Content Include="assets\src\images\sprite\facebook.png" />
-    <Content Include="assets\src\images\sprite\feed.png" />
-    <Content Include="assets\src\images\sprite\google.png" />
-    <Content Include="assets\src\images\sprite\linkedin.png" />
-    <Content Include="assets\src\images\sprite\mailto.png" />
-    <Content Include="assets\src\images\sprite\myspace.png" />
-    <Content Include="assets\src\images\sprite\reddit.png" />
-    <Content Include="assets\src\images\sprite\stumble-upon.png" />
-    <Content Include="assets\src\images\sprite\tumblr.png" />
-    <Content Include="assets\src\images\sprite\twitter.png" />
-    <EmbeddedResource Include="assets\dist\images\sprite.png" />
-    <Content Include="assets\dist\images\sprite\blogger.png" />
-    <Content Include="assets\dist\images\sprite\comment.png" />
-    <Content Include="assets\dist\images\sprite\delicious.png" />
-    <Content Include="assets\dist\images\sprite\digg.png" />
-    <Content Include="assets\dist\images\sprite\email.png" />
-    <Content Include="assets\dist\images\sprite\facebook.png" />
-    <Content Include="assets\dist\images\sprite\feed.png" />
-    <Content Include="assets\dist\images\sprite\google.png" />
-    <Content Include="assets\dist\images\sprite\linkedin.png" />
-    <Content Include="assets\dist\images\sprite\mailto.png" />
-    <Content Include="assets\dist\images\sprite\myspace.png" />
-    <Content Include="assets\dist\images\sprite\reddit.png" />
-    <Content Include="assets\dist\images\sprite\stumble-upon.png" />
-    <Content Include="assets\dist\images\sprite\tumblr.png" />
-    <Content Include="assets\dist\images\sprite\twitter.png" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Mvc\Views\Feed\DesignerView.Simple.json" />
     <EmbeddedResource Include="Mvc\Views\Feed\DesignerView.Simple.cshtml" />
     <EmbeddedResource Include="Mvc\Views\Feed\Feed.FeedLink.cshtml" />
-    <None Include="assets\src\sass\_sf-sprite.sass" />
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
@@ -184,27 +148,27 @@
   </ItemGroup>
   <ItemGroup>
     <Reference Include="Telerik.Sitefinity.ContentModules">
-      <HintPath>..\packages\Telerik.Sitefinity.Content.10.0.6421.0\lib\net45\Telerik.Sitefinity.ContentModules.dll</HintPath>
+      <HintPath>..\packages\Telerik.Sitefinity.Content.10.1.6520.0\lib\net45\Telerik.Sitefinity.ContentModules.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Telerik.Sitefinity.Model">
-      <HintPath>..\packages\Telerik.Sitefinity.Core.10.0.6421.0\lib\net45\Telerik.Sitefinity.Model.dll</HintPath>
+      <HintPath>..\packages\Telerik.Sitefinity.Core.10.1.6520.0\lib\net45\Telerik.Sitefinity.Model.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Telerik.Sitefinity">
-      <HintPath>..\packages\Telerik.Sitefinity.Core.10.0.6421.0\lib\net45\Telerik.Sitefinity.dll</HintPath>
+      <HintPath>..\packages\Telerik.Sitefinity.Core.10.1.6520.0\lib\net45\Telerik.Sitefinity.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Telerik.Sitefinity.Utilities">
-      <HintPath>..\packages\Telerik.Sitefinity.Core.10.0.6421.0\lib\net45\Telerik.Sitefinity.Utilities.dll</HintPath>
+      <HintPath>..\packages\Telerik.Sitefinity.Core.10.1.6520.0\lib\net45\Telerik.Sitefinity.Utilities.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Telerik.Sitefinity.Frontend">
-      <HintPath>..\packages\Telerik.Sitefinity.Feather.Core.10.0.6421.0\lib\net45\Telerik.Sitefinity.Frontend.dll</HintPath>
+      <HintPath>..\packages\Telerik.Sitefinity.Feather.Core.10.1.6520.0\lib\net45\Telerik.Sitefinity.Frontend.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Telerik.Sitefinity.Mvc">
-      <HintPath>..\packages\Telerik.Sitefinity.Mvc.10.0.6421.0\lib\net45\Telerik.Sitefinity.Mvc.dll</HintPath>
+      <HintPath>..\packages\Telerik.Sitefinity.Mvc.10.1.6520.0\lib\net45\Telerik.Sitefinity.Mvc.dll</HintPath>
       <Private>True</Private>
     </Reference>
   </ItemGroup>

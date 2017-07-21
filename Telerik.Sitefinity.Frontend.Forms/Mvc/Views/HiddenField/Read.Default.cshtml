@@ -1,0 +1,6 @@
+﻿@model Telerik.Sitefinity.Frontend.Forms.Mvc.Models.Fields.HiddenField.HiddenFieldViewModel
+
+@using Telerik.Sitefinity.Frontend.Forms.Mvc.Helpers;
+@using Telerik.Sitefinity.Frontend.Mvc.Helpers;
+
+<input id='@Html.UniqueId("HiddenField")' type="hidden" name="@Model.MetaField.FieldName" value="@Model.MetaField.DefaultValue" />

@@ -1,4 +1,7 @@
+@using Telerik.Microsoft.Practices.Unity;
 @using Telerik.Sitefinity.Frontend.Mvc.Helpers;
+@using Telerik.Sitefinity.Modules.Forms;
+@using System;
 
 <uib-tabset class="nav-tabs-wrapper">
     <uib-tab heading="@Html.Resource("Form")">
@@ -6,7 +9,6 @@
         <strong class="u-db m-bottom-xs">@Html.Resource("SelectForm")</strong>
 
         <sf-form-field sf-model="properties.FormId.PropertyValue"></sf-form-field>
-
                
         <expander expander-title='@Html.Resource("MoreOptions")'>
             <style-dropdown selected-class="properties.CssClass.PropertyValue" view-name ="todo"></style-dropdown>
@@ -16,7 +18,6 @@
                 <input type="text" ng-model="properties.CssClass.PropertyValue" class="form-control" />
             </div>
         </expander>
-
 
     </uib-tab>
 
@@ -61,4 +62,55 @@
             </div>
         </div>
     </uib-tab>
+
+    @foreach (FormsConnectorDesignerExtender extender in Telerik.Sitefinity.Abstractions.ObjectFactory.Container.ResolveAll<FormsConnectorDesignerExtender>())
+    {
+        <uib-tab heading="@extender.Title">
+
+            @foreach (var prop in extender.GetProperties())
+            {
+                string modelName = string.Concat("properties.ConnectorSettings.PropertyValue.", extender.Name, ".", prop.Name);
+                switch(prop.Type)
+                {
+                    case FormsConnectorDesignerExtender.PropertyDescription.PropertyType.Bool:
+                    {
+                        <div class="form-group">
+                            <div class="checkbox">
+                                <strong>@prop.Title</strong><br>
+                                <label>
+                                    <input type="checkbox" ng-model="@modelName" ng-true-value="'True'" ng-false-value="'False'" ng-checked="@modelName === 'True'" />
+                                    @prop.Text
+                                </label>
+                            </div>
+                        </div>
+                
+                        break;
+                    }
+                    case FormsConnectorDesignerExtender.PropertyDescription.PropertyType.String:
+                    {
+                        string conditionalVisibility = string.IsNullOrEmpty(prop.ConditionalVisibility) ? "true" : ((string)prop.ConditionalVisibility).Replace("{properties}", "properties");
+                        <div ng-if="@conditionalVisibility" class="form-group">
+                            <label for="@prop.Name">@prop.Title</label>
+                            <div class="row">
+                                <div class="col-xs-6">
+                                    <input id="@prop.Name" type="text" ng-model="@modelName" class="form-control" />
+                                </div>
+                            </div>
+                        </div>
+
+                            break;
+                        }
+                    case FormsConnectorDesignerExtender.PropertyDescription.PropertyType.InformationText:
+                        {
+                            <div class="form-group">
+                                <div class="alert alert-info">@prop.Text</div>
+                            </div>
+                            break;
+                        }
+                }
+            }
+
+        </uib-tab>
+    }
+
 </uib-tabset>
