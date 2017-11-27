@@ -1,9 +1,11 @@
 @model Telerik.Sitefinity.Frontend.ContentBlock.Mvc.Models.IContentBlockModel
 
+@using Telerik.Sitefinity.Frontend.Mvc.Helpers;
+
 @using Telerik.Sitefinity.Frontend.Mvc.Helpers
 
 <div class="@Model.WrapperCssClass" @Html.InlineEditingAttributes(Model.ProviderName, Model.ContentType, Model.SharedContentID)>
-    <div @Html.InlineEditingFieldAttributes("Content", "LongText")>@Html.Raw(Model.Content)</div>    
+    <div @Html.InlineEditingFieldAttributes("Content", "LongText")>@Html.HtmlSanitize(Model.Content)</div>    
     @{        
         if (Model.EnableSocialSharing)
         {

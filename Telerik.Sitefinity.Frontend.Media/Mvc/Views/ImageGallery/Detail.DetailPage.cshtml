@@ -17,9 +17,9 @@
     </span>
     @Html.CommentsCount(string.Empty, @Model.Item.DataItem)
 
-    <div @Html.InlineEditingFieldAttributes("Description", "LongText")>@Html.Raw(Model.Item.Fields.Description)</div>
+    <div @Html.InlineEditingFieldAttributes("Description", "LongText")>@Html.HtmlSanitize((string)Model.Item.Fields.Description)</div>
 
-    <img src="@Html.Raw(Model.MediaUrl)" alt='@System.Text.RegularExpressions.Regex.Replace(Model.Item.Fields.AlternativeText, @"[^\w\d_-]", "")'
+    <img src="@Model.MediaUrl" alt='@System.Text.RegularExpressions.Regex.Replace(Model.Item.Fields.AlternativeText, @"[^\w\d_-]", "")'
                  @Html.GetWidthAttributeIfExists(Model.Width)
                  @Html.GetHeightAttributeIfExists(Model.Height) />
 

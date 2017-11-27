@@ -18,16 +18,16 @@
     {
 		if(ViewBag.IsFilteredbyPermission)
 		{
-			<h1>@Html.Raw(Model.ResultText)</h1>
+			<h1>@Html.HtmlSanitize(Model.ResultText)</h1>
 		}
 		else
 		{
-			<h1>@Model.Results.TotalCount @Html.Raw(Model.ResultText)</h1>
+			<h1>@Model.Results.TotalCount @Html.HtmlSanitize(Model.ResultText)</h1>
 		}
     }
     else
     {
-        <h1>@Html.Resource("No") @Html.Raw(Model.ResultText)</h1>
+        <h1>@Html.Resource("No") @Html.HtmlSanitize(Model.ResultText)</h1>
     }
 
     <div>
@@ -109,7 +109,7 @@
                     }
                 </h3>
 
-                <p>@Html.Raw(item.GetValue("HighLighterResult"))</p>
+                <p>@Html.HtmlSanitize(item.GetValue("HighLighterResult").ToString())</p>
                 @if (hasLink)
                 {
                     <a href="@item.GetValue("Link")">@item.GetValue("Link")</a>

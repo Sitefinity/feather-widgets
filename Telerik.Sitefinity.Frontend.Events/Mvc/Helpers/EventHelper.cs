@@ -29,9 +29,19 @@ namespace Telerik.Sitefinity.Frontend.Events.Mvc.Helpers
         {
             var ev = item.DataItem as Event;
             if (ev == null || ev.Parent == null)
+            {
                 return string.Empty;
+            }
 
-            return ev.Parent.Color;
+            var hexColorPattern = "^#(?:[0-9a-fA-F]{3}){1,2}$";
+            if (Regex.IsMatch(ev.Parent.Color, hexColorPattern))
+            {
+                return ev.Parent.Color;
+            }
+            else
+            {
+                return string.Empty;
+            }
         }
 
         /// <summary>

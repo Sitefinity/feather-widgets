@@ -13,7 +13,9 @@ using Telerik.Sitefinity.Frontend.Mvc.Infrastructure;
 using Telerik.Sitefinity.Frontend.Mvc.Infrastructure.Controllers;
 using Telerik.Sitefinity.Frontend.Mvc.Infrastructure.Controllers.Attributes;
 using Telerik.Sitefinity.Frontend.Mvc.Infrastructure.Routing;
+using Telerik.Sitefinity.Frontend.Mvc.Models;
 using Telerik.Sitefinity.Libraries.Model;
+using Telerik.Sitefinity.Model;
 using Telerik.Sitefinity.Modules.Libraries;
 using Telerik.Sitefinity.Modules.Pages.Configuration;
 using Telerik.Sitefinity.Mvc;
@@ -28,7 +30,7 @@ namespace Telerik.Sitefinity.Frontend.Media.Mvc.Controllers
     /// </summary>
     [Localization(typeof(ImageGalleryResources))]
     [ControllerToolboxItem(Name = "ImageGallery_MVC", Title = "Image gallery", SectionName = ToolboxesConfig.ContentToolboxSectionName, ModuleName = "Libraries", CssClass = ImageGalleryController.WidgetIconCssClass)]
-    public class ImageGalleryController : Controller, IContentLocatableView, IRouteMapper
+    public class ImageGalleryController : ContentBaseController, IContentLocatableView, IRouteMapper
     {
         #region Properties
 
@@ -128,6 +130,27 @@ namespace Telerik.Sitefinity.Frontend.Media.Mvc.Controllers
             }
         }
 
+        /// <summary>
+        /// Gets the metadata container.
+        /// </summary>
+        /// <value>
+        /// The metadata container.
+        /// </value>
+        [TypeConverter(typeof(ExpandableObjectConverter))]
+        public override MetadataModel MetadataFields
+        {
+            get
+            {
+                if (this.metadata == null)
+                {
+                    this.metadata = base.MetadataFields;
+                    this.metadata.OpenGraphType = OpenGraphTypes.Image;
+                }
+
+                return this.metadata;
+            }
+        }
+
         #endregion
 
         #region Actions
@@ -205,6 +228,8 @@ namespace Telerik.Sitefinity.Frontend.Media.Mvc.Controllers
         /// </returns>
         public ActionResult Details(Image item)
         {
+            this.InitializeMetadataDetailsViewBag(item);
+
             var itemIndex = this.ParseToNullableInt32(this.GetQueryString("itemIndex"));
             var fullTemplateName = this.detailTemplateNamePrefix + this.DetailTemplateName;
 
@@ -311,10 +336,12 @@ namespace Telerik.Sitefinity.Frontend.Media.Mvc.Controllers
 
                 return true;
             }
+
             if (urlParams.Length > 1)
             {
                 this.TryResolveParentFilterMode(urlParams.Take(urlParams.Length - 1).ToArray(), requestContext, manager);
             }
+
             return false;
         }
 
@@ -377,6 +404,7 @@ namespace Telerik.Sitefinity.Frontend.Media.Mvc.Controllers
             {
                 return i;
             }
+
             return null;
         }
 
@@ -402,6 +430,7 @@ namespace Telerik.Sitefinity.Frontend.Media.Mvc.Controllers
         internal const string AnyParentValue = "AnyParent";
 
         private IImageGalleryModel model;
+        private MetadataModel metadata;
         private string listTemplateName = "ImageGallery";
         private string listTemplateNamePrefix = "List.";
         private string detailTemplateName = "DetailPage";

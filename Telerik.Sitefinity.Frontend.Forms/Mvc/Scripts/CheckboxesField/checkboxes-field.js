@@ -44,8 +44,8 @@
         var checkboxClickHandler = function (e) {
             var container = $(e.target).parents('[data-sf-role="checkboxes-field-container"]');
             var checkboxes = container.find('input[data-sf-role="checkboxes-field-input"]');
-            var otherInput = $(containers.find('[data-sf-checkboxes-role="other-choice-text"]').first());
-            var otherCheckbox = $(containers.find('[data-sf-checkboxes-role="other-choice-checkbox"]').first());
+            var otherInput = $(container.find('[data-sf-checkboxes-role="other-choice-text"]').first());
+            var otherCheckbox = $(container.find('[data-sf-checkboxes-role="other-choice-checkbox"]').first());
             var otherCheckboxIndex = checkboxes.index(otherCheckbox);
             var currentIndex = checkboxes.index($(e.target));
             var isRequired = container.find('[data-sf-role="required-validator"]').val() === 'True';
@@ -66,7 +66,7 @@
 
         var inputChangeHandler = function (e) {
             var container = $(e.target).parents('[data-sf-role="checkboxes-field-container"]');
-            var otherCheckbox = $(containers.find('[data-sf-checkboxes-role="other-choice-checkbox"]').first());
+            var otherCheckbox = $(container.find('[data-sf-checkboxes-role="other-choice-checkbox"]').first());
             otherCheckbox.val($(e.target).val());
         };
 
@@ -81,7 +81,7 @@
 
             var checkboxes = container.find('input[data-sf-role="checkboxes-field-input"]');
 
-            var otherInput = $(containers.find('[data-sf-checkboxes-role="other-choice-text"]').first());
+            var otherInput = $(container.find('[data-sf-checkboxes-role="other-choice-text"]').first());
 
             checkboxes.click(checkboxClickHandler);
             otherInput.change(inputChangeHandler);

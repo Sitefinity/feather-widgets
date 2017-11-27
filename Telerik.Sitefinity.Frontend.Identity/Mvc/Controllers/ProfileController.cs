@@ -283,10 +283,7 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Controllers
 
         private void RegisterCustomOutputCacheVariation()
         {
-            var pageRouteHandlerType = typeof(Telerik.Sitefinity.Web.PageRouteHandler);
-
-            pageRouteHandlerType.GetMethod(ProfileController.RegisterOCVariationMethodName, BindingFlags.NonPublic | BindingFlags.Static, null, new Type[] { typeof(ICustomOutputCacheVariation) }, null)
-                                .Invoke(null, new object[] { new UserProfileMvcOutputCacheVariation() });
+            PageRouteHandler.RegisterCustomOutputCacheVariation(new UserProfileMvcOutputCacheVariation());
         }
 
         #endregion

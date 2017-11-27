@@ -13,6 +13,8 @@ using Telerik.Sitefinity.Frontend.Mvc.Infrastructure;
 using Telerik.Sitefinity.Frontend.Mvc.Infrastructure.Controllers;
 using Telerik.Sitefinity.Frontend.Mvc.Infrastructure.Controllers.Attributes;
 using Telerik.Sitefinity.Frontend.Mvc.Infrastructure.Routing;
+using Telerik.Sitefinity.Frontend.Mvc.Models;
+using Telerik.Sitefinity.Model;
 using Telerik.Sitefinity.Modules.Blogs;
 using Telerik.Sitefinity.Modules.Pages.Configuration;
 using Telerik.Sitefinity.Mvc;
@@ -28,7 +30,7 @@ namespace Telerik.Sitefinity.Frontend.Blogs.Mvc.Controllers
     /// </summary>
     [Localization(typeof(BlogPostResources))]
     [ControllerToolboxItem(Name = "BlogPost_MVC", Title = "Blog posts", SectionName = ToolboxesConfig.ContentToolboxSectionName, ModuleName = "Blogs", CssClass = BlogPostController.WidgetIconCssClass)]
-    public class BlogPostController : Controller, IContentLocatableView, IRouteMapper, IPersonalizable
+    public class BlogPostController : ContentBaseController, IContentLocatableView, IRouteMapper, IPersonalizable
     {
         #region Properties
 
@@ -115,6 +117,27 @@ namespace Telerik.Sitefinity.Frontend.Blogs.Mvc.Controllers
         /// </value>
         public Guid DetailsPageId { get; set; }
 
+        /// <summary>
+        /// Gets the metadata container.
+        /// </summary>
+        /// <value>
+        /// The metadata container.
+        /// </value>
+        [TypeConverter(typeof(ExpandableObjectConverter))]
+        public override MetadataModel MetadataFields
+        {
+            get
+            {
+                if (this.metadata == null)
+                {
+                    this.metadata = base.MetadataFields;
+                    this.metadata.OpenGraphType = OpenGraphTypes.Article;
+                }
+
+                return this.metadata;
+            }
+        }
+
         #endregion
 
         #region Actions
@@ -195,6 +218,8 @@ namespace Telerik.Sitefinity.Frontend.Blogs.Mvc.Controllers
         /// </returns>
         public ActionResult Details(BlogPost item)
         {
+            this.InitializeMetadataDetailsViewBag(item);
+
             var fullTemplateName = this.detailTemplateNamePrefix + this.DetailTemplateName;
 
             if (item != null)
@@ -278,10 +303,12 @@ namespace Telerik.Sitefinity.Frontend.Blogs.Mvc.Controllers
 
                 return true;
             }
+
             if (urlParams.Length > 1)
             {
                 this.TryResolveParentFilterMode(urlParams.Take(urlParams.Length - 1).ToArray(), requestContext, manager);
             }
+
             return false;
         }
 
@@ -360,6 +387,7 @@ namespace Telerik.Sitefinity.Frontend.Blogs.Mvc.Controllers
         internal const string WidgetIconCssClass = "sfBlogsViewIcn sfMvcIcn";
 
         private IBlogPostModel model;
+        private MetadataModel metadata;
 
         private string listTemplateName = "BlogPostList";
         private string listTemplateNamePrefix = "List.";

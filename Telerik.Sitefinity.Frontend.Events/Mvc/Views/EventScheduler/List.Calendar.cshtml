@@ -26,12 +26,12 @@ else
     <div data-sf-role="scheduler"></div>
 	<script data-sf-role="event-alldayeventtemplate" type="text/x-kendo-tmpl">
 		<div class="sf-event-item" data-sf-eventid="#= taskId #" data-sf-date-start=#= JSON.stringify(start) # data-sf-date-end=#= JSON.stringify(end) # data-sf-allday="#= isAllDay #">
-			<a class="sf-event-link" href="@Html.Raw(Html.Encode(HyperLinkHelpers.GetFullPageUrl(ViewBag.DetailsPageId)).Replace("#", "\\#"))#= eventUrl #" title="#= title #">#= title #</a>
+			<a class="sf-event-link" href="@Html.Raw(Html.Encode(HyperLinkHelpers.GetFullPageUrl(ViewBag.DetailsPageId)).Replace("#", "\\#"))#= eventUrl #" title="#: title #">#: title #</a>
 		</div>
     </script>
     <script data-sf-role="event-eventtemplate" type="text/x-kendo-tmpl">
 		<div class="sf-event-item" data-sf-eventid="#= taskId #" data-sf-date-start=#= JSON.stringify(start) # data-sf-date-end=#= JSON.stringify(end) # data-sf-allday="#= isAllDay #">
-			<a class="sf-event-link" href="@Html.Raw(Html.Encode(HyperLinkHelpers.GetFullPageUrl(ViewBag.DetailsPageId)).Replace("#", "\\#"))#= eventUrl #" title="#= title #">#= title #</a>
+			<a class="sf-event-link" href="@Html.Raw(Html.Encode(HyperLinkHelpers.GetFullPageUrl(ViewBag.DetailsPageId)).Replace("#", "\\#"))#= eventUrl #" title="#: title #">#: title #</a>
 		</div>
     </script>
     <script data-sf-role="event-calendarlist-template-wrapper" type="text/x-kendo-tmpl">
@@ -40,7 +40,7 @@ else
         </div>
     </script>
     <script data-sf-role="event-calendarlist-template-item" type="text/x-kendo-tmpl">
-        <div data-sf-role="calendarlist-item" class="sf-calendarList-item" data-sf-id="#= calendarId #"><span class="sf-event-type" style="background-color: #= color #;"></span>#= title #</div>
+        <div data-sf-role="calendarlist-item" class="sf-calendarList-item" data-sf-id="#= calendarId #"><span class="sf-event-type" style="background-color: #= color #;"></span>#: title #</div>
     </script>
 </div>
 @if (SystemManager.IsDesignMode && !SystemManager.IsPreviewMode)

@@ -137,7 +137,7 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.LoginForm
                 viewModel.RedirectUrlAfterLogin = this.GetPageUrl(this.LoginRedirectPageId);
                 viewModel.RegisterPageUrl = this.GetPageUrl(this.RegisterRedirectPageId);
                 viewModel.ShowRegistrationLink = this.RegisterRedirectPageId.HasValue;
-                viewModel.ShowForgotPasswordLink = this.AllowResetPassword && (this.EnablePasswordReset || this.EnablePasswordRetrieval);                
+                viewModel.ShowForgotPasswordLink = this.AllowResetPassword && (this.EnablePasswordReset || this.EnablePasswordRetrieval);
                 viewModel.Realm = ClaimsManager.CurrentAuthenticationModule.GetRealm();
                 viewModel.CssClass = this.CssClass;
                 viewModel.ShowRememberMe = this.ShowRememberMe;
@@ -145,7 +145,7 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.LoginForm
                 if (!string.IsNullOrEmpty(this.serializedExternalProviders))
                 {
                     viewModel.ExternalProviders = JsonSerializer.DeserializeFromString<Dictionary<string, string>>(this.serializedExternalProviders);
-                }  
+                }
             }
         }
 
@@ -287,11 +287,11 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.LoginForm
             input.LoginError = false;
 
             if (Config.Get<SecurityConfig>().AuthenticationMode == SecConfig.AuthenticationMode.Claims)
-            {                
+            {
                 var owinContext = context.Request.GetOwinContext();
                 var challengeProperties = ChallengeProperties.ForLocalUser(input.UserName, input.Password, this.MembershipProvider, input.RememberMe, context.Request.Url.ToString());
                 challengeProperties.RedirectUri = this.GetReturnURL(context);
-                owinContext.Authentication.Challenge(challengeProperties, ClaimsManager.CurrentAuthenticationModule.STSAuthenticationType);                
+                owinContext.Authentication.Challenge(challengeProperties, ClaimsManager.CurrentAuthenticationModule.STSAuthenticationType);
             }
             else
             {
@@ -305,7 +305,7 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.LoginForm
 
                 if (result != UserLoggingReason.Success)
                 {
-                    input.LoginError = true;                   
+                    input.LoginError = true;
                 }
                 else
                 {
@@ -322,10 +322,10 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.LoginForm
         /// <param name="input">Provider name.</param>
         /// <param name="context">Current http context from controller</param>
         public void AuthenticateExternal(string input, HttpContextBase context)
-        {            
+        {
             var widgetUrl = context.Request.Url.ToString();
             var owinContext = context.Request.GetOwinContext();
-            var challengeProperties = ChallengeProperties.ForExternalUser(input, widgetUrl);            
+            var challengeProperties = ChallengeProperties.ForExternalUser(input, widgetUrl);
             challengeProperties.RedirectUri = this.GetReturnURL(context);
 
             owinContext.Authentication.Challenge(challengeProperties, ClaimsManager.CurrentAuthenticationModule.STSAuthenticationType);
@@ -367,6 +367,7 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.LoginForm
                     string realm = string.Empty;
                     string redirect_uri = string.Empty;
                     string returnUrl = string.Empty;
+                    bool foundReturnUrl = false;
                     foreach (var queryString in queryStrings)
                     {
                         var queryStringPair = queryString.Split('=');
@@ -379,8 +380,14 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.LoginForm
                                 redirect_uri = queryStringPair[1];
                                 break;
                             case "ReturnUrl":
-                                returnUrl = queryStringPair[1];
+                                returnUrl = querySegment.Remove(0, "ReturnUrl=".Length);
+                                foundReturnUrl = true;
                                 break;
+                        }
+
+                        if (foundReturnUrl)
+                        {
+                            break;
                         }
                     }
 
@@ -428,7 +435,7 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.LoginForm
         /// </summary>
         /// <returns></returns>
         private string GetClaimsIssuer()
-        {            
+        {
             var claimsModule = ClaimsManager.CurrentAuthenticationModule;
 
             if (claimsModule != null)
@@ -467,15 +474,15 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.LoginForm
         protected string GetReturnURL(HttpContextBase context)
         {
             string redirectUrl = context.Request.Url.AbsoluteUri;
-            
+
             if (!string.IsNullOrEmpty(context.Request.Url.Query))
             {
                 // remove err flag in redirect data
                 redirectUrl = redirectUrl.Replace("&err=true", string.Empty).Replace("err=true", string.Empty);
-            }            
+            }
 
             if (this.LoginRedirectPageId.HasValue)
-            {                
+            {
                 redirectUrl = this.GetPageUrl(this.LoginRedirectPageId);
             }
             else
@@ -483,10 +490,10 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.LoginForm
                 //Get redirectUrl from query string parameter
                 string redirectUrlFromQS;
                 this.TryResolveUrlFromUrlReferrer(context, out redirectUrlFromQS);
-                
+
                 if (!string.IsNullOrWhiteSpace(redirectUrlFromQS))
-                {                    
-                    redirectUrl = redirectUrlFromQS;                 
+                {
+                    redirectUrl = redirectUrlFromQS;
                 }
             }
 

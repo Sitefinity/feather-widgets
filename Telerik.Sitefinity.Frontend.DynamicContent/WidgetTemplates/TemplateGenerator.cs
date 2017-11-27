@@ -70,7 +70,7 @@ namespace Telerik.Sitefinity.Frontend.DynamicContent.WidgetTemplates
             var listTemplate = this.RegisteredTemplate(area, listTemplateName, nameForDevelopersList, friendlyControlList, content, condition, controlType);
             
             Type dynamicType = Telerik.Sitefinity.Utilities.TypeConverters.TypeResolutionService.ResolveType(moduleType.GetFullTypeName(), false);
-            ControlTemplates.RegisterTemplatableControl(typeof(DynamicContentController), dynamicType, null, area, string.Format("{0} - list", area));
+            ControlTemplates.RegisterTemplatableControl(typeof(DynamicContentController), dynamicType, null, area, friendlyControlList);
 
             return listTemplate.Id;
         }

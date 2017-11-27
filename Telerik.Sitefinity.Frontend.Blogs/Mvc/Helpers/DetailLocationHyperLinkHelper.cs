@@ -1,7 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using Telerik.Sitefinity.Blogs.Model;
 using Telerik.Sitefinity.Frontend.Blogs.Mvc.Models.Blog;
 using Telerik.Sitefinity.Frontend.Mvc.Helpers;
@@ -33,15 +30,12 @@ namespace Telerik.Sitefinity.Frontend.Blogs.Mvc.Helpers
             else if (blogDetailLocationMode == BlogDetailLocationMode.PerItem)
             {
                 var blog = item.DataItem as Blog;
-
                 if (blog != null)
                 {
                     var blogPageId = blog.DefaultPageId;
-
-                    if (blogPageId.HasValue)
+                    if (blogPageId.HasValue && blogPageId.Value != Guid.Empty)
                         url = HyperLinkHelpers.GetDetailPageUrl(item.DataItem, blogPageId.Value);
                 }
-
             }
             else if (blogDetailLocationMode == BlogDetailLocationMode.SamePage)
             {

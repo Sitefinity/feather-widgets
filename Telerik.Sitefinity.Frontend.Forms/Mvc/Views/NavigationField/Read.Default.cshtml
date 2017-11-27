@@ -17,7 +17,7 @@
            <li data-sf-navigation-index="@page.Index">
                <span class="sf-FormNav-page">
                     <span class="sf-FormNav-page-number">@pageCounter </span>
-               </span>@Html.Raw(page.Title)
+               </span>@Html.HtmlSanitize(page.Title)
            </li>
         }
     }

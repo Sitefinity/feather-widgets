@@ -1,5 +1,7 @@
 @model Telerik.Sitefinity.Frontend.Card.Mvc.Models.Card.CardViewModel
 
+@using Telerik.Sitefinity.Frontend.Mvc.Helpers;
+
 <div class="@Model.CssClass">
 
         @if (!string.IsNullOrEmpty(Model.SelectedSizeUrl))
@@ -9,15 +11,15 @@
         
         @if (!string.IsNullOrEmpty(Model.Heading))
         {
-            <h3>@Html.Raw(Model.Heading)</h3>
+            <h3>@Html.HtmlSanitize(Model.Heading)</h3>
         }
         @if (!string.IsNullOrEmpty(Model.Description))
         {
-            <div>@Html.Raw(Model.Description)</div>
+            <div>@Html.HtmlSanitize(Model.Description)</div>
         }
         @if (!string.IsNullOrEmpty(Model.ActionName))
         {
-            <a href="@Model.ActionUrl">
+            <a href="@Html.UrlSanitize(Model.ActionUrl)">
                 <span>@Model.ActionName</span>
             </a>
         }

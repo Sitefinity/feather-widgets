@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
+using System.Web;
 using Telerik.Sitefinity.Abstractions;
 using Telerik.Sitefinity.Localization.UrlLocalizationStrategies;
 using Telerik.Sitefinity.Modules.Pages;
@@ -187,13 +188,9 @@ namespace Telerik.Sitefinity.Frontend.Navigation.Mvc.Models.SiteSelector
                 }
                 else
                 {
-                    // Remove the reflection when SiteRegion become public.
-                    var sitefinityAssembly = typeof(ISite).Assembly;
-                    var siteRegionType = sitefinityAssembly.GetType("Telerik.Sitefinity.Multisite.SiteRegion");
-                    var siteRegionConstructor = siteRegionType.GetConstructor(new Type[] { typeof(ISite) });
-                    using ((IDisposable)siteRegionConstructor.Invoke(new object[] { site }))
+                    using (SiteRegion.FromSiteId(site.Id))
                     {
-                        siteUrl = this.UrlService.ResolveUrl(this.GetSiteUrl(site), culture);
+                        siteUrl = this.ResolveSiteHomePage(site, culture);
                     }
                 }
 
@@ -205,18 +202,61 @@ namespace Telerik.Sitefinity.Frontend.Navigation.Mvc.Models.SiteSelector
         }
 
         /// <summary>
+        /// Resolves the home page of the site and add the culture to it.
+        /// </summary>
+        /// <param name="site">The site.</param>
+        /// <param name="culture">The site culture.</param>
+        /// <returns>Homepage URL.</returns>
+        protected virtual string ResolveSiteHomePage(ISite site, CultureInfo culture)
+        {
+            string siteUrl = string.Empty;
+
+            var homePageUrl = VirtualPathUtility.RemoveTrailingSlash(this.UrlService.ResolveUrl("/", culture));
+            if (!RouteHelper.IsAbsoluteUrl(homePageUrl))
+            {
+                if (!homePageUrl.StartsWith("/"))
+                {
+                    if (homePageUrl.StartsWith("~/"))
+                    {
+                        homePageUrl = homePageUrl.Replace("~/", "/");
+                    }
+                    else
+                    {
+                        homePageUrl = string.Concat("/", homePageUrl);
+                    }
+                }
+
+                var currentSiteUrl = VirtualPathUtility.RemoveTrailingSlash(this.GetSiteUrl(site));
+                siteUrl = string.Concat(currentSiteUrl, homePageUrl);
+                siteUrl = VirtualPathUtility.RemoveTrailingSlash(siteUrl);
+            }
+
+            return siteUrl;
+        }
+
+        /// <summary>
         /// Resolves the default site's URL.
         /// </summary>
         /// <param name="cultureInfo">The culture info.</param>
-        /// <param name="siteUrl">The site URL.</param>
         /// <param name="actualPageNode">The actual page node.</param>
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1055:UriReturnValuesShouldNotBeStrings")]
         protected virtual string ResolveDefaultSiteUrl(PageNode actualPageNode, CultureInfo cultureInfo)
         {
-            var fullUrl = actualPageNode.GetFullUrl(cultureInfo, false, false);
-            var siteUrl = this.UrlService.ResolveUrl(fullUrl, cultureInfo);
-            siteUrl = RouteHelper.ResolveUrl(siteUrl, UrlResolveOptions.Absolute);
-            return siteUrl;
+            if (!SystemManager.CurrentContext.IsMultisiteMode)
+            {
+                throw new ArgumentNullException("Multisite mode is not enabled!");
+            }
+
+            var pageUrl = actualPageNode.GetFullUrl(cultureInfo, false, false);
+            var pageUrlWithCulture = this.UrlService.ResolveUrl(pageUrl, cultureInfo);
+            Guid rootNodeId = actualPageNode.RootNodeId != Guid.Empty ? actualPageNode.RootNodeId : actualPageNode.Id;
+
+            var site = SystemManager.CurrentContext.MultisiteContext.GetSiteBySiteMapRoot(rootNodeId);
+            var siteUrl = this.GetSiteUrl(site);
+            var relativeItemUrl = RouteHelper.ResolveUrl(pageUrlWithCulture, UrlResolveOptions.CurrentRequestRelative);
+            var result = string.Concat(VirtualPathUtility.RemoveTrailingSlash(siteUrl), relativeItemUrl);
+
+            return result;
         }
 
         /// <summary>

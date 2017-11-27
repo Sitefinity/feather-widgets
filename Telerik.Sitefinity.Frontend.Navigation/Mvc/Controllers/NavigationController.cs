@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Web.Mvc;
 using ServiceStack.Text;
 using Telerik.Sitefinity.Frontend.Mvc.Infrastructure.Controllers;
@@ -9,8 +10,10 @@ using Telerik.Sitefinity.Frontend.Navigation.Mvc.StringResources;
 using Telerik.Sitefinity.Modules.Pages.Configuration;
 using Telerik.Sitefinity.Mvc;
 using Telerik.Sitefinity.Services;
+using Telerik.Sitefinity.Web;
 using Telerik.Sitefinity.Web.UI;
 using Telerik.Sitefinity.Web.UI.ContentUI.Contracts;
+using Telerik.Sitefinity.Web.UI.NavigationControls.Cache;
 
 namespace Telerik.Sitefinity.Frontend.Navigation.Mvc.Controllers
 {
@@ -64,12 +67,12 @@ namespace Telerik.Sitefinity.Frontend.Navigation.Mvc.Controllers
         /// </summary>
         public virtual int? LevelsToInclude
         {
-            get 
+            get
             {
                 return this.levelsToInclude;
             }
 
-            set 
+            set
             {
                 this.levelsToInclude = value;
             }
@@ -118,12 +121,34 @@ namespace Telerik.Sitefinity.Frontend.Navigation.Mvc.Controllers
         public bool OpenExternalPageInNewTab { get; set; }
 
         /// <summary>
+        /// Provides UI for setting navigation output cache variations
+        /// </summary>
+        [TypeConverter(typeof(ExpandableObjectConverter))]
+        public NavigationOutputCacheVariationSettings OutputCache
+        {
+            get
+            {
+                if (this.outputCacheSettings == null)
+                {
+                    this.outputCacheSettings = new NavigationOutputCacheVariationSettings();
+                }
+
+                return this.outputCacheSettings;
+            }
+
+            set
+            {
+                this.outputCacheSettings = value;
+            }
+        }
+
+        /// <summary>
         /// Gets the Navigation widget model.
         /// </summary>
         /// <value>
         /// The model.
         /// </value>
-        protected INavigationModel Model 
+        protected INavigationModel Model
         {
             get
             {
@@ -153,8 +178,13 @@ namespace Telerik.Sitefinity.Frontend.Navigation.Mvc.Controllers
                 {
                     this.AddCacheDependencies(cacheDependentNavigationModel.GetCacheDependencyObjects());
                 }
-            }
+            } 
 
+            if (this.OutputCache.VaryByAuthenticationStatus || this.OutputCache.VaryByUserRoles)
+            {
+                PageRouteHandler.RegisterCustomOutputCacheVariation(new NavigationOutputCacheVariation(this.OutputCache));
+            }
+             
             var fullTemplateName = this.templateNamePrefix + this.TemplateName;
             return this.View(fullTemplateName, this.Model);
         }
@@ -203,20 +233,20 @@ namespace Telerik.Sitefinity.Frontend.Navigation.Mvc.Controllers
         private INavigationModel InitializeModel()
         {
             var selectedPages = JsonSerializer.DeserializeFromString<SelectedPageModel[]>(this.SerializedSelectedPages);
-            var constructorParameters = new Dictionary<string, object> 
+            var constructorParameters = new Dictionary<string, object>
                          {
                             { "selectionMode", this.SelectionMode },
                             { "selectedPageId", this.SelectedPageId },
                             { "selectedPages", selectedPages },
                             { "levelsToInclude", this.LevelsToInclude },
-                            { "showParentPage", this.ShowParentPage }, 
+                            { "showParentPage", this.ShowParentPage },
                             { "cssClass", this.CssClass },
                             { "openExternalPageInNewTab", this.OpenExternalPageInNewTab }
                          };
 
             return ControllerModelFactory.GetModel<INavigationModel>(this.GetType(), constructorParameters);
         }
- 
+
         #endregion
 
         #region Private fields and constants
@@ -226,6 +256,7 @@ namespace Telerik.Sitefinity.Frontend.Navigation.Mvc.Controllers
         private int? levelsToInclude = 1;
         private string templateName = "Horizontal";
         private string templateNamePrefix = "NavigationView.";
+        private NavigationOutputCacheVariationSettings outputCacheSettings;
 
         #endregion
     }

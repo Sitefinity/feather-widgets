@@ -84,7 +84,7 @@
 
 <div class="form-group">
     <label>@Html.Resource("ResponsiveDesignSectionTitle")</label>
-    <p class="text-muted">@Html.Raw(@Html.Resource("ResponsiveDesignDescription"))</p>
+    <p class="text-muted">@Html.HtmlSanitize(@Html.Resource("ResponsiveDesignDescription"))</p>
 </div>
 
 <expander expander-title='@Html.Resource("MoreOptions")'>

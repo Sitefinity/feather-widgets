@@ -13,7 +13,9 @@ using Telerik.Sitefinity.Frontend.Mvc.Infrastructure;
 using Telerik.Sitefinity.Frontend.Mvc.Infrastructure.Controllers;
 using Telerik.Sitefinity.Frontend.Mvc.Infrastructure.Controllers.Attributes;
 using Telerik.Sitefinity.Frontend.Mvc.Infrastructure.Routing;
+using Telerik.Sitefinity.Frontend.Mvc.Models;
 using Telerik.Sitefinity.Libraries.Model;
+using Telerik.Sitefinity.Model;
 using Telerik.Sitefinity.Modules.Libraries;
 using Telerik.Sitefinity.Modules.Pages.Configuration;
 using Telerik.Sitefinity.Mvc;
@@ -28,7 +30,7 @@ namespace Telerik.Sitefinity.Frontend.Media.Mvc.Controllers
     /// </summary>
     [Localization(typeof(DocumentsListResources))]
     [ControllerToolboxItem(Name = "DocumentsList_MVC", Title = "Documents list", SectionName = ToolboxesConfig.ContentToolboxSectionName, ModuleName = "Libraries", CssClass = DocumentsListController.WidgetIconCssClass)]
-    public class DocumentsListController : Controller, IRouteMapper, IContentLocatableView
+    public class DocumentsListController : ContentBaseController, IRouteMapper, IContentLocatableView
     {
         #region Properties
 
@@ -149,7 +151,7 @@ namespace Telerik.Sitefinity.Frontend.Media.Mvc.Controllers
 
             var fullTemplateName = this.GetFullListTemplateName();
 
-            return View(fullTemplateName, viewModel);
+            return this.View(fullTemplateName, viewModel);
         }
 
         /// <summary>
@@ -182,6 +184,8 @@ namespace Telerik.Sitefinity.Frontend.Media.Mvc.Controllers
         /// </returns>
         public ActionResult Details(Document item)
         {
+            this.InitializeMetadataDetailsViewBag(item);
+
             var fullTemplateName = this.detailTemplateNamePrefix + this.DetailTemplateName;
 
             if (item != null)
@@ -293,10 +297,12 @@ namespace Telerik.Sitefinity.Frontend.Media.Mvc.Controllers
 
                 return true;
             }
+
             if (urlParams.Length > 1)
             {
                 this.TryResolveParentFilterMode(urlParams.Take(urlParams.Length - 1).ToArray(), requestContext, manager);
             }
+
             return false;
         }
 
