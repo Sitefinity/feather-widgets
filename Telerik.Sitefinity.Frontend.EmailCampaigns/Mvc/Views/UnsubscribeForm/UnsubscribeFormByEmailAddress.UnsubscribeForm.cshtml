@@ -19,7 +19,7 @@
         
         if (ViewBag.IsSucceded == true)
         {
-            <div>@Html.Raw(Model.Message)</div>
+            <div>@Html.HtmlSanitize(Model.Message)</div>
         }
         
         @Html.ValidationSummary(true)

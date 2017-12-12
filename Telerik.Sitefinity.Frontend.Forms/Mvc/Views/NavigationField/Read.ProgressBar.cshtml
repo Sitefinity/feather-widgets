@@ -19,7 +19,7 @@
         @foreach (var page in Model.Pages)
         {
             <li  data-sf-navigation-index="@page.Index">
-                @Html.Raw(page.Title)
+                @Html.HtmlSanitize(page.Title)
             </li>
         }
     </ul>

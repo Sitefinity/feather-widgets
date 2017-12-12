@@ -29,7 +29,7 @@
                 </h3>
 
                 <p>
-                    @Html.Raw((((SitefinityProfileItemViewModel)item).About))
+                    @Html.HtmlSanitize((((SitefinityProfileItemViewModel)item).About))
                 </p>
 
             </div>

@@ -209,7 +209,7 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Models.Fields.FileField
             if (this.AllowedFileTypes == AllowedFileTypes.All || acceptedFileTypes == null || acceptedFileTypes.Length == 0)
                 return string.Empty;
             else
-                return "accept=\"{0}\"".Arrange(string.Join(",", acceptedFileTypes));
+                return "accept=\"{0}\"".Arrange(HttpUtility.HtmlAttributeEncode(string.Join(",", acceptedFileTypes)));
         }
 
         private static readonly Dictionary<AllowedFileTypes, string[]> PredifinedAcceptValues = new Dictionary<AllowedFileTypes, string[]>()

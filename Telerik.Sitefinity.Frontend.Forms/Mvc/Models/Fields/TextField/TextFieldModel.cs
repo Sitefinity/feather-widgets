@@ -2,10 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Text;
-using System.Web.Mvc;
 using System.Web.Script.Serialization;
-using System.Web.UI;
-using Telerik.Sitefinity.Data.Metadata;
 using Telerik.Sitefinity.Frontend.Forms.Mvc.StringResources;
 using Telerik.Sitefinity.Localization;
 using Telerik.Sitefinity.Metadata.Model;
@@ -29,10 +26,10 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Models.Fields.TextField
         }
 
         /// <inheritDocs />
-        public TextType InputType 
-        { 
-            get; 
-            set; 
+        public TextType InputType
+        {
+            get;
+            set;
         }
 
         /// <summary>
@@ -139,51 +136,44 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Models.Fields.TextField
             var attributes = new StringBuilder();
 
             if (this.ValidatorDefinition.Required.HasValue && this.ValidatorDefinition.Required.Value)
-                attributes.Append("required='required' ");
+                attributes.Append(@"required=""required"" ");
 
             var minMaxLength = string.Empty;
             if (this.ValidatorDefinition.MaxLength > 0)
                 minMaxLength = ".{" + this.ValidatorDefinition.MinLength + "," + this.ValidatorDefinition.MaxLength + "}";
             else if (this.ValidatorDefinition.MinLength > 0)
                 minMaxLength = ".{" + this.ValidatorDefinition.MinLength + ",}";
-            
+
+            var patternAttribute = string.Empty;
             if (!string.IsNullOrWhiteSpace(this.ValidatorDefinition.ExpectedFormat.ToString()))
             {
-                var pattern = this.GetRegExForExpectedFormat(this.ValidatorDefinition.ExpectedFormat);
-                if(!string.IsNullOrEmpty(pattern))
+                patternAttribute = this.GetRegExForExpectedFormat(this.ValidatorDefinition.ExpectedFormat);
+            }
+
+            if (!string.IsNullOrEmpty(this.ValidatorDefinition.RegularExpression))
+            {
+                patternAttribute = this.ValidatorDefinition.RegularExpression;
+            }
+
+            if (!string.IsNullOrEmpty(minMaxLength))
+            {
+                if (this.InputType == TextType.Tel)
                 {
-                    attributes.Append("pattern=");
-                    attributes.Append(pattern);
-                    attributes.Append(" ");
+                    patternAttribute = string.Format("(?=^{0}$){1}", minMaxLength, Validator.TelRegexPattern);
                 }
-                
-            }
-
-            if (!string.IsNullOrEmpty(this.validatorDefinition.RegularExpression))
-            {
-                attributes.Append("pattern=");
-                attributes.Append(this.validatorDefinition.RegularExpression);
-                attributes.Append(" ");
-            }
-
-            if (this.InputType == TextType.Tel)
-            {
-                attributes.Append("pattern=");
-                if (!string.IsNullOrEmpty(minMaxLength))
+                else if (!string.IsNullOrEmpty(patternAttribute))
                 {
-                    attributes.Append("(?=^");
-                    attributes.Append(minMaxLength);
-                    attributes.Append("$)");
+                    patternAttribute = string.Format("(?=^{0}$){1}", minMaxLength, patternAttribute);
                 }
-
-                attributes.Append(Validator.TelRegexPattern);
-                attributes.Append(" ");
+                else
+                {
+                    patternAttribute = minMaxLength;
+                }
             }
-            else if (!string.IsNullOrEmpty(minMaxLength))
+
+            if (!string.IsNullOrEmpty(patternAttribute))
             {
-                attributes.Append("pattern=");
-                attributes.Append(minMaxLength);
-                attributes.Append(" ");
+                attributes.AppendFormat(@"pattern=""{0}""", patternAttribute);
             }
 
             return attributes.ToString();
@@ -198,34 +188,34 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Models.Fields.TextField
                 case ValidationFormat.None:
                     return string.Empty;
                 case ValidationFormat.AlphaNumeric:
-                    regexPattern = Validator.AlphaNumericRegexPattern;                    
+                    regexPattern = Validator.AlphaNumericRegexPattern;
                     break;
                 case ValidationFormat.Currency:
-                    regexPattern = Validator.CurrencyRegexPattern;                    
+                    regexPattern = Validator.CurrencyRegexPattern;
                     break;
                 case ValidationFormat.EmailAddress:
-                    regexPattern = Validator.EmailAddressRegexPattern;                    
+                    regexPattern = Validator.EmailAddressRegexPattern;
                     break;
                 case ValidationFormat.Integer:
-                    regexPattern = Validator.IntegerRegexPattern;                    
+                    regexPattern = Validator.IntegerRegexPattern;
                     break;
                 case ValidationFormat.InternetUrl:
-                    regexPattern = Validator.InternetUrlRegexPattern;                    
+                    regexPattern = Validator.InternetUrlRegexPattern;
                     break;
                 case ValidationFormat.NonAlphaNumeric:
-                    regexPattern = Validator.NonAlphaNumericRegexPattern;                    
+                    regexPattern = Validator.NonAlphaNumericRegexPattern;
                     break;
                 case ValidationFormat.Numeric:
-                    regexPattern = Validator.NumericRegexPattern;                    
+                    regexPattern = Validator.NumericRegexPattern;
                     break;
                 case ValidationFormat.Percentage:
-                    regexPattern = Validator.PercentRegexPattern;                    
+                    regexPattern = Validator.PercentRegexPattern;
                     break;
                 case ValidationFormat.USSocialSecurityNumber:
-                    regexPattern = Validator.USSocialSecurityRegexPattern;                    
+                    regexPattern = Validator.USSocialSecurityRegexPattern;
                     break;
                 case ValidationFormat.USZipCode:
-                    regexPattern = Validator.USZipCodeRegexPattern;                    
+                    regexPattern = Validator.USZipCodeRegexPattern;
                     break;
                 case ValidationFormat.Custom:
                     throw new ArgumentException("You must specify a valid RegularExpression.");

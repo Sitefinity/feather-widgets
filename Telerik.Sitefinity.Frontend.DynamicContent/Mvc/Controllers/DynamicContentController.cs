@@ -33,7 +33,7 @@ namespace Telerik.Sitefinity.Frontend.DynamicContent.Mvc.Controllers
     /// </summary>
     [Localization(typeof(DynamicContentResources))]
     [ControllerMetadataAttribute(IsTemplatableControl = false)]
-    public class DynamicContentController : Controller, IRouteMapper, IContentLocatableView, IDynamicContentWidget, IPersonalizable
+    public class DynamicContentController : ContentBaseController, IRouteMapper, IContentLocatableView, IDynamicContentWidget, IPersonalizable
     {
         #region Properties
 
@@ -235,7 +235,7 @@ namespace Telerik.Sitefinity.Frontend.DynamicContent.Mvc.Controllers
         /// <summary>
         /// Displays related items of the specified item.
         /// </summary>
-        /// <param name="parentItem">The related item.</param>
+        /// <param name="relatedItem">The related item.</param>
         /// <param name="page">The page.</param>
         /// <returns>
         /// The <see cref="ActionResult" />.
@@ -267,8 +267,12 @@ namespace Telerik.Sitefinity.Frontend.DynamicContent.Mvc.Controllers
 
             if (!this.Model.ListMode)
             {
-                var viewModel = this.Model.CreateDetailsViewModel(item);
                 this.ViewBag.Title = ((IHasTitle)item).GetTitle();
+
+                this.InitializeMetadataDetailsViewBag(item);
+
+                var viewModel = this.Model.CreateDetailsViewModel(item);
+
                 if (SystemManager.CurrentHttpContext != null)
                     this.AddCacheDependencies(this.Model.GetKeysOfDependentObjects(viewModel));
 
@@ -289,7 +293,8 @@ namespace Telerik.Sitefinity.Frontend.DynamicContent.Mvc.Controllers
                     viewModel = this.Model.CreateListViewModelByParent(item.SystemParentItem, 1);
                 }
 
-                ((DynamicContentListViewModel)viewModel).SelectedItem = (Telerik.Sitefinity.DynamicModules.Model.DynamicContent)DynamicModuleManager.GetManager().Lifecycle.GetLive(item);
+                var liveItem = item.Status != ContentLifecycleStatus.Live ? (Telerik.Sitefinity.DynamicModules.Model.DynamicContent)DynamicModuleManager.GetManager().Lifecycle.GetLive(item) : item;
+                ((DynamicContentListViewModel)viewModel).SelectedItem = liveItem;
 
                 if (SystemManager.CurrentHttpContext != null)
                     this.AddCacheDependencies(this.Model.GetKeysOfDependentObjects(viewModel));
@@ -525,6 +530,7 @@ namespace Telerik.Sitefinity.Frontend.DynamicContent.Mvc.Controllers
             var taxonQueryStringParams = HyperLinkHelpers.BuildTaxonQueryStringParams(taxon, this.Model.UrlKeyPrefix);
             this.ViewBag.RedirectPageUrlTemplate = this.ViewBag.RedirectPageUrlTemplate + taxonQueryStringParams;
         }
+
         #endregion
 
         #region Private fields and constants

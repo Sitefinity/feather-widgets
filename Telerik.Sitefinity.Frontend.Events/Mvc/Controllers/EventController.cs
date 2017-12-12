@@ -8,6 +8,8 @@ using Telerik.Sitefinity.Frontend.Events.Mvc.Models;
 using Telerik.Sitefinity.Frontend.Events.Mvc.StringResources;
 using Telerik.Sitefinity.Frontend.Mvc.Infrastructure.Controllers;
 using Telerik.Sitefinity.Frontend.Mvc.Infrastructure.Controllers.Attributes;
+using Telerik.Sitefinity.Frontend.Mvc.Models;
+using Telerik.Sitefinity.Model;
 using Telerik.Sitefinity.Modules.Pages.Configuration;
 using Telerik.Sitefinity.Mvc;
 using Telerik.Sitefinity.Personalization;
@@ -21,7 +23,7 @@ namespace Telerik.Sitefinity.Frontend.Events.Mvc.Controllers
     /// </summary>
     [ControllerToolboxItem(Name = "Events_MVC", Title = "Events", SectionName = ToolboxesConfig.ContentToolboxSectionName, ModuleName = "Events", CssClass = EventController.WidgetIconCssClass)]
     [Localization(typeof(EventResources))]
-    public class EventController : Controller, IContentLocatableView, IPersonalizable
+    public class EventController : ContentBaseController, IContentLocatableView, IPersonalizable
     {
         #region Properties
 
@@ -177,6 +179,8 @@ namespace Telerik.Sitefinity.Frontend.Events.Mvc.Controllers
         /// </returns>
         public ActionResult Details(Event item)
         {
+            this.InitializeMetadataDetailsViewBag(item);
+
             var viewModel = this.Model.CreateDetailsViewModel(item);
 
             this.InitializeDetailsViewBag(item);

@@ -1,7 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.ComponentModel;
-using System.Linq;
 using System.Web.Mvc;
 using Telerik.Sitefinity.ContentLocations;
 using Telerik.Sitefinity.Frontend.Lists.Mvc.Models;
@@ -10,8 +8,10 @@ using Telerik.Sitefinity.Frontend.Mvc.Infrastructure;
 using Telerik.Sitefinity.Frontend.Mvc.Infrastructure.Controllers;
 using Telerik.Sitefinity.Frontend.Mvc.Infrastructure.Controllers.Attributes;
 using Telerik.Sitefinity.Frontend.Mvc.Infrastructure.Routing;
+using Telerik.Sitefinity.Frontend.Mvc.Models;
 using Telerik.Sitefinity.Lists.Model;
 using Telerik.Sitefinity.Localization;
+using Telerik.Sitefinity.Model;
 using Telerik.Sitefinity.Modules.Pages.Configuration;
 using Telerik.Sitefinity.Mvc;
 using Telerik.Sitefinity.Personalization;
@@ -26,7 +26,7 @@ namespace Telerik.Sitefinity.Frontend.Lists.Mvc.Controllers
     /// </summary>
     [ControllerToolboxItem(Name = "List_MVC", Title = "List", SectionName = ToolboxesConfig.ContentToolboxSectionName, ModuleName = "Lists", CssClass = ListsController.WidgetIconCssClass)]
     [Localization(typeof(ListsWidgetResources))]
-    public class ListsController : Controller, ICustomWidgetVisualization, ICustomWidgetVisualizationExtended, IContentLocatableView, IPersonalizable
+    public class ListsController : ContentBaseController, ICustomWidgetVisualization, ICustomWidgetVisualizationExtended, IContentLocatableView, IPersonalizable
     {
         #region Properties
 
@@ -179,6 +179,8 @@ namespace Telerik.Sitefinity.Frontend.Lists.Mvc.Controllers
         /// </returns>
         public ActionResult Details(ListItem item)
         {
+            this.InitializeMetadataDetailsViewBag(item);
+
             var fullTemplateName = this.detailTemplateNamePrefix + this.DetailTemplateName;
 
             if (item != null)

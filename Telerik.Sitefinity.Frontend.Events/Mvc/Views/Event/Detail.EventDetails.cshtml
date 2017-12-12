@@ -64,7 +64,7 @@
 
         @if (!string.IsNullOrEmpty(Model.Item.Fields.ContactWeb))
         {
-            <a href="@(Model.Item.Fields.ContactWeb)" target="_blank">@Model.Item.Fields.ContactWeb</a>
+            <a href="@Html.UrlSanitize((string)Model.Item.Fields.ContactWeb))" target="_blank">@Model.Item.Fields.ContactWeb</a>
         }
     </div>
 
@@ -101,12 +101,12 @@
 
     @if (!string.IsNullOrEmpty(Model.Item.Fields.Summary))
     {        
-        <p @Html.InlineEditingFieldAttributes("Summary", "LongText")>@Html.Raw(Model.Item.Fields.Summary)</p>
+        <p @Html.InlineEditingFieldAttributes("Summary", "LongText")>@Html.HtmlSanitize((string)Model.Item.Fields.Summary)</p>
     }
 
     @if (!string.IsNullOrEmpty(Model.Item.Fields.Content))
     {        
-        <p @Html.InlineEditingFieldAttributes("Content", "LongText")>@Html.Raw(Model.Item.Fields.Content)</p>
+        <p @Html.InlineEditingFieldAttributes("Content", "LongText")>@Html.HtmlSanitize((string)Model.Item.Fields.Content)</p>
     }
     
     @{        

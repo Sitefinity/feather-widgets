@@ -22,7 +22,7 @@
                     @*@If is on the same line, because otherwise there is an empty space before the comma*@
                     <time>@item.EventDates()</time>@if (!string.IsNullOrEmpty(item.Fields.City)){<span>, @item.Fields.City</span>}
                 </p>
-                <p @Html.InlineEditingFieldAttributes("Summary", "LongText")>@Html.Raw(item.Fields.Summary)</p>
+                <p @Html.InlineEditingFieldAttributes("Summary", "LongText")>@Html.HtmlSanitize((string)item.Fields.Summary)</p>
                 <div>@Html.CommentsCount((string)navigateUrl, item.DataItem)</div>
             </li>
         }

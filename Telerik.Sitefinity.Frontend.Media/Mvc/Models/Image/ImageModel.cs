@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Web.Script.Serialization;
 using Telerik.Sitefinity.Configuration;
@@ -176,7 +177,7 @@ namespace Telerik.Sitefinity.Frontend.Media.Mvc.Models.Image
                 var node = pageManager.GetPageNode(this.LinkedPageId);
                 if (node != null)
                 {
-                    var relativeUrl = node.GetFullUrl();
+                    var relativeUrl = node.GetFullUrl(this.GetCurrentCulture(), false);
                     linkedUrl = UrlPath.ResolveUrl(relativeUrl, true);
                 }
             }
@@ -186,6 +187,18 @@ namespace Telerik.Sitefinity.Frontend.Media.Mvc.Models.Image
             }
 
             return linkedUrl;
+        }
+
+        private CultureInfo GetCurrentCulture()
+        {
+            if (SystemManager.CurrentContext.AppSettings.Multilingual)
+            {
+                var currentCulture = CultureInfo.CurrentUICulture;
+                if (SystemManager.CurrentContext.AppSettings.DefinedFrontendLanguages.Contains(currentCulture))
+                    return currentCulture;
+            }
+
+            return SystemManager.CurrentContext.AppSettings.DefaultFrontendLanguage;
         }
         #endregion
     }

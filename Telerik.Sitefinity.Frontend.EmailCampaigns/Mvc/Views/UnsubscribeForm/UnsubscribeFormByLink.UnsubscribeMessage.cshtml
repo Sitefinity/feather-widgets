@@ -7,5 +7,5 @@
     {
         <h3>@Html.Resource("UnsubscribeSuccessful")</h3>
     }
-    <pre>@Html.Raw(Model.Message)</pre>
+    <pre>@Html.HtmlSanitize(Model.Message)</pre>
 </div>

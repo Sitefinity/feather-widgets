@@ -15,9 +15,9 @@
         @DataResolver.Resolve(@Model.Item.DataItem, "Author", null)
     </div>
 
-    <div @Html.InlineEditingFieldAttributes("Description", "LongText")>@Html.Raw(Model.Item.Fields.Description)</div>
+    <div @Html.InlineEditingFieldAttributes("Description", "LongText")>@Html.HtmlSanitize((string)Model.Item.Fields.Description)</div>
 
-    <video src="@Html.Raw(Model.MediaUrl)" controls="controls" width="@Model.Width" height="@Model.Height"></video>
+    <video src="@Model.MediaUrl" controls="controls" width="@Model.Width" height="@Model.Height"></video>
 
     @if (ViewBag.ItemIndex != null)
     {
@@ -36,7 +36,7 @@
 
             @if (Model.PreviousItem != null || Model.NextItem != null)
             {
-                @Html.Raw(string.Format(Html.Resource("IndexOfTotal"), ViewBag.ItemIndex, Model.TotalItemsCount));
+                @Html.HtmlSanitize((string)String.Format(Html.Resource("IndexOfTotal"), ViewBag.ItemIndex, Model.TotalItemsCount));
             }
 
             @if (Model.NextItem != null) 

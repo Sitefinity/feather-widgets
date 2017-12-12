@@ -27,7 +27,7 @@
                     @Html.CommentsCount((string)navigateUrl, item.DataItem)
                 </div>
 
-                <div @Html.InlineEditingFieldAttributes("Summary", "ShortText")>@Html.Raw(item.Fields.Summary)</div>
+                <div @Html.InlineEditingFieldAttributes("Summary", "ShortText")>@Html.HtmlSanitize((string)item.Fields.Summary)</div>
 
                 <a href="@navigateUrl">@Html.Resource("FullStory")</a>
             </li>

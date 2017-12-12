@@ -13,7 +13,9 @@ using Telerik.Sitefinity.Frontend.Mvc.Infrastructure;
 using Telerik.Sitefinity.Frontend.Mvc.Infrastructure.Controllers;
 using Telerik.Sitefinity.Frontend.Mvc.Infrastructure.Controllers.Attributes;
 using Telerik.Sitefinity.Frontend.Mvc.Infrastructure.Routing;
+using Telerik.Sitefinity.Frontend.Mvc.Models;
 using Telerik.Sitefinity.Libraries.Model;
+using Telerik.Sitefinity.Model;
 using Telerik.Sitefinity.Modules.Libraries;
 using Telerik.Sitefinity.Modules.Pages.Configuration;
 using Telerik.Sitefinity.Mvc;
@@ -28,7 +30,7 @@ namespace Telerik.Sitefinity.Frontend.Media.Mvc.Controllers
     /// </summary>
     [Localization(typeof(VideoGalleryResources))]
     [ControllerToolboxItem(Name = "VideoGallery_MVC", Title = "Video gallery", SectionName = ToolboxesConfig.ContentToolboxSectionName, ModuleName = "Libraries", CssClass = VideoGalleryController.WidgetIconCssClass)]
-    public class VideoGalleryController : Controller, IContentLocatableView, IRouteMapper
+    public class VideoGalleryController : ContentBaseController, IContentLocatableView, IRouteMapper
     {
         #region Properties
 
@@ -115,6 +117,27 @@ namespace Telerik.Sitefinity.Frontend.Media.Mvc.Controllers
         /// </value>
         public Guid DetailsPageId { get; set; }
 
+        /// <summary>
+        /// Gets the metadata container.
+        /// </summary>
+        /// <value>
+        /// The metadata container.
+        /// </value>
+        [TypeConverter(typeof(ExpandableObjectConverter))]
+        public override MetadataModel MetadataFields
+        {
+            get
+            {
+                if (this.metadata == null)
+                {
+                    this.metadata = base.MetadataFields;
+                    this.metadata.OpenGraphType = OpenGraphTypes.Video;
+                }
+
+                return this.metadata;
+            }
+        }
+
         #endregion
 
         #region Actions
@@ -193,6 +216,8 @@ namespace Telerik.Sitefinity.Frontend.Media.Mvc.Controllers
         /// </returns>
         public ActionResult Details(Video item)
         {
+            this.InitializeMetadataDetailsViewBag(item);
+
             var itemIndex = this.ParseToNullableInt32(this.Request.QueryString["itemIndex"]);
 
             if (item != null)
@@ -324,10 +349,12 @@ namespace Telerik.Sitefinity.Frontend.Media.Mvc.Controllers
 
                 return true;
             }
+
             if (urlParams.Length > 1)
             {
                 this.TryResolveParentFilterMode(urlParams.Take(urlParams.Length - 1).ToArray(), requestContext, manager);
             }
+
             return false;
         }
 
@@ -406,6 +433,7 @@ namespace Telerik.Sitefinity.Frontend.Media.Mvc.Controllers
         internal const string WidgetIconCssClass = "sfVideoListIcn sfMvcIcn";
 
         private IVideoGalleryModel model;
+        private MetadataModel metadata;
 
         private string listTemplateName = "VideoGallery";
         private string listTemplateNamePrefix = "List.";

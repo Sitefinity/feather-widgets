@@ -41,10 +41,10 @@
 {
     if (node.IsCurrentlyOpened)
     {
-        @Html.Raw("active");
+        @Html.HtmlSanitize("active");
     }
     else if (node.HasChildOpen)
     {
-        @Html.Raw("active");
+        @Html.HtmlSanitize("active");
     }
 }

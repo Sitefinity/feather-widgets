@@ -1342,5 +1342,20 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.StringResources
                 return this["Name"];
             }
         }
+
+        /// <summary>
+        /// Fields
+        /// </summary>
+        [ResourceEntry("CaptchaErrorMessage",
+            Value = "Incorrect value for the captcha image",
+            Description = "The title for Forms Captcha widget.",
+            LastModified = "2017/11/07")]
+        public string CaptchaErrorMessage
+        {
+            get
+            {
+                return this["CaptchaErrorMessage"];
+            }
+        }
     }
 }

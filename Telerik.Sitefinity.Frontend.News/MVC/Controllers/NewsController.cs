@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Linq;
 using System.Web.Mvc;
 using Telerik.Sitefinity.ContentLocations;
 using Telerik.Sitefinity.Frontend.Mvc.Helpers;
@@ -8,16 +9,17 @@ using Telerik.Sitefinity.Frontend.Mvc.Infrastructure;
 using Telerik.Sitefinity.Frontend.Mvc.Infrastructure.Controllers;
 using Telerik.Sitefinity.Frontend.Mvc.Infrastructure.Controllers.Attributes;
 using Telerik.Sitefinity.Frontend.Mvc.Infrastructure.Routing;
+using Telerik.Sitefinity.Frontend.Mvc.Models;
 using Telerik.Sitefinity.Frontend.News.Mvc.Models;
 using Telerik.Sitefinity.Frontend.News.Mvc.StringResources;
+using Telerik.Sitefinity.Model;
 using Telerik.Sitefinity.Modules.Pages.Configuration;
 using Telerik.Sitefinity.Mvc;
 using Telerik.Sitefinity.News.Model;
-using Telerik.Sitefinity.Pages.Model;
 using Telerik.Sitefinity.Personalization;
 using Telerik.Sitefinity.Services;
 using Telerik.Sitefinity.Taxonomies.Model;
-using Telerik.Sitefinity.Web.UrlEvaluation;
+using Telerik.Sitefinity.Web;
 
 namespace Telerik.Sitefinity.Frontend.News.Mvc.Controllers
 {
@@ -26,7 +28,7 @@ namespace Telerik.Sitefinity.Frontend.News.Mvc.Controllers
     /// </summary>
     [ControllerToolboxItem(Name = "News_MVC", Title = "News", SectionName = ToolboxesConfig.ContentToolboxSectionName, ModuleName = "News", CssClass = NewsController.WidgetIconCssClass)]
     [Localization(typeof(NewsWidgetResources))]
-    public class NewsController : Controller, IContentLocatableView, IPersonalizable
+    public class NewsController : ContentBaseController, IContentLocatableView, IPersonalizable
     {
         #region Properties
 
@@ -125,6 +127,27 @@ namespace Telerik.Sitefinity.Frontend.News.Mvc.Controllers
             }
         }
 
+        /// <summary>
+        /// Gets the metadata container.
+        /// </summary>
+        /// <value>
+        /// The metadata container.
+        /// </value>
+        [TypeConverter(typeof(ExpandableObjectConverter))]
+        public override MetadataModel MetadataFields
+        {
+            get
+            {
+                if (this.metadata == null)
+                {
+                    this.metadata = base.MetadataFields;
+                    this.metadata.OpenGraphType = OpenGraphTypes.Article;
+                }
+
+                return this.metadata;
+            }
+        }
+
         #endregion
 
         #region Actions
@@ -187,6 +210,8 @@ namespace Telerik.Sitefinity.Frontend.News.Mvc.Controllers
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1011:ConsiderPassingBaseTypesAsParameters")]
         public ActionResult Details(NewsItem newsItem)
         {
+            this.InitializeMetadataDetailsViewBag(newsItem);
+
             var fullTemplateName = this.detailTemplateNamePrefix + this.DetailTemplateName;
             this.ViewBag.Title = newsItem.Title;
 
@@ -211,6 +236,7 @@ namespace Telerik.Sitefinity.Frontend.News.Mvc.Controllers
         {
             return this.Model.GetLocations();
         }
+
         #endregion
 
         #region Overriden methods
@@ -258,6 +284,7 @@ namespace Telerik.Sitefinity.Frontend.News.Mvc.Controllers
 
         internal const string WidgetIconCssClass = "sfNewsViewIcn sfMvcIcn";
         private INewsModel model;
+        private MetadataModel metadata;
         private string listTemplateName = "NewsList";
         private string listTemplateNamePrefix = "List.";
         private string detailTemplateName = "DetailPage";

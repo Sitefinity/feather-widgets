@@ -72,6 +72,10 @@ namespace Telerik.Sitefinity.Frontend.Lists.Mvc.Models
 
             location.ContentType = typeof(ListItem);
             location.ProviderName = this.ProviderName;
+            if (string.IsNullOrEmpty(location.ProviderName))
+            {
+                location.ProviderName = this.GetManager().Provider.Name;
+            }
 
             var listsFilterExpression = this.CompileFilterExpression(ListItemFilterExpression);
             if (!string.IsNullOrEmpty(listsFilterExpression))
@@ -83,6 +87,7 @@ namespace Telerik.Sitefinity.Frontend.Lists.Mvc.Models
             {
                 FilterExpression = this.FilterExpression,
                 SerializedAdditionalFilters = this.SerializedAdditionalFilters,
+
                 // We need only filter list items.
                 SelectionMode = SelectionMode.FilteredItems
             };
@@ -96,8 +101,6 @@ namespace Telerik.Sitefinity.Frontend.Lists.Mvc.Models
 
             return new[] { location };
         }
-
-
 
         /// <inheritdoc />
         public override ContentListViewModel CreateListViewModel(ITaxon taxonFilter, int page)
@@ -119,6 +122,7 @@ namespace Telerik.Sitefinity.Frontend.Lists.Mvc.Models
                     SortExpression = this.SortExpression,
                     FilterExpression = this.FilterExpression,
                     SerializedAdditionalFilters = this.SerializedAdditionalFilters,
+
                     // We need only filter list items.
                     SelectionMode = SelectionMode.FilteredItems,
                     ProviderName = this.ProviderName,
@@ -134,7 +138,7 @@ namespace Telerik.Sitefinity.Frontend.Lists.Mvc.Models
         /// <inheritdoc />
         public override ContentDetailsViewModel CreateDetailsViewModel(IDataItem item)
         {
-            var viewModel =  base.CreateDetailsViewModel(item);
+            var viewModel = base.CreateDetailsViewModel(item);
 
             var listItemModel = new ListItemModel((ListViewModel)viewModel.Item);
 
@@ -193,7 +197,7 @@ namespace Telerik.Sitefinity.Frontend.Lists.Mvc.Models
 
         private string GetSelectedItemsFilterExpression(string filterExpression)
         {
-            var selectedItemGuids = selectedItemsIds.Select(id => new Guid(id));
+            var selectedItemGuids = this.selectedItemsIds.Select(id => new Guid(id));
             var masterIds = this.GetItemsQuery()
                                 .OfType<Content>()
                                 .Where(c => selectedItemGuids.Contains(c.Id) || selectedItemGuids.Contains(c.OriginalContentId))

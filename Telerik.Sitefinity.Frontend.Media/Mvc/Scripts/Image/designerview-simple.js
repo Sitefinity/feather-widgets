@@ -76,7 +76,7 @@
                     $scope.properties.ThumbnailUrl.PropertyValue = thumbnailUrl;
                 }
 
-                return mediaService.getLibrarySettings();
+                // return mediaService.getLibrarySettings();
             });
         };
 

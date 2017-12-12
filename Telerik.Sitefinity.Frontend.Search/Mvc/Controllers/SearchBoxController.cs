@@ -117,7 +117,7 @@ namespace Telerik.Sitefinity.Frontend.Search.Mvc.Controllers
             if (!this.IsEmpty && this.IsSearchModuleActivated())
             {
                 var query = this.GetSearchQueryFromQueryString(this.Model.IndexCatalogue);
-                this.ViewBag.SearchQuery = HttpUtility.HtmlEncode(query);
+                this.ViewBag.SearchQuery = query;
 
                 return this.View(this.TemplateName, this.Model);
             }

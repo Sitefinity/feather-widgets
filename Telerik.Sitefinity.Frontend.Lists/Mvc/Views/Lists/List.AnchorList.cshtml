@@ -41,7 +41,7 @@
                     @listItem.Fields.Title
                 </h3>
 
-                <div @Html.InlineEditingFieldAttributes("Content", "LongText")>@Html.Raw(listItem.Fields.Content)</div>
+                <div @Html.InlineEditingFieldAttributes("Content", "LongText")>@Html.HtmlSanitize((string)listItem.Fields.Content)</div>
 
                 <p><a href="#@item.Fields.Id-Top">@Html.Resource("BackToTop")</a></p>
             </div>

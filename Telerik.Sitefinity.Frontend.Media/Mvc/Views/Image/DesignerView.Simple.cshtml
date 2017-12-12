@@ -4,7 +4,8 @@
     sf-auto-open-selector 
     sf-model="properties.Id.PropertyValue" 
     sf-image="model.item" 
-    sf-provider="properties.ProviderName.PropertyValue"></sf-image-field>
+    sf-provider="properties.ProviderName.PropertyValue"
+    sf-media-settings="@SettingsHelpers.GetMediaSettings("Image")"></sf-image-field>
 
 <form name="imageProperties">
     <div class="form-group" ng-class="{ 'has-error' : hasErrors && hasErrors() }">
