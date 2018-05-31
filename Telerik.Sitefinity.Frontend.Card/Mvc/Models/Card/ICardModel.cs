@@ -1,12 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics.CodeAnalysis;
-using System.Linq;
-using System.Text;
-using Telerik.Sitefinity.ContentLocations;
-using Telerik.Sitefinity.Data;
-using Telerik.Sitefinity.Frontend.Mvc.Models;
-using Telerik.Sitefinity.Model;
 
 namespace Telerik.Sitefinity.Frontend.Card.Mvc.Models.Card
 {
@@ -34,6 +26,14 @@ namespace Telerik.Sitefinity.Frontend.Card.Mvc.Models.Card
         /// Gets or sets the HTML.
         /// </summary>
         string Description { get; set; }
+
+        /// <summary>
+        /// Gets or sets whether the widget is in page select mode.
+        /// </summary>
+        /// <value>
+        /// Whether the widget is in page select mode.
+        /// </value>
+        bool IsPageSelectMode { get; set; }
 
         /// <summary>
         /// Gets or sets the page identifier to use as link.

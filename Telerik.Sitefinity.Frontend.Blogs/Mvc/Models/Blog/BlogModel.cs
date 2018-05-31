@@ -110,7 +110,7 @@ namespace Telerik.Sitefinity.Frontend.Blogs.Mvc.Models.Blog
                 {
                     var minPostsCount = this.MinPostsCount;
                     var blogIdsArray = manager.GetBlogPosts()
-                        .Where(bp => bp.Status == ContentLifecycleStatus.Live)
+                        .Where(bp => bp.Status == ContentLifecycleStatus.Live && bp.Visible)
                         .GroupBy(bp => bp.Parent)
                         .Where(g => g.Count() > minPostsCount)
                         .Select(kv => kv.Key.Id)
@@ -123,7 +123,7 @@ namespace Telerik.Sitefinity.Frontend.Blogs.Mvc.Models.Blog
                 {
                     var minPublicationDate = DateTime.UtcNow.AddMonths(this.MaxPostsAge * -1);
                     var blogIdsArray = manager.GetBlogPosts()
-                        .Where(bp => bp.Status == ContentLifecycleStatus.Live && bp.PublicationDate > minPublicationDate)
+                        .Where(bp => bp.Status == ContentLifecycleStatus.Live && bp.Visible && bp.PublicationDate > minPublicationDate)
                         .Select(bp => bp.Parent.Id)
                         .Distinct()
                         .ToArray();

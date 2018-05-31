@@ -188,6 +188,14 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.Registration
         /// <inheritDoc/>
         public virtual string EmailSenderName { get; set; }
 
+        public virtual string SuccessfulRegistrationSenderEmail { get; set; }
+
+        public virtual string ConfirmRegistrationSenderEmail { get; set; }
+        
+        public virtual string SuccessfulRegistrationSenderName { get; set; }
+        
+        public virtual string ConfirmRegistrationSenderName { get; set; }
+
         /// <inheritDoc/>
         public ActivationMethod ActivationMethod { get; set; }
 
@@ -515,7 +523,9 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.Registration
                                                 userManager,
                                                 user,
                                                 this.SuccessEmailTemplateId,
-                                                this.SuccessEmailSubject);
+                                                this.SuccessEmailSubject,
+                                                this.SuccessfulRegistrationSenderEmail,
+                                                this.SuccessfulRegistrationSenderName);
 
             var emailSender = EmailSender.Get(this.EmailSenderName);
             emailSender.SendAsync(registrationSuccessEmail, null);
@@ -574,7 +584,9 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.Registration
                                 this.MembershipProviderName,
                                 this.ConfirmationEmailTemplateId,
                                 confirmationPageUrl,
-                                this.ConfirmationEmailSubject);
+                                this.ConfirmationEmailSubject,
+                                this.ConfirmRegistrationSenderEmail,
+                                this.ConfirmRegistrationSenderName);
 
             var emailSender = EmailSender.Get(this.EmailSenderName);
             emailSender.SendAsync(confirmationEmail, null);

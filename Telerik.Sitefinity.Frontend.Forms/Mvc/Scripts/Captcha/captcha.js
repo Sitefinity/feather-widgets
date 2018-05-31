@@ -21,7 +21,7 @@
             };
 
             if (data) {
-                options.data = data;
+                options.data = JSON.stringify(data);
             }
 
             return $.ajax(options);
@@ -30,6 +30,11 @@
         getCaptcha: function () {
             var getCaptchaUrl = this.rootUrl + 'captcha';
             return this.makeAjax(getCaptchaUrl);
+        },
+
+        validateCaptcha: function (data) {
+            var validateCaptchaUrl = this.rootUrl + 'captcha';
+            return this.makeAjax(validateCaptchaUrl, 'POST', data);
         }
     };
 
@@ -91,6 +96,30 @@
             return deferred;
         },
 
+        validateInput: function () {
+            var self = this;
+            var deferred = $.Deferred(),
+                data = {
+                    Answer: self.captchaInput().val(),
+                    CorrectAnswer: self.captchaDataCorrectAnswer().val(),
+                    InitializationVector: self.captchaDataIv().val(),
+                    Key: self.captchaDataKey().val()
+                };
+
+            self.restApi.validateCaptcha(data).then(function (isValid) {
+                if (isValid) {
+                    self.hideInvalidMessage();
+                } else {
+                    self.showInvalidMessage();
+                    self.wrapper.find('input').focus();
+                    self.wrapper.find('input').select();
+                }                
+                deferred.resolve(isValid);
+            });
+
+            return deferred;
+        },
+
         /*
             Initialization
         */
@@ -117,10 +146,19 @@
             });
         },
 
+        showInvalidMessage: function () {
+            this.getElementByDataSfRole('invalid-captcha-input').css('visibility', 'visible');
+        },
+
+        hideInvalidMessage: function () {
+            this.getElementByDataSfRole('invalid-captcha-input').css('visibility', 'hidden');
+        },
+
         initialize: function () {
             this.initializeProperties();
             this.initializeCaptcha();
             this.initializeHandlers();
+            this.hideInvalidMessage();
         }
     };
 
@@ -142,6 +180,8 @@
         } else {
             e.target.setCustomValidity('');
         }
+
+        e.data.hideInvalidMessage();
     }
 
     function invalid(e) {
@@ -149,10 +189,10 @@
             return;
 
         var validationMessages = getValidationMessages(e.target);
-                
+
         if (e.target.validity.valueMissing) {
             e.target.setCustomValidity(validationMessages.required);
-        }        
+        }
     }
 
     /*
@@ -162,14 +202,18 @@
         $('[data-sf-role="field-captcha-container"]').each(function () {
             var container = $(this);
             var rootUrl = container.find('[data-sf-role="captcha-settings"]').val();
-            (new CaptchaWidget(container, { rootUrl: rootUrl })).initialize();
+            var captcha = new CaptchaWidget(container, { rootUrl: rootUrl });
+            captcha.initialize();
 
             var input = container.find('[data-sf-role="captcha-input"]');
 
             if (input) {
-                input.on('change', changeOrInput);
-                input.on('input', changeOrInput);
+                input.on('change', captcha, changeOrInput);
+                input.on('input', captcha, changeOrInput);
                 input.on('invalid', invalid);
+                input.data('widget-validator', function () {
+                    return captcha.validateInput();
+                });
             }
         });
     });

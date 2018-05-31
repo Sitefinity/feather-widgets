@@ -6,6 +6,7 @@ using Telerik.Sitefinity.Frontend.Forms.Mvc.StringResources;
 using Telerik.Sitefinity.Frontend.Mvc.Infrastructure.Controllers;
 using Telerik.Sitefinity.Frontend.Mvc.Infrastructure.Controllers.Attributes;
 using Telerik.Sitefinity.Model;
+using Telerik.Sitefinity.Modules.Forms;
 using Telerik.Sitefinity.Modules.Pages.Web.Services;
 
 namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Controllers
@@ -15,7 +16,7 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Controllers
     /// </summary>
     [DatabaseMapping(UserFriendlyDataType.FileUpload)]
     [Localization(typeof(FieldResources))]
-    public class FileFieldController : FormFieldControllerBase<IFileFieldModel>
+    public class FileFieldController : FormFieldControllerBase<IFileFieldModel>, IRequireLibrary
     {
         /// <summary>
         /// Gets the form field model.

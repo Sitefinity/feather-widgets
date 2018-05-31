@@ -136,6 +136,7 @@ namespace Telerik.Sitefinity.Frontend.Forms
                 var toolboxItem = new ToolboxItem(section.Tools)
                 {
                     Name = name,
+                    Ordinal = 0.5f,
                     Title = item.Title,
                     Description = string.Empty,
                     ControlType = typeof(MvcControllerProxy).FullName,

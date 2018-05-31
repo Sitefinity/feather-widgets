@@ -93,14 +93,11 @@ namespace Telerik.Sitefinity.Frontend.DynamicContent.WidgetTemplates.Fields.Help
             var taxonomy = manager.GetTaxonomy(classificationId);
             var type = taxonomy.GetType();
 
+            // TODO: breaking change
             if (type.IsAssignableFrom(typeof(FlatTaxonomy)))
                 return TaxonomyType.Flat;
-            else if (type.IsAssignableFrom(typeof(FacetTaxonomy)))
-                return TaxonomyType.Facet;
             else if (type.IsAssignableFrom(typeof(HierarchicalTaxonomy)))
                 return TaxonomyType.Hierarchical;
-            else if (type.IsAssignableFrom(typeof(NetworkTaxonomy)))
-                return TaxonomyType.Network;
 
             throw new InvalidOperationException();
         }

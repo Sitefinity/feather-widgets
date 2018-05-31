@@ -113,6 +113,7 @@ namespace Telerik.Sitefinity.Frontend.Lists.Mvc.Models
                 return this.CreateListViewModelInstance();
 
             var viewModel = this.CreateListViewModelInstance();
+            viewModel.UrlKeyPrefix = this.UrlKeyPrefix;
             this.PopulateListViewModel(page, query, viewModel);
 
             foreach (var listModel in viewModel.Items.Cast<ListViewModel>())
@@ -126,7 +127,9 @@ namespace Telerik.Sitefinity.Frontend.Lists.Mvc.Models
                     // We need only filter list items.
                     SelectionMode = SelectionMode.FilteredItems,
                     ProviderName = this.ProviderName,
-                    ItemsPerPage = null
+                    ItemsPerPage = null,
+
+                    UrlKeyPrefix = this.UrlKeyPrefix
                 };
 
                 listModel.ListItemViewModel = listItemModel.CreateListViewModel(taxonFilter, page);

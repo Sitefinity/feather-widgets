@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Globalization;
+using System.Linq;
 using System.Web.Mvc;
 using Telerik.Microsoft.Practices.Unity.Utility;
 using Telerik.Sitefinity.ContentLocations;
@@ -147,6 +148,10 @@ namespace Telerik.Sitefinity.Frontend.Events.Mvc.Controllers
                 this.AddCacheDependencies(this.Model.GetKeysOfDependentObjects(viewModel));
 
             var fullTemplateName = EventSchedulerController.ListTemplateNamePrefix + this.ListTemplateName;
+
+            if (this.ShouldReturnDetails(this.Model.ContentViewDisplayMode, viewModel))
+                return this.Details((Event)viewModel.Items.First().DataItem);
+
             return this.View(fullTemplateName, this.Model);
         }
 

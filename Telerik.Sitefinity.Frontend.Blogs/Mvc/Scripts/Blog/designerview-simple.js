@@ -33,6 +33,9 @@
                 if (newVal !== oldVal) {
                     if (newVal) {
                         $scope.properties.SerializedSelectedItemsIds.PropertyValue = JSON.stringify(newVal);
+                        if (newVal.length === 1) {
+                            $scope.properties.ContentViewDisplayMode.PropertyValue = 'Detail';
+                        }
                     }
                 }
             },
@@ -93,6 +96,11 @@
                     if ($scope.properties.SelectionMode.PropertyValue !== 'FilteredItems' || $scope.properties.FilteredSelectionMode.PropertyValue === 'MaxPostsAge') {
                         $scope.properties.MinPostsCount.PropertyValue = 0;
                     }
+                     
+                    if ($scope.properties.ContentViewDisplayMode.PropertyValue === 'Detail' && 
+                    		($scope.properties.SelectionMode.PropertyValue !== 'SelectedItems' || $scope.blogSelector.selectedItemsIds.length !== 1)) {
+                        $scope.properties.ContentViewDisplayMode.PropertyValue = 'Automatic';
+                    }  
                 });
             })
             .finally(function () {

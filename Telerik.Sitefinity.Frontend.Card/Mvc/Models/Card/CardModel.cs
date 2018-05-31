@@ -1,18 +1,12 @@
-﻿using ServiceStack.Text;
-using System;
-using System.Collections.Generic;
+﻿using System;
 using System.Globalization;
 using System.Linq;
 using Telerik.Sitefinity.Configuration;
-using Telerik.Sitefinity.Data;
-using Telerik.Sitefinity.Frontend.Mvc.Models;
-using Telerik.Sitefinity.GenericContent.Model;
-using Telerik.Sitefinity.Model;
 using Telerik.Sitefinity.Modules;
 using Telerik.Sitefinity.Modules.GenericContent;
 using Telerik.Sitefinity.Modules.Libraries;
-using Telerik.Sitefinity.Services;
 using Telerik.Sitefinity.Modules.Pages;
+using Telerik.Sitefinity.Services;
 using SfImage = Telerik.Sitefinity.Libraries.Model.Image;
 using Telerik.Sitefinity.Web;
 
@@ -23,6 +17,11 @@ namespace Telerik.Sitefinity.Frontend.Card.Mvc.Models.Card
     /// </summary>
     public class CardModel : ICardModel
     {
+        public CardModel()
+        {
+            this.IsPageSelectMode = true;
+        }
+
         /// <inheritdoc />
         public Guid ImageId { get; set; }
 
@@ -35,6 +34,9 @@ namespace Telerik.Sitefinity.Frontend.Card.Mvc.Models.Card
         /// <inheritdoc />
         [DynamicLinksContainer]
         public string Description { get; set; }
+
+        /// <inheritdoc />
+        public bool IsPageSelectMode { get; set; }
 
         /// <inheritdoc />
         public Guid LinkedPageId { get; set; }
@@ -53,7 +55,7 @@ namespace Telerik.Sitefinity.Frontend.Card.Mvc.Models.Card
         {
             var viewModel = new CardViewModel()
             {
-                Heading = this.Heading, 
+                Heading = this.Heading,
                 Description = this.Description,
                 ActionName = this.ActionName,
                 ActionUrl = this.GetLinkedUrl(),
@@ -123,10 +125,11 @@ namespace Telerik.Sitefinity.Frontend.Card.Mvc.Models.Card
         /// <returns></returns>
         protected virtual string GetLinkedUrl()
         {
-            string linkedUrl = null;
-
-            if (this.LinkedPageId != Guid.Empty)
+            if (this.IsPageSelectMode)
             {
+                if (this.LinkedPageId == Guid.Empty)
+                    return null;
+
                 var pageManager = PageManager.GetManager();
                 var node = pageManager.GetPageNode(this.LinkedPageId);
                 if (node != null)
@@ -140,16 +143,16 @@ namespace Telerik.Sitefinity.Frontend.Card.Mvc.Models.Card
                     {
                         relativeUrl = node.GetFullUrl();
                     }
-
-                    linkedUrl = UrlPath.ResolveUrl(relativeUrl, true);
+                    
+                    return UrlPath.ResolveUrl(relativeUrl, Config.Get<SystemConfig>().SiteUrlSettings.GenerateAbsoluteUrls);
                 }
             }
-            else if (!string.IsNullOrEmpty(this.LinkedUrl) && this.LinkedPageId == Guid.Empty)
+            else if (!string.IsNullOrEmpty(this.LinkedUrl))
             {
-                linkedUrl = this.LinkedUrl;
+                return this.LinkedUrl;
             }
 
-            return linkedUrl;
+            return null;
         }
     }
 }

@@ -29,6 +29,9 @@
                 if (newVal !== oldVal) {
                     if (newVal) {
                         $scope.properties.SerializedSelectedItemsIds.PropertyValue = JSON.stringify(newVal);
+                        if (newVal.length === 1) {
+                            $scope.properties.ContentViewDisplayMode.PropertyValue = 'Detail';
+                        }
                     }
                 }
             },
@@ -95,6 +98,11 @@
                         $scope.properties.SerializedAdditionalFilters.PropertyValue = null;
                         $scope.properties.SerializedNarrowSelectionFilters.PropertyValue = null;
                     }
+                     
+                    if ($scope.properties.ContentViewDisplayMode.PropertyValue === 'Detail' && 
+                    		($scope.properties.SelectionMode.PropertyValue !== 'SelectedItems' || $scope.eventSelector.selectedItemsIds.length !== 1)) {
+                        $scope.properties.ContentViewDisplayMode.PropertyValue = 'Automatic';
+                    }  
                 });
             })
             .finally(function () {

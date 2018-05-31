@@ -7,7 +7,6 @@ using System.Web;
 using System.Web.Script.Serialization;
 using Telerik.Sitefinity.Data;
 using Telerik.Sitefinity.Data.ContentLinks;
-using Telerik.Sitefinity.Data.Metadata;
 using Telerik.Sitefinity.Frontend.Identity.Mvc.StringResources;
 using Telerik.Sitefinity.Frontend.Mvc.Helpers;
 using Telerik.Sitefinity.Libraries.Model;
@@ -20,7 +19,6 @@ using Telerik.Sitefinity.Security.Claims;
 using Telerik.Sitefinity.Security.Model;
 using Telerik.Sitefinity.Utilities;
 using Telerik.Sitefinity.Web;
-using Telerik.Sitefinity.Workflow;
 
 namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.Profile
 {
@@ -30,6 +28,19 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.Profile
     public class ProfileModel : IProfileModel
     {
         #region Properties
+
+        /// <inheritdoc />
+        public bool AllowCurrentProfileUpdates
+        {
+            get
+            {
+                return this.allowCurrentProfileUpdates;
+            }
+            set
+            {
+                this.allowCurrentProfileUpdates = value;
+            }
+        }
 
         /// <inheritdoc />
         public string CssClass { get; set; }
@@ -102,7 +113,7 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.Profile
 
                 Guid userId = this.GetUserId();
                 UserProfileManager profileManager = UserProfileManager.GetManager(this.ProfileProvider);
-                
+
                 if (userId != Guid.Empty)
                 {
                     this.selectedUserProfiles = profileManager.GetUserProfiles(userId).ToList();
@@ -203,10 +214,10 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.Profile
         public bool EditUserEmail(ProfileEmailEditViewModel model)
         {
             if (!string.IsNullOrEmpty(model.Email))
-            {                
+            {
                 var userManager = UserManager.GetManager(SecurityManager.GetUser(model.UserId).ProviderName);
                 var user = userManager.GetUser(model.UserId);
-                
+
                 if (!userManager.ValidateUser(user, model.Password))
                 {
                     return false;
@@ -215,7 +226,19 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.Profile
                 if (user.Email != model.Email)
                 {
                     user.Email = model.Email;
-                    userManager.SaveChanges();
+
+                    if (this.AllowCurrentProfileUpdates && SecurityManager.GetCurrentUserId() == user.Id)
+                    {
+                        using (new ElevatedModeRegion(userManager))
+                        {
+                            userManager.SaveChanges();
+                        }
+                    }
+                    else
+                    {
+                        userManager.SaveChanges();
+                    }
+
                     return true;
                 }
 
@@ -285,7 +308,7 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.Profile
             Libraries.Model.Image avatarImage;
 
             var displayNameBuilder = new SitefinityUserDisplayNameBuilder();
-            
+
             model.DisplayName = displayNameBuilder.GetUserDisplayName(model.User.Id);
             model.AvatarImageUrl = displayNameBuilder.GetAvatarImageUrl(model.User.Id, out avatarImage);
             model.DefaultAvatarUrl = displayNameBuilder.GetAvatarImageUrl(Guid.Empty, out avatarImage);
@@ -300,7 +323,7 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.Profile
 
             foreach (var profile in this.SelectedUserProfiles)
             {
-                var profileBindings = profileBindingsList.SingleOrDefault(p=>p.ProfileType == profile.GetType().FullName);
+                var profileBindings = profileBindingsList.SingleOrDefault(p => p.ProfileType == profile.GetType().FullName);
                 if (profileBindings != null)
                 {
                     var requiredProperties = profileBindings.Properties.Where(p => p.Required);
@@ -331,7 +354,7 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.Profile
                 }
             }
         }
-        
+
         #endregion
 
         #region Private Methods
@@ -546,6 +569,7 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.Profile
 
         #region Private fields
 
+        private bool allowCurrentProfileUpdates = true;
         private string profileProvider;
         private string membrshipProvider;
         private IList<UserProfile> selectedUserProfiles;

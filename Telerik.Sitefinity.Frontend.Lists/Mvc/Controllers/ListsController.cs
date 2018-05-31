@@ -195,6 +195,12 @@ namespace Telerik.Sitefinity.Frontend.Lists.Mvc.Controllers
             return this.View(fullTemplateName, viewModel);
         }
 
+        /// <inheritDocs/>
+        protected override void HandleUnknownAction(string actionName)
+        {
+            this.ActionInvoker.InvokeAction(this.ControllerContext, "Index");
+        }
+
         #endregion
 
         #region IContentLocatableView

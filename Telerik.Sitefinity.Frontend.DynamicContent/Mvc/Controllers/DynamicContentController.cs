@@ -156,14 +156,18 @@ namespace Telerik.Sitefinity.Frontend.DynamicContent.Mvc.Controllers
             {
                 ITaxon taxonFilter = TaxonUrlEvaluator.GetTaxonFromQuery(this.HttpContext, this.Model.UrlKeyPrefix);
 
-                this.InitializeListViewBag("/{0}");
+                this.InitializeListViewBag();
                 this.SetRedirectUrlQueryString(taxonFilter);
 
-                var viewModel = this.Model.CreateListViewModel(taxonFilter: taxonFilter, page: page ?? 1);
-                if (SystemManager.CurrentHttpContext != null)
-                    this.AddCacheDependencies(this.Model.GetKeysOfDependentObjects(viewModel));
+                this.UpdatePageFromQuery(ref page, this.Model.UrlKeyPrefix);
+                var viewModel = this.Model.CreateListViewModel(taxonFilter, this.ExtractValidPage(page));
+                this.AddCacheDependencies(this.Model.GetKeysOfDependentObjects(viewModel));
 
                 var fullTemplateName = this.listTemplateNamePrefix + this.ListTemplateName;
+
+                if (this.ShouldReturnDetails(this.Model.ContentViewDisplayMode, viewModel))
+                    return this.Details((Telerik.Sitefinity.DynamicModules.Model.DynamicContent)viewModel.Items.First().DataItem);
+
                 return this.View(fullTemplateName, viewModel);
             }
             else
@@ -281,7 +285,7 @@ namespace Telerik.Sitefinity.Frontend.DynamicContent.Mvc.Controllers
             }
             else
             {
-                this.InitializeListViewBag("/{0}");
+                this.InitializeListViewBag();
 
                 ContentListViewModel viewModel;
                 if (this.Model.ParentFilterMode != ParentFilterMode.CurrentlyOpen)
@@ -293,7 +297,8 @@ namespace Telerik.Sitefinity.Frontend.DynamicContent.Mvc.Controllers
                     viewModel = this.Model.CreateListViewModelByParent(item.SystemParentItem, 1);
                 }
 
-                ((DynamicContentListViewModel)viewModel).SelectedItem = (Telerik.Sitefinity.DynamicModules.Model.DynamicContent)DynamicModuleManager.GetManager().Lifecycle.GetLive(item);
+                var liveItem = item.Status != ContentLifecycleStatus.Live ? (Telerik.Sitefinity.DynamicModules.Model.DynamicContent)DynamicModuleManager.GetManager().Lifecycle.GetLive(item) : item;
+                ((DynamicContentListViewModel)viewModel).SelectedItem = liveItem;
 
                 if (SystemManager.CurrentHttpContext != null)
                     this.AddCacheDependencies(this.Model.GetKeysOfDependentObjects(viewModel));
@@ -444,7 +449,9 @@ namespace Telerik.Sitefinity.Frontend.DynamicContent.Mvc.Controllers
             if (widgetName.IsNullOrEmpty())
                 return null;
 
-            var dynamicType = ControllerExtensions.GetDynamicContentType(widgetName);
+            var moduleName = this.ViewBag.ModuleName as string;
+
+            var dynamicType = ControllerExtensions.GetDynamicContentType(widgetName, moduleName);
             if (dynamicType != null)
                 return dynamicType.DisplayName;
 
@@ -454,7 +461,7 @@ namespace Telerik.Sitefinity.Frontend.DynamicContent.Mvc.Controllers
         private bool TryMapSuccessorsRouteData(string[] urlParams, RequestContext requestContext, DynamicModuleManager manager, Type parentType)
         {
             string redirectUrl;
-            var item = manager.Provider.GetItemFromUrl(parentType, RouteHelper.GetUrlParameterString(urlParams), out redirectUrl);
+            var item = manager.Provider.GetItemFromUrl(parentType, RouteHelper.GetUrlParameterString(urlParams), true, out redirectUrl);
             if (item != null)
             {
                 requestContext.RouteData.Values["action"] = "Successors";
@@ -474,10 +481,14 @@ namespace Telerik.Sitefinity.Frontend.DynamicContent.Mvc.Controllers
             return false;
         }
 
-        private void InitializeListViewBag(string redirectPageUrl)
+        private void InitializeListViewBag(string redirectPageUrl = null)
         {
-            this.ViewBag.CurrentPageUrl = this.GetCurrentPageUrl();
-            this.ViewBag.RedirectPageUrlTemplate = this.ViewBag.CurrentPageUrl + redirectPageUrl;
+            var pageUrl = this.GetCurrentPageUrl();
+            var template = redirectPageUrl != null ? string.Concat(pageUrl, redirectPageUrl) :
+                                                     this.GeneratePagingTemplate(pageUrl, this.Model.UrlKeyPrefix);
+
+            this.ViewBag.CurrentPageUrl = pageUrl;
+            this.ViewBag.RedirectPageUrlTemplate = template;
             this.ViewBag.DetailsPageId = this.DetailsPageId;
             this.ViewBag.OpenInSamePage = this.OpenInSamePage;
         }

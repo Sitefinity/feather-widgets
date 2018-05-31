@@ -197,6 +197,7 @@ namespace Telerik.Sitefinity.Frontend.Search.Mvc.Models
         /// Searches the specified query.
         /// </summary>
         /// <param name="query">The query.</param>
+        /// <param name="language">The language.</param>
         /// <param name="skip">The skip.</param>
         /// <param name="take">The take.</param>
         /// <param name="hitCount">The hit count.</param>

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Web.Script.Serialization;
 using Telerik.Sitefinity.Configuration;
@@ -9,10 +10,8 @@ using Telerik.Sitefinity.Frontend.Mvc.Models;
 using Telerik.Sitefinity.Modules;
 using Telerik.Sitefinity.Modules.Libraries;
 using Telerik.Sitefinity.Modules.Pages;
-using Telerik.Sitefinity.Pages.Model;
 using Telerik.Sitefinity.Services;
 using Telerik.Sitefinity.Web;
-using Telerik.Sitefinity.Web.DataResolving;
 using SfImage = Telerik.Sitefinity.Libraries.Model.Image;
 
 namespace Telerik.Sitefinity.Frontend.Media.Mvc.Models.Image
@@ -176,8 +175,9 @@ namespace Telerik.Sitefinity.Frontend.Media.Mvc.Models.Image
                 var node = pageManager.GetPageNode(this.LinkedPageId);
                 if (node != null)
                 {
-                    var relativeUrl = node.GetFullUrl();
-                    linkedUrl = UrlPath.ResolveUrl(relativeUrl, true);
+                    var provider = SiteMapBase.GetCurrentProvider();
+                    var siteMapNode = provider.FindSiteMapNodeFromKey(node.Id.ToString());
+                    linkedUrl = UrlPath.ResolveUrl(siteMapNode.Url, true);
                 }
             }
             else if (this.UseAsLink && this.LinkedPageId == Guid.Empty)
@@ -186,6 +186,18 @@ namespace Telerik.Sitefinity.Frontend.Media.Mvc.Models.Image
             }
 
             return linkedUrl;
+        }
+
+        private CultureInfo GetCurrentCulture()
+        {
+            if (SystemManager.CurrentContext.AppSettings.Multilingual)
+            {
+                var currentCulture = CultureInfo.CurrentUICulture;
+                if (SystemManager.CurrentContext.AppSettings.DefinedFrontendLanguages.Contains(currentCulture))
+                    return currentCulture;
+            }
+
+            return SystemManager.CurrentContext.AppSettings.DefaultFrontendLanguage;
         }
         #endregion
     }

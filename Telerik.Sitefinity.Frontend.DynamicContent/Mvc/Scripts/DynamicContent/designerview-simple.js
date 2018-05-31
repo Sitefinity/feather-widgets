@@ -47,8 +47,11 @@
         $scope.$watch(
             'itemSelector.selectedItemsIds',
             function (newSelectedItemsIds, oldSelectedItemsIds) {
-                if (newSelectedItemsIds !== oldSelectedItemsIds) {
+                if (newSelectedItemsIds !== null && newSelectedItemsIds !== oldSelectedItemsIds) {
                     $scope.properties.SerializedSelectedItemsIds.PropertyValue = JSON.stringify(newSelectedItemsIds);
+                    if (newSelectedItemsIds.length === 1) {
+                        $scope.properties.ContentViewDisplayMode.PropertyValue = 'Detail';
+                    }
 	            }
 	        },
 	        true
@@ -148,6 +151,11 @@
                             $scope.properties.SortExpression.PropertyValue = "PublicationDate DESC";
                         }
                     }
+                     
+                    if ($scope.properties.ContentViewDisplayMode.PropertyValue === 'Detail' && 
+                    		($scope.properties.SelectionMode.PropertyValue !== 'SelectedItems' || $scope.itemSelector.selectedItemsIds.length !== 1)) {
+                        $scope.properties.ContentViewDisplayMode.PropertyValue = 'Automatic';
+                    }   
                 });
             })
             .finally(function () {

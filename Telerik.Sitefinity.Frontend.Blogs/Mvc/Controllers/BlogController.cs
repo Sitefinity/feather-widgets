@@ -116,6 +116,10 @@ namespace Telerik.Sitefinity.Frontend.Blogs.Mvc.Controllers
                 this.AddCacheDependencies(this.Model.GetKeysOfDependentObjects(viewModel));
 
             var fullTemplateName = this.listTemplateNamePrefix + this.ListTemplateName;
+            
+            if (this.ShouldReturnDetails(this.Model.ContentViewDisplayMode, viewModel))
+                return this.Details((Blog)viewModel.Items.First().DataItem);
+
             return this.View(fullTemplateName, viewModel);
         }
 

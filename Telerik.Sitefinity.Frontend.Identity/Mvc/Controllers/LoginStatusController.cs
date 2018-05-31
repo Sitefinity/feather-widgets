@@ -104,7 +104,7 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Controllers
         }
 
         /// <summary>
-        /// Sign out the user and redirect it to the login page.
+        /// Sign out the user and redirect it to specified page.
         /// </summary>
         /// <returns>
         /// /// The <see cref="ActionResult" />.
@@ -146,7 +146,8 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Controllers
         /// <inheritDocs/>
         protected override void HandleUnknownAction(string actionName)
         {
-            this.ActionInvoker.InvokeAction(this.ControllerContext, "Index");
+            var action = actionName ?? "Index";
+            this.ActionInvoker.InvokeAction(this.ControllerContext, action);
         }
 
         #endregion

@@ -9,17 +9,14 @@ using Telerik.Sitefinity.Frontend.Mvc.Infrastructure;
 using Telerik.Sitefinity.Frontend.Mvc.Infrastructure.Controllers;
 using Telerik.Sitefinity.Frontend.Mvc.Infrastructure.Controllers.Attributes;
 using Telerik.Sitefinity.Frontend.Mvc.Infrastructure.Routing;
-using Telerik.Sitefinity.Frontend.Mvc.Models;
 using Telerik.Sitefinity.Frontend.News.Mvc.Models;
 using Telerik.Sitefinity.Frontend.News.Mvc.StringResources;
-using Telerik.Sitefinity.Model;
 using Telerik.Sitefinity.Modules.Pages.Configuration;
 using Telerik.Sitefinity.Mvc;
 using Telerik.Sitefinity.News.Model;
 using Telerik.Sitefinity.Personalization;
 using Telerik.Sitefinity.Services;
 using Telerik.Sitefinity.Taxonomies.Model;
-using Telerik.Sitefinity.Web;
 
 namespace Telerik.Sitefinity.Frontend.News.Mvc.Controllers
 {
@@ -162,19 +159,23 @@ namespace Telerik.Sitefinity.Frontend.News.Mvc.Controllers
         public ActionResult Index(int? page)
         {
             ITaxon taxonFilter = TaxonUrlEvaluator.GetTaxonFromQuery(this.HttpContext, this.Model.UrlKeyPrefix);
-
             var fullTemplateName = this.listTemplateNamePrefix + this.ListTemplateName;
-            this.ViewBag.CurrentPageUrl = this.GetCurrentPageUrl();
-            this.ViewBag.RedirectPageUrlTemplate = this.ViewBag.CurrentPageUrl + "/{0}";
+            var currentPageUrl = this.GetCurrentPageUrl();
+
+            this.ViewBag.CurrentPageUrl = currentPageUrl;
+            this.ViewBag.RedirectPageUrlTemplate = this.GeneratePagingTemplate(currentPageUrl, this.Model.UrlKeyPrefix);
             this.ViewBag.DetailsPageId = this.DetailsPageId;
             this.ViewBag.OpenInSamePage = this.OpenInSamePage;
 
             this.SetRedirectUrlQueryString(taxonFilter);
 
-            var viewModel = this.Model.CreateListViewModel(taxonFilter: taxonFilter, page: page ?? 1);
-            if (SystemManager.CurrentHttpContext != null)
-                this.AddCacheDependencies(this.Model.GetKeysOfDependentObjects(viewModel));
-            
+            this.UpdatePageFromQuery(ref page, this.Model.UrlKeyPrefix);
+            var viewModel = this.Model.CreateListViewModel(taxonFilter, this.ExtractValidPage(page));
+            this.AddCacheDependencies(this.Model.GetKeysOfDependentObjects(viewModel));
+
+            if (this.ShouldReturnDetails(this.Model.ContentViewDisplayMode, viewModel))
+                return this.Details((NewsItem)viewModel.Items.First().DataItem);
+
             return this.View(fullTemplateName, viewModel);
         }
 

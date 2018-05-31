@@ -60,7 +60,7 @@ namespace Telerik.Sitefinity.Frontend.Events.Mvc.Helpers
             else
                 return BuildNonRecurringEvent(ev);
         }
-       
+
         /// <summary>
         /// Generates the google URL.
         /// </summary>
@@ -140,9 +140,20 @@ namespace Telerik.Sitefinity.Frontend.Events.Mvc.Helpers
         private static string BuildNonRecurringEvent(Event ev)
         {
             if (ev.EventEnd.HasValue)
-                return BuildPeriodEvent(ev);
+            {
+                if (ev.AllDayEvent && (ev.AllDayEventEnd - ev.EventStart).Value.Days == 0)
+                {
+                    return BuildNonPeriodEvent(ev);
+                }
+                else
+                {
+                    return BuildPeriodEvent(ev);
+                }
+            }
             else
+            {
                 return BuildNonPeriodEvent(ev);
+            }
         }
 
         private static string BuildNonPeriodEvent(Event ev)
@@ -175,7 +186,7 @@ namespace Telerik.Sitefinity.Frontend.Events.Mvc.Helpers
             {
                 sb.Append(BuildDayMonthYear(ev.EventStart));
                 sb.Append(Dash);
-                sb.Append(BuildDayMonthYear(ev.AllDayEventEnd.Value.AddDays(DaysToAdd))); // AddDays is done with JavaScript on the frontend
+                sb.Append(BuildDayMonthYear(ev.AllDayEventEnd.Value));
             }
             else
             {
@@ -221,13 +232,17 @@ namespace Telerik.Sitefinity.Frontend.Events.Mvc.Helpers
 
             switch (descriptor.Frequency)
             {
-                case RecurrenceFrequency.Daily: result = BuildFromDaily(descriptor);
+                case RecurrenceFrequency.Daily:
+                    result = BuildFromDaily(descriptor);
                     break;
-                case RecurrenceFrequency.Weekly: result = BuildFromWeekly(descriptor);
+                case RecurrenceFrequency.Weekly:
+                    result = BuildFromWeekly(descriptor);
                     break;
-                case RecurrenceFrequency.Monthly: result = BuildFromMonthly(descriptor);
+                case RecurrenceFrequency.Monthly:
+                    result = BuildFromMonthly(descriptor);
                     break;
-                case RecurrenceFrequency.Yearly: result = BuildFromYearly(descriptor);
+                case RecurrenceFrequency.Yearly:
+                    result = BuildFromYearly(descriptor);
                     break;
                 default:
                     break;

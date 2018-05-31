@@ -11,8 +11,6 @@
 @Html.Script("//ajax.aspnetcdn.com/ajax/mvc/4.0/jquery.validate.unobtrusive.min.js", "top", false)
 
 <div class="@Model.CssClass">
-    @if (Telerik.Sitefinity.Security.SecurityManager.GetCurrentUserId() == Guid.Empty || SystemManager.IsInlineEditingMode || SystemManager.IsDesignMode)
-    {
     <div>
         @using (Html.BeginFormSitefinity(@Request.Url.Query, null, null, FormMethod.Post, null, true))
         {
@@ -78,12 +76,6 @@
             }
         }
     </div>
-    }
-    
-    else
-    {
-        <p>@Html.Resource("AlreadyLoggedIn")</p>
-    }
 </div>
 
 @Html.Script(Url.WidgetContent("Mvc/Scripts/LoginForm/login-form.js"), "bottom", false)

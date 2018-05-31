@@ -4,6 +4,7 @@ using System.ComponentModel;
 using System.Linq;
 using System.Web.Mvc;
 using System.Web.Routing;
+using ServiceStack.Text;
 using Telerik.Sitefinity.ContentLocations;
 using Telerik.Sitefinity.Frontend.Media.Mvc.Models;
 using Telerik.Sitefinity.Frontend.Media.Mvc.Models.ImageGallery;
@@ -166,12 +167,12 @@ namespace Telerik.Sitefinity.Frontend.Media.Mvc.Controllers
         {
             ITaxon taxonFilter = TaxonUrlEvaluator.GetTaxonFromQuery(this.HttpContext, this.Model.UrlKeyPrefix);
 
-            this.InitializeListViewBag("/{0}");
+            this.InitializeListViewBag();
             this.SetRedirectUrlQueryString(taxonFilter);
 
-            var viewModel = this.Model.CreateListViewModel(taxonFilter: taxonFilter, page: page ?? 1);
-            if (SystemManager.CurrentHttpContext != null)
-                this.AddCacheDependencies(this.Model.GetKeysOfDependentObjects(viewModel));
+            this.UpdatePageFromQuery(ref page, this.Model.UrlKeyPrefix);
+            var viewModel = this.Model.CreateListViewModel(taxonFilter, this.ExtractValidPage(page));
+            this.AddCacheDependencies(this.Model.GetKeysOfDependentObjects(viewModel));
 
             var fullTemplateName = this.FullListTemplateName();
             return this.View(fullTemplateName, viewModel);
@@ -228,6 +229,11 @@ namespace Telerik.Sitefinity.Frontend.Media.Mvc.Controllers
         /// </returns>
         public ActionResult Details(Image item)
         {
+            if (!this.MatchesParent(item))
+            {
+                RouteHelper.SetUrlParametersResolved(false);
+            }
+
             this.InitializeMetadataDetailsViewBag(item);
 
             var itemIndex = this.ParseToNullableInt32(this.GetQueryString("itemIndex"));
@@ -242,8 +248,7 @@ namespace Telerik.Sitefinity.Frontend.Media.Mvc.Controllers
             this.ViewBag.UrlKeyPrefix = this.Model.UrlKeyPrefix;
 
             var viewModel = this.Model.CreateDetailsViewModel(item, itemIndex);
-            if (SystemManager.CurrentHttpContext != null)
-                this.AddCacheDependencies(this.Model.GetKeysOfDependentObjects(viewModel));
+            this.AddCacheDependencies(this.Model.GetKeysOfDependentObjects(viewModel));
 
             this.AddCanonicalUrlTag(item);
 
@@ -374,10 +379,14 @@ namespace Telerik.Sitefinity.Frontend.Media.Mvc.Controllers
         /// Initializes the ListView bag.
         /// </summary>
         /// <param name="redirectPageUrl">The redirect page URL.</param>
-        private void InitializeListViewBag(string redirectPageUrl)
+        private void InitializeListViewBag(string redirectPageUrl = null)
         {
-            this.ViewBag.CurrentPageUrl = SystemManager.CurrentHttpContext != null ? this.GetCurrentPageUrl() : string.Empty;
-            this.ViewBag.RedirectPageUrlTemplate = this.ViewBag.CurrentPageUrl + redirectPageUrl;
+            var pageUrl = this.GetCurrentPageUrl();
+            var template = redirectPageUrl != null ? string.Concat(pageUrl, redirectPageUrl) :
+                                                     this.GeneratePagingTemplate(pageUrl, this.Model.UrlKeyPrefix);
+
+            this.ViewBag.CurrentPageUrl = pageUrl;
+            this.ViewBag.RedirectPageUrlTemplate = template;
             this.ViewBag.DetailsPageId = this.DetailsPageId;
             this.ViewBag.OpenInSamePage = this.OpenInSamePage;
             this.ViewBag.ItemsPerPage = this.Model.ItemsPerPage;
@@ -422,6 +431,27 @@ namespace Telerik.Sitefinity.Frontend.Media.Mvc.Controllers
             var taxonQueryStringParams = HyperLinkHelpers.BuildTaxonQueryStringParams(taxon, this.Model.UrlKeyPrefix);
             this.ViewBag.RedirectPageUrlTemplate = this.ViewBag.RedirectPageUrlTemplate + taxonQueryStringParams;
         }
+
+        private bool MatchesParent(Image image)
+        {
+            if (image == null || image.Parent == null)
+            {
+                return true;
+            }
+
+            var selectedParentIds = JsonSerializer.DeserializeFromString<IList<string>>(this.Model.SerializedSelectedParentsIds);
+
+            if (selectedParentIds != null && selectedParentIds.Count > 0)
+            {
+                if (!selectedParentIds.Contains(image.Parent.Id.ToString()))
+                {
+                    return false;
+                }
+            }
+
+            return true;
+        }
+
         #endregion
 
         #region Private fields and constants

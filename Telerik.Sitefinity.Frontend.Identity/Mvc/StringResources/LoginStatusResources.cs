@@ -264,6 +264,21 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.StringResources
         }
 
         /// <summary>
+        /// Gets External Link: Login with Windows Security Token Service
+        /// </summary>
+        [ResourceEntry("ExternalLinkLoginTokenService",
+            Value = "http://docs.sitefinity.com/administration-set-up-sso-with-windows-authentication",
+            Description = "External Link: Login with Windows Security Token Service",
+            LastModified = "2017/11/22")]
+        public string ExternalLinkLoginTokenService
+        {
+            get
+            {
+                return this["ExternalLinkLoginTokenService"];
+            }
+        }
+
+        /// <summary>
         /// Gets phrase : Login
         /// </summary>
         [ResourceEntry("Login",
