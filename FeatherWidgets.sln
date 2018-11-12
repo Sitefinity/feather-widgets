@@ -1,9 +1,9 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 2012
+# Visual Studio 15
+VisualStudioVersion = 15.0.28010.2041
+MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Telerik.Sitefinity.Frontend.ContentBlock", "Telerik.Sitefinity.Frontend.ContentBlock\Telerik.Sitefinity.Frontend.ContentBlock.csproj", "{827B5C1E-619A-4080-A7F1-10D103C38CFD}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Telerik.Sitefinity.Frontend.SocialShare", "Telerik.Sitefinity.Frontend.SocialShare\Telerik.Sitefinity.Frontend.SocialShare.csproj", "{33171BB5-9918-41BE-B06D-0D8347846B0C}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{5EEBCA3A-43FA-4A20-98D2-F47E2CDD56E4}"
 	ProjectSection(SolutionItems) = preProject
@@ -56,11 +56,6 @@ Global
 		{827B5C1E-619A-4080-A7F1-10D103C38CFD}.Release Pro|Any CPU.ActiveCfg = Release|Any CPU
 		{827B5C1E-619A-4080-A7F1-10D103C38CFD}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{827B5C1E-619A-4080-A7F1-10D103C38CFD}.Release|Any CPU.Build.0 = Release|Any CPU
-		{33171BB5-9918-41BE-B06D-0D8347846B0C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{33171BB5-9918-41BE-B06D-0D8347846B0C}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{33171BB5-9918-41BE-B06D-0D8347846B0C}.Release Pro|Any CPU.ActiveCfg = Release|Any CPU
-		{33171BB5-9918-41BE-B06D-0D8347846B0C}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{33171BB5-9918-41BE-B06D-0D8347846B0C}.Release|Any CPU.Build.0 = Release|Any CPU
 		{FC694955-3DF4-4A35-AD3E-A6954D6243B1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{FC694955-3DF4-4A35-AD3E-A6954D6243B1}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{FC694955-3DF4-4A35-AD3E-A6954D6243B1}.Release Pro|Any CPU.ActiveCfg = Release|Any CPU
@@ -144,5 +139,8 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {9A439330-CE73-47A4-A66C-80EE3D40DB91}
 	EndGlobalSection
 EndGlobal
