@@ -20,7 +20,7 @@
         {
             <div @Html.InlineEditingAttributes(Model.ProviderName, ((ListViewModel)item).ListItemViewModel.ContentType.FullName, (Guid)listItem.Fields.Id)>
                 <a href="javascript:void(0)" @Html.InlineEditingFieldAttributes("Title", "ShortText") data-sf-role="toggleLink">@listItem.Fields.Title</a>
-                <div @Html.InlineEditingFieldAttributes("Content", "LongText") style="display:none;">
+                <div class="sf-Long-text" @Html.InlineEditingFieldAttributes("Content", "LongText") style="display:none;">
                     @Html.HtmlSanitize((string)@listItem.Fields.Content)
                 </div>
             </div>

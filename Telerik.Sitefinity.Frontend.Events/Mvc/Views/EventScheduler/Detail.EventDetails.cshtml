@@ -106,15 +106,7 @@
 
     @if (!string.IsNullOrEmpty(Model.Item.Fields.Content))
     {        
-        <p @Html.InlineEditingFieldAttributes("Content", "LongText")>@Html.HtmlSanitize((string)Model.Item.Fields.Content)</p>
-    }
-    
-    @{        
-        if (Model.EnableSocialSharing)
-        {
-            var item = Model.Item.DataItem as Telerik.Sitefinity.Model.IHasTitle;
-            @Html.SocialShareOptions(item);
-        }
+        <p class="sf-Long-text" @Html.InlineEditingFieldAttributes("Content", "LongText")>@Html.HtmlSanitize((string)Model.Item.Fields.Content)</p>
     }
 
     @Html.CommentsList(Model.Item.DataItem)

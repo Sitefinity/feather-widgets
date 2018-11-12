@@ -54,14 +54,6 @@
         @Html.ActionLink(Html.Resource("BackToAllImages"), "Index")
     }
 
-    @{        
-        if (Model.EnableSocialSharing)
-        {
-            var item = Model.Item.DataItem as Telerik.Sitefinity.Model.IHasTitle;
-            @Html.SocialShareOptions(item);
-        }
-    }
-
     @Html.CommentsList(@Model.Item.DataItem)
 
 </div>

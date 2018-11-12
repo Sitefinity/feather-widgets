@@ -280,7 +280,7 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.Registration
                     this.AssignRolesToUser(user);
 
                     this.ConfirmRegistration(userManager, user);
-                    //this.ExecuteUserProfileSuccessfullUpdateActions();
+                    // this.ExecuteUserProfileSuccessfullUpdateActions();
                 }
             }
 

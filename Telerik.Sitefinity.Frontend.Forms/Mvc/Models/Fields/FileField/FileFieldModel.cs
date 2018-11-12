@@ -9,6 +9,7 @@ using Telerik.Sitefinity.Localization;
 using Telerik.Sitefinity.Metadata.Model;
 using Telerik.Sitefinity.Modules.Forms.Web.UI.Fields;
 using Telerik.Sitefinity.Utilities.TypeConverters;
+using Telerik.Sitefinity.Web.UI.Validation.Definitions;
 
 namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Models.Fields.FileField
 {
@@ -92,6 +93,37 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Models.Fields.FileField
         /// </value>
         public string FileSizeViolationMessage { get; set; }
 
+        /// <inheritDocs />
+        [TypeConverter(typeof(ExpandableObjectConverter))]
+        public override ValidatorDefinition ValidatorDefinition
+        {
+            get
+            {
+                if (this.validatorDefinition == null)
+                {
+                    this.validatorDefinition = base.ValidatorDefinition;
+
+                    if (!string.IsNullOrEmpty(this.RequiredViolationMessage))
+                    {
+                        this.validatorDefinition.RequiredViolationMessage = this.RequiredViolationMessage;
+                    }
+                    else
+                    {
+                        this.validatorDefinition.RequiredViolationMessage = Res.Get<FormResources>().RequiredInputErrorMessage;
+                    }
+                    
+                    this.validatorDefinition.Required = this.IsRequired;
+                }
+
+                return this.validatorDefinition;
+            }
+
+            set
+            {
+                this.validatorDefinition = value;
+            }
+        }
+
         /// <summary>
         /// Gets the default metafield based on the field control.
         /// </summary>
@@ -143,12 +175,14 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Models.Fields.FileField
         {
             IEnumerable<HttpPostedFileBase> fileList = value as IList<HttpPostedFileBase>;
             if (fileList == null)
-                return !this.IsRequired;
+            {
+                return base.IsValid(fileList);
+            }
 
             fileList = fileList.Where(f => !f.FileName.IsNullOrEmpty());
 
             if (this.IsRequired && fileList.Count() == 0)
-                return false;
+                return base.IsValid(value);
 
             var acceptedFileTypes = this.GetAcceptedFileTypes();
             if (acceptedFileTypes != null && acceptedFileTypes.Length > 0)
@@ -221,5 +255,7 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Models.Fields.FileField
             { AllowedFileTypes.Documents, new string[] { ".pdf", ".doc", ".docx", ".ppt", ".pptx", ".pps", ".ppsx", ".xls", ".xlsx" } },
             { AllowedFileTypes.Other, null }
         };
+
+        private ValidatorDefinition validatorDefinition;
     }
 }

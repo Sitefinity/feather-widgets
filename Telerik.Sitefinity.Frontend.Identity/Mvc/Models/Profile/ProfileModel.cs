@@ -323,6 +323,7 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.Profile
 
             foreach (var profile in this.SelectedUserProfiles)
             {
+                var readOnlyFields = string.IsNullOrEmpty(profile.User.ExternalProviderName) ? new string[0] : UserManager.GetReadOnlyFields(profile.GetType().Name, profile.User.ExternalProviderName);
                 var profileBindings = profileBindingsList.SingleOrDefault(p => p.ProfileType == profile.GetType().FullName);
                 if (profileBindings != null)
                 {
@@ -330,6 +331,12 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.Profile
 
                     foreach (var prop in requiredProperties)
                     {
+                        if (readOnlyFields.Any(x => x.Equals(prop.Name, StringComparison.OrdinalIgnoreCase)))
+                        {
+                            // skip validation for read-only fields
+                            continue;
+                        }
+
                         string propValue;
 
                         if (!viewModel.Profile.TryGetValue(prop.Name, out propValue) || string.IsNullOrWhiteSpace(propValue))
@@ -518,12 +525,12 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.Profile
                 image.LastModified = DateTime.UtcNow;
                 image.UrlName = Regex.Replace(image.Title.ToLower(), @"[^\w\-\!\$\'\(\)\=\@\d_]+", "-");
 
-                //Upload the image file.
+                // Upload the image file.
                 librariesManager.Upload(image, uploadedImage.InputStream, Path.GetExtension(uploadedImage.FileName));
 
                 image = librariesManager.Lifecycle.Publish(image) as Image;
 
-                //Save the changes.
+                // Save the changes.
                 librariesManager.SaveChanges();
             }
 

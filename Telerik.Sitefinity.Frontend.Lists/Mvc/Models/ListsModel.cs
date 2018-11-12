@@ -126,6 +126,7 @@ namespace Telerik.Sitefinity.Frontend.Lists.Mvc.Models
 
                     // We need only filter list items.
                     SelectionMode = SelectionMode.FilteredItems,
+                    SelectionGroupLogicalOperator = this.SelectionGroupLogicalOperator,
                     ProviderName = this.ProviderName,
                     ItemsPerPage = null,
 
@@ -145,7 +146,7 @@ namespace Telerik.Sitefinity.Frontend.Lists.Mvc.Models
 
             var listItemModel = new ListItemModel((ListViewModel)viewModel.Item);
 
-            ((ListViewModel)(viewModel.Item)).ListItemViewModel = listItemModel.CreateListViewModel(null, 1);
+            ((ListViewModel)viewModel.Item).ListItemViewModel = listItemModel.CreateListViewModel(null, 1);
 
             return viewModel;
         }

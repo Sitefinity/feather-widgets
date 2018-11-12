@@ -140,7 +140,6 @@ namespace Telerik.Sitefinity.Frontend.EmailCampaigns.Mvc.Controllers
                 return new EmptyResult();
             }
 
-
             if (!this.IsLicensed)
             {
                 return this.Content(this.LicensingMessage);

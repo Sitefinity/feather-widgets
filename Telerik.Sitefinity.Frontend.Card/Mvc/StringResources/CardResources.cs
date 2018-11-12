@@ -269,13 +269,13 @@ namespace Telerik.Sitefinity.Frontend.Card.Mvc.StringResources
         }
 
         /// <summary>
-        /// phrase: Example: http://sitefinity.com
+        /// phrase: Example: https://www.progress.com/sitefinity-cms
         /// </summary>
-        /// <value>Example: http://sitefinity.com</value>
+        /// <value>Example: https://www.progress.com/sitefinity-cms</value>
         [ResourceEntry("Example",
-            Value = "Example: http://sitefinity.com",
-            Description = "phrase: Example: http://sitefinity.com",
-            LastModified = "2015/10/06")]
+            Value = "Example: https://www.progress.com/sitefinity-cms",
+            Description = "phrase: Example: https://www.progress.com/sitefinity-cms",
+            LastModified = "2018/10/12")]
         public string Example
         {
             get

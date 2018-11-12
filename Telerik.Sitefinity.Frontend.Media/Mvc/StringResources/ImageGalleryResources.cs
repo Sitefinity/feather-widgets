@@ -673,5 +673,101 @@ namespace Telerik.Sitefinity.Frontend.Media.Mvc.StringResources
                 return this["MissingLibraries"];
             }
         }
+
+        /// <summary>
+        /// phrase: Image taken on
+        /// </summary>
+        /// <value>Image taken on</value>
+        [ResourceEntry("ImageTakenOn",
+            Value = "Image taken on",
+            Description = "phrase: Image taken on",
+            LastModified = "2018/09/12")]
+        public string ImageTakenOn
+        {
+            get
+            {
+                return this["ImageTakenOn"];
+            }
+        }
+
+        /// <summary>
+        /// phrase: Previous/Next image
+        /// </summary>
+        /// <value>Previous/Next image</value>
+        [ResourceEntry("PreviousNextImage",
+            Value = "Previous/Next image",
+            Description = "phrase: Previous/Next image",
+            LastModified = "2018/09/13")]
+        public string PreviousNextImage
+        {
+            get
+            {
+                return this["PreviousNextImage"];
+            }
+        }
+
+        /// <summary>
+        /// phrase: Go to previous image
+        /// </summary>
+        /// <value>Go to previous image</value>
+        [ResourceEntry("GoToPreviousImage",
+            Value = "Go to previous image",
+            Description = "phrase: Go to previous image",
+            LastModified = "2018/09/13")]
+        public string GoToPreviousImage
+        {
+            get
+            {
+                return this["GoToPreviousImage"];
+            }
+        }
+
+        /// <summary>
+        /// phrase: Go to next image
+        /// </summary>
+        /// <value>Go to next image</value>
+        [ResourceEntry("GoToNextImage",
+            Value = "Go to next image",
+            Description = "phrase: Go to next image",
+            LastModified = "2018/09/13")]
+        public string GoToNextImage
+        {
+            get
+            {
+                return this["GoToNextImage"];
+            }
+        }
+
+        /// <summary>
+        /// phrase: Image gallery
+        /// </summary>
+        /// <value>Image gallery</value>
+        [ResourceEntry("ImageGallery",
+            Value = "Image gallery",
+            Description = "phrase: Image gallery",
+            LastModified = "2018/09/13")]
+        public string ImageGallery
+        {
+            get
+            {
+                return this["ImageGallery"];
+            }
+        }
+
+        /// <summary>
+        /// phrase: Open {0} in modal dialog
+        /// </summary>
+        /// <value>Open {0} in modal dialog</value>
+        [ResourceEntry("OpenInModalDialog",
+            Value = "Open {0} in modal dialog",
+            Description = "Open {0} in modal dialog",
+            LastModified = "2018/09/13")]
+        public string OpenInModalDialog
+        {
+            get
+            {
+                return this["OpenInModalDialog"];
+            }
+        }
     }
 }

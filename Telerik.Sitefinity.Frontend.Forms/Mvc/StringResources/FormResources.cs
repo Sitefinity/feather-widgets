@@ -251,5 +251,37 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.StringResources
                 return this["InvalidInputErrorMessage"];
             }
         }
+
+        /// <summary>
+        /// phrase: {0} field input is required
+        /// </summary>
+        /// <value>{0} field input is invalid</value>
+        [ResourceEntry("RequiredInputErrorMessage",
+            Value = "{0} field input is required",
+            Description = "phrase: {0} field input is invalid",
+            LastModified = "2018/07/17")]
+        public string RequiredInputErrorMessage
+        {
+            get
+            {
+                return this["RequiredInputErrorMessage"];
+            }
+        }
+
+        /// <summary>
+        /// phrase: {0} field input is required
+        /// </summary>
+        /// <value>{0} field input is invalid</value>
+        [ResourceEntry("MaxLengthInputErrorMessage",
+            Value = "{0} field input is too long",
+            Description = "phrase: {0} field input is too long",
+            LastModified = "2018/07/17")]
+        public string MaxLengthInputErrorMessage
+        {
+            get
+            {
+                return this["MaxLengthInputErrorMessage"];
+            }
+        }
     }
 }

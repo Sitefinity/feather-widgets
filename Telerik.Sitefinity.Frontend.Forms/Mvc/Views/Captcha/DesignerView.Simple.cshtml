@@ -17,6 +17,14 @@
     </label>
 </div>
 
+<div class="checkbox">
+    <label for="enableAudioCode">
+        <input id="enableAudioCode" type="checkbox" ng-model="properties.Model.EnableAudioCode.PropertyValue"
+               ng-true-value="'True'" ng-false-value="'False'" ng-checked="properties.Model.EnableAudioCode.PropertyValue === 'True'" />
+        @Html.Resource("EnableAudioCode")
+    </label>
+</div>
+
 <div class="form-group"">
     <label for="example">
         @Html.Resource("RequiredErrorMessageTitle")

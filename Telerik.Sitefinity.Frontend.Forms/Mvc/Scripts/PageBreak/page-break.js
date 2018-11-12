@@ -77,6 +77,19 @@
                 submitButton.click();
             };
 
+            var focusForm = function () {
+                var form = $(formElement).find("form");
+
+                // TODO: Accessibility is not implemented no logic is required
+                if (form.length <= 0) {
+                    return;
+                }
+
+                form.attr("tabindex", 0);
+                form.focus();
+                form.removeAttr("tabindex");
+            }
+
             var separatorsNext = formStepsContainers.find(selectors.nextButton);
             separatorsNext.click(function (e) {
                 e.preventDefault();
@@ -88,24 +101,27 @@
                     formStepIndex++;
                     $(formStepsContainers[formStepIndex]).show();
                     formElement.trigger("form-page-changed", [formStepIndex, previousIndex]);
+                    focusForm();
                 });
             });
 
             var separatorsPrev = formStepsContainers.find(selectors.previousButton);
             separatorsPrev.click(function (e) {
                 e.preventDefault();
-                
+
                 var previousIndex = formStepIndex;
                 var stepNewForm = $('form#stepNewForm');
                 var currentContainer = $(e.target).closest(selectors.separator);
                 if (stepNewForm.children(selectors.separator).length > 0) {
                     currentContainer.unwrap();
                 }
-                
+
                 currentContainer.hide();
                 formStepIndex--;
                 $(formStepsContainers[formStepIndex]).show();
+
                 formElement.trigger("form-page-changed", [formStepIndex, previousIndex]);
+                focusForm();
             });
         };
 

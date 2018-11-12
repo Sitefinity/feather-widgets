@@ -27,14 +27,18 @@
         var violationMessage = $('[data-sf-role="required-violation-message"]');
 
         var inputs = container.find('input[type="file"]');
+        var firstInvalidInput = null;
         for (var i = 0; i < inputs.length; i++) {
             if (inputs[i].value) {
                 violationMessage.hide();
                 return true;
+            } else if (!firstInvalidInput) {
+                firstInvalidInput = inputs[i];
             }
         }
 
         violationMessage.show();
+        firstInvalidInput.focus();
         return false;
     };
 

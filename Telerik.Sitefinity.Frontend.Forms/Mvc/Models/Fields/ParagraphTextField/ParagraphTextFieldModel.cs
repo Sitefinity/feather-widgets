@@ -26,8 +26,8 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Models.Fields.ParagraphTextField
                 {
                     this.validatorDefinition = base.ValidatorDefinition;
 
-                    this.validatorDefinition.RequiredViolationMessage = Res.Get<FieldResources>().RequiredErrorMessageValue;
-                    this.validatorDefinition.MaxLengthViolationMessage = Res.Get<FieldResources>().TooLargeErrorMessageValue;
+                    this.validatorDefinition.RequiredViolationMessage = Res.Get<FormResources>().RequiredInputErrorMessage;
+                    this.validatorDefinition.MaxLengthViolationMessage = Res.Get<FormResources>().MaxLengthInputErrorMessage;
                 }
 
                 return this.validatorDefinition;

@@ -1,11 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Web.Mvc;
 
 namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.Profile
 {
+    [Bind(Exclude = "ShowProfileChangedMsg")]
     public class ProfileEmailEditViewModel
     {
         /// <summary>

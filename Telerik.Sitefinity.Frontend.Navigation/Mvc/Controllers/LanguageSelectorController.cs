@@ -180,7 +180,7 @@ namespace Telerik.Sitefinity.Frontend.Navigation.Mvc.Controllers
             
             string currentCultureContentItemUrl = string.Empty;
             var isPublishedLiveItem = dataItemAsLifecycleDataItem.IsPublishedInCulture(culture);
-            if (isPublishedLiveItem)
+            if (isPublishedLiveItem || dataItemAsLifecycleDataItem.Status == ContentLifecycleStatus.Temp /*Preview mode*/)
             {
                 currentCultureContentItemUrl = extendedItem.ItemDefaultUrl.GetString(culture, false);
             }

@@ -63,7 +63,9 @@
 					    <sf-filter-selector sf-query-data="additionalFilters.value"
                             sf-taxonomy-fields="@CustomFieldsHelpers.GetTaxonomyFields(Model.DynamicContentType())"
                             sf-provider="properties.ProviderName.PropertyValue"
-                            ng-show="properties.SelectionMode.PropertyValue=='FilteredItems'" sf-date-groups="dateFilters.value"
+                            ng-show="properties.SelectionMode.PropertyValue=='FilteredItems'" 
+                            sf-date-groups="dateFilters.value"
+                            sf-group-logical-operator="properties.SelectionGroupLogicalOperator.PropertyValue"
                             class="sf-filter-selector"></sf-filter-selector>
                     </label>
                 </div>
@@ -149,7 +151,9 @@
 						<sf-filter-selector sf-query-data="additionalFilters.value"
 							sf-taxonomy-fields="@CustomFieldsHelpers.GetTaxonomyFields(Model.DynamicContentType())"
 							sf-provider="properties.ProviderName.PropertyValue"
-							ng-show="properties.SelectionMode.PropertyValue=='FilteredItems'" sf-date-groups="dateFilters.value"
+							ng-show="properties.SelectionMode.PropertyValue=='FilteredItems'" 
+                            sf-date-groups="dateFilters.value"
+                            sf-group-logical-operator="properties.SelectionGroupLogicalOperator.PropertyValue"
                             class="sf-filter-selector"></sf-filter-selector>
 					</label>
 				</div>

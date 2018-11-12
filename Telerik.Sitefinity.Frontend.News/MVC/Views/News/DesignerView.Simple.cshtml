@@ -49,7 +49,9 @@
                         sf-taxonomy-fields="@CustomFieldsHelpers.GetTaxonomyFields(typeof(Telerik.Sitefinity.News.Model.NewsItem))"
                         sf-provider="properties.ProviderName.PropertyValue"
                         ng-show="properties.SelectionMode.PropertyValue=='FilteredItems'"
-                        class="sf-filter-selector" sf-date-groups="dateFilters.value"
+                        class="sf-filter-selector" 
+                        sf-date-groups="dateFilters.value"
+                        sf-group-logical-operator="properties.SelectionGroupLogicalOperator.PropertyValue"
                         ></sf-filter-selector>
                 </label>
             </div>

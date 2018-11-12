@@ -1,7 +1,8 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.Configuration.Provider;
-using System.Reflection;
+using System.Linq;
 using System.Web.Mvc;
 using Telerik.OpenAccess.Exceptions;
 using Telerik.Sitefinity.Frontend.Identity.Mvc.Models.Profile;
@@ -112,7 +113,6 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Controllers
             {
                 return this.ReadProfile();
             }
-
         }
 
         /// <summary>
@@ -130,6 +130,8 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Controllers
             var viewModel = this.Model.GetProfileEditViewModel();
             if (viewModel == null)
                 return null;
+
+            this.SetReadOnlyInfo(viewModel);
 
             return this.View(fullTemplateName, viewModel);
         }
@@ -242,6 +244,8 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Controllers
                                              !this.ModelState.IsValidField("RepeatPassword") ||
                                              !string.IsNullOrEmpty(this.ViewBag.ErrorMessage);
 
+            this.SetReadOnlyInfo(viewModel);
+
             var fullTemplateName = ProfileController.EditModeTemplatePrefix + this.EditModeTemplateName;
             return this.View(fullTemplateName, viewModel);
         }
@@ -286,6 +290,22 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Controllers
             PageRouteHandler.RegisterCustomOutputCacheVariation(new UserProfileMvcOutputCacheVariation());
         }
 
+        private void SetReadOnlyInfo(ProfileEditViewModel viewModel)
+        {
+            this.ViewBag.IsEmailReadOnly = false;
+            this.ViewBag.ReadOnlyFields = new Dictionary<string, IEnumerable<string>>();
+
+            if (viewModel.User != null && viewModel.User.ExternalProviderName != null)
+            {
+                foreach (var userProfile in viewModel.SelectedUserProfiles)
+                {
+                    var profileName = userProfile.UserProfile.GetType().Name;
+                    this.ViewBag.ReadOnlyFields[profileName] = UserManager.GetReadOnlyFields(profileName, viewModel.User.ExternalProviderName).ToArray();
+                }
+
+                this.ViewBag.IsEmailReadOnly = UserManager.IsEmailMapped(viewModel.User.ExternalProviderName);
+            }
+        }
         #endregion
 
         #region Private fields and constants

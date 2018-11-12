@@ -133,6 +133,16 @@ namespace Telerik.Sitefinity.Frontend.Navigation.Mvc.Models.Breadcrumb
             var nodes = new List<SiteMapNode>();
 
             var page = HttpContext.Current.Handler as System.Web.UI.Page;
+
+            if (page == null)
+            {
+                var pageHandlerWrapper = HttpContext.Current.Handler as IHandlerWrapper;
+                if (pageHandlerWrapper != null)
+                {
+                    page = pageHandlerWrapper.OriginalHandler as System.Web.UI.Page;
+                }
+            }
+
             if (page != null)
             {
                 var routeParams = MvcRequestContextBuilder.GetRouteParams(page.GetRequestContext());

@@ -715,5 +715,20 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.StringResources
                 return this["ConnectWith"];
             }
         }
+
+        /// <summary>
+        /// Gets phrase: Send an activation link again
+        /// </summary>
+        [ResourceEntry("SendActivationLinkAgain",
+            Value = "Send an activation link again",
+            Description = "phrase : Send an activation link again",
+            LastModified = "2018/09/12")]
+        public string SendActivationLinkAgain
+        {
+            get
+            {
+                return this["SendActivationLinkAgain"];
+            }
+        }
     }
 }

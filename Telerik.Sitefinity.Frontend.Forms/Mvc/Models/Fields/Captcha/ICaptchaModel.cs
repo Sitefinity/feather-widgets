@@ -14,6 +14,14 @@
         bool DisplayOnlyForUnauthenticatedUsers { get; set; }
 
         /// <summary>
+        /// Gets or sets a value indicating whether to display button for reading the code.
+        /// </summary>
+        /// <value>
+        /// <c>true</c> if the audio button should be visible; otherwise, <c>false</c>.
+        /// </value>
+        bool EnableAudioCode { get; set; }
+
+        /// <summary>
         /// Should the render captcha.
         /// </summary>
         /// <returns></returns>

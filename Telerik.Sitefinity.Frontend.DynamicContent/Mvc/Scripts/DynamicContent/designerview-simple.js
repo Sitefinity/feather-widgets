@@ -1,5 +1,5 @@
 ﻿(function ($) {
-    angular.module('designer').requires.push('expander', 'sfSelectors');
+	angular.module('designer').requires.push('expander', 'sfSelectors', 'sfComponents');
 
     angular.module('designer').controller('SimpleCtrl', ['$scope', 'propertyService', 'serverData', function ($scope, propertyService, serverData) {
         var sortOptions = ['PublicationDate DESC', 'LastModified DESC', 'Title ASC', 'Title DESC', 'AsSetManually'];

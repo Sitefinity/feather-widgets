@@ -44,13 +44,14 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Models.Fields.TextField
                 if (this.validatorDefinition == null)
                 {
                     this.validatorDefinition = new ValidatorDefinition();
-                    this.validatorDefinition.RequiredViolationMessage = Res.Get<FieldResources>().RequiredErrorMessageValue;
-                    this.validatorDefinition.MaxLengthViolationMessage = Res.Get<FieldResources>().TooLargeErrorMessageValue;
+                    this.validatorDefinition.RequiredViolationMessage = Res.Get<FormResources>().RequiredInputErrorMessage;
+                    this.validatorDefinition.MaxLengthViolationMessage = Res.Get<FormResources>().MaxLengthInputErrorMessage;
                 }
 
                 if (string.IsNullOrEmpty(this.validatorDefinition.RegularExpression))
                 {
                     this.validatorDefinition.RegularExpression = this.InputTypeRegexPatterns.ContainsKey(this.InputType.ToString()) ? this.InputTypeRegexPatterns[this.InputType.ToString()] : string.Empty;
+                    this.validatorDefinition.RegularExpressionViolationMessage = Res.Get<FormResources>().InvalidInputErrorMessage;
                 }
 
                 return this.validatorDefinition;

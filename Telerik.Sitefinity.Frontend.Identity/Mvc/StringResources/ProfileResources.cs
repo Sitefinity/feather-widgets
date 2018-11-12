@@ -666,5 +666,36 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.StringResources
                 return this["PasswordEditMessage"];
             }
         }
+
+        /// <summary>
+        /// phrase: You are registered with {0} account. Some fields cannot be edited because their value is obtained from {0}.
+        /// </summary>
+        /// <value>You are registered with {0} account. Some fields cannot be edited because their value is obtained from {0}.</value>
+        [ResourceEntry("YouAreRegisteredWith",
+            Value = "You are registered with {0} account. Some fields cannot be edited because their value is obtained from {0}.",
+            Description = "phrase: You are is registered with {0} account. Some fields cannot be edited because their value is obtained from {0}.",
+            LastModified = "2018/08/14")]
+        public string YouAreRegisteredWith
+        {
+            get
+            {
+                return this["YouAreRegisteredWith"];
+            }
+        }
+
+        /// <summary>
+        /// Gets phrase: This will expand a change password section
+        /// </summary>
+        [ResourceEntry("WillExpandChangePasswordSection",
+            Value = "This will expand a change password section",
+            Description = "phrase : This will expand a change password section",
+            LastModified = "2018/09/12")]
+        public string WillExpandChangePasswordSection
+        {
+            get
+            {
+                return this["WillExpandChangePasswordSection"];
+            }
+        }
     }
 }

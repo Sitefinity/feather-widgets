@@ -8,8 +8,21 @@
         var initializeFormContainer = function (element) {
             var formElement = $(element);
             var formStepsContainers = formElement.find('[data-sf-role="separator"]');
-
             var navigationFieldContainers = formElement.find('[data-sf-role="navigation-field-container"]');
+            var srProgressbar = formElement.find('[data-sf-role="sr-progressbar"]');
+
+            // Selects element with class sf-sr-only and adds text: Step # of #
+            var modifySrOnlyData = function (currentPage, totalPages, pageTitle) {
+                // TODO: Accessibility is not implemented no logic is required
+                if (srProgressbar.length <= 0) {
+                    return;
+                }
+
+                var stepOfResource = $(element).find('[data-sf-role="step-of-resources"]').val();
+                var valueText = stepOfResource.replace("{0}", currentPage).replace("{1}", totalPages) + ": " + pageTitle;
+                srProgressbar.attr("aria-valuenow", currentPage);
+                srProgressbar.attr("aria-valueText", valueText);
+            }
 
             var updateNavigationFields = function (navigationElements, index) {
 
@@ -28,14 +41,25 @@
                     if (progressPercent && progressPercent.length > 0) {
                         progressPercent.text(progressInPercent + '%');
                     }
-                    
+
                     if (pages && pages.length > 0) {
                         pages.each(function (i, page) {
                             var pageIndex = parseInt($(page).data("sfNavigationIndex"));
+                            var pageTitleWrp = $(page).find('[data-sf-page-title]');
+
+                            // TODO: Accessibility is implemented
+                            if (pageTitleWrp.length > 0) {
+                                var pageTitle = $(pageTitleWrp).data("sfPageTitle");
+                            }
+
                             if (pageIndex !== index) {
                                 $(page).removeClass("active");
                             } else {
                                 $(page).addClass("active");
+
+                                // Because pageIndex starts from 0 we increase it by 1 so it is simple to read
+                                var currentPage = ++pageIndex;
+                                modifySrOnlyData(currentPage, pages.length, pageTitle);
                             }
 
                             if (pageIndex < index) {
@@ -56,7 +80,7 @@
                 updateNavigationFields(navigationFieldContainers, index);
             });
         };
-           
+
 
         formContainers.each(function (i, element) {
             initializeFormContainer(element);

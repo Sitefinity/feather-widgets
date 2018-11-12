@@ -156,6 +156,38 @@ namespace Telerik.Sitefinity.Frontend.Media.Mvc.StringResources
                 return this["Template"];
             }
         }
+
+        /// <summary>
+        /// phrase: File extension
+        /// </summary>
+        /// <value>File extension</value>
+        [ResourceEntry("FileExtension",
+            Value = "File extension",
+            Description = "phrase: File extension",
+            LastModified = "2018/09/13")]
+        public string FileExtension
+        {
+            get
+            {
+                return this["FileExtension"];
+            }
+        }
+
+        /// <summary>
+        /// phrase: File size
+        /// </summary>
+        /// <value>File size</value>
+        [ResourceEntry("FileSize",
+            Value = "File size",
+            Description = "phrase: File size",
+            LastModified = "2018/09/13")]
+        public string FileSize
+        {
+            get
+            {
+                return this["FileSize"];
+            }
+        }
         #endregion
     }
 }

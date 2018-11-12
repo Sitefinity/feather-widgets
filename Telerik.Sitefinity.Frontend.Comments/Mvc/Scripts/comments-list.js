@@ -232,34 +232,68 @@
             return regex.test(email);
         },
 
-        getErrorMessage: function (error) {
-            var errorMessageEl = this.errorMessage().clone(true).show();
+        getErrorMessage: function (error, container) {
+            var errorMessageEl;
+
+            // TODO: Accessibility is not implemented no logic is required
+            if (!container.attr("id")) {
+                errorMessageEl = this.errorMessage().clone(true).show();
+                errorMessageEl.find('span').text(error);
+
+                return errorMessageEl;
+            }
+
+            // Reusing the existing error message container
+            if (container.next().attr("id")) {
+                errorMessageEl = container.next();
+            } else {
+                errorMessageEl = this.errorMessage().clone(true);
+                $(errorMessageEl).attr("id", container.attr("id") + "-ErrorMsg");
+            }
+
             errorMessageEl.find('span').text(error);
+            errorMessageEl.show();
+
             return errorMessageEl;
         },
 
         validateComment: function (comment) {
+            var self = this;
             var deferred = $.Deferred();
             var isValid = true;
+            var errorAriaAttr = "aria-describedby";
+            var idAttr = "id";
 
+
+            // Showing the error message and setting the accessibility attributes
             if (comment.Message.length < 1) {
                 isValid = false;
-                this.newCommentMessage().after(this.getErrorMessage(this.resources.messageIsRequired));
+                this.newCommentMessage().after(this.getErrorMessage(this.resources.messageIsRequired, this.newCommentMessage()));
+                this.newCommentMessage().attr("id") ? this.newCommentMessage().attr(errorAriaAttr, this.newCommentMessage().next().attr(idAttr)) : null;
             }
 
             if (!this.isUserAuthenticated && comment.Name.length < 1) {
                 isValid = false;
-                this.newCommentName().after(this.getErrorMessage(this.resources.nameIsRequired));
+                this.newCommentName().after(this.getErrorMessage(this.resources.nameIsRequired, this.newCommentName()));
+                this.newCommentName().attr("id") ? this.newCommentName().attr(errorAriaAttr, this.newCommentName().next().attr(idAttr)) : null;
             }
 
             if (!this.isUserAuthenticated && comment.Email && !this.isValidEmail(comment.Email)) {
                 isValid = false;
-                this.newCommentEmail().after(this.getErrorMessage(this.resources.invalidEmailFormat));
+                this.newCommentEmail().after(this.getErrorMessage(this.resources.invalidEmailFormat, this.newCommentEmail()));
+                this.newCommentEmail().attr("id") ? this.newCommentEmail().attr(errorAriaAttr, this.newCommentEmail().next().attr(idAttr)) : null;
             }
 
             if (this.settings.useReviews && !comment.Rating) {
                 isValid = false;
-                this.newCommentRating().after(this.getErrorMessage(this.resources.ratingIsRequired));
+                this.newCommentRating().after(this.getErrorMessage(this.resources.ratingIsRequired, this.newCommentRating()));
+
+                // TODO: Accessibility is not implemented no logic is required
+                if(this.newCommentRating().attr("id")) {
+                    this.newCommentRating().find("input").each(function () {
+                        $(this).attr(errorAriaAttr, self.newCommentRating().next().attr(idAttr));
+                    });
+                }
             }
 
             deferred.resolve(isValid);
@@ -285,7 +319,7 @@
         },
 
         htmlEncode: function (str) {
-           return $('<div/>').text(str).html();
+            return $('<div/>').text(str).html();
         },
 
         createCommentMarkup: function (comment) {
@@ -300,8 +334,16 @@
             this.attachCommentMessage(newComment.find('[data-sf-role="comment-message"]'), comment.Message);
 
             if (this.settings.useReviews) {
-                newComment.find('[data-sf-role="list-rating-container"]').mvcRating({ readOnly: true, value: comment.Rating, template: $('[data-sf-role="rating-template"]') });
+                var ofResourceLabel = newComment.find('[data-sf-role="rating-of-resource"]');
+                var ratingSettings = newComment.find('[data-sf-role="list-rating-container"]').mvcRating({ readOnly: true, value: comment.Rating, template: $('[data-sf-role="rating-template"]') });
+
                 newComment.find('[data-sf-role="list-rating-value"]').text(comment.Rating);
+
+                // TODO: Accessibility is implemented
+                if (ofResourceLabel.length > 0) {
+                    var ofLabel = ofResourceLabel.val().toLocaleLowerCase();
+                    newComment.find('[data-sf-role="list-rating-sr-label"]').text(ofLabel + " " + ratingSettings.settings.maxValue);
+                }
             }
 
             return newComment;
@@ -753,6 +795,9 @@
                 if (!self.settings.isDesignMode) {
                     // Hide all generated errors
                     self.errorMessage().hide();
+
+                    // Reset all error messages so the screen reader doesn't read them and then hide them
+                    self.getElementByDataSfRole('error-message').find("span").text("");
                     self.getElementByDataSfRole('error-message').hide();
 
                     self.submitNewComment();

@@ -1,10 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
+﻿using System.ComponentModel;
 using System.Globalization;
-using System.Linq;
-using System.Text;
-using Telerik.Sitefinity.Services.Search.Data;
 using Telerik.Sitefinity.Utilities.TypeConverters;
 
 namespace Telerik.Sitefinity.Frontend.Search.Mvc.Models
@@ -113,6 +108,14 @@ namespace Telerik.Sitefinity.Frontend.Search.Mvc.Models
         /// The index catalogue.
         /// </value>
         string IndexCatalogue { get; set; }
+
+        /// <summary>
+        /// Gets or sets a value indicating whether results only links from current site should be shown.
+        /// </summary>
+        /// <value>
+        /// A value indicating whether results only links from current site should be shown.
+        /// </value>
+        bool ShowLinksOnlyFromCurrentSite { get; set; }
 
         /// <summary>
         /// Defines whether should match the search terms against a regex pattern.

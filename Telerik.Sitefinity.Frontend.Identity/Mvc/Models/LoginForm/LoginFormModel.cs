@@ -3,20 +3,16 @@ using System.Collections.Generic;
 using System.Collections.Specialized;
 using System.Linq;
 using System.Web;
-using Microsoft.Owin;
-using Microsoft.Owin.Security;
-using ServiceStack;
+using ServiceStack.Text;
 using Telerik.Sitefinity.Abstractions;
+using Telerik.Sitefinity.Configuration;
 using Telerik.Sitefinity.Data;
 using Telerik.Sitefinity.Frontend.Mvc.Helpers;
 using Telerik.Sitefinity.Security;
 using Telerik.Sitefinity.Security.Claims;
 using Telerik.Sitefinity.Security.Configuration;
 using Telerik.Sitefinity.Security.Model;
-using Telerik.Sitefinity.Security.Claims.SWT;
 using Telerik.Sitefinity.Web;
-using Telerik.Sitefinity.Configuration;
-using ServiceStack.Text;
 using SecConfig = Telerik.Sitefinity.Security.Configuration;
 
 namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.LoginForm
@@ -36,6 +32,7 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.LoginForm
                 this.serviceUrl = this.serviceUrl ?? this.GetClaimsIssuer();
                 return this.serviceUrl;
             }
+
             set
             {
                 this.serviceUrl = value;
@@ -56,6 +53,7 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.LoginForm
                 this.membershipProvider = this.membershipProvider ?? UserManager.GetDefaultProviderName();
                 return this.membershipProvider;
             }
+
             set
             {
                 this.membershipProvider = value;
@@ -78,6 +76,7 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.LoginForm
             {
                 return this.serializedExternalProviders;
             }
+
             set
             {
                 if (this.serializedExternalProviders != value)
@@ -218,7 +217,6 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.LoginForm
             viewModel.Email = email;
             viewModel.EmailSent = false;
 
-
             var manager = UserManager.GetManager(this.MembershipProvider);
             var user = manager.GetUserByEmail(email);
 
@@ -343,83 +341,53 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.LoginForm
         private bool TryResolveUrlFromUrlReferrer(HttpContextBase context, out string redirectUrl)
         {
             redirectUrl = string.Empty;
+
             try
             {
-                ////There is few ways to redirect to another page
-                ////First method is to combine realm param with redirect_uri param to get the full redirect url
-                ////Example: ?realm=http://localhost:8086/&redirect_uri=/Sitefinity/Dashboard
-                ////Second method is to use only realm or redirect_uri param to get the full redirect url
-                ////Examples: ?realm=http://localhost:8086/Sitefinity/Dashboard
-                ////          ?redirect_uri=http://localhost:8086/Sitefinity/Dashboard
-                ////Third method is to get ReturnUrl param
-                ////Example: ?ReturnUrl=http://localhost:8086/Sitefinity/Dashboard
-                Uri urlReferrer = context.Request.UrlReferrer;
-                if (urlReferrer != null)
+                // There are a few ways to redirect to another page
+                // First method is to combine realm param with redirect_uri param to get the full redirect url
+                // Example: ?realm=http://localhost:8086/&redirect_uri=/Sitefinity/Dashboard
+                // Second method is to use only realm or redirect_uri param to get the full redirect url
+                // Examples: ?realm=http://localhost:8086/Sitefinity/Dashboard
+                //          ?redirect_uri=http://localhost:8086/Sitefinity/Dashboard
+                // Third method is to get ReturnUrl param
+                // Example: ?ReturnUrl=http://localhost:8086/Sitefinity/Dashboard
+                var urlReferrer = context.Request.UrlReferrer;
+                if (urlReferrer == null)
+                    return false;
+
+                var querySegment = urlReferrer.Query.TrimStart('?');
+
+                // Check query string for all search params
+                string realm = string.Empty;
+                string redirectUri = string.Empty;
+                string returnUrl = string.Empty;
+
+                var queryParameters = querySegment.Split('&');
+                foreach (var param in queryParameters)
                 {
-                    var querySegment = HttpUtility.UrlDecode(urlReferrer.Query);
-                    if (querySegment.StartsWith("?"))
+                    var queryParamKeyValuePair = param.Split('=');
+                    switch (queryParamKeyValuePair[0])
                     {
-                        querySegment = querySegment.Substring(1);
-                    }
-
-                    //check query string for all search params
-                    var queryStrings = querySegment.Split('&');
-                    string realm = string.Empty;
-                    string redirect_uri = string.Empty;
-                    string returnUrl = string.Empty;
-                    bool foundReturnUrl = false;
-                    foreach (var queryString in queryStrings)
-                    {
-                        var queryStringPair = queryString.Split('=');
-                        switch (queryStringPair[0])
-                        {
-                            case "realm":
-                                realm = queryStringPair[1];
-                                break;
-                            case "redirect_uri":
-                                redirect_uri = queryStringPair[1];
-                                break;
-                            case "ReturnUrl":
-                                returnUrl = querySegment.Remove(0, "ReturnUrl=".Length);
-                                foundReturnUrl = true;
-                                break;
-                        }
-
-                        if (foundReturnUrl)
-                        {
+                        case "realm":
+                            realm = queryParamKeyValuePair[1].UrlDecode();
                             break;
-                        }
+                        case "redirect_uri":
+                            redirectUri = queryParamKeyValuePair[1].UrlDecode();
+                            break;
+                        case "ReturnUrl":
+                            returnUrl = queryParamKeyValuePair[1].UrlDecode();
+                            break;
                     }
 
-                    //based on the found params get the correct redirectUrl
-                    if (!string.IsNullOrWhiteSpace(realm))
-                    {
-                        redirectUrl = realm;
-
-                        if (!string.IsNullOrWhiteSpace(redirect_uri))
-                        {
-                            //removing accumulation of more then one '/'
-                            if (redirect_uri[0] == '/')
-                            {
-                                redirectUrl = redirectUrl.TrimEnd('/') + redirect_uri;
-                            }
-                            else
-                            {
-                                redirectUrl += redirect_uri;
-                            }
-                        }
-                    }
-                    else if (!string.IsNullOrWhiteSpace(redirect_uri))
-                    {
-                        redirectUrl = redirect_uri;
-                    }
-                    else if (!string.IsNullOrWhiteSpace(returnUrl))
-                    {
-                        redirectUrl = returnUrl;
-                    }
-
-                    return true;
+                    if (!string.IsNullOrEmpty(returnUrl))
+                        break;
                 }
+
+                // Based on the params get the correct redirect url
+                redirectUrl = this.BuildRedirectUrl(realm, redirectUri, returnUrl);
+
+                return true;
             }
             catch (UriFormatException)
             {
@@ -427,7 +395,49 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.LoginForm
                 // UrlReferrer could throw UriFormatException in case The HTTP Referer request header is malformed and cannot be converted to a Uri object. 
                 return false;
             }
-            return false;
+        }
+
+        private string BuildRedirectUrl(string realm, string redirectUri, string returnUrl)
+        {
+            string redirectUrl = null;
+
+            // Based on the found params get the correct redirectUrl
+            if (!string.IsNullOrWhiteSpace(realm))
+            {
+                redirectUrl = realm;
+
+                // If both realm and redirect_uri are provided, they should be combined
+                if (!string.IsNullOrWhiteSpace(redirectUri))
+                {
+                    redirectUrl = string.Format("{0}/{1}", redirectUrl.TrimEnd('/'), redirectUri.TrimStart('/'));
+                }
+            }
+            else if (!string.IsNullOrWhiteSpace(redirectUri))
+            {
+                redirectUrl = redirectUri;
+            }
+            else if (!string.IsNullOrWhiteSpace(returnUrl))
+            {
+                string query = string.Empty;
+                Uri uri = null;
+                if (Uri.TryCreate(returnUrl, UriKind.Absolute, out uri))
+                    query = uri.Query;
+
+                string pageUrlForCurrentCulture = null;
+                Web.Utilities.LinkParser.TryGetPageUrlForCulture(returnUrl, out pageUrlForCurrentCulture);
+                if (!string.IsNullOrEmpty(pageUrlForCurrentCulture))
+                {
+                    var redirectUriBuilder = new UriBuilder(pageUrlForCurrentCulture);
+                    redirectUriBuilder.Query = query.TrimStart('?');
+                    redirectUrl = redirectUriBuilder.Uri.ToString();
+                }
+                else
+                {
+                    redirectUrl = returnUrl;
+                }
+            }
+
+            return redirectUrl;
         }
 
         /// <summary>
@@ -471,13 +481,14 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.LoginForm
         /// <returns>
         /// ReturnURL to redirect or empty string
         /// </returns>
-        protected string GetReturnURL(HttpContextBase context)
+        protected internal string GetReturnURL(HttpContextBase context)
         {
-            string redirectUrl = context.Request.Url.AbsoluteUri;
+            var path = context.Request.AppRelativeCurrentExecutionFilePath;
+            var redirectUrl = RouteHelper.ResolveUrl(path, UrlResolveOptions.Absolute);
 
             if (!string.IsNullOrEmpty(context.Request.Url.Query))
             {
-                // remove err flag in redirect data
+                // Remove err flag in redirect data
                 redirectUrl = redirectUrl.Replace("&err=true", string.Empty).Replace("err=true", string.Empty);
             }
 
@@ -487,7 +498,7 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.LoginForm
             }
             else
             {
-                //Get redirectUrl from query string parameter
+                // Get redirectUrl from query string parameter
                 string redirectUrlFromQS;
                 this.TryResolveUrlFromUrlReferrer(context, out redirectUrlFromQS);
 

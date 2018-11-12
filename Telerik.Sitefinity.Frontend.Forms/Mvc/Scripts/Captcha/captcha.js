@@ -62,6 +62,8 @@
             return this.wrapper.find('[data-sf-role="' + sfRole + '"]');
         },
         captchaImage: function () { return this.getOrInitializeProperty('_captchaImage', 'captcha-image'); },
+        captchaAudio: function () { return this.getOrInitializeProperty('_captchaAudio', 'captcha-audio'); },
+        captchaAudioBtn: function () { return this.getOrInitializeProperty('_captchaAudioBtn', 'captcha-audio-btn'); },
         captchaInput: function () { return this.getOrInitializeProperty('_captchaInput', 'captcha-input'); },
         captchaRefreshLink: function () { return this.getOrInitializeProperty('_captchaRefreshLink', 'captcha-refresh-button'); },
         captchaDataIv: function () { return this.getOrInitializeProperty('_captchaDataIv', 'captcha-iv'); },
@@ -82,6 +84,8 @@
             self.restApi.getCaptcha().then(function (data) {
                 if (data) {
                     self.captchaImage().attr("src", "data:image/png;base64," + data.Image);
+                    self.captchaAudio().attr("src", "data:audio/wav;base64," + data.Audio);
+                    self.captchaAudioBtn().click(function () { self.captchaAudio()[0].play();});
                     self.captchaDataIv().val(data.InitializationVector);
                     self.captchaDataCorrectAnswer().val(data.CorrectAnswer);
                     self.captchaDataKey().val(data.Key);

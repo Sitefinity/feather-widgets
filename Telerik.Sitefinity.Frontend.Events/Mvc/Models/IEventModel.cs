@@ -37,14 +37,6 @@ namespace Telerik.Sitefinity.Frontend.Events.Mvc.Models
         ListDisplayMode DisplayMode { get; set; }
 
         /// <summary>
-        /// Gets or sets a value indicating whether social sharing is enabled.
-        /// </summary>
-        /// <value>
-        ///   <c>true</c> if [enable social sharing]; otherwise, <c>false</c>.
-        /// </value>
-        bool EnableSocialSharing { get; set; }
-
-        /// <summary>
         /// Gets or sets the items count per page or items total dependeing on the selected <see cref="ListDisplayMode"/>
         /// </summary>
         /// <value>
@@ -83,6 +75,14 @@ namespace Telerik.Sitefinity.Frontend.Events.Mvc.Models
         /// The serialized narrow selection filters.
         /// </value>
         string SerializedNarrowSelectionFilters { get; set; }
+
+        /// <summary>
+        /// Gets or sets the group logical operator used for filtering.
+        /// </summary>
+        /// <value>
+        /// The group logical operator used for filtering.
+        /// </value>
+        LogicalOperator SelectionGroupLogicalOperator { get; set; }
 
         /// <summary>
         /// Gets or sets which events to be displayed in the list view.

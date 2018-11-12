@@ -16,7 +16,7 @@
         {
             <div @Html.InlineEditingAttributes(Model.ProviderName, ((ListViewModel)item).ListItemViewModel.ContentType.FullName, (Guid)listItem.Fields.Id)>
                 <h2 @Html.InlineEditingFieldAttributes("Title", "ShortText")>@listItem.Fields.Title</h2>
-                <div @Html.InlineEditingFieldAttributes("Content", "LongText")>@Html.HtmlSanitize((string)listItem.Fields.Content)</div>
+                <div class="sf-Long-text" @Html.InlineEditingFieldAttributes("Content", "LongText")>@Html.HtmlSanitize((string)listItem.Fields.Content)</div>
             </div>
         }
     }

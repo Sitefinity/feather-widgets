@@ -17,6 +17,7 @@ using Telerik.Sitefinity.Frontend.Mvc.Models;
 using Telerik.Sitefinity.Libraries.Model;
 using Telerik.Sitefinity.Model;
 using Telerik.Sitefinity.Modules.Libraries;
+using Telerik.Sitefinity.Modules.Pages;
 using Telerik.Sitefinity.Modules.Pages.Configuration;
 using Telerik.Sitefinity.Mvc;
 using Telerik.Sitefinity.Services;
@@ -131,7 +132,7 @@ namespace Telerik.Sitefinity.Frontend.Media.Mvc.Controllers
                 if (this.metadata == null)
                 {
                     this.metadata = base.MetadataFields;
-                    this.metadata.OpenGraphType = OpenGraphTypes.Video;
+                    this.metadata.OpenGraphType = PageHelper.OpenGraphTypes.Video;
                 }
 
                 return this.metadata;
@@ -407,7 +408,7 @@ namespace Telerik.Sitefinity.Frontend.Media.Mvc.Controllers
         private int? ParseToNullableInt32(string text)
         {
             int i;
-            if (Int32.TryParse(text, out i))
+            if (int.TryParse(text, out i))
             {
                 return i;
             }

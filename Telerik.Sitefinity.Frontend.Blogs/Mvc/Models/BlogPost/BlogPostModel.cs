@@ -1,9 +1,7 @@
-﻿using ServiceStack.Text;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using Telerik.Sitefinity.Blogs.Model;
+using ServiceStack.Text;
 using Telerik.Sitefinity.Frontend.Mvc.Models;
 using Telerik.Sitefinity.Model;
 using Telerik.Sitefinity.Modules.Blogs;
@@ -65,7 +63,6 @@ namespace Telerik.Sitefinity.Frontend.Blogs.Mvc.Models.BlogPost
         {
             return ((BlogsManager)this.GetManager()).GetBlogPosts();
         }
-
 
         /// <inheritdoc />
         protected override string CompileFilterExpression()

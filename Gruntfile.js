@@ -50,6 +50,7 @@ module.exports = function (grunt) {
 					'../feather/Telerik.Sitefinity.Frontend/client-components/selectors/date-time/sf-timespan-selector.js',
 					'../feather/Telerik.Sitefinity.Frontend/client-components/selectors/pages/sf-page-service.js',
 					'../feather/Telerik.Sitefinity.Frontend/client-components/selectors/pages/sf-page-selector.js',
+					'../feather/Telerik.Sitefinity.Frontend/client-components/components/icon/sf-icon.js',
 					'!../feather/Telerik.Sitefinity.Frontend/Designers/Scripts/page-editor.js',
 					'Tests/FeatherWidgets.ClientTest/helpers/mocks/*.js'
 					],
@@ -95,6 +96,7 @@ module.exports = function (grunt) {
 					'../feather/Telerik.Sitefinity.Frontend/client-components/selectors/pages/sf-page-service.js',
 					'../feather/Telerik.Sitefinity.Frontend/client-components/selectors/pages/sf-page-selector.js',
 					'../feather/Telerik.Sitefinity.Frontend/client-components/selectors/search/sf-search-service.js',
+					'../feather/Telerik.Sitefinity.Frontend/client-components/components/icon/sf-icon.js',
 					'!../feather/Telerik.Sitefinity.Frontend/Designers/Scripts/page-editor.js',
 					'Tests/FeatherWidgets.ClientTest/helpers/mocks/*.js'
 			        ],
@@ -144,6 +146,7 @@ module.exports = function (grunt) {
 					'../feather/Telerik.Sitefinity.Frontend/client-components/selectors/date-time/sf-timespan-selector.js',
 					'../feather/Telerik.Sitefinity.Frontend/client-components/selectors/pages/sf-page-service.js',
 					'../feather/Telerik.Sitefinity.Frontend/client-components/selectors/pages/sf-page-selector.js',
+					'../feather/Telerik.Sitefinity.Frontend/client-components/components/icon/sf-icon.js',
 					'!../feather/Telerik.Sitefinity.Frontend/Designers/Scripts/page-editor.js',
 					'Tests/FeatherWidgets.ClientTest/helpers/mocks/*.js'
 					],

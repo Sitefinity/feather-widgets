@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Web.Mvc;
 using Telerik.Sitefinity.Frontend.Search.Mvc.StringResources;
 using Telerik.Sitefinity.Frontend.Mvc.Infrastructure.Controllers.Attributes;
@@ -17,7 +16,6 @@ using Telerik.Sitefinity.Localization;
 using Telerik.Sitefinity.Web;
 using Telerik.Sitefinity.Abstractions;
 using Telerik.Sitefinity.Services.Search;
-using System.Web;
 
 namespace Telerik.Sitefinity.Frontend.Search.Mvc.Controllers
 {
@@ -195,7 +193,7 @@ namespace Telerik.Sitefinity.Frontend.Search.Mvc.Controllers
         {
             var searchQuery = string.Empty;
 
-            //Set the search text if searchQuery exists in the QueryString and the IndexCatalogue matches the current one.
+            // Set the search text if searchQuery exists in the QueryString and the IndexCatalogue matches the current one.
             var context = SystemManager.CurrentHttpContext;
             if (context != null)
             {

@@ -441,6 +441,51 @@ namespace Telerik.Sitefinity.Frontend.Comments.Mvc.StringResources
             }
         }
 
+        /// <summary>
+        /// Gets phrase: Order by:
+        /// </summary>
+        [ResourceEntry("OrderBy",
+            Value = "Order by",
+            Description = "phrase: Order by",
+            LastModified = "2018/09/11")]
+        public string OrderBy
+        {
+            get
+            {
+                return this["OrderBy"];
+            }
+        }
+
+        /// <summary>
+        /// Gets phrase: Order by:
+        /// </summary>
+        [ResourceEntry("CommentBy",
+            Value = "Comment by",
+            Description = "phrase: Comment by",
+            LastModified = "2018/09/11")]
+        public string CommentBy
+        {
+            get
+            {
+                return this["CommentBy"];
+            }
+        }
+
+        /// <summary>
+        /// Gets label: from
+        /// </summary>
+        [ResourceEntry("From",
+            Value = "From",
+            Description = "phrase: From",
+            LastModified = "2018/09/11")]
+        public string From
+        {
+            get
+            {
+                return this["From"];
+            }
+        }
+
         #endregion
 
         #region Reviews
@@ -685,7 +730,20 @@ namespace Telerik.Sitefinity.Frontend.Comments.Mvc.StringResources
             }
         }
 
-        
+        /// <summary>
+        /// Gets word : Of
+        /// </summary>
+        [ResourceEntry("Of",
+            Value = "Of",
+            Description = "word : Of",
+            LastModified = "2018/09/14")]
+        public string Of
+        {
+            get
+            {
+                return this["Of"];
+            }
+        }
 
         #endregion
 

@@ -14,6 +14,7 @@ using Telerik.Sitefinity.Frontend.Mvc.Infrastructure.Controllers;
 using Telerik.Sitefinity.Frontend.Mvc.Infrastructure.Controllers.Attributes;
 using Telerik.Sitefinity.Frontend.Mvc.Infrastructure.Routing;
 using Telerik.Sitefinity.Modules.Blogs;
+using Telerik.Sitefinity.Modules.Pages;
 using Telerik.Sitefinity.Modules.Pages.Configuration;
 using Telerik.Sitefinity.Mvc;
 using Telerik.Sitefinity.Personalization;
@@ -129,7 +130,7 @@ namespace Telerik.Sitefinity.Frontend.Blogs.Mvc.Controllers
                 if (this.metadata == null)
                 {
                     this.metadata = base.MetadataFields;
-                    this.metadata.OpenGraphType = OpenGraphTypes.Article;
+                    this.metadata.OpenGraphType = PageHelper.OpenGraphTypes.Article;
                 }
 
                 return this.metadata;

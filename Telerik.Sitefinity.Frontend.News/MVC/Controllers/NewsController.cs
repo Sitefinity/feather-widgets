@@ -11,6 +11,7 @@ using Telerik.Sitefinity.Frontend.Mvc.Infrastructure.Controllers.Attributes;
 using Telerik.Sitefinity.Frontend.Mvc.Infrastructure.Routing;
 using Telerik.Sitefinity.Frontend.News.Mvc.Models;
 using Telerik.Sitefinity.Frontend.News.Mvc.StringResources;
+using Telerik.Sitefinity.Modules.Pages;
 using Telerik.Sitefinity.Modules.Pages.Configuration;
 using Telerik.Sitefinity.Mvc;
 using Telerik.Sitefinity.News.Model;
@@ -138,7 +139,7 @@ namespace Telerik.Sitefinity.Frontend.News.Mvc.Controllers
                 if (this.metadata == null)
                 {
                     this.metadata = base.MetadataFields;
-                    this.metadata.OpenGraphType = OpenGraphTypes.Article;
+                    this.metadata.OpenGraphType = PageHelper.OpenGraphTypes.Article;
                 }
 
                 return this.metadata;

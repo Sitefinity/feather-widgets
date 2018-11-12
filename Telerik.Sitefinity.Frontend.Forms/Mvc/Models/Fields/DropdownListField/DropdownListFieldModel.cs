@@ -44,7 +44,7 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Models.Fields.DropdownListField
                 {
                     this.validatorDefinition = base.ValidatorDefinition;
 
-                    this.validatorDefinition.RequiredViolationMessage = Res.Get<FieldResources>().RequiredErrorMessageValue;
+                    this.validatorDefinition.RequiredViolationMessage = Res.Get<FormResources>().RequiredInputErrorMessage;
                 }
 
                 return this.validatorDefinition;

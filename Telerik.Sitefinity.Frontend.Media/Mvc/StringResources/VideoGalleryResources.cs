@@ -95,6 +95,22 @@ namespace Telerik.Sitefinity.Frontend.Media.Mvc.StringResources
         }
 
         /// <summary>
+        /// phrase: Open {0} in modal dialog
+        /// </summary>
+        /// <value>Open {0} in modal dialog</value>
+        [ResourceEntry("OpenInModalDialog",
+            Value = "Open {0} in modal dialog",
+            Description = "Open {0} in modal dialog",
+            LastModified = "2018/09/13")]
+        public string OpenInModalDialog
+        {
+            get
+            {
+                return this["OpenInModalDialog"];
+            }
+        }
+
+        /// <summary>
         /// word: by
         /// </summary>
         /// <value>by</value>
@@ -141,7 +157,87 @@ namespace Telerik.Sitefinity.Frontend.Media.Mvc.StringResources
                 return this["IndexOfTotal"];
             }
         }
-        
+
+        /// <summary>
+        /// phrase: Video taken on
+        /// </summary>
+        /// <value>Video taken on</value>
+        [ResourceEntry("VideoTakenOn",
+            Value = "Video taken on",
+            Description = "phrase: Video taken on",
+            LastModified = "2018/09/12")]
+        public string VideoTakenOn
+        {
+            get
+            {
+                return this["VideoTakenOn"];
+            }
+        }
+
+        /// <summary>
+        /// phrase: Previous/Next video
+        /// </summary>
+        /// <value>Previous/Next video</value>
+        [ResourceEntry("PreviousNextVideo",
+            Value = "Previous/Next video",
+            Description = "phrase: Previous/Next video",
+            LastModified = "2018/09/13")]
+        public string PreviousNextVideo
+        {
+            get
+            {
+                return this["PreviousNextVideo"];
+            }
+        }
+
+        /// <summary>
+        /// phrase: Go to previous video
+        /// </summary>
+        /// <value>Go to previous video</value>
+        [ResourceEntry("GoToPreviousVideo",
+            Value = "Go to previous image",
+            Description = "phrase: Go to previous video",
+            LastModified = "2018/09/13")]
+        public string GoToPreviousVideo
+        {
+            get
+            {
+                return this["GoToPreviousVideo"];
+            }
+        }
+
+        /// <summary>
+        /// phrase: Go to next video
+        /// </summary>
+        /// <value>Go to next video</value>
+        [ResourceEntry("GoToNextVideo",
+            Value = "Go to next video",
+            Description = "phrase: Go to next video",
+            LastModified = "2018/09/13")]
+        public string GoToNextVideo
+        {
+            get
+            {
+                return this["GoToNextVideo"];
+            }
+        }
+
+        /// <summary>
+        /// phrase: Video gallery
+        /// </summary>
+        /// <value>Video gallery</value>
+        [ResourceEntry("VideoGallery",
+            Value = "Video gallery",
+            Description = "phrase: Video gallery",
+            LastModified = "2018/09/13")]
+        public string VideoGallery
+        {
+            get
+            {
+                return this["VideoGallery"];
+            }
+        }
+
         #region Designer
 
         /// <summary>

@@ -185,14 +185,6 @@ namespace Telerik.Sitefinity.Frontend.ContentBlock.Mvc.Controllers
         public int ContentVersion { get; set; }
 
         /// <summary>
-        /// Gets or sets a value indicating whether should enable social sharing buttons.
-        /// </summary>
-        /// <value>
-        ///   <c>true</c> if social sharing buttons should be displayed; otherwise, <c>false</c>.
-        /// </value>
-        public bool EnableSocialSharing { get; set; }
-
-        /// <summary>
         /// Gets or sets the CSS class that will be applied on the wrapper tag of the widget view.
         /// </summary>
         /// <value>
@@ -438,10 +430,6 @@ namespace Telerik.Sitefinity.Frontend.ContentBlock.Mvc.Controllers
                                             {
                                                 { "providerName", this.ProviderName }, 
                                                 { "content", this.content }, 
-                                                {
-                                                    "enableSocialSharing", 
-                                                    this.EnableSocialSharing
-                                                }, 
                                                 { "sharedContentId", this.SharedContentID },
                                                 { "containerType", ((IHasContainerType)this).ContainerType },
                                                 { "wrapperCssClass", this.WrapperCssClass }

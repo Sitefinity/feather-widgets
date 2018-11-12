@@ -55,11 +55,15 @@ namespace Telerik.Sitefinity.Frontend.Comments.Mvc.Models
             }
             set 
             {
-                this.threadType = value;
+                if (this.threadType != null && this.threadType != value)
+                {
+                    // Changing the tread type should reset the thread key and config
+                    // only if the current value is not the initial of null
+                    this.ThreadKey = null;
+                    this.threadConfig = null;
+                }
 
-                // Changing the tread type should reset the thread key and config.
-                this.ThreadKey = null;
-                this.threadConfig = null;
+                this.threadType = value;
             }
         }
 
@@ -75,6 +79,7 @@ namespace Telerik.Sitefinity.Frontend.Comments.Mvc.Models
 
                 return this.threadTitle;
             }
+
             set
             {
                 this.threadTitle = value;
@@ -93,6 +98,7 @@ namespace Telerik.Sitefinity.Frontend.Comments.Mvc.Models
 
                 return this.groupKey;
             }
+
             set
             {
                 this.groupKey = value;
@@ -123,6 +129,7 @@ namespace Telerik.Sitefinity.Frontend.Comments.Mvc.Models
             {
                 return this.threadIsClosed || (this.Thread != null && this.Thread.IsClosed);
             }
+
             set
             {
                 this.threadIsClosed = value;
@@ -332,12 +339,16 @@ namespace Telerik.Sitefinity.Frontend.Comments.Mvc.Models
             {
                 this.ThreadKey = commentsInputModel.ThreadKey;
             }
-            else if (string.IsNullOrEmpty(this.ThreadKey) && SiteMapBase.GetActualCurrentNode() != null)
+            else if (string.IsNullOrEmpty(this.ThreadKey))
             {
-                this.ThreadKey = ControlUtilities.GetLocalizedKey(SiteMapBase.GetActualCurrentNode().Id, null, CommentsBehaviorUtilities.GetLocalizedKeySuffix(this.ThreadType));
-            }
-            else {
-                this.ThreadKey = string.Empty;
+                if (SiteMapBase.GetActualCurrentNode() != null)
+                {
+                    this.ThreadKey = ControlUtilities.GetLocalizedKey(SiteMapBase.GetActualCurrentNode().Id, null, CommentsBehaviorUtilities.GetLocalizedKeySuffix(this.ThreadType));
+                }
+                else
+                {
+                    this.ThreadKey = string.Empty;
+                }
             }
 
             if (useReviews && !this.ThreadKey.EndsWith(ReviewsSuffix))
@@ -405,7 +416,7 @@ namespace Telerik.Sitefinity.Frontend.Comments.Mvc.Models
                 CommentsAllowSubscription = this.ThreadConfig.AllowSubscription && !this.ThreadIsClosed,
                 CommentsAutoRefresh = this.CommentsAutoRefresh,
                 CommentsInitiallySortedDescending = this.CommentsConfig.AreNewestOnTop,
-                CommentsPerPage = this.CommentsConfig.EnablePaging? this.CommentsConfig.CommentsPerPage: 500,
+                CommentsPerPage = this.CommentsConfig.EnablePaging ? this.CommentsConfig.CommentsPerPage : 500,
                 CommentsRefreshInterval = this.CommentsRefreshInterval,
                 CommentsTextMaxLength = this.CommentTextMaxLength,
                 CommentsThread = this.Thread ?? this.GetCommentsThreadProxy(threadTitle),

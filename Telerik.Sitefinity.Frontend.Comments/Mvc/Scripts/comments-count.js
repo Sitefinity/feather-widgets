@@ -166,18 +166,25 @@
             var wrapper = element.find('[data-sf-role="list-rating-wrapper"]').show();
             var oldRatingEl = wrapper.find('[data-sf-role="list-rating-value"]');
             var oldRating = oldRatingEl.text().trim();
+            var srOnlyEl = wrapper.find('[data-sf-role="list-rating-sr-label"]');
 
             // There is already rating - update it
             if (oldRating) {
                 var oldRatingValue = parseFloat(oldRating);
                 currentRating = (((currentCount - 1) * oldRatingValue) + currentRating) / currentCount;
             }
-            
+
             // round to the second decimal
             currentRating = Math.round(currentRating * 100) / 100;
 
-            wrapper.find('[data-sf-role="list-rating-container"]').mvcRating({ readOnly: true, value: currentRating, template: $('[data-sf-role="rating-template"]') });
+            var ratingSettings = wrapper.find('[data-sf-role="list-rating-container"]').mvcRating({ readOnly: true, value: currentRating, template: $('[data-sf-role="rating-template"]') });
             oldRatingEl.text(currentRating);
+
+            // TODO: Accessibility is implemented
+            if (srOnlyEl.length > 0) {
+                var ofResourceLabel = element.find('[data-sf-role="rating-of-resource"]').val().toLocaleLowerCase();
+                srOnlyEl.text(ofResourceLabel + " " + ratingSettings.settings.maxValue);
+            }
         },
 
         initialize: function () {

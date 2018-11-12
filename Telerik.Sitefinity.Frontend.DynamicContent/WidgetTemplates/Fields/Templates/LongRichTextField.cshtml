@@ -1,5 +1,5 @@
 ﻿@model Telerik.Sitefinity.DynamicModules.Builder.Model.DynamicModuleField
 
 @@*Start @Model.Name field*@@
-<div @@Html.InlineEditingFieldAttributes("@Model.Name", "LongText")>@@Html.HtmlSanitize((string)Model.Item.Fields.@(Model.Name))</div>
+<div class="sf-Long-text" @@Html.InlineEditingFieldAttributes("@Model.Name", "LongText")>@@Html.HtmlSanitize((string)Model.Item.Fields.@(Model.Name))</div>
 @@*End @Model.Name field*@@

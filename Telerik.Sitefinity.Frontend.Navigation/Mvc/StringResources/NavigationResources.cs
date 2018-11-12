@@ -261,5 +261,20 @@ namespace Telerik.Sitefinity.Frontend.Navigation.Mvc.StringResources
                 return this["SelectedPages"];
             }
         }
+
+        /// <summary>
+        /// Label: Toggle navigation.
+        /// </summary>
+        [ResourceEntry("ToggleNavigation",
+            Value = "Toggle navigation",
+            Description = "Label: Toggle navigation",
+            LastModified = "2018/09/11")]
+        public string ToggleNavigation
+        {
+            get
+            {
+                return this["ToggleNavigation"];
+            }
+        }
     }
 }

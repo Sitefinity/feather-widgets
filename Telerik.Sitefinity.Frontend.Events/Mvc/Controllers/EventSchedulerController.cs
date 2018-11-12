@@ -252,6 +252,7 @@ namespace Telerik.Sitefinity.Frontend.Events.Mvc.Controllers
         protected virtual void InitializeListViewBag(string redirectPageUrl)
         {
             var timezoneInfo = UserManager.GetManager().GetUserTimeZone();
+            this.ViewBag.IsRtl = EventSchedulerHelper.IsRtl();
             this.ViewBag.WidgetId = EventSchedulerHelper.GetWidgetId(this);
             this.ViewBag.DetailsPageId = this.DetailsPageId == Guid.Empty ? (SiteMapBase.GetActualCurrentNode() == null ? Guid.Empty : SiteMapBase.GetActualCurrentNode().Id) : this.DetailsPageId;
             this.ViewBag.UiCulture = SystemManager.CurrentContext.AppSettings.Multilingual ? CultureInfo.CurrentUICulture.ToString() : string.Empty;

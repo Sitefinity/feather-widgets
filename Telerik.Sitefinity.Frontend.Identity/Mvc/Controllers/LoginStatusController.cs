@@ -1,10 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.Linq;
 using System.Web;
 using System.Web.Mvc;
-using Microsoft.Owin;
 using Microsoft.Owin.Security;
 using Telerik.Sitefinity.Frontend.Identity.Mvc.Models.LoginStatus;
 using Telerik.Sitefinity.Frontend.Identity.Mvc.StringResources;
@@ -17,6 +15,7 @@ using Telerik.Sitefinity.Configuration;
 using Telerik.Sitefinity.Security.Configuration;
 using SecConfig = Telerik.Sitefinity.Security.Configuration;
 using Telerik.Sitefinity.Security;
+using Telerik.Sitefinity.Web.UI;
 
 namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Controllers
 {
@@ -24,6 +23,7 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Controllers
     /// This class represents the controller of the Login Status widget.
     /// </summary>
     [Localization(typeof(LoginStatusResources))]
+    [IndexRenderMode(IndexRenderModes.NoOutput)]
     [ControllerToolboxItem(Name = "LoginStatus_MVC", Title = "Login / Logout button", SectionName = "Login", CssClass = LoginStatusController.WidgetIconCssClass)]
     public class LoginStatusController : Controller
     {

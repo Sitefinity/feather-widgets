@@ -21,15 +21,7 @@
 
     <div>
         <a href="@Model.Item.Fields.MediaUrl" target="_blank">Download</a>
-        (@Model.Extension)
-        <span>@(Math.Ceiling((double)Model.Item.Fields.TotalSize / 1024) + " KB")</span>
+        <span class="sf-document-extension">(@Model.Extension)</span>
+        <span class="sf-document-size">@(Math.Ceiling((double)Model.Item.Fields.TotalSize / 1024) + " KB")</span>
     </div>    
-    
-    @{        
-        if (Model.EnableSocialSharing)
-        {
-            var item = Model.Item.DataItem as Telerik.Sitefinity.Model.IHasTitle;
-            @Html.SocialShareOptions(item);
-        }
-    }
 </div>

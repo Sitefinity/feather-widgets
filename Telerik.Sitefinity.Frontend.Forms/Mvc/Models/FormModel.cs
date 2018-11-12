@@ -413,7 +413,7 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Models
                     {
                         this.SetFormFieldInvalidInputMessage(formField);
                         return false;
-                }
+                    }
                 }
                 else
                 {
@@ -422,8 +422,8 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Models
                     {
                         this.SetFormElementInvalidInputMessage(formElement);
                         return false;
+                    }
                 }
-            }
             }
 
             return true;
@@ -444,7 +444,28 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Models
         protected virtual void SetFormFieldInvalidInputMessage(IFormFieldController<IFormFieldModel> formField)
         {
             string invalidFieldName = formField.MetaField.Title;
-            this.InvalidInputMessage = string.Format(Res.Get<FormResources>().InvalidInputErrorMessage, invalidFieldName);
+
+            string errorMessage = null;
+            var elementModel = formField.Model as FormElementModel;
+            if (elementModel != null)
+            {
+                if (!string.IsNullOrEmpty(elementModel.Validator.ErrorMessage))
+                {
+                    errorMessage = elementModel.Validator.ErrorMessage;
+                }
+            }
+
+            if (string.IsNullOrEmpty(errorMessage))
+            {
+                errorMessage = Res.Get<FormResources>().InvalidInputErrorMessage;
+            }
+
+            if (errorMessage.IndexOf("{0}") != -1)
+            {
+                errorMessage = string.Format(errorMessage, invalidFieldName);
+            }
+
+            this.InvalidInputMessage = errorMessage;
         }
 
         /// <summary>
@@ -465,7 +486,6 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Models
         /// </summary>
         /// <value>The invalid input message.</value>
         protected virtual string InvalidInputMessage { get; set; }
-
 
         /// <summary>
         /// Sanitizes the form collection.
@@ -502,7 +522,7 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Models
         /// <param name="formEntry">The form entry.</param>
         protected virtual void RaiseFormSavedEvent(FormEntryDTO formEntry)
         {
-            var formEvent = this.eventFactory.GetFormSavedEvent(formEntry);
+            var formEvent = this.eventFactory.GetFormSavedEvent(formEntry, false);
             EventHub.Raise(formEvent);
         }
 
@@ -600,6 +620,7 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Models
                 SystemManager.CurrentHttpContext.Items[FormModel.ConnectorSettingsName] = this.ConnectorSettings;
             }
         }
+
         private string FormFieldName(FormControl control)
         {
             if (control.IsLayoutControl)

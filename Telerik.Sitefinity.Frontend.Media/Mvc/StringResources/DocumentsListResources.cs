@@ -627,5 +627,117 @@ namespace Telerik.Sitefinity.Frontend.Media.Mvc.StringResources
                 return this["Size"];
             }
         }
+
+        /// <summary>
+        /// phrase: Published on
+        /// </summary>
+        /// <value>Published on</value>
+        [ResourceEntry("PublishedOn",
+            Value = "Published on",
+            Description = "phrase: Published on",
+            LastModified = "2018/09/11")]
+        public string PublishedOn
+        {
+            get
+            {
+                return this["PublishedOn"];
+            }
+        }
+
+        /// <summary>
+        /// word: Download
+        /// </summary>
+        /// <value>Download</value>
+        [ResourceEntry("Download",
+            Value = "Download",
+            Description = "word: Download",
+            LastModified = "2018/09/11")]
+        public string Download
+        {
+            get
+            {
+                return this["Download"];
+            }
+        }
+
+        /// <summary>
+        /// phrase: Document summary
+        /// </summary>
+        /// <value>Document summary</value>
+        [ResourceEntry("DocumentSummary",
+            Value = "Document summary",
+            Description = "phrase: Document summary",
+            LastModified = "2018/09/13")]
+        public string DocumentSummary
+        {
+            get
+            {
+                return this["DocumentSummary"];
+            }
+        }
+
+        /// <summary>
+        /// phrase: Document extension
+        /// </summary>
+        /// <value>Document extension</value>
+        [ResourceEntry("DocumentExtension",
+            Value = "Document extension",
+            Description = "phrase: Document extension",
+            LastModified = "2018/09/13")]
+        public string DocumentExtension
+        {
+            get
+            {
+                return this["DocumentExtension"];
+            }
+        }
+
+        /// <summary>
+        /// phrase: Document size
+        /// </summary>
+        /// <value>Document size</value>
+        [ResourceEntry("DocumentSize",
+            Value = "Document size",
+            Description = "phrase: Document size",
+            LastModified = "2018/09/13")]
+        public string DocumentSize
+        {
+            get
+            {
+                return this["DocumentSize"];
+            }
+        }
+
+        /// <summary>
+        /// phrase: File extension
+        /// </summary>
+        /// <value>File extension</value>
+        [ResourceEntry("FileExtension",
+            Value = "File extension",
+            Description = "phrase: File extension",
+            LastModified = "2018/09/13")]
+        public string FileExtension
+        {
+            get
+            {
+                return this["FileExtension"];
+            }
+        }
+
+        /// <summary>
+        /// phrase: File size
+        /// </summary>
+        /// <value>File size</value>
+        [ResourceEntry("FileSize",
+            Value = "File size",
+            Description = "phrase: File size",
+            LastModified = "2018/09/13")]
+        public string FileSize
+        {
+            get
+            {
+                return this["FileSize"];
+            }
+        }
     }
 }

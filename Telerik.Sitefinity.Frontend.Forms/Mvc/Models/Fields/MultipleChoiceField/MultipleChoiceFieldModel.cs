@@ -2,10 +2,12 @@
 using System.ComponentModel;
 using System.Linq;
 using Newtonsoft.Json;
+using Telerik.Sitefinity.Abstractions;
 using Telerik.Sitefinity.Frontend.Forms.Mvc.StringResources;
 using Telerik.Sitefinity.Localization;
 using Telerik.Sitefinity.Metadata.Model;
 using Telerik.Sitefinity.Modules.Forms.Web.UI.Fields;
+using Telerik.Sitefinity.Security.Sanitizers;
 using Telerik.Sitefinity.Web.UI.Validation.Definitions;
 
 namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Models.Fields.MultipleChoiceField
@@ -33,7 +35,8 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Models.Fields.MultipleChoiceFiel
 
             set
             {
-                this.serializedChoices = value;
+                string sanitizedValue = ObjectFactory.Resolve<IHtmlSanitizer>().Sanitize(value);
+                this.serializedChoices = sanitizedValue;
             }
         }
 
@@ -47,7 +50,7 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Models.Fields.MultipleChoiceFiel
                 {
                     this.validatorDefinition = base.ValidatorDefinition;
 
-                    this.validatorDefinition.RequiredViolationMessage = Res.Get<FieldResources>().RequiredErrorMessageValue;
+                    this.validatorDefinition.RequiredViolationMessage = Res.Get<FormResources>().RequiredInputErrorMessage;
                 }
 
                 return this.validatorDefinition;

@@ -148,8 +148,13 @@ namespace Telerik.Sitefinity.Frontend.Media.Mvc.Controllers
             this.SetRedirectUrlQueryString(taxonFilter);
 
             this.UpdatePageFromQuery(ref page, this.Model.UrlKeyPrefix);
+
             var viewModel = this.Model.CreateListViewModel(taxonFilter, this.ExtractValidPage(page));
+            if (SystemManager.CurrentHttpContext != null)
+                this.AddCacheDependencies(this.Model.GetKeysOfDependentObjects(viewModel));
+
             var fullTemplateName = this.GetFullListTemplateName();
+
             return this.View(fullTemplateName, viewModel);
         }
 

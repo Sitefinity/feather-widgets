@@ -57,12 +57,12 @@ namespace Telerik.Sitefinity.Frontend.Blogs.Mvc.Models.BlogPost
         SelectionMode SelectionMode { get; set; }
 
         /// <summary>
-        /// Gets or sets a value indicating whether to enable social sharing.
+        /// Gets or sets the group logical operator used for filtering.
         /// </summary>
         /// <value>
-        ///   <c>true</c> if should enable social sharing; otherwise, <c>false</c>.
+        /// The group logical operator used for filtering.
         /// </value>
-        bool EnableSocialSharing { get; set; }
+        LogicalOperator SelectionGroupLogicalOperator { get; set; }
 
         /// <summary>
         /// Gets or sets the name of the provider.

@@ -34,8 +34,13 @@
                     return localtimezoneoffset;
                 },
                 weekStartDay: $(element).attr('data-sf-weekstartday'),
-                widgetId: $(element).attr('data-sf-widget-id')
+                widgetId: $(element).attr('data-sf-widget-id'),
+                isRtl: $(element).attr('data-sf-rtl')
             };
+            // check if is Rtl
+            if (schedulerData.isRtl === "True") {
+                $('[data-sf-role="scheduler-wrapper"]').addClass("k-rtl"); 
+            }
             // setup start day
             kendo.culture().calendar.firstDay = schedulerData.weekStartDay === "Sunday" ? 0 : 1;
             // calendar list init

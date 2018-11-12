@@ -106,7 +106,7 @@ namespace Telerik.Sitefinity.Frontend.Media.Mvc.StringResources
         /// </summary>
         /// <value>If you add a video here it will not be displayed before the page is published.To see the video click Preview on the top of this page.</value>
         [ResourceEntry("VideoWillNotBeDisplayed",
-            Value = "If you add a video here it will not be displayed before the page is published.To see the video click Preview on the top of this page.",
+            Value = "<p class=\"sfVideoNotAvailable\">If you add a video here it will not be displayed before the page is published.To see the video click Preview on the top of this page.</p>",
             Description = "Phrase:If you add a video here it will not be displayed before the page is published.To see the video click Preview on the top of this page.",
             LastModified = "2015/04/13")]
         public string VideoWillNotBeDisplayed

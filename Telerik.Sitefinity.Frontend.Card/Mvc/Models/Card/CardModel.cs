@@ -7,8 +7,8 @@ using Telerik.Sitefinity.Modules.GenericContent;
 using Telerik.Sitefinity.Modules.Libraries;
 using Telerik.Sitefinity.Modules.Pages;
 using Telerik.Sitefinity.Services;
-using SfImage = Telerik.Sitefinity.Libraries.Model.Image;
 using Telerik.Sitefinity.Web;
+using SfImage = Telerik.Sitefinity.Libraries.Model.Image;
 
 namespace Telerik.Sitefinity.Frontend.Card.Mvc.Models.Card
 {
@@ -90,6 +90,7 @@ namespace Telerik.Sitefinity.Frontend.Card.Mvc.Models.Card
                             string.IsNullOrEmpty(this.LinkedUrl) &&
                             string.IsNullOrEmpty(this.ImageProviderName));
         }
+
         /// <summary>
         /// Gets the image.
         /// </summary>
@@ -141,7 +142,7 @@ namespace Telerik.Sitefinity.Frontend.Card.Mvc.Models.Card
                     }
                     else
                     {
-                        relativeUrl = node.GetFullUrl();
+                        relativeUrl = node.GetFullUrl(null, false, true);
                     }
                     
                     return UrlPath.ResolveUrl(relativeUrl, Config.Get<SystemConfig>().SiteUrlSettings.GenerateAbsoluteUrls);

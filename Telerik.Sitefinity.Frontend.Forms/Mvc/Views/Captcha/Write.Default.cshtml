@@ -9,6 +9,11 @@
 <div data-sf-role="field-captcha-container" style="display:none;" class="@Model.CssClass sf-fieldWrp">
     <div>
         <img data-sf-role="captcha-image" src='@Url.WidgetContent("assets/dist/img/dummy.jpg")'/>
+        @if (Model.EnableAudioCode)
+        {
+        <button data-sf-role="captcha-audio-btn" type="button">Read the code</button>
+        <audio data-sf-role="captcha-audio" controls style="display:none" />
+        }
     </div>
 
     <a data-sf-role="captcha-refresh-button">@Html.Resource("NewCode")</a>

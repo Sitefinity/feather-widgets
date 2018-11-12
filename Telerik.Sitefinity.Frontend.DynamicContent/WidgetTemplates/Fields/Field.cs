@@ -1,5 +1,7 @@
-﻿using Telerik.Sitefinity.DynamicModules.Builder.Model;
+﻿using System.Collections.Generic;
+using Telerik.Sitefinity.DynamicModules.Builder.Model;
 using Telerik.Sitefinity.Frontend.Resources;
+using Telerik.Sitefinity.Modules.Pages;
 
 namespace Telerik.Sitefinity.Frontend.DynamicContent.WidgetTemplates.Fields
 {
@@ -18,7 +20,8 @@ namespace Telerik.Sitefinity.Frontend.DynamicContent.WidgetTemplates.Fields
         /// <returns></returns>
         public virtual bool GetCondition(DynamicModuleField field)
         {
-            var condition = field.FieldStatus != DynamicModuleFieldStatus.Removed && !field.IsHiddenField;
+            var condition = field.FieldStatus != DynamicModuleFieldStatus.Removed && !field.IsHiddenField
+                && !this.ExcludedFieldNames.Contains(field.Name);
 
             return condition;
         }
@@ -31,7 +34,7 @@ namespace Telerik.Sitefinity.Frontend.DynamicContent.WidgetTemplates.Fields
         public virtual string GetMarkup(DynamicModuleField field)
         {
             var templatePath = this.GetTemplatePath(field);
-            return Field.templateProcessor.Run(templatePath, field);
+            return Field.TemplateProcessor.Run(templatePath, field);
         }
 
         /// <summary>
@@ -41,6 +44,25 @@ namespace Telerik.Sitefinity.Frontend.DynamicContent.WidgetTemplates.Fields
         /// <returns></returns>
         protected abstract string GetTemplatePath(DynamicModuleField field);
 
-        private static readonly RazorTemplateProcessor templateProcessor = new RazorTemplateProcessor();
+        /// <summary>
+        /// The excluded field names
+        /// </summary>
+        protected IList<string> ExcludedFieldNames
+        {
+            get
+            {
+                return new List<string>()
+                {
+                    PageHelper.MetaDataProperties.MetaTitle,
+                    PageHelper.MetaDataProperties.MetaDescription,
+                    PageHelper.MetaDataProperties.OpenGraphTitle,
+                    PageHelper.MetaDataProperties.OpenGraphDescription,
+                    PageHelper.MetaDataProperties.OpenGraphImage,
+                    PageHelper.MetaDataProperties.OpenGraphVideo
+                };
+            }
+        }
+
+        private static readonly RazorTemplateProcessor TemplateProcessor = new RazorTemplateProcessor();
     }
 }

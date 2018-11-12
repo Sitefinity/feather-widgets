@@ -258,7 +258,7 @@ namespace Telerik.Sitefinity.Frontend.EmailCampaigns.Mvc.Models.UnsubscribeForm
         /// <returns></returns>
         private string GetUnsubscribeSuccessfulMessage(Subscriber subscriber, Campaign issue, MailingList list)
         {
-            //resolves the merge tags
+            // resolves the merge tags
             var mergeContextItemsObject = new MergeContextItems();
 
             var pageUri = SystemManager.CurrentHttpContext.Request.Url.PathAndQuery;
