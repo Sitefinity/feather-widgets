@@ -219,7 +219,7 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.Registration
         #region Public methods
 
         /// <inheritDoc/>
-        public void InitializeViewModel(RegistrationViewModel viewModel)
+        public virtual void InitializeViewModel(RegistrationViewModel viewModel)
         {
             if(viewModel != null)
             {
