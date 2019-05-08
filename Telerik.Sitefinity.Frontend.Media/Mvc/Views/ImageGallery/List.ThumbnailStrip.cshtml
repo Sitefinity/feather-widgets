@@ -66,7 +66,7 @@
 {
     var itemViewModel = (ThumbnailViewModel)item;
     
-    <a title="@item.Fields.Title" data-item="@Html.GetSerializedImage(item)" data-detail-url="@HyperLinkHelpers.GetDetailPageUrl(item, ViewBag.DetailsPageId, ViewBag.OpenInSamePage, Model.UrlKeyPrefix)">
+    <a href="javascript:void(0)" title="@item.Fields.Title" data-item="@Html.GetSerializedImage(item)" data-detail-url="@HyperLinkHelpers.GetDetailPageUrl(item, ViewBag.DetailsPageId, ViewBag.OpenInSamePage, Model.UrlKeyPrefix)">
         <img src="@(itemViewModel.ThumbnailUrl)" alt="@item.Fields.AlternativeText" 
                       @Html.GetWidthAttributeIfExists(itemViewModel.Width)
                       @Html.GetHeightAttributeIfExists(itemViewModel.Height) />

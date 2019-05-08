@@ -7,6 +7,10 @@ module.exports = function (grunt) {
 		pkg: grunt.file.readJSON('package.json'),
 		
 		jshint: {
+			options: {
+				reporter: "../Feather/Tests/Telerik.Sitefinity.Frontend.ClientTest/jshint-reporter.js",
+				reporterOutput: "Tests/FeatherWidgets.ClientTest/TestResults/hint.xml"
+			},
 			//define the files to lint
 			files: ['gruntfile.js',
 					'**/*.js',

@@ -92,7 +92,15 @@ namespace Telerik.Sitefinity.Frontend.Taxonomies.Mvc.Models.HierarchicalTaxonomy
                 // If the current taxon is included in the tree, it should be the parent of the inner taxa.
                 var lastKnownParent = currentViewModel ?? currentNode.LastKnownParent;
 
-                var subTaxa = manager.GetTaxa<Taxon>().Where(t => t.Parent.Id == currentNode.Taxon.Id);
+                IQueryable<Taxon> subTaxa;
+                if (typeof(HierarchicalTaxon).IsAssignableFrom(currentNode.Taxon.GetType()))
+                {
+                    subTaxa = manager.GetTaxa<HierarchicalTaxon>().Where(t => t.Parent.Id == currentNode.Taxon.Id);
+                }
+                else
+                {
+                    subTaxa = manager.GetTaxa<Taxon>().Where(t => t.Parent.Id == currentNode.Taxon.Id);
+                }
                 var sortedSubtaxa = sort.Invoke(subTaxa);
 
                 foreach (var childTaxon in sortedSubtaxa)

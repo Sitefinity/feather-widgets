@@ -313,7 +313,7 @@ namespace Telerik.Sitefinity.Frontend.Media.Mvc.Controllers
         /// <returns></returns>
         protected virtual string GetQueryString(string key)
         {
-            return Request.QueryString[key];
+            return Request.QueryStringGet(key);
         }
 
         /// <summary>
@@ -444,10 +444,13 @@ namespace Telerik.Sitefinity.Frontend.Media.Mvc.Controllers
 
             if (selectedParentIds != null && selectedParentIds.Count > 0)
             {
-                if (!selectedParentIds.Contains(image.Parent.Id.ToString()))
+                if (((image.FolderId == null || image.FolderId == Guid.Empty) && selectedParentIds.Contains(image.ParentId.ToString())) 
+                    || (image.FolderId != null && image.FolderId != Guid.Empty && selectedParentIds.Contains(image.FolderId.ToString())))
                 {
-                    return false;
+                    return true;
                 }
+
+                return false;
             }
 
             return true;

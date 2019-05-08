@@ -2,8 +2,6 @@
 
 @using Telerik.Sitefinity.Frontend.Mvc.Helpers;
 
-@using Telerik.Sitefinity.Frontend.Mvc.Helpers
-
 <div class="@Model.WrapperCssClass" @Html.InlineEditingAttributes(Model.ProviderName, Model.ContentType, Model.SharedContentID)>
     <div class="sf-Long-text" @Html.InlineEditingFieldAttributes("Content", "LongText")>@Html.HtmlSanitize(Model.Content)</div>    
 </div>

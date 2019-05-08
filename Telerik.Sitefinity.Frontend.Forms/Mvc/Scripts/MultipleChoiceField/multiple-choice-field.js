@@ -4,15 +4,19 @@
         var inputs = $(container).find('[data-sf-role="multiple-choice-field-input"]');
         inputs.each(function (index, input) {
             input.validity.valueMissing = false;
-            input.setCustomValidity('');
+            setErrorMessage(input, '');
         });
     };
 
     var invalid = function (e) {
         var validationMessages = getValidationMessages(e.target);
 
+        if (_getErrorMessageContainer(e.target)) {
+            e.preventDefault();
+        }
+
         if (e.target.validity.valueMissing) {
-            e.target.setCustomValidity(validationMessages.required);
+            setErrorMessage(e.target, validationMessages.required);
         }
     };
 
@@ -24,6 +28,36 @@
         return validationMessages;
     };
 
+    var setErrorMessage = function (input, message) {
+        var errorMessagesContainer = _getErrorMessageContainer(input);
+
+        if (errorMessagesContainer) {
+            _toggleCustomErrorMessage(errorMessagesContainer, message);
+        } else {
+            input.setCustomValidity(message);
+        }
+    };
+
+    var _toggleCustomErrorMessage = function (container, message) {
+        container.innerText = message;
+
+        if (message === '') {
+            container.style.display = 'none';
+        } else {
+            container.style.display = 'block';
+        }
+    };
+
+    var _getErrorMessageContainer = function (input) {
+        var container = $(input).closest('[data-sf-role="multiple-choice-field-container"]')[0];
+        if (container) {
+            var errorMessagesContainer = container.querySelector('[data-sf-role="error-message"]');
+            return errorMessagesContainer;
+        }
+
+        return null;
+    };
+
     $(function () {
         var containers = $('[data-sf-role="multiple-choice-field-container"]');
 
@@ -31,7 +65,11 @@
             return;
 
         var attachHandlers = function (input) {
-            input.on('change', changeOrInput);
+            input.on('change', function (e) {
+                changeOrInput(e);
+                if (typeof $.fn.processFormRules == 'function')
+                    $(e.target).processFormRules();
+            });
             input.on('input', changeOrInput);
             input.on('invalid', invalid);
         };

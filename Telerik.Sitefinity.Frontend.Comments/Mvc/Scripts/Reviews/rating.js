@@ -172,7 +172,7 @@
             // TODO: Accessibility is implemented
             if (this.ratingContainer.siblings("LEGEND").length > 0) {
                 this.isAccessibilityImplemented = true;
-            };
+            }
 
             this.ratingContainer.empty();
 

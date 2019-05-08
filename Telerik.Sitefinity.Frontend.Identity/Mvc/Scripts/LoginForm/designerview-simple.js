@@ -13,7 +13,7 @@
                 $scope.externalProviderSelector.classData[name] = cssClass;
             }
             $scope.properties.SerializedExternalProviders.PropertyValue = JSON.stringify($scope.externalProviderSelector.classData);
-        }
+        };
 
         propertyService.get()
             .then(function (data) {

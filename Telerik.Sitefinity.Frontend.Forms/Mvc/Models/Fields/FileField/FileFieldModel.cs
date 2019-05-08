@@ -94,6 +94,9 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Models.Fields.FileField
         public string FileSizeViolationMessage { get; set; }
 
         /// <inheritDocs />
+        public bool Hidden { get; set; }
+
+        /// <inheritDocs />
         [TypeConverter(typeof(ExpandableObjectConverter))]
         public override ValidatorDefinition ValidatorDefinition
         {
@@ -158,6 +161,7 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Models.Fields.FileField
                     AcceptedFileTypes = acceptedFileTypes ?? new string[0],
                     ValidationAttributes = this.GenerateValidationAttributes(acceptedFileTypes),
                     IsRequired = this.IsRequired,
+                    Hidden = this.Hidden && (!Sitefinity.Services.SystemManager.IsDesignMode || Sitefinity.Services.SystemManager.IsPreviewMode),
                     MinFileSizeInMb = this.MinFileSizeInMb,
                     MaxFileSizeInMb = this.MaxFileSizeInMb,
                     FileSizeViolationMessage = this.FileSizeViolationMessage,

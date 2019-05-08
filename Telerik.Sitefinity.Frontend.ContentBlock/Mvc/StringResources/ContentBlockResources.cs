@@ -448,5 +448,29 @@ namespace Telerik.Sitefinity.Frontend.ContentBlock.Mvc.StringResources
                 return this["Add"];
             }
         }
+
+        [ResourceEntry("WrapperCssClass",
+            Value = "Wrapper CSS class",
+            Description = "Label for the property WrapperCssClass",
+            LastModified = "2019/03/28")]
+        public string WrapperCssClass
+        {
+            get
+            {
+                return this["WrapperCssClass"];
+            }
+        }
+
+        [ResourceEntry("ExcludeFromSearchIndex",
+            Value = "Exclude from search index",
+            Description = "Label for the property ExcludeFromSearchIndex",
+            LastModified = "2019/03/28")]
+        public string ExcludeFromSearchIndex
+        {
+            get
+            {
+                return this["ExcludeFromSearchIndex"];
+            }
+        }
     }
 }

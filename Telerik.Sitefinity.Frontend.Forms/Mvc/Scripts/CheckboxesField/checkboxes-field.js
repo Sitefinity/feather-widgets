@@ -6,7 +6,7 @@
 
         if (hasChecked || container.find('[data-sf-role="required-validator"]').val() === 'False') {
             $(inputs[0]).removeAttr('required');
-            inputs[0].setCustomValidity('');
+            setErrorMessage(inputs[0], '');
         }
         else {
             $(inputs[0]).attr('required', 'required');
@@ -16,8 +16,12 @@
     var invalid = function (e) {
         var validationMessages = getValidationMessages(e.target);
 
+        if (_getErrorMessageContainer(e.target)) {
+            e.preventDefault();
+        }
+
         if (e.target.validity.valueMissing) {
-            e.target.setCustomValidity(validationMessages.required);
+            setErrorMessage(e.target, validationMessages.required);
         }
     };
 
@@ -29,6 +33,36 @@
         return validationMessages;
     };
 
+    var setErrorMessage = function (input, message) {
+        var errorMessagesContainer = _getErrorMessageContainer(input);
+
+        if (errorMessagesContainer) {
+            _toggleCustomErrorMessage(errorMessagesContainer, message);
+        } else {
+            input.setCustomValidity(message);
+        }
+    };
+
+    var _toggleCustomErrorMessage = function (container, message) {
+        container.innerText = message;
+
+        if (message === '') {
+            container.style.display = 'none';
+        } else {
+            container.style.display = 'block';
+        }
+    };
+
+    var _getErrorMessageContainer = function (input) {
+        var container = $(input).closest('[data-sf-role="checkboxes-field-container"]')[0];
+        if (container) {
+            var errorMessagesContainer = container.querySelector('[data-sf-role="error-message"]');
+            return errorMessagesContainer;
+        }
+
+        return null;
+    };
+
     $(function () {
         var containers = $('[data-sf-role="checkboxes-field-container"]');
 
@@ -36,7 +70,12 @@
             return;
 
         var attachHandlers = function (input) {
-            input.on('change', changeOrInput);
+            input.on('change', function (e) {
+                changeOrInput(e);
+                if (typeof $.fn.processFormRules == 'function') {
+                    $(e.target).processFormRules();
+                }
+            });
             input.on('input', changeOrInput);
             input.on('invalid', invalid);
         };
@@ -68,6 +107,10 @@
             var container = $(e.target).parents('[data-sf-role="checkboxes-field-container"]');
             var otherCheckbox = $(container.find('[data-sf-checkboxes-role="other-choice-checkbox"]').first());
             otherCheckbox.val($(e.target).val());
+
+            if (typeof $.fn.processFormRules == 'function') {
+                $(e.target).processFormRules();
+            }
         };
 
         for (var i = 0; i < containers.length; i++) {

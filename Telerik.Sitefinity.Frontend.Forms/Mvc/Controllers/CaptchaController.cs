@@ -5,6 +5,7 @@ using Telerik.Sitefinity.Frontend.Forms.Mvc.Models.Fields.Captcha;
 using Telerik.Sitefinity.Frontend.Forms.Mvc.StringResources;
 using Telerik.Sitefinity.Frontend.Mvc.Infrastructure.Controllers;
 using Telerik.Sitefinity.Frontend.Mvc.Infrastructure.Controllers.Attributes;
+using Telerik.Sitefinity.Modules.Forms.Web.UI.Fields;
 using Telerik.Sitefinity.Modules.Pages.Web.Services;
 using Telerik.Sitefinity.Web.UI;
 using Telerik.Sitefinity.Web.UI.Fields.Enums;
@@ -16,7 +17,7 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Controllers
     /// </summary>
     [Localization(typeof(FieldResources))]
     [IndexRenderMode(IndexRenderModes.NoOutput)]
-    public class CaptchaController : FormElementControllerBase<ICaptchaModel>
+    public class CaptchaController : FormElementControllerBase<ICaptchaModel>, ICaptchaFormField
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="CaptchaController"/> class.

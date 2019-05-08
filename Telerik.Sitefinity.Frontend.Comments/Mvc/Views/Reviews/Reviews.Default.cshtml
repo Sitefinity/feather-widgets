@@ -2,6 +2,7 @@
 
 @using Telerik.Sitefinity.Frontend.Mvc.Helpers;
 @using Telerik.Sitefinity.Modules.Pages;
+@using Telerik.Sitefinity.Services;
 
 @Html.Script(ScriptRef.JQuery, "top", false)
 @Html.StyleSheet(Url.WidgetContent("assets/dist/css/sf-ratings.min.css"), "head", false)
@@ -86,7 +87,7 @@
                     </div>
                 </div>
             }
-            <button data-sf-role="comments-new-submit-button">@Html.Resource("Submit")</button>
+            <button data-sf-role="comments-new-submit-button" @(SystemManager.IsDesignMode ? "disabled" : "")>@Html.Resource("Submit")</button>
         </div>
         
         <p data-sf-role="review-new-form-replacement">@Html.Resource("UserAlreadySubmitedReview")</p>

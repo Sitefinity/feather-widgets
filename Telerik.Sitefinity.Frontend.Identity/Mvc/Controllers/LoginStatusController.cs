@@ -1,21 +1,21 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.ComponentModel;
 using System.Web;
 using System.Web.Mvc;
 using Microsoft.Owin.Security;
+using Telerik.Sitefinity.Abstractions;
+using Telerik.Sitefinity.Configuration;
 using Telerik.Sitefinity.Frontend.Identity.Mvc.Models.LoginStatus;
 using Telerik.Sitefinity.Frontend.Identity.Mvc.StringResources;
 using Telerik.Sitefinity.Frontend.Mvc.Infrastructure.Controllers;
 using Telerik.Sitefinity.Frontend.Mvc.Infrastructure.Controllers.Attributes;
 using Telerik.Sitefinity.Mvc;
-using Telerik.Sitefinity.Services;
-using Telerik.Sitefinity.Security.Claims;
-using Telerik.Sitefinity.Configuration;
-using Telerik.Sitefinity.Security.Configuration;
-using SecConfig = Telerik.Sitefinity.Security.Configuration;
 using Telerik.Sitefinity.Security;
+using Telerik.Sitefinity.Security.Claims;
+using Telerik.Sitefinity.Security.Configuration;
+using Telerik.Sitefinity.Services;
 using Telerik.Sitefinity.Web.UI;
+using SecConfig = Telerik.Sitefinity.Security.Configuration;
 
 namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Controllers
 {
@@ -114,6 +114,13 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Controllers
         {
             var logoutUrl = this.Model.GetLogoutPageUrl() ?? this.GetCurrentPageUrl();
 
+            var validator = ObjectFactory.Resolve<IRedirectUriValidator>();
+
+            if (!validator.IsValid(logoutUrl))
+            {
+                logoutUrl = "~/";
+            }
+
             if (Config.Get<SecurityConfig>().AuthenticationMode == SecConfig.AuthenticationMode.Claims)
             {
                 var owinContext = SystemManager.CurrentHttpContext.Request.GetOwinContext();
@@ -122,7 +129,8 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Controllers
                 owinContext.Authentication.SignOut(new AuthenticationProperties
                 {
                     RedirectUri = logoutUrl
-                }, authenticationTypes);            
+                }, 
+                authenticationTypes);            
             }
             else
             {

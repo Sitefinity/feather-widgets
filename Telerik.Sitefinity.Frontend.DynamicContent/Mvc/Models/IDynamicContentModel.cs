@@ -159,6 +159,15 @@ namespace Telerik.Sitefinity.Frontend.DynamicContent.Mvc.Models
         string SerializedSelectedParentsIds { get; set; }
 
         /// <summary>
+        /// Creates the ListView model by date filter.
+        /// </summary>
+        /// <param name="from">The start date from the date filter.</param>
+        /// <param name="to">The end date from the date filter.</param>
+        /// <param name="page">The page.</param>
+        /// <returns>A list view model containing all descendant items from the given parent.</returns>
+        ContentListViewModel CreateListViewModelByDate(DateTime from, DateTime to, int page);
+
+        /// <summary>
         /// Gets or sets the type of the parent item.
         /// </summary>
         /// <value>

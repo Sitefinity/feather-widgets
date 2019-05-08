@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.ComponentModel;
+using Telerik.Sitefinity.Modules.Forms.Web.UI;
 using Telerik.Sitefinity.Web.UI.Validation.Definitions;
 
 namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Models.Fields.DropdownListField
@@ -7,7 +8,7 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Models.Fields.DropdownListField
     /// <summary>
     /// This interface provides API for form dropdown list fields.
     /// </summary>
-    public interface IDropdownListFieldModel : IFormFieldModel
+    public interface IDropdownListFieldModel : IFormFieldModel, IHideable
     {
         /// <summary>
         /// Gets or sets the serialized choices.

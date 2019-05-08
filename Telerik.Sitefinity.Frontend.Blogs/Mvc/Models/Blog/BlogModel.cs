@@ -204,7 +204,7 @@ namespace Telerik.Sitefinity.Frontend.Blogs.Mvc.Models.Blog
             return string.Join(" AND ", elements.Select(el => "(" + el + ")"));
         }
 
-        private string GetSelectedItemsFilterExpression()
+        protected override string GetSelectedItemsFilterExpression()
         {
             IList<string> selectedItemsIds = new List<string>();
             if (!this.SerializedSelectedItemsIds.IsNullOrEmpty())

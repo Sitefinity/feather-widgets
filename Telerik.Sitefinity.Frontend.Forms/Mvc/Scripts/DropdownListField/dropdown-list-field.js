@@ -3,18 +3,26 @@
         function changeOrInput(e) {
             if (e.target.value === '') {
                 var validationMessages = getValidationMessages(e.target);
-                e.target.setCustomValidity(validationMessages.required);
+                setErrorMessage(e.target, validationMessages.required);
             }
             else {
-                e.target.setCustomValidity('');
+                setErrorMessage(e.target, '');
+            }
+
+            if (typeof $.fn.processFormRules == 'function') {
+                $(e.target).processFormRules();
             }
         }
 
         function invalid(e) {
             var validationMessages = getValidationMessages(e.target);
 
+            if (_getErrorMessageContainer(e.target)) {
+                e.preventDefault();
+            }
+
             if (e.target.validity.valueMissing) {
-                e.target.setCustomValidity(validationMessages.required);
+                setErrorMessage(e.target, validationMessages.required);
             }
         }
 
@@ -24,6 +32,36 @@
             var validationMessages = JSON.parse(validationMessagesInput.val());
 
             return validationMessages;
+        }
+
+        function setErrorMessage(input, message) {
+            var errorMessagesContainer = _getErrorMessageContainer(input);
+
+            if (errorMessagesContainer) {
+                _toggleCustomErrorMessage(errorMessagesContainer, message);
+            } else {
+                input.setCustomValidity(message);
+            }
+        }
+
+        function _toggleCustomErrorMessage(container, message) {
+            container.innerText = message;
+
+            if (message === '') {
+                container.style.display = 'none';
+            } else {
+                container.style.display = 'block';
+            }
+        }
+
+        function _getErrorMessageContainer(input) {
+            var container = $(input).closest('[data-sf-role="dropdown-list-field-container"]')[0];
+            if (container) {
+                var errorMessagesContainer = container.querySelector('[data-sf-role="error-message"]');
+                return errorMessagesContainer;
+            }
+
+            return null;
         }
 
         function init() {

@@ -8,7 +8,7 @@
             .then(function (data) {
                 if (data) {
                     $scope.properties = propertyService.toHierarchyArray(data.Items);
-                    if ($scope.properties.Model.MetaField.FieldName.PropertyValue != "") {
+                    if ($scope.properties.Model.MetaField.FieldName.PropertyValue !== "") {
                         var nameField = $("#nameField");
                         nameField.attr("disabled", "disabled");
                         nameField.attr("class", "form-control ng-pristine ng-untouched ng-valid ng-scope");

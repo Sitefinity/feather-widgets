@@ -263,25 +263,25 @@
             var isValid = true;
             var errorAriaAttr = "aria-describedby";
             var idAttr = "id";
-
+            var idVal = "";
 
             // Showing the error message and setting the accessibility attributes
             if (comment.Message.length < 1) {
                 isValid = false;
                 this.newCommentMessage().after(this.getErrorMessage(this.resources.messageIsRequired, this.newCommentMessage()));
-                this.newCommentMessage().attr("id") ? this.newCommentMessage().attr(errorAriaAttr, this.newCommentMessage().next().attr(idAttr)) : null;
+                idVal = this.newCommentMessage().attr("id") ? this.newCommentMessage().attr(errorAriaAttr, this.newCommentMessage().next().attr(idAttr)) : null;
             }
 
             if (!this.isUserAuthenticated && comment.Name.length < 1) {
                 isValid = false;
                 this.newCommentName().after(this.getErrorMessage(this.resources.nameIsRequired, this.newCommentName()));
-                this.newCommentName().attr("id") ? this.newCommentName().attr(errorAriaAttr, this.newCommentName().next().attr(idAttr)) : null;
+                idVal = this.newCommentName().attr("id") ? this.newCommentName().attr(errorAriaAttr, this.newCommentName().next().attr(idAttr)) : null;
             }
 
             if (!this.isUserAuthenticated && comment.Email && !this.isValidEmail(comment.Email)) {
                 isValid = false;
                 this.newCommentEmail().after(this.getErrorMessage(this.resources.invalidEmailFormat, this.newCommentEmail()));
-                this.newCommentEmail().attr("id") ? this.newCommentEmail().attr(errorAriaAttr, this.newCommentEmail().next().attr(idAttr)) : null;
+                idVal = this.newCommentEmail().attr("id") ? this.newCommentEmail().attr(errorAriaAttr, this.newCommentEmail().next().attr(idAttr)) : null;
             }
 
             if (this.settings.useReviews && !comment.Rating) {
@@ -831,12 +831,12 @@
     */
     if (window.personalizationManager) {
         window.personalizationManager.addPersonalizedContentLoaded(function () {
-            Initialization();
+            new Initialization();
         });
     }
     else {
         $(function () {
-            Initialization();
+            new Initialization();
         });
     }
 

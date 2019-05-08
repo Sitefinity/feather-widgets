@@ -6,6 +6,7 @@
 @using Telerik.Sitefinity.Modules.Libraries;
 @using Telerik.Sitefinity.Libraries.Model;
 @using Telerik.Sitefinity.Services;
+@using Telerik.Sitefinity.Web
 
 @if (!SystemManager.IsDesignMode)
 {
@@ -153,11 +154,11 @@
 		}
 	}
    
-    <input type="hidden" data-sf-role="searchResOrderBy" value='@Request.QueryString["orderBy"]' />
-    <input type="hidden" data-sf-role="searchResLanguage" value='@Request.QueryString["language"]' />
-    <input type="hidden" data-sf-role="searchResIndexCatalogue" value='@Request.QueryString["indexCatalogue"]' />
-    <input type="hidden" data-sf-role="searchResQuery" value='@Request.QueryString["searchQuery"]' />
-    <input type="hidden" data-sf-role="searchResWordsMode" value='@Request.QueryString["wordsMode"]' />
+    <input type="hidden" data-sf-role="searchResOrderBy" value='@Request.QueryStringGet("orderBy")' />
+    <input type="hidden" data-sf-role="searchResLanguage" value='@Request.QueryStringGet("language")' />
+    <input type="hidden" data-sf-role="searchResIndexCatalogue" value='@Request.QueryStringGet("indexCatalogue")' />
+    <input type="hidden" data-sf-role="searchResQuery" value='@Request.QueryStringGet("searchQuery")' />
+    <input type="hidden" data-sf-role="searchResWordsMode" value='@Request.QueryStringGet("wordsMode")' />
 
 </div>
 

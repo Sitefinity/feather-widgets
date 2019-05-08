@@ -17,11 +17,10 @@
 }
 
 <div class="@Model.CssClass">
-
     @if (isAuthenticated)
     {
         <img src="@(((SitefinityProfileItemViewModel)Model.Item).AvatarImageUrl)" alt="@Model.Item.Fields.FirstName" width="100" height="100" />
-        <h3>@((Model.Item.DataItem as SitefinityProfile).GetUserDisplayName())</h3>
+        <h3>@Html.HtmlSanitize((Model.Item.DataItem as SitefinityProfile).GetUserDisplayName())</h3>
         <p>@((Model.Item.DataItem as SitefinityProfile).User.Email)</p>
         <p>@Html.HtmlSanitize((((SitefinityProfileItemViewModel)Model.Item).About))</p>
     }

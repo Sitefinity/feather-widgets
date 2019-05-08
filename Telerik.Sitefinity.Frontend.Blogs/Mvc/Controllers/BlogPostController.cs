@@ -212,6 +212,33 @@ namespace Telerik.Sitefinity.Frontend.Blogs.Mvc.Controllers
         }
 
         /// <summary>
+        /// Renders appropriate list view depending on the <see cref="ListTemplateName" />
+        /// </summary>
+        /// <param name="from">The start date from the date filter.</param>
+        /// <param name="to">The end date from the date filter.</param>
+        /// <param name="page">The page.</param>
+        /// <returns>
+        /// The <see cref="ActionResult" />.
+        /// </returns>
+        public ActionResult ListByDate(DateTime from, DateTime to, int? page)
+        {
+            int indexOfPrefix = this.HttpContext.Request.Url.AbsolutePath.IndexOf("/archive/");
+            string urlPath = this.HttpContext.Request.Url.AbsolutePath.Substring(indexOfPrefix);
+
+            this.InitializeListViewBag(urlPath + "?page={0}");
+
+            var viewModel = this.Model.CreateListViewModelByDate(from, to, page ?? 1);
+
+            if (SystemManager.CurrentHttpContext != null)
+            {
+                this.AddCacheDependencies(this.Model.GetKeysOfDependentObjects(viewModel));
+            }
+
+            var fullTemplateName = this.listTemplateNamePrefix + this.ListTemplateName;
+            return this.View(fullTemplateName, viewModel);
+        }
+
+        /// <summary>
         /// Renders appropriate list view depending on the <see cref="DetailTemplateName"/>
         /// </summary>
         /// <param name="item">The item which details will be displayed.</param>

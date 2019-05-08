@@ -13,6 +13,7 @@ using Telerik.Sitefinity.Security.Claims;
 using Telerik.Sitefinity.Security.Configuration;
 using Telerik.Sitefinity.Security.Model;
 using Telerik.Sitefinity.Web;
+using Config = Telerik.Sitefinity.Configuration.Config;
 using SecConfig = Telerik.Sitefinity.Security.Configuration;
 
 namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.LoginForm

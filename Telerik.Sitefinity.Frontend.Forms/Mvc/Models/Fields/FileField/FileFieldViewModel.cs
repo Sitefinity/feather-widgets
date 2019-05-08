@@ -1,5 +1,4 @@
 ﻿using System.Runtime.Serialization;
-using System.Web.Mvc;
 using Newtonsoft.Json;
 using Telerik.Sitefinity.Metadata.Model;
 
@@ -106,5 +105,13 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Models.Fields.FileField
         {
             return JsonConvert.SerializeObject(this);
         }
+
+        /// <summary>
+        /// Gets or sets the form field visiblity.
+        /// </summary>
+        /// <value>
+        /// The meta field.
+        /// </value>
+        public bool Hidden { get; set; }
     }
 }

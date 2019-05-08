@@ -134,7 +134,20 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Controllers
             }
             else
             {
-                return this.Json(new { success = true, error = string.Empty });
+                var redirectPageUrl = string.Empty;
+                if (this.Model.NeedsRedirect)
+                {
+                    redirectPageUrl = this.Model.GetRedirectPageUrl();
+                }
+
+                if (string.IsNullOrWhiteSpace(redirectPageUrl))
+                {
+                    return this.Json(new { success = true, message = this.Model.GetSubmitMessage(result) });
+                }
+                else
+                {
+                    return this.Json(new { success = true, redirectUrl = redirectPageUrl });
+                }
             }
         }
 

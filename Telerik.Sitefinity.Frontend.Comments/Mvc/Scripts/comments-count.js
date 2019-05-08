@@ -203,12 +203,12 @@
     */
     if (window.personalizationManager) {
         window.personalizationManager.addPersonalizedContentLoaded(function () {
-            Initialization();
+            new Initialization();
         });
     }
     else {
         $(function () {
-            Initialization();
+            new Initialization();
         });
     }
 

@@ -57,7 +57,7 @@
                 @Html.ActionLink(Html.Resource("ForgottenPasword"), "ForgotPassword")
             }
 
-            <div><input type="submit" value='@Html.Resource("LoginFormLogInButton")' /></div>
+            <div><input type="submit" value='@Html.Resource("LoginFormLogInButton")' @(SystemManager.IsDesignMode ? "disabled" : "") /></div>
 
             if (Model.ExternalProviders != null && Model.ExternalProviders.Count() > 0)
             {

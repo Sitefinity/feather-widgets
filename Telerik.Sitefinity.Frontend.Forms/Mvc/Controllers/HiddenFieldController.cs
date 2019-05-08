@@ -18,7 +18,7 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Controllers
     [FormControlDisplayMode(FormControlDisplayMode.Write)]
     [DatabaseMapping(UserFriendlyDataType.ShortText)]
     [Localization(typeof(FieldResources))]
-    public class HiddenFieldController : FormFieldControllerBase<IHiddenFieldModel>
+    public class HiddenFieldController : FormFieldControllerBase<IHiddenFieldModel>, IHiddenFormField
     {
         public HiddenFieldController()
         {

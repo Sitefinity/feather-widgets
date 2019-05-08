@@ -75,5 +75,13 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Models.Fields.CheckboxesField
         /// The CSS class.
         /// </value>
         public string CssClass { get; set; }
+
+        /// <summary>
+        /// Gets or sets the form field visiblity.
+        /// </summary>
+        /// <value>
+        /// The meta field.
+        /// </value>
+        public bool Hidden { get; set; }
     }
 }

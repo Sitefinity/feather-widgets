@@ -19,18 +19,13 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Models.Fields.TextField
     public class TextFieldModel : FormFieldModel, ITextFieldModel
     {
         /// <inheritDocs />
-        public string PlaceholderText
-        {
-            get;
-            set;
-        }
+        public string PlaceholderText { get; set; }
 
         /// <inheritDocs />
-        public TextType InputType
-        {
-            get;
-            set;
-        }
+        public TextType InputType { get; set; }
+
+        /// <inheritDocs />
+        public bool Hidden { get; set; }
 
         /// <summary>
         /// Gets or sets a validation mechanism for the field.
@@ -102,12 +97,12 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Models.Fields.TextField
             get
             {
                 var dictionary = new Dictionary<string, string>();
-                dictionary.Add(TextType.Email.ToString(), Telerik.Sitefinity.Web.UI.Validation.Validator.EmailAddressRegexPattern);
-                dictionary.Add(TextType.Color.ToString(), Telerik.Sitefinity.Web.UI.Validation.Validator.ColorRegexPattern);
-                dictionary.Add(TextType.Number.ToString(), Telerik.Sitefinity.Web.UI.Validation.Validator.NumericRegexPattern);
-                dictionary.Add(TextType.Range.ToString(), Telerik.Sitefinity.Web.UI.Validation.Validator.NumericRegexPattern);
-                dictionary.Add(TextType.Url.ToString(), Telerik.Sitefinity.Web.UI.Validation.Validator.InternetUrlRegexPattern);
-                dictionary.Add(TextType.Tel.ToString(), Telerik.Sitefinity.Web.UI.Validation.Validator.TelRegexPattern);
+                dictionary.Add(TextType.Email.ToString(), Validator.EmailAddressRegexPattern);
+                dictionary.Add(TextType.Color.ToString(), Validator.ColorRegexPattern);
+                dictionary.Add(TextType.Number.ToString(), Validator.NumericRegexPattern);
+                dictionary.Add(TextType.Range.ToString(), Validator.NumericRegexPattern);
+                dictionary.Add(TextType.Url.ToString(), Validator.InternetUrlRegexPattern);
+                dictionary.Add(TextType.Tel.ToString(), Validator.TelRegexPattern);
 
                 return dictionary;
             }
@@ -125,7 +120,8 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Models.Fields.TextField
                 CssClass = this.CssClass,
                 ValidatorDefinition = this.ValidatorDefinition,
                 PlaceholderText = this.PlaceholderText,
-                InputType = this.InputType
+                InputType = this.InputType,
+                Hidden = this.Hidden && (!Sitefinity.Services.SystemManager.IsDesignMode || Sitefinity.Services.SystemManager.IsPreviewMode)
             };
 
             return viewModel;
@@ -137,7 +133,7 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Models.Fields.TextField
             var attributes = new StringBuilder();
 
             if (this.ValidatorDefinition.Required.HasValue && this.ValidatorDefinition.Required.Value)
-                attributes.Append(@"required=""required"" ");
+                    attributes.Append(@"required=""required"" ");
 
             var minMaxLength = string.Empty;
             if (this.ValidatorDefinition.MaxLength > 0)

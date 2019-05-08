@@ -33,7 +33,7 @@ namespace Telerik.Sitefinity.Frontend.DynamicContent.Mvc.Controllers
     /// </summary>
     [Localization(typeof(DynamicContentResources))]
     [ControllerMetadataAttribute(IsTemplatableControl = false)]
-    public class DynamicContentController : ContentBaseController, IRouteMapper, IContentLocatableView, IDynamicContentWidget, IPersonalizable
+    public class DynamicContentController : ContentBaseController, IRouteMapper, IContentLocatableView, IDynamicContentWidget, IPersonalizable, ICanFilterByParent
     {
         #region Properties
 
@@ -237,6 +237,33 @@ namespace Telerik.Sitefinity.Frontend.DynamicContent.Mvc.Controllers
         }
 
         /// <summary>
+        /// Renders appropriate list view depending on the <see cref="ListTemplateName" />
+        /// </summary>
+        /// <param name="from">The start date from the date filter.</param>
+        /// <param name="to">The end date from the date filter.</param>
+        /// <param name="page">The page.</param>
+        /// <returns>
+        /// The <see cref="ActionResult" />.
+        /// </returns>
+        public ActionResult ListByDate(DateTime from, DateTime to, int? page)
+        {
+            int indexOfPrefix = this.HttpContext.Request.Url.AbsolutePath.IndexOf("/archive/");
+            string urlPath = this.HttpContext.Request.Url.AbsolutePath.Substring(indexOfPrefix);
+
+            this.InitializeListViewBag(urlPath + "?page={0}");
+
+            var viewModel = this.Model.CreateListViewModelByDate(from, to, page ?? 1);
+
+            if (SystemManager.CurrentHttpContext != null)
+            {
+                this.AddCacheDependencies(this.Model.GetKeysOfDependentObjects(viewModel));
+            }
+
+            var fullTemplateName = this.listTemplateNamePrefix + this.ListTemplateName;
+            return this.View(fullTemplateName, viewModel);
+        }
+
+        /// <summary>
         /// Displays related items of the specified item.
         /// </summary>
         /// <param name="relatedItem">The related item.</param>
@@ -346,36 +373,7 @@ namespace Telerik.Sitefinity.Frontend.DynamicContent.Mvc.Controllers
             if (urlParams.Length == 0)
                 return false;
 
-            var manager = DynamicModuleManager.GetManager(this.Model.ProviderName);
-
-            if (this.Model.ParentFilterMode == ParentFilterMode.CurrentlyOpen && !this.Model.CurrentlyOpenParentType.IsNullOrEmpty())
-            {
-                if (this.Model.CurrentlyOpenParentType != DynamicContentController.AnyParentValue)
-                {
-                    var parentType = TypeResolutionService.ResolveType(this.Model.CurrentlyOpenParentType, throwOnError: false);
-                    if (parentType == null)
-                        return false;
-
-                    return this.TryMapSuccessorsRouteData(urlParams, requestContext, manager, parentType);
-                }
-                else
-                {
-                    var dynamicType = this.GetDynamicContentType();
-                    var currentParentType = dynamicType != null ? dynamicType.ParentModuleType : null;
-
-                    bool isParentResolved = false;
-                    while (currentParentType != null && isParentResolved == false)
-                    {
-                        var parentType = TypeResolutionService.ResolveType(currentParentType.GetFullTypeName(), throwOnError: false);
-                        if (parentType != null)
-                            isParentResolved = this.TryMapSuccessorsRouteData(urlParams, requestContext, manager, parentType);
-
-                        currentParentType = currentParentType.ParentModuleType;
-                    }
-
-                    return isParentResolved;
-                }
-            }
+            var manager = this.GetManagerInstance(this.Model.ProviderName, this.GetDynamicContentType().GetFullTypeName());
 
             if (!this.Model.RelatedItemType.IsNullOrEmpty() && !this.Model.RelatedFieldName.IsNullOrEmpty())
             {
@@ -383,6 +381,41 @@ namespace Telerik.Sitefinity.Frontend.DynamicContent.Mvc.Controllers
             }
 
             return false;
+        }
+
+        /// <inheritdoc />
+        [NonAction]
+        public IEnumerable<Type> GetParentTypes()
+        {
+            var parentContentTypes = new List<Type>();
+            if (this.Model.ParentFilterMode == ParentFilterMode.CurrentlyOpen && !this.Model.CurrentlyOpenParentType.IsNullOrEmpty())
+            {
+                if (this.Model.CurrentlyOpenParentType != DynamicContentController.AnyParentValue)
+                {
+                    var parentType = TypeResolutionService.ResolveType(this.Model.CurrentlyOpenParentType, throwOnError: false);
+                    if (parentType != null)
+                    {
+                        parentContentTypes.Add(parentType);
+                    }
+                }
+                else
+                {
+                    var dynamicContentType = this.GetDynamicContentType();
+                    var currentParentType = dynamicContentType != null ? dynamicContentType.ParentModuleType : null;
+                    while (currentParentType != null)
+                    {
+                        var contentType = TypeResolutionService.ResolveType(currentParentType.GetFullTypeName(), throwOnError: false);
+                        if (contentType != null)
+                        {
+                            parentContentTypes.Add(contentType);
+                        }
+
+                        currentParentType = currentParentType.ParentModuleType;
+                    }
+                }
+            }
+
+            return parentContentTypes;
         }
 
         #endregion
@@ -439,6 +472,21 @@ namespace Telerik.Sitefinity.Frontend.DynamicContent.Mvc.Controllers
             return ControllerModelFactory.GetModel<IDynamicContentModel>(this.GetType());
         }
 
+        private DynamicModuleManager GetManagerInstance(string providerName, string contentTypeFullName)
+        {
+            if (providerName == null)
+            {
+                var dynamicType = ModuleBuilderManager.GetActiveTypes().FirstOrDefault(t => t.FullTypeName == contentTypeFullName);
+
+                if (dynamicType != null)
+                    providerName = DynamicModuleManager.GetDefaultProviderName(dynamicType.ModuleName);
+            }
+
+            var manager = DynamicModuleManager.GetManager(providerName);
+
+            return manager;
+        }
+
         /// <summary>
         /// Gets the display name of the <see cref="DynamicModuleType"/>
         /// </summary>
@@ -456,29 +504,6 @@ namespace Telerik.Sitefinity.Frontend.DynamicContent.Mvc.Controllers
                 return dynamicType.DisplayName;
 
             return null;
-        }
-
-        private bool TryMapSuccessorsRouteData(string[] urlParams, RequestContext requestContext, DynamicModuleManager manager, Type parentType)
-        {
-            string redirectUrl;
-            var item = manager.Provider.GetItemFromUrl(parentType, RouteHelper.GetUrlParameterString(urlParams), true, out redirectUrl);
-            if (item != null)
-            {
-                requestContext.RouteData.Values["action"] = "Successors";
-                requestContext.RouteData.Values["parentItem"] = item;
-
-                if (this.Request["page"] != null)
-                    requestContext.RouteData.Values["page"] = int.Parse(this.Request["page"]);
-
-                return true;
-            }
-
-            if (urlParams.Length > 1)
-            {
-                this.TryMapSuccessorsRouteData(urlParams.Take(urlParams.Length - 1).ToArray(), requestContext, manager, parentType);
-            }
-
-            return false;
         }
 
         private void InitializeListViewBag(string redirectPageUrl = null)

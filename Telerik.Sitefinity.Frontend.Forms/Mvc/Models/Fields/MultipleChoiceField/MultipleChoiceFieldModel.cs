@@ -21,6 +21,9 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Models.Fields.MultipleChoiceFiel
         public bool HasOtherChoice { get; set; }
 
         /// <inheritDocs />
+        public bool Hidden { get; set; }
+
+        /// <inheritDocs />
         public string SerializedChoices
         {
             get
@@ -88,7 +91,8 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Models.Fields.MultipleChoiceFiel
                 IsRequired = this.ValidatorDefinition.Required.HasValue ? this.ValidatorDefinition.Required.Value : false,
                 ValidationAttributes = this.BuildValidationAttributesString(),
                 RequiredViolationMessage = this.ValidatorDefinition.RequiredViolationMessage,
-                CssClass = this.CssClass
+                CssClass = this.CssClass,
+                Hidden = this.Hidden && (!Sitefinity.Services.SystemManager.IsDesignMode || Sitefinity.Services.SystemManager.IsPreviewMode)
             };
 
             return viewModel;

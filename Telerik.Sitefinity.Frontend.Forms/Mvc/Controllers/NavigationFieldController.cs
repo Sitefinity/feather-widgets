@@ -29,7 +29,7 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Controllers
     /// </summary>
     [Localization(typeof(FieldResources))]
     public class NavigationFieldController : FormElementControllerBase<INavigationFieldModel>,
-                                             IZoneEditorReloader
+                                             IZoneEditorReloader, IFormNavigation
     {
         public NavigationFieldController()
         {

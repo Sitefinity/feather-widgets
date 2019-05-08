@@ -147,6 +147,19 @@ namespace Telerik.Sitefinity.Frontend.Blogs.Mvc.Controllers
 
         #endregion
 
+        #region Overrides
+
+        /// <summary>
+        /// Called when a request matches this controller, but no method with the specified action name is found in the controller.
+        /// </summary>
+        /// <param name="actionName">The name of the attempted action.</param>
+        protected override void HandleUnknownAction(string actionName)
+        {
+            this.ActionInvoker.InvokeAction(this.ControllerContext, "Index");
+        }
+
+        #endregion
+
         #region Private Methods
 
         /// <summary>

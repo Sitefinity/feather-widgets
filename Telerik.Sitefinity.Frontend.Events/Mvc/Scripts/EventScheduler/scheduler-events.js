@@ -35,6 +35,7 @@
                 },
                 weekStartDay: $(element).attr('data-sf-weekstartday'),
                 widgetId: $(element).attr('data-sf-widget-id'),
+                currentPageId: $(element).attr('data-sf-current-page-id'),
                 isRtl: $(element).attr('data-sf-rtl')
             };
             // check if is Rtl
@@ -108,6 +109,7 @@
                                 filter.EventSchedulerViewMode = scheduler.view().options.name.replace("View", "");
                                 filter.UICulture = schedulerData.uiCulture;
                                 filter.Id = schedulerData.widgetId;
+                                filter.CurrentPageId = schedulerData.currentPageId;
                                 filter.sf_site = schedulerData.siteid;
                                 return filter;
                             }

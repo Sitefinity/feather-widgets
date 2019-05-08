@@ -197,13 +197,13 @@ namespace Telerik.Sitefinity.Frontend.Search.Mvc.Controllers
             var context = SystemManager.CurrentHttpContext;
             if (context != null)
             {
-                 string indexCatalogue = context.Request.QueryString["indexCatalogue"];
-                 if (!string.IsNullOrEmpty(indexCatalogue) &&
-                     indexCatalogue.Equals(currentCatalogue))
-                 {
-                     searchQuery = context.Request.QueryString["searchQuery"] ?? string.Empty;
-                     searchQuery = searchQuery.Trim();
-                 }
+                string indexCatalogue = context.Request.QueryStringGet("indexCatalogue");
+                if (!string.IsNullOrEmpty(indexCatalogue) &&
+                    indexCatalogue.Equals(currentCatalogue))
+                {
+                    searchQuery = context.Request.QueryStringGet("searchQuery") ?? string.Empty;
+                    searchQuery = searchQuery.Trim();
+                }
             }
 
             return searchQuery;

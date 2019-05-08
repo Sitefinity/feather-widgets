@@ -1,7 +1,9 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 using System.Web.Mvc;
+using Telerik.Sitefinity.Data;
 using Telerik.Sitefinity.Frontend.Comments.Mvc.Models;
 using Telerik.Sitefinity.Frontend.Comments.Mvc.StringResources;
 using Telerik.Sitefinity.Frontend.Mvc.Infrastructure.Controllers;
@@ -71,6 +73,7 @@ namespace Telerik.Sitefinity.Frontend.Comments.Mvc.Controllers
             if (commentsInputModel == null || !commentsInputModel.AllowComments.HasValue || commentsInputModel.AllowComments.Value)
             {
                 var model = this.Model.GetCommentsListViewModel(commentsInputModel, true);
+                this.AddCacheDependencies(this.GetKeysOfDependentObjects());
 
                 if (model != null)
                 {
@@ -99,6 +102,28 @@ namespace Telerik.Sitefinity.Frontend.Comments.Mvc.Controllers
             }
 
             return new EmptyResult();
+        }
+
+        #endregion
+
+        #region Private methods
+
+        /// <summary>
+        /// Gets a collection of <see cref="CacheDependencyNotifiedObject"/>.
+        ///     The <see cref="CacheDependencyNotifiedObject"/> represents a key for which cached items could be subscribed for
+        ///     notification.
+        ///     When notified, all cached objects with dependency on the provided keys will expire.
+        /// </summary>
+        /// <param name="viewModel">View model that will be used for displaying the data.</param>
+        /// <returns>
+        /// The <see cref="IList"/>.
+        /// </returns>
+        private IList<CacheDependencyKey> GetKeysOfDependentObjects()
+        {
+            var result = new List<CacheDependencyKey>(1);
+            result.Add(new CacheDependencyKey() { Type = typeof(Sitefinity.Services.Comments.IThread), Key = this.Model.ThreadKey });
+
+            return result;
         }
 
         #endregion

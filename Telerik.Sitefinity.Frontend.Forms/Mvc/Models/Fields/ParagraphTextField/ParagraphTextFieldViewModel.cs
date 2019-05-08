@@ -1,4 +1,5 @@
 ﻿using Telerik.Sitefinity.Metadata.Model;
+using Telerik.Sitefinity.Web.UI.Validation.Definitions;
 
 namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Models.Fields.ParagraphTextField
 {
@@ -62,5 +63,13 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Models.Fields.ParagraphTextField
         /// The CSS class.
         /// </value>
         public string CssClass { get; set; }
+
+        /// <summary>
+        /// Gets or sets the form field visiblity.
+        /// </summary>
+        /// <value>
+        /// The meta field.
+        /// </value>
+        public bool Hidden { get; set; }
     }
 }

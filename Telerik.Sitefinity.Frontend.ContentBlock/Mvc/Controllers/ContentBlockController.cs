@@ -19,6 +19,7 @@ using Telerik.Sitefinity.Services;
 using Telerik.Sitefinity.Utilities.TypeConverters;
 using Telerik.Sitefinity.Web;
 using Telerik.Sitefinity.Web.UI;
+using Telerik.Sitefinity.Web.UI.PublicControls.Attributes;
 
 namespace Telerik.Sitefinity.Frontend.ContentBlock.Mvc.Controllers
 {
@@ -151,6 +152,7 @@ namespace Telerik.Sitefinity.Frontend.ContentBlock.Mvc.Controllers
         /// <value>
         /// <c>true</c> if should exclude content from search index; otherwise, <c>false</c>.
         /// </value>
+        [WebDisplayName("ContentBlockResources", "ExcludeFromSearchIndex")]
         public bool ExcludeFromSearchIndex { get; set; }
 
         #endregion
@@ -190,6 +192,7 @@ namespace Telerik.Sitefinity.Frontend.ContentBlock.Mvc.Controllers
         /// <value>
         /// The CSS class.
         /// </value>
+        [WebDisplayName("ContentBlockResources", "WrapperCssClass")]
         public string WrapperCssClass { get; set; }
 
         /// <summary>

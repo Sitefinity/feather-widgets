@@ -16,7 +16,7 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Controllers
     [FormControlDisplayMode(FormControlDisplayMode.Write)]
     [Localization(typeof(FieldResources))]
     [IndexRenderMode(IndexRenderModes.NoOutput)]
-    public class SubmitButtonController : FormElementControllerBase<ISubmitButtonModel>
+    public class SubmitButtonController : FormElementControllerBase<ISubmitButtonModel>, ISubmitFormField
     {
         public SubmitButtonController()
         {

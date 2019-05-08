@@ -17,6 +17,7 @@ using Telerik.Sitefinity.Mvc;
 using Telerik.Sitefinity.Security;
 using Telerik.Sitefinity.Services;
 using Telerik.Sitefinity.Web;
+using Telerik.Sitefinity.Web.UI.ContentUI.Enums;
 
 namespace Telerik.Sitefinity.Frontend.Events.Mvc.Controllers
 {
@@ -149,7 +150,7 @@ namespace Telerik.Sitefinity.Frontend.Events.Mvc.Controllers
 
             var fullTemplateName = EventSchedulerController.ListTemplateNamePrefix + this.ListTemplateName;
 
-            if (this.ShouldReturnDetails(this.Model.ContentViewDisplayMode, viewModel))
+            if (this.Model.ContentViewDisplayMode == ContentViewDisplayMode.Detail)
                 return this.Details((Event)viewModel.Items.First().DataItem);
 
             return this.View(fullTemplateName, this.Model);
@@ -190,7 +191,7 @@ namespace Telerik.Sitefinity.Frontend.Events.Mvc.Controllers
 
             Guard.ArgumentNotNull(filter, "filter");
 
-            var eventSchedulerModel = EventSchedulerHelper.LoadModel(filter.Id, filter.UICulture);
+            var eventSchedulerModel = EventSchedulerHelper.LoadModel(filter.Id, filter.UICulture, filter.CurrentPageId);
             if (eventSchedulerModel != null)
             {
                 json.Data = eventSchedulerModel.GetEvents(filter);
@@ -215,7 +216,7 @@ namespace Telerik.Sitefinity.Frontend.Events.Mvc.Controllers
 
             Guard.ArgumentNotNull(filter, "filter");
 
-            var eventSchedulerModel = EventSchedulerHelper.LoadModel(filter.Id, filter.UICulture);
+            var eventSchedulerModel = EventSchedulerHelper.LoadModel(filter.Id, filter.UICulture, filter.CurrentPageId);
             if (eventSchedulerModel != null)
             {
                 json.Data = eventSchedulerModel.GetCalendars(filter);
@@ -253,7 +254,18 @@ namespace Telerik.Sitefinity.Frontend.Events.Mvc.Controllers
         {
             var timezoneInfo = UserManager.GetManager().GetUserTimeZone();
             this.ViewBag.IsRtl = EventSchedulerHelper.IsRtl();
-            this.ViewBag.WidgetId = EventSchedulerHelper.GetWidgetId(this);
+
+            if (this.HttpContext != null && this.HttpContext.Items.Contains("versionpreview") && this.HttpContext.Items["versionpreview"].ToString().ToLowerInvariant() == "true")
+            {
+                this.ViewBag.WidgetId = EventSchedulerHelper.GetWidgetId(this);
+            }
+            else
+            {
+                this.ViewBag.WidgetId = this.ViewData["controlDataId"];
+            }
+
+            this.ViewBag.CurrentPageId = this.GetPageId();
+
             this.ViewBag.DetailsPageId = this.DetailsPageId == Guid.Empty ? (SiteMapBase.GetActualCurrentNode() == null ? Guid.Empty : SiteMapBase.GetActualCurrentNode().Id) : this.DetailsPageId;
             this.ViewBag.UiCulture = SystemManager.CurrentContext.AppSettings.Multilingual ? CultureInfo.CurrentUICulture.ToString() : string.Empty;
             this.ViewBag.TimeZoneOffset = timezoneInfo.BaseUtcOffset.TotalMilliseconds.ToString();
@@ -270,6 +282,19 @@ namespace Telerik.Sitefinity.Frontend.Events.Mvc.Controllers
                 this.ViewBag.Title = item.Title;
 
             this.ViewBag.AllowCalendarExport = this.Model.AllowCalendarExport;
+        }
+
+        private Guid GetPageId()
+        {
+            var pageNode = SiteMapBase.GetCurrentNode();
+            if (pageNode == null)
+                return Guid.Empty;
+
+            var pageId = SiteMapBase.GetCurrentNode().PageId;
+            var pageManager = Sitefinity.Modules.Pages.PageManager.GetManager();
+            var page = pageManager.GetPageData(pageId);
+
+            return page.Id;
         }
 
         private const string WidgetIconCssClass = "sfEventsViewIcn sfMvcIcn";

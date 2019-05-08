@@ -17,6 +17,9 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Models.Fields.ParagraphTextField
         public string PlaceholderText { get; set; }
 
         /// <inheritDocs />
+        public bool Hidden { get; set; }
+
+        /// <inheritDocs />
         [TypeConverter(typeof(ExpandableObjectConverter))]
         public override ValidatorDefinition ValidatorDefinition
         {
@@ -64,7 +67,8 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Models.Fields.ParagraphTextField
                 ValidationAttributes = this.BuildValidationAttributesString(),
                 RequiredViolationMessage = this.ValidatorDefinition.RequiredViolationMessage,
                 MaxLengthViolationMessage = this.ValidatorDefinition.MaxLengthViolationMessage,
-                CssClass = this.CssClass
+                CssClass = this.CssClass,
+                Hidden = this.Hidden && (!Sitefinity.Services.SystemManager.IsDesignMode || Sitefinity.Services.SystemManager.IsPreviewMode)
             };
 
             return viewModel;

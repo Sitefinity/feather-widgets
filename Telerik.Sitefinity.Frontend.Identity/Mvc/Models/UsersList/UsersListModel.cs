@@ -8,7 +8,6 @@ using Telerik.Sitefinity.Model;
 using Telerik.Sitefinity.Security;
 using Telerik.Sitefinity.Security.Model;
 using Telerik.Sitefinity.Utilities.TypeConverters;
-using Telerik.Sitefinity.Versioning.Comparison;
 
 namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.UsersList
 {
@@ -91,6 +90,7 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.UsersList
                 this.providerName = this.providerName ?? UserProfileManager.GetDefaultProviderName();
                 return this.providerName;
             }
+
             set
             {
                 this.providerName = value;
@@ -188,6 +188,7 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.UsersList
             {
                 return this.serializedAdditionalFilters;
             }
+
             set
             {
                 if (this.serializedAdditionalFilters != value)
@@ -585,6 +586,5 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.UsersList
 
             public string ProviderName { get; set; }
         }
-
     }
 }

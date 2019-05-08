@@ -40,7 +40,7 @@
                 @Html.Resource("Email")
                 @Html.TextBoxFor(u => u.Email)
             </label>
-            <input type="submit" value="@Html.Resource("ButtonUnsubscribe")" />
+            <input type="submit" value="@Html.Resource("ButtonUnsubscribe")" @(SystemManager.IsDesignMode ? "disabled" : "") />
 
             @Html.ValidationMessageFor(u => u.Email)
 

@@ -218,7 +218,7 @@ namespace Telerik.Sitefinity.Frontend.Media.Mvc.Controllers
         {
             this.InitializeMetadataDetailsViewBag(item);
 
-            var itemIndex = this.ParseToNullableInt32(this.Request.QueryString["itemIndex"]);
+            var itemIndex = this.ParseToNullableInt32(this.Request.QueryStringGet("itemIndex"));
 
             if (item != null)
                 this.ViewBag.Title = item.Title;

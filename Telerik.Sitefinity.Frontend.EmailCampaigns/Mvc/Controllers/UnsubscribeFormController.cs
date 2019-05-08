@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.UI;
+using Telerik.Sitefinity.Abstractions;
 using Telerik.Sitefinity.Frontend.EmailCampaigns.Mvc.Helpers;
 using Telerik.Sitefinity.Frontend.EmailCampaigns.Mvc.Models;
 using Telerik.Sitefinity.Frontend.EmailCampaigns.Mvc.Models.UnsubscribeForm;
@@ -16,7 +17,9 @@ using Telerik.Sitefinity.Localization;
 using Telerik.Sitefinity.Modules.Newsletters;
 using Telerik.Sitefinity.Modules.Pages.Configuration;
 using Telerik.Sitefinity.Mvc;
+using Telerik.Sitefinity.Security;
 using Telerik.Sitefinity.Services;
+using Telerik.Sitefinity.Web;
 
 namespace Telerik.Sitefinity.Frontend.EmailCampaigns.Mvc.Controllers
 {
@@ -155,12 +158,12 @@ namespace Telerik.Sitefinity.Frontend.EmailCampaigns.Mvc.Controllers
 
             if (!SystemManager.IsDesignMode && this.Model.UnsubscribeMode == UnsubscribeMode.Link)
             {
-                string subscriberId = page.Request.QueryString["subscriberId"];
-                string issueId = page.Request.QueryString["issueId"];
-                string listId = page.Request.QueryString["listId"];
+                string subscriberId = page.Request.QueryStringGet("subscriberId");
+                string issueId = page.Request.QueryStringGet("issueId");
+                string listId = page.Request.QueryStringGet("listId");
 
                 bool isSubscribe = false;
-                bool.TryParse(page.Request.QueryString["subscribe"], out isSubscribe);
+                bool.TryParse(page.Request.QueryStringGet("subscribe"), out isSubscribe);
 
                 this.Model.ExecuteAction(subscriberId, issueId, listId, isSubscribe);
 
@@ -194,7 +197,9 @@ namespace Telerik.Sitefinity.Frontend.EmailCampaigns.Mvc.Controllers
 
                 if (isSucceeded)
                 {
-                    if (this.Model.SuccessfullySubmittedForm == SuccessfullySubmittedForm.OpenSpecificPage && !string.IsNullOrEmpty(viewModel.RedirectPageUrl))
+                    var redirectUrl = viewModel.RedirectPageUrl;
+                    var validator = ObjectFactory.Resolve<IRedirectUriValidator>();
+                    if (this.Model.SuccessfullySubmittedForm == SuccessfullySubmittedForm.OpenSpecificPage && !string.IsNullOrEmpty(viewModel.RedirectPageUrl) && validator.IsValid(redirectUrl))
                     {
                         return this.Redirect(viewModel.RedirectPageUrl);
                     }

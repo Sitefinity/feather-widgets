@@ -1,5 +1,5 @@
 ﻿using System.ComponentModel;
-using Telerik.Sitefinity.Metadata.Model;
+using Telerik.Sitefinity.Modules.Forms.Web.UI;
 using Telerik.Sitefinity.Web.UI.Validation.Definitions;
 
 namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Models.Fields.ParagraphTextField
@@ -7,7 +7,7 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Models.Fields.ParagraphTextField
     /// <summary>
     /// This interface provides API for form paragraph text fields.
     /// </summary>
-    public interface IParagraphTextFieldModel : IFormFieldModel
+    public interface IParagraphTextFieldModel : IFormFieldModel, IHideable
     {
         /// <summary>
         /// Gets or sets the placeholder text.

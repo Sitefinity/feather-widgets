@@ -16,7 +16,7 @@
     Html.Raw(String.Format("<div class=\"{0}\">", HttpUtility.HtmlAttributeEncode(Model.CssClass))) :
     Html.Raw("<div>"))
     <input type="text" title="@Html.Resource("SearchInput")" placeholder="@Model.BackgroundHint" id="@(searchTextBoxId.ToString())" value="@(ViewBag.SearchQuery)"/>
-    <button type="button" id="@(searchButtonId.ToString())">@Html.Resource("SearchLabel")</button>
+    <button type="button" id="@(searchButtonId.ToString())" @(SystemManager.IsDesignMode ? "disabled" : "")>@Html.Resource("SearchLabel")</button>
 
     <input type="hidden" data-sf-role="resultsUrl" value="@(Model.ResultsUrl)" />
     <input type="hidden" data-sf-role="indexCatalogue" value="@(Model.IndexCatalogue)" />

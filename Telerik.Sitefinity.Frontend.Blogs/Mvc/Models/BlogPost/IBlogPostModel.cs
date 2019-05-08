@@ -174,6 +174,15 @@ namespace Telerik.Sitefinity.Frontend.Blogs.Mvc.Models.BlogPost
         ContentListViewModel CreateListViewModelByParent(SfBlog parentItem, int page);
 
         /// <summary>
+        /// Creates the ListView model by date filter.
+        /// </summary>
+        /// <param name="from">The start date from the date filter.</param>
+        /// <param name="to">The end date from the date filter.</param>
+        /// <param name="page">The page.</param>
+        /// <returns>A list view model containing all descendant items from the given parent.</returns>
+        ContentListViewModel CreateListViewModelByDate(DateTime from, DateTime to, int page);
+
+        /// <summary>
         /// Gets a collection of <see cref="CacheDependencyNotifiedObject"/>.
         ///     The <see cref="CacheDependencyNotifiedObject"/> represents a key for which cached items could be subscribed for
         ///     notification.

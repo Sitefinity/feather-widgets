@@ -22,7 +22,7 @@
                 var valueText = stepOfResource.replace("{0}", currentPage).replace("{1}", totalPages) + ": " + pageTitle;
                 srProgressbar.attr("aria-valuenow", currentPage);
                 srProgressbar.attr("aria-valueText", valueText);
-            }
+            };
 
             var updateNavigationFields = function (navigationElements, index) {
 
@@ -46,10 +46,11 @@
                         pages.each(function (i, page) {
                             var pageIndex = parseInt($(page).data("sfNavigationIndex"));
                             var pageTitleWrp = $(page).find('[data-sf-page-title]');
+                            var pageTitle = "";
 
                             // TODO: Accessibility is implemented
                             if (pageTitleWrp.length > 0) {
-                                var pageTitle = $(pageTitleWrp).data("sfPageTitle");
+                                pageTitle = $(pageTitleWrp).data("sfPageTitle");
                             }
 
                             if (pageIndex !== index) {

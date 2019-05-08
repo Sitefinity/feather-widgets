@@ -1452,5 +1452,20 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.StringResources
                 return this["EnableAudioCode"];
             }
         }
+
+        /// <summary>
+        /// Gets phrase: Hidden field
+        /// </summary>
+        [ResourceEntry("HiddenField",
+            Value = "Hidden field",
+            Description = "phrase: Hidden field",
+            LastModified = "2019/01/10")]
+        public string HiddenField
+        {
+            get
+            {
+                return this["HiddenField"];
+            }
+        }
     }
 }

@@ -16,7 +16,6 @@ using Telerik.Sitefinity.Modules.Pages.Configuration;
 using Telerik.Sitefinity.Mvc.Proxy;
 using Telerik.Sitefinity.Services;
 using Telerik.Sitefinity.Web.UI;
-using Telerik.Sitefinity.Web.UI.ContentUI;
 using Telerik.Sitefinity.Web.UI.ContentUI.Views.Backend.Detail;
 
 namespace Telerik.Sitefinity.Frontend.Forms
@@ -61,6 +60,8 @@ namespace Telerik.Sitefinity.Frontend.Forms
 
                 Initializer.UnregisterTemplatableControl();
                 Initializer.AddFieldsToToolbox();
+
+                ObjectFactory.Container.RegisterType<IFormRulesDecorator, FormRulesDecorator>();
             }
         }
 
@@ -161,7 +162,7 @@ namespace Telerik.Sitefinity.Frontend.Forms
             return section;
         }
 
-        class ToolboxItemInfo
+        internal class ToolboxItemInfo
         {
             public ToolboxItemInfo(string title, string controllerType, string cssClass)
             {
@@ -170,9 +171,23 @@ namespace Telerik.Sitefinity.Frontend.Forms
                 this.CssClass = cssClass;
             }
 
-            public string Title { get; private set; }
-            public string ControllerType { get; private set; }
-            public string CssClass { get; private set; }
+            public string Title
+            {
+                get;
+                private set;
+            }
+
+            public string ControllerType
+            {
+                get;
+                private set;
+            }
+
+            public string CssClass
+            {
+                get;
+                private set;
+            }
         }
 
         #endregion

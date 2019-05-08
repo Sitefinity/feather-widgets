@@ -1,4 +1,4 @@
-
+﻿
 
 This project has been released under the Apache License, version 2.0, the text of which is included below. This license applies ONLY to the source of this repository and does not extend to any other Sitefinity distribution or variant, or any other 3rd party libraries used in a repository. For licensing information about Sitefinity, see https://www.progress.com/legal/license-agreements/sitefinity/license-agreement.
 

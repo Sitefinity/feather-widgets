@@ -36,6 +36,14 @@ namespace Telerik.Sitefinity.Frontend.Events.Mvc.Models.EventScheduler
         }
 
         /// <summary>
+        /// Gets or sets the current page identifier.
+        /// </summary>
+        /// <value>
+        /// The current page identifier.
+        /// </value>
+        public Guid CurrentPageId { get; set; }
+
+        /// <summary>
         /// Gets or sets the start date.
         /// </summary>
         /// <returns>The start date</returns>

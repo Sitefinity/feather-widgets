@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.ComponentModel;
+using Telerik.Sitefinity.Modules.Forms.Web.UI;
 using Telerik.Sitefinity.Web.UI.Validation.Definitions;
 
 namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Models.Fields.MultipleChoiceField
@@ -7,7 +8,7 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Models.Fields.MultipleChoiceFiel
     /// <summary>
     /// This interface provides API for form multiple choice fields.
     /// </summary>
-    public interface IMultipleChoiceFieldModel : IFormFieldModel
+    public interface IMultipleChoiceFieldModel : IFormFieldModel, IHideable
     {
         /// <summary>
         /// Gets or sets the serialized choices.
