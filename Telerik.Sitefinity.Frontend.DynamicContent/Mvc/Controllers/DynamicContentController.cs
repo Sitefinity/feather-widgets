@@ -150,7 +150,7 @@ namespace Telerik.Sitefinity.Frontend.DynamicContent.Mvc.Controllers
         /// <returns>
         /// The <see cref="ActionResult" />.
         /// </returns>
-        public ActionResult Index(int? page)
+        public virtual ActionResult Index(int? page)
         {
             if (this.Model.ParentFilterMode != ParentFilterMode.CurrentlyOpen || this.Model.ShowListViewOnEmpyParentFilter)
             {
