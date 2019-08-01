@@ -1,7 +1,7 @@
-﻿using ServiceStack.Text;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using ServiceStack.Text;
 using Telerik.Sitefinity.ContentLocations;
 using Telerik.Sitefinity.Data;
 using Telerik.Sitefinity.Frontend.Mvc.Models;
@@ -102,6 +102,32 @@ namespace Telerik.Sitefinity.Frontend.Lists.Mvc.Models
             return new[] { location };
         }
 
+        /// <summary>
+        /// Populates the list ViewModel.
+        /// </summary>
+        /// <param name="page">The current page.</param>
+        /// <param name="query">The query.</param>
+        /// <param name="viewModel">The view model.</param>
+        protected override void PopulateListViewModel(int page, IQueryable<IDataItem> query, ContentListViewModel viewModel)
+        {
+            if (viewModel == null)
+            {
+                throw new ArgumentNullException("Paremter viewModel cannot be null.");
+            }
+
+            int? totalPages = null;
+            if (string.IsNullOrEmpty(this.GetSelectedItemsFilterExpression()))
+            {
+                viewModel.Items = Enumerable.Empty<ItemViewModel>();
+            }
+            else
+            {
+                viewModel.Items = this.ApplyListSettings(page, query, out totalPages);
+            }
+
+            this.SetViewModelProperties(viewModel, page, totalPages);
+        }
+
         /// <inheritdoc />
         public override ContentListViewModel CreateListViewModel(ITaxon taxonFilter, int page)
         {
@@ -113,6 +139,7 @@ namespace Telerik.Sitefinity.Frontend.Lists.Mvc.Models
                 return this.CreateListViewModelInstance();
 
             var viewModel = this.CreateListViewModelInstance();
+            viewModel.UrlKeyPrefix = this.UrlKeyPrefix;
             this.PopulateListViewModel(page, query, viewModel);
 
             foreach (var listModel in viewModel.Items.Cast<ListViewModel>())
@@ -125,8 +152,11 @@ namespace Telerik.Sitefinity.Frontend.Lists.Mvc.Models
 
                     // We need only filter list items.
                     SelectionMode = SelectionMode.FilteredItems,
+                    SelectionGroupLogicalOperator = this.SelectionGroupLogicalOperator,
                     ProviderName = this.ProviderName,
-                    ItemsPerPage = null
+                    ItemsPerPage = null,
+
+                    UrlKeyPrefix = this.UrlKeyPrefix
                 };
 
                 listModel.ListItemViewModel = listItemModel.CreateListViewModel(taxonFilter, page);
@@ -142,9 +172,30 @@ namespace Telerik.Sitefinity.Frontend.Lists.Mvc.Models
 
             var listItemModel = new ListItemModel((ListViewModel)viewModel.Item);
 
-            ((ListViewModel)(viewModel.Item)).ListItemViewModel = listItemModel.CreateListViewModel(null, 1);
+            ((ListViewModel)viewModel.Item).ListItemViewModel = listItemModel.CreateListViewModel(null, 1);
 
             return viewModel;
+        }
+
+        /// <summary>
+        /// Gets a collection of <see cref="CacheDependencyNotifiedObject"/>.
+        ///     The <see cref="CacheDependencyNotifiedObject"/> represents a key for which cached items could be subscribed for
+        ///     notification.
+        ///     When notified, all cached objects with dependency on the provided keys will expire.
+        /// </summary>
+        /// <param name="viewModel">View model that will be used for displaying the data.</param>
+        /// <returns>
+        /// The <see cref="IList"/>.
+        /// </returns>
+        public override IList<CacheDependencyKey> GetKeysOfDependentObjects(ContentListViewModel viewModel)
+        {
+            var result = base.GetKeysOfDependentObjects(viewModel);
+            var manager = this.GetManager();
+            string applicationName = manager != null && manager.Provider != null ? manager.Provider.ApplicationName : string.Empty;
+
+            result.Add(new CacheDependencyKey { Key = string.Concat(ContentLifecycleStatus.Live.ToString(), applicationName), Type = typeof(ListItem) });
+
+            return result;
         }
 
         /// <inheritdoc />
@@ -208,6 +259,11 @@ namespace Telerik.Sitefinity.Frontend.Lists.Mvc.Models
             var selectedItemsFilterExpression = string.Join(" OR ", selectedItemConditions);
 
             return selectedItemsFilterExpression;
+        }
+
+        protected override string GetSelectedItemsFilterExpression()
+        {
+            return this.GetSelectedItemsFilterExpression(ListItemFilterExpression);
         }
 
         /// <inheritdoc />

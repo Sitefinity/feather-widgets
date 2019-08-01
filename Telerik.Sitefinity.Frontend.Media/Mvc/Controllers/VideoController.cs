@@ -20,7 +20,14 @@ namespace Telerik.Sitefinity.Frontend.Media.Mvc.Controllers
     /// This class represents the controller of the Video widget.
     /// </summary>
     [Localization(typeof(VideoResources))]
-    [ControllerToolboxItem(Name = "Video_MVC", Title = "Video", SectionName = ToolboxesConfig.ContentToolboxSectionName, ModuleName = "Libraries", CssClass = VideoController.WidgetIconCssClass)]
+    [ControllerToolboxItem(
+        Name = VideoController.WidgetName, 
+        Title = nameof(VideoResources.MediaPlayerControlTitle), 
+        Description = nameof(VideoResources.MediaPlayerControlDescription),
+        ResourceClassId = nameof(VideoResources),
+        SectionName = ToolboxesConfig.ContentToolboxSectionName,
+        ModuleName = "Libraries", 
+        CssClass = VideoController.WidgetIconCssClass)]
     public class VideoController : Controller, ICustomWidgetVisualizationExtended, IContentLocatableView
     {
         #region Properties
@@ -84,7 +91,7 @@ namespace Telerik.Sitefinity.Frontend.Media.Mvc.Controllers
         {
             get
             {
-                return (this.Model.Id == Guid.Empty);
+                return this.Model.Id == Guid.Empty;
             }
         }
 
@@ -200,7 +207,7 @@ namespace Telerik.Sitefinity.Frontend.Media.Mvc.Controllers
         private const string WidgetIconCssClass = "sfVideoIcn sfMvcIcn";
         private string templateName = "Default";
         private const string TemplatePrefix = "Video.";
-        
+        private const string WidgetName = "Video_MVC";
         #endregion
     }
 }

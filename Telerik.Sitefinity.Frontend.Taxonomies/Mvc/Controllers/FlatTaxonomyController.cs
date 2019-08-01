@@ -15,8 +15,11 @@ namespace Telerik.Sitefinity.Frontend.Taxonomies.Mvc.Controllers
     /// <summary>
     /// This class represents the controller of the Flat taxonomy widget.
     /// </summary>
-    [ControllerToolboxItem(Name = "Tags_MVC",
-        Title = "Tags",
+    [ControllerToolboxItem(
+        Name = FlatTaxonomyController.WidgetName,
+        Title = nameof(FlatTaxonomyResources.FlatTaxonomyTitle),
+        Description = nameof(FlatTaxonomyResources.FlatTaxonomyDescription),
+        ResourceClassId = nameof(FlatTaxonomyResources),
         SectionName = "Classifications",
         CssClass = FlatTaxonomyController.WidgetIconCssClass)]
     [Localization(typeof(FlatTaxonomyResources))]
@@ -100,6 +103,7 @@ namespace Telerik.Sitefinity.Frontend.Taxonomies.Mvc.Controllers
         private IFlatTaxonomyModel model;
         private string templateName = "SimpleList";
         private readonly string templateNamePrefix = "FlatTaxonomy.";
+        private const string WidgetName = "Tags_MVC";
         #endregion
     }
 }

@@ -7,6 +7,8 @@
         $scope.initialized = false;
         $scope.feedback.showLoadingIndicator = true;
         $scope.thumbnailSizeTempalteUrl = serverContext.getEmbeddedResourceUrl('Telerik.Sitefinity.Frontend', 'client-components/selectors/media/sf-thumbnail-size-selection.html');
+        $scope.mediaType = 'images';
+        $scope.viewType = 'Telerik.Sitefinity.Frontend.Media.Mvc.Controllers.ImageController';
 
         var onPostPropertiesInitialized = function () {
             $scope.$watch('properties.Id.PropertyValue', function (newVal, oldVal) {
@@ -14,7 +16,7 @@
                 if (newVal === serviceHelper.emptyGuid()) {
                     $scope.properties.Id.PropertyValue = undefined;
                 }
-                    // Cancel is selected with no image selected - close the designer
+                // Cancel is selected with no image selected - close the designer
                 else if (newVal === null) {
                     $scope.$parent.cancel();
                 }
@@ -41,7 +43,7 @@
             $scope.hasErrors = function () {
                 return !$scope.properties.Title || !$scope.properties.Title.PropertyValue;
             };
-        }
+        };
 
         var updateProperties = function () {
             var savingPromise;
@@ -84,7 +86,7 @@
             $scope.feedback.showError = true;
             if (err)
                 $scope.feedback.errorMessage = err;
-        }
+        };
 
         propertyService.get()
             .then(function (data) {

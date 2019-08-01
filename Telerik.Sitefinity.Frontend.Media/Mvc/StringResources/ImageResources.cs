@@ -203,5 +203,35 @@ namespace Telerik.Sitefinity.Frontend.Media.Mvc.StringResources
                 return this["ImageWasNotSelectedOrHasBeenDeleted"];
             }
         }
+
+        /// <summary>
+        /// Control name: Image
+        /// </summary>
+        [ResourceEntry("ImageControlTitle",
+            Value = "Image",
+            Description = "Control title: Image",
+            LastModified = "2019/06/03")]
+        public string ImageControlTitle
+        {
+            get
+            {
+                return this["ImageControlTitle"];
+            }
+        }
+
+        /// <summary>
+        /// Control description: A control for displaying uploded image with specified properties at properties dialog.
+        /// </summary>
+        [ResourceEntry("ImageControlDescription",
+            Value = "Image uploaded from your computer or selected from image libraries",
+            Description = "Control description: A control for displaying uploded image with specified properties at properties dialog.",
+            LastModified = "2019/06/03")]
+        public string ImageControlDescription
+        {
+            get
+            {
+                return this["ImageControlDescription"];
+            }
+        }
     }
 }

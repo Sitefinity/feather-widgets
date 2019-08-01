@@ -156,6 +156,69 @@ namespace Telerik.Sitefinity.Frontend.Media.Mvc.StringResources
                 return this["Template"];
             }
         }
+
+        /// <summary>
+        /// phrase: File extension
+        /// </summary>
+        /// <value>File extension</value>
+        [ResourceEntry("FileExtension",
+            Value = "File extension",
+            Description = "phrase: File extension",
+            LastModified = "2018/09/13")]
+        public string FileExtension
+        {
+            get
+            {
+                return this["FileExtension"];
+            }
+        }
+
+        /// <summary>
+        /// phrase: File size
+        /// </summary>
+        /// <value>File size</value>
+        [ResourceEntry("FileSize",
+            Value = "File size",
+            Description = "phrase: File size",
+            LastModified = "2018/09/13")]
+        public string FileSize
+        {
+            get
+            {
+                return this["FileSize"];
+            }
+        }
+
+        /// <summary>
+        /// Control name: Document link
+        /// </summary>
+        [ResourceEntry("DocumentLinkControlTitle",
+            Value = "Document link",
+            Description = "Control title: Document link",
+            LastModified = "2019/06/03")]
+        public string DocumentLinkControlTitle
+        {
+            get
+            {
+                return this["DocumentLinkControlTitle"];
+            }
+        }
+
+        /// <summary>
+        /// Control description: A control for displaying a link to download a document.
+        /// </summary>
+        [ResourceEntry("DocumentLinkControlDescription",
+            Value = "Link for downloading a selected document of other file",
+            Description = "Control description: A control for displaying a link to download a document.",
+            LastModified = "2019/06/03")]
+        public string DocumentLinkControlDescription
+        {
+            get
+            {
+                return this["DocumentLinkControlDescription"];
+            }
+        }
+
         #endregion
     }
 }

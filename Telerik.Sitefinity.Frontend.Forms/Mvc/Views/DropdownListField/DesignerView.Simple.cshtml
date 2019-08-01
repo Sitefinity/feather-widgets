@@ -3,7 +3,6 @@
 @using Telerik.Sitefinity.Mvc;
 
 <div>
-
     <div class="form-group">
         <label for="title" class="full-width">
             @Html.Resource("LabelQuestion")
@@ -14,60 +13,63 @@
             </div>
         </div>
     </div>
-
     <div class="form-group">
         <label class="full-width">@Html.Resource("Choices")</label>
-                
+
         <div class="list-group list-group-endless" kendo-sortable k-options="sortableOptions" k-on-change="sortItems(kendoEvent)">
-            <div ng-repeat="item in currentItems track by $index" class="list-group-item list-group-item-multiselect" ng-class="currentItems.length > 1 ? 'list-group-item-draggable-2 list-group-item-draggable-2--noCheckbox' : ''" >
+            <div ng-repeat="item in currentItems track by $index" class="list-group-item list-group-item-multiselect" ng-class="currentItems.length > 1 ? 'list-group-item-draggable-2 list-group-item-draggable-2--noCheckbox' : ''">
                 <span ng-show="currentItems.length > 1" class="handler list-group-item-drag"></span>
                 <div>
                     <section class="row">
                         <div class="col-md-8">
-                            <input ng-click="itemClicked($event)" ng-model="currentItems[$index]" ng-value="currentItems[$index]" placeholder='@Html.Resource("EnterLabel")' type="text" class="form-control-highlight"/>
+                            <input ng-click="itemClicked($event)" ng-model="currentItems[$index]" ng-value="currentItems[$index]" placeholder='@Html.Resource("EnterLabel")' type="text" class="form-control-highlight" />
                         </div>
-
                         <div class="col-md-2">
                             <em class="text-muted" ng-show="item == defaultValue">@Html.Resource("Default")</em>
-
                             <a class="make-default" ng-click="setDefault(item)" ng-hide="!item || item == defaultValue || properties.Model.ValidatorDefinition.Required.PropertyValue === 'True'">@Html.Resource("MakeDefault")</a>
                         </div>
-
                         <div class="col-md-2 text-right">
                             <button ng-show="currentItems.length > 1" ng-click="removeItem(item, $index)" type="button" class="close" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                         </div>
-                        
+
                     </section>
-               </div>
+                </div>
             </div>
         </div>
-        <a ng-click="addItem()" type="button"  class="text-muted list-group-item-add">@Html.Resource("ClickToAddChoice")</a>
+        <a ng-click="addItem()" type="button" class="text-muted list-group-item-add">@Html.Resource("ClickToAddChoice")</a>
     </div>
 
     <div class="form-group">
         <div class="checkbox">
             <label for="dropdown-list-required-field" class="full-width">
-                <input id="dropdown-list-required-field" type="checkbox" ng-click="changeRequired()" ng-model="properties.Model.ValidatorDefinition.Required.PropertyValue" 
-                    ng-true-value="'True'" ng-false-value="'False'" ng-checked="properties.Model.ValidatorDefinition.Required.PropertyValue === 'True'" >
-                    @Html.Resource("RequiredField")
-                    <span class="text-muted">@Html.Resource("DefaultChoiceHaveToBeChanged")</span>
-                </input>
+                <input id="dropdown-list-required-field" type="checkbox" ng-click="changeRequired()" ng-model="properties.Model.ValidatorDefinition.Required.PropertyValue"
+                       ng-true-value="'True'" ng-false-value="'False'" ng-checked="properties.Model.ValidatorDefinition.Required.PropertyValue === 'True'" />
+                @Html.Resource("RequiredField")
+                <span class="text-muted">@Html.Resource("DefaultChoiceHaveToBeChanged")</span>
             </label>
         </div>
     </div>
 
     <div class="form-group" ng-show="properties.Model.ValidatorDefinition.Required.PropertyValue === 'True'">
-        <label for="example" class="full-width" >
+        <label for="example" class="full-width">
             @Html.Resource("ErrorMessageDisplayedLabel")
         </label>
         <input type="text" id="example" ng-model="properties.Model.ValidatorDefinition.RequiredViolationMessage.PropertyValue" class="form-control" />
     </div>
 
-        
+    <div class="form-group">
+        <div class="checkbox">
+            <label for="multiple-choice-hidden" class="full-width">
+                <input id="multiple-choice-hidden" type="checkbox" ng-model="properties.Model.Hidden.PropertyValue"
+                       ng-true-value="'True'" ng-false-value="'False'" ng-checked="properties.Model.Hidden.PropertyValue === 'True'" />
+                @Html.Resource("HiddenField")
+            </label>
+        </div>
+    </div>
+
     <expander expander-title='@Html.Resource("MoreOptions")'>
         <div class="form-group">
             <label for="textFieldTemplateName">@Html.Resource("Template")</label>
-
             <div class="row">
                 <div class="col-xs-6">
                     <select id="textFieldTemplateName" ng-model="properties.WriteTemplateName.PropertyValue" class="form-control">
@@ -79,9 +81,7 @@
                 </div>
             </div>
         </div>
-
         <style-dropdown selected-class="properties.Model.CssClass.PropertyValue" view-name="properties.WriteTemplateName.PropertyValue"></style-dropdown>
-
         <div class="form-group">
             <label for="cssClass">@Html.Resource("CssClasses")</label>
             <input type="text" id="cssClass" ng-model="properties.Model.CssClass.PropertyValue" class="form-control" />

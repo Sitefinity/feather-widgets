@@ -156,6 +156,21 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.StringResources
         }
 
         /// <summary>
+        /// Gets word : Email
+        /// </summary>
+        [ResourceEntry("Email",
+            Value = "Email",
+            Description = "word : Email",
+            LastModified = "2019/06/03")]
+        public string Email
+        {
+            get
+            {
+                return this["Email"];
+            }
+        }
+
+        /// <summary>
         /// Gets phrase : Select a choice
         /// </summary>
         [ResourceEntry("SelectChoice",
@@ -578,6 +593,21 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.StringResources
         /// <summary>
         /// Gets phrase : Example: First name
         /// </summary>
+        [ResourceEntry("EmailExampleTitle",
+            Value = "Example: Enter your email",
+            Description = "phrase : Example: Enter your email",
+            LastModified = "2019/06/04")]
+        public string EmailExampleTitle
+        {
+            get
+            {
+                return this["EmailExampleTitle"];
+            }
+        }
+
+        /// <summary>
+        /// Gets phrase : Example: First name
+        /// </summary>
         [ResourceEntry("ExampleTitleUpload",
             Value = "Example: Select an image",
             Description = "phrase : Example: <i>Select an image</i>",
@@ -752,6 +782,70 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.StringResources
             get
             {
                 return this["InvalidEntryMessage"];
+            }
+        }
+
+        /// <summary>
+        /// phrase: This choice will expand a text box
+        /// </summary>
+        /// <value>This choice will expand a text box</value>
+        [ResourceEntry("ThisChoiceWillExpandTextbox",
+            Value = "This choice will expand a text box",
+            Description = "phrase: This choice will expand a text box",
+            LastModified = "2018/09/11")]
+        public string ThisChoiceWillExpandTextbox
+        {
+            get
+            {
+                return this["ThisChoiceWillExpandTextbox"];
+            }
+        }
+
+        /// <summary>
+        /// phrase: Other option
+        /// </summary>
+        /// <value>Other option</value>
+        [ResourceEntry("OtherOption",
+            Value = "Other option",
+            Description = "phrase: Other option",
+            LastModified = "2018/09/11")]
+        public string OtherOption
+        {
+            get
+            {
+                return this["OtherOption"];
+            }
+        }
+
+        /// <summary>
+        /// phrase: Step {0} of {1}
+        /// </summary>
+        /// <value>Step {0} of {1}</value>
+        [ResourceEntry("StepOf",
+            Value = "Step {0} of {1}",
+            Description = "phrase: Step {0} of {1}",
+            LastModified = "2018/09/13")]
+        public string StepOf
+        {
+            get
+            {
+                return this["StepOf"];
+            }
+        }
+
+        /// <summary>
+        /// word: Remove
+        /// </summary>
+        /// <value>Remove</value>
+        [ResourceEntry("Remove",
+            Value = "Remove",
+            Description = "word: Remove",
+            LastModified = "2018/09/13")]
+        public string Remove
+        {
+            get
+            {
+                return this["Remove"];
             }
         }
 
@@ -1136,12 +1230,13 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.StringResources
         }
 
         /// <summary>
-        /// Gets phrase : All file types
+        /// phrase: All file types (not recommended)
         /// </summary>
+        /// <value>All file types (not recommended)</value>
         [ResourceEntry("AllFileTypes",
-            Value = "All file types",
-            Description = "phrase: All file types",
-            LastModified = "2015/09/15")]
+            Value = "All file types (not recommended)",
+            Description = "phrase: All file types (not recommended)",
+            LastModified = "2018/06/25")]
         public string AllFileTypes
         {
             get
@@ -1355,6 +1450,51 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.StringResources
             get
             {
                 return this["CaptchaErrorMessage"];
+            }
+        }
+
+        /// <summary>
+        /// The tooltip for CAPTCHA audio button.
+        /// </summary>
+        [ResourceEntry("CaptchaAudioTooltip",
+            Value = "Read the CAPTCHA code",
+            Description = "The tooltip for CAPTCHA audio button.",
+            LastModified = "2018/09/05")]
+        public string CaptchaAudioTooltip
+        {
+            get
+            {
+                return this["CaptchaAudioTooltip"];
+            }
+        }
+
+        /// <summary>
+        /// The designer message for enabling audio code.
+        /// </summary>
+        [ResourceEntry("EnableAudioCode",
+            Value = "Enable audio code",
+            Description = "The designer message for enabling audio code.",
+            LastModified = "2018/09/05")]
+        public string EnableAudioCode
+        {
+            get
+            {
+                return this["EnableAudioCode"];
+            }
+        }
+
+        /// <summary>
+        /// Gets phrase: Hidden field
+        /// </summary>
+        [ResourceEntry("HiddenField",
+            Value = "Hidden field",
+            Description = "phrase: Hidden field",
+            LastModified = "2019/01/10")]
+        public string HiddenField
+        {
+            get
+            {
+                return this["HiddenField"];
             }
         }
     }

@@ -21,7 +21,13 @@ namespace Telerik.Sitefinity.Frontend.Card.Mvc.Controllers
     /// This class represents the controller of the Card widget.
     /// </summary>
     [Localization(typeof(CardResources))]
-    [ControllerToolboxItem(Name = "Card_MVC", Title = "Card", SectionName = ToolboxesConfig.ContentToolboxSectionName, CssClass = CardController.WidgetIconCssClass)]
+    [ControllerToolboxItem(
+        Name = CardController.WidgetName,
+        Title = nameof(CardResources.CardWidgetTitle),
+        Description = nameof(CardResources.CardWidgetDescription),
+        ResourceClassId = nameof(CardResources),
+        SectionName = ToolboxesConfig.ContentToolboxSectionName,
+        CssClass = CardController.WidgetIconCssClass)]
     public class CardController : Controller, ICustomWidgetVisualizationExtended, IPersonalizable
     {
         #region Properties
@@ -131,21 +137,21 @@ namespace Telerik.Sitefinity.Frontend.Card.Mvc.Controllers
         /// </returns>
         public ActionResult Index()
         {
-            if(this.IsEmpty)
+            if (this.IsEmpty)
             {
                 return new EmptyResult();
             }
 
             var viewModel = this.Model.GetViewModel();
 
-            return View(this.TemplateName, viewModel);
+            return this.View(this.TemplateName, viewModel);
         }
 
         /// <inheritDoc/>
         protected override void HandleUnknownAction(string actionName)
         {
             this.ActionInvoker.InvokeAction(this.ControllerContext, "Index");
-        } 
+        }
 
         #endregion
 
@@ -155,7 +161,7 @@ namespace Telerik.Sitefinity.Frontend.Card.Mvc.Controllers
         private ICardModel model;
 
         private string templateName = "Card";
-
+        private const string WidgetName = "Card_MVC";
         #endregion
     }
 }

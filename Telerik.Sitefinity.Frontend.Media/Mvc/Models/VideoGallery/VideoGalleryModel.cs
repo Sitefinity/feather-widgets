@@ -9,6 +9,7 @@ using Telerik.Sitefinity.Modules.Libraries;
 using Telerik.Sitefinity.Services;
 using SfVideo = Telerik.Sitefinity.Libraries.Model.Video;
 using Telerik.Sitefinity.Frontend.Media.Mvc.Models.Image;
+using Config = Telerik.Sitefinity.Configuration.Config;
 
 namespace Telerik.Sitefinity.Frontend.Media.Mvc.Models.VideoGallery
 {

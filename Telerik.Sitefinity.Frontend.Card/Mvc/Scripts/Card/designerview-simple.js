@@ -6,14 +6,18 @@
     angular.module('designer').requires.push('sfSelectors');
 
     simpleViewModule.controller('SimpleCtrl', ['$scope', 'propertyService', function ($scope, propertyService) {
-        $scope.isPageSelectMode = true;
         $scope.feedback.showLoadingIndicator = true;
 
         propertyService.get()
             .then(function (data) {
-                if (data) {
-                    $scope.properties = propertyService.toAssociativeArray(data.Items);
+                if (!data) {
+                    return;
                 }
+
+                $scope.properties = propertyService.toAssociativeArray(data.Items);
+
+                var isPageSelectMode = $scope.properties.IsPageSelectMode.PropertyValue;
+                $scope.properties.IsPageSelectMode.PropertyValue = isPageSelectMode.toLowerCase() === "true";
             },
             function (data) {
                 $scope.feedback.showError = true;

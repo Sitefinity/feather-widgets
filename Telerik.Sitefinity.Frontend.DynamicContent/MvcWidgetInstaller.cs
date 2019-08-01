@@ -83,6 +83,7 @@ namespace Telerik.Sitefinity.Frontend.DynamicContent
             var toolboxItem = new ToolboxItem(section.Tools)
             {
                 Name = moduleType.GetFullTypeName() + "_MVC",
+                Ordinal = 0.5f,
                 Title = PluralsResolver.Instance.ToPlural(moduleType.DisplayName),
                 Description = string.Empty,
                 ModuleName = dynamicModule.Name,

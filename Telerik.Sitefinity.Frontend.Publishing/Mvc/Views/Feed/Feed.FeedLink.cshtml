@@ -7,6 +7,30 @@
 <div class="@Model.CssClass">
 @if ((Model.InsertionOption == FeedInsertionOption.PageOnly || Model.InsertionOption == FeedInsertionOption.PageAndAddressBar) && !string.IsNullOrEmpty(Model.Url))
 {
-    <a href="@Model.Url" title="@Model.Tooltip" @(Model.OpenInNewWindow ? "target=_blank" : "")><span class="sf-icon-feed"></span>@Model.Title</a>
+    <a href="@Model.Url" title="@Model.Tooltip" @(Model.OpenInNewWindow ? "target=_blank" : "")>
+        <svg xmlns="http://www.w3.org/2000/svg" id="RSSicon" viewBox="0 0 8 8" width="15" height="15">
+
+            <title>RSS feed icon</title>
+
+            <style type="text/css">
+                .button {
+                    stroke: none;
+                    fill: orange;
+                }
+
+                .symbol {
+                    stroke: none;
+                    fill: white;
+                }
+            </style>
+
+            <rect class="button" width="8" height="8" rx="1.5" />
+            <circle class="symbol" cx="2" cy="6" r="1" />
+            <path class="symbol" d="m 1,4 a 3,3 0 0 1 3,3 h 1 a 4,4 0 0 0 -4,-4 z" />
+            <path class="symbol" d="m 1,2 a 5,5 0 0 1 5,5 h 1 a 6,6 0 0 0 -6,-6 z" />
+
+        </svg>
+        @Model.Title
+    </a>
 }
 </div>

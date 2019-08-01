@@ -7,6 +7,7 @@ using Telerik.Sitefinity.Frontend.Mvc.Models;
 using Telerik.Sitefinity.Model;
 using Telerik.Sitefinity.RelatedData;
 using Telerik.Sitefinity.Taxonomies.Model;
+using Telerik.Sitefinity.Web.UI.ContentUI.Enums;
 
 namespace Telerik.Sitefinity.Frontend.DynamicContent.Mvc.Models
 {
@@ -49,14 +50,6 @@ namespace Telerik.Sitefinity.Frontend.DynamicContent.Mvc.Models
         /// The selected item ids.
         /// </value>
         string SerializedSelectedItemsIds { get; set; }
-
-        /// <summary>
-        /// Gets or sets a value indicating whether to enable social sharing.
-        /// </summary>
-        /// <value>
-        ///   <c>true</c> if should enable social sharing; otherwise, <c>false</c>.
-        /// </value>
-        bool EnableSocialSharing { get; set; }
 
         /// <summary>
         /// Gets or sets the name of the provider.
@@ -127,6 +120,14 @@ namespace Telerik.Sitefinity.Frontend.DynamicContent.Mvc.Models
         string SerializedDateFilters { get; set; }
 
         /// <summary>
+        /// Gets or sets the group logical operator used for filtering.
+        /// </summary>
+        /// <value>
+        /// The group logical operator used for filtering.
+        /// </value>
+        LogicalOperator SelectionGroupLogicalOperator { get; set; }
+
+        /// <summary>
         /// Gets or sets a value indicating whether the canonical URL tag should be added to the page when the canonical meta tag should be added to the page.
         /// If the value is not set, the settings from SystemConfig -> ContentLocationsSettings -> DisableCanonicalURLs will be used. 
         /// </summary>
@@ -156,6 +157,15 @@ namespace Telerik.Sitefinity.Frontend.DynamicContent.Mvc.Models
         /// The serialized selected parents ids.
         /// </value>
         string SerializedSelectedParentsIds { get; set; }
+
+        /// <summary>
+        /// Creates the ListView model by date filter.
+        /// </summary>
+        /// <param name="from">The start date from the date filter.</param>
+        /// <param name="to">The end date from the date filter.</param>
+        /// <param name="page">The page.</param>
+        /// <returns>A list view model containing all descendant items from the given parent.</returns>
+        ContentListViewModel CreateListViewModelByDate(DateTime from, DateTime to, int page);
 
         /// <summary>
         /// Gets or sets the type of the parent item.
@@ -200,6 +210,14 @@ namespace Telerik.Sitefinity.Frontend.DynamicContent.Mvc.Models
         /// <value>The URL key prefix.</value>
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1056:UriPropertiesShouldNotBeStrings")]
         string UrlKeyPrefix { get; set; }
+
+        /// <summary>
+        /// Gets or sets the display mode of the content view.
+        /// </summary>
+        /// <remarks>
+        /// Note that this enumeration differs from the FieldDisplayMode.
+        /// </remarks>
+        ContentViewDisplayMode ContentViewDisplayMode { get; set; }
 
         /// <summary>
         /// Gets the information for all of the content types that a control is able to show.

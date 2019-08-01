@@ -18,7 +18,13 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Controllers
     /// <summary>
     /// This class represents the controller of Form widget.
     /// </summary>
-    [ControllerToolboxItem(Name = "Form_MVC", Title = "Form", SectionName = ToolboxesConfig.ContentToolboxSectionName, CssClass = FormController.WidgetIconCssClass)]
+    [ControllerToolboxItem(
+        Name = FormController.WidgetName,
+        Title = nameof(FormResources.FormsControlTitle),
+        Description = nameof(FormResources.FormsControlDescription),
+        ResourceClassId = nameof(FormResources),
+        SectionName = ToolboxesConfig.ContentToolboxSectionName,
+        CssClass = FormController.WidgetIconCssClass)]
     [Localization(typeof(FormResources))]
     [RequiresEmbeddedWebResource("Telerik.Sitefinity.Resources.Themes.LayoutsBasics.css", "Telerik.Sitefinity.Resources.Reference")]
     public class FormController : Controller, ICustomWidgetVisualizationExtended
@@ -91,9 +97,9 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Controllers
                 }
 
                 if (this.Model.RaiseBeforeFormActionEvent())
-				{
-					var resultMessage = this.Model.GetSubmitMessage(success);
-					this.ViewBag.SubmitMessage = resultMessage;
+                {
+                    var resultMessage = this.Model.GetSubmitMessage(success);
+                    this.ViewBag.SubmitMessage = resultMessage;
 
                     if (success == SubmitStatus.Success)
                     {
@@ -106,16 +112,16 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Controllers
                         this.Model.FormCollection = collection;
                         return this.Index();
                     }
-				}
+                }
                 else
-				{
+                {
                     return this.Index();
-				}
+                }
             }
-			else
-			{
-				return this.Index();
-			}
+            else
+            {
+                return this.Index();
+            }
         }
 
         /// <summary>
@@ -134,7 +140,20 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Controllers
             }
             else
             {
-                return this.Json(new { success = true, error = string.Empty });
+                var redirectPageUrl = string.Empty;
+                if (this.Model.NeedsRedirect)
+                {
+                    redirectPageUrl = this.Model.GetRedirectPageUrl();
+                }
+
+                if (string.IsNullOrWhiteSpace(redirectPageUrl))
+                {
+                    return this.Json(new { success = true, message = this.Model.GetSubmitMessage(result) });
+                }
+                else
+                {
+                    return this.Json(new { success = true, redirectUrl = redirectPageUrl });
+                }
             }
         }
 
@@ -207,7 +226,8 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Controllers
         private const string ShouldProcessRequestKey = "should-process-request";
         internal const string WidgetIconCssClass = "sfFormsIcn sfMvcIcn";
         internal const string TemplateNamePrefix = "Form.";
-        internal const string SubmitResultTemplateName = "SubmitResultView";        
+        internal const string SubmitResultTemplateName = "SubmitResultView";
+        private const string WidgetName = "Form_MVC";
 
         #endregion
     }

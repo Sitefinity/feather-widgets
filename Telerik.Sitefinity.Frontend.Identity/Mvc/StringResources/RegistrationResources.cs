@@ -715,5 +715,50 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.StringResources
                 return this["ConnectWith"];
             }
         }
+
+        /// <summary>
+        /// Gets phrase: Send an activation link again
+        /// </summary>
+        [ResourceEntry("SendActivationLinkAgain",
+            Value = "Send an activation link again",
+            Description = "phrase : Send an activation link again",
+            LastModified = "2018/09/12")]
+        public string SendActivationLinkAgain
+        {
+            get
+            {
+                return this["SendActivationLinkAgain"];
+            }
+        }
+
+         /// <summary>
+        /// Control name: Registration
+        /// </summary>
+        [ResourceEntry("RegistrationWidgetTitle",
+            Value = "Registration",
+            Description = "Control title: Registration",
+            LastModified = "2019/06/03")]
+        public string RegistrationWidgetTitle
+        {
+            get
+            {
+                return this["RegistrationWidgetTitle"];
+            }
+        }
+
+        /// <summary>
+        /// Control description: A form used to register users.
+        /// </summary>
+        [ResourceEntry("RegistrationWidgetDescription",
+            Value = "Form used to register users",
+            Description = "Control description: A form used to register users.",
+            LastModified = "2019/06/03")]
+        public string RegistrationWidgetDescription
+        {
+            get
+            {
+                return this["RegistrationWidgetDescription"];
+            }
+        }
     }
 }

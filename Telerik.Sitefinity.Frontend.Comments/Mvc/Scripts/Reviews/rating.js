@@ -3,6 +3,7 @@
 
     var Rating = function (element, options) {
         this.ratingContainer = element;
+        this.isAccessibilityImplemented = false;
         this.settings = {
             maxValue: 5,   // max number of stars
             value: 0,    // number of selected stars
@@ -32,13 +33,18 @@
 
         getBaseElementMarkup: function () {
             var templateElement = $(this.settings.template);
+            var ratingLegendId = this.ratingContainer.siblings("LEGEND").attr("id");
+
             if (!(templateElement && templateElement.length)) {
-                templateElement = $('<div><span>&#9733;</span></div>');
+                templateElement = $('<div><span aria-hidden="true">&#9733;</span></div>');
             }
 
-            var markup = templateElement.html();
+            // TODO: Accessibility is implemented
+            if (!this.settings.readOnly && this.isAccessibilityImplemented) {
+                templateElement = $('<div><label><input required type="radio" name="sfRatingInput" aria-labelledby="' + ratingLegendId + '"><span aria-hidden="true">&#9733;</span></label></div>');
+            }
 
-            return markup;
+            return templateElement.html();
         },
 
         isValidCssDefinition: function (cssClass) {
@@ -94,14 +100,18 @@
             };
 
             var fill = function (e) { // fill to the current mouse position.
-                var index = ratingControl.ratingContainer.children().index(e.target) + 1;
+                var target = ratingControl.getTargetedElement(e.target);
+                var index = ratingControl.ratingContainer.children().index(target) + 1;
+
                 addClasses(index * ratingControl.settings.step, ratingControl.settings.selectedClass);
             };
 
             var hover = function (e) { // fill to the current mouse position with hover class.
                 removeClasses(ratingControl.settings.hoverClass);
 
-                var index = ratingControl.ratingContainer.children().index(e.target) + 1;
+                var target = ratingControl.getTargetedElement(e.target);
+                var index = ratingControl.ratingContainer.children().index(target) + 1;
+
                 addClasses(index * ratingControl.settings.step, ratingControl.settings.hoverClass);
             };
 
@@ -126,8 +136,21 @@
 
         selectElement: function (e) {
             var elements = this.ratingContainer.children();
-            this.settings.value = (elements.index(e.target) + 1) * this.settings.step;
+            var target = this.getTargetedElement(e.target);
+
+            this.settings.value = (elements.index(target) + 1) * this.settings.step;
             this.elementsRenderer(this).reset();
+        },
+
+        getTargetedElement: function (target) {
+            var currentTarget = target;
+
+            // TODO: Accessibility is implemented
+            if (this.isAccessibilityImplemented) {
+                currentTarget = $(target).is("LABEL") ? target : target.parentElement;
+            }
+
+            return currentTarget;
         },
 
         attachEvents: function () {
@@ -137,9 +160,20 @@
             elements.on('mouseout', this.elementsRenderer(this).drainHover);
             elements.on('focus', this.elementsRenderer(this).hover);
             elements.on('blur', this.elementsRenderer(this).reset);
+
+            // TODO: Accessibility is implemented
+            if (this.isAccessibilityImplemented) {
+                elements.find('input').on('focus', this.elementsRenderer(this).hover);
+                elements.find('input').on('blur', this.elementsRenderer(this).reset);
+            }
         },
 
         render: function () {
+            // TODO: Accessibility is implemented
+            if (this.ratingContainer.siblings("LEGEND").length > 0) {
+                this.isAccessibilityImplemented = true;
+            }
+
             this.ratingContainer.empty();
 
             var baseElementTemplate = this.getBaseElementMarkup();

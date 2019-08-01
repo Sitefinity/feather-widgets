@@ -24,6 +24,20 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Models.Fields.Captcha
         }
 
         /// <inheritDocs/>
+        public bool EnableAudioCode
+        {
+            get
+            {
+                return this.enableAudioCode;
+            }
+
+            set
+            {
+                this.enableAudioCode = value;
+            }
+        }
+
+        /// <inheritDocs/>
         public override object Value
         {
             get
@@ -52,7 +66,7 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Models.Fields.Captcha
                 if (this.validatorDefinition == null)
                 {
                     this.validatorDefinition = new ValidatorDefinition();
-                    this.validatorDefinition.RequiredViolationMessage = Res.Get<FieldResources>().RequiredErrorMessageValue;                    
+                    this.validatorDefinition.RequiredViolationMessage = Res.Get<FormResources>().RequiredInputErrorMessage;
                 }
                 
                 return this.validatorDefinition;
@@ -75,7 +89,8 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Models.Fields.Captcha
                 CaptchaInitializationVectorFormKey = CaptchaModel.CaptchaInitializationVectorFormKey,
                 CaptchaKeyFormKey = CaptchaModel.CaptchaKeyFormKey,
                 ValidatorDefinition = this.ValidatorDefinition,
-                CssClass = this.CssClass
+                CssClass = this.CssClass,
+                EnableAudioCode = this.EnableAudioCode
             };
         }
 
@@ -140,5 +155,6 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Models.Fields.Captcha
         private const string CaptchaCorrectAnswerFormKey = "captcha-ca";
         private const string CaptchaInitializationVectorFormKey = "captcha-iv";
         private const string CaptchaKeyFormKey = "captcha-k";
+        private bool enableAudioCode = true;
     }
 }

@@ -95,6 +95,9 @@ namespace Telerik.Sitefinity.Frontend.Search.Mvc.Models
         public string IndexCatalogue { get; set; }
 
         /// <inheritdoc />
+        public bool ShowLinksOnlyFromCurrentSite { get; set; }
+
+        /// <inheritdoc />
         [TypeConverter(typeof(StringArrayConverter))]
         public string[] SearchFields
         {
@@ -197,6 +200,7 @@ namespace Telerik.Sitefinity.Frontend.Search.Mvc.Models
         /// Searches the specified query.
         /// </summary>
         /// <param name="query">The query.</param>
+        /// <param name="language">The language.</param>
         /// <param name="skip">The skip.</param>
         /// <param name="take">The take.</param>
         /// <param name="hitCount">The hit count.</param>
@@ -259,14 +263,14 @@ namespace Telerik.Sitefinity.Frontend.Search.Mvc.Models
                     }
                 }
 
-                return items.Cast<IDocument>().SetContentLinks();
+                return items.Cast<IDocument>().SetContentLinks(this.ShowLinksOnlyFromCurrentSite);
             }
             else
             {
                 IResultSet result = service.Search(searchQuery);
                 hitCount = result.HitCount;
 
-                return result.SetContentLinks();
+                return result.SetContentLinks(this.ShowLinksOnlyFromCurrentSite);
             }
         }
         #endregion

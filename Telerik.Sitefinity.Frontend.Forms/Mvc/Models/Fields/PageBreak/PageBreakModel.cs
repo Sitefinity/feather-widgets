@@ -9,43 +9,13 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Models.Fields.PageBreak
     public class PageBreakModel : FormElementModel, IPageBreakModel
     {
         /// <inheritDocs />
-        public string NextStepText
-        {
-            get
-            {
-                return this.nextStepText;
-            }
-            set
-            {
-                this.nextStepText = value;
-            }
-        }
+        public string NextStepText { get; set; } = Res.Get<FieldResources>().NextStepText;
 
         /// <inheritDocs />
-        public string PreviousStepText
-        {
-            get
-            {
-                return this.previousStepText;
-            }
-            set 
-            {
-                this.previousStepText = value;
-            }
-        }
+        public string PreviousStepText { get; set; } = Res.Get<FieldResources>().PreviousStepText;
 
         /// <inheritDocs />
-        public bool AllowGoBack 
-        {
-            get
-            {
-                return this.allowGoBack;
-            }
-            set
-            {
-                this.allowGoBack = value;
-            }
-        }
+        public bool AllowGoBack { get; set; } = false;
 
         /// <inheritDocs />
         public override object GetViewModel(object value)
@@ -58,9 +28,5 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Models.Fields.PageBreak
                 CssClass = this.CssClass
             };
         }
-
-        private string nextStepText = Res.Get<FieldResources>().NextStepText;
-        private string previousStepText = Res.Get<FieldResources>().PreviousStepText;
-        private bool allowGoBack = false;
     }
 }

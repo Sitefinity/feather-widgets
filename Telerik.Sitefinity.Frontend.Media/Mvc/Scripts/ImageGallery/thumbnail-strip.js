@@ -43,6 +43,28 @@
             }
         };
 
+        var selectPrev = function () {
+            var currentlySelected = $('.js-Gallery-thumbs').find('a.is-selected');
+            if (currentlySelected && currentlySelected.length > 0) {
+                var prevElement = currentlySelected.prev('a');
+                if (prevElement && prevElement.length > 0) {
+                    removeCurrentlySelected();
+                    populateSelecteditem(prevElement, true);
+                }
+            }
+        };
+
+        var selectNext = function () {
+            var currentlySelected = $('.js-Gallery-thumbs').find('a.is-selected');
+            if (currentlySelected && currentlySelected.length > 0) {
+                var nextElement = currentlySelected.next('a');
+                if (nextElement && nextElement.length > 0) {
+                    removeCurrentlySelected();
+                    populateSelecteditem(nextElement, true);
+                }
+            }
+        };
+
         var removeCurrentlySelected = function () {
             var currentlySelected = $('.js-Gallery-thumbs').find('a.is-selected');
             currentlySelected.removeClass('is-selected');
@@ -53,25 +75,36 @@
             populateSelecteditem(this, true);
         });
 
-        $('.js-Gallery-prev').bind('click', function (e) {
-            var currentlySelected = $('.js-Gallery-thumbs').find('a.is-selected');
-            if (currentlySelected && currentlySelected.length > 0) {
-                var prevElement = currentlySelected.prev('a');
-                if (prevElement && prevElement.length > 0) {
-                    removeCurrentlySelected();
-                    populateSelecteditem(prevElement, true);
-                }
+        $('.js-Gallery-thumbs').find('a').bind('keypress', function (e) {
+            var key = e.which;
+            if (key == 13)  // the enter key code
+            {
+                removeCurrentlySelected();
+                populateSelecteditem(this, true);
             }
         });
 
+        $('.js-Gallery-prev').bind('click', function (e) {
+            selectPrev();
+        });
+
         $('.js-Gallery-next').bind('click', function (e) {
-            var currentlySelected = $('.js-Gallery-thumbs').find('a.is-selected');
-            if (currentlySelected && currentlySelected.length > 0) {
-                var nextElement = currentlySelected.next('a');
-                if (nextElement && nextElement.length > 0) {
-                    removeCurrentlySelected();
-                    populateSelecteditem(nextElement, true);
-                }
+            selectNext();
+        });
+
+        $('.js-Gallery-prev').bind('keypress', function (e) {
+            var key = e.which;
+            if (key == 13)  // the enter key code
+            {
+                selectPrev();
+            }
+        });
+
+        $('.js-Gallery-next').bind('keypress', function (e) {
+            var key = e.which;
+            if (key == 13)  // the enter key code
+            {
+                selectNext();
             }
         });
 

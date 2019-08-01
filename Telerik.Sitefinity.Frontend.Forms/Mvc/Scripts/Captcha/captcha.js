@@ -62,11 +62,14 @@
             return this.wrapper.find('[data-sf-role="' + sfRole + '"]');
         },
         captchaImage: function () { return this.getOrInitializeProperty('_captchaImage', 'captcha-image'); },
+        captchaAudio: function () { return this.getOrInitializeProperty('_captchaAudio', 'captcha-audio'); },
+        captchaAudioBtn: function () { return this.getOrInitializeProperty('_captchaAudioBtn', 'captcha-audio-btn'); },
         captchaInput: function () { return this.getOrInitializeProperty('_captchaInput', 'captcha-input'); },
         captchaRefreshLink: function () { return this.getOrInitializeProperty('_captchaRefreshLink', 'captcha-refresh-button'); },
         captchaDataIv: function () { return this.getOrInitializeProperty('_captchaDataIv', 'captcha-iv'); },
         captchaDataCorrectAnswer: function () { return this.getOrInitializeProperty('_captchaDataCorrectAnswer', 'captcha-ca'); },
         captchaDataKey: function () { return this.getOrInitializeProperty('_captchaDataKey', 'captcha-k'); },
+        captchaDataInvalidAnswerMessage: function () { return this.getOrInitializeProperty('_captchaDataInvalidAnswerMessage', 'captcha-iam'); },
         errorMessage: function () { return this.getOrInitializeProperty('_errorMessage', 'error-message'); },
 
         /*
@@ -82,6 +85,8 @@
             self.restApi.getCaptcha().then(function (data) {
                 if (data) {
                     self.captchaImage().attr("src", "data:image/png;base64," + data.Image);
+                    self.captchaAudio().attr("src", "data:audio/wav;base64," + data.Audio);
+                    self.captchaAudioBtn().click(function () { self.captchaAudio()[0].play();});
                     self.captchaDataIv().val(data.InitializationVector);
                     self.captchaDataCorrectAnswer().val(data.CorrectAnswer);
                     self.captchaDataKey().val(data.Key);
@@ -147,11 +152,23 @@
         },
 
         showInvalidMessage: function () {
-            this.getElementByDataSfRole('invalid-captcha-input').css('visibility', 'visible');
+            // If there is no error message container the old logic is required
+            if (this.errorMessage().length > 0) {
+                var messasge = this.captchaDataInvalidAnswerMessage().val();
+                this.errorMessage().text(messasge);
+                this.errorMessage().show();
+            } else {
+                this.getElementByDataSfRole('invalid-captcha-input').css('visibility', 'visible');
+            }
         },
 
         hideInvalidMessage: function () {
-            this.getElementByDataSfRole('invalid-captcha-input').css('visibility', 'hidden');
+            // If there is no error message container the old logic is required
+            if (this.errorMessage().length > 0) {
+                this.errorMessage().hide();
+            } else {
+                this.getElementByDataSfRole('invalid-captcha-input').css('visibility', 'hidden');
+            }
         },
 
         initialize: function () {
@@ -170,28 +187,65 @@
         return validationMessages;
     }
 
+    function setErrorMessage(input, message) {
+        var errorMessagesContainer = _getErrorMessageContainer(input);
+
+        if (errorMessagesContainer) {
+            _toggleCustomErrorMessage(errorMessagesContainer, message);
+        } else {
+            input.setCustomValidity(message);
+        }
+    }
+
+    function _toggleCustomErrorMessage(container, message) {
+        container.innerText = message;
+
+        if (message === '') {
+            container.style.display = 'none';
+        } else {
+            container.style.display = 'block';
+        }
+    }
+
+    function _getErrorMessageContainer(input) {
+        var container = $(input).closest('[data-sf-role="field-captcha-container"]')[0];
+        if (container) {
+            var errorMessagesContainer = container.querySelector('[data-sf-role="error-message"]');
+            return errorMessagesContainer;
+        }
+
+        return null;
+    }
+
     function changeOrInput(e) {
         if (typeof e.target.validity == 'undefined')
             return;
 
         if (e.target.required && e.target.validity.valueMissing) {
             var validationMessages = getValidationMessages(e.target);
-            e.target.setCustomValidity(validationMessages.required);
+            setErrorMessage(e.target, validationMessages.required);
         } else {
-            e.target.setCustomValidity('');
+            setErrorMessage(e.target, '');
         }
 
-        e.data.hideInvalidMessage();
+        // If there is no error message container the old logic is required
+        if (!_getErrorMessageContainer(e.target)) {
+            e.data.hideInvalidMessage();
+        }
     }
 
     function invalid(e) {
         if (typeof e.target.validity == 'undefined')
             return;
 
+        if (_getErrorMessageContainer(e.target)) {
+            e.preventDefault();
+        }
+
         var validationMessages = getValidationMessages(e.target);
 
         if (e.target.validity.valueMissing) {
-            e.target.setCustomValidity(validationMessages.required);
+            setErrorMessage(e.target, validationMessages.required);
         }
     }
 

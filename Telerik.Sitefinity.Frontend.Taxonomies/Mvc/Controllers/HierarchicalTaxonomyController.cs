@@ -14,8 +14,11 @@ namespace Telerik.Sitefinity.Frontend.Taxonomies.Mvc.Controllers
     /// <summary>
     /// This class represents the controller of the Hierarchical taxonomy widget.
     /// </summary>
-    [ControllerToolboxItem(Name = "Categories_MVC",
-        Title = "Categories",
+    [ControllerToolboxItem(
+        Name = HierarchicalTaxonomyController.WidgetName,
+        Title = nameof(HierarchicalTaxonomyResources.CategoriesWidgetTitle),
+        Description = nameof(HierarchicalTaxonomyResources.CategoriesWidgetDescription),
+        ResourceClassId = nameof(HierarchicalTaxonomyResources),
         SectionName = "Classifications",
         CssClass = HierarchicalTaxonomyController.WidgetIconCssClass)]
     [Localization(typeof(HierarchicalTaxonomyResources))]
@@ -94,6 +97,7 @@ namespace Telerik.Sitefinity.Frontend.Taxonomies.Mvc.Controllers
         private IHierarchicalTaxonomyModel model;
         private string templateName = "CategoriesList";
         private string templateNamePrefix = "HierarchicalTaxonomy.";
+        private const string WidgetName = "Categories_MVC";
         #endregion
     }
 }

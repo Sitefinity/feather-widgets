@@ -3,16 +3,14 @@
 @using Telerik.Sitefinity.Frontend.Mvc.Helpers;
 @using Telerik.Sitefinity.Frontend.Forms.Mvc.Helpers;
 @using Telerik.Sitefinity.Modules.Pages;
-
+@using Telerik.Sitefinity.Services;
 @Html.Script(ScriptRef.JQuery, "top", false)
-
 <div class="@Model.CssClass sf-fieldWrp">
-    <button type="submit" @Html.SubmitButtonRequiredAttributes() >@Model.Label</button>
+    <button type="submit" @Html.SubmitButtonRequiredAttributes() @(SystemManager.IsDesignMode ? "disabled" : "")>@Model.Label</button>
     @if (Model.AllowGoBack)
     {
         <a href="javascript:void(0)" data-sf-btn-role="prev">@Html.HtmlSanitize(Model.PreviousStepText) </a>
     }
 </div>
 
-@Html.Script(Url.WidgetContent("Mvc/Scripts/SubmitButton/submit-button.js"), "bottom", false)
-
+@Html.Script(Url.WidgetContent("Mvc/Scripts/Form/form.all.js"), "bottom", false)

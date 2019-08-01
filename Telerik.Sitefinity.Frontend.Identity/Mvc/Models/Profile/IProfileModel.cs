@@ -1,7 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 
 namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.Profile
 {
@@ -10,6 +7,14 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.Profile
     /// </summary>
     public interface IProfileModel
     {
+        /// <summary>
+        /// Gets or sets whether current users can update their profiles.
+        /// </summary>
+        /// <value>
+        /// The css class value as a string.
+        /// </value>
+        bool AllowCurrentProfileUpdates { get; set; }
+
         /// <summary>
         /// Gets or sets the css class that will be applied on the wrapping element of the widget.
         /// </summary>
@@ -33,7 +38,7 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.Profile
         /// The profile saved page identifier.
         /// </value>
         Guid ProfileSavedPageId { get; set; }
-        
+
         /// <summary>
         /// Gets or sets the profile provider.
         /// </summary>

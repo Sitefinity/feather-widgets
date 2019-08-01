@@ -8,6 +8,7 @@ using Telerik.Sitefinity.Data;
 using Telerik.Sitefinity.Frontend.Mvc.Models;
 using Telerik.Sitefinity.Model;
 using Telerik.Sitefinity.Taxonomies.Model;
+using Telerik.Sitefinity.Web.UI.ContentUI.Enums;
 using SfBlog = Telerik.Sitefinity.Blogs.Model.Blog;
 
 namespace Telerik.Sitefinity.Frontend.Blogs.Mvc.Models.BlogPost
@@ -56,12 +57,12 @@ namespace Telerik.Sitefinity.Frontend.Blogs.Mvc.Models.BlogPost
         SelectionMode SelectionMode { get; set; }
 
         /// <summary>
-        /// Gets or sets a value indicating whether to enable social sharing.
+        /// Gets or sets the group logical operator used for filtering.
         /// </summary>
         /// <value>
-        ///   <c>true</c> if should enable social sharing; otherwise, <c>false</c>.
+        /// The group logical operator used for filtering.
         /// </value>
-        bool EnableSocialSharing { get; set; }
+        LogicalOperator SelectionGroupLogicalOperator { get; set; }
 
         /// <summary>
         /// Gets or sets the name of the provider.
@@ -141,6 +142,14 @@ namespace Telerik.Sitefinity.Frontend.Blogs.Mvc.Models.BlogPost
         string UrlKeyPrefix { get; set; }
 
         /// <summary>
+        /// Gets or sets the display mode of the content view.
+        /// </summary>
+        /// <remarks>
+        /// Note that this enumeration differs from the FieldDisplayMode.
+        /// </remarks>
+        ContentViewDisplayMode ContentViewDisplayMode { get; set; }
+
+        /// <summary>
         /// Creates a view model for use in list views.
         /// </summary>
         /// <param name="taxonFilter">The taxon filter.</param>
@@ -163,6 +172,15 @@ namespace Telerik.Sitefinity.Frontend.Blogs.Mvc.Models.BlogPost
         /// <param name="page">The page.</param>
         /// <returns>A list view model containing all descendant items from the given parent.</returns>
         ContentListViewModel CreateListViewModelByParent(SfBlog parentItem, int page);
+
+        /// <summary>
+        /// Creates the ListView model by date filter.
+        /// </summary>
+        /// <param name="from">The start date from the date filter.</param>
+        /// <param name="to">The end date from the date filter.</param>
+        /// <param name="page">The page.</param>
+        /// <returns>A list view model containing all descendant items from the given parent.</returns>
+        ContentListViewModel CreateListViewModelByDate(DateTime from, DateTime to, int page);
 
         /// <summary>
         /// Gets a collection of <see cref="CacheDependencyNotifiedObject"/>.

@@ -441,6 +441,51 @@ namespace Telerik.Sitefinity.Frontend.Comments.Mvc.StringResources
             }
         }
 
+        /// <summary>
+        /// Gets phrase: Order by:
+        /// </summary>
+        [ResourceEntry("OrderBy",
+            Value = "Order by",
+            Description = "phrase: Order by",
+            LastModified = "2018/09/11")]
+        public string OrderBy
+        {
+            get
+            {
+                return this["OrderBy"];
+            }
+        }
+
+        /// <summary>
+        /// Gets phrase: Order by:
+        /// </summary>
+        [ResourceEntry("CommentBy",
+            Value = "Comment by",
+            Description = "phrase: Comment by",
+            LastModified = "2018/09/11")]
+        public string CommentBy
+        {
+            get
+            {
+                return this["CommentBy"];
+            }
+        }
+
+        /// <summary>
+        /// Gets label: from
+        /// </summary>
+        [ResourceEntry("From",
+            Value = "From",
+            Description = "phrase: From",
+            LastModified = "2018/09/11")]
+        public string From
+        {
+            get
+            {
+                return this["From"];
+            }
+        }
+
         #endregion
 
         #region Reviews
@@ -547,6 +592,36 @@ namespace Telerik.Sitefinity.Frontend.Comments.Mvc.StringResources
             get
             {
                 return this["Review"];
+            }
+        }
+
+        /// <summary>
+        /// The review widget title
+        /// </summary>
+        [ResourceEntry("ReviewsWidgetTitle",
+            Value = "Reviews",
+            Description = "The title of the reviews widget",
+            LastModified = "2019/06/03")]
+        public string ReviewsWidgetTitle
+        {
+            get
+            {
+                return this["ReviewsWidgetTitle"];
+            }
+        }
+
+        /// <summary>
+        /// The review widget description
+        /// </summary>
+        [ResourceEntry("ReviewsWidgetDescription",
+            Value = "Widget for submitting and displaying reviews and rating",
+            Description = "You use the Reviews widget to give the users the option to write reviews and put ratings on pages",
+            LastModified = "2019/06/03")]
+        public string ReviewsWidgetDescription
+        {
+            get
+            {
+                return this["ReviewsWidgetDescription"];
             }
         }
 
@@ -685,7 +760,20 @@ namespace Telerik.Sitefinity.Frontend.Comments.Mvc.StringResources
             }
         }
 
-        
+        /// <summary>
+        /// Gets word : Of
+        /// </summary>
+        [ResourceEntry("Of",
+            Value = "Of",
+            Description = "word : Of",
+            LastModified = "2018/09/14")]
+        public string Of
+        {
+            get
+            {
+                return this["Of"];
+            }
+        }
 
         #endregion
 
@@ -733,6 +821,36 @@ namespace Telerik.Sitefinity.Frontend.Comments.Mvc.StringResources
             get
             {
                 return this["Template"];
+            }
+        }
+
+        /// <summary>
+        /// Control name: CommentsWidget
+        /// </summary>
+        [ResourceEntry("CommentsTitle",
+            Value = "Comments",
+            Description = "Control title: Comments",
+            LastModified = "2019/06/03")]
+        public string CommentsTitle
+        {
+            get
+            {
+                return this["CommentsTitle"];
+            }
+        }
+
+        /// <summary>
+        /// Control description: A widget that shows the comments in the particular thread.
+        /// </summary>
+        [ResourceEntry("CommentsDescription",
+            Value = "A widget that shows the comments in the particular thread.",
+            Description = "Control description: A widget that shows the comments in the particular thread.",
+            LastModified = "2019/06/03")]
+        public string CommentsDescription
+        {
+            get
+            {
+                return this["CommentsDescription"];
             }
         }
 

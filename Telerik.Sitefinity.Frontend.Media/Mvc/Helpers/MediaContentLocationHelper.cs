@@ -6,6 +6,7 @@ using System.Web;
 using Telerik.Sitefinity.ContentLocations;
 using Telerik.Sitefinity.Libraries.Model;
 using Telerik.Sitefinity.Modules.Libraries;
+using Telerik.Sitefinity.Web;
 
 namespace Telerik.Sitefinity.Frontend.Media.Mvc.Helpers
 {
@@ -31,7 +32,7 @@ namespace Telerik.Sitefinity.Frontend.Media.Mvc.Helpers
         public static void HandlePreview<T>(HttpRequestBase request, Guid itemId, string providerName) 
             where T : MediaContent
         {
-            string contentAction = request.QueryString["sf-content-action"];
+            string contentAction = request.QueryStringGet("sf-content-action");
 
             if (contentAction != null && contentAction == "preview")
             {

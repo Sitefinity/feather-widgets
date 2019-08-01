@@ -336,6 +336,35 @@ namespace Telerik.Sitefinity.Frontend.Navigation.Mvc.StringResources
             }
         }
 
+        /// <summary>
+        /// The title of the SiteSelectorControl Widget
+        /// </summary>
+        [ResourceEntry("SiteSelectorControlTitle",
+            Value = "Site selector",
+            Description = "The title of the SiteSelectorControl Widget",
+            LastModified = "2019/06/03")]
+        public string SiteSelectorControlTitle
+        {
+            get
+            {
+                return this["SiteSelectorControlTitle"];
+            }
+        }
+
+        /// <summary>
+        /// The description of the SiteSelectorControl Widget
+        /// </summary>
+        [ResourceEntry("SiteSelectorControlDescription",
+            Value = "Front end Site selector widget",
+            Description = "The description of the SiteSelectorControl Widget",
+            LastModified = "2019/06/03")]
+        public string SiteSelectorControlDescription
+        {
+            get
+            {
+                return this["SiteSelectorControlDescription"];
+            }
+        }
         #endregion
     }
 }

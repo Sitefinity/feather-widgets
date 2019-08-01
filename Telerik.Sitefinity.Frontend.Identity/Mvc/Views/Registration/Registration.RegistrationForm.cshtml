@@ -5,14 +5,19 @@
 @using Telerik.Sitefinity.UI.MVC;
 @using Telerik.Sitefinity.Utilities;
 @using Telerik.Sitefinity.Services;
+@using Telerik.Sitefinity.Web;
 
 @*Add scripts and stylesheets*@
 @Html.Script(ScriptRef.JQuery, "top", false)
-@Html.Script("//ajax.aspnetcdn.com/ajax/jquery.validate/1.8.1/jquery.validate.js", "top", false)
-@Html.Script("//ajax.aspnetcdn.com/ajax/mvc/4.0/jquery.validate.unobtrusive.min.js", "top", false)
+@Html.Script(ScriptRef.JQueryValidate, "top", false)
+@Html.Script(Url.WidgetContent("Mvc/Scripts/JQueryValidate/jquery.validate.unobtrusive.min.js"), "top", false)
+@{
+    HtmlHelper.ClientValidationEnabled = true;
+    HtmlHelper.UnobtrusiveJavaScriptEnabled = true;
+}
 
 <div class="@Model.CssClass">
-    @if ((Request.QueryString["ShowActivationMsg"] == "true") ||
+    @if ((Request.QueryStringGet("ShowActivationMsg") == "true") ||
              (ViewBag.ShowActivationMsg is bool && ViewBag.ShowActivationMsg))
     {
         <h3>
@@ -29,7 +34,7 @@
 
         <input type="hidden" data-sf-role="sf-resend-confirmation-endpoint-url" value="@Url.Action("ResendConfirmationEmail", new { email = Model.Email})" />
     }
-    else if ((Request.QueryString["ShowSuccessfulRegistrationMsg"] == "true") ||
+    else if ((Request.QueryStringGet("ShowSuccessfulRegistrationMsg") == "true") ||
      (ViewBag.ShowSuccessfulRegistrationMsg is bool && ViewBag.ShowSuccessfulRegistrationMsg))
     {
         <h3>@Html.Resource("ThankYou")</h3>
@@ -101,11 +106,11 @@
             <div>
                 @if (SystemManager.IsDesignMode && !SystemManager.IsPreviewMode)
                 {
-                    <input type="button" value="@Html.Resource("Register")" />
+                    <input type="button" value="@Html.Resource("Register")" disabled />
                 }
                 else
                 {
-                    <input type="submit" value="@Html.Resource("Register")" />
+                    <input type="submit" value="@Html.Resource("Register")" @(SystemManager.IsDesignMode ? "disabled" : "") />
                 }
             </div>
 

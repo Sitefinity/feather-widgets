@@ -1,8 +1,6 @@
 @using Telerik.Sitefinity.Frontend.Mvc.Helpers
 @using Telerik.Sitefinity.Frontend.Mvc.Models
  
-@Html.JsBeautifierScriptReference()
- 
 <div ng-show="isShared" class="alert alert-warning">
     <b>@Html.Resource("ThisContentIsShared")</b> @Html.Resource("SharedContentWarning")
 </div>
@@ -10,7 +8,8 @@
                sf-model="properties.Content.PropertyValue"
                sf-images-settings="@SettingsHelpers.GetMediaSettings("Image")"
                sf-videos-settings="@SettingsHelpers.GetMediaSettings("Video")"
-               sf-documents-settings="@SettingsHelpers.GetMediaSettings("Document")"></sf-html-field>
+               sf-documents-settings="@SettingsHelpers.GetMediaSettings("Document")"
+               sf-view-type="Telerik.Sitefinity.Frontend.ContentBlock.Mvc.Controllers.ContentBlockController"></sf-html-field>
 
 <script type="text/ng-template" section="modal-footer">
 	<button class="btn btn-primary pull-left" onclick="saveProperties(false)">@Html.Resource("Save")</button>

@@ -1,14 +1,18 @@
 ﻿@model Telerik.Sitefinity.Frontend.Identity.Mvc.Models.Profile.ProfileEditViewModel
 
+@using System.Linq;
 @using Telerik.Sitefinity.Frontend.Mvc.Helpers;
 @using Telerik.Sitefinity.Modules.Pages;
 @using Telerik.Sitefinity.UI.MVC;
-@using Telerik.Sitefinity.Utilities;
 @using Telerik.Sitefinity.Services;
 
 @Html.Script(ScriptRef.JQuery, "top", false)
-@Html.Script("//ajax.aspnetcdn.com/ajax/jquery.validate/1.8.1/jquery.validate.js", "top", false)
-@Html.Script("//ajax.aspnetcdn.com/ajax/mvc/4.0/jquery.validate.unobtrusive.min.js", "top", false)
+@Html.Script(ScriptRef.JQueryValidate, "top", false)
+@Html.Script(Url.WidgetContent("Mvc/Scripts/JQueryValidate/jquery.validate.unobtrusive.min.js"), "top", false)
+@{
+    HtmlHelper.ClientValidationEnabled = true;
+    HtmlHelper.UnobtrusiveJavaScriptEnabled = true;
+}
 
 <div class="@Model.CssClass">
 
@@ -21,6 +25,11 @@
 
     @using (Html.BeginFormSitefinity("Index", "EditProfileForm", FormMethod.Post, new { enctype = "multipart/form-data" }))
     {
+        string[] readOnlyFields = ViewBag.ReadOnlyFields.ContainsKey("SitefinityProfile") ? (string[])ViewBag.ReadOnlyFields["SitefinityProfile"] : new string[0];
+        if (readOnlyFields.Count() > 0 || ViewBag.IsEmailReadOnly)
+        {
+            <div>@string.Format(Html.Resource("YouAreRegisteredWith"), Model.ExternalProviderName)</div>
+        }
         <div>
             @Html.HiddenFor(u => u.DeletePicture, new Dictionary<string, object>() { { "data-sf-role", "edit-profile-delete-picture" } })
             @Html.HiddenFor(u => u.DefaultAvatarUrl, new Dictionary<string, object>() { { "data-sf-role", "edit-profile-default-avatar-url" } })
@@ -39,44 +48,107 @@
             @ViewBag.ErrorMessage
         }
 
-        <div>
-            <label>
-                @Html.Resource("EditProfileFirstName")
-                @Html.TextBoxFor(u => u.Profile["FirstName"])
-                @Html.ValidationMessageFor(u => u.Profile["FirstName"])
-            </label>
-        </div>
-        <div>
-            <label>
-                @Html.Resource("EditProfileLastName")
-                @Html.TextBoxFor(u => u.Profile["LastName"])
-                @Html.ValidationMessageFor(u => u.Profile["LastName"])
-            </label>
-        </div>
-        <div>
-            <label>
-                @Html.Resource("EditProfileNickname")
-                @Html.TextBoxFor(u => u.Profile["Nickname"])
-                @Html.ValidationMessageFor(u => u.Profile["Nickname"])
-            </label>
-        </div>
-        <div>
-            <label>
-                @Html.Resource("EditProfileAbout")
-
-                @Html.TextAreaFor(u => u.Profile["About"])
-            </label>
-        </div>
-
-        if (string.IsNullOrEmpty(Model.ExternalProviderName))
         {
+            <div>
+                @if (readOnlyFields.Any(x => x.Equals("FirstName", StringComparison.OrdinalIgnoreCase)))
+                {
+                    <div>
+                        <label>
+                            @Html.Resource("EditProfileFirstName")
+                            @Html.HiddenFor(u => u.Profile["FirstName"])
+                            @Model.Profile["FirstName"]
+                        </label>
+                    </div>
+                }
+                else
+                {
+                    <label>
+                        @Html.Resource("EditProfileFirstName")
+                        @Html.TextBoxFor(u => u.Profile["FirstName"])
+                        @Html.ValidationMessageFor(u => u.Profile["FirstName"])
+                    </label>
+                }
+            </div>
+            <div>
+                @if (readOnlyFields.Any(x => x.Equals("LastName", StringComparison.OrdinalIgnoreCase)))
+                {
+                    <div>
+                        <label>
+                            @Html.Resource("EditProfileLastName")
+                            @Html.HiddenFor(u => u.Profile["LastName"])
+                            @Model.Profile["LastName"]
+                        </label>
+                    </div>
+                }
+                else
+                {
+                    <label>
+                        @Html.Resource("EditProfileLastName")
+                        @Html.TextBoxFor(u => u.Profile["LastName"])
+                        @Html.ValidationMessageFor(u => u.Profile["LastName"])
+                    </label>
+                }
+            </div>
+            <div>
+                @if (readOnlyFields.Any(x => x.Equals("Nickname", StringComparison.OrdinalIgnoreCase)))
+                {
+                    <div>
+                        <label>
+                            @Html.Resource("EditProfileNickname")
+                            @Html.HiddenFor(u => u.Profile["Nickname"])
+                            @Model.Profile["Nickname"]
+                        </label>
+                    </div>
+                }
+                else
+                {
+                    <label>
+                        @Html.Resource("EditProfileNickname")
+                        @Html.TextBoxFor(u => u.Profile["Nickname"])
+                        @Html.ValidationMessageFor(u => u.Profile["Nickname"])
+                    </label>
+                }
+            </div>
+            <div>
+                @if (readOnlyFields.Any(x => x.Equals("About", StringComparison.OrdinalIgnoreCase)))
+                {
+                    <div>
+                        @Html.Resource("EditProfileAbout")
+                        @Html.HiddenFor(u => u.Profile["About"])
+                        @Model.Profile["About"]
+                    </div>
+                }
+                else 
+                {
+                    <label>
+                        @Html.Resource("EditProfileAbout")
+                        @Html.TextAreaFor(u => u.Profile["About"])
+                    </label>
+                }
+            </div>
+        }
 
+        if (ViewBag.IsEmailReadOnly)
+        {
+            <div>
+                <label>
+                    @Html.Resource("EditProfileEmail")
+                    @Html.HiddenFor(u => u.Email)
+                    @Model.Email
+                </label>
+            </div>
+        }
+        else
+        {
             <label>
                 @Html.Resource("EditProfileEmail")
                 @Html.TextBoxFor(u => u.Email)
                 @Html.ValidationMessageFor(u => u.Email)
             </label>
-            <br>
+        }
+
+        if (string.IsNullOrEmpty(Model.ExternalProviderName))
+        {
             <a href="#" data-sf-role="edit-profile-change-password-button">@Html.Resource("EditProfileChangePasswordButton")</a>
             <br>
             <div data-sf-role="edit-profile-change-password-holder" style="display:none">
@@ -108,26 +180,18 @@
         }
         else
         {
-            <h4>@string.Format(Html.Resource("RegistratedWithExternal"), Model.ExternalProviderName)</h4>
-            <div>
-                <label>
-                    @Html.Resource("EditProfileEmail")
-                    @Html.HiddenFor(u => u.Email)
-                    @Model.Email
-                </label>
-            </div>
             <div>
                 <label>
                     @Html.Resource("Password")
                     @string.Format(Html.Resource("ExternalProviderNoPassword"), Model.ExternalProviderName)
                 </label>
-            </div>            
+            </div>
         }		
 
 
         if (SystemManager.IsDesignMode)
         {
-            <input data-sf-role="profile-submit" type="button" value='@Html.Resource("EditProfileSave")' />
+            <input data-sf-role="profile-submit" type="button" value='@Html.Resource("EditProfileSave")' disabled />
         }
         else 
         {

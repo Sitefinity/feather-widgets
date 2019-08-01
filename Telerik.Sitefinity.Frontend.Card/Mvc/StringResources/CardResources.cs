@@ -269,18 +269,50 @@ namespace Telerik.Sitefinity.Frontend.Card.Mvc.StringResources
         }
 
         /// <summary>
-        /// phrase: Example: http://sitefinity.com
+        /// phrase: Example: https://www.progress.com/sitefinity-cms
         /// </summary>
-        /// <value>Example: http://sitefinity.com</value>
+        /// <value>Example: https://www.progress.com/sitefinity-cms</value>
         [ResourceEntry("Example",
-            Value = "Example: http://sitefinity.com",
-            Description = "phrase: Example: http://sitefinity.com",
-            LastModified = "2015/10/06")]
+            Value = "Example: https://www.progress.com/sitefinity-cms",
+            Description = "phrase: Example: https://www.progress.com/sitefinity-cms",
+            LastModified = "2018/10/12")]
         public string Example
         {
             get
             {
                 return this["Example"];
+            }
+        }
+
+        /// <summary>
+        /// phrase: Card
+        /// </summary>
+        /// <value>Example: Card</value>
+        [ResourceEntry("CardWidgetTitle",
+            Value = "Card",
+            Description = "The title of the card widget",
+            LastModified = "2018/10/12")]
+        public string CardWidgetTitle
+        {
+            get
+            {
+                return this["CardWidgetTitle"];
+            }
+        }
+
+        /// <summary>
+        /// The description of the card widget
+        /// </summary>
+        /// <value>A text that descibes the card widget</value>
+        [ResourceEntry("CardWidgetDescription",
+            Value = "Block that can contain an image, heading, text, and an action button",
+            Description = "The descirption of the card widget",
+            LastModified = "2018/10/12")]
+        public string CardWidgetDescription
+        {
+            get
+            {
+                return this["CardWidgetDescription"];
             }
         }
     }

@@ -57,12 +57,20 @@
                         if (request.status === 200) {
                             var responseJson = JSON.parse(request.response);
                             if (responseJson.success) {
-                                if (redirectUrl) {
-                                    document.location.replace(redirectUrl);
-                                }
-                                else {
+                                if (responseJson.redirectUrl && responseJson.redirectUrl !== '') {
+                                    document.location.replace(responseJson.redirectUrl);
+                                } else if (responseJson.message && responseJson.message !== '') {
+                                    successMessage.text(responseJson.message);
                                     successMessage.show();
                                     loadingImg.hide();
+                                } else {
+                                    if (redirectUrl) {
+                                        document.location.replace(redirectUrl);
+                                    }
+                                    else {
+                                        successMessage.show();
+                                        loadingImg.hide();
+                                    }
                                 }
                             }
                             else {

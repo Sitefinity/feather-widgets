@@ -1,6 +1,6 @@
 ﻿using System;
 using System.ComponentModel;
-using Telerik.Sitefinity.Metadata.Model;
+using Telerik.Sitefinity.Modules.Forms.Web.UI;
 using Telerik.Sitefinity.Utilities.TypeConverters;
 
 namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Models.Fields.FileField
@@ -8,7 +8,7 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Models.Fields.FileField
     /// <summary>
     /// This interface provides API for form file fields.
     /// </summary>
-    public interface IFileFieldModel : IFormFieldModel
+    public interface IFileFieldModel : IFormFieldModel, IHideable
     {
         /// <summary>
         /// Gets or sets a value indicating whether to allow multiple file attachments.

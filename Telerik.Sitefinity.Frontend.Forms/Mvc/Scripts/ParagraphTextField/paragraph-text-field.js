@@ -1,37 +1,65 @@
 ﻿(function ($) {
     $(function () {
 
-        function changeOrInput(e) {
+        function processRules(e) {
+            if (typeof $.fn.processFormRules === 'function') {
+                $(e.target).processFormRules();
+            }
+        }
+
+        var delayTimer;
+        function processRulesWithDelay(e) {
+            clearTimeout(delayTimer);
+            delayTimer = setTimeout(function () {
+                processRules(e);
+            }, 300);
+        }
+
+        function handleValidation(e) {
             if (typeof e.target.validity === 'undefined')
                 return;
 
             var validationMessages = getValidationMessages(e.target);
 
             if (e.target.required && e.target.validity.valueMissing) {
-                e.target.setCustomValidity(validationMessages.required);
+                setErrorMessage(e.target, validationMessages.required);
             }
             else if (e.target.validity.tooShort || e.target.validity.tooLong) {
-                e.target.setCustomValidity(validationMessages.maxLength);
+                setErrorMessage(e.target, validationMessages.maxLength);
             }
             else {
-                e.target.setCustomValidity('');
+                setErrorMessage(e.target, '');
             }
+        }
+
+        function onChange(e) {
+            handleValidation(e);
+            processRules(e);
+        }
+
+        function onInput(e) {
+            handleValidation(e);
+            processRulesWithDelay(e);
         }
 
         function invalid(e) {
             if (typeof e.target.validity === 'undefined')
                 return;
 
+            if (_getErrorMessageContainer(e.target)) {
+                e.preventDefault();
+            }
+
             var validationMessages = getValidationMessages(e.target);
-            
+
             if (e.target.validity.valueMissing) {
-                e.target.setCustomValidity(validationMessages.required);
+                setErrorMessage(e.target, validationMessages.required);
             }
             else if (e.target.validity.tooShort || e.target.validity.tooLong) {
-                e.target.setCustomValidity(validationMessages.maxLength);
+                setErrorMessage(e.target, validationMessages.maxLength);
             }
             else if (e.target.validity.patternMismatch) {
-                e.target.setCustomValidity(validationMessages.maxLength);
+                setErrorMessage(e.target, validationMessages.maxLength);
             }
         }
 
@@ -41,6 +69,36 @@
             var validationMessages = JSON.parse(validationMessagesInput.val());
 
             return validationMessages;
+        }
+
+        function setErrorMessage(input, message) {
+            var errorMessagesContainer = _getErrorMessageContainer(input);
+
+            if (errorMessagesContainer) {
+                _toggleCustomErrorMessage(errorMessagesContainer, message);
+            } else {
+                input.setCustomValidity(message);
+            }
+        }
+
+        function _toggleCustomErrorMessage(container, message) {
+            container.innerText = message;
+
+            if (message === '') {
+                container.style.display = 'none';
+            } else {
+                container.style.display = 'block';
+            }
+        }
+
+        function _getErrorMessageContainer(input) {
+            var container = $(input).closest('[data-sf-role="paragraph-text-field-container"]')[0];
+            if (container) {
+                var errorMessagesContainer = container.querySelector('[data-sf-role="error-message"]');
+                return errorMessagesContainer;
+            }
+
+            return null;
         }
 
         function init() {
@@ -53,8 +111,8 @@
                 var textarea = $(containers[i]).find('[data-sf-role="paragraph-text-field-textarea"]');
 
                 if (textarea) {
-                    textarea.on('change', changeOrInput);
-                    textarea.on('input', changeOrInput);
+                    textarea.on('change', onChange);
+                    textarea.on('input', onInput);
                     textarea.on('invalid', invalid);
                 }
             }

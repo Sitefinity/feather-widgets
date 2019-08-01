@@ -483,5 +483,37 @@ namespace Telerik.Sitefinity.Frontend.Taxonomies.Mvc.StringResources
                 return this["SelectTaxonomiesHeader"];
             }
         }
+
+        /// <summary>
+        /// phrase: Tags
+        /// </summary>
+        /// <value>Tags</value>
+        [ResourceEntry("FlatTaxonomyTitle",
+            Value = "Tags",
+            Description = "The title of the Flat taxonomy widget",
+            LastModified = "2019/06/03")]
+        public string FlatTaxonomyTitle
+        {
+            get
+            {
+                return this["FlatTaxonomyTitle"];
+            }
+        }
+
+        /// <summary>
+        /// phrase: List of predefined tags.
+        /// </summary>
+        /// <value>List of predefined tags.</value>
+        [ResourceEntry("FlatTaxonomyDescription",
+            Value = "List of predefined tags",
+            Description = "The description of the Flat taxonomy widget",
+            LastModified = "2019/06/03")]
+        public string FlatTaxonomyDescription
+        {
+            get
+            {
+                return this["FlatTaxonomyDescription"];
+            }
+        }
     }
 }

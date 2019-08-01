@@ -261,6 +261,7 @@ namespace Telerik.Sitefinity.Frontend.Events.Mvc.Models.EventScheduler
         /// <returns>Filter expression that will be applied on the query.</returns>
         protected override string CompileFilterExpression()
         {
+            this.RefreshLogicalOperator = false;
             var filterExpression = base.CompileFilterExpression();
 
             filterExpression = filterExpression.Replace("EventEnd>=(DateTime.UtcNow)", "( (EventEnd>=(DateTime.UtcNow)) OR  (NULL==EventEnd))");
@@ -272,6 +273,8 @@ namespace Telerik.Sitefinity.Frontend.Events.Mvc.Models.EventScheduler
                     var narrowFilters = ServiceStack.Text.JsonSerializer.DeserializeFromString<QueryData>(this.SerializedNarrowSelectionFilters);
                     if (narrowFilters.QueryItems != null && narrowFilters.QueryItems.Length > 0)
                     {
+                        this.RefreshQueryGroupLogicalOperator(narrowFilters.GetZeroLevelItems());
+
                         var queryExpression = Telerik.Sitefinity.Data.QueryBuilder.LinqTranslator.ToDynamicLinq(narrowFilters);
 
                         if (!filterExpression.IsNullOrEmpty())

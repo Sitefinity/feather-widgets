@@ -359,5 +359,37 @@ namespace Telerik.Sitefinity.Frontend.Lists.Mvc.StringResources
                 return this["ListItemDetails"];
             }
         }
+
+        /// <summary>
+        /// phrase: List
+        /// </summary>
+        /// <value>List widget titlle</value>
+        [ResourceEntry("List",
+            Value = "List",
+            Description = "phrase: List item title",
+            LastModified = "2019/05/28")]
+        public string List
+        {
+            get
+            {
+                return this["List"];
+            }
+        }
+
+        /// <summary>
+        /// phrase: List item details
+        /// </summary>
+        /// <value>List widget description</value>
+        [ResourceEntry("ListItemsViewDescription",
+            Value = "List items",
+            Description = "phrase: List item details",
+            LastModified = "2019/05/28")]
+        public string ListItemsViewDescription
+        {
+            get
+            {
+                return this["ListItemsViewDescription"];
+            }
+        }
     }
 }

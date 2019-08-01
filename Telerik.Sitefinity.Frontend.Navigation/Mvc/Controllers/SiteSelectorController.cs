@@ -1,9 +1,6 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
-using System.Web;
 using System.Web.Mvc;
 using Telerik.Sitefinity.Frontend.Mvc.Infrastructure.Controllers;
 using Telerik.Sitefinity.Frontend.Mvc.Infrastructure.Controllers.Attributes;
@@ -20,8 +17,11 @@ namespace Telerik.Sitefinity.Frontend.Navigation.Mvc.Controllers
     /// <summary>
     /// This class represents the controller of the Site selector widget.
     /// </summary>
-    [ControllerToolboxItem(Name = "SiteSelector_MVC",
-       Title = "Site selector",
+    [ControllerToolboxItem(
+       Name = SiteSelectorController.WidgetName,
+       Title = nameof(SiteSelectorResources.SiteSelectorControlTitle),
+       Description = nameof(SiteSelectorResources.SiteSelectorControlDescription),
+       ResourceClassId = nameof(SiteSelectorResources),
        SectionName = ToolboxesConfig.NavigationControlsSectionName,
        CssClass = SiteSelectorController.WidgetIconCssClass)]
     [Localization(typeof(SiteSelectorResources))]
@@ -93,7 +93,7 @@ namespace Telerik.Sitefinity.Frontend.Navigation.Mvc.Controllers
                 var fullTemplateName = this.templateNamePrefix + this.TemplateName;
                 var viewModel = this.Model.CreateViewModel();
                 this.AppendQueryParamsToCurrentSiteUrl(viewModel.Sites);
-                
+
                 return this.View(fullTemplateName, viewModel);
             }
             else
@@ -153,6 +153,7 @@ namespace Telerik.Sitefinity.Frontend.Navigation.Mvc.Controllers
         internal const string WidgetIconCssClass = "sfSiteSelectorIcn sfMvcIcn";
         private string templateNamePrefix = "SiteSelector.";
         private string templateName = "SiteLinks";
+        private const string WidgetName = "SiteSelector_MVC";
 
         #endregion
     }

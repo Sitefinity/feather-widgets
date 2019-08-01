@@ -1,7 +1,4 @@
-﻿using System;
-using System.ComponentModel;
-using System.Linq;
-using Telerik.Sitefinity.Frontend.Mvc.Models;
+﻿using Telerik.Sitefinity.Frontend.Mvc.Models;
 
 namespace Telerik.Sitefinity.Frontend.Card.Mvc.Models.Card
 {
@@ -44,10 +41,5 @@ namespace Telerik.Sitefinity.Frontend.Card.Mvc.Models.Card
         /// Gets or sets the selected size image URL.
         /// </summary>
         public string SelectedSizeUrl { get; set; }
-
-        /// <summary>
-        /// Gets or sets the css class.
-        /// </summary>
-        public string CssClass { get; set; }
     }
 }

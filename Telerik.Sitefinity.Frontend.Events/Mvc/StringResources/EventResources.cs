@@ -947,6 +947,70 @@ namespace Telerik.Sitefinity.Frontend.Events.Mvc.StringResources
             }
         }
 
+        /// <summary>
+        /// Messsage: Events View
+        /// </summary>
+        /// <value>Provides a UI for displaying events.</value>
+        [ResourceEntry("EventsViewTitle",
+            Value = "Events",
+            Description = "Provides a UI for displaying events.",
+            LastModified = "2019/06/03")]
+        public string EventsViewTitle
+        {
+            get
+            {
+                return this["EventsViewTitle"];
+            }
+        }
+
+        /// <summary>
+        /// Messsage: Provides a UI for displaying events.
+        /// </summary>
+        /// <value>Describes the purpose of the EventsView control.</value>
+        [ResourceEntry("EventsViewDescription",
+            Value = "Lists of events",
+            Description = "Describes the purpose of the EventsView control.",
+            LastModified = "2019/06/03")]
+        public string EventsViewDescription
+        {
+            get
+            {
+                return this["EventsViewDescription"];
+            }
+        }
+
+        /// <summary>
+        /// The title of the calendar widget
+        /// </summary>
+        /// <value>The title of the calendar widget</value>
+        [ResourceEntry("CalendarViewTitle",
+            Value = "Calendar",
+            Description = "The title of the calendar widget",
+            LastModified = "2019/06/03")]
+        public string CalendarViewTitle
+        {
+            get
+            {
+                return this["CalendarViewTitle"];
+            }
+        }
+
+        /// <summary>
+        /// The calendar widget description
+        /// </summary>
+        /// <value>Describes the purpose of the EventsView control.</value>
+        [ResourceEntry("CalendarViewDescription",
+            Value = "Use the MVC Calendar widget to display a calendar of events on your website pages.",
+            Description = "The calendar widget description",
+            LastModified = "2019/06/03")]
+        public string CalendarViewDescription
+        {
+            get
+            {
+                return this["CalendarViewDescription"];
+            }
+        }
+
         #endregion
     }
 }

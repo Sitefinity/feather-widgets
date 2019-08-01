@@ -19,7 +19,13 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Controllers
     /// This class represents the controller of the Change Password widget.
     /// </summary>
     [Localization(typeof(ChangePasswordResources))]
-    [ControllerToolboxItem(Name = "ChangePassword_MVC", Title = "Change password", SectionName = "Login", CssClass = ChangePasswordController.WidgetIconCssClass)]
+    [ControllerToolboxItem(
+        Name = ChangePasswordController.WidgetName, 
+        Title = nameof(ChangePasswordResources.UserChangePasswordWidgetTitle), 
+        Description = nameof(ChangePasswordResources.UserChangePasswordWidgetDescription),
+        ResourceClassId = nameof(ChangePasswordResources),
+        SectionName = "Login", 
+        CssClass = ChangePasswordController.WidgetIconCssClass)]
     public class ChangePasswordController : Controller
     {
         #region Properties
@@ -173,7 +179,7 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Controllers
         private string templateNamePrefix = "ChangePassword.";
 
         private IChangePasswordModel model;
-
+        private const string WidgetName = "ChangePassword_MVC";
         #endregion
     }
 }

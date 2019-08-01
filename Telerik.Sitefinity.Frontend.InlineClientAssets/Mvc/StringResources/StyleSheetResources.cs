@@ -343,5 +343,35 @@ namespace Telerik.Sitefinity.Frontend.InlineClientAssets.Mvc.StringResources
         }
 
         #endregion
+
+        /// <summary>
+        /// Control name: Embed CSS
+        /// </summary>
+        [ResourceEntry("CssEmbedControlTitle",
+            Value = "CSS",
+            Description = "Control title: Embed CSS style sheet",
+            LastModified = "2019/06/03")]
+        public string CssEmbedControlTitle
+        {
+            get
+            {
+                return this["CssEmbedControlTitle"];
+            }
+        }
+
+        /// <summary>
+        /// Control description: A control for embedding CSS style sheets
+        /// </summary>
+        [ResourceEntry("CssEmbedControlDescription",
+            Value = "Embeds CSS files or custom styles in this page",
+            Description = "Control description: A control for embedding CSS style sheets.",
+            LastModified = "2019/06/03")]
+        public string CssEmbedControlDescription
+        {
+            get
+            {
+                return this["CssEmbedControlDescription"];
+            }
+        }
     }
 }

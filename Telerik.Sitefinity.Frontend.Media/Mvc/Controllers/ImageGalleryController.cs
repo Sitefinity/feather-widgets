@@ -4,6 +4,7 @@ using System.ComponentModel;
 using System.Linq;
 using System.Web.Mvc;
 using System.Web.Routing;
+using ServiceStack.Text;
 using Telerik.Sitefinity.ContentLocations;
 using Telerik.Sitefinity.Frontend.Media.Mvc.Models;
 using Telerik.Sitefinity.Frontend.Media.Mvc.Models.ImageGallery;
@@ -17,6 +18,7 @@ using Telerik.Sitefinity.Frontend.Mvc.Models;
 using Telerik.Sitefinity.Libraries.Model;
 using Telerik.Sitefinity.Model;
 using Telerik.Sitefinity.Modules.Libraries;
+using Telerik.Sitefinity.Modules.Pages;
 using Telerik.Sitefinity.Modules.Pages.Configuration;
 using Telerik.Sitefinity.Mvc;
 using Telerik.Sitefinity.Services;
@@ -29,7 +31,14 @@ namespace Telerik.Sitefinity.Frontend.Media.Mvc.Controllers
     /// This class represents controller for the Image Gallery widget.
     /// </summary>
     [Localization(typeof(ImageGalleryResources))]
-    [ControllerToolboxItem(Name = "ImageGallery_MVC", Title = "Image gallery", SectionName = ToolboxesConfig.ContentToolboxSectionName, ModuleName = "Libraries", CssClass = ImageGalleryController.WidgetIconCssClass)]
+    [ControllerToolboxItem(
+        Name = ImageGalleryController.WidgetName, 
+        Title = nameof(ImageGalleryResources.ImagesViewTitle), 
+        Description = nameof(ImageGalleryResources.ImagesViewDescription),
+        ResourceClassId = nameof(ImageGalleryResources),
+        SectionName = ToolboxesConfig.ContentToolboxSectionName, 
+        ModuleName = "Libraries",
+        CssClass = ImageGalleryController.WidgetIconCssClass)]
     public class ImageGalleryController : ContentBaseController, IContentLocatableView, IRouteMapper
     {
         #region Properties
@@ -144,7 +153,7 @@ namespace Telerik.Sitefinity.Frontend.Media.Mvc.Controllers
                 if (this.metadata == null)
                 {
                     this.metadata = base.MetadataFields;
-                    this.metadata.OpenGraphType = OpenGraphTypes.Image;
+                    this.metadata.OpenGraphType = PageHelper.OpenGraphTypes.Image;
                 }
 
                 return this.metadata;
@@ -166,12 +175,14 @@ namespace Telerik.Sitefinity.Frontend.Media.Mvc.Controllers
         {
             ITaxon taxonFilter = TaxonUrlEvaluator.GetTaxonFromQuery(this.HttpContext, this.Model.UrlKeyPrefix);
 
-            this.InitializeListViewBag("/{0}");
+            this.InitializeListViewBag();
             this.SetRedirectUrlQueryString(taxonFilter);
 
-            var viewModel = this.Model.CreateListViewModel(taxonFilter: taxonFilter, page: page ?? 1);
-            if (SystemManager.CurrentHttpContext != null)
-                this.AddCacheDependencies(this.Model.GetKeysOfDependentObjects(viewModel));
+            this.UpdatePageFromQuery(ref page, this.Model.UrlKeyPrefix);
+            var viewModel = this.Model.CreateListViewModel(taxonFilter, this.ExtractValidPage(page));
+            this.AddCacheDependencies(this.Model.GetKeysOfDependentObjects(viewModel));
+            if (viewModel.ContentType != null)
+                this.AddCacheVariations(viewModel.ContentType, viewModel.ProviderName);
 
             var fullTemplateName = this.FullListTemplateName();
             return this.View(fullTemplateName, viewModel);
@@ -192,7 +203,11 @@ namespace Telerik.Sitefinity.Frontend.Media.Mvc.Controllers
 
             var viewModel = this.Model.CreateListViewModelByParent(parentItem, page ?? 1);
             if (SystemManager.CurrentHttpContext != null)
+            {
                 this.AddCacheDependencies(this.Model.GetKeysOfDependentObjects(viewModel));
+                if (viewModel.ContentType != null)
+                    this.AddCacheVariations(viewModel.ContentType, viewModel.ProviderName);
+            }
 
             var fullTemplateName = this.FullListTemplateName();
             return this.View(fullTemplateName, viewModel);
@@ -209,11 +224,18 @@ namespace Telerik.Sitefinity.Frontend.Media.Mvc.Controllers
         public ActionResult ListByTaxon(ITaxon taxonFilter, int? page)
         {
             if (taxonFilter != null)
-                this.InitializeListViewBag("/" + taxonFilter.UrlName + "/{0}");
+            {
+                var redirectPageUrlTemplate = UrlHelpers.GetRedirectPagingUrl(taxonFilter);
+                this.InitializeListViewBag(redirectPageUrlTemplate);
+            }
 
             var viewModel = this.Model.CreateListViewModel(taxonFilter, page ?? 1);
             if (SystemManager.CurrentHttpContext != null)
+            {
                 this.AddCacheDependencies(this.Model.GetKeysOfDependentObjects(viewModel));
+                if (viewModel.ContentType != null)
+                    this.AddCacheVariations(viewModel.ContentType, viewModel.ProviderName);
+            }
 
             var fullTemplateName = this.FullListTemplateName();
             return this.View(fullTemplateName, viewModel);
@@ -228,6 +250,11 @@ namespace Telerik.Sitefinity.Frontend.Media.Mvc.Controllers
         /// </returns>
         public ActionResult Details(Image item)
         {
+            if (!this.MatchesParent(item))
+            {
+                RouteHelper.SetUrlParametersResolved(false);
+            }
+
             this.InitializeMetadataDetailsViewBag(item);
 
             var itemIndex = this.ParseToNullableInt32(this.GetQueryString("itemIndex"));
@@ -242,8 +269,7 @@ namespace Telerik.Sitefinity.Frontend.Media.Mvc.Controllers
             this.ViewBag.UrlKeyPrefix = this.Model.UrlKeyPrefix;
 
             var viewModel = this.Model.CreateDetailsViewModel(item, itemIndex);
-            if (SystemManager.CurrentHttpContext != null)
-                this.AddCacheDependencies(this.Model.GetKeysOfDependentObjects(viewModel));
+            this.AddCacheDependencies(this.Model.GetKeysOfDependentObjects(viewModel));
 
             this.AddCanonicalUrlTag(item);
 
@@ -307,7 +333,7 @@ namespace Telerik.Sitefinity.Frontend.Media.Mvc.Controllers
         /// <returns></returns>
         protected virtual string GetQueryString(string key)
         {
-            return Request.QueryString[key];
+            return Request.QueryStringGet(key);
         }
 
         /// <summary>
@@ -374,10 +400,14 @@ namespace Telerik.Sitefinity.Frontend.Media.Mvc.Controllers
         /// Initializes the ListView bag.
         /// </summary>
         /// <param name="redirectPageUrl">The redirect page URL.</param>
-        private void InitializeListViewBag(string redirectPageUrl)
+        private void InitializeListViewBag(string redirectPageUrl = null)
         {
-            this.ViewBag.CurrentPageUrl = SystemManager.CurrentHttpContext != null ? this.GetCurrentPageUrl() : string.Empty;
-            this.ViewBag.RedirectPageUrlTemplate = this.ViewBag.CurrentPageUrl + redirectPageUrl;
+            var pageUrl = this.GetCurrentPageUrl();
+            var template = redirectPageUrl != null ? string.Concat(pageUrl, redirectPageUrl) :
+                                                     this.GeneratePagingTemplate(pageUrl, this.Model.UrlKeyPrefix);
+
+            this.ViewBag.CurrentPageUrl = pageUrl;
+            this.ViewBag.RedirectPageUrlTemplate = template;
             this.ViewBag.DetailsPageId = this.DetailsPageId;
             this.ViewBag.OpenInSamePage = this.OpenInSamePage;
             this.ViewBag.ItemsPerPage = this.Model.ItemsPerPage;
@@ -400,7 +430,7 @@ namespace Telerik.Sitefinity.Frontend.Media.Mvc.Controllers
         private int? ParseToNullableInt32(string text)
         {
             int i;
-            if (Int32.TryParse(text, out i))
+            if (int.TryParse(text, out i))
             {
                 return i;
             }
@@ -422,6 +452,30 @@ namespace Telerik.Sitefinity.Frontend.Media.Mvc.Controllers
             var taxonQueryStringParams = HyperLinkHelpers.BuildTaxonQueryStringParams(taxon, this.Model.UrlKeyPrefix);
             this.ViewBag.RedirectPageUrlTemplate = this.ViewBag.RedirectPageUrlTemplate + taxonQueryStringParams;
         }
+
+        private bool MatchesParent(Image image)
+        {
+            if (image == null || image.Parent == null)
+            {
+                return true;
+            }
+
+            var selectedParentIds = JsonSerializer.DeserializeFromString<IList<string>>(this.Model.SerializedSelectedParentsIds);
+
+            if (selectedParentIds != null && selectedParentIds.Count > 0)
+            {
+                if (((image.FolderId == null || image.FolderId == Guid.Empty) && selectedParentIds.Contains(image.ParentId.ToString())) 
+                    || (image.FolderId != null && image.FolderId != Guid.Empty && selectedParentIds.Contains(image.FolderId.ToString())))
+                {
+                    return true;
+                }
+
+                return false;
+            }
+
+            return true;
+        }
+
         #endregion
 
         #region Private fields and constants
@@ -437,6 +491,7 @@ namespace Telerik.Sitefinity.Frontend.Media.Mvc.Controllers
         private string detailTemplateNamePrefix = "Detail.";
         private bool? disableCanonicalUrlMetaTag;
         private bool openInSamePage = true;
+        private const string WidgetName = "ImageGallery_MVC";
 
         #endregion
     }

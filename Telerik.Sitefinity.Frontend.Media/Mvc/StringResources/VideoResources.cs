@@ -106,7 +106,7 @@ namespace Telerik.Sitefinity.Frontend.Media.Mvc.StringResources
         /// </summary>
         /// <value>If you add a video here it will not be displayed before the page is published.To see the video click Preview on the top of this page.</value>
         [ResourceEntry("VideoWillNotBeDisplayed",
-            Value = "If you add a video here it will not be displayed before the page is published.To see the video click Preview on the top of this page.",
+            Value = "<p class=\"sfVideoNotAvailable\">If you add a video here it will not be displayed before the page is published.To see the video click Preview on the top of this page.</p>",
             Description = "Phrase:If you add a video here it will not be displayed before the page is published.To see the video click Preview on the top of this page.",
             LastModified = "2015/04/13")]
         public string VideoWillNotBeDisplayed
@@ -175,6 +175,36 @@ namespace Telerik.Sitefinity.Frontend.Media.Mvc.StringResources
             get
             {
                 return this["Template"];
+            }
+        }
+
+        /// <summary>
+        /// Control name: MediaPlayer
+        /// </summary>
+        [ResourceEntry("MediaPlayerControlTitle",
+            Value = "Video",
+            Description = "Control title: MediaPlayerControlTitle",
+            LastModified = "2019/06/03")]
+        public string MediaPlayerControlTitle
+        {
+            get
+            {
+                return this["MediaPlayerControlTitle"];
+            }
+        }
+
+        /// <summary>
+        /// Control description: A control for displaying rich media content.
+        /// </summary>
+        [ResourceEntry("MediaPlayerControlDescription",
+            Value = "Video uploaded from your computer or selected from Video libraries",
+            Description = "Control description: A control for displaying rich media content",
+            LastModified = "2019/06/03")]
+        public string MediaPlayerControlDescription
+        {
+            get
+            {
+                return this["MediaPlayerControlDescription"];
             }
         }
 

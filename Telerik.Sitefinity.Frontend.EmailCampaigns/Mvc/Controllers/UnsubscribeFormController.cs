@@ -1,9 +1,8 @@
 ﻿using System;
 using System.ComponentModel;
-using System.Linq;
 using System.Web;
 using System.Web.Mvc;
-using System.Web.UI;
+using Telerik.Sitefinity.Abstractions;
 using Telerik.Sitefinity.Frontend.EmailCampaigns.Mvc.Helpers;
 using Telerik.Sitefinity.Frontend.EmailCampaigns.Mvc.Models;
 using Telerik.Sitefinity.Frontend.EmailCampaigns.Mvc.Models.UnsubscribeForm;
@@ -16,15 +15,20 @@ using Telerik.Sitefinity.Localization;
 using Telerik.Sitefinity.Modules.Newsletters;
 using Telerik.Sitefinity.Modules.Pages.Configuration;
 using Telerik.Sitefinity.Mvc;
+using Telerik.Sitefinity.Security;
 using Telerik.Sitefinity.Services;
+using Telerik.Sitefinity.Web;
 
 namespace Telerik.Sitefinity.Frontend.EmailCampaigns.Mvc.Controllers
 {
     /// <summary>
     /// This class represents the controller of the Unsubscribe widget.
     /// </summary>
-    [ControllerToolboxItem(Name = "UnsubscribeForm_MVC",
-        Title = "Unsubscribe",
+    [ControllerToolboxItem(
+        Name = UnsubscribeFormController.WidgetName,
+        Title = nameof(UnsubscribeFormResources.UnsubscribeFormTitle),
+        Description = nameof(UnsubscribeFormResources.UnsubscribeFormDescription),
+        ResourceClassId = nameof(UnsubscribeFormResources),
         SectionName = ToolboxesConfig.NewslettersToolboxSectionName,
         CssClass = UnsubscribeFormController.WidgetIconCssClass)]
     [Localization(typeof(UnsubscribeFormResources))]
@@ -84,7 +88,7 @@ namespace Telerik.Sitefinity.Frontend.EmailCampaigns.Mvc.Controllers
         /// Gets a value indicating whether this instance of the control is licensed.
         /// </summary>
         /// <value>
-        /// 	<c>true</c> if this instance is licensed; otherwise, <c>false</c>.
+        /// <c>true</c> if this instance is licensed; otherwise, <c>false</c>.
         /// </value>
         [Browsable(false)]
         public virtual bool IsLicensed
@@ -140,7 +144,6 @@ namespace Telerik.Sitefinity.Frontend.EmailCampaigns.Mvc.Controllers
                 return new EmptyResult();
             }
 
-
             if (!this.IsLicensed)
             {
                 return this.Content(this.LicensingMessage);
@@ -156,12 +159,12 @@ namespace Telerik.Sitefinity.Frontend.EmailCampaigns.Mvc.Controllers
 
             if (!SystemManager.IsDesignMode && this.Model.UnsubscribeMode == UnsubscribeMode.Link)
             {
-                string subscriberId = page.Request.QueryString["subscriberId"];
-                string issueId = page.Request.QueryString["issueId"];
-                string listId = page.Request.QueryString["listId"];
+                string subscriberId = page.Request.QueryStringGet("subscriberId");
+                string issueId = page.Request.QueryStringGet("issueId");
+                string listId = page.Request.QueryStringGet("listId");
 
                 bool isSubscribe = false;
-                bool.TryParse(page.Request.QueryString["subscribe"], out isSubscribe);
+                bool.TryParse(page.Request.QueryStringGet("subscribe"), out isSubscribe);
 
                 this.Model.ExecuteAction(subscriberId, issueId, listId, isSubscribe);
 
@@ -183,7 +186,7 @@ namespace Telerik.Sitefinity.Frontend.EmailCampaigns.Mvc.Controllers
         /// <param name="viewModel">The model.</param>
         /// <returns></returns>
         [HttpPost]
-        public ActionResult Index(UnsubscribeFormViewModel viewModel)
+        public ActionResult Unsubscribe(UnsubscribeFormViewModel viewModel)
         {
             if (this.ModelState.IsValid && this.Model.ListId != Guid.Empty)
             {
@@ -195,7 +198,9 @@ namespace Telerik.Sitefinity.Frontend.EmailCampaigns.Mvc.Controllers
 
                 if (isSucceeded)
                 {
-                    if (this.Model.SuccessfullySubmittedForm == SuccessfullySubmittedForm.OpenSpecificPage && !string.IsNullOrEmpty(viewModel.RedirectPageUrl))
+                    var redirectUrl = viewModel.RedirectPageUrl;
+                    var validator = ObjectFactory.Resolve<IRedirectUriValidator>();
+                    if (this.Model.SuccessfullySubmittedForm == SuccessfullySubmittedForm.OpenSpecificPage && !string.IsNullOrEmpty(viewModel.RedirectPageUrl) && validator.IsValid(redirectUrl))
                     {
                         return this.Redirect(viewModel.RedirectPageUrl);
                     }
@@ -240,6 +245,7 @@ namespace Telerik.Sitefinity.Frontend.EmailCampaigns.Mvc.Controllers
         private string emailAddressTemplateName = "UnsubscribeForm";
         private readonly string linkTemplateNamePrefix = "UnsubscribeFormByLink.";
         private readonly string emailAddressTemplateNamePrefix = "UnsubscribeFormByEmailAddress.";
+        private const string WidgetName = "UnsubscribeForm_MVC";
         #endregion
     }
 }

@@ -91,6 +91,30 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.Registration
         string EmailSenderName { get; set; }
 
         /// <summary>
+        /// Gets or sets the sender email that will be used to send successful registration emails.
+        /// </summary>
+        /// <value>The sender email.</value>
+        string SuccessfulRegistrationSenderEmail { get; set; }
+
+        /// <summary>
+        /// Gets or sets the sender email that will be used to send confirmation registration emails.
+        /// </summary>
+        /// <value>The sender email.</value>
+        string ConfirmRegistrationSenderEmail { get; set; }
+
+        /// <summary>
+        /// Gets or sets the sender namr that will be used to send successful registration emails.
+        /// </summary>
+        /// <value>The sender name.</value>
+        string SuccessfulRegistrationSenderName { get; set; }
+
+        /// <summary>
+        /// Gets or sets the sender name that will be used to send confirmation registration emails.
+        /// </summary>
+        /// <value>The sender name.</value>
+        string ConfirmRegistrationSenderName { get; set; }
+
+        /// <summary>
         /// Gets or sets the activation method.
         /// </summary>
         /// <value>

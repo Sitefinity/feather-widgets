@@ -778,5 +778,35 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.StringResources
                 return this["NotRegisteredYet"];
             }
         }
+
+        /// <summary>
+        /// phrase: Login 
+        /// </summary>
+        [ResourceEntry("LoginControlTitle",
+            Value = "Login form",
+            Description = "phrase: Login",
+            LastModified = "2019/06/03")]
+        public string LoginControlTitle
+        {
+            get
+            {
+                return this["LoginControlTitle"];
+            }
+        }
+
+        /// <summary>
+        /// phrase: Allows users to login to Sitefinity
+        /// </summary>
+        [ResourceEntry("LoginControlDescription",
+            Value = "Form that lets users to login",
+            Description = "phrase: Allows users to login to Sitefinity",
+            LastModified = "2019/06/03")]
+        public string LoginControlDescription
+        {
+            get
+            {
+                return this["LoginControlDescription"];
+            }
+        }
     }
 }

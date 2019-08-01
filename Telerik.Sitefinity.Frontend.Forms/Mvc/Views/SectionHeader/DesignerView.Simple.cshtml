@@ -1,13 +1,22 @@
 ﻿@using Telerik.Sitefinity.Frontend.Forms.Mvc.Helpers;
 @using Telerik.Sitefinity.Frontend.Mvc.Helpers;
 @using Telerik.Sitefinity.Mvc;
+<div class="form-group">
+    <sf-html-field class="kendo-content-block kendo-content-block--sh" sf-model="properties.Text.PropertyValue"
+                   sf-template-url="Mvc/Views/SectionHeader/sf-html-field.sf-cshtml"
+                   sf-template-assembly="Telerik.Sitefinity.Frontend.Forms"></sf-html-field>
+</div>
 
 <div class="form-group">
-    <sf-html-field class="kendo-content-block kendo-content-block--sh" sf-model="properties.Text.PropertyValue" 
-        sf-template-url="Mvc/Views/SectionHeader/sf-html-field.sf-cshtml" 
-        sf-template-assembly="Telerik.Sitefinity.Frontend.Forms"></sf-html-field>
+    <div class="checkbox">
+        <label>
+            <input type="checkbox" ng-model="properties.Hidden.PropertyValue"
+                   ng-true-value="'True'" ng-false-value="'False'" ng-checked="properties.Hidden.PropertyValue === 'True'" />
+            @Html.Resource("HiddenField")
+        </label>
+    </div>
 </div>
-        
+
 <expander expander-title='@Html.Resource("MoreOptions")'>
     <div class="form-group">
         <label for="sectionHeaderTemplateName">@Html.Resource("Template")</label>

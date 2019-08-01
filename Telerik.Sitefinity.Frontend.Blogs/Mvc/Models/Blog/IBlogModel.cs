@@ -5,6 +5,7 @@ using System.Text;
 using Telerik.Sitefinity.Data;
 using Telerik.Sitefinity.Frontend.Mvc.Models;
 using Telerik.Sitefinity.Model;
+using Telerik.Sitefinity.Web.UI.ContentUI.Enums;
 
 namespace Telerik.Sitefinity.Frontend.Blogs.Mvc.Models.Blog
 {
@@ -88,6 +89,14 @@ namespace Telerik.Sitefinity.Frontend.Blogs.Mvc.Models.Blog
         /// The sort expression.
         /// </value>
         string SortExpression { get; set; }
+
+        /// <summary>
+        /// Gets or sets the display mode of the content view.
+        /// </summary>
+        /// <remarks>
+        /// Note that this enumeration differs from the FieldDisplayMode.
+        /// </remarks>
+        ContentViewDisplayMode ContentViewDisplayMode { get; set; }
 
         /// <summary>
         /// Gets or sets which blogs to be displayed in the list view.

@@ -9,44 +9,13 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Models.Fields.SubmitButton
     public class SubmitButtonModel : FormElementModel, ISubmitButtonModel
     {
         /// <inheritDocs />
-        public string Label
-        {
-            get
-            {
-                return this.label;
-            }
-
-            set
-            {
-                this.label = value;
-            }
-        }
+        public string Label { get; set; } = Res.Get<FieldResources>().SubmitButtonLabel;
 
         /// <inheritDocs />
-        public string PreviousStepText
-        {
-            get
-            {
-                return this.previousStepText;
-            }
-            set
-            {
-                this.previousStepText = value;
-            }
-        }
+        public string PreviousStepText { get; set; } = Res.Get<FieldResources>().PreviousStepText;
 
         /// <inheritDocs />
-        public bool AllowGoBack
-        {
-            get
-            {
-                return this.allowGoBack;
-            }
-            set
-            {
-                this.allowGoBack = value;
-            }
-        }
+        public bool AllowGoBack { get; set; } = false;
 
         /// <inheritDocs />
         public override object GetViewModel(object value)
@@ -61,9 +30,5 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Models.Fields.SubmitButton
 
             return viewModel;
         }
-
-        private string label = Res.Get<FieldResources>().SubmitButtonLabel;
-        private string previousStepText = Res.Get<FieldResources>().PreviousStepText;
-        private bool allowGoBack = false;
     }
 }

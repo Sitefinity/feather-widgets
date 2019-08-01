@@ -16,7 +16,8 @@ namespace Telerik.Sitefinity.Frontend.DynamicContent.WidgetTemplates.Fields.Impl
         {
             var condition = field.FieldStatus != DynamicModuleFieldStatus.Removed 
                 && !field.IsHiddenField
-                && field.FieldType == FieldType.RelatedMedia;
+                && field.FieldType == FieldType.RelatedMedia
+                && !this.ExcludedFieldNames.Contains(field.Name);
 
             return condition;
         }

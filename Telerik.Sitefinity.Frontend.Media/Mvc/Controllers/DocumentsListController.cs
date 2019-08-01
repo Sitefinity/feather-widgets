@@ -29,7 +29,14 @@ namespace Telerik.Sitefinity.Frontend.Media.Mvc.Controllers
     /// This class represents the controller of the Documents list widget.
     /// </summary>
     [Localization(typeof(DocumentsListResources))]
-    [ControllerToolboxItem(Name = "DocumentsList_MVC", Title = "Documents list", SectionName = ToolboxesConfig.ContentToolboxSectionName, ModuleName = "Libraries", CssClass = DocumentsListController.WidgetIconCssClass)]
+    [ControllerToolboxItem(
+        Name = DocumentsListController.WidgetName, 
+        Title = nameof(DocumentsListResources.DocumentsListViewTitle), 
+        Description = nameof(DocumentsListResources.DocumentsListViewDescription),
+        ResourceClassId = nameof(DocumentsListResources),
+        SectionName = ToolboxesConfig.ContentToolboxSectionName, 
+        ModuleName = "Libraries", 
+        CssClass = DocumentsListController.WidgetIconCssClass)]
     public class DocumentsListController : ContentBaseController, IRouteMapper, IContentLocatableView
     {
         #region Properties
@@ -144,10 +151,18 @@ namespace Telerik.Sitefinity.Frontend.Media.Mvc.Controllers
         {
             ITaxon taxonFilter = TaxonUrlEvaluator.GetTaxonFromQuery(this.HttpContext, this.Model.UrlKeyPrefix);
 
-            this.InitializeListViewBag("/{0}");
+            this.InitializeListViewBag();
             this.SetRedirectUrlQueryString(taxonFilter);
 
-            var viewModel = this.Model.CreateListViewModel(taxonFilter: taxonFilter, page: page ?? 1);
+            this.UpdatePageFromQuery(ref page, this.Model.UrlKeyPrefix);
+
+            var viewModel = this.Model.CreateListViewModel(taxonFilter, this.ExtractValidPage(page));
+            if (SystemManager.CurrentHttpContext != null)
+            {
+                this.AddCacheDependencies(this.Model.GetKeysOfDependentObjects(viewModel));
+                if (viewModel.ContentType != null)
+                    this.AddCacheVariations(viewModel.ContentType, viewModel.ProviderName);
+            }
 
             var fullTemplateName = this.GetFullListTemplateName();
 
@@ -164,7 +179,7 @@ namespace Telerik.Sitefinity.Frontend.Media.Mvc.Controllers
         {
             var fullTemplateName = this.GetFullListTemplateName();
             this.ViewBag.CurrentPageUrl = this.GetCurrentPageUrl();
-            this.ViewBag.RedirectPageUrlTemplate = this.ViewBag.CurrentPageUrl + "/" + taxonFilter.UrlName + "/{0}";
+            this.ViewBag.RedirectPageUrlTemplate = this.ViewBag.CurrentPageUrl + UrlHelpers.GetRedirectPagingUrl(taxonFilter);
             this.ViewBag.DetailsPageId = this.DetailsPageId;
             this.ViewBag.OpenInSamePage = this.OpenInSamePage;
 
@@ -196,8 +211,7 @@ namespace Telerik.Sitefinity.Frontend.Media.Mvc.Controllers
             this.ViewBag.UrlKeyPrefix = this.Model.UrlKeyPrefix;
 
             var viewModel = this.Model.CreateDetailsViewModel(item);
-            if (SystemManager.CurrentHttpContext != null)
-                this.AddCacheDependencies(this.Model.GetKeysOfDependentObjects(viewModel));
+            this.AddCacheDependencies(this.Model.GetKeysOfDependentObjects(viewModel));
 
             this.AddCanonicalUrlTag(item);
 
@@ -218,7 +232,11 @@ namespace Telerik.Sitefinity.Frontend.Media.Mvc.Controllers
 
             var viewModel = this.Model.CreateListViewModelByParent(parentItem, page ?? 1);
             if (SystemManager.CurrentHttpContext != null)
+            {
                 this.AddCacheDependencies(this.Model.GetKeysOfDependentObjects(viewModel));
+                if (viewModel.ContentType != null)
+                    this.AddCacheVariations(viewModel.ContentType, viewModel.ProviderName);
+            }
 
             var fullTemplateName = this.GetFullListTemplateName();
             return this.View(fullTemplateName, viewModel);
@@ -344,10 +362,14 @@ namespace Telerik.Sitefinity.Frontend.Media.Mvc.Controllers
         /// Initializes the ListView bag.
         /// </summary>
         /// <param name="redirectPageUrl">The redirect page URL.</param>
-        private void InitializeListViewBag(string redirectPageUrl)
+        private void InitializeListViewBag(string redirectPageUrl = null)
         {
-            this.ViewBag.CurrentPageUrl = SystemManager.CurrentHttpContext != null ? this.GetCurrentPageUrl() : string.Empty;
-            this.ViewBag.RedirectPageUrlTemplate = this.ViewBag.CurrentPageUrl + redirectPageUrl;
+            var pageUrl = this.GetCurrentPageUrl();
+            var template = redirectPageUrl != null ? string.Concat(pageUrl, redirectPageUrl) :
+                                                     this.GeneratePagingTemplate(pageUrl, this.Model.UrlKeyPrefix);
+
+            this.ViewBag.CurrentPageUrl = pageUrl;
+            this.ViewBag.RedirectPageUrlTemplate = template;
             this.ViewBag.DetailsPageId = this.DetailsPageId;
             this.ViewBag.OpenInSamePage = this.OpenInSamePage;
             this.ViewBag.ItemsPerPage = this.Model.ItemsPerPage;
@@ -379,7 +401,7 @@ namespace Telerik.Sitefinity.Frontend.Media.Mvc.Controllers
         private readonly string listTemplateNamePrefix = "List.";
         private readonly string detailTemplateNamePrefix = "Detail.";
         private bool? disableCanonicalUrlMetaTag;
-
+        private const string WidgetName = "DocumentsList_MVC";
         #endregion
     }
 }

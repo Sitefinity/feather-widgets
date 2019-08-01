@@ -2,6 +2,7 @@
 
 @using Telerik.Sitefinity.Frontend.Mvc.Helpers;
 @using Telerik.Sitefinity.Modules.Pages;
+@using Telerik.Sitefinity.Services;
 
 @Html.Script(ScriptRef.JQuery, "top", false)
 
@@ -75,7 +76,7 @@
                 </div>
             }
 
-            <button data-sf-role="comments-new-submit-button">@Html.Resource("Submit")</button>
+            <button data-sf-role="comments-new-submit-button" @(SystemManager.IsDesignMode ? "disabled" : "")>@Html.Resource("Submit")</button>
         </div>
         
         if (Model.AllowSubscription)

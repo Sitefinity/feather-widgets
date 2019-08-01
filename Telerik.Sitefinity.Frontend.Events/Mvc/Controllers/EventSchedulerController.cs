@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Globalization;
+using System.Linq;
 using System.Web.Mvc;
 using Telerik.Microsoft.Practices.Unity.Utility;
 using Telerik.Sitefinity.ContentLocations;
@@ -9,6 +10,7 @@ using Telerik.Sitefinity.Events.Model;
 using Telerik.Sitefinity.Frontend.Events.Mvc.Helpers;
 using Telerik.Sitefinity.Frontend.Events.Mvc.Models.EventScheduler;
 using Telerik.Sitefinity.Frontend.Events.Mvc.StringResources;
+using Telerik.Sitefinity.Frontend.Mvc.Helpers;
 using Telerik.Sitefinity.Frontend.Mvc.Infrastructure.Controllers;
 using Telerik.Sitefinity.Frontend.Mvc.Infrastructure.Controllers.Attributes;
 using Telerik.Sitefinity.Modules.Pages.Configuration;
@@ -16,13 +18,21 @@ using Telerik.Sitefinity.Mvc;
 using Telerik.Sitefinity.Security;
 using Telerik.Sitefinity.Services;
 using Telerik.Sitefinity.Web;
+using Telerik.Sitefinity.Web.UI.ContentUI.Enums;
 
 namespace Telerik.Sitefinity.Frontend.Events.Mvc.Controllers
 {
     /// <summary>
     /// This class represents the controller of the Events widget.
     /// </summary>
-    [ControllerToolboxItem(Name = "Calendar_MVC", Title = "Calendar", SectionName = ToolboxesConfig.ContentToolboxSectionName, ModuleName = "Events", CssClass = EventSchedulerController.WidgetIconCssClass)]
+    [ControllerToolboxItem(
+        Name = EventSchedulerController.WidgetName, 
+        Title = nameof(EventResources.CalendarViewTitle), 
+        Description = nameof(EventResources.CalendarViewDescription),
+        ResourceClassId = nameof(EventResources),
+        SectionName = ToolboxesConfig.ContentToolboxSectionName, 
+        ModuleName = "Events",
+        CssClass = EventSchedulerController.WidgetIconCssClass)]
     [Localization(typeof(EventResources))]
     public class EventSchedulerController : Controller, IContentLocatableView
     {
@@ -141,12 +151,21 @@ namespace Telerik.Sitefinity.Frontend.Events.Mvc.Controllers
         {
             var viewModel = this.Model.CreateListViewModel(null, 1);
 
-            this.InitializeListViewBag("/{0}");
-
-            if (SystemManager.CurrentHttpContext != null)
-                this.AddCacheDependencies(this.Model.GetKeysOfDependentObjects(viewModel));
+            var redirectPageUrlTemplate = UrlHelpers.GetRedirectPagingUrl();
+            this.InitializeListViewBag(redirectPageUrlTemplate);
 
             var fullTemplateName = EventSchedulerController.ListTemplateNamePrefix + this.ListTemplateName;
+
+            if (this.Model.ContentViewDisplayMode == ContentViewDisplayMode.Detail)
+                return this.Details((Event)viewModel.Items.First().DataItem);
+
+            if (SystemManager.CurrentHttpContext != null)
+            {
+                this.AddCacheDependencies(this.Model.GetKeysOfDependentObjects(viewModel));
+                if (viewModel.ContentType != null)
+                    this.AddCacheVariations(viewModel.ContentType, viewModel.ProviderName);
+            }
+
             return this.View(fullTemplateName, this.Model);
         }
 
@@ -185,7 +204,7 @@ namespace Telerik.Sitefinity.Frontend.Events.Mvc.Controllers
 
             Guard.ArgumentNotNull(filter, "filter");
 
-            var eventSchedulerModel = EventSchedulerHelper.LoadModel(filter.Id, filter.UICulture);
+            var eventSchedulerModel = EventSchedulerHelper.LoadModel(filter.Id, filter.UICulture, filter.CurrentPageId);
             if (eventSchedulerModel != null)
             {
                 json.Data = eventSchedulerModel.GetEvents(filter);
@@ -210,7 +229,7 @@ namespace Telerik.Sitefinity.Frontend.Events.Mvc.Controllers
 
             Guard.ArgumentNotNull(filter, "filter");
 
-            var eventSchedulerModel = EventSchedulerHelper.LoadModel(filter.Id, filter.UICulture);
+            var eventSchedulerModel = EventSchedulerHelper.LoadModel(filter.Id, filter.UICulture, filter.CurrentPageId);
             if (eventSchedulerModel != null)
             {
                 json.Data = eventSchedulerModel.GetCalendars(filter);
@@ -247,7 +266,19 @@ namespace Telerik.Sitefinity.Frontend.Events.Mvc.Controllers
         protected virtual void InitializeListViewBag(string redirectPageUrl)
         {
             var timezoneInfo = UserManager.GetManager().GetUserTimeZone();
-            this.ViewBag.WidgetId = EventSchedulerHelper.GetWidgetId(this);
+            this.ViewBag.IsRtl = EventSchedulerHelper.IsRtl();
+
+            if (this.HttpContext != null && this.HttpContext.Items.Contains("versionpreview") && this.HttpContext.Items["versionpreview"].ToString().ToLowerInvariant() == "true")
+            {
+                this.ViewBag.WidgetId = EventSchedulerHelper.GetWidgetId(this);
+            }
+            else
+            {
+                this.ViewBag.WidgetId = this.ViewData["controlDataId"];
+            }
+
+            this.ViewBag.CurrentPageId = this.GetPageId();
+
             this.ViewBag.DetailsPageId = this.DetailsPageId == Guid.Empty ? (SiteMapBase.GetActualCurrentNode() == null ? Guid.Empty : SiteMapBase.GetActualCurrentNode().Id) : this.DetailsPageId;
             this.ViewBag.UiCulture = SystemManager.CurrentContext.AppSettings.Multilingual ? CultureInfo.CurrentUICulture.ToString() : string.Empty;
             this.ViewBag.TimeZoneOffset = timezoneInfo.BaseUtcOffset.TotalMilliseconds.ToString();
@@ -266,6 +297,19 @@ namespace Telerik.Sitefinity.Frontend.Events.Mvc.Controllers
             this.ViewBag.AllowCalendarExport = this.Model.AllowCalendarExport;
         }
 
+        private Guid GetPageId()
+        {
+            var pageNode = SiteMapBase.GetCurrentNode();
+            if (pageNode == null)
+                return Guid.Empty;
+
+            var pageId = SiteMapBase.GetCurrentNode().PageId;
+            var pageManager = Sitefinity.Modules.Pages.PageManager.GetManager();
+            var page = pageManager.GetPageData(pageId);
+
+            return page.Id;
+        }
+
         private const string WidgetIconCssClass = "sfEventsViewIcn sfMvcIcn";
         private const string ListTemplateNamePrefix = "List.";
         private const string DetailTemplateNamePrefix = "Detail.";
@@ -276,5 +320,6 @@ namespace Telerik.Sitefinity.Frontend.Events.Mvc.Controllers
         private string listTemplateName = "Calendar";
         private string detailTemplateName = "EventDetails";
         private bool? disableCanonicalUrlMetaTag;
+        private const string WidgetName = "Calendar_MVC";
     }
 }

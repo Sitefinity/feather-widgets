@@ -697,9 +697,8 @@ namespace Telerik.Sitefinity.Frontend.Taxonomies.Mvc.Models
                 throw new ArgumentNullException("FieldName property could not be resolved.");
 
             url = RouteHelper.ResolveUrl(url, UrlResolveOptions.Absolute);
-
-            var urlEvaluationMode = this.UrlEvaluationMode;
-            if (urlEvaluationMode == Pages.Model.UrlEvaluationMode.UrlPath)
+            
+            if (this.UrlEvaluationMode == Pages.Model.UrlEvaluationMode.UrlPath)
             {
                 // Pages that are migrated from 3.7 have extensions (.aspx), which are unnecessary when we have segments after the page url.
                 var getCurrentNodeExtensionMethod = typeof(PageHelper).GetMethod("GetCurrentNodeExtension", BindingFlags.NonPublic | BindingFlags.Static);
@@ -717,14 +716,10 @@ namespace Telerik.Sitefinity.Frontend.Taxonomies.Mvc.Models
                 taxonBuildOptions = TaxonBuildOptions.Hierarchical;
             else if (this.Taxonomy is Telerik.Sitefinity.Taxonomies.Model.FlatTaxonomy)
                 taxonBuildOptions = TaxonBuildOptions.Flat;
-
-
-            string urlPrefix = this.UrlEvaluationMode == UrlEvaluationMode.QueryString ? this.UrlKeyPrefix : string.Empty;
-
+                        
             var rootTaxonomy = this.Taxonomy.RootTaxonomy ?? this.Taxonomy;
-            var evaluatedResult = evaluator.BuildUrl(rootTaxonomy.Name, taxonRelativeUrl, this.FieldName, taxonBuildOptions, urlEvaluationMode, urlPrefix);
-
-
+            var evaluatedResult = evaluator.BuildUrl(rootTaxonomy.Name, taxonRelativeUrl, this.FieldName, taxonBuildOptions, this.UrlEvaluationMode, this.UrlKeyPrefix);
+            
             return string.Concat(url, evaluatedResult);
         }
 

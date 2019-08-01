@@ -16,7 +16,6 @@ using Telerik.Sitefinity.Modules.Pages.Configuration;
 using Telerik.Sitefinity.Mvc.Proxy;
 using Telerik.Sitefinity.Services;
 using Telerik.Sitefinity.Web.UI;
-using Telerik.Sitefinity.Web.UI.ContentUI;
 using Telerik.Sitefinity.Web.UI.ContentUI.Views.Backend.Detail;
 
 namespace Telerik.Sitefinity.Frontend.Forms
@@ -61,6 +60,8 @@ namespace Telerik.Sitefinity.Frontend.Forms
 
                 Initializer.UnregisterTemplatableControl();
                 Initializer.AddFieldsToToolbox();
+
+                ObjectFactory.Container.RegisterType<IFormRulesDecorator, FormRulesDecorator>();
             }
         }
 
@@ -82,6 +83,7 @@ namespace Telerik.Sitefinity.Frontend.Forms
                 new KeyValuePair<string, Func<ToolboxItemInfo>>("MvcCheckboxesField", () => new ToolboxItemInfo("Checkboxes", "Telerik.Sitefinity.Frontend.Forms.Mvc.Controllers.CheckboxesFieldController", "sfCheckboxesIcn sfMvcIcn")),
                 new KeyValuePair<string, Func<ToolboxItemInfo>>("MvcParagraphTextField", () => new ToolboxItemInfo("Paragraph textbox", "Telerik.Sitefinity.Frontend.Forms.Mvc.Controllers.ParagraphTextFieldController", "sfParagraphboxIcn sfMvcIcn")),
                 new KeyValuePair<string, Func<ToolboxItemInfo>>("MvcDropdownListField", () => new ToolboxItemInfo("Dropdown list", "Telerik.Sitefinity.Frontend.Forms.Mvc.Controllers.DropdownListFieldController", "sfDropdownIcn sfMvcIcn")),
+                new KeyValuePair<string, Func<ToolboxItemInfo>>("MvcEmailTextField", () => new ToolboxItemInfo("Email", "Telerik.Sitefinity.Frontend.Forms.Mvc.Controllers.EmailTextFieldController", "sfTextboxIcn sfMvcIcn")),
                 new KeyValuePair<string, Func<ToolboxItemInfo>>("MvcSectionHeaderField", () => new ToolboxItemInfo("Section header", "Telerik.Sitefinity.Frontend.Forms.Mvc.Controllers.SectionHeaderController", "sfSectionHeaderIcn sfMvcIcn")),
                 new KeyValuePair<string, Func<ToolboxItemInfo>>("MvcInstructionalTextField", () => new ToolboxItemInfo("Content block", "Telerik.Sitefinity.Frontend.ContentBlock.Mvc.Controllers.ContentBlockController", "sfInstructionIcn sfMvcIcn")),
                 new KeyValuePair<string, Func<ToolboxItemInfo>>("MvcFileField", () => new ToolboxItemInfo("File upload", "Telerik.Sitefinity.Frontend.Forms.Mvc.Controllers.FileFieldController", "sfFileUploadIcn sfMvcIcn")),
@@ -136,6 +138,7 @@ namespace Telerik.Sitefinity.Frontend.Forms
                 var toolboxItem = new ToolboxItem(section.Tools)
                 {
                     Name = name,
+                    Ordinal = 0.5f,
                     Title = item.Title,
                     Description = string.Empty,
                     ControlType = typeof(MvcControllerProxy).FullName,
@@ -160,7 +163,7 @@ namespace Telerik.Sitefinity.Frontend.Forms
             return section;
         }
 
-        class ToolboxItemInfo
+        internal class ToolboxItemInfo
         {
             public ToolboxItemInfo(string title, string controllerType, string cssClass)
             {
@@ -169,9 +172,23 @@ namespace Telerik.Sitefinity.Frontend.Forms
                 this.CssClass = cssClass;
             }
 
-            public string Title { get; private set; }
-            public string ControllerType { get; private set; }
-            public string CssClass { get; private set; }
+            public string Title
+            {
+                get;
+                private set;
+            }
+
+            public string ControllerType
+            {
+                get;
+                private set;
+            }
+
+            public string CssClass
+            {
+                get;
+                private set;
+            }
         }
 
         #endregion

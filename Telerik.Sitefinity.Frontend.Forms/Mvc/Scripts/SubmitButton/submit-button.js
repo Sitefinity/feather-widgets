@@ -20,7 +20,7 @@
                     if (widgetValidators.length) {
                         ev.preventDefault();
                         var deferreds = [];
-                        for (var i = 0; i < widgetValidators.length; i++) {
+                        for (i = 0; i < widgetValidators.length; i++) {
                             deferreds.push(widgetValidators[i]());
                         }
 

@@ -1,40 +1,68 @@
 ﻿(function ($) {
     $(function () {
 
-        function changeOrInput(e) {
-            if (typeof e.target.validity == 'undefined')
+        function processRules(e) {
+            if (typeof $.fn.processFormRules === 'function') {
+                $(e.target).processFormRules();
+            }
+        }
+
+        var delayTimer;
+        function processRulesWithDelay(e) {
+            clearTimeout(delayTimer);
+            delayTimer = setTimeout(function () {
+                processRules(e);
+            }, 300);
+        }
+
+        function handleValidation(e) {
+            if (typeof e.target.validity === 'undefined')
                 return;
 
             if (e.target.required && e.target.validity.valueMissing) {
                 var validationMessages = getValidationMessages(e.target);
-                e.target.setCustomValidity(validationMessages.required);
+                setErrorMessage(e.target, validationMessages.required);
             } else {
-                e.target.setCustomValidity('');
+                setErrorMessage(e.target, '');
             }
         }
 
+        function onChange(e) {
+            handleValidation(e);
+            processRules(e);
+        }
+
+        function onInput(e) {
+            handleValidation(e);
+            processRulesWithDelay(e);
+        }
+
         function invalid(e) {
-            if (typeof e.target.validity == 'undefined')
+            if (typeof e.target.validity === 'undefined')
                 return;
+
+            if (_getErrorMessageContainer(e.target)) {
+                e.preventDefault();
+            }
 
             var validationMessages = getValidationMessages(e.target);
             var validationRestrictions = getValidationRestrictions(e.target);
             var isValidLength = e.target.value.length >= validationRestrictions.minLength;
 
-            if(validationRestrictions.maxLength > 0)
+            if (validationRestrictions.maxLength > 0)
                 isValidLength &= e.target.value.length <= validationRestrictions.maxLength;
 
             if (e.target.validity.valueMissing) {
-                e.target.setCustomValidity(validationMessages.required);
+                setErrorMessage(e.target, validationMessages.required);
             }
             else if (e.target.validity.patternMismatch && !isValidLength) {
-                e.target.setCustomValidity(validationMessages.maxLength);
+                setErrorMessage(e.target, validationMessages.maxLength);
             }
             else if (e.target.validity.patternMismatch && isValidLength) {
-                e.target.setCustomValidity(validationMessages.regularExpression);
+                setErrorMessage(e.target, validationMessages.regularExpression);
             }
             else if (!e.target.validity.valid) {
-                e.target.setCustomValidity(validationMessages.invalid);
+                setErrorMessage(e.target, validationMessages.invalid);
             }
         }
 
@@ -54,6 +82,36 @@
             return validationRestrictions;
         }
 
+        function setErrorMessage(input, message) {
+            var errorMessagesContainer = _getErrorMessageContainer(input);
+
+            if (errorMessagesContainer) {
+                _toggleCustomErrorMessage(errorMessagesContainer, message);
+            } else {
+                input.setCustomValidity(message);
+            }
+        }
+
+        function _toggleCustomErrorMessage(container, message) {
+            container.innerText = message;
+
+            if (message === '') {
+                container.style.display = 'none';
+            } else {
+                container.style.display = 'block';
+            }
+        }
+
+        function _getErrorMessageContainer(input) {
+            var container = $(input).closest('[data-sf-role="text-field-container"]')[0];
+            if (container) {
+                var errorMessagesContainer = container.querySelector('[data-sf-role="error-message"]');
+                return errorMessagesContainer;
+            }
+
+            return null;
+        }
+
         function init() {
             var containers = $('[data-sf-role="text-field-container"]');
 
@@ -64,8 +122,8 @@
                 var input = $(containers[i]).find('[data-sf-role="text-field-input"]');
 
                 if (input) {
-                    input.on('change', changeOrInput);
-                    input.on('input', changeOrInput);
+                    input.on('change', onChange);
+                    input.on('input', onInput);
                     input.on('invalid', invalid);
                 }
             }

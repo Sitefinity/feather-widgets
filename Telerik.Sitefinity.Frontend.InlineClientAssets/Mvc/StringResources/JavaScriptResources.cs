@@ -352,5 +352,35 @@ namespace Telerik.Sitefinity.Frontend.InlineClientAssets.Mvc.StringResources
                 return this["ForYourConvenience"];
             }
         }
+
+        /// <summary>
+        /// Control name: Embed Java script
+        /// </summary>
+        [ResourceEntry("JavaScriptEmbedControlTitle",
+            Value = "JavaScript",
+            Description = "Control title: Embed Java Script",
+            LastModified = "2019/06/03")]
+        public string JavaScriptEmbedControlTitle
+        {
+            get
+            {
+                return this["JavaScriptEmbedControlTitle"];
+            }
+        }
+
+        /// <summary>
+        /// Control description: A control for embedding Java Script files/code.
+        /// </summary>
+        [ResourceEntry("JavaScriptEmbedControlDescription",
+            Value = "Embeds JavaScript files or custom code in this page",
+            Description = "Control description: A control for embedding Java Script files/code.",
+            LastModified = "2019/06/03")]
+        public string JavaScriptEmbedControlDescription
+        {
+            get
+            {
+                return this["JavaScriptEmbedControlDescription"];
+            }
+        }
     }
 }

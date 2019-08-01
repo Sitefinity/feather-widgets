@@ -5,6 +5,7 @@ using Telerik.Sitefinity.Data;
 using Telerik.Sitefinity.Frontend.Mvc.Models;
 using Telerik.Sitefinity.Model;
 using Telerik.Sitefinity.Taxonomies.Model;
+using Telerik.Sitefinity.Web.UI.ContentUI.Enums;
 
 namespace Telerik.Sitefinity.Frontend.News.Mvc.Models
 {
@@ -42,14 +43,6 @@ namespace Telerik.Sitefinity.Frontend.News.Mvc.Models
         /// </summary>
         /// <value>The page display mode.</value>
         SelectionMode SelectionMode { get; set; }
-
-        /// <summary>
-        /// Gets or sets a value indicating whether to enable social sharing.
-        /// </summary>
-        /// <value>
-        ///   <c>true</c> if should enable social sharing; otherwise, <c>false</c>.
-        /// </value>
-        bool EnableSocialSharing { get; set; }
 
         /// <summary>
         /// Gets or sets the name of the provider.
@@ -114,11 +107,27 @@ namespace Telerik.Sitefinity.Frontend.News.Mvc.Models
         string FilterExpression { get; set; }
 
         /// <summary>
+        /// Gets or sets the group logical operator used for filtering.
+        /// </summary>
+        /// <value>
+        /// The group logical operator used for filtering.
+        /// </value>
+        LogicalOperator SelectionGroupLogicalOperator { get; set; }
+
+        /// <summary>
         /// Gets or sets the URL key prefix.
         /// </summary>
         /// <value>The URL key prefix.</value>
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1056:UriPropertiesShouldNotBeStrings")]
         string UrlKeyPrefix { get; set; }
+
+        /// <summary>
+        /// Gets or sets the display mode of the content view.
+        /// </summary>
+        /// <remarks>
+        /// Note that this enumeration differs from the FieldDisplayMode.
+        /// </remarks>
+        ContentViewDisplayMode ContentViewDisplayMode { get; set; }
 
         /// <summary>
         /// Creates a view model for use in list views.

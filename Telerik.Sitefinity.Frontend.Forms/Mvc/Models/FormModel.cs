@@ -4,6 +4,8 @@ using System.Globalization;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 using Telerik.Sitefinity.Abstractions;
 using Telerik.Sitefinity.Data;
 using Telerik.Sitefinity.Forms.Model;
@@ -19,6 +21,8 @@ using Telerik.Sitefinity.Model;
 using Telerik.Sitefinity.Modules.Forms;
 using Telerik.Sitefinity.Modules.Forms.Events;
 using Telerik.Sitefinity.Modules.Forms.Web;
+using Telerik.Sitefinity.Modules.Forms.Web.Services.Operations;
+using Telerik.Sitefinity.Modules.Forms.Web.UI;
 using Telerik.Sitefinity.Modules.Forms.Web.UI.Fields;
 using Telerik.Sitefinity.Services;
 using Telerik.Sitefinity.Services.Events;
@@ -174,6 +178,8 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Models
 
             if (this.FormData != null && this.AllowRenderForm())
             {
+                viewModel.FormRules = this.GetFormRulesViewModel(this.FormData);
+
                 if (viewModel.UseAjaxSubmit)
                 {
                     string baseUrl;
@@ -226,18 +232,24 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Models
 
             if (!this.ValidateFormSubmissionRestrictions(formSubmition, formEntry))
                 return SubmitStatus.RestrictionViolation;
+           
+            Dictionary<string, IFormFieldController<IFormFieldModel>> currentFormFields;
+            List<IFormElementController<IFormElementModel>> formElements;
 
-            if (!this.RaiseFormValidatingEvent(formEntry) || !this.IsValidForm(form, collection, files, manager))
+            this.LoadFormControls(form, collection, files, manager, out currentFormFields, out formElements);
+
+            Dictionary<IFormFieldController<IFormFieldModel>, bool> fieldControls;
+
+            if (!this.RaiseFormValidatingEvent(formEntry, currentFormFields, collection, files) || !this.IsValidForm(form, collection, files, currentFormFields, formElements, out fieldControls))
                 return SubmitStatus.InvalidEntry;
 
-            var formFields = new HashSet<string>(form.Controls.Select(this.FormFieldName).Where((f) => !string.IsNullOrEmpty(f)));
-
+            var formFields = fieldControls.Select(p => new { FieldName = this.FormFieldName(p.Key), CanSave = p.Value }).Where(field => !string.IsNullOrEmpty(field.FieldName));
             var postedFiles = new Dictionary<string, List<FormHttpPostedFile>>();
             if (files != null)
             {
                 for (int i = 0; i < files.AllKeys.Length; i++)
                 {
-                    if (formFields.Contains(files.AllKeys[i]))
+                    if (formFields.FirstOrDefault(p => p.FieldName == files.AllKeys[i]) != null)
                     {
                         postedFiles[files.AllKeys[i]] = files.GetMultiple(files.AllKeys[i]).Where(f => !f.FileName.IsNullOrEmpty()).Select(f =>
                             new FormHttpPostedFile()
@@ -254,14 +266,17 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Models
             var formData = new Dictionary<string, object>(collection.Count);
             for (int i = 0; i < collection.Count; i++)
             {
-                if (formFields.Contains(collection.Keys[i]))
+                var formField = formFields.FirstOrDefault(p => p.FieldName == collection.Keys[i]);
+                if (formField != null)
                 {
-                    formData.Add(collection.Keys[i], collection[collection.Keys[i]]);
+                    formData.Add(collection.Keys[i], formField.CanSave ? collection[collection.Keys[i]] : string.Empty);
                 }
             }
 
             formEntry.PostedData.FormsData = formData;
             formEntry.PostedData.Files = postedFiles;
+
+            this.UpdateCustomConfirmationMode(form, collection);
 
             this.SetConnectorSettingsToContext();
 
@@ -277,7 +292,7 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Models
                 return SubmitStatus.RestrictionViolation;
             }
         }
-        
+
         /// <summary>
         /// Allows the render form.
         /// </summary>
@@ -364,11 +379,17 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Models
         /// <param name="collection">The collection.</param>
         /// <param name="manager">The manager.</param>
         /// <returns>true if form is valid, false otherwise.</returns>
-        protected virtual bool IsValidForm(FormDescription form, FormCollection collection, HttpFileCollectionBase files, FormsManager manager)
+        protected virtual bool IsValidForm(FormDescription form, FormCollection collection, HttpFileCollectionBase files, FormsManager manager, out Dictionary<IFormFieldController<IFormFieldModel>, bool> fieldControls)
         {
+            fieldControls = new Dictionary<IFormFieldController<IFormFieldModel>, bool>();
+
             this.ResetInvalidInputMessage();
             this.SanitizeFormCollection(collection);
             var behaviorResolver = ObjectFactory.Resolve<IControlBehaviorResolver>();
+
+            var skipFields = this.SplitCsv(this.GetFormCollectionItemValue(collection, FormSkipFieldsKey));
+            var hiddenFields = this.SplitCsv(this.GetFormCollectionItemValue(collection, FormHiddenFieldsKey));
+
             foreach (var control in form.Controls)
             {
                 if (control.IsLayoutControl)
@@ -392,28 +413,34 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Models
                     if (!this.RaiseFormFieldValidatingEvent(formField))
                         return false;
 
-                    IList<HttpPostedFileBase> multipleFiles = files != null ? files.GetMultiple(formField.MetaField.FieldName) : null;
+                    var fieldName = formField.MetaField.FieldName;
+
+                    IList<HttpPostedFileBase> multipleFiles = files != null ? files.GetMultiple(fieldName) : null;
                     object fieldValue;
 
                     if (multipleFiles != null && multipleFiles.Count() > 0)
                     {
                         fieldValue = multipleFiles;
                     }
-                    else if (collection.Keys.Contains(formField.MetaField.FieldName))
+                    else if (collection.Keys.Contains(fieldName))
                     {
-                        collection[formField.MetaField.FieldName] = collection[formField.MetaField.FieldName] ?? string.Empty;
-                        fieldValue = collection[formField.MetaField.FieldName];
+                        collection[fieldName] = collection[fieldName] ?? string.Empty;
+                        fieldValue = collection[fieldName];
                     }
                     else
                     {
                         fieldValue = null;
                     }
 
-                    if (!formField.Model.IsValid(fieldValue))
+                    var hideableModel = formField.Model as IHideable;
+                    var canSaveField = hideableModel != null ? this.CanSaveField(hiddenFields, skipFields, controlInstance.ID, form.Rules, hideableModel.Hidden) : true;
+                    fieldControls.Add(formField, canSaveField);
+
+                    if (canSaveField && !formField.Model.IsValid(fieldValue))
                     {
                         this.SetFormFieldInvalidInputMessage(formField);
                         return false;
-                }
+                    }
                 }
                 else
                 {
@@ -422,11 +449,118 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Models
                     {
                         this.SetFormElementInvalidInputMessage(formElement);
                         return false;
+                    }
                 }
-            }
             }
 
             return true;
+        }
+
+        /// <summary>
+        /// Determines whether a form is valid or not.
+        /// </summary>
+        /// <param name="form">The form.</param>
+        /// <param name="collection">The collection.</param>
+        /// <param name="files">The fiels.</param>
+        /// <param name="formFields">The form fields.</param>
+        /// <param name="formElements">The form elements.</param>
+        /// <param name="fieldControls">The field controls.</param>
+        /// <returns>true if form is valid, false otherwise.</returns>
+        protected virtual bool IsValidForm(FormDescription form, FormCollection collection, HttpFileCollectionBase files, Dictionary<string, IFormFieldController<IFormFieldModel>> formFields, List<IFormElementController<IFormElementModel>> formElements, out Dictionary<IFormFieldController<IFormFieldModel>, bool> fieldControls)
+        {
+            fieldControls = new Dictionary<IFormFieldController<IFormFieldModel>, bool>();
+            this.ResetInvalidInputMessage();
+            this.SanitizeFormCollection(collection);
+
+            var skipFields = this.SplitCsv(this.GetFormCollectionItemValue(collection, FormSkipFieldsKey));
+            var hiddenFields = this.SplitCsv(this.GetFormCollectionItemValue(collection, FormHiddenFieldsKey));
+
+            foreach (var formField in formFields)
+            {
+                if (!this.RaiseFormFieldValidatingEvent(formField.Value))
+                    return false;
+
+                var fieldName = formField.Value.MetaField.FieldName;
+
+                IList<HttpPostedFileBase> multipleFiles = files != null ? files.GetMultiple(fieldName) : null;
+                object fieldValue;
+
+                if (multipleFiles != null && multipleFiles.Count() > 0)
+                {
+                    fieldValue = multipleFiles;
+                }
+                else if (collection.Keys.Contains(fieldName))
+                {
+                    collection[fieldName] = collection[fieldName] ?? string.Empty;
+                    fieldValue = collection[fieldName];
+                }
+                else
+                {
+                    fieldValue = null;
+                }
+
+                var hideableModel = formField.Value.Model as IHideable;
+                var canSaveField = hideableModel != null ? this.CanSaveField(hiddenFields, skipFields, formField.Key, form.Rules, hideableModel.Hidden) : true;
+                fieldControls.Add(formField.Value, canSaveField);
+
+                if (canSaveField && !formField.Value.Model.IsValid(fieldValue))
+                {
+                    this.SetFormFieldInvalidInputMessage(formField.Value);
+                    return false;
+                }
+            }
+
+            foreach (var formElement in formElements)
+            {
+                if (!formElement.IsValid())
+                {
+                    this.SetFormElementInvalidInputMessage(formElement);
+                    return false;
+                }
+            }
+
+            return true;
+        }
+
+        protected void LoadFormControls(FormDescription form, FormCollection collection, HttpFileCollectionBase files, FormsManager manager, out Dictionary<string, IFormFieldController<IFormFieldModel>> formFields, out List<IFormElementController<IFormElementModel>> formElements)
+        {
+            formFields = new Dictionary<string, IFormFieldController<IFormFieldModel>>();
+            formElements = new List<IFormElementController<IFormElementModel>>();
+
+            this.SanitizeFormCollection(collection);
+            var behaviorResolver = ObjectFactory.Resolve<IControlBehaviorResolver>();
+
+            var skipFields = this.SplitCsv(this.GetFormCollectionItemValue(collection, FormSkipFieldsKey));
+            var hiddenFields = this.SplitCsv(this.GetFormCollectionItemValue(collection, FormHiddenFieldsKey));
+
+            foreach (var control in form.Controls)
+            {
+                if (control.IsLayoutControl)
+                    continue;
+
+                Type controlType;
+                if (control.ObjectType.StartsWith("~/"))
+                    controlType = FormsManager.GetControlType(control);
+                else
+                    controlType = TypeResolutionService.ResolveType(behaviorResolver.GetBehaviorObjectType(control), true);
+
+                if (!controlType.ImplementsGenericInterface(typeof(IFormElementController<>)))
+                    continue;
+
+                var controlInstance = manager.LoadControl(control);
+                var controlBehaviorObject = behaviorResolver.GetBehaviorObject(controlInstance);
+                var formField = controlBehaviorObject as IFormFieldController<IFormFieldModel>;
+
+                if (formField != null)
+                {
+                    formFields.Add(controlInstance.ID, formField);
+                }
+                else
+                {
+                    var formElement = (IFormElementController<IFormElementModel>)controlBehaviorObject;
+                    formElements.Add(formElement);
+                }
+            }
         }
 
         /// <summary>
@@ -444,7 +578,28 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Models
         protected virtual void SetFormFieldInvalidInputMessage(IFormFieldController<IFormFieldModel> formField)
         {
             string invalidFieldName = formField.MetaField.Title;
-            this.InvalidInputMessage = string.Format(Res.Get<FormResources>().InvalidInputErrorMessage, invalidFieldName);
+
+            string errorMessage = null;
+            var elementModel = formField.Model as FormElementModel;
+            if (elementModel != null)
+            {
+                if (!string.IsNullOrEmpty(elementModel.Validator.ErrorMessage))
+                {
+                    errorMessage = elementModel.Validator.ErrorMessage;
+                }
+            }
+
+            if (string.IsNullOrEmpty(errorMessage))
+            {
+                errorMessage = Res.Get<FormResources>().InvalidInputErrorMessage;
+            }
+
+            if (errorMessage.IndexOf("{0}") != -1)
+            {
+                errorMessage = string.Format(errorMessage, invalidFieldName);
+            }
+
+            this.InvalidInputMessage = errorMessage;
         }
 
         /// <summary>
@@ -465,7 +620,6 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Models
         /// </summary>
         /// <value>The invalid input message.</value>
         protected virtual string InvalidInputMessage { get; set; }
-
 
         /// <summary>
         /// Sanitizes the form collection.
@@ -502,7 +656,7 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Models
         /// <param name="formEntry">The form entry.</param>
         protected virtual void RaiseFormSavedEvent(FormEntryDTO formEntry)
         {
-            var formEvent = this.eventFactory.GetFormSavedEvent(formEntry);
+            var formEvent = this.eventFactory.GetFormSavedEvent(formEntry, false);
             EventHub.Raise(formEvent);
         }
 
@@ -526,6 +680,61 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Models
         {
             var formEvent = this.eventFactory.GetFormValidatingEvent(formEntry);
             return !this.ValidationEventFailed(formEvent);
+        }
+
+        /// <summary>
+        /// Raises the form validating event.
+        /// </summary>
+        /// <param name="formEntry">The form entry.</param>
+        /// <param name="formFields">The form fields.</param>
+        /// <param name="collection">The form collection.</param>
+        /// <param name="files">The fiels.</param>
+        /// <returns>Whether validation succeeded.</returns>
+        protected virtual bool RaiseFormValidatingEvent(FormEntryDTO formEntry, Dictionary<string, IFormFieldController<IFormFieldModel>> formFields, FormCollection collection, HttpFileCollectionBase files)
+        {
+            var postedData = this.GetPostedData(collection, files, formFields);
+            var formEvent = this.eventFactory.GetFormValidatingEvent(formEntry, postedData);
+            return !this.ValidationEventFailed(formEvent);
+        }
+
+        private FormPostedData GetPostedData(FormCollection collection, HttpFileCollectionBase files, Dictionary<string, IFormFieldController<IFormFieldModel>> currentFormFields)
+        {
+            FormPostedData postedData = new FormPostedData();
+            var formFields = currentFormFields.Values.Select(p => new { FieldName = this.FormFieldName(p) })
+                .Where(field => !string.IsNullOrEmpty(field.FieldName));
+            var postedFiles = new Dictionary<string, List<FormHttpPostedFile>>();
+            if (files != null)
+            {
+                for (int i = 0; i < files.AllKeys.Length; i++)
+                {
+                    if (formFields.FirstOrDefault(p => p.FieldName == files.AllKeys[i]) != null)
+                    {
+                        postedFiles[files.AllKeys[i]] = files.GetMultiple(files.AllKeys[i]).Where(f => !f.FileName.IsNullOrEmpty()).Select(f =>
+                            new FormHttpPostedFile()
+                            {
+                                FileName = f.FileName,
+                                ContentLength = f.ContentLength,
+                                ContentType = f.ContentType,
+                                InputStream = f.InputStream
+                            }).ToList();
+                    }
+                }
+            }
+
+            var formData = new Dictionary<string, object>(collection.Count);
+            for (int i = 0; i < collection.Count; i++)
+            {
+                var formField = formFields.FirstOrDefault(p => p.FieldName == collection.Keys[i]);
+                if (formField != null)
+                {
+                    formData.Add(collection.Keys[i], collection[collection.Keys[i]]);
+                }
+            }
+
+            postedData.FormsData = formData;
+            postedData.Files = postedFiles;
+
+            return postedData;
         }
 
         /// <summary>
@@ -600,18 +809,11 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Models
                 SystemManager.CurrentHttpContext.Items[FormModel.ConnectorSettingsName] = this.ConnectorSettings;
             }
         }
-        private string FormFieldName(FormControl control)
+
+        private string FormFieldName(IFormFieldController<IFormFieldModel> field)
         {
-            if (control.IsLayoutControl)
-                return null;
-
-            var behaviorResolver = ObjectFactory.Resolve<IControlBehaviorResolver>();
-            var controlInstance = FormsManager.GetManager().LoadControl(control);
-            var controller = behaviorResolver.GetBehaviorObject(controlInstance);
-            var fieldController = controller as IFormFieldControl;
-
-            if (fieldController != null && fieldController.MetaField != null)
-                return fieldController.MetaField.FieldName;
+            if (field.MetaField != null)
+                return field.MetaField.FieldName;
             else
                 return null;
         }
@@ -650,6 +852,143 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Models
             return false;
         }
 
+        private string GetFormRulesMessage(FormDescription form, string confirmationMessageKey)
+        {
+            string message = string.Empty;
+
+            if (string.IsNullOrWhiteSpace(form.Rules) || string.IsNullOrWhiteSpace(confirmationMessageKey))
+            {
+                return message;
+            }
+
+            int submitMessageIndex;
+            if (int.TryParse(confirmationMessageKey.Replace(FormMessagePrefix, string.Empty), out submitMessageIndex))
+            {
+                var deserializedRules = JsonConvert.DeserializeObject<List<FormRule>>(form.Rules);
+                var messageIndex = 0;
+                foreach (var rule in deserializedRules)
+                {
+                    foreach (var action in rule.Actions)
+                    {
+                        if (action.Action == FormRuleAction.ShowMessage)
+                        {
+                            if (submitMessageIndex == messageIndex)
+                            {
+                                message = action.Target;
+                                break;
+                            }
+
+                            messageIndex++;
+                        }
+                    }
+
+                    if (!string.IsNullOrWhiteSpace(message))
+                    {
+                        break;
+                    }
+                }
+            }
+
+            return message;
+        }
+
+        private List<string> SplitCsv(string value)
+        {
+            var list = new List<string>();
+            if (!string.IsNullOrWhiteSpace(value))
+            {
+                list = value.Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries).ToList();
+            }
+            
+            return list;
+        }
+
+        private string GetFormCollectionItemValue(FormCollection collection, string key)
+        {
+            var value = string.Empty;
+            if (collection.Keys.Contains(key) && !string.IsNullOrEmpty(collection[key]))
+            {
+                value = collection[key];
+            }
+
+            return value;
+        }
+
+        private string GetEvaledExpression(string resourceValue)
+        {
+            string resourcePrefix = "$Resources:";
+
+            if (!resourceValue.IsNullOrEmpty() && resourceValue.TrimStart().StartsWith(resourcePrefix) && resourceValue.Contains(','))
+            {
+                var parts = resourceValue.Trim().Replace(resourcePrefix, string.Empty).Split(',');
+                var classId = parts[0].Trim();
+                var key = parts[1].Trim();
+
+                string message = Res.Get(classId, key, null, false, false);
+                if (!string.IsNullOrWhiteSpace(message))
+                {
+                    return message;
+                }
+            }
+
+            return resourceValue;
+        }
+
+        private void UpdateCustomConfirmationMode(FormDescription form, FormCollection collection)
+        {
+            var confirmationMessageKey = this.GetFormCollectionItemValue(collection, FormMessageKey);
+            if (!string.IsNullOrWhiteSpace(confirmationMessageKey))
+            {
+                var message = this.GetFormRulesMessage(form, confirmationMessageKey);
+                this.CustomConfirmationMessage = this.GetEvaledExpression(message);
+                this.UseCustomConfirmation = true;
+                this.CustomConfirmationMode = CustomConfirmationMode.ShowMessageForSuccess;
+            }
+
+            var confirmationPageIdValue = this.GetFormCollectionItemValue(collection, FormRedirectPageKey);
+            Guid confirmationPageId;
+            if (Guid.TryParse(confirmationPageIdValue, out confirmationPageId) && confirmationPageId != Guid.Empty)
+            {
+                this.CustomConfirmationPageId = confirmationPageId;
+                this.UseCustomConfirmation = true;
+                this.CustomConfirmationMode = CustomConfirmationMode.RedirectToAPage;
+            }
+        }
+
+        private bool CanSaveField(List<string> hiddenfields, List<string> skippedFields, string fieldControlId, string rules, bool initiallyHidden)
+        {
+            bool hasRules = !string.IsNullOrWhiteSpace(rules);
+            bool inHiddenFields = hiddenfields.Contains(fieldControlId) && (initiallyHidden || hasRules);
+            bool inSkippedFields = skippedFields.Contains(fieldControlId) && hasRules;
+
+            var canSave = !inHiddenFields && !inSkippedFields;
+            return canSave;
+        }
+
+        private string GetFormRulesViewModel(FormDescription form)
+        {
+            if (string.IsNullOrWhiteSpace(form.Rules))
+            {
+                return form.Rules;
+            }
+
+            var messageIndex = 0;
+            var rules = JToken.Parse(form.Rules) as JArray;
+            foreach (var rule in rules)
+            {
+                foreach (var action in rule["Actions"] as JArray)
+                {
+                    if (action["Action"].ToString() == FormRuleAction.ShowMessage.ToString())
+                    {
+                        action["Target"] = string.Concat(FormMessagePrefix, messageIndex);
+                        messageIndex++;
+                    }
+                }
+            }
+
+            return JsonConvert.SerializeObject(rules);
+        }
+
         #endregion
 
         #region Private fields
@@ -659,6 +998,12 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Models
         private readonly FormEventsFactory eventFactory;
         internal const string FormIdName = "FormId";
         private const string ConnectorSettingsName = "ConnectorSettings";
+
+        private const string FormSkipFieldsKey = "sf_FormSkipFields";
+        private const string FormHiddenFieldsKey = "sf_FormHiddenFields";
+        private const string FormMessageKey = "sf_FormMessage";
+        private const string FormRedirectPageKey = "sf_FormRedirectPage";
+        private const string FormMessagePrefix = "sf_FormsRulesMessage_";
 
         #endregion
     }

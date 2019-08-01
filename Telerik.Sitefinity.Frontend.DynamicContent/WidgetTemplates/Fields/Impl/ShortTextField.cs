@@ -19,14 +19,14 @@ namespace Telerik.Sitefinity.Frontend.DynamicContent.WidgetTemplates.Fields.Impl
         public ShortTextField(DynamicModuleType moduleType)
         {
             this.moduleType = moduleType;
+            this.ExcludedFieldNames.Add(this.moduleType.MainShortTextFieldName);
         }
 
         /// <inheritdoc/>
         public override bool GetCondition(DynamicModuleField field)
         {
             var condition = base.GetCondition(field)
-                && (field.FieldType == FieldType.ShortText || field.FieldType == FieldType.Guid)
-                && field.Name != this.moduleType.MainShortTextFieldName;
+                && (field.FieldType == FieldType.ShortText || field.FieldType == FieldType.Guid);
 
             return condition;
         }
@@ -37,7 +37,7 @@ namespace Telerik.Sitefinity.Frontend.DynamicContent.WidgetTemplates.Fields.Impl
             return ShortTextField.TemplatePath;
         }
 
-        private const string TemplatePath = "~/Frontend-Assembly/Telerik.Sitefinity.Frontend.DynamicContent/WidgetTemplates/Fields/Templates/ShortTextField.cshtml";
+        private const string TemplatePath = "~/Frontend-Assembly/Telerik.Sitefinity.Frontend.DynamicContent/WidgetTemplates/Fields/Templates/ShortTextField.cshtml";        
         private DynamicModuleType moduleType;
     }
 }

@@ -186,5 +186,35 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.StringResources
                 return this["ProfilePageInfo"];
             }
         }
+
+        /// <summary>
+        /// Control name: Registration
+        /// </summary>
+        [ResourceEntry("AccountActivationWidgetTitle",
+            Value = "Account activation",
+            Description = "Control title: Account Activation",
+            LastModified = "2019/06/03")]
+        public string AccountActivationWidgetTitle
+        {
+            get
+            {
+                return this["AccountActivationWidgetTitle"];
+            }
+        }
+
+        /// <summary>
+        /// Control description: A widget that should be placed on the page that will be used to activate user accounts.
+        /// </summary>
+        [ResourceEntry("AccountActivationWidgetDescription",
+            Value = "Put this widget on the page linked in the email for activation user account",
+            Description = "Control description: A widget that should be placed on the page that will be used to activate user accounts.",
+            LastModified = "2019/06/03")]
+        public string AccountActivationWidgetDescription
+        {
+            get
+            {
+                return this["AccountActivationWidgetDescription"];
+            }
+        }
     }
 }

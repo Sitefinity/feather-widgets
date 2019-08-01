@@ -16,11 +16,12 @@ namespace Telerik.Sitefinity.Frontend.ContentBlock.Mvc.Models
         string Content { get; set; }
 
         /// <summary>
-        /// Gets or sets a value indicating whether [enable social sharing].
+        /// Gets or sets a value indicating whether to enable social sharing.
         /// </summary>
         /// <value>
-        ///   <c>true</c> if [enable social sharing]; otherwise, <c>false</c>.
+        ///   <c>true</c> if should enable social sharing; otherwise, <c>false</c>.
         /// </value>
+        [Obsolete("Social sharing module has been removed. This property is no longer used.")]
         bool EnableSocialSharing { get; set; }
 
         /// <summary>

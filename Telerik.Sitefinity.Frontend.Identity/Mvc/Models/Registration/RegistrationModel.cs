@@ -1,12 +1,12 @@
-﻿using System;
+﻿using ServiceStack;
+using ServiceStack.Text;
+using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Web;
 using System.Web.Script.Serialization;
 using System.Web.Security;
-using ServiceStack;
 using Telerik.Sitefinity.Abstractions.VirtualPath;
 using Telerik.Sitefinity.Data;
 using Telerik.Sitefinity.Frontend.Identity.Mvc.Models.Profile;
@@ -19,19 +19,14 @@ using Telerik.Sitefinity.Modules.Pages;
 using Telerik.Sitefinity.Modules.UserProfiles;
 using Telerik.Sitefinity.Pages.Model;
 using Telerik.Sitefinity.Security;
+using Telerik.Sitefinity.Security.Claims;
+using Telerik.Sitefinity.Security.Events;
 using Telerik.Sitefinity.Security.Model;
+using Telerik.Sitefinity.Security.Web.UI;
+using Telerik.Sitefinity.Services;
 using Telerik.Sitefinity.Utilities;
 using Telerik.Sitefinity.Web;
 using Telerik.Sitefinity.Web.Mail;
-using Telerik.Sitefinity.Security.Web.UI;
-using System.ComponentModel.DataAnnotations;
-using Telerik.Sitefinity.Services;
-using Telerik.Sitefinity.Configuration;
-using System.ComponentModel;
-using Telerik.Sitefinity.Security.Claims;
-using Microsoft.Owin.Security;
-using ServiceStack.Text;
-using Telerik.Sitefinity.Security.Events;
 
 namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.Registration
 {
@@ -77,7 +72,15 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.Registration
                     this.serializedSelectedRoles = value;
                     if (!string.IsNullOrEmpty(this.serializedSelectedRoles))
                     {
-                        this.selectedRoles = JsonSerializer.DeserializeFromString<IList<Role>>(this.serializedSelectedRoles);
+                        var persistedRoles = JsonSerializer.DeserializeFromString<IList<Role>>(this.serializedSelectedRoles);
+
+                        // Skip system backend roles
+                        foreach (var r in persistedRoles)
+                        {
+                            if ((r.ProviderName != SecurityConstants.ApplicationRolesProviderName || r.Name == SecurityConstants.AppRoles.FrontendUsers) &&
+                                !this.selectedRoles.Contains(r))
+                                this.selectedRoles.Add(r);
+                        }
                     }
                 }
             }
@@ -188,6 +191,14 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.Registration
         /// <inheritDoc/>
         public virtual string EmailSenderName { get; set; }
 
+        public virtual string SuccessfulRegistrationSenderEmail { get; set; }
+
+        public virtual string ConfirmRegistrationSenderEmail { get; set; }
+        
+        public virtual string SuccessfulRegistrationSenderName { get; set; }
+        
+        public virtual string ConfirmRegistrationSenderName { get; set; }
+
         /// <inheritDoc/>
         public ActivationMethod ActivationMethod { get; set; }
 
@@ -272,7 +283,7 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.Registration
                     this.AssignRolesToUser(user);
 
                     this.ConfirmRegistration(userManager, user);
-                    //this.ExecuteUserProfileSuccessfullUpdateActions();
+                    // this.ExecuteUserProfileSuccessfullUpdateActions();
                 }
             }
 
@@ -408,31 +419,16 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.Registration
                 {
                     var roleManager = this.GetRoleManager(roleInfo.ProviderName);
                     var roleToAssign = roleManager.GetRole(roleInfo.Id);
-                    if (!roleManager.Provider.Abilities.Keys.Contains("AssingUserToRole") || (roleManager.Provider.Abilities["AssingUserToRole"].Supported))
-                    {
-                        var suppressSecurityCheks = roleManager.Provider.SuppressSecurityChecks;
-                        try
-                        {
-                            roleManager.Provider.SuppressSecurityChecks = true;
-                            roleManager.AddUserToRole(user, roleToAssign);
-                        }
-                        catch (Exception)
-                        {
-                            throw;
-                        }
-                        finally
-                        {
-                            roleManager.Provider.SuppressSecurityChecks = suppressSecurityCheks;
-                        }
-                    }
+                    SecurityManager.AssignRoleToUser(user, roleManager, roleToAssign);
                 }
+
                 foreach (var roleManagerPair in this.RoleManagersToSubmit)
                 {
                     roleManagerPair.Value.SaveChanges();
                 }
             }
         }
-
+        
         /// <summary>
         /// Gets the manager.
         /// </summary>
@@ -515,9 +511,12 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.Registration
                                                 userManager,
                                                 user,
                                                 this.SuccessEmailTemplateId,
-                                                this.SuccessEmailSubject);
+                                                this.SuccessEmailSubject,
+                                                this.SuccessfulRegistrationSenderEmail,
+                                                this.SuccessfulRegistrationSenderName);
 
             var emailSender = EmailSender.Get(this.EmailSenderName);
+            emailSender.SenderProfileName = Configuration.Config.Get<Sitefinity.Security.Configuration.SecurityConfig>().Notifications.SenderProfile;
             emailSender.SendAsync(registrationSuccessEmail, null);
         }
 
@@ -574,9 +573,12 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.Registration
                                 this.MembershipProviderName,
                                 this.ConfirmationEmailTemplateId,
                                 confirmationPageUrl,
-                                this.ConfirmationEmailSubject);
+                                this.ConfirmationEmailSubject,
+                                this.ConfirmRegistrationSenderEmail,
+                                this.ConfirmRegistrationSenderName);
 
             var emailSender = EmailSender.Get(this.EmailSenderName);
+            emailSender.SenderProfileName = Configuration.Config.Get<Sitefinity.Security.Configuration.SecurityConfig>().Notifications.SenderProfile;
             emailSender.SendAsync(confirmationEmail, null);
         }
 

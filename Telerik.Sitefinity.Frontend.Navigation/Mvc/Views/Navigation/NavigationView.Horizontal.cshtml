@@ -7,27 +7,17 @@
 @*Add scripts and stylesheets*@
 @Html.Script(ScriptRef.JQuery, "top", false)
 
-@Html.Script(Url.WidgetContent("Mvc/Scripts/Bootstrap/js/bootstrap.min.js"), "top", false)
-
 @Html.Script(Url.WidgetContent("Mvc/Scripts/Navigation.js"), "bottom", false)
 
 <div class="@Model.CssClass">
     @Html.Action("GetView", new { viewName = "Dropdown",  model= Model})
 
-        <div>
-            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#@Html.UniqueId("navbar")">
-            @*Toggle navigation button for responsive design*@
-              Toggle navigation
-            </button>
-        </div>
-
-        <ul id='@Html.UniqueId("navbar")'>
-            @foreach (var node in Model.Nodes)
-            {
-                @RenderRootLevelNode(node);
-            }
-        </ul>
-
+    <ul id='@Html.UniqueId("navbar")'>
+        @foreach (var node in Model.Nodes)
+        {
+            @RenderRootLevelNode(node);
+        }
+    </ul>
 </div>
 
 @*Here is specified the rendering for the root level*@

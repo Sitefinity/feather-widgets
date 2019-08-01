@@ -1,7 +1,8 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.Configuration.Provider;
-using System.Reflection;
+using System.Linq;
 using System.Web.Mvc;
 using Telerik.OpenAccess.Exceptions;
 using Telerik.Sitefinity.Frontend.Identity.Mvc.Models.Profile;
@@ -19,7 +20,13 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Controllers
     /// This class represents the controller of the Profile widget.
     /// </summary>
     [Localization(typeof(ProfileResources))]
-    [ControllerToolboxItem(Name = "Profile_MVC", Title = "Profile", SectionName = "Users", CssClass = ProfileController.WidgetIconCssClass)]
+    [ControllerToolboxItem(
+        Name = ProfileController.WidgetName, 
+        Title = nameof(ProfileResources.UserProfileViewTitle), 
+        Description = nameof(ProfileResources.UserProfilesViewDescription),
+        ResourceClassId = nameof(ProfileResources),
+        SectionName = "Users",
+        CssClass = ProfileController.WidgetIconCssClass)]
     public class ProfileController : Controller
     {
         #region Properties
@@ -112,7 +119,6 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Controllers
             {
                 return this.ReadProfile();
             }
-
         }
 
         /// <summary>
@@ -130,6 +136,8 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Controllers
             var viewModel = this.Model.GetProfileEditViewModel();
             if (viewModel == null)
                 return null;
+
+            this.SetReadOnlyInfo(viewModel);
 
             return this.View(fullTemplateName, viewModel);
         }
@@ -242,6 +250,8 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Controllers
                                              !this.ModelState.IsValidField("RepeatPassword") ||
                                              !string.IsNullOrEmpty(this.ViewBag.ErrorMessage);
 
+            this.SetReadOnlyInfo(viewModel);
+
             var fullTemplateName = ProfileController.EditModeTemplatePrefix + this.EditModeTemplateName;
             return this.View(fullTemplateName, viewModel);
         }
@@ -286,6 +296,22 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Controllers
             PageRouteHandler.RegisterCustomOutputCacheVariation(new UserProfileMvcOutputCacheVariation());
         }
 
+        private void SetReadOnlyInfo(ProfileEditViewModel viewModel)
+        {
+            this.ViewBag.IsEmailReadOnly = false;
+            this.ViewBag.ReadOnlyFields = new Dictionary<string, IEnumerable<string>>();
+
+            if (viewModel.User != null && viewModel.User.ExternalProviderName != null)
+            {
+                foreach (var userProfile in viewModel.SelectedUserProfiles)
+                {
+                    var profileName = userProfile.UserProfile.GetType().Name;
+                    this.ViewBag.ReadOnlyFields[profileName] = UserManager.GetReadOnlyFields(profileName, viewModel.User.ExternalProviderName).ToArray();
+                }
+
+                this.ViewBag.IsEmailReadOnly = UserManager.IsEmailMapped(viewModel.User.ExternalProviderName);
+            }
+        }
         #endregion
 
         #region Private fields and constants
@@ -301,7 +327,7 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Controllers
         private const string ConfirmPasswordModeTemplatePrefix = "ConfirmPassword.";
 
         private IProfileModel model;
-
+        private const string WidgetName = "Profile_MVC";
         #endregion
     }
 }

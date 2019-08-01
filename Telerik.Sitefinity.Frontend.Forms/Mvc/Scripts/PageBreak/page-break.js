@@ -15,12 +15,17 @@
             var formElement = $(element);
             var formStepsContainers = formElement.find(selectors.separator);
             var formStepIndex = 0;
+            var skipToPageCollection = [];
             var submitButton = null;
             var isSubmitButtonAdded = false;
             var stepNewForm = null;
 
             formElement.on("form-page-changed", function (e, index, previousIndex) {
                 formStepIndex = index;
+            });
+            
+            formElement.on("form-page-skip", function (e, skipToPageList) {
+                skipToPageCollection = skipToPageList;
             });
 
             formStepsContainers.each(function (i, element) {
@@ -77,7 +82,39 @@
                 submitButton.click();
             };
 
+            var getSkipToPageItem = function (pageIndex) {
+                var item = null;
+                for (var i = 0; i < skipToPageCollection.length; i++) {
+                    if (skipToPageCollection[i].SkipFromPage === pageIndex) return skipToPageCollection[i];
+                }
+
+                return item;
+            };
+
+            var getSkipFromPageItem = function (pageIndex) {
+                var item = null;
+                for (var i = 0; i < skipToPageCollection.length; i++) {
+                    if (skipToPageCollection[i].SkipToPage === pageIndex) return skipToPageCollection[i];
+                }
+
+                return item;
+            };
+
+            var focusForm = function () {
+                var form = $(formElement).find("form");
+
+                // TODO: Accessibility is not implemented no logic is required
+                if (form.length <= 0) {
+                    return;
+                }
+
+                form.attr("tabindex", 0);
+                form.focus();
+                form.removeAttr("tabindex");
+            };
+
             var separatorsNext = formStepsContainers.find(selectors.nextButton);
+
             separatorsNext.click(function (e) {
                 e.preventDefault();
 
@@ -85,27 +122,55 @@
                 tryGoToNextStep(currentStepContainer, function () {
                     var previousIndex = formStepIndex;
                     currentStepContainer.hide();
-                    formStepIndex++;
+
+                    if (skipToPageCollection && skipToPageCollection.length > 0) {
+                        var skipItem = getSkipToPageItem(formStepIndex);
+                        if (skipItem) {
+                            formStepIndex = skipItem.SkipToPage;
+                        }
+                        else {
+                            formStepIndex++;
+                        }
+                    }
+                    else {
+                        formStepIndex++;
+                    }
+
                     $(formStepsContainers[formStepIndex]).show();
                     formElement.trigger("form-page-changed", [formStepIndex, previousIndex]);
+                    focusForm();
                 });
             });
 
             var separatorsPrev = formStepsContainers.find(selectors.previousButton);
             separatorsPrev.click(function (e) {
                 e.preventDefault();
-                
+
                 var previousIndex = formStepIndex;
                 var stepNewForm = $('form#stepNewForm');
                 var currentContainer = $(e.target).closest(selectors.separator);
                 if (stepNewForm.children(selectors.separator).length > 0) {
                     currentContainer.unwrap();
                 }
-                
+
                 currentContainer.hide();
-                formStepIndex--;
+
+                if (skipToPageCollection && skipToPageCollection.length > 0) {
+                    var skipItem = getSkipFromPageItem(formStepIndex);
+                    if (skipItem) {
+                        formStepIndex = skipItem.SkipFromPage;
+                    }
+                    else {
+                        formStepIndex--;
+                    }
+                }
+                else {
+                    formStepIndex--;
+                }
+
                 $(formStepsContainers[formStepIndex]).show();
                 formElement.trigger("form-page-changed", [formStepIndex, previousIndex]);
+                focusForm();
             });
         };
 

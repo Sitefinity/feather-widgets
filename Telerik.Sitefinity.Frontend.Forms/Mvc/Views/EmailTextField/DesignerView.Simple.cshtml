@@ -1,0 +1,106 @@
+@using Telerik.Sitefinity.Frontend.Forms.Mvc.Helpers;
+@using Telerik.Sitefinity.Frontend.Forms.Mvc.Models.Fields.TextField;
+@using Telerik.Sitefinity.Frontend.Mvc.Helpers;
+@using Telerik.Sitefinity.Mvc;
+
+@*<uib-tabset class="nav-tabs-wrapper">
+    <uib-tab heading="@Html.Resource("LabelAndText")">*@
+<div>
+    <div class="form-group">
+        <label for="title">
+            @Html.Resource("Label")
+        </label>
+        <div class="row">
+            <div class="col-xs-6">
+                <input id="title" type="text" ng-model="properties.Model.MetaField.Title.PropertyValue" class="form-control" />
+            </div>
+        </div>
+        <p class="text-muted">@Html.Resource("EmailExampleTitle")</p>
+    </div>
+    <div class="form-group">
+        <label for="placeholderText">
+            @Html.Resource("PlaceholderText")
+        </label>
+        <div class="row">
+            <div class="col-xs-6">
+                <input id="placeholderText" type="text" ng-model="properties.Model.PlaceholderText.PropertyValue" class="form-control" />
+            </div>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <a ng-hide="showInstructionalText || properties.Model.MetaField.Description.PropertyValue" ng-click="showInstructionalText=true;">@Html.Resource("AddInstructionalText")</a>
+        <div ng-show="showInstructionalText || properties.Model.MetaField.Description.PropertyValue">
+            <label for="example">
+                @Html.Resource("InstructionalText")
+            </label>
+            <div class="row">
+                <div class="col-xs-9">
+                    <textarea id="example" ng-model="properties.Model.MetaField.Description.PropertyValue" class="form-control" />
+                    <p class="text-muted">@Html.Resource("ExampleExplanation")</p>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label for="predefinedValue">
+            @Html.Resource("PredefinedValue")
+        </label>
+        <div class="row">
+            <div class="col-xs-6">
+                <input id="predefinedValue" type="{{fieldInputType}}" ng-model="defaultValue.value" ng-value="properties.Model.MetaField.DefaultValue.PropertyValue" class="form-control" />
+            </div>
+        </div>
+
+    </div>
+
+    <div class="form-group">
+        <div class="checkbox">
+            <label>
+                <input type="checkbox" ng-model="properties.Model.ValidatorDefinition.Required.PropertyValue"
+                       ng-true-value="'True'" ng-false-value="'False'" ng-checked="properties.Model.ValidatorDefinition.Required.PropertyValue === 'True'" />
+                @Html.Resource("RequiredField")
+            </label>
+        </div>
+    </div>
+
+    <div class="form-group" ng-show="properties.Model.ValidatorDefinition.Required.PropertyValue === 'True'">
+        <label for="example">
+            @Html.Resource("RequiredErrorMessageTitle")
+        </label>
+        <input type="text" id="example" ng-model="properties.Model.ValidatorDefinition.RequiredViolationMessage.PropertyValue" class="form-control" />
+    </div>
+
+    <div class="form-group">
+        <div class="checkbox">
+            <label>
+                <input type="checkbox" ng-model="properties.Model.Hidden.PropertyValue"
+                       ng-true-value="'True'" ng-false-value="'False'" ng-checked="properties.Model.Hidden.PropertyValue === 'True'" />
+                @Html.Resource("HiddenField")
+            </label>
+        </div>
+    </div>
+
+    <expander expander-title='@Html.Resource("MoreOptions")'>
+        <div class="form-group">
+            <label for="textFieldTemplateName">@Html.Resource("Template")</label>
+            <div class="row">
+                <div class="col-xs-6">
+                    <select id="textFieldTemplateName" ng-model="properties.WriteTemplateName.PropertyValue" class="form-control">
+                        @foreach (var viewName in Html.GetViewNames(((Telerik.Sitefinity.Mvc.Proxy.MvcProxyBase)Model).GetController(), @"^Write\.(?<viewName>[\w\s]*)$"))
+                        {
+                            <option value="@viewName"> @viewName.SplitCamelCase()</option>
+                        }
+                    </select>
+                </div>
+            </div>
+        </div>
+        <style-dropdown selected-class="properties.Model.CssClass.PropertyValue" view-name="properties.WriteTemplateName.PropertyValue"></style-dropdown>
+        <div class="form-group">
+            <label for="cssClass">@Html.Resource("CssClasses")</label>
+            <input type="text" id="cssClass" ng-model="properties.Model.CssClass.PropertyValue" class="form-control" />
+        </div>
+    </expander>
+</div>

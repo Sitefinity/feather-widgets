@@ -1,12 +1,11 @@
-﻿using System.ComponentModel;
-using Telerik.Sitefinity.Metadata.Model;
+﻿using Telerik.Sitefinity.Modules.Forms.Web.UI;
 
 namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Models.Fields.SectionHeader
 {
     /// <summary>
     /// This interface provides API for form section header element.
     /// </summary>
-    public interface ISectionHeaderModel : IFormElementModel
+    public interface ISectionHeaderModel : IFormElementModel, IHideable
     {
         /// <summary>
         /// Gets or sets the text.

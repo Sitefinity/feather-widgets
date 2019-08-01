@@ -42,23 +42,23 @@
         <label>Link to...</label> 
         <div class="radio m-top-none">
             <label>
-                <input type="radio" ng-model="isPageSelectMode" ng-value="true" />
+                <input type="radio" ng-model="properties.IsPageSelectMode.PropertyValue" ng-value="true" />
                 @Html.Resource("PageWithinLabel")
             </label>
             <sf-list-selector
                 class="label-content"
                 sf-page-selector
                 sf-selected-item-id="properties.LinkedPageId.PropertyValue"
-                ng-show="isPageSelectMode"></sf-list-selector>
+                ng-show="properties.IsPageSelectMode.PropertyValue"></sf-list-selector>
         </div>
         <div class="radio">
             <label>
-                <input type="radio" ng-model="isPageSelectMode" ng-value="false" />
+                <input type="radio" ng-model="properties.IsPageSelectMode.PropertyValue" ng-value="false" />
                 @Html.Resource("ExternalURL")
             </label>
             <div class="label-content">
-                <input type="text"  class="form-control" ng-show="!isPageSelectMode" ng-model="properties.LinkedUrl.PropertyValue" />
-                <p class="text-muted" ng-show="!isPageSelectMode">@Html.Resource("Example")</p>
+                <input type="text"  class="form-control" ng-show="!properties.IsPageSelectMode.PropertyValue" ng-model="properties.LinkedUrl.PropertyValue" />
+                <p class="text-muted" ng-show="!isPageSelectModeproperties.IsPageSelectMode.PropertyValue">@Html.Resource("Example")</p>
             </div>
         </div>
     </div>

@@ -20,7 +20,13 @@ namespace Telerik.Sitefinity.Frontend.Navigation.Mvc.Controllers
     /// <summary>
     /// This class represents the controller of Navigation widget.
     /// </summary>
-    [ControllerToolboxItem(Name = "Navigation_MVC", Title = "Navigation", SectionName = ToolboxesConfig.NavigationControlsSectionName, CssClass = NavigationController.WidgetIconCssClass)]
+    [ControllerToolboxItem(
+        Name = NavigationController.WidgetName, 
+        Title = nameof(NavigationResources.NavigationControlTitle), 
+        Description = nameof(NavigationResources.NavigationControlDescription),
+        ResourceClassId = nameof(NavigationResources),
+        SectionName = ToolboxesConfig.NavigationControlsSectionName,
+        CssClass = NavigationController.WidgetIconCssClass)]
     [Localization(typeof(NavigationResources))]
     [IndexRenderMode(IndexRenderModes.NoOutput)]
     public class NavigationController : Controller
@@ -84,6 +90,7 @@ namespace Telerik.Sitefinity.Frontend.Navigation.Mvc.Controllers
         /// <value>
         /// The CSS class.
         /// </value>
+        [Browsable(false)]
         public string CssClass
         {
             get;
@@ -148,7 +155,8 @@ namespace Telerik.Sitefinity.Frontend.Navigation.Mvc.Controllers
         /// <value>
         /// The model.
         /// </value>
-        protected INavigationModel Model
+        [TypeConverter(typeof(ExpandableObjectConverter))]
+        public virtual INavigationModel Model
         {
             get
             {
@@ -257,7 +265,7 @@ namespace Telerik.Sitefinity.Frontend.Navigation.Mvc.Controllers
         private string templateName = "Horizontal";
         private string templateNamePrefix = "NavigationView.";
         private NavigationOutputCacheVariationSettings outputCacheSettings;
-
+        private const string WidgetName = "Navigation_MVC";
         #endregion
     }
 }

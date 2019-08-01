@@ -1,6 +1,5 @@
 ﻿using System;
 using System.ComponentModel;
-using System.Web;
 using System.Web.Mvc;
 using System.Web.UI;
 using Telerik.Sitefinity.Frontend.InlineClientAssets.Mvc.Helpers;
@@ -20,7 +19,13 @@ namespace Telerik.Sitefinity.Frontend.InlineClientAssets.Mvc.Controllers
     /// This class represents the controller for the StyleSheet widget.
     /// </summary>
     [Localization(typeof(StyleSheetResources))]
-    [ControllerToolboxItem(Name = "StyleSheet_MVC", Title = "CSS", SectionName = "ScriptsAndStylesControlsSection", CssClass = StyleSheetController.WidgetIconCssClass)]
+    [ControllerToolboxItem(
+        Name = StyleSheetController.WidgetName,
+        Title = nameof(StyleSheetResources.CssEmbedControlTitle),
+        Description = nameof(StyleSheetResources.CssEmbedControlDescription),
+        ResourceClassId = nameof(StyleSheetResources),
+        SectionName = "ScriptsAndStylesControlsSection",
+        CssClass = StyleSheetController.WidgetIconCssClass)]
     public class StyleSheetController : Controller, ICustomWidgetVisualizationExtended
     {
         #region Properties
@@ -67,9 +72,9 @@ namespace Telerik.Sitefinity.Frontend.InlineClientAssets.Mvc.Controllers
 
                 if (hasDescription)
                 {
-                    markup = this.Model.Description;                  
+                    markup = this.Model.Description;
                 }
-                else if(this.Model.Mode == Models.ResourceMode.Inline)
+                else if (this.Model.Mode == Models.ResourceMode.Inline)
                 {
                     markup = EmbedCodeHelper.GetShortEmbededCode(this.Model.InlineStyles);
                 }
@@ -81,7 +86,7 @@ namespace Telerik.Sitefinity.Frontend.InlineClientAssets.Mvc.Controllers
                 if (!string.IsNullOrEmpty(markup))
                 {
                     this.ViewBag.DesignModeContent = markup;
-                    
+
                     return this.View();
                 }
             }
@@ -138,7 +143,7 @@ namespace Telerik.Sitefinity.Frontend.InlineClientAssets.Mvc.Controllers
         protected virtual void AddCssInHead(string cssMarkup)
         {
             var page = this.HttpContext.CurrentHandler.GetPageHandler();
-            if (page != null && page.Header !=null)
+            if (page != null && page.Header != null)
             {
                 if (!string.IsNullOrEmpty(cssMarkup))
                 {
@@ -172,7 +177,7 @@ namespace Telerik.Sitefinity.Frontend.InlineClientAssets.Mvc.Controllers
 
         private IStyleSheetModel model;
         private const string WidgetIconCssClass = "sfLinkedFileViewIcn sfMvcIcn";
-
+        private const string WidgetName = "StyleSheet_MVC";
         #endregion
     }
 }

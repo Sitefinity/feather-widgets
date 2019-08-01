@@ -1,0 +1,24 @@
+﻿@model Telerik.Sitefinity.Frontend.Forms.Mvc.Models.Fields.EmailTextField.EmailTextFieldViewModel
+
+@using Telerik.Sitefinity.UI.MVC;
+@using Telerik.Sitefinity.Frontend.Forms.Mvc.Helpers;
+@using Telerik.Sitefinity.Frontend.Mvc.Helpers;
+@using Telerik.Sitefinity.Modules.Pages;
+
+@Html.Script(ScriptRef.JQuery, "top", false)
+
+<div class="@Model.CssClass sf-fieldWrp" data-sf-role="email-text-field-container">
+    <input data-sf-role="violation-restrictions" type="hidden" value='{"maxLength":"@Model.ValidatorDefinition.MaxLength", "minLength": "@Model.ValidatorDefinition.MinLength"}' />
+    <input data-sf-role="violation-messages" type="hidden" value='{"maxLength":"@Model.ValidatorDefinition.MaxLengthViolationMessage", "required": "@Model.ValidatorDefinition.RequiredViolationMessage", "invalid": "@Html.Resource("InvalidEntryMessage")", "regularExpression": "@Model.ValidatorDefinition.RegularExpressionViolationMessage"}' />
+    <label for='@Html.UniqueId("Email")'>@Model.MetaField.Title</label>
+    <input id='@Html.UniqueId("Email")' data-sf-role="email-text-field-input" type="@Model.InputType.ToHtmlInputType()" name="@Model.MetaField.FieldName" placeholder="@Model.PlaceholderText" value="@Model.Value" @Html.Raw(Model.ValidationAttributes) />
+
+    @if (!string.IsNullOrEmpty(Model.MetaField.Description))
+    {
+        <p>@Model.MetaField.Description</p>
+    }
+
+    <p data-sf-role="error-message" role="alert" aria-live="assertive"></p>
+</div>
+
+@Html.Script(Url.WidgetContent("Mvc/Scripts/EmailTextField/email-text-field.js"), "bottom", false)

@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel;
+using Telerik.Sitefinity.Modules.Forms.Web.UI;
 using Telerik.Sitefinity.Web.UI.Validation.Definitions;
 
 namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Models.Fields.TextField
@@ -6,7 +7,7 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Models.Fields.TextField
     /// <summary>
     /// This interface provides API for form text fields.
     /// </summary>
-    public interface ITextFieldModel : IFormFieldModel
+    public interface ITextFieldModel : IFormFieldModel, IHideable
     {
         /// <summary>
         /// Gets or sets the placeholder text.
@@ -31,12 +32,5 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Models.Fields.TextField
         /// The serialized input type regex patterns.
         /// </value>
         string SerializedInputTypeRegexPatterns { get; }
-
-        /// <summary>
-        /// Gets or sets a validation mechanism for the field.
-        /// </summary>
-        /// <value>The validation.</value>
-        [TypeConverter(typeof(ExpandableObjectConverter))]
-        ValidatorDefinition ValidatorDefinition { get; set; }
     }
 }

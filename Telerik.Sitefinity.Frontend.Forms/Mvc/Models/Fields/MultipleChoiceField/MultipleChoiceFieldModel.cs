@@ -2,10 +2,12 @@
 using System.ComponentModel;
 using System.Linq;
 using Newtonsoft.Json;
+using Telerik.Sitefinity.Abstractions;
 using Telerik.Sitefinity.Frontend.Forms.Mvc.StringResources;
 using Telerik.Sitefinity.Localization;
 using Telerik.Sitefinity.Metadata.Model;
 using Telerik.Sitefinity.Modules.Forms.Web.UI.Fields;
+using Telerik.Sitefinity.Security.Sanitizers;
 using Telerik.Sitefinity.Web.UI.Validation.Definitions;
 
 namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Models.Fields.MultipleChoiceField
@@ -17,6 +19,9 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Models.Fields.MultipleChoiceFiel
     {
         /// <inheritDocs />
         public bool HasOtherChoice { get; set; }
+
+        /// <inheritDocs />
+        public bool Hidden { get; set; }
 
         /// <inheritDocs />
         public string SerializedChoices
@@ -33,7 +38,8 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Models.Fields.MultipleChoiceFiel
 
             set
             {
-                this.serializedChoices = value;
+                string sanitizedValue = ObjectFactory.Resolve<IHtmlSanitizer>().Sanitize(value);
+                this.serializedChoices = sanitizedValue;
             }
         }
 
@@ -47,7 +53,7 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Models.Fields.MultipleChoiceFiel
                 {
                     this.validatorDefinition = base.ValidatorDefinition;
 
-                    this.validatorDefinition.RequiredViolationMessage = Res.Get<FieldResources>().RequiredErrorMessageValue;
+                    this.validatorDefinition.RequiredViolationMessage = Res.Get<FormResources>().RequiredInputErrorMessage;
                 }
 
                 return this.validatorDefinition;
@@ -85,7 +91,8 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Models.Fields.MultipleChoiceFiel
                 IsRequired = this.ValidatorDefinition.Required.HasValue ? this.ValidatorDefinition.Required.Value : false,
                 ValidationAttributes = this.BuildValidationAttributesString(),
                 RequiredViolationMessage = this.ValidatorDefinition.RequiredViolationMessage,
-                CssClass = this.CssClass
+                CssClass = this.CssClass,
+                Hidden = this.Hidden && (!Sitefinity.Services.SystemManager.IsDesignMode || Sitefinity.Services.SystemManager.IsPreviewMode)
             };
 
             return viewModel;

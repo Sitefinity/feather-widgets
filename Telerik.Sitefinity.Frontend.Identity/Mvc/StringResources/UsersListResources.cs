@@ -598,5 +598,35 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.StringResources
                 return this["SelectProfileType"];
             }
         }
+
+        /// <summary>
+        /// Control name: Users list
+        /// </summary>
+        [ResourceEntry("UserProfilesViewTitle",
+            Value = "Users list",
+            Description = "Control title: Users list",
+            LastModified = "2019/06/03")]
+        public string UserProfilesViewTitle
+        {
+            get
+            {
+                return this["UserProfilesViewTitle"];
+            }
+        }
+
+        /// <summary>
+        /// Control description: A control for displaying a list of user.
+        /// </summary>
+        [ResourceEntry("UsersListViewDescription",
+            Value = "List of users and their profiles",
+            Description = "Control description: A control for displaying user profiles.",
+            LastModified = "2019/06/03")]
+        public string UsersListViewDescription
+        {
+            get
+            {
+                return this["UsersListViewDescription"];
+            }
+        }
     }
 }

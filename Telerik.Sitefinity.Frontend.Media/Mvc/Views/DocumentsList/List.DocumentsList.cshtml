@@ -13,11 +13,11 @@
                 <a href="@HyperLinkHelpers.GetDetailPageUrl(item, ViewBag.DetailsPageId, ViewBag.OpenInSamePage, Model.UrlKeyPrefix)">
                     @item.Fields.Title
                 </a>
-                (@(((DocumentItemViewModel)item).Extension))
+                <span class="sf-document-extension">(@(((DocumentItemViewModel)item).Extension))</span>
             </div>
             <div>
                 <a href="@item.Fields.MediaUrl" target="_blank">Download</a>
-                (@(Math.Ceiling((double)item.Fields.TotalSize / 1024) + " KB"))
+                <span class="sf-document-size">(@(Math.Ceiling((double)item.Fields.TotalSize / 1024) + " KB"))</span>
             </div>
         </div>
     }

@@ -10,6 +10,7 @@ using System.Web.Routing;
 using Telerik.Sitefinity.Frontend.Events.Mvc.Controllers;
 using Telerik.Sitefinity.Frontend.Events.Mvc.Models.EventScheduler;
 using Telerik.Sitefinity.Modules.Pages;
+using Telerik.Sitefinity.Modules.Pages.Web.Services;
 using Telerik.Sitefinity.Mvc.Proxy;
 using Telerik.Sitefinity.Pages.Model;
 using Telerik.Sitefinity.Security.Claims;
@@ -23,10 +24,15 @@ namespace Telerik.Sitefinity.Frontend.Events.Mvc.Helpers
     /// </summary>
     internal class EventSchedulerHelper
     {
-        public static IEventSchedulerModel LoadModel(Guid widgetId, CultureInfo culture)
+        public static IEventSchedulerModel LoadModel(Guid widgetId, CultureInfo culture, Guid pageId = new Guid())
         {
             var pageManager = PageManager.GetManager();
-            var objectData = pageManager.GetControls<ObjectData>().SingleOrDefault(p => p.Id == widgetId);
+            ObjectData objectData = null;
+            if (pageId != Guid.Empty)
+                objectData = EventSchedulerHelper.GetOverridingControlForPage(widgetId, pageId);
+
+            if (objectData == null)
+                objectData = pageManager.GetControls<ObjectData>().SingleOrDefault(p => p.Id == widgetId);
 
             if (objectData is PageDraftControl && ClaimsManager.IsBackendUser() == false)
                 return null;
@@ -153,6 +159,41 @@ namespace Telerik.Sitefinity.Frontend.Events.Mvc.Helpers
             return Guid.Empty;
         }
 
+        private static ControlData GetOverridingControlForPage(Guid controlId, Guid pageId)
+        {
+            var pageManager = PageManager.GetManager();
+            ControlData overridingControl = pageManager.GetControls<PageDraftControl>().Where(c => c.Page.Id == pageId && (c.Id == controlId || c.BaseControlId == controlId)).FirstOrDefault();
+
+            if (overridingControl == null)
+                overridingControl = pageManager.GetControls<PageControl>().Where(c => c.Page.Id == pageId && (c.Id == controlId || c.BaseControlId == controlId)).FirstOrDefault();
+
+            if (overridingControl == null)
+            {
+                var pageDraft = pageManager.GetDrafts<PageDraft>().Where(a => a.Id == pageId).FirstOrDefault();
+                if (pageDraft != null)
+                {
+                    var iter = pageManager.GetTemplates().Where(c => c.Id == pageDraft.TemplateId).FirstOrDefault();
+
+                    while (iter != null)
+                    {
+                        overridingControl = pageManager.GetControls<TemplateControl>().Where(c => c.Page.Id == iter.Id && (c.Id == controlId || c.BaseControlId == controlId)).FirstOrDefault();
+                        if (overridingControl != null)
+                            break;
+                        iter = iter.ParentTemplate;
+                    }
+                }
+            }
+
+            return overridingControl;
+        }
+
+        public static bool IsRtl()
+        {
+            var currentCulture = SystemManager.CurrentContext.AppSettings.CurrentCulture;
+            var isRtl = (Array.Find(rtlLanguages, s => currentCulture.ToString().StartsWith(s)) != null) || currentCulture.ToString().ToLower().Contains("arab");
+            return isRtl;
+        }
+
         private static ControlData GetControl(IEnumerable<ControlData> controls, string controlId)
         {
             return controls.FirstOrDefault(p => p.Properties.FirstOrDefault(t => t.Name == "ID" && controlId.EndsWith(t.Value)) != null);
@@ -185,6 +226,7 @@ namespace Telerik.Sitefinity.Frontend.Events.Mvc.Helpers
             }
         }
 
+        private static string[] rtlLanguages = { "ar", "he", "fa", "ku", "ur", "dv", "ps", "ha", "ks", "yi" };
         private const string TemplateDraftProxy = "TemplateDraftProxy";
         private const string IsTemplate = "IsTemplate";
         private const string FormControlId = "FormControlId";

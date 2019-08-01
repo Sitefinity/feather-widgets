@@ -35,6 +35,9 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Models.Fields.DropdownListField
         }
 
         /// <inheritDocs />
+        public bool Hidden { get; set; }
+
+        /// <inheritDocs />
         [TypeConverter(typeof(ExpandableObjectConverter))]
         public override ValidatorDefinition ValidatorDefinition
         {
@@ -44,7 +47,7 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Models.Fields.DropdownListField
                 {
                     this.validatorDefinition = base.ValidatorDefinition;
 
-                    this.validatorDefinition.RequiredViolationMessage = Res.Get<FieldResources>().RequiredErrorMessageValue;
+                    this.validatorDefinition.RequiredViolationMessage = Res.Get<FormResources>().RequiredInputErrorMessage;
                 }
 
                 return this.validatorDefinition;
@@ -90,7 +93,8 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Models.Fields.DropdownListField
                 IsRequired = this.ValidatorDefinition.Required.HasValue ? this.ValidatorDefinition.Required.Value : false,
                 ValidationAttributes = this.BuildValidationAttributesString(),
                 RequiredViolationMessage = this.ValidatorDefinition.RequiredViolationMessage,
-                CssClass = this.CssClass
+                CssClass = this.CssClass,
+                Hidden = this.Hidden && (!Sitefinity.Services.SystemManager.IsDesignMode || Sitefinity.Services.SystemManager.IsPreviewMode)
             };
 
             return viewModel;

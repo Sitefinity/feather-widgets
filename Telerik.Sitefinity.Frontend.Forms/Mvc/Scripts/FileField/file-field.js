@@ -13,12 +13,21 @@
         var input = $(template);
         input.appendTo(container);
 
+        input.on('change', function (e) {
+            if (typeof $.fn.processFormRules === 'function') {
+                $(e.target).processFormRules();
+            }
+        });
+
         if (config.AllowMultipleFiles) {
             adjustVisibility(container);
 
             input.find('[data-sf-role="remove-input"]').click(function () {
                 input.remove();
                 adjustVisibility(container);
+                if (typeof $.fn.processFormRules === 'function') {
+                    $(container).processFormRules();
+                }
             });
         }
     };
@@ -27,14 +36,18 @@
         var violationMessage = $('[data-sf-role="required-violation-message"]');
 
         var inputs = container.find('input[type="file"]');
+        var firstInvalidInput = null;
         for (var i = 0; i < inputs.length; i++) {
             if (inputs[i].value) {
                 violationMessage.hide();
                 return true;
+            } else if (!firstInvalidInput) {
+                firstInvalidInput = inputs[i];
             }
         }
 
         violationMessage.show();
+        firstInvalidInput.focus();
         return false;
     };
 
@@ -50,6 +63,7 @@
                     if (fileTypes.indexOf(extension) < 0) {
                         violationMessage.show();
                         hasViolations = true;
+                        inputs[i].focus();
                         continue;
                     }
                 }
@@ -74,6 +88,7 @@
                 if ((min > 0 && file.size < min) || (max > 0 && file.size > max)) {
                     violationMessage.show();
                     hasViolations = true;
+                    inputs[i].focus();
                     continue;
                 }
             }

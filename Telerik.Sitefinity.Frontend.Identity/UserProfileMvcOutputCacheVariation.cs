@@ -5,21 +5,15 @@ using Telerik.Sitefinity.Web;
 
 namespace Telerik.Sitefinity.Frontend.Identity
 {
+    [Serializable]
     internal class UserProfileMvcOutputCacheVariation : CustomOutputCacheVariationBase
     {
+        [NonSerialized]
         private bool? noCache;
 
         public UserProfileMvcOutputCacheVariation()
         {
-        }
-
-        /// <inheritdoc />
-        public override string Key
-        {
-            get
-            {
-                return "sf-user-profile-mvc-view";
-            }
+            this.Key = "sf-user-profile-mvc-view";
         }
 
         /// <inheritdoc />

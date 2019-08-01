@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
-using System.Reflection;
 using System.Web;
 using System.Web.Mvc;
+using Telerik.Sitefinity.Abstractions;
 using Telerik.Sitefinity.Frontend.Identity.Mvc.Models.LoginForm;
 using Telerik.Sitefinity.Frontend.Identity.Mvc.StringResources;
 using Telerik.Sitefinity.Frontend.Mvc.Infrastructure.Controllers;
@@ -12,9 +12,6 @@ using Telerik.Sitefinity.Localization;
 using Telerik.Sitefinity.Mvc;
 using Telerik.Sitefinity.Security;
 using Telerik.Sitefinity.Security.Claims;
-using Telerik.Sitefinity.Security.Claims.SWT;
-using Telerik.Sitefinity.Security.Model;
-using Telerik.Sitefinity.Services;
 
 namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Controllers
 {
@@ -22,7 +19,13 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Controllers
     /// This class represents the controller of the Login Form widget.
     /// </summary>
     [Telerik.Sitefinity.Frontend.Mvc.Infrastructure.Controllers.Attributes.Localization(typeof(LoginFormResources))]
-    [ControllerToolboxItem(Name = "LoginForm_MVC", Title = "Login form", SectionName = "Login", CssClass = LoginFormController.WidgetIconCssClass)]
+    [ControllerToolboxItem(
+        Name = LoginFormController.WidgetName, 
+        Title = nameof(LoginFormResources.LoginControlTitle), 
+        Description = nameof(LoginFormResources.LoginControlDescription),
+        ResourceClassId = nameof(LoginFormResources),
+        SectionName = "Login", 
+        CssClass = LoginFormController.WidgetIconCssClass)]
     public class LoginFormController : Controller
     {
         #region Properties
@@ -87,6 +90,8 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Controllers
 
         public ActionResult Index()
         {
+            Web.PageRouteHandler.RegisterUserAuthenticatedOutputCacheVariation();
+
             var viewModel = this.Model.GetLoginFormViewModel();
 
             var fullTemplateName = this.loginFormTemplatePrefix + this.LoginFormTemplate;
@@ -145,7 +150,16 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Controllers
                 HttpUtility.UrlEncode(viewModel.Email),
                 HttpUtility.UrlEncode(viewModel.Error));
 
-            return this.Redirect(string.Format("{0}/ForgotPassword?{1}", pageUrl, queryString));
+            var redirectUrl = string.Format("{0}/ForgotPassword?{1}", pageUrl, queryString);
+
+            var validator = ObjectFactory.Resolve<IRedirectUriValidator>();
+
+            if (!validator.IsValid(redirectUrl))
+            {
+                redirectUrl = "~/";
+            }
+
+            return this.Redirect(redirectUrl);
         }
 
         public ActionResult ResetPassword()
@@ -215,9 +229,16 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Controllers
 
             error = HttpUtility.UrlEncode(error);
 
+            var validator = ObjectFactory.Resolve<IRedirectUriValidator>();
             var pageUrl = this.Model.GetPageUrl(null);
-            var queryString = string.Format("{0}&resetComplete={1}&error={2}",model.SecurityToken, resetComplete, error);
-            return this.Redirect(string.Format("{0}/ResetPassword?{1}", pageUrl, queryString));
+
+            if (validator.IsValid(pageUrl))
+            {
+                var queryString = string.Format("{0}&resetComplete={1}&error={2}", model.SecurityToken, resetComplete, error);
+                return this.Redirect(string.Format("{0}/ResetPassword?{1}", pageUrl, queryString));
+            }
+
+            return this.Redirect("~/");
         }
 
         /// <inheritDocs/>
@@ -255,7 +276,7 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Controllers
         private string resetPasswordTemplatePrefix = "ResetPassword.";
 
         private ILoginFormModel model;
-
+        private const string WidgetName = "LoginForm_MVC";
         #endregion
     }
 }

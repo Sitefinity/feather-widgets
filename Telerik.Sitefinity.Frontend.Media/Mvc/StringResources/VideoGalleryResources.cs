@@ -95,6 +95,22 @@ namespace Telerik.Sitefinity.Frontend.Media.Mvc.StringResources
         }
 
         /// <summary>
+        /// phrase: Open {0} in modal dialog
+        /// </summary>
+        /// <value>Open {0} in modal dialog</value>
+        [ResourceEntry("OpenInModalDialog",
+            Value = "Open {0} in modal dialog",
+            Description = "Open {0} in modal dialog",
+            LastModified = "2018/09/13")]
+        public string OpenInModalDialog
+        {
+            get
+            {
+                return this["OpenInModalDialog"];
+            }
+        }
+
+        /// <summary>
         /// word: by
         /// </summary>
         /// <value>by</value>
@@ -141,7 +157,102 @@ namespace Telerik.Sitefinity.Frontend.Media.Mvc.StringResources
                 return this["IndexOfTotal"];
             }
         }
-        
+
+        /// <summary>
+        /// phrase: Video taken on
+        /// </summary>
+        /// <value>Video taken on</value>
+        [ResourceEntry("VideoTakenOn",
+            Value = "Video taken on",
+            Description = "phrase: Video taken on",
+            LastModified = "2018/09/12")]
+        public string VideoTakenOn
+        {
+            get
+            {
+                return this["VideoTakenOn"];
+            }
+        }
+
+        /// <summary>
+        /// phrase: Previous/Next video
+        /// </summary>
+        /// <value>Previous/Next video</value>
+        [ResourceEntry("PreviousNextVideo",
+            Value = "Previous/Next video",
+            Description = "phrase: Previous/Next video",
+            LastModified = "2018/09/13")]
+        public string PreviousNextVideo
+        {
+            get
+            {
+                return this["PreviousNextVideo"];
+            }
+        }
+
+        /// <summary>
+        /// phrase: Go to previous video
+        /// </summary>
+        /// <value>Go to previous video</value>
+        [ResourceEntry("GoToPreviousVideo",
+            Value = "Go to previous image",
+            Description = "phrase: Go to previous video",
+            LastModified = "2018/09/13")]
+        public string GoToPreviousVideo
+        {
+            get
+            {
+                return this["GoToPreviousVideo"];
+            }
+        }
+
+        /// <summary>
+        /// phrase: Go to next video
+        /// </summary>
+        /// <value>Go to next video</value>
+        [ResourceEntry("GoToNextVideo",
+            Value = "Go to next video",
+            Description = "phrase: Go to next video",
+            LastModified = "2018/09/13")]
+        public string GoToNextVideo
+        {
+            get
+            {
+                return this["GoToNextVideo"];
+            }
+        }
+
+        /// <summary>
+        /// phrase: Video gallery
+        /// </summary>
+        /// <value>Video gallery</value>
+        [ResourceEntry("VideoGallery",
+            Value = "Video gallery",
+            Description = "phrase: Video gallery",
+            LastModified = "2018/09/13")]
+        public string VideoGallery
+        {
+            get
+            {
+                return this["VideoGallery"];
+            }
+        }
+
+        /// <summary>
+        /// Displays videos in variety of ways, such as thumbnails list and detailed views.
+        /// </summary>
+        [ResourceEntry("VideosViewDescription",
+            Value = "Videos from a library",
+            Description = "The description of the ImagesView control, that appears on the controls toolbox.",
+            LastModified = "2019/06/03")]
+        public string VideosViewDescription
+        {
+            get
+            {
+                return this["VideosViewDescription"];
+            }
+        }
+
         #region Designer
 
         /// <summary>
@@ -173,6 +284,7 @@ namespace Telerik.Sitefinity.Frontend.Media.Mvc.StringResources
                 return this["CssClasses"];
             }
         }
+
         /// <summary>
         /// phrase: List settings
         /// </summary>
@@ -344,7 +456,6 @@ namespace Telerik.Sitefinity.Frontend.Media.Mvc.StringResources
             }
         }
 
-
         /// <summary>
         /// phrase: From all libraries
         /// </summary>
@@ -450,7 +561,6 @@ namespace Telerik.Sitefinity.Frontend.Media.Mvc.StringResources
                 return this["FromCurrentlyOpen"];
             }
         }
-
 
         /// <summary>
         /// Phrase: Selection of videos...

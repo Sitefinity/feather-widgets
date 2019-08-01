@@ -284,5 +284,21 @@ namespace Telerik.Sitefinity.Frontend.InlineClientAssets.Mvc.StringResources
                 return this["IncludedWhereDropped"];
             }
         }
+
+        /// <summary>
+        /// Phrase: Embeds YouTube videos, social media posts, iframes, scripts, styles.
+        /// </summary>
+        /// <value>Embeds YouTube videos, social media posts, iframes, scripts, styles.</value>
+        [ResourceEntry("EmbedCodeWidgetDescription",
+            Value = "Embeds YouTube videos, social media posts, iframes, scripts, styles",
+            Description = "The description of the embed code widget",
+            LastModified = "2019/06/03")]
+        public string EmbedCodeWidgetDescription
+        {
+            get
+            {
+                return this["EmbedCodeWidgetDescription"];
+            }
+        }
     }
 }

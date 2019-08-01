@@ -34,8 +34,14 @@
                     return localtimezoneoffset;
                 },
                 weekStartDay: $(element).attr('data-sf-weekstartday'),
-                widgetId: $(element).attr('data-sf-widget-id')
+                widgetId: $(element).attr('data-sf-widget-id'),
+                currentPageId: $(element).attr('data-sf-current-page-id'),
+                isRtl: $(element).attr('data-sf-rtl')
             };
+            // check if is Rtl
+            if (schedulerData.isRtl === "True") {
+                $('[data-sf-role="scheduler-wrapper"]').addClass("k-rtl"); 
+            }
             // setup start day
             kendo.culture().calendar.firstDay = schedulerData.weekStartDay === "Sunday" ? 0 : 1;
             // calendar list init
@@ -103,6 +109,7 @@
                                 filter.EventSchedulerViewMode = scheduler.view().options.name.replace("View", "");
                                 filter.UICulture = schedulerData.uiCulture;
                                 filter.Id = schedulerData.widgetId;
+                                filter.CurrentPageId = schedulerData.currentPageId;
                                 filter.sf_site = schedulerData.siteid;
                                 return filter;
                             }

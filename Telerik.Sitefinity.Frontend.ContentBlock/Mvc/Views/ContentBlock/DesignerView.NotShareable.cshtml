@@ -1,0 +1,9 @@
+﻿@using Telerik.Sitefinity.Frontend.Mvc.Helpers
+
+<div class="alert alert-warning">
+    <b>@Html.Resource("SharingIsDisabled")</b> @Html.Resource("SharingIsDisabledWarning")
+</div>
+
+<script type="text/ng-template" section="modal-footer" use-element-scope="true">
+    <button class="btn btn-primary pull-left" data-dismiss="modal" ng-click="cancel()">@Html.Resource("Close")</button>
+</script>

@@ -12,6 +12,7 @@ using Telerik.Sitefinity.Modules.Libraries;
 using Telerik.Sitefinity.Services;
 using SfImage = Telerik.Sitefinity.Libraries.Model.Image;
 using Telerik.Sitefinity.Modules.Libraries.Configuration;
+using Config = Telerik.Sitefinity.Configuration.Config;
 
 namespace Telerik.Sitefinity.Frontend.Media.Mvc.Models.ImageGallery
 {

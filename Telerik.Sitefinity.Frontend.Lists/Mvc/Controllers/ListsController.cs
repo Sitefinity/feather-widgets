@@ -4,14 +4,13 @@ using System.Web.Mvc;
 using Telerik.Sitefinity.ContentLocations;
 using Telerik.Sitefinity.Frontend.Lists.Mvc.Models;
 using Telerik.Sitefinity.Frontend.Lists.Mvc.StringResources;
+using Telerik.Sitefinity.Frontend.Mvc.Helpers;
 using Telerik.Sitefinity.Frontend.Mvc.Infrastructure;
 using Telerik.Sitefinity.Frontend.Mvc.Infrastructure.Controllers;
 using Telerik.Sitefinity.Frontend.Mvc.Infrastructure.Controllers.Attributes;
 using Telerik.Sitefinity.Frontend.Mvc.Infrastructure.Routing;
-using Telerik.Sitefinity.Frontend.Mvc.Models;
 using Telerik.Sitefinity.Lists.Model;
 using Telerik.Sitefinity.Localization;
-using Telerik.Sitefinity.Model;
 using Telerik.Sitefinity.Modules.Pages.Configuration;
 using Telerik.Sitefinity.Mvc;
 using Telerik.Sitefinity.Personalization;
@@ -24,7 +23,14 @@ namespace Telerik.Sitefinity.Frontend.Lists.Mvc.Controllers
     /// <summary>
     /// This class represents the controller of the List widget.
     /// </summary>
-    [ControllerToolboxItem(Name = "List_MVC", Title = "List", SectionName = ToolboxesConfig.ContentToolboxSectionName, ModuleName = "Lists", CssClass = ListsController.WidgetIconCssClass)]
+    [ControllerToolboxItem(
+        Name = ListsController.WidgetName,
+        Title = nameof(ListsWidgetResources.List),
+        Description = nameof(ListsWidgetResources.ListItemsViewDescription),
+        ResourceClassId = nameof(ListsWidgetResources),
+        SectionName = ToolboxesConfig.ContentToolboxSectionName,
+        ModuleName = "Lists",
+        CssClass = ListsController.WidgetIconCssClass)]
     [Localization(typeof(ListsWidgetResources))]
     public class ListsController : ContentBaseController, ICustomWidgetVisualization, ICustomWidgetVisualizationExtended, IContentLocatableView, IPersonalizable
     {
@@ -136,7 +142,7 @@ namespace Telerik.Sitefinity.Frontend.Lists.Mvc.Controllers
         {
             var fullTemplateName = this.listTemplateNamePrefix + this.ListTemplateName;
             this.ViewBag.CurrentPageUrl = this.GetPageUrl();
-            this.ViewBag.RedirectPageUrlTemplate = this.ViewBag.CurrentPageUrl + "/{0}";
+            this.ViewBag.RedirectPageUrlTemplate = this.ViewBag.CurrentPageUrl + UrlHelpers.GetRedirectPagingUrl();
 
             if (!this.IsEmpty)
             {
@@ -144,10 +150,15 @@ namespace Telerik.Sitefinity.Frontend.Lists.Mvc.Controllers
 
                 var viewModel = this.Model.CreateListViewModel(taxonFilter: taxonFilter, page: page ?? 1);
                 if (SystemManager.CurrentHttpContext != null)
+                {
                     this.AddCacheDependencies(this.Model.GetKeysOfDependentObjects(viewModel));
+                    if (viewModel.ContentType != null)
+                        this.AddCacheVariations(viewModel.ContentType, viewModel.ProviderName);
+                }
 
                 return this.View(fullTemplateName, viewModel);
             }
+
             return new EmptyResult();
         }
 
@@ -161,11 +172,15 @@ namespace Telerik.Sitefinity.Frontend.Lists.Mvc.Controllers
         {
             var fullTemplateName = this.listTemplateNamePrefix + this.ListTemplateName;
             this.ViewBag.CurrentPageUrl = this.GetCurrentPageUrl();
-            this.ViewBag.RedirectPageUrlTemplate = this.ViewBag.CurrentPageUrl + "/" + taxonFilter.UrlName + "/{0}";
+            this.ViewBag.RedirectPageUrlTemplate = this.ViewBag.CurrentPageUrl + UrlHelpers.GetRedirectPagingUrl(taxonFilter);
 
             var viewModel = this.Model.CreateListViewModel(taxonFilter, page ?? 1);
             if (SystemManager.CurrentHttpContext != null)
+            {
                 this.AddCacheDependencies(this.Model.GetKeysOfDependentObjects(viewModel));
+                if (viewModel.ContentType != null)
+                    this.AddCacheVariations(viewModel.ContentType, viewModel.ProviderName);
+            }
 
             return this.View(fullTemplateName, viewModel);
         }
@@ -193,6 +208,12 @@ namespace Telerik.Sitefinity.Frontend.Lists.Mvc.Controllers
             this.AddCanonicalUrlTag(item);
 
             return this.View(fullTemplateName, viewModel);
+        }
+
+        /// <inheritDocs/>
+        protected override void HandleUnknownAction(string actionName)
+        {
+            this.ActionInvoker.InvokeAction(this.ControllerContext, "Index");
         }
 
         #endregion
@@ -270,7 +291,7 @@ namespace Telerik.Sitefinity.Frontend.Lists.Mvc.Controllers
         private string detailTemplateNamePrefix = "Detail.";
 
         private bool? disableCanonicalUrlMetaTag;
-
+        private const string WidgetName = "List_MVC";
         #endregion
     }
 }

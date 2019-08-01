@@ -554,5 +554,35 @@ namespace Telerik.Sitefinity.Frontend.News.Mvc.StringResources
                 return this["AsSetInAdvancedMode"];
             }
         }
+
+        /// <summary>
+        /// News View
+        /// </summary>
+        [ResourceEntry("NewsViewTitle",
+            Value = "News",
+            Description = "The title of the NewsView control, that appears on the controls toolbox.",
+            LastModified = "2019/06/03")]
+        public string NewsViewTitle
+        {
+            get
+            {
+                return this["NewsViewTitle"];
+            }
+        }
+
+        /// <summary>
+        /// Displays news articles in variety of ways, such as list, tabular and detailed views.
+        /// </summary>
+        [ResourceEntry("NewsViewDescription",
+            Value = "List of news items",
+            Description = "The description of the NewsView control, that appears on the controls toolbox.",
+            LastModified = "2019/06/03")]
+        public string NewsViewDescription
+        {
+            get
+            {
+                return this["NewsViewDescription"];
+            }
+        }
     }
 }

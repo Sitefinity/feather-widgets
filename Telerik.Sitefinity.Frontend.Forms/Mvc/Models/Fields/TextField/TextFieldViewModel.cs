@@ -61,5 +61,13 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Models.Fields.TextField
         /// The meta field.
         /// </value>
         public IMetaField MetaField { get; set; }
+
+        /// <summary>
+        /// Gets or sets the form field visiblity.
+        /// </summary>
+        /// <value>
+        /// The meta field.
+        /// </value>
+        public bool Hidden { get; set; }
     }
 }

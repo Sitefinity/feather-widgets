@@ -21,7 +21,7 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Models
         /// Gets or sets the CSS class that will be applied on the wrapper div of the widget.
         /// </summary>
         public string CssClass { get; set; }
-
+        
         /// <summary>
         /// Gets or sets a value indicating whether the control to use Ajax submit when the form submit button is clicked.
         /// </summary>
@@ -70,5 +70,13 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Models
         /// </summary>
         /// <value>The form collection.</value>
         public FormCollection FormCollection { get; set; }
+
+        /// <summary>
+        /// Gets or sets the form rules.
+        /// </summary>
+        /// <value>
+        /// The form rules.
+        /// </value>
+        public string FormRules { get; set; }
     }
 }

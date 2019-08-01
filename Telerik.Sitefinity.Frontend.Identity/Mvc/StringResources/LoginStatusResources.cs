@@ -264,6 +264,21 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.StringResources
         }
 
         /// <summary>
+        /// Gets External Link: Login with Windows Security Token Service
+        /// </summary>
+        [ResourceEntry("ExternalLinkLoginTokenService",
+            Value = "https://www.progress.com/documentation/sitefinity-cms/administration-set-up-sso-with-windows-authentication",
+            Description = "External Link: Login with Windows Security Token Service",
+            LastModified = "2018/10/12")]
+        public string ExternalLinkLoginTokenService
+        {
+            get
+            {
+                return this["ExternalLinkLoginTokenService"];
+            }
+        }
+
+        /// <summary>
         /// Gets phrase : Login
         /// </summary>
         [ResourceEntry("Login",
@@ -320,6 +335,36 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.StringResources
             get
             {
                 return this["LoggedAs"];
+            }
+        }
+
+        /// <summary>
+        /// Gets phrase :Login / Logout button
+        /// </summary>
+        [ResourceEntry("LoginStatusWidgetTitle",
+            Value = "Login / Logout button",
+            Description = "phrase : Login / Logout button",
+            LastModified = "2019/06/03")]
+        public string LoginStatusWidgetTitle
+        {
+            get
+            {
+                return this["LoginStatusWidgetTitle"];
+            }
+        }
+
+        /// <summary>
+        /// The login status widget descirption
+        /// </summary>
+        [ResourceEntry("LoginStatusWidgetDescription",
+            Value = "Use the Login status widget to display the login and logout links on your website",
+            Description = "Login status widget description",
+            LastModified = "2019/06/03")]
+        public string LoginStatusWidgetDescription
+        {
+            get
+            {
+                return this["LoginStatusWidgetDescription"];
             }
         }
     }

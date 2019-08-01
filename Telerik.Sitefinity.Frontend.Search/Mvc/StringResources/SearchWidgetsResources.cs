@@ -706,6 +706,66 @@ namespace Telerik.Sitefinity.Frontend.Search.Mvc.StringResources
             }
         }
 
+        /// <summary>
+        /// Control name: Search
+        /// </summary>
+        [ResourceEntry("SearchBoxTitle",
+            Value = "Search box",
+            Description = "Control title: Search",
+            LastModified = "2019/06/03")]
+        public string SearchBoxTitle
+        {
+            get
+            {
+                return this["SearchBoxTitle"];
+            }
+        }
+
+        /// <summary>
+        /// Control description: A search box control for entering search criteria.
+        /// </summary>
+        [ResourceEntry("SearchBoxDescription",
+            Value = "Search box",
+            Description = "Control description: A search box control for entering search criteria.",
+            LastModified = "2019/06/03")]
+        public string SearchBoxDescription
+        {
+            get
+            {
+                return this["SearchBoxDescription"];
+            }
+        }
+
+        /// <summary>
+        /// Control name: Search results
+        /// </summary>
+        [ResourceEntry("SearchResultsTitle",
+            Value = "Search results",
+            Description = "Control title: Search results",
+            LastModified = "2019/06/03")]
+        public string SearchResultsTitle
+        {
+            get
+            {
+                return this["SearchResultsTitle"];
+            }
+        }
+
+        /// <summary>
+        /// Control description: A control for displaying search results.
+        /// </summary>
+        [ResourceEntry("SearchResultsDescription",
+            Value = "List of search results",
+            Description = "Control description: A control for displaying search results.",
+            LastModified = "2019/06/03")]
+        public string SearchResultsDescription
+        {
+            get
+            {
+                return this["SearchResultsDescription"];
+            }
+        }
+
         #endregion
     }
 }

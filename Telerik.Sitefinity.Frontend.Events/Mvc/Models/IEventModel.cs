@@ -5,6 +5,7 @@ using Telerik.Sitefinity.Data;
 using Telerik.Sitefinity.Frontend.Mvc.Models;
 using Telerik.Sitefinity.Model;
 using Telerik.Sitefinity.Taxonomies.Model;
+using Telerik.Sitefinity.Web.UI.ContentUI.Enums;
 
 namespace Telerik.Sitefinity.Frontend.Events.Mvc.Models
 {
@@ -34,14 +35,6 @@ namespace Telerik.Sitefinity.Frontend.Events.Mvc.Models
         /// The display mode.
         /// </value>
         ListDisplayMode DisplayMode { get; set; }
-
-        /// <summary>
-        /// Gets or sets a value indicating whether social sharing is enabled.
-        /// </summary>
-        /// <value>
-        ///   <c>true</c> if [enable social sharing]; otherwise, <c>false</c>.
-        /// </value>
-        bool EnableSocialSharing { get; set; }
 
         /// <summary>
         /// Gets or sets the items count per page or items total dependeing on the selected <see cref="ListDisplayMode"/>
@@ -84,6 +77,14 @@ namespace Telerik.Sitefinity.Frontend.Events.Mvc.Models
         string SerializedNarrowSelectionFilters { get; set; }
 
         /// <summary>
+        /// Gets or sets the group logical operator used for filtering.
+        /// </summary>
+        /// <value>
+        /// The group logical operator used for filtering.
+        /// </value>
+        LogicalOperator SelectionGroupLogicalOperator { get; set; }
+
+        /// <summary>
         /// Gets or sets which events to be displayed in the list view.
         /// </summary>
         /// <value>The page display mode.</value>
@@ -121,6 +122,14 @@ namespace Telerik.Sitefinity.Frontend.Events.Mvc.Models
         /// <value>The URL key prefix.</value>
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1056:UriPropertiesShouldNotBeStrings")]
         string UrlKeyPrefix { get; set; }
+
+        /// <summary>
+        /// Gets or sets the display mode of the content view.
+        /// </summary>
+        /// <remarks>
+        /// Note that this enumeration differs from the FieldDisplayMode.
+        /// </remarks>
+        ContentViewDisplayMode ContentViewDisplayMode { get; set; }
 
         /// <summary>
         /// Gets or sets a value indicating whether the widget allows calendar export.

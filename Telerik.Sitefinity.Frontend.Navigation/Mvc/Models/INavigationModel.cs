@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
+using System.ComponentModel;
 using System.Web;
-using Telerik.Sitefinity.Data;
 
 namespace Telerik.Sitefinity.Frontend.Navigation.Mvc.Models
 {
@@ -15,6 +15,7 @@ namespace Telerik.Sitefinity.Frontend.Navigation.Mvc.Models
         /// <value>
         /// The nodes.
         /// </value>
+        [Browsable(false)]
         IList<NodeViewModel> Nodes { get; }
 
         /// <summary>
@@ -31,6 +32,7 @@ namespace Telerik.Sitefinity.Frontend.Navigation.Mvc.Models
         /// <value>
         /// The current site map node.
         /// </value>
+        [Browsable(false)]
         SiteMapNode CurrentSiteMapNode { get; }
     }
 }

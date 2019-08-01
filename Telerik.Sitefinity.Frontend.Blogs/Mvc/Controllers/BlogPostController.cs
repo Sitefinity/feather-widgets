@@ -13,9 +13,8 @@ using Telerik.Sitefinity.Frontend.Mvc.Infrastructure;
 using Telerik.Sitefinity.Frontend.Mvc.Infrastructure.Controllers;
 using Telerik.Sitefinity.Frontend.Mvc.Infrastructure.Controllers.Attributes;
 using Telerik.Sitefinity.Frontend.Mvc.Infrastructure.Routing;
-using Telerik.Sitefinity.Frontend.Mvc.Models;
-using Telerik.Sitefinity.Model;
 using Telerik.Sitefinity.Modules.Blogs;
+using Telerik.Sitefinity.Modules.Pages;
 using Telerik.Sitefinity.Modules.Pages.Configuration;
 using Telerik.Sitefinity.Mvc;
 using Telerik.Sitefinity.Personalization;
@@ -29,8 +28,15 @@ namespace Telerik.Sitefinity.Frontend.Blogs.Mvc.Controllers
     /// This class represents the controller of the Blog post widget.
     /// </summary>
     [Localization(typeof(BlogPostResources))]
-    [ControllerToolboxItem(Name = "BlogPost_MVC", Title = "Blog posts", SectionName = ToolboxesConfig.ContentToolboxSectionName, ModuleName = "Blogs", CssClass = BlogPostController.WidgetIconCssClass)]
-    public class BlogPostController : ContentBaseController, IContentLocatableView, IRouteMapper, IPersonalizable
+    [ControllerToolboxItem(
+        Name = BlogPostController.WidgetName,
+        Title = nameof(BlogPostResources.BlogPostsViewTitle),
+        Description = nameof(BlogPostResources.BlogPostsViewDescription),
+        SectionName = ToolboxesConfig.ContentToolboxSectionName,
+        ModuleName = "Blogs",
+        ResourceClassId = nameof(BlogPostResources),
+        CssClass = BlogPostController.WidgetIconCssClass)]
+    public class BlogPostController : ContentBaseController, IContentLocatableView, IRouteMapper, IPersonalizable, ICanFilterByParent
     {
         #region Properties
 
@@ -131,7 +137,7 @@ namespace Telerik.Sitefinity.Frontend.Blogs.Mvc.Controllers
                 if (this.metadata == null)
                 {
                     this.metadata = base.MetadataFields;
-                    this.metadata.OpenGraphType = OpenGraphTypes.Article;
+                    this.metadata.OpenGraphType = PageHelper.OpenGraphTypes.Article;
                 }
 
                 return this.metadata;
@@ -151,18 +157,29 @@ namespace Telerik.Sitefinity.Frontend.Blogs.Mvc.Controllers
         /// </returns>
         public ActionResult Index(int? page)
         {
-            ITaxon taxonFilter = TaxonUrlEvaluator.GetTaxonFromQuery(this.HttpContext, this.Model.UrlKeyPrefix);
+            if (this.Model.ParentFilterMode != ParentFilterMode.CurrentlyOpen)
+            {
+                ITaxon taxonFilter = TaxonUrlEvaluator.GetTaxonFromQuery(this.HttpContext, this.Model.UrlKeyPrefix);
 
-            this.InitializeListViewBag("/{0}");
-            this.SetRedirectUrlQueryString(taxonFilter);
+                this.InitializeListViewBag();
+                this.SetRedirectUrlQueryString(taxonFilter);
 
-            var viewModel = this.Model.CreateListViewModel(taxonFilter: taxonFilter, page: page ?? 1);
+                this.UpdatePageFromQuery(ref page, this.Model.UrlKeyPrefix);
+                var viewModel = this.Model.CreateListViewModel(taxonFilter, this.ExtractValidPage(page));
 
-            if (SystemManager.CurrentHttpContext != null)
+                var fullTemplateName = this.listTemplateNamePrefix + this.ListTemplateName;
+
+                if (this.ShouldReturnDetails(this.Model.ContentViewDisplayMode, viewModel))
+                    return this.Details((BlogPost)viewModel.Items.First().DataItem);
+
                 this.AddCacheDependencies(this.Model.GetKeysOfDependentObjects(viewModel));
+                if (viewModel.ContentType != null)
+                    this.AddCacheVariations(viewModel.ContentType, viewModel.ProviderName);
 
-            var fullTemplateName = this.listTemplateNamePrefix + this.ListTemplateName;
-            return this.View(fullTemplateName, viewModel);
+                return this.View(fullTemplateName, viewModel);
+            }
+
+            return this.Content(string.Empty);
         }
 
         /// <summary>
@@ -198,12 +215,48 @@ namespace Telerik.Sitefinity.Frontend.Blogs.Mvc.Controllers
         public ActionResult ListByTaxon(ITaxon taxonFilter, int? page)
         {
             if (taxonFilter != null)
-                this.InitializeListViewBag("/" + taxonFilter.UrlName + "/{0}");
+            {
+                var redirectPageUrlTemplate = UrlHelpers.GetRedirectPagingUrl(taxonFilter);
+                this.InitializeListViewBag(redirectPageUrlTemplate);
+            }
 
             var viewModel = this.Model.CreateListViewModel(taxonFilter, page ?? 1);
 
             if (SystemManager.CurrentHttpContext != null)
+            {
                 this.AddCacheDependencies(this.Model.GetKeysOfDependentObjects(viewModel));
+                if (viewModel.ContentType != null)
+                    this.AddCacheVariations(viewModel.ContentType, viewModel.ProviderName);
+            }
+
+            var fullTemplateName = this.listTemplateNamePrefix + this.ListTemplateName;
+            return this.View(fullTemplateName, viewModel);
+        }
+
+        /// <summary>
+        /// Renders appropriate list view depending on the <see cref="ListTemplateName" />
+        /// </summary>
+        /// <param name="from">The start date from the date filter.</param>
+        /// <param name="to">The end date from the date filter.</param>
+        /// <param name="page">The page.</param>
+        /// <returns>
+        /// The <see cref="ActionResult" />.
+        /// </returns>
+        public ActionResult ListByDate(DateTime from, DateTime to, int? page)
+        {
+            int indexOfPrefix = this.HttpContext.Request.Url.AbsolutePath.IndexOf("/archive/");
+            string urlPath = this.HttpContext.Request.Url.AbsolutePath.Substring(indexOfPrefix);
+
+            this.InitializeListViewBag(urlPath + "?page={0}");
+
+            var viewModel = this.Model.CreateListViewModelByDate(from, to, page ?? 1);
+
+            if (SystemManager.CurrentHttpContext != null)
+            {
+                this.AddCacheDependencies(this.Model.GetKeysOfDependentObjects(viewModel));
+                if (viewModel.ContentType != null)
+                    this.AddCacheVariations(viewModel.ContentType, viewModel.ProviderName);
+            }
 
             var fullTemplateName = this.listTemplateNamePrefix + this.ListTemplateName;
             return this.View(fullTemplateName, viewModel);
@@ -236,6 +289,16 @@ namespace Telerik.Sitefinity.Frontend.Blogs.Mvc.Controllers
             this.AddCanonicalUrlTagIfEnabled(page, item);
 
             return this.View(fullTemplateName, viewModel);
+        }
+
+        /// <summary>
+        /// Gets the parent types.
+        /// </summary>
+        /// <returns>Collection of parent types to filter by.</returns>
+        [NonAction]
+        public IEnumerable<Type> GetParentTypes()
+        {
+            return new[] { typeof(Blog) };
         }
 
         #endregion
@@ -357,10 +420,14 @@ namespace Telerik.Sitefinity.Frontend.Blogs.Mvc.Controllers
         /// Initializes the ListView bag.
         /// </summary>
         /// <param name="redirectPageUrl">The redirect page URL.</param>
-        private void InitializeListViewBag(string redirectPageUrl)
+        private void InitializeListViewBag(string redirectPageUrl = null)
         {
-            this.ViewBag.CurrentPageUrl = SystemManager.CurrentHttpContext != null ? this.GetCurrentPageUrl() : string.Empty;
-            this.ViewBag.RedirectPageUrlTemplate = this.ViewBag.CurrentPageUrl + redirectPageUrl;
+            var pageUrl = this.GetCurrentPageUrl();
+            var template = redirectPageUrl != null ? string.Concat(pageUrl, redirectPageUrl) :
+                                                     this.GeneratePagingTemplate(pageUrl, this.Model.UrlKeyPrefix);
+
+            this.ViewBag.CurrentPageUrl = pageUrl;
+            this.ViewBag.RedirectPageUrlTemplate = template;
             this.ViewBag.DetailsPageId = this.DetailsPageId;
             this.ViewBag.OpenInSamePage = this.OpenInSamePage;
             this.ViewBag.ItemsPerPage = this.Model.ItemsPerPage;
@@ -380,6 +447,7 @@ namespace Telerik.Sitefinity.Frontend.Blogs.Mvc.Controllers
             var taxonQueryStringParams = HyperLinkHelpers.BuildTaxonQueryStringParams(taxon, this.Model.UrlKeyPrefix);
             this.ViewBag.RedirectPageUrlTemplate = this.ViewBag.RedirectPageUrlTemplate + taxonQueryStringParams;
         }
+
         #endregion
 
         #region Private fields and constants
@@ -396,6 +464,7 @@ namespace Telerik.Sitefinity.Frontend.Blogs.Mvc.Controllers
 
         private bool? disableCanonicalUrlMetaTag;
         private bool openInSamePage = true;
+        private const string WidgetName = "BlogPost_MVC";
 
         #endregion
     }

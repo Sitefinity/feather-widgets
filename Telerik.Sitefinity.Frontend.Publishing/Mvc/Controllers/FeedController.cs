@@ -20,7 +20,13 @@ namespace Telerik.Sitefinity.Frontend.Publishing.Mvc.Controllers
     /// <summary>
     /// This class represents the controller of Feed widget.
     /// </summary>
-    [ControllerToolboxItem(Name = "Feed_MVC", Title = "Feed", SectionName = ToolboxesConfig.ContentToolboxSectionName, CssClass = FeedController.WidgetIconCssClass)]
+    [ControllerToolboxItem(
+        Name = FeedController.WidgetName, 
+        Title = nameof(FeedResources.FeedEmbedControlTitle), 
+        Description = nameof(FeedResources.FeedEmbedControlDescription),
+        ResourceClassId = nameof(FeedResources),
+        SectionName = ToolboxesConfig.ContentToolboxSectionName, 
+        CssClass = FeedController.WidgetIconCssClass)]
     [Localization(typeof(FeedResources))]
     public class FeedController : Controller, ICustomWidgetVisualizationExtended
     {
@@ -171,6 +177,7 @@ namespace Telerik.Sitefinity.Frontend.Publishing.Mvc.Controllers
         private readonly string templateNamePrefix = "Feed.";
         private IFeedModel model;
         private const string WidgetIconCssClass = "sfFeedsIcn sfMvcIcn";
+        private const string WidgetName = "Feed_MVC";
         #endregion
     }
 }

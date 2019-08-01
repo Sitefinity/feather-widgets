@@ -5,6 +5,7 @@ using ServiceStack.Text;
 using Telerik.Sitefinity.Data;
 using Telerik.Sitefinity.DynamicModules;
 using Telerik.Sitefinity.DynamicModules.Builder;
+using Telerik.Sitefinity.DynamicModules.Builder.Model;
 using Telerik.Sitefinity.Frontend.Mvc.Models;
 using Telerik.Sitefinity.Model;
 
@@ -35,9 +36,13 @@ namespace Telerik.Sitefinity.Frontend.DynamicContent.Mvc.Models
         {
             if (this.ContentType != null)
             {
-                var result = new List<CacheDependencyKey>(1);
-                result.Add(new CacheDependencyKey { Key = this.ContentType.FullName, Type = typeof(Telerik.Sitefinity.DynamicModules.Model.DynamicContent) });
+                var result = new List<CacheDependencyKey>(2);
+                var manager = this.GetManager();
+                string applicationName = manager != null && manager.Provider != null ? manager.Provider.ApplicationName : string.Empty;
+                result.Add(new CacheDependencyKey { Key = string.Concat(Telerik.Sitefinity.GenericContent.Model.ContentLifecycleStatus.Live.ToString(), applicationName, this.ContentType.FullName), Type = typeof(Telerik.Sitefinity.DynamicModules.Model.DynamicContent) });
+                result.Add(new CacheDependencyKey() { Key = this.ContentType.FullName, Type = typeof(DynamicModule) });
 
+                this.AddCommonDependencies(result, this.ContentType);
                 return result;
             }
             else
@@ -51,11 +56,14 @@ namespace Telerik.Sitefinity.Frontend.DynamicContent.Mvc.Models
         {
             if (this.ContentType != null)
             {
-                var result = new List<CacheDependencyKey>(1);
+                var result = new List<CacheDependencyKey>(2);
                 if (viewModel.Item != null && viewModel.Item.Fields.Id != Guid.Empty)
                 {
                     result.Add(new CacheDependencyKey { Key = viewModel.Item.Fields.Id.ToString().ToUpperInvariant(), Type = typeof(Telerik.Sitefinity.DynamicModules.Model.DynamicContent) });
+                    result.Add(new CacheDependencyKey() { Key = this.ContentType.FullName, Type = typeof(DynamicModule) });
                 }
+
+                this.AddCommonDependencies(result, this.ContentType, viewModel.Item);
 
                 return result;
             }

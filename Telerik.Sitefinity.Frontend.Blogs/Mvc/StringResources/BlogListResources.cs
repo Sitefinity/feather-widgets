@@ -6,7 +6,7 @@ namespace Telerik.Sitefinity.Frontend.Blogs.Mvc.StringResources
     /// <summary>
     /// Localizable strings for the Blog widget
     /// </summary>
-    [ObjectInfo(typeof(BlogListResources), ResourceClassId = "BlogResources", Title = "BlogResourcesTitle", Description = "BlogResourcesDescription")]
+    [ObjectInfo(typeof(BlogListResources), ResourceClassId = "BlogListResources", Title = "BlogListResourcesTitle", Description = "BlogListResourcesDescription")]
     public class BlogListResources : Resource
     {
         #region Constructors
@@ -59,6 +59,36 @@ namespace Telerik.Sitefinity.Frontend.Blogs.Mvc.StringResources
             get
             {
                 return this["BlogResourcesDescription"];
+            }
+        }
+
+        /// <summary>
+        /// Gets phrase: Blog List Resources
+        /// </summary>
+        [ResourceEntry("BlogListResourcesTitle",
+            Value = "Blog List Resources",
+            Description = "Phrase: Blog List Resources",
+            LastModified = "2019/06/24")]
+        public string BlogListResourcesTitle
+        {
+            get
+            {
+                return this["BlogListResourcesTitle"];
+            }
+        }
+
+        /// <summary>
+        /// Gets phrase: Contains localizable resources for the Blog List user interface
+        /// </summary>
+        [ResourceEntry("BlogListResourcesDescription",
+            Value = "Contains localizable resources for the Blog List user interface",
+            Description = "Phrase: Contains localizable resources for the Blog List user interface",
+            LastModified = "2019/06/24")]
+        public string BlogListResourcesDescription
+        {
+            get
+            {
+                return this["BlogListResourcesDescription"];
             }
         }
 
@@ -557,6 +587,36 @@ namespace Telerik.Sitefinity.Frontend.Blogs.Mvc.StringResources
             get
             {
                 return this["ShowInExistingPage"];
+            }
+        }
+
+        /// <summary>
+        /// BlogsListDescription
+        /// </summary>
+        [ResourceEntry("BlogsListDescription",
+            Value = "Blogs list - displays a list of blogs",
+            Description = "Description of the blogs list widget",
+            LastModified = "2019/06/03")]
+        public string BlogsListDescription
+        {
+            get
+            {
+                return this["BlogsListDescription"];
+            }
+        }
+
+        /// <summary>
+        /// Translated message, similar to "BlogsListViewTitle"
+        /// </summary>
+        [ResourceEntry("BlogsList",
+            Value = "Blogs",
+            Description = "Title of the blogs list widget",
+              LastModified = "2019/06/03")]
+        public string BlogsList
+        {
+            get
+            {
+                return this["BlogsList"];
             }
         }
 

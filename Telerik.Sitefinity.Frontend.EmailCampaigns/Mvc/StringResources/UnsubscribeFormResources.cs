@@ -551,5 +551,35 @@ namespace Telerik.Sitefinity.Frontend.EmailCampaigns.Mvc.StringResources
                 return this["MissingPage"];
             }
         }
+
+        /// <summary>
+        /// Title of the unsubscribe form control
+        /// </summary>
+        [ResourceEntry("UnsubscribeFormTitle",
+            Value = "Unsubscribe",
+            Description = "Title of the unsubscribe form control",
+            LastModified = "2016/06/03")]
+        public string UnsubscribeFormTitle
+        {
+            get
+            {
+                return this["UnsubscribeFormTitle"];
+            }
+        }
+
+        /// <summary>
+        /// The description of the unsubscribe form
+        /// </summary>
+        [ResourceEntry("UnsubscribeFormDescription",
+            Value = "Form that lets users to unsubscribe from the newsletter",
+            Description = "The description of the unsubscribe form",
+            LastModified = "2016/06/03")]
+        public string UnsubscribeFormDescription
+        {
+            get
+            {
+                return this["UnsubscribeFormDescription"];
+            }
+        }
     }
 }

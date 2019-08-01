@@ -1,22 +1,21 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.ComponentModel;
-using System.Linq;
 using System.Web;
 using System.Web.Mvc;
-using Microsoft.Owin;
 using Microsoft.Owin.Security;
+using Telerik.Sitefinity.Abstractions;
+using Telerik.Sitefinity.Configuration;
 using Telerik.Sitefinity.Frontend.Identity.Mvc.Models.LoginStatus;
 using Telerik.Sitefinity.Frontend.Identity.Mvc.StringResources;
 using Telerik.Sitefinity.Frontend.Mvc.Infrastructure.Controllers;
 using Telerik.Sitefinity.Frontend.Mvc.Infrastructure.Controllers.Attributes;
 using Telerik.Sitefinity.Mvc;
-using Telerik.Sitefinity.Services;
-using Telerik.Sitefinity.Security.Claims;
-using Telerik.Sitefinity.Configuration;
-using Telerik.Sitefinity.Security.Configuration;
-using SecConfig = Telerik.Sitefinity.Security.Configuration;
 using Telerik.Sitefinity.Security;
+using Telerik.Sitefinity.Security.Claims;
+using Telerik.Sitefinity.Security.Configuration;
+using Telerik.Sitefinity.Services;
+using Telerik.Sitefinity.Web.UI;
+using SecConfig = Telerik.Sitefinity.Security.Configuration;
 
 namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Controllers
 {
@@ -24,7 +23,14 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Controllers
     /// This class represents the controller of the Login Status widget.
     /// </summary>
     [Localization(typeof(LoginStatusResources))]
-    [ControllerToolboxItem(Name = "LoginStatus_MVC", Title = "Login / Logout button", SectionName = "Login", CssClass = LoginStatusController.WidgetIconCssClass)]
+    [IndexRenderMode(IndexRenderModes.NoOutput)]
+    [ControllerToolboxItem(
+        Name = LoginStatusController.WidgetName, 
+        Title = nameof(LoginStatusResources.LoginStatusWidgetTitle),
+        Description = nameof(LoginStatusResources.LoginStatusWidgetDescription),
+        ResourceClassId = nameof(LoginStatusResources),
+        SectionName = "Login", 
+        CssClass = LoginStatusController.WidgetIconCssClass)]
     public class LoginStatusController : Controller
     {
         #region Properties
@@ -104,7 +110,7 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Controllers
         }
 
         /// <summary>
-        /// Sign out the user and redirect it to the login page.
+        /// Sign out the user and redirect it to specified page.
         /// </summary>
         /// <returns>
         /// /// The <see cref="ActionResult" />.
@@ -114,6 +120,13 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Controllers
         {
             var logoutUrl = this.Model.GetLogoutPageUrl() ?? this.GetCurrentPageUrl();
 
+            var validator = ObjectFactory.Resolve<IRedirectUriValidator>();
+
+            if (!validator.IsValid(logoutUrl))
+            {
+                logoutUrl = "~/";
+            }
+
             if (Config.Get<SecurityConfig>().AuthenticationMode == SecConfig.AuthenticationMode.Claims)
             {
                 var owinContext = SystemManager.CurrentHttpContext.Request.GetOwinContext();
@@ -122,7 +135,8 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Controllers
                 owinContext.Authentication.SignOut(new AuthenticationProperties
                 {
                     RedirectUri = logoutUrl
-                }, authenticationTypes);            
+                }, 
+                authenticationTypes);            
             }
             else
             {
@@ -146,7 +160,8 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Controllers
         /// <inheritDocs/>
         protected override void HandleUnknownAction(string actionName)
         {
-            this.ActionInvoker.InvokeAction(this.ControllerContext, "Index");
+            var action = actionName ?? "Index";
+            this.ActionInvoker.InvokeAction(this.ControllerContext, action);
         }
 
         #endregion
@@ -178,7 +193,7 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Controllers
         private string templateName = "LoginButton";
         private ILoginStatusModel model;
         private string templateNamePrefix = "LoginStatus.";
-
+        private const string WidgetName = "LoginStatus_MVC";
         #endregion
     }
 }

@@ -6,6 +6,12 @@
 
 @Html.QueryBuilderScriptReferences()
 
+@{
+    var controller = ((Telerik.Sitefinity.Mvc.Proxy.MvcProxyBase)Model).GetController();
+    var widgetProxy = Model as Telerik.Sitefinity.Frontend.Mvc.Infrastructure.Controllers.MvcWidgetProxy;
+    var moduleName = widgetProxy != null ? widgetProxy.ModuleName : null;
+}
+
 <server-data default-provider-name='@Html.DefaultProviderName(Telerik.Sitefinity.DynamicModules.DynamicModuleManager.GetManager(), Model.DynamicModuleName())' item-type="@Model.DynamicContentType().FullName" parent-types="@Model.SerializedParentTypes()">
 </server-data>
 
@@ -57,7 +63,9 @@
 					    <sf-filter-selector sf-query-data="additionalFilters.value"
                             sf-taxonomy-fields="@CustomFieldsHelpers.GetTaxonomyFields(Model.DynamicContentType())"
                             sf-provider="properties.ProviderName.PropertyValue"
-                            ng-show="properties.SelectionMode.PropertyValue=='FilteredItems'" sf-date-groups="dateFilters.value"
+                            ng-show="properties.SelectionMode.PropertyValue=='FilteredItems'" 
+                            sf-date-groups="dateFilters.value"
+                            sf-group-logical-operator="properties.SelectionGroupLogicalOperator.PropertyValue"
                             class="sf-filter-selector"></sf-filter-selector>
                     </label>
                 </div>
@@ -143,7 +151,9 @@
 						<sf-filter-selector sf-query-data="additionalFilters.value"
 							sf-taxonomy-fields="@CustomFieldsHelpers.GetTaxonomyFields(Model.DynamicContentType())"
 							sf-provider="properties.ProviderName.PropertyValue"
-							ng-show="properties.SelectionMode.PropertyValue=='FilteredItems'" sf-date-groups="dateFilters.value"
+							ng-show="properties.SelectionMode.PropertyValue=='FilteredItems'" 
+                            sf-date-groups="dateFilters.value"
+                            sf-group-logical-operator="properties.SelectionGroupLogicalOperator.PropertyValue"
                             class="sf-filter-selector"></sf-filter-selector>
 					</label>
 				</div>
@@ -212,7 +222,7 @@
             <div class="row">
                 <div class="col-xs-6">
                     <select id="listTemplateName" ng-model="properties.ListTemplateName.PropertyValue" class="form-control">
-                         @foreach (var viewName in Html.GetViewNames(((Telerik.Sitefinity.Mvc.Proxy.MvcProxyBase)Model).GetController(), @"List\.(?<viewName>[\w\s]*)$"))
+                         @foreach (var viewName in Html.GetViewNames(controller, @"List\.(?<viewName>[\w\s]*)$", moduleName))
                          {
                              <option value="@viewName"> @viewName.SplitCamelCase()</option>
                          }
@@ -261,10 +271,10 @@
                 <label for="detailTemplateName">@Html.Resource("DetailTemplate")</label>
 
                 <select id="detailTemplateName" ng-model="properties.DetailTemplateName.PropertyValue" class="form-control">
-                     @foreach (var viewName in Html.GetViewNames(((Telerik.Sitefinity.Mvc.Proxy.MvcProxyBase)Model).GetController(), @"Detail\.(?<viewName>[\w\s]*)$"))
-                     {
-                         <option value="@viewName"> @viewName.SplitCamelCase()</option>
-                     }
+                    @foreach (var viewName in Html.GetViewNames(controller, @"Detail\.(?<viewName>[\w\s]*)$", moduleName))
+                    {
+                        <option value="@viewName"> @viewName.SplitCamelCase()</option>
+                    }
                 </select>
             </div>
         </div>
