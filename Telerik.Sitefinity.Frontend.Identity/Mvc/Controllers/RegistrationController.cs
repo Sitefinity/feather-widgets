@@ -15,7 +15,13 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Controllers
     /// This class represents the controller of the Registration widget.
     /// </summary>
     [Localization(typeof(RegistrationResources))]
-    [ControllerToolboxItem(Name = "Registration_MVC", Title = "Registration", SectionName = "Users", CssClass = RegistrationController.WidgetIconCssClass)]
+    [ControllerToolboxItem(
+        Name = RegistrationController.WidgetName,
+        Title = nameof(RegistrationResources.RegistrationWidgetTitle),
+        Description = nameof(RegistrationResources.RegistrationWidgetDescription),
+        ResourceClassId = nameof(RegistrationResources),
+        SectionName = "Users",
+        CssClass = RegistrationController.WidgetIconCssClass)]
     public class RegistrationController : Controller
     {
         #region Properties
@@ -97,6 +103,7 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Controllers
                     {
                         this.ViewBag.ShowActivationMsg = true;
                     }
+
                     if (this.Model.SuccessfulRegistrationAction == SuccessfulRegistrationAction.ShowMessage)
                     {
                         this.ViewBag.ShowSuccessfulRegistrationMsg = true;
@@ -127,7 +134,7 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Controllers
         {
             var isSend = this.Model.ResendConfirmationEmail(email);
 
-            return Json(isSend, JsonRequestBehavior.AllowGet);
+            return this.Json(isSend, JsonRequestBehavior.AllowGet);
         }
 
         public ActionResult LoginExternalProvider(string model)
@@ -176,7 +183,7 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Controllers
         private IRegistrationModel model;
         private string templateNamePrefix = "Registration.";
         private bool emailAddressShouldBeTheUsername = false;
-
+        private const string WidgetName = "Registration_MVC";
         #endregion
     }
 }

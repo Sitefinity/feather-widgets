@@ -5,6 +5,7 @@ using System.Web.Mvc;
 using Telerik.Sitefinity.Blogs.Model;
 using Telerik.Sitefinity.Frontend.Blogs.Mvc.Models.Blog;
 using Telerik.Sitefinity.Frontend.Blogs.Mvc.StringResources;
+using Telerik.Sitefinity.Frontend.Mvc.Helpers;
 using Telerik.Sitefinity.Frontend.Mvc.Infrastructure.Controllers;
 using Telerik.Sitefinity.Frontend.Mvc.Infrastructure.Controllers.Attributes;
 using Telerik.Sitefinity.Modules.Pages.Configuration;
@@ -18,8 +19,15 @@ namespace Telerik.Sitefinity.Frontend.Blogs.Mvc.Controllers
     /// This class represents the controller of the Blog widget.
     /// </summary>
     [Localization(typeof(BlogListResources))]
-    [ControllerToolboxItem(Name = "Blog_MVC", Title = "Blogs", SectionName = ToolboxesConfig.ContentToolboxSectionName, ModuleName = "Blogs", CssClass = BlogController.WidgetIconCssClass)]
-    public class BlogController: Controller, IPersonalizable
+    [ControllerToolboxItem(
+        Name = BlogController.WidgetName,
+        Title = nameof(BlogListResources.BlogsList),
+        Description = nameof(BlogListResources.BlogsListDescription),
+        ResourceClassId = nameof(BlogListResources),
+        SectionName = ToolboxesConfig.ContentToolboxSectionName,
+        ModuleName = "Blogs",
+        CssClass = BlogController.WidgetIconCssClass)]
+    public class BlogController : Controller, IPersonalizable
     {
         #region Properties
 
@@ -110,15 +118,20 @@ namespace Telerik.Sitefinity.Frontend.Blogs.Mvc.Controllers
         {
             var viewModel = this.Model.CreateListViewModel(page: page ?? 1);
 
-            this.InitializeListViewBag("/{0}");
-
-            if (SystemManager.CurrentHttpContext != null)
-                this.AddCacheDependencies(this.Model.GetKeysOfDependentObjects(viewModel));
+            var redirectPageUrlTemplate = UrlHelpers.GetRedirectPagingUrl();
+            this.InitializeListViewBag(redirectPageUrlTemplate);
 
             var fullTemplateName = this.listTemplateNamePrefix + this.ListTemplateName;
-            
+
             if (this.ShouldReturnDetails(this.Model.ContentViewDisplayMode, viewModel))
                 return this.Details((Blog)viewModel.Items.First().DataItem);
+
+            if (SystemManager.CurrentHttpContext != null)
+            {
+                this.AddCacheDependencies(this.Model.GetKeysOfDependentObjects(viewModel));
+                if (viewModel.ContentType != null)
+                    this.AddCacheVariations(viewModel.ContentType, viewModel.ProviderName);
+            }
 
             return this.View(fullTemplateName, viewModel);
         }
@@ -186,6 +199,7 @@ namespace Telerik.Sitefinity.Frontend.Blogs.Mvc.Controllers
         private string listTemplateNamePrefix = "List.";
         private string detailTemplateName = "DetailPage";
         private string detailTemplateNamePrefix = "Detail.";
+        private const string WidgetName = "Blog_MVC";
 
         #endregion
     }

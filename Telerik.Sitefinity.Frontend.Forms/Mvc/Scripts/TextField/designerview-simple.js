@@ -54,6 +54,12 @@
                     $scope.properties.Model.ValidatorDefinition.MaxLength.PropertyValue = '';
 
                 $scope.fieldInputType = getInputType($scope.properties.Model.InputType.PropertyValue);
+
+                // The changes bellow are needed so that the textbox is cleared when the predefined value of a textbox is removed
+                // If changing, please test for all input types (text, date, password, url, etc.)
+                var inputType = $scope.properties.Model.InputType.PropertyValue.toLowerCase();
+                var defaultValue = inputType === "text" || inputType === "url" || inputType === "password" ? null : "";
+                $scope.defaultValue = { value: defaultValue };
             }
         };
 

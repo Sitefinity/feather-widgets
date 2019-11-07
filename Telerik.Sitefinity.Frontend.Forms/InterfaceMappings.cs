@@ -4,15 +4,16 @@ using Telerik.Sitefinity.Frontend.Forms.Mvc.Models.Fields;
 using Telerik.Sitefinity.Frontend.Forms.Mvc.Models.Fields.Captcha;
 using Telerik.Sitefinity.Frontend.Forms.Mvc.Models.Fields.CheckboxesField;
 using Telerik.Sitefinity.Frontend.Forms.Mvc.Models.Fields.DropdownListField;
+using Telerik.Sitefinity.Frontend.Forms.Mvc.Models.Fields.EmailTextField;
 using Telerik.Sitefinity.Frontend.Forms.Mvc.Models.Fields.FileField;
+using Telerik.Sitefinity.Frontend.Forms.Mvc.Models.Fields.HiddenField;
 using Telerik.Sitefinity.Frontend.Forms.Mvc.Models.Fields.MultipleChoiceField;
+using Telerik.Sitefinity.Frontend.Forms.Mvc.Models.Fields.NavigationField;
+using Telerik.Sitefinity.Frontend.Forms.Mvc.Models.Fields.PageBreak;
 using Telerik.Sitefinity.Frontend.Forms.Mvc.Models.Fields.ParagraphTextField;
 using Telerik.Sitefinity.Frontend.Forms.Mvc.Models.Fields.SectionHeader;
-using Telerik.Sitefinity.Frontend.Forms.Mvc.Models.Fields.PageBreak;
 using Telerik.Sitefinity.Frontend.Forms.Mvc.Models.Fields.SubmitButton;
 using Telerik.Sitefinity.Frontend.Forms.Mvc.Models.Fields.TextField;
-using Telerik.Sitefinity.Frontend.Forms.Mvc.Models.Fields.NavigationField;
-using Telerik.Sitefinity.Frontend.Forms.Mvc.Models.Fields.HiddenField;
 
 namespace Telerik.Sitefinity.Frontend.Forms
 {
@@ -30,6 +31,7 @@ namespace Telerik.Sitefinity.Frontend.Forms
             Bind<IFormModel>().To<FormModel>();
             Bind<IFormElementModel>().To<FormElementModel>();
             Bind<ITextFieldModel>().To<TextFieldModel>();
+            Bind<IEmailTextFieldModel>().To<EmailTextFieldModel>();
             Bind<IHiddenFieldModel>().To<HiddenFieldModel>();
             Bind<IPageBreakModel>().To<PageBreakModel>();
             Bind<INavigationFieldModel>().To<NavigationFieldModel>();

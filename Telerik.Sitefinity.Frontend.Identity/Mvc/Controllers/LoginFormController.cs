@@ -12,6 +12,7 @@ using Telerik.Sitefinity.Localization;
 using Telerik.Sitefinity.Mvc;
 using Telerik.Sitefinity.Security;
 using Telerik.Sitefinity.Security.Claims;
+using Telerik.Sitefinity.Web;
 
 namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Controllers
 {
@@ -19,7 +20,13 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Controllers
     /// This class represents the controller of the Login Form widget.
     /// </summary>
     [Telerik.Sitefinity.Frontend.Mvc.Infrastructure.Controllers.Attributes.Localization(typeof(LoginFormResources))]
-    [ControllerToolboxItem(Name = "LoginForm_MVC", Title = "Login form", SectionName = "Login", CssClass = LoginFormController.WidgetIconCssClass)]
+    [ControllerToolboxItem(
+        Name = LoginFormController.WidgetName, 
+        Title = nameof(LoginFormResources.LoginControlTitle), 
+        Description = nameof(LoginFormResources.LoginControlDescription),
+        ResourceClassId = nameof(LoginFormResources),
+        SectionName = "Login", 
+        CssClass = LoginFormController.WidgetIconCssClass)]
     public class LoginFormController : Controller
     {
         #region Properties
@@ -158,6 +165,8 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Controllers
 
         public ActionResult ResetPassword()
         {
+            PageRouteHandler.RegisterCustomOutputCacheVariation(new ResetPasswordCacheVariation());
+
             var query = this.HttpContext.Request.QueryString;
             var queryString = query.ToString();
             var securityToken = queryString;
@@ -196,6 +205,10 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Controllers
                 catch (NotSupportedException)
                 {
                     error = Res.Get<LoginFormResources>().ResetPasswordNotEnabled;
+                }
+                catch (ResetPasswordUserNotFoundException)
+                {
+                    error = Res.Get<LoginFormResources>().ResetPasswordIncorrectResetPasswordLink;
                 }
                 catch (Exception ex)
                 {
@@ -270,7 +283,7 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Controllers
         private string resetPasswordTemplatePrefix = "ResetPassword.";
 
         private ILoginFormModel model;
-
+        private const string WidgetName = "LoginForm_MVC";
         #endregion
     }
 }

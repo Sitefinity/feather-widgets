@@ -77,7 +77,20 @@ namespace Telerik.Sitefinity.Frontend.Lists.Mvc.Models
                 location.ProviderName = this.GetManager().Provider.Name;
             }
 
-            var listsFilterExpression = this.CompileFilterExpression(ListItemFilterExpression);
+            string listsFilterExpression;
+            switch (this.ContentViewDisplayMode)
+            {
+                case Telerik.Sitefinity.Web.UI.ContentUI.Enums.ContentViewDisplayMode.Detail:
+                    location.Filters.Add(this.CompileSingleItemFilterExpression(location.ContentType));
+
+                    return new[] { location };
+                case Telerik.Sitefinity.Web.UI.ContentUI.Enums.ContentViewDisplayMode.Automatic:
+                    listsFilterExpression = this.CompileFilterExpression(ListItemFilterExpression);
+                    break;
+                default:
+                    return null;
+            }
+            
             if (!string.IsNullOrEmpty(listsFilterExpression))
             {
                 location.Filters.Add(new BasicContentLocationFilter(listsFilterExpression));

@@ -1,7 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using Telerik.Sitefinity.Web.UI.Validation.Definitions;
 
 namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Models.Fields.Captcha
@@ -33,6 +30,7 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Models.Fields.Captcha
         /// <value>
         /// The captcha correct answer form key.
         /// </value>
+        [Obsolete("This property is depricated as it is no longer used and is not assigned.")]
         public string CaptchaCorrectAnswerFormKey { get; set; }
 
         /// <summary>
@@ -41,6 +39,7 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Models.Fields.Captcha
         /// <value>
         /// The captcha initialization vector form key.
         /// </value>
+        [Obsolete("This property is depricated as it is no longer used and is not assigned.")]
         public string CaptchaInitializationVectorFormKey { get; set; }
 
         /// <summary>

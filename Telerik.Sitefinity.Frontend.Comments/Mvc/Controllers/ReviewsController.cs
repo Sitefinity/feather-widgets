@@ -1,7 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.ComponentModel;
-using System.Linq;
 using System.Web.Mvc;
 using Telerik.Sitefinity.Data;
 using Telerik.Sitefinity.Frontend.Comments.Mvc.Models;
@@ -18,7 +16,14 @@ namespace Telerik.Sitefinity.Frontend.Comments.Mvc.Controllers
     /// This class represents the controller of the Reviews widget.
     /// </summary>
     [Localization(typeof(CommentsWidgetResources))]
-    [ControllerToolboxItem(Name = "Reviews_MVC", Title = "Reviews", SectionName = ToolboxesConfig.ContentToolboxSectionName, ModuleName = "Comments", CssClass = ReviewsController.WidgetIconCssClass)]
+    [ControllerToolboxItem(
+        Name = ReviewsController.WidgetName,
+        Title = nameof(CommentsWidgetResources.ReviewsWidgetTitle), 
+        Description = nameof(CommentsWidgetResources.ReviewsWidgetDescription), 
+        ResourceClassId = nameof(CommentsWidgetResources), 
+        SectionName = ToolboxesConfig.ContentToolboxSectionName, 
+        ModuleName = "Comments", 
+        CssClass = ReviewsController.WidgetIconCssClass)]
     public class ReviewsController : Controller
     {
         #region Properties
@@ -137,7 +142,7 @@ namespace Telerik.Sitefinity.Frontend.Comments.Mvc.Controllers
         private string templateNamePrefix = "Reviews.";
         private string templateName = "Default";
         private string countTemplateName = "ReviewsCount.Default";
-
+        private const string WidgetName = "Reviews_MVC";
         #endregion
     }
 }

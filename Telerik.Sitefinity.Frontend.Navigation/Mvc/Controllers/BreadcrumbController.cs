@@ -21,8 +21,11 @@ namespace Telerik.Sitefinity.Frontend.Navigation.Mvc.Controllers
     /// <summary>
     /// This class represents the controller of Breadcrumb widget.
     /// </summary>
-    [ControllerToolboxItem(Name = "Breadcrumb_MVC",
-        Title = "Breadcrumb",
+    [ControllerToolboxItem(
+        Name = BreadcrumbController.WidgetName,
+        Title = nameof(BreadcrumbResources.BreadcrumbTitle),
+        Description = nameof(BreadcrumbResources.BreadcrumbDescription),
+        ResourceClassId = nameof(BreadcrumbResources),
         SectionName = ToolboxesConfig.NavigationControlsSectionName,
         CssClass = BreadcrumbController.WidgetIconCssClass)]
     [Localization(typeof(BreadcrumbResources))]
@@ -140,6 +143,7 @@ namespace Telerik.Sitefinity.Frontend.Navigation.Mvc.Controllers
         internal const string WidgetIconCssClass = "sfBreadcrumbIcn sfMvcIcn";
         private IBreadcrumbModel model;
         private string templateName = "Breadcrumb";
+        private const string WidgetName = "Breadcrumb_MVC";
         #endregion
     }
 }

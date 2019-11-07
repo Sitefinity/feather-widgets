@@ -472,5 +472,80 @@ namespace Telerik.Sitefinity.Frontend.ContentBlock.Mvc.StringResources
                 return this["ExcludeFromSearchIndex"];
             }
         }
+
+        /// <summary>
+        /// Control name: Content Block
+        /// </summary>
+        [ResourceEntry("ContentBlockTitle",
+            Value = "Content block",
+            Description = "Control title: Content Block",
+            LastModified = "2019/06/03")]
+        public string ContentBlockTitle
+        {
+            get
+            {
+                return this["ContentBlockTitle"];
+            }
+        }
+
+        /// <summary>
+        /// Control description: Control description:Control for inserting arbitrary content on the page
+        /// </summary>
+        [ResourceEntry("ContentBlockDescription",
+            Value = "Text with rich formatting (bold, italic, bullets, etc.). Images, videos, tables can be inserted, too",
+            Description = "Control description:Control for inserting arbitrary content on the page",
+            LastModified = "2019/06/03")]
+        public string ContentBlockDescription
+        {
+            get
+            {
+                return this["ContentBlockDescription"];
+            }
+        }
+
+        /// <summary>
+        /// Gets the close.
+        /// </summary>
+        [ResourceEntry("Close",
+            Value = "Close",
+            Description = "word: Close",
+            LastModified = "2019/06/05")]
+        public string Close
+        {
+            get
+            {
+                return this["Close"];
+            }
+        }
+
+        /// <summary>
+        /// Gets phrase: Sharing is disabled.
+        /// </summary>
+        [ResourceEntry("SharingIsDisabled",
+            Value = "Sharing is disabled.",
+            Description = "phrase: Sharing is disabled.",
+            LastModified = "2019/06/05")]
+        public string SharingIsDisabled
+        {
+            get
+            {
+                return this["SharingIsDisabled"];
+            }
+        }
+
+        /// <summary>
+        /// Gets phrase: To share content blocks or use already shared ones you must enable Generic Content for this site. Go to Manage sites > Configure modules (for the current site) or contact your administrator.
+        /// </summary>
+        [ResourceEntry("SharingIsDisabledWarning",
+            Value = "To share content blocks or use already shared ones you must enable Generic Content for this site. Go to Manage sites > Configure modules (for the current site) or contact your administrator.",
+            Description = "phrase: To share content blocks or use already shared ones you must enable Generic Content for this site. Go to Manage sites > Configure modules (for the current site) or contact your administrator.",
+            LastModified = "2019/06/05")]
+        public string SharingIsDisabledWarning
+        {
+            get
+            {
+                return this["SharingIsDisabledWarning"];
+            }
+        }
     }
 }

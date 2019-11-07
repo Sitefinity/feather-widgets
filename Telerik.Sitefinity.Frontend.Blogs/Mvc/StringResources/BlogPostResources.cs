@@ -604,6 +604,38 @@ namespace Telerik.Sitefinity.Frontend.Blogs.Mvc.StringResources
             }
         }
 
+        /// <summary>
+        /// Messsage: Blog Posts.
+        /// </summary>
+        /// <value>BlogPostsView title in the toolbox</value>
+        [ResourceEntry("BlogPostsViewTitle",
+            Value = "Blog posts",
+            Description = "BlogPostsView title in the toolbox",
+            LastModified = "2019/06/03")]
+        public string BlogPostsViewTitle
+        {
+            get
+            {
+                return this["BlogPostsViewTitle"];
+            }
+        }
+
+        /// <summary>
+        /// Messsage: BlogPostsView title in the toolbox
+        /// </summary>
+        /// <value>Describes the BlogPostsView title in the toolbox</value>
+        [ResourceEntry("BlogPostsViewDescription",
+            Value = "List of blog posts",
+            Description = "Describes the BlogPostsView title in the toolbox",
+            LastModified = "2019/06/03")]
+        public string BlogPostsViewDescription
+        {
+            get
+            {
+                return this["BlogPostsViewDescription"];
+            }
+        }
+
         #endregion
     }
 }

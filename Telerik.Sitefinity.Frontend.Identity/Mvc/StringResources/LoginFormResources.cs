@@ -367,6 +367,21 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.StringResources
         }
 
         /// <summary>
+        /// phrase : Invalid password reset link - it might have already been used?
+        /// </summary>
+        [ResourceEntry("ResetPasswordIncorrectResetPasswordLink",
+            Value = "Invalid password reset link - it might have already been used?",
+            Description = "phrase : Invalid password reset link - it might have already been used?",
+            LastModified = "2019/08/07")]
+        public string ResetPasswordIncorrectResetPasswordLink
+        {
+            get
+            {
+                return this["ResetPasswordIncorrectResetPasswordLink"];
+            }
+        }
+
+        /// <summary>
         /// phrase : Incorrect answer. Please try again.
         /// </summary>
         [ResourceEntry("ResetPasswordIncorrectAnswerErrorMessage",
@@ -776,6 +791,36 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.StringResources
             get
             {
                 return this["NotRegisteredYet"];
+            }
+        }
+
+        /// <summary>
+        /// phrase: Login 
+        /// </summary>
+        [ResourceEntry("LoginControlTitle",
+            Value = "Login form",
+            Description = "phrase: Login",
+            LastModified = "2019/06/03")]
+        public string LoginControlTitle
+        {
+            get
+            {
+                return this["LoginControlTitle"];
+            }
+        }
+
+        /// <summary>
+        /// phrase: Allows users to login to Sitefinity
+        /// </summary>
+        [ResourceEntry("LoginControlDescription",
+            Value = "Form that lets users to login",
+            Description = "phrase: Allows users to login to Sitefinity",
+            LastModified = "2019/06/03")]
+        public string LoginControlDescription
+        {
+            get
+            {
+                return this["LoginControlDescription"];
             }
         }
     }

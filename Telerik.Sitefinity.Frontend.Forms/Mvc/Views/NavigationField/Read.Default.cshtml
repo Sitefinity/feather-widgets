@@ -2,26 +2,24 @@
 
 @using Telerik.Sitefinity.Frontend.Mvc.Helpers;
 @using Telerik.Sitefinity.Modules.Pages;
-
 @Html.Script(ScriptRef.JQuery, "top", false)
 @Html.StyleSheet(Url.WidgetContent("assets/dist/css/sf-form-nav.min.css"), "head", false)
 
-
 <div class="@Model.CssClass" data-sf-role="navigation-field-container">
-     <ul class="sf-FormNav">
-    @{
-        var pageCounter = 0;
-        foreach (var page in Model.Pages)
-        {
-            pageCounter++; 
-           <li data-sf-navigation-index="@page.Index">
-               <span class="sf-FormNav-page">
-                    <span class="sf-FormNav-page-number">@pageCounter </span>
-               </span>@Html.HtmlSanitize(page.Title)
-           </li>
+    <ul class="sf-FormNav">
+        @{
+            var pageCounter = 0;
+            foreach (var page in Model.Pages)
+            {
+                pageCounter++;
+                <li data-sf-navigation-index="@page.Index">
+                    <span class="sf-FormNav-page">
+                        <span class="sf-FormNav-page-number">@pageCounter </span>
+                    </span>@Html.HtmlSanitize(page.Title)
+                </li>
+            }
         }
-    }
     </ul>
 </div>
 
-@Html.Script(Url.WidgetContent("Mvc/Scripts/NavigationField/navigation-field.js"), "bottom", false)
+@Html.Script(Url.WidgetContent("Mvc/Scripts/Form/form.all.js"), "bottom", false)

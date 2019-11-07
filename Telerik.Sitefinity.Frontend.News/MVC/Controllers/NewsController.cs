@@ -24,7 +24,14 @@ namespace Telerik.Sitefinity.Frontend.News.Mvc.Controllers
     /// <summary>
     /// This class represents the controller of News widget.
     /// </summary>
-    [ControllerToolboxItem(Name = "News_MVC", Title = "News", SectionName = ToolboxesConfig.ContentToolboxSectionName, ModuleName = "News", CssClass = NewsController.WidgetIconCssClass)]
+    [ControllerToolboxItem(
+        Name = NewsController.WidgetName,
+        Title = nameof(NewsWidgetResources.NewsViewTitle), 
+        Description = nameof(NewsWidgetResources.NewsViewDescription),
+        ResourceClassId = nameof(NewsWidgetResources),
+        SectionName = ToolboxesConfig.ContentToolboxSectionName,
+        ModuleName = "News", 
+        CssClass = NewsController.WidgetIconCssClass)]
     [Localization(typeof(NewsWidgetResources))]
     public class NewsController : ContentBaseController, IContentLocatableView, IPersonalizable
     {
@@ -172,10 +179,13 @@ namespace Telerik.Sitefinity.Frontend.News.Mvc.Controllers
 
             this.UpdatePageFromQuery(ref page, this.Model.UrlKeyPrefix);
             var viewModel = this.Model.CreateListViewModel(taxonFilter, this.ExtractValidPage(page));
-            this.AddCacheDependencies(this.Model.GetKeysOfDependentObjects(viewModel));
 
             if (this.ShouldReturnDetails(this.Model.ContentViewDisplayMode, viewModel))
                 return this.Details((NewsItem)viewModel.Items.First().DataItem);
+
+            this.AddCacheDependencies(this.Model.GetKeysOfDependentObjects(viewModel));
+            if (viewModel.ContentType != null)
+                this.AddCacheVariations(viewModel.ContentType, viewModel.ProviderName);
 
             return this.View(fullTemplateName, viewModel);
         }
@@ -192,13 +202,17 @@ namespace Telerik.Sitefinity.Frontend.News.Mvc.Controllers
         {
             var fullTemplateName = this.listTemplateNamePrefix + this.ListTemplateName;
             this.ViewBag.CurrentPageUrl = this.GetCurrentPageUrl();
-            this.ViewBag.RedirectPageUrlTemplate = this.ViewBag.CurrentPageUrl + "/" + taxonFilter.UrlName + "/{0}";
+            this.ViewBag.RedirectPageUrlTemplate = this.ViewBag.CurrentPageUrl + UrlHelpers.GetRedirectPagingUrl(taxonFilter);
             this.ViewBag.DetailsPageId = this.DetailsPageId;
             this.ViewBag.OpenInSamePage = this.OpenInSamePage;
 
             var viewModel = this.Model.CreateListViewModel(taxonFilter, page ?? 1);
             if (SystemManager.CurrentHttpContext != null)
+            {
                 this.AddCacheDependencies(this.Model.GetKeysOfDependentObjects(viewModel));
+                if (viewModel.ContentType != null)
+                    this.AddCacheVariations(viewModel.ContentType, viewModel.ProviderName);
+            }
 
             return this.View(fullTemplateName, viewModel);
         }
@@ -294,7 +308,7 @@ namespace Telerik.Sitefinity.Frontend.News.Mvc.Controllers
         private bool openInSamePage = true;
 
         private bool? disableCanonicalUrlMetaTag;
-
+        private const string WidgetName = "News_MVC";
         #endregion
     }
 }

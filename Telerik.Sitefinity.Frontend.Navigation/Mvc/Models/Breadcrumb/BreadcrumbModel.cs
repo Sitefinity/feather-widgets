@@ -278,7 +278,7 @@ namespace Telerik.Sitefinity.Frontend.Navigation.Mvc.Models.Breadcrumb
                         string.Compare(nodeKey, rootNodeKey, StringComparison.OrdinalIgnoreCase) != 0)
                 {
                     var node = (PageSiteNode)((SiteMapBase)this.SiteMapProvider).FindSiteMapNodeFromKey(nodeKey, false);
-                    if (node != homePageNode && node.IsAccessibleToUser(HttpContext.Current))
+                    if (node != homePageNode && node.IsAccessibleToUser(HttpContext.Current) && node.Visible)
                     {
                         if (this.ShowGroupPages)
                             breadcrumbDataSource.Insert(0, node);

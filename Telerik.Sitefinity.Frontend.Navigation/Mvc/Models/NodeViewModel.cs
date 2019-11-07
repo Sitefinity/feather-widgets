@@ -1,6 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Web;
+using Telerik.Sitefinity.Web;
 
 namespace Telerik.Sitefinity.Frontend.Navigation.Mvc.Models
 {
@@ -50,6 +50,11 @@ namespace Telerik.Sitefinity.Frontend.Navigation.Mvc.Models
             this.ChildNodes = new List<NodeViewModel>();
             this.IsCurrentlyOpened = isCurrentlyOpened;
             this.HasChildOpen = hasChildOpen;
+
+            if (node is PageSiteNode)
+            {
+                this.CustomFields = new PageCustomFieldsAccessor((PageSiteNode)node);
+            }
         }
 
         #endregion
@@ -111,6 +116,11 @@ namespace Telerik.Sitefinity.Frontend.Navigation.Mvc.Models
         /// The child nodes.
         /// </value>
         public IList<NodeViewModel> ChildNodes { get; set; }
+
+        /// <summary>
+        /// Gets a property that accesses custom fields of the data item that is represented by this view model.
+        /// </summary>
+        public dynamic CustomFields { get; private set; }
 
         #endregion
     }

@@ -21,7 +21,14 @@ namespace Telerik.Sitefinity.Frontend.Media.Mvc.Controllers
     /// This class represents the controller of the Document link widget.
     /// </summary>
     [Localization(typeof(DocumentResources))]
-    [ControllerToolboxItem(Name = "DocumentLink_MVC", Title = "Document link", SectionName = ToolboxesConfig.ContentToolboxSectionName, ModuleName = "Libraries", CssClass = DocumentController.WidgetIconCssClass)]
+    [ControllerToolboxItem(
+        Name = DocumentController.WidgetName,
+        Title = nameof(DocumentResources.DocumentLinkControlTitle),
+        Description = nameof(DocumentResources.DocumentLinkControlDescription),
+        ResourceClassId = nameof(DocumentResources),
+        SectionName = ToolboxesConfig.ContentToolboxSectionName,
+        ModuleName = "Libraries",
+        CssClass = DocumentController.WidgetIconCssClass)]
     public class DocumentController : Controller, ICustomWidgetVisualizationExtended, IContentLocatableView
     {
         #region Properties
@@ -111,12 +118,12 @@ namespace Telerik.Sitefinity.Frontend.Media.Mvc.Controllers
                 this.IsDesignMode &&
                 !this.IsInlineEditingMode)
             {
-                return Content(this.DocumentWasNotSelectedOrHasBeenDeletedMessage);
+                return this.Content(this.DocumentWasNotSelectedOrHasBeenDeletedMessage);
             }
-            else if(this.Model.Id != Guid.Empty)
-	        {
-                return View(this.TemplateName, viewModel);
-	        }
+            else if (this.Model.Id != Guid.Empty)
+            {
+                return this.View(this.TemplateName, viewModel);
+            }
             else
             {
                 return new EmptyResult();
@@ -151,7 +158,7 @@ namespace Telerik.Sitefinity.Frontend.Media.Mvc.Controllers
         {
             get
             {
-                return (this.Model.Id == Guid.Empty);
+                return this.Model.Id == Guid.Empty;
             }
         }
 
@@ -183,6 +190,7 @@ namespace Telerik.Sitefinity.Frontend.Media.Mvc.Controllers
             {
                 return this.disableCanonicalUrlMetaTag;
             }
+
             set
             {
                 this.disableCanonicalUrlMetaTag = value;
@@ -200,7 +208,7 @@ namespace Telerik.Sitefinity.Frontend.Media.Mvc.Controllers
         {
             return this.Model.GetLocations();
         }
-        
+
         #endregion
 
         #region Overriden methods
@@ -227,6 +235,7 @@ namespace Telerik.Sitefinity.Frontend.Media.Mvc.Controllers
         private bool? disableCanonicalUrlMetaTag;
         private string templateName = "DocumentLink";
         private const string WidgetIconCssClass = "sfDownloadLinkIcn sfMvcIcn";
+        private const string WidgetName = "DocumentLink_MVC";
         #endregion
     }
 }

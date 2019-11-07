@@ -5,7 +5,6 @@ using System.Linq;
 using System.Web;
 using ServiceStack.Text;
 using Telerik.Sitefinity.Abstractions;
-using Telerik.Sitefinity.Configuration;
 using Telerik.Sitefinity.Data;
 using Telerik.Sitefinity.Frontend.Mvc.Helpers;
 using Telerik.Sitefinity.Security;
@@ -199,7 +198,7 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.LoginForm
 
             if (userId == Guid.Empty)
             {
-                throw new ArgumentNullException("User could not be retrieved.");
+                throw new ResetPasswordUserNotFoundException();
             }
 
             var manager = UserManager.GetManager(this.MembershipProvider);
@@ -209,6 +208,8 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.LoginForm
                 manager.ChangePassword(userId, resetPassword, newPassword);
                 manager.SaveChanges();
             }
+
+            SecurityManager.GetManager().ExpireResetPasswordToken(securityParams);
         }
 
         /// <inheritDoc/>
@@ -425,7 +426,7 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.LoginForm
                     query = uri.Query;
 
                 string pageUrlForCurrentCulture = null;
-                Web.Utilities.LinkParser.TryGetPageUrlForCulture(returnUrl, out pageUrlForCurrentCulture);
+                Web.Utilities.LinkParser.TryGetPageUrlForCulture(returnUrl, true, out pageUrlForCurrentCulture, null);
                 if (!string.IsNullOrEmpty(pageUrlForCurrentCulture))
                 {
                     var redirectUriBuilder = new UriBuilder(pageUrlForCurrentCulture);

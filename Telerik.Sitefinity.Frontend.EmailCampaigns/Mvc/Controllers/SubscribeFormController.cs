@@ -1,6 +1,5 @@
 ﻿using System;
 using System.ComponentModel;
-using System.Linq;
 using System.Web.Mvc;
 using System.Web.Security.AntiXss;
 using Telerik.Sitefinity.Abstractions;
@@ -23,8 +22,11 @@ namespace Telerik.Sitefinity.Frontend.EmailCampaigns.Mvc.Controllers
     /// <summary>
     /// This class represents the controller of the subscribe form widget.
     /// </summary>
-    [ControllerToolboxItem(Name = "SubscribeForm_MVC",
-        Title = "Subscribe form",
+    [ControllerToolboxItem(
+        Name = SubscribeFormController.WidgetName,
+        Title = nameof(SubscribeFormResources.SubscribeFormTitle),
+        Description = nameof(SubscribeFormResources.SubscribeFormDescription),
+        ResourceClassId = nameof(SubscribeFormResources),
         SectionName = ToolboxesConfig.NewslettersToolboxSectionName,
         CssClass = SubscribeFormController.WidgetIconCssClass)]
     [Localization(typeof(SubscribeFormResources))]
@@ -103,7 +105,7 @@ namespace Telerik.Sitefinity.Frontend.EmailCampaigns.Mvc.Controllers
         /// Gets a value indicating whether this instance of the control is licensed.
         /// </summary>
         /// <value>
-        /// 	<c>true</c> if this instance is licensed; otherwise, <c>false</c>.
+        /// <c>true</c> if this instance is licensed; otherwise, <c>false</c>.
         /// </value>
         [Browsable(false)]
         public virtual bool IsLicensed
@@ -174,7 +176,7 @@ namespace Telerik.Sitefinity.Frontend.EmailCampaigns.Mvc.Controllers
         /// <param name="viewModel">The model.</param>
         /// <returns></returns>
         [HttpPost]
-        public ActionResult Index(SubscribeFormViewModel viewModel)
+        public ActionResult Subscribe(SubscribeFormViewModel viewModel)
         {
             if (!this.IsLicensed)
             {
@@ -246,6 +248,7 @@ namespace Telerik.Sitefinity.Frontend.EmailCampaigns.Mvc.Controllers
         private ISubscribeFormModel model;
         private string templateName = "SubscribeForm";
         private string templateNamePrefix = "SubscribeForm.";
+        private const string WidgetName = "SubscribeForm_MVC";
         #endregion
     }
 }

@@ -1,28 +1,35 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Web.Mvc;
-using Telerik.Sitefinity.Frontend.Search.Mvc.StringResources;
-using Telerik.Sitefinity.Frontend.Mvc.Infrastructure.Controllers.Attributes;
-using Telerik.Sitefinity.Mvc;
-using Telerik.Sitefinity.Frontend.Search.Mvc.Models;
-using Telerik.Sitefinity.Frontend.Mvc.Infrastructure.Controllers;
 using System.ComponentModel;
-using Telerik.Sitefinity.Configuration;
-using Telerik.Sitefinity.Services.Search.Configuration;
-using Telerik.Sitefinity.Services;
 using System.Globalization;
-using Telerik.Sitefinity.Web.UI;
-using Telerik.Sitefinity.Localization;
-using Telerik.Sitefinity.Web;
+using System.Web.Mvc;
 using Telerik.Sitefinity.Abstractions;
+using Telerik.Sitefinity.Configuration;
+using Telerik.Sitefinity.Frontend.Mvc.Infrastructure.Controllers;
+using Telerik.Sitefinity.Frontend.Mvc.Infrastructure.Controllers.Attributes;
+using Telerik.Sitefinity.Frontend.Search.Mvc.Models;
+using Telerik.Sitefinity.Frontend.Search.Mvc.StringResources;
+using Telerik.Sitefinity.Localization;
+using Telerik.Sitefinity.Mvc;
+using Telerik.Sitefinity.Services;
 using Telerik.Sitefinity.Services.Search;
+using Telerik.Sitefinity.Services.Search.Configuration;
+using Telerik.Sitefinity.Web;
+using Telerik.Sitefinity.Web.UI;
 
 namespace Telerik.Sitefinity.Frontend.Search.Mvc.Controllers
 {
     /// <summary>
     /// This class represents the controller of Search box widget.
     /// </summary>
-    [ControllerToolboxItem(Name = "SearchBox_MVC", Title = "Search box", SectionName = "Search", ModuleName = "Search", CssClass = SearchBoxController.WidgetIconCssClass)]
+    [ControllerToolboxItem(
+        Name = SearchBoxController.WidgetName,
+        Title = nameof(SearchWidgetsResources.SearchBoxTitle),
+        Description = nameof(SearchWidgetsResources.SearchBoxDescription),
+        ResourceClassId = nameof(SearchWidgetsResources),
+        SectionName = "Search",
+        ModuleName = "Search",
+        CssClass = SearchBoxController.WidgetIconCssClass)]
     [Localization(typeof(SearchWidgetsResources))]
     public class SearchBoxController : Controller, ICustomWidgetVisualizationExtended
     {
@@ -76,6 +83,7 @@ namespace Telerik.Sitefinity.Frontend.Search.Mvc.Controllers
             {
                 return this.templateName;
             }
+
             set
             {
                 this.templateName = value;
@@ -176,10 +184,10 @@ namespace Telerik.Sitefinity.Frontend.Search.Mvc.Controllers
         {
             var constructorParams = new Dictionary<string, object>
             {
-                {"suggestionsRoute", RouteHelper.ResolveUrl("/restapi/search/suggestions", UrlResolveOptions.Rooted)},
-                {"minSuggestionLength", this.GetMinSuggestLength()},
-                {"suggestionFields", "Title,Content"},
-                {"language", this.GetCurrentUILanguage()}
+                { "suggestionsRoute", RouteHelper.ResolveUrl("/restapi/search/suggestions", UrlResolveOptions.Rooted) },
+                { "minSuggestionLength", this.GetMinSuggestLength() },
+                { "suggestionFields", "Title,Content" },
+                { "language", this.GetCurrentUILanguage() }
             };
             return ControllerModelFactory.GetModel<ISearchBoxModel>(this.GetType(), constructorParams);
         }
@@ -226,6 +234,7 @@ namespace Telerik.Sitefinity.Frontend.Search.Mvc.Controllers
         internal const string WidgetIconCssClass = "sfSearchBoxIcn sfMvcIcn";
         private ISearchBoxModel model;
         private string templateName = "SearchBox";
+        private const string WidgetName = "SearchBox_MVC";
         #endregion        
     }
 }

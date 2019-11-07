@@ -15,7 +15,7 @@
     HtmlHelper.UnobtrusiveJavaScriptEnabled = true;
     }
 <div class="@Model.CssClass">
-    @using (Html.BeginFormSitefinity())
+    @using (Html.BeginFormSitefinity("Subscribe", "SubscribeForm"))
     {
         <h3>@Html.Resource("Subscribe")</h3>
 

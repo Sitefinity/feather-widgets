@@ -697,5 +697,35 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.StringResources
                 return this["WillExpandChangePasswordSection"];
             }
         }
+
+        /// <summary>
+        /// Control name: Profile
+        /// </summary>
+        [ResourceEntry("UserProfileViewTitle",
+            Value = "Profile",
+            Description = "Control title: User profile",
+            LastModified = "2019/06/03")]
+        public string UserProfileViewTitle
+        {
+            get
+            {
+                return this["UserProfileViewTitle"];
+            }
+        }
+
+        /// <summary>
+        /// Control description: A control for displaying or editing the profile of the currently logged user.
+        /// </summary>
+        [ResourceEntry("UserProfilesViewDescription",
+            Value = "Displaying or editing the profile of the currently logged user",
+            Description = "Control description: A control for displaying user profiles.",
+            LastModified = "2019/06/03")]
+        public string UserProfilesViewDescription
+        {
+            get
+            {
+                return this["UserProfilesViewDescription"];
+            }
+        }
     }
 }

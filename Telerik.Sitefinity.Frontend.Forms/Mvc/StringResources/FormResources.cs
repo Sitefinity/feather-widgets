@@ -205,12 +205,12 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.StringResources
         }
 
         /// <summary>
-        /// Gets phrase : Success! Thanks for filling out our form!
+        /// Gets phrase : Thank you for filling out our form.
         /// </summary>
         [ResourceEntry("SuccessfullySubmittedMessage",
-            Value = "Success! Thanks for filling out our form!",
-            Description = "phrase: Success! Thanks for filling out our form!",
-            LastModified = "2015/08/27")]
+            Value = "Thank you for filling out our form.",
+            Description = "phrase: Thank you for filling out our form.",
+            LastModified = "2019/06/27")]
         public string SuccessfullySubmittedMessage
         {
             get
@@ -269,6 +269,38 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.StringResources
         }
 
         /// <summary>
+        /// phrase: Email address is invalid
+        /// </summary>
+        /// <value>Email address is invalid</value>
+        [ResourceEntry("InvalidEmailErrorMessage",
+            Value = "Email address is invalid",
+            Description = "phrase: Email address is invalidd",
+            LastModified = "2019/07/24")]
+        public string InvalidEmailErrorMessage
+        {
+            get
+            {
+                return this["InvalidEmailErrorMessage"];
+            }
+        }
+
+        /// <summary>
+        /// phrase: Email address is required
+        /// </summary>
+        /// <value>Email address is required</value>
+        [ResourceEntry("RequiredEmailErrorMessage",
+            Value = "Email address is required",
+            Description = "phrase: Email address is required",
+            LastModified = "2019/07/24")]
+        public string RequiredEmailErrorMessage
+        {
+            get
+            {
+                return this["RequiredEmailErrorMessage"];
+            }
+        }
+
+        /// <summary>
         /// phrase: {0} field input is required
         /// </summary>
         /// <value>{0} field input is invalid</value>
@@ -281,6 +313,36 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.StringResources
             get
             {
                 return this["MaxLengthInputErrorMessage"];
+            }
+        }
+
+        /// <summary>
+        /// FormsControl
+        /// </summary>
+        [ResourceEntry("FormsControlTitle",
+            Value = "Form",
+            Description = "The title of the FormsControl widget at content toolbox.",
+            LastModified = "2019/06/03")]
+        public string FormsControlTitle
+        {
+            get
+            {
+                return this["FormsControlTitle"];
+            }
+        }
+
+        /// <summary>
+        /// Control description: A control for displaying a selected form.
+        /// </summary>
+        [ResourceEntry("FormsControlDescription",
+            Value = "Displaying of already created form",
+            Description = "Control description: A control for displaying a selected form.",
+            LastModified = "2019/06/03")]
+        public string FormsControlDescription
+        {
+            get
+            {
+                return this["FormsControlDescription"];
             }
         }
     }

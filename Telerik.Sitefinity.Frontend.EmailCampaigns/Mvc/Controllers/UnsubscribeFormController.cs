@@ -1,9 +1,7 @@
 ﻿using System;
 using System.ComponentModel;
-using System.Linq;
 using System.Web;
 using System.Web.Mvc;
-using System.Web.UI;
 using Telerik.Sitefinity.Abstractions;
 using Telerik.Sitefinity.Frontend.EmailCampaigns.Mvc.Helpers;
 using Telerik.Sitefinity.Frontend.EmailCampaigns.Mvc.Models;
@@ -26,8 +24,11 @@ namespace Telerik.Sitefinity.Frontend.EmailCampaigns.Mvc.Controllers
     /// <summary>
     /// This class represents the controller of the Unsubscribe widget.
     /// </summary>
-    [ControllerToolboxItem(Name = "UnsubscribeForm_MVC",
-        Title = "Unsubscribe",
+    [ControllerToolboxItem(
+        Name = UnsubscribeFormController.WidgetName,
+        Title = nameof(UnsubscribeFormResources.UnsubscribeFormTitle),
+        Description = nameof(UnsubscribeFormResources.UnsubscribeFormDescription),
+        ResourceClassId = nameof(UnsubscribeFormResources),
         SectionName = ToolboxesConfig.NewslettersToolboxSectionName,
         CssClass = UnsubscribeFormController.WidgetIconCssClass)]
     [Localization(typeof(UnsubscribeFormResources))]
@@ -87,7 +88,7 @@ namespace Telerik.Sitefinity.Frontend.EmailCampaigns.Mvc.Controllers
         /// Gets a value indicating whether this instance of the control is licensed.
         /// </summary>
         /// <value>
-        /// 	<c>true</c> if this instance is licensed; otherwise, <c>false</c>.
+        /// <c>true</c> if this instance is licensed; otherwise, <c>false</c>.
         /// </value>
         [Browsable(false)]
         public virtual bool IsLicensed
@@ -185,7 +186,7 @@ namespace Telerik.Sitefinity.Frontend.EmailCampaigns.Mvc.Controllers
         /// <param name="viewModel">The model.</param>
         /// <returns></returns>
         [HttpPost]
-        public ActionResult Index(UnsubscribeFormViewModel viewModel)
+        public ActionResult Unsubscribe(UnsubscribeFormViewModel viewModel)
         {
             if (this.ModelState.IsValid && this.Model.ListId != Guid.Empty)
             {
@@ -244,6 +245,7 @@ namespace Telerik.Sitefinity.Frontend.EmailCampaigns.Mvc.Controllers
         private string emailAddressTemplateName = "UnsubscribeForm";
         private readonly string linkTemplateNamePrefix = "UnsubscribeFormByLink.";
         private readonly string emailAddressTemplateNamePrefix = "UnsubscribeFormByEmailAddress.";
+        private const string WidgetName = "UnsubscribeForm_MVC";
         #endregion
     }
 }

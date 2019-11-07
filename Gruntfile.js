@@ -1,5 +1,55 @@
 module.exports = function (grunt) {
     'use strict';
+    var fs = require('fs');
+
+    grunt.registerMultiTask("assertMinified", "Asserts if minified files are updated correctly", function() {
+        var paths = grunt.file.expand( this.data.paths );
+        var output = this.data.output;
+        var removeSourceMapLine = function (x){
+            if(x.lastIndexOf("\n")>0) {
+                return x.substring(0, x.lastIndexOf("\n"));
+            } else {
+                return x;
+            }
+        };
+
+        var suite = 'minified';
+        var out = [];
+
+        var failurePaths = [];
+	    var files = {};
+
+        paths.forEach(function( path ) {
+            var testFilePath = path.replace(".min.js", ".test.min.js");
+            if (grunt.file.exists(testFilePath)){
+                var expectedFile = grunt.file.read(testFilePath);        
+                var sourceFile = grunt.file.read(path);
+                if ( removeSourceMapLine(sourceFile) != removeSourceMapLine(expectedFile) ) {
+                    failurePaths.push(path);
+                    //grunt.fail.fatal("The minified file for " + path + " is not the updated with latest changes. Run 'grunt uglify:minify' command to update the minified files.");
+                } 
+            }
+        });
+
+	    out.push("<?xml version=\"1.0\" encoding=\"utf-8\"?>");
+	    out.push("<testsuites> <testsuite name=\"" + suite + "\" tests=\"" + (paths.length || 0) + "\" failures=\"" + failurePaths.length + "\" errors=\"0\">");
+
+        failurePaths.forEach(function( path ) {
+            out.push("\t<testcase name=\"" + path + "\">");
+			out.push("\t\t<failure message=\"" + "Not updated minified files." + "\">");
+			out.push("The minified file for " + path + " is not the updated with latest changes. Run grunt uglify:minify command to update the minified files.");
+			out.push("\t\t</failure>");
+			out.push("\t</testcase>");
+        });
+
+	    // we need at least 1 empty test
+	    if (failurePaths.lenght === 0) {
+		    out.push("\t<testcase name=\"" + suite + "\" />");
+	    } 
+	    out.push("</testsuite></testsuites>");
+
+	    fs.writeFileSync(output, out.join('\n'));
+    });
 	
 	//Project Configuration
 	grunt.initConfig({
@@ -17,10 +67,57 @@ module.exports = function (grunt) {
 					'!node_modules/**/*.js',
 					'!Tests/**/*.js',
 					'!Telerik.Sitefinity.Frontend.*/gruntfile.js',
-					'!Telerik.Sitefinity.Frontend.Media/assets/magnific/*'
+					'!Telerik.Sitefinity.Frontend.Media/assets/magnific/*',
+                    '!**/*min.js'
 			]
 		},
 		
+		watch: {
+		  options: {
+			spawn: false
+		  },
+		  js: {
+			files: ['Telerik.Sitefinity.Frontend.*/**/*.js',
+					    '!Telerik.Sitefinity.Frontend.*/**/designerview-*.js',
+					    '!Telerik.Sitefinity.Frontend.*/**/*.min.js']
+		  }
+		},
+		
+		uglify: {
+            options : {
+                sourceMap : true,
+                sourceMapIncludeSources : true
+              },
+		      minify: {
+			    files: grunt.file.expandMapping(['Telerik.Sitefinity.Frontend.*/**/*.js',
+					    '!Telerik.Sitefinity.Frontend.*/**/designerview-*.js',
+					    '!Telerik.Sitefinity.Frontend.*/**/*.min.js'], './', {
+				    rename: function(destBase, destPath) {
+					    return destBase+destPath.replace('.js', '.min.js');
+				    }
+			    })
+		      },
+              test: {
+			    files: grunt.file.expandMapping(['Telerik.Sitefinity.Frontend.*/**/*.js',
+					    '!Telerik.Sitefinity.Frontend.*/**/designerview-*.js',
+					    '!Telerik.Sitefinity.Frontend.*/**/*.min.js'], './', {
+				    rename: function(destBase, destPath) {
+					    return destBase+destPath.replace('.js', '.test.min.js');
+				    }
+			    })
+		      }
+		},
+
+        assertMinified: {
+            js: {
+                paths: ['Telerik.Sitefinity.Frontend.*/**/*.min.js',
+					'!Telerik.Sitefinity.Frontend.*/**/designerview-*.js',
+					'!Telerik.Sitefinity.Frontend.*/**/*.test.min.js',
+                    '!Telerik.Sitefinity.Frontend.*/**/*.min.min.js'],
+                output: "Tests/FeatherWidgets.ClientTest/TestResults/assertMinified.xml"
+            }
+        },		
+
 		jasmine: {	
 			newsTests:{
 				src: [
@@ -183,16 +280,35 @@ module.exports = function (grunt) {
 			  src: ['../feather/Telerik.Sitefinity.Frontend/client-components/selectors/**/*.html'],
 			  dest: '../feather/Tests/Telerik.Sitefinity.Frontend.ClientTest/templates.js'
 			},
-		},
+		}
+	
+	});
+	
+	// on watch events configure jshint and uglify to only run on changed file
+	grunt.event.on('watch', function(action, filepath) {
+	  grunt.config(['jshint.src', 'uglify.minify.files'], filepath);
+	  grunt.config('jshint.src', filepath);
+	  grunt.config('uglify.minify.files', 
+				grunt.file.expandMapping(new Array(filepath), './', {
+				    rename: function(destBase, destPath) {
+					    return destBase+destPath.replace('.js', '.min.js');
+				    }
+			    }));
+	  grunt.task.run('jshint');
+	  grunt.task.run('uglify:minify');
 	});
 	
 	//Load the needed plugins
+	grunt.loadNpmTasks('grunt-contrib-watch');
 	grunt.loadNpmTasks('grunt-contrib-jshint');
 	grunt.loadNpmTasks('grunt-contrib-jasmine');
 	grunt.loadNpmTasks("grunt-contrib-connect");
 	grunt.loadNpmTasks('grunt-html2js');
+	grunt.loadNpmTasks("grunt-contrib-uglify");
 	
 	//Default task(s)
-	grunt.registerTask('default', ['jshint','html2js','jasmine']);
+	grunt.registerTask('default', ['jshint','html2js','jasmine', 'uglify:test', 'assertMinified']);
+    //Watches for changes in the js files and minifies only the changed file
+	grunt.registerTask('dev', ['watch', 'html2js', 'jasmine', 'assertMinified']);
 	
 };

@@ -31,7 +31,14 @@ namespace Telerik.Sitefinity.Frontend.Media.Mvc.Controllers
     /// This class represents controller for the Image Gallery widget.
     /// </summary>
     [Localization(typeof(ImageGalleryResources))]
-    [ControllerToolboxItem(Name = "ImageGallery_MVC", Title = "Image gallery", SectionName = ToolboxesConfig.ContentToolboxSectionName, ModuleName = "Libraries", CssClass = ImageGalleryController.WidgetIconCssClass)]
+    [ControllerToolboxItem(
+        Name = ImageGalleryController.WidgetName, 
+        Title = nameof(ImageGalleryResources.ImagesViewTitle), 
+        Description = nameof(ImageGalleryResources.ImagesViewDescription),
+        ResourceClassId = nameof(ImageGalleryResources),
+        SectionName = ToolboxesConfig.ContentToolboxSectionName, 
+        ModuleName = "Libraries",
+        CssClass = ImageGalleryController.WidgetIconCssClass)]
     public class ImageGalleryController : ContentBaseController, IContentLocatableView, IRouteMapper
     {
         #region Properties
@@ -174,6 +181,8 @@ namespace Telerik.Sitefinity.Frontend.Media.Mvc.Controllers
             this.UpdatePageFromQuery(ref page, this.Model.UrlKeyPrefix);
             var viewModel = this.Model.CreateListViewModel(taxonFilter, this.ExtractValidPage(page));
             this.AddCacheDependencies(this.Model.GetKeysOfDependentObjects(viewModel));
+            if (viewModel.ContentType != null)
+                this.AddCacheVariations(viewModel.ContentType, viewModel.ProviderName);
 
             var fullTemplateName = this.FullListTemplateName();
             return this.View(fullTemplateName, viewModel);
@@ -194,7 +203,11 @@ namespace Telerik.Sitefinity.Frontend.Media.Mvc.Controllers
 
             var viewModel = this.Model.CreateListViewModelByParent(parentItem, page ?? 1);
             if (SystemManager.CurrentHttpContext != null)
+            {
                 this.AddCacheDependencies(this.Model.GetKeysOfDependentObjects(viewModel));
+                if (viewModel.ContentType != null)
+                    this.AddCacheVariations(viewModel.ContentType, viewModel.ProviderName);
+            }
 
             var fullTemplateName = this.FullListTemplateName();
             return this.View(fullTemplateName, viewModel);
@@ -211,11 +224,18 @@ namespace Telerik.Sitefinity.Frontend.Media.Mvc.Controllers
         public ActionResult ListByTaxon(ITaxon taxonFilter, int? page)
         {
             if (taxonFilter != null)
-                this.InitializeListViewBag("/" + taxonFilter.UrlName + "/{0}");
+            {
+                var redirectPageUrlTemplate = UrlHelpers.GetRedirectPagingUrl(taxonFilter);
+                this.InitializeListViewBag(redirectPageUrlTemplate);
+            }
 
             var viewModel = this.Model.CreateListViewModel(taxonFilter, page ?? 1);
             if (SystemManager.CurrentHttpContext != null)
+            {
                 this.AddCacheDependencies(this.Model.GetKeysOfDependentObjects(viewModel));
+                if (viewModel.ContentType != null)
+                    this.AddCacheVariations(viewModel.ContentType, viewModel.ProviderName);
+            }
 
             var fullTemplateName = this.FullListTemplateName();
             return this.View(fullTemplateName, viewModel);
@@ -471,6 +491,7 @@ namespace Telerik.Sitefinity.Frontend.Media.Mvc.Controllers
         private string detailTemplateNamePrefix = "Detail.";
         private bool? disableCanonicalUrlMetaTag;
         private bool openInSamePage = true;
+        private const string WidgetName = "ImageGallery_MVC";
 
         #endregion
     }

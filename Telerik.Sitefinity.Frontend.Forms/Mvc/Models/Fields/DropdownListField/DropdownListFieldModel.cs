@@ -92,7 +92,7 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Models.Fields.DropdownListField
                 MetaField = this.MetaField,
                 IsRequired = this.ValidatorDefinition.Required.HasValue ? this.ValidatorDefinition.Required.Value : false,
                 ValidationAttributes = this.BuildValidationAttributesString(),
-                RequiredViolationMessage = this.ValidatorDefinition.RequiredViolationMessage,
+                RequiredViolationMessage = BuildErrorMessage(this.ValidatorDefinition.RequiredViolationMessage, metaField.Title),
                 CssClass = this.CssClass,
                 Hidden = this.Hidden && (!Sitefinity.Services.SystemManager.IsDesignMode || Sitefinity.Services.SystemManager.IsPreviewMode)
             };

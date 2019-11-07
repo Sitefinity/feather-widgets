@@ -40,6 +40,7 @@ namespace Telerik.Sitefinity.Frontend.Forms
                     inFormMarkup.Append(@"<input type=""hidden"" data-sf-role=""form-rules"" value='@Model.FormRules' />");
                     inFormMarkup.Append(@"<input type=""hidden"" data-sf-role=""form-rules-skip-fields"" name=""sf_FormSkipFields"" autocomplete=""off""/>");
                     inFormMarkup.Append(@"<input type=""hidden"" data-sf-role=""form-rules-message"" name=""sf_FormMessage"" autocomplete=""off""/>");
+                    inFormMarkup.Append(@"<input type=""hidden"" data-sf-role=""form-rules-notification-emails"" name=""sf_FormNotificationEmails"" autocomplete=""off""/>");
                     inFormMarkup.Append(@"<input type=""hidden"" data-sf-role=""form-rules-redirect-page"" name=""sf_FormRedirectPage"" autocomplete=""off""/>");
                 }
             }

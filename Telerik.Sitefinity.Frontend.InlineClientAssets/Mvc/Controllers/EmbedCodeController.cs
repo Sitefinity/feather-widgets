@@ -1,6 +1,5 @@
 ﻿using System;
 using System.ComponentModel;
-using System.Linq;
 using System.Web.Mvc;
 using Telerik.Sitefinity.Frontend.InlineClientAssets.Mvc.Helpers;
 using Telerik.Sitefinity.Frontend.InlineClientAssets.Mvc.Models.EmbedCode;
@@ -18,10 +17,13 @@ namespace Telerik.Sitefinity.Frontend.InlineClientAssets.Mvc.Controllers
     /// This class represents the controller for the EmbedCode widget.
     /// </summary>
     [Localization(typeof(EmbedCodeResources))]
-    [ControllerToolboxItem(Name = "EmbedCode_MVC",
-                           Title = "Embed code",
-                           SectionName = "ScriptsAndStylesControlsSection",
-                           CssClass = EmbedCodeController.WidgetIconCssClass)]
+    [ControllerToolboxItem(
+        Name = EmbedCodeController.WidgetName,
+        Title = nameof(EmbedCodeResources.EmbedCode),
+        Description = nameof(EmbedCodeResources.StartWritingEmbedCode),
+        ResourceClassId = nameof(EmbedCodeResources),
+        SectionName = "ScriptsAndStylesControlsSection",
+        CssClass = EmbedCodeController.WidgetIconCssClass)]
     public class EmbedCodeController : Controller, ICustomWidgetVisualizationExtended
     {
         #region Properties
@@ -103,7 +105,7 @@ namespace Telerik.Sitefinity.Frontend.InlineClientAssets.Mvc.Controllers
             else
             {
                 var result = EmbedCodeHelper.GetShortEmbededCode(viewModel.EmbedCode);
-                
+
                 if (!string.IsNullOrWhiteSpace(result))
                     this.ViewBag.DesignModeContent = result + Environment.NewLine + this.GetResource<EmbedCodeResources>("IncludedWhereDropped");
             }
@@ -136,6 +138,7 @@ namespace Telerik.Sitefinity.Frontend.InlineClientAssets.Mvc.Controllers
         #region private fields
         private const string WidgetIconCssClass = "sfLinkedFileViewIcn sfMvcIcn";
         private IEmbedCodeModel model;
+        private const string WidgetName = "EmbedCode_MVC";
         #endregion
     }
 }

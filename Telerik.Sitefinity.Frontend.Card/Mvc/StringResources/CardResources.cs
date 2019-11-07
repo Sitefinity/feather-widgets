@@ -283,5 +283,37 @@ namespace Telerik.Sitefinity.Frontend.Card.Mvc.StringResources
                 return this["Example"];
             }
         }
+
+        /// <summary>
+        /// phrase: Card
+        /// </summary>
+        /// <value>Example: Card</value>
+        [ResourceEntry("CardWidgetTitle",
+            Value = "Card",
+            Description = "The title of the card widget",
+            LastModified = "2018/10/12")]
+        public string CardWidgetTitle
+        {
+            get
+            {
+                return this["CardWidgetTitle"];
+            }
+        }
+
+        /// <summary>
+        /// The description of the card widget
+        /// </summary>
+        /// <value>A text that descibes the card widget</value>
+        [ResourceEntry("CardWidgetDescription",
+            Value = "Block that can contain an image, heading, text, and an action button",
+            Description = "The descirption of the card widget",
+            LastModified = "2018/10/12")]
+        public string CardWidgetDescription
+        {
+            get
+            {
+                return this["CardWidgetDescription"];
+            }
+        }
     }
 }

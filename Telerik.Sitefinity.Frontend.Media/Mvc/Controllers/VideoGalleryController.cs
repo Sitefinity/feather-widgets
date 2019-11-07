@@ -13,9 +13,7 @@ using Telerik.Sitefinity.Frontend.Mvc.Infrastructure;
 using Telerik.Sitefinity.Frontend.Mvc.Infrastructure.Controllers;
 using Telerik.Sitefinity.Frontend.Mvc.Infrastructure.Controllers.Attributes;
 using Telerik.Sitefinity.Frontend.Mvc.Infrastructure.Routing;
-using Telerik.Sitefinity.Frontend.Mvc.Models;
 using Telerik.Sitefinity.Libraries.Model;
-using Telerik.Sitefinity.Model;
 using Telerik.Sitefinity.Modules.Libraries;
 using Telerik.Sitefinity.Modules.Pages;
 using Telerik.Sitefinity.Modules.Pages.Configuration;
@@ -30,7 +28,14 @@ namespace Telerik.Sitefinity.Frontend.Media.Mvc.Controllers
     /// This class represents controller for the Video Gallery widget.
     /// </summary>
     [Localization(typeof(VideoGalleryResources))]
-    [ControllerToolboxItem(Name = "VideoGallery_MVC", Title = "Video gallery", SectionName = ToolboxesConfig.ContentToolboxSectionName, ModuleName = "Libraries", CssClass = VideoGalleryController.WidgetIconCssClass)]
+    [ControllerToolboxItem(
+        Name = VideoGalleryController.WidgetName,
+        Title = nameof(VideoGalleryResources.VideoGallery),
+        Description = nameof(VideoGalleryResources.VideosViewDescription),
+        ResourceClassId = nameof(VideoGalleryResources),
+        SectionName = ToolboxesConfig.ContentToolboxSectionName,
+        ModuleName = "Libraries",
+        CssClass = VideoGalleryController.WidgetIconCssClass)]
     public class VideoGalleryController : ContentBaseController, IContentLocatableView, IRouteMapper
     {
         #region Properties
@@ -160,6 +165,8 @@ namespace Telerik.Sitefinity.Frontend.Media.Mvc.Controllers
             this.UpdatePageFromQuery(ref page, this.Model.UrlKeyPrefix);
             var viewModel = this.Model.CreateListViewModel(taxonFilter, this.ExtractValidPage(page));
             this.AddCacheDependencies(this.Model.GetKeysOfDependentObjects(viewModel));
+            if (viewModel.ContentType != null)
+                this.AddCacheVariations(viewModel.ContentType, viewModel.ProviderName);
 
             var fullTemplateName = this.listTemplateNamePrefix + this.ListTemplateName;
             return this.View(fullTemplateName, viewModel);
@@ -180,7 +187,11 @@ namespace Telerik.Sitefinity.Frontend.Media.Mvc.Controllers
 
             var viewModel = this.Model.CreateListViewModelByParent(parentItem, page ?? 1);
             if (SystemManager.CurrentHttpContext != null)
+            {
                 this.AddCacheDependencies(this.Model.GetKeysOfDependentObjects(viewModel));
+                if (viewModel.ContentType != null)
+                    this.AddCacheVariations(viewModel.ContentType, viewModel.ProviderName);
+            }
 
             var fullTemplateName = this.listTemplateNamePrefix + this.ListTemplateName;
             return this.View(fullTemplateName, viewModel);
@@ -197,11 +208,18 @@ namespace Telerik.Sitefinity.Frontend.Media.Mvc.Controllers
         public ActionResult ListByTaxon(ITaxon taxonFilter, int? page)
         {
             if (taxonFilter != null)
-                this.InitializeListViewBag("/" + taxonFilter.UrlName + "/{0}");
+            {
+                var redirectPageUrlTemplate = UrlHelpers.GetRedirectPagingUrl(taxonFilter);
+                this.InitializeListViewBag(redirectPageUrlTemplate);
+            }
 
             var viewModel = this.Model.CreateListViewModel(taxonFilter, page ?? 1);
             if (SystemManager.CurrentHttpContext != null)
+            {
                 this.AddCacheDependencies(this.Model.GetKeysOfDependentObjects(viewModel));
+                if (viewModel.ContentType != null)
+                    this.AddCacheVariations(viewModel.ContentType, viewModel.ProviderName);
+            }
 
             var fullTemplateName = this.listTemplateNamePrefix + this.ListTemplateName;
             return this.View(fullTemplateName, viewModel);
@@ -446,6 +464,7 @@ namespace Telerik.Sitefinity.Frontend.Media.Mvc.Controllers
 
         private bool? disableCanonicalUrlMetaTag;
         private bool openInSamePage = true;
+        private const string WidgetName = "VideoGallery_MVC";
 
         #endregion
     }

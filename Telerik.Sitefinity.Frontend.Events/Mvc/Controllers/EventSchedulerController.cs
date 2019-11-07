@@ -10,6 +10,7 @@ using Telerik.Sitefinity.Events.Model;
 using Telerik.Sitefinity.Frontend.Events.Mvc.Helpers;
 using Telerik.Sitefinity.Frontend.Events.Mvc.Models.EventScheduler;
 using Telerik.Sitefinity.Frontend.Events.Mvc.StringResources;
+using Telerik.Sitefinity.Frontend.Mvc.Helpers;
 using Telerik.Sitefinity.Frontend.Mvc.Infrastructure.Controllers;
 using Telerik.Sitefinity.Frontend.Mvc.Infrastructure.Controllers.Attributes;
 using Telerik.Sitefinity.Modules.Pages.Configuration;
@@ -24,7 +25,14 @@ namespace Telerik.Sitefinity.Frontend.Events.Mvc.Controllers
     /// <summary>
     /// This class represents the controller of the Events widget.
     /// </summary>
-    [ControllerToolboxItem(Name = "Calendar_MVC", Title = "Calendar", SectionName = ToolboxesConfig.ContentToolboxSectionName, ModuleName = "Events", CssClass = EventSchedulerController.WidgetIconCssClass)]
+    [ControllerToolboxItem(
+        Name = EventSchedulerController.WidgetName, 
+        Title = nameof(EventResources.CalendarViewTitle), 
+        Description = nameof(EventResources.CalendarViewDescription),
+        ResourceClassId = nameof(EventResources),
+        SectionName = ToolboxesConfig.ContentToolboxSectionName, 
+        ModuleName = "Events",
+        CssClass = EventSchedulerController.WidgetIconCssClass)]
     [Localization(typeof(EventResources))]
     public class EventSchedulerController : Controller, IContentLocatableView
     {
@@ -143,15 +151,20 @@ namespace Telerik.Sitefinity.Frontend.Events.Mvc.Controllers
         {
             var viewModel = this.Model.CreateListViewModel(null, 1);
 
-            this.InitializeListViewBag("/{0}");
-
-            if (SystemManager.CurrentHttpContext != null)
-                this.AddCacheDependencies(this.Model.GetKeysOfDependentObjects(viewModel));
+            var redirectPageUrlTemplate = UrlHelpers.GetRedirectPagingUrl();
+            this.InitializeListViewBag(redirectPageUrlTemplate);
 
             var fullTemplateName = EventSchedulerController.ListTemplateNamePrefix + this.ListTemplateName;
 
             if (this.Model.ContentViewDisplayMode == ContentViewDisplayMode.Detail)
                 return this.Details((Event)viewModel.Items.First().DataItem);
+
+            if (SystemManager.CurrentHttpContext != null)
+            {
+                this.AddCacheDependencies(this.Model.GetKeysOfDependentObjects(viewModel));
+                if (viewModel.ContentType != null)
+                    this.AddCacheVariations(viewModel.ContentType, viewModel.ProviderName);
+            }
 
             return this.View(fullTemplateName, this.Model);
         }
@@ -307,5 +320,6 @@ namespace Telerik.Sitefinity.Frontend.Events.Mvc.Controllers
         private string listTemplateName = "Calendar";
         private string detailTemplateName = "EventDetails";
         private bool? disableCanonicalUrlMetaTag;
+        private const string WidgetName = "Calendar_MVC";
     }
 }

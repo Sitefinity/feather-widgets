@@ -7,6 +7,7 @@ using System.Web.Mvc;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using Telerik.Sitefinity.Abstractions;
+using Telerik.Sitefinity.Abstractions.TemporaryStorage;
 using Telerik.Sitefinity.Data;
 using Telerik.Sitefinity.Forms.Model;
 using Telerik.Sitefinity.Frontend.Forms.Mvc.Controllers.Base;
@@ -112,7 +113,7 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Models
         /// Gets or sets the submit URL when using AJAX for submitting.
         /// </summary>
         /// <value>
-        /// The ajax submit URL.
+        /// The AJAX submit URL.
         /// </value>
         public string AjaxSubmitUrl { get; set; }
 
@@ -233,13 +234,17 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Models
             if (!this.ValidateFormSubmissionRestrictions(formSubmition, formEntry))
                 return SubmitStatus.RestrictionViolation;
 
+            Dictionary<string, IFormFieldController<IFormFieldModel>> currentFormFields;
+            List<IFormElementController<IFormElementModel>> formElements;
+
+            this.LoadFormControls(form, collection, files, manager, out currentFormFields, out formElements);
+
             Dictionary<IFormFieldController<IFormFieldModel>, bool> fieldControls;
 
-            if (!this.RaiseFormValidatingEvent(formEntry) || !this.IsValidForm(form, collection, files, manager, out fieldControls))
+            if (!this.RaiseFormValidatingEvent(formEntry, currentFormFields, collection, files) || !this.IsValidForm(form, collection, files, currentFormFields, formElements, out fieldControls))
                 return SubmitStatus.InvalidEntry;
 
             var formFields = fieldControls.Select(p => new { FieldName = this.FormFieldName(p.Key), CanSave = p.Value }).Where(field => !string.IsNullOrEmpty(field.FieldName));
-
             var postedFiles = new Dictionary<string, List<FormHttpPostedFile>>();
             if (files != null)
             {
@@ -272,7 +277,15 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Models
             formEntry.PostedData.FormsData = formData;
             formEntry.PostedData.Files = postedFiles;
 
-            this.UpdateCustomConfirmationMode(form, collection);
+            var formRules = new List<FormRule>();
+            if (!string.IsNullOrWhiteSpace(form.Rules))
+            {
+                formRules = JsonConvert.DeserializeObject<List<FormRule>>(form.Rules);
+            }
+
+            formEntry.NotificationEmails = this.GetSendNotificationEmails(formRules, collection);
+
+            this.UpdateCustomConfirmationMode(formRules, collection);
 
             this.SetConnectorSettingsToContext();
 
@@ -280,6 +293,8 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Models
             {
                 formSubmition.Save(formEntry);
                 this.RaiseFormSavedEvent(formEntry);
+
+                this.InvalidateCaptchas();
 
                 return SubmitStatus.Success;
             }
@@ -378,13 +393,14 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Models
         protected virtual bool IsValidForm(FormDescription form, FormCollection collection, HttpFileCollectionBase files, FormsManager manager, out Dictionary<IFormFieldController<IFormFieldModel>, bool> fieldControls)
         {
             fieldControls = new Dictionary<IFormFieldController<IFormFieldModel>, bool>();
+            this.captchaController = null;
 
             this.ResetInvalidInputMessage();
             this.SanitizeFormCollection(collection);
             var behaviorResolver = ObjectFactory.Resolve<IControlBehaviorResolver>();
 
-            var skipFields = this.SplitCsv(this.GetFormCollectionItemValue(collection, FormSkipFieldsKey));
-            var hiddenFields = this.SplitCsv(this.GetFormCollectionItemValue(collection, FormHiddenFieldsKey));
+            var skipFields = this.SplitCsv(this.GetFormCollectionItemValue(collection, FormSkipFieldsInputName));
+            var hiddenFields = this.SplitCsv(this.GetFormCollectionItemValue(collection, FormHiddenFieldsInputName));
 
             foreach (var control in form.Controls)
             {
@@ -446,10 +462,129 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Models
                         this.SetFormElementInvalidInputMessage(formElement);
                         return false;
                     }
+
+                    if (formElement is Controllers.CaptchaController formElementController)
+                    {
+                        this.captchaController = formElementController;
+                    }
                 }
             }
 
             return true;
+        }
+
+        /// <summary>
+        /// Determines whether a form is valid or not.
+        /// </summary>
+        /// <param name="form">The form.</param>
+        /// <param name="collection">The collection.</param>
+        /// <param name="files">The files.</param>
+        /// <param name="formFields">The form fields.</param>
+        /// <param name="formElements">The form elements.</param>
+        /// <param name="fieldControls">The field controls.</param>
+        /// <returns>true if form is valid, false otherwise.</returns>
+        protected virtual bool IsValidForm(FormDescription form, FormCollection collection, HttpFileCollectionBase files, Dictionary<string, IFormFieldController<IFormFieldModel>> formFields, List<IFormElementController<IFormElementModel>> formElements, out Dictionary<IFormFieldController<IFormFieldModel>, bool> fieldControls)
+        {
+            fieldControls = new Dictionary<IFormFieldController<IFormFieldModel>, bool>();
+            this.captchaController = null;
+
+            this.ResetInvalidInputMessage();
+            this.SanitizeFormCollection(collection);
+
+            var skipFields = this.SplitCsv(this.GetFormCollectionItemValue(collection, FormSkipFieldsInputName));
+            var hiddenFields = this.SplitCsv(this.GetFormCollectionItemValue(collection, FormHiddenFieldsInputName));
+
+            foreach (var formField in formFields)
+            {
+                if (!this.RaiseFormFieldValidatingEvent(formField.Value))
+                    return false;
+
+                var fieldName = formField.Value.MetaField.FieldName;
+
+                IList<HttpPostedFileBase> multipleFiles = files != null ? files.GetMultiple(fieldName) : null;
+                object fieldValue;
+
+                if (multipleFiles != null && multipleFiles.Count() > 0)
+                {
+                    fieldValue = multipleFiles;
+                }
+                else if (collection.Keys.Contains(fieldName))
+                {
+                    collection[fieldName] = collection[fieldName] ?? string.Empty;
+                    fieldValue = collection[fieldName];
+                }
+                else
+                {
+                    fieldValue = null;
+                }
+
+                var hideableModel = formField.Value.Model as IHideable;
+                var canSaveField = hideableModel != null ? this.CanSaveField(hiddenFields, skipFields, formField.Key, form.Rules, hideableModel.Hidden) : true;
+                fieldControls.Add(formField.Value, canSaveField);
+
+                if (canSaveField && !formField.Value.Model.IsValid(fieldValue))
+                {
+                    this.SetFormFieldInvalidInputMessage(formField.Value);
+                    return false;
+                }
+            }
+
+            foreach (var formElement in formElements)
+            {
+                if (!formElement.IsValid())
+                {
+                    this.SetFormElementInvalidInputMessage(formElement);
+                    return false;
+                }
+
+                if (formElement is Controllers.CaptchaController formElementController)
+                {
+                    this.captchaController = formElementController;
+                }
+            }
+
+            return true;
+        }
+
+        protected void LoadFormControls(FormDescription form, FormCollection collection, HttpFileCollectionBase files, FormsManager manager, out Dictionary<string, IFormFieldController<IFormFieldModel>> formFields, out List<IFormElementController<IFormElementModel>> formElements)
+        {
+            formFields = new Dictionary<string, IFormFieldController<IFormFieldModel>>();
+            formElements = new List<IFormElementController<IFormElementModel>>();
+
+            this.SanitizeFormCollection(collection);
+            var behaviorResolver = ObjectFactory.Resolve<IControlBehaviorResolver>();
+
+            var skipFields = this.SplitCsv(this.GetFormCollectionItemValue(collection, FormSkipFieldsInputName));
+            var hiddenFields = this.SplitCsv(this.GetFormCollectionItemValue(collection, FormHiddenFieldsInputName));
+
+            foreach (var control in form.Controls)
+            {
+                if (control.IsLayoutControl)
+                    continue;
+
+                Type controlType;
+                if (control.ObjectType.StartsWith("~/"))
+                    controlType = FormsManager.GetControlType(control);
+                else
+                    controlType = TypeResolutionService.ResolveType(behaviorResolver.GetBehaviorObjectType(control), true);
+
+                if (!controlType.ImplementsGenericInterface(typeof(IFormElementController<>)))
+                    continue;
+
+                var controlInstance = manager.LoadControl(control);
+                var controlBehaviorObject = behaviorResolver.GetBehaviorObject(controlInstance);
+                var formField = controlBehaviorObject as IFormFieldController<IFormFieldModel>;
+
+                if (formField != null)
+                {
+                    formFields.Add(controlInstance.ID, formField);
+                }
+                else
+                {
+                    var formElement = (IFormElementController<IFormElementModel>)controlBehaviorObject;
+                    formElements.Add(formElement);
+                }
+            }
         }
 
         /// <summary>
@@ -572,6 +707,61 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Models
         }
 
         /// <summary>
+        /// Raises the form validating event.
+        /// </summary>
+        /// <param name="formEntry">The form entry.</param>
+        /// <param name="formFields">The form fields.</param>
+        /// <param name="collection">The form collection.</param>
+        /// <param name="files">The files.</param>
+        /// <returns>Whether validation succeeded.</returns>
+        protected virtual bool RaiseFormValidatingEvent(FormEntryDTO formEntry, Dictionary<string, IFormFieldController<IFormFieldModel>> formFields, FormCollection collection, HttpFileCollectionBase files)
+        {
+            var postedData = this.GetPostedData(collection, files, formFields);
+            var formEvent = this.eventFactory.GetFormValidatingEvent(formEntry, postedData);
+            return !this.ValidationEventFailed(formEvent);
+        }
+
+        private FormPostedData GetPostedData(FormCollection collection, HttpFileCollectionBase files, Dictionary<string, IFormFieldController<IFormFieldModel>> currentFormFields)
+        {
+            FormPostedData postedData = new FormPostedData();
+            var formFields = currentFormFields.Values.Select(p => new { FieldName = this.FormFieldName(p) })
+                .Where(field => !string.IsNullOrEmpty(field.FieldName));
+            var postedFiles = new Dictionary<string, List<FormHttpPostedFile>>();
+            if (files != null)
+            {
+                for (int i = 0; i < files.AllKeys.Length; i++)
+                {
+                    if (formFields.FirstOrDefault(p => p.FieldName == files.AllKeys[i]) != null)
+                    {
+                        postedFiles[files.AllKeys[i]] = files.GetMultiple(files.AllKeys[i]).Where(f => !f.FileName.IsNullOrEmpty()).Select(f =>
+                            new FormHttpPostedFile()
+                            {
+                                FileName = f.FileName,
+                                ContentLength = f.ContentLength,
+                                ContentType = f.ContentType,
+                                InputStream = f.InputStream
+                            }).ToList();
+                    }
+                }
+            }
+
+            var formData = new Dictionary<string, object>(collection.Count);
+            for (int i = 0; i < collection.Count; i++)
+            {
+                var formField = formFields.FirstOrDefault(p => p.FieldName == collection.Keys[i]);
+                if (formField != null)
+                {
+                    formData.Add(collection.Keys[i], collection[collection.Keys[i]]);
+                }
+            }
+
+            postedData.FormsData = formData;
+            postedData.Files = postedFiles;
+
+            return postedData;
+        }
+
+        /// <summary>
         /// Raises the form field validating event.
         /// </summary>
         /// <param name="control">The control.</param>
@@ -686,44 +876,49 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Models
             return false;
         }
 
-        private string GetFormRulesMessage(FormDescription form, string confirmationMessageKey)
+        private List<string> GetFormRulesValues(List<FormRule> rules, FormRuleAction formRuleAction, List<string> keys)
         {
-            string message = string.Empty;
+            List<string> values = new List<string>();
 
-            if (string.IsNullOrWhiteSpace(form.Rules) || string.IsNullOrWhiteSpace(confirmationMessageKey))
+            if (rules == null || keys == null)
             {
-                return message;
+                return values;
             }
 
-            int submitMessageIndex;
-            if (int.TryParse(confirmationMessageKey.Replace(FormMessagePrefix, string.Empty), out submitMessageIndex))
+            foreach (var key in keys.Where(p => !string.IsNullOrWhiteSpace(p)))
             {
-                var deserializedRules = JsonConvert.DeserializeObject<List<FormRule>>(form.Rules);
-                var messageIndex = 0;
-                foreach (var rule in deserializedRules)
+                int searchIndex;
+                if (int.TryParse(key.Replace(string.Format(CultureInfo.InvariantCulture, FormInputValueFormat, formRuleAction), string.Empty), out searchIndex))
                 {
-                    foreach (var action in rule.Actions)
+                    var index = 0;
+                    foreach (var rule in rules.Where(p => p != null))
                     {
-                        if (action.Action == FormRuleAction.ShowMessage)
+                        var value = string.Empty;
+
+                        foreach (var action in rule.Actions)
                         {
-                            if (submitMessageIndex == messageIndex)
+                            if (action.Action == formRuleAction)
                             {
-                                message = action.Target;
-                                break;
+                                if (searchIndex == index)
+                                {
+                                    value = action.Target;
+                                    break;
+                                }
+
+                                index++;
                             }
-
-                            messageIndex++;
                         }
-                    }
 
-                    if (!string.IsNullOrWhiteSpace(message))
-                    {
-                        break;
+                        if (!string.IsNullOrWhiteSpace(value))
+                        {
+                            values.Add(value);
+                            break;
+                        }
                     }
                 }
             }
 
-            return message;
+            return values;
         }
 
         private List<string> SplitCsv(string value)
@@ -733,7 +928,7 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Models
             {
                 list = value.Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries).ToList();
             }
-            
+
             return list;
         }
 
@@ -768,18 +963,22 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Models
             return resourceValue;
         }
 
-        private void UpdateCustomConfirmationMode(FormDescription form, FormCollection collection)
+        private void UpdateCustomConfirmationMode(List<FormRule> rules, FormCollection collection)
         {
-            var confirmationMessageKey = this.GetFormCollectionItemValue(collection, FormMessageKey);
-            if (!string.IsNullOrWhiteSpace(confirmationMessageKey))
+            var confirmationMessageInputValue = this.GetFormCollectionItemValue(collection, FormMessageInputName);
+            if (!string.IsNullOrWhiteSpace(confirmationMessageInputValue))
             {
-                var message = this.GetFormRulesMessage(form, confirmationMessageKey);
-                this.CustomConfirmationMessage = this.GetEvaledExpression(message);
-                this.UseCustomConfirmation = true;
-                this.CustomConfirmationMode = CustomConfirmationMode.ShowMessageForSuccess;
+                var messages = this.GetFormRulesValues(rules, FormRuleAction.ShowMessage, new List<string> { confirmationMessageInputValue });
+
+                if (messages.Any())
+                {
+                    this.CustomConfirmationMessage = this.GetEvaledExpression(messages.SingleOrDefault());
+                    this.UseCustomConfirmation = true;
+                    this.CustomConfirmationMode = CustomConfirmationMode.ShowMessageForSuccess;
+                }
             }
 
-            var confirmationPageIdValue = this.GetFormCollectionItemValue(collection, FormRedirectPageKey);
+            var confirmationPageIdValue = this.GetFormCollectionItemValue(collection, FormRedirectPageInputName);
             Guid confirmationPageId;
             if (Guid.TryParse(confirmationPageIdValue, out confirmationPageId) && confirmationPageId != Guid.Empty)
             {
@@ -787,6 +986,21 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Models
                 this.UseCustomConfirmation = true;
                 this.CustomConfirmationMode = CustomConfirmationMode.RedirectToAPage;
             }
+        }
+
+        private IEnumerable<string> GetSendNotificationEmails(List<FormRule> rules, FormCollection collection)
+        {
+            IEnumerable<string> value = Enumerable.Empty<string>();
+
+            var notificationsEmailsInputValue = this.GetFormCollectionItemValue(collection, FormNotificationEmailsInputName);
+            if (!string.IsNullOrWhiteSpace(notificationsEmailsInputValue))
+            {
+                var notificationEmailsKeys = notificationsEmailsInputValue.Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries).ToList();
+                var formRulesValues = this.GetFormRulesValues(rules, FormRuleAction.SendNotification, notificationEmailsKeys);
+                value =  string.Join(",", formRulesValues).Split(new string[] { "," }, StringSplitOptions.RemoveEmptyEntries).Distinct();
+            }
+
+            return value;
         }
 
         private bool CanSaveField(List<string> hiddenfields, List<string> skippedFields, string fieldControlId, string rules, bool initiallyHidden)
@@ -806,21 +1020,39 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Models
                 return form.Rules;
             }
 
-            var messageIndex = 0;
+            var actionIndexList = this.FormRuleActionsToEncrypt.ToDictionary(p => p, p => 0);
             var rules = JToken.Parse(form.Rules) as JArray;
             foreach (var rule in rules)
             {
                 foreach (var action in rule["Actions"] as JArray)
                 {
-                    if (action["Action"].ToString() == FormRuleAction.ShowMessage.ToString())
+                    var ruleAction = action["Action"].ToObject<FormRuleAction>();
+                    if (this.FormRuleActionsToEncrypt.Contains(ruleAction))
                     {
-                        action["Target"] = string.Concat(FormMessagePrefix, messageIndex);
-                        messageIndex++;
+                        action["Target"] = string.Concat(string.Format(CultureInfo.InvariantCulture, FormInputValueFormat, ruleAction), actionIndexList[ruleAction]);
+                        actionIndexList[ruleAction]++;
                     }
                 }
             }
 
             return JsonConvert.SerializeObject(rules);
+        }
+
+        private void InvalidateCaptchas()
+        {
+            if (this.captchaController != null)
+            {
+                if (this.captchaController.Model.GetViewModel(this.captchaController.Model.Value) is CaptchaViewModel captchaViewModel)
+                {
+                    var key = HttpContext.Current.Request[captchaViewModel.CaptchaKeyFormKey];
+                    var keys = key.Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries);
+                    ITemporaryStorage tempStorage = ObjectFactory.Resolve<ITemporaryStorage>();
+                    foreach (var item in keys)
+                    {
+                        tempStorage.Remove(item);
+                    }
+                }
+            }
         }
 
         #endregion
@@ -833,11 +1065,17 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Models
         internal const string FormIdName = "FormId";
         private const string ConnectorSettingsName = "ConnectorSettings";
 
-        private const string FormSkipFieldsKey = "sf_FormSkipFields";
-        private const string FormHiddenFieldsKey = "sf_FormHiddenFields";
-        private const string FormMessageKey = "sf_FormMessage";
-        private const string FormRedirectPageKey = "sf_FormRedirectPage";
-        private const string FormMessagePrefix = "sf_FormsRulesMessage_";
+        private const string FormSkipFieldsInputName = "sf_FormSkipFields";
+        private const string FormHiddenFieldsInputName = "sf_FormHiddenFields";
+        private const string FormMessageInputName = "sf_FormMessage";
+        private const string FormRedirectPageInputName = "sf_FormRedirectPage";
+        private const string FormNotificationEmailsInputName = "sf_FormNotificationEmails";
+
+        private const string FormInputValueFormat = "sf_{0}_";
+
+        private Controllers.CaptchaController captchaController;
+
+        private List<FormRuleAction> FormRuleActionsToEncrypt = new List<FormRuleAction>() { FormRuleAction.ShowMessage, FormRuleAction.SendNotification };
 
         #endregion
     }

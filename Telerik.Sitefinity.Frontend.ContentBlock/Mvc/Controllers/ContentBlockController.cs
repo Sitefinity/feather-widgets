@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Globalization;
+using System.Linq;
 using System.Web.Mvc;
 using Telerik.Sitefinity.Frontend.ContentBlock.Mvc.Models;
 using Telerik.Sitefinity.Frontend.ContentBlock.Mvc.StringResources;
@@ -26,14 +27,20 @@ namespace Telerik.Sitefinity.Frontend.ContentBlock.Mvc.Controllers
     /// <summary>
     ///     The content block controller
     /// </summary>
-    [ControllerToolboxItem(Name = "ContentBlock_MVC", Title = "Content block", SectionName = ToolboxesConfig.ContentToolboxSectionName, CssClass = ContentBlockController.WidgetIconCssClass)]
+    [ControllerToolboxItem(
+        Name = ContentBlockController.WidgetName,
+        Title = nameof(ContentBlockResources.ContentBlockTitle), 
+        Description = nameof(ContentBlockResources.ContentBlockDescription), 
+        ResourceClassId = nameof(ContentBlockResources), 
+        SectionName = ToolboxesConfig.ContentToolboxSectionName, 
+        CssClass = ContentBlockController.WidgetIconCssClass)]
     [Localization(typeof(ContentBlockResources))]
-    public class ContentBlockController : Controller, 
+    public class ContentBlockController : Controller,
                                           IHasContainerType,
                                           IZoneEditorReloader,
-                                          ICustomWidgetVisualizationExtended, 
-                                          ICustomWidgetTitlebar, 
-                                          IHasEditCommands, 
+                                          ICustomWidgetVisualizationExtended,
+                                          ICustomWidgetTitlebar,
+                                          IHasEditCommands,
                                           IContentItemControl,
                                           ISearchIndexBehavior,
                                           IPersonalizable
@@ -324,19 +331,19 @@ namespace Telerik.Sitefinity.Frontend.ContentBlock.Mvc.Controllers
 
             commandsList.Add(
                 new WidgetMenuItem
-                    {
-                        Text = Res.Get<Labels>().Delete, 
-                        CommandName = "beforedelete", 
-                        CssClass = "sfDeleteItm"
-                    });
+                {
+                    Text = Res.Get<Labels>().Delete,
+                    CommandName = "beforedelete",
+                    CssClass = "sfDeleteItm"
+                });
 
             commandsList.Add(
                 new WidgetMenuItem
-                    {
-                        Text = Res.Get<Labels>().Duplicate, 
-                        CommandName = "duplicate", 
-                        CssClass = "sfDuplicateItm"
-                    });
+                {
+                    Text = Res.Get<Labels>().Duplicate,
+                    CommandName = "duplicate",
+                    CssClass = "sfDuplicateItm"
+                });
 
             commandsList.Add(
                 new WidgetMenuItem
@@ -365,6 +372,10 @@ namespace Telerik.Sitefinity.Frontend.ContentBlock.Mvc.Controllers
                     });
             }
 
+            var notShareableActionLink =
+                packageManager.EnhanceUrl(
+                    RouteHelper.ResolveUrl(string.Format(CultureInfo.InvariantCulture, DesignerTemplate, "NotShareable"), UrlResolveOptions.Rooted));
+
             if (this.SharedContentID == Guid.Empty)
             {
                 var shareActionLink =
@@ -372,11 +383,11 @@ namespace Telerik.Sitefinity.Frontend.ContentBlock.Mvc.Controllers
                         RouteHelper.ResolveUrl(string.Format(CultureInfo.InvariantCulture, DesignerTemplate, "Share"), UrlResolveOptions.Rooted));
                 commandsList.Add(
                     new WidgetMenuItem
-                        {
-                            Text = Res.Get<ContentBlockResources>().Share, 
-                            ActionUrl = shareActionLink, 
-                            NeedsModal = true
-                        });
+                    {
+                        Text = Res.Get<ContentBlockResources>().Share,
+                        ActionUrl = this.IsWidgetShareable() ? shareActionLink : notShareableActionLink,
+                        NeedsModal = true
+                    });
             }
             else
             {
@@ -385,11 +396,11 @@ namespace Telerik.Sitefinity.Frontend.ContentBlock.Mvc.Controllers
                         RouteHelper.ResolveUrl(string.Format(CultureInfo.InvariantCulture, DesignerTemplate, "Unshare"), UrlResolveOptions.Rooted));
                 commandsList.Add(
                     new WidgetMenuItem
-                        {
-                            Text = Res.Get<ContentBlockResources>().Unshare, 
-                            ActionUrl = unshareActionLink, 
-                            NeedsModal = true
-                        });
+                    {
+                        Text = Res.Get<ContentBlockResources>().Unshare,
+                        ActionUrl = this.IsWidgetShareable() ? unshareActionLink : notShareableActionLink,
+                        NeedsModal = true
+                    });
             }
 
             var useSharedActionLink =
@@ -397,18 +408,18 @@ namespace Telerik.Sitefinity.Frontend.ContentBlock.Mvc.Controllers
                     RouteHelper.ResolveUrl(string.Format(CultureInfo.InvariantCulture, DesignerTemplate, "UseShared"), UrlResolveOptions.Rooted));
             commandsList.Add(
                 new WidgetMenuItem
-                    {
-                        Text = Res.Get<ContentBlockResources>().UseShared, 
-                        ActionUrl = useSharedActionLink, 
-                        NeedsModal = true
-                    });
+                {
+                    Text = Res.Get<ContentBlockResources>().UseShared,
+                    ActionUrl = this.IsWidgetShareable() ? useSharedActionLink : notShareableActionLink,
+                    NeedsModal = true
+                });
             commandsList.Add(
                 new WidgetMenuItem
-                    {
-                        Text = Res.Get<Labels>().Permissions, 
-                        CommandName = "permissions", 
-                        CssClass = "sfPermItm"
-                    });
+                {
+                    Text = Res.Get<Labels>().Permissions,
+                    CommandName = "permissions",
+                    CssClass = "sfPermItm"
+                });
             return commandsList;
         }
 
@@ -431,14 +442,43 @@ namespace Telerik.Sitefinity.Frontend.ContentBlock.Mvc.Controllers
         {
             var constructorParameters = new Dictionary<string, object>
                                             {
-                                                { "providerName", this.ProviderName }, 
-                                                { "content", this.content }, 
+                                                { "providerName", this.ProviderName },
+                                                { "content", this.content },
                                                 { "sharedContentId", this.SharedContentID },
                                                 { "containerType", ((IHasContainerType)this).ContainerType },
                                                 { "wrapperCssClass", this.WrapperCssClass }
                                             };
 
             return ControllerModelFactory.GetModel<IContentBlockModel>(this.GetType(), constructorParameters);
+        }
+
+        /// <summary>
+        /// Check if Generic Content provider is disabled. When the provider is disabled the content block widget can't be shareable.
+        /// </summary>
+        /// <returns></returns>
+        private bool IsWidgetShareable()
+        {
+            var module = SystemManager.GetApplicationModule(ContentModule.ModuleName);
+            if (module == null || module is InactiveModule) //// If module is not instaled
+                return false;
+
+            var site = SystemManager.CurrentContext.CurrentSite;
+            List<Multisite.MultisiteContext.SiteDataSourceLinkProxy> links = null;
+
+            if (SystemManager.CurrentContext.IsMultisiteMode)
+            {
+                if (site.SiteDataSourceLinks != null)
+                {
+                    links = site.SiteDataSourceLinks.Where(l => l.DataSourceName == "Telerik.Sitefinity.Modules.GenericContent.ContentManager").ToList();
+                    return links.Count != 0;
+                }
+            }
+            else
+            {
+                return true;
+            }
+
+            return false;
         }
 
         #endregion
@@ -451,6 +491,7 @@ namespace Telerik.Sitefinity.Frontend.ContentBlock.Mvc.Controllers
         private string content;
         private bool isEmpty = true;
         private IContentBlockModel model;
+        private const string WidgetName = "ContentBlock_MVC";
 
         #endregion
     }

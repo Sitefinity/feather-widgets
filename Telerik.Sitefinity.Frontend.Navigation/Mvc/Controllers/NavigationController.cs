@@ -20,12 +20,36 @@ namespace Telerik.Sitefinity.Frontend.Navigation.Mvc.Controllers
     /// <summary>
     /// This class represents the controller of Navigation widget.
     /// </summary>
-    [ControllerToolboxItem(Name = "Navigation_MVC", Title = "Navigation", SectionName = ToolboxesConfig.NavigationControlsSectionName, CssClass = NavigationController.WidgetIconCssClass)]
+    [ControllerToolboxItem(
+        Name = NavigationController.WidgetName, 
+        Title = nameof(NavigationResources.NavigationControlTitle), 
+        Description = nameof(NavigationResources.NavigationControlDescription),
+        ResourceClassId = nameof(NavigationResources),
+        SectionName = ToolboxesConfig.NavigationControlsSectionName,
+        CssClass = NavigationController.WidgetIconCssClass)]
     [Localization(typeof(NavigationResources))]
     [IndexRenderMode(IndexRenderModes.NoOutput)]
     public class NavigationController : Controller
     {
         #region Properties
+
+        /// <summary>
+        /// Gets the Navigation widget model.
+        /// </summary>
+        /// <value>
+        /// The model.
+        /// </value>
+        [TypeConverter(typeof(ExpandableObjectConverter))]
+        public virtual INavigationModel Model
+        {
+            get
+            {
+                if (this.model == null)
+                    this.model = this.InitializeModel();
+
+                return this.model;
+            }
+        }
 
         /// <summary>
         /// Gets or sets the name of the template that will be displayed.
@@ -50,8 +74,17 @@ namespace Telerik.Sitefinity.Frontend.Navigation.Mvc.Controllers
         /// <value>The page display mode.</value>
         public PageSelectionMode SelectionMode
         {
-            get;
-            set;
+            get
+            {
+                return this.selectionMode;
+            }
+
+            set
+            {
+                this.selectionMode = value;
+                this.Model.SelectionMode = value;
+                this.Model.InitializeNavigationWidgetSettings();
+            }
         }
 
         /// <summary>
@@ -60,7 +93,20 @@ namespace Telerik.Sitefinity.Frontend.Navigation.Mvc.Controllers
         /// <value>
         ///   <c>true</c> if [show parent page]; otherwise, <c>false</c>.
         /// </value>
-        public bool ShowParentPage { get; set; }
+        public bool ShowParentPage
+        {
+            get
+            {
+                return this.showParentPage;
+            }
+
+            set
+            {
+                this.showParentPage = value;
+                this.Model.ShowParentPage = value;
+                this.Model.InitializeNavigationWidgetSettings();
+            }
+        }
 
         /// <summary>
         /// Gets or sets the levels to include.
@@ -75,6 +121,8 @@ namespace Telerik.Sitefinity.Frontend.Navigation.Mvc.Controllers
             set
             {
                 this.levelsToInclude = value;
+                this.Model.LevelsToInclude = value;
+                this.Model.InitializeNavigationWidgetSettings();
             }
         }
 
@@ -86,15 +134,36 @@ namespace Telerik.Sitefinity.Frontend.Navigation.Mvc.Controllers
         /// </value>
         public string CssClass
         {
-            get;
-            set;
+            get
+            {
+                return this.cssClass;
+            }
+
+            set
+            {
+                this.cssClass = value;
+                this.Model.CssClass = value;
+            }
         }
 
         /// <summary>
         /// Gets or sets the identifier of the page that is selected if SelectionMode is SelectedPageChildren.
         /// </summary>
         /// <value>The identifier of the page that is selected if SelectionMode is SelectedPageChildren.</value>
-        public Guid SelectedPageId { get; set; }
+        public Guid SelectedPageId
+        {
+            get
+            {
+                return this.selectedPageId;
+            }
+
+            set
+            {
+                this.selectedPageId = value;
+                this.Model.SelectedPageId = value;
+                this.Model.InitializeNavigationWidgetSettings();
+            }
+        }
 
         /// <summary>
         /// Gets or sets a serialized array of the selected pages.
@@ -102,7 +171,21 @@ namespace Telerik.Sitefinity.Frontend.Navigation.Mvc.Controllers
         /// <value>
         /// The a serialized array of selected pages.
         /// </value>
-        public string SerializedSelectedPages { get; set; }
+        public string SerializedSelectedPages
+        {
+            get
+            {
+                return this.serializedSelectedPages;
+            }
+
+            set
+            {
+                this.serializedSelectedPages = value;
+                var selectedPages = JsonSerializer.DeserializeFromString<SelectedPageModel[]>(value);
+                this.Model.SelectedPages = selectedPages;
+                this.Model.InitializeNavigationWidgetSettings();
+            }
+        }
 
         /// <summary>
         /// Gets or sets the serialized external pages.
@@ -118,7 +201,20 @@ namespace Telerik.Sitefinity.Frontend.Navigation.Mvc.Controllers
         /// <value>
         /// <c>true</c> if should open external page in new tab; otherwise, <c>false</c>.
         /// </value>
-        public bool OpenExternalPageInNewTab { get; set; }
+        public bool OpenExternalPageInNewTab
+        {
+            get
+            {
+                return this.openExternalPageInNewTab;
+            }
+
+            set
+            {
+                this.openExternalPageInNewTab = value;
+                this.Model.OpenExternalPageInNewTab = value;
+                this.Model.InitializeNavigationWidgetSettings();
+            }
+        }
 
         /// <summary>
         /// Provides UI for setting navigation output cache variations
@@ -139,23 +235,6 @@ namespace Telerik.Sitefinity.Frontend.Navigation.Mvc.Controllers
             set
             {
                 this.outputCacheSettings = value;
-            }
-        }
-
-        /// <summary>
-        /// Gets the Navigation widget model.
-        /// </summary>
-        /// <value>
-        /// The model.
-        /// </value>
-        protected INavigationModel Model
-        {
-            get
-            {
-                if (this.model == null)
-                    this.model = this.InitializeModel();
-
-                return this.model;
             }
         }
 
@@ -254,10 +333,16 @@ namespace Telerik.Sitefinity.Frontend.Navigation.Mvc.Controllers
         internal const string WidgetIconCssClass = "sfNavigationIcn sfMvcIcn";
         private INavigationModel model;
         private int? levelsToInclude = 1;
+        private PageSelectionMode selectionMode;
+        private string serializedSelectedPages;
+        private Guid selectedPageId;
+        private string cssClass;
+        private bool openExternalPageInNewTab;
+        private bool showParentPage;
         private string templateName = "Horizontal";
         private string templateNamePrefix = "NavigationView.";
         private NavigationOutputCacheVariationSettings outputCacheSettings;
-
+        private const string WidgetName = "Navigation_MVC";
         #endregion
     }
 }

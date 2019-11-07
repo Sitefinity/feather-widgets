@@ -427,6 +427,7 @@ namespace Telerik.Sitefinity.Frontend.Comments.Mvc.Models
                 RequiresApproval = this.ThreadConfig.RequiresApproval,
                 RequiresAuthentication = this.ThreadConfig.RequiresAuthentication,
                 RequiresCaptcha = this.CommentsConfig.UseSpamProtectionImage,
+                AlwaysUseUtc = this.CommentsConfig.AlwaysUseUtc,
                 RootUrl = rootUrl,
                 UserAvatarImageUrl = this.UserAvatarImageUrl,
                 UserDisplayName = this.UserDisplayName,

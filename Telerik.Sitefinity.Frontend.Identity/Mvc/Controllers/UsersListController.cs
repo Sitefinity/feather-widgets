@@ -15,7 +15,13 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Controllers
     /// <summary>
     /// This class represents the controller of Users list widget.
     /// </summary>
-    [ControllerToolboxItem(Name = "UsersList", Title = "Users list", SectionName = "Users", CssClass = UsersListController.WidgetIconCssClass)]
+    [ControllerToolboxItem(
+        Name = UsersListController.WidgetName, 
+        Title = nameof(UsersListResources.UserProfilesViewTitle), 
+        Description = nameof(UsersListResources.UsersListViewDescription),
+        ResourceClassId = nameof(UsersListResources),
+        SectionName = "Users", 
+        CssClass = UsersListController.WidgetIconCssClass)]
     [Localization(typeof(UsersListResources))]
     public class UsersListController : Controller
     {
@@ -184,6 +190,7 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Controllers
         private string detailTemplateName = "UserDetails";
         private string detailTemplateNamePrefix = "Detail.";
         private bool openInSamePage = true;
+        private const string WidgetName = "UsersList";
         #endregion
     }
 }

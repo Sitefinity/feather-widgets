@@ -238,6 +238,21 @@ namespace Telerik.Sitefinity.Frontend.Media.Mvc.StringResources
             }
         }
 
+        /// <summary>
+        /// Displays videos in variety of ways, such as thumbnails list and detailed views.
+        /// </summary>
+        [ResourceEntry("VideosViewDescription",
+            Value = "Videos from a library",
+            Description = "The description of the ImagesView control, that appears on the controls toolbox.",
+            LastModified = "2019/06/03")]
+        public string VideosViewDescription
+        {
+            get
+            {
+                return this["VideosViewDescription"];
+            }
+        }
+
         #region Designer
 
         /// <summary>
@@ -269,6 +284,7 @@ namespace Telerik.Sitefinity.Frontend.Media.Mvc.StringResources
                 return this["CssClasses"];
             }
         }
+
         /// <summary>
         /// phrase: List settings
         /// </summary>
@@ -440,7 +456,6 @@ namespace Telerik.Sitefinity.Frontend.Media.Mvc.StringResources
             }
         }
 
-
         /// <summary>
         /// phrase: From all libraries
         /// </summary>
@@ -546,7 +561,6 @@ namespace Telerik.Sitefinity.Frontend.Media.Mvc.StringResources
                 return this["FromCurrentlyOpen"];
             }
         }
-
 
         /// <summary>
         /// Phrase: Selection of videos...

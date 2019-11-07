@@ -739,5 +739,35 @@ namespace Telerik.Sitefinity.Frontend.Media.Mvc.StringResources
                 return this["FileSize"];
             }
         }
+
+        /// <summary>
+        /// Control name: Documents list
+        /// </summary>
+        [ResourceEntry("DocumentsListViewTitle",
+            Value = "Documents list",
+            Description = "Control title: DownloadListViewTitle",
+            LastModified = "2019/06/03")]
+        public string DocumentsListViewTitle
+        {
+            get
+            {
+                return this["DocumentsListViewTitle"];
+            }
+        }
+
+        /// <summary>
+        /// Control description: A control for displaying list with items to download.
+        /// </summary>
+        [ResourceEntry("DocumentsListViewDescription",
+            Value = "Documents or other files for download",
+            Description = "Control description: A control for displaying list with items to download in master or detail views.",
+            LastModified = "2019/06/03")]
+        public string DocumentsListViewDescription
+        {
+            get
+            {
+                return this["DocumentsListViewDescription"];
+            }
+        }
     }
 }

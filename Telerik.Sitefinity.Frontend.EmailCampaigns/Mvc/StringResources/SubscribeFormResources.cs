@@ -479,5 +479,35 @@ namespace Telerik.Sitefinity.Frontend.EmailCampaigns.Mvc.StringResources
                 return this["MissingPage"];
             }
         }
+
+        /// <summary>
+        /// Title of the subscribe form control
+        /// </summary>
+        [ResourceEntry("SubscribeFormTitle",
+            Value = "Subscribe form",
+            Description = "Title of the subscribe form control",
+            LastModified = "2016/06/03")]
+        public string SubscribeFormTitle
+        {
+            get
+            {
+                return this["SubscribeFormTitle"];
+            }
+        }
+
+        /// <summary>
+        /// The description of the subscribe form
+        /// </summary>
+        [ResourceEntry("SubscribeFormDescription",
+            Value = "Form that lets users subscribe to the newsletter",
+            Description = "The description of the subscribe form",
+            LastModified = "2016/06/03")]
+        public string SubscribeFormDescription
+        {
+            get
+            {
+                return this["SubscribeFormDescription"];
+            }
+        }
     }
 }

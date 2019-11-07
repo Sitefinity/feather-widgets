@@ -410,5 +410,37 @@ namespace Telerik.Sitefinity.Frontend.Taxonomies.Mvc.StringResources
                 return this["TemplateLabel"];
             }
         }
+
+        /// <summary>
+        /// word: Categories
+        /// </summary>
+        /// <value>Categories</value>
+        [ResourceEntry("CategoriesWidgetTitle",
+            Value = "Categories",
+            Description = "word: The title of the categories widget",
+            LastModified = "2019/06/03")]
+        public string CategoriesWidgetTitle
+        {
+            get
+            {
+                return this["CategoriesWidgetTitle"];
+            }
+        }
+
+        /// <summary>
+        /// word: Categories
+        /// </summary>
+        /// <value>Categories</value>
+        [ResourceEntry("CategoriesWidgetDescription",
+            Value = "List of predefined categories",
+            Description = "word: The description of the categories widget",
+            LastModified = "2019/06/03")]
+        public string CategoriesWidgetDescription
+        {
+            get
+            {
+                return this["CategoriesWidgetDescription"];
+            }
+        }
     }
 }

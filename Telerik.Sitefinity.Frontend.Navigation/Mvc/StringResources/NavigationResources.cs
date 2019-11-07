@@ -276,5 +276,35 @@ namespace Telerik.Sitefinity.Frontend.Navigation.Mvc.StringResources
                 return this["ToggleNavigation"];
             }
         }
+
+        /// <summary>
+        /// Navigation control title
+        /// </summary>
+        [ResourceEntry("NavigationControlTitle",
+            Value = "Navigation",
+            Description = "Navigation control title",
+            LastModified = "2019/06/03")]
+        public string NavigationControlTitle
+        {
+            get
+            {
+                return this["NavigationControlTitle"];
+            }
+        }
+
+        /// <summary>
+        /// Navigation Control description
+        /// </summary>
+        [ResourceEntry("NavigationControlDescription",
+            Value = "Group of links displayed in different ways – horizontal, vertical, dropdown menu, tree, etc.",
+            Description = "Navigation control description",
+            LastModified = "2019/06/03")]
+        public string NavigationControlDescription
+        {
+            get
+            {
+                return this["NavigationControlDescription"];
+            }
+        }
     }
 }

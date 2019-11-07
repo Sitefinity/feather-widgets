@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Text;
+using System.Web;
 using System.Web.Script.Serialization;
 using Telerik.Sitefinity.Frontend.Forms.Mvc.StringResources;
 using Telerik.Sitefinity.Localization;
@@ -118,7 +119,7 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Models.Fields.TextField
                 MetaField = metaField,
                 ValidationAttributes = this.BuildValidationAttributes(),
                 CssClass = this.CssClass,
-                ValidatorDefinition = this.ValidatorDefinition,
+                ValidatorDefinition = this.BuildValidatorDefinition(this.ValidatorDefinition, metaField.Title),
                 PlaceholderText = this.PlaceholderText,
                 InputType = this.InputType,
                 Hidden = this.Hidden && (!Sitefinity.Services.SystemManager.IsDesignMode || Sitefinity.Services.SystemManager.IsPreviewMode)
@@ -142,16 +143,17 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Models.Fields.TextField
                 minMaxLength = ".{" + this.ValidatorDefinition.MinLength + ",}";
 
             var patternAttribute = string.Empty;
-            if (!string.IsNullOrWhiteSpace(this.ValidatorDefinition.ExpectedFormat.ToString()))
-            {
-                patternAttribute = this.GetRegExForExpectedFormat(this.ValidatorDefinition.ExpectedFormat);
-            }
 
             if (!string.IsNullOrEmpty(this.ValidatorDefinition.RegularExpression))
             {
                 patternAttribute = this.ValidatorDefinition.RegularExpression;
             }
 
+            if (!string.IsNullOrWhiteSpace(this.ValidatorDefinition.ExpectedFormat.ToString()))
+            {
+                patternAttribute = this.GetRegExForExpectedFormat(this.ValidatorDefinition.ExpectedFormat, patternAttribute);
+            }
+            
             if (!string.IsNullOrEmpty(minMaxLength))
             {
                 if (this.InputType == TextType.Tel)
@@ -170,13 +172,13 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Models.Fields.TextField
 
             if (!string.IsNullOrEmpty(patternAttribute))
             {
-                attributes.AppendFormat(@"pattern=""{0}""", patternAttribute);
+                attributes.Append($"pattern=\"{HttpUtility.HtmlAttributeEncode(patternAttribute)}\" ");
             }
 
             return attributes.ToString();
         }
 
-        private string GetRegExForExpectedFormat(ValidationFormat expectedFormat)
+        private string GetRegExForExpectedFormat(ValidationFormat expectedFormat, string patternAttribute)
         {
             string regexPattern = string.Empty;
 
@@ -215,7 +217,13 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Models.Fields.TextField
                     regexPattern = Validator.USZipCodeRegexPattern;
                     break;
                 case ValidationFormat.Custom:
-                    throw new ArgumentException("You must specify a valid RegularExpression.");
+                    if (string.IsNullOrEmpty(patternAttribute))
+                    {
+                        throw new ArgumentException("You must specify a valid RegularExpression.");
+                    }
+
+                    regexPattern = patternAttribute;
+                    break;
             }
 
             return regexPattern;

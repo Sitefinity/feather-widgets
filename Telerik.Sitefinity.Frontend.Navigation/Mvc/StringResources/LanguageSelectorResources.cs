@@ -236,5 +236,35 @@ namespace Telerik.Sitefinity.Frontend.Navigation.Mvc.StringResources
                 return this["Language"];
             }
         }
+
+        /// <summary>
+        /// Toolbox title: Language selector
+        /// </summary>
+        [ResourceEntry("LanguageSelectorControlTitle",
+            Value = "Language selector",
+            Description = "Toolbox title: Language selector",
+            LastModified = "2019/06/03")]
+        public string LanguageSelectorControlTitle
+        {
+            get
+            {
+                return this["LanguageSelectorControlTitle"];
+            }
+        }
+
+        /// <summary>
+        /// Toolbox description: Language selector
+        /// </summary>
+        [ResourceEntry("LanguageSelectorControlDescription",
+            Value = "Switcher between site languages",
+            Description = "Toolbox description: Language selector",
+            LastModified = "2019/06/03")]
+        public string LanguageSelectorControlDescription
+        {
+            get
+            {
+                return this["LanguageSelectorControlDescription"];
+            }
+        }
     }
 }

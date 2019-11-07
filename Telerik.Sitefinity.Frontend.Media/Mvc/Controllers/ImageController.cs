@@ -24,7 +24,14 @@ namespace Telerik.Sitefinity.Frontend.Media.Mvc.Controllers
     /// This class represents the controller of the Image widget.
     /// </summary>
     [Localization(typeof(ImageResources))]
-    [ControllerToolboxItem(Name = "Image_MVC", Title = "Image", SectionName = ToolboxesConfig.ContentToolboxSectionName, ModuleName = "Libraries", CssClass = ImageController.WidgetIconCssClass)]
+    [ControllerToolboxItem(
+        Name = ImageController.WidgetName,
+        Title = nameof(ImageResources.ImageControlTitle),
+        Description = nameof(ImageResources.ImageControlDescription),
+        ResourceClassId = nameof(ImageResources),
+        SectionName = ToolboxesConfig.ContentToolboxSectionName,
+        ModuleName = "Libraries",
+        CssClass = ImageController.WidgetIconCssClass)]
     public class ImageController : Controller, ICustomWidgetVisualizationExtended, IContentLocatableView, IPersonalizable
     {
         #region Properties
@@ -118,7 +125,7 @@ namespace Telerik.Sitefinity.Frontend.Media.Mvc.Controllers
         {
             get
             {
-                return (this.Model.Id == Guid.Empty);
+                return this.Model.Id == Guid.Empty;
             }
         }
 
@@ -131,7 +138,7 @@ namespace Telerik.Sitefinity.Frontend.Media.Mvc.Controllers
         [Browsable(false)]
         public string WidgetCssClass
         {
-            get 
+            get
             {
                 return ImageController.WidgetIconCssClass;
             }
@@ -152,6 +159,7 @@ namespace Telerik.Sitefinity.Frontend.Media.Mvc.Controllers
             {
                 return this.disableCanonicalUrlMetaTag;
             }
+
             set
             {
                 this.disableCanonicalUrlMetaTag = value;
@@ -188,17 +196,17 @@ namespace Telerik.Sitefinity.Frontend.Media.Mvc.Controllers
         /// <returns>
         /// The <see cref="ActionResult" />.
         /// </returns>
-        public ActionResult Index() 
+        public ActionResult Index()
         {
             var viewModel = this.Model.GetViewModel();
 
-            if (viewModel.Item.DataItem!=null && viewModel.Item.DataItem.Id != Guid.Empty)
+            if (viewModel.Item.DataItem != null && viewModel.Item.DataItem.Id != Guid.Empty)
             {
-                return View(this.TemplateName, viewModel);
+                return this.View(this.TemplateName, viewModel);
             }
             else if (!this.IsEmpty && this.IsDesignMode && !SystemManager.IsInlineEditingMode)
             {
-                return Content(this.ImageWasNotSelectedOrHasBeenDeletedMessage);
+                return this.Content(this.ImageWasNotSelectedOrHasBeenDeletedMessage);
             }
             else
             {
@@ -229,6 +237,7 @@ namespace Telerik.Sitefinity.Frontend.Media.Mvc.Controllers
         private string templateName = "Image";
         private IImageModel model;
         private bool? disableCanonicalUrlMetaTag;
+        private const string WidgetName = "Image_MVC";
 
         #endregion
     }

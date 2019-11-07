@@ -156,6 +156,21 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.StringResources
         }
 
         /// <summary>
+        /// Gets word : Email
+        /// </summary>
+        [ResourceEntry("Email",
+            Value = "Email",
+            Description = "word : Email",
+            LastModified = "2019/06/03")]
+        public string Email
+        {
+            get
+            {
+                return this["Email"];
+            }
+        }
+
+        /// <summary>
         /// Gets phrase : Select a choice
         /// </summary>
         [ResourceEntry("SelectChoice",
@@ -572,6 +587,21 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.StringResources
             get
             {
                 return this["ExampleTitle"];
+            }
+        }
+
+        /// <summary>
+        /// Gets phrase : Example: First name
+        /// </summary>
+        [ResourceEntry("EmailExampleTitle",
+            Value = "Example: Enter your email",
+            Description = "phrase : Example: Enter your email",
+            LastModified = "2019/06/04")]
+        public string EmailExampleTitle
+        {
+            get
+            {
+                return this["EmailExampleTitle"];
             }
         }
 

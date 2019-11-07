@@ -221,7 +221,11 @@
 
         getDateString: function (sfDateString, secondsOffset) {
             var date = this.getDateFromSfString(sfDateString);
-            date.setMinutes(date.getMinutes() + date.getTimezoneOffset());
+
+            if (!this.settings.alwaysUseUtc) {
+                date.setMinutes(date.getMinutes() + date.getTimezoneOffset());
+            }
+
             date.setSeconds(date.getSeconds() + secondsOffset);
 
             return date.toISOString();
@@ -289,7 +293,7 @@
                 this.newCommentRating().after(this.getErrorMessage(this.resources.ratingIsRequired, this.newCommentRating()));
 
                 // TODO: Accessibility is not implemented no logic is required
-                if(this.newCommentRating().attr("id")) {
+                if (this.newCommentRating().attr("id")) {
                     this.newCommentRating().find("input").each(function () {
                         $(this).attr(errorAriaAttr, self.newCommentRating().next().attr(idAttr));
                     });
@@ -503,8 +507,6 @@
                 if (self.settings.requiresCaptcha) {
                     comment.Captcha = {
                         Answer: self.captchaInput().val(),
-                        CorrectAnswer: self.captchaData.correctAnswer,
-                        InitializationVector: self.captchaData.iv,
                         Key: self.captchaData.key
                     };
                 }
@@ -562,7 +564,7 @@
         createCommentFail: function (jqXHR) {
             if (jqXHR && jqXHR.responseText) {
                 var errorTxt = JSON.parse(jqXHR.responseText).ResponseStatus.Message;
-                this.newCommentSubmitButton().before(this.getErrorMessage(errorTxt));
+                this.newCommentSubmitButton().before(this.getErrorMessage(errorTxt, this.newCommentSubmitButton()));
             }
         },
 
@@ -574,8 +576,15 @@
 
             var comment = self.buildNewCommentFromForm();
 
-            self.validateComment(comment).then(function (isValid) {
+            // validate against a copy comment object, so that a message with blank lines only is not submitted, but a message with blank lines after text is
+            var commentWithTrimmedMessage = JSON.parse(JSON.stringify(comment));
+            commentWithTrimmedMessage.Message = commentWithTrimmedMessage.Message.trim();
+
+            self.validateComment(commentWithTrimmedMessage).then(function (isValid) {
                 if (isValid) {
+                    // On the server, the html sanitizer removes blank lines. The line below replaces new lines (\n) with <br> tags so that new lines can be kept
+                    // and persisted in the db
+                    comment.Message = comment.Message.replace(new RegExp("\\n", 'g'), "<br />");
                     self.restApi.createComment(comment)
                         .then(function (response) {
                             self.createCommentSuccess(response);
@@ -602,8 +611,6 @@
             self.restApi.getCaptcha().then(function (data) {
                 if (data) {
                     self.captchaImage().attr("src", "data:image/png;base64," + data.Image);
-                    self.captchaData.iv = data.InitializationVector;
-                    self.captchaData.correctAnswer = data.CorrectAnswer;
                     self.captchaData.key = data.Key;
                     self.captchaInput().val("");
                     self.captchaInput().show();
@@ -616,8 +623,6 @@
         setupCaptcha: function () {
             if (!this.isUserAuthenticated && this.settings.requiresCaptcha) {
                 this.captchaData = {
-                    iv: null,
-                    correctAnswer: null,
                     key: null
                 };
 
@@ -833,8 +838,7 @@
         window.personalizationManager.addPersonalizedContentLoaded(function () {
             new Initialization();
         });
-    }
-    else {
+    } else {
         $(function () {
             new Initialization();
         });

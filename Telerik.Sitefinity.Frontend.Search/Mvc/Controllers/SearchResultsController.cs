@@ -1,7 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.ComponentModel;
-using System.Linq;
 using System.Web.Mvc;
 using Telerik.Sitefinity.Configuration;
 using Telerik.Sitefinity.Frontend.Mvc.Infrastructure.Controllers;
@@ -18,7 +16,14 @@ namespace Telerik.Sitefinity.Frontend.Search.Mvc.Controllers
     /// <summary>
     /// Represents the Controller of the Search results widget.
     /// </summary>
-    [ControllerToolboxItem(Name = "SearchResults_MVC", Title = "Search results", SectionName = "Search", ModuleName = "Search", CssClass = SearchResultsController.WidgetIconCssClass)]
+    [ControllerToolboxItem(
+        Name = SearchResultsController.WidgetName,
+        Title = nameof(SearchWidgetsResources.SearchResultsTitle),
+        Description = nameof(SearchWidgetsResources.SearchResultsDescription),
+        ResourceClassId = nameof(SearchWidgetsResources),
+        SectionName = "Search",
+        ModuleName = "Search",
+        CssClass = SearchResultsController.WidgetIconCssClass)]
     [Localization(typeof(SearchWidgetsResources))]
     public class SearchResultsController : Controller
     {
@@ -33,6 +38,7 @@ namespace Telerik.Sitefinity.Frontend.Search.Mvc.Controllers
             {
                 return this.templateName;
             }
+
             set
             {
                 this.templateName = value;
@@ -76,7 +82,7 @@ namespace Telerik.Sitefinity.Frontend.Search.Mvc.Controllers
                 return null;
             }
 
-            if (!String.IsNullOrEmpty(searchQuery))
+            if (!string.IsNullOrEmpty(searchQuery))
             {
                 bool isValid = this.Model.ValidateQuery(ref searchQuery);
 
@@ -86,11 +92,11 @@ namespace Telerik.Sitefinity.Frontend.Search.Mvc.Controllers
                     var languageParamFormat = "&language={0}";
 
                     var queryString = string.Format(queryStringFormat, indexCatalogue, searchQuery, wordsMode, orderBy ?? this.Model.OrderBy.ToString());
-                    var languageParam = String.IsNullOrEmpty(language) ? String.Empty : String.Format(languageParamFormat, language);
+                    var languageParam = string.IsNullOrEmpty(language) ? string.Empty : string.Format(languageParamFormat, language);
                     var currentPageUrl = this.GetCurrentUrl();
 
-                    this.ViewBag.LanguageSearchUrlTemplate = String.Concat(currentPageUrl, queryString, languageParamFormat);
-                    this.ViewBag.RedirectPageUrlTemplate = String.Concat(currentPageUrl, "/{0}", queryString, languageParam);
+                    this.ViewBag.LanguageSearchUrlTemplate = string.Concat(currentPageUrl, queryString, languageParamFormat);
+                    this.ViewBag.RedirectPageUrlTemplate = string.Concat(currentPageUrl, "/{0}", queryString, languageParam);
                     this.ViewBag.IsFilteredbyPermission = this.EnableFilterByViewPermissions();
 
                     if (page == null || page < 1)
@@ -101,11 +107,11 @@ namespace Telerik.Sitefinity.Frontend.Search.Mvc.Controllers
                     int? itemsToSkip = this.Model.DisplayMode == ListDisplayMode.Paging ? ((page.Value - 1) * this.Model.ItemsPerPage) : 0;
                     this.Model.PopulateResults(searchQuery, indexCatalogue, itemsToSkip, language, orderBy);
 
-                    return View(this.TemplateName, this.Model);
+                    return this.View(this.TemplateName, this.Model);
                 }
                 else
                 {
-                    return View(SearchResultsController.ValidationErrorViewName);
+                    return this.View(SearchResultsController.ValidationErrorViewName);
                 }
             }
 
@@ -122,12 +128,12 @@ namespace Telerik.Sitefinity.Frontend.Search.Mvc.Controllers
         /// <returns></returns>
         public JsonResult Results(string searchQuery = null, string indexCatalogue = null, string language = null, string orderBy = null, int? skip = null)
         {
-            if (!String.IsNullOrEmpty(searchQuery))
+            if (!string.IsNullOrEmpty(searchQuery))
             {
                 this.Model.PopulateResults(searchQuery, indexCatalogue, skip, language, orderBy);
             }
 
-            return Json(this.Model.Results, JsonRequestBehavior.AllowGet);
+            return this.Json(this.Model.Results, JsonRequestBehavior.AllowGet);
         }
         #endregion
 
@@ -160,9 +166,8 @@ namespace Telerik.Sitefinity.Frontend.Search.Mvc.Controllers
             var languages = SystemManager.CurrentContext.AppSettings.DefinedFrontendLanguages;
             var constructorParams = new Dictionary<string, object>
             {
-                {"languages", languages}
+                { "languages", languages }
             };
-
 
             return ControllerModelFactory.GetModel<ISearchResultsModel>(this.GetType(), constructorParams);
         }
@@ -184,6 +189,7 @@ namespace Telerik.Sitefinity.Frontend.Search.Mvc.Controllers
         private ISearchResultsModel model;
         private string templateName = "SearchResults";
         private const string ValidationErrorViewName = "InputValidationError";
+        private const string WidgetName = "SearchResults_MVC";
         #endregion
     }
 }

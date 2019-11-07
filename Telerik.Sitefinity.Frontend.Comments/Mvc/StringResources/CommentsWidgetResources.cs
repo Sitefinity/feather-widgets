@@ -596,6 +596,36 @@ namespace Telerik.Sitefinity.Frontend.Comments.Mvc.StringResources
         }
 
         /// <summary>
+        /// The review widget title
+        /// </summary>
+        [ResourceEntry("ReviewsWidgetTitle",
+            Value = "Reviews",
+            Description = "The title of the reviews widget",
+            LastModified = "2019/06/03")]
+        public string ReviewsWidgetTitle
+        {
+            get
+            {
+                return this["ReviewsWidgetTitle"];
+            }
+        }
+
+        /// <summary>
+        /// The review widget description
+        /// </summary>
+        [ResourceEntry("ReviewsWidgetDescription",
+            Value = "Widget for submitting and displaying reviews and rating",
+            Description = "You use the Reviews widget to give the users the option to write reviews and put ratings on pages",
+            LastModified = "2019/06/03")]
+        public string ReviewsWidgetDescription
+        {
+            get
+            {
+                return this["ReviewsWidgetDescription"];
+            }
+        }
+
+        /// <summary>
         /// Gets word : review
         /// </summary>
         [ResourceEntry("ReviewsPlural",
@@ -791,6 +821,36 @@ namespace Telerik.Sitefinity.Frontend.Comments.Mvc.StringResources
             get
             {
                 return this["Template"];
+            }
+        }
+
+        /// <summary>
+        /// Control name: CommentsWidget
+        /// </summary>
+        [ResourceEntry("CommentsTitle",
+            Value = "Comments",
+            Description = "Control title: Comments",
+            LastModified = "2019/06/03")]
+        public string CommentsTitle
+        {
+            get
+            {
+                return this["CommentsTitle"];
+            }
+        }
+
+        /// <summary>
+        /// Control description: A widget that shows the comments in the particular thread.
+        /// </summary>
+        [ResourceEntry("CommentsDescription",
+            Value = "A widget that shows the comments in the particular thread.",
+            Description = "Control description: A widget that shows the comments in the particular thread.",
+            LastModified = "2019/06/03")]
+        public string CommentsDescription
+        {
+            get
+            {
+                return this["CommentsDescription"];
             }
         }
 

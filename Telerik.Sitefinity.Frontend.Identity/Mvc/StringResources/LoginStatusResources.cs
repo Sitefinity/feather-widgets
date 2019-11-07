@@ -337,5 +337,35 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.StringResources
                 return this["LoggedAs"];
             }
         }
+
+        /// <summary>
+        /// Gets phrase :Login / Logout button
+        /// </summary>
+        [ResourceEntry("LoginStatusWidgetTitle",
+            Value = "Login / Logout button",
+            Description = "phrase : Login / Logout button",
+            LastModified = "2019/06/03")]
+        public string LoginStatusWidgetTitle
+        {
+            get
+            {
+                return this["LoginStatusWidgetTitle"];
+            }
+        }
+
+        /// <summary>
+        /// The login status widget descirption
+        /// </summary>
+        [ResourceEntry("LoginStatusWidgetDescription",
+            Value = "Use the Login status widget to display the login and logout links on your website",
+            Description = "Login status widget description",
+            LastModified = "2019/06/03")]
+        public string LoginStatusWidgetDescription
+        {
+            get
+            {
+                return this["LoginStatusWidgetDescription"];
+            }
+        }
     }
 }

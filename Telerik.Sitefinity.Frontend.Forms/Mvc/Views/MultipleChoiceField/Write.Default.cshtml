@@ -4,52 +4,46 @@
 @using Telerik.Sitefinity.Frontend.Forms.Mvc.Helpers;
 @using Telerik.Sitefinity.Frontend.Mvc.Helpers;
 @using Telerik.Sitefinity.Modules.Pages;
-
 @Html.Script(ScriptRef.JQuery, "top", false)
-
 @{
     var fieldName = string.IsNullOrEmpty(Model.MetaField.FieldName) ? "multiple-choice-field-name" : Model.MetaField.FieldName;
     var requiredAttributes = MvcHtmlString.Create(Model.ValidationAttributes);
 }
-
 <div class="@Model.CssClass sf-fieldWrp sf-RadioButtons" data-sf-role="multiple-choice-field-container">
     <input type="hidden" data-sf-role="violation-messages" value='{ "required": "@Model.RequiredViolationMessage"}' />
+    <strong>@Model.MetaField.Title</strong>
 
-        <strong>@Model.MetaField.Title</strong>
-        
-        @if (!string.IsNullOrEmpty(Model.MetaField.Description)) 
-        {
-           <p>@Model.MetaField.Description</p>
-        }
-        
-        @foreach (var choice in Model.Choices)
-        {
-            string value = !string.IsNullOrEmpty(Model.Value as string) ? Model.Value as string : string.Empty;
-            bool isSelected = (!string.IsNullOrEmpty(value) && choice == value) ||
-                              (string.IsNullOrEmpty(value) && !Model.IsRequired && choice == Model.MetaField.DefaultValue as string);
- 
-            var selctedAttributes = isSelected ? "checked" : string.Empty;
-            <div>
-                <label>
-                  <input type="radio" name="@fieldName" value="@choice" data-sf-role="multiple-choice-field-input" @selctedAttributes @requiredAttributes />
-                    @choice
-                </label>
-            </div>
-        }
+    @if (!string.IsNullOrEmpty(Model.MetaField.Description))
+    {
+        <p>@Model.MetaField.Description</p>
+    }
 
-        @if(Model.HasOtherChoice)
-        {
-           <div>
-               <label>
-                    <input type="radio" name="@fieldName" data-sf-multiple-choice-role="other-choice-radio" data-sf-role="multiple-choice-field-input"/>
-                    @Html.Resource("Other")
-               </label>
-               <input type="hidden" data-sf-multiple-choice-role="other-choice-text" />
-           </div>
-          
-        }
+    @foreach (var choice in Model.Choices)
+    {
+        string value = !string.IsNullOrEmpty(Model.Value as string) ? Model.Value as string : string.Empty;
+        bool isSelected = (!string.IsNullOrEmpty(value) && choice == value) ||
+                          (string.IsNullOrEmpty(value) && !Model.IsRequired && choice == Model.MetaField.DefaultValue as string);
 
-        <p data-sf-role="error-message" role="alert" aria-live="assertive"></p>
+        var selctedAttributes = isSelected ? "checked" : string.Empty;
+        <div>
+            <label>
+                <input type="radio" name="@fieldName" value="@choice" data-sf-role="multiple-choice-field-input" @selctedAttributes @requiredAttributes />
+                @choice
+            </label>
+        </div>
+    }
+    @if (Model.HasOtherChoice)
+    {
+        <div>
+            <label>
+                <input type="radio" name="@fieldName" data-sf-multiple-choice-role="other-choice-radio" data-sf-role="multiple-choice-field-input" />
+                @Html.Resource("Other")
+            </label>
+            <input type="hidden" data-sf-multiple-choice-role="other-choice-text" />
+        </div>
+
+    }
+    <p data-sf-role="error-message" role="alert" aria-live="assertive"></p>
 </div>
 
-@Html.Script(Url.WidgetContent("Mvc/Scripts/MultipleChoiceField/multiple-choice-field.js"), "bottom", false)
+@Html.Script(Url.WidgetContent("Mvc/Scripts/Form/form.all.js"), "bottom", false)

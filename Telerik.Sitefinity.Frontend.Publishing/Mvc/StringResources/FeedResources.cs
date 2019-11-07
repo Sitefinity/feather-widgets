@@ -314,5 +314,35 @@ namespace Telerik.Sitefinity.Frontend.Publishing.Mvc.StringResources
                 return this["MissingFeed"];
             }
         }
+
+        /// <summary>
+        /// Control name: FeedEmbedControl
+        /// </summary>
+        [ResourceEntry("FeedEmbedControlTitle",
+            Value = "Feed",
+            Description = "Control title: FeedEmbedControlTitle",
+            LastModified = "2019/06/03")]
+        public string FeedEmbedControlTitle
+        {
+            get
+            {
+                return this["FeedEmbedControlTitle"];
+            }
+        }
+
+        /// <summary>
+        /// Control description: A link to a published feed.
+        /// </summary>
+        [ResourceEntry("FeedEmbedControlDescription",
+            Value = "Link to a feed (RSS, Twitter, custom)",
+            Description = "Control description: A link to a published feed.",
+            LastModified = "2019/06/03")]
+        public string FeedEmbedControlDescription
+        {
+            get
+            {
+                return this["FeedEmbedControlDescription"];
+            }
+        }
     }
 }

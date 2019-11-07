@@ -24,8 +24,11 @@ namespace Telerik.Sitefinity.Frontend.Navigation.Mvc.Controllers
     /// <summary>
     /// This class represents the controller of Language selector widget.
     /// </summary>
-    [ControllerToolboxItem(Name = "LanguageSelector_MVC",
-        Title = "Language selector",
+    [ControllerToolboxItem(
+        Name = LanguageSelectorController.WidgetName,
+        Title = nameof(LanguageSelectorResources.LanguageSelectorControlTitle),
+        Description = nameof(LanguageSelectorResources.LanguageSelectorControlDescription),
+        ResourceClassId = nameof(LanguageSelectorResources),
         SectionName = ToolboxesConfig.NavigationControlsSectionName,
         CssClass = LanguageSelectorController.WidgetIconCssClass)]
     [Localization(typeof(LanguageSelectorResources))]
@@ -226,6 +229,7 @@ namespace Telerik.Sitefinity.Frontend.Navigation.Mvc.Controllers
         private string templateNamePrefix = "LanguageSelector.";
         private string templateName = "LanguageLinks";
         private LanguageSelectorViewModel viewModel;
+        private const string WidgetName = "LanguageSelector_MVC";
 
         #endregion
     }

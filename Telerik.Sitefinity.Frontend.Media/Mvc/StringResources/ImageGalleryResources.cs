@@ -769,5 +769,35 @@ namespace Telerik.Sitefinity.Frontend.Media.Mvc.StringResources
                 return this["OpenInModalDialog"];
             }
         }
+
+        /// <summary>
+        /// Word: Images
+        /// </summary>
+        [ResourceEntry("ImagesViewTitle",
+            Value = "Image gallery",
+            Description = "The title of the ImagesView control, that appears on the controls toolbox.",
+            LastModified = "2019/06/03")]
+        public string ImagesViewTitle
+        {
+            get
+            {
+                return this["ImagesViewTitle"];
+            }
+        }
+
+        /// <summary>
+        /// Displays images in variety of ways, such as thumbnail list, thumbnail strip and detailed views.
+        /// </summary>
+        [ResourceEntry("ImagesViewDescription",
+            Value = "Images from a library, displayed in various ways",
+            Description = "The description of the ImagesView control, that appears on the controls toolbox.",
+            LastModified = "2019/06/03")]
+        public string ImagesViewDescription
+        {
+            get
+            {
+                return this["ImagesViewDescription"];
+            }
+        }
     }
 }

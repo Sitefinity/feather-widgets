@@ -24,7 +24,13 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Controllers
     /// </summary>
     [Localization(typeof(LoginStatusResources))]
     [IndexRenderMode(IndexRenderModes.NoOutput)]
-    [ControllerToolboxItem(Name = "LoginStatus_MVC", Title = "Login / Logout button", SectionName = "Login", CssClass = LoginStatusController.WidgetIconCssClass)]
+    [ControllerToolboxItem(
+        Name = LoginStatusController.WidgetName, 
+        Title = nameof(LoginStatusResources.LoginStatusWidgetTitle),
+        Description = nameof(LoginStatusResources.LoginStatusWidgetDescription),
+        ResourceClassId = nameof(LoginStatusResources),
+        SectionName = "Login", 
+        CssClass = LoginStatusController.WidgetIconCssClass)]
     public class LoginStatusController : Controller
     {
         #region Properties
@@ -187,7 +193,7 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Controllers
         private string templateName = "LoginButton";
         private ILoginStatusModel model;
         private string templateNamePrefix = "LoginStatus.";
-
+        private const string WidgetName = "LoginStatus_MVC";
         #endregion
     }
 }

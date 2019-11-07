@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Web.Routing;
 using ServiceStack.Text;
 using Telerik.Sitefinity.Data;
 using Telerik.Sitefinity.DynamicModules;
@@ -8,6 +9,8 @@ using Telerik.Sitefinity.DynamicModules.Builder;
 using Telerik.Sitefinity.DynamicModules.Builder.Model;
 using Telerik.Sitefinity.Frontend.Mvc.Models;
 using Telerik.Sitefinity.Model;
+using Telerik.Sitefinity.Mvc;
+using Telerik.Sitefinity.Web;
 
 namespace Telerik.Sitefinity.Frontend.DynamicContent.Mvc.Models
 {
@@ -32,6 +35,12 @@ namespace Telerik.Sitefinity.Frontend.DynamicContent.Mvc.Models
         public bool ShowListViewOnEmpyParentFilter { get; set; }
 
         /// <inheritdoc />
+        public bool HideListViewOnChildDetailsView { get; set; }
+
+        /// <inheritdoc />
+        public bool ShowDetailsViewOnChildDetailsView { get; set; }
+
+        /// <inheritdoc />
         public override IList<CacheDependencyKey> GetKeysOfDependentObjects(ContentListViewModel viewModel)
         {
             if (this.ContentType != null)
@@ -42,6 +51,7 @@ namespace Telerik.Sitefinity.Frontend.DynamicContent.Mvc.Models
                 result.Add(new CacheDependencyKey { Key = string.Concat(Telerik.Sitefinity.GenericContent.Model.ContentLifecycleStatus.Live.ToString(), applicationName, this.ContentType.FullName), Type = typeof(Telerik.Sitefinity.DynamicModules.Model.DynamicContent) });
                 result.Add(new CacheDependencyKey() { Key = this.ContentType.FullName, Type = typeof(DynamicModule) });
 
+                this.AddCommonDependencies(result, this.ContentType);
                 return result;
             }
             else
@@ -62,12 +72,42 @@ namespace Telerik.Sitefinity.Frontend.DynamicContent.Mvc.Models
                     result.Add(new CacheDependencyKey() { Key = this.ContentType.FullName, Type = typeof(DynamicModule) });
                 }
 
+                this.AddCommonDependencies(result, this.ContentType, viewModel.Item);
+
                 return result;
             }
             else
             {
                 return new List<CacheDependencyKey>(0);
             }
+        }
+
+        /// <inheritdoc />
+        public bool HideListView(RequestContext context)
+        {
+            if (this.HideListViewOnChildDetailsView)
+            {
+                var contentType = this.ContentType;
+                var routeParams = MvcRequestContextBuilder.GetRouteParams(context);
+                var urlParamsString = RouteHelper.GetUrlParameterString(routeParams);
+                if (urlParamsString != null)
+                {
+                    var manager = this.GetManager() as DynamicModuleManager;
+
+                    var allTypes = ModuleBuilderManager.GetModules().SelectMany(x => x.Types);
+                    var dynamicModuleType = allTypes.FirstOrDefault(x => x.TypeNamespace == contentType.Namespace && x.TypeName == contentType.Name);
+                    var dynamicModuleTypesForThisModule = allTypes.Where(x => x.ModuleId == dynamicModuleType.ModuleId).ToList();
+
+                    var successorTypes = this.GetTypeSuccessors(dynamicModuleTypesForThisModule, dynamicModuleType).Select(c => c.GetFullTypeName()).ToList();
+                    var item = manager.Provider.GetItemsFromUrl(urlParamsString, successorTypes, true).FirstOrDefault();
+                    if (item != null)
+                    {
+                        return successorTypes.Contains(item.GetType().FullName);
+                    }
+                }
+            }
+
+            return false;
         }
 
         /// <inheritdoc />
@@ -158,6 +198,23 @@ namespace Telerik.Sitefinity.Frontend.DynamicContent.Mvc.Models
             var manager = DynamicModuleManager.GetManager(this.ProviderName);
 
             return manager;
+        }
+
+        private IEnumerable<IDynamicModuleType> GetTypeSuccessors(IEnumerable<IDynamicModuleType> dynamicModuleTypes, IDynamicModuleType parent)
+        {
+            var result = new List<IDynamicModuleType>();
+            var childTypes = dynamicModuleTypes.Where(x => x.ParentTypeId == parent.Id).ToList();
+            if (childTypes.Count > 0)
+            {
+                result.AddRange(childTypes);
+                foreach (var type in childTypes)
+                {
+                    var children = this.GetTypeSuccessors(dynamicModuleTypes, type);
+                    result.AddRange(children);
+                }
+            }
+
+            return result;
         }
     }
 }

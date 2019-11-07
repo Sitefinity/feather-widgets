@@ -22,7 +22,14 @@ namespace Telerik.Sitefinity.Frontend.Events.Mvc.Controllers
     /// <summary>
     /// This class represents the controller of the Events widget.
     /// </summary>
-    [ControllerToolboxItem(Name = "Events_MVC", Title = "Events", SectionName = ToolboxesConfig.ContentToolboxSectionName, ModuleName = "Events", CssClass = EventController.WidgetIconCssClass)]
+    [ControllerToolboxItem(
+        Name = EventController.WidgetName, 
+        Title = nameof(EventResources.EventsViewTitle), 
+        Description = nameof(EventResources.EventsViewDescription),
+        ResourceClassId = nameof(EventResources),
+        SectionName = ToolboxesConfig.ContentToolboxSectionName, 
+        ModuleName = "Events", 
+        CssClass = EventController.WidgetIconCssClass)]
     [Localization(typeof(EventResources))]
     public class EventController : ContentBaseController, IContentLocatableView, IPersonalizable
     {
@@ -144,12 +151,15 @@ namespace Telerik.Sitefinity.Frontend.Events.Mvc.Controllers
             var viewModel = this.Model.CreateListViewModel(null, this.ExtractValidPage(page));
 
             this.InitializeListViewBag();
-            this.AddCacheDependencies(this.Model.GetKeysOfDependentObjects(viewModel));
 
             var fullTemplateName = EventController.ListTemplateNamePrefix + this.ListTemplateName;
 
             if (this.ShouldReturnDetails(this.Model.ContentViewDisplayMode, viewModel))
                 return this.Details((Event)viewModel.Items.First().DataItem);
+
+            this.AddCacheDependencies(this.Model.GetKeysOfDependentObjects(viewModel));
+            if (viewModel.ContentType != null)
+                this.AddCacheVariations(viewModel.ContentType, viewModel.ProviderName);
 
             return this.View(fullTemplateName, viewModel);
         }
@@ -165,11 +175,16 @@ namespace Telerik.Sitefinity.Frontend.Events.Mvc.Controllers
         public ActionResult ListByTaxon(ITaxon taxonFilter, int? page)
         {
             var fullTemplateName = EventController.ListTemplateNamePrefix + this.ListTemplateName;
-            this.InitializeListViewBag("/" + taxonFilter.UrlName + "/{0}");
+            var redirectPageUrlTemplate = UrlHelpers.GetRedirectPagingUrl(taxonFilter);
+            this.InitializeListViewBag(redirectPageUrlTemplate);
 
             var viewModel = this.Model.CreateListViewModel(taxonFilter, page ?? 1);
             if (SystemManager.CurrentHttpContext != null)
+            {
                 this.AddCacheDependencies(this.Model.GetKeysOfDependentObjects(viewModel));
+                if (viewModel.ContentType != null)
+                    this.AddCacheVariations(viewModel.ContentType, viewModel.ProviderName);
+            }
 
             return this.View(fullTemplateName, viewModel);
         }
@@ -260,5 +275,6 @@ namespace Telerik.Sitefinity.Frontend.Events.Mvc.Controllers
         private string listTemplateName = "EventsList";
         private string detailTemplateName = "EventDetails";
         private bool? disableCanonicalUrlMetaTag;
+        private const string WidgetName = "Events_MVC";
     }
 }

@@ -168,24 +168,35 @@ namespace Telerik.Sitefinity.Frontend.Events.Mvc.Models
             var nonFilteredQuery = this.GetItemsQuery();
             nonFilteredQuery = nonFilteredQuery.Cast<Event>().Include(ev => ev.Parent);
 
-            var result = new IDataItem[ids.Length];
+            var result = new Event[ids.Length];
             if (ids.Length <= BatchSize)
             {
                 foreach (var item in nonFilteredQuery.Where(t => ids.Contains(t.Id)))
                 {
-                    result[idPositions[item.Id]] = item;
+                    var eventItem = item as Event;
+                    result[idPositions[item.Id]] = eventItem;
+
+                    // do not remove - otherwise GC may clean-up some internal DataAccess object data and 
+                    // leave the parent in hollow state and trigger point-fetch later
+                    var parent = eventItem.Parent;
                 }
             }
             else
             {
                 // Integer division, rounded up
                 var pagesCount = (ids.Length + BatchSize - 1) / BatchSize;
+
                 for (var p = 0; p < pagesCount; p++)
                 {
                     var batch = ids.Skip(p * BatchSize).Take(BatchSize).ToArray();
                     foreach (var item in nonFilteredQuery.Where(t => batch.Contains(t.Id)))
                     {
-                        result[idPositions[item.Id]] = item;
+                        var eventItem = item as Event;
+                        result[idPositions[item.Id]] = eventItem;
+
+                        // do not remove - otherwise GC may clean-up some internal DataAccess object data and 
+                        // leave the parent in hollow state and trigger point-fetch later
+                        var parent = eventItem.Parent;
                     }
                 }
             }

@@ -168,5 +168,13 @@ namespace Telerik.Sitefinity.Frontend.Comments.Mvc.Models
         /// The create comment URL.
         /// </value>
         public string CreateCommentUrl { get; set; }
+
+        /// <summary>
+        /// Gets whether the web service will always expect date times in UTC
+        /// </summary>
+        /// <value>
+        ///   <c>true</c> if date time need to be always in UTC; otherwise, <c>false</c>.
+        /// </value>
+        public bool AlwaysUseUtc { get; set; }
     }
 }

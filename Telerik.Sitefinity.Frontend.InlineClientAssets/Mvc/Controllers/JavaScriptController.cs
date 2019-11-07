@@ -22,7 +22,13 @@ namespace Telerik.Sitefinity.Frontend.InlineClientAssets.Mvc.Controllers
     /// This class represents the controller for the JavaScript widget.
     /// </summary>
     [Localization(typeof(JavaScriptResources))]
-    [ControllerToolboxItem(Name = "JavaScript_MVC", Title = "JavaScript", SectionName = "ScriptsAndStylesControlsSection", CssClass = JavaScriptController.WidgetIconCssClass)]
+    [ControllerToolboxItem(
+        Name = JavaScriptController.WidgetName,
+        Title = nameof(JavaScriptResources.JavaScriptEmbedControlTitle),
+        Description = nameof(JavaScriptResources.JavaScriptEmbedControlDescription),
+        ResourceClassId = nameof(JavaScriptResources),
+        SectionName = "ScriptsAndStylesControlsSection",
+        CssClass = JavaScriptController.WidgetIconCssClass)]
     public class JavaScriptController : Controller, ICustomWidgetVisualizationExtended
     {
         #region Properties
@@ -62,16 +68,17 @@ namespace Telerik.Sitefinity.Frontend.InlineClientAssets.Mvc.Controllers
         /// <value>The is edit.</value>
         private bool IsEdit
         {
-			get
-			{
-				var isEdit = false;
-				if (this.IsDesignMode && !SystemManager.IsPreviewMode && !SystemManager.IsInlineEditingMode)
-				{
-					isEdit = true;
-				}
-				return isEdit;
-			}
-		}
+            get
+            {
+                var isEdit = false;
+                if (this.IsDesignMode && !SystemManager.IsPreviewMode && !SystemManager.IsInlineEditingMode)
+                {
+                    isEdit = true;
+                }
+
+                return isEdit;
+            }
+        }
 
         #endregion
 
@@ -97,7 +104,7 @@ namespace Telerik.Sitefinity.Frontend.InlineClientAssets.Mvc.Controllers
 
                 if (this.Model.Position == Models.EmbedPosition.BeforeBodyEndTag)
                 {
-                    page.PreRenderComplete += PagePreRenderCompleteHandler;
+                    page.PreRenderComplete += this.PagePreRenderCompleteHandler;
                 }
             }
 
@@ -109,7 +116,7 @@ namespace Telerik.Sitefinity.Frontend.InlineClientAssets.Mvc.Controllers
                 {
                     result = this.Model.Description;
                 }
-                else if (Model.Mode == ResourceMode.Inline && !string.IsNullOrEmpty(viewModel.JavaScriptCode))
+                else if (this.Model.Mode == ResourceMode.Inline && !string.IsNullOrEmpty(viewModel.JavaScriptCode))
                 {
                     result = EmbedCodeHelper.GetShortEmbededCode(viewModel.JavaScriptCode);
                 }
@@ -147,7 +154,7 @@ namespace Telerik.Sitefinity.Frontend.InlineClientAssets.Mvc.Controllers
 
         #endregion
 
-         #region ICustomWidgetVisualizationExtended
+        #region ICustomWidgetVisualizationExtended
 
         /// <inheritDocs/>
         [Browsable(false)]
@@ -218,7 +225,7 @@ namespace Telerik.Sitefinity.Frontend.InlineClientAssets.Mvc.Controllers
         /// </summary>
         /// <param name="sender">The sender.</param>
         /// <param name="e">The <see cref="System.EventArgs" /> instance containing the event data.</param>
-        void PagePreRenderCompleteHandler(object sender, EventArgs e)
+        private void PagePreRenderCompleteHandler(object sender, EventArgs e)
         {
             this.model.PlaceScriptBeforeBodyEnd((Page)sender, this.model.BuildScriptTag());
         }
@@ -228,6 +235,7 @@ namespace Telerik.Sitefinity.Frontend.InlineClientAssets.Mvc.Controllers
         #region Private fields and constants
         private IJavaScriptModel model;
         private const string WidgetIconCssClass = "sfLinkedFileViewIcn sfMvcIcn";
+        private const string WidgetName = "JavaScript_MVC";
         #endregion
     }
 }

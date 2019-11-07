@@ -24,8 +24,7 @@
         <input id='@Html.UniqueId("Textbox")' type="text" data-sf-role="captcha-input" name="@Model.CaptchaAnswerFormKey" required='required'/>
         <p data-sf-role="error-message" role="alert" aria-live="assertive"></p>
     </div>
-    <input type="hidden" data-sf-role="captcha-ca" name="@Model.CaptchaCorrectAnswerFormKey" />
-    <input type="hidden" data-sf-role="captcha-iv" name="@Model.CaptchaInitializationVectorFormKey" />
+
     <input type="hidden" data-sf-role="captcha-k" name="@Model.CaptchaKeyFormKey" />
 
     <input type="hidden" data-sf-role="captcha-settings" value="@Model.GenerateUrl" />
@@ -34,7 +33,7 @@
 
 @if (SystemManager.IsDesignMode)
 {
-    var scriptUrl = Url.WidgetContent("Mvc/Scripts/Captcha/captcha.js");
+    var scriptUrl = Url.WidgetContent("Mvc/Scripts/Form/form.all.js");
     var queryAddition = scriptUrl.Contains("?") ? "&" : "?"; 
     var fullScriptUrl = scriptUrl + queryAddition + string.Format("_={0}", DateTime.UtcNow.Ticks.ToString());
     
@@ -42,5 +41,5 @@
 }
 else
 {
-    @Html.Script(Url.WidgetContent("Mvc/Scripts/Captcha/captcha.js"), "bottom", false)
+    @Html.Script(Url.WidgetContent("Mvc/Scripts/Form/form.all.js"), "bottom", false)
 }

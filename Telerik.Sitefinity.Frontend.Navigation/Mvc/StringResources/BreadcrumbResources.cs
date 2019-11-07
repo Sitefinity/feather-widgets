@@ -209,5 +209,35 @@ namespace Telerik.Sitefinity.Frontend.Navigation.Mvc.StringResources
                 return this["BreadcrumbOnTemplateMessage"];
             }
         }
+
+        /// <summary>
+        /// Title of the Breadcrumb widget
+        /// </summary>
+        [ResourceEntry("BreadcrumbTitle",
+            Value = "Breadcrumb",
+            Description = "Title of the Breadcrumb widget",
+            LastModified = "2019/06/03")]
+        public string BreadcrumbTitle
+        {
+            get
+            {
+                return this["BreadcrumbTitle"];
+            }
+        }
+
+        /// <summary>
+        /// The description of the Breadcrumb widget in the navigation toolbox.
+        /// </summary>
+        [ResourceEntry("BreadcrumbDescription",
+            Value = "Navigation widget which displays the location of the current page.",
+            Description = "The description of the Breadcrumb widget in the navigation toolbox.",
+            LastModified = "2019/06/03")]
+        public string BreadcrumbDescription
+        {
+            get
+            {
+                return this["BreadcrumbDescription"];
+            }
+        }
     }
 }

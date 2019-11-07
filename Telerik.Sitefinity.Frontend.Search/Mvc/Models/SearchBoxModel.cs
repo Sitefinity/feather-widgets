@@ -163,7 +163,9 @@ namespace Telerik.Sitefinity.Frontend.Search.Mvc.Models
                 var provider = this.GetSiteMapProvider();
                 if (provider != null)
                 {
-                    var node = provider.FindSiteMapNodeFromKey(resultsPageId);
+                    var sitemapBase = provider as SiteMapBase;
+                    var node = sitemapBase == null ? provider.FindSiteMapNodeFromKey(this.ResultsPageId) : sitemapBase.FindSiteMapNodeFromKey(this.ResultsPageId, false);
+
                     if (node != null)
                     {
                         resultsUrl = node.Url;

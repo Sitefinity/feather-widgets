@@ -18,7 +18,14 @@ namespace Telerik.Sitefinity.Frontend.Comments.Mvc.Controllers
     /// This class represents the controller of the Comments widget.
     /// </summary>
     [Localization(typeof(CommentsWidgetResources))]
-    [ControllerToolboxItem(Name = "Comments_MVC", Title = "Comments", SectionName = ToolboxesConfig.ContentToolboxSectionName, ModuleName = "Comments", CssClass = CommentsController.WidgetIconCssClass)]
+    [ControllerToolboxItem(
+        Name = CommentsController.WidgetName, 
+        Title = nameof(CommentsWidgetResources.CommentsTitle), 
+        Description = nameof(CommentsWidgetResources.CommentsDescription), 
+        ResourceClassId = nameof(CommentsWidgetResources),
+        SectionName = ToolboxesConfig.ContentToolboxSectionName, 
+        ModuleName = "Comments", 
+        CssClass = CommentsController.WidgetIconCssClass)]
     public class CommentsController : Controller
     {
         #region Properties
@@ -137,7 +144,7 @@ namespace Telerik.Sitefinity.Frontend.Comments.Mvc.Controllers
         private string templateNamePrefix = "Comments.";
         private string templateName = "Default";
         private string countTemplateName = "CommentsCount.Default";
-
+        private const string WidgetName = "Comments_MVC";
         #endregion
     }
 }

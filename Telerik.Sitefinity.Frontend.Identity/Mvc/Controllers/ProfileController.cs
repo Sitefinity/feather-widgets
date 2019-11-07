@@ -20,7 +20,13 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Controllers
     /// This class represents the controller of the Profile widget.
     /// </summary>
     [Localization(typeof(ProfileResources))]
-    [ControllerToolboxItem(Name = "Profile_MVC", Title = "Profile", SectionName = "Users", CssClass = ProfileController.WidgetIconCssClass)]
+    [ControllerToolboxItem(
+        Name = ProfileController.WidgetName, 
+        Title = nameof(ProfileResources.UserProfileViewTitle), 
+        Description = nameof(ProfileResources.UserProfilesViewDescription),
+        ResourceClassId = nameof(ProfileResources),
+        SectionName = "Users",
+        CssClass = ProfileController.WidgetIconCssClass)]
     public class ProfileController : Controller
     {
         #region Properties
@@ -321,7 +327,7 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Controllers
         private const string ConfirmPasswordModeTemplatePrefix = "ConfirmPassword.";
 
         private IProfileModel model;
-
+        private const string WidgetName = "Profile_MVC";
         #endregion
     }
 }

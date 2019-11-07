@@ -178,6 +178,36 @@ namespace Telerik.Sitefinity.Frontend.Media.Mvc.StringResources
             }
         }
 
+        /// <summary>
+        /// Control name: MediaPlayer
+        /// </summary>
+        [ResourceEntry("MediaPlayerControlTitle",
+            Value = "Video",
+            Description = "Control title: MediaPlayerControlTitle",
+            LastModified = "2019/06/03")]
+        public string MediaPlayerControlTitle
+        {
+            get
+            {
+                return this["MediaPlayerControlTitle"];
+            }
+        }
+
+        /// <summary>
+        /// Control description: A control for displaying rich media content.
+        /// </summary>
+        [ResourceEntry("MediaPlayerControlDescription",
+            Value = "Video uploaded from your computer or selected from Video libraries",
+            Description = "Control description: A control for displaying rich media content",
+            LastModified = "2019/06/03")]
+        public string MediaPlayerControlDescription
+        {
+            get
+            {
+                return this["MediaPlayerControlDescription"];
+            }
+        }
+
         #endregion
     }
 }

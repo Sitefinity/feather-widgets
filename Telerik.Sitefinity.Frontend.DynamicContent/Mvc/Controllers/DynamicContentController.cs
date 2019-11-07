@@ -150,8 +150,13 @@ namespace Telerik.Sitefinity.Frontend.DynamicContent.Mvc.Controllers
         /// <returns>
         /// The <see cref="ActionResult" />.
         /// </returns>
-        public ActionResult Index(int? page)
+        public virtual ActionResult Index(int? page)
         {
+            if (this.Request != null && this.Model.HideListView(this.Request.RequestContext))
+            {
+                return this.Content(string.Empty);
+            }
+
             if (this.Model.ParentFilterMode != ParentFilterMode.CurrentlyOpen || this.Model.ShowListViewOnEmpyParentFilter)
             {
                 ITaxon taxonFilter = TaxonUrlEvaluator.GetTaxonFromQuery(this.HttpContext, this.Model.UrlKeyPrefix);
@@ -161,12 +166,15 @@ namespace Telerik.Sitefinity.Frontend.DynamicContent.Mvc.Controllers
 
                 this.UpdatePageFromQuery(ref page, this.Model.UrlKeyPrefix);
                 var viewModel = this.Model.CreateListViewModel(taxonFilter, this.ExtractValidPage(page));
-                this.AddCacheDependencies(this.Model.GetKeysOfDependentObjects(viewModel));
 
                 var fullTemplateName = this.listTemplateNamePrefix + this.ListTemplateName;
 
                 if (this.ShouldReturnDetails(this.Model.ContentViewDisplayMode, viewModel))
                     return this.Details((Telerik.Sitefinity.DynamicModules.Model.DynamicContent)viewModel.Items.First().DataItem);
+
+                this.AddCacheDependencies(this.Model.GetKeysOfDependentObjects(viewModel));
+                if (viewModel.ContentType != null)
+                    this.AddCacheVariations(viewModel.ContentType, viewModel.ProviderName);
 
                 return this.View(fullTemplateName, viewModel);
             }
@@ -204,13 +212,22 @@ namespace Telerik.Sitefinity.Frontend.DynamicContent.Mvc.Controllers
         /// <returns>
         /// The <see cref="ActionResult" />.
         /// </returns>
-        public ActionResult Successors(Telerik.Sitefinity.DynamicModules.Model.DynamicContent parentItem, int? page)
+        public virtual ActionResult Successors(Telerik.Sitefinity.DynamicModules.Model.DynamicContent parentItem, int? page)
         {
+            if (this.Model.HideListView(this.Request.RequestContext))
+            {
+                return this.Content(string.Empty);
+            }
+
             this.InitializeListViewBag(parentItem.ItemDefaultUrl + "?page={0}");
 
             var viewModel = this.Model.CreateListViewModelByParent(parentItem, page ?? 1);
             if (SystemManager.CurrentHttpContext != null)
+            {
                 this.AddCacheDependencies(this.Model.GetKeysOfDependentObjects(viewModel));
+                if (viewModel.ContentType != null)
+                    this.AddCacheVariations(viewModel.ContentType, viewModel.ProviderName);
+            }
 
             var fullTemplateName = this.FullListTemplateName();
             return this.View(fullTemplateName, viewModel);
@@ -224,13 +241,23 @@ namespace Telerik.Sitefinity.Frontend.DynamicContent.Mvc.Controllers
         /// <returns>
         /// The <see cref="ActionResult" />.
         /// </returns>
-        public ActionResult ListByTaxon(ITaxon taxonFilter, int? page)
+        public virtual ActionResult ListByTaxon(ITaxon taxonFilter, int? page)
         {
-            this.InitializeListViewBag("/" + taxonFilter.UrlName + "/{0}");
+            if (this.Model.HideListView(this.Request.RequestContext))
+            {
+                return this.Content(string.Empty);
+            }
+
+            var redirectPageUrlTemplate = UrlHelpers.GetRedirectPagingUrl(taxonFilter);
+            this.InitializeListViewBag(redirectPageUrlTemplate);
 
             var viewModel = this.Model.CreateListViewModel(taxonFilter, page ?? 1);
             if (SystemManager.CurrentHttpContext != null)
+            {
                 this.AddCacheDependencies(this.Model.GetKeysOfDependentObjects(viewModel));
+                if (viewModel.ContentType != null)
+                    this.AddCacheVariations(viewModel.ContentType, viewModel.ProviderName);
+            }
 
             var fullTemplateName = this.FullListTemplateName();
             return this.View(fullTemplateName, viewModel);
@@ -239,24 +266,31 @@ namespace Telerik.Sitefinity.Frontend.DynamicContent.Mvc.Controllers
         /// <summary>
         /// Renders appropriate list view depending on the <see cref="ListTemplateName" />
         /// </summary>
-        /// <param name="from">The start date from the date filter.</param>
-        /// <param name="to">The end date from the date filter.</param>
+        /// <param name="fromDate">The start date from the date filter.</param>
+        /// <param name="toDate">The end date from the date filter.</param>
         /// <param name="page">The page.</param>
         /// <returns>
         /// The <see cref="ActionResult" />.
         /// </returns>
-        public ActionResult ListByDate(DateTime from, DateTime to, int? page)
+        public virtual ActionResult ListByDate(DateTime fromDate, DateTime toDate, int? page)
         {
+            if (this.Model.HideListView(this.Request.RequestContext))
+            {
+                return this.Content(string.Empty);
+            }
+
             int indexOfPrefix = this.HttpContext.Request.Url.AbsolutePath.IndexOf("/archive/");
             string urlPath = this.HttpContext.Request.Url.AbsolutePath.Substring(indexOfPrefix);
 
             this.InitializeListViewBag(urlPath + "?page={0}");
 
-            var viewModel = this.Model.CreateListViewModelByDate(from, to, page ?? 1);
+            var viewModel = this.Model.CreateListViewModelByDate(fromDate, toDate, page ?? 1);
 
             if (SystemManager.CurrentHttpContext != null)
             {
                 this.AddCacheDependencies(this.Model.GetKeysOfDependentObjects(viewModel));
+                if (viewModel.ContentType != null)
+                    this.AddCacheVariations(viewModel.ContentType, viewModel.ProviderName);
             }
 
             var fullTemplateName = this.listTemplateNamePrefix + this.ListTemplateName;
@@ -271,7 +305,7 @@ namespace Telerik.Sitefinity.Frontend.DynamicContent.Mvc.Controllers
         /// <returns>
         /// The <see cref="ActionResult" />.
         /// </returns>
-        public ActionResult RelatedData(IDataItem relatedItem, int? page)
+        public virtual ActionResult RelatedData(IDataItem relatedItem, int? page)
         {
             string itemUrl = relatedItem is ILocatableExtended ? (string)((ILocatableExtended)relatedItem).ItemDefaultUrl : "/" + ((ILocatable)relatedItem).UrlName;
             this.InitializeListViewBag(itemUrl + "?page={0}");
@@ -291,7 +325,7 @@ namespace Telerik.Sitefinity.Frontend.DynamicContent.Mvc.Controllers
         /// <returns>
         /// The <see cref="ActionResult"/>.
         /// </returns>
-        public ActionResult Details(Telerik.Sitefinity.DynamicModules.Model.DynamicContent item)
+        public virtual ActionResult Details(Telerik.Sitefinity.DynamicModules.Model.DynamicContent item)
         {
             var page = this.HttpContext.CurrentHandler.GetPageHandler();
             this.AddCanonicalUrlTagIfEnabled(page, item);

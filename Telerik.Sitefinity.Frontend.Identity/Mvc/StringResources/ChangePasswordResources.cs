@@ -335,5 +335,35 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.StringResources
         }
 
         #endregion
+
+        /// <summary>
+        /// phrase: Change password
+        /// </summary>
+        [ResourceEntry("UserChangePasswordWidgetTitle",
+            Value = "Change password",
+            Description = "phrase: Change password",
+            LastModified = "2019/06/03")]
+        public string UserChangePasswordWidgetTitle
+        {
+            get
+            {
+                return this["UserChangePasswordWidgetTitle"];
+            }
+        }
+
+        /// <summary>
+        /// phrase: Allows users to change their password in the password recovery process
+        /// </summary>
+        [ResourceEntry("UserChangePasswordWidgetDescription",
+            Value = "Allows users to change their password in the password recovery process",
+            Description = "phrase: Allows users to change their password in the password recovery process",
+            LastModified = "2019/06/03")]
+        public string UserChangePasswordWidgetDescription
+        {
+            get
+            {
+                return this["UserChangePasswordWidgetDescription"];
+            }
+        }
     }
 }
