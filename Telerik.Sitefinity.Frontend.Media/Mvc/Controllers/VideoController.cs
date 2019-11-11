@@ -167,9 +167,9 @@ namespace Telerik.Sitefinity.Frontend.Media.Mvc.Controllers
             var viewModel = this.Model.GetViewModel();
 
             // Design mode should not show video, unless it's preview mode
-            var canDispalyVideo = (!this.IsDesignMode || this.IsPreviewMode) && !this.IsInlineEditingMode;
+            var canDisplayVideo = (!this.IsDesignMode || this.IsPreviewMode) && !this.IsInlineEditingMode;
 
-            if (!canDispalyVideo && viewModel.HasSelectedVideo)
+            if (!canDisplayVideo && viewModel.HasSelectedVideo)
                 return this.Content(Res.Get<VideoResources>().VideoWillNotBeDisplayed);
             else if (this.IsDesignMode && !viewModel.HasSelectedVideo && this.Model.Id != Guid.Empty) // Design mode should display if a video has been removed
                 return this.Content(Res.Get<VideoResources>().VideoNotSelectedOrDeleted);
