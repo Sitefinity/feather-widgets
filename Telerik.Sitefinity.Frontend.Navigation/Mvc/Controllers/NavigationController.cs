@@ -21,8 +21,8 @@ namespace Telerik.Sitefinity.Frontend.Navigation.Mvc.Controllers
     /// This class represents the controller of Navigation widget.
     /// </summary>
     [ControllerToolboxItem(
-        Name = NavigationController.WidgetName, 
-        Title = nameof(NavigationResources.NavigationControlTitle), 
+        Name = NavigationController.WidgetName,
+        Title = nameof(NavigationResources.NavigationControlTitle),
         Description = nameof(NavigationResources.NavigationControlDescription),
         ResourceClassId = nameof(NavigationResources),
         SectionName = ToolboxesConfig.NavigationControlsSectionName,
@@ -83,7 +83,6 @@ namespace Telerik.Sitefinity.Frontend.Navigation.Mvc.Controllers
             {
                 this.selectionMode = value;
                 this.Model.SelectionMode = value;
-                this.Model.InitializeNavigationWidgetSettings();
             }
         }
 
@@ -104,7 +103,6 @@ namespace Telerik.Sitefinity.Frontend.Navigation.Mvc.Controllers
             {
                 this.showParentPage = value;
                 this.Model.ShowParentPage = value;
-                this.Model.InitializeNavigationWidgetSettings();
             }
         }
 
@@ -122,7 +120,6 @@ namespace Telerik.Sitefinity.Frontend.Navigation.Mvc.Controllers
             {
                 this.levelsToInclude = value;
                 this.Model.LevelsToInclude = value;
-                this.Model.InitializeNavigationWidgetSettings();
             }
         }
 
@@ -161,7 +158,6 @@ namespace Telerik.Sitefinity.Frontend.Navigation.Mvc.Controllers
             {
                 this.selectedPageId = value;
                 this.Model.SelectedPageId = value;
-                this.Model.InitializeNavigationWidgetSettings();
             }
         }
 
@@ -183,7 +179,6 @@ namespace Telerik.Sitefinity.Frontend.Navigation.Mvc.Controllers
                 this.serializedSelectedPages = value;
                 var selectedPages = JsonSerializer.DeserializeFromString<SelectedPageModel[]>(value);
                 this.Model.SelectedPages = selectedPages;
-                this.Model.InitializeNavigationWidgetSettings();
             }
         }
 
@@ -212,7 +207,6 @@ namespace Telerik.Sitefinity.Frontend.Navigation.Mvc.Controllers
             {
                 this.openExternalPageInNewTab = value;
                 this.Model.OpenExternalPageInNewTab = value;
-                this.Model.InitializeNavigationWidgetSettings();
             }
         }
 
@@ -250,6 +244,13 @@ namespace Telerik.Sitefinity.Frontend.Navigation.Mvc.Controllers
         /// </returns>
         public ActionResult Index()
         {
+            if (this.OutputCache.VaryByAuthenticationStatus || this.OutputCache.VaryByUserRoles)
+            {
+                PageRouteHandler.RegisterCustomOutputCacheVariation(new NavigationOutputCacheVariation(this.OutputCache));
+            }
+
+            var fullTemplateName = this.templateNamePrefix + this.TemplateName;
+            this.Model.InitializeNavigationWidgetSettings();
             if (SystemManager.CurrentHttpContext != null)
             {
                 var cacheDependentNavigationModel = this.Model as IHasCacheDependency;
@@ -257,14 +258,8 @@ namespace Telerik.Sitefinity.Frontend.Navigation.Mvc.Controllers
                 {
                     this.AddCacheDependencies(cacheDependentNavigationModel.GetCacheDependencyObjects());
                 }
-            } 
-
-            if (this.OutputCache.VaryByAuthenticationStatus || this.OutputCache.VaryByUserRoles)
-            {
-                PageRouteHandler.RegisterCustomOutputCacheVariation(new NavigationOutputCacheVariation(this.OutputCache));
             }
-             
-            var fullTemplateName = this.templateNamePrefix + this.TemplateName;
+
             return this.View(fullTemplateName, this.Model);
         }
 

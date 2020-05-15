@@ -1,13 +1,7 @@
 @model Telerik.Sitefinity.Frontend.Navigation.Mvc.Models.INavigationModel
-
 @using Telerik.Sitefinity.Frontend.Mvc.Helpers;
 @using Telerik.Sitefinity.Frontend.Navigation.Mvc.Models;
 @using Telerik.Sitefinity.Modules.Pages;
-
-@*Add scripts and stylesheets*@
-@Html.Script(ScriptRef.JQuery, "top", false)
-
-@Html.Script(Url.WidgetContent("Mvc/Scripts/Navigation.js"), "bottom", false)
 
 <select class="nav-select form-control">
     @foreach (var node in Model.Nodes)
@@ -22,7 +16,7 @@
     var selectedAttribute = "";
     prefix += "-";
 
-    if (Model.CurrentSiteMapNode != null && node.OriginalSiteMapNode !=null &&
+    if (Model.CurrentSiteMapNode != null && node.OriginalSiteMapNode != null &&
         Model.CurrentSiteMapNode.Key == node.OriginalSiteMapNode.Key)
     {
         selectedAttribute = "selected";
@@ -48,3 +42,6 @@
         @Html.HtmlSanitize("active");
     }
 }
+
+@*Add scripts and stylesheets*@
+@Html.Script(Url.WidgetContent("Mvc/Scripts/Navigation.js"), "bottom", throwException: false, tryUseScriptManager: false)

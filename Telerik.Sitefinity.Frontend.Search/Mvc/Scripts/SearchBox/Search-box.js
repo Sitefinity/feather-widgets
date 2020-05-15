@@ -12,6 +12,7 @@
                 minSuggestionLength: searchBoxIdField.siblings('[data-sf-role="minSuggestionLength"]').first().val(),
                 suggestionFields: searchBoxIdField.siblings('[data-sf-role="suggestionFields"]').first().val(),
                 language: searchBoxIdField.siblings('[data-sf-role="language"]').first().val(),
+                siteId: searchBoxIdField.siblings('[data-sf-role="siteId"]').first().val(),
                 suggestionsRoute: searchBoxIdField.siblings('[data-sf-role="suggestionsRoute"]').first().val(),
                 searchTextBoxSelector: searchBoxIdField.val(),
                 searchButtonSelector: searchBoxIdField.siblings('[data-sf-role="searchButtonId"]').first().val()
@@ -91,6 +92,7 @@
                         request.SuggestionFields = serverData.suggestionFields;
                         request.Text = searchText;
                         request.Language = serverData.language;
+                        request.SiteId = serverData.siteId;
 
                         $.ajax({
                             type: "GET",

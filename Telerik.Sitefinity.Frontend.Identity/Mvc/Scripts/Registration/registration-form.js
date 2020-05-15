@@ -1,11 +1,21 @@
-﻿(function ($) {
+﻿(function () {
+    document.addEventListener('DOMContentLoaded', function () {
+        var sendAgainLinks = document.querySelectorAll("[data-sf-role='sendAgainLink']");
+            sendAgainLinks.forEach(function (sendAgainLink) {
+                sendAgainLink.addEventListener('click', function () {
+                    var request = new XMLHttpRequest();
+                    request.onreadystatechange = function () {
+                        if (request.readyState === XMLHttpRequest.DONE && request.status === 200) {
+                            if (JSON.parse(request.response)) {
+                                document.querySelector("[data-sf-role='confirmationResendInfo']").style.display = 'block';
+                            }
+                        }
+                    };
 
-    var url = $("[data-sf-role='sf-resend-confirmation-endpoint-url']").val();
-    $("[data-sf-role='sendAgainLink']").bind("click", function (e) {
-        $.get(url, function (data) {
-            if (JSON.parse(data)) {
-                $("[data-sf-role='confirmationResendInfo']").show();
-            }
-        });
+                    var url = document.querySelector("[data-sf-role='sf-resend-confirmation-endpoint-url']").value;
+                    request.open('GET', url);
+                    request.send();
+                });
+            });
     });
-}(jQuery));
+}()); 

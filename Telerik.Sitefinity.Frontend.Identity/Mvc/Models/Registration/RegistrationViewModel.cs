@@ -9,7 +9,7 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.Registration
     /// <summary>
     /// This class represents view model for the <see cref="RegistrationController"/>.
     /// </summary>
-    [Bind(Exclude = "CssClass, LoginPageUrl, MembershipProviderName, SuccessfulRegistrationPageUrl, ConfirmationPageId, EmailAddressShouldBeTheUsername")]
+    [Bind(Include = "RequiresQuestionAndAnswer, Password, Question, Answer, ReTypePassword, Email, Profile, ExternalProviders")]
     public class RegistrationViewModel
     {
         /// <summary>

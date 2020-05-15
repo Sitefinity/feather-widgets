@@ -204,7 +204,7 @@ namespace Telerik.Sitefinity.Frontend.Events.Mvc.Controllers
 
             Guard.ArgumentNotNull(filter, "filter");
 
-            var eventSchedulerModel = EventSchedulerHelper.LoadModel(filter.Id, filter.UICulture, filter.CurrentPageId);
+            var eventSchedulerModel = ControllerHelper.LoadControllerModel(filter.Id, filter.UICulture, filter.CurrentPageId) as IEventSchedulerModel;
             if (eventSchedulerModel != null)
             {
                 json.Data = eventSchedulerModel.GetEvents(filter);
@@ -229,7 +229,7 @@ namespace Telerik.Sitefinity.Frontend.Events.Mvc.Controllers
 
             Guard.ArgumentNotNull(filter, "filter");
 
-            var eventSchedulerModel = EventSchedulerHelper.LoadModel(filter.Id, filter.UICulture, filter.CurrentPageId);
+            var eventSchedulerModel = ControllerHelper.LoadControllerModel(filter.Id, filter.UICulture, filter.CurrentPageId) as IEventSchedulerModel;
             if (eventSchedulerModel != null)
             {
                 json.Data = eventSchedulerModel.GetCalendars(filter);
@@ -270,7 +270,7 @@ namespace Telerik.Sitefinity.Frontend.Events.Mvc.Controllers
 
             if (this.HttpContext != null && this.HttpContext.Items.Contains("versionpreview") && this.HttpContext.Items["versionpreview"].ToString().ToLowerInvariant() == "true")
             {
-                this.ViewBag.WidgetId = EventSchedulerHelper.GetWidgetId(this);
+                this.ViewBag.WidgetId = ControllerHelper.GetWidgetId(this);
             }
             else
             {

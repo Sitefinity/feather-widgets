@@ -4,10 +4,6 @@
 @using Telerik.Sitefinity.Frontend.Navigation.Mvc.Models;
 @using Telerik.Sitefinity.Modules.Pages;
 
-@*Add scripts and stylesheets*@
-@Html.Script(ScriptRef.JQuery, "top", false)
-
-@Html.Script(Url.WidgetContent("Mvc/Scripts/Navigation.js"), "bottom", false)
 
 <div class="@Model.CssClass">
     @Html.Action("GetView", new { viewName = "Dropdown",  model= Model})
@@ -74,3 +70,6 @@
         @Html.HtmlSanitize("active");
     }
 }
+
+@*Add scripts and stylesheets*@
+@Html.Script(Url.WidgetContent("Mvc/Scripts/Navigation.js"), "bottom", false)

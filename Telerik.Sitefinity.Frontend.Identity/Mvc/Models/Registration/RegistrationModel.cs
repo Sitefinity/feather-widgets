@@ -453,7 +453,7 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.Registration
         /// </summary>
         protected virtual void RaiseRegistrationEvent()
         {
-            var eventData = new UserRegistered(); // no event data is used by the DEC handler
+            var eventData = new UserRegistered(); // no event data is used by the Sitefinity Insight handler
             EventHub.Raise(eventData);
         }
 

@@ -1,26 +1,35 @@
-﻿(function($){
-    $(document).ready(function () {
+﻿(function () {
+    /* Polyfills */
 
+    if (window.NodeList && !NodeList.prototype.forEach) {
+        NodeList.prototype.forEach = Array.prototype.forEach;
+    }
+    
+    /* Polyfills end */
+
+    document.addEventListener('DOMContentLoaded', function () {
         //Dropdownlist Selectedchange event
-        $(".userSortDropdown").change(function (value) {
-            var selectedValue = $(value.currentTarget).val();
-            var url = getResultsUrl(selectedValue);
-            window.location.search = url;
+        document.querySelectorAll(".userSortDropdown").forEach(function (result) {
+            result.addEventListener('change', function () {
+                var selectedValue = result.value;
+                var url = getResultsUrl(selectedValue);
+                window.location.search = url;
+            });
         });
 
         // Returns url with all needed parameters
         function getResultsUrl(orderBy, language) {
-            var orderByFieldValue = $('[data-sf-role="searchResOrderBy"]').val();
-            var orderByValue = orderBy || orderByFieldValue;
-            var languageFieldValue = $('[data-sf-role="searchResLanguage"]').val();
-            var languageValue = language || languageFieldValue;
+            var orderByField = document.querySelector('[data-sf-role="searchResOrderBy"]');
+            orderByValue = orderBy || orderByField.value;
+            var languageField = document.querySelector('[data-sf-role="searchResLanguage"]');
+            var languageValue = language || languageField.value;
 
             var orderByParam = orderByValue ? '&orderBy=' + orderByValue : '';
             var languageParam = languageValue ? '&language=' + languageValue : '';
 
-            var indexCatalogueParam = $('[data-sf-role="searchResIndexCatalogue"]').val();
-            var searchQueryParam = $('[data-sf-role="searchResQuery"]').val();
-            var wordsModeParam = $('[data-sf-role="searchResWordsMode"]').val();
+            var indexCatalogueParam = document.querySelector('[data-sf-role="searchResIndexCatalogue"]').value;
+            var searchQueryParam = document.querySelector('[data-sf-role="searchResQuery"]').value;
+            var wordsModeParam = document.querySelector('[data-sf-role="searchResWordsMode"]').value;
             return '?indexCatalogue=' + indexCatalogueParam + '&' +
                 'searchQuery=' + searchQueryParam + '&' +
                 'wordsMode=' + wordsModeParam +
@@ -28,4 +37,4 @@
                 languageParam;
         }
     });
-}(jQuery));
+}());

@@ -6,7 +6,7 @@ namespace Telerik.Sitefinity.Frontend.EmailCampaigns.Mvc.Models.UnsubscribeForm
     /// <summary>
     /// This class represents the view model of Unsubscribe widget.
     /// </summary>
-    [Bind(Exclude = "Message, WidgetTitle, WidgetDescription, RedirectPageUrl, CssClass")]
+    [Bind(Include = "Email")]
     public class UnsubscribeFormViewModel
     {
         /// <summary>

@@ -170,7 +170,9 @@ namespace Telerik.Sitefinity.Frontend.Search.Mvc.Models
             var filteredResultsText = Res.Get<SearchWidgetsResources>().SearchResultsStatusMessageShort;
             this.ResultText = string.Format(filteredResultsText, HttpUtility.HtmlEncode(queryTest));
 
-            this.Results = new ResultModel(result.ToList(), totalCount);
+            var culture = string.IsNullOrEmpty(language) ? CultureInfo.CurrentUICulture.Name : language;
+            using (new CultureRegion(culture))
+                this.Results = new ResultModel(result.ToList(), totalCount);
         }
 
         /// <summary>

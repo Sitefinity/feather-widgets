@@ -3,7 +3,7 @@ using System.Web.Mvc;
 
 namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.Profile
 {
-    [Bind(Exclude = "ShowProfileChangedMsg")]
+    [Bind(Include = "Password, UserId, Email")]
     public class ProfileEmailEditViewModel
     {
         /// <summary>

@@ -175,14 +175,13 @@ namespace Telerik.Sitefinity.Frontend.Media.Mvc.Models.Image
                 var node = pageManager.GetPageNode(this.LinkedPageId);
                 if (node != null)
                 {
-                    var provider = SiteMapBase.GetCurrentProvider();
-                    var siteMapNode = provider.FindSiteMapNodeFromKey(node.Id.ToString());
-                    linkedUrl = UrlPath.ResolveUrl(siteMapNode.Url, true);
+                    var relativeUrl = node.GetFullUrl(CultureInfo.CurrentUICulture, false);
+                    linkedUrl = UrlPath.ResolveUrl(relativeUrl, false);
                 }
             }
             else if (this.UseAsLink && this.LinkedPageId == Guid.Empty)
             {
-                linkedUrl = image.ResolveMediaUrl(true);
+                linkedUrl = image.ResolveMediaUrl(false);
             }
 
             return linkedUrl;

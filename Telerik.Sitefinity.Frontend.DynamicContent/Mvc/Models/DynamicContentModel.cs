@@ -48,7 +48,8 @@ namespace Telerik.Sitefinity.Frontend.DynamicContent.Mvc.Models
                 var result = new List<CacheDependencyKey>(2);
                 var manager = this.GetManager();
                 string applicationName = manager != null && manager.Provider != null ? manager.Provider.ApplicationName : string.Empty;
-                result.Add(new CacheDependencyKey { Key = string.Concat(Telerik.Sitefinity.GenericContent.Model.ContentLifecycleStatus.Live.ToString(), applicationName, this.ContentType.FullName), Type = typeof(Telerik.Sitefinity.DynamicModules.Model.DynamicContent) });
+
+                result.AddRange(OutputCacheDependencyHelper.GetPublishedContentCacheDependencyKeys(this.ContentType, applicationName));
                 result.Add(new CacheDependencyKey() { Key = this.ContentType.FullName, Type = typeof(DynamicModule) });
 
                 this.AddCommonDependencies(result, this.ContentType);
@@ -68,7 +69,7 @@ namespace Telerik.Sitefinity.Frontend.DynamicContent.Mvc.Models
                 var result = new List<CacheDependencyKey>(2);
                 if (viewModel.Item != null && viewModel.Item.Fields.Id != Guid.Empty)
                 {
-                    result.Add(new CacheDependencyKey { Key = viewModel.Item.Fields.Id.ToString().ToUpperInvariant(), Type = typeof(Telerik.Sitefinity.DynamicModules.Model.DynamicContent) });
+                    result.AddRange(OutputCacheDependencyHelper.GetPublishedContentCacheDependencyKeys(this.ContentType, viewModel.Item.Fields.Id));
                     result.Add(new CacheDependencyKey() { Key = this.ContentType.FullName, Type = typeof(DynamicModule) });
                 }
 

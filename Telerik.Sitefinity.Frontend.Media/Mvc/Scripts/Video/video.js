@@ -1,8 +1,8 @@
-﻿(function ($) {
-    $(function () {
-        $('[data-sf-role=playVideo]').on('play', function () {
-            var video = $(this);
-            var videoSrc = video.attr('src');
+﻿(function () {
+    document.addEventListener('DOMContentLoaded', function () {
+        document.querySelector('[data-sf-role=playVideo]').addEventListener('play', function (e) {
+            var video = e.currentTarget;
+            var videoSrc = video.getAttribute('src');
             sendSentence(videoSrc);
         });
 
@@ -24,4 +24,4 @@
             }
         }
     });
-}(jQuery));
+}());

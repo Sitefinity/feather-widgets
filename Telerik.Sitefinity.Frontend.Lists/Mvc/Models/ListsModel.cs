@@ -10,6 +10,7 @@ using Telerik.Sitefinity.Lists.Model;
 using Telerik.Sitefinity.Model;
 using Telerik.Sitefinity.Modules.Lists;
 using Telerik.Sitefinity.Taxonomies.Model;
+using Telerik.Sitefinity.Web.OutputCache;
 
 namespace Telerik.Sitefinity.Frontend.Lists.Mvc.Models
 {
@@ -205,8 +206,8 @@ namespace Telerik.Sitefinity.Frontend.Lists.Mvc.Models
             var result = base.GetKeysOfDependentObjects(viewModel);
             var manager = this.GetManager();
             string applicationName = manager != null && manager.Provider != null ? manager.Provider.ApplicationName : string.Empty;
-
-            result.Add(new CacheDependencyKey { Key = string.Concat(ContentLifecycleStatus.Live.ToString(), applicationName), Type = typeof(ListItem) });
+            foreach (var key in OutputCacheDependencyHelper.GetPublishedContentCacheDependencyKeys(typeof(ListItem), applicationName))
+                result.Add(key);
 
             return result;
         }

@@ -1,8 +1,10 @@
 ﻿using System;
 using System.ComponentModel;
+using System.Globalization;
 using System.Web.Mvc;
 using Telerik.Sitefinity.Frontend.Forms.Mvc.Models;
 using Telerik.Sitefinity.Frontend.Forms.Mvc.StringResources;
+using Telerik.Sitefinity.Frontend.Mvc.Helpers;
 using Telerik.Sitefinity.Frontend.Mvc.Infrastructure.Controllers;
 using Telerik.Sitefinity.Frontend.Mvc.Infrastructure.Controllers.Attributes;
 using Telerik.Sitefinity.Frontend.Resources;
@@ -57,6 +59,8 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Controllers
             var viewModel = this.Model.GetViewModel();
             if (viewModel != null)
             {
+                this.InitializeViewBag();
+
                 if (SystemManager.CurrentHttpContext != null)
                     this.AddCacheDependencies(this.Model.GetKeysOfDependentObjects(viewModel));
 
@@ -133,22 +137,38 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Controllers
         [StandaloneResponseFilter]
         public JsonResult AjaxSubmit(FormCollection collection)
         {
-            var result = this.Model.TrySubmitForm(collection, this.Request.Files, this.Request.UserHostAddress);
-            if (result != SubmitStatus.Success && this.Model.RaiseBeforeFormActionEvent())
+            if (collection == null)
             {
-                return this.Json(new { success = false, error = this.Model.GetSubmitMessage(result) });
+                throw new ArgumentNullException("collection");
+            }
+
+            var widgetIdIdString = collection[WidgetId];
+            Guid widgetId;
+
+            if (string.IsNullOrWhiteSpace(widgetIdIdString) || !Guid.TryParse(widgetIdIdString, out widgetId))
+            {
+                widgetId = Guid.Empty;
+            }
+
+            var formModel = ControllerHelper.LoadControllerModel(widgetId, CultureInfo.CurrentUICulture) as IFormModel;
+            formModel = formModel ?? this.Model;
+
+            var result = formModel.TrySubmitForm(collection, this.Request.Files, this.Request.UserHostAddress);
+            if (result != SubmitStatus.Success && formModel.RaiseBeforeFormActionEvent())
+            {
+                return this.Json(new { success = false, error = formModel.GetSubmitMessage(result) });
             }
             else
             {
                 var redirectPageUrl = string.Empty;
-                if (this.Model.NeedsRedirect)
+                if (formModel.NeedsRedirect)
                 {
-                    redirectPageUrl = this.Model.GetRedirectPageUrl();
+                    redirectPageUrl = formModel.GetRedirectPageUrl();
                 }
 
                 if (string.IsNullOrWhiteSpace(redirectPageUrl))
                 {
-                    return this.Json(new { success = true, message = this.Model.GetSubmitMessage(result) });
+                    return this.Json(new { success = true, message = formModel.GetSubmitMessage(result) });
                 }
                 else
                 {
@@ -205,6 +225,21 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Controllers
             return ControllerModelFactory.GetModel<IFormModel>(this.GetType());
         }
 
+        private void InitializeViewBag()
+        {
+            if (this.Model.UseAjaxSubmit)
+            {
+                if (this.HttpContext != null && this.HttpContext.Items.Contains(VersionPreview) && this.HttpContext.Items[VersionPreview].ToString().ToUpperInvariant() == "TRUE")
+                {
+                    this.ViewBag.WidgetId = ControllerHelper.GetWidgetId(this);
+                }
+                else
+                {
+                    this.ViewBag.WidgetId = this.ViewData[ControlDataId];
+                }
+            }
+        }
+
         private string GetViewPath(Guid formId)
         {
             var currentPackage = new PackageManager().GetCurrentPackage();
@@ -228,6 +263,9 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Controllers
         internal const string TemplateNamePrefix = "Form.";
         internal const string SubmitResultTemplateName = "SubmitResultView";
         private const string WidgetName = "Form_MVC";
+        private const string WidgetId = "WidgetId";
+        private const string ControlDataId = "controlDataId";
+        private const string VersionPreview = "versionpreview";
 
         #endregion
     }

@@ -42,11 +42,11 @@ namespace Telerik.Sitefinity.Frontend.Navigation.Mvc.Models
         /// <param name="cssClass">The CSS class.</param>
         /// <param name="openExternalPageInNewTab">if set to <c>true</c> [open external page in new tab].</param>
         public NavigationModel(
-            PageSelectionMode selectionMode, 
+            PageSelectionMode selectionMode,
             Guid selectedPageId,
             SelectedPageModel[] selectedPages,
-            int? levelsToInclude, 
-            bool showParentPage, 
+            int? levelsToInclude,
+            bool showParentPage,
             string cssClass,
             bool openExternalPageInNewTab)
         {
@@ -57,8 +57,6 @@ namespace Telerik.Sitefinity.Frontend.Navigation.Mvc.Models
             this.selectedPageId = selectedPageId;
             this.selectedPages = selectedPages;
             this.OpenExternalPageInNewTab = openExternalPageInNewTab;
-
-            this.InitializeNavigationWidgetSettings();
         }
 
         #endregion
@@ -234,7 +232,7 @@ namespace Telerik.Sitefinity.Frontend.Navigation.Mvc.Models
                 var multilingualKey = nodeId;
                 if (AppSettings.CurrentSettings.Multilingual)
                     multilingualKey += Thread.CurrentThread.CurrentUICulture;
-                
+
                 cacheDependencyNotifiedObjects.Add(new CacheDependencyKey() { Type = CacheDependencyPageNodeStateChangeType, Key = multilingualKey });
                 cacheDependencyNotifiedObjects.Add(new CacheDependencyKey() { Type = CacheDependencyPageNodeObjectType, Key = multilingualKey });
             }
@@ -250,18 +248,26 @@ namespace Telerik.Sitefinity.Frontend.Navigation.Mvc.Models
         public void InitializeNavigationWidgetSettings()
         {
             this.Nodes.Clear();
+            this.viewModelNodeIds.Clear();
             SiteMapProvider siteMapProvider = this.GetProvider();
 
             switch (this.SelectionMode)
             {
                 case PageSelectionMode.TopLevelPages:
-                    this.AddChildNodes(siteMapProvider.RootNode, false);
+                    if (siteMapProvider.RootNode != null)
+                    {
+                        this.AddChildNodes(siteMapProvider.RootNode, false);
+                    }
+
                     break;
                 case PageSelectionMode.SelectedPageChildren:
                     if (!Guid.Equals(this.selectedPageId, Guid.Empty))
                     {
                         var siteMapNodeFromKey = siteMapProvider.FindSiteMapNodeFromKey(this.selectedPageId.ToString("D"));
-                        this.AddChildNodes(siteMapNodeFromKey, this.ShowParentPage);
+                        if (siteMapNodeFromKey != null)
+                        {
+                            this.AddChildNodes(siteMapNodeFromKey, this.ShowParentPage);
+                        }
                     }
 
                     break;
@@ -476,7 +482,7 @@ namespace Telerik.Sitefinity.Frontend.Navigation.Mvc.Models
         {
             return new NodeViewModel(null, url, target, false, false);
         }
-        
+
         private void SubscribeCacheDependency(List<CacheDependencyKey> objects)
         {
             if (!SystemManager.CurrentHttpContext.Items.Contains(PageCacheDependencyKeys.PageNodes))
@@ -561,7 +567,7 @@ namespace Telerik.Sitefinity.Frontend.Navigation.Mvc.Models
 
         private Guid selectedPageId;
         private SelectedPageModel[] selectedPages;
-              
+
         #endregion
     }
 }

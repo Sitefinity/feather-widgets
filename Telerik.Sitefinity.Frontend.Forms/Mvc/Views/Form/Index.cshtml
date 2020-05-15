@@ -5,38 +5,39 @@
 @using Telerik.Sitefinity.Frontend.Forms.Mvc.Models;
 @using Telerik.Sitefinity.Frontend.Mvc.Helpers;
 @using Telerik.Sitefinity.Modules.Pages;
-<div data-sf-role="form-container" class="@Model.CssClass">
-    <input type="hidden" data-sf-role="form-id" value="@Model.FormId" name="FormId" />
+    <div data-sf-role="form-container" class="@Model.CssClass">
+        <input type="hidden" data-sf-role="form-id" value="@Model.FormId" name="FormId" />
 
-    @{
-        if (!string.IsNullOrEmpty(@ViewBag.ErrorMessage))
-        {
-            <div class="alert alert-danger" role="alert" aria-live="assertive">@ViewBag.ErrorMessage</div>
-        }
-
-        if (Model.UseAjaxSubmit)
-        {
-            <span data-sf-role="success-message" style="display: none;">@Model.SuccessMessage</span>
-            <span data-sf-role="error-message" style="display: none;"></span>
-            <img data-sf-role="loading-img" src='@Url.EmbeddedResource("Telerik.Sitefinity.Resources.Reference", "Telerik.Sitefinity.Resources.Themes.Light.Images.Loadings.sfLoadingData.gif")' alt="Loading animation" style="display:none;" />
-            <div data-sf-role="fields-container">
-                @* Fields Markup *@
-            </div>
-        }
-        else
-        {
-            using (Html.BeginFormSitefinity("", null, (System.Web.Routing.RouteValueDictionary)null, FormMethod.Post, new Dictionary<string, object> { { "enctype", "multipart/form-data" }, { "role", "form" } }, true))
+        @{
+            if (!string.IsNullOrEmpty(@ViewBag.ErrorMessage))
             {
-                @* Fields Markup *@
+                <div class="alert alert-danger" role="alert" aria-live="assertive">@ViewBag.ErrorMessage</div>
+            }
+
+            if (Model.UseAjaxSubmit)
+            {
+                <span data-sf-role="success-message" style="display: none;">@Model.SuccessMessage</span>
+                <span data-sf-role="error-message" style="display: none;"></span>
+                <img data-sf-role="loading-img" src='@Url.EmbeddedResource("Telerik.Sitefinity.Resources.Reference", "Telerik.Sitefinity.Resources.Themes.Light.Images.Loadings.sfLoadingData.gif")' alt="Loading animation" style="display:none;" />
+                <div data-sf-role="fields-container">
+                    @* Fields Markup *@
+                </div>
+            }
+            else
+            {
+                using (Html.BeginFormSitefinity("", null, (System.Web.Routing.RouteValueDictionary)null, FormMethod.Post, new Dictionary<string, object> { { "enctype", "multipart/form-data" }, { "role", "form" } }, true))
+                {
+                    @* Fields Markup *@
+                }
+            }
+
+            if (Model.UseAjaxSubmit)
+            {
+                <input type="hidden" data-sf-role="ajax-submit-url" value="@Model.AjaxSubmitUrl" />
+                <input type="hidden" data-sf-role="redirect-url" value="@Model.RedirectUrl" />
+                <input type="hidden" data-sf-role="widget-id" value="@ViewBag.WidgetId" name="WidgetId" />
+                @Html.Script(ScriptRef.JQuery, "top", false)
+                @Html.Script(Url.WidgetContent("Mvc/Scripts/Form/form.all.js"), "bottom", false)
             }
         }
-
-        if (Model.UseAjaxSubmit)
-        {
-            <input type="hidden" data-sf-role="ajax-submit-url" value="@Model.AjaxSubmitUrl" />
-            <input type="hidden" data-sf-role="redirect-url" value="@Model.RedirectUrl" />
-            @Html.Script(ScriptRef.JQuery, "top", false)
-            @Html.Script(Url.WidgetContent("Mvc/Scripts/Form/form.all.js"), "bottom", false)
-        }
-    }
-</div>
+    </div>

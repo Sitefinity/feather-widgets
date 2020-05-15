@@ -1,33 +1,29 @@
 ﻿@model Telerik.Sitefinity.Frontend.Search.Mvc.Models.ISearchBoxModel
-
 @using Telerik.Sitefinity.Services;
 @using Telerik.Sitefinity.Modules.Pages;
 @using Telerik.Sitefinity.Frontend.Mvc.Helpers;
-
 @* Styling needed for search autocomplete popup positioning. If removed from template, make sure to inlcude the css from the file or functionally similar styling in your resrouce package manually. *@
 @Html.StyleSheet(Url.WidgetContent("assets/dist/css/sf-search-box.min.css"), "head", false)
-
 @{
     var searchTextBoxId = Guid.NewGuid();
     var searchButtonId = Guid.NewGuid();
- }
-
+}
 @(!String.IsNullOrEmpty(Model.CssClass) ?
-    Html.Raw(String.Format("<div class=\"{0}\">", HttpUtility.HtmlAttributeEncode(Model.CssClass))) :
-    Html.Raw("<div>"))
-    <input type="text" title="@Html.Resource("SearchInput")" placeholder="@Model.BackgroundHint" id="@(searchTextBoxId.ToString())" value="@(ViewBag.SearchQuery)"/>
-    <button type="button" id="@(searchButtonId.ToString())" @(SystemManager.IsDesignMode ? "disabled" : "")>@Html.Resource("SearchLabel")</button>
-
-    <input type="hidden" data-sf-role="resultsUrl" value="@(Model.ResultsUrl)" />
-    <input type="hidden" data-sf-role="indexCatalogue" value="@(Model.IndexCatalogue)" />
-    <input type="hidden" data-sf-role="wordsMode" value="@(Model.WordsMode.ToString())" />
-    <input type="hidden" data-sf-role="disableSuggestions" value='@(Model.DisableSuggestions ? ("true") : ("false"))' />
-    <input type="hidden" data-sf-role="minSuggestionLength" value="@(Model.MinSuggestionLength.ToString())" />
-    <input type="hidden" data-sf-role="suggestionFields" value="@(Model.SuggestionFields)" />
-    <input type="hidden" data-sf-role="language" value="@(Model.Language)" />
-    <input type="hidden" data-sf-role="suggestionsRoute" value="@(Model.SuggestionsRoute)" />
-    <input type="hidden" data-sf-role="searchTextBoxId" value='@("#" + searchTextBoxId.ToString())' />
-    <input type="hidden" data-sf-role="searchButtonId" value='@("#" + searchButtonId.ToString())' />
+        Html.Raw(String.Format("<div class=\"{0}\">", HttpUtility.HtmlAttributeEncode(Model.CssClass))) :
+        Html.Raw("<div>"))
+<input type="text" title="@Html.Resource("SearchInput")" placeholder="@Model.BackgroundHint" id="@(searchTextBoxId.ToString())" value="@(ViewBag.SearchQuery)" />
+<button type="button" id="@(searchButtonId.ToString())" @(SystemManager.IsDesignMode ? "disabled" : "")>@Html.Resource("SearchLabel")</button>
+<input type="hidden" data-sf-role="resultsUrl" value="@(Model.ResultsUrl)" />
+<input type="hidden" data-sf-role="indexCatalogue" value="@(Model.IndexCatalogue)" />
+<input type="hidden" data-sf-role="wordsMode" value="@(Model.WordsMode.ToString())" />
+<input type="hidden" data-sf-role="disableSuggestions" value='@(Model.DisableSuggestions ? ("true") : ("false"))' />
+<input type="hidden" data-sf-role="minSuggestionLength" value="@(Model.MinSuggestionLength.ToString())" />
+<input type="hidden" data-sf-role="suggestionFields" value="@(Model.SuggestionFields)" />
+<input type="hidden" data-sf-role="language" value="@(Model.Language)" />
+<input type="hidden" data-sf-role="siteId" value="@(SystemManager.CurrentContext.CurrentSite.Id)" />
+<input type="hidden" data-sf-role="suggestionsRoute" value="@(Model.SuggestionsRoute)" />
+<input type="hidden" data-sf-role="searchTextBoxId" value='@("#" + searchTextBoxId.ToString())' />
+<input type="hidden" data-sf-role="searchButtonId" value='@("#" + searchButtonId.ToString())' />
 </div>
 
 @* Avoid conflicts because the designer is loading kendo too. *@
@@ -36,5 +32,4 @@
     @Html.Script(ScriptRef.JQuery, "top", false)
     @Html.Script(ScriptRef.JQueryUI, "top", false)
 }
-
 @Html.Script(Url.WidgetContent("Mvc/Scripts/SearchBox/Search-box.js"), "bottom", false)

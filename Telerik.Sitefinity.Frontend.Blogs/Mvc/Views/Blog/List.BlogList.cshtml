@@ -4,6 +4,7 @@
 @using Telerik.Sitefinity.Frontend.Blogs.Mvc.Helpers;
 @using Telerik.Sitefinity.Frontend.Blogs.Mvc.Models.Blog;
 @using Telerik.Sitefinity.Frontend.Mvc.Helpers;
+@using Telerik.Sitefinity.Frontend.Mvc.Models;
 @using Telerik.Sitefinity.Modules.Pages;
 
 <div class="@Model.CssClass">
@@ -14,7 +15,7 @@
 
         @foreach (var item in Model.Items)
         {
-            var detailPageUrl = DetailLocationHyperLinkHelper.GetDetailPageUrl(item, ViewBag.DetailsPageId, ViewBag.DetailPageMode);
+            var detailPageUrl = BlogHelper.GetDetailPageUrl(item, (Guid)ViewBag.DetailsPageId, (BlogDetailLocationMode)ViewBag.DetailPageMode);
             <li @Html.InlineEditingAttributes(Model.ProviderName, Model.ContentType.FullName, (Guid)item.Fields.Id)>
                 <h3>
                     @if (!string.IsNullOrEmpty(detailPageUrl))

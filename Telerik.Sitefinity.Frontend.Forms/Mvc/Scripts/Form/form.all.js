@@ -137,12 +137,12 @@
         },
 
         getCaptcha: function () {
-            var getCaptchaUrl = this.rootUrl + 'captcha';
+            var getCaptchaUrl = this.rootUrl;
             return this.makeAjax(getCaptchaUrl);
         },
 
         validateCaptcha: function (data) {
-            var validateCaptchaUrl = this.rootUrl + 'captcha';
+            var validateCaptchaUrl = this.rootUrl;
             return this.makeAjax(validateCaptchaUrl, 'POST', data);
         }
     };

@@ -63,11 +63,11 @@
       <SpecificVersion>False</SpecificVersion>
     </Reference>
     <Reference Include="ServiceStack.Text, Version=5.0.0.0, Culture=neutral, PublicKeyToken=02c12cbda47e6587, processorArchitecture=MSIL">
-      <HintPath>..\packages\ServiceStack.Text.5.7.0\lib\net45\ServiceStack.Text.dll</HintPath>
+      <HintPath>..\packages\ServiceStack.Text.5.8.0\lib\net45\ServiceStack.Text.dll</HintPath>
     </Reference>
     <Reference Include="System" />
-    <Reference Include="System.Buffers, Version=4.0.2.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
-      <HintPath>..\packages\System.Buffers.4.4.0\lib\netstandard2.0\System.Buffers.dll</HintPath>
+    <Reference Include="System.Buffers, Version=4.0.3.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Buffers.4.5.0\lib\netstandard2.0\System.Buffers.dll</HintPath>
     </Reference>
     <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
@@ -206,27 +206,27 @@
   </ItemGroup>
   <ItemGroup>
     <Reference Include="Telerik.Sitefinity.ContentModules">
-      <HintPath>..\packages\Telerik.Sitefinity.Content.12.2.7200\lib\net472\Telerik.Sitefinity.ContentModules.dll</HintPath>
+      <HintPath>..\packages\Telerik.Sitefinity.Content.13.0.7300\lib\net472\Telerik.Sitefinity.ContentModules.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Telerik.Sitefinity.Model">
-      <HintPath>..\packages\Telerik.Sitefinity.Core.12.2.7200\lib\net472\Telerik.Sitefinity.Model.dll</HintPath>
+      <HintPath>..\packages\Telerik.Sitefinity.Core.13.0.7300\lib\net472\Telerik.Sitefinity.Model.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Telerik.Sitefinity">
-      <HintPath>..\packages\Telerik.Sitefinity.Core.12.2.7200\lib\net472\Telerik.Sitefinity.dll</HintPath>
+      <HintPath>..\packages\Telerik.Sitefinity.Core.13.0.7300\lib\net472\Telerik.Sitefinity.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Telerik.Sitefinity.Utilities">
-      <HintPath>..\packages\Telerik.Sitefinity.Core.12.2.7200\lib\net472\Telerik.Sitefinity.Utilities.dll</HintPath>
+      <HintPath>..\packages\Telerik.Sitefinity.Core.13.0.7300\lib\net472\Telerik.Sitefinity.Utilities.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Telerik.Sitefinity.Frontend">
-      <HintPath>..\packages\Telerik.Sitefinity.Feather.Core.12.2.7200\lib\net472\Telerik.Sitefinity.Frontend.dll</HintPath>
+      <HintPath>..\packages\Telerik.Sitefinity.Feather.Core.13.0.7300\lib\net472\Telerik.Sitefinity.Frontend.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Telerik.Sitefinity.Mvc">
-      <HintPath>..\packages\Telerik.Sitefinity.Mvc.12.2.7200\lib\net472\Telerik.Sitefinity.Mvc.dll</HintPath>
+      <HintPath>..\packages\Telerik.Sitefinity.Mvc.13.0.7300\lib\net472\Telerik.Sitefinity.Mvc.dll</HintPath>
       <Private>True</Private>
     </Reference>
   </ItemGroup>

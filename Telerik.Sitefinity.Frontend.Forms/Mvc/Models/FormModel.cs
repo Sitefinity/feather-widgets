@@ -811,7 +811,7 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Models
                 var result = new List<CacheDependencyKey>(1);
                 if (viewModel != null && !string.IsNullOrWhiteSpace(viewModel.FormId))
                 {
-                    result.Add(new CacheDependencyKey { Key = viewModel.FormId, Type = contentResolvedType });
+                    result.AddRange(OutputCacheDependencyHelper.GetPublishedContentCacheDependencyKeys(contentResolvedType, viewModel.FormId));
                 }
 
                 return result;
@@ -1045,11 +1045,14 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Models
                 if (this.captchaController.Model.GetViewModel(this.captchaController.Model.Value) is CaptchaViewModel captchaViewModel)
                 {
                     var key = HttpContext.Current.Request[captchaViewModel.CaptchaKeyFormKey];
-                    var keys = key.Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries);
-                    ITemporaryStorage tempStorage = ObjectFactory.Resolve<ITemporaryStorage>();
-                    foreach (var item in keys)
+                    if (!string.IsNullOrEmpty(key))
                     {
-                        tempStorage.Remove(item);
+                        var keys = key.Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries);
+                        ITemporaryStorage tempStorage = ObjectFactory.Resolve<ITemporaryStorage>();
+                        foreach (var item in keys)
+                        {
+                            tempStorage.Remove(item);
+                        }
                     }
                 }
             }

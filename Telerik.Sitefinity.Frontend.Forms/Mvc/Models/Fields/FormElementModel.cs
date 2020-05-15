@@ -102,6 +102,7 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Models.Fields
             validatorDefinition.RegularExpressionViolationMessage = this.BuildErrorMessage(definition.RegularExpressionViolationMessage, fieldTitle);
             validatorDefinition.MinLength = definition.MinLength;
             validatorDefinition.MaxLength = definition.MaxLength;
+            validatorDefinition.Required = definition.Required;
 
             return validatorDefinition;
         }

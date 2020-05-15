@@ -5,7 +5,7 @@ using System.Web;
 using Telerik.Sitefinity.Frontend.Forms.Mvc.StringResources;
 using Telerik.Sitefinity.Localization;
 using Telerik.Sitefinity.Services;
-using Telerik.Sitefinity.Services.Comments.DTO;
+using Telerik.Sitefinity.Services.Captcha.DTO;
 using Telerik.Sitefinity.Web;
 using Telerik.Sitefinity.Web.UI.Validation.Definitions;
 
@@ -130,7 +130,7 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Models.Fields.Captcha
 
         private bool ValidateCaptcha(string key, string answer)
         {
-            var commentWebServiceType = Type.GetType("Telerik.Sitefinity.Services.Comments.CommentWebService, Telerik.Sitefinity");
+            var commentWebServiceType = Type.GetType("Telerik.Sitefinity.Services.Captcha.CaptchaWebService, Telerik.Sitefinity");
             var commentWebServiceInstance = Activator.CreateInstance(commentWebServiceType);
             var validateMethodInfo = commentWebServiceType.GetMethod("Validate", BindingFlags.NonPublic | BindingFlags.Instance, null, new Type[] { typeof(string), typeof(string) }, null);
 
@@ -167,11 +167,9 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Models.Fields.Captcha
         }
 
         private ValidatorDefinition validatorDefinition;
-        private const string CaptchaGetService = "RestApi/comments-api/";
+        private const string CaptchaGetService = "RestApi/captcha/";
 
         private const string CaptchaAnswerFormKey = "captcha-a";
-        private const string CaptchaCorrectAnswerFormKey = "captcha-ca";
-        private const string CaptchaInitializationVectorFormKey = "captcha-iv";
         private const string CaptchaKeyFormKey = "captcha-k";
         private bool enableAudioCode = true;
     }

@@ -1,10 +1,7 @@
 ﻿@model Telerik.Sitefinity.Frontend.Identity.Mvc.Models.LoginStatus.LoginStatusViewModel
 
 @using Telerik.Sitefinity.Frontend.Mvc.Helpers;
-@using Telerik.Sitefinity.Modules.Pages;
 @using Telerik.Sitefinity.Mvc.Proxy;
-
-@Html.Script(ScriptRef.JQuery, "top", false)
 
 @{
 var SignOutUrl = string.Concat(Url.Action("SignOut"),string.Format("?{0}={1}", MvcControllerProxy.ControllerKey, ViewData[MvcControllerProxy.ControllerKey]));
@@ -21,7 +18,7 @@ var SignOutUrl = string.Concat(Url.Action("SignOut"),string.Format("?{0}={1}", M
 
     <div data-sf-role="sf-logged-out-view" style="display: none">
 
-        <button data-sf-role="login-status-button">@Html.Resource("Login")</button>
+        <button data-sf-role="login-status-button" type="button">@Html.Resource("Login")</button>
         <a href="@(Model.RegistrationPageUrl ?? "#")">@Html.Resource("RegisterNow")</a>
 
     </div>
@@ -33,4 +30,4 @@ var SignOutUrl = string.Concat(Url.Action("SignOut"),string.Format("?{0}={1}", M
 <input type="hidden" data-sf-role="sf-login-redirect-url" value="@Model.LoginPageUrl" />
 <input type="hidden" data-sf-role="sf-is-design-mode-value" value="@ViewBag.IsDesignMode.ToString()" />
 
-@Html.Script(Url.WidgetContent("Mvc/Scripts/LoginStatus/login-status.js"), "bottom", false)
+@Html.Script(Url.WidgetContent("Mvc/Scripts/LoginStatus/login-status.js"), "bottom", throwException: false, tryUseScriptManager: false)
