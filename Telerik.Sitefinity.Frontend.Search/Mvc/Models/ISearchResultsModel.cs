@@ -136,7 +136,8 @@ namespace Telerik.Sitefinity.Frontend.Search.Mvc.Models
         /// <param name="skip">The skip.</param>
         /// <param name="language">The language of the displayed results.</param>
         /// <param name="orderBy">The order by.</param>
-        void PopulateResults(string searchQuery, string indexCatalogue, int? skip,  string language, string orderBy);
+        /// <param name="customFilter">A custom filter to add in addition to the generated filter that is already being made for text and language</param>
+        void PopulateResults(string searchQuery, string indexCatalogue, int? skip,  string language, string orderBy, ISearchFilter customFilter = null);
 
         /// <summary>
         /// Validates the query.
