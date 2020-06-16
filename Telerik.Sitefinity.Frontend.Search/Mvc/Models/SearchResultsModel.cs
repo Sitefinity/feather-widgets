@@ -135,7 +135,7 @@ namespace Telerik.Sitefinity.Frontend.Search.Mvc.Models
 
         #region Public methods
         /// <inheritdoc />
-        public virtual void PopulateResults(string searchQuery, string indexCatalogue, int? skip, string language, string orderBy)
+        public virtual void PopulateResults(string searchQuery, string indexCatalogue, int? skip, string language, string orderBy, ISearchFilter customFilter = null)
         {
             this.IndexCatalogue = indexCatalogue;
             this.InitializeOrderByEnum(orderBy);
@@ -161,7 +161,7 @@ namespace Telerik.Sitefinity.Frontend.Search.Mvc.Models
             }
 
             int totalCount = 0;
-            var result = this.Search(searchQuery, language, itemsToSkip, take.Value, out totalCount);
+            var result = this.Search(searchQuery, language, itemsToSkip, take.Value, out totalCount, customFilter);
 
             int? totalPagesCount = (int)Math.Ceiling((double)(totalCount / (double)this.ItemsPerPage.Value));
             this.TotalPagesCount = this.DisplayMode == ListDisplayMode.Paging ? totalPagesCount : null;
@@ -206,8 +206,9 @@ namespace Telerik.Sitefinity.Frontend.Search.Mvc.Models
         /// <param name="skip">The skip.</param>
         /// <param name="take">The take.</param>
         /// <param name="hitCount">The hit count.</param>
+        /// <param name="customFilter">Any additional filtering on top of the generated filter for language </param>
         /// <returns></returns>
-        public IEnumerable<IDocument> Search(string query, string language, int skip, int take, out int hitCount)
+        public IEnumerable<IDocument> Search(string query, string language, int skip, int take, out int hitCount, ISearchFilter customFilter)
         {
             var service = Telerik.Sitefinity.Services.ServiceBus.ResolveService<ISearchService>();
             var queryBuilder = ObjectFactory.Resolve<IQueryBuilder>();
@@ -226,6 +227,19 @@ namespace Telerik.Sitefinity.Frontend.Search.Mvc.Models
             if (this.TryBuildLanguageFilter(language, out filter))
             {
                 searchQuery.Filter = filter;
+            }
+            
+            if (customFilter != null && (customFilter.Clauses.Any() || customFilter.Groups.Any()))
+            {
+                if (searchQuery.Filter != null)
+                {
+                    (searchQuery.Filter as SearchFilter).AddFilter(customFilter);
+                }
+                else
+                {
+                    searchQuery.Filter = customFilter;
+                }
+
             }
 
             var oldSkipValue = skip;
