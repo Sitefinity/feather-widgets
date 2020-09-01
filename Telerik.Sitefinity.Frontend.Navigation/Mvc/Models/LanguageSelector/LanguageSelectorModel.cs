@@ -50,7 +50,7 @@ namespace Telerik.Sitefinity.Frontend.Navigation.Mvc.Models.LanguageSelector
         {
             var viewModel = new LanguageSelectorViewModel();
             viewModel.IncludeCurrentLanguage = this.IncludeCurrentLanguage;
-            viewModel.CurrentLanguage = Thread.CurrentThread.CurrentUICulture.Name;
+            viewModel.CurrentLanguage = Telerik.Sitefinity.Services.SystemManager.CurrentContext.Culture.Name;
             viewModel.CssClass = this.CssClass;
 
             IEnumerable<CultureInfo> shownLanguages = this.GetLanguagesToDisplay();
@@ -202,7 +202,7 @@ namespace Telerik.Sitefinity.Frontend.Navigation.Mvc.Models.LanguageSelector
 
             ////Remove current language, if necessary
             IList<CultureInfo> shownLanguages;
-            CultureInfo currentLanguage = Thread.CurrentThread.CurrentUICulture;
+            CultureInfo currentLanguage = Telerik.Sitefinity.Services.SystemManager.CurrentContext.Culture;
             if (this.IncludeCurrentLanguage)
             {
                 shownLanguages = languages;
@@ -253,8 +253,8 @@ namespace Telerik.Sitefinity.Frontend.Navigation.Mvc.Models.LanguageSelector
 
             if (url == null)
             {
-                var currentUiCulture = Thread.CurrentThread.CurrentUICulture;
-                Thread.CurrentThread.CurrentUICulture = culture;
+                var currentUiCulture = Telerik.Sitefinity.Services.SystemManager.CurrentContext.Culture;
+                Telerik.Sitefinity.Services.SystemManager.CurrentContext.Culture = culture;
                 try
                 {
                     var siteNode = SiteMapBase.GetCurrentProvider().FindSiteMapNodeFromKey(this.node.Id.ToString());
@@ -265,7 +265,7 @@ namespace Telerik.Sitefinity.Frontend.Navigation.Mvc.Models.LanguageSelector
                 }
                 finally
                 {
-                    Thread.CurrentThread.CurrentUICulture = currentUiCulture;
+                    Telerik.Sitefinity.Services.SystemManager.CurrentContext.Culture = currentUiCulture;
                 }
             }
 

@@ -150,7 +150,7 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Controllers
                 widgetId = Guid.Empty;
             }
 
-            var formModel = ControllerHelper.LoadControllerModel(widgetId, CultureInfo.CurrentUICulture) as IFormModel;
+            var formModel = ControllerHelper.LoadControllerModel(widgetId, Telerik.Sitefinity.Services.SystemManager.CurrentContext.Culture) as IFormModel;
             formModel = formModel ?? this.Model;
 
             var result = formModel.TrySubmitForm(collection, this.Request.Files, this.Request.UserHostAddress);

@@ -198,21 +198,16 @@ namespace Telerik.Sitefinity.Frontend.Search.Mvc.Models
             var pipe = pipeSettings.SingleOrDefault(p => p.Id == searchIndexPipeId);
             if (pipe != null)
             {
-                if (!SystemManager.CurrentContext.IsMultisiteMode)
-                    return pipe.CatalogName;
+                var siteId = SystemManager.CurrentContext.CurrentSite.Id;
+
+                IList<Guid> sites;
+                if (pipe.PublishingPoint.IsSharedWithAllSites)
+                    sites = MultisiteManager.GetManager().GetSites().Select(s => s.Id).ToList();
                 else
-                {
-                    var siteId = SystemManager.CurrentContext.CurrentSite.Id;
+                    sites = this.GetSitesByPoint(pipe.PublishingPoint).Select(l => l.SiteId).ToList();
 
-                    IList<Guid> sites;
-                    if (pipe.PublishingPoint.IsSharedWithAllSites)
-                        sites = MultisiteManager.GetManager().GetSites().Select(s => s.Id).ToList();
-                    else
-                        sites = this.GetSitesByPoint(pipe.PublishingPoint).Select(l => l.SiteId).ToList();
-
-                    if (sites.Contains(siteId))
-                        return pipe.CatalogName;
-                }
+                if (sites.Contains(siteId))
+                    return pipe.CatalogName;
             }
             return string.Empty;
         }

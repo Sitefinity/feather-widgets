@@ -23,7 +23,7 @@ namespace Telerik.Sitefinity.Frontend.Events.Mvc.Models.EventScheduler
             {
                 if (this.uiCulture == null)
                 {
-                    this.uiCulture = CultureInfo.CurrentUICulture;
+                    this.uiCulture = Telerik.Sitefinity.Services.SystemManager.CurrentContext.Culture;
                 }
 
                 return this.uiCulture;

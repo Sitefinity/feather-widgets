@@ -312,7 +312,7 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Models
         {
             bool renderForm = true;
 
-            var currentLanguage = CultureInfo.CurrentUICulture;
+            var currentLanguage = Telerik.Sitefinity.Services.SystemManager.CurrentContext.Culture;
 
             // Do not display form if the form is not translated in the current language
             if (this.FormData.IsPublished(currentLanguage) == false)

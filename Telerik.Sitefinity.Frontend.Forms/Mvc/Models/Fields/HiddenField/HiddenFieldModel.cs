@@ -15,9 +15,6 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Models.Fields.HiddenField
         {
             var metaField = base.GetMetaField(formFieldControl);
 
-            if (string.IsNullOrEmpty(metaField.Title))
-                metaField.Title = Res.Get<FieldResources>().Untitled;
-
             return metaField;
         }
 

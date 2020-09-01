@@ -247,6 +247,21 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.StringResources
         }
 
         /// <summary>
+        /// phrase : The system has not been configured to send emails. Go to set SMTP settings.
+        /// </summary>
+        [ResourceEntry("SetSmtpSettings",
+            Value = "The system has not been configured to send emails. Go to set SMTP settings.",
+            Description = "phrase : The system has not been configured to send emails. Go to set SMTP settings.",
+            LastModified = "2020/08/12")]
+        public string SetSmtpSettings
+        {
+            get
+            {
+                return this["SetSmtpSettings"];
+            }
+        }
+
+        /// <summary>
         /// phrase : New password
         /// </summary>
         [ResourceEntry("ResetPasswordNewPassword",

@@ -442,7 +442,7 @@ namespace Telerik.Sitefinity.Frontend.Comments.Mvc.Models
         {
             var author = new AuthorProxy(SecurityManager.GetCurrentUserId().ToString());
 
-            return new ThreadProxy(threadTitle, this.ThreadType, this.GroupKey, author)
+            return new ThreadProxy(threadTitle, this.ThreadType, this.GroupKey, author, SystemManager.CurrentContext.Culture)
             {
                 IsClosed = false,
                 Key = this.ThreadKey,
@@ -460,7 +460,7 @@ namespace Telerik.Sitefinity.Frontend.Comments.Mvc.Models
                 {
                     var manager = Telerik.Sitefinity.Modules.Pages.PageManager.GetManager();
                     var redirectPage = manager.GetPageNode(currentSite.FrontEndLoginPageId);
-                    var culture = AppSettings.CurrentSettings.Multilingual ? SystemManager.CurrentContext.AppSettings.CurrentCulture : null;
+                    var culture = SystemManager.CurrentContext.AppSettings.CurrentCulture;
                     defaultLoginPageUrl = !redirectPage.IsDeleted ? Telerik.Sitefinity.Modules.Pages.PageExtesnsions.GetFullUrl(redirectPage, culture, true) : string.Empty;
                 }
                 catch (ItemNotFoundException)

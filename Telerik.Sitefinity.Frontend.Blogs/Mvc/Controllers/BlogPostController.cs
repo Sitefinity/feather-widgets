@@ -386,7 +386,6 @@ namespace Telerik.Sitefinity.Frontend.Blogs.Mvc.Controllers
         /// <value>
         /// The disable canonical URLs.
         /// </value>
-        [Browsable(false)]
         public bool? DisableCanonicalUrlMetaTag
         {
             get

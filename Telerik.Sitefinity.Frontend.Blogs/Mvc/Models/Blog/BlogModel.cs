@@ -56,7 +56,7 @@ namespace Telerik.Sitefinity.Frontend.Blogs.Mvc.Models.Blog
         public FilteredSelectionMode FilteredSelectionMode { get; set; }
 
         /// <inheritDoc/>
-        public ContentListViewModel CreateListViewModel(int page)
+        public virtual ContentListViewModel CreateListViewModel(int page)
         {
             return base.CreateListViewModel(null, page);
         }
@@ -89,7 +89,7 @@ namespace Telerik.Sitefinity.Frontend.Blogs.Mvc.Models.Blog
 
             if(SystemManager.CurrentContext.AppSettings.Multilingual) 
             {
-                var curentUiCulture = CultureInfo.CurrentUICulture.Name;
+                var curentUiCulture = Telerik.Sitefinity.Services.SystemManager.CurrentContext.Culture.Name;
                 postsQuery = postsQuery.Where(bp => bp.PublishedTranslations.Contains(curentUiCulture));
             }
             viewModel.PostsCount = postsQuery.Count();

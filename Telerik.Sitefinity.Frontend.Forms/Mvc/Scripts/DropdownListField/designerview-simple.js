@@ -84,7 +84,8 @@
                 return $('<div class="list-group-item list-group-item-placeholder list-group-item-placeholder-2"></div>');
             },
             handler: ".handler",
-            axis: "y"
+            axis: "y",
+            autoScroll: true
         };
     }]);
 })();

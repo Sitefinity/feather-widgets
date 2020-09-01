@@ -280,7 +280,7 @@ namespace Telerik.Sitefinity.Frontend.Events.Mvc.Controllers
             this.ViewBag.CurrentPageId = this.GetPageId();
 
             this.ViewBag.DetailsPageId = this.DetailsPageId == Guid.Empty ? (SiteMapBase.GetActualCurrentNode() == null ? Guid.Empty : SiteMapBase.GetActualCurrentNode().Id) : this.DetailsPageId;
-            this.ViewBag.UiCulture = SystemManager.CurrentContext.AppSettings.Multilingual ? CultureInfo.CurrentUICulture.ToString() : string.Empty;
+            this.ViewBag.UiCulture = SystemManager.CurrentContext.AppSettings.Multilingual ? Telerik.Sitefinity.Services.SystemManager.CurrentContext.Culture.ToString() : string.Empty;
             this.ViewBag.TimeZoneOffset = timezoneInfo.BaseUtcOffset.TotalMilliseconds.ToString();
             this.ViewBag.TimeZoneId = timezoneInfo.Id;
         }

@@ -138,7 +138,7 @@ namespace Telerik.Sitefinity.Frontend.Card.Mvc.Models.Card
                     string relativeUrl;
                     if (SystemManager.CurrentContext.AppSettings.Multilingual)
                     {
-                        relativeUrl = node.GetFullUrl(CultureInfo.CurrentUICulture, false);
+                        relativeUrl = node.GetFullUrl(Telerik.Sitefinity.Services.SystemManager.CurrentContext.Culture, false);
                     }
                     else
                     {

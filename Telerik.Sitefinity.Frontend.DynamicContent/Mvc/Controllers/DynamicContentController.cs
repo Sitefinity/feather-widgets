@@ -266,13 +266,14 @@ namespace Telerik.Sitefinity.Frontend.DynamicContent.Mvc.Controllers
         /// <summary>
         /// Renders appropriate list view depending on the <see cref="ListTemplateName" />
         /// </summary>
-        /// <param name="fromDate">The start date from the date filter.</param>
-        /// <param name="toDate">The end date from the date filter.</param>
+        /// <param name="from">The start date from the date filter.</param>
+        /// <param name="to">The end date from the date filter.</param>
         /// <param name="page">The page.</param>
         /// <returns>
         /// The <see cref="ActionResult" />.
         /// </returns>
-        public virtual ActionResult ListByDate(DateTime fromDate, DateTime toDate, int? page)
+        // !!! Do not rename method parameters name, because they are used with reflection
+        public virtual ActionResult ListByDate(DateTime from, DateTime to, int? page)
         {
             if (this.Model.HideListView(this.Request.RequestContext))
             {
@@ -284,7 +285,7 @@ namespace Telerik.Sitefinity.Frontend.DynamicContent.Mvc.Controllers
 
             this.InitializeListViewBag(urlPath + "?page={0}");
 
-            var viewModel = this.Model.CreateListViewModelByDate(fromDate, toDate, page ?? 1);
+            var viewModel = this.Model.CreateListViewModelByDate(from, to, page ?? 1);
 
             if (SystemManager.CurrentHttpContext != null)
             {

@@ -230,8 +230,7 @@ namespace Telerik.Sitefinity.Frontend.Navigation.Mvc.Models
                 cacheDependencyNotifiedObjects.Add(new CacheDependencyKey() { Type = CacheDependencyObjectForAllSitesType, Key = nodeId });
 
                 var multilingualKey = nodeId;
-                if (AppSettings.CurrentSettings.Multilingual)
-                    multilingualKey += Thread.CurrentThread.CurrentUICulture;
+                multilingualKey += Telerik.Sitefinity.Services.SystemManager.CurrentContext.Culture;
 
                 cacheDependencyNotifiedObjects.Add(new CacheDependencyKey() { Type = CacheDependencyPageNodeStateChangeType, Key = multilingualKey });
                 cacheDependencyNotifiedObjects.Add(new CacheDependencyKey() { Type = CacheDependencyPageNodeObjectType, Key = multilingualKey });

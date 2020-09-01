@@ -59,6 +59,14 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.LoginForm
         bool EnablePasswordReset { get; }
 
         /// <summary>
+        /// Gets a value indicating whether the SMTP settings are set.
+        /// </summary>
+        /// <value>
+        /// <c>true</c> if SMTP settings are set; otherwise, <c>false</c>.
+        /// </value>
+        bool AreSmtpSettingsSet { get; }
+
+        /// <summary>
         /// Gets or sets the css class.
         /// </summary>
         /// <value>

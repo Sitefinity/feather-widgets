@@ -143,7 +143,7 @@ namespace Telerik.Sitefinity.Frontend.Navigation.Mvc.Models.SiteSelector
                 }
                 else
                 {
-                    CultureInfo cultureInfo = new CultureInfo(site.DefaultCulture);
+                    CultureInfo cultureInfo = site.DefaultCulture;
                     bool isCurrentSite = this.currentSiteId == site.Id;
 
                     result.Add(this.GetSiteViewModel(site, cultureInfo, isCurrentSite));
@@ -179,7 +179,7 @@ namespace Telerik.Sitefinity.Frontend.Navigation.Mvc.Models.SiteSelector
 
                         if (addToDataSource)
                         {
-                            if (CultureInfo.CurrentUICulture.Name == culture.Name)
+                            if (Telerik.Sitefinity.Services.SystemManager.CurrentContext.Culture.Name == culture.Name)
                                 isCurrentSite = true;
 
                             siteUrl = this.ResolveDefaultSiteUrl(actualPageNode, culture);
@@ -242,11 +242,6 @@ namespace Telerik.Sitefinity.Frontend.Navigation.Mvc.Models.SiteSelector
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1055:UriReturnValuesShouldNotBeStrings")]
         protected virtual string ResolveDefaultSiteUrl(PageNode actualPageNode, CultureInfo cultureInfo)
         {
-            if (!SystemManager.CurrentContext.IsMultisiteMode)
-            {
-                throw new ArgumentNullException("Multisite mode is not enabled!");
-            }
-
             var pageUrl = actualPageNode.GetFullUrl(cultureInfo, false, false);
             var pageUrlWithCulture = this.UrlService.ResolveUrl(pageUrl, cultureInfo);
             Guid rootNodeId = actualPageNode.RootNodeId != Guid.Empty ? actualPageNode.RootNodeId : actualPageNode.Id;

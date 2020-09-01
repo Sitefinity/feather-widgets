@@ -21,12 +21,15 @@
 
         $scope.$watch(
           'properties.ProviderName.PropertyValue',
-          function (newProviderName, oldProviderName) {
-              if (newProviderName !== oldProviderName) {
-                  $scope.properties.ParentFilterMode.PropertyValue = 'All';
-                  $scope.properties.SerializedSelectedParentsIds.PropertyValue = null;
-              }
-          },
+            function (newProviderName, oldProviderName) {
+                newProviderName = newProviderName || "";
+                oldProviderName = oldProviderName || "";
+
+                if (newProviderName !== oldProviderName) {
+                    $scope.properties.ParentFilterMode.PropertyValue = 'All';
+                    $scope.properties.SerializedSelectedParentsIds.PropertyValue = null;
+                }
+            },
           true
       );
 

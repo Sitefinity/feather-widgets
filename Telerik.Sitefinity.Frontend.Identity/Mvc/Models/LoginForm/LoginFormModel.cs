@@ -114,6 +114,20 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.LoginForm
             }
         }
 
+        /// <summary>
+        /// Gets a value indicating whether the SMTP settings are set.
+        /// </summary>
+        /// <value>
+        /// <c>true</c> if SMTP settings are set; otherwise, <c>false</c>.
+        /// </value>
+        public virtual bool AreSmtpSettingsSet
+        {
+            get
+            {
+                return LoginUtils.AreSmtpSettingsSet;
+            }
+        }
+
         #endregion
 
         #region Public Methods
@@ -136,7 +150,7 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.LoginForm
                 viewModel.RedirectUrlAfterLogin = this.GetPageUrl(this.LoginRedirectPageId);
                 viewModel.RegisterPageUrl = this.GetPageUrl(this.RegisterRedirectPageId);
                 viewModel.ShowRegistrationLink = this.RegisterRedirectPageId.HasValue;
-                viewModel.ShowForgotPasswordLink = this.AllowResetPassword && (this.EnablePasswordReset || this.EnablePasswordRetrieval);
+                viewModel.ShowForgotPasswordLink = this.AllowResetPassword && (this.EnablePasswordReset || this.EnablePasswordRetrieval) && this.AreSmtpSettingsSet;
                 viewModel.Realm = ClaimsManager.CurrentAuthenticationModule.GetRealm();
                 viewModel.CssClass = this.CssClass;
                 viewModel.ShowRememberMe = this.ShowRememberMe;

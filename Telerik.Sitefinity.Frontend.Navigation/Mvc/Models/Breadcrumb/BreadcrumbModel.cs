@@ -269,7 +269,7 @@ namespace Telerik.Sitefinity.Frontend.Navigation.Mvc.Models.Breadcrumb
                 var homePageNode = homePageKey != Guid.Empty ? (PageSiteNode)this.SiteMapProvider.FindSiteMapNodeFromKey(homePageKey.ToString()) : null;
 
                 //// Gets the actual home page when the site is set to multilingual and the home page is split
-                homePageNode = (PageSiteNode)((SiteMapBase)this.SiteMapProvider).FindSiteMapNodeForSpecificLanguage(homePageNode, CultureInfo.CurrentUICulture) ?? homePageNode;
+                homePageNode = (PageSiteNode)((SiteMapBase)this.SiteMapProvider).FindSiteMapNodeForSpecificLanguage(homePageNode, Telerik.Sitefinity.Services.SystemManager.CurrentContext.Culture) ?? homePageNode;
 
                 var showToSelectedNode = this.SelectedPageNode != null && this.BreadcrumbIncludeOption != BreadcrumbIncludeOption.CurrentPageFullPath;
                 var isSelectedPageNodeFound = false;

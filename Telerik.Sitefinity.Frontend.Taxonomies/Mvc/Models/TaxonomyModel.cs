@@ -291,9 +291,7 @@ namespace Telerik.Sitefinity.Frontend.Taxonomies.Mvc.Models
         {
             get
             {
-                return SystemManager.CurrentContext.IsMultisiteMode ?
-                    this.CurrentTaxonomyManager.GetSiteTaxonomy<Taxonomy>(this.TaxonomyId) :
-                    this.CurrentTaxonomyManager.GetTaxonomy<Taxonomy>(this.TaxonomyId);
+                return this.CurrentTaxonomyManager.GetSiteTaxonomy<Taxonomy>(this.TaxonomyId);
             }
         }
         
