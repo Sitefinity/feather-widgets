@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using ServiceStack.Text;
+using Telerik.Microsoft.Practices.EnterpriseLibrary.Common.Utility;
 using Telerik.Sitefinity.ContentLocations;
 using Telerik.Sitefinity.Data;
 using Telerik.Sitefinity.Frontend.Mvc.Models;
@@ -203,11 +204,9 @@ namespace Telerik.Sitefinity.Frontend.Lists.Mvc.Models
         /// </returns>
         public override IList<CacheDependencyKey> GetKeysOfDependentObjects(ContentListViewModel viewModel)
         {
-            var result = base.GetKeysOfDependentObjects(viewModel);
-            var manager = this.GetManager();
-            string applicationName = manager != null && manager.Provider != null ? manager.Provider.ApplicationName : string.Empty;
-            foreach (var key in OutputCacheDependencyHelper.GetPublishedContentCacheDependencyKeys(typeof(ListItem), applicationName))
-                result.Add(key);
+            var result = new List<CacheDependencyKey>();
+
+            viewModel.Items.ForEach(p => result.AddRange(OutputCacheDependencyHelper.GetPublishedContentCacheDependencyKeys(this.ContentType, p.DataItem.Id)));
 
             return result;
         }

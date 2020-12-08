@@ -144,16 +144,20 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Models.Fields.TextField
 
             var patternAttribute = string.Empty;
 
+            if (!string.IsNullOrWhiteSpace(this.ValidatorDefinition.ExpectedFormat.ToString()))
+            {
+                string expectedFormatPattern = this.GetRegExForExpectedFormat(this.ValidatorDefinition.ExpectedFormat);
+                if (!string.IsNullOrWhiteSpace(expectedFormatPattern))
+                {
+                    patternAttribute = expectedFormatPattern;
+                }
+            }
+
             if (!string.IsNullOrEmpty(this.ValidatorDefinition.RegularExpression))
             {
                 patternAttribute = this.ValidatorDefinition.RegularExpression;
             }
 
-            if (!string.IsNullOrWhiteSpace(this.ValidatorDefinition.ExpectedFormat.ToString()))
-            {
-                patternAttribute = this.GetRegExForExpectedFormat(this.ValidatorDefinition.ExpectedFormat, patternAttribute);
-            }
-            
             if (!string.IsNullOrEmpty(minMaxLength))
             {
                 if (this.InputType == TextType.Tel)
@@ -178,55 +182,33 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Models.Fields.TextField
             return attributes.ToString();
         }
 
-        private string GetRegExForExpectedFormat(ValidationFormat expectedFormat, string patternAttribute)
+        private string GetRegExForExpectedFormat(ValidationFormat expectedFormat)
         {
-            string regexPattern = string.Empty;
-
             switch (expectedFormat)
             {
-                case ValidationFormat.None:
-                    return string.Empty;
                 case ValidationFormat.AlphaNumeric:
-                    regexPattern = Validator.AlphaNumericRegexPattern;
-                    break;
+                    return Validator.AlphaNumericRegexPattern;
                 case ValidationFormat.Currency:
-                    regexPattern = Validator.CurrencyRegexPattern;
-                    break;
+                    return Validator.CurrencyRegexPattern;
                 case ValidationFormat.EmailAddress:
-                    regexPattern = Validator.EmailAddressRegexPattern;
-                    break;
+                    return Validator.EmailAddressRegexPattern;
                 case ValidationFormat.Integer:
-                    regexPattern = Validator.IntegerRegexPattern;
-                    break;
+                    return Validator.IntegerRegexPattern;
                 case ValidationFormat.InternetUrl:
-                    regexPattern = Validator.InternetUrlRegexPattern;
-                    break;
+                    return Validator.InternetUrlRegexPattern;
                 case ValidationFormat.NonAlphaNumeric:
-                    regexPattern = Validator.NonAlphaNumericRegexPattern;
-                    break;
+                    return Validator.NonAlphaNumericRegexPattern;
                 case ValidationFormat.Numeric:
-                    regexPattern = Validator.NumericRegexPattern;
-                    break;
+                    return Validator.NumericRegexPattern;
                 case ValidationFormat.Percentage:
-                    regexPattern = Validator.PercentRegexPattern;
-                    break;
+                    return Validator.PercentRegexPattern;
                 case ValidationFormat.USSocialSecurityNumber:
-                    regexPattern = Validator.USSocialSecurityRegexPattern;
-                    break;
+                    return Validator.USSocialSecurityRegexPattern;
                 case ValidationFormat.USZipCode:
-                    regexPattern = Validator.USZipCodeRegexPattern;
-                    break;
-                case ValidationFormat.Custom:
-                    if (string.IsNullOrEmpty(patternAttribute))
-                    {
-                        throw new ArgumentException("You must specify a valid RegularExpression.");
-                    }
-
-                    regexPattern = patternAttribute;
-                    break;
+                    return Validator.USZipCodeRegexPattern;
+                default:
+                    return string.Empty;
             }
-
-            return regexPattern;
         }
 
         private ValidatorDefinition validatorDefinition;

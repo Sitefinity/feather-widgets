@@ -1,18 +1,18 @@
 ﻿(function ($) {
     $(function () {
-        var hasPasswordErrors = $('[data-sf-role=has-password-errors]').val() === 'true';
+        var hasPasswordErrors = $('[data-sf-role="has-password-errors"]').val() === 'true';
 
-        var changePasswordHolder = $('[data-sf-role=edit-profile-change-password-holder]');
+        var changePasswordHolder = $('[data-sf-role="edit-profile-change-password-holder"]');
 
         if (hasPasswordErrors || changePasswordHolder.find('input').val()) {
             changePasswordHolder.show();
-            $('[data-sf-role=edit-profile-change-password-button]').hide();
+            $('[data-sf-role="edit-profile-change-password-button"]').hide();
         }
 
-        var editProfileUserImage = $('[data-sf-role=edit-profile-user-image]');
-        var fileInput = $('[data-sf-role=edit-profile-upload-picture-input]');
+        var editProfileUserImage = $('[data-sf-role="edit-profile-user-image"]');
+        var fileInput = $('[data-sf-role="edit-profile-upload-picture-input"]');
 
-        $('[data-sf-role=edit-profile-change-password-button]').on('click', function (e) {
+        $('[data-sf-role="edit-profile-change-password-button"]').on('click', function (e) {
             e.preventDefault();
 
             changePasswordHolder.show();
@@ -34,12 +34,12 @@
             }
         });
 
-        $('[data-sf-role=edit-profile-upload-picture-button]').click(function () {
+        $('[data-sf-role="edit-profile-upload-picture-button"]').click(function () {
             fileInput.click();
         });
 
-        $('[data-sf-role=profile-submit]').click(function () {
-            $('[data-sf-role=profile-submit-preview-message]').show();
+        $('[data-sf-role="profile-submit"]').click(function () {
+            $('[data-sf-role="profile-submit-preview-message"]').show();
         });
     });
 }(jQuery));

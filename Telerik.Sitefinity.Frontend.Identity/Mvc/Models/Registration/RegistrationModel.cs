@@ -451,9 +451,20 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.Registration
         /// <summary>
         /// Raises UserRegistered event.
         /// </summary>
+        /// <param name="userId">The user identifier</param>
+        protected virtual void RaiseRegistrationEvent(Guid userId)
+        {
+            var eventData = new UserRegistered(userId);
+            EventHub.Raise(eventData);
+        }
+
+        /// <summary>
+        /// Raises UserRegistered event.
+        /// </summary>
+        [Obsolete("Use overload with userId argument.")]
         protected virtual void RaiseRegistrationEvent()
         {
-            var eventData = new UserRegistered(); // no event data is used by the Sitefinity Insight handler
+            var eventData = new UserRegistered();
             EventHub.Raise(eventData);
         }
 
@@ -496,7 +507,7 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.Registration
                 this.SendSuccessfulRegistrationEmail(userManager, user);
             }
 
-            this.RaiseRegistrationEvent();
+            this.RaiseRegistrationEvent(user.Id);
         }
 
         /// <summary>

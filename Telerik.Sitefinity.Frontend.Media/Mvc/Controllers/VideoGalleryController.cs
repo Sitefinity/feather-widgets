@@ -209,7 +209,7 @@ namespace Telerik.Sitefinity.Frontend.Media.Mvc.Controllers
         {
             if (taxonFilter != null)
             {
-                var redirectPageUrlTemplate = UrlHelpers.GetRedirectPagingUrl(taxonFilter);
+                var redirectPageUrlTemplate = UrlHelpers.GetRedirectPagingUrl(taxonFilter, this.ViewBag.UrlParams, this.HttpContext.Request.QueryString.ToQueryString());
                 this.InitializeListViewBag(redirectPageUrlTemplate);
             }
 

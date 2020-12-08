@@ -303,7 +303,8 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.LoginForm
             if (Config.Get<SecurityConfig>().AuthenticationMode == SecConfig.AuthenticationMode.Claims)
             {
                 var owinContext = context.Request.GetOwinContext();
-                var challengeProperties = ChallengeProperties.ForLocalUser(input.UserName, input.Password, this.MembershipProvider, input.RememberMe, context.Request.Url.ToString());
+                var errorRedirectUrl = context.Request.UrlReferrer?.AbsoluteUri ?? context.Request.Url.ToString();
+                var challengeProperties = ChallengeProperties.ForLocalUser(input.UserName, input.Password, this.MembershipProvider, input.RememberMe, errorRedirectUrl);
                 challengeProperties.RedirectUri = this.GetReturnURL(context);
                 owinContext.Authentication.Challenge(challengeProperties, ClaimsManager.CurrentAuthenticationModule.STSAuthenticationType);
             }
@@ -499,8 +500,7 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.LoginForm
         /// </returns>
         protected internal string GetReturnURL(HttpContextBase context)
         {
-            var path = context.Request.AppRelativeCurrentExecutionFilePath;
-            var redirectUrl = RouteHelper.ResolveUrl(path, UrlResolveOptions.Absolute);
+            var redirectUrl = context.Request.UrlReferrer?.AbsoluteUri ?? RouteHelper.ResolveUrl(context.Request.AppRelativeCurrentExecutionFilePath, UrlResolveOptions.Absolute);
 
             if (!string.IsNullOrEmpty(context.Request.Url.Query))
             {

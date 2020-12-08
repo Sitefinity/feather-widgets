@@ -78,5 +78,10 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Models
         /// The form rules.
         /// </value>
         public string FormRules { get; set; }
+
+        /// <summary>
+        /// Gets or sets Marketo settings
+        /// </summary>
+        public string MarketoSettings { get; set; }
     }
 }

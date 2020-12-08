@@ -13,9 +13,7 @@ using Telerik.Sitefinity.Frontend.Mvc.Infrastructure;
 using Telerik.Sitefinity.Frontend.Mvc.Infrastructure.Controllers;
 using Telerik.Sitefinity.Frontend.Mvc.Infrastructure.Controllers.Attributes;
 using Telerik.Sitefinity.Frontend.Mvc.Infrastructure.Routing;
-using Telerik.Sitefinity.Frontend.Mvc.Models;
 using Telerik.Sitefinity.Libraries.Model;
-using Telerik.Sitefinity.Model;
 using Telerik.Sitefinity.Modules.Libraries;
 using Telerik.Sitefinity.Modules.Pages.Configuration;
 using Telerik.Sitefinity.Mvc;
@@ -30,12 +28,12 @@ namespace Telerik.Sitefinity.Frontend.Media.Mvc.Controllers
     /// </summary>
     [Localization(typeof(DocumentsListResources))]
     [ControllerToolboxItem(
-        Name = DocumentsListController.WidgetName, 
-        Title = nameof(DocumentsListResources.DocumentsListViewTitle), 
+        Name = DocumentsListController.WidgetName,
+        Title = nameof(DocumentsListResources.DocumentsListViewTitle),
         Description = nameof(DocumentsListResources.DocumentsListViewDescription),
         ResourceClassId = nameof(DocumentsListResources),
-        SectionName = ToolboxesConfig.ContentToolboxSectionName, 
-        ModuleName = "Libraries", 
+        SectionName = ToolboxesConfig.ContentToolboxSectionName,
+        ModuleName = "Libraries",
         CssClass = DocumentsListController.WidgetIconCssClass)]
     public class DocumentsListController : ContentBaseController, IRouteMapper, IContentLocatableView
     {
@@ -179,7 +177,7 @@ namespace Telerik.Sitefinity.Frontend.Media.Mvc.Controllers
         {
             var fullTemplateName = this.GetFullListTemplateName();
             this.ViewBag.CurrentPageUrl = this.GetCurrentPageUrl();
-            this.ViewBag.RedirectPageUrlTemplate = this.ViewBag.CurrentPageUrl + UrlHelpers.GetRedirectPagingUrl(taxonFilter);
+            this.ViewBag.RedirectPageUrlTemplate = this.ViewBag.CurrentPageUrl + UrlHelpers.GetRedirectPagingUrl(taxonFilter, this.ViewBag.UrlParams, this.HttpContext.Request.QueryString.ToQueryString());
             this.ViewBag.DetailsPageId = this.DetailsPageId;
             this.ViewBag.OpenInSamePage = this.OpenInSamePage;
 

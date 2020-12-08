@@ -6,11 +6,13 @@ using System.Web;
 using System.Web.Mvc;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
+using Newtonsoft.Json.Serialization;
 using Telerik.Sitefinity.Abstractions;
 using Telerik.Sitefinity.Abstractions.TemporaryStorage;
 using Telerik.Sitefinity.Data;
 using Telerik.Sitefinity.Forms.Model;
 using Telerik.Sitefinity.Frontend.Forms.Mvc.Controllers.Base;
+using Telerik.Sitefinity.Frontend.Forms.Mvc.Helpers;
 using Telerik.Sitefinity.Frontend.Forms.Mvc.Models.Fields;
 using Telerik.Sitefinity.Frontend.Forms.Mvc.Models.Fields.Captcha;
 using Telerik.Sitefinity.Frontend.Forms.Mvc.StringResources;
@@ -70,7 +72,7 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Models
         {
             get
             {
-                if (string.IsNullOrEmpty(this.customConfirmationMessage))
+                if (!this.UseCustomConfirmation)
                 {
                     this.customConfirmationMessage = this.FormData == null ? (Lstring)Res.Get<FormResources>().SuccessfullySubmittedMessage : this.FormData.SuccessMessage;
                 }
@@ -167,6 +169,13 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Models
                 return null;
             }
 
+            var marketoSettings = new MarketoSettings()
+            {
+                SyncFormFieldsToLeadFields = this.GetSyncFormFieldsToLeadFields(this.FormData),
+                DoSpecificWebCalls = this.GetDoSpecificWebCalls(this.FormData)
+            };
+
+            var jsonSerializerSettings = new JsonSerializerSettings() { ContractResolver = new CamelCasePropertyNamesContractResolver() };
             var viewModel = new FormViewModel()
             {
                 ViewMode = this.ViewMode,
@@ -174,7 +183,8 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Models
                 UseAjaxSubmit = this.UseAjaxSubmit,
                 FormId = this.FormId.ToString("D"),
                 IsMultiStep = this.IsMultiStep,
-                FormCollection = this.FormCollection
+                FormCollection = this.FormCollection,
+                MarketoSettings = JsonConvert.SerializeObject(marketoSettings, Formatting.None, jsonSerializerSettings)
             };
 
             if (this.FormData != null && this.AllowRenderForm())
@@ -870,6 +880,11 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Models
                 if (ex.Lookup<ValidationException>() == null)
                     throw;
 
+                if (string.IsNullOrEmpty(this.InvalidInputMessage))
+                {
+                    this.InvalidInputMessage = ex.Message;
+                }
+
                 return true;
             }
 
@@ -997,7 +1012,7 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Models
             {
                 var notificationEmailsKeys = notificationsEmailsInputValue.Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries).ToList();
                 var formRulesValues = this.GetFormRulesValues(rules, FormRuleAction.SendNotification, notificationEmailsKeys);
-                value =  string.Join(",", formRulesValues).Split(new string[] { "," }, StringSplitOptions.RemoveEmptyEntries).Distinct();
+                value = string.Join(",", formRulesValues).Split(new string[] { "," }, StringSplitOptions.RemoveEmptyEntries).Distinct();
             }
 
             return value;
@@ -1056,6 +1071,30 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Models
                     }
                 }
             }
+        }
+
+        private bool GetSyncFormFieldsToLeadFields(FormDescription form)
+        {
+            if (form == null || form.Attributes == null)
+                return false;
+
+            bool result;
+            if (!form.Attributes.ContainsKey(FormsHelpers.SyncFormFieldsToLeadFieldsPropertyName) ||
+                !bool.TryParse(form.Attributes[FormsHelpers.SyncFormFieldsToLeadFieldsPropertyName], out result))
+                result = false;
+            return result;
+        }
+
+        private bool GetDoSpecificWebCalls(FormDescription form)
+        {
+            if (form == null || form.Attributes == null)
+                return false;
+
+            bool result;
+            if (!form.Attributes.ContainsKey(FormsHelpers.DoSpecificWebCallsPropertyName) ||
+                !bool.TryParse(form.Attributes[FormsHelpers.DoSpecificWebCallsPropertyName], out result))
+                result = false;
+            return result;
         }
 
         #endregion

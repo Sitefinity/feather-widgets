@@ -26,16 +26,16 @@
     /* Polyfills end */
 
     document.addEventListener('DOMContentLoaded', function () {
-        document.querySelectorAll('[data-sf-role=toggleLink]').forEach(function (x) {
+        document.querySelectorAll('[data-sf-role="toggleLink"]').forEach(function (x) {
             x.addEventListener('click', function () {
                 var link = this;
 
                 expandElement(link);
 
-                var wrapper = link.closest('[data-sf-role=lists]');
+                var wrapper = link.closest('[data-sf-role="lists"]');
 
-                var linkCount = wrapper.querySelectorAll('[data-sf-role=toggleLink]').length;
-                var expandedLinkCount = wrapper.querySelectorAll('[data-sf-role=toggleLink].expanded').length;
+                var linkCount = wrapper.querySelectorAll('[data-sf-role="toggleLink"]').length;
+                var expandedLinkCount = wrapper.querySelectorAll('[data-sf-role="toggleLink"].expanded').length;
 
                 if (linkCount === expandedLinkCount) {
                     hideExpandAllLink(wrapper);
@@ -46,12 +46,12 @@
             });
         });
 
-        document.querySelectorAll('[data-sf-role=expandAll]').forEach(function (x) {
+        document.querySelectorAll('[data-sf-role="expandAll"]').forEach(function (x) {
             x.addEventListener('click', function () {
-                var wrapper = this.closest('[data-sf-role=lists]');
-                wrapper.querySelector('[data-sf-role=expandAll]').style.display = 'none';
-                wrapper.querySelector('[data-sf-role=collapseAll]').style.display = 'block';
-                var links = wrapper.querySelectorAll('[data-sf-role=toggleLink]');
+                var wrapper = this.closest('[data-sf-role="lists"]');
+                wrapper.querySelector('[data-sf-role="expandAll"]').style.display = 'none';
+                wrapper.querySelector('[data-sf-role="collapseAll"]').style.display = 'block';
+                var links = wrapper.querySelectorAll('[data-sf-role="toggleLink"]');
                 links.forEach(function (link) {
                     link.classList.add('expanded');
 
@@ -63,12 +63,12 @@
             });
         });
 
-        document.querySelectorAll('[data-sf-role=collapseAll]').forEach(function (x) {
+        document.querySelectorAll('[data-sf-role="collapseAll"]').forEach(function (x) {
             x.addEventListener('click', function () {
-                var wrapper = this.closest('[data-sf-role=lists]');
-                wrapper.querySelector('[data-sf-role=expandAll]').style.display = 'block';
-                wrapper.querySelector('[data-sf-role=collapseAll]').style.display = 'none';
-                var links = wrapper.querySelectorAll('[data-sf-role=toggleLink]');
+                var wrapper = this.closest('[data-sf-role="lists"]');
+                wrapper.querySelector('[data-sf-role="expandAll"]').style.display = 'block';
+                wrapper.querySelector('[data-sf-role="collapseAll"]').style.display = 'none';
+                var links = wrapper.querySelectorAll('[data-sf-role="toggleLink"]');
                 links.forEach(function (link) {
                     link.classList.remove('expanded');
 
@@ -99,19 +99,19 @@
     }
 
     function hideExpandAllLink(wrapper) {
-        wrapper.querySelectorAll('[data-sf-role=expandAll]').forEach(function (node) {
+        wrapper.querySelectorAll('[data-sf-role="expandAll"]').forEach(function (node) {
             node.style.display = 'none';
         });
-        wrapper.querySelectorAll('[data-sf-role=collapseAll]').forEach(function (node) {
+        wrapper.querySelectorAll('[data-sf-role="collapseAll"]').forEach(function (node) {
             node.style.display = 'block';
         });
     }
 
     function hideCollapseAllLink(wrapper) {
-        wrapper.querySelectorAll('[data-sf-role=expandAll]').forEach(function (node) {
+        wrapper.querySelectorAll('[data-sf-role="expandAll"]').forEach(function (node) {
             node.style.display = 'block';
         });
-        wrapper.querySelectorAll('[data-sf-role=collapseAll]').forEach(function (node) {
+        wrapper.querySelectorAll('[data-sf-role="collapseAll"]').forEach(function (node) {
             node.style.display = 'none';
         });
     }

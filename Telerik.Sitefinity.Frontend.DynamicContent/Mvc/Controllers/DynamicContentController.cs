@@ -248,7 +248,7 @@ namespace Telerik.Sitefinity.Frontend.DynamicContent.Mvc.Controllers
                 return this.Content(string.Empty);
             }
 
-            var redirectPageUrlTemplate = UrlHelpers.GetRedirectPagingUrl(taxonFilter);
+            var redirectPageUrlTemplate = UrlHelpers.GetRedirectPagingUrl(taxonFilter, this.ViewBag.UrlParams, this.HttpContext.Request.QueryString.ToQueryString());
             this.InitializeListViewBag(redirectPageUrlTemplate);
 
             var viewModel = this.Model.CreateListViewModel(taxonFilter, page ?? 1);

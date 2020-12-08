@@ -1,6 +1,6 @@
 ﻿(function () {
     document.addEventListener('DOMContentLoaded', function () {
-        document.querySelector('[data-sf-role=playVideo]').addEventListener('play', function (e) {
+        document.querySelector('[data-sf-role="playVideo"]').addEventListener('play', function (e) {
             var video = e.currentTarget;
             var videoSrc = video.getAttribute('src');
             sendSentence(videoSrc);

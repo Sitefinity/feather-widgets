@@ -49,7 +49,7 @@
                             MarketoSubmitScript._formFields = MarketoSubmitScript._getExternalFormFields(newSubmitButtons[0]);
                         if (MarketoSubmitScript._formFields && MarketoSubmitScript._formFields.length === 0)
                             MarketoSubmitScript._populateFieldsFromLabels(newForm);
-                        MarketoSubmitScript._formSubmitHandler();
+                        MarketoSubmitScript._formSubmitHandler(newForm);
                     }
 
                     var formData = new FormData(newForm[0]);
@@ -634,6 +634,11 @@
     };
 
     var checkRequired = function (container) {
+        // This is called only for input[type="file"]
+        // If the fields is hidden, don't check for required
+        if (container.is(":hidden"))
+            return true;
+
         var violationMessage = $('[data-sf-role="required-violation-message"]');
 
         var inputs = container.find('input[type="file"]');

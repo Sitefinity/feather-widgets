@@ -23,12 +23,12 @@ namespace Telerik.Sitefinity.Frontend.Events.Mvc.Controllers
     /// This class represents the controller of the Events widget.
     /// </summary>
     [ControllerToolboxItem(
-        Name = EventController.WidgetName, 
-        Title = nameof(EventResources.EventsViewTitle), 
+        Name = EventController.WidgetName,
+        Title = nameof(EventResources.EventsViewTitle),
         Description = nameof(EventResources.EventsViewDescription),
         ResourceClassId = nameof(EventResources),
-        SectionName = ToolboxesConfig.ContentToolboxSectionName, 
-        ModuleName = "Events", 
+        SectionName = ToolboxesConfig.ContentToolboxSectionName,
+        ModuleName = "Events",
         CssClass = EventController.WidgetIconCssClass)]
     [Localization(typeof(EventResources))]
     public class EventController : ContentBaseController, IContentLocatableView, IPersonalizable
@@ -175,7 +175,7 @@ namespace Telerik.Sitefinity.Frontend.Events.Mvc.Controllers
         public ActionResult ListByTaxon(ITaxon taxonFilter, int? page)
         {
             var fullTemplateName = EventController.ListTemplateNamePrefix + this.ListTemplateName;
-            var redirectPageUrlTemplate = UrlHelpers.GetRedirectPagingUrl(taxonFilter);
+            var redirectPageUrlTemplate = UrlHelpers.GetRedirectPagingUrl(taxonFilter, this.ViewBag.UrlParams, this.HttpContext.Request.QueryString.ToQueryString());
             this.InitializeListViewBag(redirectPageUrlTemplate);
 
             var viewModel = this.Model.CreateListViewModel(taxonFilter, page ?? 1);

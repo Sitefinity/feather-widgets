@@ -14,9 +14,7 @@ using Telerik.Sitefinity.Frontend.Mvc.Infrastructure;
 using Telerik.Sitefinity.Frontend.Mvc.Infrastructure.Controllers;
 using Telerik.Sitefinity.Frontend.Mvc.Infrastructure.Controllers.Attributes;
 using Telerik.Sitefinity.Frontend.Mvc.Infrastructure.Routing;
-using Telerik.Sitefinity.Frontend.Mvc.Models;
 using Telerik.Sitefinity.Libraries.Model;
-using Telerik.Sitefinity.Model;
 using Telerik.Sitefinity.Modules.Libraries;
 using Telerik.Sitefinity.Modules.Pages;
 using Telerik.Sitefinity.Modules.Pages.Configuration;
@@ -32,11 +30,11 @@ namespace Telerik.Sitefinity.Frontend.Media.Mvc.Controllers
     /// </summary>
     [Localization(typeof(ImageGalleryResources))]
     [ControllerToolboxItem(
-        Name = ImageGalleryController.WidgetName, 
-        Title = nameof(ImageGalleryResources.ImagesViewTitle), 
+        Name = ImageGalleryController.WidgetName,
+        Title = nameof(ImageGalleryResources.ImagesViewTitle),
         Description = nameof(ImageGalleryResources.ImagesViewDescription),
         ResourceClassId = nameof(ImageGalleryResources),
-        SectionName = ToolboxesConfig.ContentToolboxSectionName, 
+        SectionName = ToolboxesConfig.ContentToolboxSectionName,
         ModuleName = "Libraries",
         CssClass = ImageGalleryController.WidgetIconCssClass)]
     public class ImageGalleryController : ContentBaseController, IContentLocatableView, IRouteMapper
@@ -225,7 +223,7 @@ namespace Telerik.Sitefinity.Frontend.Media.Mvc.Controllers
         {
             if (taxonFilter != null)
             {
-                var redirectPageUrlTemplate = UrlHelpers.GetRedirectPagingUrl(taxonFilter);
+                var redirectPageUrlTemplate = UrlHelpers.GetRedirectPagingUrl(taxonFilter, this.ViewBag.UrlParams, this.HttpContext.Request.QueryString.ToQueryString());
                 this.InitializeListViewBag(redirectPageUrlTemplate);
             }
 
@@ -464,7 +462,7 @@ namespace Telerik.Sitefinity.Frontend.Media.Mvc.Controllers
 
             if (selectedParentIds != null && selectedParentIds.Count > 0)
             {
-                if (((image.FolderId == null || image.FolderId == Guid.Empty) && selectedParentIds.Contains(image.ParentId.ToString())) 
+                if (((image.FolderId == null || image.FolderId == Guid.Empty) && selectedParentIds.Contains(image.ParentId.ToString()))
                     || (image.FolderId != null && image.FolderId != Guid.Empty && selectedParentIds.Contains(image.FolderId.ToString())))
                 {
                     return true;

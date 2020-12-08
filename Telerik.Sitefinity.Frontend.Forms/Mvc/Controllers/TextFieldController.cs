@@ -58,7 +58,8 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Controllers
                     case TextType.Range:
                         return new Dictionary<ConditionOperator, string>()
                         {
-                            [ConditionOperator.Equal] = Res.Get<Labels>().IsOperator,
+                            [ConditionOperator.Equal] = Res.Get<Labels>().IsEqualOperator,
+                            [ConditionOperator.NotEqual] = Res.Get<Labels>().IsNotEqualOperator,
                             [ConditionOperator.IsGreaterThan] = Res.Get<Labels>().IsGreaterOperator,
                             [ConditionOperator.IsLessThan] = Res.Get<Labels>().IsLessOperator,
                             [ConditionOperator.IsFilled] = Res.Get<Labels>().IsFilledOperator,
