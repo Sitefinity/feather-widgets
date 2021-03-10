@@ -159,7 +159,7 @@ namespace Telerik.Sitefinity.Frontend.Comments.Mvc.Models
         {
             get
             {
-                var loginRedirectUrl = string.Format("{0}?ReturnUrl={1}", this.GetDefaultLoginUrl(), HttpUtility.UrlEncode(Telerik.Sitefinity.Web.UrlPath.ResolveAbsoluteUrl(SystemManager.CurrentHttpContext.Request.Url.AbsoluteUri)));
+                var loginRedirectUrl = string.Format("{0}?{1}={2}", this.GetDefaultLoginUrl(), SecurityManager.AuthenticationReturnUrl, HttpUtility.UrlEncode(Telerik.Sitefinity.Web.UrlPath.ResolveAbsoluteUrl(SystemManager.CurrentHttpContext.Request.Url.AbsoluteUri)));
 
                 return loginRedirectUrl;
             }

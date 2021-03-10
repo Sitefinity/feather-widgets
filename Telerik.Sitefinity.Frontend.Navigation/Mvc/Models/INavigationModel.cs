@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Web;
+using Telerik.Sitefinity.Web;
 
 namespace Telerik.Sitefinity.Frontend.Navigation.Mvc.Models
 {
@@ -60,7 +61,7 @@ namespace Telerik.Sitefinity.Frontend.Navigation.Mvc.Models
         /// The a serialized array of selected pages.
         /// </value>
         [Browsable(false)]
-        SelectedPageModel[] SelectedPages { get; set; }
+        SelectedPageModelBase[] SelectedPages { get; set; }
 
         /// <summary>
         /// Gets or sets the identifier of the page that is selected if SelectionMode is SelectedPageChildren.

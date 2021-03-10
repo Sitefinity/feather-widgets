@@ -48,7 +48,11 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.Registration
         {
             get
             {
-                this.membershipProviderName = this.membershipProviderName ?? UserManager.GetDefaultProviderName();
+                if (string.IsNullOrEmpty(this.membershipProviderName))
+                {
+                    this.membershipProviderName = SystemManager.CurrentContext.CurrentSite.GetDefaultProvider(typeof(UserManager).FullName)?.ProviderName ?? UserManager.GetDefaultProviderName();
+                }
+
                 return this.membershipProviderName;
             }
             set
@@ -85,7 +89,7 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.Registration
                 }
             }
         }
-        
+
         /// <inheritDoc/>
         public string SerializedExternalProviders
         {
@@ -98,10 +102,10 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.Registration
                 if (this.serializedExternalProviders != value)
                 {
                     this.serializedExternalProviders = value;
-                }                
+                }
             }
         }
-        
+
         /// <inheritDoc/>
         public SuccessfulRegistrationAction SuccessfulRegistrationAction { get; set; }
 
@@ -194,9 +198,9 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.Registration
         public virtual string SuccessfulRegistrationSenderEmail { get; set; }
 
         public virtual string ConfirmRegistrationSenderEmail { get; set; }
-        
+
         public virtual string SuccessfulRegistrationSenderName { get; set; }
-        
+
         public virtual string ConfirmRegistrationSenderName { get; set; }
 
         /// <inheritDoc/>
@@ -224,7 +228,7 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.Registration
         /// <inheritDoc/>
         public virtual void InitializeViewModel(RegistrationViewModel viewModel)
         {
-            if(viewModel != null)
+            if (viewModel != null)
             {
                 viewModel.LoginPageUrl = this.GetLoginPageUrl();
                 viewModel.MembershipProviderName = this.MembershipProviderName;
@@ -235,7 +239,7 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.Registration
                 if (!string.IsNullOrEmpty(this.serializedExternalProviders))
                 {
                     viewModel.ExternalProviders = JsonSerializer.DeserializeFromString<Dictionary<string, string>>(this.serializedExternalProviders);
-                }                 
+                }
             }
         }
 
@@ -316,12 +320,12 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.Registration
         /// <param name="context">Current http context from controller</param>
         public void AuthenticateExternal(string input, HttpContextBase context)
         {
-            Telerik.Sitefinity.Web.Url returnUri;            
+            Telerik.Sitefinity.Web.Url returnUri;
 
             if (this.SuccessfulRegistrationAction == SuccessfulRegistrationAction.RedirectToPage)
             {
                 returnUri = new Telerik.Sitefinity.Web.Url(this.GetPageUrl(this.SuccessfulRegistrationPageId));
-            }                
+            }
             else
             {
                 returnUri = new Telerik.Sitefinity.Web.Url(context.Request.UrlReferrer.ToString());
@@ -336,7 +340,7 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.Registration
             {
                 returnUri.Query.Add("ShowActivationMsg", "true");
             }
-                        
+
             var owinContext = context.Request.GetOwinContext();
             var selectedRoles = this.selectedRoles.Select(x => x.Name).ToJson();
 
@@ -428,7 +432,7 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.Registration
                 }
             }
         }
-        
+
         /// <summary>
         /// Gets the manager.
         /// </summary>
@@ -488,7 +492,7 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.Registration
             {
                 user = manager.CreateUser(userData.Email, userData.Password, userData.Email, null, null, this.ActivationMethod == ActivationMethod.Immediately, null, out status);
             }
-            
+
             return status == MembershipCreateStatus.Success;
         }
 
@@ -611,7 +615,7 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.Registration
                 return string.Empty;
             }
 
-            return UserRegistrationEmailGenerator.GetConfirmationPageUrl(confirmationPageUrl, user.Id, this.MembershipProviderName, ReturnUrlName, this.DefaultReturnUrl);
+            return UserRegistrationEmailGenerator.GetConfirmationPageUrl(confirmationPageUrl, user.Id, this.MembershipProviderName, SecurityManager.AuthenticationReturnUrl, this.DefaultReturnUrl);
         }
 
         /// <summary>
@@ -658,17 +662,16 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.Registration
         private string membershipProviderName;
         private string successEmailSubject = Res.Get<RegistrationResources>().SuccessEmailDefaultSubject;
         private string confirmationEmailSubject = Res.Get<UserProfilesResources>().ConfirmationEmailDefaultSubject;
-        private const string ReturnUrlName = "ReturnUrl";
         private const string ProfileBindingsFile = "~/Frontend-Assembly/Telerik.Sitefinity.Frontend.Identity/Mvc/Views/Registration/ProfileBindings.json";
         private const string DefaultSortExpression = "PublicationDate DESC";
 
-        private string serializedSelectedRoles;        
+        private string serializedSelectedRoles;
         private IList<Role> selectedRoles = new List<Role>();
         private Dictionary<string, RoleManager> roleManagersToSubmit = null;
         private Guid? successEmailTemplateId;
         private Guid? confirmationEmailTemplateId;
         private string serializedExternalProviders;
-       
+
         #endregion
 
         private class Role
@@ -678,6 +681,6 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.Registration
             public string Name { get; set; }
 
             public string ProviderName { get; set; }
-        }        
+        }
     }
 }

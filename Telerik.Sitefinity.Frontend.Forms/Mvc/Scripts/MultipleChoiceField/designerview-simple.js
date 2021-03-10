@@ -9,7 +9,7 @@
         $scope.$watch(
             'defaultValue',
             function (newDefaultValue, oldDefaultValue) {
-                if (newDefaultValue) {
+                if (newDefaultValue && $scope.properties) {
                     $scope.properties.Model.ValidatorDefinition.Required.PropertyValue = 'False';
                 }
             },

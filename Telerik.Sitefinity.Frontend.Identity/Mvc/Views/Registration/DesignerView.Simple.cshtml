@@ -7,20 +7,22 @@
 
 <uib-tabset class="nav-tabs-wrapper">
     <uib-tab heading="@Html.Resource("General")">
-        <div class="form-group">
-            <label>@Html.Resource("Provider")</label>
-            <p class="description-note">@Html.Resource("ProviderDescription")</p>
-            <div class="row">
-                <div class="col-xs-6">
-                    <select ng-model="properties.MembershipProviderName.PropertyValue" class="form-control">
-                        @foreach (var providerName in UserManager.ProvidersCollection)
-                        {
-                            <option value="@providerName">@providerName</option>
-                        }
-                    </select>
-                </div>
-            </div>
+        @{ var userProviders = UserManager.GetManager().GetContextProviders().ToList();
+            if (userProviders.Count() > 1)
+            {
+<div class="form-group">
+    <label>@Html.Resource("UserGroup")</label>
+    <p class="description-note">@Html.Resource("ProviderDescription")</p>
+    <div class="row">
+        <div class="col-xs-6">
+            <select ng-model="properties.MembershipProviderName.PropertyValue" class="form-control">
+                @foreach (var provider in userProviders)
+                {
+<option value="@provider">@provider.Title</option>}
+            </select>
         </div>
+    </div>
+</div> } }
 
         <div class="form-group">
             <label>@Html.Resource("Roles")</label>
@@ -50,28 +52,24 @@
             </div>
         </div>
 
-        @{
-            var providers = ClaimsManager.CurrentAuthenticationModule.ExternalAuthenticationProviders.Where(x => x.Enabled == true && !string.IsNullOrEmpty(x.Name)).ToList();
+        @{ var providers = ClaimsManager.CurrentAuthenticationModule.ExternalAuthenticationProviders.Where(x => x.Enabled == true && !string.IsNullOrEmpty(x.Name)).ToList();
             if (providers.Count() != 0)
             {
-                <div class="form-group">
-                    <strong>@Html.Resource("ExternalProvidersRegiterOptions")</strong>
-                    @foreach (var provider in providers)
-                    {
-                        <div class="checkbox">
-                            <label>
-                                <input id="@provider.Title"
-                                       type="checkbox"
-                                       ng-change="updateExternalProvider('@provider.Title', '@provider.LinkCssClass', externalProviderSelector.selectedItems['@provider.Name'])"
-                                       ng-checked="externalProviderSelector.selectedItems['@provider.Title']"
-                                       ng-model="externalProviderSelector.selectedItems['@provider.Title']" />
-                                @provider.Title
-                            </label>
-                        </div>
-                    }
-                </div>
-            }
-        }
+<div class="form-group">
+    <strong>@Html.Resource("ExternalProvidersRegiterOptions")</strong>
+    @foreach (var provider in providers)
+    {
+<div class="checkbox">
+    <label>
+        <input id="@provider.Title"
+               type="checkbox"
+               ng-change="updateExternalProvider('@provider.Title', '@provider.LinkCssClass', externalProviderSelector.selectedItems['@provider.Name'])"
+               ng-checked="externalProviderSelector.selectedItems['@provider.Title']"
+               ng-model="externalProviderSelector.selectedItems['@provider.Title']" />
+        @provider.Title
+    </label>
+</div>}
+</div> } }
 
         <div class="form-group">
             <label>@Html.Resource("LoginPage")</label>
@@ -87,8 +85,7 @@
                     <select id="templateName" ng-model="properties.TemplateName.PropertyValue" class="form-control">
                         @foreach (var viewName in Html.GetViewNames("Registration", @"Registration\.(?<viewName>\w*)$"))
                         {
-                            <option value="@viewName"> @viewName.SplitCamelCase()</option>
-                        }
+            <option value="@viewName"> @viewName.SplitCamelCase()</option>}
                     </select>
                 </div>
             </div>
@@ -136,8 +133,7 @@
                     <select ng-model="properties.SuccessEmailTemplateId.PropertyValue" class="form-control">
                         @foreach (var template in EmailTemplateHelper.GetEmailTemplates(String.Format(@"ControlType == ""{0}"" && Condition==""Success""", typeof(RegistrationForm).FullName)))
                         {
-                            <option value="@template.Key">@template.Value</option>
-                        }
+            <option value="@template.Key">@template.Value</option>}
                     </select>
                 </div>
             </div>
@@ -152,8 +148,7 @@
                         <select ng-model="properties.ConfirmationEmailTemplateId.PropertyValue" class="form-control">
                             @foreach (var template in EmailTemplateHelper.GetEmailTemplates(String.Format(@"ControlType == ""{0}"" && Condition==""{1}""", typeof(RegistrationForm).FullName, RegistrationEmailType.Confirmation.ToString())))
                             {
-                                <option value="@template.Key">@template.Value</option>
-                            }
+                <option value="@template.Key">@template.Value</option>}
                         </select>
                     </div>
                 </div>

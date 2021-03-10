@@ -21,7 +21,6 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.ChangePassword
         {
             get
             {
-                this.membershipProvider = this.membershipProvider ?? UserManager.GetDefaultProviderName();
                 return this.membershipProvider;
             }
             set
@@ -49,14 +48,20 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.ChangePassword
         /// <inheritDoc/>
         public virtual void ChangePassword(Guid userId, string oldPassword, string newPassword)
         {
-            UserManager.ChangePasswordForUser(UserManager.GetManager(this.MembershipProvider), userId, oldPassword, newPassword, this.SendEmailOnChangePassword);
+            var providerName = this.MembershipProvider;
+            var currentIdentity = Sitefinity.Security.Claims.ClaimsManager.GetCurrentIdentity();
+            if (currentIdentity != null && currentIdentity.UserId == userId)
+                providerName = currentIdentity.MembershipProvider;
+
+            UserManager.ChangePasswordForUser(UserManager.GetManager(providerName), userId, oldPassword, newPassword, this.SendEmailOnChangePassword);
         }
 
         /// <inheritDoc/>
         public virtual ChangePasswordViewModel GetViewModel()
         {
-            var userId = SecurityManager.GetCurrentUserId();
-            var userManager = UserManager.GetManager(SecurityManager.GetUser(userId).ProviderName);
+            var currentIdentity = Sitefinity.Security.Claims.ClaimsManager.GetCurrentIdentity();
+            var userId = currentIdentity.UserId;
+            var userManager = UserManager.GetManager(currentIdentity.MembershipProvider);
             var user = userManager.GetUser(userId);
 
             return new ChangePasswordViewModel()

@@ -7,6 +7,7 @@ using ServiceStack.Text;
 using Telerik.Sitefinity.Abstractions;
 using Telerik.Sitefinity.Data;
 using Telerik.Sitefinity.Frontend.Mvc.Helpers;
+using Telerik.Sitefinity.Mvc.Proxy;
 using Telerik.Sitefinity.Security;
 using Telerik.Sitefinity.Security.Claims;
 using Telerik.Sitefinity.Security.Configuration;
@@ -303,7 +304,30 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.LoginForm
             if (Config.Get<SecurityConfig>().AuthenticationMode == SecConfig.AuthenticationMode.Claims)
             {
                 var owinContext = context.Request.GetOwinContext();
-                var errorRedirectUrl = context.Request.UrlReferrer?.AbsoluteUri ?? context.Request.Url.ToString();
+
+                string errorRedirectUrl;
+
+                if (context.Request.UrlReferrer?.AbsoluteUri != null)
+                {
+                    errorRedirectUrl = context.Request.UrlReferrer.AbsoluteUri;
+
+                    var param = context.Request.Params[MvcControllerProxy.ControllerKey];
+
+                    if (param != null)
+                    {
+                        var uriBuilder = new UriBuilder(errorRedirectUrl);
+                        var query = HttpUtility.ParseQueryString(uriBuilder.Query);
+                        query[LoginControllerKey] = param;
+                        uriBuilder.Query = query.ToString();
+
+                        errorRedirectUrl = uriBuilder.ToString();
+                    }
+                }
+                else
+                {
+                    errorRedirectUrl = context.Request.Url.ToString();
+                }
+
                 var challengeProperties = ChallengeProperties.ForLocalUser(input.UserName, input.Password, this.MembershipProvider, input.RememberMe, errorRedirectUrl);
                 challengeProperties.RedirectUri = this.GetReturnURL(context);
                 owinContext.Authentication.Challenge(challengeProperties, ClaimsManager.CurrentAuthenticationModule.STSAuthenticationType);
@@ -392,8 +416,11 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.LoginForm
                         case "redirect_uri":
                             redirectUri = queryParamKeyValuePair[1].UrlDecode();
                             break;
-                        case "ReturnUrl":
-                            returnUrl = queryParamKeyValuePair[1].UrlDecode();
+                        default:
+                            if (queryParamKeyValuePair[0] == SecurityManager.AuthenticationReturnUrl)
+                            {
+                                returnUrl = queryParamKeyValuePair[1].UrlDecode();
+                            }
                             break;
                     }
 
@@ -529,6 +556,7 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.LoginForm
 
         private string serviceUrl;
         private const string DefaultRealmConfig = "http://localhost";
+        private const string LoginControllerKey = "sf_login_cntrl_id";
         private string membershipProvider;
         private string serializedExternalProviders;
 

@@ -175,7 +175,7 @@ namespace Telerik.Sitefinity.Frontend.Media.Mvc.Models.Image
                 var node = pageManager.GetPageNode(this.LinkedPageId);
                 if (node != null)
                 {
-                    var relativeUrl = node.GetFullUrl(Telerik.Sitefinity.Services.SystemManager.CurrentContext.Culture, false);
+                    var relativeUrl = node.GetFullUrl(Telerik.Sitefinity.Services.SystemManager.CurrentContext.Culture, false, true);
                     linkedUrl = UrlPath.ResolveUrl(relativeUrl, false);
                 }
             }
@@ -183,7 +183,7 @@ namespace Telerik.Sitefinity.Frontend.Media.Mvc.Models.Image
             {
                 linkedUrl = image.ResolveMediaUrl(false);
             }
-
+            
             return linkedUrl;
         }
 

@@ -69,7 +69,10 @@
             function (newValue, oldValue) {
                 if (newValue === 'All') {
                     $scope.state.selectedFileTypeCategories = [];
-                    $scope.properties.Model.AllowedFileTypes.PropertyValue = 'All';
+
+                    if ($scope.properties) {
+                        $scope.properties.Model.AllowedFileTypes.PropertyValue = 'All';
+                    }
                 }
             },
             true
@@ -78,7 +81,7 @@
         $scope.$watch(
             'state.commaSeparatedFileTypes',
             function (newValue, oldValue) {
-                if (newValue)
+                if (newValue && $scope.properties)
                     $scope.properties.Model.OtherFileTypes.PropertyValue = newValue.split(',').join(';');
             }
         );

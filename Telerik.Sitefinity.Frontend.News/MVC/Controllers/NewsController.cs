@@ -18,6 +18,7 @@ using Telerik.Sitefinity.News.Model;
 using Telerik.Sitefinity.Personalization;
 using Telerik.Sitefinity.Services;
 using Telerik.Sitefinity.Taxonomies.Model;
+using Telerik.Sitefinity.Web;
 
 namespace Telerik.Sitefinity.Frontend.News.Mvc.Controllers
 {

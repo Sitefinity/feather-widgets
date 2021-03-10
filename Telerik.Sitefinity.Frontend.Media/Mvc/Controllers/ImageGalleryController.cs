@@ -248,11 +248,6 @@ namespace Telerik.Sitefinity.Frontend.Media.Mvc.Controllers
         /// </returns>
         public ActionResult Details(Image item)
         {
-            if (!this.MatchesParent(item))
-            {
-                RouteHelper.SetUrlParametersResolved(false);
-            }
-
             this.InitializeMetadataDetailsViewBag(item);
 
             var itemIndex = this.ParseToNullableInt32(this.GetQueryString("itemIndex"));
@@ -449,29 +444,6 @@ namespace Telerik.Sitefinity.Frontend.Media.Mvc.Controllers
 
             var taxonQueryStringParams = HyperLinkHelpers.BuildTaxonQueryStringParams(taxon, this.Model.UrlKeyPrefix);
             this.ViewBag.RedirectPageUrlTemplate = this.ViewBag.RedirectPageUrlTemplate + taxonQueryStringParams;
-        }
-
-        private bool MatchesParent(Image image)
-        {
-            if (image == null || image.Parent == null)
-            {
-                return true;
-            }
-
-            var selectedParentIds = JsonSerializer.DeserializeFromString<IList<string>>(this.Model.SerializedSelectedParentsIds);
-
-            if (selectedParentIds != null && selectedParentIds.Count > 0)
-            {
-                if (((image.FolderId == null || image.FolderId == Guid.Empty) && selectedParentIds.Contains(image.ParentId.ToString()))
-                    || (image.FolderId != null && image.FolderId != Guid.Empty && selectedParentIds.Contains(image.FolderId.ToString())))
-                {
-                    return true;
-                }
-
-                return false;
-            }
-
-            return true;
         }
 
         #endregion

@@ -487,6 +487,21 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.StringResources
         }
 
         /// <summary>
+        /// Gets phrase: User group
+        /// </summary>
+        [ResourceEntry("UserGroup",
+            Value = "User group",
+            Description = "phrase : User group",
+            LastModified = "2021/02/09")]
+        public string UserGroup
+        {
+            get
+            {
+                return this["UserGroup"];
+            }
+        }
+
+        /// <summary>
         /// Gets phrase: where the user will be registered
         /// </summary>
         [ResourceEntry("ProviderDescription",
