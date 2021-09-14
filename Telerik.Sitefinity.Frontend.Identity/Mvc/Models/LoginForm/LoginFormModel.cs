@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Collections.Specialized;
 using System.Linq;
 using System.Web;
+using Microsoft.Owin.Security;
 using ServiceStack.Text;
 using Telerik.Sitefinity.Abstractions;
 using Telerik.Sitefinity.Data;
@@ -12,6 +13,7 @@ using Telerik.Sitefinity.Security;
 using Telerik.Sitefinity.Security.Claims;
 using Telerik.Sitefinity.Security.Configuration;
 using Telerik.Sitefinity.Security.Model;
+using Telerik.Sitefinity.Services;
 using Telerik.Sitefinity.Web;
 using Config = Telerik.Sitefinity.Configuration.Config;
 using SecConfig = Telerik.Sitefinity.Security.Configuration;
@@ -51,7 +53,18 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.LoginForm
         {
             get
             {
-                this.membershipProvider = this.membershipProvider ?? UserManager.GetDefaultProviderName();
+                if (string.IsNullOrWhiteSpace(this.membershipProvider))
+                {
+                    var provider = UserManager.GetDefaultProviderName();
+                    var availableProviders = UserManager.GetManager().GetContextProviders();
+                    if (!availableProviders.Any(x => x.Name == provider))   
+                    {
+                        provider = availableProviders.First().Name;
+                    }
+
+                    this.membershipProvider = provider;
+                }
+
                 return this.membershipProvider;
             }
 
@@ -158,7 +171,14 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.LoginForm
 
                 if (!string.IsNullOrEmpty(this.serializedExternalProviders))
                 {
-                    viewModel.ExternalProviders = JsonSerializer.DeserializeFromString<Dictionary<string, string>>(this.serializedExternalProviders);
+                    var externalProviders = JsonSerializer.DeserializeFromString<Dictionary<string, string>>(this.serializedExternalProviders);
+                    var availableProviders = ClaimsManager.CurrentAuthenticationModule.ExternalAuthenticationProviders.Where(x => x.Enabled == true && !string.IsNullOrEmpty(x.Title)).Select(x => x.Title).ToList();
+                    var filteredExternalProviders = externalProviders.Where(x => availableProviders.Contains(x.Key));
+                    viewModel.ExternalProviders = new Dictionary<string, string>();
+                    foreach (var kv in filteredExternalProviders)
+                    {
+                        viewModel.ExternalProviders.Add(kv.Key, kv.Value);
+                    }
                 }
             }
         }
@@ -300,33 +320,10 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.LoginForm
         public virtual LoginFormViewModel Authenticate(LoginFormViewModel input, HttpContextBase context)
         {
             input.LoginError = false;
-
-            if (Config.Get<SecurityConfig>().AuthenticationMode == SecConfig.AuthenticationMode.Claims)
+             string errorRedirectUrl = GetErrorRedirectUrl(context);
+            if (Config.Get<SecurityConfig>().AuthenticationMode == SecConfig.AuthenticationMode.Claims && ClaimsManager.CurrentAuthenticationModule.AuthenticationProtocol != "Default")
             {
                 var owinContext = context.Request.GetOwinContext();
-
-                string errorRedirectUrl;
-
-                if (context.Request.UrlReferrer?.AbsoluteUri != null)
-                {
-                    errorRedirectUrl = context.Request.UrlReferrer.AbsoluteUri;
-
-                    var param = context.Request.Params[MvcControllerProxy.ControllerKey];
-
-                    if (param != null)
-                    {
-                        var uriBuilder = new UriBuilder(errorRedirectUrl);
-                        var query = HttpUtility.ParseQueryString(uriBuilder.Query);
-                        query[LoginControllerKey] = param;
-                        uriBuilder.Query = query.ToString();
-
-                        errorRedirectUrl = uriBuilder.ToString();
-                    }
-                }
-                else
-                {
-                    errorRedirectUrl = context.Request.Url.ToString();
-                }
 
                 var challengeProperties = ChallengeProperties.ForLocalUser(input.UserName, input.Password, this.MembershipProvider, input.RememberMe, errorRedirectUrl);
                 challengeProperties.RedirectUri = this.GetReturnURL(context);
@@ -334,6 +331,8 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.LoginForm
             }
             else
             {
+                var redirectUrl = this.GetReturnURL(context);
+
                 User user;
                 UserLoggingReason result = SecurityManager.AuthenticateUser(
                     this.MembershipProvider,
@@ -344,15 +343,78 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.LoginForm
 
                 if (result != UserLoggingReason.Success)
                 {
+                    if (ClaimsManager.CurrentAuthenticationModule.AuthenticationProtocol == "Default")
+                    {
+                        errorRedirectUrl = AddErrorParameterToQuery(errorRedirectUrl);
+                        SFClaimsAuthenticationManager.ProcessRejectedUserForDefaultClaimsLogin(context, result, user, input.RememberMe, redirectUrl, errorRedirectUrl);
+                    }
+
                     input.LoginError = true;
                 }
                 else
                 {
-                    input.RedirectUrlAfterLogin = this.GetReturnURL(context);
+                    if (ClaimsManager.CurrentAuthenticationModule.AuthenticationProtocol == "Default")
+                        redirectUrl = RemoveErrorParameterFromQuery(redirectUrl);
+
+                    input.RedirectUrlAfterLogin = redirectUrl;
+                    SystemManager.CurrentHttpContext.GetOwinContext().Authentication.SignIn(new AuthenticationProperties { RedirectUri = redirectUrl });
                 }
             }
 
             return input;
+        }
+
+        private static string AddErrorParameterToQuery(string redirectUrl)
+        {
+            var uriBuilder = new UriBuilder(redirectUrl);
+            var query = HttpUtility.ParseQueryString(uriBuilder.Query);
+            query["err"] = true.ToString();
+            uriBuilder.Query = query.ToString();
+            redirectUrl = uriBuilder.ToString();
+
+            return redirectUrl;
+        }
+
+        private static string RemoveErrorParameterFromQuery(string redirectUrl)
+        {
+            var uriBuilder = new UriBuilder(redirectUrl);
+            var query = HttpUtility.ParseQueryString(uriBuilder.Query);
+            if (query.Keys.Contains("err"))
+            {
+                query.Remove("err");
+                uriBuilder.Query = query.ToString();
+                redirectUrl = uriBuilder.ToString();
+            }
+
+            return redirectUrl;
+        }
+
+        private static string GetErrorRedirectUrl(HttpContextBase context)
+        {
+            string errorRedirectUrl;
+
+            if (context.Request.UrlReferrer?.AbsoluteUri != null)
+            {
+                errorRedirectUrl = context.Request.UrlReferrer.AbsoluteUri;
+
+                var param = context.Request.Params[MvcControllerProxy.ControllerKey];
+
+                if (param != null)
+                {
+                    var uriBuilder = new UriBuilder(errorRedirectUrl);
+                    var query = HttpUtility.ParseQueryString(uriBuilder.Query);
+                    query[LoginControllerKey] = param;
+                    uriBuilder.Query = query.ToString();
+
+                    errorRedirectUrl = uriBuilder.ToString();
+                }
+            }
+            else
+            {
+                errorRedirectUrl = context.Request.Url.ToString();
+            }
+
+            return errorRedirectUrl;
         }
 
         /// <summary>
@@ -364,8 +426,9 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.LoginForm
         {
             var widgetUrl = context.Request.Url.ToString();
             var owinContext = context.Request.GetOwinContext();
-            var challengeProperties = ChallengeProperties.ForExternalUser(input, widgetUrl);
-            challengeProperties.RedirectUri = this.GetReturnURL(context);
+            var returnUrl = this.GetReturnURL(context);
+            var challengeProperties = ChallengeProperties.ForExternalUser(input, widgetUrl, returnUrl);
+            challengeProperties.RedirectUri = returnUrl;
 
             owinContext.Authentication.Challenge(challengeProperties, ClaimsManager.CurrentAuthenticationModule.STSAuthenticationType);
         }

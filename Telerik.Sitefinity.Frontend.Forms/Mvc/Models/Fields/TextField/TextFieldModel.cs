@@ -50,6 +50,16 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Models.Fields.TextField
                     this.validatorDefinition.RegularExpressionViolationMessage = Res.Get<FormResources>().InvalidInputErrorMessage;
                 }
 
+                if (this.MetaField != null)
+                {
+                    int.TryParse(this.MetaField.DBLength, out int dbLength);
+                    if (dbLength > 0 && (this.validatorDefinition.MaxLength == 0 || this.validatorDefinition.MaxLength > dbLength))
+                    {
+                        this.validatorDefinition.MaxLength = dbLength;
+                        this.validatorDefinition.MaxLengthViolationMessage = Res.Get<FormResources>().MaxLengthInputErrorMessageWithRange;
+                    }
+                }
+
                 return this.validatorDefinition;
             }
 
@@ -129,12 +139,26 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Models.Fields.TextField
         }
 
         /// <inheritDocs />
+        protected override ValidatorDefinition BuildValidatorDefinition(ValidatorDefinition definition, string fieldTitle)
+        {
+            var validatorDefinition = new ValidatorDefinition(definition.ConfigDefinition);
+            validatorDefinition.RequiredViolationMessage = this.BuildErrorMessage(definition.RequiredViolationMessage, fieldTitle);
+            validatorDefinition.MaxLengthViolationMessage = this.BuildErrorMessage(definition.MaxLengthViolationMessage, fieldTitle, definition.MaxLength.ToString());
+            validatorDefinition.RegularExpressionViolationMessage = this.BuildErrorMessage(definition.RegularExpressionViolationMessage, fieldTitle);
+            validatorDefinition.MinLength = definition.MinLength;
+            validatorDefinition.MaxLength = definition.MaxLength;
+            validatorDefinition.Required = definition.Required;
+
+            return validatorDefinition;
+        }
+
+        /// <inheritDocs />
         protected override string BuildValidationAttributes()
         {
             var attributes = new StringBuilder();
 
             if (this.ValidatorDefinition.Required.HasValue && this.ValidatorDefinition.Required.Value)
-                    attributes.Append(@"required=""required"" ");
+                attributes.Append(@"required=""required"" ");
 
             var minMaxLength = string.Empty;
             if (this.ValidatorDefinition.MaxLength > 0)
@@ -180,6 +204,13 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Models.Fields.TextField
             }
 
             return attributes.ToString();
+        }
+
+        /// <inheritDocs />
+        public override bool IsValid(object value)
+        {
+            this.ValidatorDefinition.MaxLengthViolationMessage = Res.Get<FormResources>().MaxLengthInputErrorMessage;
+            return base.IsValid(value);
         }
 
         private string GetRegExForExpectedFormat(ValidationFormat expectedFormat)

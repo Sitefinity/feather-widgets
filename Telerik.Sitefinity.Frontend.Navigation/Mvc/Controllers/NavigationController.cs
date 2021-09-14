@@ -9,6 +9,7 @@ using Telerik.Sitefinity.Frontend.Navigation.Mvc.Models;
 using Telerik.Sitefinity.Frontend.Navigation.Mvc.StringResources;
 using Telerik.Sitefinity.Modules.Pages.Configuration;
 using Telerik.Sitefinity.Mvc;
+using Telerik.Sitefinity.Personalization;
 using Telerik.Sitefinity.Services;
 using Telerik.Sitefinity.Web;
 using Telerik.Sitefinity.Web.UI;
@@ -29,7 +30,7 @@ namespace Telerik.Sitefinity.Frontend.Navigation.Mvc.Controllers
         CssClass = NavigationController.WidgetIconCssClass)]
     [Localization(typeof(NavigationResources))]
     [IndexRenderMode(IndexRenderModes.NoOutput)]
-    public class NavigationController : Controller
+    public class NavigationController : Controller, IPersonalizable
     {
         #region Properties
 

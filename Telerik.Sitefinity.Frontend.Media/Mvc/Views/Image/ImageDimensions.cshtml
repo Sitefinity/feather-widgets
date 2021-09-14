@@ -1,8 +1,6 @@
 @using Telerik.Sitefinity.Frontend.Mvc.Helpers;
-@using Telerik.Sitefinity.Libraries.Model;
 @using Telerik.Sitefinity.Frontend.Media.Mvc.Helpers
 @model Telerik.Sitefinity.Frontend.Media.Mvc.Models.Image.ImageViewModel
-
 
 @helper ImageTag()
 {
@@ -21,7 +19,7 @@
 
                         if (blobThumb != null && (thumbnail.Width != img.Width && thumbnail.Height != img.Height))
                         {
-                            <source media="(max-width: @(thumbnail.Width)px)" srcset="@blobThumb.Url" type="@thumbnail.MimeType" width="@thumbnail.Width" height="@thumbnail.Height" />
+                            <source media="(max-width: @(thumbnail.Width)px)" srcset="@blobThumb.Url" type="@thumbnail.MimeType" width="@thumbnail.Width" height="@thumbnail.Height"/>
                         }
                     }
                 }
@@ -32,9 +30,10 @@
     }
     else
     {
+
         <img loading="lazy" class="@Model.CssClass" src="@Model.SelectedSizeUrl" title="@Model.Title" alt="@Html.HtmlSanitize(Model.AlternativeText)"
-         @Html.GetWidthAttributeForVectorGraphics(Model.CustomSize, Model.Item.DataItem)
-         @Html.GetHeightAttributeForVectorGraphics(Model.CustomSize, Model.Item.DataItem) />
+             @Html.GetWidthAttributeForImage(Model)
+             @Html.GetHeightAttributeForImage(Model) />
     }
 }
 
@@ -44,7 +43,7 @@
 }
 else
 {
-    <a href="@Model.LinkedContentUrl">
+    <a href="@Model.LinkedContentUrl" title="Open image in original size">
         @ImageTag()
     </a>
-}
+} 

@@ -1,18 +1,16 @@
 ﻿using System;
 using System.Linq;
 using ServiceStack.Text;
-using Telerik.Sitefinity.Configuration;
-using Telerik.Sitefinity.Frontend.Media.Mvc.Helpers;
 using Telerik.Sitefinity.Frontend.Media.Mvc.Models.Image;
 using Telerik.Sitefinity.Frontend.Mvc.Models;
 using Telerik.Sitefinity.Libraries.Model;
 using Telerik.Sitefinity.Model;
 using Telerik.Sitefinity.Modules.Libraries;
-using Telerik.Sitefinity.Modules.Libraries;
 using Telerik.Sitefinity.Services;
 using SfImage = Telerik.Sitefinity.Libraries.Model.Image;
 using Telerik.Sitefinity.Modules.Libraries.Configuration;
 using Config = Telerik.Sitefinity.Configuration.Config;
+using Telerik.Sitefinity.Modules.Libraries.Thumbnails;
 
 namespace Telerik.Sitefinity.Frontend.Media.Mvc.Models.ImageGallery
 {
@@ -149,9 +147,9 @@ namespace Telerik.Sitefinity.Frontend.Media.Mvc.Models.ImageGallery
             viewModel.MediaUrl = this.GetSelectedSizeUrl((SfImage)item, this.ImageSizeModel);
 
             var sfImage = item as SfImage;
-            if (sfImage != null && sfImage.IsVectorGraphics())
+            if (sfImage != null)
             {
-                this.ApplyThumbnailProfileToViewModel(viewModel, this.ImageSizeModel);
+                this.ApplyThumbnailProfileToViewModel(viewModel, this.ImageSizeModel, sfImage);
             }
 
             return viewModel;
@@ -172,12 +170,8 @@ namespace Telerik.Sitefinity.Frontend.Media.Mvc.Models.ImageGallery
             {
                 var sfImage = (SfImage)item.DataItem;
 
-                if (sfImage.IsVectorGraphics())
-                {
-                    this.ApplyThumbnailProfileToViewModel(item, this.ThumbnailSizeModel);
-                    this.ApplyImageSizesToViewModel(item, this.ImageSizeModel);
-                }
-
+                this.ApplyThumbnailProfileToViewModel(item, this.ThumbnailSizeModel, sfImage);
+                this.ApplyImageSizesToViewModel(item, this.ImageSizeModel, sfImage);
                 item.ThumbnailUrl = this.GetSelectedSizeUrl(sfImage, this.ThumbnailSizeModel);
                 item.MediaUrl = this.GetSelectedSizeUrl(sfImage, this.ImageSizeModel);
             }
@@ -239,12 +233,12 @@ namespace Telerik.Sitefinity.Frontend.Media.Mvc.Models.ImageGallery
             return result;
         }
 
-        private void ApplyThumbnailProfileToViewModel(ThumbnailViewModel thumbnailViewModel, ImageSizeModel imageSizeModel)
+        private void ApplyThumbnailProfileToViewModel(ThumbnailViewModel thumbnailViewModel, ImageSizeModel imageSizeModel, SfImage image)
         {
             int width;
             int height;
 
-            this.GetThumbnailSizes(out width, out height, imageSizeModel);
+            this.GetThumbnailSizesOrDefaultSizes(out width, out height, imageSizeModel, image);
 
             if (height > 0)
             {
@@ -257,12 +251,12 @@ namespace Telerik.Sitefinity.Frontend.Media.Mvc.Models.ImageGallery
             }
         }
 
-        private void ApplyImageSizesToViewModel(ThumbnailViewModel thumbnailViewModel, ImageSizeModel imageSizeModel)
+        private void ApplyImageSizesToViewModel(ThumbnailViewModel thumbnailViewModel, ImageSizeModel imageSizeModel, SfImage image)
         {
             int width;
             int height;
 
-            this.GetThumbnailSizes(out width, out height, imageSizeModel);
+            this.GetThumbnailSizesOrDefaultSizes(out width, out height, imageSizeModel, image);
 
             if (height > 0)
             {
@@ -275,12 +269,12 @@ namespace Telerik.Sitefinity.Frontend.Media.Mvc.Models.ImageGallery
             }
         }
 
-        private void ApplyThumbnailProfileToViewModel(ImageDetailsViewModel imageDetailsViewModel, ImageSizeModel imageSizeModel)
+        private void ApplyThumbnailProfileToViewModel(ImageDetailsViewModel imageDetailsViewModel, ImageSizeModel imageSizeModel, SfImage image)
         {
             int width;
             int height;
 
-            this.GetThumbnailSizes(out width, out height, imageSizeModel);
+            this.GetThumbnailSizesOrDefaultSizes(out width, out height, imageSizeModel, image);
 
             if (height > 0)
             {
@@ -293,7 +287,7 @@ namespace Telerik.Sitefinity.Frontend.Media.Mvc.Models.ImageGallery
             }
         }
 
-        private void GetThumbnailSizes(out int width, out int height, ImageSizeModel imageSizeModel)
+        private void GetThumbnailSizesOrDefaultSizes(out int width, out int height, ImageSizeModel imageSizeModel, SfImage image)
         {
             width = 0;
             height = 0;
@@ -303,25 +297,48 @@ namespace Telerik.Sitefinity.Frontend.Media.Mvc.Models.ImageGallery
             var thumbnailProfile = this.DefaultAlbumThumbnailProfile(thumbnailName);
             if (thumbnailProfile != null)
             {
-                // Sets width - width is with higher priority if presents in parameters' collection
-                if (thumbnailProfile.Parameters.Keys.Contains("Width"))
+                if (image.IsVectorGraphics())
                 {
-                    width = this.GetThumbnailProfileSize(thumbnailProfile, "Width");
-                }
-                else if (thumbnailProfile.Parameters.Keys.Contains("MaxWidth"))
-                {
-                    width = this.GetThumbnailProfileSize(thumbnailProfile, "MaxWidth");
-                }
+                    // Sets width - width is with higher priority if presents in parameters' collection
+                    if (thumbnailProfile.Parameters.Keys.Contains("Width"))
+                    {
+                        width = this.GetThumbnailProfileSize(thumbnailProfile, "Width");
+                    }
+                    else if (thumbnailProfile.Parameters.Keys.Contains("MaxWidth"))
+                    {
+                        width = this.GetThumbnailProfileSize(thumbnailProfile, "MaxWidth");
+                    }
 
-                // Sets height - height is with higher priority if presents in parameters' collection
-                if (thumbnailProfile.Parameters.Keys.Contains("Height"))
-                {
-                    height = this.GetThumbnailProfileSize(thumbnailProfile, "Height");
+                    // Sets height - height is with higher priority if presents in parameters' collection
+                    if (thumbnailProfile.Parameters.Keys.Contains("Height"))
+                    {
+                        height = this.GetThumbnailProfileSize(thumbnailProfile, "Height");
+                    }
+                    else if (thumbnailProfile.Parameters.Keys.Contains("MaxHeight"))
+                    {
+                        height = this.GetThumbnailProfileSize(thumbnailProfile, "MaxHeight");
+                    }
                 }
-                else if (thumbnailProfile.Parameters.Keys.Contains("MaxHeight"))
+                else 
                 {
-                    height = this.GetThumbnailProfileSize(thumbnailProfile, "MaxHeight");
+                    var selectedThumbnail = image.Thumbnails.Where(t => t.Name == thumbnailProfile.Name).FirstOrDefault();
+
+                    if (selectedThumbnail == null)
+                    {
+                        selectedThumbnail = LazyThumbnailGenerator.Instance.CreateThumbnail(image, thumbnailName);
+                    }
+
+                    if (selectedThumbnail != null)
+                    {
+                        width = selectedThumbnail.Width;
+                        height = selectedThumbnail.Height;
+                    }
                 }
+            }
+            else {
+                //set dimensions to original size if no thumbnail profiles are found
+                width = image.Width;
+                height = image.Height;
             }
         }
 

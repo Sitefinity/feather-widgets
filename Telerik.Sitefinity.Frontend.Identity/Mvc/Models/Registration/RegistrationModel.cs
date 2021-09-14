@@ -344,7 +344,7 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.Registration
             var owinContext = context.Request.GetOwinContext();
             var selectedRoles = this.selectedRoles.Select(x => x.Name).ToJson();
 
-            var challengeProperties = ChallengeProperties.ForExternalUser(input, returnUri.ToString(), selectedRoles);
+            var challengeProperties = ChallengeProperties.ForExternalUser(input, returnUri.ToString(), returnUri.ToString(), selectedRoles);
             challengeProperties.RedirectUri = returnUri.ToString();
 
             owinContext.Authentication.Challenge(challengeProperties, ClaimsManager.CurrentAuthenticationModule.STSAuthenticationType);

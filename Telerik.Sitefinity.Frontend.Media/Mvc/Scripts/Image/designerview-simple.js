@@ -34,6 +34,7 @@
                     $scope.properties.ThumbnailName.PropertyValue = newVal.thumbnail ? newVal.thumbnail.name : null;
                     $scope.properties.ThumbnailUrl.PropertyValue = newVal.thumbnail ? newVal.thumbnail.url : null;
                     $scope.properties.CustomSize.PropertyValue = JSON.stringify(newVal.customSize);
+                    $scope.properties.Responsive.PropertyValue = newVal.responsive;
                     $scope.properties.DisplayMode.PropertyValue = newVal.displayMode;
 
                     $scope.openOriginalImageOnClick = $scope.properties.UseAsLink.PropertyValue === 'True' && $scope.properties.LinkedPageId.PropertyValue === serviceHelper.emptyGuid();
@@ -101,6 +102,11 @@
                         });
                     }
 
+                    var responsiveValue;
+                    if ($scope.properties.Responsive && $scope.properties.Responsive.PropertyValue && $scope.properties.Responsive.PropertyValue === "True") {
+                        responsiveValue = true;
+                    }
+
                     // Needs model population because of the thumbnails
                     $scope.model = $scope.model || {
                         item: {
@@ -111,7 +117,8 @@
                             name: $scope.properties.ThumbnailName.PropertyValue,
                             url: $scope.properties.ThumbnailUrl.PropertyValue
                         },
-                        customSize: $scope.properties.CustomSize.PropertyValue ? JSON.parse($scope.properties.CustomSize.PropertyValue) : null
+                        customSize: $scope.properties.CustomSize.PropertyValue ? JSON.parse($scope.properties.CustomSize.PropertyValue) : null,
+                        responsive: responsiveValue
                     };
 
                     $scope.initialized = true;

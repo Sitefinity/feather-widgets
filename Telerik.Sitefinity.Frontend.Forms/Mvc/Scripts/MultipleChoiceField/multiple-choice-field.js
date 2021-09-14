@@ -18,6 +18,11 @@
         if (e.target.validity.valueMissing) {
             setErrorMessage(e.target, validationMessages.required);
         }
+
+        var isValidLength = e.target.value.length <= 255;
+        if (e.target.validity.patternMismatch && !isValidLength) {
+            setErrorMessage(e.target, validationMessages.maxLength);
+        }
     };
 
     var getValidationMessages = function (input) {
@@ -88,6 +93,9 @@
 
                 if (isRequired)
                     otherInput.attr('required', 'required');
+
+                otherInput.attr('pattern', '.{0,255}');
+                otherInput.on('invalid', invalid);
             }
             else {
                 otherInput.attr('type', 'hidden');

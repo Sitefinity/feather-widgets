@@ -72,7 +72,7 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Models.Fields
                 return this.validator;
             }
         }
-        
+
         /// <summary>
         /// Determines whether this instance is valid.
         /// </summary>
@@ -111,10 +111,15 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Models.Fields
         {
             if (message.IndexOf("{0}") != -1)
             {
-                return string.Format(CultureInfo.InvariantCulture, message, fieldTitle);
+                return this.BuildErrorMessage(message, messageParams: fieldTitle);
             }
 
             return message;
+        }
+
+        protected virtual string BuildErrorMessage(string message, params string[] messageParams)
+        {
+            return string.Format(CultureInfo.InvariantCulture, message, messageParams);
         }
 
         private Validator validator;

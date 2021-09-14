@@ -6,8 +6,9 @@ module.exports = function (grunt) {
         var paths = grunt.file.expand( this.data.paths );
         var output = this.data.output;
         var removeSourceMapLine = function (x){
-            if(x.lastIndexOf("\n")>0) {
-                return x.substring(0, x.lastIndexOf("\n"));
+            var sourceMapIndex = x.indexOf('//# sourceMappingURL');
+            if (sourceMapIndex !== -1) {
+                return x.substring(0, sourceMapIndex);
             } else {
                 return x;
             }
@@ -42,8 +43,8 @@ module.exports = function (grunt) {
 			out.push("\t</testcase>");
         });
 
-	    // we need at least 1 empty test
-	    if (failurePaths.lenght === 0) {
+        // we need at least 1 empty test
+        if (failurePaths.length === 0) {
 		    out.push("\t<testcase name=\"" + suite + "\" />");
 	    } 
 	    out.push("</testsuite></testsuites>");

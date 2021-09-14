@@ -4,25 +4,25 @@
 
     angular.module('designer').requires.push('expander', 'simpleViewModule');
 
-    simpleViewModule.controller('SimpleCtrl', ['$scope', 'propertyService', function ($scope, propertyService) {
+    simpleViewModule.controller('SimpleCtrl', ['$scope', 'propertyService', '$q', function ($scope, propertyService, $q) {
 
         // ------------------------------------------------------------------------
         // scope variables and set up
         // ------------------------------------------------------------------------
 
         $scope.$watch(
-           'properties.Model.InputType.PropertyValue',
-           function (newInputType, oldInputType) {
-               if (newInputType !== oldInputType) {
-                   var inputTypeRegexPatterns = JSON.parse($scope.properties.Model.SerializedInputTypeRegexPatterns.PropertyValue);
-                   $scope.properties.Model.ValidatorDefinition.RegularExpression.PropertyValue = inputTypeRegexPatterns[newInputType];
+            'properties.Model.InputType.PropertyValue',
+            function (newInputType, oldInputType) {
+                if (newInputType !== oldInputType) {
+                    var inputTypeRegexPatterns = JSON.parse($scope.properties.Model.SerializedInputTypeRegexPatterns.PropertyValue);
+                    $scope.properties.Model.ValidatorDefinition.RegularExpression.PropertyValue = inputTypeRegexPatterns[newInputType];
 
-                   $scope.fieldInputType = getInputType(newInputType);
-                   $scope.properties.Model.MetaField.DefaultValue.PropertyValue = null;
-               }
-           },
-           true
-       );
+                    $scope.fieldInputType = getInputType(newInputType);
+                    $scope.properties.Model.MetaField.DefaultValue.PropertyValue = null;
+                }
+            },
+            true
+        );
 
         $scope.$watch(
             'defaultValue.value',
@@ -50,9 +50,6 @@
             if (data) {
                 $scope.properties = propertyService.toHierarchyArray(data.Items);
 
-                if ($scope.properties.Model.ValidatorDefinition.MaxLength.PropertyValue === '0')
-                    $scope.properties.Model.ValidatorDefinition.MaxLength.PropertyValue = '';
-
                 $scope.fieldInputType = getInputType($scope.properties.Model.InputType.PropertyValue);
 
                 // The changes bellow are needed so that the textbox is cleared when the predefined value of a textbox is removed
@@ -60,6 +57,21 @@
                 var inputType = $scope.properties.Model.InputType.PropertyValue.toLowerCase();
                 var defaultValue = inputType === "text" || inputType === "url" || inputType === "password" ? null : "";
                 $scope.defaultValue = { value: defaultValue };
+
+                $scope.feedback.savingHandlers.push(function () {
+                    var deferred = $q.defer();
+                    var maxDbLength = parseInt($scope.properties.Model.MetaField.DBLength.PropertyValue);
+
+                    if (maxDbLength && parseInt($scope.properties.Model.ValidatorDefinition.MaxLength.PropertyValue) > maxDbLength) {
+                        deferred.reject();
+                        $scope.feedback.errorMessage = "Range max value must be less than " + maxDbLength + " characters";
+                    }
+                    else {
+                        deferred.resolve();
+                    }
+
+                    return deferred.promise;
+                });
             }
         };
 

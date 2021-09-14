@@ -1,6 +1,8 @@
 ﻿using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
+using System.Text;
+using System.Web;
 using Newtonsoft.Json;
 using Telerik.Sitefinity.Abstractions;
 using Telerik.Sitefinity.Frontend.Forms.Mvc.StringResources;
@@ -56,6 +58,12 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Models.Fields.MultipleChoiceFiel
                     this.validatorDefinition.RequiredViolationMessage = Res.Get<FormResources>().RequiredInputErrorMessage;
                 }
 
+                if (this.validatorDefinition.MaxLength == 0 && this.MetaField != null && int.TryParse(this.MetaField.DBLength, out int dbLength))
+                {
+                    this.validatorDefinition.MaxLength = dbLength;
+                    this.validatorDefinition.MaxLengthViolationMessage = Res.Get<FormResources>().MaxLengthInputErrorMessageWithRange;
+                }
+
                 return this.validatorDefinition;
             }
 
@@ -90,6 +98,7 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Models.Fields.MultipleChoiceFiel
                 HasOtherChoice = this.HasOtherChoice,
                 IsRequired = this.ValidatorDefinition.Required.HasValue ? this.ValidatorDefinition.Required.Value : false,
                 ValidationAttributes = this.BuildValidationAttributesString(),
+                MaxLengthViolationMessage = this.BuildErrorMessage(this.ValidatorDefinition.MaxLengthViolationMessage, metaField.Title, this.ValidatorDefinition.MaxLength.ToString()),
                 RequiredViolationMessage = BuildErrorMessage(this.ValidatorDefinition.RequiredViolationMessage, metaField.Title),
                 CssClass = this.CssClass,
                 Hidden = this.Hidden && (!Sitefinity.Services.SystemManager.IsDesignMode || Sitefinity.Services.SystemManager.IsPreviewMode)
@@ -150,12 +159,15 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Models.Fields.MultipleChoiceFiel
         /// <inheritDocs />
         private string BuildValidationAttributesString()
         {
-            if (this.ValidatorDefinition.Required.HasValue && this.ValidatorDefinition.Required.Value)
-            {
-                return "required='required'";
-            }
+            var attributes = new StringBuilder();
 
-            return string.Empty;
+            if (this.ValidatorDefinition.Required.HasValue && this.ValidatorDefinition.Required.Value)
+                attributes.Append(@"required=""required"" ");
+
+            var patternAttribute = ".{" + this.ValidatorDefinition.MinLength + "," + this.ValidatorDefinition.MaxLength + "}";
+            attributes.Append($"pattern=\"{HttpUtility.HtmlAttributeEncode(patternAttribute)}\" ");
+
+            return attributes.ToString();
         }
 
         private ValidatorDefinition validatorDefinition;

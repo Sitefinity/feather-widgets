@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Globalization;
 using System.Linq;
 using System.Web;
 using System.Web.UI;
@@ -10,7 +9,6 @@ using Telerik.Sitefinity.Model;
 using Telerik.Sitefinity.Mvc;
 using Telerik.Sitefinity.Services;
 using Telerik.Sitefinity.Web;
-using Telerik.Sitefinity.Web.UI.NavigationControls;
 
 namespace Telerik.Sitefinity.Frontend.Navigation.Mvc.Models.Breadcrumb
 {
@@ -269,7 +267,7 @@ namespace Telerik.Sitefinity.Frontend.Navigation.Mvc.Models.Breadcrumb
                 var homePageNode = homePageKey != Guid.Empty ? (PageSiteNode)this.SiteMapProvider.FindSiteMapNodeFromKey(homePageKey.ToString()) : null;
 
                 //// Gets the actual home page when the site is set to multilingual and the home page is split
-                homePageNode = (PageSiteNode)((SiteMapBase)this.SiteMapProvider).FindSiteMapNodeForSpecificLanguage(homePageNode, Telerik.Sitefinity.Services.SystemManager.CurrentContext.Culture) ?? homePageNode;
+                homePageNode = (PageSiteNode)((SiteMapBase)this.SiteMapProvider).FindSiteMapNodeForSpecificLanguage(homePageNode, SystemManager.CurrentContext.Culture) ?? homePageNode;
 
                 var showToSelectedNode = this.SelectedPageNode != null && this.BreadcrumbIncludeOption != BreadcrumbIncludeOption.CurrentPageFullPath;
                 var isSelectedPageNodeFound = false;
@@ -278,7 +276,9 @@ namespace Telerik.Sitefinity.Frontend.Navigation.Mvc.Models.Breadcrumb
                         string.Compare(nodeKey, rootNodeKey, StringComparison.OrdinalIgnoreCase) != 0)
                 {
                     var node = (PageSiteNode)((SiteMapBase)this.SiteMapProvider).FindSiteMapNodeFromKey(nodeKey, false);
-                    if (node != homePageNode && node.IsAccessibleToUser(HttpContext.Current) && node.Visible)
+                    if (node != homePageNode && 
+                        node.IsAccessibleToUser(HttpContext.Current) && 
+                        !node.IsHidden())
                     {
                         if (this.ShowGroupPages)
                             breadcrumbDataSource.Insert(0, node);

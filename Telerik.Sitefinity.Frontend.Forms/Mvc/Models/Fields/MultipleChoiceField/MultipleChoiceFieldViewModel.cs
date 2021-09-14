@@ -70,6 +70,14 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Models.Fields.MultipleChoiceFiel
         public string RequiredViolationMessage { get; set; }
 
         /// <summary>
+        /// Gets or sets the message shown when max length validation has failed.
+        /// </summary>
+        /// <value>
+        /// The max length violation message.
+        /// </value>
+        public string MaxLengthViolationMessage { get; set; }
+
+        /// <summary>
         /// Gets or sets the CSS class.
         /// </summary>
         /// <value>
