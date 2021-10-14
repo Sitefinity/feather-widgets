@@ -202,7 +202,7 @@ namespace Telerik.Sitefinity.Frontend.Search.Mvc.Models
 
                 IList<Guid> sites;
                 if (pipe.PublishingPoint.IsSharedWithAllSites)
-                    sites = MultisiteManager.GetManager().GetSites().Select(s => s.Id).ToList();
+                    sites = SystemManager.CurrentContext.GetSites().Select(s => s.Id).ToList();
                 else
                     sites = this.GetSitesByPoint(pipe.PublishingPoint).Select(l => l.SiteId).ToList();
 

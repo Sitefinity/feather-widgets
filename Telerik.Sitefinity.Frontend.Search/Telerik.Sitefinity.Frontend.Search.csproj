@@ -165,6 +165,10 @@
       <HintPath>..\packages\Telerik.Sitefinity.Core.14.0.7700\lib\net48\Telerik.Sitefinity.Model.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="Telerik.Sitefinity.Personalization">
+      <HintPath>..\packages\Telerik.Sitefinity.Core.14.0.7700\lib\net48\Telerik.Sitefinity.Personalization.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="Telerik.Sitefinity.Search.Impl">
       <HintPath>..\packages\Telerik.Sitefinity.ServicesImpl.14.0.7700\lib\net48\Telerik.Sitefinity.Search.Impl.dll</HintPath>
       <Private>True</Private>

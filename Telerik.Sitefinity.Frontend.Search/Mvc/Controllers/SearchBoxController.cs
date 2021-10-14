@@ -11,6 +11,7 @@ using Telerik.Sitefinity.Frontend.Search.Mvc.Models;
 using Telerik.Sitefinity.Frontend.Search.Mvc.StringResources;
 using Telerik.Sitefinity.Localization;
 using Telerik.Sitefinity.Mvc;
+using Telerik.Sitefinity.Personalization;
 using Telerik.Sitefinity.Services;
 using Telerik.Sitefinity.Services.Search;
 using Telerik.Sitefinity.Services.Search.Configuration;
@@ -31,7 +32,7 @@ namespace Telerik.Sitefinity.Frontend.Search.Mvc.Controllers
         ModuleName = "Search",
         CssClass = SearchBoxController.WidgetIconCssClass)]
     [Localization(typeof(SearchWidgetsResources))]
-    public class SearchBoxController : Controller, ICustomWidgetVisualizationExtended
+    public class SearchBoxController : Controller, ICustomWidgetVisualizationExtended, IPersonalizable
     {
         #region ICustomWidgetVisualizationExtended
 

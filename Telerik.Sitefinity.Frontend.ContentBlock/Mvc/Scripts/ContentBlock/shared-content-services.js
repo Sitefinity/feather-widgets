@@ -55,13 +55,12 @@
 				    ItemType: 'Telerik.Sitefinity.GenericContent.Model.ContentItem'
 			    };
 
-			    $http.put(putUrl, itemContext, requestOptions())
-				    .success(function (data) {
-					    deferred.resolve(data);
-				    })
-				    .error(function (data) {
-					    deferred.reject(data);
-				    });
+				$http.put(putUrl, itemContext, requestOptions())
+					.then(function (response) {
+						deferred.resolve(response.data);
+					}, function (response) {
+						deferred.reject(response.data);
+					});
 
 			    return deferred.promise;
 		    };
@@ -114,13 +113,12 @@
 
 			    var deferred = $q.defer();
 
-			    $http.put(putUrl, itemData, requestOptions())
-				    .success(function (data) {
-					    deferred.resolve(data);
-				    })
-				    .error(function (data) {
-					    deferred.reject(data);
-				    });
+				$http.put(putUrl, itemData, requestOptions())
+					.then(function (response) {
+						deferred.resolve(response.data);
+					}, function (response) {
+						deferred.reject(response.data);
+					});
 
 			    return deferred.promise;
 		    };
@@ -137,13 +135,12 @@
 				    getUrl += '&provider=' + providerName;
 
 			    var deferred = $q.defer();
-			    $http.get(getUrl, requestOptions())
-				    .success(function (data) {
-					    deferred.resolve(data);
-				    })
-				    .error(function (data) {
-					    deferred.reject(data);
-				    });
+				$http.get(getUrl, requestOptions())
+					.then(function (response) {
+						deferred.resolve(response.data);
+					}, function (response) {
+						deferred.reject(response.data);
+					});
 
 			    return deferred.promise;
 		    };
@@ -176,13 +173,12 @@
 				    getUrl += '&allProviders=false&provider=' + providerName;
 
 			    var deferred = $q.defer();
-			    $http.get(getUrl, requestOptions())
-				    .success(function (data) {
-					    deferred.resolve(data);
-				    })
-				    .error(function (data) {
-					    deferred.reject(data);
-				    });
+				$http.get(getUrl, requestOptions())
+					.then(function (response) {
+						deferred.resolve(response.data);
+					}, function (response) {
+						deferred.reject(response.data);
+					});
 
 			    return deferred.promise;
 		    };
@@ -196,13 +192,12 @@
 		        var deleteUrl = getServiceUrl() + 'temp/' + id + '/';
 
 			    var deferred = $q.defer();
-			    $http.delete(deleteUrl, requestOptions())
-				    .success(function (data) {
-					    deferred.resolve(data);
-				    })
-				    .error(function (data) {
-					    deferred.reject(data);
-				    });
+				$http.delete(deleteUrl, requestOptions())
+					.then(function (response) {
+						deferred.resolve(response.data);
+					}, function (response) {
+						deferred.reject(response.data);
+					});
 
 			    return deferred.promise;
 		    };
