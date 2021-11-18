@@ -4,6 +4,7 @@
 @using Telerik.Sitefinity.Frontend.Mvc.Helpers;
 @using Telerik.Sitefinity.Modules.Pages;
 @using Telerik.Sitefinity.Services;
+@using Telerik.Sitefinity.Web;
 
 @*Add scripts and stylesheets*@
 @Html.Script(ScriptRef.JQuery, "top", false)
@@ -21,7 +22,7 @@
          @Html.ValidationSummary(true)
             <h3>@Html.Resource("LoginFormLogInLegendHeader")</h3>
 
-            if (Request.Url.Query.Contains("err=true") || Model.LoginError)
+            if ((!string.IsNullOrEmpty(Request.QueryStringGet("err")) && ViewBag.ControllerId.Equals(Request.QueryStringGet("sf_login_cntrl_id"))) || Model.LoginError)
             {
                 <p>@Html.Resource("IncorrectCredentialsMessage")</p>
             }
@@ -81,6 +82,4 @@
         }
     </div>
 </div>
-
-@Html.Script(Url.WidgetContent("Mvc/Scripts/LoginForm/login-form.js"), "bottom", false)
 

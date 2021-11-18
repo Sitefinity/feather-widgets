@@ -159,7 +159,7 @@ namespace Telerik.Sitefinity.Frontend.Comments.Mvc.Models
         {
             get
             {
-                var loginRedirectUrl = string.Format("{0}?ReturnUrl={1}", this.GetDefaultLoginUrl(), HttpUtility.UrlEncode(Telerik.Sitefinity.Web.UrlPath.ResolveAbsoluteUrl(SystemManager.CurrentHttpContext.Request.Url.AbsoluteUri)));
+                var loginRedirectUrl = string.Format("{0}?{1}={2}", this.GetDefaultLoginUrl(), SecurityManager.AuthenticationReturnUrl, HttpUtility.UrlEncode(Telerik.Sitefinity.Web.UrlPath.ResolveAbsoluteUrl(SystemManager.CurrentHttpContext.Request.Url.AbsoluteUri)));
 
                 return loginRedirectUrl;
             }
@@ -427,6 +427,7 @@ namespace Telerik.Sitefinity.Frontend.Comments.Mvc.Models
                 RequiresApproval = this.ThreadConfig.RequiresApproval,
                 RequiresAuthentication = this.ThreadConfig.RequiresAuthentication,
                 RequiresCaptcha = this.CommentsConfig.UseSpamProtectionImage,
+                AlwaysUseUtc = this.CommentsConfig.AlwaysUseUtc,
                 RootUrl = rootUrl,
                 UserAvatarImageUrl = this.UserAvatarImageUrl,
                 UserDisplayName = this.UserDisplayName,
@@ -441,7 +442,7 @@ namespace Telerik.Sitefinity.Frontend.Comments.Mvc.Models
         {
             var author = new AuthorProxy(SecurityManager.GetCurrentUserId().ToString());
 
-            return new ThreadProxy(threadTitle, this.ThreadType, this.GroupKey, author)
+            return new ThreadProxy(threadTitle, this.ThreadType, this.GroupKey, author, SystemManager.CurrentContext.Culture)
             {
                 IsClosed = false,
                 Key = this.ThreadKey,
@@ -459,7 +460,7 @@ namespace Telerik.Sitefinity.Frontend.Comments.Mvc.Models
                 {
                     var manager = Telerik.Sitefinity.Modules.Pages.PageManager.GetManager();
                     var redirectPage = manager.GetPageNode(currentSite.FrontEndLoginPageId);
-                    var culture = AppSettings.CurrentSettings.Multilingual ? SystemManager.CurrentContext.AppSettings.CurrentCulture : null;
+                    var culture = SystemManager.CurrentContext.AppSettings.CurrentCulture;
                     defaultLoginPageUrl = !redirectPage.IsDeleted ? Telerik.Sitefinity.Modules.Pages.PageExtesnsions.GetFullUrl(redirectPage, culture, true) : string.Empty;
                 }
                 catch (ItemNotFoundException)

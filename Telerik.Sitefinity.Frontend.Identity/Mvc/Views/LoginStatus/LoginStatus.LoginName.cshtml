@@ -1,10 +1,7 @@
 ﻿@model Telerik.Sitefinity.Frontend.Identity.Mvc.Models.LoginStatus.LoginStatusViewModel
 
 @using Telerik.Sitefinity.Frontend.Mvc.Helpers;
-@using Telerik.Sitefinity.Modules.Pages;
 @using Telerik.Sitefinity.Mvc.Proxy;
-
-@Html.Script(ScriptRef.JQuery, "top", false)
 
 @{
 var SignOutUrl = string.Concat(Url.Action("SignOut"),string.Format("?{0}={1}", MvcControllerProxy.ControllerKey, ViewData[MvcControllerProxy.ControllerKey]));
@@ -28,4 +25,4 @@ var SignOutUrl = string.Concat(Url.Action("SignOut"),string.Format("?{0}={1}", M
 <input type="hidden" data-sf-role="sf-logout-redirect-url" value="@Model.LogoutPageUrl"/>
 <input type="hidden" data-sf-role="sf-is-design-mode-value" value="@ViewBag.IsDesignMode.ToString()" />
 
-@Html.Script(Url.WidgetContent("Mvc/Scripts/LoginStatus/login-status.js"), "bottom", false)
+@Html.Script(Url.WidgetContent("Mvc/Scripts/LoginStatus/login-status.js"), "bottom", throwException: false, tryUseScriptManager: false)

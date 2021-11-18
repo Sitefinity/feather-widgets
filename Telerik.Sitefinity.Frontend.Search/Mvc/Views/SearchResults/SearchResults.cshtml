@@ -8,11 +8,6 @@
 @using Telerik.Sitefinity.Services;
 @using Telerik.Sitefinity.Web
 
-@if (!SystemManager.IsDesignMode)
-{
-    @Html.Script(ScriptRef.JQuery, "top", false)
-}
-
 <div class="@Model.CssClass">
 
     @if (@Model.Results.TotalCount > 0)
@@ -162,4 +157,4 @@
 
 </div>
 
-@Html.Script(Url.WidgetContent("Mvc/Scripts/SearchResults/Search-results.js"), "bottom", false)
+@Html.Script(Url.WidgetContent("Mvc/Scripts/SearchResults/Search-results.js"), "bottom", throwException: false)

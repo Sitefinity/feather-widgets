@@ -12,7 +12,7 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.Profile
     /// <summary>
     /// This class represents view model for Profile widget.
     /// </summary>
-    [Bind(Exclude = "SelectedUserProfiles, User, CanEdit, CssClass, ShowProfileChangedMsg, DisplayName, UserName, AvatarImageUrl, DefaultAvatarUrl")]
+    [Bind(Include = "Profile, OldPassword, NewPassword, RepeatPassword, Email, DeletePicture, ExternalProviderName, UploadedImage")]
     public class ProfileEditViewModel
     {
         /// <summary>
@@ -31,7 +31,7 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.Profile
         {
             this.Profile = profile;
         }
-        
+
         /// <summary>
         /// Gets the selected user profiles.
         /// </summary>
@@ -47,7 +47,7 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.Profile
         /// The profile.
         /// </value>
         public IDictionary<string, string> Profile { get; set; }
-        
+
         /// <summary>
         /// Gets or sets the old password.
         /// </summary>

@@ -103,6 +103,14 @@ namespace Telerik.Sitefinity.Frontend.Media.Mvc.Models.Image
         string CustomSize { get; set; }
 
         /// <summary>
+        /// Gets or sets whether responsive mode is used
+        /// </summary>
+        /// <value>
+        /// <c>true</c> if should use responsive; otherwise, <c>false</c>.
+        /// </value>
+        bool Responsive { get; set; }
+
+        /// <summary>
         /// Gets the view model.
         /// </summary>
         /// <returns></returns>

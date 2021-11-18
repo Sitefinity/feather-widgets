@@ -11,7 +11,7 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.LoginForm
     /// <summary>
     /// This class represents login form view model for the <see cref="LoginFormController"/>.
     /// </summary>
-    [Bind(Exclude = "CssClass, ServiceUrl, MembershipProvider, RedirectUrlAfterLogin, RegisterPageUrl, Realm, ShowRegistrationLink, ShowForgotPasswordLink, ShowRememberMe")]
+    [Bind(Include = "UserName, Password, RememberMe, ExternalProviders, LoginError")]
     public class LoginFormViewModel
     {
         /// <summary>

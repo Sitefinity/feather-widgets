@@ -83,6 +83,22 @@ namespace Telerik.Sitefinity.Frontend.Media.Mvc.Models.Image
         public string ThumbnailUrl { get; set; }
 
         /// <summary>
+        /// Gets or sets the thumbnail width.
+        /// </summary>
+        /// <value>
+        /// The thumbnail width.
+        /// </value>
+        public int? ThumbnailWidth { get; set; }
+
+        /// <summary>
+        /// Gets or sets the thumbnail height.
+        /// </summary>
+        /// <value>
+        /// The thumbnail height.
+        /// </value>
+        public int? ThumbnailHeight { get; set; }
+
+        /// <summary>
         /// Gets or sets the selected size URL.
         /// </summary>
         /// <value>
@@ -97,5 +113,13 @@ namespace Telerik.Sitefinity.Frontend.Media.Mvc.Models.Image
         /// The size of the custom thumbnail serialized as JSON.
         /// </value>
         public CustomSizeModel CustomSize { get; set; }
+
+        /// <summary>
+        /// Gets or sets whether responsive mode is used
+        /// </summary>
+        /// <value>
+        /// <c>true</c> if should use responsive; otherwise, <c>false</c>.
+        /// </value>
+        public bool Responsive { get; set; }
     }
 }

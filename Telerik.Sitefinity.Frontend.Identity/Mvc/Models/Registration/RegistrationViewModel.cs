@@ -2,15 +2,17 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Web.Mvc;
+using Telerik.Sitefinity.Frontend.Identity.Mvc.Helpers;
 using Telerik.Sitefinity.Frontend.Identity.Mvc.StringResources;
+using Telerik.Sitefinity.Localization;
 
 namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.Registration
 {
     /// <summary>
     /// This class represents view model for the <see cref="RegistrationController"/>.
     /// </summary>
-    [Bind(Exclude = "CssClass, LoginPageUrl, MembershipProviderName, SuccessfulRegistrationPageUrl, ConfirmationPageId, EmailAddressShouldBeTheUsername")]
-    public class RegistrationViewModel
+    [Bind(Include = "RequiresQuestionAndAnswer, Password, Question, Answer, ReTypePassword, Email, Profile, ExternalProviders")]
+    public class RegistrationViewModel : IValidatableObject
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="RegistrationViewModel"/> class.
@@ -116,7 +118,7 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.Registration
         /// <value>
         /// The profile.
         /// </value>
-        public IDictionary<string, string> Profile { get; private set; }
+        public IDictionary<string, string> Profile { get; set; }
 
         /// <summary>
         /// Gets or sets the external providers.
@@ -125,5 +127,45 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.Registration
         /// External providers.
         /// </value>
         public IDictionary<string, string> ExternalProviders { get; set; }
+
+        public virtual IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
+        {
+            foreach (var info in Profile)
+            {
+                var validation = RegistrationHelper.GetFieldValidatorDefinition(info.Key);
+
+                if (validation != null)
+                {
+                    if (validation.Required.HasValue && validation.Required.Value && string.IsNullOrEmpty(info.Value))
+                    {
+                        var requiredErrorMessage = this.GetErrorMessageFromResource(validation.RequiredViolationMessage);
+
+                        yield return new ValidationResult($"{requiredErrorMessage}", new List<string> { "Profile[" + info.Key + "]" });
+                    }
+                    else if (info.Value.Length > 1)
+                    {
+                        if (info.Value.Length < (int)validation.MinLength || ((int)validation.MaxLength != 0 && info.Value.Length > (int)validation.MaxLength))
+                        {
+                            var lengthErrorMessage = this.GetErrorMessageFromResource(validation.MaxLengthViolationMessage);
+                           
+                            yield return new ValidationResult($"{lengthErrorMessage}", new List<string> { "Profile[" + info.Key + "]" });
+                        }
+                    }
+                }
+            }
+        }
+
+        private string GetErrorMessageFromResource(string violationMessage)
+        {
+            const string MissingResourcePrefix = "#ResourceNotFound#";
+            string errorMessage = string.Empty;
+
+            if (violationMessage != null)
+            {
+                errorMessage = Res.Get<ErrorMessages>(violationMessage).StartsWith(MissingResourcePrefix) ? violationMessage : Res.Get<ErrorMessages>(violationMessage);
+            }
+
+            return errorMessage;
+        }
     }
 }

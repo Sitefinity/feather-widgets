@@ -453,28 +453,31 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.UsersList
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Naming", "CA1704:IdentifiersShouldBeSpelledCorrectly", MessageId = "Expr"), System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1045:DoNotPassTypesByReference", MessageId = "5#")]
         protected IQueryable SetExpression(string filterExpression, string sortExpr, int? itemsToSkip, int? itemsToTake, ref int? totalCount)
         {
-            IQueryable query = null;
 
             var profileType = TypeResolutionService.ResolveType(this.ProfileTypeFullName);
 
             var skip = itemsToSkip.HasValue ? itemsToSkip.Value : 0;
             var take = itemsToTake.HasValue ? itemsToTake.Value : 0;
 
+            IQueryable query = this.Manager.Provider.GetItems(profileType, null, null, 0, 0).AsQueryable();
+            var userProviders = UserManager.GetManager().GetContextProviders().Select(p => p.Name).ToArray();
+            query = query.Cast<UserProfile>().Where(p => p.UserLinks.Any(l => userProviders.Contains(l.MembershipManagerInfo.ProviderName)));
+
             try
             {
-                query = this.Manager.Provider.GetItems(
-                                                    profileType,
+                query = DataProviderBase.SetExpressions(
+                                                    query, 
                                                     filterExpression,
                                                     sortExpr,
                                                     skip,
                                                     take,
-                                                    ref totalCount).AsQueryable();
+                                                    ref totalCount);
             }
             catch (MemberAccessException)
             {
                 this.SortExpression = DefaultSortExpression;
-                query = this.Manager.Provider.GetItems(
-                                                    profileType,
+                query = DataProviderBase.SetExpressions(
+                                                    query,
                                                     filterExpression,
                                                     null,
                                                     skip,

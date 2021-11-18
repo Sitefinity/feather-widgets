@@ -1,5 +1,6 @@
 ﻿using System;
 using System.ComponentModel;
+using System.Globalization;
 using Telerik.Sitefinity.Web.UI.Validation;
 using Telerik.Sitefinity.Web.UI.Validation.Contracts;
 using Telerik.Sitefinity.Web.UI.Validation.Definitions;
@@ -71,7 +72,7 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Models.Fields
                 return this.validator;
             }
         }
-        
+
         /// <summary>
         /// Determines whether this instance is valid.
         /// </summary>
@@ -91,6 +92,34 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Models.Fields
         protected virtual string BuildValidationAttributes()
         {
             return this.ValidatorDefinition.Required.HasValue && this.ValidatorDefinition.Required.Value ? "required='required'" : string.Empty;
+        }
+
+        protected virtual ValidatorDefinition BuildValidatorDefinition(ValidatorDefinition definition, string fieldTitle)
+        {
+            var validatorDefinition = new ValidatorDefinition(definition.ConfigDefinition);
+            validatorDefinition.RequiredViolationMessage = this.BuildErrorMessage(definition.RequiredViolationMessage, fieldTitle);
+            validatorDefinition.MaxLengthViolationMessage = this.BuildErrorMessage(definition.MaxLengthViolationMessage, fieldTitle);
+            validatorDefinition.RegularExpressionViolationMessage = this.BuildErrorMessage(definition.RegularExpressionViolationMessage, fieldTitle);
+            validatorDefinition.MinLength = definition.MinLength;
+            validatorDefinition.MaxLength = definition.MaxLength;
+            validatorDefinition.Required = definition.Required;
+
+            return validatorDefinition;
+        }
+
+        protected virtual string BuildErrorMessage(string message, string fieldTitle)
+        {
+            if (message.IndexOf("{0}") != -1)
+            {
+                return this.BuildErrorMessage(message, messageParams: fieldTitle);
+            }
+
+            return message;
+        }
+
+        protected virtual string BuildErrorMessage(string message, params string[] messageParams)
+        {
+            return string.Format(CultureInfo.InvariantCulture, message, messageParams);
         }
 
         private Validator validator;

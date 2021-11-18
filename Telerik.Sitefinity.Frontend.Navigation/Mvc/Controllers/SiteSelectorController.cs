@@ -72,7 +72,7 @@ namespace Telerik.Sitefinity.Frontend.Navigation.Mvc.Controllers
         {
             get
             {
-                return SystemManager.CurrentContext.IsMultisiteMode;
+                return true;
             }
         }
 
@@ -88,18 +88,11 @@ namespace Telerik.Sitefinity.Frontend.Navigation.Mvc.Controllers
         /// </returns>
         public ActionResult Index()
         {
-            if (this.IsMultisiteMode)
-            {
-                var fullTemplateName = this.templateNamePrefix + this.TemplateName;
-                var viewModel = this.Model.CreateViewModel();
-                this.AppendQueryParamsToCurrentSiteUrl(viewModel.Sites);
+            var fullTemplateName = this.templateNamePrefix + this.TemplateName;
+            var viewModel = this.Model.CreateViewModel();
+            this.AppendQueryParamsToCurrentSiteUrl(viewModel.Sites);
 
-                return this.View(fullTemplateName, viewModel);
-            }
-            else
-            {
-                return this.Content(Res.Get<SiteSelectorResources>().MultisiteIsDisabledMessage);
-            }
+            return this.View(fullTemplateName, viewModel);
         }
 
         #endregion

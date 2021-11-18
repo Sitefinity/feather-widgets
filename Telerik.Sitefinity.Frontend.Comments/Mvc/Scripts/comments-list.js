@@ -221,7 +221,11 @@
 
         getDateString: function (sfDateString, secondsOffset) {
             var date = this.getDateFromSfString(sfDateString);
-            date.setMinutes(date.getMinutes() + date.getTimezoneOffset());
+
+            if (!this.settings.alwaysUseUtc) {
+                date.setMinutes(date.getMinutes() + date.getTimezoneOffset());
+            }
+
             date.setSeconds(date.getSeconds() + secondsOffset);
 
             return date.toISOString();
@@ -328,7 +332,7 @@
             newComment.find('[data-sf-role="list-rating-wrapper"]').show();
             newComment.find('[data-sf-role="comment-avatar"]').attr('src', comment.ProfilePictureThumbnailUrl).attr('alt', comment.Name);
 
-            newComment.find('[data-sf-role="comment-name"]').text(comment.Name);
+            newComment.find('[data-sf-role="comment-name"]').html(comment.Name);
             newComment.find('[data-sf-role="comment-date"]').text(this.getDateFromSfString(comment.DateCreated).toDateString());
 
             this.attachCommentMessage(newComment.find('[data-sf-role="comment-message"]'), comment.Message);
@@ -503,8 +507,6 @@
                 if (self.settings.requiresCaptcha) {
                     comment.Captcha = {
                         Answer: self.captchaInput().val(),
-                        CorrectAnswer: self.captchaData.correctAnswer,
-                        InitializationVector: self.captchaData.iv,
                         Key: self.captchaData.key
                     };
                 }
@@ -609,8 +611,6 @@
             self.restApi.getCaptcha().then(function (data) {
                 if (data) {
                     self.captchaImage().attr("src", "data:image/png;base64," + data.Image);
-                    self.captchaData.iv = data.InitializationVector;
-                    self.captchaData.correctAnswer = data.CorrectAnswer;
                     self.captchaData.key = data.Key;
                     self.captchaInput().val("");
                     self.captchaInput().show();
@@ -623,8 +623,6 @@
         setupCaptcha: function () {
             if (!this.isUserAuthenticated && this.settings.requiresCaptcha) {
                 this.captchaData = {
-                    iv: null,
-                    correctAnswer: null,
                     key: null
                 };
 
@@ -840,8 +838,7 @@
         window.personalizationManager.addPersonalizedContentLoaded(function () {
             new Initialization();
         });
-    }
-    else {
+    } else {
         $(function () {
             new Initialization();
         });

@@ -5,7 +5,7 @@ using System.Web;
 using Telerik.Sitefinity.Frontend.Forms.Mvc.StringResources;
 using Telerik.Sitefinity.Localization;
 using Telerik.Sitefinity.Services;
-using Telerik.Sitefinity.Services.Comments.DTO;
+using Telerik.Sitefinity.Services.Captcha.DTO;
 using Telerik.Sitefinity.Web;
 using Telerik.Sitefinity.Web.UI.Validation.Definitions;
 
@@ -68,7 +68,7 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Models.Fields.Captcha
                     this.validatorDefinition = new ValidatorDefinition();
                     this.validatorDefinition.RequiredViolationMessage = Res.Get<FormResources>().RequiredInputErrorMessage;
                 }
-                
+
                 return this.validatorDefinition;
             }
 
@@ -85,10 +85,8 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Models.Fields.Captcha
             {
                 GenerateUrl = RouteHelper.ResolveUrl(CaptchaModel.CaptchaGetService, UrlResolveOptions.Rooted),
                 CaptchaAnswerFormKey = CaptchaModel.CaptchaAnswerFormKey,
-                CaptchaCorrectAnswerFormKey = CaptchaModel.CaptchaCorrectAnswerFormKey,
-                CaptchaInitializationVectorFormKey = CaptchaModel.CaptchaInitializationVectorFormKey,
                 CaptchaKeyFormKey = CaptchaModel.CaptchaKeyFormKey,
-                ValidatorDefinition = this.ValidatorDefinition,
+                ValidatorDefinition = this.BuildValidatorDefinition(this.ValidatorDefinition, "Captcha"),
                 CssClass = this.CssClass,
                 EnableAudioCode = this.EnableAudioCode
             };
@@ -119,41 +117,59 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Models.Fields.Captcha
             if (HttpContext.Current == null || HttpContext.Current.Request == null)
                 return false;
 
-            var correctAnswer = HttpContext.Current.Request[CaptchaModel.CaptchaCorrectAnswerFormKey];
-            var initializationVector = HttpContext.Current.Request[CaptchaModel.CaptchaInitializationVectorFormKey];
             var key = HttpContext.Current.Request[CaptchaModel.CaptchaKeyFormKey];
 
-            if (string.IsNullOrEmpty(correctAnswer) || string.IsNullOrEmpty(initializationVector) || string.IsNullOrEmpty(key))
+            if (string.IsNullOrEmpty(key))
                 return false;
 
-            var isValid = this.ValidateCaptcha(strValue, correctAnswer, initializationVector, key);
+            bool isValid = key.Contains(",") && strValue.Contains(",") ? this.ValidateCaptchas(key, strValue) :
+                this.ValidateCaptcha(key, strValue);
 
             return isValid;
         }
 
-        private bool ValidateCaptcha(string answer, string correctAnswer, string initializationVector, string key)
+        private bool ValidateCaptcha(string key, string answer)
         {
-            var commentWebServiceType = Type.GetType("Telerik.Sitefinity.Services.Comments.CommentWebService, Telerik.Sitefinity");
+            var commentWebServiceType = Type.GetType("Telerik.Sitefinity.Services.Captcha.CaptchaWebService, Telerik.Sitefinity");
             var commentWebServiceInstance = Activator.CreateInstance(commentWebServiceType);
-            var validateMethodInfo = commentWebServiceType.GetMethod("Validate", BindingFlags.NonPublic | BindingFlags.Instance, null, new Type[] { typeof(CaptchaInfo) }, null);
+            var validateMethodInfo = commentWebServiceType.GetMethod("Validate", BindingFlags.NonPublic | BindingFlags.Instance, null, new Type[] { typeof(string), typeof(string) }, null);
 
-            var captchaInfo = new CaptchaInfo() { Answer = answer, CorrectAnswer = correctAnswer, InitializationVector = initializationVector, Key = key };
-            bool? result;
+            CaptchaValidationResponse result;
             // Workaround culture issues in the Captcha validation. Remove this region for Sitefinity 9.0.
             using (new CultureRegion(System.Globalization.CultureInfo.InvariantCulture))
             {
-                result = validateMethodInfo.Invoke(commentWebServiceInstance, new object[] { captchaInfo }) as bool?;
+                result = validateMethodInfo.Invoke(commentWebServiceInstance, new object[] { key, answer }) as CaptchaValidationResponse;
             }
 
-            return result.HasValue && result.Value;
+            return result != null && result.IsValid;
+        }
+
+        private bool ValidateCaptchas(string keys, string answers)
+        {
+            var keysArr = keys.Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries);
+            var answersArr = answers.Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries);
+            if (keysArr.Length == answersArr.Length)
+            {
+                for (int i = 0; i < keysArr.Length; i++)
+                {
+                    if (!this.ValidateCaptcha(keysArr[i], answersArr[i]))
+                    {
+                        return false;
+                    }
+                }
+
+                return true;
+            }
+            else
+            {
+                return this.ValidateCaptcha(keys, answers);
+            }
         }
 
         private ValidatorDefinition validatorDefinition;
-        private const string CaptchaGetService = "RestApi/comments-api/";
+        private const string CaptchaGetService = "RestApi/captcha/";
 
         private const string CaptchaAnswerFormKey = "captcha-a";
-        private const string CaptchaCorrectAnswerFormKey = "captcha-ca";
-        private const string CaptchaInitializationVectorFormKey = "captcha-iv";
         private const string CaptchaKeyFormKey = "captcha-k";
         private bool enableAudioCode = true;
     }

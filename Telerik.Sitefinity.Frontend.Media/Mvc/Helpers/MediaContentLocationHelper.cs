@@ -22,8 +22,15 @@ namespace Telerik.Sitefinity.Frontend.Media.Mvc.Helpers
             location.ProviderName = providerName;
 
             var mediaItem = LibrariesManager.GetManager(providerName).GetItem(mediaType, id) as MediaContent;
-            var filterExpression = string.Format("(Id = {0} OR OriginalContentId = {1})", id.ToString("D"), mediaItem.OriginalContentId);
-            location.Filters.Add(new BasicContentLocationFilter(filterExpression));
+            var itemsList = new List<string>();
+            itemsList.Add(mediaItem.Id.ToString());
+            if (mediaItem.OriginalContentId != Guid.Empty)
+            {
+                itemsList.Add(mediaItem.OriginalContentId.ToString());
+            }
+
+            var filter = new ContentLocationSingleItemFilter(itemsList);
+            location.Filters.Add(filter);
 
             return new[] { location };
         }

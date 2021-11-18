@@ -7,6 +7,7 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.LoginForm
     /// <summary>
     /// This class represents reset password input model for the <see cref="LoginFormController"/>.
     /// </summary>
+    [Bind(Include = "NewPassword, RepeatNewPassword, ResetPasswordAnswer, SecurityToken")]
     public class ResetPasswordInputModel
     {
         /// <summary>

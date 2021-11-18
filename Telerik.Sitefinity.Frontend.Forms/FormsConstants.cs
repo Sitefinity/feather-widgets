@@ -14,5 +14,10 @@
         /// The common section name
         /// </summary>
         public const string CommonSectionName = "Common";
+
+        /// <summary>
+        /// The common section name
+        /// </summary>
+        public const string CustomSectionName = "Custom Fields";
     }
 }

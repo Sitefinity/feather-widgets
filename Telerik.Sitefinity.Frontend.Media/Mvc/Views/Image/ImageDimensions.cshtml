@@ -1,0 +1,49 @@
+@using Telerik.Sitefinity.Frontend.Mvc.Helpers;
+@using Telerik.Sitefinity.Frontend.Media.Mvc.Helpers
+@model Telerik.Sitefinity.Frontend.Media.Mvc.Models.Image.ImageViewModel
+
+@helper ImageTag()
+{
+    if (Model.Responsive == true)
+    {
+        <picture class="@Model.CssClass">
+            @{
+                var thumbnails = Html.GetImageThumbnailsSortedByWidthDesc(Model);
+                var img = Model.Item.DataItem as Telerik.Sitefinity.Libraries.Model.Image;
+
+                if (thumbnails.Count > 0)
+                {
+                    foreach (var thumbnail in thumbnails)
+                    {
+                        var blobThumb = thumbnail as Telerik.Sitefinity.BlobStorage.IBlobContent;
+
+                        if (blobThumb != null && (thumbnail.Width != img.Width && thumbnail.Height != img.Height))
+                        {
+                            <source media="(max-width: @(thumbnail.Width)px)" srcset="@blobThumb.Url" type="@thumbnail.MimeType" width="@thumbnail.Width" height="@thumbnail.Height"/>
+                        }
+                    }
+                }
+            }
+
+            <img src="@Model.SelectedSizeUrl" title="@Model.Title" alt="@Html.HtmlSanitize(Model.AlternativeText)"/>
+        </picture>
+    }
+    else
+    {
+
+        <img loading="lazy" class="@Model.CssClass" src="@Model.SelectedSizeUrl" title="@Model.Title" alt="@Html.HtmlSanitize(Model.AlternativeText)"
+             @Html.GetWidthAttributeForImage(Model)
+             @Html.GetHeightAttributeForImage(Model) />
+    }
+}
+
+@if (string.IsNullOrEmpty(Model.LinkedContentUrl))
+{
+    @ImageTag()
+}
+else
+{
+    <a href="@Model.LinkedContentUrl" title="Open image in original size">
+        @ImageTag()
+    </a>
+} 

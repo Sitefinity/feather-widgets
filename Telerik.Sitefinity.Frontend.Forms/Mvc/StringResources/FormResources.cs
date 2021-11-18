@@ -317,6 +317,22 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.StringResources
         }
 
         /// <summary>
+        /// phrase: {0} field must be less than {1} characters
+        /// </summary>
+        /// <value>{0} field input is invalid</value>
+        [ResourceEntry("MaxLengthInputErrorMessageWithRange",
+            Value = "{0} field must be less than {1} characters",
+            Description = "phrase: {0} field must be less than {1} characters",
+            LastModified = "2021/03/30")]
+        public string MaxLengthInputErrorMessageWithRange
+        {
+            get
+            {
+                return this["MaxLengthInputErrorMessageWithRange"];
+            }
+        }
+
+        /// <summary>
         /// FormsControl
         /// </summary>
         [ResourceEntry("FormsControlTitle",

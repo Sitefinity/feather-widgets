@@ -65,8 +65,8 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Models.Fields.ParagraphTextField
                 MetaField = this.MetaField,
                 PlaceholderText = this.PlaceholderText,
                 ValidationAttributes = this.BuildValidationAttributesString(),
-                RequiredViolationMessage = this.ValidatorDefinition.RequiredViolationMessage,
-                MaxLengthViolationMessage = this.ValidatorDefinition.MaxLengthViolationMessage,
+                RequiredViolationMessage = BuildErrorMessage(this.ValidatorDefinition.RequiredViolationMessage, metaField.Title),
+                MaxLengthViolationMessage = BuildErrorMessage(this.ValidatorDefinition.MaxLengthViolationMessage, metaField.Title),
                 CssClass = this.CssClass,
                 Hidden = this.Hidden && (!Sitefinity.Services.SystemManager.IsDesignMode || Sitefinity.Services.SystemManager.IsPreviewMode)
             };

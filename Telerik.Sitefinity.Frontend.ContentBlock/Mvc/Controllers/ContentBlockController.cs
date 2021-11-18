@@ -160,6 +160,7 @@ namespace Telerik.Sitefinity.Frontend.ContentBlock.Mvc.Controllers
         /// <c>true</c> if should exclude content from search index; otherwise, <c>false</c>.
         /// </value>
         [WebDisplayName("ContentBlockResources", "ExcludeFromSearchIndex")]
+        [Category("Advanced")]
         public bool ExcludeFromSearchIndex { get; set; }
 
         #endregion
@@ -199,6 +200,7 @@ namespace Telerik.Sitefinity.Frontend.ContentBlock.Mvc.Controllers
         /// <value>
         /// The CSS class.
         /// </value>
+        [Category("Advanced")]
         [WebDisplayName("ContentBlockResources", "WrapperCssClass")]
         public string WrapperCssClass { get; set; }
 
@@ -465,17 +467,10 @@ namespace Telerik.Sitefinity.Frontend.ContentBlock.Mvc.Controllers
             var site = SystemManager.CurrentContext.CurrentSite;
             List<Multisite.MultisiteContext.SiteDataSourceLinkProxy> links = null;
 
-            if (SystemManager.CurrentContext.IsMultisiteMode)
+            if (site.SiteDataSourceLinks != null)
             {
-                if (site.SiteDataSourceLinks != null)
-                {
-                    links = site.SiteDataSourceLinks.Where(l => l.DataSourceName == "Telerik.Sitefinity.Modules.GenericContent.ContentManager").ToList();
-                    return links.Count != 0;
-                }
-            }
-            else
-            {
-                return true;
+                links = site.SiteDataSourceLinks.Where(l => l.DataSourceName == "Telerik.Sitefinity.Modules.GenericContent.ContentManager").ToList();
+                return links.Count != 0;
             }
 
             return false;

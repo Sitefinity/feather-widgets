@@ -12,6 +12,7 @@ using Telerik.Sitefinity.Localization;
 using Telerik.Sitefinity.Mvc;
 using Telerik.Sitefinity.Security;
 using Telerik.Sitefinity.Security.Claims;
+using Telerik.Sitefinity.Web;
 
 namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Controllers
 {
@@ -20,11 +21,11 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Controllers
     /// </summary>
     [Telerik.Sitefinity.Frontend.Mvc.Infrastructure.Controllers.Attributes.Localization(typeof(LoginFormResources))]
     [ControllerToolboxItem(
-        Name = LoginFormController.WidgetName, 
-        Title = nameof(LoginFormResources.LoginControlTitle), 
+        Name = LoginFormController.WidgetName,
+        Title = nameof(LoginFormResources.LoginControlTitle),
         Description = nameof(LoginFormResources.LoginControlDescription),
         ResourceClassId = nameof(LoginFormResources),
-        SectionName = "Login", 
+        SectionName = "Login",
         CssClass = LoginFormController.WidgetIconCssClass)]
     public class LoginFormController : Controller
     {
@@ -54,10 +55,10 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Controllers
         /// <value>
         /// The login form template.
         /// </value>
-        public string LoginFormTemplate 
+        public string LoginFormTemplate
         {
             get { return this.loginFormTemplateName; }
-            set { this.loginFormTemplateName = value; } 
+            set { this.loginFormTemplateName = value; }
         }
 
         /// <summary>
@@ -143,27 +144,13 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Controllers
         public ActionResult SendPasswordResetEmail(string email)
         {
             var viewModel = this.Model.SendResetPasswordEmail(email);
-            var pageUrl = this.Model.GetPageUrl(null);
-            var queryString = string.Format(
-                "emailSent={0}&email={1}&error={2}",
-                viewModel.EmailSent,
-                HttpUtility.UrlEncode(viewModel.Email),
-                HttpUtility.UrlEncode(viewModel.Error));
-
-            var redirectUrl = string.Format("{0}/ForgotPassword?{1}", pageUrl, queryString);
-
-            var validator = ObjectFactory.Resolve<IRedirectUriValidator>();
-
-            if (!validator.IsValid(redirectUrl))
-            {
-                redirectUrl = "~/";
-            }
-
-            return this.Redirect(redirectUrl);
+            return this.ForgotPassword(viewModel.EmailSent, viewModel.Email, viewModel.Error);
         }
 
         public ActionResult ResetPassword()
         {
+            PageRouteHandler.RegisterCustomOutputCacheVariation(new ResetPasswordCacheVariation());
+
             var query = this.HttpContext.Request.QueryString;
             var queryString = query.ToString();
             var securityToken = queryString;
@@ -177,7 +164,7 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Controllers
                 resetComplete = Convert.ToBoolean(query["resetComplete"]);
                 error = query["error"];
             }
-            
+
             var model = this.Model.GetResetPasswordViewModel(securityToken, resetComplete, error);
 
             var fullTemplateName = this.resetPasswordTemplatePrefix + this.ResetPasswordTemplate;
@@ -203,6 +190,10 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Controllers
                 {
                     error = Res.Get<LoginFormResources>().ResetPasswordNotEnabled;
                 }
+                catch (ResetPasswordUserNotFoundException)
+                {
+                    error = Res.Get<LoginFormResources>().ResetPasswordIncorrectResetPasswordLink;
+                }
                 catch (Exception ex)
                 {
                     if (string.Compare(ex.Message, Res.Get<ErrorMessages>().WrongPasswordAnswer) == 0)
@@ -212,7 +203,7 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Controllers
                     else
                     {
                         error = Res.Get<LoginFormResources>().ResetPasswordGeneralErrorMessage;
-                    }                    
+                    }
                 }
             }
             else

@@ -92,7 +92,7 @@ namespace Telerik.Sitefinity.Frontend.Events.Mvc.Models
         /// A view model for use in list views.
         /// </returns>
         /// <exception cref="System.ArgumentException">'page' argument has to be at least 1.;page</exception>
-        public ContentListViewModel CreateListViewModel(ITaxon taxonFilter, int page)
+        public virtual ContentListViewModel CreateListViewModel(ITaxon taxonFilter, int page)
         {
             return base.CreateListViewModel(taxonFilter, page);
         }

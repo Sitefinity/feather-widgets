@@ -5,6 +5,7 @@ using Telerik.Sitefinity.ContentLocations;
 using Telerik.Sitefinity.Data;
 using Telerik.Sitefinity.Frontend.InlineEditing.Attributes;
 using Telerik.Sitefinity.GenericContent.Model;
+using Telerik.Sitefinity.Model;
 using Telerik.Sitefinity.Modules.GenericContent;
 using Telerik.Sitefinity.Pages.Model;
 using Telerik.Sitefinity.Services;
@@ -164,7 +165,7 @@ namespace Telerik.Sitefinity.Frontend.ContentBlock.Mvc.Models
             var result = new List<CacheDependencyKey>(1);
             if (this.IsShared())
             {
-                result.Add(new CacheDependencyKey { Key = this.SharedContentID.ToString(), Type = typeof(ContentItem) });
+                result.AddRange(OutputCacheDependencyHelper.GetPublishedContentCacheDependencyKeys(typeof(ContentItem), this.SharedContentID));
             }
 
             return result;

@@ -24,8 +24,7 @@
         <input id='@Html.UniqueId("Textbox")' type="text" data-sf-role="captcha-input" name="@Model.CaptchaAnswerFormKey" required='required'/>
         <p data-sf-role="error-message" role="alert" aria-live="assertive"></p>
     </div>
-    <input type="hidden" data-sf-role="captcha-ca" name="@Model.CaptchaCorrectAnswerFormKey" />
-    <input type="hidden" data-sf-role="captcha-iv" name="@Model.CaptchaInitializationVectorFormKey" />
+
     <input type="hidden" data-sf-role="captcha-k" name="@Model.CaptchaKeyFormKey" />
 
     <input type="hidden" data-sf-role="captcha-settings" value="@Model.GenerateUrl" />

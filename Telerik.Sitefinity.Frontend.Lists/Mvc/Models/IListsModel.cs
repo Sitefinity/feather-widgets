@@ -1,13 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
-using System.Linq;
-using System.Text;
 using Telerik.Sitefinity.ContentLocations;
 using Telerik.Sitefinity.Data;
 using Telerik.Sitefinity.Frontend.Mvc.Models;
 using Telerik.Sitefinity.Model;
 using Telerik.Sitefinity.Taxonomies.Model;
+using Telerik.Sitefinity.Web.UI.ContentUI.Enums;
 
 namespace Telerik.Sitefinity.Frontend.Lists.Mvc.Models
 {
@@ -85,6 +83,14 @@ namespace Telerik.Sitefinity.Frontend.Lists.Mvc.Models
         /// The group logical operator used for filtering.
         /// </value>
         LogicalOperator SelectionGroupLogicalOperator { get; set; }
+
+        /// <summary>
+        /// Gets or sets the display mode of the content view.
+        /// </summary>
+        /// <remarks>
+        /// Note that this enumeration differs from the FieldDisplayMode.
+        /// </remarks>
+        ContentViewDisplayMode ContentViewDisplayMode { get; set; }
 
         /// <summary>
         /// Gets or sets the URL key prefix.

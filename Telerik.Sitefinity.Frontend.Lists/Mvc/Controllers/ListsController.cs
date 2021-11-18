@@ -172,7 +172,7 @@ namespace Telerik.Sitefinity.Frontend.Lists.Mvc.Controllers
         {
             var fullTemplateName = this.listTemplateNamePrefix + this.ListTemplateName;
             this.ViewBag.CurrentPageUrl = this.GetCurrentPageUrl();
-            this.ViewBag.RedirectPageUrlTemplate = this.ViewBag.CurrentPageUrl + UrlHelpers.GetRedirectPagingUrl(taxonFilter);
+            this.ViewBag.RedirectPageUrlTemplate = this.ViewBag.CurrentPageUrl + UrlHelpers.GetRedirectPagingUrl(taxonFilter, this.ViewBag.UrlParams, this.HttpContext.Request.QueryString.ToQueryString());
 
             var viewModel = this.Model.CreateListViewModel(taxonFilter, page ?? 1);
             if (SystemManager.CurrentHttpContext != null)

@@ -204,7 +204,7 @@ namespace Telerik.Sitefinity.Frontend.Events.Mvc.Controllers
 
             Guard.ArgumentNotNull(filter, "filter");
 
-            var eventSchedulerModel = EventSchedulerHelper.LoadModel(filter.Id, filter.UICulture, filter.CurrentPageId);
+            var eventSchedulerModel = ControllerHelper.LoadControllerModel(filter.Id, filter.UICulture, filter.CurrentPageId) as IEventSchedulerModel;
             if (eventSchedulerModel != null)
             {
                 json.Data = eventSchedulerModel.GetEvents(filter);
@@ -229,7 +229,7 @@ namespace Telerik.Sitefinity.Frontend.Events.Mvc.Controllers
 
             Guard.ArgumentNotNull(filter, "filter");
 
-            var eventSchedulerModel = EventSchedulerHelper.LoadModel(filter.Id, filter.UICulture, filter.CurrentPageId);
+            var eventSchedulerModel = ControllerHelper.LoadControllerModel(filter.Id, filter.UICulture, filter.CurrentPageId) as IEventSchedulerModel;
             if (eventSchedulerModel != null)
             {
                 json.Data = eventSchedulerModel.GetCalendars(filter);
@@ -270,7 +270,7 @@ namespace Telerik.Sitefinity.Frontend.Events.Mvc.Controllers
 
             if (this.HttpContext != null && this.HttpContext.Items.Contains("versionpreview") && this.HttpContext.Items["versionpreview"].ToString().ToLowerInvariant() == "true")
             {
-                this.ViewBag.WidgetId = EventSchedulerHelper.GetWidgetId(this);
+                this.ViewBag.WidgetId = ControllerHelper.GetWidgetId(this);
             }
             else
             {
@@ -280,7 +280,7 @@ namespace Telerik.Sitefinity.Frontend.Events.Mvc.Controllers
             this.ViewBag.CurrentPageId = this.GetPageId();
 
             this.ViewBag.DetailsPageId = this.DetailsPageId == Guid.Empty ? (SiteMapBase.GetActualCurrentNode() == null ? Guid.Empty : SiteMapBase.GetActualCurrentNode().Id) : this.DetailsPageId;
-            this.ViewBag.UiCulture = SystemManager.CurrentContext.AppSettings.Multilingual ? CultureInfo.CurrentUICulture.ToString() : string.Empty;
+            this.ViewBag.UiCulture = SystemManager.CurrentContext.AppSettings.Multilingual ? Telerik.Sitefinity.Services.SystemManager.CurrentContext.Culture.ToString() : string.Empty;
             this.ViewBag.TimeZoneOffset = timezoneInfo.BaseUtcOffset.TotalMilliseconds.ToString();
             this.ViewBag.TimeZoneId = timezoneInfo.Id;
         }

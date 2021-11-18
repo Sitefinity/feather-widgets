@@ -2,10 +2,12 @@
 using System.Globalization;
 using System.Linq;
 using Telerik.Sitefinity.Configuration;
+using Telerik.Sitefinity.Data;
 using Telerik.Sitefinity.Modules;
 using Telerik.Sitefinity.Modules.GenericContent;
 using Telerik.Sitefinity.Modules.Libraries;
 using Telerik.Sitefinity.Modules.Pages;
+using Telerik.Sitefinity.Pages.Model;
 using Telerik.Sitefinity.Services;
 using Telerik.Sitefinity.Web;
 using SfImage = Telerik.Sitefinity.Libraries.Model.Image;
@@ -129,22 +131,38 @@ namespace Telerik.Sitefinity.Frontend.Card.Mvc.Models.Card
             if (this.IsPageSelectMode)
             {
                 if (this.LinkedPageId == Guid.Empty)
+                {
+                    if(!string.IsNullOrEmpty(this.LinkedUrl))
+                    {
+                        return this.LinkedUrl;
+                    }
+
                     return null;
+                }
 
                 var pageManager = PageManager.GetManager();
-                var node = pageManager.GetPageNode(this.LinkedPageId);
+
+                PageNode node = null;
+
+                // The idea is to get the page and so that the URL can be generated on the frontend and when
+                // a user that does not have permissions clicks it, they will be taken to the login screen
+                using (new ElevatedModeRegion(pageManager))
+                {
+                    node = pageManager.GetPageNode(this.LinkedPageId);
+                }
+
                 if (node != null)
                 {
                     string relativeUrl;
-                    if (SystemManager.CurrentContext.AppSettings.Multilingual)
+                    if (SystemManager.CurrentContext.CurrentSite.Cultures.Length > 1)
                     {
-                        relativeUrl = node.GetFullUrl(CultureInfo.CurrentUICulture, false);
+                        relativeUrl = node.GetFullUrl(Telerik.Sitefinity.Services.SystemManager.CurrentContext.Culture, false);
                     }
                     else
                     {
                         relativeUrl = node.GetFullUrl(null, false, true);
                     }
-                    
+
                     return UrlPath.ResolveUrl(relativeUrl, Config.Get<SystemConfig>().SiteUrlSettings.GenerateAbsoluteUrls);
                 }
             }

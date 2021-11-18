@@ -66,23 +66,23 @@ namespace Telerik.Sitefinity.Frontend.DynamicContent
                 {
                     templateGenerator.InstallMasterTemplate(dynamicModule, dynamicModuleType);
                     templateGenerator.InstallDetailTemplate(dynamicModule, dynamicModuleType);
-                }, 
+                },
                 transactionName);
         }
 
         private static void RegisterToolboxItem(Telerik.Sitefinity.DynamicModules.Builder.Model.DynamicModule dynamicModule, DynamicModuleType moduleType)
         {
-            MvcWidgetInstaller.UnregisterToolboxItem(moduleType.GetFullTypeName());
             var configurationManager = ConfigManager.GetManager();
             var toolboxesConfig = configurationManager.GetSection<ToolboxesConfig>();
-
+            var toolboxItemName = GetToolboxItemName(moduleType.GetFullTypeName());
+            
             var section = MvcWidgetInstaller.GetModuleToolboxSection(dynamicModule, toolboxesConfig);
-            if (section == null)
+            if (section == null || section.Tools.Any<ToolboxItem>(e => e.Name == toolboxItemName))
                 return;
 
             var toolboxItem = new ToolboxItem(section.Tools)
             {
-                Name = moduleType.GetFullTypeName() + "_MVC",
+                Name = toolboxItemName,
                 Ordinal = 0.5f,
                 Title = PluralsResolver.Instance.ToPlural(moduleType.DisplayName),
                 Description = string.Empty,
@@ -90,8 +90,8 @@ namespace Telerik.Sitefinity.Frontend.DynamicContent
                 ControlType = typeof(MvcWidgetProxy).AssemblyQualifiedName,
                 ControllerType = typeof(DynamicContentController).FullName,
                 CssClass = "sfNewsViewIcn sfMvcIcn",
-                Parameters = new NameValueCollection() 
-                    { 
+                Parameters = new NameValueCollection()
+                    {
                         { "WidgetName", moduleType.TypeName },
                         { "ControllerName", typeof(DynamicContentController).FullName }
                     }
@@ -111,7 +111,7 @@ namespace Telerik.Sitefinity.Frontend.DynamicContent
         private static ToolboxSection GetModuleToolboxSection(DynamicModule dynamicModule, ToolboxesConfig toolboxesConfig)
         {
             var pageControls = toolboxesConfig.Toolboxes["PageControls"];
-            var moduleSectionName = string.Concat(DynamicModuleType.defaultNamespace, ".", MvcWidgetInstaller.moduleNameValidationRegex.Replace(dynamicModule.Name, string.Empty));            
+            var moduleSectionName = string.Concat(DynamicModuleType.defaultNamespace, ".", MvcWidgetInstaller.moduleNameValidationRegex.Replace(dynamicModule.Name, string.Empty));
             ToolboxSection section = pageControls.Sections.Where<ToolboxSection>(e => e.Name == moduleSectionName).FirstOrDefault();
 
             if (section == null)
@@ -150,12 +150,12 @@ namespace Telerik.Sitefinity.Frontend.DynamicContent
             var toolboxesConfig = configurationManager.GetSection<ToolboxesConfig>();
             var pageControls = toolboxesConfig.Toolboxes["PageControls"];
             var moduleSectionName = contentTypeName.Substring(0, contentTypeName.LastIndexOf('.'));
-           
+
             var section = pageControls.Sections.Where<ToolboxSection>(e => e.Name == moduleSectionName).FirstOrDefault();
             if (section != null)
             {
                 var itemToDelete = section.Tools.FirstOrDefault<ToolboxItem>(e => e.Name == MvcWidgetInstaller.GetToolboxItemName(contentTypeName));
-                
+
                 if (itemToDelete != null)
                 {
                     section.Tools.Remove(itemToDelete);
@@ -232,7 +232,7 @@ namespace Telerik.Sitefinity.Frontend.DynamicContent
 
             var transactionName = MvcWidgetInstaller.GetTransactionName(@event.Item);
             MvcWidgetInstaller.TemplateGaneratorAction(
-                templateGenerator => templateGenerator.UnregisterTemplates(@event.Item.GetFullTypeName()), 
+                templateGenerator => templateGenerator.UnregisterTemplates(@event.Item.GetFullTypeName()),
                 transactionName);
 
             MvcWidgetInstaller.UnregisterToolboxItem(@event.Item.GetFullTypeName());

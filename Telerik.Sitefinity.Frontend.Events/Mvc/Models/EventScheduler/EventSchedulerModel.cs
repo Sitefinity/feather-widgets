@@ -58,7 +58,7 @@ namespace Telerik.Sitefinity.Frontend.Events.Mvc.Models.EventScheduler
             {
                 if (this.uiCulture == null)
                 {
-                    this.uiCulture = CultureInfo.CurrentUICulture;
+                    this.uiCulture = Telerik.Sitefinity.Services.SystemManager.CurrentContext.Culture;
                 }
 
                 return this.uiCulture;
@@ -328,7 +328,7 @@ namespace Telerik.Sitefinity.Frontend.Events.Mvc.Models.EventScheduler
             {
                 if (this.UICulture == null)
                 {
-                    uiCulture = System.Globalization.CultureInfo.CurrentUICulture;
+                    uiCulture = Telerik.Sitefinity.Services.SystemManager.CurrentContext.Culture;
                 }
                 else
                 {

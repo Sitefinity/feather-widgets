@@ -2,13 +2,17 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Web.Mvc;
+using Telerik.Microsoft.Practices.Unity;
+using Telerik.Sitefinity.Abstractions;
 using Telerik.Sitefinity.ContentLocations;
 using Telerik.Sitefinity.Frontend.Media.Mvc.Helpers;
 using Telerik.Sitefinity.Frontend.Media.Mvc.Models.Video;
 using Telerik.Sitefinity.Frontend.Media.Mvc.StringResources;
 using Telerik.Sitefinity.Frontend.Mvc.Infrastructure.Controllers;
 using Telerik.Sitefinity.Frontend.Mvc.Infrastructure.Controllers.Attributes;
+using Telerik.Sitefinity.Libraries.Model;
 using Telerik.Sitefinity.Localization;
+using Telerik.Sitefinity.Modules.Libraries;
 using Telerik.Sitefinity.Modules.Pages.Configuration;
 using Telerik.Sitefinity.Mvc;
 using Telerik.Sitefinity.Services;
@@ -167,14 +171,17 @@ namespace Telerik.Sitefinity.Frontend.Media.Mvc.Controllers
             var viewModel = this.Model.GetViewModel();
 
             // Design mode should not show video, unless it's preview mode
-            var canDispalyVideo = (!this.IsDesignMode || this.IsPreviewMode) && !this.IsInlineEditingMode;
+            var canDisplayVideo = (!this.IsDesignMode || this.IsPreviewMode) && !this.IsInlineEditingMode;
 
-            if (!canDispalyVideo && viewModel.HasSelectedVideo)
+            if (!canDisplayVideo && viewModel.HasSelectedVideo)
                 return this.Content(Res.Get<VideoResources>().VideoWillNotBeDisplayed);
             else if (this.IsDesignMode && !viewModel.HasSelectedVideo && this.Model.Id != Guid.Empty) // Design mode should display if a video has been removed
                 return this.Content(Res.Get<VideoResources>().VideoNotSelectedOrDeleted);
             else if (viewModel.HasSelectedVideo)
+            {
+                this.AddVideoInMediaContext(viewModel);
                 return this.View(VideoController.TemplatePrefix + this.TemplateName, viewModel);
+            }
             else
                 return new EmptyResult();
         }
@@ -198,9 +205,29 @@ namespace Telerik.Sitefinity.Frontend.Media.Mvc.Controllers
 
             this.ActionInvoker.InvokeAction(this.ControllerContext, "Index");
         }
-        
+
         #endregion
-        
+
+        #region Private methods
+
+        private void AddVideoInMediaContext(VideoViewModel videoViewModel)
+        {
+            if (videoViewModel.Item != null)
+            {
+                var video = videoViewModel.Item.DataItem as Video;
+                if (video != null)
+                {
+                    if (ObjectFactory.Container.IsRegistered<IMediaContextStore>())
+                    {
+                        var mediaContextStore = ObjectFactory.Container.Resolve<IMediaContextStore>();
+                        mediaContextStore.AddMediaItem(video);
+                    }
+                }
+            }
+        }
+
+        #endregion
+
         #region Private fields and constants
 
         private IVideoModel model;

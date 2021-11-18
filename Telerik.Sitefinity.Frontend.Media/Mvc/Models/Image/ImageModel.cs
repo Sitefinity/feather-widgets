@@ -9,6 +9,8 @@ using Telerik.Sitefinity.Frontend.Media.Mvc.Helpers;
 using Telerik.Sitefinity.Frontend.Mvc.Models;
 using Telerik.Sitefinity.Modules;
 using Telerik.Sitefinity.Modules.Libraries;
+using Telerik.Sitefinity.Modules.Libraries.Configuration;
+using Telerik.Sitefinity.Modules.Libraries.Thumbnails;
 using Telerik.Sitefinity.Modules.Pages;
 using Telerik.Sitefinity.Services;
 using Telerik.Sitefinity.Web;
@@ -68,6 +70,9 @@ namespace Telerik.Sitefinity.Frontend.Media.Mvc.Models.Image
         /// <inheritdoc />
         public string CustomSize { get; set; }
 
+        /// <inheritdoc />
+        public bool Responsive { get; set; }
+
         #endregion
 
         #region Public Methods
@@ -75,6 +80,7 @@ namespace Telerik.Sitefinity.Frontend.Media.Mvc.Models.Image
         /// <inheritDoc/>
         public virtual ImageViewModel GetViewModel()
         {
+
             var viewModel = new ImageViewModel()
             {
                 AlternativeText = this.AlternativeText,
@@ -82,7 +88,10 @@ namespace Telerik.Sitefinity.Frontend.Media.Mvc.Models.Image
                 DisplayMode = this.DisplayMode,
                 ThumbnailName = this.ThumbnailName,
                 ThumbnailUrl = this.ThumbnailUrl,
+                ThumbnailHeight = null,
+                ThumbnailWidth = null,
                 CustomSize = this.CustomSize != null ? new JavaScriptSerializer().Deserialize<CustomSizeModel>(this.CustomSize) : null,
+                Responsive = this.Responsive,
                 UseAsLink = this.UseAsLink,
                 CssClass = this.CssClass
             };
@@ -101,6 +110,14 @@ namespace Telerik.Sitefinity.Frontend.Media.Mvc.Models.Image
             {
                 image = new SfImage();
             }
+
+            int width;
+            int height;
+
+            this.GetThumbnailSizes(out width, out height, image);
+
+            viewModel.ThumbnailHeight = height;
+            viewModel.ThumbnailWidth = width;
 
             viewModel.Item = new ItemViewModel(image);
 
@@ -175,16 +192,15 @@ namespace Telerik.Sitefinity.Frontend.Media.Mvc.Models.Image
                 var node = pageManager.GetPageNode(this.LinkedPageId);
                 if (node != null)
                 {
-                    var provider = SiteMapBase.GetCurrentProvider();
-                    var siteMapNode = provider.FindSiteMapNodeFromKey(node.Id.ToString());
-                    linkedUrl = UrlPath.ResolveUrl(siteMapNode.Url, true);
+                    var relativeUrl = node.GetFullUrl(Telerik.Sitefinity.Services.SystemManager.CurrentContext.Culture, false, true);
+                    linkedUrl = UrlPath.ResolveUrl(relativeUrl, false);
                 }
             }
             else if (this.UseAsLink && this.LinkedPageId == Guid.Empty)
             {
-                linkedUrl = image.ResolveMediaUrl(true);
+                linkedUrl = image.ResolveMediaUrl(false);
             }
-
+            
             return linkedUrl;
         }
 
@@ -192,12 +208,66 @@ namespace Telerik.Sitefinity.Frontend.Media.Mvc.Models.Image
         {
             if (SystemManager.CurrentContext.AppSettings.Multilingual)
             {
-                var currentCulture = CultureInfo.CurrentUICulture;
+                var currentCulture = Telerik.Sitefinity.Services.SystemManager.CurrentContext.Culture;
                 if (SystemManager.CurrentContext.AppSettings.DefinedFrontendLanguages.Contains(currentCulture))
                     return currentCulture;
             }
 
             return SystemManager.CurrentContext.AppSettings.DefaultFrontendLanguage;
+        }
+
+        private ThumbnailProfileConfigElement GetDefaultAlbumThumbnailProfile(string thumbnailName)
+        {
+            if (!string.IsNullOrWhiteSpace(thumbnailName))
+            {
+                var librariesConfig = Config.Get<LibrariesConfig>();
+                if (librariesConfig?.Images?.Thumbnails?.Profiles != null)
+                {
+                    var profiles = librariesConfig?.Images?.Thumbnails?.Profiles;
+
+                    if (profiles.ContainsKey(thumbnailName))
+                    {
+                        var thumbnailProfile = profiles[thumbnailName];
+
+                        return thumbnailProfile;
+                    }
+                }
+            }
+
+            return null;
+        }
+
+        private int GetThumbnailProfileSize(ThumbnailProfileConfigElement thumbnailProfile, string parameterKey)
+        {
+            int width = 0;
+            int.TryParse(thumbnailProfile.Parameters[parameterKey], out width);
+
+            return width;
+        }
+
+        private void GetThumbnailSizes(out int width, out int height, SfImage image)
+        {
+            width = 0;
+            height = 0;
+
+            var thumbnailName = this.ThumbnailName != null ? this.ThumbnailName : string.Empty;
+
+            var thumbnailProfile = this.GetDefaultAlbumThumbnailProfile(thumbnailName);
+            if (thumbnailProfile != null)
+            {
+                var selectedThumbnail = image.Thumbnails.Where(t => t.Name == thumbnailProfile.Name).FirstOrDefault();
+
+                if (selectedThumbnail == null) 
+                {
+                    selectedThumbnail = LazyThumbnailGenerator.Instance.CreateThumbnail(image, thumbnailName);
+                }
+
+                if (selectedThumbnail != null)
+                {
+                    width = selectedThumbnail.Width;
+                    height = selectedThumbnail.Height;
+                }
+            }
         }
         #endregion
     }

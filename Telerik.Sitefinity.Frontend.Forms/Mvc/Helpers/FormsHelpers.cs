@@ -77,6 +77,9 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Helpers
             return property;
         }
 
+        internal const string DoSpecificWebCallsPropertyName = "DoSpecificWebCalls";
+        internal const string SyncFormFieldsToLeadFieldsPropertyName = "SyncFormFieldsToLeadFields";
+
         private const string IdPropertyName = "ID";
         private const string SettingsPropertyName = "Settings";
         private const string ModelPropertyName = "Model";

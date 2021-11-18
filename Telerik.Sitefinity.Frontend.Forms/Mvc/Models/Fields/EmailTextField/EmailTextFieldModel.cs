@@ -56,6 +56,12 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Models.Fields.EmailTextField
                     this.validatorDefinition.RegularExpressionViolationMessage = Res.Get<FormResources>().InvalidEmailErrorMessage;
                 }
 
+                if (this.validatorDefinition.MaxLength == 0 && this.MetaField != null && int.TryParse(this.MetaField.DBLength, out int dbLength))
+                {
+                    this.validatorDefinition.MaxLength = dbLength;
+                    this.validatorDefinition.MaxLengthViolationMessage = Res.Get<FormResources>().MaxLengthInputErrorMessageWithRange;
+                }
+
                 return this.validatorDefinition;
             }
 
@@ -119,13 +125,27 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Models.Fields.EmailTextField
                 MetaField = metaField,
                 ValidationAttributes = this.BuildValidationAttributes(),
                 CssClass = this.CssClass,
-                ValidatorDefinition = this.ValidatorDefinition,
+                ValidatorDefinition = this.BuildValidatorDefinition(this.ValidatorDefinition, metaField.Title),
                 PlaceholderText = this.PlaceholderText,
                 InputType = this.InputType,
                 Hidden = this.Hidden && (!Sitefinity.Services.SystemManager.IsDesignMode || Sitefinity.Services.SystemManager.IsPreviewMode)
             };
 
             return viewModel;
+        }
+
+        /// <inheritDocs />
+        protected override ValidatorDefinition BuildValidatorDefinition(ValidatorDefinition definition, string fieldTitle)
+        {
+            var validatorDefinition = new ValidatorDefinition(definition.ConfigDefinition);
+            validatorDefinition.RequiredViolationMessage = this.BuildErrorMessage(definition.RequiredViolationMessage, fieldTitle);
+            validatorDefinition.MaxLengthViolationMessage = this.BuildErrorMessage(definition.MaxLengthViolationMessage, fieldTitle, definition.MaxLength.ToString());
+            validatorDefinition.RegularExpressionViolationMessage = this.BuildErrorMessage(definition.RegularExpressionViolationMessage, fieldTitle);
+            validatorDefinition.MinLength = definition.MinLength;
+            validatorDefinition.MaxLength = definition.MaxLength;
+            validatorDefinition.Required = definition.Required;
+
+            return validatorDefinition;
         }
 
         /// <inheritDocs />
@@ -154,6 +174,13 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Models.Fields.EmailTextField
             }
 
             return attributes.ToString();
+        }
+
+        /// <inheritDocs />
+        public override bool IsValid(object value)
+        {
+            this.ValidatorDefinition.MaxLengthViolationMessage = Res.Get<FormResources>().MaxLengthInputErrorMessage;
+            return base.IsValid(value);
         }
 
         private string GetRegExForExpectedFormat(ValidationFormat expectedFormat)

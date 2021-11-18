@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Text;
+using System.Web;
 using System.Web.Script.Serialization;
 using Telerik.Sitefinity.Frontend.Forms.Mvc.StringResources;
 using Telerik.Sitefinity.Localization;
@@ -47,6 +48,16 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Models.Fields.TextField
                 {
                     this.validatorDefinition.RegularExpression = this.InputTypeRegexPatterns.ContainsKey(this.InputType.ToString()) ? this.InputTypeRegexPatterns[this.InputType.ToString()] : string.Empty;
                     this.validatorDefinition.RegularExpressionViolationMessage = Res.Get<FormResources>().InvalidInputErrorMessage;
+                }
+
+                if (this.MetaField != null)
+                {
+                    int.TryParse(this.MetaField.DBLength, out int dbLength);
+                    if (dbLength > 0 && (this.validatorDefinition.MaxLength == 0 || this.validatorDefinition.MaxLength > dbLength))
+                    {
+                        this.validatorDefinition.MaxLength = dbLength;
+                        this.validatorDefinition.MaxLengthViolationMessage = Res.Get<FormResources>().MaxLengthInputErrorMessageWithRange;
+                    }
                 }
 
                 return this.validatorDefinition;
@@ -118,7 +129,7 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Models.Fields.TextField
                 MetaField = metaField,
                 ValidationAttributes = this.BuildValidationAttributes(),
                 CssClass = this.CssClass,
-                ValidatorDefinition = this.ValidatorDefinition,
+                ValidatorDefinition = this.BuildValidatorDefinition(this.ValidatorDefinition, metaField.Title),
                 PlaceholderText = this.PlaceholderText,
                 InputType = this.InputType,
                 Hidden = this.Hidden && (!Sitefinity.Services.SystemManager.IsDesignMode || Sitefinity.Services.SystemManager.IsPreviewMode)
@@ -128,12 +139,26 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Models.Fields.TextField
         }
 
         /// <inheritDocs />
+        protected override ValidatorDefinition BuildValidatorDefinition(ValidatorDefinition definition, string fieldTitle)
+        {
+            var validatorDefinition = new ValidatorDefinition(definition.ConfigDefinition);
+            validatorDefinition.RequiredViolationMessage = this.BuildErrorMessage(definition.RequiredViolationMessage, fieldTitle);
+            validatorDefinition.MaxLengthViolationMessage = this.BuildErrorMessage(definition.MaxLengthViolationMessage, fieldTitle, definition.MaxLength.ToString());
+            validatorDefinition.RegularExpressionViolationMessage = this.BuildErrorMessage(definition.RegularExpressionViolationMessage, fieldTitle);
+            validatorDefinition.MinLength = definition.MinLength;
+            validatorDefinition.MaxLength = definition.MaxLength;
+            validatorDefinition.Required = definition.Required;
+
+            return validatorDefinition;
+        }
+
+        /// <inheritDocs />
         protected override string BuildValidationAttributes()
         {
             var attributes = new StringBuilder();
 
             if (this.ValidatorDefinition.Required.HasValue && this.ValidatorDefinition.Required.Value)
-                    attributes.Append(@"required=""required"" ");
+                attributes.Append(@"required=""required"" ");
 
             var minMaxLength = string.Empty;
             if (this.ValidatorDefinition.MaxLength > 0)
@@ -142,9 +167,14 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Models.Fields.TextField
                 minMaxLength = ".{" + this.ValidatorDefinition.MinLength + ",}";
 
             var patternAttribute = string.Empty;
+
             if (!string.IsNullOrWhiteSpace(this.ValidatorDefinition.ExpectedFormat.ToString()))
             {
-                patternAttribute = this.GetRegExForExpectedFormat(this.ValidatorDefinition.ExpectedFormat);
+                string expectedFormatPattern = this.GetRegExForExpectedFormat(this.ValidatorDefinition.ExpectedFormat);
+                if (!string.IsNullOrWhiteSpace(expectedFormatPattern))
+                {
+                    patternAttribute = expectedFormatPattern;
+                }
             }
 
             if (!string.IsNullOrEmpty(this.ValidatorDefinition.RegularExpression))
@@ -170,55 +200,46 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Models.Fields.TextField
 
             if (!string.IsNullOrEmpty(patternAttribute))
             {
-                attributes.AppendFormat(@"pattern=""{0}""", patternAttribute);
+                attributes.Append($"pattern=\"{HttpUtility.HtmlAttributeEncode(patternAttribute)}\" ");
             }
 
             return attributes.ToString();
         }
 
+        /// <inheritDocs />
+        public override bool IsValid(object value)
+        {
+            this.ValidatorDefinition.MaxLengthViolationMessage = Res.Get<FormResources>().MaxLengthInputErrorMessage;
+            return base.IsValid(value);
+        }
+
         private string GetRegExForExpectedFormat(ValidationFormat expectedFormat)
         {
-            string regexPattern = string.Empty;
-
             switch (expectedFormat)
             {
-                case ValidationFormat.None:
-                    return string.Empty;
                 case ValidationFormat.AlphaNumeric:
-                    regexPattern = Validator.AlphaNumericRegexPattern;
-                    break;
+                    return Validator.AlphaNumericRegexPattern;
                 case ValidationFormat.Currency:
-                    regexPattern = Validator.CurrencyRegexPattern;
-                    break;
+                    return Validator.CurrencyRegexPattern;
                 case ValidationFormat.EmailAddress:
-                    regexPattern = Validator.EmailAddressRegexPattern;
-                    break;
+                    return Validator.EmailAddressRegexPattern;
                 case ValidationFormat.Integer:
-                    regexPattern = Validator.IntegerRegexPattern;
-                    break;
+                    return Validator.IntegerRegexPattern;
                 case ValidationFormat.InternetUrl:
-                    regexPattern = Validator.InternetUrlRegexPattern;
-                    break;
+                    return Validator.InternetUrlRegexPattern;
                 case ValidationFormat.NonAlphaNumeric:
-                    regexPattern = Validator.NonAlphaNumericRegexPattern;
-                    break;
+                    return Validator.NonAlphaNumericRegexPattern;
                 case ValidationFormat.Numeric:
-                    regexPattern = Validator.NumericRegexPattern;
-                    break;
+                    return Validator.NumericRegexPattern;
                 case ValidationFormat.Percentage:
-                    regexPattern = Validator.PercentRegexPattern;
-                    break;
+                    return Validator.PercentRegexPattern;
                 case ValidationFormat.USSocialSecurityNumber:
-                    regexPattern = Validator.USSocialSecurityRegexPattern;
-                    break;
+                    return Validator.USSocialSecurityRegexPattern;
                 case ValidationFormat.USZipCode:
-                    regexPattern = Validator.USZipCodeRegexPattern;
-                    break;
-                case ValidationFormat.Custom:
-                    throw new ArgumentException("You must specify a valid RegularExpression.");
+                    return Validator.USZipCodeRegexPattern;
+                default:
+                    return string.Empty;
             }
-
-            return regexPattern;
         }
 
         private ValidatorDefinition validatorDefinition;

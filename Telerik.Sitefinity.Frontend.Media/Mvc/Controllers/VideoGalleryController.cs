@@ -4,6 +4,8 @@ using System.ComponentModel;
 using System.Linq;
 using System.Web.Mvc;
 using System.Web.Routing;
+using Telerik.Microsoft.Practices.Unity;
+using Telerik.Sitefinity.Abstractions;
 using Telerik.Sitefinity.ContentLocations;
 using Telerik.Sitefinity.Frontend.Media.Mvc.Models;
 using Telerik.Sitefinity.Frontend.Media.Mvc.Models.VideoGallery;
@@ -209,7 +211,7 @@ namespace Telerik.Sitefinity.Frontend.Media.Mvc.Controllers
         {
             if (taxonFilter != null)
             {
-                var redirectPageUrlTemplate = UrlHelpers.GetRedirectPagingUrl(taxonFilter);
+                var redirectPageUrlTemplate = UrlHelpers.GetRedirectPagingUrl(taxonFilter, this.ViewBag.UrlParams, this.HttpContext.Request.QueryString.ToQueryString());
                 this.InitializeListViewBag(redirectPageUrlTemplate);
             }
 
@@ -247,10 +249,13 @@ namespace Telerik.Sitefinity.Frontend.Media.Mvc.Controllers
             this.ViewBag.UrlKeyPrefix = this.Model.UrlKeyPrefix;
 
             var viewModel = this.Model.CreateDetailsViewModel(item, itemIndex);
+
             if (SystemManager.CurrentHttpContext != null)
                 this.AddCacheDependencies(this.Model.GetKeysOfDependentObjects(viewModel));
 
             this.AddCanonicalUrlTag(item);
+
+            this.AddVideoInMediaContext(item);
 
             var fullTemplateName = this.detailTemplateNamePrefix + this.DetailTemplateName;
             return this.View(fullTemplateName, viewModel);
@@ -387,6 +392,18 @@ namespace Telerik.Sitefinity.Frontend.Media.Mvc.Controllers
         }
 
         #region Private Methods
+
+        private void AddVideoInMediaContext(Video video)
+        {
+            if (video != null)
+            {
+                if (ObjectFactory.Container.IsRegistered<IMediaContextStore>())
+                {
+                    var mediaContextStore = ObjectFactory.Container.Resolve<IMediaContextStore>();
+                    mediaContextStore.AddMediaItem(video);
+                }
+            }
+        }
 
         /// <summary>
         /// Initializes the model.

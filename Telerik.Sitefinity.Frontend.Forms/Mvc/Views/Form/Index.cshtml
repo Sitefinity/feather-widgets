@@ -7,6 +7,7 @@
 @using Telerik.Sitefinity.Modules.Pages;
 <div data-sf-role="form-container" class="@Model.CssClass">
     <input type="hidden" data-sf-role="form-id" value="@Model.FormId" name="FormId" />
+    <input type="hidden" data-sf-role="marketo-settings" value="@Model.MarketoSettings" name="MarketoSettings" />
 
     @{
         if (!string.IsNullOrEmpty(@ViewBag.ErrorMessage))
@@ -35,6 +36,7 @@
         {
             <input type="hidden" data-sf-role="ajax-submit-url" value="@Model.AjaxSubmitUrl" />
             <input type="hidden" data-sf-role="redirect-url" value="@Model.RedirectUrl" />
+            <input type="hidden" data-sf-role="widget-id" value="@ViewBag.WidgetId" name="WidgetId" />
             @Html.Script(ScriptRef.JQuery, "top", false)
             @Html.Script(Url.WidgetContent("Mvc/Scripts/Form/form.all.js"), "bottom", false)
         }

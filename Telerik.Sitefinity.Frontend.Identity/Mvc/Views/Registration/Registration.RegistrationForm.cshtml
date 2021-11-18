@@ -4,6 +4,7 @@
 @using Telerik.Sitefinity.Modules.Pages;
 @using Telerik.Sitefinity.UI.MVC;
 @using Telerik.Sitefinity.Utilities;
+@using Telerik.Sitefinity.Frontend.Identity.Mvc.Helpers;
 @using Telerik.Sitefinity.Services;
 @using Telerik.Sitefinity.Web;
 
@@ -29,10 +30,10 @@
 
         <div data-sf-role="confirmationResendInfo" style="display:none;">
             @string.Format(Html.Resource("ActivationLinkHasBeenSentAgain"), Model.Email)
-            <a href="javascript:void(0)" data-sf-role="sendAgainLink">@Html.Resource("SendAgain")</a>
         </div>
 
         <input type="hidden" data-sf-role="sf-resend-confirmation-endpoint-url" value="@Url.Action("ResendConfirmationEmail", new { email = Model.Email})" />
+        @Html.Script(Url.WidgetContent("Mvc/Scripts/Registration/registration-form.js"), "bottom", throwException: false)
     }
     else if ((Request.QueryStringGet("ShowSuccessfulRegistrationMsg") == "true") ||
      (ViewBag.ShowSuccessfulRegistrationMsg is bool && ViewBag.ShowSuccessfulRegistrationMsg))
@@ -52,26 +53,29 @@
             @ViewBag.Error
 
             @Html.HiddenFor(m => m.RequiresQuestionAndAnswer)
-            
+
             <div>
                 <label>
                     @Html.Resource("FirstName")
-                    @Html.TextBox("Profile[FirstName]")
+                    @Html.TextBox("Profile[FirstName]", null, HtmlHelper.ClientValidationEnabled ? RegistrationHelper.GetProfileValidationAttributes("FirstName") : null)
                 </label>
+                @Html.ValidationMessage("Profile[FirstName]")
             </div>
             <div>
                 <label>
                     @Html.Resource("LastName")
-                    @Html.TextBox("Profile[LastName]")
+                    @Html.TextBox("Profile[LastName]", null, HtmlHelper.ClientValidationEnabled ? RegistrationHelper.GetProfileValidationAttributes("LastName") : null)
                 </label>
+                @Html.ValidationMessage("Profile[LastName]")
             </div>
+
             <div>
                 <label>
                     @Html.Resource("Email")
                     @Html.TextBoxFor(m => m.Email, new { type = "email" })
                 </label>
                 @Html.ValidationMessageFor(m => m.Email)
-            </div>           
+            </div>
             <div>
                 <label>
                     @Html.Resource("Password")
@@ -101,7 +105,7 @@
                         @Html.TextBoxFor(m => m.Answer)
                     </label>
                     @Html.ValidationMessageFor(m => m.Answer)
-                </div>                
+                </div>
             }
             <div>
                 @if (SystemManager.IsDesignMode && !SystemManager.IsPreviewMode)
@@ -129,8 +133,6 @@
             <div>
                 <a href="@Model.LoginPageUrl">@Html.Resource("BackToLogin")</a>
             </div>
-        }        
+        }
     }
 </div>
-@Html.Script(Url.WidgetContent("Mvc/Scripts/Registration/registration-form.js"), "bottom", false)
-

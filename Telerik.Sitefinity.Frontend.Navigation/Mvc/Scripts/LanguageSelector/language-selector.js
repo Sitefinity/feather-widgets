@@ -1,4 +1,5 @@
 ﻿function openLink(culture) {
-    var url = $('[data-sf-role="' + culture + '"]').val();
+    var url = document.querySelector('[data-sf-role="' + culture + '"]').value;
+
     window.location = url;
 }

@@ -32,7 +32,10 @@
 
         $scope.$watch(
 	        'properties.ProviderName.PropertyValue',
-	        function (newProviderName, oldProviderName) {
+            function (newProviderName, oldProviderName) {
+                newProviderName = newProviderName || "";
+                oldProviderName = oldProviderName || "";
+
 	            if (newProviderName !== oldProviderName) {
 	                $scope.properties.SelectionMode.PropertyValue = 'AllItems';
 	                $scope.properties.SerializedSelectedItemsIds.PropertyValue = null;

@@ -75,6 +75,7 @@ namespace Telerik.Sitefinity.Frontend.ContentBlock.Mvc.Models
         /// <value>
         /// The CSS class.
         /// </value>
+        [Category("Advanced")]
         string WrapperCssClass { get; set; }
     }
 }

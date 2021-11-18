@@ -82,6 +82,20 @@ namespace Telerik.Sitefinity.Frontend.Comments.Mvc.Models
             }
         }
 
+        /// <summary>
+        /// Gets whether the date time valus will be passed only in UTC
+        /// </summary>
+        public bool AlwaysUseUtc
+        {
+            get
+            {
+                var alwaysUseUtcPropInfo = this.commentsModuleConfigType.GetProperty("AlwaysUseUTC", BindingFlags.Public | BindingFlags.Instance);
+                var alwaysUseUtc = (bool)alwaysUseUtcPropInfo.GetValue(this.config, null);
+
+                return alwaysUseUtc;
+            }
+        }
+
         private Type commentsModuleConfigType;
         private ConfigSection config;
     }

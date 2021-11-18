@@ -9,7 +9,7 @@
         $scope.$watch(
             'defaultValue',
             function (newDefaultValue, oldDefaultValue) {
-                if (newDefaultValue) {
+                if (newDefaultValue && $scope.properties) {
                     $scope.properties.Model.ValidatorDefinition.Required.PropertyValue = 'False';
                 }
             },
@@ -28,6 +28,12 @@
                     $scope.properties = propertyService.toHierarchyArray(data.Items);
                     $scope.currentItems = JSON.parse($scope.properties.Model.SerializedChoices.PropertyValue);
                     $scope.defaultValue = $scope.properties.Model.MetaField.DefaultValue.PropertyValue;
+
+                    for (var i = 0; i < $scope.currentItems.length; i++) {
+                        if ($scope.currentItems[i].length > 255) {
+                            $scope.currentItems[i] = $scope.currentItems[i].substring(0, 255);
+                        }
+                    }
                 }
             })
             .catch(function (data) {
@@ -93,14 +99,15 @@
         $scope.sortableOptions = {
             hint: function (element) {
                 return $('<div class="sf-backend-wrp"><div class="list-group-item list-group-item-multiselect list-group-item-draggable-2 list-group-item-hint">' +
-                            element.html() +
-                        '</div></div>');
+                    element.html() +
+                    '</div></div>');
             },
             placeholder: function (element) {
                 return $('<div class="list-group-item list-group-item-placeholder list-group-item-placeholder-2"></div>');
             },
             handler: ".handler",
-            axis: "y"
+            axis: "y",
+            autoScroll: true
         };
     }]);
 })();

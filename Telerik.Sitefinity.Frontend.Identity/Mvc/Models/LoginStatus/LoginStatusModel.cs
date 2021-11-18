@@ -63,7 +63,7 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.LoginStatus
             var loginRedirectUrl = this.ExternalLoginUrl;
 
             if (string.IsNullOrEmpty(loginRedirectUrl))
-            {   
+            {
                 string pageUrl;
 
                 if (this.LoginPageId.HasValue)
@@ -94,8 +94,8 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.LoginStatus
                 }
                 else
                 {
-                    logoutRedirectUrl = UrlPath.ResolveAbsoluteUrl(this.currentPageUrl, true);
-                }                
+                    logoutRedirectUrl = HttpContext.Current.Request.UrlReferrer?.AbsoluteUri ?? UrlPath.ResolveAbsoluteUrl(this.currentPageUrl, true);
+                }
             }
 
             if (HttpContext.Current.Request.Url == null)

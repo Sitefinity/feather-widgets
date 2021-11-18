@@ -149,7 +149,6 @@
                         $scope.properties.ContentViewDisplayMode.PropertyValue = 'Automatic';
                     }  
 
-                    $scope.properties.SortExpression.PropertyValue = $scope.selectedSortOption;
                 });
             })
             .finally(function () {

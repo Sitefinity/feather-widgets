@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Web.Routing;
 using Telerik.Sitefinity.ContentLocations;
 using Telerik.Sitefinity.Data;
 using Telerik.Sitefinity.Frontend.Mvc.Models;
@@ -205,6 +206,16 @@ namespace Telerik.Sitefinity.Frontend.DynamicContent.Mvc.Models
         bool ShowListViewOnEmpyParentFilter { get; set; }
 
         /// <summary>
+        /// Checks if the list should be hidden when the child details view is opened.
+        /// </summary>
+        bool HideListViewOnChildDetailsView { get; set; }
+
+        /// <summary>
+        /// When navigating to child content types, shows the currently matched parent in detail
+        /// </summary>
+        bool ShowDetailsViewOnChildDetailsView { get; set; }
+
+        /// <summary>
         /// Gets or sets the URL key prefix.
         /// </summary>
         /// <value>The URL key prefix.</value>
@@ -281,5 +292,12 @@ namespace Telerik.Sitefinity.Frontend.DynamicContent.Mvc.Models
         /// The <see cref="IList"/>.
         /// </returns>
         IList<CacheDependencyKey> GetKeysOfDependentObjects(ContentDetailsViewModel viewModel);
+
+        /// <summary>
+        /// Detirmines wheather the list view should be hidden.
+        /// </summary>
+        /// <param name="context">The current request context</param>
+        /// <returns>Whether or not to hide the list view</returns>
+        bool HideListView(RequestContext context);
     }
 }

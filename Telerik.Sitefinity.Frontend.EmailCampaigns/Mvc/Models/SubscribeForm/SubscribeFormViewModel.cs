@@ -7,7 +7,7 @@ namespace Telerik.Sitefinity.Frontend.EmailCampaigns.Mvc.Models
     /// <summary>
     /// This class represents the view model of the subscribe form item.
     /// </summary>
-    [Bind(Exclude = "CssClass, RedirectPageUrl")]
+    [Bind(Include = "FirstName, LastName, Email")]
     public class SubscribeFormViewModel
     {
         /// <summary>

@@ -196,9 +196,9 @@ namespace Telerik.Sitefinity.Frontend.EmailCampaigns.Mvc.Controllers
                 {
                     var validator = ObjectFactory.Resolve<IRedirectUriValidator>();
                     var redirectUrl = viewModel.RedirectPageUrl;
-                    if (this.Model.SuccessfullySubmittedForm == SuccessfullySubmittedForm.OpenSpecificPage && !string.IsNullOrEmpty(viewModel.RedirectPageUrl) && validator.IsValid(redirectUrl))
+                    if (this.Model.SuccessfullySubmittedForm == SuccessfullySubmittedForm.OpenSpecificPage && !string.IsNullOrEmpty(redirectUrl) && validator.IsValid(redirectUrl))
                     {
-                        return this.Redirect(viewModel.RedirectPageUrl);
+                        return this.Redirect(redirectUrl);
                     }
 
                     this.ModelState.Clear();

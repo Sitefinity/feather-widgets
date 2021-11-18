@@ -28,12 +28,12 @@
         },
 
         getCaptcha: function () {
-            var getCaptchaUrl = this.rootUrl + 'captcha';
+            var getCaptchaUrl = this.rootUrl;
             return this.makeAjax(getCaptchaUrl);
         },
 
         validateCaptcha: function (data) {
-            var validateCaptchaUrl = this.rootUrl + 'captcha';
+            var validateCaptchaUrl = this.rootUrl;
             return this.makeAjax(validateCaptchaUrl, 'POST', data);
         }
     };
@@ -66,8 +66,6 @@
         captchaAudioBtn: function () { return this.getOrInitializeProperty('_captchaAudioBtn', 'captcha-audio-btn'); },
         captchaInput: function () { return this.getOrInitializeProperty('_captchaInput', 'captcha-input'); },
         captchaRefreshLink: function () { return this.getOrInitializeProperty('_captchaRefreshLink', 'captcha-refresh-button'); },
-        captchaDataIv: function () { return this.getOrInitializeProperty('_captchaDataIv', 'captcha-iv'); },
-        captchaDataCorrectAnswer: function () { return this.getOrInitializeProperty('_captchaDataCorrectAnswer', 'captcha-ca'); },
         captchaDataKey: function () { return this.getOrInitializeProperty('_captchaDataKey', 'captcha-k'); },
         captchaDataInvalidAnswerMessage: function () { return this.getOrInitializeProperty('_captchaDataInvalidAnswerMessage', 'captcha-iam'); },
         errorMessage: function () { return this.getOrInitializeProperty('_errorMessage', 'error-message'); },
@@ -87,8 +85,6 @@
                     self.captchaImage().attr("src", "data:image/png;base64," + data.Image);
                     self.captchaAudio().attr("src", "data:audio/wav;base64," + data.Audio);
                     self.captchaAudioBtn().click(function () { self.captchaAudio()[0].play();});
-                    self.captchaDataIv().val(data.InitializationVector);
-                    self.captchaDataCorrectAnswer().val(data.CorrectAnswer);
                     self.captchaDataKey().val(data.Key);
                     self.captchaInput().val("");
                     self.captchaInput().show();
@@ -106,20 +102,23 @@
             var deferred = $.Deferred(),
                 data = {
                     Answer: self.captchaInput().val(),
-                    CorrectAnswer: self.captchaDataCorrectAnswer().val(),
-                    InitializationVector: self.captchaDataIv().val(),
                     Key: self.captchaDataKey().val()
                 };
 
-            self.restApi.validateCaptcha(data).then(function (isValid) {
-                if (isValid) {
+            self.restApi.validateCaptcha(data).then(function (validationResult) {
+                if (validationResult.IsValid) {
                     self.hideInvalidMessage();
                 } else {
                     self.showInvalidMessage();
-                    self.wrapper.find('input').focus();
-                    self.wrapper.find('input').select();
-                }                
-                deferred.resolve(isValid);
+                    if (validationResult.RefreshCaptcha) {
+                        self.captchaRefresh();
+                    } else {
+                        self.wrapper.find('input').focus();
+                        self.wrapper.find('input').select();
+                    }
+                }
+
+                deferred.resolve(validationResult.IsValid);
             });
 
             return deferred;
@@ -132,8 +131,6 @@
             this.restApi = new CaptchaRestApi(this.settings.rootUrl);
 
             this.captchaData = {
-                iv: null,
-                correctAnswer: null,
                 key: null
             };
         },

@@ -81,7 +81,7 @@
 
                     <span>
                         @Html.Raw(String.Format(Html.HtmlSanitize((string)Html.Resource("DivideToItemPerPage")).ToString(),
-                        "<input type='text' style='width: 40px' ng-disabled='properties.DisplayMode.PropertyValue!=\"Paging\"' ng-model='properties.ItemsPerPage.PropertyValue'/>"))
+                        "<input type='text' class='sf-input sf-input--sm' ng-disabled='properties.DisplayMode.PropertyValue!=\"Paging\"' ng-model='properties.ItemsPerPage.PropertyValue'/>"))
                     </span>
                 </label>
             </div>
@@ -93,7 +93,7 @@
 
                     <span>
                         @Html.Raw(String.Format(Html.HtmlSanitize((string)Html.Resource("ShowLimitedItems")).ToString(),
-                        "<input type='text' style='width: 40px' ng-disabled='properties.DisplayMode.PropertyValue!=\"Limit\"' ng-model='properties.LimitCount.PropertyValue'/>"))
+                        "<input type='text' class='sf-input sf-input--sm' ng-disabled='properties.DisplayMode.PropertyValue!=\"Limit\"' ng-model='properties.LimitCount.PropertyValue'/>"))
                     </span>
                 </label>
             </div>

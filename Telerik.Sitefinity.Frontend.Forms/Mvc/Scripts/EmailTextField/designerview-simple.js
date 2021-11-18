@@ -27,7 +27,7 @@
         $scope.$watch(
             'defaultValue.value',
             function (newDefaultValue, oldDefaultValue) {
-                if (newDefaultValue !== oldDefaultValue) {
+                if (newDefaultValue !== oldDefaultValue && $scope.properties) {
                     $scope.properties.Model.MetaField.DefaultValue.PropertyValue = angular.element("#predefinedValue").val();
                 }
             },

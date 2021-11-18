@@ -19,7 +19,6 @@
                 var parentFormChildren = parentForm.children();
 
                 if (parentForm.length > 0)
-                if (parentForm.length > 0)
                     parentFormChildren.unwrap();
 
                 var newForm = formContainer.find('form');
@@ -49,7 +48,7 @@
                             MarketoSubmitScript._formFields = MarketoSubmitScript._getExternalFormFields(newSubmitButtons[0]);
                         if (MarketoSubmitScript._formFields && MarketoSubmitScript._formFields.length === 0)
                             MarketoSubmitScript._populateFieldsFromLabels(newForm);
-                        MarketoSubmitScript._formSubmitHandler();
+                        MarketoSubmitScript._formSubmitHandler(newForm);
                     }
 
                     var formData = new FormData(newForm[0]);
@@ -137,12 +136,12 @@
         },
 
         getCaptcha: function () {
-            var getCaptchaUrl = this.rootUrl + 'captcha';
+            var getCaptchaUrl = this.rootUrl;
             return this.makeAjax(getCaptchaUrl);
         },
 
         validateCaptcha: function (data) {
-            var validateCaptchaUrl = this.rootUrl + 'captcha';
+            var validateCaptchaUrl = this.rootUrl;
             return this.makeAjax(validateCaptchaUrl, 'POST', data);
         }
     };
@@ -175,8 +174,6 @@
         captchaAudioBtn: function () { return this.getOrInitializeProperty('_captchaAudioBtn', 'captcha-audio-btn'); },
         captchaInput: function () { return this.getOrInitializeProperty('_captchaInput', 'captcha-input'); },
         captchaRefreshLink: function () { return this.getOrInitializeProperty('_captchaRefreshLink', 'captcha-refresh-button'); },
-        captchaDataIv: function () { return this.getOrInitializeProperty('_captchaDataIv', 'captcha-iv'); },
-        captchaDataCorrectAnswer: function () { return this.getOrInitializeProperty('_captchaDataCorrectAnswer', 'captcha-ca'); },
         captchaDataKey: function () { return this.getOrInitializeProperty('_captchaDataKey', 'captcha-k'); },
         captchaDataInvalidAnswerMessage: function () { return this.getOrInitializeProperty('_captchaDataInvalidAnswerMessage', 'captcha-iam'); },
         errorMessage: function () { return this.getOrInitializeProperty('_errorMessage', 'error-message'); },
@@ -195,9 +192,7 @@
                 if (data) {
                     self.captchaImage().attr("src", "data:image/png;base64," + data.Image);
                     self.captchaAudio().attr("src", "data:audio/wav;base64," + data.Audio);
-                    self.captchaAudioBtn().click(function () { self.captchaAudio()[0].play();});
-                    self.captchaDataIv().val(data.InitializationVector);
-                    self.captchaDataCorrectAnswer().val(data.CorrectAnswer);
+                    self.captchaAudioBtn().click(function () { self.captchaAudio()[0].play(); });
                     self.captchaDataKey().val(data.Key);
                     self.captchaInput().val("");
                     self.captchaInput().show();
@@ -215,20 +210,23 @@
             var deferred = $.Deferred(),
                 data = {
                     Answer: self.captchaInput().val(),
-                    CorrectAnswer: self.captchaDataCorrectAnswer().val(),
-                    InitializationVector: self.captchaDataIv().val(),
                     Key: self.captchaDataKey().val()
                 };
 
-            self.restApi.validateCaptcha(data).then(function (isValid) {
-                if (isValid) {
+            self.restApi.validateCaptcha(data).then(function (validationResult) {
+                if (validationResult.IsValid) {
                     self.hideInvalidMessage();
                 } else {
                     self.showInvalidMessage();
-                    self.wrapper.find('input').focus();
-                    self.wrapper.find('input').select();
-                }                
-                deferred.resolve(isValid);
+                    if (validationResult.RefreshCaptcha) {
+                        self.captchaRefresh();
+                    } else {
+                        self.wrapper.find('input').focus();
+                        self.wrapper.find('input').select();
+                    }
+                }
+
+                deferred.resolve(validationResult.IsValid);
             });
 
             return deferred;
@@ -241,8 +239,6 @@
             this.restApi = new CaptchaRestApi(this.settings.rootUrl);
 
             this.captchaData = {
-                iv: null,
-                correctAnswer: null,
                 key: null
             };
         },
@@ -637,6 +633,11 @@
     };
 
     var checkRequired = function (container) {
+        // This is called only for input[type="file"]
+        // If the fields is hidden, don't check for required
+        if (container.is(":hidden"))
+            return true;
+
         var violationMessage = $('[data-sf-role="required-violation-message"]');
 
         var inputs = container.find('input[type="file"]');
@@ -764,6 +765,11 @@
         if (e.target.validity.valueMissing) {
             setErrorMessage(e.target, validationMessages.required);
         }
+
+        var isValidLength = e.target.value.length <= 255;
+        if (e.target.validity.patternMismatch && !isValidLength) {
+            setErrorMessage(e.target, validationMessages.maxLength);
+        }
     };
 
     var getValidationMessages = function (input) {
@@ -834,6 +840,9 @@
 
                 if (isRequired)
                     otherInput.attr('required', 'required');
+
+                otherInput.attr('pattern', '.{0,255}');
+                otherInput.on('invalid', invalid);
             }
             else {
                 otherInput.attr('type', 'hidden');
@@ -1284,6 +1293,19 @@
             $(this).closest('form').submit(function (ev) {
                 if (!ev.isDefaultPrevented()) {
                     var button = $(this).find('button[type="submit"]');
+
+                    // If the submit button is not visible and there is a page break button next that is visible 
+                    // we asume that we are in case with multi step form, where the enter button is hit and the form is submited, 
+                    // so that we need to click next instead of submitting the form.
+                    var isSubmitButtonVisible = $(button).is(":visible");
+                    var firstPageBreak = $(ev.target).find('[data-sf-btn-role="next"]:visible')[0];
+                    if (!isSubmitButtonVisible && firstPageBreak) {
+                        firstPageBreak.click();
+                        ev.preventDefault();
+
+                        return;
+                    }
+
                     button.prop('disabled', true);
 
                     //we need first to validate all inputs which require server side validation (cannot be validated client-side)

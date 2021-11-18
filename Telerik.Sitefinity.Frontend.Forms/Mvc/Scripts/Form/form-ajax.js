@@ -47,7 +47,7 @@
                             MarketoSubmitScript._formFields = MarketoSubmitScript._getExternalFormFields(newSubmitButtons[0]);
                         if (MarketoSubmitScript._formFields && MarketoSubmitScript._formFields.length === 0)
                             MarketoSubmitScript._populateFieldsFromLabels(newForm);
-                        MarketoSubmitScript._formSubmitHandler();
+                        MarketoSubmitScript._formSubmitHandler(newForm);
                     }
 
                     var formData = new FormData(newForm[0]);

@@ -21,7 +21,7 @@
         <a class="image-link"
             href="@(thumbnailViewModel.MediaUrl)"
             title="@item.Fields.AlternativeText">
-            <img src="@(thumbnailViewModel.ThumbnailUrl)" 
+            <img loading="lazy" src="@(thumbnailViewModel.ThumbnailUrl)" 
                  data-detail-url="@HyperLinkHelpers.GetDetailPageUrl(item, ViewBag.DetailsPageId, ViewBag.OpenInSamePage, Model.UrlKeyPrefix)" 
                  alt="@item.Fields.AlternativeText"
                       @Html.GetWidthAttributeIfExists(thumbnailViewModel.Width)

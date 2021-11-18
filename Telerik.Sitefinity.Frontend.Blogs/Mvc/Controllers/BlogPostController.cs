@@ -216,7 +216,7 @@ namespace Telerik.Sitefinity.Frontend.Blogs.Mvc.Controllers
         {
             if (taxonFilter != null)
             {
-                var redirectPageUrlTemplate = UrlHelpers.GetRedirectPagingUrl(taxonFilter);
+                var redirectPageUrlTemplate = UrlHelpers.GetRedirectPagingUrl(taxonFilter, this.ViewBag.UrlParams, this.HttpContext.Request.QueryString.ToQueryString());
                 this.InitializeListViewBag(redirectPageUrlTemplate);
             }
 
@@ -386,7 +386,6 @@ namespace Telerik.Sitefinity.Frontend.Blogs.Mvc.Controllers
         /// <value>
         /// The disable canonical URLs.
         /// </value>
-        [Browsable(false)]
         public bool? DisableCanonicalUrlMetaTag
         {
             get

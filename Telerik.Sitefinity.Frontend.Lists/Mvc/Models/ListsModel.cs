@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using ServiceStack.Text;
+using Telerik.Microsoft.Practices.EnterpriseLibrary.Common.Utility;
 using Telerik.Sitefinity.ContentLocations;
 using Telerik.Sitefinity.Data;
 using Telerik.Sitefinity.Frontend.Mvc.Models;
@@ -10,6 +11,7 @@ using Telerik.Sitefinity.Lists.Model;
 using Telerik.Sitefinity.Model;
 using Telerik.Sitefinity.Modules.Lists;
 using Telerik.Sitefinity.Taxonomies.Model;
+using Telerik.Sitefinity.Web.OutputCache;
 
 namespace Telerik.Sitefinity.Frontend.Lists.Mvc.Models
 {
@@ -77,7 +79,20 @@ namespace Telerik.Sitefinity.Frontend.Lists.Mvc.Models
                 location.ProviderName = this.GetManager().Provider.Name;
             }
 
-            var listsFilterExpression = this.CompileFilterExpression(ListItemFilterExpression);
+            string listsFilterExpression;
+            switch (this.ContentViewDisplayMode)
+            {
+                case Telerik.Sitefinity.Web.UI.ContentUI.Enums.ContentViewDisplayMode.Detail:
+                    location.Filters.Add(this.CompileSingleItemFilterExpression(location.ContentType));
+
+                    return new[] { location };
+                case Telerik.Sitefinity.Web.UI.ContentUI.Enums.ContentViewDisplayMode.Automatic:
+                    listsFilterExpression = this.CompileFilterExpression(ListItemFilterExpression);
+                    break;
+                default:
+                    return null;
+            }
+            
             if (!string.IsNullOrEmpty(listsFilterExpression))
             {
                 location.Filters.Add(new BasicContentLocationFilter(listsFilterExpression));
@@ -189,11 +204,9 @@ namespace Telerik.Sitefinity.Frontend.Lists.Mvc.Models
         /// </returns>
         public override IList<CacheDependencyKey> GetKeysOfDependentObjects(ContentListViewModel viewModel)
         {
-            var result = base.GetKeysOfDependentObjects(viewModel);
-            var manager = this.GetManager();
-            string applicationName = manager != null && manager.Provider != null ? manager.Provider.ApplicationName : string.Empty;
+            var result = new List<CacheDependencyKey>();
 
-            result.Add(new CacheDependencyKey { Key = string.Concat(ContentLifecycleStatus.Live.ToString(), applicationName), Type = typeof(ListItem) });
+            viewModel.Items.ForEach(p => result.AddRange(OutputCacheDependencyHelper.GetPublishedContentCacheDependencyKeys(this.ContentType, p.DataItem.Id)));
 
             return result;
         }

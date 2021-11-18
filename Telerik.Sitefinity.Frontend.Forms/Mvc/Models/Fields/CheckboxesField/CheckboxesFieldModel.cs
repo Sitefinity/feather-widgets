@@ -87,7 +87,7 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Models.Fields.CheckboxesField
                 HasOtherChoice = this.HasOtherChoice,
                 IsRequired = this.ValidatorDefinition.Required.HasValue ? this.ValidatorDefinition.Required.Value : false,
                 ValidationAttributes = this.BuildValidationAttributesString(),
-                RequiredViolationMessage = this.ValidatorDefinition.RequiredViolationMessage,
+                RequiredViolationMessage = BuildErrorMessage(this.ValidatorDefinition.RequiredViolationMessage, metaField.Title),
                 CssClass = this.CssClass,
                 Hidden = this.Hidden && (!Sitefinity.Services.SystemManager.IsDesignMode || Sitefinity.Services.SystemManager.IsPreviewMode)
             };
@@ -121,7 +121,7 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Models.Fields.CheckboxesField
                 {
                     var selectedChoices = strValue.Split(',').Where(s => !string.IsNullOrWhiteSpace(s)).ToList();
                     var choices = this.DeserializeChoices();
-                    if (selectedChoices.Any(s => choices.Contains(s)))
+                    if (selectedChoices.Any(s => choices.Contains(s)) || choices.Contains(value))
                     {
                         return base.IsValid(value);
                     }
