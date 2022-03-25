@@ -1,6 +1,5 @@
 ﻿using System;
 using System.ComponentModel;
-using System.Globalization;
 using System.Web.Mvc;
 using Telerik.Sitefinity.Frontend.Forms.Mvc.Models;
 using Telerik.Sitefinity.Frontend.Forms.Mvc.StringResources;
@@ -8,6 +7,7 @@ using Telerik.Sitefinity.Frontend.Mvc.Helpers;
 using Telerik.Sitefinity.Frontend.Mvc.Infrastructure.Controllers;
 using Telerik.Sitefinity.Frontend.Mvc.Infrastructure.Controllers.Attributes;
 using Telerik.Sitefinity.Frontend.Resources;
+using Telerik.Sitefinity.Frontend.Security;
 using Telerik.Sitefinity.Localization;
 using Telerik.Sitefinity.Modules.Pages.Configuration;
 using Telerik.Sitefinity.Mvc;
@@ -84,6 +84,9 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Controllers
         [HttpPost]
         public ActionResult Index(FormCollection collection)
         {
+            if (!AntiCsrfHelpers.IsValidCsrfToken(collection))
+                return new EmptyResult();
+
             if (!this.ViewData.ContainsKey(FormController.ShouldProcessRequestKey) || (bool)this.ViewData[FormController.ShouldProcessRequestKey])
             {
                 var success = this.Model.TrySubmitForm(collection, this.Request != null ? this.Request.Files : null, this.Request != null ? this.Request.UserHostAddress : null);

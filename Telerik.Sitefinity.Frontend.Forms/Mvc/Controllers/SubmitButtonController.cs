@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel;
+using System.Web.Mvc;
 using Telerik.Sitefinity.Frontend.Forms.Mvc.Controllers.Base;
 using Telerik.Sitefinity.Frontend.Forms.Mvc.Models.Fields.SubmitButton;
 using Telerik.Sitefinity.Frontend.Forms.Mvc.StringResources;
@@ -22,6 +23,7 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Controllers
         {
             this.ReadTemplateName = SubmitButtonController.TemplateName;
             this.WriteTemplateName = SubmitButtonController.TemplateName;
+            this.DisplayMode = Web.UI.Fields.Enums.FieldDisplayMode.Write;
         }
 
         /// <summary>

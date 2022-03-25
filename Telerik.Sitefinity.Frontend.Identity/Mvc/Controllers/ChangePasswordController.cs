@@ -12,6 +12,8 @@ using Telerik.Sitefinity.Frontend.Mvc.Infrastructure.Controllers.Attributes;
 using Telerik.Sitefinity.Localization;
 using Telerik.Sitefinity.Mvc;
 using Telerik.Sitefinity.Security;
+using Telerik.Sitefinity.Security.ProviderExceptions;
+using Telerik.Sitefinity.Web;
 
 namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Controllers
 {
@@ -79,6 +81,13 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Controllers
         /// </returns>
         public ActionResult Index(bool passwordChanged = false, string error = null)
         {
+            // Output cache vary by query string param fix
+            if (this.HttpContext != null)
+            {
+                this.HttpContext.Request.QueryStringGet("error");
+                this.HttpContext.Request.QueryStringGet<BoolParameterValidator>("passwordChanged");
+            }
+
             if (SecurityManager.GetCurrentUserId() == Guid.Empty)
             {
                 return this.Content(Res.Get<ChangePasswordResources>().LogInFirst);
@@ -113,9 +122,16 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Controllers
                     this.Model.ChangePassword(SecurityManager.GetCurrentUserId(), model.OldPassword, model.NewPassword);
                     passwordChanged = true;
                 }
-                catch (Exception)
+                catch (Exception ex)
                 {
-                    error = Res.Get<ChangePasswordResources>().ChangePasswordGeneralErrorMessage;
+                    if (ex is ValidationFailedProviderException)
+                    {
+                        error = ex.Message;
+                    }
+                    else
+                    {
+                        error = Res.Get<ChangePasswordResources>().ChangePasswordGeneralErrorMessage;
+                    }
                 }
             }
             else
@@ -181,5 +197,16 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Controllers
         private IChangePasswordModel model;
         private const string WidgetName = "ChangePassword_MVC";
         #endregion
+    }
+
+    [Serializable]
+    internal class BoolParameterValidator : CacheVariationParamValidator
+    {
+        protected override bool Validate(string paramValue, string[] arguments)
+        {
+            var allowedValues = new string[] { true.ToString(), false.ToString() };
+            return allowedValues.Contains(paramValue);
+
+        }
     }
 }

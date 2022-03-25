@@ -27,7 +27,7 @@
             'eventSelector.selectedItemsIds',
             function (newVal, oldVal) {
                 if (newVal !== oldVal) {
-                    if (newVal) {
+                    if ($scope.properties && newVal) {
                         $scope.properties.SerializedSelectedItemsIds.PropertyValue = JSON.stringify(newVal);
                     }
                 }
@@ -39,7 +39,7 @@
         $scope.$watch(
             'additionalFilters.value',
             function (newAdditionalFilters, oldAdditionalFilters) {
-                if (newAdditionalFilters !== oldAdditionalFilters) {
+                if ($scope.properties && newAdditionalFilters !== oldAdditionalFilters) {
                     $scope.properties.SerializedAdditionalFilters.PropertyValue = JSON.stringify(newAdditionalFilters);
                 }
             },
@@ -50,7 +50,7 @@
         $scope.$watch(
             'narrowFilters.value',
             function (newNarrowFilters, oldNarrowFilters) {
-                if (newNarrowFilters !== oldNarrowFilters) {
+                if ($scope.properties && newNarrowFilters !== oldNarrowFilters) {
                     $scope.properties.SerializedNarrowSelectionFilters.PropertyValue = JSON.stringify(newNarrowFilters);
                 }
             },
@@ -59,7 +59,7 @@
 
         propertyService.get()
             .then(function (data) {
-                if (data) {
+                if (data && data.Items) {
                     $scope.properties = propertyService.toAssociativeArray(data.Items);
 
                     var additionalFilters = $.parseJSON($scope.properties.SerializedAdditionalFilters.PropertyValue || null);
@@ -74,10 +74,10 @@
                     }
                 }
             },
-            function (data) {
+            function (errorData) {
                 $scope.feedback.showError = true;
-                if (data)
-                    $scope.feedback.errorMessage = data.Detail;
+                if (errorData && errorData.data)
+                    $scope.feedback.errorMessage = errorData.data.Detail;
             })
             .then(function () {
                 $scope.feedback.savingHandlers.push(function () {

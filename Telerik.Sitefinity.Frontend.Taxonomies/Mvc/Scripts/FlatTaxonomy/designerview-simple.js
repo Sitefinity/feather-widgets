@@ -13,7 +13,7 @@
         $scope.$watch(
              'taxonSelector.selectedItemsIds',
              function (newAdditionalFilters, oldAdditionalFilters) {
-                 if (newAdditionalFilters !== oldAdditionalFilters) {
+                 if ($scope.properties && newAdditionalFilters !== oldAdditionalFilters) {
                      $scope.properties.SerializedSelectedTaxaIds.PropertyValue = JSON.stringify(newAdditionalFilters);
                  }
              },
@@ -23,7 +23,7 @@
         $scope.$watch(
             'model.proxyContentTypeName',
             function (newValue, oldValue) {
-                if (newValue !== oldValue) {
+                if ($scope.properties && newValue !== oldValue) {
                     if (newValue.startsWith(defaultDynamicNamespace)) {
                         $scope.properties.DynamicContentTypeName.PropertyValue = newValue;
                         $scope.properties.ContentTypeName.PropertyValue = null;
@@ -44,7 +44,7 @@
 
         propertyService.get()
             .then(function (data) {
-                if (data) {
+                if (data && data.Items) {
                     $scope.properties = propertyService.toAssociativeArray(data.Items);
                     $scope.model.proxyContentTypeName = $scope.properties.ContentTypeName.PropertyValue || $scope.properties.DynamicContentTypeName.PropertyValue;
 
@@ -62,10 +62,10 @@
                     }
                 }
             },
-            function (data) {
+            function (errorData) {
                 $scope.feedback.showError = true;
-                if (data)
-                    $scope.feedback.errorMessage = data.Detail;
+                if (errorData && errorData.data)
+                    $scope.feedback.errorMessage = errorData.data.Detail;
             })
             .then(function () {
                 $scope.feedback.savingHandlers.push(function () {

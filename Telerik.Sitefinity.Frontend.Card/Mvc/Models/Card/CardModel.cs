@@ -73,6 +73,8 @@ namespace Telerik.Sitefinity.Frontend.Card.Mvc.Models.Card
                     viewModel.SelectedSizeUrl = this.GetSelectedSizeUrl(image);
                     viewModel.ImageAlternativeText = image.AlternativeText;
                     viewModel.ImageTitle = image.Title;
+                    viewModel.SelectedImageWidth = image.Width;
+                    viewModel.SelectedImageHeight = image.Height;
                 }
             }
 

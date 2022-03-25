@@ -3,6 +3,7 @@ using System.Linq;
 using Telerik.Sitefinity.Frontend.Mvc.Models;
 using Telerik.Sitefinity.Model;
 using Telerik.Sitefinity.Modules.Libraries;
+using Telerik.Sitefinity.Modules.Libraries.BlobStorage;
 using SfDocument = Telerik.Sitefinity.Libraries.Model.Document;
 
 namespace Telerik.Sitefinity.Frontend.Media.Mvc.Models.DocumentsList
@@ -54,7 +55,7 @@ namespace Telerik.Sitefinity.Frontend.Media.Mvc.Models.DocumentsList
         {
             var manager = (LibrariesManager)this.GetManager();
 
-            return manager.GetDocuments();
+            return manager.GetDocuments().FilterHiddenBlobStorageMedia(this.ProviderName);
         }
 
         /// <summary>

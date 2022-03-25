@@ -5,7 +5,7 @@
 @@foreach (var relatedItem in Model.Item.Fields.@(Model.Name))
 {
     <li class="media">
-        <a href='@@relatedItem.Fields.MediaUrl'>
+        <a class="media-body" href='@@relatedItem.Fields.MediaUrl'>
             <img src='@@relatedItem.Fields.ThumbnailUrl' alt='@@relatedItem.Fields.AlternativeText' title='@@relatedItem.Fields.Title' />
         </a>
     </li>   

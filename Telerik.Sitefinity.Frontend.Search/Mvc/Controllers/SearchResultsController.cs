@@ -1,15 +1,21 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.Web.Mvc;
+using Telerik.Sitefinity.Abstractions;
 using Telerik.Sitefinity.Configuration;
 using Telerik.Sitefinity.Frontend.Mvc.Infrastructure.Controllers;
 using Telerik.Sitefinity.Frontend.Mvc.Infrastructure.Controllers.Attributes;
 using Telerik.Sitefinity.Frontend.Search.Mvc.Models;
 using Telerik.Sitefinity.Frontend.Search.Mvc.StringResources;
 using Telerik.Sitefinity.Mvc;
+using Telerik.Sitefinity.Search;
+using Telerik.Sitefinity.Search.Impl;
 using Telerik.Sitefinity.Services;
 using Telerik.Sitefinity.Services.Search;
 using Telerik.Sitefinity.Services.Search.Configuration;
+using Telerik.Sitefinity.Web;
+using Telerik.Sitefinity.Web.OutputCache;
 
 namespace Telerik.Sitefinity.Frontend.Search.Mvc.Controllers
 {
@@ -72,14 +78,28 @@ namespace Telerik.Sitefinity.Frontend.Search.Mvc.Controllers
         /// <param name="wordsMode">The words mode.</param>
         /// <param name="language">The language.</param>
         /// <param name="orderBy">The order by.</param>
+        /// <param name="scoringInfo">The param used to boost the search results.</param>
         /// <returns>
         /// The <see cref="ActionResult"/>.
         /// </returns>
-        public ActionResult Index(int? page, string searchQuery = null, string indexCatalogue = null, string wordsMode = null, string language = null, string orderBy = null)
+        public ActionResult Index(int? page, string searchQuery = null, string indexCatalogue = null, string wordsMode = null, string language = null, string orderBy = null, string scoringInfo = null)
         {
             if (!this.IsSearchModuleActivated())
             {
                 return null;
+            }
+
+            //// We use the QueryStringGet in order to register output cache variations from the different parameters in the query string
+            //// For reference you can check https://www.progress.com/documentation/sitefinity-cms/configure-cache-variation-by-query-string
+            if (HttpContext != null)
+            {
+                HttpContext.Request.QueryStringGet(nameof(page));
+                HttpContext.Request.QueryStringGet(nameof(searchQuery));
+                HttpContext.Request.QueryStringGet(nameof(indexCatalogue));
+                HttpContext.Request.QueryStringGet(nameof(wordsMode));
+                HttpContext.Request.QueryStringGet(nameof(language));
+                HttpContext.Request.QueryStringGet(nameof(orderBy));
+                HttpContext.Request.QueryStringGet(nameof(scoringInfo));
             }
 
             if (!string.IsNullOrEmpty(searchQuery))
@@ -88,12 +108,11 @@ namespace Telerik.Sitefinity.Frontend.Search.Mvc.Controllers
 
                 if (isValid)
                 {
-                    var queryStringFormat = "?indexCatalogue={0}&searchQuery={1}&wordsMode={2}&orderBy={3}";
-                    var languageParamFormat = "&language={0}";
+                    string queryString = this.BuildSearchResultsQueryString(searchQuery, indexCatalogue, wordsMode, orderBy, scoringInfo);
 
-                    var queryString = string.Format(queryStringFormat, indexCatalogue, searchQuery, wordsMode, orderBy ?? this.Model.OrderBy.ToString());
-                    var languageParam = string.IsNullOrEmpty(language) ? string.Empty : string.Format(languageParamFormat, language);
-                    var currentPageUrl = this.GetCurrentUrl();
+                    string languageParamFormat = "&language={0}";
+                    string languageParam = string.IsNullOrEmpty(language) ? string.Empty : string.Format(languageParamFormat, language);
+                    string currentPageUrl = this.GetCurrentUrl();
 
                     this.ViewBag.LanguageSearchUrlTemplate = string.Concat(currentPageUrl, queryString, languageParamFormat);
                     this.ViewBag.RedirectPageUrlTemplate = string.Concat(currentPageUrl, "/{0}", queryString, languageParam);
@@ -105,7 +124,10 @@ namespace Telerik.Sitefinity.Frontend.Search.Mvc.Controllers
                     this.Model.CurrentPage = page.Value;
 
                     int? itemsToSkip = this.Model.DisplayMode == ListDisplayMode.Paging ? ((page.Value - 1) * this.Model.ItemsPerPage) : 0;
-                    this.Model.PopulateResults(searchQuery, indexCatalogue, itemsToSkip, language, orderBy);
+                    var searchScoringDecoder = new SearchScoringDecoder();
+                    SearchScoring searchScoring = searchScoringDecoder.GetSearchScoringSettings(scoringInfo);
+
+                    this.Model.PopulateResults(searchQuery, indexCatalogue, itemsToSkip, language, orderBy, searchScoring);
 
                     return this.View(this.TemplateName, this.Model);
                 }
@@ -116,6 +138,19 @@ namespace Telerik.Sitefinity.Frontend.Search.Mvc.Controllers
             }
 
             return null;
+        }
+
+        private string BuildSearchResultsQueryString(string searchQuery, string indexCatalogue, string wordsMode, string orderBy, string scoringInfo)
+        {
+            var queryStringFormat = "?indexCatalogue={0}&searchQuery={1}&wordsMode={2}&orderBy={3}";
+
+            var queryString = string.Format(queryStringFormat, indexCatalogue, searchQuery, wordsMode, orderBy ?? this.Model.OrderBy.ToString());
+            if (!string.IsNullOrEmpty(scoringInfo))
+            {
+                queryString = $"{queryString}&scoringInfo={scoringInfo}";
+            }
+
+            return queryString;
         }
 
         /// <summary>
@@ -186,6 +221,7 @@ namespace Telerik.Sitefinity.Frontend.Search.Mvc.Controllers
 
         #region Private fields and constants
         internal const string WidgetIconCssClass = "sfSearchResultIcn sfMvcIcn";
+        internal const string QueryStringParamName = "indexCatalogue";
         private ISearchResultsModel model;
         private string templateName = "SearchResults";
         private const string ValidationErrorViewName = "InputValidationError";

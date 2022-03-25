@@ -16,7 +16,7 @@
             });
 
             $scope.$watch('videoModel', function (newVal, oldVal) {
-                if (newVal) {
+                if ($scope.properties && newVal) {
                     $scope.properties.AspectRatio.PropertyValue = newVal.aspectRatio;
                     $scope.properties.Width.PropertyValue = newVal.width;
                     $scope.properties.Height.PropertyValue = newVal.height;
@@ -25,7 +25,7 @@
 
             propertyService.get()
                 .then(function (data) {
-                    if (data) {
+                    if (data && data.Items) {
                         $scope.properties = propertyService.toAssociativeArray(data.Items);
 
                         $scope.videoModel = {
@@ -35,10 +35,10 @@
                         };
                     }
                 },
-                function (data) {
+                function (errorData) {
                     $scope.feedback.showError = true;
-                    if (data)
-                        $scope.feedback.errorMessage = data.Detail;
+                    if (errorData && errorData.data)
+                        $scope.feedback.errorMessage = errorData.data.Detail;
                 })
                 .finally(function () {
                     $scope.feedback.showLoadingIndicator = false;

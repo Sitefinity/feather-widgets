@@ -38,10 +38,10 @@
                 $scope.isListEmpty = $scope.contentItems.length === 0 && !$scope.filter.search;
             };
 
-            var onError = function () {
+            var onError = function (errorData) {
                 var errorMessage = '';
-                if (data)
-                    errorMessage = data.Detail;
+                if (errorData && errorData.data)
+                    errorMessage = errorData.data.Detail;
 
                 $scope.feedback.showError = true;
                 $scope.feedback.errorMessage = errorMessage;

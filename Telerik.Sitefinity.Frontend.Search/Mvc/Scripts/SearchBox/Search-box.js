@@ -1,5 +1,5 @@
 ﻿(function ($) {
-    $(document).ready(function () {
+    var init = function () {
         var searchBoxIdFields = $('[data-sf-role="searchTextBoxId"]');
 
         for (var i = 0; i < searchBoxIdFields.length; i++) {
@@ -15,14 +15,15 @@
                 siteId: searchBoxIdField.siblings('[data-sf-role="siteId"]').first().val(),
                 suggestionsRoute: searchBoxIdField.siblings('[data-sf-role="suggestionsRoute"]').first().val(),
                 searchTextBoxSelector: searchBoxIdField.val(),
-                searchButtonSelector: searchBoxIdField.siblings('[data-sf-role="searchButtonId"]').first().val()
+                searchButtonSelector: searchBoxIdField.siblings('[data-sf-role="searchButtonId"]').first().val(),
+                scoringSettingsSelector: searchBoxIdField.siblings('[data-sf-role="scoringSettings"]').first().val(),
             };
             featherSearchBoxWidget(controlServerData);
         }
 
         function featherSearchBoxWidget(serverData) {
             var searchTextBox = $(serverData.searchTextBoxSelector),
-                    searchButton = $(serverData.searchButtonSelector);
+                searchButton = $(serverData.searchButtonSelector);
 
             searchButton.click(navigateToResults);
             searchTextBox.keypress(keypressHandler);
@@ -35,10 +36,10 @@
                     searchTextBox.autocomplete({
                         source: [],
                         messages:
-                            {
-                                noResults: '',
-                                results: function () { }
-                            },
+                        {
+                            noResults: '',
+                            results: function () { }
+                        },
                         select: function (event, ui) {
                             searchTextBox.val(ui.item.value);
                             navigateToResults(event);
@@ -93,6 +94,10 @@
                         request.Text = searchText;
                         request.Language = serverData.language;
                         request.SiteId = serverData.siteId;
+                        if (serverData.scoringSettingsSelector) {
+
+                            request.ScoringInfo = serverData.scoringSettingsSelector;
+                        }
 
                         $.ajax({
                             type: "GET",
@@ -142,6 +147,10 @@
 
                 var url = serverData.resultsUrl + catalogueParam + searchQueryParam + wordsModeParam;
 
+                if (serverData.scoringSettingsSelector) {
+                    url = url + "&scoringInfo=" + serverData.scoringSettingsSelector;
+                }
+
                 return url;
             }
 
@@ -158,5 +167,15 @@
                 }
             }
         }
-    });
+    };
+
+    if (window.personalizationManager) {
+        window.personalizationManager.addPersonalizedContentLoaded(function () {
+            init();
+        });
+    } else {
+        document.addEventListener('DOMContentLoaded', function () {
+            init();
+        });
+    }
 }(jQuery));

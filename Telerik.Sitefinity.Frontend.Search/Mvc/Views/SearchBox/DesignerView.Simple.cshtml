@@ -5,7 +5,8 @@
 
     <div ng-hide="hasSearchIndexes" class="alert alert-info">
         <span>@Html.Resource("NoSearchIndexes")</span>
-        <a class="Tooltip">@Html.Resource("WhatIsThis")
+        <a class="Tooltip">
+            @Html.Resource("WhatIsThis")
             <div class="Tooltip-info Tooltip-info--bottom">
                 <p>@Html.Resource("SearchIndexesDescriptionTitle")</p>
                 <p>@Html.Resource("SearchIndexesDescription")</p>
@@ -17,16 +18,18 @@
     <div class="row row-xs" ng-show="hasSearchIndexes">
         <div class="col-xs-6">
 
-            <select id="searchIndexes" class="form-control" 
+            <select id="searchIndexes" class="form-control"
                     ng-options="index.ID as index.Title for index in searchIndexes"
-                    ng-model="properties.SearchIndexPipeId.PropertyValue">
+                    ng-model="properties.SearchIndexPipeId.PropertyValue"
+                    ng-change="searchIndexChanged(properties.SearchIndexPipeId.PropertyValue)">
                 <option value="">@Html.Resource("SelectSearchIndex")</option>
             </select>
 
         </div>
-        <div class="col-xs-6">
+        <div class="col-xs-6 u-df u-aic">
 
-            <a class="Tooltip">@Html.Resource("WhatIsThis")
+            <a class="Tooltip">
+                @Html.Resource("WhatIsThis")
                 <div class="Tooltip-info Tooltip-info--bottom">
                     <p>@Html.Resource("SearchIndexesDescriptionTitle")</p>
                     <p>@Html.Resource("SearchIndexesDescription")</p>
@@ -46,6 +49,55 @@
     <sf-list-selector sf-page-selector sf-selected-item-id="properties.ResultsPageId.PropertyValue" sf-select-button-text="Select a page"></sf-list-selector>
 </div>
 
+<div class="form-group" ng-show="hasScoringSettings">
+    <sf-loading class="sf-loading--small" ng-show="loadingScoringProfiles"></sf-loading>
+
+    <div ng-show="!loadingScoringProfiles">
+        <label for="scoringProfiles">@Html.Resource("BoostSearchResults")</label>
+
+        <div class="row row-xs">
+            <div ng-show="!!previousScoringProfile" class="col-xs-12 p-bottom-sm">
+                <div class="alert alert-warning alert--inner">
+                    <span> "{{previousScoringProfile}}" @Html.Resource("ScoringProfileHasBeenDeleted")</span>
+                </div>
+            </div>
+
+            <div ng-show="(!hasSearchIndexes || scoringProfilesNames.length === 0) && !previousScoringProfile"  class="col-xs-12">
+                <div class="alert alert-info alert--inner">
+                    <span> @Html.Resource("NoScoringProfileCreated")</span>
+                    <a class="Tooltip">
+                        @Html.Resource("WhatIsThis")
+                        <div class="Tooltip-info Tooltip-info--bottom">
+                            <p>@Html.Resource("ScoringProfilesDescription")</p>
+                        </div>
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <div class="row row-xs" ng-show="scoringProfilesNames.length > 0 || disableScoringProfilesDropdown">
+            <div class="col-xs-6">
+                <select id="scoringProfiles" class="form-control"
+                        ng-model="properties.ScoringProfile.PropertyValue"
+                        ng-options="scoringProfile as scoringProfile for scoringProfile in scoringProfilesNames"
+                        ng-change="scoringProfileChanged(properties.ScoringProfile.PropertyValue)"
+                        ng-disabled="disableScoringProfilesDropdown">
+                    <option value="">@Html.Resource("SelectScoringProfile")</option>
+                </select>
+
+            </div>
+            <div class="col-xs-6 u-df u-aic">
+                <a class="Tooltip">
+                    @Html.Resource("WhatIsThis")
+                    <div class="Tooltip-info Tooltip-info--bottom">
+                        <p>@Html.Resource("ScoringProfilesDescription")</p>
+                    </div>
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+
 <div class="form-group">
     <label for="searchTemplateName">@Html.Resource("Template")</label>
 
@@ -62,10 +114,10 @@
 </div>
 
 <expander expander-title='@Html.Resource("MoreOptions")'>
-	<style-dropdown selected-class="properties.CssClass.PropertyValue" view-name="properties.TemplateName.PropertyValue"></style-dropdown>
+    <style-dropdown selected-class="properties.CssClass.PropertyValue" view-name="properties.TemplateName.PropertyValue"></style-dropdown>
 
-	<div class="form-group">
-		<label for="searchCssClass">@Html.Resource("CssClasses")</label>
-		<input type="text" id="searchCssClass" ng-model="properties.CssClass.PropertyValue" class="form-control" />
-	</div>
+    <div class="form-group">
+        <label for="searchCssClass">@Html.Resource("CssClasses")</label>
+        <input type="text" id="searchCssClass" ng-model="properties.CssClass.PropertyValue" class="form-control" />
+    </div>
 </expander>

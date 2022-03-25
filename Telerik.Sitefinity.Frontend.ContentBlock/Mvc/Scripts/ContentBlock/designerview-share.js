@@ -4,10 +4,10 @@
 
     shareDialogModule.controller('ShareCtrl', ['$scope', 'sharedContentService',
         function ($scope, sharedContentService) {
-            var onError = function (data) {
+            var onError = function (errorData) {
                 $scope.feedback.showError = true;
-                if (data)
-                    $scope.feedback.errorMessage = data.Detail;
+                if (errorData && errorData.data)
+                    $scope.feedback.errorMessage = errorData.data.Detail;
             };
 
             $scope.model = {

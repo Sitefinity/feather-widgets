@@ -27,6 +27,7 @@ using Telerik.Sitefinity.Modules.Forms.Web;
 using Telerik.Sitefinity.Modules.Forms.Web.Services.Operations;
 using Telerik.Sitefinity.Modules.Forms.Web.UI;
 using Telerik.Sitefinity.Modules.Forms.Web.UI.Fields;
+using Telerik.Sitefinity.Security.Sanitizers;
 using Telerik.Sitefinity.Services;
 using Telerik.Sitefinity.Services.Events;
 using Telerik.Sitefinity.Utilities;
@@ -77,7 +78,7 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Models
                     this.customConfirmationMessage = this.FormData == null ? (Lstring)Res.Get<FormResources>().SuccessfullySubmittedMessage : this.FormData.SuccessMessage;
                 }
 
-                return this.customConfirmationMessage;
+                return ObjectFactory.Resolve<IHtmlSanitizer>().Sanitize(this.customConfirmationMessage);
             }
 
             set
@@ -198,6 +199,12 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Models
                     {
                         var currentNode = SiteMapBase.GetCurrentNode();
                         baseUrl = currentNode != null ? currentNode.Url + "/AjaxSubmit" : string.Empty;
+                        var query = SystemManager.CurrentHttpContext.Request.Url.Query;
+                        if(!string.IsNullOrEmpty(query))
+                        {
+                            query = ObjectFactory.Resolve<IHtmlSanitizer>().SanitizeUrl(query);
+                            baseUrl += query;
+                        }
                     }
                     else
                     {

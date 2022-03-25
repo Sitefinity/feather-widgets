@@ -15,7 +15,7 @@
             'blogPostSelector.selectedItemsIds',
             function (newVal, oldVal) {
                 if (newVal !== oldVal) {
-                    if (newVal) {
+                    if ($scope.properties && newVal) {
                         $scope.properties.SerializedSelectedItemsIds.PropertyValue = JSON.stringify(newVal);
                         if (newVal.length === 1) {
                             $scope.properties.ContentViewDisplayMode.PropertyValue = 'Detail';
@@ -32,7 +32,7 @@
                 newProviderName = newProviderName || "";
                 oldProviderName = oldProviderName || "";
 
-	            if (newProviderName !== oldProviderName) {
+                if ($scope.properties && newProviderName !== oldProviderName) {
 	                $scope.properties.ParentFilterMode.PropertyValue = 'All';
 	                $scope.properties.SerializedSelectedParentsIds.PropertyValue = null;
 	            }
@@ -43,7 +43,7 @@
         $scope.$watch(
             'parentSelector.selectedItemsIds',
             function (newSelectedItemsIds, oldSelectedItemsIds) {
-                if (newSelectedItemsIds !== oldSelectedItemsIds) {
+                if ($scope.properties && newSelectedItemsIds !== oldSelectedItemsIds) {
                     $scope.properties.SerializedSelectedParentsIds.PropertyValue = JSON.stringify(newSelectedItemsIds);
                 }
             }, 
@@ -53,7 +53,7 @@
         $scope.$watch(
             'additionalFilters.value',
             function (newAdditionalFilters, oldAdditionalFilters) {
-                if (newAdditionalFilters !== oldAdditionalFilters) {
+                if ($scope.properties && newAdditionalFilters !== oldAdditionalFilters) {
                     $scope.properties.SerializedAdditionalFilters.PropertyValue = JSON.stringify(newAdditionalFilters);
                 }
             },
@@ -63,7 +63,7 @@
         $scope.$watch(
        'dateFilters.value',
         function (newDateFilters, oldDateFilters) {
-            if (newDateFilters !== oldDateFilters) {
+            if ($scope.properties && newDateFilters !== oldDateFilters) {
                 $scope.properties.SerializedDateFilters.PropertyValue = JSON.stringify(newDateFilters);
             }
         },
@@ -73,7 +73,7 @@
         $scope.$watch(
             'properties.ParentFilterMode.PropertyValue',
             function (newValue, oldValue) {
-                if (newValue !== oldValue) {
+                if ($scope.properties && newValue !== oldValue) {
                     if (newValue == 'NotApplicable') {
                         $scope.properties.SelectionMode.PropertyValue = 'SelectedItems';
                     }
@@ -86,14 +86,14 @@
         );
 
         $scope.updateSortOption = function (newSortOption) {
-            if (newSortOption !== "Custom") {
+            if ($scope.properties && newSortOption !== "Custom") {
                 $scope.properties.SortExpression.PropertyValue = newSortOption;
             }
         };
 
         propertyService.get()
             .then(function (data) {
-                if (data) {
+                if (data && data.Items) {
                     $scope.properties = propertyService.toAssociativeArray(data.Items);
 
                     $scope.additionalFilters.value = $.parseJSON($scope.properties.SerializedAdditionalFilters.PropertyValue || null);
@@ -119,10 +119,10 @@
                     }
                 }
             },
-            function (data) {
+            function (errorData) {
                 $scope.feedback.showError = true;
-                if (data)
-                    $scope.feedback.errorMessage = data.Detail;
+                if (errorData && errorData.data)
+                    $scope.feedback.errorMessage = errorData.data.Detail;
             })
             .then(function () {
                 $scope.feedback.savingHandlers.push(function () {

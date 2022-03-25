@@ -17,6 +17,7 @@ using Telerik.Sitefinity.Mvc;
 using Telerik.Sitefinity.Mvc.Proxy;
 using Telerik.Sitefinity.Pages.Model;
 using Telerik.Sitefinity.Web.UI;
+using Telerik.Sitefinity.Web.UI.Fields.Enums;
 
 namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Helpers
 {
@@ -88,9 +89,24 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Helpers
             if ((explicitMode == FormControlDisplayMode.Read && viewMode != FormViewMode.Read) || (explicitMode == FormControlDisplayMode.Write && viewMode != FormViewMode.Write))
                 return MvcHtmlString.Empty;
 
+            var action = "Index";
+            if (controller is IFormElementController<IFormElementModel> formElementController)
+            {
+                if ((explicitMode == FormControlDisplayMode.Read && formElementController.DisplayMode != FieldDisplayMode.Read) || (explicitMode == FormControlDisplayMode.Write && formElementController.DisplayMode != FieldDisplayMode.Write))
+                    return MvcHtmlString.Empty;
+
+                if (formElementController.DisplayMode == FieldDisplayMode.Read)
+                {
+                    action = FormViewMode.Read.ToString();
+                }
+                else
+                {
+                    action = viewMode.ToString();
+                }
+            }
+
             routeData.Values["controller"] = controllerFactory.GetControllerName(controllerType);
 
-            string action = typeof(IFormElementController<IFormElementModel>).IsAssignableFrom(controllerType) ? action = viewMode.ToString() : action = "Index";
             routeData.Values["action"] = action;
 
             using (var writer = new StringWriter())

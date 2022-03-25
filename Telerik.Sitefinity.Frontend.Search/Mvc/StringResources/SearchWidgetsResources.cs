@@ -766,6 +766,85 @@ namespace Telerik.Sitefinity.Frontend.Search.Mvc.StringResources
             }
         }
 
+        /// <summary>
+        /// Control description: Boost search results.
+        /// </summary>
+        [ResourceEntry("BoostSearchResults",
+            Value = "Boost search results",
+            Description = "Control description: Boost search results.",
+            LastModified = "2021/10/05")]
+        public string BoostSearchResults
+        {
+            get
+            {
+                return this["BoostSearchResults"];
+            }
+
+        }
+
+        /// <summary>
+        /// Control description:Scoring profiles are part of the search index, and they consist of weighted fields, functions, and parameters. You use scoring profiles to boost search results by customizing the way different fields are ranked. You can manage scoring profiles in the Azure portal.
+        /// </summary>
+        [ResourceEntry("ScoringProfilesDescription",
+            Value = "Scoring profiles are part of the search index, and they consist of weighted fields, functions, and parameters. You use scoring profiles to boost search results by customizing the way different fields are ranked. You can manage scoring profiles in the Azure portal.",
+            Description = "Control description: Scoring profiles are part of the search index, and they consist of weighted fields, functions, and parameters. You use scoring profiles to boost search results by customizing the way different fields are ranked. You can manage scoring profiles in the Azure portal.",
+            LastModified = "2021/10/05")]
+        public string ScoringProfilesDescription
+        {
+            get
+            {
+                return this["ScoringProfilesDescription"];
+            }
+
+        }
+
+        /// <summary>
+        /// Phrase: - Select scoring profile -.
+        /// </summary>
+        [ResourceEntry("SelectScoringProfile",
+            Value = "- Select scoring profile -",
+            Description = "Phrase: - Select scoring profile -.",
+            LastModified = "2021/10/05")]
+        public string SelectScoringProfile
+        {
+            get
+            {
+                return this["SelectScoringProfile"];
+            }
+
+        }
+
+        /// <summary>
+        /// Label: scoring profile has been deleted. Select different scoring profile or create a new one.
+        /// </summary>
+        /// <value> scoring profile has been deleted. Select different scoring profile or create a new one.</value>
+        [ResourceEntry("ScoringProfileHasBeenDeleted",
+            Value = " scoring profile has been deleted. Select different scoring profile or create a new one.",
+            Description = "Label: scoring profile has been deleted. Select different scoring profile or create a new one.",
+            LastModified = "2021/11/22")]
+        public string ScoringProfileHasBeenDeleted
+        {
+            get
+            {
+                return this["ScoringProfileHasBeenDeleted"];
+            }
+        }
+
+        /// <summary>
+        /// Label: No scoring profiles have been created yet.
+        /// </summary>
+        /// <value>No scoring profiles have been created yet.</value>
+        [ResourceEntry("NoScoringProfileCreated",
+            Value = "No scoring profiles have been created yet.",
+            Description = "Label: No scoring profiles have been created yet.",
+            LastModified = "2021/11/22")]
+        public string NoScoringProfileCreated
+        {
+            get
+            {
+                return this["NoScoringProfileCreated"];
+            }
+        }
         #endregion
     }
 }

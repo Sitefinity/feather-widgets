@@ -5,7 +5,7 @@
 
     simpleViewModule.controller('SimpleCtrl', ['$scope', 'propertyService', function ($scope, propertyService) {
         var onGetPropertiesSuccess = function (data) {
-            if (data) {
+            if (data && data.Items) {
                 $scope.properties = propertyService.toHierarchyArray(data.Items);
 
                 if ($scope.properties.Model.MaxFileSizeInMb.PropertyValue === '0')
@@ -100,10 +100,10 @@
         $scope.feedback.showLoadingIndicator = true;
         propertyService.get()
             .then(onGetPropertiesSuccess)
-            .catch(function (data) {
+            .catch(function (errorData) {
                 $scope.feedback.showError = true;
-                if (data)
-                    $scope.feedback.errorMessage = data.Detail;
+                if (errorData && errorData.data)
+                    $scope.feedback.errorMessage = errorData.data.Detail;
             })
             .finally(function () {
                 $scope.feedback.showLoadingIndicator = false;

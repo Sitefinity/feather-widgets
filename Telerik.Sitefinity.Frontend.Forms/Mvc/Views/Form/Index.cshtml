@@ -5,6 +5,7 @@
 @using Telerik.Sitefinity.Frontend.Forms.Mvc.Models;
 @using Telerik.Sitefinity.Frontend.Mvc.Helpers;
 @using Telerik.Sitefinity.Modules.Pages;
+
 <div data-sf-role="form-container" class="@Model.CssClass">
     <input type="hidden" data-sf-role="form-id" value="@Model.FormId" name="FormId" />
     <input type="hidden" data-sf-role="marketo-settings" value="@Model.MarketoSettings" name="MarketoSettings" />
@@ -18,10 +19,11 @@
         if (Model.UseAjaxSubmit)
         {
             <span data-sf-role="success-message" style="display: none;">@Model.SuccessMessage</span>
-            <span data-sf-role="error-message" style="display: none;"></span>
+            <div data-sf-role="general-error-message" class="alert alert-danger my-3" style="display: none;"></div>
             <img data-sf-role="loading-img" src='@Url.EmbeddedResource("Telerik.Sitefinity.Resources.Reference", "Telerik.Sitefinity.Resources.Themes.Light.Images.Loadings.sfLoadingData.gif")' alt="Loading animation" style="display:none;" />
             <div data-sf-role="fields-container">
                 @* Fields Markup *@
+                @Html.AddSitefinityAntiforgeryToken()
             </div>
         }
         else
@@ -29,6 +31,7 @@
             using (Html.BeginFormSitefinity("", null, (System.Web.Routing.RouteValueDictionary)null, FormMethod.Post, new Dictionary<string, object> { { "enctype", "multipart/form-data" }, { "role", "form" } }, true))
             {
                 @* Fields Markup *@
+                @Html.AddSitefinityAntiforgeryToken()
             }
         }
 

@@ -237,6 +237,7 @@ namespace Telerik.Sitefinity.Frontend.News.Mvc.Controllers
                 this.AddCacheDependencies(this.Model.GetKeysOfDependentObjects(viewModel));
 
             var page = this.HttpContext.CurrentHandler.GetPageHandler();
+
             this.AddCanonicalUrlTagIfEnabled(page, newsItem);
 
             return this.View(fullTemplateName, viewModel);

@@ -154,6 +154,11 @@
             return this[property];
         },
 
+        getSelectedSortButtonCssClass: function () {
+            var selectedCssClass = this.wrapper.find('[data-sf-orderby-css-active-class]') ? this.wrapper.find('[data-sf-orderby-css-active-class]').attr('data-sf-orderby-css-active-class') : this.isSelectedSortButtonCssClass;
+            return selectedCssClass;
+        },
+
         /*
             Elements
         */
@@ -658,10 +663,10 @@
             }
 
             if (this.commentsSortedDescending) {
-                this.commentsSortNewButton().addClass(this.isSelectedSortButtonCssClass);
+                this.commentsSortNewButton().addClass(this.getSelectedSortButtonCssClass());
             }
             else {
-                this.commentsSortOldButton().addClass(this.isSelectedSortButtonCssClass);
+                this.commentsSortOldButton().addClass(this.getSelectedSortButtonCssClass());
             }
         },
 
@@ -778,15 +783,15 @@
 
             self.commentsSortNewButton().click(function () {
                 self.sortComments(true);
-                self.commentsSortNewButton().addClass(self.isSelectedSortButtonCssClass);
-                self.commentsSortOldButton().removeClass(self.isSelectedSortButtonCssClass);
+                self.commentsSortNewButton().addClass(self.getSelectedSortButtonCssClass());
+                self.commentsSortOldButton().removeClass(self.getSelectedSortButtonCssClass());
                 return false;
             });
 
             self.commentsSortOldButton().click(function () {
                 self.sortComments(false);
-                self.commentsSortOldButton().addClass(self.isSelectedSortButtonCssClass);
-                self.commentsSortNewButton().removeClass(self.isSelectedSortButtonCssClass);
+                self.commentsSortOldButton().addClass(self.getSelectedSortButtonCssClass());
+                self.commentsSortNewButton().removeClass(self.getSelectedSortButtonCssClass());
                 return false;
             });
 

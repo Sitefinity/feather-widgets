@@ -10,8 +10,8 @@
             step: 1,  //setting for selecting stars. Could be floating number.
             readOnly: false,
             template: '', //defines template for the separate elements. Inner Html will be rendered as many times as {{maxValue}}
-            selectedClass: 'on', //Class applied to the element when it is selected
-            hoverClass: 'hover' //Class applied to the element when it is hovered
+            selectedClass: this.ratingContainer.attr('data-sf-rating-selected-css-class') !== null && this.ratingContainer.attr('data-sf-rating-selected-css-class') !== undefined && this.ratingContainer.attr('data-sf-rating-selected-css-class') !== '' ? this.ratingContainer.attr('data-sf-rating-selected-css-class') : 'on', //Class applied to the element when it is selected
+            hoverClass: this.ratingContainer.attr('data-sf-rating-hover-css-class') !== null && this.ratingContainer.attr('data-sf-rating-hover-css-class') !== undefined && this.ratingContainer.attr('data-sf-rating-hover-css-class') !== '' ? this.ratingContainer.attr('data-sf-rating-hover-css-class') : 'hover' //Class applied to the element when it is hovered
         };
 
         if (options) {
@@ -41,7 +41,8 @@
 
             // TODO: Accessibility is implemented
             if (!this.settings.readOnly && this.isAccessibilityImplemented) {
-                templateElement = $('<div><label><input required type="radio" name="sfRatingInput" aria-labelledby="' + ratingLegendId + '"><span aria-hidden="true">&#9733;</span></label></div>');
+                var inputCssClass = this.ratingContainer.attr('data-sf-rating-input-css-class') ? this.ratingContainer.attr('data-sf-rating-input-css-class') : "";
+                templateElement = $('<div><label><input required type="radio" name="sfRatingInput" aria-labelledby="' + ratingLegendId + '" class="' + inputCssClass + '"><span aria-hidden="true">&#9733;</span></label></div>');
             }
 
             return templateElement.html();

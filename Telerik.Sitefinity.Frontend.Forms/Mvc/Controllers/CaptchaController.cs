@@ -15,6 +15,7 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Controllers
     /// <summary>
     /// This class represents the controller of the MVC forms Captcha field.
     /// </summary>
+    [FormControlDisplayMode(FormControlDisplayMode.Write)]
     [Localization(typeof(FieldResources))]
     [IndexRenderMode(IndexRenderModes.NoOutput)]
     public class CaptchaController : FormElementControllerBase<ICaptchaModel>, ICaptchaFormField

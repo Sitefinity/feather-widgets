@@ -31,6 +31,12 @@ namespace Telerik.Sitefinity.Frontend.Navigation.Mvc.Models.LanguageSelector
         string CssClass { get; set; }
 
         /// <summary>
+        /// Gets or sets the query string parameters that should be preserved on language change.
+        /// </summary>
+        /// <value>The query string parameters that should be presevred - comma separated.</value>
+        string PreservedQueryStringParams { get; set; }
+
+        /// <summary>
         /// Creates the language selector view model.
         /// </summary>
         LanguageSelectorViewModel CreateViewModel();

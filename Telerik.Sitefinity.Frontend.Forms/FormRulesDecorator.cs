@@ -7,6 +7,7 @@ using Telerik.Sitefinity.Frontend.Forms.Mvc.Controllers.Base;
 using Telerik.Sitefinity.Frontend.Forms.Mvc.Helpers;
 using Telerik.Sitefinity.Frontend.Forms.Mvc.Models.Fields;
 using Telerik.Sitefinity.Modules.Forms.Web.UI;
+using Telerik.Sitefinity.Modules.Forms.Web.UI.Fields;
 using Telerik.Sitefinity.Mvc.Proxy;
 
 namespace Telerik.Sitefinity.Frontend.Forms
@@ -78,7 +79,7 @@ namespace Telerik.Sitefinity.Frontend.Forms
             if (this.hasRules || this.hiddenFields.Any())
             {
                 var formFieldController = mvcControllerProxy.Controller as IFormElementController<IFormElementModel>;
-                if (formFieldController != null && formFieldController.Model is IHideable)
+                if (formFieldController != null && (formFieldController.Model is IHideable || formFieldController is ISupportRules))
                 {
                     var fieldName = this.fieldNames.ContainsKey(mvcControllerProxy.ID) ? this.fieldNames[mvcControllerProxy.ID] : string.Empty;
                     markup.Insert(0, string.Format(CultureInfo.InvariantCulture, @"<script data-sf-role='start_field_{0}' data-sf-role-field-name='{1}'></script>", mvcControllerProxy.ID, fieldName));

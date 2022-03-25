@@ -11,6 +11,7 @@ using SfImage = Telerik.Sitefinity.Libraries.Model.Image;
 using Telerik.Sitefinity.Modules.Libraries.Configuration;
 using Config = Telerik.Sitefinity.Configuration.Config;
 using Telerik.Sitefinity.Modules.Libraries.Thumbnails;
+using Telerik.Sitefinity.Modules.Libraries.BlobStorage;
 
 namespace Telerik.Sitefinity.Frontend.Media.Mvc.Models.ImageGallery
 {
@@ -90,7 +91,7 @@ namespace Telerik.Sitefinity.Frontend.Media.Mvc.Models.ImageGallery
         protected override IQueryable<IDataItem> GetItemsQuery()
         {
             var manager = (LibrariesManager)this.GetManager();
-            return manager.GetImages();
+            return manager.GetImages().FilterHiddenBlobStorageMedia(this.ProviderName);
         }
 
         /// <inheritdoc />

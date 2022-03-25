@@ -17,7 +17,7 @@
 
         propertyService.get()
             .then(function (data) {
-                if (data) {
+                if (data && data.Items) {
                     $scope.properties = propertyService.toAssociativeArray(data.Items);
                     $scope.externalProviderSelector.classData = $.parseJSON($scope.properties.SerializedExternalProviders.PropertyValue || null) || {};
 

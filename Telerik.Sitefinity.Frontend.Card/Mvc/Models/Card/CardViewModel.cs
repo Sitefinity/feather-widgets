@@ -41,5 +41,21 @@ namespace Telerik.Sitefinity.Frontend.Card.Mvc.Models.Card
         /// Gets or sets the selected size image URL.
         /// </summary>
         public string SelectedSizeUrl { get; set; }
+
+        /// <summary>
+        /// Gets or sets the selected image width.
+        /// </summary>
+        /// <value>
+        /// The thumbnail width.
+        /// </value>
+        public int? SelectedImageWidth { get; set; }
+
+        /// <summary>
+        /// Gets or sets the selected image height.
+        /// </summary>
+        /// <value>
+        /// The thumbnail height.
+        /// </value>
+        public int? SelectedImageHeight { get; set; }
     }
 }

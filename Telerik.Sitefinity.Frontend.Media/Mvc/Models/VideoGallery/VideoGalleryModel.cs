@@ -10,6 +10,7 @@ using Telerik.Sitefinity.Services;
 using SfVideo = Telerik.Sitefinity.Libraries.Model.Video;
 using Telerik.Sitefinity.Frontend.Media.Mvc.Models.Image;
 using Config = Telerik.Sitefinity.Configuration.Config;
+using Telerik.Sitefinity.Modules.Libraries.BlobStorage;
 
 namespace Telerik.Sitefinity.Frontend.Media.Mvc.Models.VideoGallery
 {
@@ -91,7 +92,7 @@ namespace Telerik.Sitefinity.Frontend.Media.Mvc.Models.VideoGallery
         protected override IQueryable<IDataItem> GetItemsQuery()
         {
             var manager = (LibrariesManager)this.GetManager();
-            return manager.GetVideos();
+            return manager.GetVideos().FilterHiddenBlobStorageMedia(this.ProviderName);
         }
 
 

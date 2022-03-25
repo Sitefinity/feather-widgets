@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Web;
 using Telerik.Sitefinity.Web;
 using Telerik.Sitefinity.Publishing;
@@ -114,16 +113,16 @@ namespace Telerik.Sitefinity.Frontend.Search.Mvc.Models
 
         /// <inheritdoc />
         public string CssClass { get; set; }
-        
+
         /// <inheritdoc />
-        public string BackgroundHint 
-        { 
+        public string BackgroundHint
+        {
             get
             {
                 if (string.IsNullOrEmpty(this.backgroundHint))
-	            {
+                {
                     this.backgroundHint = Res.Get<SearchWidgetsResources>().BackgroundHint;
-	            }
+                }
 
                 return this.backgroundHint;
             }
@@ -132,7 +131,8 @@ namespace Telerik.Sitefinity.Frontend.Search.Mvc.Models
                 this.backgroundHint = value;
             }
         }
-        #endregion
+
+      #endregion
 
         #region Private methods
         private SiteMapProvider GetSiteMapProvider()
@@ -219,7 +219,7 @@ namespace Telerik.Sitefinity.Frontend.Search.Mvc.Models
                 throw new ArgumentException("The passed publishing point does not have provider.");
 
             if (provider is PublishingDataProviderBase)
-            {                
+            {
                 return ((PublishingDataProviderBase)provider).GetSiteItemLinks().Where(l => l.ItemId == point.Id);
             }
 

@@ -1,23 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web.UI;
+﻿using System.Collections.Generic;
 using Telerik.Sitefinity.Forms.Model;
-using Telerik.Sitefinity.Localization;
-using Telerik.Sitefinity.Modules.Pages;
-using Telerik.Sitefinity.Services;
+using Telerik.Sitefinity.Modules.Forms;
 using Telerik.Sitefinity.Web.UI.ContentUI;
 using Telerik.Sitefinity.Web.UI.ContentUI.Contracts;
-using Telerik.Sitefinity.Web.UI.ContentUI.Views.Backend.Detail.Contracts;
-using Telerik.Sitefinity.Web.UI.ContentUI.Views.Backend.Detail.Definitions;
-using Telerik.Sitefinity.Web.UI.Fields;
-using Telerik.Sitefinity.Web.UI.Fields.Contracts;
 using Telerik.Sitefinity.Web.UI.Fields.Definitions;
 using Telerik.Sitefinity.Web.UI.Fields.Enums;
-using Telerik.Sitefinity.Services;
-using Telerik.Sitefinity.Abstractions;
-using Telerik.Sitefinity.Configuration;
-using Telerik.Sitefinity.Modules.Forms.Configuration;
 
 namespace Telerik.Sitefinity.Frontend.Forms
 {
@@ -25,85 +12,29 @@ namespace Telerik.Sitefinity.Frontend.Forms
     {
         public void ExtendDefinition(IContentViewControlDefinition contentViewControlDefinition)
         {
-            var isHidden = SystemManager.GetModule("Feather") == null;
-
-            this.ExtendBackendDefinition(contentViewControlDefinition, FormsBackendInsertViewName, FieldDisplayMode.Write, isHidden);
-            this.ExtendBackendDefinition(contentViewControlDefinition, FormsBackendEditViewName, FieldDisplayMode.Read, isHidden);
-            this.ExtendBackendDefinition(contentViewControlDefinition, FormsBackendDuplicateViewName, FieldDisplayMode.Read, isHidden);
+            this.ExtendBackendDefinition(contentViewControlDefinition, FormsDefinitionExtenderHelper.FormsBackendInsertViewName, FieldDisplayMode.Write);
+            this.ExtendBackendDefinition(contentViewControlDefinition, FormsDefinitionExtenderHelper.FormsBackendEditViewName, FieldDisplayMode.Read);
+            this.ExtendBackendDefinition(contentViewControlDefinition, FormsDefinitionExtenderHelper.FormsBackendDuplicateViewName, FieldDisplayMode.Read);
         }
 
-        private void ExtendBackendDefinition(IContentViewControlDefinition contentViewControlDefinition, string backendViewName, FieldDisplayMode displayMode, bool isHidden)
+        private void ExtendBackendDefinition(IContentViewControlDefinition contentViewControlDefinition, string backendViewName, FieldDisplayMode displayMode)
         {
-            var backendEditViewDefinition = contentViewControlDefinition.Views.FirstOrDefault(v => v.ViewName == backendViewName) as DetailFormViewDefinition;
-
-            if (backendEditViewDefinition != null)
-            {
-                ContentViewSectionDefinition advancedSection = backendEditViewDefinition.Sections.FirstOrDefault(s => s.Name == FormsDefinitionsExtender.AdvancedSectionName) as ContentViewSectionDefinition;
-                if (advancedSection != null && SystemManager.GetApplicationModule(advancedSection.ModuleName) != null)
-                {
-                    var fieldDefinition = this.BuildFrameworkChoiceFieldDefinition(displayMode, isHidden);
-                    ((IList<IFieldDefinition>)advancedSection.Fields).Add(fieldDefinition);
-                }
-                else 
-                {
-                    advancedSection = new ContentViewSectionDefinition()
-                    {
-                        CssClass = "sfExpandableForm",
-                        DisplayMode = FieldDisplayMode.Write,
-                        IsHiddenInTranslationMode = false,
-                        ModuleName = "Feather",
-                        Name = Guid.NewGuid().ToString(),
-                        ResourceClassId = typeof(Labels).Name,
-                        Title = "Advanced",
-                        WrapperTag = HtmlTextWriterTag.Div 
-                    };
-
-                    backendEditViewDefinition.Sections.Add(advancedSection);
-
-                    var fieldDefinition = this.BuildFrameworkChoiceFieldDefinition(displayMode, false);
-                    ((IList<IFieldDefinition>)advancedSection.Fields).Add(fieldDefinition);
-                }
-            }
-        }
-
-        private ChoiceFieldDefinition BuildFrameworkChoiceFieldDefinition(FieldDisplayMode displayMode, bool isHidden)
-        {
-            var frameworkField = new ChoiceFieldDefinition()
-            {
-                ID = "FormFramework",
-                DataFieldName = "Framework",
-                Title = "WebFrameworkTitle",
-                Description = "WebFrameworkDescription",
-                DisplayMode = displayMode,
-                WrapperTag = HtmlTextWriterTag.Li,
-                MutuallyExclusive = true,
-                ResourceClassId = typeof(PageResources).Name,
-                RenderChoiceAs = RenderChoicesAs.RadioButtons,
-                CssClass = "sfFormSeparator",
-                FieldType = typeof(ChoiceField),
-                Hidden = isHidden
-            };
-
-            frameworkField.Choices.Add(new ChoiceDefinition()
+            var choices = new List<ChoiceDefinition>();
+            choices.Add(new ChoiceDefinition()
             {
                 Text = "MVCOnly",
-                ResourceClassId = typeof(PageResources).Name,
+                ResourceClassId = typeof(FormsResources).Name,
                 Value = ((int)FormFramework.Mvc).ToString()
             });
 
-            frameworkField.Choices.Add(new ChoiceDefinition()
+            choices.Add(new ChoiceDefinition()
             {
                 Text = "WebFormsOnly",
-                ResourceClassId = typeof(PageResources).Name,
+                ResourceClassId = typeof(FormsResources).Name,
                 Value = ((int)FormFramework.WebForms).ToString()
             });
 
-            return frameworkField;
+            FormsDefinitionExtenderHelper.ExtendFormsFrameworkFieldDefinition(contentViewControlDefinition, backendViewName, displayMode, choices);
         }
-
-        private const string AdvancedSectionName = "MarketoConnectorSection";
-        private const string FormsBackendInsertViewName = "FormsBackendInsert";
-        private const string FormsBackendEditViewName = "FormsBackendEdit";
-        private const string FormsBackendDuplicateViewName = "FormsBackendDuplicate";
     }
 }

@@ -17,6 +17,7 @@ using Telerik.Sitefinity.Localization;
 using Telerik.Sitefinity.Modules.Pages.Configuration;
 using Telerik.Sitefinity.Mvc;
 using Telerik.Sitefinity.Services;
+using Telerik.Sitefinity.Web;
 using Telerik.Sitefinity.Web.UI;
 
 namespace Telerik.Sitefinity.Frontend.Navigation.Mvc.Controllers
@@ -53,7 +54,7 @@ namespace Telerik.Sitefinity.Frontend.Navigation.Mvc.Controllers
                 this.templateName = value;
             }
         }
-        
+
         /// <summary>
         /// Gets the Language selector widget model.
         /// </summary>
@@ -172,27 +173,45 @@ namespace Telerik.Sitefinity.Frontend.Navigation.Mvc.Controllers
         /// <returns></returns>
         private string AppendDetailItemAndParamsToUrl(string url, CultureInfo culture)
         {
-            var query = this.HttpContext.Request.QueryString.ToQueryString();
+            var resultUrl = url;
             var detailItem = SystemManager.CurrentHttpContext.Items["detailItem"];
             var extendedItem = detailItem as ILocatableExtended;
-            
+
             var dataItemAsLifecycleDataItem = detailItem as ILifecycleDataItem;
-            
-            if (extendedItem == null || dataItemAsLifecycleDataItem == null)
-                return string.Concat(url, query);
-            
-            string currentCultureContentItemUrl = string.Empty;
-            var isPublishedLiveItem = dataItemAsLifecycleDataItem.IsPublishedInCulture(culture);
-            if (isPublishedLiveItem || dataItemAsLifecycleDataItem.Status == ContentLifecycleStatus.Temp /*Preview mode*/)
+
+            if (extendedItem != null && dataItemAsLifecycleDataItem != null)
             {
-                currentCultureContentItemUrl = extendedItem.ItemDefaultUrl.GetString(culture, false);
+                string currentCultureContentItemUrl = string.Empty;
+                var isPublishedLiveItem = dataItemAsLifecycleDataItem.IsPublishedInCulture(culture);
+                if (isPublishedLiveItem || dataItemAsLifecycleDataItem.Status == ContentLifecycleStatus.Temp /*Preview mode*/)
+                {
+                    currentCultureContentItemUrl = extendedItem.ItemDefaultUrl.GetString(culture, false);
+                }
+
+                resultUrl = string.Concat(resultUrl, currentCultureContentItemUrl);
             }
-            
-            var urlWithParams = string.Concat(url, currentCultureContentItemUrl, query);
-            
-            return urlWithParams;
+
+            if (!string.IsNullOrEmpty(this.Model.PreservedQueryStringParams))
+            {
+                var query = string.Empty;
+                var preservedQueryParams = this.Model.PreservedQueryStringParams.Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries);
+                foreach (var param in preservedQueryParams)
+                {
+                    var parameter = param.Trim();
+                    var paramValue = this.HttpContext.Request.QueryStringGet(parameter);
+                    if (!string.IsNullOrEmpty(paramValue))
+                    {
+                        query += string.IsNullOrEmpty(query) ? "?" : "&";
+                        query += string.Concat(parameter, "=", HttpUtility.UrlEncode(paramValue));
+                    }
+                }
+
+                resultUrl = string.Concat(resultUrl, query);
+            }
+
+            return resultUrl;
         }
-        
+
         /// <summary>
         /// Handler called when the Page's PreRenderComplete event is fired.
         /// </summary>

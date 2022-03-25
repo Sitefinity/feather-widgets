@@ -58,8 +58,8 @@
 				$http.put(putUrl, itemContext, requestOptions())
 					.then(function (response) {
 						deferred.resolve(response.data);
-					}, function (response) {
-						deferred.reject(response.data);
+					}, function (err) {
+						deferred.reject(err);
 					});
 
 			    return deferred.promise;
@@ -116,8 +116,8 @@
 				$http.put(putUrl, itemData, requestOptions())
 					.then(function (response) {
 						deferred.resolve(response.data);
-					}, function (response) {
-						deferred.reject(response.data);
+					}, function (err) {
+						deferred.reject(err);
 					});
 
 			    return deferred.promise;
@@ -138,8 +138,8 @@
 				$http.get(getUrl, requestOptions())
 					.then(function (response) {
 						deferred.resolve(response.data);
-					}, function (response) {
-						deferred.reject(response.data);
+					}, function (err) {
+						deferred.reject(err);
 					});
 
 			    return deferred.promise;
@@ -176,8 +176,8 @@
 				$http.get(getUrl, requestOptions())
 					.then(function (response) {
 						deferred.resolve(response.data);
-					}, function (response) {
-						deferred.reject(response.data);
+					}, function (err) {
+						deferred.reject(err);
 					});
 
 			    return deferred.promise;
@@ -195,8 +195,8 @@
 				$http.delete(deleteUrl, requestOptions())
 					.then(function (response) {
 						deferred.resolve(response.data);
-					}, function (response) {
-						deferred.reject(response.data);
+					}, function (err) {
+						deferred.reject(err);
 					});
 
 			    return deferred.promise;

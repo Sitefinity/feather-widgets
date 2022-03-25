@@ -13,7 +13,7 @@
         $scope.$watch(
            'properties.Model.InputType.PropertyValue',
            function (newInputType, oldInputType) {
-               if (newInputType !== oldInputType) {
+               if ($scope.properties && newInputType !== oldInputType) {
                    var inputTypeRegexPatterns = JSON.parse($scope.properties.Model.SerializedInputTypeRegexPatterns.PropertyValue);
                    $scope.properties.Model.ValidatorDefinition.RegularExpression.PropertyValue = inputTypeRegexPatterns[newInputType];
 
@@ -27,7 +27,7 @@
         $scope.$watch(
             'defaultValue.value',
             function (newDefaultValue, oldDefaultValue) {
-                if (newDefaultValue !== oldDefaultValue && $scope.properties) {
+                if ($scope.properties && newDefaultValue !== oldDefaultValue && $scope.properties) {
                     $scope.properties.Model.MetaField.DefaultValue.PropertyValue = angular.element("#predefinedValue").val();
                 }
             },
@@ -47,7 +47,7 @@
         };
 
         var onGetPropertiesSuccess = function (data) {
-            if (data) {
+            if (data && data.Items) {
                 $scope.properties = propertyService.toHierarchyArray(data.Items);
 
                 if ($scope.properties.Model.ValidatorDefinition.MaxLength.PropertyValue === '0')
@@ -59,10 +59,10 @@
 
         propertyService.get()
             .then(onGetPropertiesSuccess)
-            .catch(function (data) {
+            .catch(function (errorData) {
                 $scope.feedback.showError = true;
-                if (data)
-                    $scope.feedback.errorMessage = data.Detail;
+                if (errorData && errorData.data)
+                    $scope.feedback.errorMessage = errorData.data.Detail;
             })
             .finally(function () {
                 $scope.feedback.showLoadingIndicator = false;

@@ -49,13 +49,15 @@
             // ------------------------------------------------------------------------
 
             var onGetPropertiesSuccess = function (data) {
-                $scope.properties = propertyService.toAssociativeArray(data.Items);
-                $scope.isShared = $scope.properties.SharedContentID.PropertyValue != EMPTY_GUID;
+                if (data && data.Items) {
+                    $scope.properties = propertyService.toAssociativeArray(data.Items);
+                    $scope.isShared = $scope.properties.SharedContentID.PropertyValue != EMPTY_GUID;
 
-                kendo.bind();
+                    kendo.bind();
 
-                if ($scope.isShared) {
-                    return contentBlockService($scope.properties);
+                    if ($scope.isShared) {
+                        return contentBlockService($scope.properties);
+                    }
                 }
             };
 
@@ -69,10 +71,10 @@
 
             propertyService.get()
                 .then(onGetPropertiesSuccess)
-                .catch(function (data) {
+                .catch(function (errorData) {
                     $scope.feedback.showError = true;
-                    if (data)
-                        $scope.feedback.errorMessage = data.Detail;
+                    if (errorData && errorData.data)
+                        $scope.feedback.errorMessage = errorData.data.Detail;
                 })
                 .finally(function () {
                     $scope.isShared = $scope.properties.SharedContentID.PropertyValue != EMPTY_GUID;

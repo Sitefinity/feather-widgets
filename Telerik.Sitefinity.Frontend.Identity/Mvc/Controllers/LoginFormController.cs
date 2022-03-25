@@ -8,10 +8,12 @@ using Telerik.Sitefinity.Abstractions;
 using Telerik.Sitefinity.Frontend.Identity.Mvc.Models.LoginForm;
 using Telerik.Sitefinity.Frontend.Identity.Mvc.StringResources;
 using Telerik.Sitefinity.Frontend.Mvc.Infrastructure.Controllers;
+using Telerik.Sitefinity.Frontend.Security;
 using Telerik.Sitefinity.Localization;
 using Telerik.Sitefinity.Mvc;
 using Telerik.Sitefinity.Security;
 using Telerik.Sitefinity.Security.Claims;
+using Telerik.Sitefinity.Security.ProviderExceptions;
 using Telerik.Sitefinity.Web;
 
 namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Controllers
@@ -103,6 +105,9 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Controllers
         [HttpPost]
         public ActionResult Index(LoginFormViewModel model)
         {
+            if (!AntiCsrfHelpers.IsValidCsrfToken(this.Request?.Form))
+                return new EmptyResult();
+
             if (ModelState.IsValid)
             {
                 model = this.Model.Authenticate(model, this.ControllerContext.HttpContext);
@@ -199,6 +204,10 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Controllers
                     if (string.Compare(ex.Message, Res.Get<ErrorMessages>().WrongPasswordAnswer) == 0)
                     {
                         error = Res.Get<LoginFormResources>().ResetPasswordIncorrectAnswerErrorMessage;
+                    }
+                    else if (ex is ValidationFailedProviderException)
+                    {
+                        error = ex.Message;
                     }
                     else
                     {

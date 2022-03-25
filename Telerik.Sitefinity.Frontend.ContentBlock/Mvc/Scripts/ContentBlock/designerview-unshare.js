@@ -4,10 +4,10 @@
 
     shareDialogModule.controller('UnshareCtrl', ['$scope', 'sharedContentService', 'propertyService', 'widgetContext',
         function ($scope, sharedContentService, propertyService, widgetContext) {
-            var onError = function (data) {
+            var onError = function (errorData) {
                 $scope.feedback.showError = true;
-                if (data)
-                    $scope.feedback.errorMessage = data.Detail;
+                if (errorData && errorData.data)
+                    $scope.feedback.errorMessage = errorData.data.Detail;
 
                 $scope.feedback.showLoadingIndicator = false;
             };

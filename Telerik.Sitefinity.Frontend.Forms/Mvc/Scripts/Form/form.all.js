@@ -11,6 +11,7 @@
             var fieldsContainer = formContainer.find('[data-sf-role="fields-container"]');
             var successMessage = formContainer.find('[data-sf-role="success-message"]');
             var errorMessage = formContainer.find('[data-sf-role="error-message"]');
+            var generalErrorMessage = formContainer.find('[data-sf-role="general-error-message"]');
             var redirectUrl = formContainer.find('input[data-sf-role="redirect-url"]').val();
             var submitUrl = formContainer.find('input[data-sf-role="ajax-submit-url"]').val();
 
@@ -75,8 +76,8 @@
                                 }
                             }
                             else {
-                                errorMessage.text(responseJson.error);
-                                errorMessage.show();
+                                generalErrorMessage.text(responseJson.error);
+                                generalErrorMessage.show();
                                 fieldsContainer.show();
                                 fieldsContainer.find('[data-sf-role="captcha-refresh-button"]').click();
                                 loadingImg.hide();
@@ -87,6 +88,7 @@
                     loadingImg.show();
                     fieldsContainer.hide();
                     errorMessage.hide();
+                    generalErrorMessage.hide();
 
                     request.send(formData);
 
@@ -469,7 +471,7 @@
             var currentIndex = checkboxes.index($(e.target));
             var isRequired = container.find('[data-sf-role="required-validator"]').val() === 'True';
 
-            if (currentIndex == otherCheckboxIndex && otherCheckbox.is(':checked')) {
+            if (otherCheckbox.is(':checked')) {
                 otherInput.attr('type', 'text');
 
                 if (isRequired)
@@ -901,6 +903,7 @@
             var updateNavigationFields = function (navigationElements, index) {
 
                 navigationElements.each(function (navIndex, navigationElement) {
+                    var navElement = $(navigationElement);
                     var pages = $(navigationElement).find('[data-sf-navigation-index]');
                     var numberOfAllSteps = formStepsContainers.length;
                     var progressInPercent = Math.round((index / numberOfAllSteps) * 100);
@@ -922,26 +925,38 @@
                             var pageTitleWrp = $(page).find('[data-sf-page-title]');
                             var pageTitle = "";
 
+                            var activeCssClass = $(navElement).attr("data-sf-active-css-class") || "active";
+                            var pastCssClass = $(navElement).attr("data-sf-past-css-class") || "past";
+                            var futureCssClass = $(navElement).attr("data-sf-future-css-class") || "future";
+
+                            var pastIndicatorPast = $(page).find("[data-sf-progress-indicator='past']");
+                            var pastIndicatorIncomplete = $(page).find("[data-sf-progress-indicator='incomplete']");
+
                             // TODO: Accessibility is implemented
                             if (pageTitleWrp.length > 0) {
                                 pageTitle = $(pageTitleWrp).data("sfPageTitle");
                             }
+                            $(page).removeClass(activeCssClass).removeClass(futureCssClass).removeClass(pastCssClass);
 
                             if (pageIndex !== index) {
-                                $(page).removeClass("active");
+                                if (pageIndex < index) {
+                                    $(page).addClass(pastCssClass);
+                                    $(pastIndicatorPast).show();
+                                    $(pastIndicatorIncomplete).hide();
+                                } else if (pageIndex > index) {
+                                    $(page).addClass(futureCssClass);
+                                    $(pastIndicatorPast).hide();
+                                    $(pastIndicatorIncomplete).show();
+                                }                                
                             } else {
-                                $(page).addClass("active");
+                                $(page).addClass(activeCssClass);
+                                $(pastIndicatorPast).hide();
+                                $(pastIndicatorIncomplete).show();
 
                                 // Because pageIndex starts from 0 we increase it by 1 so it is simple to read
                                 var currentPage = ++pageIndex;
                                 modifySrOnlyData(currentPage, pages.length, pageTitle);
-                            }
-
-                            if (pageIndex < index) {
-                                $(page).addClass("past");
-                            } else {
-                                $(page).removeClass("past");
-                            }
+                            }                            
                         });
                     }
 

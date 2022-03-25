@@ -10,7 +10,7 @@
         $scope.$watch(
             'multiPageSelector.selectedPages',
             function (newSelectedPages, oldSelectedPages) {
-                if (newSelectedPages !== oldSelectedPages) {
+                if ($scope.properties && newSelectedPages !== oldSelectedPages) {
                     $scope.properties.SerializedSelectedPages.PropertyValue = JSON.stringify(newSelectedPages);
                 }
             },
@@ -30,7 +30,7 @@
         $scope.$watch(
             'multiPageSelector.externalPages',
             function (newExternalPages, oldExternalPages) {
-                if (newExternalPages !== oldExternalPages) {
+                if ($scope.properties && newExternalPages !== oldExternalPages) {
                     $scope.properties.SerializedExternalPages.PropertyValue = JSON.stringify(newExternalPages);
                 }
             },

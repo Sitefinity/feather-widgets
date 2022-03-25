@@ -44,29 +44,42 @@
 
                     if (pages && pages.length > 0) {
                         pages.each(function (i, page) {
+                            var navElement = $(navigationElement);
                             var pageIndex = parseInt($(page).data("sfNavigationIndex"));
                             var pageTitleWrp = $(page).find('[data-sf-page-title]');
                             var pageTitle = "";
+
+                            var activeCssClass = $(navElement).attr("data-sf-active-css-class") || "active";
+                            var pastCssClass = $(navElement).attr("data-sf-past-css-class") || "past";
+                            var futureCssClass = $(navElement).attr("data-sf-future-css-class") || "future";
+
+                            var pastIndicatorPast = $(page).find("[data-sf-progress-indicator='past']");
+                            var pastIndicatorIncomplete = $(page).find("[data-sf-progress-indicator='incomplete']");
 
                             // TODO: Accessibility is implemented
                             if (pageTitleWrp.length > 0) {
                                 pageTitle = $(pageTitleWrp).data("sfPageTitle");
                             }
+                            $(page).removeClass(activeCssClass).removeClass(futureCssClass).removeClass(pastCssClass);
 
                             if (pageIndex !== index) {
-                                $(page).removeClass("active");
+                                if (pageIndex < index) {
+                                    $(page).addClass(pastCssClass);
+                                    $(pastIndicatorPast).show();
+                                    $(pastIndicatorIncomplete).hide();
+                                } else if (pageIndex > index) {
+                                    $(page).addClass(futureCssClass);
+                                    $(pastIndicatorPast).hide();
+                                    $(pastIndicatorIncomplete).show();
+                                }
                             } else {
-                                $(page).addClass("active");
+                                $(page).addClass(activeCssClass);
+                                $(pastIndicatorPast).hide();
+                                $(pastIndicatorIncomplete).show();
 
                                 // Because pageIndex starts from 0 we increase it by 1 so it is simple to read
                                 var currentPage = ++pageIndex;
                                 modifySrOnlyData(currentPage, pages.length, pageTitle);
-                            }
-
-                            if (pageIndex < index) {
-                                $(page).addClass("past");
-                            } else {
-                                $(page).removeClass("past");
                             }
                         });
                     }

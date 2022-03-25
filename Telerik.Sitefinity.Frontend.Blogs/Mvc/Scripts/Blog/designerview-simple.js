@@ -22,7 +22,7 @@
         };
 
         $scope.updateSortOption = function (newSortOption) {
-            if (newSortOption !== "Custom") {
+            if ($scope.properties && newSortOption !== "Custom") {
                 $scope.properties.SortExpression.PropertyValue = newSortOption;
             }
         };
@@ -31,7 +31,7 @@
             'blogSelector.selectedItemsIds',
             function (newVal, oldVal) {
                 if (newVal !== oldVal) {
-                    if (newVal) {
+                    if ($scope.properties && newVal) {
                         $scope.properties.SerializedSelectedItemsIds.PropertyValue = JSON.stringify(newVal);
                         if (newVal.length === 1) {
                             $scope.properties.ContentViewDisplayMode.PropertyValue = 'Detail';
@@ -44,7 +44,7 @@
 
         propertyService.get()
             .then(function (data) {
-                if (data) {
+                if (data && data.Items) {
                     $scope.properties = propertyService.toAssociativeArray(data.Items);
 
                     var selectedItemsIds = $.parseJSON($scope.properties.SerializedSelectedItemsIds.PropertyValue || null);
@@ -60,10 +60,10 @@
                     }
                 }
             },
-            function (data) {
+            function (errorData) {
                 $scope.feedback.showError = true;
-                if (data)
-                    $scope.feedback.errorMessage = data.Detail;
+                if (errorData && errorData.data)
+                    $scope.feedback.errorMessage = errorData.data.Detail;
             })
             .then(function () {
                 $scope.feedback.savingHandlers.push(function () {

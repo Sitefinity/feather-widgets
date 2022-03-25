@@ -12,6 +12,7 @@ using Telerik.Sitefinity.Frontend.Search.Mvc.StringResources;
 using Telerik.Sitefinity.Localization;
 using Telerik.Sitefinity.Mvc;
 using Telerik.Sitefinity.Personalization;
+using Telerik.Sitefinity.Search;
 using Telerik.Sitefinity.Services;
 using Telerik.Sitefinity.Services.Search;
 using Telerik.Sitefinity.Services.Search.Configuration;
@@ -109,6 +110,42 @@ namespace Telerik.Sitefinity.Frontend.Search.Mvc.Controllers
             }
         }
 
+        /// <summary>
+        /// Gets the if the current search service has scoring settings
+        /// </summary>
+        public bool HasScoringSettings
+        {
+            get
+            {
+                return ServiceBus.ResolveService<ISearchService>() is IHasScoringSettings;
+            }
+        }
+
+        /// <summary>
+        /// Gets the search scoring settings
+        /// </summary>
+        /// <value>
+        /// The search scoring settings.
+        /// </value>
+        [TypeConverter(typeof(ExpandableObjectConverter))]
+        public SearchScoringModel ScoringProfiles
+        {
+            get
+            {
+                if (this.scoringProfiles == null)
+                {
+                    this.scoringProfiles = new SearchScoringModel();
+                }
+
+                return this.scoringProfiles;
+            }
+
+            set
+            {
+                this.scoringProfiles = value;
+            }
+        }
+
         #endregion
 
         #region Actions
@@ -125,6 +162,7 @@ namespace Telerik.Sitefinity.Frontend.Search.Mvc.Controllers
             {
                 var query = this.GetSearchQueryFromQueryString(this.Model.IndexCatalogue);
                 this.ViewBag.SearchQuery = query;
+                this.ViewBag.ScoringSettings = this.ScoringProfiles.ToString();
 
                 return this.View(this.TemplateName, this.Model);
             }
@@ -235,7 +273,8 @@ namespace Telerik.Sitefinity.Frontend.Search.Mvc.Controllers
         internal const string WidgetIconCssClass = "sfSearchBoxIcn sfMvcIcn";
         private ISearchBoxModel model;
         private string templateName = "SearchBox";
+        private SearchScoringModel scoringProfiles;
         private const string WidgetName = "SearchBox_MVC";
-        #endregion        
+        #endregion
     }
 }

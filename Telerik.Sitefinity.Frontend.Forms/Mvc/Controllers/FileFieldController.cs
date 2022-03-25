@@ -18,10 +18,19 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Controllers
     /// <summary>
     /// This class represents the controller of the MVC forms file field.
     /// </summary>
+    [FormControlDisplayMode(FormControlDisplayMode.Write)]
     [DatabaseMapping(UserFriendlyDataType.FileUpload)]
     [Localization(typeof(FieldResources))]
     public class FileFieldController : FormFieldControllerBase<IFileFieldModel>, IRequireLibrary, ISupportRules, IFileFormField
     {
+        /// <summary>
+        /// Initializes a new instance of the <see cref="FileFieldController"/> class.
+        /// </summary>
+        public FileFieldController()
+        {
+            this.DisplayMode = Web.UI.Fields.Enums.FieldDisplayMode.Write;
+        }
+
         /// <summary>
         /// Gets the form field model.
         /// </summary>

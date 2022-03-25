@@ -54,6 +54,7 @@
                 var links = wrapper.querySelectorAll('[data-sf-role="toggleLink"]');
                 links.forEach(function (link) {
                     link.classList.add('expanded');
+                    toggleLinkArrow(link);
 
                     var nextSiblingDiv = link.nextElementSibling;
                     if (nextSiblingDiv.tagName.toLowerCase() === 'div') {
@@ -71,7 +72,7 @@
                 var links = wrapper.querySelectorAll('[data-sf-role="toggleLink"]');
                 links.forEach(function (link) {
                     link.classList.remove('expanded');
-
+                    toggleLinkArrow(link);
                     var nextSiblingDiv = link.nextElementSibling;
                     if (nextSiblingDiv.tagName.toLowerCase() === 'div') {
                         nextSiblingDiv.style.display = 'none';
@@ -95,6 +96,17 @@
             content.style.display = 'block';
         } else {
             content.style.display = 'none';
+        }
+        toggleLinkArrow(link);
+    }
+
+    function toggleLinkArrow(link) {
+        var isExpanded = link.classList.contains("expanded");
+        if (link.querySelectorAll("[data-sf-toggle='collapsed']")) {
+            link.querySelectorAll("[data-sf-toggle='collapsed']").forEach(function (e) { e.style.display = isExpanded ? "none" : ""; });
+        }
+        if (link.querySelectorAll("[data-sf-toggle='expanded']")) {
+            link.querySelectorAll("[data-sf-toggle='expanded']").forEach(function (e) { e.style.display = isExpanded ? "" : "none"; });
         }
     }
 

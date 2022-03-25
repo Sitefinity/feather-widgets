@@ -1,6 +1,8 @@
 ﻿using System.ComponentModel;
 using System.Globalization;
 using Telerik.Sitefinity.Utilities.TypeConverters;
+using System.Collections.Generic;
+using Telerik.Sitefinity.Search;
 
 namespace Telerik.Sitefinity.Frontend.Search.Mvc.Models
 {
@@ -136,7 +138,18 @@ namespace Telerik.Sitefinity.Frontend.Search.Mvc.Models
         /// <param name="skip">The skip.</param>
         /// <param name="language">The language of the displayed results.</param>
         /// <param name="orderBy">The order by.</param>
-        void PopulateResults(string searchQuery, string indexCatalogue, int? skip,  string language, string orderBy);
+        /// <param name="searchScoring">The search scoring settings.</param>
+        void PopulateResults(string searchQuery, string indexCatalogue, int? skip,  string language, string orderBy, SearchScoring searchScoring);
+
+        /// <summary>
+        /// Performs search by given query and populates the results collection.
+        /// </summary>
+        /// <param name="searchQuery">The search query.</param>
+        /// <param name="indexCatalogue">The index catalogue.</param>
+        /// <param name="skip">The skip.</param>
+        /// <param name="language">The language of the displayed results.</param>
+        /// <param name="orderBy">The order by.</param>
+        void PopulateResults(string searchQuery, string indexCatalogue, int? skip, string language, string orderBy);
 
         /// <summary>
         /// Validates the query.

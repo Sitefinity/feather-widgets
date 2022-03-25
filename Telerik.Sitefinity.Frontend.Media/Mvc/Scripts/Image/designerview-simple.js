@@ -13,7 +13,7 @@
         var onPostPropertiesInitialized = function () {
             $scope.$watch('properties.Id.PropertyValue', function (newVal, oldVal) {
                 // If controller returns Empty guid - no image is selected
-                if (newVal === serviceHelper.emptyGuid()) {
+                if ($scope.properties && newVal === serviceHelper.emptyGuid()) {
                     $scope.properties.Id.PropertyValue = undefined;
                 }
                 // Cancel is selected with no image selected - close the designer
@@ -23,7 +23,7 @@
             });
 
             $scope.$watch('model', function (newVal, oldVal) {
-                if (newVal && newVal.item && newVal.item.Id) {
+                if ($scope.properties && newVal && newVal.item && newVal.item.Id) {
                     if (!$scope.properties.Title.PropertyValue && newVal.item.Title && newVal.item.Title.Value) {
                         $scope.properties.Title.PropertyValue = newVal.item.Title.Value;
                     }
@@ -91,7 +91,7 @@
 
         propertyService.get()
             .then(function (data) {
-                if (data) {
+                if (data && data.Items) {
                     $scope.properties = propertyService.toAssociativeArray(data.Items);
 
                     if ($scope.properties.Id.PropertyValue !== serviceHelper.emptyGuid()) {
@@ -125,15 +125,18 @@
                 } else {
                     throw "Error getting properties data.";
                 }
-            }, function (data) {
+            }, function (errorData) {
                 var err = '';
-                if (data)
-                    err = data.Detail;
+                if (errorData && errorData.data)
+                    err = errorData.data.Detail;
                 showError(err);
             })
             .then(function () {
                 onPostPropertiesInitialized();
-            }, function (err) {
+            }, function (errorData) {
+                var err = '';
+                if (errorData && errorData.data)
+                    err = errorData.data.Detail;
                 showError(err);
             })
             .then(function () {

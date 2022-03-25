@@ -75,6 +75,8 @@
                 else {
                     $(backdropClass).remove();
                 }
+            })
+            .catch(function () {
             });
         };
 

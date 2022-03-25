@@ -9,6 +9,7 @@ using Telerik.Sitefinity.Frontend.Mvc.Models;
 using Telerik.Sitefinity.Libraries.Model;
 using Telerik.Sitefinity.Model;
 using Telerik.Sitefinity.Modules.Libraries;
+using Telerik.Sitefinity.Modules.Libraries.ImageProcessing;
 
 namespace Telerik.Sitefinity.Frontend.Media.Mvc.Helpers
 {
@@ -287,7 +288,7 @@ namespace Telerik.Sitefinity.Frontend.Media.Mvc.Helpers
             return sortedList;
         }
 
-        private static readonly string ResizeFitToAreaArguments = "ResizeFitToAreaArguments";
-        private static readonly string CropCropArguments = "CropCropArguments";
+        private static readonly string ResizeFitToAreaArguments = ImageProcessor.ResizeMethodName;
+        private static readonly string CropCropArguments = ImageProcessor.CropMethodName;
     }
 }

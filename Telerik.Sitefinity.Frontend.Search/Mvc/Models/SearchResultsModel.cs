@@ -10,6 +10,7 @@ using Telerik.Sitefinity.Configuration;
 using Telerik.Sitefinity.Frontend.Search.Mvc.StringResources;
 using Telerik.Sitefinity.Localization;
 using Telerik.Sitefinity.Publishing;
+using Telerik.Sitefinity.Search;
 using Telerik.Sitefinity.Security;
 using Telerik.Sitefinity.Services;
 using Telerik.Sitefinity.Services.Search;
@@ -137,6 +138,12 @@ namespace Telerik.Sitefinity.Frontend.Search.Mvc.Models
         /// <inheritdoc />
         public virtual void PopulateResults(string searchQuery, string indexCatalogue, int? skip, string language, string orderBy)
         {
+            this.PopulateResults(searchQuery, indexCatalogue, skip, language, orderBy, null);
+        }
+
+        /// <inheritdoc />
+        public virtual void PopulateResults(string searchQuery, string indexCatalogue, int? skip, string language, string orderBy, SearchScoring searchScoringSettings)
+        {
             this.IndexCatalogue = indexCatalogue;
             this.InitializeOrderByEnum(orderBy);
 
@@ -161,7 +168,7 @@ namespace Telerik.Sitefinity.Frontend.Search.Mvc.Models
             }
 
             int totalCount = 0;
-            var result = this.Search(searchQuery, language, itemsToSkip, take.Value, out totalCount);
+            var result = this.Search(searchQuery, language, itemsToSkip, take.Value, searchScoringSettings, out totalCount);
 
             int? totalPagesCount = (int)Math.Ceiling((double)(totalCount / (double)this.ItemsPerPage.Value));
             this.TotalPagesCount = this.DisplayMode == ListDisplayMode.Paging ? totalPagesCount : null;
@@ -213,9 +220,10 @@ namespace Telerik.Sitefinity.Frontend.Search.Mvc.Models
         /// <param name="language">The language.</param>
         /// <param name="skip">The skip.</param>
         /// <param name="take">The take.</param>
+        /// <param name="scoringSettings">The search scoring settings.</param>
         /// <param name="hitCount">The hit count.</param>
         /// <returns></returns>
-        public IEnumerable<IDocument> Search(string query, string language, int skip, int take, out int hitCount)
+        public IEnumerable<IDocument> Search(string query, string language, int skip, int take, SearchScoring scoringSettings, out int hitCount)
         {
             var service = Telerik.Sitefinity.Services.ServiceBus.ResolveService<ISearchService>();
             var queryBuilder = ObjectFactory.Resolve<IQueryBuilder>();
@@ -236,15 +244,19 @@ namespace Telerik.Sitefinity.Frontend.Search.Mvc.Models
                 searchQuery.Filter = filter;
             }
 
+            var searchOptions = new SearchOptions(SearchType.StartsWith);
+            searchOptions.ScoringSettings = scoringSettings;
+
             var oldSkipValue = skip;
             var permissionFilter = config.EnableFilterByViewPermissions;
             if (permissionFilter)
             {
-                Func<int, int, IEnumerable<Document>> searchResults = delegate(int querySkip, int queryTake)
+                Func<int, int, IEnumerable<Document>> searchResults = delegate (int querySkip, int queryTake)
                 {
                     searchQuery.Skip = querySkip;
                     searchQuery.Take = queryTake;
-                    var results = service.Search(searchQuery);
+
+                    var results = service.Search(searchQuery, searchOptions);
 
                     return results.OfType<Document>();
                 };
@@ -277,7 +289,7 @@ namespace Telerik.Sitefinity.Frontend.Search.Mvc.Models
             }
             else
             {
-                IResultSet result = service.Search(searchQuery);
+                IResultSet result = service.Search(searchQuery, searchOptions);
                 hitCount = result.HitCount;
 
                 return result.SetContentLinks(this.ShowLinksOnlyFromCurrentSite);

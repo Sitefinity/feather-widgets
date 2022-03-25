@@ -7,17 +7,17 @@
 
         propertyService.get()
             .then(function (data) {
-                if (data) {
+                if (data && data.Items) {
                     $scope.properties = propertyService.toHierarchyArray(data.Items);
                     if ($scope.properties.Model.SerializedPages.PropertyValue && $scope.properties.Model.SerializedPages.PropertyValue.length > 0) {
                         $scope.currentItems = JSON.parse($scope.properties.Model.SerializedPages.PropertyValue);
                     }
                 }
             })
-            .catch(function (data) {
+            .catch(function (errorData) {
                 $scope.feedback.showError = true;
-                if (data) {
-                    $scope.feedback.errorMessage = data.Detail;
+                if (errorData && errorData.data) {
+                    $scope.feedback.errorMessage = errorData.data.Detail;
                 }
             })
             .then(function () {

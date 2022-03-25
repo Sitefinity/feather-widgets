@@ -12,14 +12,14 @@
 
     @if (@Model.Results.TotalCount > 0)
     {
-		if(ViewBag.IsFilteredbyPermission)
-		{
-			<h1>@Html.HtmlSanitize(Model.ResultText)</h1>
-		}
-		else
-		{
-			<h1>@Model.Results.TotalCount @Html.HtmlSanitize(Model.ResultText)</h1>
-		}
+        if (ViewBag.IsFilteredbyPermission)
+        {
+            <h1>@Html.HtmlSanitize(Model.ResultText)</h1>
+        }
+        else
+        {
+            <h1>@Model.Results.TotalCount @Html.HtmlSanitize(Model.ResultText)</h1>
+        }
     }
     else
     {
@@ -29,14 +29,15 @@
     <div>
         @if (Model.AllowSorting && @Model.Results.TotalCount > 0)
         {
-            <label>@Html.Resource("SortBy")
-                <select class="userSortDropdown" title="@Html.Resource("SortDropdown")">
-                    <option value="@OrderByOptions.Relevance" @(Model.OrderBy == OrderByOptions.Relevance ? "selected=selected" : "")>@Html.Resource("Relevance")</option>
-                    <option value="@OrderByOptions.Newest" @(Model.OrderBy == OrderByOptions.Newest ? "selected=selected" : "")>@Html.Resource("NewestFirst")</option>
-                    <option value="@OrderByOptions.Oldest" @(Model.OrderBy == OrderByOptions.Oldest ? "selected=selected" : "")>@Html.Resource("OldestFirst")</option>
-                </select>
-            </label>
-        }
+            <label>
+                @Html.Resource("SortBy")
+            <select class="userSortDropdown" title="@Html.Resource("SortDropdown")">
+                <option value="@OrderByOptions.Relevance" @(Model.OrderBy == OrderByOptions.Relevance ? "selected=selected" : "")>@Html.Resource("Relevance")</option>
+                <option value="@OrderByOptions.Newest" @(Model.OrderBy == OrderByOptions.Newest ? "selected=selected" : "")>@Html.Resource("NewestFirst")</option>
+                <option value="@OrderByOptions.Oldest" @(Model.OrderBy == OrderByOptions.Oldest ? "selected=selected" : "")>@Html.Resource("OldestFirst")</option>
+            </select>
+        </label>
+    }
     </div>
 
     @if (Model.Languages.Length > 1)
@@ -66,7 +67,7 @@
             {
                 <div>
                     <a href="@item.GetValue("Link")">
-                        <img src="@item.GetValue("Link")" alt="@item.GetValue("Title")" width="120"/>
+                        <img src="@item.GetValue("Link")" alt="@item.GetValue("Title")" width="120" />
                     </a>
                 </div>
             }
@@ -84,7 +85,7 @@
 
                     <div>
                         <a href="@item.GetValue("Link")">
-                            <img src="@thumbUrl" alt="@item.GetValue("Title")" width="120"/>
+                            <img src="@thumbUrl" alt="@item.GetValue("Title")" width="120" />
                         </a>
                     </div>
                 }
@@ -115,45 +116,46 @@
     }
 
     @if (Model.DisplayMode == ListDisplayMode.Paging && Model.TotalPagesCount != null && Model.TotalPagesCount > 1)
-	{
-	    if(ViewBag.IsFilteredbyPermission) 
-	    {
+    {
+        if (ViewBag.IsFilteredbyPermission)
+        {
             <div class="pagination">
-				@if (Model.CurrentPage > 1)
-				{
-					<a class="item" href='@string.Format(ViewBag.RedirectPageUrlTemplate, Model.CurrentPage - 1)'>@Html.Resource("Prev")</a>
-				}
-				@if (Model.CurrentPage < @Model.TotalPagesCount)
-				{
+                @if (Model.CurrentPage > 1)
+                {
+                    <a class="item" href='@string.Format(ViewBag.RedirectPageUrlTemplate, Model.CurrentPage - 1)'>@Html.Resource("Prev")</a>
+                }
+                @if (Model.CurrentPage < @Model.TotalPagesCount)
+                {
                     <a class="item" href='@string.Format(ViewBag.RedirectPageUrlTemplate, Model.CurrentPage + 1)'>@Html.Resource("Next")</a>
-				}
-			</div>
-	    }
-	    else 
-	    {
-			if (Model.CurrentPage == Model.TotalPagesCount)
-			{
-				<em>@((Model.ItemsPerPage * Model.TotalPagesCount) - Model.Results.TotalCount) of @Model.Results.TotalCount results</em>
-			}
-			else
-			{
-				<em>@Model.ItemsPerPage of @Model.Results.TotalCount results</em>
-			}
-		
-			@Html.Action("Index", "ContentPager", new
-			{
-				currentPage = Model.CurrentPage,
-				totalPagesCount = Model.TotalPagesCount,
-				redirectUrlTemplate = ViewBag.RedirectPageUrlTemplate
-			})
-		}
-	}
-   
+                }
+            </div>
+        }
+        else
+        {
+            if (Model.CurrentPage == Model.TotalPagesCount)
+            {
+                <em>@((Model.ItemsPerPage * Model.TotalPagesCount) - Model.Results.TotalCount) of @Model.Results.TotalCount results</em>
+            }
+            else
+            {
+                <em>@Model.ItemsPerPage of @Model.Results.TotalCount results</em>
+            }
+
+            @Html.Action("Index", "ContentPager", new
+            {
+                currentPage = Model.CurrentPage,
+                totalPagesCount = Model.TotalPagesCount,
+                redirectUrlTemplate = ViewBag.RedirectPageUrlTemplate
+            })
+        }
+    }
+
     <input type="hidden" data-sf-role="searchResOrderBy" value='@Request.QueryStringGet("orderBy")' />
     <input type="hidden" data-sf-role="searchResLanguage" value='@Request.QueryStringGet("language")' />
     <input type="hidden" data-sf-role="searchResIndexCatalogue" value='@Request.QueryStringGet("indexCatalogue")' />
     <input type="hidden" data-sf-role="searchResQuery" value='@Request.QueryStringGet("searchQuery")' />
     <input type="hidden" data-sf-role="searchResWordsMode" value='@Request.QueryStringGet("wordsMode")' />
+    <input type="hidden" data-sf-role="scoringInfo" value='@Request.QueryStringGet("scoringInfo")' />
 
 </div>
 

@@ -41,6 +41,9 @@ namespace Telerik.Sitefinity.Frontend.Navigation.Mvc.Models.LanguageSelector
         /// <inheritdoc />
         public string CssClass { get; set; }
 
+        /// <inheritdoc />
+        public string PreservedQueryStringParams { get; set; }
+
         #endregion
 
         #region Public methods

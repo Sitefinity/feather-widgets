@@ -15,7 +15,7 @@
                         doNotLoadTextToDisplay = false;
                     }
 
-                    if (newFeed && !$scope.properties.TextToDisplay.PropertyValue && !doNotLoadTextToDisplay) {
+                    if ($scope.properties && newFeed && !$scope.properties.TextToDisplay.PropertyValue && !doNotLoadTextToDisplay) {
                         $scope.properties.TextToDisplay.PropertyValue = newFeed.Title;
                     }
                 }
@@ -25,7 +25,7 @@
 
         propertyService.get()
             .then(function (data) {
-                if (data) {
+                if (data && data.Items) {
                     $scope.properties = propertyService.toAssociativeArray(data.Items);
                     if ($scope.properties.FeedId.PropertyValue &&
                         $scope.properties.FeedId.PropertyValue !== emptyGuid &&
@@ -35,10 +35,10 @@
                     }
                 }
             },
-            function (data) {
+            function (errorData) {
                 $scope.feedback.showError = true;
-                if (data)
-                    $scope.feedback.errorMessage = data.Detail;
+                if (errorData && errorData.data)
+                    $scope.feedback.errorMessage = errorData.data.Detail;
             })
             .then(function () {
                 $scope.feedback.savingHandlers.push(function () {

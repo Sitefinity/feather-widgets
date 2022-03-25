@@ -25,7 +25,7 @@
                 newProviderName = newProviderName || "";
                 oldProviderName = oldProviderName || "";
 
-              if (newProviderName !== oldProviderName) {
+              if ($scope.properties && newProviderName !== oldProviderName) {
                   $scope.properties.SerializedSelectedItemsIds.PropertyValue = null;
               }
           },
@@ -36,7 +36,7 @@
             'listSelector.selectedItemsIds',
             function (newSelectedItemsIds, oldSelectedItemsIds) {
                 if (newSelectedItemsIds !== oldSelectedItemsIds) {
-                    if (newSelectedItemsIds) {
+                    if ($scope.properties && newSelectedItemsIds) {
                         $scope.properties.SerializedSelectedItemsIds.PropertyValue = JSON.stringify(newSelectedItemsIds);
                     }
                 }
@@ -47,7 +47,7 @@
         $scope.$watch(
             'additionalFilters.value',
             function (newAdditionalFilters, oldAdditionalFilters) {
-                if (newAdditionalFilters !== oldAdditionalFilters) {
+                if ($scope.properties && newAdditionalFilters !== oldAdditionalFilters) {
                     $scope.properties.SerializedAdditionalFilters.PropertyValue = JSON.stringify(newAdditionalFilters);
                 }
             },
@@ -57,7 +57,7 @@
         $scope.$watch(
              'dateFilters.value',
               function (newDateFilters, oldDateFilters) {
-                  if (newDateFilters !== oldDateFilters) {
+                  if ($scope.properties && newDateFilters !== oldDateFilters) {
                       $scope.properties.SerializedDateFilters.PropertyValue = JSON.stringify(newDateFilters);
                   }
               },
@@ -66,7 +66,7 @@
 
         propertyService.get()
             .then(function (data) {
-                if (data) {
+                if (data && data.Items) {
                     $scope.properties = propertyService.toAssociativeArray(data.Items);
 
                     var additionalFilters = JSON.parse($scope.properties.SerializedAdditionalFilters.PropertyValue || null);
@@ -91,10 +91,10 @@
                     }
                 }
             },
-            function (data) {
+            function (errorData) {
                 $scope.feedback.showError = true;
-                if (data)
-                    $scope.feedback.errorMessage = data.Detail;
+                if (errorData && errorData.data)
+                    $scope.feedback.errorMessage = errorData.data.Detail;
             })
             .then(function () {
                 $scope.feedback.savingHandlers.push(function () {
