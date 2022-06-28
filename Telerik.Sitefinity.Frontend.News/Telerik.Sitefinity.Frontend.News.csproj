@@ -65,20 +65,20 @@
       <Private>True</Private>
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="ServiceStack, Version=5.0.0.0, Culture=neutral, PublicKeyToken=02c12cbda47e6587, processorArchitecture=MSIL">
-      <HintPath>..\packages\ServiceStack.5.12.0\lib\net472\ServiceStack.dll</HintPath>
+    <Reference Include="ServiceStack, Version=6.0.0.0, Culture=neutral, PublicKeyToken=02c12cbda47e6587, processorArchitecture=MSIL">
+      <HintPath>..\packages\ServiceStack.6.0.2\lib\net472\ServiceStack.dll</HintPath>
     </Reference>
-    <Reference Include="ServiceStack.Client, Version=5.0.0.0, Culture=neutral, PublicKeyToken=02c12cbda47e6587, processorArchitecture=MSIL">
-      <HintPath>..\packages\ServiceStack.Client.5.12.0\lib\net45\ServiceStack.Client.dll</HintPath>
+    <Reference Include="ServiceStack.Client, Version=6.0.0.0, Culture=neutral, PublicKeyToken=02c12cbda47e6587, processorArchitecture=MSIL">
+      <HintPath>..\packages\ServiceStack.Client.6.0.2\lib\net472\ServiceStack.Client.dll</HintPath>
     </Reference>
-    <Reference Include="ServiceStack.Common, Version=5.0.0.0, Culture=neutral, PublicKeyToken=02c12cbda47e6587, processorArchitecture=MSIL">
-      <HintPath>..\packages\ServiceStack.Common.5.12.0\lib\net472\ServiceStack.Common.dll</HintPath>
+    <Reference Include="ServiceStack.Common, Version=6.0.0.0, Culture=neutral, PublicKeyToken=02c12cbda47e6587, processorArchitecture=MSIL">
+      <HintPath>..\packages\ServiceStack.Common.6.0.2\lib\net472\ServiceStack.Common.dll</HintPath>
     </Reference>
-    <Reference Include="ServiceStack.Interfaces, Version=5.0.0.0, Culture=neutral, PublicKeyToken=02c12cbda47e6587, processorArchitecture=MSIL">
-      <HintPath>..\packages\ServiceStack.Interfaces.5.12.0\lib\net472\ServiceStack.Interfaces.dll</HintPath>
+    <Reference Include="ServiceStack.Interfaces, Version=6.0.0.0, Culture=neutral, PublicKeyToken=02c12cbda47e6587, processorArchitecture=MSIL">
+      <HintPath>..\packages\ServiceStack.Interfaces.6.0.2\lib\net472\ServiceStack.Interfaces.dll</HintPath>
     </Reference>
-    <Reference Include="ServiceStack.Text, Version=5.0.0.0, Culture=neutral, PublicKeyToken=02c12cbda47e6587, processorArchitecture=MSIL">
-      <HintPath>..\packages\ServiceStack.Text.5.12.0\lib\net45\ServiceStack.Text.dll</HintPath>
+    <Reference Include="ServiceStack.Text, Version=6.0.0.0, Culture=neutral, PublicKeyToken=02c12cbda47e6587, processorArchitecture=MSIL">
+      <HintPath>..\packages\ServiceStack.Text.6.0.2\lib\net472\ServiceStack.Text.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Buffers, Version=4.0.3.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
@@ -181,31 +181,31 @@
   </ItemGroup>
   <ItemGroup>
     <Reference Include="Telerik.Sitefinity.ContentModules">
-      <HintPath>..\packages\Telerik.Sitefinity.Content.14.1.7821\lib\net48\Telerik.Sitefinity.ContentModules.dll</HintPath>
+      <HintPath>..\packages\Telerik.Sitefinity.Content.14.2.7900\lib\net48\Telerik.Sitefinity.ContentModules.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Telerik.Sitefinity.Model">
-      <HintPath>..\packages\Telerik.Sitefinity.Core.14.1.7821\lib\net48\Telerik.Sitefinity.Model.dll</HintPath>
+      <HintPath>..\packages\Telerik.Sitefinity.Core.14.2.7900\lib\net48\Telerik.Sitefinity.Model.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Telerik.Sitefinity.Personalization">
-      <HintPath>..\packages\Telerik.Sitefinity.Core.14.1.7821\lib\net48\Telerik.Sitefinity.Personalization.dll</HintPath>
+      <HintPath>..\packages\Telerik.Sitefinity.Core.14.2.7900\lib\net48\Telerik.Sitefinity.Personalization.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Telerik.Sitefinity">
-      <HintPath>..\packages\Telerik.Sitefinity.Core.14.1.7821\lib\net48\Telerik.Sitefinity.dll</HintPath>
+      <HintPath>..\packages\Telerik.Sitefinity.Core.14.2.7900\lib\net48\Telerik.Sitefinity.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Telerik.Sitefinity.Utilities">
-      <HintPath>..\packages\Telerik.Sitefinity.Core.14.1.7821\lib\net48\Telerik.Sitefinity.Utilities.dll</HintPath>
+      <HintPath>..\packages\Telerik.Sitefinity.Core.14.2.7900\lib\net48\Telerik.Sitefinity.Utilities.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Telerik.Sitefinity.Frontend">
-      <HintPath>..\packages\Telerik.Sitefinity.Feather.Core.14.1.7821\lib\net48\Telerik.Sitefinity.Frontend.dll</HintPath>
+      <HintPath>..\packages\Telerik.Sitefinity.Feather.Core.14.2.7900\lib\net48\Telerik.Sitefinity.Frontend.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Telerik.Sitefinity.Mvc">
-      <HintPath>..\packages\Telerik.Sitefinity.Mvc.14.1.7821\lib\net48\Telerik.Sitefinity.Mvc.dll</HintPath>
+      <HintPath>..\packages\Telerik.Sitefinity.Mvc.14.2.7900\lib\net48\Telerik.Sitefinity.Mvc.dll</HintPath>
       <Private>True</Private>
     </Reference>
   </ItemGroup>

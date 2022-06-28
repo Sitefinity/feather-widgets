@@ -75,14 +75,13 @@ namespace Telerik.Sitefinity.Frontend.Search.Mvc.Controllers
         /// <param name="page">The page.</param>
         /// <param name="searchQuery">The search query.</param>
         /// <param name="indexCatalogue">The index catalogue.</param>
-        /// <param name="wordsMode">The words mode.</param>
         /// <param name="language">The language.</param>
         /// <param name="orderBy">The order by.</param>
         /// <param name="scoringInfo">The param used to boost the search results.</param>
         /// <returns>
         /// The <see cref="ActionResult"/>.
         /// </returns>
-        public ActionResult Index(int? page, string searchQuery = null, string indexCatalogue = null, string wordsMode = null, string language = null, string orderBy = null, string scoringInfo = null)
+        public ActionResult Index(int? page, string searchQuery = null, string indexCatalogue = null, string language = null, string orderBy = null, string scoringInfo = null)
         {
             if (!this.IsSearchModuleActivated())
             {
@@ -96,7 +95,6 @@ namespace Telerik.Sitefinity.Frontend.Search.Mvc.Controllers
                 HttpContext.Request.QueryStringGet(nameof(page));
                 HttpContext.Request.QueryStringGet(nameof(searchQuery));
                 HttpContext.Request.QueryStringGet(nameof(indexCatalogue));
-                HttpContext.Request.QueryStringGet(nameof(wordsMode));
                 HttpContext.Request.QueryStringGet(nameof(language));
                 HttpContext.Request.QueryStringGet(nameof(orderBy));
                 HttpContext.Request.QueryStringGet(nameof(scoringInfo));
@@ -108,7 +106,7 @@ namespace Telerik.Sitefinity.Frontend.Search.Mvc.Controllers
 
                 if (isValid)
                 {
-                    string queryString = this.BuildSearchResultsQueryString(searchQuery, indexCatalogue, wordsMode, orderBy, scoringInfo);
+                    string queryString = this.BuildSearchResultsQueryString(searchQuery, indexCatalogue, orderBy, scoringInfo);
 
                     string languageParamFormat = "&language={0}";
                     string languageParam = string.IsNullOrEmpty(language) ? string.Empty : string.Format(languageParamFormat, language);
@@ -140,11 +138,11 @@ namespace Telerik.Sitefinity.Frontend.Search.Mvc.Controllers
             return null;
         }
 
-        private string BuildSearchResultsQueryString(string searchQuery, string indexCatalogue, string wordsMode, string orderBy, string scoringInfo)
+        private string BuildSearchResultsQueryString(string searchQuery, string indexCatalogue, string orderBy, string scoringInfo)
         {
-            var queryStringFormat = "?indexCatalogue={0}&searchQuery={1}&wordsMode={2}&orderBy={3}";
+            var queryStringFormat = "?indexCatalogue={0}&searchQuery={1}&orderBy={2}";
 
-            var queryString = string.Format(queryStringFormat, indexCatalogue, searchQuery, wordsMode, orderBy ?? this.Model.OrderBy.ToString());
+            var queryString = string.Format(queryStringFormat, indexCatalogue, searchQuery, orderBy ?? this.Model.OrderBy.ToString());
             if (!string.IsNullOrEmpty(scoringInfo))
             {
                 queryString = $"{queryString}&scoringInfo={scoringInfo}";

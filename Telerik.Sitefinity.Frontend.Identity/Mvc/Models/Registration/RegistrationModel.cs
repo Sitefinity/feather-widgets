@@ -336,11 +336,6 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.Registration
                 returnUri.Query.Add("ShowSuccessfulRegistrationMsg", "true");
             }
 
-            if (this.ActivationMethod == ActivationMethod.AfterConfirmation)
-            {
-                returnUri.Query.Add("ShowActivationMsg", "true");
-            }
-
             var owinContext = context.Request.GetOwinContext();
             var selectedRoles = this.selectedRoles.Select(x => x.Name).ToJson();
 

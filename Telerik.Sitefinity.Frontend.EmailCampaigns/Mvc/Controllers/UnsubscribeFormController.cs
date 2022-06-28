@@ -10,6 +10,7 @@ using Telerik.Sitefinity.Frontend.EmailCampaigns.Mvc.StringResources;
 using Telerik.Sitefinity.Frontend.Mvc.Infrastructure;
 using Telerik.Sitefinity.Frontend.Mvc.Infrastructure.Controllers;
 using Telerik.Sitefinity.Frontend.Mvc.Infrastructure.Controllers.Attributes;
+using Telerik.Sitefinity.Frontend.Security;
 using Telerik.Sitefinity.Licensing;
 using Telerik.Sitefinity.Localization;
 using Telerik.Sitefinity.Modules.Newsletters;
@@ -188,6 +189,8 @@ namespace Telerik.Sitefinity.Frontend.EmailCampaigns.Mvc.Controllers
         [HttpPost]
         public ActionResult Unsubscribe(UnsubscribeFormViewModel viewModel)
         {
+            if (!AntiCsrfHelpers.IsValidCsrfToken(this.Request?.Form))
+                return new EmptyResult();
             if (this.ModelState.IsValid && this.Model.ListId != Guid.Empty)
             {
                 string error;

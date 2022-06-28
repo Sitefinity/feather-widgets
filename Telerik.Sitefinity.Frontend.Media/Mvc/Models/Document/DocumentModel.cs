@@ -13,7 +13,7 @@ namespace Telerik.Sitefinity.Frontend.Media.Mvc.Models.Document
     /// <summary>
     /// This class is used as a model for DocumentController.
     /// </summary>
-    public class DocumentModel :IDocumentModel
+    public class DocumentModel : IDocumentModel
     {
         #region Construction
         /// <summary>
@@ -38,7 +38,7 @@ namespace Telerik.Sitefinity.Frontend.Media.Mvc.Models.Document
         public virtual DocumentViewModel GetViewModel()
         {
             var viewModel = new DocumentViewModel()
-            {               
+            {
                 CssClass = this.CssClass
             };
 

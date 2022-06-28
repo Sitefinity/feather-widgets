@@ -297,7 +297,7 @@ namespace Telerik.Sitefinity.Frontend.Navigation.Mvc.Models.Breadcrumb
 
                 if (!isSelectedPageNodeFound && this.BreadcrumbIncludeOption != BreadcrumbIncludeOption.CurrentPageFullPath)
                     breadcrumbDataSource.Clear();
-                else if (homePageNode != null)
+                else if (homePageNode != null && homePageNode.Visible)
                     breadcrumbDataSource.Insert(0, homePageNode);
 
                 if (breadcrumbDataSource.Count > 0)

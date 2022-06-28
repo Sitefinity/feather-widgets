@@ -2,6 +2,9 @@
 
     var simpleViewModule = angular.module('simpleViewModule', ['designer']);
 
+    //32 bit integer max value
+    var intMax = 2147483647;
+
     angular.module('designer').requires.push('expander', 'simpleViewModule');
 
     simpleViewModule.controller('SimpleCtrl', ['$scope', 'propertyService', '$q', function ($scope, propertyService, $q) {
@@ -60,9 +63,17 @@
 
                 $scope.feedback.savingHandlers.push(function () {
                     var deferred = $q.defer();
-                    var maxDbLength = parseInt($scope.properties.Model.MetaField.DBLength.PropertyValue);
+                    var propertyVal = $scope.properties.Model.MetaField.DBLength.PropertyValue;
+                    var maxDbLength = parseInt(propertyVal);
 
-                    if (maxDbLength && parseInt($scope.properties.Model.ValidatorDefinition.MaxLength.PropertyValue) > maxDbLength) {
+                    if (propertyVal.length > 0 && isNaN(maxDbLength)) {
+                        deferred.reject();
+                        $scope.feedback.errorMessage = "Max value must be a number.";
+                    } else if (maxDbLength > intMax) {
+                        deferred.reject();
+                        $scope.feedback.errorMessage = "Max value must be less than " + intMax + " characters";
+                    }
+                    else if (maxDbLength && parseInt($scope.properties.Model.ValidatorDefinition.MaxLength.PropertyValue) > maxDbLength) {
                         deferred.reject();
                         $scope.feedback.errorMessage = "Range max value must be less than " + maxDbLength + " characters";
                     }

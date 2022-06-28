@@ -6,24 +6,13 @@
 @using Telerik.Sitefinity.Frontend.Events.Mvc.Controllers;
 @using Telerik.Sitefinity.Services;
 
-@Html.StyleSheet(Url.EmbeddedResource("Telerik.Sitefinity.Resources.Reference", "Telerik.Sitefinity.Resources.Scripts.Kendo.styles.kendo_common_min.css"), "head", false)
 @if (Html.ShouldRenderInlineEditing() || SystemManager.IsDesignMode || SystemManager.IsPreviewMode)
 {
-	@Html.StyleSheet(Url.EmbeddedResource("Telerik.Sitefinity.Resources.Reference", "Telerik.Sitefinity.Resources.Scripts.Kendo.styles.kendo_bootstrap_min.css"), "bottom", false)
-
-    if (ViewBag.IsRtl)
-    {
-        @Html.StyleSheet(Url.EmbeddedResource("Telerik.Sitefinity.Resources.Reference", "Telerik.Sitefinity.Resources.Scripts.Kendo.styles.kendo_rtl_min.css"), "bottom", false)
-    }
+	@Html.StyleSheet(Url.EmbeddedResource("Telerik.Sitefinity.Resources.Reference", "Telerik.Sitefinity.Resources.Scripts.Kendo.styles.kendo_bootstrap_main_min.css"), "bottom", false)
 }
 else
 {
-	@Html.StyleSheet(Url.EmbeddedResource("Telerik.Sitefinity.Resources.Reference", "Telerik.Sitefinity.Resources.Scripts.Kendo.styles.kendo_bootstrap_min.css"), "head", false)
-
-    if (ViewBag.IsRtl)
-    {
-        @Html.StyleSheet(Url.EmbeddedResource("Telerik.Sitefinity.Resources.Reference", "Telerik.Sitefinity.Resources.Scripts.Kendo.styles.kendo_rtl_min.css"), "bottom", false)
-    }
+	@Html.StyleSheet(Url.EmbeddedResource("Telerik.Sitefinity.Resources.Reference", "Telerik.Sitefinity.Resources.Scripts.Kendo.styles.kendo_bootstrap_main_min.css"), "head", false)
 }
 <div data-sf-current-page-id='@ViewBag.CurrentPageId' data-sf-widget-id='@ViewBag.WidgetId' data-sf-rtl="@ViewBag.IsRtl" data-sf-role="scheduler-wrapper" class='@Model.ListCssClass' data-sf-controller-events='@Url.Content("~/web-interface/events")' data-sf-controller-calendars='@Url.Content("~/web-interface/calendars")' data-sf-siteid="@SystemManager.CurrentContext.CurrentSite.Id"
     data-sf-defaultview='@Model.EventSchedulerViewMode' data-sf-allowchangecalendarview='@Json.Encode(Model.AllowChangeCalendarView)' data-sf-allowcalendarfilter='@Json.Encode(Model.AllowCalendarFilter)' data-sf-weekstartday='@Model.WeekStartDay' data-sf-loaded='false' 

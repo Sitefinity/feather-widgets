@@ -40,9 +40,6 @@ namespace Telerik.Sitefinity.Frontend.Search.Mvc.Models
 
         #region Properties
         /// <inheritdoc />
-        public WordsMode WordsMode { get; set; }
-
-        /// <inheritdoc />
         public string ResultsPageId { get; set; }
 
         /// <inheritdoc />
@@ -132,7 +129,11 @@ namespace Telerik.Sitefinity.Frontend.Search.Mvc.Models
             }
         }
 
-      #endregion
+        /// <inheritdoc />
+        [Obsolete("The WordsMode property is deprecated. This property is no longer used.")]
+        public WordsMode WordsMode { get; set; }
+
+        #endregion
 
         #region Private methods
         private SiteMapProvider GetSiteMapProvider()

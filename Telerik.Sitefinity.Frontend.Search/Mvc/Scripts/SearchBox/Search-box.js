@@ -7,7 +7,6 @@
             var controlServerData = {
                 resultsUrl: searchBoxIdField.siblings('[data-sf-role="resultsUrl"]').first().val(),
                 indexCatalogue: searchBoxIdField.siblings('[data-sf-role="indexCatalogue"]').first().val(),
-                wordsMode: searchBoxIdField.siblings('[data-sf-role="wordsMode"]').first().val(),
                 disableSuggestions: $.parseJSON(searchBoxIdField.siblings('[data-sf-role="disableSuggestions"]').first().val()),
                 minSuggestionLength: searchBoxIdField.siblings('[data-sf-role="minSuggestionLength"]').first().val(),
                 suggestionFields: searchBoxIdField.siblings('[data-sf-role="suggestionFields"]').first().val(),
@@ -141,11 +140,10 @@
 
                 var separator = (serverData.resultsUrl.indexOf("?") == -1) ? "?" : "&";
 
-                var catalogueParam = separator + "indexCatalogue=" + encodeURIComponent(serverData.indexCatalogue),
-                    searchQueryParam = "&searchQuery=" + encodeURIComponent(query),
-                    wordsModeParam = "&wordsMode=" + serverData.wordsMode;
+                var catalogueParam = separator + "indexCatalogue=" + encodeURIComponent(serverData.indexCatalogue);
+                var searchQueryParam = "&searchQuery=" + encodeURIComponent(query);
 
-                var url = serverData.resultsUrl + catalogueParam + searchQueryParam + wordsModeParam;
+                var url = serverData.resultsUrl + catalogueParam + searchQueryParam;
 
                 if (serverData.scoringSettingsSelector) {
                     url = url + "&scoringInfo=" + serverData.scoringSettingsSelector;

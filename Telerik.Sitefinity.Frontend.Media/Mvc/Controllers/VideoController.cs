@@ -12,6 +12,7 @@ using Telerik.Sitefinity.Frontend.Mvc.Infrastructure.Controllers;
 using Telerik.Sitefinity.Frontend.Mvc.Infrastructure.Controllers.Attributes;
 using Telerik.Sitefinity.Libraries.Model;
 using Telerik.Sitefinity.Localization;
+using Telerik.Sitefinity.Model;
 using Telerik.Sitefinity.Modules.Libraries;
 using Telerik.Sitefinity.Modules.Pages.Configuration;
 using Telerik.Sitefinity.Mvc;
@@ -25,12 +26,12 @@ namespace Telerik.Sitefinity.Frontend.Media.Mvc.Controllers
     /// </summary>
     [Localization(typeof(VideoResources))]
     [ControllerToolboxItem(
-        Name = VideoController.WidgetName, 
-        Title = nameof(VideoResources.MediaPlayerControlTitle), 
+        Name = VideoController.WidgetName,
+        Title = nameof(VideoResources.MediaPlayerControlTitle),
         Description = nameof(VideoResources.MediaPlayerControlDescription),
         ResourceClassId = nameof(VideoResources),
         SectionName = ToolboxesConfig.ContentToolboxSectionName,
-        ModuleName = "Libraries", 
+        ModuleName = "Libraries",
         CssClass = VideoController.WidgetIconCssClass)]
     public class VideoController : Controller, ICustomWidgetVisualizationExtended, IContentLocatableView
     {
@@ -53,7 +54,7 @@ namespace Telerik.Sitefinity.Frontend.Media.Mvc.Controllers
                 return this.model;
             }
         }
-        
+
         /// <summary>
         /// Gets the widget CSS class.
         /// </summary>
@@ -80,7 +81,7 @@ namespace Telerik.Sitefinity.Frontend.Media.Mvc.Controllers
         {
             get
             {
-                return Res.Get<VideoResources>().SelectVideo; 
+                return Res.Get<VideoResources>().SelectVideo;
             }
         }
 
@@ -179,6 +180,8 @@ namespace Telerik.Sitefinity.Frontend.Media.Mvc.Controllers
                 return this.Content(Res.Get<VideoResources>().VideoNotSelectedOrDeleted);
             else if (viewModel.HasSelectedVideo)
             {
+                this.AddCacheDependencies(OutputCacheDependencyHelper.GetPublishedContentCacheDependencyKeys(typeof(Video), this.Model.Id));
+
                 this.AddVideoInMediaContext(viewModel);
                 return this.View(VideoController.TemplatePrefix + this.TemplateName, viewModel);
             }

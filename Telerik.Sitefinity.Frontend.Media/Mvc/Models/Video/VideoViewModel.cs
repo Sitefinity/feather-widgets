@@ -32,7 +32,7 @@ namespace Telerik.Sitefinity.Frontend.Media.Mvc.Models.Video
         /// <summary>
         /// Gets or sets whether there is <see cref="Telerik.Sitefinity.Libraries.Model.Video"/> item. 
         /// </summary>
-        /// <value><c>true</c>if there is selected  <see cref="Telerik.Sitefinity.Libraries.Model.Video"/> item, otherwise <c>false</c></value>
+        /// <value><c>true</c> if there is selected  <see cref="Telerik.Sitefinity.Libraries.Model.Video"/> item, otherwise <c>false</c></value>
         public bool HasSelectedVideo { get; set; }
         
         /// <summary>

@@ -9,6 +9,7 @@ using Telerik.Sitefinity.Frontend.Identity.Mvc.Models.Profile;
 using Telerik.Sitefinity.Frontend.Identity.Mvc.StringResources;
 using Telerik.Sitefinity.Frontend.Mvc.Infrastructure.Controllers;
 using Telerik.Sitefinity.Frontend.Mvc.Infrastructure.Controllers.Attributes;
+using Telerik.Sitefinity.Frontend.Security;
 using Telerik.Sitefinity.Localization;
 using Telerik.Sitefinity.Mvc;
 using Telerik.Sitefinity.Security;
@@ -197,6 +198,8 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Controllers
         [HttpPost]
         public ActionResult Index(ProfileEditViewModel viewModel)
         {
+            if (!AntiCsrfHelpers.IsValidCsrfToken(this.Request?.Form))
+                return new EmptyResult();
             this.Model.ValidateProfileData(viewModel, this.ModelState);
             this.Model.InitializeUserRelatedData(viewModel, false);
 

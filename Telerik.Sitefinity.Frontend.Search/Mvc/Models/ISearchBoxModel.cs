@@ -1,4 +1,6 @@
-﻿namespace Telerik.Sitefinity.Frontend.Search.Mvc.Models
+﻿using System;
+
+namespace Telerik.Sitefinity.Frontend.Search.Mvc.Models
 {
     /// <summary>
     /// An interface that provides all common properties for SearchBox model.
@@ -8,6 +10,7 @@
         /// <summary>
         /// Gets or sets the word mode for indexing service to search within.
         /// </summary>
+        [Obsolete("The WordsMode property is deprecated. This property is no longer used.")]
         WordsMode WordsMode { get; set; }
 
         /// <summary>

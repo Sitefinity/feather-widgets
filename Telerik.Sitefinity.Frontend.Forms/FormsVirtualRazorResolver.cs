@@ -2,6 +2,7 @@
 using System.Collections;
 using System.IO;
 using System.Linq;
+using System.Text;
 using System.Web;
 using Ninject;
 using Telerik.Sitefinity.Abstractions.VirtualPath;
@@ -41,12 +42,12 @@ namespace Telerik.Sitefinity.Frontend.Forms
             var form = formManager.GetForm(id.Value);
 
             var output = new MemoryStream();
-            var writer = new StreamWriter(output);
-
-            FrontendModule.Current.DependencyResolver.Get<IFormRenderer>().Render(writer, form);
-
-            writer.Flush();
-            output.Seek(0, SeekOrigin.Begin);
+            using (var writer = new StreamWriter(output, new UTF8Encoding(false, true), 1024, true))
+            {
+                FrontendModule.Current.DependencyResolver.Get<IFormRenderer>().Render(writer, form);
+                writer.Flush();
+                output.Seek(0, SeekOrigin.Begin);
+            }
 
             return output;
         }

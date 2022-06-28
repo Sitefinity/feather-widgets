@@ -24,11 +24,17 @@
 
             $scope.$watch('model', function (newVal, oldVal) {
                 if ($scope.properties && newVal && newVal.item && newVal.item.Id) {
-                    if (!$scope.properties.Title.PropertyValue && newVal.item.Title && newVal.item.Title.Value) {
-                        $scope.properties.Title.PropertyValue = newVal.item.Title.Value;
-                    }
-                    if (!$scope.properties.AlternativeText.PropertyValue && newVal.item.AlternativeText && newVal.item.AlternativeText.Value) {
-                        $scope.properties.AlternativeText.PropertyValue = newVal.item.AlternativeText.Value;
+                    // update the title and the alt text only when the widget is new and no image is loaded 
+                    // or when replacing the exisitng image
+                    if (($scope.properties.Id.PropertyId === serviceHelper.emptyGuid()) ||
+                        (oldVal.item.Id && oldVal.item.Id !== newVal.item.Id)) {
+                        if (newVal.item.Title && newVal.item.Title.Value) {
+                            $scope.properties.Title.PropertyValue = newVal.item.Title.Value;
+                        }
+
+                        if (newVal.item.AlternativeText && newVal.item.AlternativeText.Value) {
+                            $scope.properties.AlternativeText.PropertyValue = newVal.item.AlternativeText.Value;
+                        }
                     }
 
                     $scope.properties.ThumbnailName.PropertyValue = newVal.thumbnail ? newVal.thumbnail.name : null;

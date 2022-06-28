@@ -8,6 +8,7 @@ using Telerik.Sitefinity.Frontend.EmailCampaigns.Mvc.Models;
 using Telerik.Sitefinity.Frontend.EmailCampaigns.Mvc.StringResources;
 using Telerik.Sitefinity.Frontend.Mvc.Infrastructure.Controllers;
 using Telerik.Sitefinity.Frontend.Mvc.Infrastructure.Controllers.Attributes;
+using Telerik.Sitefinity.Frontend.Security;
 using Telerik.Sitefinity.Licensing;
 using Telerik.Sitefinity.Localization;
 using Telerik.Sitefinity.Modules.Newsletters;
@@ -178,6 +179,8 @@ namespace Telerik.Sitefinity.Frontend.EmailCampaigns.Mvc.Controllers
         [HttpPost]
         public ActionResult Subscribe(SubscribeFormViewModel viewModel)
         {
+            if (!AntiCsrfHelpers.IsValidCsrfToken(this.Request?.Form))
+                return new EmptyResult();
             if (!this.IsLicensed)
             {
                 return this.Content(this.LicensingMessage);

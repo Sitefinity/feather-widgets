@@ -65,6 +65,7 @@
                 </label>
                 <input type="submit" value="@Html.Resource("ButtonSubscribe")" @(SystemManager.IsDesignMode ? "disabled" : "") />
                 @Html.ValidationMessageFor(u => u.Email)
+                @Html.AddSitefinityAntiforgeryToken()
             </div>
         }
 </div>

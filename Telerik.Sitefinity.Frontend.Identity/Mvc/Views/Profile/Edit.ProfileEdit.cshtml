@@ -197,7 +197,7 @@
         {
             <input data-sf-role="profile-submit" type="submit" value='@Html.Resource("EditProfileSave")' />
         }
-        
+        @Html.AddSitefinityAntiforgeryToken()
         if(SystemManager.IsPreviewMode)
         {
             <div data-sf-role="profile-submit-preview-message" style="display:none; color: #a94442;">@Html.Resource("PreviewProfileSaveMessage")</div>

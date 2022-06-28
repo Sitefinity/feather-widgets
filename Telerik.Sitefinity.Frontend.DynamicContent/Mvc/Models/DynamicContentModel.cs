@@ -158,10 +158,18 @@ namespace Telerik.Sitefinity.Frontend.DynamicContent.Mvc.Models
             {
                 var selectedItemIds = JsonSerializer.DeserializeFromString<IList<string>>(this.SerializedSelectedParentsIds);
                 var parentFilterExpression = string.Join(" OR ", selectedItemIds.Select(id => "SystemParentId = " + id.Trim()));
-                if (baseExpression.IsNullOrEmpty())
-                    return "({0})".Arrange(parentFilterExpression);
+
+                if (parentFilterExpression.IsNullOrEmpty())
+                {
+                    return null;
+                }
                 else
-                    return "({0}) and ({1})".Arrange(baseExpression, parentFilterExpression);
+                {
+                    if (baseExpression.IsNullOrEmpty())
+                        return "({0})".Arrange(parentFilterExpression);
+                    else
+                        return "({0}) and ({1})".Arrange(baseExpression, parentFilterExpression);
+                }
             }
             else
             {

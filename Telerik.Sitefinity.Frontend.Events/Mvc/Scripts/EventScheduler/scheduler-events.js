@@ -21,9 +21,11 @@
                 scheduler: $(element).find('[data-sf-role="scheduler"]'),
                 timezoneOffset: $(element).attr('data-sf-timezoneoffset'),
                 timezone: function () {
-                    var zones = $.grep(kendo.timezone.windows_zones, function (e) { return e.other_zone === $(element).attr('data-sf-timezoneid'); });
-                    if (zones.length > 0) {
-                        return zones[0].zone;
+                    if (kendo.timezone.windows_zones) {
+                        var zones = $.grep(kendo.timezone.windows_zones, function (e) { return e.other_zone === $(element).attr('data-sf-timezoneid'); });
+                        if (zones.length > 0) {
+                            return zones[0].zone;
+                        }
                     }
                     return "";
                 },

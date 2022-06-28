@@ -29,11 +29,9 @@
 
             var indexCatalogueParam = document.querySelector('[data-sf-role="searchResIndexCatalogue"]').value;
             var searchQueryParam = document.querySelector('[data-sf-role="searchResQuery"]').value;
-            var wordsModeParam = document.querySelector('[data-sf-role="searchResWordsMode"]').value;
 
             var queryString = '?indexCatalogue=' + indexCatalogueParam + '&' +
                 'searchQuery=' + searchQueryParam + '&' +
-                'wordsMode=' + wordsModeParam +
                 orderByParam +
                 languageParam;
 

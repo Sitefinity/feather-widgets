@@ -155,12 +155,10 @@ namespace Telerik.Sitefinity.Frontend.Media.Mvc.Controllers
             this.UpdatePageFromQuery(ref page, this.Model.UrlKeyPrefix);
 
             var viewModel = this.Model.CreateListViewModel(taxonFilter, this.ExtractValidPage(page));
-            if (SystemManager.CurrentHttpContext != null)
-            {
-                this.AddCacheDependencies(this.Model.GetKeysOfDependentObjects(viewModel));
-                if (viewModel.ContentType != null)
-                    this.AddCacheVariations(viewModel.ContentType, viewModel.ProviderName);
-            }
+
+            this.AddCacheDependencies(this.Model.GetKeysOfDependentObjects(viewModel));
+            if (viewModel.ContentType != null)
+                this.AddCacheVariations(viewModel.ContentType, viewModel.ProviderName);
 
             var fullTemplateName = this.GetFullListTemplateName();
 

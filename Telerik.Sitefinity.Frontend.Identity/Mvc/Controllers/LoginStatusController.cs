@@ -130,13 +130,26 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Controllers
             if (Config.Get<SecurityConfig>().AuthenticationMode == SecConfig.AuthenticationMode.Claims)
             {
                 var owinContext = SystemManager.CurrentHttpContext.Request.GetOwinContext();
-                var authenticationTypes = ClaimsManager.CurrentAuthenticationModule.GetSignOutAuthenticationTypes().ToArray();                
+                var authenticationTypes = ClaimsManager.CurrentAuthenticationModule.GetSignOutAuthenticationTypes();                
+
+                if(ClaimsManager.CurrentAuthenticationModule.AuthenticationProtocol == "Default")
+                {
+                    var externalProviderName = owinContext.Authentication.User.FindFirst(c => c.Type == SitefinityClaimTypes.ExternalProviderName);
+                    if(externalProviderName != null)
+                    {
+                        var identityProvider = externalProviderName.Value;
+                        if (!string.IsNullOrEmpty(identityProvider))
+                        {
+                            authenticationTypes.Add(identityProvider);
+                        }
+                    }
+                }
 
                 owinContext.Authentication.SignOut(new AuthenticationProperties
                 {
                     RedirectUri = logoutUrl
                 }, 
-                authenticationTypes);            
+                authenticationTypes.ToArray());            
             }
             else
             {

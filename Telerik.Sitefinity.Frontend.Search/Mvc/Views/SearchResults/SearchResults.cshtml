@@ -59,6 +59,10 @@
         </div>
     }
 
+    @{
+        LibrariesManager librariesManager = LibrariesManager.GetManager();
+    }
+
     @foreach (var item in Model.Results.Data)
     {
         <div>
@@ -71,18 +75,13 @@
                     </a>
                 </div>
             }
-
             else if (((Telerik.Sitefinity.Services.Search.Model.Document)item).ItemType.ToString() == typeof(Telerik.Sitefinity.Libraries.Model.Video).ToString())
             {
-                //libraries manager will be instantiated on each loop through the foreach
-                LibrariesManager librariesManager = LibrariesManager.GetManager();
                 var videoTmbId = new Guid((string)item.GetValue("Id"));
-                Video video = librariesManager.GetVideo(videoTmbId);
+                string thumbUrl = HyperLinkHelpers.GetVideoThumbnailUrl(librariesManager, videoTmbId);
 
-                if (video != null)
+                if (!string.IsNullOrEmpty(thumbUrl))
                 {
-                    var thumbUrl = video.ThumbnailUrl;
-
                     <div>
                         <a href="@item.GetValue("Link")">
                             <img src="@thumbUrl" alt="@item.GetValue("Title")" width="120" />
@@ -154,7 +153,6 @@
     <input type="hidden" data-sf-role="searchResLanguage" value='@Request.QueryStringGet("language")' />
     <input type="hidden" data-sf-role="searchResIndexCatalogue" value='@Request.QueryStringGet("indexCatalogue")' />
     <input type="hidden" data-sf-role="searchResQuery" value='@Request.QueryStringGet("searchQuery")' />
-    <input type="hidden" data-sf-role="searchResWordsMode" value='@Request.QueryStringGet("wordsMode")' />
     <input type="hidden" data-sf-role="scoringInfo" value='@Request.QueryStringGet("scoringInfo")' />
 
 </div>

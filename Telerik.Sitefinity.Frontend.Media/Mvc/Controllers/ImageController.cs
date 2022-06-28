@@ -11,7 +11,9 @@ using Telerik.Sitefinity.Frontend.Media.Mvc.StringResources;
 using Telerik.Sitefinity.Frontend.Mvc.Helpers;
 using Telerik.Sitefinity.Frontend.Mvc.Infrastructure.Controllers;
 using Telerik.Sitefinity.Frontend.Mvc.Infrastructure.Controllers.Attributes;
+using Telerik.Sitefinity.Libraries.Model;
 using Telerik.Sitefinity.Localization;
+using Telerik.Sitefinity.Model;
 using Telerik.Sitefinity.Modules.Pages.Configuration;
 using Telerik.Sitefinity.Mvc;
 using Telerik.Sitefinity.Personalization;
@@ -202,6 +204,8 @@ namespace Telerik.Sitefinity.Frontend.Media.Mvc.Controllers
 
             if (viewModel.Item.DataItem != null && viewModel.Item.DataItem.Id != Guid.Empty)
             {
+                this.AddCacheDependencies(OutputCacheDependencyHelper.GetPublishedContentCacheDependencyKeys(typeof(Image), this.Model.Id));
+
                 return this.View(this.TemplateName, viewModel);
             }
             else if (!this.IsEmpty && this.IsDesignMode && !SystemManager.IsInlineEditingMode)

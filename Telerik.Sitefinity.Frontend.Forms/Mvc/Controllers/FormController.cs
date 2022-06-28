@@ -145,6 +145,9 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Controllers
                 throw new ArgumentNullException("collection");
             }
 
+            if (!AntiCsrfHelpers.IsValidCsrfToken(collection))
+                return this.Json(new { success = false, error = "Invalid anti CSRF token" });
+
             var widgetIdIdString = collection[WidgetId];
             Guid widgetId;
 
