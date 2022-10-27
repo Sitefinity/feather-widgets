@@ -25,6 +25,7 @@
 <input type="hidden" data-sf-role="searchTextBoxId" value='@("#" + searchTextBoxId.ToString())' />
 <input type="hidden" data-sf-role="searchButtonId" value='@("#" + searchButtonId.ToString())' />
 <input type="hidden" data-sf-role="scoringSettings" value='@(ViewBag.ScoringSettings ?? string.Empty)' />
+<input type="hidden" data-sf-role="SearchInAllSitesInTheIndex" value='@(Model.SearchInAllSitesInTheIndex.HasValue ? Model.SearchInAllSitesInTheIndex.ToString() : string.Empty)' />
 </div>
 
 @* Avoid conflicts because the designer is loading kendo too. *@

@@ -11,6 +11,9 @@ using Telerik.Sitefinity.Frontend.Mvc.Helpers;
 using Telerik.Sitefinity.Frontend.Mvc.Infrastructure;
 using Telerik.Sitefinity.Frontend.Mvc.Infrastructure.Controllers;
 using Telerik.Sitefinity.Frontend.Mvc.Infrastructure.Controllers.Attributes;
+using Telerik.Sitefinity.Frontend.Mvc.Models;
+using Telerik.Sitefinity.Localization;
+using Telerik.Sitefinity.Modules.Lists.Web.Services.Data;
 using Telerik.Sitefinity.Modules.Pages.Configuration;
 using Telerik.Sitefinity.Mvc;
 using Telerik.Sitefinity.Personalization;
@@ -155,7 +158,14 @@ namespace Telerik.Sitefinity.Frontend.Events.Mvc.Controllers
             var fullTemplateName = EventController.ListTemplateNamePrefix + this.ListTemplateName;
 
             if (this.ShouldReturnDetails(this.Model.ContentViewDisplayMode, viewModel))
-                return this.Details((Event)viewModel.Items.First().DataItem);
+            {
+                var itemViewModel = viewModel.Items.FirstOrDefault();
+
+                if (itemViewModel == null)
+                    return this.HandleInvalidDetailsAction(Res.Get<EventResources>().EventsDetailViewDesignerResponseMessage);
+
+                return this.Details((Event)itemViewModel.DataItem);
+            }
 
             this.AddCacheDependencies(this.Model.GetKeysOfDependentObjects(viewModel));
             if (viewModel.ContentType != null)

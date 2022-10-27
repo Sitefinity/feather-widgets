@@ -845,6 +845,87 @@ namespace Telerik.Sitefinity.Frontend.Search.Mvc.StringResources
                 return this["NoScoringProfileCreated"];
             }
         }
-        #endregion
+
+        /// <summary>
+        /// Label: Search facets
+        /// </summary>
+        /// <value>Facets widget</value>
+        [ResourceEntry("FacetsWidgetTitle",
+            Value = "Search facets",
+            Description = "Label: Search facets",
+            LastModified = "2022/07/11")]
+        public string FacetsWidgetTitle
+        {
+            get
+            {
+                return this["FacetsWidgetTitle"];
+            }
+        }
+
+        /// <summary>
+        /// Label: Lists with search facets
+        /// </summary>
+        /// <value>Facets widget</value>
+        [ResourceEntry("FacetsWidgDescription",
+            Value = "Lists with search facets",
+            Description = "Label: Lists with search facets",
+            LastModified = "2022/07/11")]
+        public string FacetsWidgDescription
+        {
+            get
+            {
+                return this["FacetsWidgDescription"];
+            }
+        }
+
+        /// <summary>
+        /// Label: Facets widget empty view text
+        /// </summary>
+        /// <value>Select search facets</value>
+        [ResourceEntry("FacetWidgetEmptyResult",
+            Value = "Select search facets",
+            Description = "Label: Select search facets",
+            LastModified = "2022/08/11")]
+        public string FacetWidgetEmptyResult
+        {
+            get
+            {
+                return this["FacetWidgetEmptyResult"];
+            }
+        }
+
+        /// <summary>
+        /// Phrase: This widget cannot be used with your current search service. Search facets works only with Azure Search and Elasticsearch services.
+        /// </summary>
+        /// <value>Select search facets</value>
+        [ResourceEntry("FacetsNotSupportedMessage",
+            Value = "This widget cannot be used with your current search service. Search facets works only with Azure Search and Elasticsearch services.",
+            Description = "Phrase: This widget cannot be used with your current search service. Search facets works only with Azure Search and Elasticsearch services.",
+            LastModified = "2022/08/12")]
+        public string FacetsNotSupportedMessage
+        {
+            get
+            {
+                return this["FacetsNotSupportedMessage"];
+            }
+        }
+
+        /// <summary>
+        /// Message shown when the search module is deactivated
+        /// </summary>
+        /// <value>This widget doesn't work, because Search module has been deactivated.</value>
+        [ResourceEntry("SearchModuleDeactivatedMessage",
+            Value = "This widget doesn't work, because Search module has been deactivated.",
+            Description = "Message shown when the search module is deactivated",
+            LastModified = "2015/06/17")]
+        public string SearchModuleDeactivatedMessage
+        {
+            get
+            {
+                return this["SearchModuleDeactivatedMessage"];
+            }
+
+            #endregion
+        }
     }
 }

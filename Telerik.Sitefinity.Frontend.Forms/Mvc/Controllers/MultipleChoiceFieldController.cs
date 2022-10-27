@@ -11,6 +11,7 @@ using Telerik.Sitefinity.Localization;
 using Telerik.Sitefinity.Model;
 using Telerik.Sitefinity.Modules.Forms.Web.UI.Fields;
 using Telerik.Sitefinity.Modules.Pages.Web.Services;
+using Telerik.Sitefinity.Mvc;
 using Telerik.Sitefinity.Web.UI.Fields.Enums;
 
 namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Controllers
@@ -20,6 +21,13 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Controllers
     /// </summary>
     [DatabaseMapping(UserFriendlyDataType.ShortText)]
     [Localization(typeof(FieldResources))]
+    [ControllerToolboxItem(
+        Name = "MvcMultipleChoiceField",
+        Toolbox = FormsConstants.FormControlsToolboxName,
+        SectionName = FormsConstants.CommonSectionName,
+        Title = "Multiple choice",
+        CssClass = "sfMultipleChoiceIcn sfMvcIcn",
+        Ordinal = 0.13f)]
     public class MultipleChoiceFieldController : FormFieldControllerBase<IMultipleChoiceFieldModel>, ISupportRules, IMultipleChoiceFormField
     {
         public MultipleChoiceFieldController()

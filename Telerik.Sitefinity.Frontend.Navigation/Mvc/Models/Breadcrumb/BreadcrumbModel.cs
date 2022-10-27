@@ -257,60 +257,16 @@ namespace Telerik.Sitefinity.Frontend.Navigation.Mvc.Models.Breadcrumb
             if (currentNode != null)
             {
                 hasCurrentNode = true;
-
-                var currentSite = SystemManager.CurrentContext.CurrentSite;
-                var rootNodeKey = currentSite.SiteMapRootNodeId.ToString();
-
-                string nodeKey = currentNode.Key;
-
-                var homePageKey = currentSite.HomePageId;
-                var homePageNode = homePageKey != Guid.Empty ? (PageSiteNode)this.SiteMapProvider.FindSiteMapNodeFromKey(homePageKey.ToString()) : null;
-
-                //// Gets the actual home page when the site is set to multilingual and the home page is split
-                homePageNode = (PageSiteNode)((SiteMapBase)this.SiteMapProvider).FindSiteMapNodeForSpecificLanguage(homePageNode, SystemManager.CurrentContext.Culture) ?? homePageNode;
-
-                var showToSelectedNode = this.SelectedPageNode != null && this.BreadcrumbIncludeOption != BreadcrumbIncludeOption.CurrentPageFullPath;
-                var isSelectedPageNodeFound = false;
-
-                while (!string.IsNullOrEmpty(nodeKey) &&
-                        string.Compare(nodeKey, rootNodeKey, StringComparison.OrdinalIgnoreCase) != 0)
+                breadcrumbDataSource = new BreadcrumbGenerator().Generate(new BreadcrumbGenerator.BreadcrumbInput()
                 {
-                    var node = (PageSiteNode)((SiteMapBase)this.SiteMapProvider).FindSiteMapNodeFromKey(nodeKey, false);
-                    if (node != homePageNode && 
-                        node.IsAccessibleToUser(HttpContext.Current) && 
-                        !node.IsHidden())
-                    {
-                        if (this.ShowGroupPages)
-                            breadcrumbDataSource.Insert(0, node);
-                        else if (!node.IsGroupPage)
-                            breadcrumbDataSource.Insert(0, node);
-                    }
-
-                    if (showToSelectedNode && node == this.SelectedPageNode)
-                    {
-                        isSelectedPageNodeFound = true;
-                        break;
-                    }
-
-                    nodeKey = node.ParentKey;
-                }
-
-                if (!isSelectedPageNodeFound && this.BreadcrumbIncludeOption != BreadcrumbIncludeOption.CurrentPageFullPath)
-                    breadcrumbDataSource.Clear();
-                else if (homePageNode != null && homePageNode.Visible)
-                    breadcrumbDataSource.Insert(0, homePageNode);
-
-                if (breadcrumbDataSource.Count > 0)
-                {
-                    //// remove the first element if we have to hide the home page
-                    if (!this.ShowHomePageLink)
-                        breadcrumbDataSource.RemoveAt(0);
-
-                    //// remove the last element if we have to hide the last page
-                    var index = breadcrumbDataSource.Count - 1;
-                    if (!this.ShowCurrentPageInTheEnd && index > -1)
-                        breadcrumbDataSource.RemoveAt(index);
-                }
+                    AddHomePageAtBeginning = this.ShowHomePageLink,
+                    AddStartingPageAtEnd = this.ShowCurrentPageInTheEnd,
+                    IncludeGroupPages = this.ShowGroupPages,
+                    SiteMapProvider = (SiteMapBase)this.SiteMapProvider,
+                    CurrentPageId = currentNode.Key,
+                    StartingPageId = this.StartingPageId.ToString(),
+                    ShowFullPath = this.BreadcrumbIncludeOption == BreadcrumbIncludeOption.CurrentPageFullPath
+                });
             }
 
             return new Tuple<bool, List<SiteMapNode>>(hasCurrentNode, breadcrumbDataSource);

@@ -11,6 +11,7 @@ using Telerik.Sitefinity.Localization;
 using Telerik.Sitefinity.Model;
 using Telerik.Sitefinity.Modules.Forms.Web.UI.Fields;
 using Telerik.Sitefinity.Modules.Pages.Web.Services;
+using Telerik.Sitefinity.Mvc;
 using Telerik.Sitefinity.Web.UI.Fields.Enums;
 
 namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Controllers
@@ -20,6 +21,13 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Controllers
     /// </summary>
     [DatabaseMapping(UserFriendlyDataType.LongText)]
     [Localization(typeof(FieldResources))]
+    [ControllerToolboxItem(
+        Name = "MvcParagraphTextField",
+        Toolbox = FormsConstants.FormControlsToolboxName,
+        SectionName = FormsConstants.CommonSectionName,
+        Title = "Paragraph textbox",
+        CssClass = "sfParagraphboxIcn sfMvcIcn",
+        Ordinal = 0.15f)]
     public class ParagraphTextFieldController : FormFieldControllerBase<IParagraphTextFieldModel>, ISupportRules, IParagraphFormField
     {
         public ParagraphTextFieldController()

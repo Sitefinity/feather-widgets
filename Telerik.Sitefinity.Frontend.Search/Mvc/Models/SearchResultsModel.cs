@@ -8,11 +8,10 @@ using System.Web;
 using Telerik.Sitefinity.Abstractions;
 using Telerik.Sitefinity.Configuration;
 using Telerik.Sitefinity.Frontend.Search.Mvc.StringResources;
+using Telerik.Sitefinity.Frontend.Search.Services;
 using Telerik.Sitefinity.Localization;
-using Telerik.Sitefinity.Publishing;
 using Telerik.Sitefinity.Search;
 using Telerik.Sitefinity.Security;
-using Telerik.Sitefinity.Services;
 using Telerik.Sitefinity.Services.Search;
 using Telerik.Sitefinity.Services.Search.Configuration;
 using Telerik.Sitefinity.Services.Search.Data;
@@ -34,6 +33,7 @@ namespace Telerik.Sitefinity.Frontend.Search.Mvc.Models
         {
             this.Languages = languages;
             this.Results = new ResultModel();
+            this.searchProcessor = new SearchFacetsQueryStringProcessor();
         }
 
         #endregion
@@ -135,14 +135,15 @@ namespace Telerik.Sitefinity.Frontend.Search.Mvc.Models
         #endregion
 
         #region Public methods
+
         /// <inheritdoc />
         public virtual void PopulateResults(string searchQuery, string indexCatalogue, int? skip, string language, string orderBy)
         {
-            this.PopulateResults(searchQuery, indexCatalogue, skip, language, orderBy, null);
+            this.PopulateResults(searchQuery, indexCatalogue, skip, language, orderBy, null, null, null);
         }
 
         /// <inheritdoc />
-        public virtual void PopulateResults(string searchQuery, string indexCatalogue, int? skip, string language, string orderBy, SearchScoring searchScoringSettings)
+        public virtual void PopulateResults(string searchQuery, string indexCatalogue, int? skip, string language, string orderBy, string filter, SearchScoring searchScoringSettings, bool? resultsForAllSites)
         {
             this.IndexCatalogue = indexCatalogue;
             this.InitializeOrderByEnum(orderBy);
@@ -168,7 +169,7 @@ namespace Telerik.Sitefinity.Frontend.Search.Mvc.Models
             }
 
             int totalCount = 0;
-            var result = this.Search(searchQuery, language, itemsToSkip, take.Value, searchScoringSettings, out totalCount);
+            var result = this.Search(searchQuery, language, itemsToSkip, take.Value, filter, searchScoringSettings, resultsForAllSites, out totalCount);
 
             int? totalPagesCount = (int)Math.Ceiling((double)(totalCount / (double)this.ItemsPerPage.Value));
             this.TotalPagesCount = this.DisplayMode == ListDisplayMode.Paging ? totalPagesCount : null;
@@ -180,13 +181,7 @@ namespace Telerik.Sitefinity.Frontend.Search.Mvc.Models
             var culture = string.IsNullOrEmpty(language) ? Telerik.Sitefinity.Services.SystemManager.CurrentContext.Culture.Name : language;
             using (new CultureRegion(culture))
             {
-                try
-                {
-                    this.Results = new ResultModel(result.ToList(), totalCount);
-                }
-                catch (UnauthorizedAccessException)
-                {
-                }
+                this.Results = new ResultModel(result.ToList(), totalCount);
             }
         }
 
@@ -222,15 +217,17 @@ namespace Telerik.Sitefinity.Frontend.Search.Mvc.Models
         /// <param name="take">The take.</param>
         /// <param name="scoringSettings">The search scoring settings.</param>
         /// <param name="hitCount">The hit count.</param>
+        /// <param name="filterParameters">The filter parameters</param>
+        /// <param name="resultsForAllSites">Indicates wether results are shown for all indexed sites or only for the current site if the search index is created for all sites.</param> 
         /// <returns></returns>
-        public IEnumerable<IDocument> Search(string query, string language, int skip, int take, SearchScoring scoringSettings, out int hitCount)
+        public IEnumerable<IDocument> Search(string query, string language, int skip, int take, string filterParameters, SearchScoring scoringSettings, bool? resultsForAllSites, out int hitCount)
         {
             var service = Telerik.Sitefinity.Services.ServiceBus.ResolveService<ISearchService>();
             var queryBuilder = ObjectFactory.Resolve<IQueryBuilder>();
             var config = Config.Get<SearchConfig>();
             var enableExactMatch = config.EnableExactMatch;
 
-            var searchQuery = queryBuilder.BuildQuery(query, this.SearchFields);
+            var searchQuery = queryBuilder.BuildQuery(query, this.SearchFields, language, resultsForAllSites);
             searchQuery.IndexName = this.IndexCatalogue;
             searchQuery.Skip = skip;
             searchQuery.Take = take;
@@ -238,9 +235,19 @@ namespace Telerik.Sitefinity.Frontend.Search.Mvc.Models
             searchQuery.EnableExactMatch = enableExactMatch;
             searchQuery.HighlightedFields = this.HighlightedFields;
 
-            ISearchFilter filter;
-            if (this.TryBuildLanguageFilter(language, out filter))
+            var groups = this.GetFilterGroups(searchQuery);
+
+            if (!string.IsNullOrEmpty(filterParameters))
             {
+                ISearchFilter facetFilter = this.searchProcessor.BuildFacetFilter(filterParameters, this.IndexCatalogue);
+                groups.Add(facetFilter);
+            }
+
+            if (groups.Any())
+            {
+                ISearchFilter filter = ObjectFactory.Resolve<ISearchFilter>();
+                filter.Operator = QueryOperator.And;
+                filter.Groups = groups;
                 searchQuery.Filter = filter;
             }
 
@@ -251,7 +258,7 @@ namespace Telerik.Sitefinity.Frontend.Search.Mvc.Models
             var permissionFilter = config.EnableFilterByViewPermissions;
             if (permissionFilter)
             {
-                Func<int, int, IEnumerable<Document>> searchResults = delegate (int querySkip, int queryTake)
+                Func<int, int, IEnumerable<Document>> searchResults = delegate(int querySkip, int queryTake)
                 {
                     searchQuery.Skip = querySkip;
                     searchQuery.Take = queryTake;
@@ -295,9 +302,20 @@ namespace Telerik.Sitefinity.Frontend.Search.Mvc.Models
                 return result.SetContentLinks(this.ShowLinksOnlyFromCurrentSite);
             }
         }
+
         #endregion
 
         #region Private methods
+
+        private IList<ISearchFilter> GetFilterGroups(ISearchQuery searchQuery)
+        {
+            if (searchQuery != null && searchQuery.Filter != null && searchQuery.Filter.Groups != null)
+            {
+                return searchQuery.Filter.Groups.ToList();
+            }
+
+            return new List<ISearchFilter>();
+        }
 
         /// <summary>
         /// Validates the passed user input against the defined validation rules
@@ -365,32 +383,6 @@ namespace Telerik.Sitefinity.Frontend.Search.Mvc.Models
             return rules;
         }
 
-        private bool TryBuildLanguageFilter(string language, out ISearchFilter filter)
-        {
-            if (String.IsNullOrEmpty(language) ||
-                !SystemManager.CurrentContext.AppSettings.Multilingual)
-            {
-                filter = null;
-                return false;
-            }
-
-            filter = ObjectFactory.Resolve<ISearchFilter>();
-            filter.Clauses = new List<ISearchFilterClause>()
-            {
-                new SearchFilterClause(PublishingConstants.LanguageField, this.TransformLanguageFieldValue(language), FilterOperator.Equals),
-                new SearchFilterClause(PublishingConstants.LanguageField, "nullvalue", FilterOperator.Equals)
-            };
-            filter.Operator = QueryOperator.Or;
-
-            return true;
-        }
-
-        private string TransformLanguageFieldValue(string language)
-        {
-            var result = language.ToLowerInvariant().Replace("-", string.Empty);
-            return result;
-        }
-
         /// <summary>
         /// Gets the order list.
         /// </summary>
@@ -432,6 +424,7 @@ namespace Telerik.Sitefinity.Frontend.Search.Mvc.Models
         private int? itemsPerPage = 20;
         private string[] searchFields = new[] { "Title", "Content" };
         private string[] highlightedFields = new[] { "Title", "Content" };
+        private readonly SearchFacetsQueryStringProcessor searchProcessor;
 
         #endregion
     }

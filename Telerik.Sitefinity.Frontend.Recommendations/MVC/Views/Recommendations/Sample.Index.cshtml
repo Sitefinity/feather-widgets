@@ -1,0 +1,11 @@
+﻿@if (!ViewBag.IsPreviewMode)
+{
+<p class="sfNeutralMsg">
+    This is a sample recommendation. Actual recommendations are visible only on the public site for visitors who have interacted enough with the site.
+</p>
+}
+
+<div id="recommendations-wrapper-@ViewBag.UniqueId" class="@ViewBag.CssClass">
+    <h4>@ViewBag.Header</h4>
+    <a class="fs-5" href="#">Lorem ipsum dolor sit amet, consectetur adipiscing elit</a>
+</div>

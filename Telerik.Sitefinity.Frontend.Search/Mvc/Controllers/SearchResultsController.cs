@@ -1,8 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.ComponentModel;
 using System.Web.Mvc;
-using Telerik.Sitefinity.Abstractions;
 using Telerik.Sitefinity.Configuration;
 using Telerik.Sitefinity.Frontend.Mvc.Infrastructure.Controllers;
 using Telerik.Sitefinity.Frontend.Mvc.Infrastructure.Controllers.Attributes;
@@ -15,7 +13,6 @@ using Telerik.Sitefinity.Services;
 using Telerik.Sitefinity.Services.Search;
 using Telerik.Sitefinity.Services.Search.Configuration;
 using Telerik.Sitefinity.Web;
-using Telerik.Sitefinity.Web.OutputCache;
 
 namespace Telerik.Sitefinity.Frontend.Search.Mvc.Controllers
 {
@@ -78,10 +75,12 @@ namespace Telerik.Sitefinity.Frontend.Search.Mvc.Controllers
         /// <param name="language">The language.</param>
         /// <param name="orderBy">The order by.</param>
         /// <param name="scoringInfo">The param used to boost the search results.</param>
+        /// <param name="filter">The param used to filter the search results.</param>
+        /// <param name="resultsForAllSites">The param used to filter search results per site when the index is for all sites.</param>
         /// <returns>
         /// The <see cref="ActionResult"/>.
         /// </returns>
-        public ActionResult Index(int? page, string searchQuery = null, string indexCatalogue = null, string language = null, string orderBy = null, string scoringInfo = null)
+        public ActionResult Index(int? page, string searchQuery = null, string indexCatalogue = null, string language = null, string orderBy = null, string scoringInfo = null, string filter = null, bool? resultsForAllSites = null)
         {
             if (!this.IsSearchModuleActivated())
             {
@@ -98,6 +97,8 @@ namespace Telerik.Sitefinity.Frontend.Search.Mvc.Controllers
                 HttpContext.Request.QueryStringGet(nameof(language));
                 HttpContext.Request.QueryStringGet(nameof(orderBy));
                 HttpContext.Request.QueryStringGet(nameof(scoringInfo));
+                HttpContext.Request.QueryStringGet(nameof(filter));
+                HttpContext.Request.QueryStringGet(nameof(resultsForAllSites));
             }
 
             if (!string.IsNullOrEmpty(searchQuery))
@@ -106,7 +107,7 @@ namespace Telerik.Sitefinity.Frontend.Search.Mvc.Controllers
 
                 if (isValid)
                 {
-                    string queryString = this.BuildSearchResultsQueryString(searchQuery, indexCatalogue, orderBy, scoringInfo);
+                    string queryString = this.BuildSearchResultsQueryString(searchQuery, indexCatalogue, orderBy, scoringInfo, filter, resultsForAllSites);
 
                     string languageParamFormat = "&language={0}";
                     string languageParam = string.IsNullOrEmpty(language) ? string.Empty : string.Format(languageParamFormat, language);
@@ -125,7 +126,8 @@ namespace Telerik.Sitefinity.Frontend.Search.Mvc.Controllers
                     var searchScoringDecoder = new SearchScoringDecoder();
                     SearchScoring searchScoring = searchScoringDecoder.GetSearchScoringSettings(scoringInfo);
 
-                    this.Model.PopulateResults(searchQuery, indexCatalogue, itemsToSkip, language, orderBy, searchScoring);
+                    string decodedFilter = filter?.Base64Decode();
+                    this.Model.PopulateResults(searchQuery, indexCatalogue, itemsToSkip, language, orderBy, decodedFilter, searchScoring, resultsForAllSites);
 
                     return this.View(this.TemplateName, this.Model);
                 }
@@ -138,7 +140,7 @@ namespace Telerik.Sitefinity.Frontend.Search.Mvc.Controllers
             return null;
         }
 
-        private string BuildSearchResultsQueryString(string searchQuery, string indexCatalogue, string orderBy, string scoringInfo)
+        private string BuildSearchResultsQueryString(string searchQuery, string indexCatalogue, string orderBy, string scoringInfo, string filter, bool? resultsForAllSites)
         {
             var queryStringFormat = "?indexCatalogue={0}&searchQuery={1}&orderBy={2}";
 
@@ -146,6 +148,16 @@ namespace Telerik.Sitefinity.Frontend.Search.Mvc.Controllers
             if (!string.IsNullOrEmpty(scoringInfo))
             {
                 queryString = $"{queryString}&scoringInfo={scoringInfo}";
+            }
+
+            if (!string.IsNullOrEmpty(filter))
+            {
+                queryString = $"{queryString}&filter={filter}";
+            }
+
+            if (resultsForAllSites.HasValue)
+            {
+                queryString = $"{queryString}&resultsForAllSites={resultsForAllSites}";
             }
 
             return queryString;

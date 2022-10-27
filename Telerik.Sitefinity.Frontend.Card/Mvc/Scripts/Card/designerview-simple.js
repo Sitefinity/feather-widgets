@@ -17,7 +17,7 @@
                 $scope.properties = propertyService.toAssociativeArray(data.Items);
 
                 var isPageSelectMode = $scope.properties.IsPageSelectMode.PropertyValue;
-                $scope.properties.IsPageSelectMode.PropertyValue = isPageSelectMode.toLowerCase() === "true";
+                $scope.properties.IsPageSelectMode.PropertyValue = typeof isPageSelectMode === "boolean" ? isPageSelectMode : isPageSelectMode.toLowerCase() === "true";
             },
             function (errorData) {
                 $scope.feedback.showError = true;

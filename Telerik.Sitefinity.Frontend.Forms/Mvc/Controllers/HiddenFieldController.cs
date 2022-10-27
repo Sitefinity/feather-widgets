@@ -8,6 +8,7 @@ using Telerik.Sitefinity.Frontend.Mvc.Infrastructure.Controllers.Attributes;
 using Telerik.Sitefinity.Model;
 using Telerik.Sitefinity.Modules.Forms.Web.UI.Fields;
 using Telerik.Sitefinity.Modules.Pages.Web.Services;
+using Telerik.Sitefinity.Mvc;
 using Telerik.Sitefinity.Web.UI.Fields.Enums;
 
 namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Controllers
@@ -18,6 +19,13 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Controllers
     [FormControlDisplayMode(FormControlDisplayMode.Write)]
     [DatabaseMapping(UserFriendlyDataType.ShortText)]
     [Localization(typeof(FieldResources))]
+    [ControllerToolboxItem(
+        Name = "MvcHiddenField",
+        Toolbox = FormsConstants.FormControlsToolboxName,
+        SectionName = FormsConstants.CommonSectionName,
+        Title = "Hidden field",
+        CssClass = "sfTextboxIcn sfMvcIcn",
+        Ordinal = 0.22f)]
     public class HiddenFieldController : FormFieldControllerBase<IHiddenFieldModel>, IHiddenFormField
     {
         public HiddenFieldController()

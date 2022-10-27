@@ -17,19 +17,19 @@
         <label class="full-width">@Html.Resource("Choices")</label>
 
         <div class="list-group list-group-endless" kendo-sortable k-options="sortableOptions" k-on-change="sortItems(kendoEvent)">
-            <div ng-repeat="item in currentItems track by $index" class="list-group-item list-group-item-multiselect" ng-class="currentItems.length > 1 ? 'list-group-item-draggable-2 list-group-item-draggable-2--noCheckbox' : ''">
+            <div ng-repeat="item in currentItems track by getTrackByValue($index)" class="list-group-item list-group-item-multiselect" ng-class="currentItems.length > 1 ? 'list-group-item-draggable-2 list-group-item-draggable-2--noCheckbox' : ''">
                 <span ng-show="currentItems.length > 1" class="handler list-group-item-drag"></span>
                 <div>
                     <section class="row">
                         <div class="col-md-8">
-                            <input ng-click="itemClicked($event)" ng-model="currentItems[$index]" ng-value="currentItems[$index]" placeholder='@Html.Resource("EnterLabel")' type="text" class="form-control-highlight" />
+                            <input ng-click="itemClicked($event)" ng-model="currentItems[$index].value" ng-value="currentItems[$index].value" placeholder='@Html.Resource("EnterLabel")' type="text" class="form-control-highlight" />
                         </div>
                         <div class="col-md-2">
-                            <em class="text-muted" ng-show="item == defaultValue">@Html.Resource("Default")</em>
-                            <a class="make-default" ng-click="setDefault(item)" ng-hide="!item || item == defaultValue || properties.Model.ValidatorDefinition.Required.PropertyValue === 'True'">@Html.Resource("MakeDefault")</a>
+                            <em class="text-muted" ng-show="item.value == defaultValue">@Html.Resource("Default")</em>
+                            <a class="make-default" ng-click="setDefault(item.value)" ng-hide="!item.value || item.value == defaultValue || properties.Model.ValidatorDefinition.Required.PropertyValue === 'True'">@Html.Resource("MakeDefault")</a>
                         </div>
                         <div class="col-md-2 text-right">
-                            <button ng-show="currentItems.length > 1" ng-click="removeItem(item, $index)" type="button" class="close" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                            <button ng-show="currentItems.length > 1" ng-click="removeItem(item.value, $index)" type="button" class="close" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                         </div>
 
                     </section>

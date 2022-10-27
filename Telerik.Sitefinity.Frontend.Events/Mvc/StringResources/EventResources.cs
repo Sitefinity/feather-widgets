@@ -980,6 +980,21 @@ namespace Telerik.Sitefinity.Frontend.Events.Mvc.StringResources
         }
 
         /// <summary>
+        /// Gets External Link Label: Work with revision history
+        /// </summary>
+        [ResourceEntry("EventsDetailViewDesignerResponseMessage",
+            Value = "An event was not selected or has been deleted. Please select another one.",
+            Description = "Detail View Designer Label: Response message",
+            LastModified = "2022/06/10")]
+        public string EventsDetailViewDesignerResponseMessage
+        {
+            get
+            {
+                return this["EventsDetailViewDesignerResponseMessage"];
+            }
+        }
+
+        /// <summary>
         /// The title of the calendar widget
         /// </summary>
         /// <value>The title of the calendar widget</value>

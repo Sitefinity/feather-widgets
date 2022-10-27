@@ -45,15 +45,31 @@
   <PropertyGroup>
     <DelaySign>true</DelaySign>
   </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug Headless|AnyCPU'">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="Microsoft.Web.Infrastructure, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.Web.Infrastructure.1.0.0.0\lib\net40\Microsoft.Web.Infrastructure.dll</HintPath>
       <Private>True</Private>
       <SpecificVersion>False</SpecificVersion>
     </Reference>
+    <Reference Include="Newtonsoft.Json, Version=13.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.13.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
     <Reference Include="Ninject, Version=3.2.0.0, Culture=neutral, PublicKeyToken=c7192dc5380945e7, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\Ninject.3.2.2.0\lib\net45-full\Ninject.dll</HintPath>
+    </Reference>
+    <Reference Include="Progress.Sitefinity.Renderer, Version=14.3.8000.269, Culture=neutral, PublicKeyToken=b28c218413bdf563, processorArchitecture=MSIL">
+      <HintPath>..\packages\Progress.Sitefinity.Renderer.14.3.8000.269\lib\netstandard2.0\Progress.Sitefinity.Renderer.dll</HintPath>
     </Reference>
     <Reference Include="RazorEngine, Version=3.0.8.0, Culture=neutral, PublicKeyToken=9ee697374c7e744a, processorArchitecture=MSIL">
       <HintPath>..\packages\Sitefinity.RazorEngine.3.0.8.0\lib\net40\RazorEngine.dll</HintPath>
@@ -61,6 +77,10 @@
       <SpecificVersion>False</SpecificVersion>
     </Reference>
     <Reference Include="System" />
+    <Reference Include="System.ComponentModel.Annotations, Version=4.2.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.ComponentModel.Annotations.5.0.0\lib\net461\System.ComponentModel.Annotations.dll</HintPath>
+    </Reference>
+    <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.configuration" />
     <Reference Include="System.Core" />
     <Reference Include="System.Net" />
@@ -107,18 +127,27 @@
       <Link>Properties\SharedAssemblyInfo.cs</Link>
     </Compile>
     <Compile Include="InterfaceMappings.cs" />
+    <Compile Include="Mvc\Controllers\FacetsController.cs" />
     <Compile Include="Mvc\Controllers\SearchBoxController.cs" />
     <Compile Include="Mvc\Controllers\SearchResultsController.cs" />
+    <Compile Include="Mvc\Models\FacetableFieldSettings.cs" />
+    <Compile Include="Mvc\Models\FacetsWidgetViewModel.cs" />
+    <Compile Include="Mvc\Models\FacetElementViewModel.cs" />
+    <Compile Include="Mvc\Models\FacetWidgetFieldModel.cs" />
     <Compile Include="Mvc\Models\ISearchBoxModel.cs" />
     <Compile Include="Mvc\Models\ISearchResultsModel.cs" />
     <Compile Include="Mvc\Models\ListDisplayMode.cs" />
     <Compile Include="Mvc\Models\OrderByOptions.cs" />
     <Compile Include="Mvc\Models\ResultModel.cs" />
     <Compile Include="Mvc\Models\SearchBoxModel.cs" />
+    <Compile Include="Mvc\Models\SearchFacetsViewModel.cs" />
     <Compile Include="Mvc\Models\SearchResultsModel.cs" />
     <Compile Include="Mvc\Models\SearchScoringModel.cs" />
     <Compile Include="Mvc\StringResources\SearchWidgetsResources.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Services\FilterModel.cs" />
+    <Compile Include="Services\FilterParameter.cs" />
+    <Compile Include="Services\SearchFacetsQueryStringProcessor.cs" />
     <Compile Include="WordsMode.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -129,11 +158,12 @@
     <EmbeddedResource Include="Mvc\Views\SearchResults\DesignerView.Simple.cshtml" />
     <EmbeddedResource Include="Mvc\Views\SearchResults\DesignerView.Simple.json" />
     <EmbeddedResource Include="Mvc\Views\SearchResults\InputValidationError.cshtml" />
-    <None Include="..\..\snk\PublicKey.snk">
-      <Link>PublicKey.snk</Link>
-    </None>
     <EmbeddedResource Include="Mvc\Scripts\SearchBox\Search-box.min.js.map" />
     <EmbeddedResource Include="Mvc\Scripts\SearchResults\Search-results.min.js.map" />
+    <EmbeddedResource Include="Mvc\Views\Facets\Facets.cshtml" />
+    <None Include="app.config" />
+    <None Include="Mvc\Scripts\Facets\facets-widget.min.js.map" />
+    <None Include="Mvc\Scripts\Facets\query-string-utils.min.js.map" />
     <None Include="packages.config">
       <SubType>Designer</SubType>
     </None>
@@ -159,50 +189,55 @@
   </ItemGroup>
   <ItemGroup>
     <Reference Include="Telerik.Sitefinity.ContentModules">
-      <HintPath>..\packages\Telerik.Sitefinity.Content.14.2.7900\lib\net48\Telerik.Sitefinity.ContentModules.dll</HintPath>
+      <HintPath>..\packages\Telerik.Sitefinity.Content.14.3.8000\lib\net48\Telerik.Sitefinity.ContentModules.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Telerik.Sitefinity.Model">
-      <HintPath>..\packages\Telerik.Sitefinity.Core.14.2.7900\lib\net48\Telerik.Sitefinity.Model.dll</HintPath>
+      <HintPath>..\packages\Telerik.Sitefinity.Core.14.3.8000\lib\net48\Telerik.Sitefinity.Model.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Telerik.Sitefinity.Personalization">
-      <HintPath>..\packages\Telerik.Sitefinity.Core.14.2.7900\lib\net48\Telerik.Sitefinity.Personalization.dll</HintPath>
+      <HintPath>..\packages\Telerik.Sitefinity.Core.14.3.8000\lib\net48\Telerik.Sitefinity.Personalization.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Telerik.Sitefinity.Search.Impl">
-      <HintPath>..\packages\Telerik.Sitefinity.ServicesImpl.14.2.7900\lib\net48\Telerik.Sitefinity.Search.Impl.dll</HintPath>
+      <HintPath>..\packages\Telerik.Sitefinity.ServicesImpl.14.3.8000\lib\net48\Telerik.Sitefinity.Search.Impl.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Telerik.Sitefinity.Search">
-      <HintPath>..\packages\Telerik.Sitefinity.Core.14.2.7900\lib\net48\Telerik.Sitefinity.Search.dll</HintPath>
+      <HintPath>..\packages\Telerik.Sitefinity.Core.14.3.8000\lib\net48\Telerik.Sitefinity.Search.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Telerik.Sitefinity">
-      <HintPath>..\packages\Telerik.Sitefinity.Core.14.2.7900\lib\net48\Telerik.Sitefinity.dll</HintPath>
+      <HintPath>..\packages\Telerik.Sitefinity.Core.14.3.8000\lib\net48\Telerik.Sitefinity.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Telerik.Sitefinity.Utilities">
-      <HintPath>..\packages\Telerik.Sitefinity.Core.14.2.7900\lib\net48\Telerik.Sitefinity.Utilities.dll</HintPath>
+      <HintPath>..\packages\Telerik.Sitefinity.Core.14.3.8000\lib\net48\Telerik.Sitefinity.Utilities.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Telerik.Sitefinity.Frontend">
-      <HintPath>..\packages\Telerik.Sitefinity.Feather.Core.14.2.7900\lib\net48\Telerik.Sitefinity.Frontend.dll</HintPath>
+      <HintPath>..\packages\Telerik.Sitefinity.Feather.Core.14.3.8000\lib\net48\Telerik.Sitefinity.Frontend.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Telerik.Sitefinity.Mvc">
-      <HintPath>..\packages\Telerik.Sitefinity.Mvc.14.2.7900\lib\net48\Telerik.Sitefinity.Mvc.dll</HintPath>
+      <HintPath>..\packages\Telerik.Sitefinity.Mvc.14.3.8000\lib\net48\Telerik.Sitefinity.Mvc.dll</HintPath>
       <Private>True</Private>
     </Reference>
   </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Mvc\Scripts\Facets\facets-widget.js" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Mvc\Scripts\Facets\query-string-utils.js" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Mvc\Scripts\Facets\facets-widget.min.js" />
+    <Content Include="Mvc\Scripts\Facets\query-string-utils.min.js" />
+  </ItemGroup>
   <Import Project="..\Build\FeatherPrecompilation.targets" />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
-  <Import Project="$(SolutionDir)\.nuget\NuGet.targets" Condition="Exists('$(SolutionDir)\.nuget\NuGet.targets')" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
-    <PropertyGroup>
-      <ErrorText>This project references NuGet package(s) that are missing on this computer. Enable NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
-    </PropertyGroup>
-    <Error Condition="!Exists('$(SolutionDir)\.nuget\NuGet.targets')" Text="$([System.String]::Format('$(ErrorText)', '$(SolutionDir)\.nuget\NuGet.targets'))" />
     <Error Condition="!Exists('..\packages\RazorGenerator.MsBuild.2.4.1\build\RazorGenerator.MsBuild.targets')" Text="$([System.String]::Format('..\packages\RazorGenerator.MsBuild.2.4.1\build\RazorGenerator.MsBuild.targets'))" />
   </Target>
   <Import Project="..\packages\RazorGenerator.MsBuild.2.4.1\build\RazorGenerator.MsBuild.targets" Condition="Exists('..\packages\RazorGenerator.MsBuild.2.4.1\build\RazorGenerator.MsBuild.targets')" />
@@ -213,4 +248,5 @@
   <Target Name="BeforeBuild">
   </Target>
   -->
+  <Import Project="..\..\Builds\Dependencies\Dependencies.targets" Condition="Exists('..\..\Builds\Dependencies\Dependencies.targets')" />
 </Project>

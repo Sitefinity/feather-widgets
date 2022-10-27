@@ -4,13 +4,14 @@
     simpleViewModule.controller('SimpleCtrl', ['$scope', 'propertyService', '$q', function ($scope, propertyService, $q) {
         $scope.feedback.showLoadingIndicator = true;
         $scope.currentItems = [];
+        $scope.lastUniqueIndex = 0;
         $scope.defaultValue = null;
 
         propertyService.get()
             .then(function (data) {
                 if (data && data.Items) {
                     $scope.properties = propertyService.toHierarchyArray(data.Items);
-                    $scope.currentItems = JSON.parse($scope.properties.Model.SerializedChoices.PropertyValue);
+                    $scope.currentItems = JSON.parse($scope.properties.Model.SerializedChoices.PropertyValue).map(function (item) { return { key: $scope.lastUniqueIndex++, value: item }; });
                     $scope.defaultValue = $scope.properties.Model.MetaField.DefaultValue.PropertyValue;
                 }
             })
@@ -24,8 +25,8 @@
                 $scope.feedback.savingHandlers.push(function () {
                     var deferred = $q.defer();
 
-                    if ($scope.currentItems.indexOf('') === -1) {
-                        $scope.properties.Model.SerializedChoices.PropertyValue = JSON.stringify($scope.currentItems);
+                    if (!arrayContainsEmptyValue($scope.currentItems)) {
+                        $scope.properties.Model.SerializedChoices.PropertyValue = JSON.stringify($scope.currentItems.map(function (e) { return e.value; }));
                         $scope.properties.Model.MetaField.DefaultValue.PropertyValue = $scope.defaultValue;
                         deferred.resolve();
                     }
@@ -48,6 +49,10 @@
             $scope.changeRequired();
         };
 
+        $scope.getTrackByValue = function (index) {
+            return $scope.currentItems[index].key;
+        };
+
         $scope.itemClicked = function (ev) {
             ev.target.focus();
         };
@@ -65,12 +70,13 @@
         };
 
         $scope.addItem = function () {
-            $scope.currentItems.push('');
+            $scope.lastUniqueIndex += 1;
+            $scope.currentItems.push({key: $scope.lastUniqueIndex, value: null});
         };
 
         $scope.changeRequired = function () {
             if ($scope.properties.Model.ValidatorDefinition.Required.PropertyValue === 'True' && $scope.currentItems.length) {
-                $scope.setDefault($scope.currentItems[0]);
+                $scope.setDefault($scope.currentItems[0].value);
             }
         };
         
@@ -87,5 +93,15 @@
             axis: "y",
             autoScroll: true
         };
+
+        function arrayContainsEmptyValue(choices) {
+            for (var i = 0; i < choices.length; i++) {
+                if (choices[i].value === null || choices[i].value === '') {
+                    return true;
+                }
+            }
+
+            return false;
+        }
     }]);
 })();

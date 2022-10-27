@@ -12,6 +12,7 @@ using Telerik.Sitefinity.Localization;
 using Telerik.Sitefinity.Model;
 using Telerik.Sitefinity.Modules.Forms.Web.UI.Fields;
 using Telerik.Sitefinity.Modules.Pages.Web.Services;
+using Telerik.Sitefinity.Mvc;
 using Telerik.Sitefinity.Web.UI.Fields.Enums;
 
 namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Controllers
@@ -21,6 +22,13 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Controllers
     /// </summary>
     [DatabaseMapping(UserFriendlyDataType.ShortText)]
     [Localization(typeof(FieldResources))]
+    [ControllerToolboxItem(
+        Name = "MvcTextField", 
+        Toolbox = FormsConstants.FormControlsToolboxName,
+        SectionName = FormsConstants.CommonSectionName,
+        Title = "Textbox", 
+        CssClass = "sfTextboxIcn sfMvcIcn",
+        Ordinal = 0.1f)]
     public class TextFieldController : FormFieldControllerBase<ITextFieldModel>, ISupportRules, ITextField
     {
         public TextFieldController()

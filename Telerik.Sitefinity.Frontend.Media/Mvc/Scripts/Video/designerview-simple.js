@@ -9,6 +9,10 @@
             $scope.videoModel = {};
 
             $scope.$watch('properties.Id.PropertyValue', function (newVal, oldVal) {
+                // If controller returns Empty guid - no image is selected
+                if ($scope.properties && newVal === serviceHelper.emptyGuid()) {
+                    $scope.properties.Id.PropertyValue = undefined;
+                }
                 // Cancel is selected with no document selected - close the designer
                 if (newVal === null) {
                     $scope.$parent.cancel();

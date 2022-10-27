@@ -12,6 +12,7 @@ using Telerik.Sitefinity.Model;
 using Telerik.Sitefinity.Modules.Forms;
 using Telerik.Sitefinity.Modules.Forms.Web.UI.Fields;
 using Telerik.Sitefinity.Modules.Pages.Web.Services;
+using Telerik.Sitefinity.Mvc;
 
 namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Controllers
 {
@@ -21,6 +22,13 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Controllers
     [FormControlDisplayMode(FormControlDisplayMode.Write)]
     [DatabaseMapping(UserFriendlyDataType.FileUpload)]
     [Localization(typeof(FieldResources))]
+    [ControllerToolboxItem(
+        Name = "MvcFileField",
+        Toolbox = FormsConstants.FormControlsToolboxName,
+        SectionName = FormsConstants.CommonSectionName,
+        Title = "File upload",
+        CssClass = "sfFileUploadIcn sfMvcIcn",
+        Ordinal = 0.2f)]
     public class FileFieldController : FormFieldControllerBase<IFileFieldModel>, IRequireLibrary, ISupportRules, IFileFormField
     {
         /// <summary>

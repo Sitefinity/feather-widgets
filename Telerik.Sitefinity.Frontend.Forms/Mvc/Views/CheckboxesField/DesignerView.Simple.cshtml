@@ -16,16 +16,16 @@
         <strong>@Html.Resource("Choices")</strong>
 
         <div class="list-group list-group-endless" kendo-sortable k-options="sortableOptions" k-on-change="sortItems(kendoEvent)">
-            <div ng-repeat="item in currentItems track by $index" class="list-group-item list-group-item-multiselect list-group-item-draggable-2">
+            <div ng-repeat="item in currentItems track by getTrackByValue($index)" class="list-group-item list-group-item-multiselect list-group-item-draggable-2">
                 <span ng-show="currentItems.length > 1" class="handler list-group-item-drag"></span>
-                <input type="checkbox" name="default" ng-disabled="!item" ng-click="setDefault(item)" ng-checked='(item && defaultValue && defaultValue.indexOf(currentItems[$index]) > -1)' tabindex="-1" />
+                <input type="checkbox" name="default" ng-disabled="!item.value" ng-click="setDefault(item.value)" ng-checked='(item.value && defaultValue && defaultValue.indexOf(currentItems[$index].value) > -1)' tabindex="-1" />
                 <div>
                     <section class="row">
                         <div class="col-md-11">
-                            <input ng-click="itemClicked($event)" ng-model="currentItems[$index]" ng-value="currentItems[$index]" placeholder='@Html.Resource("EnterLabel")' type="text" class="form-control-highlight" />
+                            <input ng-click="itemClicked($event)" ng-model="currentItems[$index].value" ng-value="currentItems[$index].value" placeholder='@Html.Resource("EnterLabel")' type="text" class="form-control-highlight" />
                         </div>
                         <div class="col-md-1 text-right">
-                            <button ng-show="currentItems.length > 1" ng-click="removeItem(item, $index)" type="button" class="close" aria-label="Close" tabindex="-1"><span aria-hidden="true">&times;</span></button>
+                            <button ng-show="currentItems.length > 1" ng-click="removeItem(item.value, $index)" type="button" class="close" aria-label="Close" tabindex="-1"><span aria-hidden="true">&times;</span></button>
                         </div>
                     </section>
                 </div>

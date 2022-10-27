@@ -636,6 +636,21 @@ namespace Telerik.Sitefinity.Frontend.Blogs.Mvc.StringResources
             }
         }
 
+        /// <summary>
+        /// Gets External Link Label: Work with revision history
+        /// </summary>
+        [ResourceEntry("BlogPostDetailViewDesignerResponseMessage",
+            Value = "A blog post was not selected or has been deleted. Please select another one.",
+            Description = "Detail View Designer Label: Response message",
+            LastModified = "2022/06/10")]
+        public string BlogPostDetailViewDesignerResponseMessage
+        {
+            get
+            {
+                return this["BlogPostDetailViewDesignerResponseMessage"];
+            }
+        }
+
         #endregion
     }
 }

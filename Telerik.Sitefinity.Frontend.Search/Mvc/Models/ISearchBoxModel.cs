@@ -72,5 +72,10 @@ namespace Telerik.Sitefinity.Frontend.Search.Mvc.Models
         /// Gets or sets the background hint text.
         /// </summary>
         string BackgroundHint { get; set; }
+
+        /// <summary>
+        /// Gets or sets a value indicating wether results are shown for all indexed sites, only for the current site, or if the value is null - the configuration is made globally in advanced settings
+        /// </summary>
+        bool? SearchInAllSitesInTheIndex { get; set; }
     }
 }

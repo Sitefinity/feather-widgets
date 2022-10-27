@@ -85,6 +85,18 @@
             true
         );
 
+        $scope.$watch(
+            'properties.SelectionMode.PropertyValue',
+            function (newSelectionModeValue, oldSelectionModeValue) {
+                if (newSelectionModeValue !== oldSelectionModeValue) {
+                    if ($scope.properties.ContentViewDisplayMode.PropertyValue.toLowerCase() === "Detail".toLowerCase() && newSelectionModeValue !== "SelectedItems") {
+                        $scope.properties.ContentViewDisplayMode.PropertyValue = "Automatic";
+                    }
+                }
+            },
+            true
+        );
+
         $scope.updateSortOption = function (newSortOption) {
             if ($scope.properties && newSortOption !== "Custom") {
                 $scope.properties.SortExpression.PropertyValue = newSortOption;
@@ -144,16 +156,15 @@
                         if ($scope.properties.SortExpression.PropertyValue === "AsSetManually") {
                             $scope.properties.SortExpression.PropertyValue = "PublicationDate DESC";
                         }
+
+                        if ($scope.properties.ContentViewDisplayMode.PropertyValue.toLowerCase() === "Detail".toLowerCase()) {
+                            $scope.properties.SelectionMode.PropertyValue = "SelectedItems";
+                        }
                     }
 
                     if ($scope.properties.SelectionMode.PropertyValue !== "FilteredItems") {
                         $scope.properties.SerializedAdditionalFilters.PropertyValue = null;
                     }
-                     
-                    if ($scope.properties.ContentViewDisplayMode.PropertyValue === 'Detail' && 
-                    		($scope.properties.SelectionMode.PropertyValue !== 'SelectedItems' || $scope.blogPostSelector.selectedItemsIds.length !== 1)) {
-                        $scope.properties.ContentViewDisplayMode.PropertyValue = 'Automatic';
-                    } 
                 });
             })
             .finally(function () {

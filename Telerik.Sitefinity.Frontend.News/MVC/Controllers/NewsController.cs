@@ -9,8 +9,11 @@ using Telerik.Sitefinity.Frontend.Mvc.Infrastructure;
 using Telerik.Sitefinity.Frontend.Mvc.Infrastructure.Controllers;
 using Telerik.Sitefinity.Frontend.Mvc.Infrastructure.Controllers.Attributes;
 using Telerik.Sitefinity.Frontend.Mvc.Infrastructure.Routing;
+using Telerik.Sitefinity.Frontend.Mvc.Models;
 using Telerik.Sitefinity.Frontend.News.Mvc.Models;
 using Telerik.Sitefinity.Frontend.News.Mvc.StringResources;
+using Telerik.Sitefinity.Localization;
+using Telerik.Sitefinity.Modules.News;
 using Telerik.Sitefinity.Modules.Pages;
 using Telerik.Sitefinity.Modules.Pages.Configuration;
 using Telerik.Sitefinity.Mvc;
@@ -182,7 +185,14 @@ namespace Telerik.Sitefinity.Frontend.News.Mvc.Controllers
             var viewModel = this.Model.CreateListViewModel(taxonFilter, this.ExtractValidPage(page));
 
             if (this.ShouldReturnDetails(this.Model.ContentViewDisplayMode, viewModel))
-                return this.Details((NewsItem)viewModel.Items.First().DataItem);
+            {
+                var itemViewModel = viewModel.Items.FirstOrDefault();
+
+                if (itemViewModel == null)
+                    return this.HandleInvalidDetailsAction(Res.Get<NewsResources>().NewsDetailViewDesignerResponseMessage);
+
+                return this.Details((NewsItem)itemViewModel.DataItem);
+            }
 
             this.AddCacheDependencies(this.Model.GetKeysOfDependentObjects(viewModel));
             if (viewModel.ContentType != null)
@@ -239,7 +249,7 @@ namespace Telerik.Sitefinity.Frontend.News.Mvc.Controllers
             var page = this.HttpContext.CurrentHandler.GetPageHandler();
 
             this.AddCanonicalUrlTagIfEnabled(page, newsItem);
-
+                      
             return this.View(fullTemplateName, viewModel);
         }
 

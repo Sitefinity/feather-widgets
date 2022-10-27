@@ -16,6 +16,7 @@ using Telerik.Sitefinity.Modules.Forms;
 using Telerik.Sitefinity.Modules.Forms.Web.UI.Fields;
 using Telerik.Sitefinity.Modules.Pages.Web.Services;
 using Telerik.Sitefinity.Modules.Pages.Web.Services.Model;
+using Telerik.Sitefinity.Mvc;
 using Telerik.Sitefinity.Pages.Model;
 using Telerik.Sitefinity.Services;
 using Telerik.Sitefinity.Utilities.TypeConverters;
@@ -28,6 +29,13 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Controllers
     /// This class represents the controller of the MVC forms Navigation field.
     /// </summary>
     [Localization(typeof(FieldResources))]
+    [ControllerToolboxItem(
+        Name = "MvcNavigationField",
+        Toolbox = FormsConstants.FormControlsToolboxName,
+        SectionName = FormsConstants.CommonSectionName,
+        Title = "Form navigation",
+        CssClass = "sfFormNavIcn sfMvcIcn",
+        Ordinal = 0.12f)]
     public class NavigationFieldController : FormElementControllerBase<INavigationFieldModel>,
                                              IZoneEditorReloader, IFormNavigation
     {
