@@ -7,6 +7,7 @@ using Telerik.Sitefinity.Frontend.Mvc.Infrastructure.Controllers;
 using Telerik.Sitefinity.Frontend.Mvc.Infrastructure.Controllers.Attributes;
 using Telerik.Sitefinity.Modules.Forms.Web.UI.Fields;
 using Telerik.Sitefinity.Modules.Pages.Web.Services;
+using Telerik.Sitefinity.Mvc;
 using Telerik.Sitefinity.Web.UI;
 
 namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Controllers
@@ -17,6 +18,12 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Controllers
     [FormControlDisplayMode(FormControlDisplayMode.Write)]
     [Localization(typeof(FieldResources))]
     [IndexRenderMode(IndexRenderModes.NoOutput)]
+    [ControllerToolboxItem(
+        Name = "MvcSubmitButton",
+        Toolbox = FormsConstants.FormControlsToolboxName,
+        SectionName = FormsConstants.CommonSectionName,
+        Title = "Submit button",
+        CssClass = "sfSubmitBtnIcn sfMvcIcn")]
     public class SubmitButtonController : FormElementControllerBase<ISubmitButtonModel>, ISubmitFormField
     {
         public SubmitButtonController()

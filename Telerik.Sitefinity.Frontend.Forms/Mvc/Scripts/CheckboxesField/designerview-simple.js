@@ -4,6 +4,7 @@
     simpleViewModule.controller('SimpleCtrl', ['$scope', 'propertyService', '$q', function ($scope, propertyService, $q) {
         $scope.feedback.showLoadingIndicator = true;
         $scope.currentItems = [];
+        $scope.lastUniqueIndex = 0;
         $scope.defaultValue = null;
 
         $scope.$watch('properties.Model.ValidatorDefinition.Required.PropertyValue', function (newValue, oldValue) {
@@ -16,7 +17,7 @@
             .then(function (data) {
                 if (data && data.Items) {
                     $scope.properties = propertyService.toHierarchyArray(data.Items);
-                    $scope.currentItems = JSON.parse($scope.properties.Model.SerializedChoices.PropertyValue);
+                    $scope.currentItems = JSON.parse($scope.properties.Model.SerializedChoices.PropertyValue).map(function (item) { return { key: $scope.lastUniqueIndex++, value: item }; });
                     $scope.defaultValue = $scope.properties.Model.MetaField.DefaultValue.PropertyValue;
                 }
             })
@@ -30,11 +31,15 @@
                 $scope.feedback.savingHandlers.push(function () {
                     var deferred = $q.defer();
 
-                    while ($scope.currentItems.indexOf('') > -1 && $scope.currentItems.length > 1) {
-                        $scope.currentItems.splice($scope.currentItems.indexOf(''), 1);
+                    while (arrayContainsEmptyValue($scope.currentItems) && $scope.currentItems.length > 1) {
+                        var indexOfEmptyValue = getIndexOfEmptyValueInArray($scope.currentItems);
+
+                        if (indexOfEmptyValue !== null) {
+                            $scope.currentItems.splice(indexOfEmptyValue, 1);
+                        }
                     }
-                    if ($scope.currentItems.indexOf('') === -1) {
-                        $scope.properties.Model.SerializedChoices.PropertyValue = JSON.stringify($scope.currentItems);
+                    if (!arrayContainsEmptyValue($scope.currentItems)) {
+                        $scope.properties.Model.SerializedChoices.PropertyValue = JSON.stringify($scope.currentItems.map(function (e) { return e.value; }));
                         $scope.properties.Model.MetaField.DefaultValue.PropertyValue = $scope.defaultValue;
                         deferred.resolve();
                     }
@@ -53,6 +58,10 @@
             var element = $scope.currentItems[e.oldIndex];
             $scope.currentItems.splice(e.oldIndex, 1);
             $scope.currentItems.splice(e.newIndex, 0, element);
+        };
+
+        $scope.getTrackByValue = function (index) {
+            return $scope.currentItems[index].key;
         };
 
         $scope.itemClicked = function (ev) {
@@ -75,7 +84,8 @@
         };
 
         $scope.addItem = function () {
-            $scope.currentItems.push('');
+            $scope.lastUniqueIndex += 1;
+            $scope.currentItems.push({ key: $scope.lastUniqueIndex, value: null });
         };
 
         $scope.sortableOptions = {
@@ -91,5 +101,25 @@
             axis: "y",
             autoScroll: true
         };
+
+        function arrayContainsEmptyValue(choices) {
+            for (var i = 0; i < choices.length; i++) {
+                if (choices[i].value === null || choices[i].value === '') {
+                    return true;
+                }
+            }
+
+            return false;
+        }
+
+        function getIndexOfEmptyValueInArray(choices) {
+            for (var i = 0; i < choices.length; i++) {
+                if (choices[i].value === null || choices[i].value === '') {
+                    return i;
+                }
+            }
+
+            return null;
+        }
     }]);
 })();

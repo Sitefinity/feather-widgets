@@ -16,6 +16,7 @@
                 searchTextBoxSelector: searchBoxIdField.val(),
                 searchButtonSelector: searchBoxIdField.siblings('[data-sf-role="searchButtonId"]').first().val(),
                 scoringSettingsSelector: searchBoxIdField.siblings('[data-sf-role="scoringSettings"]').first().val(),
+                resultsForAllSites: searchBoxIdField.siblings('[data-sf-role="searchInAllSitesInTheIndex"]').first().val(),
             };
             featherSearchBoxWidget(controlServerData);
         }
@@ -93,6 +94,10 @@
                         request.Text = searchText;
                         request.Language = serverData.language;
                         request.SiteId = serverData.siteId;
+                        if (serverData.resultsForAllSites) {
+                            request.ResultsForAllSites = serverData.resultsForAllSites;
+                        }
+
                         if (serverData.scoringSettingsSelector) {
 
                             request.ScoringInfo = serverData.scoringSettingsSelector;
@@ -147,6 +152,10 @@
 
                 if (serverData.scoringSettingsSelector) {
                     url = url + "&scoringInfo=" + serverData.scoringSettingsSelector;
+                }
+
+                if (serverData.resultsForAllSites) {
+                    url = url + "&resultsForAllSites=" + serverData.resultsForAllSites;
                 }
 
                 return url;

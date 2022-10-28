@@ -2,15 +2,19 @@
 using System.ComponentModel;
 using System.Linq;
 using System.Web.Mvc;
+using Telerik.Sitefinity.Abstractions;
 using Telerik.Sitefinity.Blogs.Model;
 using Telerik.Sitefinity.Frontend.Blogs.Mvc.Models.Blog;
 using Telerik.Sitefinity.Frontend.Blogs.Mvc.StringResources;
 using Telerik.Sitefinity.Frontend.Mvc.Helpers;
 using Telerik.Sitefinity.Frontend.Mvc.Infrastructure.Controllers;
 using Telerik.Sitefinity.Frontend.Mvc.Infrastructure.Controllers.Attributes;
+using Telerik.Sitefinity.Frontend.Mvc.Models;
+using Telerik.Sitefinity.Localization;
 using Telerik.Sitefinity.Modules.Pages.Configuration;
 using Telerik.Sitefinity.Mvc;
 using Telerik.Sitefinity.Personalization;
+using Telerik.Sitefinity.Security.Sanitizers;
 using Telerik.Sitefinity.Services;
 
 namespace Telerik.Sitefinity.Frontend.Blogs.Mvc.Controllers
@@ -124,7 +128,15 @@ namespace Telerik.Sitefinity.Frontend.Blogs.Mvc.Controllers
             var fullTemplateName = this.listTemplateNamePrefix + this.ListTemplateName;
 
             if (this.ShouldReturnDetails(this.Model.ContentViewDisplayMode, viewModel))
-                return this.Details((Blog)viewModel.Items.First().DataItem);
+            {
+                var itemViewModel = viewModel.Items.FirstOrDefault();
+
+                if (itemViewModel == null)
+                    return this.HandleInvalidDetailsAction(Res.Get<BlogListResources>().BlogListDetailViewDesignerResponseMessage);
+
+                return this.Details((Blog)itemViewModel.DataItem);
+            }
+
 
             if (SystemManager.CurrentHttpContext != null)
             {
@@ -144,7 +156,7 @@ namespace Telerik.Sitefinity.Frontend.Blogs.Mvc.Controllers
         /// The <see cref="ActionResult"/>.
         /// </returns>
         public ActionResult Details(Blog item)
-        {
+        { 
             var fullTemplateName = this.detailTemplateNamePrefix + this.DetailTemplateName;
 
             if (item != null)
@@ -182,7 +194,12 @@ namespace Telerik.Sitefinity.Frontend.Blogs.Mvc.Controllers
         private void InitializeListViewBag(string redirectPageUrl)
         {
             this.ViewBag.CurrentPageUrl = SystemManager.CurrentHttpContext != null ? this.GetCurrentPageUrl() : string.Empty;
-            this.ViewBag.RedirectPageUrlTemplate = this.ViewBag.CurrentPageUrl + redirectPageUrl;
+ 
+            var redirectPageUrlTemplate = this.ViewBag.CurrentPageUrl + redirectPageUrl;
+            var sanitizer = ObjectFactory.Resolve<IHtmlSanitizer>();
+            redirectPageUrlTemplate = sanitizer.SanitizeUrl(redirectPageUrlTemplate);
+
+            this.ViewBag.RedirectPageUrlTemplate = redirectPageUrlTemplate;
             this.ViewBag.ItemsPerPage = this.Model.ItemsPerPage;
             this.ViewBag.DetailPageMode = this.DetailPageMode;
             this.ViewBag.DetailsPageId = this.DetailsPageId;

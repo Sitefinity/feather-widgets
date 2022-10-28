@@ -42,6 +42,18 @@
             true
         );
 
+        $scope.$watch(
+            'properties.SelectionMode.PropertyValue',
+            function (newSelectionModeValue, oldSelectionModeValue) {
+                if (newSelectionModeValue !== oldSelectionModeValue) {
+                    if ($scope.properties.ContentViewDisplayMode.PropertyValue.toLowerCase() === "Detail".toLowerCase() && newSelectionModeValue !== "SelectedItems") {
+                        $scope.properties.ContentViewDisplayMode.PropertyValue = "Automatic";
+                    }
+                }
+            },
+            true
+        );
+
         propertyService.get()
             .then(function (data) {
                 if (data && data.Items) {
@@ -85,6 +97,10 @@
                         if ($scope.properties.SortExpression.PropertyValue === "AsSetManually") {
                             $scope.properties.SortExpression.PropertyValue = "PublicationDate DESC";
                         }
+
+                        if ($scope.properties.ContentViewDisplayMode.PropertyValue.toLowerCase() === "Detail".toLowerCase()) {
+                            $scope.properties.SelectionMode.PropertyValue = "SelectedItems";
+                        }
                     }
 
                     // Set MaxPostsAge to 1 if not used
@@ -95,12 +111,7 @@
                     // Set MinPostsCount to 0 if not used
                     if ($scope.properties.SelectionMode.PropertyValue !== 'FilteredItems' || $scope.properties.FilteredSelectionMode.PropertyValue === 'MaxPostsAge') {
                         $scope.properties.MinPostsCount.PropertyValue = 0;
-                    }
-                     
-                    if ($scope.properties.ContentViewDisplayMode.PropertyValue === 'Detail' && 
-                    		($scope.properties.SelectionMode.PropertyValue !== 'SelectedItems' || $scope.blogSelector.selectedItemsIds.length !== 1)) {
-                        $scope.properties.ContentViewDisplayMode.PropertyValue = 'Automatic';
-                    }  
+                    } 
                 });
             })
             .finally(function () {

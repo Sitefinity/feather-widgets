@@ -170,7 +170,15 @@ namespace Telerik.Sitefinity.Frontend.DynamicContent.Mvc.Controllers
                 var fullTemplateName = this.listTemplateNamePrefix + this.ListTemplateName;
 
                 if (this.ShouldReturnDetails(this.Model.ContentViewDisplayMode, viewModel))
-                    return this.Details((Telerik.Sitefinity.DynamicModules.Model.DynamicContent)viewModel.Items.First().DataItem);
+                {
+                    var itemViewModel = viewModel.Items.FirstOrDefault();
+
+                    if (itemViewModel == null)
+                        return this.HandleInvalidDetailsAction(Res.Get<DynamicContentResources>().DynamicContentDetailViewDesignerResponseMessage);
+
+                    return this.Details((Telerik.Sitefinity.DynamicModules.Model.DynamicContent)itemViewModel.DataItem);
+
+                }
 
                 this.AddCacheDependencies(this.Model.GetKeysOfDependentObjects(viewModel));
                 if (viewModel.ContentType != null)
@@ -322,7 +330,7 @@ namespace Telerik.Sitefinity.Frontend.DynamicContent.Mvc.Controllers
         /// <summary>
         /// Renders appropriate list view depending on the <see cref="DetailTemplateName"/>
         /// </summary>
-        /// <param name="item">The item which details will be displayed.</param>
+        /// <param name="item">The item view model.</param>
         /// <returns>
         /// The <see cref="ActionResult"/>.
         /// </returns>

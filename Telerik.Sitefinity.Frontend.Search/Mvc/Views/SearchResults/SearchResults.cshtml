@@ -7,8 +7,9 @@
 @using Telerik.Sitefinity.Libraries.Model;
 @using Telerik.Sitefinity.Services;
 @using Telerik.Sitefinity.Web
+@using System.Collections.Generic;
 
-<div class="@Model.CssClass">
+<div class="@Model.CssClass" id="sf-search-result-container">
 
     @if (@Model.Results.TotalCount > 0)
     {
@@ -31,13 +32,13 @@
         {
             <label>
                 @Html.Resource("SortBy")
-            <select class="userSortDropdown" title="@Html.Resource("SortDropdown")">
-                <option value="@OrderByOptions.Relevance" @(Model.OrderBy == OrderByOptions.Relevance ? "selected=selected" : "")>@Html.Resource("Relevance")</option>
-                <option value="@OrderByOptions.Newest" @(Model.OrderBy == OrderByOptions.Newest ? "selected=selected" : "")>@Html.Resource("NewestFirst")</option>
-                <option value="@OrderByOptions.Oldest" @(Model.OrderBy == OrderByOptions.Oldest ? "selected=selected" : "")>@Html.Resource("OldestFirst")</option>
-            </select>
-        </label>
-    }
+                <select class="userSortDropdown" title="@Html.Resource("SortDropdown")">
+                    <option value="@OrderByOptions.Relevance" @(Model.OrderBy == OrderByOptions.Relevance ? "selected=selected" : "")>@Html.Resource("Relevance")</option>
+                    <option value="@OrderByOptions.Newest" @(Model.OrderBy == OrderByOptions.Newest ? "selected=selected" : "")>@Html.Resource("NewestFirst")</option>
+                    <option value="@OrderByOptions.Oldest" @(Model.OrderBy == OrderByOptions.Oldest ? "selected=selected" : "")>@Html.Resource("OldestFirst")</option>
+                </select>
+            </label>
+        }
     </div>
 
     @if (Model.Languages.Length > 1)
@@ -154,7 +155,12 @@
     <input type="hidden" data-sf-role="searchResIndexCatalogue" value='@Request.QueryStringGet("indexCatalogue")' />
     <input type="hidden" data-sf-role="searchResQuery" value='@Request.QueryStringGet("searchQuery")' />
     <input type="hidden" data-sf-role="scoringInfo" value='@Request.QueryStringGet("scoringInfo")' />
+    <input type="hidden" data-sf-role="resultsForAllSites" value='@Request.QueryStringGet("resultsForAllSites")' />
 
+</div>
+
+<div id="sf-search-results-loading-indicator" style="display:none">
+    loading...
 </div>
 
 @Html.Script(Url.WidgetContent("Mvc/Scripts/SearchResults/Search-results.js"), "bottom", throwException: false)

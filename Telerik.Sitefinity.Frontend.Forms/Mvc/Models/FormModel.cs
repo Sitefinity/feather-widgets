@@ -69,7 +69,7 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Models
         public CustomConfirmationMode CustomConfirmationMode { get; set; }
 
         /// <inheritDoc/>
-        public string CustomConfirmationMessage
+        public virtual string CustomConfirmationMessage
         {
             get
             {

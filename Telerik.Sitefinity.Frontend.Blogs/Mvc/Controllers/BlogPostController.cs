@@ -13,6 +13,8 @@ using Telerik.Sitefinity.Frontend.Mvc.Infrastructure;
 using Telerik.Sitefinity.Frontend.Mvc.Infrastructure.Controllers;
 using Telerik.Sitefinity.Frontend.Mvc.Infrastructure.Controllers.Attributes;
 using Telerik.Sitefinity.Frontend.Mvc.Infrastructure.Routing;
+using Telerik.Sitefinity.Frontend.Mvc.Models;
+using Telerik.Sitefinity.Localization;
 using Telerik.Sitefinity.Modules.Blogs;
 using Telerik.Sitefinity.Modules.Pages;
 using Telerik.Sitefinity.Modules.Pages.Configuration;
@@ -170,7 +172,14 @@ namespace Telerik.Sitefinity.Frontend.Blogs.Mvc.Controllers
                 var fullTemplateName = this.listTemplateNamePrefix + this.ListTemplateName;
 
                 if (this.ShouldReturnDetails(this.Model.ContentViewDisplayMode, viewModel))
-                    return this.Details((BlogPost)viewModel.Items.First().DataItem);
+                {
+                    var itemViewModel = viewModel.Items.FirstOrDefault();
+
+                    if (itemViewModel == null)
+                        return this.HandleInvalidDetailsAction(Res.Get<BlogPostResources>().BlogPostDetailViewDesignerResponseMessage);
+
+                    return this.Details((BlogPost)itemViewModel.DataItem);
+                }
 
                 this.AddCacheDependencies(this.Model.GetKeysOfDependentObjects(viewModel));
                 if (viewModel.ContentType != null)

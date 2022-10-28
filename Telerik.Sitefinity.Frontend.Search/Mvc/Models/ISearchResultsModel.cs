@@ -130,7 +130,6 @@ namespace Telerik.Sitefinity.Frontend.Search.Mvc.Models
         /// <value>The languages.</value>
         CultureInfo[] Languages { get; set; }
 
-        /// <summary>
         /// Performs search by given query and populates the results collection.
         /// </summary>
         /// <param name="searchQuery">The search query.</param>
@@ -138,8 +137,10 @@ namespace Telerik.Sitefinity.Frontend.Search.Mvc.Models
         /// <param name="skip">The skip.</param>
         /// <param name="language">The language of the displayed results.</param>
         /// <param name="orderBy">The order by.</param>
+        /// <param name="filter">The filter by.</param>
         /// <param name="searchScoring">The search scoring settings.</param>
-        void PopulateResults(string searchQuery, string indexCatalogue, int? skip,  string language, string orderBy, SearchScoring searchScoring);
+        /// <param name="resultsForAllSites">Indicates wether results are shown for all indexed sites or only for the current site if the search index is created for all sites.</param>
+        void PopulateResults(string searchQuery, string indexCatalogue, int? skip, string language, string orderBy, string filter, SearchScoring searchScoring, bool? resultsForAllSites);
 
         /// <summary>
         /// Performs search by given query and populates the results collection.

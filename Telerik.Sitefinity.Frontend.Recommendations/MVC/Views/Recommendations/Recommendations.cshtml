@@ -1,0 +1,18 @@
+﻿@using Telerik.Sitefinity.Frontend.Mvc.Helpers;
+@using Telerik.Sitefinity.Modules.Pages
+@using System.Web.Mvc;
+
+<div id="recommendations-wrapper-@ViewBag.UniqueId" class="@ViewBag.CssClass" hidden>
+    <h4>@ViewBag.Header</h4>
+    <div class="content-recommendations"></div>
+</div>
+
+<div class="recommendations-metadata">
+    <input class="unique-id" type="hidden" value="@ViewBag.UniqueId" />
+    <input class="base-url" type="hidden" value="@ViewBag.BaseUrl" />
+    <input class="conversion-id" type="hidden" value="@ViewBag.ConversionId" />
+    <input class="max-number-of-items" type="hidden" value="@ViewBag.MaxNumberOfItems" />
+    <input class="site-id" type="hidden" value="@ViewBag.SiteId" />
+</div>
+
+@Html.Script(Url.WidgetContent("Mvc/Scripts/Recommendations/recommendations.js"))

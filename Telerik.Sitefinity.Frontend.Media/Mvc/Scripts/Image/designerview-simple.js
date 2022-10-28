@@ -26,7 +26,8 @@
                 if ($scope.properties && newVal && newVal.item && newVal.item.Id) {
                     // update the title and the alt text only when the widget is new and no image is loaded 
                     // or when replacing the exisitng image
-                    if (($scope.properties.Id.PropertyId === serviceHelper.emptyGuid()) ||
+                    if (($scope.properties.Id.PropertyValue === serviceHelper.emptyGuid()) ||
+                        ($scope.properties.Id.PropertyValue !== newVal.item.Id) ||
                         (oldVal.item.Id && oldVal.item.Id !== newVal.item.Id)) {
                         if (newVal.item.Title && newVal.item.Title.Value) {
                             $scope.properties.Title.PropertyValue = newVal.item.Title.Value;
@@ -36,6 +37,9 @@
                             $scope.properties.AlternativeText.PropertyValue = newVal.item.AlternativeText.Value;
                         }
                     }
+
+                    $scope.properties.Title.PropertyValue = $scope.properties.Title.PropertyValue || newVal.item.Title.Value;
+                    $scope.properties.AlternativeText.PropertyValue = $scope.properties.AlternativeText.PropertyValue || newVal.item.AlternativeText.Value;
 
                     $scope.properties.ThumbnailName.PropertyValue = newVal.thumbnail ? newVal.thumbnail.name : null;
                     $scope.properties.ThumbnailUrl.PropertyValue = newVal.thumbnail ? newVal.thumbnail.url : null;
@@ -100,8 +104,9 @@
                 if (data && data.Items) {
                     $scope.properties = propertyService.toAssociativeArray(data.Items);
 
-                    if ($scope.properties.Id.PropertyValue !== serviceHelper.emptyGuid()) {
-                        mediaService.images.getById($scope.properties.Id.PropertyValue, $scope.properties.ProviderName.PropertyValue).then(function (data) {
+                    var propertyValue = $scope.properties.Id.PropertyValue;
+                    if (propertyValue && propertyValue !== serviceHelper.emptyGuid()) {
+                        mediaService.images.getById(propertyValue, $scope.properties.ProviderName.PropertyValue).then(function (data) {
                             if (!data || !data.Item || !data.Item.Visible) {
                                 $scope.properties.Id.PropertyValue = serviceHelper.emptyGuid();
                             }

@@ -13,6 +13,7 @@ using Telerik.Sitefinity.Localization;
 using Telerik.Sitefinity.Model;
 using Telerik.Sitefinity.Modules.Forms.Web.UI.Fields;
 using Telerik.Sitefinity.Modules.Pages.Web.Services;
+using Telerik.Sitefinity.Mvc;
 using Telerik.Sitefinity.Utilities;
 using Telerik.Sitefinity.Web.UI.Fields.Enums;
 
@@ -23,6 +24,13 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Controllers
     /// </summary>
     [DatabaseMapping(UserFriendlyDataType.ShortText)]
     [Localization(typeof(FieldResources))]
+    [ControllerToolboxItem(
+        Name = "MvcSectionHeaderField",
+        Toolbox = FormsConstants.FormControlsToolboxName,
+        SectionName = FormsConstants.CommonSectionName,
+        Title = "Section header",
+        CssClass = "sfSectionHeaderIcn sfMvcIcn",
+        Ordinal = 0.18f)]
     public class SectionHeaderController : FormElementControllerBase<ISectionHeaderModel>, ISupportRules, ISectionHeaderFormField
     {
         /// <summary>
