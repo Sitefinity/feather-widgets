@@ -1,4 +1,5 @@
-﻿using System.Web.Mvc;
+﻿using System.Collections.Generic;
+using System.Web.Mvc;
 
 namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Models
 {
@@ -83,5 +84,10 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Models
         /// Gets or sets Marketo settings
         /// </summary>
         public string MarketoSettings { get; set; }
+
+        /// <summary>
+        /// Gets or sets html attributes
+        /// </summary>
+        public IDictionary<string, object> HtmlAttributes { get; set; }
     }
 }

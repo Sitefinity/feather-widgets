@@ -25,11 +25,11 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Controllers
     [Localization(typeof(LoginStatusResources))]
     [IndexRenderMode(IndexRenderModes.NoOutput)]
     [ControllerToolboxItem(
-        Name = LoginStatusController.WidgetName, 
+        Name = LoginStatusController.WidgetName,
         Title = nameof(LoginStatusResources.LoginStatusWidgetTitle),
         Description = nameof(LoginStatusResources.LoginStatusWidgetDescription),
         ResourceClassId = nameof(LoginStatusResources),
-        SectionName = "Login", 
+        SectionName = "Login",
         CssClass = LoginStatusController.WidgetIconCssClass)]
     public class LoginStatusController : Controller
     {
@@ -95,7 +95,7 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Controllers
         public ActionResult Index(bool stsLogin = false)
         {
             if (stsLogin)
-            {   
+            {
                 var authProp = new AuthenticationProperties() { RedirectUri = this.GetCurrentPageUrl() };
                 SystemManager.CurrentHttpContext.Request.GetOwinContext().Authentication.Challenge(authProp);
                 return new EmptyResult();
@@ -127,34 +127,24 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Controllers
                 logoutUrl = "~/";
             }
 
-            if (Config.Get<SecurityConfig>().AuthenticationMode == SecConfig.AuthenticationMode.Claims)
-            {
-                var owinContext = SystemManager.CurrentHttpContext.Request.GetOwinContext();
-                var authenticationTypes = ClaimsManager.CurrentAuthenticationModule.GetSignOutAuthenticationTypes();                
+            var owinContext = SystemManager.CurrentHttpContext.Request.GetOwinContext();
+            var authenticationTypes = ClaimsManager.CurrentAuthenticationModule.GetSignOutAuthenticationTypes();
 
-                if(ClaimsManager.CurrentAuthenticationModule.AuthenticationProtocol == "Default")
+            var externalProviderName = owinContext.Authentication.User.FindFirst(c => c.Type == SitefinityClaimTypes.ExternalProviderName);
+            if (externalProviderName != null)
+            {
+                var identityProvider = externalProviderName.Value;
+                if (!string.IsNullOrEmpty(identityProvider))
                 {
-                    var externalProviderName = owinContext.Authentication.User.FindFirst(c => c.Type == SitefinityClaimTypes.ExternalProviderName);
-                    if(externalProviderName != null)
-                    {
-                        var identityProvider = externalProviderName.Value;
-                        if (!string.IsNullOrEmpty(identityProvider))
-                        {
-                            authenticationTypes.Add(identityProvider);
-                        }
-                    }
+                    authenticationTypes.Add(identityProvider);
                 }
+            }
 
-                owinContext.Authentication.SignOut(new AuthenticationProperties
-                {
-                    RedirectUri = logoutUrl
-                }, 
-                authenticationTypes.ToArray());            
-            }
-            else
+            owinContext.Authentication.SignOut(new AuthenticationProperties
             {
-                SecurityManager.Logout();
-            }
+                RedirectUri = logoutUrl
+            },
+            authenticationTypes.ToArray());
 
             return this.Redirect(logoutUrl);
         }
@@ -166,7 +156,7 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Controllers
         public JsonResult Status()
         {
             var response = this.Model.GetStatusViewModel();
-            
+
             return this.Json(response, JsonRequestBehavior.AllowGet);
         }
 
@@ -189,7 +179,7 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Controllers
         /// </returns>
         private ILoginStatusModel InitializeModel()
         {
-            var parameters = new Dictionary<string, object>() 
+            var parameters = new Dictionary<string, object>()
             {
                 { "currentPageUrl", this.GetCurrentPageUrl() }
             };

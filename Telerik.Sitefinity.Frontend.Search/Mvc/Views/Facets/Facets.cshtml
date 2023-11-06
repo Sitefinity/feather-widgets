@@ -21,45 +21,106 @@
         </div>
     }
 
-    <div id="facetContent">
-        @foreach (var facet in Model.SearchFacets)
+<div id="facetContent">
+    @foreach (var facet in Model.SearchFacets)
+    {
+        var value = 0;
+        if (facet.FacetElements.Any() || facet.ShowNumberCustomRange || facet.ShowDateCustomRanges)
         {
-            var value = 0;
-            if (facet.FacetElements.Any())
-            {
-                <h4>@facet.FacetTitle</h4>
-                <ul id="facets-group-list-@facet.FacetFieldName">
-                    @foreach (var facetElement in facet.FacetElements)
-                    {
-                        string facetElementLabel = facetElement.FacetValue;
-                        if (facetElement.FacetFieldType == SearchIndexAdditonalFieldType.DateAndTime)
-                        {
-                            DateTime facetDateValue = DateTime.Parse(facetElementLabel);
-                            facetElementLabel = facetDateValue.ToSitefinityUITime().ToString("MMM dd, yyyy");
-                        }
+            <h4>@facet.FacetTitle</h4>
+            <ul id="facets-group-list-@facet.FacetFieldName" data-facet-type="@facet.FacetFieldType">
+                @foreach (var facetElement in facet.FacetElements)
+                {
+                    value++;
+                    bool hideElement = (value > defaultFacetsCollapseCount) && Model.IsShowMoreLessButtonActive;
+                    <li @(hideElement ? "hidden" : string.Empty)>
+                        <input type="checkbox"
+                               id="facet-checkbox-@facet.FacetFieldName-@facetElement.FacetValue"
+                               data-facet-key="@facet.FacetFieldName"
+                               data-facet-value="@facetElement.FacetValue" />
 
-                        value++;
-                        bool hideElement = (value > defaultFacetsCollapseCount) && Model.IsShowMoreLessButtonActive;
-                        <li @(hideElement ? "hidden" : string.Empty)>
-                            <input type="checkbox"
-                                   id="facet-checkbox-@facet.FacetFieldName-@facetElement.FacetValue"
-                                   data-facet-key="@facet.FacetFieldName"
-                                   data-facet-value="@facetElement.FacetValue" />
-                            <label for="facet-checkbox-@facet.FacetFieldName-@facetElement.FacetValue" id="facet-@facetElement.FacetValue">@facetElement.FacetValue</label>
-                            @if (Model.DisplayItemCount)
-                            {
-                                <span>(@facetElement.FacetCount)</span>
-                            }
-                        </li>
-                    }
-                    @if (facet.FacetElements.Count > defaultFacetsCollapseCount && Model.IsShowMoreLessButtonActive)
+                        <label for="facet-checkbox-@facet.FacetFieldName-@facetElement.FacetValue" id="facet-@facetElement.FacetValue">@facetElement.FacetLabel</label>
+
+                        @if (Model.DisplayItemCount)
+                        {
+                            <span>(@facetElement.FacetCount)</span>
+                        }
+                    </li>
+                }
+            </ul>
+            if (facet.FacetElements.Count > defaultFacetsCollapseCount && Model.IsShowMoreLessButtonActive)
+            {
+                <button type="button" show-more="@Model.ShowMoreLabel" show-less="@Model.ShowLessLabel" data-facet-type="@facet.FacetFieldName" id="show-more-less-@facet.FacetFieldName">@Model.ShowMoreLabel</button>
+            }
+            if (facet.ShowNumberCustomRange)
+            {
+                <div class="">
+                    @if (facet.FacetFieldType == "NumberWhole")
                     {
-                        <button type="button" show-more="@Model.ShowMoreLabel" show-less="@Model.ShowLessLabel" data-facet-type="@facet.FacetFieldName" id="show-more-less-@facet.FacetFieldName">@Model.ShowMoreLabel</button>
+                        <input type="number"
+                               id="from-@facet.FacetFieldName"
+                               data-custom-range="true"
+                               placeholder="Min"
+                               onkeypress="return event.charCode >= 48 && event.charCode <= 57" />
                     }
-                </ul>
+                    else
+                    {
+                        <input type="number"
+                               id="from-@facet.FacetFieldName"
+                               data-custom-range="true"
+                               placeholder="Min" />
+                    }
+                    @if (facet.FacetFieldType == "NumberWhole")
+                    {
+                        <input type="number"
+                               id="to-@facet.FacetFieldName"
+                               data-custom-range="true"
+                               placeholder="Max"
+                               onkeypress="return event.charCode >= 48 && event.charCode <= 57" />
+                    }
+                    else
+                    {
+                        <input type="number"
+                               id="to-@facet.FacetFieldName"
+                               data-custom-range="true"
+                               placeholder="Max" />
+                    }
+
+                    <button type="button"
+                            id="custom-range-btn-@facet.FacetFieldName"
+                            data-custom-range-name="@facet.FacetFieldName"
+                            data-custom-range-type="@facet.FacetFieldType">
+                        >
+                    </button>
+                </div>
+            }
+
+            if (facet.ShowDateCustomRanges)
+            {
+                <div class="">
+                    <input type="date"
+                           id="from-@facet.FacetFieldName"
+                           class=""
+                           data-custom-range="true" />
+
+                    <input type="date"
+                           id="to-@facet.FacetFieldName"
+                           class=""
+                           data-custom-range="true" />
+
+                    <button type="button"
+                            id="custom-range-btn-@facet.FacetFieldName"
+                            class=""
+                            data-custom-range-name="@facet.FacetFieldName"
+                            data-custom-range-type="@facet.FacetFieldType">
+                        >
+                    </button>
+
+                </div>
             }
         }
-    </div>
+    }
+</div>
 </div>
 
 <input type="hidden" id="sf-currentPageUrl" value="@(ViewBag.CurrentPageUrl ?? string.Empty)" />

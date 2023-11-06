@@ -947,7 +947,7 @@
                                     $(page).addClass(futureCssClass);
                                     $(pastIndicatorPast).hide();
                                     $(pastIndicatorIncomplete).show();
-                                }                                
+                                }
                             } else {
                                 $(page).addClass(activeCssClass);
                                 $(pastIndicatorPast).hide();
@@ -956,7 +956,7 @@
                                 // Because pageIndex starts from 0 we increase it by 1 so it is simple to read
                                 var currentPage = ++pageIndex;
                                 modifySrOnlyData(currentPage, pages.length, pageTitle);
-                            }                            
+                            }
                         });
                     }
 
@@ -1012,7 +1012,7 @@
             formElement.on("form-page-changed", function (e, index, previousIndex) {
                 formStepIndex = index;
             });
-            
+
             formElement.on("form-page-skip", function (e, skipToPageList) {
                 skipToPageCollection = skipToPageList;
             });
@@ -1348,7 +1348,9 @@
                                 }
                             }
 
-                            ev.target.submit();
+                            if (ev.target.checkValidity()) {
+                                ev.target.submit();
+                            }
                         }).always(function () {
                             button.prop('disabled', false);
                         });

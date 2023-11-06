@@ -1,4 +1,5 @@
-﻿using System.ComponentModel;
+﻿using System;
+using System.ComponentModel;
 using Telerik.Sitefinity.Frontend.Forms.Mvc.Models.Fields;
 using Telerik.Sitefinity.Metadata.Model;
 using Telerik.Sitefinity.Modules.Forms.Web.UI.Fields;
@@ -31,31 +32,11 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Controllers.Base
             }
         }
 
-        /// <summary>
-        /// Gets or sets the form field name.
-        /// </summary>
-        /// <value></value>
-        public virtual string FieldName
-        {
-            get
-            {
-                return this.fieldName;
-            }
-
-            set
-            {
-                this.fieldName = value;
-            }
-        }
-
-
         /// <inheritDocs />
         protected override System.Web.Mvc.ViewResult View(object value, string templateName)
         {
             var viewModel = this.Model.GetViewModel(value, this.MetaField);
             return this.View(templateName, viewModel);
         }
-
-        private string fieldName;
     }
 }

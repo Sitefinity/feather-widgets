@@ -36,6 +36,15 @@ namespace Telerik.Sitefinity.Frontend.News.Mvc.Controllers
         SectionName = ToolboxesConfig.ContentToolboxSectionName,
         ModuleName = "News",
         CssClass = NewsController.WidgetIconCssClass)]
+    [ControllerToolboxItem(
+        Name = NewsController.WidgetName,
+        Title = nameof(NewsWidgetResources.NewsViewTitle),
+        Description = nameof(NewsWidgetResources.NewsViewDescription),
+        ResourceClassId = nameof(NewsWidgetResources),
+        SectionName = ToolboxesConfig.CommonSectionName,
+        Toolbox = ToolboxesConfig.NewslettersControlsToolboxName,
+        ModuleName = "News",
+        CssClass = NewsController.WidgetIconCssClass)]
     [Localization(typeof(NewsWidgetResources))]
     public class NewsController : ContentBaseController, IContentLocatableView, IPersonalizable
     {

@@ -20,7 +20,7 @@ namespace Telerik.Sitefinity.Frontend.Navigation.Mvc.Models
     /// <summary>
     ///     This class represents model used for Navigation widget.
     /// </summary>
-    public class NavigationModel : NavigationModelBase<NodeViewModel>, IHasCacheDependency, INavigationModel
+    public class NavigationModel : NavigationModelBase<NodeViewModel>, INavigationModel
     {
         #region Constructors and Destructors
 

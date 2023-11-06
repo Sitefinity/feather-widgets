@@ -28,7 +28,7 @@
         }
         else
         {
-            using (Html.BeginFormSitefinity("", null, (System.Web.Routing.RouteValueDictionary)null, FormMethod.Post, new Dictionary<string, object> { { "enctype", "multipart/form-data" }, { "role", "form" } }, true))
+            using (Html.BeginFormSitefinity("", null, (System.Web.Routing.RouteValueDictionary)null, FormMethod.Post, Model.HtmlAttributes, true))
             {
                 @* Fields Markup *@
                 @Html.AddSitefinityAntiforgeryToken()

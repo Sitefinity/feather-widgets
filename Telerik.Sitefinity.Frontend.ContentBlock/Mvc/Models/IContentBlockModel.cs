@@ -1,7 +1,9 @@
 using System;
+using System.Collections.Generic;
 using System.ComponentModel;
 using Telerik.Sitefinity.Data;
 using Telerik.Sitefinity.Modules.GenericContent;
+using Telerik.Sitefinity.Modules.Newsletters.Composition;
 
 namespace Telerik.Sitefinity.Frontend.ContentBlock.Mvc.Models
 {

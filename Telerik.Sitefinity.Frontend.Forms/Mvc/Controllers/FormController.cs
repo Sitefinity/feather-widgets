@@ -1,6 +1,8 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.Web.Mvc;
+using Telerik.Sitefinity.ContentLocations;
 using Telerik.Sitefinity.Frontend.Forms.Mvc.Models;
 using Telerik.Sitefinity.Frontend.Forms.Mvc.StringResources;
 using Telerik.Sitefinity.Frontend.Mvc.Helpers;
@@ -29,8 +31,11 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Controllers
         CssClass = FormController.WidgetIconCssClass)]
     [Localization(typeof(FormResources))]
     [RequiresEmbeddedWebResource("Telerik.Sitefinity.Resources.Themes.LayoutsBasics.css", "Telerik.Sitefinity.Resources.Reference")]
-    public class FormController : Controller, ICustomWidgetVisualizationExtended
+    public class FormController : Controller, ICustomWidgetVisualizationExtended, IContentLocatableView
     {
+        /// <inheritdoc />
+        public bool? DisableCanonicalUrlMetaTag { get; set; }
+
         /// <summary>
         /// Gets the Form widget model.
         /// </summary>
@@ -183,6 +188,13 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Controllers
             }
         }
 
+        /// <inheritdoc />
+        [NonAction]
+        public virtual IEnumerable<IContentLocationInfo> GetLocations()
+        {
+            return this.Model.GetLocations();
+        }
+
         #region ICustomWidgetVisualization
 
         /// <inheritDocs />
@@ -253,8 +265,28 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Controllers
             {
                 currentPackage = "default";
             }
+            var viewPath = FormsVirtualRazorResolver.Path + currentPackage;
 
-            var viewPath = FormsVirtualRazorResolver.Path + currentPackage + "/" + formId.ToString("D") + ".cshtml";
+            int counterFormViewContextItem = 1;
+            var context = SystemManager.CurrentHttpContext;
+            if (context != null)
+            {
+                var contextFormsCounter = context.Items[FormsCounter];
+                if (contextFormsCounter == null)
+                {
+                    context.Items.Add(FormsCounter, counterFormViewContextItem);
+                }
+                else
+                {
+                    int.TryParse(contextFormsCounter.ToString(), out counterFormViewContextItem);
+                    context.Items[FormsCounter] = ++counterFormViewContextItem;
+                }
+            }
+
+            if (context != null && counterFormViewContextItem > 1)
+                viewPath = viewPath + "/" + counterFormViewContextItem + "/" + formId.ToString("D") + ".cshtml";
+            else
+                viewPath = viewPath + "/" + formId.ToString("D") + ".cshtml";
 
             return viewPath;
         }
@@ -272,6 +304,7 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Controllers
         private const string WidgetId = "WidgetId";
         private const string ControlDataId = "controlDataId";
         private const string VersionPreview = "versionpreview";
+        internal const string FormsCounter = "sf-include-form-view-counter";
 
         #endregion
     }

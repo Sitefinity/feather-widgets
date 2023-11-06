@@ -235,11 +235,11 @@ namespace Telerik.Sitefinity.Frontend.ContentBlock.Mvc.Models
             return this.SharedContentID != Guid.Empty;
         }
 
-        #endregion
+    #endregion
 
-        #region Fields
+    #region Fields
 
-        private ContentManager contentManager;
+    private ContentManager contentManager;
 
         #endregion
     }

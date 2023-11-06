@@ -1,7 +1,7 @@
 ﻿(function ($) {
     var EMPTY_GUID = '00000000-0000-0000-0000-000000000000';
 
-    var simpleViewModule = angular.module('simpleViewModule', ['designer', 'kendo.directives', 'sharedContentServices', 'sfFields', 'sfSelectors', 'ngSanitize']);
+    var simpleViewModule = angular.module('simpleViewModule', ['designer', 'kendo.directives', 'sharedContentServices', 'sfFields', 'sfSelectors', 'ngSanitize', 'serverDataModule']);
     angular.module('designer').requires.push('simpleViewModule');
 
     simpleViewModule.factory('contentBlockService', ['dialogFeedbackService', 'sharedContentService', function (dialogFeedbackService, sharedContentService) {
@@ -40,8 +40,8 @@
     }]);
 
     //basic controller for the simple designer view
-    simpleViewModule.controller('SimpleCtrl', ['$scope', 'propertyService', 'sharedContentService', 'contentBlockService',
-        function ($scope, propertyService, sharedContentService, contentBlockService) {
+    simpleViewModule.controller('SimpleCtrl', ['$scope', 'propertyService', 'sharedContentService', 'contentBlockService', 'serverData',
+        function ($scope, propertyService, sharedContentService, contentBlockService, serverData) {
             var contentItem;
 
             // ------------------------------------------------------------------------
@@ -52,6 +52,12 @@
                 if (data && data.Items) {
                     $scope.properties = propertyService.toAssociativeArray(data.Items);
                     $scope.isShared = $scope.properties.SharedContentID.PropertyValue != EMPTY_GUID;
+
+                    var mergeTags = serverData.get("mergeTags");
+                    if (mergeTags) {
+                        $scope.mergeTags = JSON.parse(mergeTags);
+                        $scope.selectedMergeTag = $scope.mergeTags[0];
+                    }
 
                     kendo.bind();
 
@@ -68,6 +74,21 @@
             $scope.feedback.showLoadingIndicator = true;
 
             $scope.isShared = false;
+
+            $scope.insertMergeTag = function () {
+                if ($scope.editor) {
+                    var range = $scope.editor.getRange();
+                    $scope.editor.exec("insertHtml", { html: $scope.selectedMergeTag.ComposedTag, split: true, range: range });
+                }
+            };
+
+            $scope.$on('kendoWidgetCreated', function (event, widget) {
+                if (widget.wrapper && widget.wrapper.is('.k-editor')) {
+                    $scope.editor = widget;
+
+                    $("[ng-click=\"openVideoSelector()\"]").parent().hide();
+                }
+            });
 
             propertyService.get()
                 .then(onGetPropertiesSuccess)

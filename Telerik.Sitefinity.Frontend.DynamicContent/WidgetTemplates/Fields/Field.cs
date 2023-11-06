@@ -34,6 +34,11 @@ namespace Telerik.Sitefinity.Frontend.DynamicContent.WidgetTemplates.Fields
         public virtual string GetMarkup(DynamicModuleField field)
         {
             var templatePath = this.GetTemplatePath(field);
+            if (string.IsNullOrEmpty(templatePath))
+            {
+                return string.Empty;
+            }
+
             return Field.TemplateProcessor.Run(templatePath, field);
         }
 

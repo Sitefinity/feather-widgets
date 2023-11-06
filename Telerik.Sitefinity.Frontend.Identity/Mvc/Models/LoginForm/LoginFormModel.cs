@@ -57,7 +57,7 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.LoginForm
                 {
                     var provider = UserManager.GetDefaultProviderName();
                     var availableProviders = UserManager.GetManager().GetContextProviders();
-                    if (!availableProviders.Any(x => x.Name == provider))   
+                    if (!availableProviders.Any(x => x.Name == provider))
                     {
                         provider = availableProviders.First().Name;
                     }
@@ -320,45 +320,30 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.LoginForm
         public virtual LoginFormViewModel Authenticate(LoginFormViewModel input, HttpContextBase context)
         {
             input.LoginError = false;
-             string errorRedirectUrl = GetErrorRedirectUrl(context);
-            if (Config.Get<SecurityConfig>().AuthenticationMode == SecConfig.AuthenticationMode.Claims && ClaimsManager.CurrentAuthenticationModule.AuthenticationProtocol != "Default")
-            {
-                var owinContext = context.Request.GetOwinContext();
+            string errorRedirectUrl = GetErrorRedirectUrl(context);
+            var redirectUrl = this.GetReturnURL(context);
 
-                var challengeProperties = ChallengeProperties.ForLocalUser(input.UserName, input.Password, this.MembershipProvider, input.RememberMe, errorRedirectUrl);
-                challengeProperties.RedirectUri = this.GetReturnURL(context);
-                owinContext.Authentication.Challenge(challengeProperties, ClaimsManager.CurrentAuthenticationModule.STSAuthenticationType);
+            User user;
+            UserLoggingReason result = SecurityManager.AuthenticateUser(
+                this.MembershipProvider,
+                input.UserName,
+                input.Password,
+                input.RememberMe,
+                out user);
+
+            if (result != UserLoggingReason.Success)
+            {
+                errorRedirectUrl = AddErrorParameterToQuery(errorRedirectUrl);
+                SFClaimsAuthenticationManager.ProcessRejectedUserForDefaultClaimsLogin(context, result, user, input.RememberMe, redirectUrl, errorRedirectUrl);
+
+                input.LoginError = true;
             }
             else
             {
-                var redirectUrl = this.GetReturnURL(context);
+                redirectUrl = RemoveErrorParameterFromQuery(redirectUrl);
 
-                User user;
-                UserLoggingReason result = SecurityManager.AuthenticateUser(
-                    this.MembershipProvider,
-                    input.UserName,
-                    input.Password,
-                    input.RememberMe,
-                    out user);
-
-                if (result != UserLoggingReason.Success)
-                {
-                    if (ClaimsManager.CurrentAuthenticationModule.AuthenticationProtocol == "Default")
-                    {
-                        errorRedirectUrl = AddErrorParameterToQuery(errorRedirectUrl);
-                        SFClaimsAuthenticationManager.ProcessRejectedUserForDefaultClaimsLogin(context, result, user, input.RememberMe, redirectUrl, errorRedirectUrl);
-                    }
-
-                    input.LoginError = true;
-                }
-                else
-                {
-                    if (ClaimsManager.CurrentAuthenticationModule.AuthenticationProtocol == "Default")
-                        redirectUrl = RemoveErrorParameterFromQuery(redirectUrl);
-
-                    input.RedirectUrlAfterLogin = redirectUrl;
-                    SystemManager.CurrentHttpContext.GetOwinContext().Authentication.SignIn(new AuthenticationProperties { RedirectUri = redirectUrl });
-                }
+                input.RedirectUrlAfterLogin = redirectUrl;
+                SystemManager.CurrentHttpContext.GetOwinContext().Authentication.SignIn(new AuthenticationProperties { RedirectUri = redirectUrl });
             }
 
             return input;
@@ -420,17 +405,17 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.LoginForm
         /// <summary>
         /// Authenticates external provider and make IdentityServer challenge
         /// </summary>
-        /// <param name="input">Provider name.</param>
+        /// <param name="externalProviderName">Provider name.</param>
         /// <param name="context">Current http context from controller</param>
-        public void AuthenticateExternal(string input, HttpContextBase context)
+        public void AuthenticateExternal(string externalProviderName, HttpContextBase context)
         {
             var widgetUrl = context.Request.Url.ToString();
             var owinContext = context.Request.GetOwinContext();
             var returnUrl = this.GetReturnURL(context);
-            var challengeProperties = ChallengeProperties.ForExternalUser(input, widgetUrl, returnUrl);
+            var challengeProperties = ChallengeProperties.ForExternalUser(externalProviderName, widgetUrl, returnUrl);
             challengeProperties.RedirectUri = returnUrl;
 
-            owinContext.Authentication.Challenge(challengeProperties, ClaimsManager.CurrentAuthenticationModule.STSAuthenticationType);
+            owinContext.Authentication.Challenge(challengeProperties, externalProviderName);
         }
         #endregion
 

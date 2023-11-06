@@ -25,13 +25,13 @@
                 }
             }
 
-            <img src="@Model.SelectedSizeUrl" title="@Model.Title" alt="@Html.HtmlSanitize(Model.AlternativeText)"/>
+            <img src="@Model.SelectedSizeUrl" title="@Model.Title" alt="@Model.AlternativeText"/>
         </picture>
     }
     else
     {
 
-        <img loading="lazy" class="@Model.CssClass" src="@Model.SelectedSizeUrl" title="@Model.Title" alt="@Html.HtmlSanitize(Model.AlternativeText)"
+        <img loading="lazy" class="@Model.CssClass" src="@Model.SelectedSizeUrl" title="@Model.Title" alt="@Model.AlternativeText"
              @Html.GetWidthAttributeForImage(Model)
              @Html.GetHeightAttributeForImage(Model) />
     }

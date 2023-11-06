@@ -38,6 +38,14 @@ namespace Telerik.Sitefinity.Frontend.Blogs.Mvc.Controllers
         ModuleName = "Blogs",
         ResourceClassId = nameof(BlogPostResources),
         CssClass = BlogPostController.WidgetIconCssClass)]
+    [ControllerToolboxItem(
+        Name = BlogPostController.WidgetName,
+        Title = nameof(BlogPostResources.BlogPostsViewTitle),
+        Description = nameof(BlogPostResources.BlogPostsViewDescription),
+        ResourceClassId = nameof(BlogPostResources),
+        SectionName = ToolboxesConfig.CommonSectionName,
+        Toolbox = ToolboxesConfig.NewslettersControlsToolboxName,
+        CssClass = BlogPostController.WidgetIconCssClass)]
     public class BlogPostController : ContentBaseController, IContentLocatableView, IRouteMapper, IPersonalizable, ICanFilterByParent
     {
         #region Properties

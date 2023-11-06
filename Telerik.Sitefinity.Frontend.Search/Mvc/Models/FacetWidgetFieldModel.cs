@@ -1,5 +1,7 @@
 ﻿using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
+using Progress.Sitefinity.Renderer.Designers;
+using Progress.Sitefinity.Renderer.Designers.Attributes;
 
 namespace Telerik.Sitefinity.Frontend.Search.Mvc.Models
 {
@@ -23,5 +25,33 @@ namespace Telerik.Sitefinity.Frontend.Search.Mvc.Models
         [DisplayName("Label")]
         [DefaultValue("")]
         public string FacetableFieldLabels { get; set; }
+
+        /// <summary>
+        /// Gets or sets the facet field widget settings.
+        /// </summary>
+        [DisplayName("Configuration")]
+        [DataType(KnownFieldTypes.PencilButton)]
+        [Dialog("{\"buttons\":[{\"type\":\"confirm\", \"title\":\"Save\"}, {\"type\":\"cancel\", \"title\":\"Cancel\"}], \"urlKey\":\"facetFieldSettings\"}")]
+        public FacetFieldSettings FacetFieldSettings
+        {
+            get
+            {
+                if (facetFieldSettings == null)
+                {
+                    facetFieldSettings = new FacetFieldSettings();
+
+                }
+
+                return facetFieldSettings;
+            }
+
+            set
+            {
+                facetFieldSettings = value;
+            }
+        }
+
+
+        private FacetFieldSettings facetFieldSettings;
     }
 }

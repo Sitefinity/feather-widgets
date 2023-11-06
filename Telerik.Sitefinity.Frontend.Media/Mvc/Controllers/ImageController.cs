@@ -34,6 +34,15 @@ namespace Telerik.Sitefinity.Frontend.Media.Mvc.Controllers
         SectionName = ToolboxesConfig.ContentToolboxSectionName,
         ModuleName = "Libraries",
         CssClass = ImageController.WidgetIconCssClass)]
+    [ControllerToolboxItem(
+        Name = ImageController.WidgetName,
+        Title = nameof(ImageResources.ImageControlTitle),
+        Description = nameof(ImageResources.ImageControlDescription),
+        ResourceClassId = nameof(ImageResources),
+        SectionName = ToolboxesConfig.CommonSectionName,
+        Toolbox = ToolboxesConfig.NewslettersControlsToolboxName,
+        ModuleName = "Libraries",
+        CssClass = ImageController.WidgetIconCssClass)]
     public class ImageController : Controller, ICustomWidgetVisualizationExtended, IContentLocatableView, IPersonalizable
     {
         #region Properties

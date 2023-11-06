@@ -4,8 +4,10 @@ using System.IO;
 using System.Linq;
 using System.Web.UI;
 using Telerik.Sitefinity.Forms.Model;
+using Telerik.Sitefinity.Frontend.Forms.Mvc.Controllers;
 using Telerik.Sitefinity.Modules.Forms;
 using Telerik.Sitefinity.Pages.Model;
+using Telerik.Sitefinity.Services;
 using Telerik.Sitefinity.Web.UI;
 
 namespace Telerik.Sitefinity.Frontend.Forms
@@ -48,10 +50,22 @@ namespace Telerik.Sitefinity.Frontend.Forms
         {
             List<ControlData> relevantControls = new List<ControlData>();
             List<ControlData> notRelevantControls = new List<ControlData>();
+            Dictionary<string, string> placeholders = new Dictionary<string, string>();
+            var formsContextCounter = SystemManager.CurrentHttpContext?.Items[FormController.FormsCounter];
+            if (formsContextCounter != null && (int)formsContextCounter > 1)
+            {
+                loadedControls.ToList()
+                .ForEach(ctrlData =>
+                {
+                    if (ctrlData.IsLayoutControl)
+                        ctrlData.PlaceHolders.ToList().ForEach(plh => placeholders.Add(plh, plh + "_" + formsContextCounter.ToString()));
+                });
+            }
 
             foreach (var controlData in loadedControls)
             {
-                if (controlData.PlaceHolder == placeholderId)
+                var isChanged = placeholders.Any(plh => plh.Key == controlData.PlaceHolder && placeholderId == plh.Value);
+                if (controlData.PlaceHolder == placeholderId || isChanged)
                     relevantControls.Add(controlData);
                 else
                     notRelevantControls.Add(controlData);
@@ -76,6 +90,11 @@ namespace Telerik.Sitefinity.Frontend.Forms
                     foreach (var childPlaceholder in layoutControl.Placeholders)
                     {
                         var childControls = this.BuildControls(childPlaceholder.ID, notRelevantControls, manager);
+
+                        if (formsContextCounter != null && (int)formsContextCounter > 1)
+                        {
+                            childPlaceholder.ID = string.Format(childPlaceholder.ID + "_" + formsContextCounter.ToString());
+                        }
 
                         foreach (var childControl in childControls)
                         {

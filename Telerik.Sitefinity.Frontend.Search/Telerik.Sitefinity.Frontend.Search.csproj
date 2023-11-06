@@ -12,7 +12,6 @@
     <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\</SolutionDir>
-    <RestorePackages>true</RestorePackages>
     <TargetFrameworkProfile />
     <SccProjectName>SAK</SccProjectName>
     <SccLocalPath>SAK</SccLocalPath>
@@ -116,7 +115,7 @@
       <HintPath>..\packages\Telerik.DataAccess.Core.2020.0.428.1\lib\net40\Telerik.OpenAccess.Runtime.dll</HintPath>
     </Reference>
     <Reference Include="Progress.Sitefinity.Renderer">
-      <HintPath>..\packages\Progress.Sitefinity.Renderer.14.3.8000.269\lib\netstandard2.0\Progress.Sitefinity.Renderer.dll</HintPath>
+      <HintPath>..\packages\Progress.Sitefinity.Renderer.14.4.8100.439\lib\netstandard2.0\Progress.Sitefinity.Renderer.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
@@ -127,13 +126,16 @@
     <Compile Include="Mvc\Controllers\FacetsController.cs" />
     <Compile Include="Mvc\Controllers\SearchBoxController.cs" />
     <Compile Include="Mvc\Controllers\SearchResultsController.cs" />
-    <Compile Include="Mvc\Models\FacetableFieldSettings.cs" />
     <Compile Include="Mvc\Models\FacetsWidgetViewModel.cs" />
     <Compile Include="Mvc\Models\FacetElementViewModel.cs" />
     <Compile Include="Mvc\Models\FacetWidgetFieldModel.cs" />
+    <Compile Include="Mvc\Models\FacetFieldSettings.cs" />
     <Compile Include="Mvc\Models\ISearchBoxModel.cs" />
     <Compile Include="Mvc\Models\ISearchResultsModel.cs" />
     <Compile Include="Mvc\Models\ListDisplayMode.cs" />
+    <Compile Include="Mvc\Models\DateFieldRangeSettings.cs" />
+    <Compile Include="Mvc\Models\NumberFieldDecimalRangeSetting.cs" />
+    <Compile Include="Mvc\Models\NumberFieldRangeSetting.cs" />
     <Compile Include="Mvc\Models\OrderByOptions.cs" />
     <Compile Include="Mvc\Models\ResultModel.cs" />
     <Compile Include="Mvc\Models\SearchBoxModel.cs" />
@@ -142,9 +144,9 @@
     <Compile Include="Mvc\Models\SearchScoringModel.cs" />
     <Compile Include="Mvc\StringResources\SearchWidgetsResources.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Services\FilterModel.cs" />
-    <Compile Include="Services\FilterParameter.cs" />
-    <Compile Include="Services\SearchFacetsQueryStringProcessor.cs" />
+    <Compile Include="SearchFacets\SearchFacetExtensions.cs" />
+    <Compile Include="SearchFacets\SearchFacetsViewModelBuilder.cs" />
+    <Compile Include="SearchFacets\WidgetSettingsFacetFieldMapper.cs" />
     <Compile Include="WordsMode.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -185,39 +187,39 @@
   </ItemGroup>
   <ItemGroup>
     <Reference Include="Telerik.Sitefinity.ContentModules">
-      <HintPath>..\packages\Telerik.Sitefinity.Content.14.3.8000\lib\net48\Telerik.Sitefinity.ContentModules.dll</HintPath>
+      <HintPath>..\packages\Telerik.Sitefinity.Content.14.4.8100\lib\net48\Telerik.Sitefinity.ContentModules.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Telerik.Sitefinity.Model">
-      <HintPath>..\packages\Telerik.Sitefinity.Core.14.3.8000\lib\net48\Telerik.Sitefinity.Model.dll</HintPath>
+      <HintPath>..\packages\Telerik.Sitefinity.Core.14.4.8100\lib\net48\Telerik.Sitefinity.Model.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Telerik.Sitefinity.Personalization">
-      <HintPath>..\packages\Telerik.Sitefinity.Core.14.3.8000\lib\net48\Telerik.Sitefinity.Personalization.dll</HintPath>
+      <HintPath>..\packages\Telerik.Sitefinity.Core.14.4.8100\lib\net48\Telerik.Sitefinity.Personalization.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Telerik.Sitefinity.Search.Impl">
-      <HintPath>..\packages\Telerik.Sitefinity.ServicesImpl.14.3.8000\lib\net48\Telerik.Sitefinity.Search.Impl.dll</HintPath>
+      <HintPath>..\packages\Telerik.Sitefinity.ServicesImpl.14.4.8100\lib\net48\Telerik.Sitefinity.Search.Impl.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Telerik.Sitefinity.Search">
-      <HintPath>..\packages\Telerik.Sitefinity.Core.14.3.8000\lib\net48\Telerik.Sitefinity.Search.dll</HintPath>
+      <HintPath>..\packages\Telerik.Sitefinity.Core.14.4.8100\lib\net48\Telerik.Sitefinity.Search.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Telerik.Sitefinity">
-      <HintPath>..\packages\Telerik.Sitefinity.Core.14.3.8000\lib\net48\Telerik.Sitefinity.dll</HintPath>
+      <HintPath>..\packages\Telerik.Sitefinity.Core.14.4.8100\lib\net48\Telerik.Sitefinity.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Telerik.Sitefinity.Utilities">
-      <HintPath>..\packages\Telerik.Sitefinity.Core.14.3.8000\lib\net48\Telerik.Sitefinity.Utilities.dll</HintPath>
+      <HintPath>..\packages\Telerik.Sitefinity.Core.14.4.8100\lib\net48\Telerik.Sitefinity.Utilities.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Telerik.Sitefinity.Frontend">
-      <HintPath>..\packages\Telerik.Sitefinity.Feather.Core.14.3.8000\lib\net48\Telerik.Sitefinity.Frontend.dll</HintPath>
+      <HintPath>..\packages\Telerik.Sitefinity.Feather.Core.14.4.8100\lib\net48\Telerik.Sitefinity.Frontend.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Telerik.Sitefinity.Mvc">
-      <HintPath>..\packages\Telerik.Sitefinity.Mvc.14.3.8000\lib\net48\Telerik.Sitefinity.Mvc.dll</HintPath>
+      <HintPath>..\packages\Telerik.Sitefinity.Mvc.14.4.8100\lib\net48\Telerik.Sitefinity.Mvc.dll</HintPath>
       <Private>True</Private>
     </Reference>
   </ItemGroup>
@@ -233,12 +235,10 @@
   </ItemGroup>
   <Import Project="..\Build\FeatherPrecompilation.targets" />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
-  <Import Project="$(SolutionDir)\.nuget\NuGet.targets" Condition="Exists('$(SolutionDir)\.nuget\NuGet.targets')" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>
       <ErrorText>This project references NuGet package(s) that are missing on this computer. Enable NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
     </PropertyGroup>
-    <Error Condition="!Exists('$(SolutionDir)\.nuget\NuGet.targets')" Text="$([System.String]::Format('$(ErrorText)', '$(SolutionDir)\.nuget\NuGet.targets'))" />
     <Error Condition="!Exists('..\packages\RazorGenerator.MsBuild.2.4.1\build\RazorGenerator.MsBuild.targets')" Text="$([System.String]::Format('..\packages\RazorGenerator.MsBuild.2.4.1\build\RazorGenerator.MsBuild.targets'))" />
   </Target>
   <Import Project="..\packages\RazorGenerator.MsBuild.2.4.1\build\RazorGenerator.MsBuild.targets" Condition="Exists('..\packages\RazorGenerator.MsBuild.2.4.1\build\RazorGenerator.MsBuild.targets')" />
