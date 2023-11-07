@@ -143,9 +143,6 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="..\AssemblyInfoShare\SharedAssemblyInfo.cs">
-      <Link>Properties\SharedAssemblyInfo.cs</Link>
-    </Compile>
     <Compile Include="FormRulesDecorator.cs" />
     <Compile Include="FormRazorRenderer.cs" />
     <Compile Include="FormRendererBase.cs" />

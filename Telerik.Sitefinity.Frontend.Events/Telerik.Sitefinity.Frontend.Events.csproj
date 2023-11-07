@@ -130,9 +130,6 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="..\AssemblyInfoShare\SharedAssemblyInfo.cs">
-      <Link>Properties\SharedAssemblyInfo.cs</Link>
-    </Compile>
     <Compile Include="InterfaceMappings.cs" />
     <Compile Include="Mvc\Controllers\EventController.cs" />
     <Compile Include="Mvc\Controllers\EventSchedulerController.cs" />
@@ -240,7 +237,6 @@
   </Target>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets. -->
-  <Import Project="..\StyleCop\StyleCop.targets" />
   <Target Name="AfterBuild">
   </Target>
 </Project>
