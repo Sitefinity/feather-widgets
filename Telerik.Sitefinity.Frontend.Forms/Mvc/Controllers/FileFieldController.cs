@@ -19,7 +19,6 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Controllers
     /// <summary>
     /// This class represents the controller of the MVC forms file field.
     /// </summary>
-    [FormControlDisplayMode(FormControlDisplayMode.Write)]
     [DatabaseMapping(UserFriendlyDataType.FileUpload)]
     [Localization(typeof(FieldResources))]
     [ControllerToolboxItem(

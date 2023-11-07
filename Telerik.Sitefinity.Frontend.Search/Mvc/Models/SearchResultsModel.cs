@@ -8,9 +8,9 @@ using System.Web;
 using Telerik.Sitefinity.Abstractions;
 using Telerik.Sitefinity.Configuration;
 using Telerik.Sitefinity.Frontend.Search.Mvc.StringResources;
-using Telerik.Sitefinity.Frontend.Search.Services;
 using Telerik.Sitefinity.Localization;
 using Telerik.Sitefinity.Search;
+using Telerik.Sitefinity.Search.Impl.Facets;
 using Telerik.Sitefinity.Security;
 using Telerik.Sitefinity.Services.Search;
 using Telerik.Sitefinity.Services.Search.Configuration;
@@ -222,85 +222,24 @@ namespace Telerik.Sitefinity.Frontend.Search.Mvc.Models
         /// <returns></returns>
         public IEnumerable<IDocument> Search(string query, string language, int skip, int take, string filterParameters, SearchScoring scoringSettings, bool? resultsForAllSites, out int hitCount)
         {
-            var service = Telerik.Sitefinity.Services.ServiceBus.ResolveService<ISearchService>();
-            var queryBuilder = ObjectFactory.Resolve<IQueryBuilder>();
-            var config = Config.Get<SearchConfig>();
-            var enableExactMatch = config.EnableExactMatch;
-
-            var searchQuery = queryBuilder.BuildQuery(query, this.SearchFields, language, resultsForAllSites);
-            searchQuery.IndexName = this.IndexCatalogue;
-            searchQuery.Skip = skip;
-            searchQuery.Take = take;
-            searchQuery.OrderBy = this.GetOrderList();
-            searchQuery.EnableExactMatch = enableExactMatch;
-            searchQuery.HighlightedFields = this.HighlightedFields;
-
-            var groups = this.GetFilterGroups(searchQuery);
-
-            if (!string.IsNullOrEmpty(filterParameters))
+            var searcher = ObjectFactory.Resolve<ISearchResultsBuilder>();
+            var searchParameters = new SearchBuilderParams()
             {
-                ISearchFilter facetFilter = this.searchProcessor.BuildFacetFilter(filterParameters, this.IndexCatalogue);
-                groups.Add(facetFilter);
-            }
+                IndexName = this.IndexCatalogue,
+                SearchText = query,
+                Culture = language,
+                SearchFields = this.SearchFields,
+                HighlightedFields = this.HighlightedFields,
+                Skip = skip,
+                Take = take,
+                OrderBy = this.GetOrderList(),
+                GetResultsFromAllSites = resultsForAllSites,
+                SetLinksOnlyFromCurrentSite = this.ShowLinksOnlyFromCurrentSite,
+                ScoringSettings = scoringSettings,
+                SearchFilter = filterParameters.IsNullOrEmpty() ? null : this.searchProcessor.BuildFacetFilter(filterParameters, this.IndexCatalogue)
+            };
 
-            if (groups.Any())
-            {
-                ISearchFilter filter = ObjectFactory.Resolve<ISearchFilter>();
-                filter.Operator = QueryOperator.And;
-                filter.Groups = groups;
-                searchQuery.Filter = filter;
-            }
-
-            var searchOptions = new SearchOptions(SearchType.StartsWith);
-            searchOptions.ScoringSettings = scoringSettings;
-
-            var oldSkipValue = skip;
-            var permissionFilter = config.EnableFilterByViewPermissions;
-            if (permissionFilter)
-            {
-                Func<int, int, IEnumerable<Document>> searchResults = delegate(int querySkip, int queryTake)
-                {
-                    searchQuery.Skip = querySkip;
-                    searchQuery.Take = queryTake;
-
-                    var results = service.Search(searchQuery, searchOptions);
-
-                    return results.OfType<Document>();
-                };
-
-                var loader = new FilteredDataItemsLoader<Document>(searchResults);
-
-                bool hasMoreItems = false;
-                var items = loader.ValidateDataItems<Document>(PermissionsFilter.PermissionAction.View, out hasMoreItems, take, skip, (i, j) => i);
-
-                oldSkipValue++;
-
-                // Value will always show one more, when hasMoreItems is true. It also be at least one.
-                if (hasMoreItems)
-                {
-                    hitCount = items.Count() + oldSkipValue;
-                }
-                else
-                {
-                    if (skip == 0 && take == int.MaxValue)
-                    {
-                        hitCount = items.Count();
-                    }
-                    else
-                    {
-                        hitCount = oldSkipValue;
-                    }
-                }
-
-                return items.Cast<IDocument>().SetContentLinks(this.ShowLinksOnlyFromCurrentSite);
-            }
-            else
-            {
-                IResultSet result = service.Search(searchQuery, searchOptions);
-                hitCount = result.HitCount;
-
-                return result.SetContentLinks(this.ShowLinksOnlyFromCurrentSite);
-            }
+            return searcher.Search(searchParameters, out hitCount);
         }
 
         #endregion

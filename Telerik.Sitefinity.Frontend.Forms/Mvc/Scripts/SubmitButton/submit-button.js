@@ -44,7 +44,9 @@
                                 }
                             }
 
-                            ev.target.submit();
+                            if (ev.target.checkValidity()) {
+                                ev.target.submit();
+                            }
                         }).always(function () {
                             button.prop('disabled', false);
                         });

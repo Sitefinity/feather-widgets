@@ -21,6 +21,7 @@
                     @item.GetDateTime("PublicationDate", "MMM d, yyyy, HH:mm tt")
                     @Html.Resource("By")
                     @DataResolver.Resolve(item.DataItem, "Author", null)
+
                     @Html.CommentsCount((string)navigateUrl, item.DataItem)
                 </div>
 

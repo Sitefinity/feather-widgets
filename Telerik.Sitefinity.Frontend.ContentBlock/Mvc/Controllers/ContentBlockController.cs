@@ -29,10 +29,18 @@ namespace Telerik.Sitefinity.Frontend.ContentBlock.Mvc.Controllers
     /// </summary>
     [ControllerToolboxItem(
         Name = ContentBlockController.WidgetName,
-        Title = nameof(ContentBlockResources.ContentBlockTitle), 
-        Description = nameof(ContentBlockResources.ContentBlockDescription), 
-        ResourceClassId = nameof(ContentBlockResources), 
-        SectionName = ToolboxesConfig.ContentToolboxSectionName, 
+        Title = nameof(ContentBlockResources.ContentBlockTitle),
+        Description = nameof(ContentBlockResources.ContentBlockDescription),
+        ResourceClassId = nameof(ContentBlockResources),
+        SectionName = ToolboxesConfig.ContentToolboxSectionName,
+        CssClass = ContentBlockController.WidgetIconCssClass)]
+    [ControllerToolboxItem(
+        Name = ContentBlockController.WidgetName,
+        Title = nameof(ContentBlockResources.ContentBlockTitle),
+        Description = nameof(ContentBlockResources.ContentBlockNewslettersDescription),
+        ResourceClassId = nameof(ContentBlockResources),
+        SectionName = ToolboxesConfig.CommonSectionName,
+        Toolbox = ToolboxesConfig.NewslettersControlsToolboxName,
         CssClass = ContentBlockController.WidgetIconCssClass)]
     [ControllerToolboxItem(
         Name = "MvcInstructionalTextField",
@@ -381,47 +389,51 @@ namespace Telerik.Sitefinity.Frontend.ContentBlock.Mvc.Controllers
                     });
             }
 
-            var notShareableActionLink =
-                packageManager.EnhanceUrl(
-                    RouteHelper.ResolveUrl(string.Format(CultureInfo.InvariantCulture, DesignerTemplate, "NotShareable"), UrlResolveOptions.Rooted));
-
-            if (this.SharedContentID == Guid.Empty)
+            if (!NewslettersHelper.IsNewsletter())
             {
-                var shareActionLink =
+                var notShareableActionLink =
                     packageManager.EnhanceUrl(
-                        RouteHelper.ResolveUrl(string.Format(CultureInfo.InvariantCulture, DesignerTemplate, "Share"), UrlResolveOptions.Rooted));
-                commandsList.Add(
-                    new WidgetMenuItem
-                    {
-                        Text = Res.Get<ContentBlockResources>().Share,
-                        ActionUrl = this.IsWidgetShareable() ? shareActionLink : notShareableActionLink,
-                        NeedsModal = true
-                    });
-            }
-            else
-            {
-                var unshareActionLink =
-                    packageManager.EnhanceUrl(
-                        RouteHelper.ResolveUrl(string.Format(CultureInfo.InvariantCulture, DesignerTemplate, "Unshare"), UrlResolveOptions.Rooted));
-                commandsList.Add(
-                    new WidgetMenuItem
-                    {
-                        Text = Res.Get<ContentBlockResources>().Unshare,
-                        ActionUrl = this.IsWidgetShareable() ? unshareActionLink : notShareableActionLink,
-                        NeedsModal = true
-                    });
-            }
+                        RouteHelper.ResolveUrl(string.Format(CultureInfo.InvariantCulture, DesignerTemplate, "NotShareable"), UrlResolveOptions.Rooted));
 
-            var useSharedActionLink =
-                packageManager.EnhanceUrl(
-                    RouteHelper.ResolveUrl(string.Format(CultureInfo.InvariantCulture, DesignerTemplate, "UseShared"), UrlResolveOptions.Rooted));
-            commandsList.Add(
-                new WidgetMenuItem
+                if (this.SharedContentID == Guid.Empty)
                 {
-                    Text = Res.Get<ContentBlockResources>().UseShared,
-                    ActionUrl = this.IsWidgetShareable() ? useSharedActionLink : notShareableActionLink,
-                    NeedsModal = true
-                });
+                    var shareActionLink =
+                        packageManager.EnhanceUrl(
+                            RouteHelper.ResolveUrl(string.Format(CultureInfo.InvariantCulture, DesignerTemplate, "Share"), UrlResolveOptions.Rooted));
+                    commandsList.Add(
+                        new WidgetMenuItem
+                        {
+                            Text = Res.Get<ContentBlockResources>().Share,
+                            ActionUrl = this.IsWidgetShareable() ? shareActionLink : notShareableActionLink,
+                            NeedsModal = true
+                        });
+                }
+                else
+                {
+                    var unshareActionLink =
+                        packageManager.EnhanceUrl(
+                            RouteHelper.ResolveUrl(string.Format(CultureInfo.InvariantCulture, DesignerTemplate, "Unshare"), UrlResolveOptions.Rooted));
+                    commandsList.Add(
+                        new WidgetMenuItem
+                        {
+                            Text = Res.Get<ContentBlockResources>().Unshare,
+                            ActionUrl = this.IsWidgetShareable() ? unshareActionLink : notShareableActionLink,
+                            NeedsModal = true
+                        });
+                }
+
+                var useSharedActionLink =
+                    packageManager.EnhanceUrl(
+                        RouteHelper.ResolveUrl(string.Format(CultureInfo.InvariantCulture, DesignerTemplate, "UseShared"), UrlResolveOptions.Rooted));
+                commandsList.Add(
+                    new WidgetMenuItem
+                    {
+                        Text = Res.Get<ContentBlockResources>().UseShared,
+                        ActionUrl = this.IsWidgetShareable() ? useSharedActionLink : notShareableActionLink,
+                        NeedsModal = true
+                    });
+            }
+
             commandsList.Add(
                 new WidgetMenuItem
                 {

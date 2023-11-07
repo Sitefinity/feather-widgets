@@ -316,9 +316,9 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.Registration
         /// <summary>
         /// Authenticates external provider and make IdentityServer challenge
         /// </summary>
-        /// <param name="input">Provider name.</param>
+        /// <param name="externalProviderName">Provider name.</param>
         /// <param name="context">Current http context from controller</param>
-        public void AuthenticateExternal(string input, HttpContextBase context)
+        public void AuthenticateExternal(string externalProviderName, HttpContextBase context)
         {
             Telerik.Sitefinity.Web.Url returnUri;
 
@@ -339,10 +339,10 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.Registration
             var owinContext = context.Request.GetOwinContext();
             var selectedRoles = this.selectedRoles.Select(x => x.Name).ToJson();
 
-            var challengeProperties = ChallengeProperties.ForExternalUser(input, returnUri.ToString(), returnUri.ToString(), selectedRoles);
+            var challengeProperties = ChallengeProperties.ForExternalUser(externalProviderName, returnUri.ToString(), returnUri.ToString(), selectedRoles);
             challengeProperties.RedirectUri = returnUri.ToString();
 
-            owinContext.Authentication.Challenge(challengeProperties, ClaimsManager.CurrentAuthenticationModule.STSAuthenticationType);
+            owinContext.Authentication.Challenge(challengeProperties, externalProviderName);
         }
 
         /// <summary>

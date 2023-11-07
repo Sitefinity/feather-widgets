@@ -1,26 +1,47 @@
 @using Telerik.Sitefinity.Frontend.Mvc.Helpers
 @using Telerik.Sitefinity.Frontend.Mvc.Models
- 
+@using Telerik.Sitefinity.Frontend.ContentBlock.Mvc.Helpers
+
 <div ng-show="isShared" class="alert alert-warning">
     <b>@Html.Resource("ThisContentIsShared")</b> @Html.Resource("SharedContentWarning")
 </div>
-<sf-html-field class="kendo-content-block" 
-               sf-model="properties.Content.PropertyValue"
-               sf-images-settings="@SettingsHelpers.GetMediaSettings("Image")"
-               sf-videos-settings="@SettingsHelpers.GetMediaSettings("Video")"
-               sf-documents-settings="@SettingsHelpers.GetMediaSettings("Document")"
-               sf-view-type="Telerik.Sitefinity.Frontend.ContentBlock.Mvc.Controllers.ContentBlockController"></sf-html-field>
 
+@if (ContentBlockHelpers.ShowMergeTags())
+{
+    <server-data merge-tags="@ContentBlockHelpers.GetMergeTags()"></server-data>
+
+    <div ng-show="mergeTags" class="form-group">       
+            <label for="insertDynamicDataSelector">
+                @Html.Resource("InsertDynamicDataLabel", "NewslettersResources")
+            </label>
+        <div class="row">
+            <div class="col-xs-4 p-right-none">
+                <select ng-model="selectedMergeTag" ng-options="mergeTag as mergeTag.Title for mergeTag in mergeTags track by mergeTag.ComposedTag" id="insertDynamicDataSelector" class="form-control"></select>
+             </div>
+            <div class="col-xs-4 p-left-none">
+                <button ng-click="insertMergeTag()" class="btn btn-default btn-sm m-left-sm">@Html.Resource("Insert", "NewslettersResources")</button>
+            </div>
+        </div>
+    </div>
+}
+<div class="sf-content-block-in-newsletter">
+    <sf-html-field class="kendo-content-block"
+                   sf-model="properties.Content.PropertyValue"
+                   sf-images-settings="@SettingsHelpers.GetMediaSettings("Image")"
+                   sf-videos-settings="@SettingsHelpers.GetMediaSettings("Video")"
+                   sf-documents-settings="@SettingsHelpers.GetMediaSettings("Document")"
+                   sf-view-type="Telerik.Sitefinity.Frontend.ContentBlock.Mvc.Controllers.ContentBlockController"></sf-html-field>
+</div>
 <script type="text/ng-template" section="modal-footer">
-	<button class="btn btn-primary pull-left" onclick="saveProperties(false)">@Html.Resource("Save")</button>
-	<button class="btn btn-default pull-left" onclick="saveProperties(true)" ng-hide="hideSaveAllTranslations">@Html.Resource("SaveAllTranslations")</button>
-	<a class="btn btn-link pull-left" data-dismiss="modal" ng-click="cancel()">@Html.Resource("Cancel")</a>
+    <button class="btn btn-primary pull-left" onclick="saveProperties(false)">@Html.Resource("Save")</button>
+    <button class="btn btn-default pull-left" onclick="saveProperties(true)" ng-hide="hideSaveAllTranslations">@Html.Resource("SaveAllTranslations")</button>
+    <a class="btn btn-link pull-left" data-dismiss="modal" ng-click="cancel()">@Html.Resource("Cancel")</a>
 
-	@if (((IDesignerModel)ViewBag.DesignerModel).Views.Count() > 1)
-	{
-		foreach (var view in ((IDesignerModel)ViewBag.DesignerModel).Views)
+    @if (((IDesignerModel)ViewBag.DesignerModel).Views.Count() > 1)
+    {
+        foreach (var view in ((IDesignerModel)ViewBag.DesignerModel).Views)
         {
-			<a class="btn btn-default btn-xs m-top-xs designer-btn-@view" ng-hide="isCurrentView('@view')" href="#/@view">@Html.Resource(view, fallbackToKey: true)</a>
+            <a class="btn btn-default btn-xs m-top-xs designer-btn-@view" ng-hide="isCurrentView('@view')" href="#/@view">@Html.Resource(view, fallbackToKey: true)</a>
         }
-	}
+    }
 </script>

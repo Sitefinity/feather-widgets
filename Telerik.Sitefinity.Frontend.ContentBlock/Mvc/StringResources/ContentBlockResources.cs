@@ -504,6 +504,21 @@ namespace Telerik.Sitefinity.Frontend.ContentBlock.Mvc.StringResources
         }
 
         /// <summary>
+        /// Control description: Control description:Control for inserting arbitrary content on the page
+        /// </summary>
+        [ResourceEntry("ContentBlockNewslettersDescription",
+            Value = "Text with rich formatting (bold, italic, bullets, etc.). Images and tables can be inserted, too",
+            Description = "Control description:Control for inserting arbitrary content on the page",
+            LastModified = "2023/02/27")]
+        public string ContentBlockNewslettersDescription
+        {
+            get
+            {
+                return this["ContentBlockNewslettersDescription"];
+            }
+        }
+
+        /// <summary>
         /// Gets the close.
         /// </summary>
         [ResourceEntry("Close",

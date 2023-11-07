@@ -33,6 +33,14 @@ namespace Telerik.Sitefinity.Frontend.Events.Mvc.Controllers
         SectionName = ToolboxesConfig.ContentToolboxSectionName,
         ModuleName = "Events",
         CssClass = EventController.WidgetIconCssClass)]
+    [ControllerToolboxItem(
+        Name = EventController.WidgetName,
+        Title = nameof(EventResources.EventsViewTitle),
+        Description = nameof(EventResources.EventsViewDescription),
+        ResourceClassId = nameof(EventResources),
+        SectionName = ToolboxesConfig.CommonSectionName,
+        Toolbox = ToolboxesConfig.NewslettersControlsToolboxName,
+        CssClass = EventController.WidgetIconCssClass)]
     [Localization(typeof(EventResources))]
     public class EventController : ContentBaseController, IContentLocatableView, IPersonalizable
     {

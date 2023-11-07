@@ -185,12 +185,17 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Models
                 FormId = this.FormId.ToString("D"),
                 IsMultiStep = this.IsMultiStep,
                 FormCollection = this.FormCollection,
-                MarketoSettings = JsonConvert.SerializeObject(marketoSettings, Formatting.None, jsonSerializerSettings)
+                MarketoSettings = JsonConvert.SerializeObject(marketoSettings, Formatting.None, jsonSerializerSettings),
+                HtmlAttributes = new Dictionary<string, object> { { "enctype", "multipart/form-data" }, { "role", "form" } }
             };
 
             if (this.FormData != null && this.AllowRenderForm())
             {
                 viewModel.FormRules = this.GetFormRulesViewModel(this.FormData);
+                if (this.FormData.SubmitAction == SubmitAction.PageRedirect && this.FormData.OpenInNewWindow && !string.IsNullOrEmpty(this.FormData.RedirectPageUrl))
+                {
+                    viewModel.HtmlAttributes.Add("target", "_blank");
+                }
 
                 if (viewModel.UseAjaxSubmit)
                 {
@@ -357,17 +362,24 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Models
         /// <inheritDoc/>
         public virtual string GetRedirectPageUrl()
         {
-            if (!this.UseCustomConfirmation && !string.IsNullOrEmpty(this.FormData.RedirectPageUrl))
+            if (!this.UseCustomConfirmation && !string.IsNullOrEmpty(this.FormData.RedirectPageUrl) && this.FormData.RedirectNodeId == Guid.Empty)
             {
                 return this.FormData.RedirectPageUrl;
             }
             else if (this.CustomConfirmationPageId == Guid.Empty)
             {
-                var currentNode = SiteMapBase.GetActualCurrentNode();
-                if (currentNode == null)
-                    return null;
+                if (this.FormData.RedirectNodeId != Guid.Empty)
+                {
+                    this.CustomConfirmationPageId = this.FormData.RedirectNodeId;
+                }
+                else
+                {
+                    var currentNode = SiteMapBase.GetActualCurrentNode();
+                    if (currentNode == null)
+                        return null;
 
-                this.CustomConfirmationPageId = currentNode.Id;
+                    this.CustomConfirmationPageId = currentNode.Id;
+                }
             }
 
             return HyperLinkHelpers.GetFullPageUrl(this.CustomConfirmationPageId);

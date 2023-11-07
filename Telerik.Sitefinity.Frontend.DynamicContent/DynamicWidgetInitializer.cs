@@ -51,6 +51,7 @@ namespace Telerik.Sitefinity.Frontend.DynamicContent
         private static void RegisterFields()
         {
             ObjectFactory.Container.RegisterType(typeof(Field), typeof(LongTextAreaField), typeof(LongTextAreaField).Name);
+            ObjectFactory.Container.RegisterType(typeof(Field), typeof(LinkField), typeof(LinkField).Name);
             ObjectFactory.Container.RegisterType(typeof(Field), typeof(ImagesField), typeof(ImagesField).Name);
             ObjectFactory.Container.RegisterType(typeof(Field), typeof(ShortTextField), typeof(ShortTextField).Name);
             ObjectFactory.Container.RegisterType(typeof(Field), typeof(MultipleChoiceField), typeof(MultipleChoiceField).Name);

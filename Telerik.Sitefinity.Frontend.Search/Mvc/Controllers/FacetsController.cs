@@ -11,12 +11,13 @@ using Telerik.Sitefinity.Frontend.Mvc.Infrastructure.Controllers;
 using Telerik.Sitefinity.Frontend.Mvc.Infrastructure.Controllers.Attributes;
 using Telerik.Sitefinity.Frontend.Search.Mvc.Models;
 using Telerik.Sitefinity.Frontend.Search.Mvc.StringResources;
-using Telerik.Sitefinity.Frontend.Search.Services;
+using Telerik.Sitefinity.Frontend.Search.SearchFacets;
 using Telerik.Sitefinity.Localization;
 using Telerik.Sitefinity.Modules.Pages.PropertyPersisters;
 using Telerik.Sitefinity.Mvc;
-using Telerik.Sitefinity.Search;
+using Telerik.Sitefinity.Search.Facets;
 using Telerik.Sitefinity.Search.Impl.Elasticsearch;
+using Telerik.Sitefinity.Search.Impl.Facets;
 using Telerik.Sitefinity.Services;
 using Telerik.Sitefinity.Services.Search;
 using Telerik.Sitefinity.Services.Search.Configuration;
@@ -47,6 +48,9 @@ namespace Telerik.Sitefinity.Frontend.Search.Mvc.Controllers
         {
             this.searchFacetsQueryStringPorcessor = new SearchFacetsQueryStringProcessor();
             this.SelectedFacets = new List<FacetWidgetFieldModel>();
+            this.settingsProvider = new SearchFacetFieldSettingsProvider();
+            this.searchFacetsViewModelBuilder = new SearchFacetsViewModelBuilder();
+            this.widgetSettingsFacetFieldMapper = new WidgetSettingsFacetFieldMapper();
         }
 
         /// <summary>
@@ -92,13 +96,18 @@ namespace Telerik.Sitefinity.Frontend.Search.Mvc.Controllers
 
             if (!string.IsNullOrEmpty(searchQuery))
             {
-                var selectedFacetableFields = this.SelectedFacets.SelectMany(x => x.FacetableFieldNames).Distinct().ToList();
-                var facetableFieldsFromIndex = this.searchFacetsQueryStringPorcessor.GetFacetableFields(this.IndexCatalogue);
-                var facetableFieldsToBeUsed = selectedFacetableFields.Intersect(facetableFieldsFromIndex.Keys).ToList();
+                var facetableFieldsFromIndex = this.settingsProvider.GetFacetableFields(this.IndexCatalogue);
+                var selectedFacetsToBeUsed = this.SelectedFacets
+                    .GroupBy(x => x.FacetableFieldNames[0])
+                    .Select(f => f.LastOrDefault())
+                    .Where(x => facetableFieldsFromIndex.Keys.Contains(x.FacetableFieldNames[0]));
+
+                List<FacetField> facetFields = this.widgetSettingsFacetFieldMapper.MapWidgetSettingsToFieldsModel(selectedFacetsToBeUsed);
 
                 string decodedFilter = filter?.Base64Decode();
-                var facets = this.searchFacetsQueryStringPorcessor.GetFacets(searchQuery, language, decodedFilter, this.IndexCatalogue, facetableFieldsToBeUsed, this.GetSearchFields(), resultsForAllSites);
-                facetsViewModel.SearchFacets = this.BuildFacetsViewModel(facets, facetableFieldsFromIndex);
+                var searchServiceFacetResponse = this.searchFacetsQueryStringPorcessor.GetFacets(searchQuery, language, decodedFilter, this.IndexCatalogue, facetFields, this.GetSearchFields(), resultsForAllSites);
+
+                facetsViewModel.SearchFacets = this.searchFacetsViewModelBuilder.BuildFacetsViewModel(this.SelectedFacets, searchServiceFacetResponse, facetableFieldsFromIndex, this.SortType);
                 var currentPageUrl = this.GetCurrentPageUrl();
                 this.ViewBag.CurrentPageUrl = currentPageUrl;
             }
@@ -416,69 +425,6 @@ namespace Telerik.Sitefinity.Frontend.Search.Mvc.Controllers
             return searchFields.Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries);
         }
 
-        private IList<SearchFacetsViewModel> BuildFacetsViewModel(IDictionary<string, IList<FacetResponse>> facets, IDictionary<string, FacetableFieldSettings> facetableFieldsFromIndex)
-        {
-            IList<SearchFacetsViewModel> searchFacetsViewModel = new List<SearchFacetsViewModel>();
-            if (facetableFieldsFromIndex.Any())
-            {
-                IDictionary<string, FacetableFieldSettings> widgetFacetableFields =
-                    this.SelectedFacets
-                        .Where(f => facetableFieldsFromIndex.Keys.Contains(f.FacetableFieldNames[0]))
-                        .GroupBy(x => x.FacetableFieldNames[0])
-                        .Select(f => f.LastOrDefault())
-                        .ToDictionary(x => x.FacetableFieldNames[0], v => new FacetableFieldSettings()
-                        {
-                            FieldName = v.FacetableFieldNames[0],
-                            FieldTitle = v.FacetableFieldLabels,
-                            FieldType = facetableFieldsFromIndex[v.FacetableFieldNames[0]].FieldType
-                        });
-
-                foreach (var facet in facets)
-                {
-                    // find if it has friendly name set in the widget
-                    var facetModel = facet.Value
-                        .Where(f => !string.IsNullOrEmpty(f.FacetValue))
-                        .Select(f => new FacetElementViewModel()
-                        {
-                            FacetCount = f.Count,
-                            FacetValue = f.FacetValue,
-                            FacetFieldType = widgetFacetableFields[facet.Key].FieldType
-                        }).ToList();
-
-                    var facetableFieldSettings = widgetFacetableFields[facet.Key];
-                    var searchFacetViewModel = new SearchFacetsViewModel(facetableFieldSettings.FieldTitle, facetableFieldSettings.FieldName, facetModel);
-                    searchFacetsViewModel.Add(searchFacetViewModel);
-                }
-
-                searchFacetsViewModel = this.SortFacetsModel(widgetFacetableFields, searchFacetsViewModel);
-            }
-
-            return searchFacetsViewModel;
-        }
-
-        private IList<SearchFacetsViewModel> SortFacetsModel(IDictionary<string, FacetableFieldSettings> facetableFieldsFromIndex, IList<SearchFacetsViewModel> searchFacetsViewModel)
-        {
-            if (this.SortType == AlphabeticallySort)
-            {
-                searchFacetsViewModel = searchFacetsViewModel
-                                        .OrderBy(f => f.FacetTitle)
-                                        .ToList();
-            }
-            else
-            {
-                var facetsOrder = facetableFieldsFromIndex
-                                    .Values
-                                    .Select(x => x.FieldTitle)
-                                    .ToList();
-
-                searchFacetsViewModel = searchFacetsViewModel
-                                     .OrderBy(f => facetsOrder.IndexOf(f.FacetTitle))
-                                     .ToList();
-            }
-
-            return searchFacetsViewModel;
-        }
-
         private bool SearchServiceSupportsFacets()
         {
             var serchConfig = Config.Get<SearchConfig>();
@@ -513,8 +459,10 @@ namespace Telerik.Sitefinity.Frontend.Search.Mvc.Controllers
         private const string FilterResultsDefaultValue = "Filter results";
         private const string ShowMoreLabelDefaultValue = "Show more";
         private const string ShowLessLabelDefaultValue = "Show less";
-        private const string AlphabeticallySort = "2";
         private readonly SearchFacetsQueryStringProcessor searchFacetsQueryStringPorcessor;
         private readonly HashSet<string> facetableSearchServices = new HashSet<string>() { AzureSearchService.ServiceName, ElasticsearchService.ServiceName };
+        private readonly SearchFacetFieldSettingsProvider settingsProvider;
+        private readonly SearchFacetsViewModelBuilder searchFacetsViewModelBuilder;
+        private readonly WidgetSettingsFacetFieldMapper widgetSettingsFacetFieldMapper;
     }
 }
