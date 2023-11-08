@@ -640,7 +640,7 @@
         if (container.is(":hidden"))
             return true;
 
-        var violationMessage = $('[data-sf-role="required-violation-message"]');
+        var violationMessage = container.parent().find('[data-sf-role="required-violation-message"]');
 
         var inputs = container.find('input[type="file"]');
         var firstInvalidInput = null;

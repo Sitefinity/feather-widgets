@@ -110,16 +110,16 @@ namespace Telerik.Sitefinity.Frontend.Events.Mvc.Helpers
         {
             var format = string.Empty;
             if (time.Minute == 0)
-                format = "hh tt";
+                format = "h tt";
             else
-                format = "hh mm tt";
+                format = "h:mm tt";
 
-            return time.ToString(format, CultureInfo.InvariantCulture).TrimStart('0');
+            return time.ToString(format, CultureInfo.InvariantCulture);
         }
 
         private static string BuildDayMonthYear(DateTime time)
         {
-            return time.ToString("dd MMMM, yyyy", CultureInfo.InvariantCulture).TrimStart('0');
+            return time.ToString("d MMMM, yyyy", CultureInfo.InvariantCulture);
         }
 
         private static string BuildRecurringEvent(Event ev)

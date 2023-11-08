@@ -10,6 +10,12 @@
         $scope.feedback.showLoadingIndicator = true;
         $scope.additionalFilters = {};
         $scope.dateFilters = {};
+        $scope.shouldClearSelectedParentIds = false;
+        $scope.feedback.savingHandlers.push(function () {
+            if ($scope.shouldClearSelectedParentIds) {
+                $scope.properties.SerializedSelectedParentsIds.PropertyValue = '';
+            }
+        });
 
         $scope.$watch(
             'blogPostSelector.selectedItemsIds',
@@ -79,6 +85,12 @@
                     }
                     else if (oldValue == 'NotApplicable') {
                         $scope.properties.SelectionMode.PropertyValue = 'AllItems';
+                    }
+                    else if (oldValue === 'Selected' && oldValue != newValue) {
+                        $scope.shouldClearSelectedParentIds = true;
+                    }
+                    else if (newValue === 'Selected') {
+                        $scope.shouldClearSelectedParentIds = false;
                     }
                 }
             },

@@ -12,6 +12,12 @@
         $scope.itemType = serverData.get('itemType');
         $scope.parentTypes = $.parseJSON(serverData.get('parentTypes') || null);
         $scope.dateFilters = {};
+        $scope.shouldClearSelectedParentIds = false;
+        $scope.feedback.savingHandlers.push(function () {
+            if ($scope.shouldClearSelectedParentIds) {
+                $scope.properties.SerializedSelectedParentsIds.PropertyValue = '';
+            }
+        });
 
         $scope.$watch(
             'additionalFilters.value',
@@ -79,6 +85,12 @@
                     }
                     else if (oldValue == 'NotApplicable') {
                         $scope.properties.SelectionMode.PropertyValue = 'AllItems';
+                    }
+                    else if (oldValue === 'Selected' && oldValue != newValue) {
+                        $scope.shouldClearSelectedParentIds = true;
+                    }
+                    else if (newValue === 'Selected') {
+                        $scope.shouldClearSelectedParentIds = false;
                     }
                 }
             },

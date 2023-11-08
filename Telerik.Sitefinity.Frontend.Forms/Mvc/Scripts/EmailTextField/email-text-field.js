@@ -55,6 +55,9 @@
             if (e.target.validity.valueMissing) {
                 setErrorMessage(e.target, validationMessages.required);
             }
+            else if (e.target.validity.typeMismatch && isValidLength) {
+                setErrorMessage(e.target, validationMessages.regularExpression);
+            }
             else if (e.target.validity.patternMismatch && !isValidLength) {
                 setErrorMessage(e.target, validationMessages.maxLength);
             }

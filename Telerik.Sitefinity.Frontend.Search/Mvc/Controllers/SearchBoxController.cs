@@ -187,8 +187,7 @@ namespace Telerik.Sitefinity.Frontend.Search.Mvc.Controllers
         /// </summary>
         protected virtual string GetCurrentUILanguage()
         {
-            return SystemManager.CurrentContext.AppSettings.Multilingual ?
-                Telerik.Sitefinity.Services.SystemManager.CurrentContext.Culture.Name : null;
+            return Telerik.Sitefinity.Services.SystemManager.CurrentContext.Culture.Name;
         }
 
         /// <summary>

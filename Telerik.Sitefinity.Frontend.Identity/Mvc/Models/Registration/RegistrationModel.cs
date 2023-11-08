@@ -27,6 +27,7 @@ using Telerik.Sitefinity.Services;
 using Telerik.Sitefinity.Utilities;
 using Telerik.Sitefinity.Web;
 using Telerik.Sitefinity.Web.Mail;
+using ErrorMessages = Telerik.Sitefinity.Localization.ErrorMessages;
 
 namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.Registration
 {
