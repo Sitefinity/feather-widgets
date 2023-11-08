@@ -1,133 +1,22 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
-<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
-  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
-  <PropertyGroup>
-    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
-    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{D3773581-78B7-44AD-96B8-5168DCF2795C}</ProjectGuid>
-    <OutputType>Library</OutputType>
-    <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Telerik.Sitefinity.Frontend.InlineClientAssets</RootNamespace>
-    <AssemblyName>Telerik.Sitefinity.Frontend.InlineClientAssets</AssemblyName>
-    <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
-    <FileAlignment>512</FileAlignment>
-    <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\</SolutionDir>
-    <TargetFrameworkProfile />
-    <SccProjectName>SAK</SccProjectName>
-    <SccLocalPath>SAK</SccLocalPath>
-    <SccAuxPath>SAK</SccAuxPath>
-    <SccProvider>SAK</SccProvider>
-  </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-    <DebugSymbols>true</DebugSymbols>
-    <DebugType>full</DebugType>
-    <Optimize>false</Optimize>
-    <OutputPath>bin\</OutputPath>
-    <DefineConstants>DEBUG;TRACE</DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
-    <Prefer32Bit>false</Prefer32Bit>
-  </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-    <DebugType>pdbonly</DebugType>
-    <Optimize>true</Optimize>
-    <OutputPath>bin\</OutputPath>
-    <DefineConstants>TRACE</DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
-    <Prefer32Bit>false</Prefer32Bit>
-  </PropertyGroup>
-  <PropertyGroup>
-  </PropertyGroup>
-  <PropertyGroup>
-  </PropertyGroup>
-  <PropertyGroup>
-    <DelaySign>true</DelaySign>
-  </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug Headless|AnyCPU'">
-    <DebugSymbols>true</DebugSymbols>
-    <DebugType>full</DebugType>
-    <Optimize>false</Optimize>
-    <OutputPath>bin\</OutputPath>
-    <DefineConstants>DEBUG;TRACE</DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
-    <Prefer32Bit>false</Prefer32Bit>
-  </PropertyGroup>
+<Project>
+  <!-- Explicit top import, see https://github.com/MicrosoftDocs/visualstudio-docs/issues/3902-->
+  <Import Project="Sdk.props" Sdk="Microsoft.NET.Sdk" />
   <ItemGroup>
-    <Reference Include="Microsoft.Web.Infrastructure, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.Web.Infrastructure.1.0.0.0\lib\net40\Microsoft.Web.Infrastructure.dll</HintPath>
-      <Private>True</Private>
-      <SpecificVersion>False</SpecificVersion>
-    </Reference>
-    <Reference Include="Ninject, Version=3.2.0.0, Culture=neutral, PublicKeyToken=c7192dc5380945e7, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\Ninject.3.2.2.0\lib\net45-full\Ninject.dll</HintPath>
-    </Reference>
-    <Reference Include="RazorEngine, Version=3.0.8.0, Culture=neutral, PublicKeyToken=9ee697374c7e744a, processorArchitecture=MSIL">
-      <HintPath>..\packages\Sitefinity.RazorEngine.3.0.8.0\lib\net40\RazorEngine.dll</HintPath>
-      <Private>True</Private>
-      <SpecificVersion>False</SpecificVersion>
-    </Reference>
-    <Reference Include="System" />
-    <Reference Include="System.Core" />
-    <Reference Include="System.Web" />
-    <Reference Include="System.Web.Helpers, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.7\lib\net45\System.Web.Helpers.dll</HintPath>
-    </Reference>
-    <Reference Include="System.Web.Mvc, Version=5.2.7.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.AspNet.Mvc.5.2.7\lib\net45\System.Web.Mvc.dll</HintPath>
-    </Reference>
-    <Reference Include="System.Web.Razor, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.AspNet.Razor.3.2.7\lib\net45\System.Web.Razor.dll</HintPath>
-    </Reference>
-    <Reference Include="System.Web.WebPages, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.7\lib\net45\System.Web.WebPages.dll</HintPath>
-    </Reference>
-    <Reference Include="System.Web.WebPages.Deployment, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.7\lib\net45\System.Web.WebPages.Deployment.dll</HintPath>
-    </Reference>
-    <Reference Include="System.Web.WebPages.Razor, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.7\lib\net45\System.Web.WebPages.Razor.dll</HintPath>
-    </Reference>
-    <Reference Include="System.Xml.Linq" />
-    <Reference Include="System.Data.DataSetExtensions" />
-    <Reference Include="Microsoft.CSharp" />
-    <Reference Include="System.Data" />
-    <Reference Include="System.Xml" />
-    <Reference Include="Telerik.OpenAccess, Version=2020.0.428.1, Culture=neutral, PublicKeyToken=7ce17eeaf1d59342, processorArchitecture=MSIL">
-      <HintPath>..\packages\Telerik.DataAccess.Core.2020.0.428.1\lib\net40\Telerik.OpenAccess.dll</HintPath>
-    </Reference>
-    <Reference Include="Telerik.OpenAccess.35.Extensions, Version=2020.0.428.1, Culture=neutral, PublicKeyToken=7ce17eeaf1d59342, processorArchitecture=MSIL">
-      <HintPath>..\packages\Telerik.DataAccess.Core.2020.0.428.1\lib\net40\Telerik.OpenAccess.35.Extensions.dll</HintPath>
-    </Reference>
-    <Reference Include="Telerik.OpenAccess.40.Extensions, Version=2020.0.428.1, Culture=neutral, PublicKeyToken=7ce17eeaf1d59342, processorArchitecture=MSIL">
-      <HintPath>..\packages\Telerik.DataAccess.Core.2020.0.428.1\lib\net40\Telerik.OpenAccess.40.Extensions.dll</HintPath>
-    </Reference>
-    <Reference Include="Telerik.OpenAccess.Runtime, Version=2020.0.428.1, Culture=neutral, PublicKeyToken=7ce17eeaf1d59342, processorArchitecture=MSIL">
-      <HintPath>..\packages\Telerik.DataAccess.Core.2020.0.428.1\lib\net40\Telerik.OpenAccess.Runtime.dll</HintPath>
-    </Reference>
+    <PackageReference Include="Microsoft.CSharp" />
+    <PackageReference Include="RazorGenerator.MsBuild">
+      <PrivateAssets>all</PrivateAssets>
+    </PackageReference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="InterfaceMappings.cs" />
-    <Compile Include="Mvc\Controllers\EmbedCodeController.cs" />
-    <Compile Include="Mvc\Controllers\JavaScriptController.cs" />
-    <Compile Include="Mvc\Controllers\StyleSheetController.cs" />
-    <Compile Include="Mvc\Helpers\EmbedCodeHelper.cs" />
-    <Compile Include="Mvc\Models\EmbedCode\EmbedCodeModel.cs" />
-    <Compile Include="Mvc\Models\EmbedCode\EmbedCodeViewModel.cs" />
-    <Compile Include="Mvc\Models\EmbedCode\IEmbedCodeModel.cs" />
-    <Compile Include="Mvc\Models\JavaScript\IJavaScriptModel.cs" />
-    <Compile Include="Mvc\Models\JavaScript\JavaScriptModel.cs" />
-    <Compile Include="Mvc\Models\JavaScript\JavaScriptViewModel.cs" />
-    <Compile Include="Mvc\Models\EmbedPosition.cs" />
-    <Compile Include="Mvc\Models\StyleSheet\IStyleSheetModel.cs" />
-    <Compile Include="Mvc\Models\ResourceMode.cs" />
-    <Compile Include="Mvc\Models\StyleSheet\StyleSheetModel.cs" />
-    <Compile Include="Mvc\StringResources\EmbedCodeResources.cs" />
-    <Compile Include="Mvc\StringResources\JavaScriptResources.cs" />
-    <Compile Include="Mvc\StringResources\StyleSheetResources.cs" />
-    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="Telerik.Sitefinity.Content" />
+    <PackageReference Include="Telerik.Sitefinity.Core" />
+    <PackageReference Include="Telerik.Sitefinity.Feather.Core" />
+    <PackageReference Include="Telerik.Sitefinity.Mvc" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Mvc\Scripts\StyleSheet\designerview-simple.js" />
@@ -142,7 +31,6 @@
     <EmbeddedResource Include="Mvc\Views\EmbedCode\DesignerView.Simple.json" />
     <EmbeddedResource Include="Mvc\Views\EmbedCode\Index.cshtml" />
     <EmbeddedResource Include="Mvc\Views\StyleSheet\Index.cshtml" />
-    <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Mvc\Scripts\JavaScript\designerview-simple.js" />
@@ -150,46 +38,9 @@
   <ItemGroup>
     <EmbeddedResource Include="Mvc\Scripts\EmbedCode\designerview-simple.js" />
   </ItemGroup>
-  <ItemGroup>
-    <Reference Include="Telerik.Sitefinity.ContentModules">
-      <HintPath>..\packages\Telerik.Sitefinity.Content.14.4.8100\lib\net48\Telerik.Sitefinity.ContentModules.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="Telerik.Sitefinity.Model">
-      <HintPath>..\packages\Telerik.Sitefinity.Core.14.4.8100\lib\net48\Telerik.Sitefinity.Model.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="Telerik.Sitefinity">
-      <HintPath>..\packages\Telerik.Sitefinity.Core.14.4.8100\lib\net48\Telerik.Sitefinity.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="Telerik.Sitefinity.Utilities">
-      <HintPath>..\packages\Telerik.Sitefinity.Core.14.4.8100\lib\net48\Telerik.Sitefinity.Utilities.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="Telerik.Sitefinity.Frontend">
-      <HintPath>..\packages\Telerik.Sitefinity.Feather.Core.14.4.8100\lib\net48\Telerik.Sitefinity.Frontend.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="Telerik.Sitefinity.Mvc">
-      <HintPath>..\packages\Telerik.Sitefinity.Mvc.14.4.8100\lib\net48\Telerik.Sitefinity.Mvc.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-  </ItemGroup>
+  <!-- Explicit bottom import, see https://github.com/MicrosoftDocs/visualstudio-docs/issues/3902 -->
+  <Import Project="Sdk.targets" Sdk="Microsoft.NET.Sdk" />
   <Import Project="..\Build\FeatherPrecompilation.targets" />
-  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
-  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
-    <PropertyGroup>
-      <ErrorText>This project references NuGet package(s) that are missing on this computer. Enable NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
-    </PropertyGroup>
-    <Error Condition="!Exists('..\packages\RazorGenerator.MsBuild.2.4.1\build\RazorGenerator.MsBuild.targets')" Text="$([System.String]::Format('..\packages\RazorGenerator.MsBuild.2.4.1\build\RazorGenerator.MsBuild.targets'))" />
-  </Target>
-  <Import Project="..\packages\RazorGenerator.MsBuild.2.4.1\build\RazorGenerator.MsBuild.targets" Condition="Exists('..\packages\RazorGenerator.MsBuild.2.4.1\build\RazorGenerator.MsBuild.targets')" />
   <Target Name="AfterBuild">
   </Target>
-  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
-       Other similar extension points exist, see Microsoft.Common.targets.
-  <Target Name="BeforeBuild">
-  </Target>
-  -->
 </Project>

@@ -11,6 +11,7 @@ using Telerik.Sitefinity.Abstractions;
 using Telerik.Sitefinity.Abstractions.TemporaryStorage;
 using Telerik.Sitefinity.Data;
 using Telerik.Sitefinity.Forms.Model;
+using Telerik.Sitefinity.Frontend.Forms.Mvc.Controllers;
 using Telerik.Sitefinity.Frontend.Forms.Mvc.Controllers.Base;
 using Telerik.Sitefinity.Frontend.Forms.Mvc.Helpers;
 using Telerik.Sitefinity.Frontend.Forms.Mvc.Models.Fields;
@@ -539,8 +540,16 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Models
                 }
                 else if (collection.Keys.Contains(fieldName))
                 {
-                    collection[fieldName] = collection[fieldName] ?? string.Empty;
-                    fieldValue = collection[fieldName];
+                    if (formField.Value is CheckboxesFieldController)
+                    {
+                        fieldValue = collection.GetValues(fieldName) ?? new string[0];
+                    } 
+                    else
+                    {
+                        fieldValue = collection[fieldName];
+                        collection[fieldName] = collection[fieldName] ?? string.Empty;
+                    }
+
                 }
                 else
                 {

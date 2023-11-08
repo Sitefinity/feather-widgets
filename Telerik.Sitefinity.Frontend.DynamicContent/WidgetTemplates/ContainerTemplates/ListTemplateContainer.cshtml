@@ -22,7 +22,7 @@
                     </a>
                 </h3>
                 <div>
-                    @item.GetDateTime("PublicationDate", "MMM d, yyyy, HH:mm tt")
+                    @item.GetDateTime("PublicationDate", "MMM d, yyyy, HH:mm")
                     @Html.CommentsCount((string)navigateUrl, item.DataItem)
                 </div>
             </li>

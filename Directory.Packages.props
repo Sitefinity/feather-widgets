@@ -1,0 +1,17 @@
+<Project>
+  <PropertyGroup>
+    <ManagePackageVersionsCentrally>true</ManagePackageVersionsCentrally>
+  </PropertyGroup>
+  <ItemGroup>
+    <PackageVersion Include="Microsoft.CSharp" Version="4.7.0" />
+    <PackageVersion Include="RazorGenerator.MsBuild" Version="2.4.1" />
+    <PackageVersion Include="Telerik.Sitefinity.Content" Version="15.0.8200" />
+    <PackageVersion Include="Telerik.Sitefinity.Core" Version="15.0.8200" />
+    <PackageVersion Include="Telerik.Sitefinity.Feather.Core" Version="15.0.8200" />
+    <PackageVersion Include="Telerik.Sitefinity.Mvc" Version="15.0.8200" />
+    <PackageVersion Include="Microsoft.Owin" Version="4.2.2" />
+    <PackageVersion Include="Microsoft.Owin.Host.SystemWeb" Version="4.2.2" />
+    <PackageVersion Include="Progress.Sitefinity.Renderer" Version="15.0.8200.218" />
+    <PackageVersion Include="Telerik.Sitefinity.ServicesImpl" Version="15.0.8200" />
+  </ItemGroup>
+</Project>

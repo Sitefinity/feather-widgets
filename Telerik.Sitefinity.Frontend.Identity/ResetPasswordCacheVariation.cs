@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Runtime.Serialization;
 using Telerik.Sitefinity.Web;
 
 namespace Telerik.Sitefinity.Frontend.Identity
@@ -12,6 +13,7 @@ namespace Telerik.Sitefinity.Frontend.Identity
         }
 
         /// <inheritdoc />
+        [IgnoreDataMember]
         public override bool NoCache
         {
             get

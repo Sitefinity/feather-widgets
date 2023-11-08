@@ -114,25 +114,26 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Models.Fields.CheckboxesField
         /// <inheritDocs />
         public override bool IsValid(object value)
         {
-            if (this.ValidatorDefinition.Required.HasValue && this.ValidatorDefinition.Required.Value && !this.HasOtherChoice)
+            List<string> selectedChoices = null;
+            if (value != null)
             {
-                var strValue = value as string;
-                if (!string.IsNullOrEmpty(strValue))
+                selectedChoices = (value as string[]).ToList();
+                if (this.ValidatorDefinition.Required.HasValue && this.ValidatorDefinition.Required.Value && !this.HasOtherChoice)
                 {
-                    var selectedChoices = strValue.Split(',').Where(s => !string.IsNullOrWhiteSpace(s)).ToList();
-                    var choices = this.DeserializeChoices();
-                    if (selectedChoices.Any(s => choices.Contains(s)) || choices.Contains(value))
+                    if (selectedChoices.Count != 0)
                     {
-                        return base.IsValid(value);
+                        var choices = this.DeserializeChoices();
+                        if (selectedChoices.Any(s => choices.Contains(s)))
+                        {
+                            return base.IsValid(selectedChoices);
+                        }
                     }
-                }
 
-                return false;
+                    return false;
+                }
             }
-            else
-            {
-                return base.IsValid(value);
-            }
+
+            return base.IsValid(selectedChoices);
         }
 
         /// <inheritDocs />

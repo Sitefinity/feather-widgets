@@ -168,6 +168,9 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Controllers
                 securityToken = queryString.Substring(0, index);
                 resetComplete = Convert.ToBoolean(query["resetComplete"]);
                 error = query["error"];
+
+                if (!string.IsNullOrWhiteSpace(error))
+                    error = SecurityManager.DecryptData(error);
             }
 
             var model = this.Model.GetResetPasswordViewModel(securityToken, resetComplete, error);
@@ -226,6 +229,9 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Controllers
                     error = Res.Get<LoginFormResources>().ResetPasswordGeneralErrorMessage;
                 }
             }
+
+            if (!string.IsNullOrWhiteSpace(error))
+                error = SecurityManager.EncryptData(error);
 
             error = HttpUtility.UrlEncode(error);
 

@@ -10,7 +10,7 @@
     </h3>
 
     <div>
-        @Model.Item.GetDateTime("PublicationDate", "MMM d, yyyy, HH:mm tt")
+        @Model.Item.GetDateTime("PublicationDate", "MMM d, yyyy, HH:mm")
         @Html.Resource("By")
         @DataResolver.Resolve(@Model.Item.DataItem, "Author", null)
 

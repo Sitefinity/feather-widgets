@@ -22,11 +22,11 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Controllers
     /// </summary>
     [Localization(typeof(ChangePasswordResources))]
     [ControllerToolboxItem(
-        Name = ChangePasswordController.WidgetName, 
-        Title = nameof(ChangePasswordResources.UserChangePasswordWidgetTitle), 
+        Name = ChangePasswordController.WidgetName,
+        Title = nameof(ChangePasswordResources.UserChangePasswordWidgetTitle),
         Description = nameof(ChangePasswordResources.UserChangePasswordWidgetDescription),
         ResourceClassId = nameof(ChangePasswordResources),
-        SectionName = "Login", 
+        SectionName = "Login",
         CssClass = ChangePasswordController.WidgetIconCssClass)]
     public class ChangePasswordController : Controller
     {
@@ -72,7 +72,7 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Controllers
         #endregion
 
         #region Actions
-        
+
         /// <summary>
         /// Renders appropriate view depending on the <see cref="TemplateName" />
         /// </summary>
@@ -95,7 +95,9 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Controllers
 
             var model = this.Model.GetViewModel();
 
-            model.Error = error;
+            if (!string.IsNullOrWhiteSpace(error))
+                model.Error = SecurityManager.DecryptData(error);
+
             model.PasswordChanged = passwordChanged;
 
             var fullTemplateName = this.templateNamePrefix + this.TemplateName;
@@ -154,6 +156,9 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Controllers
             }
             else
             {
+                if (!string.IsNullOrWhiteSpace(error))
+                    error = SecurityManager.EncryptData(error);
+
                 error = HttpUtility.UrlEncode(error);
                 var pageUrl = this.Model.GetPageUrl(null);
                 var queryString = string.Format("?passwordChanged={0}&error={1}", passwordChanged, error);
@@ -186,7 +191,7 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Controllers
         }
 
         #endregion
-        
+
         #region Private fields and constants
 
         internal const string WidgetIconCssClass = "sfChangePasswordIcn sfMvcIcn";

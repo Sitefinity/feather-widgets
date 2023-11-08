@@ -161,9 +161,7 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.AccountActivation
         /// </returns>
         private Guid GetUserId()
         {
-            NameValueCollection queryString = this.GetQueryString();
-
-            string userIdString = queryString.Get("user");
+            string userIdString = HttpContext.Current.Request.QueryStringGet("user");
 
             Guid userId;
 
@@ -174,20 +172,16 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.AccountActivation
 
         private bool TryGetProviderFromQuery(out string provider)
         {
-            NameValueCollection queryString = this.GetQueryString();
-
-            provider = queryString.Get("provider");
+            provider = HttpContext.Current.Request.QueryStringGet("provider");
 
             return provider != null;
         }
 
         private bool ShouldAttemptActivation()
         {
-            NameValueCollection queryString = this.GetQueryString();
-
-            if (queryString != null)
+            if (HttpContext.Current.Request.QueryString != null)
             {
-                return !string.IsNullOrEmpty(queryString.Get("user"));
+                return !string.IsNullOrEmpty(HttpContext.Current.Request.QueryStringGet("user"));
             }
 
             return false;
