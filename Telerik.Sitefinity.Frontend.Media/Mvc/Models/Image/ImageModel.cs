@@ -3,14 +3,19 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
 using System.Web.Script.Serialization;
+using Telerik.Sitefinity.Abstractions;
 using Telerik.Sitefinity.Configuration;
 using Telerik.Sitefinity.ContentLocations;
 using Telerik.Sitefinity.Frontend.Media.Mvc.Helpers;
 using Telerik.Sitefinity.Frontend.Mvc.Models;
+using Telerik.Sitefinity.Localization;
 using Telerik.Sitefinity.Modules;
 using Telerik.Sitefinity.Modules.Libraries;
 using Telerik.Sitefinity.Modules.Libraries.Configuration;
+using Telerik.Sitefinity.Modules.Libraries.ImageProcessing;
+using Telerik.Sitefinity.Modules.Libraries.ImageProcessing.Models;
 using Telerik.Sitefinity.Modules.Libraries.Thumbnails;
+using Telerik.Sitefinity.Modules.Libraries.Web.Services;
 using Telerik.Sitefinity.Modules.Pages;
 using Telerik.Sitefinity.Services;
 using Telerik.Sitefinity.Web;
@@ -80,14 +85,12 @@ namespace Telerik.Sitefinity.Frontend.Media.Mvc.Models.Image
         /// <inheritDoc/>
         public virtual ImageViewModel GetViewModel()
         {
-
             var viewModel = new ImageViewModel()
             {
                 AlternativeText = this.AlternativeText,
                 Title = this.Title,
                 DisplayMode = this.DisplayMode,
                 ThumbnailName = this.ThumbnailName,
-                ThumbnailUrl = this.ThumbnailUrl,
                 ThumbnailHeight = null,
                 ThumbnailWidth = null,
                 CustomSize = this.CustomSize != null ? new JavaScriptSerializer().Deserialize<CustomSizeModel>(this.CustomSize) : null,
@@ -102,6 +105,16 @@ namespace Telerik.Sitefinity.Frontend.Media.Mvc.Models.Image
                 image = this.GetImage();
                 if (image != null)
                 {
+                    if (this.CustomSize != null)
+                    {
+                        this.ThumbnailUrl = image.ResolveCustomImageSizeThumbnailUrl(this.CustomSize, this.ProviderName);
+                    }
+                    else
+                    {
+                        var urlAsAbsolute = Config.Get<SystemConfig>().SiteUrlSettings.GenerateAbsoluteUrls;
+                        this.ThumbnailUrl = image.ResolveThumbnailUrl(null, urlAsAbsolute);
+                    }
+
                     viewModel.SelectedSizeUrl = this.GetSelectedSizeUrl(image);
                     viewModel.LinkedContentUrl = GetLinkedUrl(image);
                 }
@@ -116,6 +129,7 @@ namespace Telerik.Sitefinity.Frontend.Media.Mvc.Models.Image
 
             this.GetThumbnailSizes(out width, out height, image);
 
+            viewModel.ThumbnailUrl = this.ThumbnailUrl;
             viewModel.ThumbnailHeight = height;
             viewModel.ThumbnailWidth = width;
 
@@ -269,6 +283,6 @@ namespace Telerik.Sitefinity.Frontend.Media.Mvc.Models.Image
                 }
             }
         }
-        #endregion
+            #endregion
     }
 }

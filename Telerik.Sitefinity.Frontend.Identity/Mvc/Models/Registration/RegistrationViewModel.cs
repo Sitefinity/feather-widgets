@@ -1,6 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.Configuration;
+using System.Text.RegularExpressions;
+using System.Threading;
 using System.Web.Mvc;
 using Telerik.Sitefinity.Frontend.Identity.Mvc.Helpers;
 using Telerik.Sitefinity.Frontend.Identity.Mvc.StringResources;
@@ -142,13 +145,23 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.Registration
 
                         yield return new ValidationResult($"{requiredErrorMessage}", new List<string> { "Profile[" + info.Key + "]" });
                     }
-                    else if (info.Value.Length > 1)
+                    else if (info.Value.Length > 0)
                     {
                         if (info.Value.Length < (int)validation.MinLength || ((int)validation.MaxLength != 0 && info.Value.Length > (int)validation.MaxLength))
                         {
                             var lengthErrorMessage = this.GetErrorMessageFromResource(validation.MaxLengthViolationMessage);
-                           
+
                             yield return new ValidationResult($"{lengthErrorMessage}", new List<string> { "Profile[" + info.Key + "]" });
+                        }
+
+                        if (!string.IsNullOrEmpty(validation.RegularExpression))
+                        {
+                            var regex = new Regex(validation.RegularExpression);
+                            if (!regex.IsMatch(info.Value))
+                            {
+                                var patternErrorMessage = this.GetErrorMessageFromResource(validation.RegularExpressionViolationMessage);
+                                yield return new ValidationResult(patternErrorMessage, new List<string> { "Profile[" + info.Key + "]" });
+                            }
                         }
                     }
                 }

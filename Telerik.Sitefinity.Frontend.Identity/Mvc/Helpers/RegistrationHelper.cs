@@ -3,6 +3,7 @@ using System.Linq;
 using Telerik.Sitefinity.Localization;
 using Telerik.Sitefinity.ModuleEditor.Web.Services.Model;
 using Telerik.Sitefinity.Security.Model;
+using Telerik.Sitefinity.Web.UI.ContentUI.Config;
 using Telerik.Sitefinity.Web.UI.Fields.Config;
 using Telerik.Sitefinity.Web.UI.Validation.Contracts;
 
@@ -56,27 +57,7 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Helpers
         /// <returns></returns>
         public static IValidatorDefinition GetFieldValidatorDefinition(string fieldName)
         {
-            var views = CustomFieldsContext.GetViews(typeof(SitefinityProfile).FullName);
-            var view = views.FirstOrDefault();
-
-            foreach (var section in view.Sections.Values)
-            {
-                if (section != null)
-                {
-                    // get configuration element
-                    FieldDefinitionElement fieldDefinitionElement = WcfDefinitionBuilder.GetFieldDefinitionElement(fieldName, section);
-                    var fieldControlDefinitionElement = fieldDefinitionElement as FieldControlDefinitionElement;
-
-                    if (fieldControlDefinitionElement != null)
-                    {
-                        // transfer complex properties like validation
-                        if (fieldControlDefinitionElement.Validation != null)
-                            return fieldControlDefinitionElement.Validation;
-                    }
-                }
-            }
-
-            return null;
+            return ContentViewConfig.GetFieldValidatorDefinition(typeof(SitefinityProfile), fieldName);
         }
 
         private const string MissingResourcePrefix = "#ResourceNotFound#";

@@ -1,4 +1,5 @@
-﻿using System;
+﻿
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -7,6 +8,7 @@ using System.Web;
 using System.Web.Script.Serialization;
 using Telerik.Sitefinity.Data;
 using Telerik.Sitefinity.Data.ContentLinks;
+using Telerik.Sitefinity.Frontend.Identity.Mvc.Helpers;
 using Telerik.Sitefinity.Frontend.Identity.Mvc.StringResources;
 using Telerik.Sitefinity.Frontend.Mvc.Helpers;
 using Telerik.Sitefinity.Libraries.Model;
@@ -327,21 +329,60 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.Profile
                 var profileBindings = profileBindingsList.SingleOrDefault(p => p.ProfileType == profile.GetType().FullName);
                 if (profileBindings != null)
                 {
-                    var requiredProperties = profileBindings.Properties.Where(p => p.Required);
+                    var requiredProperties = profileBindings.Properties;
 
                     foreach (var prop in requiredProperties)
                     {
+                        string propValue;
+                        var tryGetPropValue = viewModel.Profile.TryGetValue(prop.Name, out propValue);
+                        var profileValue = profile.GetType().GetProperty(prop.Name)?.GetValue(profile) as string;
+
                         if (readOnlyFields.Any(x => x.Equals(prop.Name, StringComparison.OrdinalIgnoreCase)))
                         {
+                            if (!(propValue.Equals(profileValue) || (string.IsNullOrEmpty(propValue) && string.IsNullOrEmpty(profileValue))))
+                            {
+                                modelState.AddModelError(string.Format("Profile[{0}]", prop.Name), string.Format(this.GetErrorMessageFromResource("ReadOnlyField"), prop.Name));
+                            }
+
                             // skip validation for read-only fields
                             continue;
                         }
 
-                        string propValue;
 
-                        if (!viewModel.Profile.TryGetValue(prop.Name, out propValue) || string.IsNullOrWhiteSpace(propValue))
+                        if (!tryGetPropValue || string.IsNullOrWhiteSpace(propValue))
                         {
-                            modelState.AddModelError(string.Format("Profile[{0}]", prop.Name), string.Format(Res.Get<ProfileResources>().RequiredProfileField, prop.Name));
+                            if (prop.Required)
+                            {
+                                modelState.AddModelError(string.Format("Profile[{0}]", prop.Name), string.Format(Res.Get<ProfileResources>().RequiredProfileField, prop.Name));
+                            }
+                        }
+                        else
+                        {
+                            var validation = RegistrationHelper.GetFieldValidatorDefinition(prop.Name);
+
+                            if (validation != null)
+                            {
+                                var value = viewModel.Profile[prop.Name];
+                                if (validation.Required.HasValue && validation.Required.Value && string.IsNullOrEmpty(value))
+                                {
+                                    modelState.AddModelError(string.Format("Profile[{0}]", prop.Name), this.GetErrorMessageFromResource(validation.RequiredViolationMessage));
+                                }
+                                else if (value.Length > 0)
+                                {
+                                    if (value.Length < (int)validation.MinLength || ((int)validation.MaxLength != 0 && value.Length > (int)validation.MaxLength))
+                                    {
+                                        modelState.AddModelError(string.Format("Profile[{0}]", prop.Name), this.GetErrorMessageFromResource(validation.MaxLengthViolationMessage));
+                                    }
+                                    if (!string.IsNullOrEmpty(validation.RegularExpression))
+                                    {
+                                        var regex = new Regex(validation.RegularExpression);
+                                        if (!regex.IsMatch(value))
+                                        {
+                                            modelState.AddModelError(string.Format("Profile[{0}]", prop.Name), this.GetErrorMessageFromResource(validation.RegularExpressionViolationMessage));
+                                        }
+                                    }
+                                }
+                            }
                         }
                     }
                 }
@@ -570,6 +611,19 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.Profile
             }
 
             return album;
+        }
+
+        private string GetErrorMessageFromResource(string violationMessage)
+        {
+            const string MissingResourcePrefix = "#ResourceNotFound#";
+            string errorMessage = string.Empty;
+
+            if (violationMessage != null)
+            {
+                errorMessage = Res.Get<ErrorMessages>(violationMessage).StartsWith(MissingResourcePrefix) ? violationMessage : Res.Get<ErrorMessages>(violationMessage);
+            }
+
+            return errorMessage;
         }
 
         #endregion

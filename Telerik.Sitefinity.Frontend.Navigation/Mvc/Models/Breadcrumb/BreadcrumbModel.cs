@@ -111,7 +111,7 @@ namespace Telerik.Sitefinity.Frontend.Navigation.Mvc.Models.Breadcrumb
                     virtualNodes = virtualNodes.Where(n => !result.Item2.Contains(n));
                     result.Item2.AddRange(virtualNodes);
                 }
-            }      
+            }
 
             return new BreadcrumbViewModel(result.Item2)
             {
@@ -130,16 +130,7 @@ namespace Telerik.Sitefinity.Frontend.Navigation.Mvc.Models.Breadcrumb
         {
             var nodes = new List<SiteMapNode>();
 
-            var page = HttpContext.Current.Handler as System.Web.UI.Page;
-
-            if (page == null)
-            {
-                var pageHandlerWrapper = HttpContext.Current.Handler as IHandlerWrapper;
-                if (pageHandlerWrapper != null)
-                {
-                    page = pageHandlerWrapper.OriginalHandler as System.Web.UI.Page;
-                }
-            }
+            var page = this.GetPageFromHandler();
 
             if (page != null)
             {
@@ -179,7 +170,7 @@ namespace Telerik.Sitefinity.Frontend.Navigation.Mvc.Models.Breadcrumb
 
             return nodes;
         }
-     
+
         private static IList<T> GetControlsRecusrvive<T>(Control control) where T : Control
         {
             var rtn = new List<T>();
@@ -205,7 +196,7 @@ namespace Telerik.Sitefinity.Frontend.Navigation.Mvc.Models.Breadcrumb
             var currentParentItem = dataItem.SystemParentItem;
             while (currentParentItem != null)
             {
-                var page = HttpContext.Current.Handler as System.Web.UI.Page;
+                var page = this.GetPageFromHandler();
                 var url = page.Request.RawUrl;
                 var indexOfCurrentUrl = url.IndexOf(currentParentItem.ItemDefaultUrl, StringComparison.OrdinalIgnoreCase);
                 if (indexOfCurrentUrl > -1)
@@ -307,6 +298,22 @@ namespace Telerik.Sitefinity.Frontend.Navigation.Mvc.Models.Breadcrumb
 
                 return this.provider;
             }
+        }
+
+        private System.Web.UI.Page GetPageFromHandler()
+        {
+            var page = HttpContext.Current.Handler as System.Web.UI.Page;
+
+            if (page == null)
+            {
+                var pageHandlerWrapper = HttpContext.Current.Handler as IHandlerWrapper;
+                if (pageHandlerWrapper != null)
+                {
+                    page = pageHandlerWrapper.OriginalHandler as System.Web.UI.Page;
+                }
+            }
+
+            return page;
         }
 
         #region Private fields
