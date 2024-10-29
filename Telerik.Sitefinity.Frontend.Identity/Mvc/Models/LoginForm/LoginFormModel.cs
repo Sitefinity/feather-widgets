@@ -583,20 +583,17 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.LoginForm
                 redirectUrl = redirectUrl.Replace("&err=true", string.Empty).Replace("err=true", string.Empty);
             }
 
-            if (this.LoginRedirectPageId.HasValue)
+            // Get redirectUrl from query string parameter
+            string redirectUrlFromQS;
+            this.TryResolveUrlFromUrlReferrer(context, out redirectUrlFromQS);
+
+            if (!string.IsNullOrWhiteSpace(redirectUrlFromQS))
+            {
+                redirectUrl = redirectUrlFromQS;
+            }
+            else if (this.LoginRedirectPageId.HasValue)
             {
                 redirectUrl = this.GetPageUrl(this.LoginRedirectPageId);
-            }
-            else
-            {
-                // Get redirectUrl from query string parameter
-                string redirectUrlFromQS;
-                this.TryResolveUrlFromUrlReferrer(context, out redirectUrlFromQS);
-
-                if (!string.IsNullOrWhiteSpace(redirectUrlFromQS))
-                {
-                    redirectUrl = redirectUrlFromQS;
-                }
             }
 
             return redirectUrl;

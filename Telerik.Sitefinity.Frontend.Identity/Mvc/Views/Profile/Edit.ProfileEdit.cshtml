@@ -57,6 +57,10 @@
                             @Html.Resource("EditProfileFirstName")
                             @Html.HiddenFor(u => u.Profile["FirstName"])
                             @Model.Profile["FirstName"]
+                            @if (Html.ValidationMessageFor(u => u.Profile["FirstName"]) != null)
+                            {
+                                @Html.ValidationMessageFor(u => u.Profile["FirstName"])
+                            }
                         </label>
                     </div>
                 }
@@ -77,6 +81,10 @@
                             @Html.Resource("EditProfileLastName")
                             @Html.HiddenFor(u => u.Profile["LastName"])
                             @Model.Profile["LastName"]
+                            @if (Html.ValidationMessageFor(u => u.Profile["LastName"]) != null)
+                            {
+                                @Html.ValidationMessageFor(u => u.Profile["LastName"])
+                            }
                         </label>
                     </div>
                 }
@@ -97,6 +105,10 @@
                             @Html.Resource("EditProfileNickname")
                             @Html.HiddenFor(u => u.Profile["Nickname"])
                             @Model.Profile["Nickname"]
+                            @if (Html.ValidationMessageFor(u => u.Profile["NickName"]) != null)
+                            {
+                                @Html.ValidationMessageFor(u => u.Profile["Nickname"])
+                            }
                         </label>
                     </div>
                 }
@@ -116,6 +128,10 @@
                         @Html.Resource("EditProfileAbout")
                         @Html.HiddenFor(u => u.Profile["About"])
                         @Model.Profile["About"]
+                        @if (Html.ValidationMessageFor(u => u.Profile["About"]) != null)
+                        {
+                            @Html.ValidationMessageFor(u => u.Profile["About"])
+                        }
                     </div>
                 }
                 else 
