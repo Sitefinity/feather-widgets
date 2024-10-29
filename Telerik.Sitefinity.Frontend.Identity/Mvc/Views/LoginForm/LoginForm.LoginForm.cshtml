@@ -19,7 +19,7 @@
 
 <div class="@Model.CssClass">
     <div>
-        @using (Html.BeginFormSitefinity(@Request.Url.Query, null, null, FormMethod.Post, null, true))
+        @using (Html.BeginFormSitefinity("", null, null, FormMethod.Post, null, true))
         {
          @Html.ValidationSummary(true)
             <h3>@Html.Resource("LoginFormLogInLegendHeader")</h3>

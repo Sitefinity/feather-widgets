@@ -520,14 +520,89 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.StringResources
         /// phrase: Welcome
         /// </summary>
         [ResourceEntry("SuccessEmailDefaultSubject",
-            Value = "Welcome",
+            Value = "Registration successful",
             Description = "The default subject of the success email",
-            LastModified = "2015/02/27")]
+            LastModified = "2024/08/08")]
         public string SuccessEmailDefaultSubject
         {
             get
             {
                 return this["SuccessEmailDefaultSubject"];
+            }
+        }
+
+        /// <summary>
+        /// phrase: Activate account
+        /// </summary>
+        [ResourceEntry("ActivateAccountTitle",
+            Value = "Activate account",
+            Description = "Activate account",
+            LastModified = "2024/08/30")]
+        public string ActivateAccountTitle
+        {
+            get
+            {
+                return this["ActivateAccountTitle"];
+            }
+        }
+
+        /// <summary>
+        /// phrase: To access your new account you need to verify your email
+        /// </summary>
+        [ResourceEntry("ActivateAccountMessage",
+            Value = "To access your new account you need to verify your email",
+            Description = "To access your new account you need to verify your email",
+            LastModified = "2024/08/30")]
+        public string ActivateAccountMessage
+        {
+            get
+            {
+                return this["ActivateAccountMessage"];
+            }
+        }
+
+        /// <summary>
+        /// phrase: Activation link expires in...
+        /// </summary>
+        [ResourceEntry("ActivationValidityMinutesTitle",
+            Value = "Activation link expires in...",
+            Description = "Activation link expires in...",
+            LastModified = "2024/09/05")]
+        public string ActivationValidityMinutesTitle
+        {
+            get
+            {
+                return this["ActivationValidityMinutesTitle"];
+            }
+        }
+
+        /// <summary>
+        /// phrase: hours
+        /// </summary>
+        [ResourceEntry("ActivationValidityMinutesMessage",
+            Value = "minutes",
+            Description = "hours",
+            LastModified = "2024/09/16")]
+        public string ActivationValidityMinutesMessage
+        {
+            get
+            {
+                return this["ActivationValidityMinutesMessage"];
+            }
+        }
+
+        /// <summary>
+        /// phrase: Send activation link
+        /// </summary>
+        [ResourceEntry("SendActivationLink",
+            Value = "Send activation link",
+            Description = "Send activation link",
+            LastModified = "2024/08/30")]
+        public string SendActivationLink
+        {
+            get
+            {
+                return this["SendActivationLink"];
             }
         }
 

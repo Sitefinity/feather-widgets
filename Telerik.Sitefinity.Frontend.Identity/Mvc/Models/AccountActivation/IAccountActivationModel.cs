@@ -17,6 +17,13 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.AccountActivation
         /// An instance of <see cref="AccountActivationViewModel"/>
         /// </returns>
         AccountActivationViewModel GetViewModel();
+        
+        /// <summary>
+        /// Sends again activation link
+        /// </summary>
+        /// <param name="model">An instance of <see cref="AccountActivationViewModel"/></param>
+        /// <param name="url">The base url of the index action</param>
+        void SendAgainActivationLink(AccountActivationViewModel model, string url);
 
         /// <summary>
         /// Gets or sets the css class.
@@ -35,11 +42,11 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.AccountActivation
         string MembershipProvider { get; set; }
 
         /// <summary>
-        /// Gets or sets the profile page identifier.
+        /// Gets or sets the login page identifier.
         /// </summary>
         /// <value>
-        /// The profile page identifier.
+        /// The login page identifier.
         /// </value>
-        Guid? ProfilePageId { get; set; }
+        Guid? LoginPageId { get; set; }
     }
 }

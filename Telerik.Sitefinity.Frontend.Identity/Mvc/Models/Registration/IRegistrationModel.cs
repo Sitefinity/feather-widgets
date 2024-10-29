@@ -63,58 +63,6 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.Registration
         bool SendEmailOnSuccess { get; set; }
 
         /// <summary>
-        /// Gets or sets the subject of the success email.
-        /// </summary>
-        /// <value>The subject of the email.</value>
-        string SuccessEmailSubject { get; set; }
-
-        /// <summary>
-        /// Gets or sets the subject of the confirmation email.
-        /// </summary>
-        /// <value>The subject of the email.</value>
-        string ConfirmationEmailSubject { get; set; }
-
-        /// <summary>
-        /// Gets or sets the template id of the email template used for the success email.
-        /// </summary>
-        Guid? SuccessEmailTemplateId { get; set; }
-
-        /// <summary>
-        /// Gets or sets the template id of the email template used for the confirmation email.
-        /// </summary>
-        Guid? ConfirmationEmailTemplateId { get; set; }
-
-        /// <summary>
-        /// Gets or sets the name of the email sender that will be used to send confirmation and successful registration emails.
-        /// </summary>
-        /// <value>The email sender.</value>
-        string EmailSenderName { get; set; }
-
-        /// <summary>
-        /// Gets or sets the sender email that will be used to send successful registration emails.
-        /// </summary>
-        /// <value>The sender email.</value>
-        string SuccessfulRegistrationSenderEmail { get; set; }
-
-        /// <summary>
-        /// Gets or sets the sender email that will be used to send confirmation registration emails.
-        /// </summary>
-        /// <value>The sender email.</value>
-        string ConfirmRegistrationSenderEmail { get; set; }
-
-        /// <summary>
-        /// Gets or sets the sender namr that will be used to send successful registration emails.
-        /// </summary>
-        /// <value>The sender name.</value>
-        string SuccessfulRegistrationSenderName { get; set; }
-
-        /// <summary>
-        /// Gets or sets the sender name that will be used to send confirmation registration emails.
-        /// </summary>
-        /// <value>The sender name.</value>
-        string ConfirmRegistrationSenderName { get; set; }
-
-        /// <summary>
         /// Gets or sets the activation method.
         /// </summary>
         /// <value>
@@ -198,7 +146,7 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.Registration
         /// <param name="viewModel">The view model.</param>
         void InitializeViewModel(RegistrationViewModel viewModel);
 
-                /// <summary>
+        /// <summary>
         /// Authenticates external provider and make IdentityServer challenge
         /// </summary>
         /// <param name="input">Provider name.</param>

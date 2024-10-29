@@ -163,13 +163,12 @@
 
             function sendSentence() {
                 if (window.DataIntelligenceSubmitScript) {
-                    DataIntelligenceSubmitScript._client.sentenceClient.writeSentence({
-                        predicate: "Search for",
-                        object: searchTextBox.val(),
-                        objectMetadata: [{
-                            'K': 'PageUrl',
-                            'V': location.href
-                        }]
+                    DataIntelligenceSubmitScript._client.fetchClient.sendInteraction({
+                        P: "Search for",
+                        O: searchTextBox.val(),
+                        OM: {
+                            PageUrl: location.href
+                        }
                     });
                 }
             }

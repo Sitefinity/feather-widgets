@@ -334,9 +334,9 @@ namespace Telerik.Sitefinity.Frontend.Publishing.Mvc.StringResources
         /// Control description: A link to a published feed.
         /// </summary>
         [ResourceEntry("FeedEmbedControlDescription",
-            Value = "Link to a feed (RSS, Twitter, custom)",
+            Value = "Link to a feed (RSS, custom)",
             Description = "Control description: A link to a published feed.",
-            LastModified = "2019/06/03")]
+            LastModified = "2024/04/22")]
         public string FeedEmbedControlDescription
         {
             get

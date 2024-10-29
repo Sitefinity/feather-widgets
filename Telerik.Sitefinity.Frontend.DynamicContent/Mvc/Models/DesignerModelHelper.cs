@@ -57,11 +57,11 @@ namespace Telerik.Sitefinity.Frontend.DynamicContent.Mvc.Models
         /// </summary>
         /// <param name="control">The control.</param>
         /// <returns>Parent module types.</returns>
-        public static IEnumerable<DynamicModuleType> ParentModuleTypes(this Control control)
+        public static IEnumerable<IDynamicModuleType> ParentModuleTypes(this Control control)
         {
             var dynamicType = control.ResolveDynamicModuleType();
 
-            var result = new List<DynamicModuleType>();
+            var result = new List<IDynamicModuleType>();
             while (dynamicType.ParentModuleType != null)
             {
                 result.Add(dynamicType.ParentModuleType);
@@ -143,7 +143,7 @@ namespace Telerik.Sitefinity.Frontend.DynamicContent.Mvc.Models
         /// or
         /// This method should be used for DynamicContentController's designer only.
         /// </exception>
-        private static DynamicModuleType ResolveDynamicModuleType(this Control control)
+        private static IDynamicModuleType ResolveDynamicModuleType(this Control control)
         {
             var mvcProxy = control as MvcWidgetProxy;
             if (mvcProxy == null)

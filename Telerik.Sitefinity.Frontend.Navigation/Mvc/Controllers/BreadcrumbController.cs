@@ -30,7 +30,7 @@ namespace Telerik.Sitefinity.Frontend.Navigation.Mvc.Controllers
         CssClass = BreadcrumbController.WidgetIconCssClass)]
     [Localization(typeof(BreadcrumbResources))]
     [IndexRenderMode(IndexRenderModes.NoOutput)]
-    public class BreadcrumbController : Controller
+    public class BreadcrumbController : Controller, IDelayedExecutionController
     {
         /// <summary>
         /// Gets or sets the name of the template that will be displayed.

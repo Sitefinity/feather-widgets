@@ -2,11 +2,17 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
+using Telerik.Sitefinity.Data;
 using Telerik.Sitefinity.Descriptors;
+using Telerik.Sitefinity.DynamicModules.Builder.Model;
 using Telerik.Sitefinity.Frontend.Mvc.Models;
 using Telerik.Sitefinity.GenericContent.Model;
 using Telerik.Sitefinity.Lifecycle;
 using Telerik.Sitefinity.Model;
+using Telerik.Sitefinity.Model.ContentLinks;
+using Telerik.Sitefinity.RelatedData;
+using Telerik.Sitefinity.Services;
+using Telerik.Sitefinity.Web;
 
 namespace Telerik.Sitefinity.Frontend.DynamicContent.Mvc.Helpers
 {
@@ -38,6 +44,8 @@ namespace Telerik.Sitefinity.Frontend.DynamicContent.Mvc.Helpers
 
             var childItems = (IEnumerable<IDataItem>)item.Fields.GetMemberValue(fieldName);
 
+            AddCacheDependenciesForChildItems(item, childItems);
+
             return childItems.ToArray().Select(d => new ItemViewModel(d));
         }
 
@@ -54,6 +62,8 @@ namespace Telerik.Sitefinity.Frontend.DynamicContent.Mvc.Helpers
             }
 
             var parentItem = ItemViewModelExtensions.GetParentItem(item);
+
+            AddCacheDependenciesForParentItem(item, parentItem);
 
             return new ItemViewModel(parentItem);
         }
@@ -102,6 +112,57 @@ namespace Telerik.Sitefinity.Frontend.DynamicContent.Mvc.Helpers
             var parentItem = (IDataItem)item.Fields.SystemParentItem;
 
             return parentItem;
+        }
+
+        private static void AddCacheDependenciesForChildItems(ItemViewModel item, IEnumerable<IDataItem> childItems)
+        {
+            if(!childItems.Any())
+            {
+                return;
+            }
+
+            var itemType = childItems.First().GetType();
+            var cacheDependencyKeys = new List<CacheDependencyKey>
+            {
+                new CacheDependencyKey { Key = itemType.FullName, Type = typeof(DynamicModule) }
+            };
+
+            if (childItems.Count() > 10)
+            {
+                cacheDependencyKeys = OutputCacheDependencyHelper.GetPublishedContentCacheDependencyKeys(itemType, childItems.First().Provider.ToString()).ToList();
+            }
+            else
+            {
+                foreach (var childItem in childItems)
+                {
+                    cacheDependencyKeys.AddRange(OutputCacheDependencyHelper.GetPublishedContentCacheDependencyKeys(itemType, childItem.Id));
+                }
+            }
+
+            AddCacheDependencyKeys(cacheDependencyKeys);
+        }
+
+        private static void AddCacheDependenciesForParentItem(ItemViewModel item, IDataItem parentItem)
+        {
+            if(parentItem == null)
+            {
+                return;
+            }
+
+            var itemType = parentItem.GetType();
+            var cacheDependencyKeys = new List<CacheDependencyKey>
+            {
+                new CacheDependencyKey { Key = itemType.FullName, Type = typeof(DynamicModule) }
+            };
+
+            cacheDependencyKeys.AddRange(OutputCacheDependencyHelper.GetPublishedContentCacheDependencyKeys(itemType, parentItem.Id));
+
+            AddCacheDependencyKeys(cacheDependencyKeys);
+        }
+
+        private static void AddCacheDependencyKeys(IEnumerable<CacheDependencyKey> cacheDependencyKeys)
+        {
+            SystemManager.CurrentHttpContext.AddCacheDependencies(cacheDependencyKeys);
         }
 
         #endregion

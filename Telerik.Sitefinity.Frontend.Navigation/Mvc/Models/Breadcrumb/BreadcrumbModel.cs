@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.UI;
+using Telerik.OpenAccess.Metadata;
 using Telerik.Sitefinity.DynamicModules.Model;
 using Telerik.Sitefinity.Frontend.Mvc.Helpers;
 using Telerik.Sitefinity.Model;
@@ -138,56 +139,25 @@ namespace Telerik.Sitefinity.Frontend.Navigation.Mvc.Models.Breadcrumb
                 if (routeParams == null || routeParams.Length == 0)
                     return null;
 
-                var mvcProxyControls = GetControlsRecusrvive<Telerik.Sitefinity.Mvc.Proxy.MvcControllerProxy>(page);
-                if (mvcProxyControls.Any())
+                if (SystemManager.IsDetailsView(out object dataItem) && dataItem != null)
                 {
-                    var contentItemResolver = new ContentDataItemResolver();
-                    foreach (var mvcProxy in mvcProxyControls)
+                    if (dataItem is IContent content)
                     {
-                        var dataItem = contentItemResolver.GetItemByController(mvcProxy.Controller, routeParams);
-                        if (dataItem != null)
+                        if (!string.IsNullOrEmpty(content.Title))
                         {
-                            var content = dataItem as IContent;
-                            var dynamicContent = dataItem as DynamicContent;
-
-                            if (content != null)
-                            {
-                                if (!string.IsNullOrEmpty(content.Title))
-                                {
-                                    var siteMapNode = new SiteMapNode(
-                                        this.provider, dataItem.Id.ToString(), string.Empty, content.Title, content.Description);
-                                    nodes.Add(siteMapNode);
-                                }
-                            }
-                            else if (dynamicContent != null)
-                            {
-                                nodes.AddRange(this.GetDynamicContentlVirtualNodes(dynamicContent));
-                            }
+                            var siteMapNode = new SiteMapNode(
+                                this.provider, content.Id.ToString(), string.Empty, content.Title, content.Description);
+                            nodes.Add(siteMapNode);
                         }
+                    }
+                    else if (dataItem is DynamicContent dynamicContent)
+                    {
+                        nodes.AddRange(this.GetDynamicContentlVirtualNodes(dynamicContent));
                     }
                 }
             }
 
             return nodes;
-        }
-
-        private static IList<T> GetControlsRecusrvive<T>(Control control) where T : Control
-        {
-            var rtn = new List<T>();
-            foreach (Control item in control.Controls)
-            {
-                var ctr = item as T;
-                if (ctr != null)
-                {
-                    rtn.Add(ctr);
-                }
-                else
-                {
-                    rtn.AddRange(GetControlsRecusrvive<T>(item));
-                }
-            }
-
-            return rtn;
         }
 
         private IEnumerable<SiteMapNode> GetDynamicContentlVirtualNodes(DynamicContent dataItem)

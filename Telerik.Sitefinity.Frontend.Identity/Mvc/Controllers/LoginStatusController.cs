@@ -153,6 +153,7 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Controllers
         /// Returns JSON with the status of the user and his email, first and last names
         /// </summary>
         [Route("rest-api/login-status")]
+        [OutputCache(NoStore = true, Duration = 0)]
         public JsonResult Status()
         {
             var response = this.Model.GetStatusViewModel();

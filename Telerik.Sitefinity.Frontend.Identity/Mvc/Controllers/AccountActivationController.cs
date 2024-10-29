@@ -4,7 +4,9 @@ using Telerik.Sitefinity.Frontend.Identity.Mvc.Models.AccountActivation;
 using Telerik.Sitefinity.Frontend.Identity.Mvc.StringResources;
 using Telerik.Sitefinity.Frontend.Mvc.Infrastructure.Controllers;
 using Telerik.Sitefinity.Frontend.Mvc.Infrastructure.Controllers.Attributes;
+using Telerik.Sitefinity.Frontend.Security;
 using Telerik.Sitefinity.Mvc;
+using Telerik.Sitefinity.Web;
 
 namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Controllers
 {
@@ -73,6 +75,26 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Controllers
         public ActionResult Index()
         {
             var model = this.Model.GetViewModel(); 
+            var fullTemplateName = this.templateNamePrefix + this.TemplateName;
+
+            return this.View(fullTemplateName, model);
+        }
+
+        /// <summary>
+        /// Sends again activation link.
+        /// </summary>
+        /// <param name="model">The model.</param>
+        /// <param name="qs">The query string.</param>
+        /// <returns>The <see cref="ActionResult"/></returns>
+        [HttpPost]
+        public ActionResult SendAgainActivationLink(AccountActivationViewModel model, string qs)
+        {
+            if (!AntiCsrfHelpers.IsValidCsrfToken(this.Request?.Form) || !this.ModelState.IsValid)
+                return new EmptyResult();
+
+            var url = RouteHelper.ResolveUrl(this.Url.Action("Index"), UrlResolveOptions.Absolute);
+            this.Model.SendAgainActivationLink(model, url);
+
             var fullTemplateName = this.templateNamePrefix + this.TemplateName;
 
             return this.View(fullTemplateName, model);

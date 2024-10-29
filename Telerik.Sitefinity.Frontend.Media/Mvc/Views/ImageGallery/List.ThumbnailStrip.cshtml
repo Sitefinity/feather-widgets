@@ -26,6 +26,7 @@
     ThumbnailViewModel thumbnailViewModel = (ThumbnailViewModel)firstItem;
 }
 
+<div class="sf-Gallery">
 @if (hasItems)
 {
         if (isBackendDesignMode)
@@ -60,18 +61,19 @@
     }
 }
 
-
-<div class="js-Gallery-thumbs">
-@foreach(var item in Model.Items)
-{
-    var itemViewModel = (ThumbnailViewModel)item;
-    
-    <a href="javascript:void(0)" title="@item.Fields.Title" data-item="@Html.GetSerializedImage(item)" data-detail-url="@HyperLinkHelpers.GetDetailPageUrl(item, ViewBag.DetailsPageId, ViewBag.OpenInSamePage, Model.UrlKeyPrefix)">
-        <img loading="lazy" src="@(itemViewModel.ThumbnailUrl)" alt="@item.Fields.AlternativeText" 
-                      @Html.GetWidthAttributeIfExists(itemViewModel.Width)
-                      @Html.GetHeightAttributeIfExists(itemViewModel.Height) />
-    </a>
-}
+<div class="sf-Gallery-thumbs-container">
+    <div class="js-Gallery-thumbs">
+    @foreach(var item in Model.Items)
+    {
+        var itemViewModel = (ThumbnailViewModel)item;
+        
+        <a href="javascript:void(0)" title="@item.Fields.Title" data-item="@Html.GetSerializedImage(item)" data-detail-url="@HyperLinkHelpers.GetDetailPageUrl(item, ViewBag.DetailsPageId, ViewBag.OpenInSamePage, Model.UrlKeyPrefix)">
+            <img loading="lazy" src="@(itemViewModel.ThumbnailUrl)" alt="@item.Fields.AlternativeText" 
+                        @Html.GetWidthAttributeIfExists(itemViewModel.Width)
+                        @Html.GetHeightAttributeIfExists(itemViewModel.Height) />
+        </a>
+    }
+    </div>
 </div>
 @if (Model.ShowPager)
 {
@@ -82,3 +84,4 @@
            redirectUrlTemplate = ViewBag.RedirectPageUrlTemplate
        })
 }
+</div>

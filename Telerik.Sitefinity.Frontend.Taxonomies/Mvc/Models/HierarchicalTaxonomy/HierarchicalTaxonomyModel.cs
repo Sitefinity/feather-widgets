@@ -183,6 +183,9 @@ namespace Telerik.Sitefinity.Frontend.Taxonomies.Mvc.Models.HierarchicalTaxonomy
                 var sortedTaxa = this.Sort(taxa);
                 return this.GetFlatTaxaViewModelsWithStatistics(sortedTaxa, statistics);
             }
+            var statisticsLookup = statistics.ToLookup(a => a.TaxonId);
+            var taxonomy = this.Taxonomy;
+            var baseUrl = this.ResolveBaseUrl();
 
             return TaxaViewModelTreeBuilder.BuildTaxaTree(
                 taxa,
@@ -191,7 +194,7 @@ namespace Telerik.Sitefinity.Frontend.Taxonomies.Mvc.Models.HierarchicalTaxonomy
                     if (!this.HasTranslationInCurrentLanguage(taxon))
                         return null;
 
-                    return this.FilterTaxonByCount(taxon, statistics);
+                    return this.FilterTaxonByCount(taxon, statisticsLookup, taxonomy, baseUrl);
                 },
                 t => this.Sort(t),
                 this.CurrentTaxonomyManager,

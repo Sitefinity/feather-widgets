@@ -1,6 +1,4 @@
-﻿using ServiceStack;
-using ServiceStack.Text;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -20,14 +18,21 @@ using Telerik.Sitefinity.Modules.UserProfiles;
 using Telerik.Sitefinity.Pages.Model;
 using Telerik.Sitefinity.Security;
 using Telerik.Sitefinity.Security.Claims;
+using Telerik.Sitefinity.Security.Configuration;
+using Telerik.Sitefinity.Security.EmailConfirmationOperations;
 using Telerik.Sitefinity.Security.Events;
+using Telerik.Sitefinity.Security.MessageTemplates.Helpers;
+using Telerik.Sitefinity.Security.MessageTemplates;
 using Telerik.Sitefinity.Security.Model;
 using Telerik.Sitefinity.Security.Web.UI;
 using Telerik.Sitefinity.Services;
+using Telerik.Sitefinity.Services.Notifications;
 using Telerik.Sitefinity.Utilities;
 using Telerik.Sitefinity.Web;
 using Telerik.Sitefinity.Web.Mail;
 using ErrorMessages = Telerik.Sitefinity.Localization.ErrorMessages;
+using ServiceStack.Text;
+using ServiceStack;
 
 namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.Registration
 {
@@ -130,81 +135,6 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.Registration
         public bool SendEmailOnSuccess { get; set; }
 
         /// <inheritDoc/>
-        public string SuccessEmailSubject
-        {
-            get
-            {
-                return this.successEmailSubject;
-            }
-            set
-            {
-                this.successEmailSubject = value;
-            }
-        }
-
-        /// <inheritDoc/>
-        public virtual string ConfirmationEmailSubject
-        {
-            get
-            {
-                return this.confirmationEmailSubject;
-            }
-            set
-            {
-                this.confirmationEmailSubject = value;
-            }
-        }
-
-        /// <inheritDoc/>
-        public Guid? SuccessEmailTemplateId
-        {
-            get
-            {
-                if (!this.successEmailTemplateId.HasValue)
-                {
-                    this.successEmailTemplateId = this.GetDefaultEmailTemplate("Success");
-                }
-
-                return this.successEmailTemplateId;
-            }
-
-            set
-            {
-                this.successEmailTemplateId = value;
-            }
-        }
-
-        /// <inheritDoc/>
-        public Guid? ConfirmationEmailTemplateId
-        {
-            get
-            {
-                if (!this.confirmationEmailTemplateId.HasValue)
-                {
-                    this.confirmationEmailTemplateId = this.GetDefaultEmailTemplate("Confirmation");
-                }
-
-                return this.confirmationEmailTemplateId;
-            }
-
-            set
-            {
-                this.confirmationEmailTemplateId = value;
-            }
-        }
-
-        /// <inheritDoc/>
-        public virtual string EmailSenderName { get; set; }
-
-        public virtual string SuccessfulRegistrationSenderEmail { get; set; }
-
-        public virtual string ConfirmRegistrationSenderEmail { get; set; }
-
-        public virtual string SuccessfulRegistrationSenderName { get; set; }
-
-        public virtual string ConfirmRegistrationSenderName { get; set; }
-
-        /// <inheritDoc/>
         public ActivationMethod ActivationMethod { get; set; }
 
         /// <inheritDoc/>
@@ -236,6 +166,11 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.Registration
                 viewModel.CssClass = this.CssClass;
                 viewModel.SuccessfulRegistrationPageUrl = this.GetPageUrl(this.SuccessfulRegistrationPageId);
                 viewModel.RequiresQuestionAndAnswer = UserManager.GetManager(this.MembershipProviderName).RequiresQuestionAndAnswer;
+                var encryptedMail = SystemManager.CurrentHttpContext.Request.QueryStringGet("sal");
+                if (!string.IsNullOrEmpty(encryptedMail))
+                {
+                    viewModel.Email = SecurityManager.DecryptData(encryptedMail);
+                }
 
                 if (!string.IsNullOrEmpty(this.serializedExternalProviders))
                 {
@@ -290,6 +225,20 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.Registration
                     this.ConfirmRegistration(userManager, user);
                     // this.ExecuteUserProfileSuccessfullUpdateActions();
                 }
+                else if (status == MembershipCreateStatus.DuplicateEmail || status == MembershipCreateStatus.DuplicateUserName)
+                {
+                    user = userManager.GetUser(viewModel.Email);
+
+                    if (user.IsApproved)
+                    {
+                        this.SendExistingAccountEmail(userManager, user);
+                    }
+                    else
+                    {
+                        this.SendRegistrationConfirmationEmail(userManager, user, new ExistingEmailMessageTemplate());
+                        userManager.SaveChanges();
+                    }
+                }
             }
 
             return status;
@@ -305,10 +254,14 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.Registration
             var isSend = false;
             var userManager = UserManager.GetManager(this.MembershipProviderName);
             User user = userManager.GetUserByEmail(email);
-            if (user != null)
+            if (user != null && !user.IsApproved)
             {
-                this.SendRegistrationConfirmationEmail(userManager, user);
+                this.SendRegistrationConfirmationEmail(userManager, user, new AccountActivationEmailMessageTemplate());
                 isSend = true;
+                using (new ElevatedModeRegion(userManager))
+                {
+                    userManager.SaveChanges();
+                }
             }
 
             return isSend;
@@ -356,6 +309,8 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.Registration
             switch (status)
             {
                 case MembershipCreateStatus.Success:
+                case MembershipCreateStatus.DuplicateUserName:
+                case MembershipCreateStatus.DuplicateEmail:
                     return null;
                 case MembershipCreateStatus.InvalidPassword:
                     {
@@ -369,10 +324,6 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.Registration
                     return Res.Get<ErrorMessages>().CreateUserWizardDefaultInvalidAnswerErrorMessage;
                 case MembershipCreateStatus.InvalidEmail:
                     return Res.Get<ErrorMessages>().CreateUserWizardDefaultInvalidEmailErrorMessage;
-                case MembershipCreateStatus.DuplicateUserName:
-                    return Res.Get<ErrorMessages>().CreateUserWizardDefaultDuplicateUserNameErrorMessage;
-                case MembershipCreateStatus.DuplicateEmail:
-                    return Res.Get<ErrorMessages>().CreateUserWizardDefaultDuplicateEmailErrorMessage;
                 default:
                     return Res.Get<ErrorMessages>().CreateUserWizardDefaultUnknownErrorMessage;
             }
@@ -396,10 +347,25 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.Registration
         /// <inheritDoc/>
         public virtual string GetError()
         {
-            if (this.ActivationMethod == ActivationMethod.AfterConfirmation && !this.ConfirmationPageId.HasValue)
+            var errors = new List<string>();
+
+            if (this.ActivationMethod == ActivationMethod.Immediately)
             {
-                return Res.Get<ErrorMessages>().NoConfirmationPageIsSet;
+                if (this.SendEmailOnSuccess && !LoginUtils.AreSmtpSettingsSet)
+                    errors.Add(Res.Get<ErrorMessages>().NoSmtpForConfirmationEmailIsSet);
             }
+            else if (this.ActivationMethod == ActivationMethod.AfterConfirmation)
+            {
+                if (!LoginUtils.AreSmtpSettingsSet)
+                    errors.Add(Res.Get<ErrorMessages>().NoSmtpForConfirmationEmailIsSet);
+
+                if (!this.ConfirmationPageId.HasValue)
+                    errors.Add(Res.Get<ErrorMessages>().NoConfirmationPageIsSet);
+            }
+
+            if (errors.Count > 0)
+                return string.Join(" ", errors);
+
             return string.Empty;
         }
 
@@ -500,7 +466,11 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.Registration
         {
             if (this.ActivationMethod == Registration.ActivationMethod.AfterConfirmation)
             {
-                this.SendRegistrationConfirmationEmail(userManager, user);
+                this.SendRegistrationConfirmationEmail(userManager, user, new AccountActivationEmailMessageTemplate());
+                using (new ElevatedModeRegion(userManager))
+                {
+                    userManager.SaveChanges();
+                }
             }
             else if (this.ActivationMethod == Registration.ActivationMethod.Immediately && this.SendEmailOnSuccess)
             {
@@ -510,6 +480,38 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.Registration
             this.RaiseRegistrationEvent(user.Id);
         }
 
+        protected virtual void SendExistingAccountEmail(UserManager userManager, User user)
+        {
+            var actionMessageTemplate = new ExistingAccountMessageTemplate();
+
+            var url = this.GetDefaultLoginUrl();
+
+            var templateItems = new Dictionary<string, TagReplacement>()
+            {
+                { "Identity.LinkUrl", new TagReplacement() {Value = url, IsHtml = false } },
+                { "Identity.SiteName", new TagReplacement() { Value = SystemManager.CurrentContext.CurrentSite.Name, IsHtml = false } }
+            };
+
+            var userRegistrationSettings = Telerik.Sitefinity.Configuration.Config.Get<SecurityConfig>().UserRegistrationSettings;
+            var senderEmailAddress = !string.IsNullOrEmpty(userRegistrationSettings.ConfirmRegistrationSenderEmail) ?
+                    userRegistrationSettings.ConfirmRegistrationSenderEmail :
+                    userManager.ConfirmationEmailAddress;
+            var senderName = userRegistrationSettings.ConfirmRegistrationSenderName;
+            var senderProfileName =
+                !string.IsNullOrEmpty(userRegistrationSettings.EmailSenderName) ?
+                userRegistrationSettings.EmailSenderName :
+                null;
+
+            IdentityEmailHelper.SendAuthenticationEmail(
+                actionMessageTemplate,
+                templateItems,
+                new[] { user.Email },
+                $"Existing account email for {user.Email}",
+                senderEmailAddress,
+                senderName,
+                senderProfileName);
+        }
+
         /// <summary>
         /// Sends the successful registration email.
         /// </summary>
@@ -517,18 +519,35 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.Registration
         /// <param name="user">The user.</param>
         protected virtual void SendSuccessfulRegistrationEmail(UserManager userManager, User user)
         {
-            var registrationSuccessEmail =
-                UserRegistrationEmailGenerator.GenerateSuccessfulRegistrationEmail(
-                                                userManager,
-                                                user,
-                                                this.SuccessEmailTemplateId,
-                                                this.SuccessEmailSubject,
-                                                this.SuccessfulRegistrationSenderEmail,
-                                                this.SuccessfulRegistrationSenderName);
+            var actionMessageTemplate = new SuccessfulRegistrationEmailMessageTemplate();
 
-            var emailSender = EmailSender.Get(this.EmailSenderName);
-            emailSender.SenderProfileName = Configuration.Config.Get<Sitefinity.Security.Configuration.SecurityConfig>().Notifications.SenderProfile;
-            emailSender.SendAsync(registrationSuccessEmail, null);
+            var url = this.GetDefaultLoginUrl();
+
+            var templateItems = new Dictionary<string, TagReplacement>()
+            {
+                { "Identity.LinkUrl", new TagReplacement() {Value = url, IsHtml = false } },
+                { "Identity.Username", new TagReplacement() {Value = user.UserName, IsHtml = false } },
+                { "Identity.SiteName", new TagReplacement() { Value = SystemManager.CurrentContext.CurrentSite.Name, IsHtml = false } }
+            };
+
+            var userRegistrationSettings = Telerik.Sitefinity.Configuration.Config.Get<SecurityConfig>().UserRegistrationSettings;
+            var senderEmailAddress = !string.IsNullOrEmpty(userRegistrationSettings.SuccessfulRegistrationSenderEmail) ?
+                    userRegistrationSettings.SuccessfulRegistrationSenderEmail :
+                    userManager.SuccessfulRegistrationEmailAddress;
+            var senderName = userRegistrationSettings.SuccessfulRegistrationSenderName;
+            var senderProfileName =
+                !string.IsNullOrEmpty(userRegistrationSettings.EmailSenderName) ?
+                userRegistrationSettings.EmailSenderName :
+                null;
+
+            IdentityEmailHelper.SendAuthenticationEmail(
+                actionMessageTemplate,
+                templateItems,
+                new[] { user.Email },
+                $"Successful registration for {user.Email}",
+                senderEmailAddress,
+                senderName,
+                senderProfileName);
         }
 
         /// <summary>
@@ -573,24 +592,44 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.Registration
         /// <summary>
         /// Sends the registration confirmation email.
         /// </summary>
-        protected virtual void SendRegistrationConfirmationEmail(UserManager userManager, User user)
+        protected virtual void SendRegistrationConfirmationEmail(UserManager userManager, User user, ActivationEmailMessageTemplateBase actionMessageTemplate)
         {
-            string confirmationPageUrl = this.GetConfirmationPageUrl(user);
+            var random = SecurityManager.GetRandomKey(16);
+            user.ConfirmationToken = random;
+            var url = this.GetConfirmationPageUrl(user, random);
+            var userRegistrationSettings = Telerik.Sitefinity.Configuration.Config.Get<SecurityConfig>().UserRegistrationSettings;
 
-            var confirmationEmail =
-                UserRegistrationEmailGenerator.GenerateRegistrationConfirmationEmail(
-                                userManager,
-                                user,
-                                this.MembershipProviderName,
-                                this.ConfirmationEmailTemplateId,
-                                confirmationPageUrl,
-                                this.ConfirmationEmailSubject,
-                                this.ConfirmRegistrationSenderEmail,
-                                this.ConfirmRegistrationSenderName);
+            var validity = TimeSpan.FromMinutes(userRegistrationSettings.ActivationMailValidityMinutes);
 
-            var emailSender = EmailSender.Get(this.EmailSenderName);
-            emailSender.SenderProfileName = Configuration.Config.Get<Sitefinity.Security.Configuration.SecurityConfig>().Notifications.SenderProfile;
-            emailSender.SendAsync(confirmationEmail, null);
+            var templateItems = new Dictionary<string, TagReplacement>()
+            {
+                { "Identity.LinkUrl", new TagReplacement() { Value = url, IsHtml = false } },
+                { "Identity.SiteName", new TagReplacement() { Value = SystemManager.CurrentContext.CurrentSite.Name, IsHtml = false } },
+                { "Identity.Validity", new TagReplacement() { Value = $"{(int)Math.Floor(validity.TotalHours)}:{validity.Minutes.ToString("00")}", IsHtml = false } },
+                { "Identity.ValidityHours", new TagReplacement() { Value = ((int) Math.Floor(validity.TotalHours)).ToString(), IsHtml = false } },
+                { "Identity.ValidityMinutes", new TagReplacement() { Value = validity.Minutes.ToString(), IsHtml = false } }
+            };
+
+            var senderEmailAddress =
+                !string.IsNullOrEmpty(userRegistrationSettings.ConfirmRegistrationSenderEmail) ?
+                userRegistrationSettings.ConfirmRegistrationSenderEmail :
+                userManager.ConfirmationEmailAddress;
+
+            var senderName = userRegistrationSettings.ConfirmRegistrationSenderName;
+
+            var senderProfileName =
+                !string.IsNullOrEmpty(userRegistrationSettings.EmailSenderName) ?
+                userRegistrationSettings.EmailSenderName :
+                null;
+
+            IdentityEmailHelper.SendAuthenticationEmail(
+                actionMessageTemplate,
+                templateItems,
+                new[] { user.Email },
+                $"Registration confirmation for {user.Email}",
+                senderEmailAddress,
+                senderName,
+                senderProfileName);
         }
 
         /// <summary>
@@ -598,7 +637,7 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.Registration
         /// </summary>
         /// <param name="user">The user.</param>
         /// <returns></returns>
-        protected virtual string GetConfirmationPageUrl(User user)
+        private string GetConfirmationPageUrl(User user, string confirmationToken)
         {
             if (!this.ConfirmationPageId.HasValue)
             {
@@ -610,8 +649,12 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.Registration
             {
                 return string.Empty;
             }
+            
+            var validity = TimeSpan.FromMinutes(Telerik.Sitefinity.Configuration.Config.Get<SecurityConfig>().UserRegistrationSettings.ActivationMailValidityMinutes);
 
-            return UserRegistrationEmailGenerator.GetConfirmationPageUrl(confirmationPageUrl, user.Id, this.MembershipProviderName, SecurityManager.AuthenticationReturnUrl, this.DefaultReturnUrl);
+            var emailConfirmationData = new AccountActivationData() { UserId = user.Id, ProviderName = user.ProviderName, ConfirmationToken = confirmationToken, Expiration = DateTime.UtcNow.TrimSeconds().Add(validity) };
+
+            return UserRegistrationEmailGenerator.GetConfirmationPageUrl(confirmationPageUrl, emailConfirmationData);
         }
 
         /// <summary>
@@ -651,21 +694,38 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.Registration
             return templateId;
         }
 
+        private string GetDefaultLoginUrl()
+        {
+            string defaultLoginPageUrl = string.Empty;
+            var currentSite = Telerik.Sitefinity.Services.SystemManager.CurrentContext.CurrentSite;
+            if (currentSite.FrontEndLoginPageId != Guid.Empty)
+            {
+                var provider = SitefinitySiteMap.GetCurrentProvider();
+                var redirectPage = provider.FindSiteMapNodeFromKey(currentSite.FrontEndLoginPageId.ToString());
+                if (redirectPage != null)
+                {
+                    defaultLoginPageUrl = redirectPage.Url;
+                }
+            }
+            else if (!string.IsNullOrWhiteSpace(currentSite.FrontEndLoginPageUrl))
+            {
+                defaultLoginPageUrl = currentSite.FrontEndLoginPageUrl;
+            }
+
+            return UrlPath.ResolveAbsoluteUrl(defaultLoginPageUrl);
+        }
+
         #endregion
 
         #region Private fields and constants
 
         private string membershipProviderName;
-        private string successEmailSubject = Res.Get<RegistrationResources>().SuccessEmailDefaultSubject;
-        private string confirmationEmailSubject = Res.Get<UserProfilesResources>().ConfirmationEmailDefaultSubject;
         private const string ProfileBindingsFile = "~/Frontend-Assembly/Telerik.Sitefinity.Frontend.Identity/Mvc/Views/Registration/ProfileBindings.json";
         private const string DefaultSortExpression = "PublicationDate DESC";
 
         private string serializedSelectedRoles;
         private IList<Role> selectedRoles = new List<Role>();
         private Dictionary<string, RoleManager> roleManagersToSubmit = null;
-        private Guid? successEmailTemplateId;
-        private Guid? confirmationEmailTemplateId;
         private string serializedExternalProviders;
 
         #endregion

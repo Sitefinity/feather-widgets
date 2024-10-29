@@ -1,5 +1,15 @@
 @using Telerik.Sitefinity.Frontend.Mvc.Helpers;
 @using Telerik.Sitefinity.Frontend.Identity.Mvc.Models.Profile;
+@using Telerik.Sitefinity.Security;
+
+@{
+    if (!LoginUtils.AreSmtpSettingsSet)
+    {
+        <div class="alert alert-warning" ng-show="properties.ChangeEmailConfirmation === 'True'">
+            @Html.Resource("NoSmtpForConfirmationEmailIsSet", "ErrorMessages")
+        </div>
+    }
+}
 
 <div class="form-group nav-wrapper">
 	<label class="radio-inline">
@@ -50,6 +60,16 @@
                     }
                 </select>
             </div>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <div class="checkbox">
+            <label for="changeEmailConfirmation">
+                <input id="changeEmailConfirmation" type="checkbox" ng-model="properties.ChangeEmailConfirmation.PropertyValue"
+                       ng-true-value="'True'" ng-false-value="'False'" />
+                @Html.Resource("ConfirmChangeEmail")
+            </label>
         </div>
     </div>
 </div>

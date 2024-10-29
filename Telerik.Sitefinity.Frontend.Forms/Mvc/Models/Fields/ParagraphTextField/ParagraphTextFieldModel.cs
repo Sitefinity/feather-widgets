@@ -31,6 +31,11 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Models.Fields.ParagraphTextField
 
                     this.validatorDefinition.RequiredViolationMessage = Res.Get<FormResources>().RequiredInputErrorMessage;
                     this.validatorDefinition.MaxLengthViolationMessage = Res.Get<FormResources>().MaxLengthInputErrorMessage;
+                    if (string.IsNullOrEmpty(this.validatorDefinition.RegularExpression))
+                    {
+                        this.validatorDefinition.RegularExpression = this.MetaField?.RegularExpression;
+                        this.validatorDefinition.RegularExpressionViolationMessage = Res.Get<FormResources>().InvalidInputErrorMessage;
+                    }
                 }
 
                 return this.validatorDefinition;
@@ -67,6 +72,7 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Models.Fields.ParagraphTextField
                 ValidationAttributes = this.BuildValidationAttributesString(),
                 RequiredViolationMessage = BuildErrorMessage(this.ValidatorDefinition.RequiredViolationMessage, metaField.Title),
                 MaxLengthViolationMessage = BuildErrorMessage(this.ValidatorDefinition.MaxLengthViolationMessage, metaField.Title),
+                ValidatorDefinition = this.BuildValidatorDefinition(this.ValidatorDefinition, metaField.Title),
                 CssClass = this.CssClass,
                 Hidden = this.Hidden && (!Sitefinity.Services.SystemManager.IsDesignMode || Sitefinity.Services.SystemManager.IsPreviewMode)
             };
@@ -92,6 +98,11 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Models.Fields.ParagraphTextField
             if (this.ValidatorDefinition.MinLength > 0)
             {
                 attributes.Append("minlength='" + this.ValidatorDefinition.MinLength + "' ");
+            }
+
+            if (!string.IsNullOrEmpty(this.ValidatorDefinition.RegularExpression))
+            {
+                attributes.AppendFormat(@"pattern=""{0}""", this.ValidatorDefinition.RegularExpression);
             }
 
             return attributes.ToString();

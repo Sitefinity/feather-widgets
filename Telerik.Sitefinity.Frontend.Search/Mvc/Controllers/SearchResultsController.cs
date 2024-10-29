@@ -80,6 +80,7 @@ namespace Telerik.Sitefinity.Frontend.Search.Mvc.Controllers
         /// <returns>
         /// The <see cref="ActionResult"/>.
         /// </returns>
+        [HttpGet]
         public ActionResult Index(int? page, string searchQuery = null, string indexCatalogue = null, string language = null, string orderBy = null, string scoringInfo = null, string filter = null, bool? resultsForAllSites = null)
         {
             if (!this.IsSearchModuleActivated())
@@ -91,14 +92,16 @@ namespace Telerik.Sitefinity.Frontend.Search.Mvc.Controllers
             //// For reference you can check https://www.progress.com/documentation/sitefinity-cms/configure-cache-variation-by-query-string
             if (HttpContext != null)
             {
-                HttpContext.Request.QueryStringGet(nameof(page));
-                HttpContext.Request.QueryStringGet(nameof(searchQuery));
-                HttpContext.Request.QueryStringGet(nameof(indexCatalogue));
-                HttpContext.Request.QueryStringGet(nameof(language));
-                HttpContext.Request.QueryStringGet(nameof(orderBy));
-                HttpContext.Request.QueryStringGet(nameof(scoringInfo));
-                HttpContext.Request.QueryStringGet(nameof(filter));
-                HttpContext.Request.QueryStringGet(nameof(resultsForAllSites));
+                //// We retrieve all parameters from the query string to prevent the case where the MVC model binder retrieves them from the body of the request.
+                //// The last can result cache web cache poisoning since we vary the output cache only by qurty params
+                page = NullableParser.ParseIntNullable(this.ControllerContext.RequestContext.RouteData.Values[nameof(page)]?.ToString());
+                searchQuery = HttpContext.Request.QueryStringGet(nameof(searchQuery));
+                indexCatalogue = HttpContext.Request.QueryStringGet(nameof(indexCatalogue));
+                language = HttpContext.Request.QueryStringGet(nameof(language));
+                orderBy = HttpContext.Request.QueryStringGet(nameof(orderBy));
+                scoringInfo = HttpContext.Request.QueryStringGet(nameof(scoringInfo));
+                filter = HttpContext.Request.QueryStringGet(nameof(filter));
+                resultsForAllSites = NullableParser.ParseBoolNullable(HttpContext.Request.QueryStringGet(nameof(resultsForAllSites)));
             }
 
             if (!string.IsNullOrEmpty(searchQuery))
@@ -138,29 +141,6 @@ namespace Telerik.Sitefinity.Frontend.Search.Mvc.Controllers
             }
 
             return null;
-        }
-
-        private string BuildSearchResultsQueryString(string searchQuery, string indexCatalogue, string orderBy, string scoringInfo, string filter, bool? resultsForAllSites)
-        {
-            var queryStringFormat = "?indexCatalogue={0}&searchQuery={1}&orderBy={2}";
-
-            var queryString = string.Format(queryStringFormat, indexCatalogue, searchQuery, orderBy ?? this.Model.OrderBy.ToString());
-            if (!string.IsNullOrEmpty(scoringInfo))
-            {
-                queryString = $"{queryString}&scoringInfo={scoringInfo}";
-            }
-
-            if (!string.IsNullOrEmpty(filter))
-            {
-                queryString = $"{queryString}&filter={filter}";
-            }
-
-            if (resultsForAllSites.HasValue)
-            {
-                queryString = $"{queryString}&resultsForAllSites={resultsForAllSites}";
-            }
-
-            return queryString;
         }
 
         /// <summary>
@@ -228,6 +208,29 @@ namespace Telerik.Sitefinity.Frontend.Search.Mvc.Controllers
         }
 
         #endregion
+
+        private string BuildSearchResultsQueryString(string searchQuery, string indexCatalogue, string orderBy, string scoringInfo, string filter, bool? resultsForAllSites)
+        {
+            var queryStringFormat = "?indexCatalogue={0}&searchQuery={1}&orderBy={2}";
+
+            var queryString = string.Format(queryStringFormat, indexCatalogue, searchQuery, orderBy ?? this.Model.OrderBy.ToString());
+            if (!string.IsNullOrEmpty(scoringInfo))
+            {
+                queryString = $"{queryString}&scoringInfo={scoringInfo}";
+            }
+
+            if (!string.IsNullOrEmpty(filter))
+            {
+                queryString = $"{queryString}&filter={filter}";
+            }
+
+            if (resultsForAllSites.HasValue)
+            {
+                queryString = $"{queryString}&resultsForAllSites={resultsForAllSites}";
+            }
+
+            return queryString;
+        }
 
         #region Private fields and constants
         internal const string WidgetIconCssClass = "sfSearchResultIcn sfMvcIcn";

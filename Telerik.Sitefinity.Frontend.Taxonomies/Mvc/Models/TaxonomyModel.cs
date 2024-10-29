@@ -294,7 +294,7 @@ namespace Telerik.Sitefinity.Frontend.Taxonomies.Mvc.Models
                 return this.CurrentTaxonomyManager.GetSiteTaxonomy<Taxonomy>(this.TaxonomyId);
             }
         }
-        
+
         /// <summary>
         /// Returns the property descriptor of the specified FieldName.
         /// </summary>
@@ -302,7 +302,7 @@ namespace Telerik.Sitefinity.Frontend.Taxonomies.Mvc.Models
         {
             get
             {
-                if ((this.fieldPropertyDescriptor == null && !string.IsNullOrEmpty(this.FieldName)) || 
+                if ((this.fieldPropertyDescriptor == null && !string.IsNullOrEmpty(this.FieldName)) ||
                     (this.fieldPropertyDescriptor != null && this.fieldPropertyDescriptor.Name != this.FieldName))
                 {
                     this.fieldPropertyDescriptor = TypeDescriptor.GetProperties(this.ContentType)[this.FieldName];
@@ -373,13 +373,17 @@ namespace Telerik.Sitefinity.Frontend.Taxonomies.Mvc.Models
         protected virtual IList<TaxonViewModel> GetFlatTaxaViewModelsWithStatistics(IEnumerable<ITaxon> taxa, IQueryable<TaxonomyStatistic> statistics)
         {
             var result = new List<TaxonViewModel>();
+            var statisticsLookup = statistics.ToLookup(a => a.TaxonId);
+            var baseUrl = this.ResolveBaseUrl();
+            var taxonomy = this.Taxonomy;
 
             foreach (var taxon in taxa)
             {
                 if (!this.HasTranslationInCurrentLanguage(taxon))
                     continue;
 
-                var viewModel = this.FilterTaxonByCount(taxon, statistics);
+                var viewModel = this.FilterTaxonByCount(taxon, statisticsLookup, taxonomy, baseUrl);
+
                 if (viewModel != null)
                 {
                     result.Add(viewModel);
@@ -402,18 +406,22 @@ namespace Telerik.Sitefinity.Frontend.Taxonomies.Mvc.Models
         /// </summary>
         /// <param name="taxon">The taxon.</param>
         /// <param name="statistics">The statistics.</param>
+        /// <param name="taxonomy">The taxonomy.</param>
+        /// <param name="baseUrl"/>The base URL.</param>
         /// <returns></returns>
-        protected virtual TaxonViewModel FilterTaxonByCount(ITaxon taxon, IQueryable<TaxonomyStatistic> statistics)
+        protected virtual TaxonViewModel FilterTaxonByCount(ITaxon taxon, ILookup<Guid, TaxonomyStatistic> statistics, ITaxonomy taxonomy, string baseUrl)
         {
-            var count = statistics.Where(s => s.TaxonId == taxon.Id)
-                .Aggregate(0u, (acc, stat) => acc + stat.MarkedItemsCount);
+            if (statistics == null || taxon == null)
+                return null;
+
+            uint count = (uint)statistics[taxon.Id].Sum(a => a.MarkedItemsCount);
 
             if (count == 0 && !this.ShowEmptyTaxa) return null;
 
             var url = this.GetTaxonUrl(taxon);
             return new TaxonViewModel(taxon, count)
             {
-                Url = this.BuildUrl(url)
+                Url = this.BuildUrl(url, baseUrl, taxonomy)
             };
         }
 
@@ -471,7 +479,7 @@ namespace Telerik.Sitefinity.Frontend.Taxonomies.Mvc.Models
             }
             return null;
         }
-        
+
         /// <summary>
         /// Gets the taxa from the taxonomy's field of the item.
         /// </summary>
@@ -533,11 +541,7 @@ namespace Telerik.Sitefinity.Frontend.Taxonomies.Mvc.Models
                 }
                 else if (!String.IsNullOrEmpty(this.DynamicContentTypeName))
                 {
-                    var moduleBuilderProvider = ModuleBuilderManager.GetManager().Provider;
-
-                    DynamicModuleType dynamicContentType = moduleBuilderProvider.GetDynamicModuleTypes()
-                        .FirstOrDefault(t => t.TypeName == this.ContentType.Name && t.TypeNamespace == this.ContentType.Namespace);
-
+                    var dynamicContentType = ModuleBuilderManager.GetModules().GetTypeByFullName(this.ContentType.FullName);
                     if (dynamicContentType != null)
                     {
                         DynamicModuleManager.GetDefaultProviderName(dynamicContentType.ModuleName);
@@ -652,14 +656,34 @@ namespace Telerik.Sitefinity.Frontend.Taxonomies.Mvc.Models
 
         /// <summary>
         /// Builds the full url for a particular taxon filter
-        /// Override this method  to change the pattern of the url 
+        /// Override this method to change the pattern of the url 
         /// </summary>
         /// <param name="taxonRelativeUrl">The taxon relative URL.</param>
+        /// <param name="baseUrl">The base URL.</param>
+        /// <param name="taxonomy">The taxonomy.</param>
         /// <returns></returns>
-        protected virtual string BuildUrl(string taxonRelativeUrl)
+        protected virtual string BuildUrl(string taxonRelativeUrl, string baseUrl, ITaxonomy taxonomy)
+        {
+            var evaluator = new TaxonomyEvaluator();
+            var taxonBuildOptions = TaxonBuildOptions.None;
+            if (taxonomy is Telerik.Sitefinity.Taxonomies.Model.HierarchicalTaxonomy)
+                taxonBuildOptions = TaxonBuildOptions.Hierarchical;
+            else if (taxonomy is Telerik.Sitefinity.Taxonomies.Model.FlatTaxonomy)
+                taxonBuildOptions = TaxonBuildOptions.Flat;
+
+            var rootTaxonomy = taxonomy.RootTaxonomy ?? taxonomy;
+            var evaluatedResult = evaluator.BuildUrl(rootTaxonomy.Name, taxonRelativeUrl, this.FieldName, taxonBuildOptions, this.UrlEvaluationMode, this.UrlKeyPrefix);
+
+            return string.Concat(baseUrl, evaluatedResult);
+        }
+
+        /// <summary>
+        /// Resolves the base url
+        /// Override this method to change how the base url is resolved 
+        /// </summary>
+        protected virtual string ResolveBaseUrl()
         {
             var url = this.BaseUrl;
-
             if (string.IsNullOrEmpty(url))
             {
                 var siteMap = SiteMapBase.GetCurrentProvider();
@@ -695,7 +719,7 @@ namespace Telerik.Sitefinity.Frontend.Taxonomies.Mvc.Models
                 throw new ArgumentNullException("FieldName property could not be resolved.");
 
             url = RouteHelper.ResolveUrl(url, UrlResolveOptions.Absolute);
-            
+
             if (this.UrlEvaluationMode == Pages.Model.UrlEvaluationMode.UrlPath)
             {
                 // Pages that are migrated from 3.7 have extensions (.aspx), which are unnecessary when we have segments after the page url.
@@ -708,17 +732,7 @@ namespace Telerik.Sitefinity.Frontend.Taxonomies.Mvc.Models
                 }
             }
 
-            var evaluator = new TaxonomyEvaluator();
-            var taxonBuildOptions = TaxonBuildOptions.None;
-            if (this.Taxonomy is Telerik.Sitefinity.Taxonomies.Model.HierarchicalTaxonomy)
-                taxonBuildOptions = TaxonBuildOptions.Hierarchical;
-            else if (this.Taxonomy is Telerik.Sitefinity.Taxonomies.Model.FlatTaxonomy)
-                taxonBuildOptions = TaxonBuildOptions.Flat;
-                        
-            var rootTaxonomy = this.Taxonomy.RootTaxonomy ?? this.Taxonomy;
-            var evaluatedResult = evaluator.BuildUrl(rootTaxonomy.Name, taxonRelativeUrl, this.FieldName, taxonBuildOptions, this.UrlEvaluationMode, this.UrlKeyPrefix);
-            
-            return string.Concat(url, evaluatedResult);
+            return url;
         }
 
         #endregion
