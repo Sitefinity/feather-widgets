@@ -64,26 +64,31 @@ namespace Telerik.Sitefinity.Frontend.Search.Mvc.Controllers
         /// <returns>The facet's widget view</returns>
         public ActionResult Index(int? page, string searchQuery = null, string filter = null, string language = null, bool? resultsForAllSites = null)
         {
-            HttpContext.Request.QueryStringGet(nameof(page));
-            HttpContext.Request.QueryStringGet(nameof(searchQuery));
-            HttpContext.Request.QueryStringGet(nameof(filter));
-            HttpContext.Request.QueryStringGet(nameof(language));
-            HttpContext.Request.QueryStringGet(nameof(resultsForAllSites));
+            //// We retrieve all parameters from the query string to prevent the case where the MVC model binder retrieves them from the body of the request.
+            //// The last can result cache web cache poisoning since we vary the output cache only by qurty params
+            page = NullableParser.ParseIntNullable(this.ControllerContext.RequestContext.RouteData.Values[nameof(page)]?.ToString());
+            searchQuery = HttpContext.Request.QueryStringGet(nameof(searchQuery));
+            filter = HttpContext.Request.QueryStringGet(nameof(filter));
+            language = HttpContext.Request.QueryStringGet(nameof(language));
+            resultsForAllSites = NullableParser.ParseBoolNullable(HttpContext.Request.QueryStringGet(nameof(resultsForAllSites)));
 
-            if (this.ShouldShowEmptyWidgetView())
-            {
-                return new EmptyResult();
-            }
-
-            if (!this.IsSearchModuleActivated())
+            // Important the order of the checks should not be modified !!!
+            if (!this.IsSearchModuleActivated() && IsInEditMode())
             {
                 return this.Content(this.SearchModuleDeactivatedMessage);
             }
 
-            if (!this.SearchServiceSupportsFacets())
+            // Important the order of the checks should not be modified !!!
+            if (!this.SearchServiceSupportsFacets() && IsInEditMode())
             {
                 return this.Content(this.FacetsNotSupportedMessage);
             }
+
+            // Important the order of the checks should not be modified !!!
+            if (this.ShouldShowEmptyWidgetView())
+            {
+                return new EmptyResult();
+            } 
 
             var facetsViewModel = new FacetsWidgetViewModel();
             facetsViewModel.AppliedFiltersLabel = this.AppliedFiltersLabel;
@@ -410,8 +415,12 @@ namespace Telerik.Sitefinity.Frontend.Search.Mvc.Controllers
 
         private bool ShouldShowEmptyWidgetView()
         {
-            var isEdit = SystemManager.IsDesignMode && !SystemManager.IsPreviewMode && !SystemManager.IsInlineEditingMode;
-            return (!this.IsSearchModuleActivated() && !isEdit) || string.IsNullOrEmpty(this.IndexCatalogue);
+            return (!this.IsSearchModuleActivated() && !IsInEditMode()) || string.IsNullOrEmpty(this.IndexCatalogue);
+        }
+
+        private bool IsInEditMode()
+        {
+            return SystemManager.IsDesignMode && !SystemManager.IsPreviewMode && !SystemManager.IsInlineEditingMode;
         }
 
         private string[] GetSearchFields()

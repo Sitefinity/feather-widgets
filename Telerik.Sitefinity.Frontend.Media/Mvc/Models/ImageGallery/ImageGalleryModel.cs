@@ -322,7 +322,8 @@ namespace Telerik.Sitefinity.Frontend.Media.Mvc.Models.ImageGallery
                 }
                 else 
                 {
-                    var selectedThumbnail = image.Thumbnails.Where(t => t.Name == thumbnailProfile.Name).FirstOrDefault();
+                    string currentCulture = Abstractions.AppSettings.CurrentSettings.GetCultureName(SystemManager.CurrentContext.Culture);
+                    var selectedThumbnail = image.Thumbnails.Where(t => t.Name == thumbnailProfile.Name && t.Culture == currentCulture).FirstOrDefault();
 
                     if (selectedThumbnail == null)
                     {

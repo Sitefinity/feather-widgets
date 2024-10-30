@@ -31,7 +31,10 @@
                     if (newVal) {
                         $scope.properties.SerializedSelectedItemsIds.PropertyValue = JSON.stringify(newVal);
                         if (newVal.length === 1) {
-                            $scope.properties.ContentViewDisplayMode.PropertyValue = 'Detail';
+                            $scope.properties.ContentViewDisplayMode.PropertyValue = "Detail";
+                        }
+                        else {
+                            $scope.properties.ContentViewDisplayMode.PropertyValue = "Automatic";
                         }
                     }
                 }

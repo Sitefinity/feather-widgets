@@ -7,16 +7,26 @@ using Microsoft.Owin.Security;
 using ServiceStack.Text;
 using Telerik.Sitefinity.Abstractions;
 using Telerik.Sitefinity.Data;
+using Telerik.Sitefinity.Frontend.Identity.Mvc.StringResources;
 using Telerik.Sitefinity.Frontend.Mvc.Helpers;
+using Telerik.Sitefinity.Frontend.Notifications;
+using Telerik.Sitefinity.Localization;
 using Telerik.Sitefinity.Mvc.Proxy;
 using Telerik.Sitefinity.Security;
 using Telerik.Sitefinity.Security.Claims;
 using Telerik.Sitefinity.Security.Configuration;
+using Telerik.Sitefinity.Security.MessageTemplates.Helpers;
+using Telerik.Sitefinity.Security.MessageTemplates;
 using Telerik.Sitefinity.Security.Model;
+using Telerik.Sitefinity.Security.Web.UI;
 using Telerik.Sitefinity.Services;
+using Telerik.Sitefinity.Services.Notifications;
 using Telerik.Sitefinity.Web;
+using Telerik.Sitefinity.Web.Mail;
+using Telerik.Sitefinity.Web.UI.PublicControls;
 using Config = Telerik.Sitefinity.Configuration.Config;
 using SecConfig = Telerik.Sitefinity.Security.Configuration;
+using Telerik.Sitefinity.Security.EmailConfirmationOperations;
 
 namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.LoginForm
 {
@@ -82,6 +92,9 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.LoginForm
 
         /// <inheritDoc/>
         public Guid? RegisterRedirectPageId { get; set; }
+
+        /// <inheritdoc/>
+        public Guid? ActivationPageId { get; set; }
 
         /// <inheritDoc/>
         public string SerializedExternalProviders
@@ -245,6 +258,8 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.LoginForm
             }
 
             SecurityManager.GetManager().ExpireResetPasswordToken(securityParams);
+
+            this.SendPasswordChangedEmail(manager, manager.GetUser(userId));
         }
 
         /// <inheritDoc/>
@@ -254,28 +269,45 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.LoginForm
             viewModel.Email = email;
             viewModel.EmailSent = false;
 
-            var manager = UserManager.GetManager(this.MembershipProvider);
-            var user = manager.GetUserByEmail(email);
+            var userManager = UserManager.GetManager(this.MembershipProvider);
+            var user = userManager.GetUserByEmail(email);
 
             if (user != null)
             {
-                if (UserManager.ShouldSendPasswordEmail(user, manager.Provider.GetType()))
+                if (UserManager.ShouldSendPasswordEmail(user, userManager.Provider.GetType()))
                 {
-                    var currentNode = SiteMapBase.GetActualCurrentNode();
-                    if (currentNode != null)
+                    if (user.IsApproved)
                     {
-                        var resetPassUrl = Url.Combine(currentNode.Url, "resetpassword");
-
-                        try
+                        var currentNode = SiteMapBase.GetActualCurrentNode();
+                        if (currentNode != null)
                         {
-                            UserManager.SendRecoveryPasswordMail(UserManager.GetManager(user.ProviderName), email, resetPassUrl);
+                            var resetPassUrl = Url.Combine(currentNode.Url, "resetpassword");
+
+                            try
+                            {
+                                UserManager.SendRecoveryPasswordMail(userManager, user, new ResetPasswordMessageTemplate(), resetPassUrl);
+                            }
+                            catch (Exception ex)
+                            {
+                                if (Exceptions.HandleException(ex, ExceptionPolicyName.IgnoreExceptions))
+                                    throw ex;
+
+                                viewModel.Error = ex.Message;
+                            }
                         }
-                        catch (Exception ex)
+                    }
+                    else
+                    {
+                        if (!this.ActivationPageId.HasValue)
                         {
-                            if (Exceptions.HandleException(ex, ExceptionPolicyName.IgnoreExceptions))
-                                throw ex;
+                            return viewModel;
+                        }
 
-                            viewModel.Error = ex.Message;
+                        this.SendActivationEmail(userManager, user, viewModel);
+
+                        using (new ElevatedModeRegion(userManager))
+                        {
+                            userManager.SaveChanges();
                         }
                     }
                 }
@@ -349,6 +381,71 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.LoginForm
             return input;
         }
 
+        private void SendPasswordChangedEmail(UserManager userManager, User user)
+        {
+            var actionMessageTemplate = new PasswordChangedMessageTemplate();
+            var url = this.GetFrontEndLoginPageUrl();
+
+            var templateItems = new Dictionary<string, TagReplacement>()
+            {
+                { "Identity.LinkUrl", new TagReplacement() {Value = url, IsHtml = false } },
+                { "Identity.Username", new TagReplacement() {Value = user.UserName , IsHtml = false} },
+                { "Identity.SiteName", new TagReplacement() { Value = SystemManager.CurrentContext.CurrentSite.Name, IsHtml = false } },
+            };
+
+            this.SendEmail(userManager, user, actionMessageTemplate, templateItems, $"Reset password message for {user.Email}");
+        }
+
+        private void SendActivationEmail(UserManager userManager, User user, ForgotPasswordViewModel viewModel)
+        {
+            var actionMessageTemplate = new ResetPasswordInactiveAccountMessageTemplate();
+
+            var activationPageUrl = HyperLinkHelpers.GetFullPageUrl(this.ActivationPageId.Value);
+            var validity = new TimeSpan(0, Config.Get<SecurityConfig>().UserRegistrationSettings.ActivationMailValidityMinutes, 0);
+            var cryptographicRandom = SecurityManager.GetRandomKey(16);
+
+            user.ConfirmationToken = cryptographicRandom;
+
+            var emailConfirmation = new AccountActivationData() { UserId = user.Id, ProviderName = user.ProviderName, Expiration = DateTime.UtcNow.TrimSeconds().Add(validity), ConfirmationToken = cryptographicRandom };
+
+            var url = UserRegistrationEmailGenerator.GetConfirmationPageUrl(activationPageUrl, emailConfirmation);
+
+            var templateItems = new Dictionary<string, TagReplacement>()
+                        {
+                            { "Identity.LinkUrl", new TagReplacement() {Value = url, IsHtml = false } },
+                            { "Identity.Username", new TagReplacement() {Value = user.UserName, IsHtml = false } },
+                            { "Identity.SiteName", new TagReplacement() { Value = SystemManager.CurrentContext.CurrentSite.Name, IsHtml = false } },
+                            { "Identity.Validity", new TagReplacement() { Value = $"{(int)Math.Floor(validity.TotalHours)}:{validity.Minutes.ToString("00")}", IsHtml = false } },
+                            { "Identity.ValidityHours", new TagReplacement() { Value = ((int) Math.Floor(validity.TotalHours)).ToString(), IsHtml = false } },
+                            { "Identity.ValidityMinutes", new TagReplacement() { Value = validity.Minutes.ToString(), IsHtml = false } }
+                        };
+
+            this.SendEmail(userManager, user, actionMessageTemplate, templateItems, $"Activation email for {user.Email}");
+        }
+
+        private void SendEmail(UserManager userManager, User user, IdentityEmailMessageTemplateBase actionMessageTemplate, Dictionary<string, TagReplacement> templateItems, string description)
+        {
+            var userRegistrationSettings = Telerik.Sitefinity.Configuration.Config.Get<SecurityConfig>().UserRegistrationSettings;
+            var senderEmailAddress = !string.IsNullOrEmpty(userRegistrationSettings.ConfirmRegistrationSenderEmail) ?
+                    userRegistrationSettings.ConfirmRegistrationSenderEmail :
+                    userManager.ConfirmationEmailAddress;
+            var senderName = userRegistrationSettings.ConfirmRegistrationSenderName;
+            var senderProfileName =
+                !string.IsNullOrEmpty(userRegistrationSettings.EmailSenderName) ?
+                userRegistrationSettings.EmailSenderName :
+                null;
+
+            IdentityEmailHelper.SendAuthenticationEmail(
+                actionMessageTemplate,
+                templateItems,
+                new[] { user.Email },
+                description,
+                senderEmailAddress,
+                senderName,
+                senderProfileName);
+
+        }
+
         private static string AddErrorParameterToQuery(string redirectUrl)
         {
             var uriBuilder = new UriBuilder(redirectUrl);
@@ -417,6 +514,7 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.LoginForm
 
             owinContext.Authentication.Challenge(challengeProperties, externalProviderName);
         }
+
         #endregion
 
         #region Private Fields and methods
@@ -565,6 +663,26 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.LoginForm
             }
 
             return Guid.Empty;
+        }
+
+        private string GetFrontEndLoginPageUrl()
+        {
+            string defaultLoginPageUrl = string.Empty;
+            var currentSite = Telerik.Sitefinity.Services.SystemManager.CurrentContext.CurrentSite;
+            if (currentSite.FrontEndLoginPageId != Guid.Empty)
+            {
+                var manager = Telerik.Sitefinity.Modules.Pages.PageManager.GetManager();
+                var redirectPage = manager.GetPageNode(currentSite.FrontEndLoginPageId);
+
+                if (redirectPage != null)
+                    defaultLoginPageUrl = Telerik.Sitefinity.Modules.Pages.PageExtesnsions.GetUrl(redirectPage);
+            }
+            else if (!string.IsNullOrWhiteSpace(currentSite.FrontEndLoginPageUrl))
+            {
+                defaultLoginPageUrl = currentSite.FrontEndLoginPageUrl;
+            }
+
+            return Telerik.Sitefinity.Web.UrlPath.ResolveAbsoluteUrl(defaultLoginPageUrl);
         }
 
         /// <summary>

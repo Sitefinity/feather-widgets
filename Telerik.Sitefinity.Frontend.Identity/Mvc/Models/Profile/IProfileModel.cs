@@ -1,4 +1,5 @@
 ﻿using System;
+using Telerik.Sitefinity.Security.EmailConfirmationOperations;
 
 namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.Profile
 {
@@ -148,5 +149,24 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.Profile
         /// <param name="viewModel">The view model.</param>
         /// <param name="modelState">The modelState dictionary.</param>
         void ValidateProfileData(ProfileEditViewModel viewModel, System.Web.Mvc.ModelStateDictionary modelState);
+
+        /// <summary>
+        /// Gets or sets a value indicating whether email change will be confirmed by email.
+        /// </summary>
+        bool ChangeEmailConfirmation { get; set; }
+
+        /// <summary>
+        /// Confirms the email change.
+        /// </summary>
+        /// <param name="emailChangeConfirmationData">The <see cref="EmailChangeConfirmationData"/> object</param>
+        /// <returns><c>True</c> if the change is successful.</returns>
+        bool ConfirmEmailChange(EmailChangeConfirmationData emailChangeConfirmationData);
+
+        /// <summary>
+        /// Sends again email change confirmation email.
+        /// </summary>
+        /// <param name="qs">The encrypted data.</param>
+        /// <returns>True if email sent.</returns>
+        bool SendAgainChangeEmailConfirmation(string qs);
     }
 }

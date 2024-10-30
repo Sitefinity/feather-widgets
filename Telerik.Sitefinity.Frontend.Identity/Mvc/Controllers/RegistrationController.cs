@@ -2,6 +2,8 @@
 using System.Linq;
 using System.Web.Mvc;
 using System.Web.Security;
+using Telerik.Microsoft.Practices.Unity;
+using Telerik.Sitefinity.Abstractions;
 using Telerik.Sitefinity.Frontend.Identity.Mvc.Models.Registration;
 using Telerik.Sitefinity.Frontend.Identity.Mvc.StringResources;
 using Telerik.Sitefinity.Frontend.Mvc.Infrastructure.Controllers;
@@ -10,6 +12,7 @@ using Telerik.Sitefinity.Frontend.Security;
 using Telerik.Sitefinity.Mvc;
 using Telerik.Sitefinity.Security.Claims;
 using Telerik.Sitefinity.Security.CSRF;
+using Telerik.Sitefinity.Services.Captcha;
 
 namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Controllers
 {
@@ -98,6 +101,13 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Controllers
         {
             if (!AntiCsrfHelpers.IsValidCsrfToken(this.Request?.Form))
                 return new EmptyResult();
+
+            if (!this.ValidateCaptcha(out string errorMessage))
+            {
+                this.ViewBag.Error = errorMessage;
+                return this.View(this.templateNamePrefix + this.TemplateName, viewModel);
+            }
+
             return RegisterUser(viewModel);
         }
 
@@ -106,7 +116,7 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Controllers
             if (ModelState.IsValid)
             {
                 var status = this.Model.RegisterUser(viewModel);
-                if (status == MembershipCreateStatus.Success)
+                if (status == MembershipCreateStatus.Success || status == MembershipCreateStatus.DuplicateEmail || status == MembershipCreateStatus.DuplicateUserName)
                 {
                     if (this.Model.ActivationMethod == ActivationMethod.AfterConfirmation)
                     {
@@ -180,6 +190,15 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Controllers
         private IRegistrationModel InitializeModel()
         {
             return ControllerModelFactory.GetModel<IRegistrationModel>(this.GetType());
+        }
+
+        private bool ValidateCaptcha(out string errorMessage)
+        {
+            errorMessage = string.Empty;
+
+            var captchaResponse = this.Request?.Form["sf_captcha_response"];
+
+            return CaptchaService.Validate(captchaResponse, out errorMessage, true);
         }
 
         #endregion

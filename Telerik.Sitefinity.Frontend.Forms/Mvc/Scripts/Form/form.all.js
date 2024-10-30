@@ -603,7 +603,9 @@
 (function ($) {
     var htmlDecode = function (html) {
         var a = document.createElement('a'); a.innerHTML = html;
-        return a.textContent;
+        var text = a.textContent;
+        a = null;
+        return text;
     };
 
     var adjustVisibility = function (container) {
@@ -729,9 +731,16 @@
             });
         }
 
+        if (inputContainer.is(":hidden"))
+            inputContainer.find('input[type="file"]').attr('disabled', 'disabled');
+
         jElement.find('input[type="file"]').data('sfvalidator', function () {
             return formValidation({ data: { config: config, container: inputContainer } });
         });
+
+        jElement.find('input[type="file"]').on('change', { config: config, container: inputContainer }, formValidation);
+
+        jElement.find('input[type="file"]').on('invalid', { config: config, container: inputContainer }, formValidation);
 
         form.submit({ config: config, container: inputContainer }, formValidation);
     };
@@ -1180,6 +1189,12 @@
 //paragraph-text-field.js
 (function ($) {
     $(function () {
+        var htmlDecode = function (html) {
+            var a = document.createElement('a'); a.innerHTML = html;
+            var text = a.textContent;
+            a = null;
+            return text;
+        };
 
         function processRules(e) {
             if (typeof $.fn.processFormRules === 'function') {
@@ -1195,17 +1210,32 @@
             }, 300);
         }
 
+        var formValidation = function (ev) {
+            var textareas = ev.data.container;
+            var pattern = textareas[0].attributes.pattern;
+            var value = textareas[0].value;
+            if (value && pattern) {
+                if (!value.match(pattern.value)) {
+                    setErrorMessage(textareas, ev.data.config.ValidatorDefinition.RegularExpressionViolationMessage);
+                    return false;
+                }
+            }
+        };
+
         function handleValidation(e) {
             if (typeof e.target.validity === 'undefined')
                 return;
 
             var validationMessages = getValidationMessages(e.target);
-
+            var pattern = e.target.attributes.pattern;
             if (e.target.required && e.target.validity.valueMissing) {
                 setErrorMessage(e.target, validationMessages.required);
             }
             else if (e.target.validity.tooShort || e.target.validity.tooLong) {
                 setErrorMessage(e.target, validationMessages.maxLength);
+            }
+            else if (pattern && validationMessages.regularExpression && !e.target.value.match(pattern.value)) {
+                setErrorMessage(e.target, validationMessages.regularExpression);
             }
             else {
                 setErrorMessage(e.target, '');
@@ -1236,9 +1266,6 @@
                 setErrorMessage(e.target, validationMessages.required);
             }
             else if (e.target.validity.tooShort || e.target.validity.tooLong) {
-                setErrorMessage(e.target, validationMessages.maxLength);
-            }
-            else if (e.target.validity.patternMismatch) {
                 setErrorMessage(e.target, validationMessages.maxLength);
             }
         }
@@ -1283,10 +1310,10 @@
 
         function init() {
             var containers = $('[data-sf-role="paragraph-text-field-container"]');
-
             if (!containers || containers.length < 1)
                 return;
 
+            var form = containers.closest('form');
             for (var i = 0; i < containers.length; i++) {
                 var textarea = $(containers[i]).find('[data-sf-role="paragraph-text-field-textarea"]');
 
@@ -1295,6 +1322,9 @@
                     textarea.on('input', onInput);
                     textarea.on('invalid', invalid);
                 }
+
+                var config = JSON.parse(htmlDecode(containers[i].attributes.getNamedItem("data-sf-config").value));
+                form.submit({ config: config, container: textarea }, formValidation);
             }
         }
 

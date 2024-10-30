@@ -83,32 +83,47 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.StringResources
         }
 
         /// <summary>
-        /// Gets phrase : Your account could not be activated
+        /// Gets phrase : Error has occured
         /// </summary>
-        [ResourceEntry("AccountActivationFail",
-            Value = "Your account could not be activated",
-            Description = "phrase : Your account could not be activated",
-            LastModified = "2015/03/03")]
-        public string AccountActivationFail
+        [ResourceEntry("AccountActivationFailTitle",
+            Value = "Error has occured",
+            Description = "phrase : Error has occured",
+            LastModified = "2024/09/16")]
+        public string AccountActivationFailTitle
         {
             get
             {
-                return this["AccountActivationFail"];
+                return this["AccountActivationFailTitle"];
+            }
+        }
+
+        /// <summary>
+        /// Gets phrase : We could not activate your account.
+        /// </summary>
+        [ResourceEntry("AccountActivationFailMessage",
+            Value = "We could not activate your account.",
+            Description = "phrase : We could not activate your account.",
+            LastModified = "2024/09/16")]
+        public string AccountActivationFailMessage
+        {
+            get
+            {
+                return this["AccountActivationFailMessage"];
             }
         }
         
         /// <summary>
-        /// Gets phrase : Go to your profile
+        /// Gets phrase : Log in
         /// </summary>
-        [ResourceEntry("ProfilePageUrlTitle",
-            Value = "Go to your profile",
-            Description = "phrase : Go to your profile",
-            LastModified = "2015/03/03")]
-        public string ProfilePageUrlTitle
+        [ResourceEntry("LoginPageUrlTitle",
+            Value = "Log in",
+            Description = "phrase : Log in",
+            LastModified = "2024/10/01")]
+        public string LoginPageUrlTitle
         {
             get
             {
-                return this["ProfilePageUrlTitle"];
+                return this["LoginPageUrlTitle"];
             }
         }
 
@@ -158,32 +173,32 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.StringResources
         }
 
         /// <summary>
-        /// Gets phrase : Profile page
+        /// Gets phrase : Login page
         /// </summary>
-        [ResourceEntry("ProfilePage",
-            Value = "Profile page",
-            Description = "phrase : Profile page",
-            LastModified = "2015/03/04")]
-        public string ProfilePage
+        [ResourceEntry("LoginPage",
+            Value = "Login page",
+            Description = "phrase : Login page",
+            LastModified = "2024/10/01")]
+        public string LoginPage
         {
             get
             {
-                return this["ProfilePage"];
+                return this["LoginPage"];
             }
         }
 
         /// <summary>
-        /// Gets phrase : This is the page where you have dropped Profile widget
+        /// Gets phrase : This is the page where you have dropped Login widget
         /// </summary>
-        [ResourceEntry("ProfilePageInfo",
-            Value = "This is the page where you have dropped Profile widget",
-            Description = "phrase : This is the page where you have dropped Profile widget",
-            LastModified = "2015/03/03")]
-        public string ProfilePageInfo
+        [ResourceEntry("LoginPageInfo",
+            Value = "This is the page where you have dropped Login widget",
+            Description = "phrase : This is the page where you have dropped Login widget",
+            LastModified = "2015/10/01")]
+        public string LoginPageInfo
         {
             get
             {
-                return this["ProfilePageInfo"];
+                return this["LoginPageInfo"];
             }
         }
 
@@ -214,6 +229,96 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.StringResources
             get
             {
                 return this["AccountActivationWidgetDescription"];
+            }
+        }
+
+        /// <summary>
+        /// Phrase: Activation link has expired.
+        /// </summary>
+        [ResourceEntry("ActivationLinkExpiredTitle",
+            Value = "Activation link has expired",
+            Description = "Activation link has expired",
+            LastModified = "2024/09/13")]
+        public string ActivationLinkExpiredTitle
+        {
+            get
+            {
+                return this["ActivationLinkExpiredTitle"];
+            }
+        }
+
+        /// <summary>
+        /// Phrase: To access your account resend activation link to {0}.
+        /// </summary>
+        [ResourceEntry("ActivationLinkExpiredMessage",
+            Value = "To access your account resend activation link to {0}",
+            Description = "To access your account resend activation link to {0}",
+            LastModified = "2024/09/13")]
+        public string ActivationLinkExpiredMessage
+        {
+            get
+            {
+                return this["ActivationLinkExpiredMessage"];
+            }
+        }
+
+        /// <summary>
+        /// Phrase: Send activation link.
+        /// </summary>
+        [ResourceEntry("SendActivationLink",
+            Value = "Send activation link",
+            Description = "Send activation link",
+            LastModified = "2024/09/13")]
+        public string SendActivationLink
+        {
+            get
+            {
+                return this["SendActivationLink"];
+            }
+        }
+
+        /// <summary>
+        /// Phrase: Please check your email.
+        /// </summary>
+        [ResourceEntry("ActivationLinkSentTitle",
+            Value = "Please check your email",
+            Description = "Please check your email",
+            LastModified = "2024/09/13")]
+        public string ActivationLinkSentTitle
+        {
+            get
+            {
+                return this["ActivationLinkSentTitle"];
+            }
+        }
+
+        /// <summary>
+        /// Phrase: An activation link has been sent to {0}.
+        /// </summary>
+        [ResourceEntry("ActivationLinkSentMessage",
+            Value = "An activation link has been sent to {0}",
+            Description = "An activation link has been sent to {0}",
+            LastModified = "2024/09/13")]
+        public string ActivationLinkSentMessage
+        {
+            get
+            {
+                return this["ActivationLinkSentMessage"];
+            }
+        }
+
+        /// <summary>
+        /// Phrase: Send again link.
+        /// </summary>
+        [ResourceEntry("SendAgainActivationLink",
+            Value = "Send again",
+            Description = "Send again",
+            LastModified = "2024/09/13")]
+        public string SendAgainActivationLink
+        {
+            get
+            {
+                return this["SendAgainActivationLink"];
             }
         }
     }

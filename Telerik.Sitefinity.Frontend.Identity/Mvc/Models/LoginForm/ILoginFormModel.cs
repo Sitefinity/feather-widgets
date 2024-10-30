@@ -176,5 +176,11 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.LoginForm
         /// <param name="input">Provider name.</param>
         /// <param name="context">The HTTP context that is to be authenticated.</param>
         void AuthenticateExternal(string input, HttpContextBase context);
+
+        /// <summary>
+        /// Gets or sets the activation page id.
+        /// </summary>
+        /// <value>The activation page id.</value>
+        Guid? ActivationPageId { get; set; }
     }
 }

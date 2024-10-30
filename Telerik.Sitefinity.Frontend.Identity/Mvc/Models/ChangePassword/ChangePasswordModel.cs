@@ -2,9 +2,11 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using Telerik.Sitefinity.Configuration;
 using Telerik.Sitefinity.Frontend.Mvc.Helpers;
 using Telerik.Sitefinity.Modules.UserProfiles;
 using Telerik.Sitefinity.Security;
+using Telerik.Sitefinity.Security.Configuration;
 using Telerik.Sitefinity.Web;
 
 namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.ChangePassword
@@ -53,7 +55,7 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.ChangePassword
             if (currentIdentity != null && currentIdentity.UserId == userId)
                 providerName = currentIdentity.MembershipProvider;
 
-            UserManager.ChangePasswordForUser(UserManager.GetManager(providerName), userId, oldPassword, newPassword, this.SendEmailOnChangePassword);
+            UserManager.ChangePasswordForUser(UserManager.GetManager(providerName), userId, oldPassword, newPassword, Config.Get<SecurityConfig>().UserRegistrationSettings.SendEmailOnPasswordChanged);
         }
 
         /// <inheritDoc/>

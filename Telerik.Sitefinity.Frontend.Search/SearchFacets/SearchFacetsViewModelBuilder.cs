@@ -105,7 +105,7 @@ namespace Telerik.Sitefinity.Frontend.Search.SearchFacets
             facetLabel = string.Empty;
             if (facetWidgetFieldModel.FacetFieldSettings.IsValueFacet())
             {
-                facetLabel = facetResponse.FacetValue;
+                facetLabel = this.GetValueNumberLabel(facetResponse, facetWidgetFieldModel);
                 return true;
             }
 
@@ -144,6 +144,15 @@ namespace Telerik.Sitefinity.Frontend.Search.SearchFacets
             return true;
         }
 
+        private string GetValueNumberLabel(FacetResponse facetResponse, FacetWidgetFieldModel facetableFieldSettings)
+        {
+            string prefix = facetableFieldSettings.FacetFieldSettings.Prefix;
+            string suffix = facetableFieldSettings.FacetFieldSettings.Suffix;
+
+            string facetLabel = $"{prefix}{facetResponse.FacetValue}{suffix}";
+            return facetLabel;
+        }
+
         private string GetRangeDateLabel(FacetResponse facetResponse, FacetWidgetFieldModel facetableFieldSettings)
         {
             var dateRanges = facetableFieldSettings.FacetFieldSettings.DateRanges;
@@ -162,19 +171,29 @@ namespace Telerik.Sitefinity.Frontend.Search.SearchFacets
 
         private string FormatDateInterval(string dateStep, DateTime intervalValue)
         {
+            string format = null;
+
             switch (dateStep)
             {
                 case "day":
                 case "week":
                 case "quarter":
-                    return intervalValue.ToString("MMM dd yyyy");
+                    format = "MMM dd yyyy";
+                    break;
                 case "month":
-                    return intervalValue.ToString("MMM yyyy");
+                    format = "MMM yyyy";
+                    break;
                 case "year":
-                    return intervalValue.ToString("yyyy");
-                default:
-                    return null;
+                    format = "yyyy";
+                    break;
             }
+
+            if (format.IsNullOrEmpty())
+            {
+                return null;
+            }
+
+            return intervalValue.ToString(format, CultureInfo.InvariantCulture);
         }
 
         private string GetRangeNumberLabel(FacetResponse facetResponse, FacetWidgetFieldModel facetableFieldSettings)
@@ -207,11 +226,10 @@ namespace Telerik.Sitefinity.Frontend.Search.SearchFacets
 
         private string GetIntervalNumberLabel(FacetResponse facetResponse, FacetWidgetFieldModel facetableFieldSettings)
         {
-            string facetLabel;
             string prefix = facetableFieldSettings.FacetFieldSettings.Prefix;
             string suffix = facetableFieldSettings.FacetFieldSettings.Suffix;
 
-            facetLabel = $"{prefix}{facetResponse.From}{suffix} - {prefix}{facetResponse.To}{suffix}";
+            string facetLabel = $"{prefix}{facetResponse.From}{suffix} - {prefix}{facetResponse.To}{suffix}";
             return facetLabel;
         }
 

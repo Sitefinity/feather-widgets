@@ -254,8 +254,7 @@ namespace Telerik.Sitefinity.Frontend.Navigation.Mvc.Controllers
             this.Model.InitializeNavigationWidgetSettings();
             if (SystemManager.CurrentHttpContext != null)
             {
-                var cacheDependentNavigationModel = this.Model as IHasCacheDependency;
-                if (cacheDependentNavigationModel != null)
+                if (this.Model is IHasCacheDependency cacheDependentNavigationModel)
                 {
                     this.AddCacheDependencies(cacheDependentNavigationModel.GetCacheDependencyObjects());
                 }

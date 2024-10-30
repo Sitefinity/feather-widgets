@@ -112,7 +112,7 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.Registration
         [Required]
         [DataType(DataType.EmailAddress)]
         [Display(Name = "Email", ResourceType = typeof(RegistrationStaticResources))]
-        [EmailAddress]
+        [RegularExpression(Constants.EmailAddressRegexPattern, ErrorMessage = "The Email field is not a valid e-mail address.")]
         public string Email { get; set; }
 
         /// <summary>

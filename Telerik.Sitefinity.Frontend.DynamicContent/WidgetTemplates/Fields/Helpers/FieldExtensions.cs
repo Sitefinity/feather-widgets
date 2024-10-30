@@ -4,6 +4,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Web.Mvc;
+using System.Xml.Linq;
+using Telerik.Sitefinity.DynamicModules.Builder;
 using Telerik.Sitefinity.DynamicModules.Builder.Model;
 using Telerik.Sitefinity.Frontend.Mvc.Models;
 using Telerik.Sitefinity.GeoLocations.Model;
@@ -56,11 +58,10 @@ namespace Telerik.Sitefinity.Frontend.DynamicContent.WidgetTemplates.Fields.Help
         /// <param name="fieldName">Name of the field.</param>
         /// <param name="parentTypeId">The parent type identifier.</param>
         /// <returns></returns>
-        public static string GetChoiceLabel(this ItemViewModel item, string fieldName, Type typeFullName)
+        public static string GetChoiceLabel(this ItemViewModel item, string fieldName, Type type)
         {
             var fieldValue = item.Fields.GetMemberValue(fieldName).ToString();
-            var man = new Telerik.Sitefinity.DynamicModules.Builder.ModuleBuilderManager();
-            var moduleType = man.Provider.GetDynamicModuleTypes().SingleOrDefault(t => (t.TypeNamespace + "." + t.TypeName) == typeFullName.FullName);
+            var moduleType = ModuleBuilderManager.GetModules().GetTypeByFullName(type.FullName);
             string label = fieldValue;
 
             if (moduleType != null && moduleType.Fields != null)
@@ -68,9 +69,16 @@ namespace Telerik.Sitefinity.Frontend.DynamicContent.WidgetTemplates.Fields.Help
                 var field = moduleType.Fields.Where(f => f.Name == fieldName).FirstOrDefault();
                 if (field != null)
                 {
-                    System.Xml.Linq.XDocument doc = System.Xml.Linq.XDocument.Parse(field.Choices);
-                    var element = doc.Elements("element").Where(e => e.Attribute("value").Value == fieldValue).FirstOrDefault();
-                    label = (element != null) ? element.Attribute("text").Value : fieldValue;
+                    try
+                    {
+                        System.Xml.Linq.XDocument doc = System.Xml.Linq.XDocument.Parse(field.Choices);
+                        var element = doc.Elements("element").Where(e => e.Attribute("value").Value == fieldValue).FirstOrDefault();
+                        label = (element != null) ? element.Attribute("text").Value : fieldValue;
+                    }
+                    catch (System.Xml.XmlException)
+                    {
+                        // not an XML
+                    }
                 }
             }
 

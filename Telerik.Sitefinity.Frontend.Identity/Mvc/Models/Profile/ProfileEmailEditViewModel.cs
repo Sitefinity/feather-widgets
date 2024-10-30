@@ -37,5 +37,10 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.Profile
         /// <c>true</c> if should display profile changed message; otherwise, <c>false</c>.
         /// </value>
         public bool ShowProfileChangedMsg { get; set; }
+
+        /// <summary>
+        /// Gets or sets the email change confirmation result.
+        /// </summary>
+        public ConfirmEmailChangeFailure? ConfirmEmailChangeFailure { get; set; }
     }
 }

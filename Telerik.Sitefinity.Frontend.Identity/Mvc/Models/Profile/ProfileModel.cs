@@ -1,5 +1,4 @@
-﻿
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -15,12 +14,22 @@ using Telerik.Sitefinity.Libraries.Model;
 using Telerik.Sitefinity.Localization;
 using Telerik.Sitefinity.Model;
 using Telerik.Sitefinity.Model.ContentLinks;
+using Telerik.Sitefinity.Modules.ControlTemplates;
 using Telerik.Sitefinity.Modules.Libraries;
 using Telerik.Sitefinity.Security;
 using Telerik.Sitefinity.Security.Claims;
+using Telerik.Sitefinity.Security.Configuration;
 using Telerik.Sitefinity.Security.Model;
+using Telerik.Sitefinity.Security.Web.UI;
+using Telerik.Sitefinity.Services.Notifications;
+using Telerik.Sitefinity.Services;
 using Telerik.Sitefinity.Utilities;
 using Telerik.Sitefinity.Web;
+using Telerik.Sitefinity.Web.Mail;
+using Telerik.Sitefinity.Security.MessageTemplates;
+using Telerik.Sitefinity.Configuration;
+using Telerik.Sitefinity.Security.EmailConfirmationOperations;
+using Telerik.Sitefinity.Security.MessageTemplates.Helpers;
 
 namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.Profile
 {
@@ -128,6 +137,9 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.Profile
         /// <inheritdoc />
         public string UserName { get; set; }
 
+        /// <inheritdoc />
+        public bool ChangeEmailConfirmation { get; set; }
+
         #endregion
 
         #region Public methods
@@ -227,7 +239,19 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.Profile
 
                 if (user.Email != model.Email)
                 {
-                    user.Email = model.Email;
+                    if (this.ChangeEmailConfirmation)
+                    {
+                        if (userManager.GetUser(model.Email) != null)
+                        {
+                            var url = this.GetUrlFromCurrentRequest();
+
+                            this.SendChangeEmailConfirmation(userManager, user, model.Email, url);
+                        }
+                    }
+                    else
+                    {
+                        user.Email = model.Email;
+                    }
 
                     if (this.AllowCurrentProfileUpdates && SecurityManager.GetCurrentUserId() == user.Id)
                     {
@@ -248,6 +272,76 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.Profile
             }
 
             return false;
+        }
+
+        /// <inheritdoc/>
+        public bool ConfirmEmailChange(EmailChangeConfirmationData emailConfirmationData)
+        {
+            try
+            {
+                var userManager = UserManager.GetManager(emailConfirmationData.ProviderName);
+                var user = userManager.GetUser(emailConfirmationData.UserId);
+
+                if (user == null || emailConfirmationData.ConfirmationToken != user.ConfirmationToken || emailConfirmationData.Expiration < DateTime.UtcNow)
+                {
+                    return false;
+                }
+
+                user.Email = emailConfirmationData.NewEmail;
+                user.ConfirmationToken = null;
+                using (new ElevatedModeRegion(userManager))
+                {
+                    userManager.SaveChanges();
+                }
+
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
+        }
+
+        /// <inheritdoc/>
+        public bool SendAgainChangeEmailConfirmation(string qs)
+        {
+            var isSuccess = false;
+
+            try
+            {
+                var emailConfirmation = UserRegistrationEmailGenerator.GetEmailConfirmationData<EmailChangeConfirmationData>(qs);
+                var userManager = UserManager.GetManager(emailConfirmation.ProviderName);
+                var user = userManager.GetUser(emailConfirmation.UserId);
+
+                if (user != null && user.ConfirmationToken == emailConfirmation.ConfirmationToken)
+                {
+                    var url = this.GetUrlFromCurrentRequest();
+                    url = $"{url.Substring(0, url.LastIndexOf('/'))}/EditEmail";
+
+                    this.SendChangeEmailConfirmation(userManager, user, emailConfirmation.NewEmail, url);
+                    using (new ElevatedModeRegion(userManager))
+                    {
+                        userManager.SaveChanges();
+                    }
+                }
+            }
+            catch
+            {
+            }
+
+            return isSuccess;
+        }
+
+        private string GetUrlFromCurrentRequest()
+        {
+            var uriBuilder = new UriBuilder(SystemManager.CurrentHttpContext.Request.Url);
+
+            if (uriBuilder.Scheme == "http" && SystemManager.CurrentHttpContext.Request.Headers["X-Forwarded-Proto"] == "https")
+            {
+                uriBuilder.Scheme = "https";
+            }
+
+            return uriBuilder.ToString();
         }
 
         /// <summary>
@@ -442,6 +536,64 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.Profile
             }
 
             return profileFields;
+        }
+
+        /// <summary>
+        /// Sends change email confirmation email.
+        /// </summary>
+        /// <returns></returns>
+        protected virtual void SendChangeEmailConfirmation(UserManager userManager, User user, string newEmail, string baseUrl)
+        {
+            var actionMessageTemplate = new ChangeEmailConfirmationEmailMessageTemplate();
+
+            var random = SecurityManager.GetRandomKey(16);
+            user.ConfirmationToken = random;
+
+            var userRegistrationSettings = Config.Get<SecurityConfig>().UserRegistrationSettings;
+
+            var validity = TimeSpan.FromMinutes(userRegistrationSettings.ActivationMailValidityMinutes);
+
+            var confirmationUrl = this.GetConfirmationPageUrl(user, userRegistrationSettings, newEmail, random, baseUrl);
+
+            var templateItems = new Dictionary<string, TagReplacement>()
+            {
+                { "Identity.LinkUrl", new TagReplacement() {Value = confirmationUrl, IsHtml = false } },
+                { "Identity.SiteName", new TagReplacement() { Value = SystemManager.CurrentContext.CurrentSite.Name, IsHtml = false } },
+                { "Identity.Username", new TagReplacement() {Value = user.UserName, IsHtml = false } },
+                { "Identity.NewEmail", new TagReplacement() { Value = newEmail, IsHtml = false } },
+                { "Identity.Validity", new TagReplacement() { Value = $"{(int)Math.Floor(validity.TotalHours)}:{validity.Minutes.ToString("00")}", IsHtml = false } },
+                { "Identity.ValidityHours", new TagReplacement() { Value = ((int) Math.Floor(validity.TotalHours)).ToString(), IsHtml = false } },
+                { "Identity.ValidityMinutes", new TagReplacement() { Value = validity.Minutes.ToString(), IsHtml = false } },
+            };
+
+            var senderEmailAddress =
+                !string.IsNullOrEmpty(userRegistrationSettings.ConfirmRegistrationSenderEmail) ?
+                userRegistrationSettings.ConfirmRegistrationSenderEmail :
+                userManager.ConfirmationEmailAddress;
+            var senderName = userRegistrationSettings.ConfirmRegistrationSenderName;
+
+            var senderProfileName =
+                !string.IsNullOrEmpty(userRegistrationSettings.EmailSenderName) ?
+                userRegistrationSettings.EmailSenderName :
+                null;
+
+            IdentityEmailHelper.SendAuthenticationEmail(
+                actionMessageTemplate,
+                templateItems,
+                new[] { newEmail },
+                $"Email change confirmation for {user.Email}",
+                senderEmailAddress,
+                senderName,
+                senderProfileName);
+        }
+
+        private string GetConfirmationPageUrl(User user, UserRegistrationSettings userRegistrationSettings, string newEmail, string cryptographicRandom, string url)
+        {
+            var validity = new TimeSpan(0, userRegistrationSettings.ActivationMailValidityMinutes, 0);
+
+            var emailConfirmation = new EmailChangeConfirmationData() { UserId = user.Id, ProviderName = user.ProviderName, Expiration = DateTime.UtcNow.TrimSeconds().Add(validity), ConfirmationToken = cryptographicRandom, NewEmail = newEmail };
+
+            return UserRegistrationEmailGenerator.GetConfirmationPageUrl(url, emailConfirmation);
         }
 
         /// <summary>

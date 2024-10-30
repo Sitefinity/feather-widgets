@@ -2,6 +2,9 @@
   <!-- Explicit top import, see https://github.com/MicrosoftDocs/visualstudio-docs/issues/3902-->
   <Import Project="Sdk.props" Sdk="Microsoft.NET.Sdk" />
   <ItemGroup>
+    <None Remove="Mvc\Views\Profile\ConfirmationEmailSent.ProfileEdit.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
     <PackageReference Include="Microsoft.CSharp" />
     <PackageReference Include="Microsoft.Owin" />
     <PackageReference Include="Microsoft.Owin.Host.SystemWeb" />
@@ -35,6 +38,7 @@
     <EmbeddedResource Include="Mvc\Views\LoginStatus\LoginStatus.LoginName.cshtml" />
     <EmbeddedResource Include="Mvc\Views\LoginForm\DesignerView.Simple.cshtml" />
     <EmbeddedResource Include="Mvc\Views\LoginForm\DesignerView.Simple.json" />
+    <EmbeddedResource Include="Mvc\Views\Profile\ConfirmationEmailSent.ProfileEdit.cshtml" />
     <EmbeddedResource Include="Mvc\Views\Registration\DesignerView.Simple.cshtml" />
     <EmbeddedResource Include="Mvc\Views\Registration\DesignerView.Simple.json" />
     <EmbeddedResource Include="Mvc\Views\Registration\Registration.RegistrationForm.cshtml" />
@@ -99,4 +103,7 @@
   <Import Project="..\Build\FeatherPrecompilation.targets" />
   <Target Name="AfterBuild">
   </Target>
+  <ItemGroup>
+    <RazorSrcFiles Remove="Mvc\Views\Profile\ConfirmationEmailSent.ProfileEdit.cshtml" />
+  </ItemGroup>
 </Project>

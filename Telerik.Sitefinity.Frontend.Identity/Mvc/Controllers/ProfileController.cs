@@ -13,6 +13,8 @@ using Telerik.Sitefinity.Frontend.Security;
 using Telerik.Sitefinity.Localization;
 using Telerik.Sitefinity.Mvc;
 using Telerik.Sitefinity.Security;
+using Telerik.Sitefinity.Security.EmailConfirmationOperations;
+using Telerik.Sitefinity.Security.Web.UI;
 using Telerik.Sitefinity.Web;
 
 namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Controllers
@@ -22,8 +24,8 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Controllers
     /// </summary>
     [Localization(typeof(ProfileResources))]
     [ControllerToolboxItem(
-        Name = ProfileController.WidgetName, 
-        Title = nameof(ProfileResources.UserProfileViewTitle), 
+        Name = ProfileController.WidgetName,
+        Title = nameof(ProfileResources.UserProfileViewTitle),
         Description = nameof(ProfileResources.UserProfilesViewDescription),
         ResourceClassId = nameof(ProfileResources),
         SectionName = "Users",
@@ -150,27 +152,38 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Controllers
         [HttpPost]
         public ActionResult EditEmail(ProfileEmailEditViewModel viewModel)
         {
+            if (!AntiCsrfHelpers.IsValidCsrfToken(this.Request?.Form))
+                return new EmptyResult();
+
             if (ModelState.IsValid)
             {
                 try
                 {
-                    var isEmailUpdated = this.Model.EditUserEmail(viewModel);
+                    var success = this.Model.EditUserEmail(viewModel);
 
-                    if (!isEmailUpdated)
+                    if (!success)
                     {
                         this.ViewBag.ErrorMessage = Res.Get<ProfileResources>().InvalidPassword;
                     }
                     else
                     {
-                        switch (this.Model.SaveChangesAction)
+                        if (this.Model.ChangeEmailConfirmation)
                         {
-                            case SaveAction.SwitchToReadMode:
-                                return this.ReadProfile();
-                            case SaveAction.ShowMessage:
-                                viewModel.ShowProfileChangedMsg = true;
-                                break;
-                            case SaveAction.ShowPage:
-                                return this.Redirect(this.Model.GetPageUrl(this.Model.ProfileSavedPageId));
+                            var templateName = ConfirmationEmailSent + this.EditModeTemplateName;
+                            return this.View(templateName);
+                        }
+                        else
+                        {
+                            switch (this.Model.SaveChangesAction)
+                            {
+                                case SaveAction.SwitchToReadMode:
+                                    return this.ReadProfile();
+                                case SaveAction.ShowMessage:
+                                    viewModel.ShowProfileChangedMsg = true;
+                                    break;
+                                case SaveAction.ShowPage:
+                                    return this.Redirect(this.Model.GetPageUrl(this.Model.ProfileSavedPageId));
+                            }
                         }
                     }
                 }
@@ -182,6 +195,63 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Controllers
                 {
                     this.ViewBag.ErrorMessage = ex.Message;
                 }
+            }
+
+            var fullTemplateName = ConfirmPasswordModeTemplatePrefix + this.EditModeTemplateName;
+            return this.View(fullTemplateName, viewModel);
+        }
+
+        /// <summary>
+        /// Sends again email change confirmation.
+        /// </summary>
+        /// <param name="qs">The encoded query string.</param>
+        /// <returns></returns>
+        [HttpGet]
+        public ActionResult SendAgainChangeEmailConfirmation(string qs)
+        {
+            var sentAgain = this.Model.SendAgainChangeEmailConfirmation(qs);
+
+            this.ViewBag.Email = this.Model.UserName;
+            var fullTemplateName = ConfirmationEmailSent + this.EditModeTemplateName;
+            return this.View(fullTemplateName);
+        }
+
+
+        /// <summary>
+        /// Confirms email change.
+        /// </summary>
+        /// <param name="qs">The encoded query string</param>
+        [HttpGet]
+        public ActionResult EditEmail(string qs)
+        {
+            EmailChangeConfirmationData emailChangeConfirmationData = null;
+            ProfileEmailEditViewModel viewModel = new ProfileEmailEditViewModel();
+
+            try
+            {
+                emailChangeConfirmationData = UserRegistrationEmailGenerator.GetEmailConfirmationData<EmailChangeConfirmationData>(qs);
+                viewModel.Email = emailChangeConfirmationData.NewEmail;
+                viewModel.UserId = emailChangeConfirmationData.UserId;
+
+                if (emailChangeConfirmationData.Expiration < DateTime.UtcNow)
+                {
+                    viewModel.ConfirmEmailChangeFailure = ConfirmEmailChangeFailure.Expired;
+                }
+                else
+                {
+                    if (this.Model.ConfirmEmailChange(emailChangeConfirmationData))
+                    {
+                        viewModel.ShowProfileChangedMsg = true;
+                    }
+                    else
+                    {
+                        viewModel.ConfirmEmailChangeFailure = ConfirmEmailChangeFailure.Error;
+                    }
+                }
+            }
+            catch
+            {
+                viewModel.ConfirmEmailChangeFailure = ConfirmEmailChangeFailure.Error;
             }
 
             var fullTemplateName = ConfirmPasswordModeTemplatePrefix + this.EditModeTemplateName;
@@ -328,6 +398,7 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Controllers
         private const string ReadModeTemplatePrefix = "Read.";
         private const string EditModeTemplatePrefix = "Edit.";
         private const string ConfirmPasswordModeTemplatePrefix = "ConfirmPassword.";
+        private const string ConfirmationEmailSent = "ConfirmationEmailSent.";
 
         private IProfileModel model;
         private const string WidgetName = "Profile_MVC";

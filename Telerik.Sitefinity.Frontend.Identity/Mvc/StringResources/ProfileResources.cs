@@ -215,6 +215,21 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.StringResources
         }
 
         /// <summary>
+        /// Confirm change email
+        /// </summary>
+        [ResourceEntry("ConfirmChangeEmail",
+            Value = "Confirm email address change",
+            Description = "Confirm email address change",
+            LastModified = "2024/09/05")]
+        public string ConfirmChangeEmail
+        {
+            get
+            {
+                return this["ConfirmChangeEmail"];
+            }
+        }
+
+        /// <summary>
         /// Gets phrase: Switch to 'Read mode'
         /// </summary>
         [ResourceEntry("SwitchToReadMode",
@@ -725,6 +740,81 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.StringResources
             get
             {
                 return this["UserProfilesViewDescription"];
+            }
+        }
+
+        /// <summary>
+        /// Phrase: Send activation link
+        /// </summary>
+        [ResourceEntry("SendActivationLink",
+            Value = "Send activation link",
+            Description = "Phrase: Send activation link",
+            LastModified = "2024/08/30")]
+        public string SendActivationLink
+        {
+            get
+            {
+                return this["SendActivationLink"];
+            }
+        }
+
+        /// <summary>
+        /// Phrase: Activation link has expired
+        /// </summary>
+        [ResourceEntry("ActivationLinkExpiredTitle",
+            Value = "Activation link has expired",
+            Description = "Phrase: Activation link has expired",
+            LastModified = "2024/08/30")]
+        public string ActivationLinkExpiredTitle
+        {
+            get
+            {
+                return this["ActivationLinkExpiredTitle"];
+            }
+        }
+
+        /// <summary>
+        /// Phrase: To access your account resend activation link to
+        /// </summary>
+        [ResourceEntry("ActivationLinkExpiredDescription",
+            Value = "To access your account resend activation link to {0}",
+            Description = "Phrase: To access your account resend activation link to {0}",
+            LastModified = "2024/08/30")]
+        public string ActivationLinkExpiredDescription
+        {
+            get
+            {
+                return this["ActivationLinkExpiredDescription"];
+            }
+        }
+
+        /// <summary>
+        /// Phrase: Confirm email change
+        /// </summary>
+        [ResourceEntry("ConfirmationEmailSentTitle",
+            Value = "Confirm email change",
+            Description = "Phrase: Confirm email change",
+            LastModified = "2024/08/30")]
+        public string ConfirmationEmailSentTitle
+        {
+            get
+            {
+                return this["ConfirmationEmailSentTitle"];
+            }
+        }
+
+        /// <summary>
+        /// Phrase: To confirm email change for your account a message has been sent to your new email
+        /// </summary>
+        [ResourceEntry("ConfirmationEmailSentDescription",
+            Value = "To confirm email change for your account a message has been sent to your new email",
+            Description = "Phrase: To confirm email change for your account a message has been sent to your new email",
+            LastModified = "2024/08/30")]
+        public string ConfirmationEmailSentDescription
+        {
+            get
+            {
+                return this["ConfirmationEmailSentDescription"];
             }
         }
     }

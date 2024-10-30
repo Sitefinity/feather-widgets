@@ -2,16 +2,16 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
-using Telerik.Sitefinity.Web;
+using Telerik.Sitefinity.Frontend.Search.Mvc.StringResources;
+using Telerik.Sitefinity.Localization;
+using Telerik.Sitefinity.Model;
+using Telerik.Sitefinity.Multisite;
+using Telerik.Sitefinity.Multisite.Model;
 using Telerik.Sitefinity.Publishing;
 using Telerik.Sitefinity.Publishing.Configuration;
 using Telerik.Sitefinity.Publishing.Model;
 using Telerik.Sitefinity.Services;
-using Telerik.Sitefinity.Multisite;
-using Telerik.Sitefinity.Multisite.Model;
-using Telerik.Sitefinity.Model;
-using Telerik.Sitefinity.Localization;
-using Telerik.Sitefinity.Frontend.Search.Mvc.StringResources;
+using Telerik.Sitefinity.Web;
 
 namespace Telerik.Sitefinity.Frontend.Search.Mvc.Models
 {

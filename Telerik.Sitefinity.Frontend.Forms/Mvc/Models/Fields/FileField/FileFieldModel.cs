@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.IO;
 using System.Linq;
+using System.Text;
 using System.Web;
 using Telerik.Sitefinity.Frontend.Forms.Mvc.StringResources;
 using Telerik.Sitefinity.Localization;
@@ -244,10 +245,17 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Models.Fields.FileField
 
         private string GenerateValidationAttributes(string[] acceptedFileTypes)
         {
+            var attributes = new StringBuilder();
+
+            if (this.ValidatorDefinition.Required.HasValue && this.ValidatorDefinition.Required.Value)
+                attributes.Append(@"required=""required"" ");
+
             if (this.AllowedFileTypes == AllowedFileTypes.All || acceptedFileTypes == null || acceptedFileTypes.Length == 0)
-                return string.Empty;
+                attributes.Append(string.Empty);
             else
-                return "accept=\"{0}\"".Arrange(HttpUtility.HtmlAttributeEncode(string.Join(",", acceptedFileTypes)));
+                attributes.Append("accept=\"{0}\"".Arrange(HttpUtility.HtmlAttributeEncode(string.Join(",", acceptedFileTypes))));
+
+            return attributes.ToString();
         }
 
         private static readonly Dictionary<AllowedFileTypes, string[]> PredifinedAcceptValues = new Dictionary<AllowedFileTypes, string[]>()

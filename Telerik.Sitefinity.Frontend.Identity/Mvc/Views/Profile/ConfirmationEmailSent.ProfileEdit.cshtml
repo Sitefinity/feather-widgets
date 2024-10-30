@@ -1,0 +1,15 @@
+﻿@model Telerik.Sitefinity.Frontend.Identity.Mvc.Models.Profile.ProfileEmailEditViewModel
+
+@using Telerik.Sitefinity.Frontend.Identity.Mvc.Models.Profile@using Telerik.Sitefinity.Frontend.Mvc.Helpers;
+@using Telerik.Sitefinity.Modules.Pages
+@using Telerik.Sitefinity.UI.MVC;
+@using Telerik.Sitefinity.Utilities;
+@using Telerik.Sitefinity.Services;
+
+@Html.Script(ScriptRef.JQuery, "top", false)
+
+
+<div>
+    <h2>@Html.Resource("ConfirmationEmailSentTitle")</h2>
+    <p>@Html.Resource("ConfirmationEmailSentDescription") <strong>@ViewBag.Email</strong></p>
+</div>

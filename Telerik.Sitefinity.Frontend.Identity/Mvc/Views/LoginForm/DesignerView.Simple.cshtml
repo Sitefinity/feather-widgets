@@ -1,6 +1,9 @@
 @using Telerik.Sitefinity.Configuration;
 @using Telerik.Sitefinity.Frontend.Mvc.Helpers;
+@using Telerik.Sitefinity.Frontend.Notifications;
+@using Telerik.Sitefinity.Security;
 @using Telerik.Sitefinity.Security.Claims;
+@using Telerik.Sitefinity.Web.UI.PublicControls
 
 <form>
     <div class="alert alert-warning" ng-show="properties.AllowResetPassword.PropertyValue === 'True' && properties.EnablePasswordRetrieval.PropertyValue === 'False' && properties.EnablePasswordReset.PropertyValue === 'False'">
@@ -62,6 +65,13 @@
         <p class="description-note">@Html.Resource("RegistrationPageInfo")</p>
         <sf-list-selector sf-page-selector
                           sf-selected-item-id="properties.RegisterRedirectPageId.PropertyValue"></sf-list-selector>
+    </div>
+
+    <div class="form-group">
+        <label>@Html.Resource("ActivationPage")</label>
+        <p class="description-note">@Html.Resource("ActivationPageDescription")</p>
+        <sf-list-selector sf-page-selector
+                          sf-selected-item-id="properties.ActivationPageId.PropertyValue"></sf-list-selector>
     </div>
 
     <div class="row">

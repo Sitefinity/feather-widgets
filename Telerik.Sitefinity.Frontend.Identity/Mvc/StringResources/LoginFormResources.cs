@@ -262,6 +262,36 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.StringResources
         }
 
         /// <summary>
+        /// Gets phrase : Activation page
+        /// </summary>
+        [ResourceEntry("ActivationPage",
+            Value = "Activation page",
+            Description = "phrase: Activation page",
+            LastModified = "2024/09/05")]
+        public string ActivationPage
+        {
+            get
+            {
+                return this["ActivationPage"];
+            }
+        }
+
+        /// <summary>
+        /// Activation page description
+        /// </summary>
+        [ResourceEntry("ActivationPageDescription",
+            Value = "This is the page which user will open by confirmation link. There you have dropped Account activation widget",
+            Description = "Activation page description",
+            LastModified = "2024/09/05")]
+        public string ActivationPageDescription
+        {
+            get
+            {
+                return this["ActivationPageDescription"];
+            }
+        }
+
+        /// <summary>
         /// phrase : New password
         /// </summary>
         [ResourceEntry("ResetPasswordNewPassword",

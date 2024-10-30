@@ -1,4 +1,5 @@
-﻿using Telerik.Sitefinity.Metadata.Model;
+﻿using Newtonsoft.Json;
+using Telerik.Sitefinity.Metadata.Model;
 using Telerik.Sitefinity.Web.UI.Validation.Definitions;
 
 namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Models.Fields.ParagraphTextField
@@ -55,7 +56,23 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Models.Fields.ParagraphTextField
         /// The maximum length violation message.
         /// </value>
         public string MaxLengthViolationMessage { get; set; }
-        
+
+
+        /// <summary>
+        /// Gets or sets a validation mechanism for the control.
+        /// </summary>
+        /// <value>The validation.</value>
+        public ValidatorDefinition ValidatorDefinition { get; set; }
+
+        /// <summary>
+        /// Serializes this instance in JSON format.
+        /// </summary>
+        /// <returns>This instance serialized in JSON format.</returns>
+        public string Serialize()
+        {
+            return JsonConvert.SerializeObject(this);
+        }
+
         /// <summary>
         /// Gets or sets the CSS class.
         /// </summary>
