@@ -479,7 +479,7 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.LoginForm
             {
                 errorRedirectUrl = context.Request.UrlReferrer.AbsoluteUri;
 
-                var param = context.Request.Params[MvcControllerProxy.ControllerKey];
+                var param = context.Request.Unvalidated[MvcControllerProxy.ControllerKey];
 
                 if (param != null)
                 {

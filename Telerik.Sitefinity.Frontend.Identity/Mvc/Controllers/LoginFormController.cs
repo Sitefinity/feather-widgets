@@ -121,6 +121,9 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Controllers
 
         public ActionResult LoginExternalProvider(string model)
         {
+            // In order to cache per model qs
+            this.HttpContext.Request.ParamsGet("model");
+            
             if (!string.IsNullOrEmpty(model))
             {
                 var provider = ClaimsManager.CurrentAuthenticationModule.ExternalAuthenticationProviders.FirstOrDefault(x => x.Title == model);
@@ -138,6 +141,11 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Controllers
 
         public ActionResult ForgotPassword(bool emailSent = false, string email = null, string error = null)
         {
+            // Cache vary by paramas
+            this.HttpContext.Request.ParamsGet("emailSent");
+            this.HttpContext.Request.ParamsGet("email");
+            this.HttpContext.Request.ParamsGet("error");
+
             var model = this.Model.GetForgotPasswordViewModel(email, emailSent, error);
 
             var fullTemplateName = this.forgotPasswordTemplatePrefix + this.ForgotPasswordTemplate;
@@ -154,7 +162,7 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Controllers
 
         public ActionResult ResetPassword()
         {
-            PageRouteHandler.RegisterCustomOutputCacheVariation(new ResetPasswordCacheVariation());
+            Web.PageRouteHandler.SetNoCache();
 
             var query = this.HttpContext.Request.QueryString;
             var queryString = query.ToString();

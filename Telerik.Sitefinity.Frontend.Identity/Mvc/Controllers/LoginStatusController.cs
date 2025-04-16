@@ -106,6 +106,7 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Controllers
 
             this.ViewBag.IsDesignMode = SystemManager.IsDesignMode;
 
+            // Could cache this endpoint as it calls the /rest-api/login-status endpoint which is not cached
             return this.View(fullTemplateName, viewModel);
         }
 
@@ -118,6 +119,8 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Controllers
         [RelativeRoute("SignOut")]
         public ActionResult SignOut()
         {
+            Web.PageRouteHandler.SetNoCache();
+
             var logoutUrl = this.Model.GetLogoutPageUrl() ?? this.GetCurrentPageUrl();
 
             var validator = ObjectFactory.Resolve<IRedirectUriValidator>();
@@ -156,6 +159,7 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Controllers
         [OutputCache(NoStore = true, Duration = 0)]
         public JsonResult Status()
         {
+            // This action is not bound to a widget thus not bound to a page and no page cache control is applicable. Should use the OutputCache attribute instead.
             var response = this.Model.GetStatusViewModel();
 
             return this.Json(response, JsonRequestBehavior.AllowGet);

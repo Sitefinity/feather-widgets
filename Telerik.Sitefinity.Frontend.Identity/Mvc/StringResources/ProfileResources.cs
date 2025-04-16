@@ -789,6 +789,36 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.StringResources
         }
 
         /// <summary>
+        /// Gets phrase : Error has occured
+        /// </summary>
+        [ResourceEntry("EmailActivationFailTitle",
+            Value = "Error has occured",
+            Description = "phrase : Error has occured",
+            LastModified = "2025/03/18")]
+        public string EmailActivationFailTitle
+        {
+            get
+            {
+                return this["EmailActivationFailTitle"];
+            }
+        }
+
+        /// <summary>
+        /// Gets phrase : We could not change your email.
+        /// </summary>
+        [ResourceEntry("EmailActivationFailMessage",
+            Value = "We could not change your email.",
+            Description = "phrase : We could not change your email.",
+            LastModified = "2025/03/18")]
+        public string EmailActivationFailMessage
+        {
+            get
+            {
+                return this["EmailActivationFailMessage"];
+            }
+        }
+
+        /// <summary>
         /// Phrase: Confirm email change
         /// </summary>
         [ResourceEntry("ConfirmationEmailSentTitle",

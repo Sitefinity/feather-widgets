@@ -13,6 +13,7 @@ using Telerik.Sitefinity.Mvc;
 using Telerik.Sitefinity.Security.Claims;
 using Telerik.Sitefinity.Security.CSRF;
 using Telerik.Sitefinity.Services.Captcha;
+using Telerik.Sitefinity.Web;
 
 namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Controllers
 {
@@ -81,6 +82,8 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Controllers
             var fullTemplateName = this.templateNamePrefix + this.TemplateName;
 
             var viewModel = new RegistrationViewModel();
+
+            // Caching happens per QS as "sal" is used in some scenarios to determine the current email
             this.Model.InitializeViewModel(viewModel);
 
             this.ViewBag.ShowSuccessfulRegistrationMsg = false;
@@ -151,6 +154,7 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Controllers
         /// <returns></returns>
         public JsonResult ResendConfirmationEmail(string email)
         {
+            Web.PageRouteHandler.SetNoCache();
             var isSend = this.Model.ResendConfirmationEmail(email);
 
             return this.Json(isSend, JsonRequestBehavior.AllowGet);
@@ -158,6 +162,9 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Controllers
 
         public ActionResult LoginExternalProvider(string model)
         {
+            // Cache per key as the model is used to determine the provider
+            this.HttpContext.Request.ParamsGet("model");
+
             if (!string.IsNullOrEmpty(model))
             {
                 var provider = ClaimsManager.CurrentAuthenticationModule.ExternalAuthenticationProviders.FirstOrDefault(x => x.Title == model);

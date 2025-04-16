@@ -241,7 +241,8 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.Profile
                 {
                     if (this.ChangeEmailConfirmation)
                     {
-                        if (userManager.GetUser(model.Email) != null)
+                        var existingUser = userManager.GetUser(model.Email);
+                        if (existingUser == null)
                         {
                             var url = this.GetUrlFromCurrentRequest();
 

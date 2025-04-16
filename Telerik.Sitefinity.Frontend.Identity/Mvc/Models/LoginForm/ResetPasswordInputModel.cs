@@ -17,6 +17,7 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.LoginForm
         /// The new password.
         /// </value>
         [Required(ErrorMessage = "ResetPasswordRequiredErrorMessage")]
+        [AllowHtml]
         public string NewPassword { get; set; }
 
         /// <summary>
@@ -27,6 +28,7 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.LoginForm
         /// </value>
         [Required(ErrorMessage = "ResetPasswordRequiredErrorMessage")]
         [System.Web.Mvc.Compare("NewPassword", ErrorMessage = "ResetPasswordNonMatchingPasswordsMessage")]
+        [AllowHtml]
         public string RepeatNewPassword { get; set; }
 
         /// <summary>

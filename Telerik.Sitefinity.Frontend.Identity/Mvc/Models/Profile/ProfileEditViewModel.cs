@@ -56,6 +56,7 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.Profile
         /// </value>
         [Telerik.Sitefinity.Frontend.Mvc.Infrastructure.Attributes.RequiredIfExist("NewPassword")]
         [Telerik.Sitefinity.Frontend.Mvc.Infrastructure.Attributes.RequiredIfExist("RepeatPassword")]
+        [AllowHtml]
         public string OldPassword { get; set; }
 
         /// <summary>
@@ -66,6 +67,7 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.Profile
         /// </value>
         [Compare("RepeatPassword")]
         [Telerik.Sitefinity.Frontend.Mvc.Infrastructure.Attributes.RequiredIfExist("OldPassword")]
+        [AllowHtml]
         public string NewPassword { get; set; }
 
         /// <summary>
@@ -76,6 +78,7 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.Profile
         /// </value>
         [Compare("NewPassword")]
         [Telerik.Sitefinity.Frontend.Mvc.Infrastructure.Attributes.RequiredIfExist("OldPassword")]
+        [AllowHtml]
         public string RepeatPassword { get; set; }
 
         /// <summary>
