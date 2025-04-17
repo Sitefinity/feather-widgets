@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Configuration.Provider;
 using System.Linq;
+using System.Web;
 using System.Web.Mvc;
 using Telerik.OpenAccess.Exceptions;
 using Telerik.Sitefinity.Frontend.Identity.Mvc.Models.Profile;
@@ -111,8 +112,6 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Controllers
                 return this.Content(Res.Get<ProfileResources>().EditNotAllowed);
             }
 
-            this.RegisterCustomOutputCacheVariation();
-
             this.ViewBag.Mode = this.Mode;
             if (this.Mode == ViewMode.EditOnly)
             {
@@ -130,6 +129,8 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Controllers
         /// <returns></returns>
         public ActionResult EditProfile()
         {
+            Web.PageRouteHandler.RegisterNoCacheAuthenticatedUserOutputCacheVariation();
+
             if (!this.Model.CanEdit())
             {
                 return this.Content(Res.Get<ProfileResources>().EditNotAllowed);
@@ -209,6 +210,8 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Controllers
         [HttpGet]
         public ActionResult SendAgainChangeEmailConfirmation(string qs)
         {
+            Web.PageRouteHandler.SetNoCache();
+
             var sentAgain = this.Model.SendAgainChangeEmailConfirmation(qs);
 
             this.ViewBag.Email = this.Model.UserName;
@@ -222,10 +225,19 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Controllers
         /// </summary>
         /// <param name="qs">The encoded query string</param>
         [HttpGet]
-        public ActionResult EditEmail(string qs)
+        public ActionResult EditEmail()
         {
+            Web.PageRouteHandler.SetNoCache();
+            var qs = this.Request.QueryStringGet("qs"); 
             EmailChangeConfirmationData emailChangeConfirmationData = null;
             ProfileEmailEditViewModel viewModel = new ProfileEmailEditViewModel();
+            var fullTemplateName = ConfirmPasswordModeTemplatePrefix + this.EditModeTemplateName;
+
+            if (string.IsNullOrEmpty(qs))
+            {
+                viewModel.ConfirmEmailChangeFailure = null;
+                return this.View(fullTemplateName, viewModel);
+            }
 
             try
             {
@@ -254,7 +266,6 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Controllers
                 viewModel.ConfirmEmailChangeFailure = ConfirmEmailChangeFailure.Error;
             }
 
-            var fullTemplateName = ConfirmPasswordModeTemplatePrefix + this.EditModeTemplateName;
             return this.View(fullTemplateName, viewModel);
         }
 
@@ -356,17 +367,14 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Controllers
         /// <returns></returns>
         private ActionResult ReadProfile()
         {
+            Web.PageRouteHandler.RegisterNoCacheAuthenticatedUserOutputCacheVariation();
+
             var viewModel = this.Model.GetProfilePreviewViewModel();
             if (viewModel == null)
                 return null;
 
             var fullTemplateName = ReadModeTemplatePrefix + this.ReadModeTemplateName;
             return this.View(fullTemplateName, viewModel);
-        }
-
-        private void RegisterCustomOutputCacheVariation()
-        {
-            PageRouteHandler.RegisterCustomOutputCacheVariation(new UserProfileMvcOutputCacheVariation());
         }
 
         private void SetReadOnlyInfo(ProfileEditViewModel viewModel)
@@ -390,7 +398,6 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Controllers
         #region Private fields and constants
 
         internal const string WidgetIconCssClass = "sfProfilecn sfMvcIcn";
-        internal const string RegisterOCVariationMethodName = "RegisterCustomOutputCacheVariation";
 
         private string readModeTemplateName = "ProfilePreview";
         private string editModeTemplateName = "ProfileEdit";

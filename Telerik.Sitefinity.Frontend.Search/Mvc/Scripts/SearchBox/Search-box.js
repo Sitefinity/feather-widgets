@@ -80,11 +80,6 @@
                 if (e.keyCode != 38 &&  // up arrow
                     e.keyCode != 40 && // down arrow
                     e.keyCode != 27) { // esc
-                    // When the auto complete menu is shown, only this event is detected
-                    if (e.keyCode == 13) {
-                        // when enter is pressed
-                        navigateToResults(e);
-                    }
 
                     var request = {};
                     var searchText = searchTextBox.val().trim();

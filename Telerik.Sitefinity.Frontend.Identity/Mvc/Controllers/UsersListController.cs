@@ -124,6 +124,8 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Controllers
             this.ViewBag.OpenInSamePage = this.OpenInSamePage;
 
             var viewModel = this.Model.CreateListViewModel(page: page ?? 1);
+
+            // Handle output cache
             if (SystemManager.CurrentHttpContext != null)
                 this.AddCacheDependencies(this.Model.GetKeysOfDependentObjects(viewModel));
 
@@ -142,6 +144,8 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Controllers
             var fullTemplateName = this.detailTemplateNamePrefix + this.DetailTemplateName;
 
             var viewModel = this.Model.CreateDetailsViewModel(user);
+
+            // Handle output cache
             if (SystemManager.CurrentHttpContext != null)
                 this.AddCacheDependencies(this.Model.GetKeysOfDependentObjects(viewModel));
 

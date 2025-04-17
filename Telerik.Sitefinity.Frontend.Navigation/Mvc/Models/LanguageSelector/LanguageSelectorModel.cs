@@ -120,8 +120,6 @@ namespace Telerik.Sitefinity.Frontend.Navigation.Mvc.Models.LanguageSelector
             var actualSitemapNode = SiteMapBase.GetActualCurrentNode();
 
             PageManager pm = PageManager.GetManager();
-
-            var homePageId = SystemManager.CurrentContext.CurrentSite.HomePageId;
             IEnumerable<CultureInfo> availableLanguages = null;
 
             Guid nodeId;
@@ -131,7 +129,7 @@ namespace Telerik.Sitefinity.Frontend.Navigation.Mvc.Models.LanguageSelector
             }
             else
             {
-                nodeId = homePageId;
+                nodeId = SystemManager.CurrentContext.CurrentSite.HomePageId;
             }
 
             ////This is used for generating links to language versions - we want it to be the current node, not the "real node".
@@ -148,7 +146,7 @@ namespace Telerik.Sitefinity.Frontend.Navigation.Mvc.Models.LanguageSelector
             
             this.usedLanguages = this.GetLanguagesForPage(actualSitemapNode, availableLanguages);
 
-            IEnumerable<CultureInfo> shownLanguages = this.GetLanguagesList(pm, homePageId, actualSitemapNode);
+            IEnumerable<CultureInfo> shownLanguages = this.GetLanguagesList(pm, actualSitemapNode);
 
             return shownLanguages;
         }
@@ -185,7 +183,7 @@ namespace Telerik.Sitefinity.Frontend.Navigation.Mvc.Models.LanguageSelector
             return usedLanguages;
         }
 
-        private IEnumerable<CultureInfo> GetLanguagesList(PageManager pm, Guid homePageId, PageSiteNode siteMapNode)
+        private IEnumerable<CultureInfo> GetLanguagesList(PageManager pm, PageSiteNode siteMapNode)
         {
             ////Get languages to list
             List<CultureInfo> languages = new List<CultureInfo>();
@@ -197,10 +195,6 @@ namespace Telerik.Sitefinity.Frontend.Navigation.Mvc.Models.LanguageSelector
             else
             {
                 languages.AddRange(settings.DefinedFrontendLanguages);
-                if (homePageId != Guid.Empty)
-                {
-                    this.homePageNode = pm.GetPageNode(homePageId);
-                }
             }
 
             ////Remove current language, if necessary
@@ -244,52 +238,24 @@ namespace Telerik.Sitefinity.Frontend.Navigation.Mvc.Models.LanguageSelector
         private string GetUrlForLanguage(CultureInfo culture)
         {
             string url = null;
+            var nodeId = this.MissingTranslationAction == NoTranslationAction.RedirectToPage ? SystemManager.CurrentContext.CurrentSite.HomePageId : this.node.Id;
 
-            if (this.MissingTranslationAction == NoTranslationAction.RedirectToPage)
+            var currentUiCulture = Telerik.Sitefinity.Services.SystemManager.CurrentContext.Culture;
+            Telerik.Sitefinity.Services.SystemManager.CurrentContext.Culture = culture;
+            try
             {
-                ////If the current page has no translation in the current language, set the URL to the home page in this language
-                if (this.usedLanguages.Contains(culture) == false)
-                {
-                    url = this.GetMissingLanguageUrl(culture);
-                }
+                var siteNode = SiteMapBase.GetCurrentProvider().FindSiteMapNodeFromKey(nodeId.ToString());
+                if (siteNode != null)
+                    url = siteNode.Url;
+                else
+                    url = this.ResolveUrl("~/", culture);
             }
-
-            if (url == null)
+            finally
             {
-                var currentUiCulture = Telerik.Sitefinity.Services.SystemManager.CurrentContext.Culture;
-                Telerik.Sitefinity.Services.SystemManager.CurrentContext.Culture = culture;
-                try
-                {
-                    var siteNode = SiteMapBase.GetCurrentProvider().FindSiteMapNodeFromKey(this.node.Id.ToString());
-                    if (siteNode != null)
-                        url = siteNode.Url;
-                    else
-                        url = this.ResolveUrl("~/", culture);
-                }
-                finally
-                {
-                    Telerik.Sitefinity.Services.SystemManager.CurrentContext.Culture = currentUiCulture;
-                }
+                Telerik.Sitefinity.Services.SystemManager.CurrentContext.Culture = currentUiCulture;
             }
 
             return url;
-        }
-
-        /// <summary>
-        /// Returns the URL used for links to missing language version.
-        /// </summary>
-        /// <param name="culture">The language that is missing.</param>
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1055:UriReturnValuesShouldNotBeStrings")]
-        private string GetMissingLanguageUrl(CultureInfo culture)
-        {
-            if (this.homePageNode != null)
-            {
-                return this.ResolvePageUrl(this.homePageNode, culture, true);
-            }
-            else
-            {
-                return null;
-            }
         }
 
         #endregion
@@ -299,7 +265,6 @@ namespace Telerik.Sitefinity.Frontend.Navigation.Mvc.Models.LanguageSelector
         private UrlLocalizationService urlService;
         private List<CultureInfo> usedLanguages;
         private Pages.Model.PageNode node;
-        private Pages.Model.PageNode homePageNode;
         #endregion
     }
 }

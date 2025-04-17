@@ -12,6 +12,7 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.Profile
         /// <value>
         /// The password.
         /// </value>        
+        [AllowHtml]
         public string Password { get; set; }
 
         /// <summary>

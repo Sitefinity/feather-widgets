@@ -114,6 +114,8 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Controllers
         /// </returns>
         public ActionResult SetChangePassword(ChangePasswordInputModel model)
         {
+            Web.PageRouteHandler.SetNoCache();
+
             bool passwordChanged = false;
             string error = string.Empty;
 
@@ -211,7 +213,6 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Controllers
         {
             var allowedValues = new string[] { true.ToString(), false.ToString() };
             return allowedValues.Contains(paramValue);
-
         }
     }
 }

@@ -127,17 +127,14 @@ namespace Telerik.Sitefinity.Frontend.DynamicContent.Mvc.Helpers
                 new CacheDependencyKey { Key = itemType.FullName, Type = typeof(DynamicModule) }
             };
 
-            if (childItems.Count() > 10)
+            var appName = "";
+            var provider = childItems.First().Provider as DataProviderBase;
+            if (provider != null)
             {
-                cacheDependencyKeys = OutputCacheDependencyHelper.GetPublishedContentCacheDependencyKeys(itemType, childItems.First().Provider.ToString()).ToList();
+                appName = provider.ApplicationName;
             }
-            else
-            {
-                foreach (var childItem in childItems)
-                {
-                    cacheDependencyKeys.AddRange(OutputCacheDependencyHelper.GetPublishedContentCacheDependencyKeys(itemType, childItem.Id));
-                }
-            }
+
+            cacheDependencyKeys.AddRange(OutputCacheDependencyHelper.GetPublishedContentCacheDependencyKeys(itemType, appName));
 
             AddCacheDependencyKeys(cacheDependencyKeys);
         }

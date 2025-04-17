@@ -32,6 +32,7 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.LoginForm
         /// </value>
         [Required]
         [Display(Name = "Password", ResourceType = typeof(LoginFormStaticResources))]
+        [AllowHtml]
         public string Password { get; set; }
 
         /// <summary>

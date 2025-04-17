@@ -73,6 +73,7 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.Registration
         /// </value>
         [Required]
         [Display(Name = "Password", ResourceType = typeof(RegistrationStaticResources))]
+        [AllowHtml]
         public string Password { get; set; }
 
         /// <summary>
@@ -101,6 +102,7 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.Registration
         /// </value>
         [System.Web.Mvc.Compare("Password")]
         [Display(Name = "ReTypePassword", ResourceType = typeof(RegistrationStaticResources))]
+        [AllowHtml]
         public string ReTypePassword { get; set; }
 
         /// <summary>

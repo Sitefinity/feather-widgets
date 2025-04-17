@@ -19,6 +19,7 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.ChangePassword
         /// The old password.
         /// </value>
         [Required(ErrorMessage = "ChangePasswordRequiredErrorMessage")]
+        [AllowHtml]
         public string OldPassword { get; set; }
 
         /// <summary>
@@ -28,6 +29,7 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.ChangePassword
         /// The new password.
         /// </value>
         [Required(ErrorMessage = "ChangePasswordRequiredErrorMessage")]
+        [AllowHtml]
         public string NewPassword { get; set; }
 
         /// <summary>
@@ -38,6 +40,7 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.ChangePassword
         /// </value>
         [Required(ErrorMessage = "ChangePasswordRequiredErrorMessage")]
         [System.Web.Mvc.Compare("NewPassword", ErrorMessage = "ChangePasswordNonMatchingPasswordsMessage")]
+        [AllowHtml]
         public string RepeatPassword { get; set; }
     }
 }
