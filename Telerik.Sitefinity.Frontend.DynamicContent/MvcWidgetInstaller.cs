@@ -75,7 +75,7 @@ namespace Telerik.Sitefinity.Frontend.DynamicContent
             var configurationManager = ConfigManager.GetManager();
             var toolboxesConfig = configurationManager.GetSection<ToolboxesConfig>();
             var toolboxItemName = GetToolboxItemName(moduleType.GetFullTypeName());
-            
+
             var section = MvcWidgetInstaller.GetModuleToolboxSection(dynamicModule, toolboxesConfig);
             if (section == null || section.Tools.Any<ToolboxItem>(e => e.Name == toolboxItemName))
                 return;
@@ -174,7 +174,7 @@ namespace Telerik.Sitefinity.Frontend.DynamicContent
         {
             string transactionName = null;
             var provider = item.Provider as Telerik.Sitefinity.Data.DataProviderBase;
-
+            
             if (provider != null)
                 transactionName = provider.TransactionName;
 

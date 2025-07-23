@@ -238,7 +238,7 @@ namespace Telerik.Sitefinity.Frontend.Navigation.Mvc.Models.LanguageSelector
         private string GetUrlForLanguage(CultureInfo culture)
         {
             string url = null;
-            var nodeId = this.MissingTranslationAction == NoTranslationAction.RedirectToPage ? SystemManager.CurrentContext.CurrentSite.HomePageId : this.node.Id;
+            var nodeId = this.MissingTranslationAction == NoTranslationAction.RedirectToPage && !this.usedLanguages.Contains(culture) ? SystemManager.CurrentContext.CurrentSite.HomePageId : this.node.Id;
 
             var currentUiCulture = Telerik.Sitefinity.Services.SystemManager.CurrentContext.Culture;
             Telerik.Sitefinity.Services.SystemManager.CurrentContext.Culture = culture;

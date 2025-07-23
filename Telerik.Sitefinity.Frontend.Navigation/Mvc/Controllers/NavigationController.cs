@@ -245,11 +245,6 @@ namespace Telerik.Sitefinity.Frontend.Navigation.Mvc.Controllers
         /// </returns>
         public ActionResult Index()
         {
-            if (this.OutputCache.VaryByAuthenticationStatus || this.OutputCache.VaryByUserRoles)
-            {
-                PageRouteHandler.RegisterCustomOutputCacheVariation(new NavigationOutputCacheVariation(this.OutputCache));
-            }
-
             var fullTemplateName = this.templateNamePrefix + this.TemplateName;
             this.Model.InitializeNavigationWidgetSettings();
             if (SystemManager.CurrentHttpContext != null)
@@ -258,6 +253,26 @@ namespace Telerik.Sitefinity.Frontend.Navigation.Mvc.Controllers
                 {
                     this.AddCacheDependencies(cacheDependentNavigationModel.GetCacheDependencyObjects());
                 }
+
+                NavigationOutputCacheVariation cacheVariation = null;
+                if (this.OutputCache.VaryByAuthenticationStatus || this.OutputCache.VaryByUserRoles)
+                {
+                    cacheVariation = new NavigationOutputCacheVariation(this.OutputCache);
+                }
+                else if (this.model is ICachingBehaviour cachingBehaviour)
+                {
+                    if (cachingBehaviour.Caching == CachingBehaviour.VaryByUserRoles)
+                    {
+                        cacheVariation = new NavigationOutputCacheVariation(new NavigationOutputCacheVariationSettings() { VaryByUserRoles = true });
+                    }
+                    else if (cachingBehaviour.Caching == CachingBehaviour.VaryByAuthenticationStatus)
+                    {
+                        cacheVariation = new NavigationOutputCacheVariation(new NavigationOutputCacheVariationSettings() { VaryByAuthenticationStatus = true });
+                    }
+                }
+
+                if (cacheVariation != null)
+                    PageRouteHandler.RegisterCustomOutputCacheVariation(cacheVariation);
             }
 
             return this.View(fullTemplateName, this.Model);
