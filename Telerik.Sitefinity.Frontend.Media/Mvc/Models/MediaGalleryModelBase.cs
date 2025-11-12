@@ -75,6 +75,16 @@ namespace Telerik.Sitefinity.Frontend.Media.Mvc.Models
             }
         }
 
+        protected override IEnumerable<IDataItem> FetchItems(IQueryable<IDataItem> query)
+        {
+            var queryResult = query.Cast<MediaContent>().ToList();
+
+            var libManager = this.GetManager() as LibrariesManager;
+            libManager.PreloadMediaFileUrls(queryResult);
+
+            return base.FetchItems(query);
+        }
+
         /// <inheritdoc />
         public virtual ContentListViewModel CreateListViewModelByParent(IFolder parentItem, int page)
         {
@@ -153,10 +163,34 @@ namespace Telerik.Sitefinity.Frontend.Media.Mvc.Models
                 return null;
         }
 
+        /// <summary>
+        /// Gets the thumbnail profile for given name.
+        /// </summary>
+        /// <typeparam name="TLibrary">The type of the library.</typeparam>
+        /// <param name="name">The thumbnail profile name.</param>
+        /// <returns>The the thumbnail profile.</returns>
+        protected static ThumbnailProfileConfigElement GetThumbnailProfile<TLibrary>(string name)
+            where TLibrary : Library
+        {
+            ConfigElementDictionary<string, ThumbnailProfileConfigElement> profiles;
+            Type libraryType = typeof(TLibrary);
+
+            if (libraryType == typeof(Album))
+                profiles = Config.Get<LibrariesConfig>().Images.Thumbnails.Profiles;
+            else if (libraryType == typeof(VideoLibrary))
+                profiles = Config.Get<LibrariesConfig>().Videos.Thumbnails.Profiles;
+            else
+                return null;
+
+            return profiles.Values.FirstOrDefault(p => p.Name.Equals(name, StringComparison.InvariantCultureIgnoreCase));
+        }
+
         #region Private fields and constants
+
         internal const string VideoSystemThumbnailName = "0";
         private string serializedSelectedParentsIds;
         private IList<string> selectedParentsIds = new List<string>();
+
         #endregion
     }
 }

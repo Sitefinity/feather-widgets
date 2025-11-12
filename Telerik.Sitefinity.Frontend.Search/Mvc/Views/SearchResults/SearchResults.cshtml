@@ -41,25 +41,6 @@
         }
     </div>
 
-    @if (Model.Languages.Length > 1)
-    {
-        <div>
-            <span>@Html.Resource("ChangeResultsLanguageLabel") </span>
-            @for (var i = 0; i < Model.Languages.Length; i++)
-            {
-                <a href="@(String.Format(ViewBag.LanguageSearchUrlTemplate, Model.Languages[i].Name))">@Model.Languages[i].DisplayName</a>
-                if (i < Model.Languages.Length - 2)
-                {
-                    <span>, </span>
-                }
-                else if (i == Model.Languages.Length - 2)
-                {
-                    <span> @Html.Resource("OrLabel") </span>
-                }
-            }
-        </div>
-    }
-
     @{
         LibrariesManager librariesManager = LibrariesManager.GetManager();
     }

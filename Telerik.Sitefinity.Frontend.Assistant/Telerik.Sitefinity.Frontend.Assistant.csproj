@@ -1,0 +1,21 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <Import Project="..\Builds\Dependencies\Dependencies.targets" Condition="Exists('..\Builds\Dependencies\Dependencies.targets')" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='$(Configuration)|$(Platform)'">
+    <WarningLevel>4</WarningLevel>
+    <TreatWarningsAsErrors>False</TreatWarningsAsErrors>
+    <WarningsAsErrors>$(WarningsAsErrors);CS0618</WarningsAsErrors>
+  </PropertyGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Mvc\Views\SitefinityAssistant\Index.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="Telerik.Sitefinity.Feather.Core" />
+    <PackageReference Include="Telerik.Sitefinity.Mvc" />
+    <PackageReference Include="Telerik.Sitefinity.Web.Services" />
+    <PackageReference Include="Telerik.Sitefinity.Core" />
+  </ItemGroup>
+  <ItemGroup>
+    <Reference Include="System.Web.ApplicationServices" />
+    <PackageReference Include="Progress.Sitefinity.Renderer" />
+  </ItemGroup>
+</Project>
