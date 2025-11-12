@@ -11,6 +11,7 @@ using SfVideo = Telerik.Sitefinity.Libraries.Model.Video;
 using Telerik.Sitefinity.Frontend.Media.Mvc.Models.Image;
 using Config = Telerik.Sitefinity.Configuration.Config;
 using Telerik.Sitefinity.Modules.Libraries.BlobStorage;
+using Telerik.Sitefinity.Modules.Libraries.Configuration;
 
 namespace Telerik.Sitefinity.Frontend.Media.Mvc.Models.VideoGallery
 {
@@ -168,9 +169,54 @@ namespace Telerik.Sitefinity.Frontend.Media.Mvc.Models.VideoGallery
         {
             base.PopulateListViewModel(page, query, viewModel);
 
-            foreach (var item in viewModel.Items)
+            string widgetProfileName = this.ThumbnailSizeModel.Thumbnail?.Name ?? VideoGalleryModel.DefaultThumbnailProfileName<VideoLibrary>();
+            ThumbnailProfileConfigElement thumbnailProfile = VideoGalleryModel.GetThumbnailProfile<VideoLibrary>(widgetProfileName);
+
+            foreach (VideoThumbnailViewModel item in viewModel.Items)
             {
-                ((VideoThumbnailViewModel)item).ThumbnailUrl = this.GetSelectedSizeUrl((SfVideo)item.DataItem, this.ThumbnailSizeModel);
+                // Set the initial thumbnailSizeModel value for each video to be the one selected in the widget, but if DisplayMode is "Original"
+                // then use the default(original) thumbnail profile for video's library, as the widget can show videos from different libraries.
+                ImageSizeModel thumbnailSizeModel = this.ThumbnailSizeModel;
+                var dataItem = item.DataItem as SfVideo;
+                if (this.ThumbnailSizeModel.DisplayMode == ImageDisplayMode.Original)
+                {
+                    thumbnailProfile = VideoGalleryModel.GetThumbnailProfile<VideoLibrary>(dataItem.Library.ThumbnailProfiles.FirstOrDefault());
+                    thumbnailSizeModel = new ImageSizeModel()
+                    {
+                        DisplayMode = ImageDisplayMode.Thumbnail,
+                        Thumbnail = new ThumbnailModel()
+                        {
+                            Name = thumbnailProfile.Name
+                        }
+                    };
+                }
+
+                item.ThumbnailUrl = this.GetSelectedSizeUrl(dataItem, thumbnailSizeModel);
+                item.ProfileName = thumbnailProfile?.Name;
+
+                var maxHeightValue = thumbnailProfile?.GetParameter("MaxHeight");
+                if (int.TryParse(maxHeightValue, out int maxHeight))
+                {
+                    item.MaxHeight = maxHeight;
+                }
+
+                var maxWidthValue = thumbnailProfile?.GetParameter("MaxWidth");
+                if (int.TryParse(maxWidthValue, out int maxWidth))
+                {
+                    item.MaxWidth = maxWidth;
+                }
+
+                var heightValue = thumbnailProfile?.GetParameter("Height");
+                if (int.TryParse(heightValue, out int height))
+                {
+                    item.Height = height;
+                }
+
+                var widthValue = thumbnailProfile?.GetParameter("Width");
+                if (int.TryParse(widthValue, out int width))
+                {
+                    item.Width = width;
+                }
             }
         }
 
@@ -188,20 +234,11 @@ namespace Telerik.Sitefinity.Frontend.Media.Mvc.Models.VideoGallery
         {
             if (video.Id == Guid.Empty)
                 return string.Empty;
-                        
-            var urlAsAbsolute = Config.Get<SystemConfig>().SiteUrlSettings.GenerateAbsoluteUrls;
 
-            string videoThumbnailUrl;
-            if (sizeModel.DisplayMode == ImageDisplayMode.Thumbnail && !string.IsNullOrWhiteSpace(sizeModel.Thumbnail.Name))
-            {
-                videoThumbnailUrl = video.ResolveThumbnailUrl(sizeModel.Thumbnail.Name, urlAsAbsolute);
-            }
-            else
-            {
-                videoThumbnailUrl = video.ResolveThumbnailUrl("0", urlAsAbsolute);
-            }
+            bool urlAsAbsolute = Config.Get<SystemConfig>().SiteUrlSettings.GenerateAbsoluteUrls;
+            string thumbnailName = sizeModel.DisplayMode == ImageDisplayMode.Thumbnail && !string.IsNullOrWhiteSpace(sizeModel.Thumbnail.Name) ? sizeModel.Thumbnail.Name : "0";
 
-            return videoThumbnailUrl;
+            return video.ResolveThumbnailUrl(thumbnailName, urlAsAbsolute);
         }
         #endregion
 
@@ -215,7 +252,7 @@ namespace Telerik.Sitefinity.Frontend.Media.Mvc.Models.VideoGallery
             {
                 result = new ImageSizeModel()
                 {
-                    DisplayMode = ImageDisplayMode.Thumbnail,
+                    DisplayMode = ImageDisplayMode.Original,
                     Thumbnail = new ThumbnailModel()
                     {
                         Name = VideoGalleryModel.DefaultThumbnailProfileName<VideoLibrary>()

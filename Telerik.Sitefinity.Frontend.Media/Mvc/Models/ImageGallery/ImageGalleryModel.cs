@@ -1,17 +1,21 @@
-﻿using System;
-using System.Linq;
+﻿using DocumentFormat.OpenXml.Spreadsheet;
+using OpenAccessRuntime.DataObjects;
 using ServiceStack.Text;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using Telerik.OpenAccess;
 using Telerik.Sitefinity.Frontend.Media.Mvc.Models.Image;
 using Telerik.Sitefinity.Frontend.Mvc.Models;
 using Telerik.Sitefinity.Libraries.Model;
 using Telerik.Sitefinity.Model;
 using Telerik.Sitefinity.Modules.Libraries;
-using Telerik.Sitefinity.Services;
-using SfImage = Telerik.Sitefinity.Libraries.Model.Image;
-using Telerik.Sitefinity.Modules.Libraries.Configuration;
-using Config = Telerik.Sitefinity.Configuration.Config;
-using Telerik.Sitefinity.Modules.Libraries.Thumbnails;
 using Telerik.Sitefinity.Modules.Libraries.BlobStorage;
+using Telerik.Sitefinity.Modules.Libraries.Configuration;
+using Telerik.Sitefinity.Modules.Libraries.Thumbnails;
+using Telerik.Sitefinity.Services;
+using Config = Telerik.Sitefinity.Configuration.Config;
+using SfImage = Telerik.Sitefinity.Libraries.Model.Image;
 
 namespace Telerik.Sitefinity.Frontend.Media.Mvc.Models.ImageGallery
 {
@@ -92,6 +96,16 @@ namespace Telerik.Sitefinity.Frontend.Media.Mvc.Models.ImageGallery
         {
             var manager = (LibrariesManager)this.GetManager();
             return manager.GetImages().FilterHiddenBlobStorageMedia(this.ProviderName);
+        }
+
+        protected override IEnumerable<IDataItem> FetchItems(IQueryable<IDataItem> query)
+        {
+            var result = base.FetchItems(query).Cast<MediaContent>().ToList();
+
+            var libManager = this.GetManager() as LibrariesManager;
+            libManager.PreloadThumbnails(result);
+
+            return result;
         }
 
         /// <inheritdoc />

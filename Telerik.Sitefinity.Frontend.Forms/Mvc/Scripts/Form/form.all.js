@@ -1135,6 +1135,12 @@
                     }
 
                     $(formStepsContainers[formStepIndex]).show();
+
+                    $(formStepsContainers[formStepIndex]).find('input[type="file"]').each(function () {
+                        var input = $(this);
+                        input.prop('disabled', !input.is(':visible'));
+                    });
+
                     formElement.trigger("form-page-changed", [formStepIndex, previousIndex]);
                     focusForm();
                 });

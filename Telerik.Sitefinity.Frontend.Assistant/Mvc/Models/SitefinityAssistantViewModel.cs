@@ -1,0 +1,127 @@
+﻿using System;
+using Progress.Sitefinity.Renderer.Entities.Content;
+using Telerik.Sitefinity.Modules.Libraries;
+using static Telerik.Sitefinity.Frontend.Assistant.Mvc.Controllers.SitefinityAssistantController;
+
+namespace Telerik.Sitefinity.Frontend.Assistant.Mvc.Models
+{
+    public class SitefinityAssistantViewModel
+    {
+        private readonly string cdnUrlFormatString;
+
+        public SitefinityAssistantViewModel(
+            string assistantApiKey,
+            string nickname,
+            string greetingMessage,
+            MixedContentContext assistantAvatar,
+            AssistantDisplayMode displayMode,
+            MixedContentContext openingChatIcon,
+            MixedContentContext closingChatIcon,
+            string containerId,
+            string placeholder,
+            string notice,
+            string customCss,
+            string cssClass,
+            string serviceUrl,
+            string cdnUrlFormatString)
+        {
+            this.AssistantApiKey = assistantApiKey;
+            this.ServiceUrl = serviceUrl;
+            this.AssistantGreetingMessage = greetingMessage;
+            this.AssistantAvatar = assistantAvatar;
+            this.DisplayMode = displayMode;
+            this.OpeningChatIcon = openingChatIcon;
+            this.ClosingChatIcon = closingChatIcon;
+            this.Placeholder = placeholder;
+            this.CustomCss = customCss;
+            this.CssClass = cssClass;
+            this.cdnUrlFormatString = cdnUrlFormatString;
+            this.AssistantDisplayName = string.IsNullOrWhiteSpace(nickname) ? NicknameDefaultValue : nickname;
+            this.ContainerId = string.IsNullOrWhiteSpace(containerId) ? DefaultContainerId : containerId;
+            this.Notice = string.IsNullOrWhiteSpace(notice) ? NoticeDefaultValue : notice;
+
+            if (assistantAvatar == null)
+            {
+                this.AssistantAvatarUrl = this.GetImageUrl(DefaultAssistantIcon);
+            }
+            else
+            {
+                this.SetImageUrl(assistantAvatar, "AssistantAvatarUrl");
+            }
+
+            this.SetImageUrl(openingChatIcon, "OpeningChatIconUrl");
+            this.SetImageUrl(closingChatIcon, "ClosingChatIconUrl");
+
+            this.ChatServiceName = "AzureAssistantChatService";
+        }
+
+        public string AssistantApiKey { get; set; }
+
+        public string ServiceUrl { get; set; }
+
+        public string AssistantDisplayName { get; set; }
+
+        public string AssistantGreetingMessage { get; set; }
+
+        public MixedContentContext AssistantAvatar { get; set; }
+
+        public AssistantDisplayMode DisplayMode { get; set; }
+
+        public string ChatServiceName { get; set; }
+
+        public MixedContentContext OpeningChatIcon { get; set; }
+
+        public MixedContentContext ClosingChatIcon { get; set; }
+
+        public string Placeholder { get; set; }
+
+        public string Notice { get; set; }
+
+        public string ContainerId { get; set; }
+
+        public string OpeningChatIconUrl { get; set; }
+
+        public string ClosingChatIconUrl { get; set; }
+
+        public string AssistantAvatarUrl { get; set; }
+
+        public string CustomCss { get; set; }
+
+        public string CssClass { get; set; }
+
+        public string GetCdnUrl(string cdnFile)
+        {
+            return string.Format(this.cdnUrlFormatString, cdnFile);
+        }
+
+        public string GetImageUrl(string filePath, string version = null)
+        {
+            using (var config = new SitefinityAssistantConfigAccessor())
+            {
+                string versionSuffix = string.IsNullOrEmpty(version) ? string.Empty : $"?ver={version}";
+                string rootRelativePath = config.CdnRootFolderRelativePath == null ? "staticfiles/" : (string.IsNullOrEmpty(config.CdnRootFolderRelativePath) ? string.Empty : $"{config.CdnRootFolderRelativePath.Trim('/')}/");
+                string hostName = config.CdnHostName;
+
+                return $"https://{hostName}/{rootRelativePath}{filePath}{versionSuffix}";
+            }
+        }
+
+        private void SetImageUrl(MixedContentContext image, string propName)
+        {
+            if (image != null)
+            {
+                var imageProvider = image.Content[0].Variations[0].Source;
+                var imageId = new Guid(image.ItemIdsOrdered[0]);
+                var librariesManager = LibrariesManager.GetManager(imageProvider);
+                var imageUrl = librariesManager.GetMediaItem(imageId).Url;
+                var prop = this.GetType().GetProperty(propName);
+                prop.SetValue(this, imageUrl);
+            }
+        }
+
+        private const string DefaultAssistantIcon = "chat-avatar.svg";
+        private const string DefaultContainerId = "sf-assistant-chat-container";
+        private const string NicknameDefaultValue = "AI assistant";
+        private const string NoticeDefaultValue = "You are interacting with an AI-powered assistant and the responses are generated by AI.";
+    }
+}

@@ -3,6 +3,7 @@ using System.Globalization;
 using Telerik.Sitefinity.Utilities.TypeConverters;
 using System.Collections.Generic;
 using Telerik.Sitefinity.Search;
+using System;
 
 namespace Telerik.Sitefinity.Frontend.Search.Mvc.Models
 {
@@ -128,6 +129,8 @@ namespace Telerik.Sitefinity.Frontend.Search.Mvc.Models
         /// Gets or sets the languages that will be used to filter the search.
         /// </summary>
         /// <value>The languages.</value>
+        [Obsolete]
+        [Browsable(false)]
         CultureInfo[] Languages { get; set; }
 
         /// Performs search by given query and populates the results collection.
