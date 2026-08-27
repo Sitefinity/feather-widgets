@@ -2,11 +2,13 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using Telerik.Sitefinity.Configuration;
 using Telerik.Sitefinity.ContentLocations;
 using Telerik.Sitefinity.Frontend.Media.Mvc.Helpers;
 using Telerik.Sitefinity.Frontend.Mvc.Models;
 using Telerik.Sitefinity.GenericContent.Model;
 using Telerik.Sitefinity.Modules.Libraries;
+using Telerik.Sitefinity.Services;
 
 namespace Telerik.Sitefinity.Frontend.Media.Mvc.Models.Video
 {
@@ -66,6 +68,8 @@ namespace Telerik.Sitefinity.Frontend.Media.Mvc.Models.Video
                 viewModel.Width = this.Width;
                 viewModel.Height = this.Height;
                 viewModel.Item = new ItemViewModel(videoItem);
+                var urlAsAbsolute = Config.Get<SystemConfig>().SiteUrlSettings.GenerateAbsoluteUrls;
+                viewModel.MediaUrl = videoItem.ResolveMediaUrl(urlAsAbsolute);
             }
 
             return viewModel;

@@ -2,6 +2,7 @@
 using System.Linq;
 using Telerik.Sitefinity.Forms.Model;
 using Telerik.Sitefinity.Pages.Model;
+using Telerik.Sitefinity.Services;
 
 namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Helpers
 {
@@ -63,7 +64,16 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Helpers
 
             if (formControl.Properties != null)
             {
-                var settings = formControl.Properties.FirstOrDefault(p => p.Name == SettingsPropertyName);
+                // Translatable form controls persist a separate Settings row per culture (with
+                // ControlProperty.Language set to the culture name) and an invariant fallback
+                // (Language = null). Prefer the row that matches the current culture, otherwise
+                // fall back to the invariant one.
+                var currentCultureName = SystemManager.CurrentContext.Culture.Name;
+                // duplicate logic exists in FormsExtensions.GetSettingsForCurrentCulture
+                var settings = formControl.Properties.FirstOrDefault(p => p.Name == SettingsPropertyName && p.Language == currentCultureName)
+                    ?? formControl.Properties.FirstOrDefault(p => p.Name == SettingsPropertyName && string.IsNullOrEmpty(p.Language))
+                    ?? formControl.Properties.FirstOrDefault(p => p.Name == SettingsPropertyName);
+
                 if (settings != null && settings.ChildProperties != null)
                 {
                     var model = settings.ChildProperties.FirstOrDefault(p => p.Name == ModelPropertyName);

@@ -1,5 +1,9 @@
-﻿using Telerik.Sitefinity.DesignerToolbox;
+﻿using System.Linq;
+using Telerik.Sitefinity.Assistant;
+using Telerik.Sitefinity.DesignerToolbox;
 using Telerik.Sitefinity.Frontend.Assistant.Mvc.Controllers;
+using Telerik.Sitefinity.Modules.Libraries.BlobStorage;
+using Telerik.Sitefinity.Security.HttpSecurityHeaders;
 using Telerik.Sitefinity.Services;
 
 namespace Telerik.Sitefinity.Frontend.Assistant
@@ -18,19 +22,10 @@ namespace Telerik.Sitefinity.Frontend.Assistant
                 return true;
             }
 
-            var module = SystemManager.GetModule("SitefinityAssistant");
-            bool hasAssistantModule = module != null;
+            var modules = SystemManager.ApplicationModules.Values;
+            var assistantProviders = modules.Where(x => x is IAssistantProvider && SystemManager.GetModule(x.Name) != null);
 
-            if (!hasAssistantModule)
-            {
-                return false;
-            }
-
-            using (var config = new SitefinityAssistantConfigAccessor())
-            {
-                bool isFeatureEnabled = config.FeatureState == "enabled";
-                return isFeatureEnabled;
-            }
+            return assistantProviders.Count() > 0;
         }
     }
 }

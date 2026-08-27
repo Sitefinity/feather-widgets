@@ -15,6 +15,7 @@ using Telerik.Sitefinity.Frontend.Search.SearchFacets;
 using Telerik.Sitefinity.Localization;
 using Telerik.Sitefinity.Modules.Pages.PropertyPersisters;
 using Telerik.Sitefinity.Mvc;
+using Telerik.Sitefinity.Publishing;
 using Telerik.Sitefinity.Search.Facets;
 using Telerik.Sitefinity.Search.Impl.Elasticsearch;
 using Telerik.Sitefinity.Search.Impl.Facets;
@@ -88,7 +89,12 @@ namespace Telerik.Sitefinity.Frontend.Search.Mvc.Controllers
             if (this.ShouldShowEmptyWidgetView())
             {
                 return new EmptyResult();
-            } 
+            }
+
+            if (SearchIndexPermissionChecker.IsBackendIndex(this.IndexCatalogue))
+            {
+                return new EmptyResult();
+            }
 
             var facetsViewModel = new FacetsWidgetViewModel();
             facetsViewModel.AppliedFiltersLabel = this.AppliedFiltersLabel;

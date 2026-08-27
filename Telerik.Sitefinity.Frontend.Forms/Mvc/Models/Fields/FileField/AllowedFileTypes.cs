@@ -8,11 +8,12 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Models.Fields.FileField
     [Flags]
     public enum AllowedFileTypes
     {
-        All = 0,
+        None = 0,
         Images = 1,
         Documents = 1 << 1,
         Audio = 1 << 2,
         Video = 1 << 3,
-        Other = 1 << 4
+        Other = 1 << 4,
+        All = 1 << 5
     }
 }

@@ -6,14 +6,14 @@
 @using Telerik.Sitefinity.Modules.Libraries;
 @using Telerik.Sitefinity.Libraries.Model;
 @using Telerik.Sitefinity.Services;
-@using Telerik.Sitefinity.Web
+@using Telerik.Sitefinity.Web;
 @using System.Collections.Generic;
 
 <div class="@Model.CssClass" id="sf-search-result-container">
 
     @if (@Model.Results.TotalCount > 0)
     {
-        if (ViewBag.IsFilteredbyPermission)
+        if (ViewBag.IsFilteredbyPermission && !ViewBag.StoreViewPermissionInSearchIndex)
         {
             <h1>@Html.HtmlSanitize(Model.ResultText)</h1>
         }
@@ -98,7 +98,7 @@
 
     @if (Model.DisplayMode == ListDisplayMode.Paging && Model.TotalPagesCount != null && Model.TotalPagesCount > 1)
     {
-        if (ViewBag.IsFilteredbyPermission)
+        if (ViewBag.IsFilteredbyPermission && !ViewBag.StoreViewPermissionInSearchIndex)
         {
             <div class="pagination">
                 @if (Model.CurrentPage > 1)

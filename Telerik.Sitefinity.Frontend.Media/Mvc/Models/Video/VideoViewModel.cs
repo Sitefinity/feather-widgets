@@ -59,5 +59,13 @@ namespace Telerik.Sitefinity.Frontend.Media.Mvc.Models.Video
         /// </value>
         public string AspectRatio { get; set; }
 
+        /// <summary>
+        /// Gets or sets the relative media URL of the <see cref="Telerik.Sitefinity.Libraries.Model.Video"/> item.
+        /// </summary>
+        /// <value>
+        /// The media URL.
+        /// </value>
+        public string MediaUrl { get; set; }
+
     }
 }

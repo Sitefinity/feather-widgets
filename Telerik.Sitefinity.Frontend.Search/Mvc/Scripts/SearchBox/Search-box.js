@@ -69,9 +69,22 @@
                 }
             }
 
-            function suggestionsSuccessHandler(result, args) {
+            function toAscii(str) {
+                return str.normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+            }
+
+            function suggestionsSuccessHandler(result) {
                 var dataSource = result.Suggestions;
-                searchTextBox.autocomplete('option', 'source', dataSource);
+
+                searchTextBox.autocomplete({
+                    minLength: 0,
+                    source: function (request, response) {
+                        var term = toAscii(request.term.toLowerCase());
+                        response(dataSource.filter(function (item) {
+                            return toAscii(item.toLowerCase()).indexOf(term) !== -1;
+                        }));
+                    }
+                });
 
                 searchTextBox.autocomplete("search", searchTextBox.val().trim());
             }

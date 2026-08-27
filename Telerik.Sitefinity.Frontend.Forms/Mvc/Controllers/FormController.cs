@@ -265,7 +265,18 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Controllers
             {
                 currentPackage = "default";
             }
-            var viewPath = FormsVirtualRazorResolver.Path + currentPackage;
+
+            // The rendered razor is cached per virtual path. The form markup contains language-specific
+            // pieces (e.g. the precomputed sf_FormHiddenFields CSV emitted by FormRulesDecorator), so the
+            // path must include the current culture; otherwise the first language to render poisons the
+            // cached output for all other languages.
+            var currentCulture = SystemManager.CurrentContext?.Culture?.Name;
+            if (string.IsNullOrEmpty(currentCulture))
+            {
+                currentCulture = "invariant";
+            }
+
+            var viewPath = FormsVirtualRazorResolver.Path + currentPackage + "/" + currentCulture;
 
             int counterFormViewContextItem = 1;
             var context = SystemManager.CurrentHttpContext;

@@ -115,9 +115,9 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Models.Fields.FileField
                     {
                         this.validatorDefinition.RequiredViolationMessage = Res.Get<FormResources>().RequiredInputErrorMessage;
                     }
-                    
-                    this.validatorDefinition.Required = this.IsRequired;
                 }
+
+                this.validatorDefinition.Required = this.IsRequired;
 
                 return this.validatorDefinition;
             }
@@ -154,21 +154,24 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Models.Fields.FileField
         public override object GetViewModel(object value, IMetaField metaField)
         {
             var acceptedFileTypes = this.GetAcceptedFileTypes();
+            var hasNoFileTypesSelected = this.AllowedFileTypes == AllowedFileTypes.None;
+
             return new FileFieldViewModel()
-                {
-                    CssClass = this.CssClass,
-                    MetaField = this.MetaField,
-                    AllowMultipleFiles = this.AllowMultipleFiles,
-                    AcceptedFileTypes = acceptedFileTypes ?? new string[0],
-                    ValidationAttributes = this.GenerateValidationAttributes(acceptedFileTypes),
-                    IsRequired = this.IsRequired,
-                    Hidden = this.Hidden && (!Sitefinity.Services.SystemManager.IsDesignMode || Sitefinity.Services.SystemManager.IsPreviewMode),
-                    MinFileSizeInMb = this.MinFileSizeInMb,
-                    MaxFileSizeInMb = this.MaxFileSizeInMb,
-                    FileSizeViolationMessage = this.FileSizeViolationMessage,
-                    FileTypeViolationMessage = this.FileTypeViolationMessage,
-                    RequiredViolationMessage = this.RequiredViolationMessage
-                };
+            {
+                CssClass = this.CssClass,
+                MetaField = this.MetaField,
+                AllowMultipleFiles = this.AllowMultipleFiles,
+                AcceptedFileTypes = acceptedFileTypes ?? new string[0],
+                ValidationAttributes = this.GenerateValidationAttributes(acceptedFileTypes),
+                IsRequired = this.IsRequired,
+                Hidden = this.Hidden && (!Sitefinity.Services.SystemManager.IsDesignMode || Sitefinity.Services.SystemManager.IsPreviewMode),
+                MinFileSizeInMb = this.MinFileSizeInMb,
+                MaxFileSizeInMb = this.MaxFileSizeInMb,
+                FileSizeViolationMessage = this.FileSizeViolationMessage,
+                FileTypeViolationMessage = this.FileTypeViolationMessage,
+                RequiredViolationMessage = this.RequiredViolationMessage,
+                HasNoFileTypesSelected = hasNoFileTypesSelected
+            };
         }
 
         /// <summary>
@@ -188,6 +191,9 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Models.Fields.FileField
 
             if (this.IsRequired && fileList.Count() == 0)
                 return base.IsValid(value);
+
+            if (this.AllowedFileTypes == AllowedFileTypes.None && fileList.Any())
+                return false;
 
             var acceptedFileTypes = this.GetAcceptedFileTypes();
             if (acceptedFileTypes != null && acceptedFileTypes.Length > 0)
@@ -214,6 +220,9 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Models.Fields.FileField
 
         private string[] GetAcceptedFileTypes()
         {
+            if (this.AllowedFileTypes == AllowedFileTypes.None)
+                return new string[0];
+
             if (this.AllowedFileTypes == AllowedFileTypes.All)
                 return null;
 
@@ -222,7 +231,7 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Models.Fields.FileField
             var possibleFileTypes = Enum.GetValues(typeof(AllowedFileTypes));
             foreach (AllowedFileTypes fileType in possibleFileTypes)
             {
-                if (fileType != AllowedFileTypes.All && this.AllowedFileTypes.HasFlag(fileType))
+                if (fileType != AllowedFileTypes.None && fileType != AllowedFileTypes.All && this.AllowedFileTypes.HasFlag(fileType))
                 {
                     if (fileType == AllowedFileTypes.Other)
                     {
@@ -251,15 +260,20 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Models.Fields.FileField
                 attributes.Append(@"required=""required"" ");
 
             if (this.AllowedFileTypes == AllowedFileTypes.All || acceptedFileTypes == null || acceptedFileTypes.Length == 0)
+            {
                 attributes.Append(string.Empty);
-            else
+            }
+            else if (this.AllowedFileTypes != AllowedFileTypes.None)
+            {
                 attributes.Append("accept=\"{0}\"".Arrange(HttpUtility.HtmlAttributeEncode(string.Join(",", acceptedFileTypes))));
+            }
 
             return attributes.ToString();
         }
 
         private static readonly Dictionary<AllowedFileTypes, string[]> PredifinedAcceptValues = new Dictionary<AllowedFileTypes, string[]>()
         {
+            { AllowedFileTypes.None, new string[0] },
             { AllowedFileTypes.All, null },
             { AllowedFileTypes.Audio, new string[] { ".mp3", ".ogg", ".wav", ".wma" } },
             { AllowedFileTypes.Video, new string[] { ".avi", ".mpg", ".mpeg", ".mov", ".mp4", ".wmv" } },

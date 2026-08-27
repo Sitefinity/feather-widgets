@@ -209,35 +209,55 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.Registration
         /// <inheritdoc />
         public virtual MembershipCreateStatus RegisterUser(RegistrationViewModel viewModel)
         {
-            var userManager = UserManager.GetManager(this.MembershipProviderName);
+            var transactionName = "Registration_" + Guid.NewGuid().ToString("N");
+            var userManager = UserManager.GetManager(this.MembershipProviderName, transactionName);
             User user;
             MembershipCreateStatus status;
             using (new ElevatedModeRegion(userManager))
             {
                 if (this.TryCreateUser(userManager, viewModel, out user, out status))
                 {
-                    userManager.SaveChanges();
+                    try
+                    {
+                        this.CreateUserProfiles(user, viewModel.Profile, transactionName);
 
-                    this.CreateUserProfiles(user, viewModel.Profile);
+                        this.AssignRolesToUser(user, transactionName);
 
-                    this.AssignRolesToUser(user);
+                        this.ConfirmRegistration(userManager, user);
 
-                    this.ConfirmRegistration(userManager, user);
-                    // this.ExecuteUserProfileSuccessfullUpdateActions();
+                        TransactionManager.CommitTransaction(transactionName);
+
+                        this.RaiseRegistrationEvent(user.Id);
+                    }
+                    catch
+                    {
+                        TransactionManager.RollbackTransaction(transactionName);
+                        throw;
+                    }
                 }
                 else if (status == MembershipCreateStatus.DuplicateEmail || status == MembershipCreateStatus.DuplicateUserName)
                 {
-                    user = userManager.GetUser(viewModel.Email);
+                    TransactionManager.DisposeTransaction(transactionName);
 
-                    if (user.IsApproved)
+                    var nonTransactionalUserManager = UserManager.GetManager(this.MembershipProviderName);
+                    using (new ElevatedModeRegion(nonTransactionalUserManager))
                     {
-                        this.SendExistingAccountEmail(userManager, user);
+                        user = nonTransactionalUserManager.GetUser(viewModel.Email);
+
+                        if (user.IsApproved)
+                        {
+                            this.SendExistingAccountEmail(nonTransactionalUserManager, user);
+                        }
+                        else
+                        {
+                            this.SendRegistrationConfirmationEmail(nonTransactionalUserManager, user, new ExistingEmailMessageTemplate());
+                            nonTransactionalUserManager.SaveChanges();
+                        }
                     }
-                    else
-                    {
-                        this.SendRegistrationConfirmationEmail(userManager, user, new ExistingEmailMessageTemplate());
-                        userManager.SaveChanges();
-                    }
+                }
+                else
+                {
+                    TransactionManager.DisposeTransaction(transactionName);
                 }
             }
 
@@ -377,20 +397,23 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.Registration
         /// Assigns the specified roles to the newly created user.
         /// </summary>
         /// <param name="user">The user.</param>
-        protected virtual void AssignRolesToUser(User user)
+        protected virtual void AssignRolesToUser(User user, string transactionName = null)
         {
             if (this.selectedRoles != null)
             {
                 foreach (var roleInfo in this.selectedRoles)
                 {
-                    var roleManager = this.GetRoleManager(roleInfo.ProviderName);
+                    var roleManager = this.GetRoleManager(roleInfo.ProviderName, transactionName);
                     var roleToAssign = roleManager.GetRole(roleInfo.Id);
                     SecurityManager.AssignRoleToUser(user, roleManager, roleToAssign);
                 }
 
-                foreach (var roleManagerPair in this.RoleManagersToSubmit)
+                if (string.IsNullOrEmpty(transactionName))
                 {
-                    roleManagerPair.Value.SaveChanges();
+                    foreach (var roleManagerPair in this.RoleManagersToSubmit)
+                    {
+                        roleManagerPair.Value.SaveChanges();
+                    }
                 }
             }
         }
@@ -400,16 +423,22 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.Registration
         /// </summary>
         /// <param name="providerName">Name of the provider.</param>
         /// <returns></returns>
-        protected virtual RoleManager GetRoleManager(string providerName)
+        protected virtual RoleManager GetRoleManager(string providerName, string transactionName = null)
         {
-            if (this.RoleManagersToSubmit.ContainsKey(providerName))
+            var key = !string.IsNullOrEmpty(transactionName)
+                ? providerName + "_" + transactionName
+                : providerName;
+
+            if (this.RoleManagersToSubmit.ContainsKey(key))
             {
-                return this.RoleManagersToSubmit[providerName];
+                return this.RoleManagersToSubmit[key];
             }
             else
             {
-                var manager = RoleManager.GetManager(providerName);
-                this.RoleManagersToSubmit.Add(providerName, manager);
+                var manager = !string.IsNullOrEmpty(transactionName)
+                    ? RoleManager.GetManager(providerName, transactionName)
+                    : RoleManager.GetManager(providerName);
+                this.RoleManagersToSubmit.Add(key, manager);
                 return manager;
             }
         }
@@ -467,17 +496,11 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.Registration
             if (this.ActivationMethod == Registration.ActivationMethod.AfterConfirmation)
             {
                 this.SendRegistrationConfirmationEmail(userManager, user, new AccountActivationEmailMessageTemplate());
-                using (new ElevatedModeRegion(userManager))
-                {
-                    userManager.SaveChanges();
-                }
             }
             else if (this.ActivationMethod == Registration.ActivationMethod.Immediately && this.SendEmailOnSuccess)
             {
                 this.SendSuccessfulRegistrationEmail(userManager, user);
             }
-
-            this.RaiseRegistrationEvent(user.Id);
         }
 
         protected virtual void SendExistingAccountEmail(UserManager userManager, User user)
@@ -555,7 +578,7 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.Registration
         /// </summary>
         /// <param name="user">The user.</param>
         /// <param name="profileProperties">A dictionary containing the profile properties.</param>
-        protected virtual void CreateUserProfiles(User user, IDictionary<string, string> profileProperties)
+        protected virtual void CreateUserProfiles(User user, IDictionary<string, string> profileProperties, string transactionName = null)
         {
             if (string.IsNullOrEmpty(this.ProfileBindings))
             {
@@ -570,7 +593,9 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.Registration
             }
 
             var profiles = new JavaScriptSerializer().Deserialize<List<ProfileBindingsContract>>(this.ProfileBindings);
-            var userProfileManager = UserProfileManager.GetManager();
+            var userProfileManager = !string.IsNullOrEmpty(transactionName)
+                ? UserProfileManager.GetManager(string.Empty, transactionName)
+                : UserProfileManager.GetManager();
             using (new ElevatedModeRegion(userProfileManager))
             {
                 foreach (var profileBinding in profiles)
@@ -585,7 +610,10 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.Registration
                     userProfileManager.RecompileItemUrls(userProfile);
                 }
 
-                userProfileManager.SaveChanges();
+                if (string.IsNullOrEmpty(transactionName))
+                {
+                    userProfileManager.SaveChanges();
+                }
             }
         }
 

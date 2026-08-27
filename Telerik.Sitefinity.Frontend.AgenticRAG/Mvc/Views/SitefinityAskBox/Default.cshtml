@@ -1,0 +1,74 @@
+@using Telerik.Sitefinity.Frontend.AgenticRAG
+@using Telerik.Sitefinity.Services
+@using Telerik.Sitefinity.Frontend.Mvc.Helpers
+@using Newtonsoft.Json
+@model Telerik.Sitefinity.Frontend.AgenticRAG.Mvc.Models.AskBoxViewModel
+
+@if (!string.IsNullOrEmpty(Model.KnowledgeBoxName))
+{
+    var isDesignMode = SystemManager.IsDesignMode && !SystemManager.IsPreviewMode;
+    var suggestionsList = !string.IsNullOrEmpty(Model.Suggestions)
+        ? JsonConvert.DeserializeObject<string[]>(Model.Suggestions)
+        : new string[0];
+
+    var placeholder = !string.IsNullOrEmpty(Model.Placeholder) ? Model.Placeholder : "Search...";
+    var buttonLabel = !string.IsNullOrEmpty(Model.ButtonLabel) ? Model.ButtonLabel : "Search";
+    var suggestionsLabel = !string.IsNullOrEmpty(Model.SuggestionsLabel) ? Model.SuggestionsLabel : "Try searching for:";
+
+    var askBoxTextBoxId = Guid.NewGuid();
+    var askBoxButtonId = Guid.NewGuid();
+
+    <div class="@Model.CssClass"
+         data-sf-role="askBoxContainer"
+         data-sf-search-autocomplete-item-class="dropdown-item text-truncate"
+         data-sf-visibility-hidden="d-none"
+         data-sf-active-class="active">
+
+        <div class="d-flex gap-3">
+            <label for="@askBoxTextBoxId" class="visually-hidden">Search</label>
+            <input type="text"
+                   class="form-control"
+                   id="@askBoxTextBoxId"
+                   placeholder="@placeholder"
+                   aria-label="@placeholder"
+                   value="@(ViewBag.SearchQuery)" />
+            <button type="button" class="btn btn-primary" id="@askBoxButtonId">
+                @buttonLabel
+            </button>
+        </div>
+
+        @if (!isDesignMode)
+        {
+            <ul class="border bg-body list-unstyled position-absolute dropdown-menu show d-none" role="listbox" data-sf-role="suggestionsDropdown"></ul>
+        }
+
+        @if (suggestionsList != null && suggestionsList.Length > 0)
+        {
+            <div class="d-flex flex-wrap align-items-center gap-2 mt-3">
+                <span class="text-muted">@suggestionsLabel</span>
+                @foreach (var suggestion in suggestionsList)
+                {
+                    <button class="badge rounded-pill border-0 text-truncate bg-opacity-10 bg-secondary text-dark fw-normal fs-6 py-2 px-3" tabindex="0" title="@HttpUtility.HtmlEncode(suggestion)">@HttpUtility.HtmlEncode(suggestion)</button>
+                }
+            </div>
+        }
+
+        @if (!isDesignMode)
+        {
+            <input type="hidden" data-sf-role="knowledgeBoxName" value="@Model.KnowledgeBoxName" />
+            <input type="hidden" data-sf-role="searchConfigurationName" value="@Model.SearchConfigurationName" />
+            <input type="hidden" data-sf-role="resultsPageUrl" value="@Model.ResultsPageUrl" />
+            <input type="hidden" data-sf-role="suggestionsTriggerCharCount" value="3" />
+            <input type="hidden" data-sf-role="suggestionsServicePath" value="/api/default" />
+            <input type="hidden" data-sf-role="askBoxTextBoxId" value='@("#" + askBoxTextBoxId)' />
+            <input type="hidden" data-sf-role="askBoxButtonId" value='@("#" + askBoxButtonId)' />
+            <input type="hidden" data-sf-role="contentTypes" value="@Model.ContentTypes" />
+            <input type="hidden" data-sf-role="lastModified" value="@Model.LastModified" />
+        }
+    </div>
+
+    if (!isDesignMode)
+    {
+        @Html.Script(Url.WidgetContent("Mvc/Scripts/AskBox/ask-box.js"), "bottom", false)
+    }
+}

@@ -267,7 +267,7 @@ namespace Telerik.Sitefinity.Frontend.Media.Mvc.Models.Image
             var thumbnailName = this.ThumbnailName != null ? this.ThumbnailName : string.Empty;
 
             var thumbnailProfile = this.GetDefaultAlbumThumbnailProfile(thumbnailName);
-            if (thumbnailProfile != null)
+            if (thumbnailProfile != null && image != null)
             {
                 var selectedThumbnail = image.Thumbnails.Where(t => t.Name == thumbnailProfile.Name).FirstOrDefault();
 

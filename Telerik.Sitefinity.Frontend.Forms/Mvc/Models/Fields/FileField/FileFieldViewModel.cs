@@ -97,6 +97,16 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Models.Fields.FileField
         /// </value>
         public string FileTypeViolationMessage { get; set; }
 
+
+
+        /// <summary>
+        /// Gets or sets a value indicating whether no file types are selected for upload.
+        /// </summary>
+        /// <value>
+        /// True if no file types are selected, otherwise false.
+        /// </value>
+        public bool HasNoFileTypesSelected { get; set; }
+
         /// <summary>
         /// Serializes this instance in JSON format.
         /// </summary>

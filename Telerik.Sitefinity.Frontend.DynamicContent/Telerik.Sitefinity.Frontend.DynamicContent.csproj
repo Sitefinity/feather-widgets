@@ -69,9 +69,6 @@
   </ItemGroup>
   <!-- Explicit bottom import, see https://github.com/MicrosoftDocs/visualstudio-docs/issues/3902 -->
   <Import Project="Sdk.targets" Sdk="Microsoft.NET.Sdk" />
-  <ItemGroup>
-    <RazorSrcFiles Include="Mvc\Views\**\*.cshtml" />
-  </ItemGroup>
   <Import Project="..\Build\FeatherPrecompilation.targets" />
   <Target Name="AfterBuild">
   </Target>
