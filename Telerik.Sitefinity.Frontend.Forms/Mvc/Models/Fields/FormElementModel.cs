@@ -1,6 +1,7 @@
 ﻿using System;
 using System.ComponentModel;
 using System.Globalization;
+using System.Web;
 using Telerik.Sitefinity.Web.UI.Validation;
 using Telerik.Sitefinity.Web.UI.Validation.Contracts;
 using Telerik.Sitefinity.Web.UI.Validation.Definitions;
@@ -114,12 +115,12 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Models.Fields
                 return this.BuildErrorMessage(message, messageParams: fieldTitle);
             }
 
-            return message;
+            return HttpUtility.JavaScriptStringEncode(message);
         }
 
         protected virtual string BuildErrorMessage(string message, params string[] messageParams)
         {
-            return string.Format(CultureInfo.InvariantCulture, message, messageParams);
+            return HttpUtility.JavaScriptStringEncode(string.Format(CultureInfo.InvariantCulture, message, messageParams));
         }
 
         private Validator validator;

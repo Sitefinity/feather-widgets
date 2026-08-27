@@ -117,7 +117,7 @@ namespace Telerik.Sitefinity.Frontend.Search.Mvc.Controllers
         {
             get
             {
-                return ServiceBus.ResolveService<ISearchService>() is IHasScoringSettings;
+                return ServiceBus.ResolveService<ISearchService>().GetFeature<IHasScoringSettings>() != null;
             }
         }
 

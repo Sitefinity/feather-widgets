@@ -53,6 +53,9 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Controllers
                 if (this.model == null)
                     this.model = ControllerModelFactory.GetModel<IFileFieldModel>(this.GetType());
 
+                if (model.AllowedFileTypes.HasFlag(AllowedFileTypes.All))
+                    model.AllowedFileTypes = AllowedFileTypes.All;
+
                 return this.model;
             }
         }

@@ -1,0 +1,81 @@
+@model Telerik.Sitefinity.Frontend.AgenticRAG.Mvc.Models.AnswerViewModel
+@using Telerik.Sitefinity.Services
+@using Telerik.Sitefinity.Frontend.AgenticRAG
+
+@if (SystemManager.IsDesignMode && !SystemManager.IsPreviewMode) 
+{
+    <link href="@Helpers.GetCdnUrl("sf-assistant-chat-widget.css")" rel="stylesheet" type="text/css">
+    <div class="sf-assistant-header">
+        <div class="sf-header-top">
+            <img src="@Html.Raw(HttpUtility.JavaScriptStringEncode((string.IsNullOrEmpty(Model.AssistantAvatarUrl) ? Helpers.GetCdnUrl("chat-avatar.svg") : Model.AssistantAvatarUrl)))" class="sf-avatar" alt="AI assistant avatar">
+            <span class="sf-author">@Html.Raw(HttpUtility.HtmlEncode(Model.Title))</span>
+        </div>
+        @if (!string.IsNullOrEmpty(Model.SearchedPhraseLabel))
+        {
+            <span class="sf-searched-phrase-label">@Html.Raw(HttpUtility.HtmlEncode(string.Format(Model.SearchedPhraseLabel, string.Empty)))</span>
+        }
+        <div class="sf-message-actions">
+            <span class="sf-message-actions-label">@Html.Raw(HttpUtility.JavaScriptStringEncode(Model.Notice))</span>
+            @if (Model.ShowFeedback)
+            {
+                <div class="sf-feedback-buttons">
+                    <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 640" width="20" height="20">
+                        <path d="M244.5 96.8C264.3 68.6 302.7 59.5 333.4 76.8L339.3 80.5C365.6 99 375.3 133.7 362.5 163.2L359.4 169.4L328.6 224.1L480.1 224.1L485.5 224.3C535 228.3 558.7 286 532.8 324.1C549.7 349.1 546.6 383.7 525.1 405.3C533.6 433.3 521.4 464.6 495.9 479.5C496 511.3 471.9 539.8 439.5 543.7L432 544.1L317.6 544.1C288 544.1 263.1 532.6 240.9 522.8L240.8 522.8C221.6 514.2 205.1 501.5 192 486.1L192 496.2C192 522.7 170.5 544.2 144 544.2L112 544.2C85.5 544.2 64 522.7 64 496.2L64 272C64 245.5 85.5 224 112 224L144 224C153.2 224 161.7 226.6 169 231C170.2 228.4 171.5 225.8 172.9 223.3L240.8 102.6L244.5 96.7zM112 256C103.2 256 96 263.2 96 272L96 496C96 504.8 103.2 512 112 512L144 512C152.8 512 160 504.8 160 496L160 272C160 263.2 152.8 256 144 256L112 256zM317.7 104.6C301.5 95.5 281.1 100.3 270.6 115.2L268.6 118.3L200.7 239C195.7 247.8 192.8 257.6 192.1 267.7L192 398.4C192 439.5 216.2 476.7 253.8 493.4L253.8 493.4C277.4 503.7 296 512 317.7 512L432.1 512L435.8 511.8C454 509.6 467.3 491.3 463.3 473.1C461.5 465.1 466.2 457 474 454.4C492.8 448.3 501.6 425.3 491.9 408.3C487.7 400.9 490.1 391.5 497.2 387C514.8 375.8 516.8 349.8 501.1 336C497.7 333 495.7 328.6 495.7 324C495.7 319.4 497.7 315 501.1 312C521.1 294.4 510.2 260.6 485.2 256.5L480 256.1L301.2 256.1C295.5 256.1 290.3 253.1 287.4 248.2C284.5 243.3 284.5 237.2 287.3 232.3L331.5 153.8L333.1 150.5C339.9 134.9 334.8 116.6 320.9 106.8L317.8 104.8z" />
+                    </svg>
+                    <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 640" width="20" height="20">
+                        <path d="M432 96L439.5 96.4C471.9 100.3 496 128.8 495.9 160.6C521.4 175.4 533.6 206.7 525.1 234.8C546.6 256.4 549.7 290.9 532.8 316C558.7 354.1 535 411.8 485.5 415.8L480.1 416L328.6 416L359.4 470.7L362.5 476.9C375.4 506.4 365.6 541 339.3 559.6L333.4 563.3C302.7 580.5 264.4 571.4 244.5 543.3L240.8 537.4L189.7 446.7C183.5 466 165.4 480 144 480L112 480C85.5 480 64 458.5 64 432L64 208C64 181.5 85.5 160 112 160L144 160C157.3 160 169.3 165.4 178 174.1C192.1 149.5 213.8 129.3 240.8 117.3L240.9 117.3C263.1 107.5 288 96 317.6 96L432 96zM317.6 128C295.9 128 277.3 136.2 253.7 146.6L253.7 146.6C216.2 163.3 192 200.5 191.9 241.6L192.1 372.3C192.8 382.4 195.7 392.2 200.7 401L268.6 521.7L270.6 524.8C281.1 539.7 301.4 544.5 317.7 535.4L320.8 533.4C334.7 523.6 339.8 505.3 333 489.7L331.4 486.4L287.2 407.9C284.4 402.9 284.5 396.9 287.3 392C290.1 387.1 295.4 384.1 301.1 384.1L479.9 384.1L485.1 383.7C510.1 379.5 521 345.8 501 328.2C497.6 325.2 495.6 320.8 495.6 316.2C495.6 311.6 497.6 307.2 501 304.2C516.6 290.5 514.7 264.5 497.1 253.2C490 248.6 487.6 239.2 491.8 231.9C501.4 214.9 492.7 191.9 473.9 185.8C466.1 183.3 461.5 175.2 463.2 167.1C467.2 148.9 453.8 130.6 435.7 128.4L432 128L317.6 128zM112 192C103.2 192 96 199.2 96 208L96 432C96 440.8 103.2 448 112 448L144 448C152.8 448 160 440.8 160 432L160 208C160 199.2 152.8 192 144 192L112 192z" />
+                    </svg>
+                </div>
+            }
+        </div>
+    </div>
+}
+else 
+{
+    <script src="@Helpers.GetCdnUrl("jquery.min.js")" type="text/javascript"></script>
+    <script src="@Helpers.GetCdnUrl("marked.min.js")" type="text/javascript"></script>
+    <script src="@Helpers.GetCdnUrl("sf-assistant-chat.js")" type="text/javascript"></script>
+    <script src="@Helpers.GetCdnUrl("parag-chat-service.js")" type="text/javascript"></script>
+    <script src="@Helpers.GetCdnUrl("sf-assistant-widget.js")" type="text/javascript" defer></script>
+
+    <div id="paragAnswerBox"
+         class="@Model.CssClass">
+    </div>
+
+    <script type="application/json" class="sf-assistant-widget-data">
+        {
+            "id": "sf-answer-box",
+            "display": {
+                "mode": "answer",
+                "containerId": "paragAnswerBox"
+            },
+            "chat": {
+                "bot": {
+                    "name": "@Html.Raw(HttpUtility.JavaScriptStringEncode(Model.Title))",
+                    "avatarUrl": "@Html.Raw(HttpUtility.JavaScriptStringEncode((string.IsNullOrEmpty(Model.AssistantAvatarUrl) ? Helpers.GetCdnUrl("chat-avatar.svg") : Model.AssistantAvatarUrl)))"
+                },
+                "labels": {
+                    "feedbackPromptText": "@Html.Raw(HttpUtility.JavaScriptStringEncode(Model.Notice))",
+                    "searchedPhraseLabel": "@Html.Raw(HttpUtility.JavaScriptStringEncode(Model.SearchedPhraseLabel))",
+                    "feedbackYesTooltipText": "@Html.Raw(HttpUtility.JavaScriptStringEncode(Model.PositiveFeedbackTooltip))",
+                    "feedbackNoTooltipText": "@Html.Raw(HttpUtility.JavaScriptStringEncode(Model.NegativeFeedbackTooltip))",
+                    "feedbackThanks": "@Html.Raw(HttpUtility.JavaScriptStringEncode(Model.ThankYouMessage))",
+                    "showMoreLabel": "@Html.Raw(HttpUtility.JavaScriptStringEncode(Model.ExpandAnswerLabel))",
+                    "showLessLabel": "@Html.Raw(HttpUtility.JavaScriptStringEncode(Model.CollapseAnswerLabel))",
+                    "loadingLabel": "@Html.Raw(HttpUtility.JavaScriptStringEncode(Model.LoadingLabel))"
+                }
+            },
+            "serviceSettings": {
+                "serviceType": "ProgressARAGChatService",
+                "endpoint": "@Html.Raw(HttpUtility.JavaScriptStringEncode(Model.ServiceUrl))",
+                "knowledgeBoxName": "@Html.Raw(HttpUtility.JavaScriptStringEncode(Model.KnowledgeBoxName))",
+                "configurationName": "@Html.Raw(HttpUtility.JavaScriptStringEncode(Model.ConfigName))",
+                "showSources": "@Html.Raw(Model.ShowSources)",
+                "showFeedbackButtons": "@Html.Raw(Model.ShowFeedback)",
+                "initialPrompt": "@Html.Raw(HttpUtility.JavaScriptStringEncode(Model.SearchQuery))",
+                "lastModified": "@Html.Raw(HttpUtility.JavaScriptStringEncode(Model.LastModified))",
+                "contentTypes": "@Html.Raw(HttpUtility.JavaScriptStringEncode(Model.ContentTypes))"
+            }
+        }
+    </script>
+}

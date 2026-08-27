@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.ComponentModel;
+using System.Configuration;
 using System.Web.Mvc;
 using Telerik.Sitefinity.Configuration;
 using Telerik.Sitefinity.Frontend.Mvc.Infrastructure.Controllers;
@@ -9,6 +10,7 @@ using Telerik.Sitefinity.Frontend.Search.Mvc.StringResources;
 using Telerik.Sitefinity.Mvc;
 using Telerik.Sitefinity.Search;
 using Telerik.Sitefinity.Search.Impl;
+using Telerik.Sitefinity.Publishing;
 using Telerik.Sitefinity.Services;
 using Telerik.Sitefinity.Services.Search;
 using Telerik.Sitefinity.Services.Search.Configuration;
@@ -88,6 +90,11 @@ namespace Telerik.Sitefinity.Frontend.Search.Mvc.Controllers
                 return null;
             }
 
+            if (SearchIndexPermissionChecker.IsBackendIndex(indexCatalogue))
+            {
+                return null;
+            }
+
             //// We use the QueryStringGet in order to register output cache variations from the different parameters in the query string
             //// For reference you can check https://www.progress.com/documentation/sitefinity-cms/configure-cache-variation-by-query-string
             if (HttpContext != null)
@@ -119,6 +126,7 @@ namespace Telerik.Sitefinity.Frontend.Search.Mvc.Controllers
                     this.ViewBag.LanguageSearchUrlTemplate = string.Concat(currentPageUrl, queryString, languageParamFormat);
                     this.ViewBag.RedirectPageUrlTemplate = string.Concat(currentPageUrl, "/{0}", queryString, languageParam);
                     this.ViewBag.IsFilteredbyPermission = this.EnableFilterByViewPermissions();
+                    this.ViewBag.StoreViewPermissionInSearchIndex = this.StoreViewPermissionInSearchIndex();
 
                     if (page == null || page < 1)
                         page = 1;
@@ -153,6 +161,11 @@ namespace Telerik.Sitefinity.Frontend.Search.Mvc.Controllers
         /// <returns></returns>
         public JsonResult Results(string searchQuery = null, string indexCatalogue = null, string language = null, string orderBy = null, int? skip = null)
         {
+            if (SearchIndexPermissionChecker.IsBackendIndex(indexCatalogue))
+            {
+                return this.Json(new { Items = new object[0], TotalCount = 0 }, JsonRequestBehavior.AllowGet);
+            }
+
             if (!string.IsNullOrEmpty(searchQuery))
             {
                 this.Model.PopulateResults(searchQuery, indexCatalogue, skip, language, orderBy);
@@ -172,6 +185,26 @@ namespace Telerik.Sitefinity.Frontend.Search.Mvc.Controllers
         {
             var config = Config.Get<SearchConfig>();
             return config.EnableFilterByViewPermissions;
+        }
+
+        /// <summary>
+        /// Determines whether the permission are stored in the index
+        /// </summary>
+        /// <returns></returns>
+        protected virtual bool StoreViewPermissionInSearchIndex()
+        {
+            var storeViewPermissionInSearchIndex = ConfigurationManager.AppSettings["sf:storeViewPermissionInSearchIndex"];
+
+            if (!string.IsNullOrEmpty(storeViewPermissionInSearchIndex))
+            {
+                bool result;
+                if (bool.TryParse(storeViewPermissionInSearchIndex, out result))
+                {
+                    return result;
+                }
+            }
+
+            return false;
         }
 
         /// <summary>

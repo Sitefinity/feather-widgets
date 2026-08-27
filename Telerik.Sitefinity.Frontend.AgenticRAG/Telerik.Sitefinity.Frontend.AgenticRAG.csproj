@@ -1,0 +1,26 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <Import Project="..\Builds\Dependencies\Dependencies.targets" Condition="Exists('..\Builds\Dependencies\Dependencies.targets')" />
+  <ItemGroup>
+    <None Remove="Mvc\Scripts\AskBox\Ask-box.js" />
+    <None Remove="Mvc\Scripts\Results\Search-results.js" />
+  </ItemGroup>
+  <ItemGroup>
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Web" />
+    <PackageReference Include="Progress.Sitefinity.Renderer" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="Telerik.Sitefinity.Feather.Core" />
+    <PackageReference Include="Progress.Sitefinity.AgenticRAGConnector" />
+    <PackageReference Include="Telerik.Sitefinity.Mvc" />
+    <PackageReference Include="Telerik.Sitefinity.Core" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Mvc\Scripts\AskBox\ask-box.js" />
+    <EmbeddedResource Include="Mvc\Scripts\Results\search-results.js" />
+    <EmbeddedResource Include="Mvc\Views\SitefinityResults\Default.cshtml" />
+    <EmbeddedResource Include="Mvc\Views\SitefinityAnswer\Default.cshtml" />
+    <EmbeddedResource Include="Mvc\Views\SitefinityAskBox\Default.cshtml" />
+  </ItemGroup>
+</Project>

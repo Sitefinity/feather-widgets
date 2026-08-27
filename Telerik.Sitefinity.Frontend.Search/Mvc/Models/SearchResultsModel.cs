@@ -217,10 +217,10 @@ namespace Telerik.Sitefinity.Frontend.Search.Mvc.Models
         /// <param name="take">The take.</param>
         /// <param name="scoringSettings">The search scoring settings.</param>
         /// <param name="hitCount">The hit count.</param>
-        /// <param name="filterParameters">The filter parameters</param>
+        /// <param name="facetFilterParameters">The filter parameters</param>
         /// <param name="resultsForAllSites">Indicates wether results are shown for all indexed sites or only for the current site if the search index is created for all sites.</param> 
         /// <returns></returns>
-        public IEnumerable<IDocument> Search(string query, string language, int skip, int take, string filterParameters, SearchScoring scoringSettings, bool? resultsForAllSites, out int hitCount)
+        public IEnumerable<IDocument> Search(string query, string language, int skip, int take, string facetFilterParameters, SearchScoring scoringSettings, bool? resultsForAllSites, out int hitCount)
         {
             var searcher = ObjectFactory.Resolve<ISearchResultsBuilder>();
             var searchParameters = new SearchBuilderParams()
@@ -236,7 +236,7 @@ namespace Telerik.Sitefinity.Frontend.Search.Mvc.Models
                 GetResultsFromAllSites = resultsForAllSites,
                 SetLinksOnlyFromCurrentSite = this.ShowLinksOnlyFromCurrentSite,
                 ScoringSettings = scoringSettings,
-                SearchFilter = filterParameters.IsNullOrEmpty() ? null : this.searchProcessor.BuildFacetFilter(filterParameters, this.IndexCatalogue)
+                SearchFilter = facetFilterParameters.IsNullOrEmpty() ? null : this.searchProcessor.BuildFacetFilter(facetFilterParameters, this.IndexCatalogue)
             };
 
             return searcher.Search(searchParameters, out hitCount);

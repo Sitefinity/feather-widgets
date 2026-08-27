@@ -45,7 +45,7 @@
         $scope.$watch(
             'properties.SelectionMode.PropertyValue',
             function (newVal, oldVal) {
-                if (newVal !== oldVal) {
+                if (oldVal !== undefined && newVal !== oldVal) {
                     if (newVal == 'SelectedItems') {
                         $scope.selectedSortOption = 'AsSetManually';
                     }

@@ -12,36 +12,46 @@
     {
         <p>@Model.MetaField.Description</p>
     }
-    <div data-sf-role="file-field-inputs">
-        @if (!SystemManager.IsDesignMode || SystemManager.IsPreviewMode)
-        {
-            @:<script type="text/template" data-sf-role="file-input-template">
-            }
-        <div data-sf-role="single-file-input">
-            <input title="file" type="file" name="@(Model.MetaField.FieldName)" @Html.Raw(Model.ValidationAttributes) />
-            @if (Model.AllowMultipleFiles)
-            {
-                <a href="javascript:void(0);" style="display: none;" data-sf-role="remove-input">Remove</a>
-            }
-            @if (Model.AcceptedFileTypes.Length > 0)
-            {
-                <p data-sf-role="filetype-violation-message" style="display: none;" role="alert" aria-live="assertive">@Model.FileTypeViolationMessage</p>
-            }
-            @if (Model.MinFileSizeInMb > 0 || Model.MaxFileSizeInMb > 0)
-            {
-                <p data-sf-role="filesize-violation-message" style="display: none;" role="alert" aria-live="assertive">@Model.FileSizeViolationMessage</p>
-            }
-        </div>
-        @if (!SystemManager.IsDesignMode || SystemManager.IsPreviewMode)
-        {
-        @:</script>
-    }
 
-    @* File inputs will be generated here *@
-    </div>
-    @if (Model.AllowMultipleFiles)
+    @if (Model.HasNoFileTypesSelected)
     {
-        <a href="javascript:void(0);" data-sf-role="add-input">@Html.Resource("AddAnother")</a>
+        <div class="sfFileConfigWarning">
+            Configure file types allowed for upload.
+        </div>
+    }
+    else
+    {
+        <div data-sf-role="file-field-inputs">
+            @if (!SystemManager.IsDesignMode || SystemManager.IsPreviewMode)
+            {
+                @:<script type="text/template" data-sf-role="file-input-template">
+                  }
+                  <div data-sf-role="single-file-input">
+                      <input title="file" type="file" name="@(Model.MetaField.FieldName)" @Html.Raw(Model.ValidationAttributes) />
+                      @if (Model.AllowMultipleFiles)
+                      {
+                              <a href="javascript:void(0);" style="display: none;" data-sf-role="remove-input">Remove</a>
+                      }
+                      @if (Model.AcceptedFileTypes != null && Model.AcceptedFileTypes.Length > 0)
+                      {
+                              <p data-sf-role="filetype-violation-message" style="display: none;" role="alert" aria-live="assertive">@Model.FileTypeViolationMessage</p>
+                      }
+                      @if (Model.MinFileSizeInMb > 0 || Model.MaxFileSizeInMb > 0)
+                      {
+                              <p data-sf-role="filesize-violation-message" style="display: none;" role="alert" aria-live="assertive">@Model.FileSizeViolationMessage</p>
+                      }
+                  </div>
+                  @if (!SystemManager.IsDesignMode || SystemManager.IsPreviewMode)
+                  {
+                          @:</script>
+            }
+
+            @* File inputs will be generated here *@
+        </div>
+        if (Model.AllowMultipleFiles)
+        {
+            <a href="javascript:void(0);" data-sf-role="add-input">@Html.Resource("AddAnother")</a>
+        }
     }
 </div>
 @if (!SystemManager.IsDesignMode || SystemManager.IsPreviewMode)

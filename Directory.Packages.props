@@ -3,16 +3,17 @@
     <ManagePackageVersionsCentrally>true</ManagePackageVersionsCentrally>
   </PropertyGroup>
   <ItemGroup>
-    <PackageVersion Include="Telerik.Sitefinity.Feather.Core" Version="15.4.8600" />
-    <PackageVersion Include="Telerik.Sitefinity.Mvc" Version="15.4.8600" />
-    <PackageVersion Include="Telerik.Sitefinity.Web.Services" Version="15.4.8600" />
-    <PackageVersion Include="Telerik.Sitefinity.Core" Version="15.4.8600" />
-    <PackageVersion Include="Progress.Sitefinity.Renderer" Version="15.4.8600.490" />
+    <PackageVersion Include="Progress.Sitefinity.Renderer" Version="15.4.8637.55" />
+    <PackageVersion Include="Telerik.Sitefinity.Feather.Core" Version="15.4.8637" />
+    <PackageVersion Include="Progress.Sitefinity.AgenticRAGConnector" Version="15.4.8637" />
+    <PackageVersion Include="Telerik.Sitefinity.Mvc" Version="15.4.8637" />
+    <PackageVersion Include="Telerik.Sitefinity.Core" Version="15.4.8637" />
+    <PackageVersion Include="Telerik.Sitefinity.Web.Services" Version="15.4.8637" />
     <PackageVersion Include="Microsoft.CSharp" Version="4.7.0" />
     <PackageVersion Include="RazorGenerator.MsBuild" Version="2.4.1" />
-    <PackageVersion Include="Telerik.Sitefinity.Content" Version="15.4.8600" />
+    <PackageVersion Include="Telerik.Sitefinity.Content" Version="15.4.8637" />
     <PackageVersion Include="Microsoft.Owin" Version="4.2.2" />
     <PackageVersion Include="Microsoft.Owin.Host.SystemWeb" Version="4.2.2" />
-    <PackageVersion Include="Telerik.Sitefinity.ServicesImpl" Version="15.4.8600" />
+    <PackageVersion Include="Telerik.Sitefinity.ServicesImpl" Version="15.4.8637" />
   </ItemGroup>
 </Project>

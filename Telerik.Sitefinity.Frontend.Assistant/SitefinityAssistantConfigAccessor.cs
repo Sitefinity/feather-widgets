@@ -6,34 +6,22 @@ namespace Telerik.Sitefinity.Frontend.Assistant
     internal class SitefinityAssistantConfigAccessor : IDisposable
     {
         private readonly ConfigManager manager;
-        private const string SectionName = "SitefinityAssistantConfig";
-        private const string AdminApiBaseUrlPropertyName = "adminApiBaseUrl";
-        private const string FeatureStatePropertyName = "featureState";
+        private readonly string SectionName;
+        private readonly string SubProperty;
         private const string CdnHostNamePropertyName = "cdnHostName";
-        private const string CdnRootFolderRelativePathPropertyName = "cdnRootFolderRelativePath";
 
-        public SitefinityAssistantConfigAccessor()
+        public SitefinityAssistantConfigAccessor(string sectionName)
+            : this(sectionName, null)
         {
             this.manager = ConfigManager.GetManager();
+            this.SectionName = sectionName;
         }
 
-        public string AdminApiBaseUrl
+        public SitefinityAssistantConfigAccessor(string sectionName, string subProperty)
         {
-            get
-            {
-                return (string)this[AdminApiBaseUrlPropertyName];
-            }
-        }
-
-        /// <summary>
-        /// Gets the state of the feature.
-        /// </summary>
-        public string FeatureState
-        {
-            get
-            {
-                return (string)this[FeatureStatePropertyName];
-            }
+            this.manager = ConfigManager.GetManager();
+            this.SectionName = sectionName;
+            this.SubProperty = subProperty;
         }
 
         /// <summary>
@@ -47,18 +35,7 @@ namespace Telerik.Sitefinity.Frontend.Assistant
             }
         }
 
-        /// <summary>
-        /// Gets the relative path where the assistant scripts are located within the CDN.
-        /// </summary>
-        public string CdnRootFolderRelativePath
-        {
-            get
-            {
-                return (string)this[CdnRootFolderRelativePathPropertyName];
-            }
-        }
-
-        private object this[string key]
+        public object this[string key]
         {
             get
             {
@@ -67,7 +44,16 @@ namespace Telerik.Sitefinity.Frontend.Assistant
                 try
                 {
                     var section = this.manager.GetSection(SectionName);
-                    value = section[key];
+
+                    if (!string.IsNullOrEmpty(this.SubProperty))
+                    {
+                        var sub = section[this.SubProperty] as ConfigElement;
+                        value = sub[key];
+                    }
+                    else
+                    {
+                        value = section[key];
+                    }
                 }
                 catch
                 {

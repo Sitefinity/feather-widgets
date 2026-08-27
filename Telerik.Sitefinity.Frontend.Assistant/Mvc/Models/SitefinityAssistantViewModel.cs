@@ -1,5 +1,6 @@
-﻿using System;
-using Progress.Sitefinity.Renderer.Entities.Content;
+﻿using Progress.Sitefinity.Renderer.Entities.Content;
+using System;
+using Telerik.Sitefinity.Abstractions;
 using Telerik.Sitefinity.Modules.Libraries;
 using static Telerik.Sitefinity.Frontend.Assistant.Mvc.Controllers.SitefinityAssistantController;
 
@@ -11,6 +12,10 @@ namespace Telerik.Sitefinity.Frontend.Assistant.Mvc.Models
 
         public SitefinityAssistantViewModel(
             string assistantApiKey,
+            string knowledgeBoxName,
+            string configName,
+            bool showFeedback,
+            bool showSources,
             string nickname,
             string greetingMessage,
             MixedContentContext assistantAvatar,
@@ -23,15 +28,21 @@ namespace Telerik.Sitefinity.Frontend.Assistant.Mvc.Models
             string customCss,
             string cssClass,
             string serviceUrl,
-            string cdnUrlFormatString)
+            string cdnUrlFormatString,
+            string chatServiceName,
+            string positiveFeedbackTooltip,
+            string negativeFeedbackTooltip,
+            string thankYouMessage,
+            string sourcesHeader)
         {
             this.AssistantApiKey = assistantApiKey;
+            this.KnowledgeBoxName = knowledgeBoxName;
+            this.ConfigName = configName;
+            this.ShowFeedback = showFeedback;
+            this.ShowSources = showSources;
             this.ServiceUrl = serviceUrl;
             this.AssistantGreetingMessage = greetingMessage;
-            this.AssistantAvatar = assistantAvatar;
             this.DisplayMode = displayMode;
-            this.OpeningChatIcon = openingChatIcon;
-            this.ClosingChatIcon = closingChatIcon;
             this.Placeholder = placeholder;
             this.CustomCss = customCss;
             this.CssClass = cssClass;
@@ -46,16 +57,36 @@ namespace Telerik.Sitefinity.Frontend.Assistant.Mvc.Models
             }
             else
             {
-                this.SetImageUrl(assistantAvatar, "AssistantAvatarUrl");
+                this.SetAssistantAvatarImageUrl(assistantAvatar, "AssistantAvatarUrl");
             }
 
             this.SetImageUrl(openingChatIcon, "OpeningChatIconUrl");
             this.SetImageUrl(closingChatIcon, "ClosingChatIconUrl");
 
-            this.ChatServiceName = "AzureAssistantChatService";
+            this.ChatServiceName = chatServiceName;
+            this.PositiveFeedbackTooltip = positiveFeedbackTooltip;
+            this.NegativeFeedbackTooltip = negativeFeedbackTooltip;
+            this.ThankYouMessage = thankYouMessage;
+            this.SourcesHeader = sourcesHeader;
         }
 
+        #region SAIA properties
+
         public string AssistantApiKey { get; set; }
+
+        #endregion
+
+        #region PARAG properties
+
+        public string KnowledgeBoxName { get; set; }
+
+        public string ConfigName { get; set; }
+
+        public bool ShowFeedback { get; set; }
+
+        public bool ShowSources { get; set; }
+
+        #endregion
 
         public string ServiceUrl { get; set; }
 
@@ -89,6 +120,14 @@ namespace Telerik.Sitefinity.Frontend.Assistant.Mvc.Models
 
         public string CssClass { get; set; }
 
+        public string PositiveFeedbackTooltip { get; set; }
+
+        public string NegativeFeedbackTooltip { get; set; }
+
+        public string ThankYouMessage { get; set; }
+
+        public string SourcesHeader { get; set; }
+
         public string GetCdnUrl(string cdnFile)
         {
             return string.Format(this.cdnUrlFormatString, cdnFile);
@@ -96,14 +135,22 @@ namespace Telerik.Sitefinity.Frontend.Assistant.Mvc.Models
 
         public string GetImageUrl(string filePath, string version = null)
         {
-            using (var config = new SitefinityAssistantConfigAccessor())
+            using (var config = !string.IsNullOrEmpty(this.KnowledgeBoxName) ? new SitefinityAssistantConfigAccessor("AgenticRAGConfig", "assistant") :
+                         !string.IsNullOrEmpty(this.AssistantApiKey) ? new SitefinityAssistantConfigAccessor("SitefinityAssistantConfig") :
+                         null)
             {
-                string versionSuffix = string.IsNullOrEmpty(version) ? string.Empty : $"?ver={version}";
-                string rootRelativePath = config.CdnRootFolderRelativePath == null ? "staticfiles/" : (string.IsNullOrEmpty(config.CdnRootFolderRelativePath) ? string.Empty : $"{config.CdnRootFolderRelativePath.Trim('/')}/");
-                string hostName = config.CdnHostName;
+                if (config != null)
+                {
+                    string versionSuffix = string.IsNullOrEmpty(version) ? string.Empty : $"?ver={version}";
+                    string hostName = config.CdnHostName;
+                    if (string.IsNullOrEmpty(hostName))
+                        throw new ArgumentException("CdnHostName is not configured in AgenticRAGConfig -> Assistant.");
 
-                return $"https://{hostName}/{rootRelativePath}{filePath}{versionSuffix}";
+                    return $"https://{hostName}/{filePath}{versionSuffix}";
+                }
             }
+
+            return null;
         }
 
         private void SetImageUrl(MixedContentContext image, string propName)
@@ -116,6 +163,21 @@ namespace Telerik.Sitefinity.Frontend.Assistant.Mvc.Models
                 var imageUrl = librariesManager.GetMediaItem(imageId).Url;
                 var prop = this.GetType().GetProperty(propName);
                 prop.SetValue(this, imageUrl);
+            }
+        }
+
+        private void SetAssistantAvatarImageUrl(MixedContentContext image, string propName)
+        {
+            try
+            {
+                SetImageUrl(image, propName);
+            }
+            catch (UnauthorizedAccessException ex)
+            {
+                this.AssistantAvatarUrl = this.GetImageUrl(DefaultAssistantIcon);
+
+                string logMessage = $"Error retrieving assistant avatar image. Please check the image permissions: {ex.Message}";
+                Log.Write(logMessage, ConfigurationPolicy.Trace);
             }
         }
 

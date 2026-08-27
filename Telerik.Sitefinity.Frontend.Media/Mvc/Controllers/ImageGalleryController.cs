@@ -184,6 +184,8 @@ namespace Telerik.Sitefinity.Frontend.Media.Mvc.Controllers
                 this.AddCacheVariations(viewModel.ContentType, viewModel.ProviderName);
 
             var fullTemplateName = this.FullListTemplateName();
+            this.AddSystemCssClass(viewModel);
+
             return this.View(fullTemplateName, viewModel);
         }
 
@@ -209,6 +211,8 @@ namespace Telerik.Sitefinity.Frontend.Media.Mvc.Controllers
             }
 
             var fullTemplateName = this.FullListTemplateName();
+            this.AddSystemCssClass(viewModel);
+
             return this.View(fullTemplateName, viewModel);
         }
 
@@ -237,6 +241,8 @@ namespace Telerik.Sitefinity.Frontend.Media.Mvc.Controllers
             }
 
             var fullTemplateName = this.FullListTemplateName();
+            this.AddSystemCssClass(viewModel);
+
             return this.View(fullTemplateName, viewModel);
         }
 
@@ -414,6 +420,14 @@ namespace Telerik.Sitefinity.Frontend.Media.Mvc.Controllers
         private string FullListTemplateName()
         {
             return this.listTemplateNamePrefix + this.ListTemplateName;
+        }
+
+        private void AddSystemCssClass(Frontend.Mvc.Models.ContentListViewModel viewModel)
+        {
+            if (this.listTemplateName == "OverlayGallery")
+            {
+                viewModel.CssClass = (viewModel.CssClass ?? string.Empty) + " sfOverlayGallery";
+            }
         }
 
         /// <summary>
