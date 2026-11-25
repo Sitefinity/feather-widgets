@@ -83,7 +83,11 @@ namespace Telerik.Sitefinity.Frontend.Lists.Mvc.Models
             switch (this.ContentViewDisplayMode)
             {
                 case Telerik.Sitefinity.Web.UI.ContentUI.Enums.ContentViewDisplayMode.Detail:
-                    location.Filters.Add(this.CompileSingleItemFilterExpression(location.ContentType));
+                    var singleItemFilter = this.CompileSingleItemFilterExpression(location.ContentType);
+                    if (singleItemFilter != null)
+                    {
+                        location.Filters.Add(singleItemFilter);
+                    }
 
                     return new[] { location };
                 case Telerik.Sitefinity.Web.UI.ContentUI.Enums.ContentViewDisplayMode.Automatic:

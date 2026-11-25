@@ -132,7 +132,12 @@ namespace Telerik.Sitefinity.Frontend.Blogs.Mvc.Controllers
                 var itemViewModel = viewModel.Items.FirstOrDefault();
 
                 if (itemViewModel == null)
-                    return this.HandleInvalidDetailsAction(Res.Get<BlogListResources>().BlogListDetailViewDesignerResponseMessage);
+                {
+                    if (this.HasSerializedSelectedItems(this.Model.SelectionMode, this.Model.SerializedSelectedItemsIds))
+                        return this.HandleInvalidDetailsAction(Res.Get<BlogListResources>().BlogListDetailViewDesignerResponseMessage);
+                    
+                    return this.View(fullTemplateName, viewModel);
+                }
 
                 return this.Details((Blog)itemViewModel.DataItem);
             }
@@ -203,6 +208,25 @@ namespace Telerik.Sitefinity.Frontend.Blogs.Mvc.Controllers
             this.ViewBag.ItemsPerPage = this.Model.ItemsPerPage;
             this.ViewBag.DetailPageMode = this.DetailPageMode;
             this.ViewBag.DetailsPageId = this.DetailsPageId;
+        }
+
+        /// <summary>
+        /// Determines whether the widget is configured to show selected items and has at least one selected item id.
+        /// </summary>
+        /// <param name="selectionMode">The selection mode of the widget's model.</param>
+        /// <param name="serializedSelectedItemsIds">The serialized ids of the selected items.</param>
+        /// <returns>
+        ///   <c>true</c> if the selection mode is <see cref="SelectionMode.SelectedItems"/> and at least one item id is selected; otherwise, <c>false</c>.
+        /// </returns>
+        private bool HasSerializedSelectedItems(SelectionMode selectionMode, string serializedSelectedItemsIds)
+        {
+            if (selectionMode != SelectionMode.SelectedItems)
+                return false;
+
+            if (string.IsNullOrWhiteSpace(serializedSelectedItemsIds))
+                return false;
+
+            return serializedSelectedItemsIds.Trim().Trim('[', ']').Trim().Length > 0;
         }
 
         #endregion

@@ -22,6 +22,7 @@ using Telerik.Sitefinity.Search.Impl.Facets;
 using Telerik.Sitefinity.Services;
 using Telerik.Sitefinity.Services.Search;
 using Telerik.Sitefinity.Services.Search.Configuration;
+using Telerik.Sitefinity.Services.Search.Data;
 using Telerik.Sitefinity.Web;
 using Telerik.Sitefinity.Web.UI;
 
@@ -444,7 +445,7 @@ namespace Telerik.Sitefinity.Frontend.Search.Mvc.Controllers
         {
             var serchConfig = Config.Get<SearchConfig>();
 
-            return facetableSearchServices.Contains(serchConfig.CurrentSearchService);
+            return SearchModule.FacetableSearchServices.Contains(serchConfig.CurrentSearchService);
         }
 
         private bool HasAnyFacetElements(IList<SearchFacetsViewModel> searchFacets)
@@ -475,7 +476,6 @@ namespace Telerik.Sitefinity.Frontend.Search.Mvc.Controllers
         private const string ShowMoreLabelDefaultValue = "Show more";
         private const string ShowLessLabelDefaultValue = "Show less";
         private readonly SearchFacetsQueryStringProcessor searchFacetsQueryStringPorcessor;
-        private readonly HashSet<string> facetableSearchServices = new HashSet<string>() { AzureSearchService.ServiceName, ElasticsearchService.ServiceName };
         private readonly SearchFacetFieldSettingsProvider settingsProvider;
         private readonly SearchFacetsViewModelBuilder searchFacetsViewModelBuilder;
         private readonly WidgetSettingsFacetFieldMapper widgetSettingsFacetFieldMapper;

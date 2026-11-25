@@ -1,13 +1,14 @@
 @model Telerik.Sitefinity.Frontend.AgenticRAG.Mvc.Models.AnswerViewModel
 @using Telerik.Sitefinity.Services
 @using Telerik.Sitefinity.Frontend.AgenticRAG
+@using Telerik.Sitefinity.Frontend.Mvc.Helpers
 
 @if (SystemManager.IsDesignMode && !SystemManager.IsPreviewMode) 
 {
     <link href="@Helpers.GetCdnUrl("sf-assistant-chat-widget.css")" rel="stylesheet" type="text/css">
     <div class="sf-assistant-header">
         <div class="sf-header-top">
-            <img src="@Html.Raw(HttpUtility.JavaScriptStringEncode((string.IsNullOrEmpty(Model.AssistantAvatarUrl) ? Helpers.GetCdnUrl("chat-avatar.svg") : Model.AssistantAvatarUrl)))" class="sf-avatar" alt="AI assistant avatar">
+            <img src="@Html.UrlSanitize(string.IsNullOrEmpty(Model.AssistantAvatarUrl) ? Helpers.GetCdnUrl("chat-avatar.svg") : Model.AssistantAvatarUrl)" class="sf-avatar" alt="AI assistant avatar">
             <span class="sf-author">@Html.Raw(HttpUtility.HtmlEncode(Model.Title))</span>
         </div>
         @if (!string.IsNullOrEmpty(Model.SearchedPhraseLabel))

@@ -170,7 +170,12 @@ namespace Telerik.Sitefinity.Frontend.Events.Mvc.Controllers
                 var itemViewModel = viewModel.Items.FirstOrDefault();
 
                 if (itemViewModel == null)
-                    return this.HandleInvalidDetailsAction(Res.Get<EventResources>().EventsDetailViewDesignerResponseMessage);
+                {
+                    if (this.HasSerializedSelectedItems(this.Model.SelectionMode, this.Model.SerializedSelectedItemsIds))
+                        return this.HandleInvalidDetailsAction(Res.Get<EventResources>().EventsDetailViewDesignerResponseMessage);
+                
+                    return this.View(fullTemplateName, viewModel);
+                }
 
                 return this.Details((Event)itemViewModel.DataItem);
             }

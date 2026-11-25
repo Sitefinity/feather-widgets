@@ -184,7 +184,12 @@ namespace Telerik.Sitefinity.Frontend.Blogs.Mvc.Controllers
                     var itemViewModel = viewModel.Items.FirstOrDefault();
 
                     if (itemViewModel == null)
-                        return this.HandleInvalidDetailsAction(Res.Get<BlogPostResources>().BlogPostDetailViewDesignerResponseMessage);
+                    {
+                        if (this.HasSerializedSelectedItems(this.Model.SelectionMode, this.Model.SerializedSelectedItemsIds))
+                            return this.HandleInvalidDetailsAction(Res.Get<BlogPostResources>().BlogPostDetailViewDesignerResponseMessage);
+                    
+                        return this.View(fullTemplateName, viewModel);
+                    }
 
                     return this.Details((BlogPost)itemViewModel.DataItem);
                 }

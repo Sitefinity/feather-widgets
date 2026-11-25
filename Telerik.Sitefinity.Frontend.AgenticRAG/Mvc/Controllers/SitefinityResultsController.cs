@@ -5,6 +5,7 @@ using Progress.Sitefinity.AgenticRAGConnector.Clients.Models.Requests;
 using Progress.Sitefinity.AgenticRAGConnector.Clients.Models.Response;
 using Progress.Sitefinity.AgenticRAGConnector.Configuration;
 using Progress.Sitefinity.AgenticRAGConnector.Controllers;
+using Progress.Sitefinity.AgenticRAGConnector.Extensions;
 using Progress.Sitefinity.Renderer.Designers;
 using Progress.Sitefinity.Renderer.Designers.Attributes;
 using System;
@@ -105,7 +106,7 @@ namespace Telerik.Sitefinity.Frontend.AgenticRAG.Mvc.Controllers
                         var result = new SearchResultModel
                         {
                             Title = resource.Title,
-                            Link = resource.Origin.Url,
+                            Link = resource.Origin?.Url,
                         };
 
                         var allParagraphs = new List<Progress.Sitefinity.AgenticRAGConnector.Clients.Models.Paragraph>();
@@ -157,44 +158,71 @@ namespace Telerik.Sitefinity.Frontend.AgenticRAG.Mvc.Controllers
                     throw new ArgumentException($"Knowledge box with name {knowledgeBoxName} does not exist");
                 }
 
+                bool isSystemConnection = string.Equals(knowledgeBoxName, Progress.Sitefinity.AgenticRAGConnector.AgenticRAGModule.SystemKbConnectionTitle, StringComparison.OrdinalIgnoreCase);
+
                 var filterBuilder = new ARAGFilterBuilder()
-                    .And(ARAGFilterBuilder.OriginPathFilter(null))
-                    .And(ARAGFilterBuilder.LanguageFilter(SystemManager.CurrentContext.Culture.Name))
-                    .And(ARAGFilterBuilder.LabelFilter("SiteIds", SystemManager.CurrentContext.CurrentSite.Id.ToString("N")));
+                    .And(ARAGFilterBuilder.OriginPathFilter(null));
 
                 var requestBuilder = new FindRequestBuilder()
                     .WithQuery(searchQuery)
-                    .WithSearchConfiguration(searchConfigurationName)
-                    .WithShow(new[] { "basic", "extra", "origin" });
+                    .WithSearchConfiguration(searchConfigurationName);
 
-                if (!string.IsNullOrEmpty(contentTypes))
+                if (isSystemConnection)
                 {
-                    var contentTypeValues = contentTypes.Split(new[] { ',' }, StringSplitOptions.RemoveEmptyEntries)
-                        .Select(contentType => contentType.Trim())
-                        .Where(contentType => !string.IsNullOrEmpty(contentType))
-                        .ToList();
+                    filterBuilder
+                        .And(ARAGFilterBuilder.LanguageFilter(SystemManager.CurrentContext.Culture.Name))
+                        .And(ARAGFilterBuilder.LabelFilter("SiteIds", SystemManager.CurrentContext.CurrentSite.Id.ToString("N")));
 
-                    if (contentTypeValues.Count > 0)
+                    if (!string.IsNullOrEmpty(contentTypes))
                     {
-                        var contentTypesFilterBuilder = new ARAGFilterBuilder();
-                        foreach (var contentType in contentTypeValues)
-                        {
-                            contentTypesFilterBuilder.Or(ARAGFilterBuilder.LabelFilter("ContentType", contentType));
-                        }
+                        var contentTypeValues = contentTypes.Split(new[] { ',' }, StringSplitOptions.RemoveEmptyEntries)
+                            .Select(contentType => contentType.Trim())
+                            .Where(contentType => !string.IsNullOrEmpty(contentType))
+                            .ToList();
 
-                        filterBuilder.And(contentTypesFilterBuilder);
+                        if (contentTypeValues.Count > 0)
+                        {
+                            var contentTypesFilterBuilder = new ARAGFilterBuilder();
+                            foreach (var contentType in contentTypeValues)
+                            {
+                                contentTypesFilterBuilder.Or(ARAGFilterBuilder.LabelFilter("ContentType", contentType));
+                            }
+
+                            filterBuilder.And(contentTypesFilterBuilder);
+                        }
+                    }
+
+                    if (!string.IsNullOrEmpty(lastModified))
+                    {
+                        filterBuilder.And(ARAGFilterBuilder.ModifiedDateFilter("modified", lastModified, null));
                     }
                 }
 
-                if (!string.IsNullOrEmpty(lastModified))
+                var deniedPrincipalsFilter = Progress.Sitefinity.AgenticRAGConnector.AgenticRAGPermissionFilterGenerator.GenerateDeniedPrincipalsFilter();
+                if (deniedPrincipalsFilter != null)
                 {
-                    filterBuilder.And(ARAGFilterBuilder.ModifiedDateFilter("modified", lastModified, null));
+                    filterBuilder.And(deniedPrincipalsFilter);
                 }
 
                 var request = requestBuilder
                     .WithFilter(filterBuilder)
-                    .WithTake(200)
                     .Build();
+
+                var searchConfiguration = string.IsNullOrWhiteSpace(searchConfigurationName)
+                    ? null
+                    : this.knowledgeBoxClient.GetSearchConfigurationAsync(kbSettings.KnowledgeBoxId, searchConfigurationName, Progress.Sitefinity.AgenticRAGConnector.Clients.Models.AgenticRAGSearchConfiguration.FindKind)
+                    .GetAwaiter()
+                    .GetResult();
+                if (searchConfiguration == null)
+                {
+                    request.ConfigurationName = null;
+                    new FindRequestBuilder(request).WithSystemDefaults();
+                }
+                else
+                {
+                    request.FilterExpression = request.FilterExpression.MergeConfigurationFilter(searchConfiguration.FilterExpression);
+                    request.MergeShow(searchConfiguration.Show);
+                }
 
                 var response = this.knowledgeBoxClient.FindAsync(kbSettings.KnowledgeBoxId, request).GetAwaiter().GetResult();
 

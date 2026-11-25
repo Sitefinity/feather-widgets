@@ -171,10 +171,6 @@
                         if ($scope.properties.SortExpression.PropertyValue === "AsSetManually") {
                             $scope.properties.SortExpression.PropertyValue = "PublicationDate DESC";
                         }
-
-                        if ($scope.properties.ContentViewDisplayMode.PropertyValue.toLowerCase() === "Detail".toLowerCase()) {
-                            $scope.properties.SelectionMode.PropertyValue = "SelectedItems";
-                        }
                     }
 
                     if ($scope.properties.SelectionMode.PropertyValue !== "FilteredItems") {
