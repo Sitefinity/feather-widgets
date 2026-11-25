@@ -72,11 +72,23 @@
                 if (!ev.target || !ev.target.hasAttribute("data-facet-key")) {
                     return;
                 }
-                var spanToRemove = ev.target.parentElement;
-                appliedFiltersContainer.removeChild(spanToRemove);
-
                 var facetKey = ev.target.attributes["data-facet-key"].value;
                 var facetValue = ev.target.attributes["data-facet-value"].value;
+
+                if (!ev.target.hasAttribute("data-selected-custom-range")) {
+                    var inputId = "facet-checkbox-" + facetKey + "-" + facetValue;
+                    var facetCheckedInputEl = document.getElementById(inputId);
+                    if (facetCheckedInputEl) {
+                        // Dispatch from the checkbox so the request carries the deselected facet group, same as unchecking it directly.
+                        // The change handler also removes the chip.
+                        facetCheckedInputEl.checked = false;
+                        facetCheckedInputEl.dispatchEvent(new Event("change", { bubbles: true }));
+                        return;
+                    }
+                }
+
+                var spanToRemove = ev.target.parentElement;
+                appliedFiltersContainer.removeChild(spanToRemove);
 
                 if (ev.target.hasAttribute("data-selected-custom-range")) {
                     var customRangeContainerId = "facets-group-list-" + facetKey;
@@ -85,12 +97,6 @@
                         customRangeConainterToBeCleared.forEach(function (el) {
                             el.value = "";
                         });
-                    }
-                } else {
-                    var inputId = "facet-checkbox-" + facetKey + "-" + facetValue;
-                    var facetCheckedInputEl = document.getElementById(inputId);
-                    if (facetCheckedInputEl) {
-                        facetCheckedInputEl.checked = false;
                     }
                 }
                 facetWidgetWrapper.dispatchEvent(new Event("change"));

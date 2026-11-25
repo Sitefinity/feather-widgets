@@ -64,7 +64,7 @@
                     else {
                         $scope.properties.ContentViewDisplayMode.PropertyValue = "Automatic";
                     }
-	            }
+                }
 	        },
 	        true
         );
@@ -179,10 +179,6 @@
                         // So set the sort expression to the default value: PublicationDate DESC
                         if ($scope.properties.SortExpression.PropertyValue === "AsSetManually") {
                             $scope.properties.SortExpression.PropertyValue = "PublicationDate DESC";
-                        }
-
-                        if ($scope.properties.ContentViewDisplayMode.PropertyValue.toLowerCase() === "Detail".toLowerCase()) {
-                            $scope.properties.SelectionMode.PropertyValue = "SelectedItems";
                         }
                     }
                 });

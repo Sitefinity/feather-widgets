@@ -25,34 +25,40 @@
     @foreach (var facet in Model.SearchFacets)
     {
         var value = 0;
-        if (facet.FacetElements.Any() || facet.ShowNumberCustomRange || facet.ShowDateCustomRanges)
+        bool hasSearchResults = (bool)ViewBag.HasAnyFacetElements;
+        bool showNumberCustomRange = facet.ShowNumberCustomRange && hasSearchResults;
+        bool showDateCustomRanges = facet.ShowDateCustomRanges && hasSearchResults;
+        if (facet.FacetElements.Any() || showNumberCustomRange || showDateCustomRanges)
         {
             <h4>@facet.FacetTitle</h4>
-            <ul id="facets-group-list-@facet.FacetFieldName" data-facet-type="@facet.FacetFieldType">
-                @foreach (var facetElement in facet.FacetElements)
-                {
-                    value++;
-                    bool hideElement = (value > defaultFacetsCollapseCount) && Model.IsShowMoreLessButtonActive;
-                    <li @(hideElement ? "hidden" : string.Empty)>
-                        <input type="checkbox"
-                               id="facet-checkbox-@facet.FacetFieldName-@facetElement.FacetValue"
-                               data-facet-key="@facet.FacetFieldName"
-                               data-facet-value="@facetElement.FacetValue" />
-
-                        <label for="facet-checkbox-@facet.FacetFieldName-@facetElement.FacetValue" id="facet-@facetElement.FacetValue">@facetElement.FacetLabel</label>
-
-                        @if (Model.DisplayItemCount)
-                        {
-                            <span>(@facetElement.FacetCount)</span>
-                        }
-                    </li>
-                }
-            </ul>
-            if (facet.FacetElements.Count > defaultFacetsCollapseCount && Model.IsShowMoreLessButtonActive)
+            if (facet.FacetElements.Any())
             {
-                <button type="button" show-more="@Model.ShowMoreLabel" show-less="@Model.ShowLessLabel" data-facet-type="@facet.FacetFieldName" id="show-more-less-@facet.FacetFieldName">@Model.ShowMoreLabel</button>
+                <ul id="facets-group-list-@facet.FacetFieldName" data-facet-type="@facet.FacetFieldType">
+                    @foreach (var facetElement in facet.FacetElements)
+                    {
+                        value++;
+                        bool hideElement = (value > defaultFacetsCollapseCount) && Model.IsShowMoreLessButtonActive;
+                        <li @(hideElement ? "hidden" : string.Empty)>
+                            <input type="checkbox"
+                                   id="facet-checkbox-@facet.FacetFieldName-@facetElement.FacetValue"
+                                   data-facet-key="@facet.FacetFieldName"
+                                   data-facet-value="@facetElement.FacetValue" />
+
+                            <label for="facet-checkbox-@facet.FacetFieldName-@facetElement.FacetValue" id="facet-@facetElement.FacetValue">@facetElement.FacetLabel</label>
+
+                            @if (Model.DisplayItemCount)
+                            {
+                                <span>(@facetElement.FacetCount)</span>
+                            }
+                        </li>
+                    }
+                </ul>
+                if (facet.FacetElements.Count > defaultFacetsCollapseCount && Model.IsShowMoreLessButtonActive)
+                {
+                    <button type="button" show-more="@Model.ShowMoreLabel" show-less="@Model.ShowLessLabel" data-facet-type="@facet.FacetFieldName" id="show-more-less-@facet.FacetFieldName">@Model.ShowMoreLabel</button>
+                }
             }
-            if (facet.ShowNumberCustomRange)
+            if (showNumberCustomRange)
             {
                 <div class="">
                     @if (facet.FacetFieldType == "NumberWhole")
@@ -95,7 +101,7 @@
                 </div>
             }
 
-            if (facet.ShowDateCustomRanges)
+            if (showDateCustomRanges)
             {
                 <div class="">
                     <input type="date"

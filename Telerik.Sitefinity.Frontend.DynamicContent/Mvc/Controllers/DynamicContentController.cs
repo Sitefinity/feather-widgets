@@ -174,10 +174,14 @@ namespace Telerik.Sitefinity.Frontend.DynamicContent.Mvc.Controllers
                     var itemViewModel = viewModel.Items.FirstOrDefault();
 
                     if (itemViewModel == null)
-                        return this.HandleInvalidDetailsAction(Res.Get<DynamicContentResources>().DynamicContentDetailViewDesignerResponseMessage);
+                    {
+                        if (this.HasSerializedSelectedItems(this.Model.SelectionMode, this.Model.SerializedSelectedItemsIds))
+                            return this.HandleInvalidDetailsAction(Res.Get<DynamicContentResources>().DynamicContentDetailViewDesignerResponseMessage);
+                    
+                        return this.View(fullTemplateName, viewModel);
+                    }
 
                     return this.Details((Telerik.Sitefinity.DynamicModules.Model.DynamicContent)itemViewModel.DataItem);
-
                 }
 
                 this.AddCacheDependencies(this.Model.GetKeysOfDependentObjects(viewModel));

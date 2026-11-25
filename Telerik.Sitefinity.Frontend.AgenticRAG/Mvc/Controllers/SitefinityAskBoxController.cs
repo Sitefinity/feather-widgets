@@ -39,7 +39,7 @@ namespace Telerik.Sitefinity.Frontend.AgenticRAG.Mvc.Controllers
         [DisplayName("Agentic RAG connection")]
         [Description("[{\"Type\":1,\"Chunks\":[{\"Value\":\"A connection to a specific knowledge box in Progress Agentic RAG. Select which connection this widget should use to search and answer questions.\",\"Presentation\":[]}]},{\"Type\":1,\"Chunks\":[{\"Value\":\"Manage connections in \",\"Presentation\":[]},{\"Value\":\"Administration > Progress Agentic Rag connections\",\"Presentation\":[3]}]}]")]
         [DataType(customDataType: KnownFieldTypes.Choices)]
-        [Choice(ServiceUrl = "/Default.GetConfiguredKnowledgeBoxes()", ServiceWarningMessage = "No Agentic RAG connections are found.")]
+        [Choice(ServiceUrl = "/Default.GetConfiguredKnowledgeBoxes(widgetName=\'AskBox\')", ServiceWarningMessage = "No Agentic RAG connections are found.")]
         [Placeholder("Select connection")]
         public string KnowledgeBoxName { get; set; }
 

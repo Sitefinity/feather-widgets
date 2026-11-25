@@ -198,7 +198,12 @@ namespace Telerik.Sitefinity.Frontend.News.Mvc.Controllers
                 var itemViewModel = viewModel.Items.FirstOrDefault();
 
                 if (itemViewModel == null)
-                    return this.HandleInvalidDetailsAction(Res.Get<NewsResources>().NewsDetailViewDesignerResponseMessage);
+                {
+                    if (this.HasSerializedSelectedItems(this.Model.SelectionMode, this.Model.SerializedSelectedItemsIds))
+                        return this.HandleInvalidDetailsAction(Res.Get<NewsResources>().NewsDetailViewDesignerResponseMessage);
+
+                    return this.View(fullTemplateName, viewModel);
+                }
 
                 return this.Details((NewsItem)itemViewModel.DataItem);
             }

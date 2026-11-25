@@ -153,10 +153,6 @@
                             $scope.properties.SortExpression.PropertyValue = 'EventStart ASC';
                             $scope.selectedSortOption = 'EventStart ASC';
                         }
-
-                        if ($scope.properties.ContentViewDisplayMode.PropertyValue.toLowerCase() === "Detail".toLowerCase()) {
-                            $scope.properties.SelectionMode.PropertyValue = "SelectedItems";
-                        }
                     }
                     else {
                         $scope.properties.SerializedAdditionalFilters.PropertyValue = null;
